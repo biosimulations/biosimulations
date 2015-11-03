@@ -236,8 +236,8 @@ export class AppController {
 
     for (const dataObj of data) {
       for (const taskKey of taskKeys) {
-        finalRes[taskKey]['x'].push(parseFloat(dataObj[timeKey]));
-        finalRes[taskKey]['y'].push(parseFloat(dataObj[taskKey]));
+        finalRes[taskKey]['x'].push(dataObj[timeKey]);
+        finalRes[taskKey]['y'].push(dataObj[taskKey]);
       }
     }
 
