@@ -22,5 +22,6 @@
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  }
+  },
+  "include": ["node_module/angular-bootstrap-md/**/*.ts", "src/**/*.ts"]
 }
