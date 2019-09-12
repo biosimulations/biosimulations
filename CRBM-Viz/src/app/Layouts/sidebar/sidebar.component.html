@@ -1,0 +1,10 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="push" [(opened)]="opened">
+    <button (click)="sidenav.close()">Close</button>
+    <div>Sidenav</div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    Hello World
+    <button (click)="sidenav.toggle()">Toggle</button>
+  </mat-sidenav-content>
+</mat-sidenav-container>
