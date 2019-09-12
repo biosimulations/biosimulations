@@ -12,6 +12,13 @@ import { SearchBarComponent } from './components/Layout/search-bar/search-bar.co
 import { SidebarComponent } from './components/Layout/sidebar/sidebar.component';
 import { LogoComponent } from './components/Layout/logo/logo.component';
 import { MainMenuComponent } from './components/Layout/main-menu/main-menu.component';
+import { NavigationMenuComponent } from './components/Layout/navigation-menu/navigation-menu.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,13 +26,20 @@ import { MainMenuComponent } from './components/Layout/main-menu/main-menu.compo
     SearchBarComponent,
     SidebarComponent,
     LogoComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    NavigationMenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
