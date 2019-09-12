@@ -7,11 +7,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './Modules/app-material.module';
-import { TopbarComponent } from './Layouts/topbar/topbar.component';
-import { SearchBarComponent } from './Layouts/search-bar/search-bar.component';
-import { SidebarComponent } from './Layouts/sidebar/sidebar.component';
-import { LogoComponent } from './Layouts/logo/logo.component';
-import { MainMenuComponent } from './Layouts/main-menu/main-menu.component';
+import { TopbarComponent } from './components/Layout/topbar/topbar.component';
+import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component';
+import { SidebarComponent } from './components/Layout/sidebar/sidebar.component';
+import { LogoComponent } from './components/Layout/logo/logo.component';
+import { MainMenuComponent } from './components/Layout/main-menu/main-menu.component';
 @NgModule({
   declarations: [
     AppComponent,
