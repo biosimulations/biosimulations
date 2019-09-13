@@ -127,7 +127,9 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "base-href": "/CRBM-Viz/"
+          }
         }
       }
     }
