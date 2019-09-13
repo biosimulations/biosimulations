@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
     map(result => result.matches),
     shareReplay(),
   );
-
+  opened = false;
   constructor(private breakpointObserver: BreakpointObserver) {}
   ngOnInit()  {
   

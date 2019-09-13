@@ -1,12 +1,18 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { TopbarComponent } from './components/Layout/topbar/topbar.component';
+import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component';
+import { SidebarComponent } from './components/Layout/sidebar/sidebar.component';
+import { LogoComponent } from './components/Layout/logo/logo.component';
 
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [AppComponent]
+      declarations: [AppComponent,SidebarComponent,TopbarComponent],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
   }));
 
