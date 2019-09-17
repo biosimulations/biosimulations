@@ -1,24 +1,26 @@
 <mat-toolbar color="primary" class="navbar">
-  <app-logo></app-logo>
+  <div class="logo">
+    <app-logo></app-logo>
+  </div>
   <app-search-bar></app-search-bar>
   <div>
     <span
-      ><a [title]="Home" [routerLink]="['']"
+      ><a [routerLink]="['']"
         ><button mat-flat-button color="primary">Home</button></a
       ></span
     >
     <span
-      ><a [title]="About" [routerLink]="['/about']"
+      ><a [routerLink]="['/about']"
         ><button mat-flat-button color="primary">About</button></a
       ></span
     >
     <span
-      ><a [title]="Visualize" [routerLink]="['/visualize']"
+      ><a [routerLink]="['/visualize']"
         ><button mat-flat-button color="primary">Visualize</button></a
       ></span
     >
     <span
-      ><a [title]="Simulate" [routerLink]="['/simulate']"
+      ><a [routerLink]="['/simulate']"
         ><button mat-flat-button color="primary">Simulate</button></a
       ></span
     >
