@@ -24,16 +24,18 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div>
+    <div class="topbar">
       <button
+        mat-icon-button
+        class="nav-button"
         type="button"
         aria-label="Toggle sidenav"
-        mat-icon-button
         (click)="sidenav.toggle()"
         *ngIf="!opened"
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      <app-topbar class="navbar"></app-topbar>
     </div>
     <div class="content">
       <ng-content></ng-content>

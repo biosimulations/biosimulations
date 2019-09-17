@@ -11,14 +11,21 @@ import { TopbarComponent } from './components/Layout/topbar/topbar.component';
 import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component';
 import { SidebarComponent } from './components/Layout/sidebar/sidebar.component';
 import { LogoComponent } from './components/Layout/logo/logo.component';
+import { AboutComponent } from './Pages/about/about.component';
+import { VisualizeComponent } from './Pages/visualize/visualize.component';
+import { SimulateComponent } from './Pages/simulate/simulate.component';
+import { HomeComponent } from './Pages/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
     TopbarComponent,
     SearchBarComponent,
-    SidebarComponent,
-    
-    LogoComponent,
+    SidebarComponent,    
+    LogoComponent,    
+    AboutComponent,     
+    VisualizeComponent,    
+    SimulateComponent,
+    HomeComponent
     
   ],
   imports: [

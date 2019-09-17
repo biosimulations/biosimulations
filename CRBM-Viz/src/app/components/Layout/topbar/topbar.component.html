@@ -2,9 +2,25 @@
   <app-logo></app-logo>
   <app-search-bar></app-search-bar>
   <div>
-    <span><button mat-flat-button color="primary">Home</button></span>
-    <span><button mat-flat-button color="primary">About</button></span>
-    <span><button mat-flat-button color="primary">Visualize</button></span>
-    <span><button mat-flat-button color="primary">Simulate</button></span>
+    <span
+      ><a [title]="Home" [routerLink]="['']"
+        ><button mat-flat-button color="primary">Home</button></a
+      ></span
+    >
+    <span
+      ><a [title]="About" [routerLink]="['/about']"
+        ><button mat-flat-button color="primary">About</button></a
+      ></span
+    >
+    <span
+      ><a [title]="Visualize" [routerLink]="['/visualize']"
+        ><button mat-flat-button color="primary">Visualize</button></a
+      ></span
+    >
+    <span
+      ><a [title]="Simulate" [routerLink]="['/simulate']"
+        ><button mat-flat-button color="primary">Simulate</button></a
+      ></span
+    >
   </div>
 </mat-toolbar>
