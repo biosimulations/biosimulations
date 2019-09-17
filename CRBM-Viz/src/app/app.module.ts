@@ -17,9 +17,9 @@ import { LogoComponent } from './components/Layout/logo/logo.component';
     TopbarComponent,
     SearchBarComponent,
     SidebarComponent,
-    
+
     LogoComponent,
-    
+
   ],
   imports: [
     BrowserModule,

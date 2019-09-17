@@ -6,12 +6,12 @@ import { SearchBarComponent } from './components/Layout/search-bar/search-bar.co
 import { SidebarComponent } from './components/Layout/sidebar/sidebar.component';
 import { LogoComponent } from './components/Layout/logo/logo.component';
 
-import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [AppComponent,SidebarComponent,TopbarComponent],
+      declarations: [AppComponent, SidebarComponent, TopbarComponent],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
   }));

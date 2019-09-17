@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
   opened = false;
   constructor(private breakpointObserver: BreakpointObserver) {}
   ngOnInit()  {
-  
+
   }
 
 }
