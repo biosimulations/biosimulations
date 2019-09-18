@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visualize.component.sass']
 })
 export class VisualizeComponent implements OnInit {
-
+specifications= [
+  "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json",
+  "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json",
+  "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json",
+  "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json",
+]
   constructor() { }
 
   ngOnInit() {

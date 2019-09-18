@@ -1,10 +1,5 @@
 <div class="figures">
-  <app-vega-viewer class="figure" specid="one"></app-vega-viewer>
-  <app-vega-viewer class="figure" specid="two"></app-vega-viewer>
-  <app-vega-viewer class="figure" specid="three"></app-vega-viewer>
-  <app-vega-viewer class="figure" specid="four"></app-vega-viewer>
-  <app-vega-viewer class="figure" specid="r5"></app-vega-viewer>
-  <app-vega-viewer class="figure" specid="r6"></app-vega-viewer>
-  <app-vega-viewer class="figure" specid="r7"></app-vega-viewer>
-  <app-vega-viewer class="figure" specid="r8"></app-vega-viewer>
+  <div class="figure" *ngFor="let spec of specifications; index as i">
+    <app-vega-viewer specid="{{ 'spec' + i }}"></app-vega-viewer>
+  </div>
 </div>
