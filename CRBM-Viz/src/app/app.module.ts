@@ -15,6 +15,7 @@ import { AboutComponent } from './Pages/about/about.component';
 import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
+import { VegaViewerComponent } from './components/vega-viewer/vega-viewer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { HomeComponent } from './Pages/home/home.component';
     AboutComponent,     
     VisualizeComponent,    
     SimulateComponent,
-    HomeComponent
+    HomeComponent,
+    VegaViewerComponent
     
   ],
   imports: [
