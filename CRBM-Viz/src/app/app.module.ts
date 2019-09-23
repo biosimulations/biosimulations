@@ -21,19 +21,20 @@ import { VegaViewerComponent } from './components/vega-viewer/vega-viewer.compon
     AppComponent,
     TopbarComponent,
     SearchBarComponent,
-    SidebarComponent,    
-    LogoComponent,    
-    AboutComponent,     
-    VisualizeComponent,    
+    SidebarComponent,
+    LogoComponent,
+    AboutComponent,
+    VisualizeComponent,
     SimulateComponent,
     HomeComponent,
     VegaViewerComponent
-    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MaterialModule,
   ],
   providers: [],

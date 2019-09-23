@@ -1,11 +1,5 @@
 {
-  "extends": "tslint:recommended",
-  "linterOptions": {
-    "exclude": [
-      "node_modules/**",
-
-    ]
-  },
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rules": {
     "array-type": false,
     "arrow-parens": false,
@@ -78,7 +72,7 @@
       true,
       "single"
     ],
-    "trailing-comma": true,
+    "trailing-comma": false,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
@@ -90,7 +84,7 @@
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
   },
   "rulesDirectory": [
     "codelyzer"

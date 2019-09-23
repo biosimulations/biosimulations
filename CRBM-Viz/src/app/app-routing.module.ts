@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'visualize', component: VisualizeComponent},
   {path: 'simulate', component: SimulateComponent},
-  
+
 ];
 
 @NgModule({

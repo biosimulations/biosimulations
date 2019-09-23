@@ -1,5 +1,5 @@
 <div class="figures">
-  <div class="figure" *ngFor="let spec of specifications; index as i">
-    <app-vega-viewer specid="{{ 'spec' + i }}"></app-vega-viewer>
-  </div>
+    <div class="figure" *ngFor="let viz of visualizations; index as i">
+        <app-vega-viewer [viz]="viz"> </app-vega-viewer>
+    </div>
 </div>
