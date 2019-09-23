@@ -1,5 +1,5 @@
 export class Visualization {
-    name: string;
-    id: number;
-    spec: string;
+  name: string;
+  id: number;
+  spec: string;
 }
