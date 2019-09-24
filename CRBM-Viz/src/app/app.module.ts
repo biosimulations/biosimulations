@@ -16,28 +16,31 @@ import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './components/vega-viewer/vega-viewer.component';
+import { FourComponent } from './Pages/four/four.component';
+import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 @NgModule({
-  declarations: [
-    AppComponent,
-    TopbarComponent,
-    SearchBarComponent,
-    SidebarComponent,
-    LogoComponent,
-    AboutComponent,
-    VisualizeComponent,
-    SimulateComponent,
-    HomeComponent,
-    VegaViewerComponent
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MaterialModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        TopbarComponent,
+        SearchBarComponent,
+        SidebarComponent,
+        LogoComponent,
+        AboutComponent,
+        VisualizeComponent,
+        SimulateComponent,
+        HomeComponent,
+        VegaViewerComponent,
+        FourComponent,
+        UnderConstructionComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MaterialModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

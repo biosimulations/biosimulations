@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import vegaEmbed from 'vega-embed';
-import { visualization } from 'src/app/Pages/visualize/visualization';
+import { Visualization } from 'src/app/Pages/visualize/visualization';
 @Component({
     selector: 'app-vega-viewer',
     templateUrl: './vega-viewer.component.html',
     styleUrls: ['./vega-viewer.component.sass'],
 })
 export class VegaViewerComponent implements OnInit {
-    @Input() viz: visualization;
+    @Input() viz: Visualization;
     spec: string;
     specid: string;
     @Input() name: string;

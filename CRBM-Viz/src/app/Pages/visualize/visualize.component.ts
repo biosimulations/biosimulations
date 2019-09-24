@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { visualization } from "./visualization";
+import { Visualization } from "./visualization";
 @Component({
   selector: "app-visualize",
   templateUrl: "./visualize.component.html",
   styleUrls: ["./visualize.component.sass"]
 })
 export class VisualizeComponent implements OnInit {
-  visualizations: visualization[] = [
+  visualizations: Visualization[] = [
     {
       name: "viz1",
       id: 1,
