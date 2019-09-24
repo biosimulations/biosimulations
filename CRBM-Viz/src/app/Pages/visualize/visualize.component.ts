@@ -1,25 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { Visualization } from "./visualization";
+import { Component, OnInit } from '@angular/core';
+import { Visualization } from 'src/app/Models/visualization';
+import { VisualizeService } from 'src/app/Services/visualize.service';
 @Component({
-  selector: "app-visualize",
-  templateUrl: "./visualize.component.html",
-  styleUrls: ["./visualize.component.sass"]
+    selector: 'app-visualize',
+    templateUrl: './visualize.component.html',
+    styleUrls: ['./visualize.component.sass'],
 })
 export class VisualizeComponent implements OnInit {
-  visualizations: Visualization[] = [
-    {
-      name: "viz1",
-      id: 1,
-      spec:
-        "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json"
-    },
-    {
-      name: "viz2",
-      id: 2,
-      spec: "assets/examples/annual-temperature.vg.json"
-    }
-  ];
-  constructor() {}
+    visualizations: Visualization[];
+    constructor(private visService: VisualizeService) {}
 
-  ngOnInit() {}
+    ngOnInit() {
+        this.visualizations = this.visService.getVisualizations();
+    }
 }
