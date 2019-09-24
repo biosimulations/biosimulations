@@ -7,15 +7,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './Modules/app-material.module';
-import { TopbarComponent } from './components/Layout/topbar/topbar.component';
-import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component';
-import { SidebarComponent } from './components/Layout/sidebar/sidebar.component';
-import { LogoComponent } from './components/Layout/logo/logo.component';
+import { TopbarComponent } from './Layout/topbar/topbar.component';
+import { SearchBarComponent } from './Layout/search-bar/search-bar.component';
+import { SidebarComponent } from './Layout/sidebar/sidebar.component';
+import { LogoComponent } from './Layout/logo/logo.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
-import { VegaViewerComponent } from './components/vega-viewer/vega-viewer.component';
+import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 @NgModule({
