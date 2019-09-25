@@ -11,6 +11,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
 
+
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider
+} from 'angularx-social-login';
+
 const imports = [
   BrowserModule,
   AppRoutingModule,
@@ -18,6 +25,7 @@ const imports = [
   FormsModule,
   HttpClientModule,
   MaterialModule,
+  SocialLoginModule
 ];
 
 //Defined components
@@ -31,9 +39,9 @@ import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
+import { LoginComponent } from './Components/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-import { LoginComponent } from './Components/login/login.component';
 
 const declarations = [
   AppComponent,
@@ -55,7 +63,28 @@ const declarations = [
 import { VisualizationsService } from './Services/visualizations.service';
 import { SimulationService } from './Services/simulation.service';
 import { AuthService } from './Services/auth.service';
-const providers = [VisualizationsService, SimulationService, AuthService];
+
+// Service for Authconfig
+const authProviderConfig = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    // The client ID was created from Akhil's Google account
+    provider: new GoogleLoginProvider("161690628487-3op0mi5vi1n1ajafqboo11boj6sm7rut.apps.googleusercontent.com")
+  }
+]);
+
+export function provideConfig() {
+  return authProviderConfig;
+}
+
+const providers = [
+  {
+    provide: AuthServiceConfig,
+    useFactory: provideConfig
+  }
+];
+
+
 @NgModule({
   declarations: declarations,
   imports: imports,
