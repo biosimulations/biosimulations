@@ -1,3 +1,4 @@
-<app-sidebar>
+<app-sidebar *ngIf="crbmAuthService.loggedInState">
   <router-outlet></router-outlet>
 </app-sidebar>
+<app-login *ngIf="!crbmAuthService.loggedInState"></app-login>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CrbmAuthService } from './Services/crbm-auth.service';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'CRBM-Viz';
+
+    constructor(public crbmAuthService: CrbmAuthService) {}
 }

@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'visualize/:id', component: UnderConstructionComponent },
   { path: 'simulate', component: SimulateComponent },
   { path: 'simulate/:id', component: UnderConstructionComponent },
-  { path: 'login', component: LoginComponent },
+  // { path: 'login', component: LoginComponent },
   { path: '**', component: FourComponent },
 ];
 

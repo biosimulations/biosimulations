@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { HttpClient } from '@angular/common/http';
+import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
 
 
 @Component({
@@ -10,16 +11,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  private user: SocialUser;
-  private loggedIn: boolean;
-
-  constructor( private socialAuthService: AuthService, private http: HttpClient ) {}
+  constructor(
+    private socialAuthService: AuthService,
+    private http: HttpClient,
+    private crbmAuthService: CrbmAuthService
+  ) {}
 
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user !== null);
-      console.log('User state changed: ', this.user, 'login state: ', this.loggedIn);
+      this.crbmAuthService.user = user;
+      this.crbmAuthService.loggedInState = (user !== null);
+      console.log('User state changed: ',
+        this.crbmAuthService.user,
+        'login state: ',
+        this.crbmAuthService.loggedInState);
     });
   }
 
