@@ -16,63 +16,36 @@ import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
-import { LoginComponent } from './Pages/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
-import {
-    SocialLoginModule,
-    AuthServiceConfig,
-    GoogleLoginProvider
-  } from 'angularx-social-login';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { VisualizeService } from './Services/visualize.service';
 
-import { getAuthServiceConfigs } from './socialLoginConfig';
 import { HttpClientModule } from '@angular/common/http';
 
-let config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("<Client Id here>")
-  }
-]);
-
-export function provideConfig() {
-  return config;
-}
-
-
 @NgModule({
-    declarations: [
-        AppComponent,
-        TopbarComponent,
-        SearchBarComponent,
-        SidebarComponent,
-        LogoComponent,
-        AboutComponent,
-        VisualizeComponent,
-        SimulateComponent,
-        HomeComponent,
-        VegaViewerComponent,
-        FourComponent,
-        UnderConstructionComponent,
-        LoginComponent,
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        MaterialModule,
-        SocialLoginModule,
-        HttpClientModule
-    ],
-    providers: [
-        VisualizeService,
-        {
-            provide: AuthServiceConfig,
-            useFactory: provideConfig
-          }
-        ],
-    bootstrap: [AppComponent],
+  declarations: [
+    AppComponent,
+    TopbarComponent,
+    SearchBarComponent,
+    SidebarComponent,
+    LogoComponent,
+    AboutComponent,
+    VisualizeComponent,
+    SimulateComponent,
+    HomeComponent,
+    VegaViewerComponent,
+    FourComponent,
+    UnderConstructionComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MaterialModule,
+    HttpClientModule,
+  ],
+  providers: [VisualizeService],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
