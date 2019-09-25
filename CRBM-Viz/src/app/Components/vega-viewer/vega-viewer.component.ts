@@ -26,7 +26,7 @@ export class VegaViewerComponent implements OnInit {
   load() {
     vegaEmbed('#' + this.specid, this.spec)
       // result.view provides access to the Vega View API
-      .then(result => console.log(result))
+      .then(result => console.log('hi!'))
       .catch(console.warn);
   }
 }

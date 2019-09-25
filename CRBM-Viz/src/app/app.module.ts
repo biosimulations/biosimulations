@@ -50,8 +50,8 @@ const declarations = [
 ];
 
 //Services
-import { VisualizeService } from './Services/visualize.service';
-const providers = [VisualizeService];
+import { VisualizationsService } from './Services/visualizations.service';
+const providers = [VisualizationsService];
 @NgModule({
   declarations: declarations,
   imports: imports,
