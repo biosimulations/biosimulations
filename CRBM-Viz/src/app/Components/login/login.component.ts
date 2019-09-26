@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.sass'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
-    test: string = 'just a test';
-    constructor(private auth: AuthService) {}
+  test: string = 'just a test';
+  constructor(private auth: AuthService) {}
 
-    ngOnInit() {
-        this.test = this.auth.test();
-    }
+  ngOnInit() {
+    this.test = this.auth.test();
+  }
 }
