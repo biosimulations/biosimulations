@@ -33,6 +33,7 @@ import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { LoginComponent } from './Components/login/login.component';
 
 const declarations = [
   AppComponent,
@@ -47,11 +48,15 @@ const declarations = [
   VegaViewerComponent,
   FourComponent,
   UnderConstructionComponent,
+  LoginComponent,
 ];
 
 //Services
 import { VisualizationsService } from './Services/visualizations.service';
-const providers = [VisualizationsService];
+import { SimulationService } from './Services/simulation.service';
+import { AuthService } from './Services/auth.service';
+const providers = [VisualizationsService, SimulationService, AuthService];
+
 @NgModule({
   declarations: declarations,
   imports: imports,
