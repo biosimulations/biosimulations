@@ -7,10 +7,16 @@ import { VisualizationsService } from 'src/app/Services/visualizations.service';
   styleUrls: ['./visualize.component.sass'],
 })
 export class VisualizeComponent implements OnInit {
-  visualizations: Visualization[];
+  visualizations: Visualization[] = [];
+
   constructor(private visService: VisualizationsService) {}
 
   ngOnInit() {
-    this.visualizations = this.visService.getVisualizations();
+    this.visService.getVisualizations().subscribe(res => {
+      console.log(res);
+      res = JSON.parse(res);
+      console.log(typeof res);
+      this.visualizations = res;
+    });
   }
 }
