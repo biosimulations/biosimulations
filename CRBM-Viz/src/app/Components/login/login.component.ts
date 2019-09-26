@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private socialAuthService: AuthService,
     private http: HttpClient,
-    private crbmAuthService: CrbmAuthService
+    private crbmAuthService: CrbmAuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
 
       //   this.sendToRestApiMethod(userData.idToken);
       console.log('User logged in: ', userData);
+      this.router.navigate(['']);
     });
   }
 
