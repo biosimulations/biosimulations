@@ -8,7 +8,6 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { LoginComponent } from './Components/login/login.component';
 import { AuthGuard } from './Gaurds/auth.guard';
-
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
