@@ -24,5 +24,13 @@
         ><button mat-flat-button color="primary">Simulate</button></a
       ></span
     >
+    <span *ngIf="!crbmAuthService.loggedInState"
+      ><button mat-flat-button color="primary" (click)="crbmAuthService.login()">Login</button>
+      </span
+    >
+    <span *ngIf="crbmAuthService.loggedInState"
+      ><button mat-flat-button color="primary" (click)="crbmAuthService.logout()">Logout</button>
+      </span
+    >
   </div>
 </mat-toolbar>

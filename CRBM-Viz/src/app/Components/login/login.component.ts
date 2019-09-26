@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,37 +11,33 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+  // authSub: Subscription;
 
   constructor(
-    private socialAuthService: AuthService,
     private http: HttpClient,
     private crbmAuthService: CrbmAuthService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.socialAuthService.authState.subscribe((user) => {
-      this.crbmAuthService.user = user;
-      this.crbmAuthService.loggedInState = (user !== null);
-      console.log('User state changed: ',
-        this.crbmAuthService.user,
-        'login state: ',
-        this.crbmAuthService.loggedInState);
-    });
+    // this.authSub = this.crbmAuthService.socialAuthService.authState.subscribe((user) => {
+    //   this.crbmAuthService.user = user;
+    //   this.crbmAuthService.loggedInState = (user !== null);
+    //   console.log('User state changed: ',
+    //     this.crbmAuthService.user,
+    //     'login state: ',
+    //     this.crbmAuthService.loggedInState);
+    // });
+  }
+
+  ngOnDestroy() {
+    // this.authSub.unsubscribe();
   }
 
   public signinWithGoogle() {
-    const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    this.socialAuthService.signIn(socialPlatformProvider)
-    .then((userData) => {
-       //  on success
-       //  this will return user data from google. What you need is a user token which you will send it to the server
-
-      //   this.sendToRestApiMethod(userData.idToken);
-      console.log('User logged in: ', userData);
-      this.router.navigate(['']);
-    });
+    this.crbmAuthService.login();
   }
 
   sendToRestApiMethod(token: string): void {
