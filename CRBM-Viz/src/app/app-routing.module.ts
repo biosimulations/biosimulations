@@ -7,6 +7,7 @@ import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { LoginComponent } from './Components/login/login.component';
+import { AuthGuard } from './Gaurds/auth.guard';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
@@ -14,8 +15,8 @@ const routes: Routes = [
   { path: 'visualize', component: VisualizeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'visualize/:id', component: UnderConstructionComponent },
-  { path: 'simulate', component: SimulateComponent },
-  { path: 'simulate/:id', component: UnderConstructionComponent },
+  { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },
+  { path: 'simulate/:id', component: UnderConstructionComponent, canActivate: [AuthGuard] },
   // { path: 'login', component: LoginComponent },
   { path: '**', component: FourComponent },
 ];
