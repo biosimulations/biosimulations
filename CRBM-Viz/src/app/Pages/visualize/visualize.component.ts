@@ -8,6 +8,7 @@ import { VisualizationsService } from 'src/app/Services/visualizations.service';
 })
 export class VisualizeComponent implements OnInit {
   visualizations: Visualization[] = [];
+
   constructor(private visService: VisualizationsService) {}
 
   ngOnInit() {

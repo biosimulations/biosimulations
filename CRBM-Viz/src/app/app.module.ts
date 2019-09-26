@@ -56,7 +56,6 @@ import { VisualizationsService } from './Services/visualizations.service';
 import { SimulationService } from './Services/simulation.service';
 import { AuthService } from './Services/auth.service';
 const providers = [VisualizationsService, SimulationService, AuthService];
-
 @NgModule({
   declarations: declarations,
   imports: imports,
