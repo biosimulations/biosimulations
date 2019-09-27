@@ -26,7 +26,7 @@ const imports = [
   FormsModule,
   HttpClientModule,
   MaterialModule,
-  SocialLoginModule
+  SocialLoginModule,
 ];
 
 //Defined components
@@ -43,6 +43,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
 import { LoginComponent } from './Components/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { UploadComponent } from './Pages/upload/upload.component';
 
 const declarations = [
   AppComponent,
@@ -58,6 +59,7 @@ const declarations = [
   FourComponent,
   UnderConstructionComponent,
   LoginComponent,
+  UploadComponent
 ];
 
 //Services
