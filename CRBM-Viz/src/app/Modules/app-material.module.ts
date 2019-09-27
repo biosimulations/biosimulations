@@ -9,7 +9,7 @@ import {
   MatSidenavModule,
   MatMenuModule,
   MatListModule,
-
+  MatInputModule,
 } from '@angular/material';
 
 const MaterialComponents = [
@@ -22,10 +22,10 @@ const MaterialComponents = [
   MatSidenavModule,
   MatMenuModule,
   MatListModule,
-
+  MatInputModule,
 ];
 @NgModule({
   imports: [MaterialComponents],
-  exports: [MaterialComponents]
+  exports: [MaterialComponents],
 })
 export class MaterialModule {}

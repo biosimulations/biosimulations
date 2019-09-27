@@ -8,10 +8,10 @@ import { map } from 'rxjs/operators';
 })
 export class VisualizationsService {
   constructor(private http: HttpClient) {}
-  vizUrl = 'http://127.0.0.1:8000/vis/5';
+  vizUrl = 'http://crbm-test-api.herokuapp.com/vis/';
 
-  getVisualizations(): Observable<Visualization[]> {
-    let vizJson = this.http.get<Visualization[]>(this.vizUrl);
+  getVisualizations(id: string = '5'): Observable<Visualization[]> {
+    let vizJson = this.http.get<Visualization[]>(this.vizUrl + id);
     return vizJson;
   }
 }

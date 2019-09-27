@@ -13,9 +13,13 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'visualize', component: VisualizeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'visualize/:id', component: UnderConstructionComponent },
+  { path: 'visualize/:id', component: VisualizeComponent },
   { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },
-  { path: 'simulate/:id', component: UnderConstructionComponent, canActivate: [AuthGuard] },
+  {
+    path: 'simulate/:id',
+    component: UnderConstructionComponent,
+    canActivate: [AuthGuard],
+  },
   // { path: 'login', component: LoginComponent },
   { path: '**', component: FourComponent },
 ];
