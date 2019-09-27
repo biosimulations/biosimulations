@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: crbmviz_dockerfile
+    command: "ng serve --host=0.0.0.0 --port=4200"
+    ports:
+      - "4200:4200"
+
