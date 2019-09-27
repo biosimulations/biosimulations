@@ -7,7 +7,7 @@ import {CrbmConfig} from './crbm-config';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
@@ -51,6 +51,7 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { UploadComponent } from './Pages/upload/upload.component';
 import { AlertComponent } from './Components/alert/alert.component';
+import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 
 
 const declarations = [
@@ -90,6 +91,7 @@ export function provideConfig() {
 }
 
 const providers = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   {
     provide: AuthServiceConfig,
     useFactory: provideConfig

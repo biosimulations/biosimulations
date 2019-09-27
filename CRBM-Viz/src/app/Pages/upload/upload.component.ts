@@ -36,7 +36,7 @@ export class UploadComponent implements OnInit {
       this.uploadFile(this.fileToUpload, 'private')
       .subscribe(
         onSuccess => {
-          console.log('File upload successful ', onSuccess);
+          this.openDialog(onSuccess['message']);
         },
         onFail => {
           console.log('File upload failed ', onFail);
