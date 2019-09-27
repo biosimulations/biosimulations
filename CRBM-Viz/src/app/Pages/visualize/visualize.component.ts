@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class VisualizeComponent implements OnInit {
   visualizations: Visualization[] = [];
   id: string;
+  input: string = '1';
 
   constructor(
     private visService: VisualizationsService,
@@ -29,5 +30,8 @@ export class VisualizeComponent implements OnInit {
         console.log(typeof this.visualizations[0].spec);
         console.log(this.visualizations[0].spec);
       });
+  }
+  onKey(event: any) {
+    this.input = event;
   }
 }

@@ -12,6 +12,7 @@ export class VegaViewerComponent implements OnInit, AfterViewInit {
   specid: string;
   vizname: string;
   root: string;
+
   constructor() {}
 
   ngOnInit() {

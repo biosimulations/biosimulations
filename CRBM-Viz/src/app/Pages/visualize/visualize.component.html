@@ -1,10 +1,23 @@
 <div class="title"><h1>Visualizations</h1></div>
 <div class="select">
-  <form layout layout-align="center" layout-padding>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Simulation ID" value="1" />
+  <form class="form-field" layout layout-align="center" layout-padding>
+    <mat-form-field class="form">
+      <input
+        #box
+        matInput
+        placeholder="Simulation ID"
+        [value]="input"
+        (keyup)="onKey(box.value)"
+      />
     </mat-form-field>
-    <button mat-raised-button color="primary">Visualize</button>
+
+    <button
+      [routerLink]="visualize/{{ input }}"
+      mat-raised-button
+      color="primary"
+    >
+      Visualize
+    </button>
   </form>
 </div>
 <div class="figures">
