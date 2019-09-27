@@ -49,6 +49,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { UploadComponent } from './Pages/upload/upload.component';
+import { AlertComponent } from './Components/alert/alert.component';
 
 
 const declarations = [
@@ -66,6 +67,7 @@ const declarations = [
   UnderConstructionComponent,
   LoginComponent,
   UploadComponent,
+  AlertComponent
 ];
 
 //Services
