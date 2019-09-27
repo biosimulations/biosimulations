@@ -1,5 +1,6 @@
 //ng Module
 import { NgModule } from '@angular/core';
+import {CrbmConfig} from './crbm-config';
 
 // Angular core components/modules/tools in imports
 import { BrowserModule } from '@angular/platform-browser';
@@ -69,7 +70,7 @@ const authProviderConfig = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
     // The client ID was created from Akhil's Google account
-    provider: new GoogleLoginProvider("161690628487-3op0mi5vi1n1ajafqboo11boj6sm7rut.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider(CrbmConfig.GOOGLE_AUTH_CLIENT_ID)
   }
 ]);
 

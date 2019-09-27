@@ -40,22 +40,4 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.crbmAuthService.login();
   }
 
-  sendToRestApiMethod(token: string): void {
-    this.http.post('http:// localhost:5000/login',
-       {
-          token
-       }
-    ).subscribe(
-       onSuccess => {
-         console.log('Login was successful', onSuccess);
-          // login was successful
-          // save the token that you got from your REST API in your preferred location
-          // i.e. as a Cookie or LocalStorage as you do with normal login
-       }, onFail => {
-        console.log('Login failed!', onFail)
-          // login was unsuccessful
-          // show an error message
-       }
-    );
-      }
 }
