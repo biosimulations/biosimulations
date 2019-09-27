@@ -10,4 +10,5 @@ RUN export $(cat .env)
 
 WORKDIR /code/CRBM-Viz
 
+RUN npm install -g @angular/cli
 RUN npm ci
