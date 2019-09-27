@@ -8,12 +8,13 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { LoginComponent } from './Components/login/login.component';
 import { AuthGuard } from './Gaurds/auth.guard';
+
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
-  { path: 'visualize', component: VisualizeComponent },
+  // { path: 'visualize', component: VisualizeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'visualize/:id', component: VisualizeComponent },
+  // { path: 'visualize/:id', component: VisualizeComponent },
   { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },
   {
     path: 'simulate/:id',

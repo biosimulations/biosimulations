@@ -50,7 +50,7 @@ const declarations = [
   SidebarComponent,
   LogoComponent,
   AboutComponent,
-  VisualizeComponent,
+  // VisualizeComponent,
   SimulateComponent,
   HomeComponent,
   VegaViewerComponent,
