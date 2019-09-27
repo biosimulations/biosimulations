@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   // { path: 'login', component: LoginComponent },
-  { path: 'upload', component: UploadComponent },
+  { path: 'files', component: UploadComponent },
   { path: '**', component: FourComponent },
 ];
 

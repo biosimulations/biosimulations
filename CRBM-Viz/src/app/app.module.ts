@@ -2,15 +2,17 @@
 import { NgModule } from '@angular/core';
 import {CrbmConfig} from './crbm-config';
 
+
 // Angular core components/modules/tools in imports
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 //Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
+import { MatSelectModule } from '@angular/material';
 
 
 import {
@@ -27,6 +29,9 @@ const imports = [
   HttpClientModule,
   MaterialModule,
   SocialLoginModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatSelectModule
 ];
 
 //Defined components
@@ -45,6 +50,7 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { UploadComponent } from './Pages/upload/upload.component';
 
+
 const declarations = [
   AppComponent,
   TopbarComponent,
@@ -59,7 +65,7 @@ const declarations = [
   FourComponent,
   UnderConstructionComponent,
   LoginComponent,
-  UploadComponent
+  UploadComponent,
 ];
 
 //Services
