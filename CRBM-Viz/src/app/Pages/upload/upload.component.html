@@ -23,7 +23,7 @@
         <div class="col-md-6">
             <mat-form-field>
                 <mat-label>Access Type</mat-label>
-                <mat-select>
+                <mat-select [(ngModel)]="selectedValue">
                     <mat-option *ngFor="let accessType of accessTypes" [value]="accessType.value">
                     {{accessType.viewValue}}
                     </mat-option>
@@ -33,7 +33,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <button mat-raised-button color="primary">Submit</button>
+            <button mat-raised-button color="primary" (click)="submit()">Submit</button>
         </div>
     </div>
 </div>

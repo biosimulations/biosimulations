@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 //Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule, MatDialogModule } from '@angular/material';
 
 
 import {
@@ -31,7 +31,8 @@ const imports = [
   SocialLoginModule,
   FormsModule,
   ReactiveFormsModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 ];
 
 //Defined components
@@ -101,5 +102,8 @@ const providers = [
   imports: imports,
   providers: providers,
   bootstrap: [AppComponent],
+  entryComponents:[
+    AlertComponent
+  ]
 })
 export class AppModule {}
