@@ -56,6 +56,7 @@ import { UploadComponent } from './Pages/upload/upload.component';
 import { AlertComponent } from './Components/alert/alert.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
+import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 
 
 const declarations = [
@@ -74,7 +75,8 @@ const declarations = [
   LoginComponent,
   UploadComponent,
   AlertComponent,
-  FileTableComponent
+  FileTableComponent,
+  FileEditComponent
 ];
 
 //Services
