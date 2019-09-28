@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
-import { MatSelectModule, MatDialogModule } from '@angular/material';
+import { MatSelectModule, MatDialogModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 
 import {
@@ -32,7 +32,10 @@ const imports = [
   FormsModule,
   ReactiveFormsModule,
   MatSelectModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 ];
 
 //Defined components
@@ -52,6 +55,7 @@ import { UnderConstructionComponent } from './Pages/under-construction/under-con
 import { UploadComponent } from './Pages/upload/upload.component';
 import { AlertComponent } from './Components/alert/alert.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
+import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 
 
 const declarations = [
@@ -69,7 +73,8 @@ const declarations = [
   UnderConstructionComponent,
   LoginComponent,
   UploadComponent,
-  AlertComponent
+  AlertComponent,
+  FileTableComponent
 ];
 
 //Services
