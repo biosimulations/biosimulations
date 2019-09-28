@@ -8,8 +8,17 @@ import { CrbmConfig } from 'src/app/crbm-config';
   templateUrl: './file-edit.component.html',
   styleUrls: ['./file-edit.component.sass']
 })
+
+
+
 export class FileEditComponent implements OnInit {
 
+  accessTypes = [
+    {value: 'private', viewValue: 'Private'},
+    {value: 'public', viewValue: 'Public'},
+  ];
+
+  selectedValue = null;
   currentFile: object = null;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
@@ -20,6 +29,7 @@ export class FileEditComponent implements OnInit {
       .subscribe(
         success => {
           this.currentFile = success['data'];
+          this.selectedValue = this.currentFile['accessType'];
         },
         error => {
           console.log('Error in fetching specific file', error);
@@ -29,6 +39,20 @@ export class FileEditComponent implements OnInit {
 
   getCurrentFile(fileId: number) {
     return this.http.get(`${CrbmConfig.CRBMAPI_URL}/file/${fileId}`);
+  }
+
+  onClickSave() {
+    this.http.put(`${CrbmConfig.CRBMAPI_URL}/file/${this.currentFile['fileId']}`, {
+      accessType: this.selectedValue
+    })
+      .subscribe(
+        success => {
+            console.log('File update successfull', success);
+        },
+        error => {
+          console.log('File update failed', error);
+        }
+      );
   }
 
 }
