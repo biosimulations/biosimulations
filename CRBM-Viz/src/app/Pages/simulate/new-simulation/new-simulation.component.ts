@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
+import { AlertService } from 'src/app/Services/alert.service';
 
 @Component({
   selector: 'app-new-simulation',
@@ -16,10 +17,10 @@ export class NewSimulationComponent implements OnInit {
   solverFiles: Array<string> = null;
   sbatchFiles: Array<string> = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertService: AlertService) { }
 
   ngOnInit() {
-    this.getOmexAndSolver()
+    this.getFileInfo()
       .subscribe(
         success => {
           console.log('Fetching of Omex and solver successful', success);
@@ -32,15 +33,15 @@ export class NewSimulationComponent implements OnInit {
           this.sbatchFiles = sbatches;
         },
         error => {
-
+          this.alertService.openDialog('Error occured while fetching file info');
         }
       );
   }
 
-  getOmexAndSolver() {
+  getFileInfo() {
     return this.http.get(`${CrbmConfig.CRBMAPI_URL}/simulation`);
   }
 
-  convert
+
 
 }

@@ -6,6 +6,7 @@ import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
 import { SocialUser } from 'angularx-social-login';
 import { MatDialog } from '@angular/material';
 import { AlertComponent } from 'src/app/Components/alert/alert.component';
+import { AlertService } from 'src/app/Services/alert.service';
 
 @Component({
   selector: 'app-upload',
@@ -24,7 +25,7 @@ export class UploadComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private crbmAuthService: CrbmAuthService,
-    public dialog: MatDialog
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -36,14 +37,14 @@ export class UploadComponent implements OnInit {
       this.uploadFile(this.fileToUpload, this.selectedValue)
       .subscribe(
         onSuccess => {
-          this.openDialog(onSuccess['message']);
+          this.alertService.openDialog(onSuccess['message']);
         },
         onFail => {
           console.log('File upload failed ', onFail);
         }
       );
     } else {
-      this.openDialog('Either file extension is not allowed, or access Type not selected');
+      this.alertService.openDialog('Either file extension is not allowed, or access Type not selected');
     }
   }
 
@@ -81,14 +82,5 @@ export class UploadComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
-  openDialog(msg: string): void {
-    const dialogRef = this.dialog.open(AlertComponent, {
-      width: '250px',
-      data: {message: msg}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 
 }

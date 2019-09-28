@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CrbmConfig } from 'src/app/crbm-config';
+import { AlertService } from 'src/app/Services/alert.service';
 
 @Component({
   selector: 'app-file-edit',
@@ -21,7 +22,10 @@ export class FileEditComponent implements OnInit {
   selectedValue = null;
   currentFile: object = null;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     const fileId = this.route.snapshot.params['fileId'];
@@ -48,9 +52,11 @@ export class FileEditComponent implements OnInit {
       .subscribe(
         success => {
             console.log('File update successfull', success);
+            this.alertService.openDialog('File update successful');
         },
         error => {
           console.log('File update failed', error);
+          this.alertService.openDialog('File update failed');
         }
       );
   }
