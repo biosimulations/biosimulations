@@ -9,6 +9,7 @@ import { UnderConstructionComponent } from './Pages/under-construction/under-con
 import { LoginComponent } from './Components/login/login.component';
 import { AuthGuard } from './Gaurds/auth.guard';
 import { UploadComponent } from './Pages/upload/upload.component';
+import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   },
   // { path: 'login', component: LoginComponent },
   { path: 'files', component: UploadComponent, canActivate: [AuthGuard] },
+  { path: 'files/edit/:fileId', component: FileEditComponent },
   { path: '**', component: FourComponent },
 ];
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { CrbmConfig } from 'src/app/crbm-config';
 
 @Component({
   selector: 'app-file-edit',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FileEditComponent implements OnInit {
 
-  constructor() { }
+  currentFile: object = null;
+
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    const fileId = this.route.snapshot.params['fileId'];
+    this.getCurrentFile(fileId)
+      .subscribe(
+        success => {
+          this.currentFile = success['data'];
+        },
+        error => {
+          console.log('Error in fetching specific file', error);
+        }
+      );
+  }
+
+  getCurrentFile(fileId: number) {
+    return this.http.get(`${CrbmConfig.CRBMAPI_URL}/file/${fileId}`);
   }
 
 }
