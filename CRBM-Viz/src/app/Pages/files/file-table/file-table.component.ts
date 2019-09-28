@@ -5,13 +5,6 @@ import { CrbmConfig } from 'src/app/crbm-config';
 import { SocialUser } from 'angularx-social-login';
 import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
 
-export interface FileData {
-  fileId: string;
-  filename: string;
-  createdBy: string;
-  accessType: string;
-}
-
 
 @Component({
   selector: 'app-file-table',
