@@ -17,6 +17,7 @@ const routes: Routes = [
   // { path: 'visualize', component: VisualizeComponent },
   { path: 'login', component: LoginComponent },
   // { path: 'visualize/:id', component: VisualizeComponent },
+  // { path: 'simulate', component: SimulateComponent, },
   { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },
   {
     path: 'simulate/:id',

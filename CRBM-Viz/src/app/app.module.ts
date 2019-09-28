@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
-import { MatSelectModule, MatDialogModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatSelectModule, MatDialogModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTabsModule } from '@angular/material';
 
 
 import {
@@ -35,7 +35,8 @@ const imports = [
   MatDialogModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatTabsModule
 ];
 
 //Defined components
@@ -57,6 +58,8 @@ import { AlertComponent } from './Components/alert/alert.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { NewSimulationComponent } from './Pages/simulate/new-simulation/new-simulation.component';
+import { PastSimulationComponent } from './Pages/simulate/past-simulation/past-simulation.component';
 
 
 const declarations = [
@@ -76,7 +79,9 @@ const declarations = [
   UploadComponent,
   AlertComponent,
   FileTableComponent,
-  FileEditComponent
+  FileEditComponent,
+  NewSimulationComponent,
+  PastSimulationComponent
 ];
 
 //Services
