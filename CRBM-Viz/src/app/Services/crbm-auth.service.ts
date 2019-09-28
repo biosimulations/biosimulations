@@ -22,10 +22,26 @@ export class CrbmAuthService {
         .then((userData) => {
           this.loggedInState =   (userData !== null);
           this.user = userData;
-          this.sendToRestApiMethod(userData);
           console.log('User logged in: ', this.user);
           this.router.navigate(['']);
+          localStorage.setItem('user', JSON.stringify(this.user));
+          this.sendToRestApiMethod(userData);
         });
+    }
+
+    isLoggedIn() {
+        try {
+            this.user = JSON.parse(localStorage.getItem('user'));
+        } catch (err) {
+            this.user = null;
+        }
+        if (this.user) {
+            this.loggedInState = true;
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     logout() {
@@ -33,6 +49,7 @@ export class CrbmAuthService {
         this.loggedInState = false;
         console.log('User logged in: ', this.user);
         this.router.navigate(['']);
+        localStorage.removeItem('user');
     }
 
     sendToRestApiMethod(userData: object): void {
