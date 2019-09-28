@@ -33,7 +33,7 @@ export class UploadComponent implements OnInit {
   submit(): void {
     const isValid = this.validateForm();
     if (isValid) {
-      this.uploadFile(this.fileToUpload, 'private')
+      this.uploadFile(this.fileToUpload, this.selectedValue)
       .subscribe(
         onSuccess => {
           this.openDialog(onSuccess['message']);
