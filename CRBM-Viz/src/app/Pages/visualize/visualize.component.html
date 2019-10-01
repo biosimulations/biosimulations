@@ -14,7 +14,10 @@
     </button>
   </form>
 </div>
-<div class="figures">
+<div class="landing" *ngIf="!id">
+  <p>Please enter the id of a simulation run to view its visualizations</p>
+</div>
+<div class="figures" *ngIf="id">
   <div class="figure" *ngFor="let viz of visualizations; index as i">
     <app-vega-viewer [viz]="viz"> </app-vega-viewer>
   </div>

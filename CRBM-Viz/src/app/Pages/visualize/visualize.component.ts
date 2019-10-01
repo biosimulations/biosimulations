@@ -25,8 +25,6 @@ export class VisualizeComponent implements OnInit {
   }
 
   getVis() {
-    console.log('this id');
-    console.log(this.id);
     this.visService
       .getVisualizations(this.id)
       .subscribe((res: Visualization[]) => {
