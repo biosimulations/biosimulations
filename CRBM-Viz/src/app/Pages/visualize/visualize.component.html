@@ -2,17 +2,11 @@
 <div class="select">
   <form class="form-field" layout layout-align="center" layout-padding>
     <mat-form-field class="form">
-      <input
-        #box
-        matInput
-        placeholder="Simulation ID"
-        [value]="input"
-        (keyup)="onKey(box.value)"
-      />
+      <input #vizInput matInput placeholder="Simulation ID" />
     </mat-form-field>
 
     <button
-      [routerLink]="'/visualize/' + input"
+      [routerLink]="'/visualize/' + vizInput.value"
       mat-raised-button
       color="primary"
     >

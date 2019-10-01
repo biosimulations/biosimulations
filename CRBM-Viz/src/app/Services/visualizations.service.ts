@@ -10,7 +10,7 @@ export class VisualizationsService {
   constructor(private http: HttpClient) {}
   vizUrl = 'http://crbm-test-api.herokuapp.com/vis/';
 
-  getVisualizations(id: string = '5'): Observable<Visualization[]> {
+  getVisualizations(id: string): Observable<Visualization[]> {
     let vizJson = this.http.get<Visualization[]>(this.vizUrl + id);
     return vizJson;
   }
