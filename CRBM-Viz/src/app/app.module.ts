@@ -1,4 +1,4 @@
-//ng Module
+// ng Module
 import { NgModule } from '@angular/core';
 
 // Angular core components/modules/tools in imports
@@ -7,15 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-//Defined Modules in Imports
+// Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
-
 
 import {
   SocialLoginModule,
   AuthServiceConfig,
-  GoogleLoginProvider
+  GoogleLoginProvider,
 } from 'angularx-social-login';
 
 const imports = [
@@ -25,10 +24,10 @@ const imports = [
   FormsModule,
   HttpClientModule,
   MaterialModule,
-  SocialLoginModule
+  SocialLoginModule,
 ];
 
-//Defined components
+// Defined components
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './Layout/topbar/topbar.component';
 import { SearchBarComponent } from './Layout/search-bar/search-bar.component';
@@ -59,7 +58,7 @@ const declarations = [
   LoginComponent,
 ];
 
-//Services
+// Services
 // import { VisualizationsService } from './Services/visualizations.service';
 // import { SimulationService } from './Services/simulation.service';
 // import { CrbmAuthService } from './Services/crbm-auth.service';
@@ -69,8 +68,10 @@ const authProviderConfig = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
     // The client ID was created from Akhil's Google account
-    provider: new GoogleLoginProvider("161690628487-3op0mi5vi1n1ajafqboo11boj6sm7rut.apps.googleusercontent.com")
-  }
+    provider: new GoogleLoginProvider(
+      '161690628487-3op0mi5vi1n1ajafqboo11boj6sm7rut.apps.googleusercontent.com'
+    ),
+  },
 ]);
 
 export function provideConfig() {
@@ -80,15 +81,14 @@ export function provideConfig() {
 const providers = [
   {
     provide: AuthServiceConfig,
-    useFactory: provideConfig
-  }
+    useFactory: provideConfig,
+  },
 ];
 
-
 @NgModule({
-  declarations: declarations,
-  imports: imports,
-  providers: providers,
+  declarations,
+  imports,
+  providers,
   bootstrap: [AppComponent],
 })
 export class AppModule {}
