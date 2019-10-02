@@ -11,21 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
 
+// Third party modules in Imports
 import {
   SocialLoginModule,
   AuthServiceConfig,
   GoogleLoginProvider,
 } from 'angularx-social-login';
-
-const imports = [
-  BrowserModule,
-  AppRoutingModule,
-  BrowserAnimationsModule,
-  FormsModule,
-  HttpClientModule,
-  MaterialModule,
-  SocialLoginModule,
-];
 
 // Defined components
 import { AppComponent } from './app.component';
@@ -41,22 +32,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
 import { LoginComponent } from './Components/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-
-const declarations = [
-  AppComponent,
-  TopbarComponent,
-  SearchBarComponent,
-  SidebarComponent,
-  LogoComponent,
-  AboutComponent,
-  VisualizeComponent,
-  SimulateComponent,
-  HomeComponent,
-  VegaViewerComponent,
-  FourComponent,
-  UnderConstructionComponent,
-  LoginComponent,
-];
+import { SearchComponent } from './Components/search/search.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -86,8 +62,31 @@ const providers = [
 ];
 
 @NgModule({
-  declarations,
-  imports,
+  declarations: [
+    AppComponent,
+    TopbarComponent,
+    SearchBarComponent,
+    SidebarComponent,
+    LogoComponent,
+    AboutComponent,
+    VisualizeComponent,
+    SimulateComponent,
+    HomeComponent,
+    VegaViewerComponent,
+    FourComponent,
+    UnderConstructionComponent,
+    LoginComponent,
+    SearchComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MaterialModule,
+    SocialLoginModule,
+  ],
   providers,
   bootstrap: [AppComponent],
 })
