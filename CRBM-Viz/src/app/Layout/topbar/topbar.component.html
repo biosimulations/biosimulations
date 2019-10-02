@@ -25,12 +25,22 @@
       ></span
     >
     <span *ngIf="!crbmAuthService.loggedInState"
-      ><button mat-flat-button color="primary" (click)="crbmAuthService.login()">Login</button>
-      </span
-    >
+      ><button
+        mat-flat-button
+        color="primary"
+        (click)="crbmAuthService.login()"
+      >
+        Login
+      </button>
+    </span>
     <span *ngIf="crbmAuthService.loggedInState"
-      ><button mat-flat-button color="primary" (click)="crbmAuthService.logout()">Logout</button>
-      </span
-    >
+      ><button
+        mat-flat-button
+        color="primary"
+        (click)="crbmAuthService.logout()"
+      >
+        Logout
+      </button>
+    </span>
   </div>
 </mat-toolbar>

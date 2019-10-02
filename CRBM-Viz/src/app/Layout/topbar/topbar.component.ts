@@ -5,15 +5,10 @@ import { AuthService } from 'angularx-social-login';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.sass']
+  styleUrls: ['./topbar.component.sass'],
 })
 export class TopbarComponent implements OnInit {
+  constructor(public crbmAuthService: CrbmAuthService) {}
 
-  constructor(
-    public crbmAuthService: CrbmAuthService,
-    ) { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
