@@ -18,7 +18,8 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   // Create an observable of Auth0 instance of client
-  redirect = window.location.origin + environment.baseUrl + 'callback';
+  returnTo = window.location.origin + environment.baseUrl;
+  redirect = this.returnTo + 'callback';
   auth0Client$ = (from(
     createAuth0Client({
       domain: 'crbm.auth0.com',
@@ -121,7 +122,7 @@ export class AuthService {
       // Call method to log out
       client.logout({
         client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
-        returnTo: `${window.location.origin}`,
+        returnTo: this.returnTo,
       });
     });
   }
