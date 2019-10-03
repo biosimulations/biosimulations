@@ -20,9 +20,7 @@ import {
 
 // Defined components
 import { AppComponent } from './app.component';
-import { TopbarComponent } from './Layout/topbar/topbar.component';
 import { SearchBarComponent } from './Layout/search-bar/search-bar.component';
-import { SidebarComponent } from './Layout/sidebar/sidebar.component';
 import { LogoComponent } from './Layout/logo/logo.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { VisualizeComponent } from './Pages/visualize/visualize.component';
@@ -39,6 +37,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { LinksComponent } from './Layout/links/links.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -70,9 +69,7 @@ const providers = [
 @NgModule({
   declarations: [
     AppComponent,
-    TopbarComponent,
     SearchBarComponent,
-    SidebarComponent,
     LogoComponent,
     AboutComponent,
     VisualizeComponent,
@@ -83,6 +80,7 @@ const providers = [
     UnderConstructionComponent,
     LoginComponent,
     NavigationComponent,
+    LinksComponent,
   ],
   imports: [
     BrowserModule,

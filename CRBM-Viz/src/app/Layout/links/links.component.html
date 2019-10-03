@@ -1,0 +1,31 @@
+<button mat-flat-button color="primary" [routerLink]="['']">Home</button>
+
+<button mat-flat-button color="primary" [routerLink]="['/about']">
+  About
+</button>
+
+<button mat-flat-button color="primary" [routerLink]="['/visualize']">
+  Visualize
+</button>
+
+<button mat-flat-button color="primary" [routerLink]="['/simulate']">
+  Simulate
+</button>
+
+<button
+  mat-flat-button
+  *ngIf="!crbmAuthService.loggedInState"
+  color="primary"
+  (click)="crbmAuthService.login()"
+>
+  Login
+</button>
+
+<button
+  mat-flat-button
+  *ngIf="crbmAuthService.loggedInState"
+  color="primary"
+  (click)="crbmAuthService.logout()"
+>
+  Logout
+</button>
