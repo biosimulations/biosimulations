@@ -14,18 +14,25 @@
 
 <button
   mat-flat-button
-  *ngIf="!crbmAuthService.loggedInState"
+  *ngIf="!auth.loggedIn"
   color="primary"
-  (click)="crbmAuthService.login()"
+  (click)="auth.login()"
 >
   Login
 </button>
-
 <button
   mat-flat-button
-  *ngIf="crbmAuthService.loggedInState"
+  *ngIf="auth.loggedIn"
   color="primary"
-  (click)="crbmAuthService.logout()"
+  [routerLink]="['/profile']"
+>
+  Profile
+</button>
+<button
+  mat-flat-button
+  *ngIf="auth.loggedIn"
+  color="primary"
+  (click)="auth.logout()"
 >
   Logout
 </button>

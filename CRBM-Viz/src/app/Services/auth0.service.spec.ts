@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CrbmAuthService } from './crbm-auth.service';
+import { Auth0Service } from './auth0.service';
 
-describe('CrbmAuthService', () => {
+describe('Auth0Service', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CrbmAuthService = TestBed.get(CrbmAuthService);
+    const service: Auth0Service = TestBed.get(Auth0Service);
     expect(service).toBeTruthy();
   });
 });
