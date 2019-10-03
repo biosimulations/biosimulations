@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
-import { AuthService } from 'angularx-social-login';
-
 @Component({
-  selector: 'app-topbar',
-  templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.sass'],
+  selector: 'app-links',
+  templateUrl: './links.component.html',
+  styleUrls: ['./links.component.sass'],
 })
-export class TopbarComponent implements OnInit {
+export class LinksComponent implements OnInit {
   constructor(public crbmAuthService: CrbmAuthService) {}
 
   ngOnInit() {}

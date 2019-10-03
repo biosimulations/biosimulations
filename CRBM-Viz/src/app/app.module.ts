@@ -20,9 +20,7 @@ import {
 
 // Defined components
 import { AppComponent } from './app.component';
-import { TopbarComponent } from './Layout/topbar/topbar.component';
 import { SearchBarComponent } from './Layout/search-bar/search-bar.component';
-import { SidebarComponent } from './Layout/sidebar/sidebar.component';
 import { LogoComponent } from './Layout/logo/logo.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { VisualizeComponent } from './Pages/visualize/visualize.component';
@@ -32,6 +30,14 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
 import { LoginComponent } from './Components/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { NavigationComponent } from './Layout/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { LinksComponent } from './Layout/links/links.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -63,9 +69,7 @@ const providers = [
 @NgModule({
   declarations: [
     AppComponent,
-    TopbarComponent,
     SearchBarComponent,
-    SidebarComponent,
     LogoComponent,
     AboutComponent,
     VisualizeComponent,
@@ -75,6 +79,8 @@ const providers = [
     FourComponent,
     UnderConstructionComponent,
     LoginComponent,
+    NavigationComponent,
+    LinksComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +90,12 @@ const providers = [
     HttpClientModule,
     MaterialModule,
     SocialLoginModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
   providers,
   bootstrap: [AppComponent],
