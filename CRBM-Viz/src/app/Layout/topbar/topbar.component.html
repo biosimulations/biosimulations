@@ -1,9 +1,11 @@
-<mat-toolbar color="primary" class="navbar">
+<div class="navbar">
   <div class="logo">
     <app-logo></app-logo>
   </div>
-  <app-search-bar></app-search-bar>
-  <div>
+  <div class="searchbar">
+    <app-search-bar></app-search-bar>
+  </div>
+  <div class="links">
     <span
       ><a [routerLink]="['']"
         ><button mat-flat-button color="primary">Home</button></a
@@ -43,4 +45,4 @@
       </button>
     </span>
   </div>
-</mat-toolbar>
+</div>
