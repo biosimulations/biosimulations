@@ -40,7 +40,9 @@
       <div class="searchbar" *ngIf="!(isHandset$ | async)">
         <app-search-bar></app-search-bar>
       </div>
-      <div class="links" *ngIf="!drawer.opened"><app-links></app-links></div>
+      <div class="links" *ngIf="!(isHandset$ | async)">
+        <app-links></app-links>
+      </div>
     </mat-toolbar>
     <div class="content"><ng-content></ng-content></div>
   </mat-sidenav-content>
