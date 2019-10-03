@@ -4,10 +4,11 @@
 
 .sidenav
   width: 200px
-  box-shadow: 3px 0 6px rgba(0, 0, 0, .24)
+  border: none
 
 .sidenav .mat-toolbar
   background: mat-color($primary)
+  color: white
 
 .mat-toolbar.mat-primary
   position: sticky
@@ -18,8 +19,26 @@
   display: none
 
 .topbar
-  flex: 1, 1, auto
   width: 100%
+  align-content: space-between
+  padding: 0px 2px 0px 2px
+.menubutton
+  flex: 0 0 auto
+  height: 100%
+
+  padding-right: 5px
+
+.logo
+  flex: 0 1 auto
+  height: 100%
+
+.searchbar
+  flex: 1 1 auto
+  height: 100%
+
+.links
+  height: 100%
+  flex: 0 0 auto
 
 .content
   padding-left: 1.5%
