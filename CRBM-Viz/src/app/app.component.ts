@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CrbmAuthService } from './Services/crbm-auth.service';
 import { AuthService } from './Services/auth0.service';
 @Component({
   selector: 'app-root',
@@ -9,10 +8,7 @@ import { AuthService } from './Services/auth0.service';
 export class AppComponent implements OnInit {
   title = 'CRBM-Viz';
 
-  constructor(
-    public crbmAuthService: CrbmAuthService,
-    private auth: AuthService
-  ) {}
+  constructor(private auth: AuthService) {}
   ngOnInit() {
     this.auth.localAuthSetup();
   }
