@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth0.service';
+
 @Component({
-  selector: 'app-links',
-  templateUrl: './links.component.html',
-  styleUrls: ['./links.component.sass'],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.sass'],
 })
-export class LinksComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   constructor(public auth: AuthService) {}
 
   ngOnInit() {}

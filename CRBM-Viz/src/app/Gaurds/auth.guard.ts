@@ -1,27 +1,30 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  CanActivate,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { CrbmAuthService } from '../Services/crbm-auth.service';
+import { AuthService } from 'src/app/Services/auth0.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-
-  constructor(private crbmAuthService: CrbmAuthService, private router: Router) {}
+  constructor(private auth: AuthService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (!this.crbmAuthService.loggedInState) {
-        this.router.navigate(['/login']);
-      }
-
-      if (this.crbmAuthService.loggedInState) {
-        return true;
-      }
-
-      return false;
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean | UrlTree> | boolean {
+    return this.auth.isAuthenticated$.pipe(
+      tap(loggedIn => {
+        if (!loggedIn) {
+          this.auth.login(state.url);
+        }
+      })
+    );
   }
-
 }

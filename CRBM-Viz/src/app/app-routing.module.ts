@@ -8,6 +8,9 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { LoginComponent } from './Components/login/login.component';
 import { AuthGuard } from './Gaurds/auth.guard';
+import { CallbackComponent } from './Components/callback/callback.component';
+import { ProfileComponent } from './Components/profile/profile.component';
+
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
@@ -20,7 +23,11 @@ const routes: Routes = [
     component: UnderConstructionComponent,
     canActivate: [AuthGuard],
   },
-  // { path: 'login', component: LoginComponent },
+  { path: 'callback', component: CallbackComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
   { path: '**', component: FourComponent },
 ];
 

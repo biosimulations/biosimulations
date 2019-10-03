@@ -38,6 +38,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { LinksComponent } from './Layout/links/links.component';
+import { CallbackComponent } from './Components/callback/callback.component';
+import { ProfileComponent } from './Components/profile/profile.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -81,6 +83,8 @@ const providers = [
     LoginComponent,
     NavigationComponent,
     LinksComponent,
+    CallbackComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
