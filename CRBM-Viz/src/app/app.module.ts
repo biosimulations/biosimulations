@@ -32,6 +32,13 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
 import { LoginComponent } from './Components/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { NavigationComponent } from './Layout/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -75,6 +82,7 @@ const providers = [
     FourComponent,
     UnderConstructionComponent,
     LoginComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +92,12 @@ const providers = [
     HttpClientModule,
     MaterialModule,
     SocialLoginModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
   providers,
   bootstrap: [AppComponent],
