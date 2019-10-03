@@ -6,43 +6,36 @@
     <app-search-bar></app-search-bar>
   </div>
   <div class="links">
-    <span
-      ><a [routerLink]="['']"
-        ><button mat-flat-button color="primary">Home</button></a
-      ></span
+    <button mat-flat-button color="primary" [routerLink]="['']">Home</button>
+
+    <button mat-flat-button color="primary" [routerLink]="['/about']">
+      About
+    </button>
+
+    <button mat-flat-button color="primary" [routerLink]="['/visualize']">
+      Visualize
+    </button>
+
+    <button mat-flat-button color="primary" [routerLink]="['/simulate']">
+      Simulate
+    </button>
+
+    <button
+      mat-flat-button
+      *ngIf="!crbmAuthService.loggedInState"
+      color="primary"
+      (click)="crbmAuthService.login()"
     >
-    <span
-      ><a [routerLink]="['/about']"
-        ><button mat-flat-button color="primary">About</button></a
-      ></span
+      Login
+    </button>
+
+    <button
+      mat-flat-button
+      *ngIf="crbmAuthService.loggedInState"
+      color="primary"
+      (click)="crbmAuthService.logout()"
     >
-    <span
-      ><a [routerLink]="['/visualize']"
-        ><button mat-flat-button color="primary">Visualize</button></a
-      ></span
-    >
-    <span
-      ><a [routerLink]="['/simulate']"
-        ><button mat-flat-button color="primary">Simulate</button></a
-      ></span
-    >
-    <span *ngIf="!crbmAuthService.loggedInState"
-      ><button
-        mat-flat-button
-        color="primary"
-        (click)="crbmAuthService.login()"
-      >
-        Login
-      </button>
-    </span>
-    <span *ngIf="crbmAuthService.loggedInState"
-      ><button
-        mat-flat-button
-        color="primary"
-        (click)="crbmAuthService.logout()"
-      >
-        Logout
-      </button>
-    </span>
+      Logout
+    </button>
   </div>
 </div>
