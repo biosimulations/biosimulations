@@ -11,7 +11,7 @@ import {
 } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +21,7 @@ export class AuthService {
     createAuth0Client({
       domain: 'crbm.auth0.com',
       client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
-      redirect_uri: `${window.location.origin}/callback`,
+      redirect_uri: `${window.location.origin}'+'${environment.baseUrl}'+'callback`,
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
