@@ -1,4 +1,4 @@
-//ng Module
+// ng Module
 import { NgModule } from '@angular/core';
 import {CrbmConfig} from './crbm-config';
 
@@ -9,112 +9,72 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-//Defined Modules in Imports
+// Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
 import { MatSelectModule, MatDialogModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTabsModule } from '@angular/material';
 
-
-import {
-  SocialLoginModule,
-  AuthServiceConfig,
-  GoogleLoginProvider
-} from 'angularx-social-login';
-
-const imports = [
-  BrowserModule,
-  AppRoutingModule,
-  BrowserAnimationsModule,
-  FormsModule,
-  HttpClientModule,
-  MaterialModule,
-  SocialLoginModule,
-  FormsModule,
-  ReactiveFormsModule,
-  MatSelectModule,
-  MatDialogModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatTabsModule
-];
-
-//Defined components
+// Defined components
 import { AppComponent } from './app.component';
-import { TopbarComponent } from './Layout/topbar/topbar.component';
 import { SearchBarComponent } from './Layout/search-bar/search-bar.component';
-import { SidebarComponent } from './Layout/sidebar/sidebar.component';
 import { LogoComponent } from './Layout/logo/logo.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
-import { LoginComponent } from './Components/login/login.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-import { UploadComponent } from './Pages/upload/upload.component';
-import { AlertComponent } from './Components/alert/alert.component';
-import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
-import { FileTableComponent } from './Pages/files/file-table/file-table.component';
-import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
-import { NewSimulationComponent } from './Pages/simulate/new-simulation/new-simulation.component';
-import { PastSimulationComponent } from './Pages/simulate/past-simulation/past-simulation.component';
+import { NavigationComponent } from './Layout/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { LinksComponent } from './Layout/links/links.component';
+import { CallbackComponent } from './Components/callback/callback.component';
+import { ProfileComponent } from './Components/profile/profile.component';
 
-
-const declarations = [
-  AppComponent,
-  TopbarComponent,
-  SearchBarComponent,
-  SidebarComponent,
-  LogoComponent,
-  AboutComponent,
-  // VisualizeComponent,
-  SimulateComponent,
-  HomeComponent,
-  VegaViewerComponent,
-  FourComponent,
-  UnderConstructionComponent,
-  LoginComponent,
-  UploadComponent,
-  AlertComponent,
-  FileTableComponent,
-  FileEditComponent,
-  NewSimulationComponent,
-  PastSimulationComponent
-];
-
-//Services
+// Services
 // import { VisualizationsService } from './Services/visualizations.service';
 // import { SimulationService } from './Services/simulation.service';
 // import { CrbmAuthService } from './Services/crbm-auth.service';
 
 // Service for Authconfig
-const authProviderConfig = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    // The client ID was created from Akhil's Google account
-    provider: new GoogleLoginProvider(CrbmConfig.GOOGLE_AUTH_CLIENT_ID)
-  }
-]);
-
-export function provideConfig() {
-  return authProviderConfig;
-}
-
-const providers = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
-  {
-    provide: AuthServiceConfig,
-    useFactory: provideConfig
-  }
-];
-
 
 @NgModule({
-  declarations: declarations,
-  imports: imports,
-  providers: providers,
+  declarations: [
+    AppComponent,
+    SearchBarComponent,
+    LogoComponent,
+    AboutComponent,
+    VisualizeComponent,
+    SimulateComponent,
+    HomeComponent,
+    VegaViewerComponent,
+    FourComponent,
+    UnderConstructionComponent,
+    NavigationComponent,
+    LinksComponent,
+    CallbackComponent,
+    ProfileComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MaterialModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+  ],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents:[
     AlertComponent

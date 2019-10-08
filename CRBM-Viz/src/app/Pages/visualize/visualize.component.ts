@@ -11,7 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 export class VisualizeComponent implements OnInit {
   visualizations: Visualization[] = [];
   id: string;
-  input: string = '1';
 
   constructor(
     private visService: VisualizationsService,
@@ -19,19 +18,17 @@ export class VisualizeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.id = params.get('id');
+    this.route.params.subscribe(routeParams => {
+      this.id = routeParams.id;
+      this.getVis();
     });
+  }
+
+  getVis() {
     this.visService
       .getVisualizations(this.id)
       .subscribe((res: Visualization[]) => {
         this.visualizations = res;
-        console.log(res);
-        console.log(typeof this.visualizations[0].spec);
-        console.log(this.visualizations[0].spec);
       });
-  }
-  onKey(event: any) {
-    this.input = event;
   }
 }

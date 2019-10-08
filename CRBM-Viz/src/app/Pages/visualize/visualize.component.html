@@ -2,17 +2,11 @@
 <div class="select">
   <form class="form-field" layout layout-align="center" layout-padding>
     <mat-form-field class="form">
-      <input
-        #box
-        matInput
-        placeholder="Simulation ID"
-        [value]="input"
-        (keyup)="onKey(box.value)"
-      />
+      <input #vizInput matInput placeholder="Simulation ID" />
     </mat-form-field>
 
     <button
-      [routerLink]="visualize/{{ input }}"
+      [routerLink]="'/visualize/' + vizInput.value"
       mat-raised-button
       color="primary"
     >
@@ -20,7 +14,10 @@
     </button>
   </form>
 </div>
-<div class="figures">
+<div class="landing" *ngIf="!id">
+  <p>Please enter the id of a simulation run to view its visualizations</p>
+</div>
+<div class="figures" *ngIf="id">
   <div class="figure" *ngFor="let viz of visualizations; index as i">
     <app-vega-viewer [viz]="viz"> </app-vega-viewer>
   </div>
