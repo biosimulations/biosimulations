@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
-import { SocialUser } from 'angularx-social-login';
 import { AuthService } from 'src/app/Services/auth0.service';
+import { async } from 'q';
 
 @Component({
   selector: 'app-file-table',
@@ -19,7 +19,7 @@ export class FileTableComponent implements OnInit {
     'accessType',
   ];
   dataSource: MatTableDataSource<object>;
-  currentUser: SocialUser = null;
+  currentUser = null;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -44,7 +44,7 @@ export class FileTableComponent implements OnInit {
       }
     );
 
-    this.currentUser = this.crbmAuthService.user;
+    this.currentUser = null;
   }
 
   getFileData() {
