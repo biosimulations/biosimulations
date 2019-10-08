@@ -1,4 +1,4 @@
-name: Node CI
+name: Build, Lint, Test
 
 on: [push]
 
@@ -28,7 +28,7 @@ jobs:
       run: npm run build -- --prod
     - name: Test
       working-directory: ./CRBM-Viz
-      run: npm test -- --configuration=ci
+      run: npm test -- --watch=false
     - name: E2E
       working-directory: ./CRBM-Viz
-      run: npm run e2e -- --configuration=ci
+      run: npm run e2e -- 
