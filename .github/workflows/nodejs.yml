@@ -17,15 +17,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Open Folder
-      run: cd CRBM-Viz  
     - name: Install dependencies
+      working-directory: ./CRBM-Viz
       run: npm install
     - name: Lint
+      working-directory: ./CRBM-Viz
       run: npm run lint
     - name: Build
+      working-directory: ./CRBM-Viz
       run: npm run build -- --prod
     - name: Test
+      working-directory: ./CRBM-Viz
       run: npm test -- --configuration=ci
     - name: E2E
+      working-directory: ./CRBM-Viz
       run: npm run e2e -- --configuration=ci
