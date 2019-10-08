@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
-import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
 import { SocialUser } from 'angularx-social-login';
 import { MatDialog } from '@angular/material';
 import { AlertComponent } from 'src/app/Components/alert/alert.component';
@@ -24,7 +23,6 @@ export class UploadComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private crbmAuthService: CrbmAuthService,
     private alertService: AlertService
   ) { }
 

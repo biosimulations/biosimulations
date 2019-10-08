@@ -35,11 +35,16 @@ import { MatListModule } from '@angular/material/list';
 import { LinksComponent } from './Layout/links/links.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { AlertComponent } from './Components/alert/alert.component';
+import { PastSimulationComponent } from './Pages/simulate/past-simulation/past-simulation.component';
+import { NewSimulationComponent } from './Pages/simulate/new-simulation/new-simulation.component';
+import { UploadComponent } from './Pages/upload/upload.component';
+import { FileTableComponent } from './Pages/files/file-table/file-table.component';
+import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
 // import { SimulationService } from './Services/simulation.service';
-// import { CrbmAuthService } from './Services/crbm-auth.service';
 
 // Service for Authconfig
 
@@ -59,6 +64,12 @@ import { ProfileComponent } from './Components/profile/profile.component';
     LinksComponent,
     CallbackComponent,
     ProfileComponent,
+    AlertComponent,
+    PastSimulationComponent,
+    NewSimulationComponent,
+    UploadComponent,
+    FileTableComponent,
+    FileEditComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +84,12 @@ import { ProfileComponent } from './Components/profile/profile.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatTabsModule,
+    MatSelectModule, 
+    MatDialogModule, 
+    MatTableModule, 
+    MatPaginatorModule, 
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent],

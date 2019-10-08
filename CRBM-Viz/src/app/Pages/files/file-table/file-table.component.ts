@@ -3,7 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
 import { SocialUser } from 'angularx-social-login';
-import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
+import { AuthService } from 'src/app/Services/auth0.service';
 
 
 @Component({
@@ -16,12 +16,12 @@ export class FileTableComponent implements OnInit {
   serverUrl = CrbmConfig.CRBMAPI_URL;
   displayedColumns: string[] = ['fileId', 'filename', 'createdBy', 'accessType'];
   dataSource: MatTableDataSource<object>;
-  currentUser: SocialUser = null;
+  currentUser: string = null;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private http: HttpClient, private crbmAuthService: CrbmAuthService) {
+  constructor(private http: HttpClient, private auth: AuthService) {
     // Create 100 users
     // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
@@ -43,7 +43,9 @@ export class FileTableComponent implements OnInit {
       }
     );
 
-    this.currentUser = this.crbmAuthService.user;
+    this.auth.userProfile$.subscribe(
+      profile => this.currentUser = JSON.stringify(profile, null, 2)
+    );
   }
 
   getFileData() {
