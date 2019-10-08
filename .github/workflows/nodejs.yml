@@ -21,7 +21,8 @@ jobs:
       run: |
         cd CRBM-Viz
         npm install
-        npm run build --if-present
-        npm test
+        ng build
+        ng test --watch=false
+        ng e2e --port 4202
       env:
         CI: true
