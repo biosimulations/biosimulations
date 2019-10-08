@@ -17,8 +17,10 @@ export class AboutComponent implements OnInit {
       eu malesuada mauris dolor a orci. Aliquam erat volutpat. Cras tortor augue, euismod at neque non, aliquet feugiat libero.\
       Integer ullamcorper est laoreet, cursus odio sit amet, molestie libero. Etiam iaculis purus at felis interdum, \
       vel lobortis turpis consequat. Etiam faucibus libero finibus, posuere lacus vel, malesuada libero. Vestibulum augue est,\
-      cursus eget purus vitae, tincidunt aliquet ligula. Proin auctor risus enim, et pellentesque tortor porta in. Morbi vel eleifend lacus.\
-      Cras pulvinar lacus a efficitur porttitor. Suspendisse at ligula mi. Praesent ornare blandit arcu, vel pellentesque dolor fermentum a.\
+      cursus eget purus vitae, tincidunt aliquet ligula.\
+      Proin auctor risus enim, et pellentesque tortor porta in. Morbi vel eleifend lacus.\
+      Cras pulvinar lacus a efficitur porttitor. Suspendisse at ligula mi.\
+      Praesent ornare blandit arcu, vel pellentesque dolor fermentum a.\
       Cras tortor massa, volutpat eget urna in, varius sollicitudin ante. Pellentesque interdum nisi felis, ut pharetra enim efficitur a. \
       Praesent cursus ac lorem quis convallis. Nullam semper turpis dolor, ac mollis erat faucibus vel.'
   );
