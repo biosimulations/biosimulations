@@ -11,7 +11,7 @@ export class VisualizationsService {
   vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
 
   getVisualizations(id: string): Observable<Visualization[]> {
-    let vizJson = this.http.get<Visualization[]>(this.vizUrl + id);
+    const vizJson = this.http.get<Visualization[]>(this.vizUrl + id);
     return vizJson;
   }
 }

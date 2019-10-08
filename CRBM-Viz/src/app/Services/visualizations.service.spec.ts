@@ -25,8 +25,10 @@ describe('VisualizationsService', () => {
   });
 
   it('should be created', () => {
-    const service: VisualizationsService = TestBed.get(VisualizationsService);
-    expect(service).toBeTruthy();
+    const visservice: VisualizationsService = TestBed.get(
+      VisualizationsService
+    );
+    expect(visservice).toBeTruthy();
   });
 
   it('should return an Observable<Visualization[]>', () => {

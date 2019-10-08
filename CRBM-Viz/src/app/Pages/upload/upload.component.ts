@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
-import { SocialUser } from 'angularx-social-login';
+import { AuthService } from 'src/app/Services/auth0.service';
 import { MatDialog } from '@angular/material';
 import { AlertComponent } from 'src/app/Components/alert/alert.component';
 import { AlertService } from 'src/app/Services/alert.service';
@@ -10,30 +10,28 @@ import { AlertService } from 'src/app/Services/alert.service';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.sass']
+  styleUrls: ['./upload.component.sass'],
 })
 export class UploadComponent implements OnInit {
-
   fileToUpload: File = null;
   accessTypes = [
-    {value: 'private', viewValue: 'Private'},
-    {value: 'public', viewValue: 'Public'},
+    { value: 'private', viewValue: 'Private' },
+    { value: 'public', viewValue: 'Public' },
   ];
   selectedValue: string = null;
 
   constructor(
     private http: HttpClient,
+    private crbmAuthService: AuthService,
     private alertService: AlertService
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   submit(): void {
     const isValid = this.validateForm();
     if (isValid) {
-      this.uploadFile(this.fileToUpload, this.selectedValue)
-      .subscribe(
+      this.uploadFile(this.fileToUpload, this.selectedValue).subscribe(
         onSuccess => {
           this.alertService.openDialog(onSuccess['message']);
         },
@@ -42,7 +40,9 @@ export class UploadComponent implements OnInit {
         }
       );
     } else {
-      this.alertService.openDialog('Either file extension is not allowed, or access Type not selected');
+      this.alertService.openDialog(
+        'Either file extension is not allowed, or access Type not selected'
+      );
     }
   }
 
@@ -59,9 +59,11 @@ export class UploadComponent implements OnInit {
 
     if (isFileNull) {
       return false;
-    } else if ( !isFileNull
-        && CrbmConfig.ALLOWED_FILE_EXTENSIONS.includes(fileExtension)
-       && this.selectedValue !== null) {
+    } else if (
+      !isFileNull &&
+      CrbmConfig.ALLOWED_FILE_EXTENSIONS.includes(fileExtension) &&
+      this.selectedValue !== null
+    ) {
       return true;
     } else {
       return false;
@@ -79,6 +81,4 @@ export class UploadComponent implements OnInit {
   fileChange(files: FileList) {
     this.fileToUpload = files.item(0);
   }
-
-
 }

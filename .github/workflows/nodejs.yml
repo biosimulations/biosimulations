@@ -1,4 +1,4 @@
-name: Node CI
+name: Build, Lint, Test
 
 on: [push]
 
@@ -17,11 +17,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        cd CRBM-Viz
-        npm install
-        npm run build --if-present
-        npm test
-      env:
-        CI: true
+    - name: Install dependencies
+      working-directory: ./CRBM-Viz
+      run: npm install
+    - name: Lint
+      working-directory: ./CRBM-Viz
+      run: npm run lint
+    - name: Build
+      working-directory: ./CRBM-Viz
+      run: npm run build -- --prod
+    - name: Test
+      working-directory: ./CRBM-Viz
+      run: npm test -- --watch=false
+    - name: E2E
+      working-directory: ./CRBM-Viz
+      run: npm run e2e -- 
