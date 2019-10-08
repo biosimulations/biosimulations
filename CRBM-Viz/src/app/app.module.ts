@@ -1,15 +1,24 @@
 // ng Module
 import { NgModule } from '@angular/core';
+import { CrbmConfig } from './crbm-config';
 
 // Angular core components/modules/tools in imports
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
+import {
+  MatSelectModule,
+  MatDialogModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatTabsModule,
+} from '@angular/material';
 
 // Defined components
 import { AppComponent } from './app.component';
@@ -22,6 +31,12 @@ import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { UploadComponent } from './Pages/upload/upload.component';
+import { AlertComponent } from './Components/alert/alert.component';
+import { FileTableComponent } from './Pages/files/file-table/file-table.component';
+import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
+import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
 import { NavigationComponent } from './Layout/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -56,6 +71,12 @@ import { ProfileComponent } from './Components/profile/profile.component';
     LinksComponent,
     CallbackComponent,
     ProfileComponent,
+    UploadComponent,
+    FileEditComponent,
+    AlertComponent,
+    NewSimulationComponent,
+    PastSimulationComponent,
+    FileTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,5 +94,6 @@ import { ProfileComponent } from './Components/profile/profile.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [AlertComponent],
 })
 export class AppModule {}

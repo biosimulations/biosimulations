@@ -7,6 +7,8 @@ import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { AuthGuard } from './Gaurds/auth.guard';
+import { UploadComponent } from './Pages/upload/upload.component';
+import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 
@@ -21,6 +23,9 @@ const routes: Routes = [
     component: UnderConstructionComponent,
     canActivate: [AuthGuard],
   },
+  // { path: 'login', component: LoginComponent },
+  { path: 'files', component: UploadComponent, canActivate: [AuthGuard] },
+  { path: 'files/edit/:fileId', component: FileEditComponent },
   { path: 'callback', component: CallbackComponent },
   {
     path: 'profile',

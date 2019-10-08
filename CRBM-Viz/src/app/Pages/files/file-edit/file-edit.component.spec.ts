@@ -1,18 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LinksComponent } from './links.component';
 
-describe('LinksComponent', () => {
-  let component: LinksComponent;
-  let fixture: ComponentFixture<LinksComponent>;
+import { FileEditComponent } from './file-edit.component';
+
+describe('FileEditComponent', () => {
+  let component: FileEditComponent;
+  let fixture: ComponentFixture<FileEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LinksComponent],
-    }).compileComponents();
+      declarations: [ FileEditComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LinksComponent);
+    fixture = TestBed.createComponent(FileEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
