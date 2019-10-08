@@ -33,7 +33,6 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { UploadComponent } from './Pages/upload/upload.component';
 import { AlertComponent } from './Components/alert/alert.component';
-import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { NewSimulationComponent } from './Pages/simulate/new-simulation/new-simulation.component';
@@ -72,6 +71,12 @@ import { ProfileComponent } from './Components/profile/profile.component';
     LinksComponent,
     CallbackComponent,
     ProfileComponent,
+    UploadComponent,
+    FileEditComponent,
+    AlertComponent,
+    NewSimulationComponent,
+    PastSimulationComponent,
+    FileTableComponent,
   ],
   imports: [
     BrowserModule,

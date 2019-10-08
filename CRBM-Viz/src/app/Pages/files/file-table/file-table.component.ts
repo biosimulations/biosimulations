@@ -3,35 +3,36 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
 import { SocialUser } from 'angularx-social-login';
-import { CrbmAuthService } from 'src/app/Services/crbm-auth.service';
-
+import { AuthService } from 'src/app/Services/auth0.service';
 
 @Component({
   selector: 'app-file-table',
   templateUrl: './file-table.component.html',
-  styleUrls: ['./file-table.component.sass']
+  styleUrls: ['./file-table.component.sass'],
 })
 export class FileTableComponent implements OnInit {
-
   serverUrl = CrbmConfig.CRBMAPI_URL;
-  displayedColumns: string[] = ['fileId', 'filename', 'createdBy', 'accessType'];
+  displayedColumns: string[] = [
+    'fileId',
+    'filename',
+    'createdBy',
+    'accessType',
+  ];
   dataSource: MatTableDataSource<object>;
   currentUser: SocialUser = null;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private http: HttpClient, private crbmAuthService: CrbmAuthService) {
+  constructor(private http: HttpClient, private crbmAuthService: AuthService) {
     // Create 100 users
     // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
     // Assign the data to the data source for the table to render
     // this.dataSource = new MatTableDataSource(users);
   }
 
   ngOnInit() {
-    this.getFileData()
-    .subscribe(
+    this.getFileData().subscribe(
       success => {
         console.log('File fetch was successful', success);
         this.dataSource = new MatTableDataSource(success['data']);
@@ -57,7 +58,4 @@ export class FileTableComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }
-
-

@@ -10,6 +10,12 @@ import {
   MatMenuModule,
   MatListModule,
   MatInputModule,
+  MatTabsModule,
+  MatOption,
+  MatOptionModule,
+  MatSelectModule,
+  MatTableModule,
+  MatPaginatorModule,
 } from '@angular/material';
 
 const MaterialComponents = [
@@ -23,6 +29,11 @@ const MaterialComponents = [
   MatMenuModule,
   MatListModule,
   MatInputModule,
+  MatTabsModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatTableModule,
+  MatPaginatorModule,
 ];
 @NgModule({
   imports: [MaterialComponents],
