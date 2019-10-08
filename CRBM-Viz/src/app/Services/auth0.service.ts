@@ -22,8 +22,8 @@ export class AuthService {
   redirect = this.returnTo + 'callback';
   auth0Client$ = (from(
     createAuth0Client({
-      domain: 'dev-t2vyo8fj.auth0.com',
-      client_id: '6euIYB0EPMSNjsPEjrNZAMmpiuVCRYNB',
+      domain: 'crbm.auth0.com',
+      client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
       redirect_uri: this.redirect,
     })
   ) as Observable<Auth0Client>).pipe(
@@ -139,7 +139,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: '6euIYB0EPMSNjsPEjrNZAMmpiuVCRYNB',
+        client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
         returnTo: this.returnTo,
       });
       localStorage.removeItem('token');
