@@ -1,6 +1,5 @@
 // ng Module
 import { NgModule } from '@angular/core';
-import { CrbmConfig } from './crbm-config';
 
 // Angular core components/modules/tools in imports
 import { BrowserModule } from '@angular/platform-browser';

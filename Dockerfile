@@ -11,8 +11,7 @@ WORKDIR /code
 
 # Copying requirements
 COPY ./CRBM-Viz/  CRBM-Viz/
-COPY .env .env
-RUN export $(cat .env)
+
 
 WORKDIR /code/CRBM-Viz
 
