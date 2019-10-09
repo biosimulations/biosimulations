@@ -12,6 +12,7 @@ import {
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import * as config from '../../../../config.json';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +23,8 @@ export class AuthService {
   redirect = this.returnTo + 'callback';
   auth0Client$ = (from(
     createAuth0Client({
-      domain: 'crbm.auth0.com',
-      client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+      domain: config.auth0.domain,
+      client_id: config.auth0.clientId,
       redirect_uri: this.redirect,
     })
   ) as Observable<Auth0Client>).pipe(
@@ -139,7 +140,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+        client_id: config.auth0.clientId,
         returnTo: this.returnTo,
       });
       localStorage.removeItem('token');
