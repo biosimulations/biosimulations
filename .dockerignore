@@ -1,4 +1,8 @@
-CRBM-Viz/node_modules
-node_modules
+node_modules/
+dist
+e2e
+.editorconfig
+.prettierrc
 .git
 .gitignore
+karma.conf.js
