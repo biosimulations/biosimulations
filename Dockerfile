@@ -3,7 +3,7 @@
 #############
 
 # base image
-FROM node:12.2.0-alpine as build
+FROM node:12.11.1-alpine as build
 
 # set working directory
 WORKDIR /app
@@ -13,11 +13,13 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
 COPY CRBM-Viz/package.json /app/package.json
+COPY CRBM-Viz/package-lock.json /app/package-lock.json
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
+RUN npm install -g @angular/cli
 
 # add app
 COPY ./CRBM-Viz /app
+RUN ls /app
 
 # generate build
 RUN ng build --output-path=dist
