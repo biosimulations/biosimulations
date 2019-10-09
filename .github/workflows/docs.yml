@@ -29,6 +29,8 @@ jobs:
         PULL_REQUEST_BODY: 'Created documentation using compodoc'
         PULL_REQUEST_LABELS: Documentation
         PULL_REQUEST_BRANCH: documentation
+        PULL_REQUEST_ASSIGNEES: bilalshaikh42
+        PULL_REQUEST_REVIEWERS: bilalshaikh42  
         BRANCH_SUFFIX: none
 
 
