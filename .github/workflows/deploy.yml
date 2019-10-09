@@ -1,5 +1,5 @@
 name: Publish Docker
-on: [tag]
+on: [release]
 jobs:
   build:
     runs-on: ubuntu-latest
