@@ -19,7 +19,7 @@ jobs:
     - name: Install Requirments
       run: npm install -g @compodoc/compodoc
     - name: Generate Dococumentation
-      run: compodoc -p ./CRBM-Viz/tsconfig.json
+      run: compodoc -p ./CRBM-Viz/tsconfig.json -d docs
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v1.5.1
       env:
