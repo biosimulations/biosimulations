@@ -7,11 +7,8 @@ import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { AuthGuard } from './Gaurds/auth.guard';
-<<<<<<< HEAD
-=======
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
->>>>>>> master
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 
