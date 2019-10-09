@@ -10,9 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // Defined Modules in Imports
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
-<<<<<<< HEAD
-import { MatSelectModule, MatDialogModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTabsModule } from '@angular/material';
-=======
 import {
   MatSelectModule,
   MatDialogModule,
@@ -21,7 +18,6 @@ import {
   MatSortModule,
   MatTabsModule,
 } from '@angular/material';
->>>>>>> master
 
 // Defined components
 import { AppComponent } from './app.component';
@@ -34,15 +30,12 @@ import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-<<<<<<< HEAD
-=======
 import { UploadComponent } from './Pages/upload/upload.component';
 import { AlertComponent } from './Components/alert/alert.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
 import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
->>>>>>> master
 import { NavigationComponent } from './Layout/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
