@@ -3,7 +3,7 @@
 #############
 
 # base image
-FROM node:12.11.1-alpine as build
+FROM node:12-alpine as build
 
 # set working directory
 WORKDIR /app
@@ -19,10 +19,9 @@ RUN npm install -g @angular/cli
 
 # add app
 COPY ./CRBM-Viz /app
-RUN ls /app
 
 # generate build
-RUN ng build --output-path=dist
+RUN ng build --output-path=dist --prod --build-optimizer
 
 ############
 ### prod ###
@@ -30,12 +29,12 @@ RUN ng build --output-path=dist
 
 # base image
 FROM nginx:alpine
+ARG port=80
+#ENV PORT=80
+ENV PORT=$port
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# expose port 80
-EXPOSE 80
-
-# run nginx
-CMD ["nginx", "-g", "daemon off;"]
+COPY nginx/default.conf /etc/nginx/conf.d/
+#Set port for Heroku and run nginx
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
