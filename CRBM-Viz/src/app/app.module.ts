@@ -46,6 +46,7 @@ import { NewSimulationComponent } from './Components/new-simulation/new-simulati
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -96,7 +97,9 @@ import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
     MatPaginatorModule, 
     MatSortModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
 })

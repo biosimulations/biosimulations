@@ -13,7 +13,7 @@ export class LinksComponent implements OnInit {
     this.auth.userProfile$.subscribe(
       profile => {
         this.auth.getToken$().subscribe(token => {
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', token.__raw);
         });
       }
     );

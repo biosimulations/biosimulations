@@ -63,7 +63,7 @@ export class AuthService {
 
   getToken$(options?): Observable<any> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getTokenSilently(options))),
+      concatMap((client: Auth0Client) => from(client.getIdTokenClaims(options))),
       tap(token => this.token = token)
     );
   }
