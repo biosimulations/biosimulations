@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
 import { AuthService } from 'src/app/Services/auth0.service';
 import { async } from 'q';
+import { AlertService } from 'src/app/Services/alert.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-file-table',
@@ -24,7 +26,10 @@ export class FileTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private http: HttpClient, private auth: AuthService) {
+  constructor(
+    private http: HttpClient, 
+    private auth: AuthService,
+    private alertService: AlertService) {
     // Create 100 users
     // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
     // Assign the data to the data source for the table to render
@@ -59,5 +64,17 @@ export class FileTableComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  onFileDelete(fileId: number) {
+    this.http.delete(`${this.serverUrl}/file/${fileId}`).subscribe
+    (
+      success => {
+        this.alertService.openDialog('File deleted successfully' + JSON.stringify(success));
+      },
+      error => {
+        this.alertService.openDialog('There was an error while deleting the file' + JSON.stringify(error));
+      }
+    )
   }
 }

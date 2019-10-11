@@ -46,6 +46,9 @@
                 ><mat-icon>edit</mat-icon></a
               >
             </span>
+            <span *ngIf="row.createdBy === currentUser.email" class="delete">
+              <mat-icon (click)="onFileDelete(row.fileId)">delete</mat-icon>
+            </span>
           </td>
         </ng-container>
 
