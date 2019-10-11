@@ -28,6 +28,7 @@ export class NewSimulationComponent implements OnInit {
       success => {
         this.omexFiles = this.simulationService.omexFiles;
         this.solverFiles = this.simulationService.solverFiles;
+        this.sbatchFiles = this.simulationService.sbatchFiles;
       },
       error => {
         this.alertService.openDialog(
