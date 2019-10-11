@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
-import { CrbmConfig } from 'src/app/crbm-config';
 import { AuthService } from 'src/app/Services/auth0.service';
-import { async } from 'q';
 import { AlertService } from 'src/app/Services/alert.service';
-import { JsonPipe } from '@angular/common';
 import { FileService } from 'src/app/Services/file.service';
 
 @Component({

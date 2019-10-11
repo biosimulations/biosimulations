@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { CrbmConfig } from 'src/app/crbm-config';
 import { AlertService } from 'src/app/Services/alert.service';
 import { SimulationService } from 'src/app/Services/simulation.service';
 
@@ -11,7 +9,6 @@ import { SimulationService } from 'src/app/Services/simulation.service';
   styleUrls: ['./past-simulation.component.sass'],
 })
 export class PastSimulationComponent implements OnInit {
-  serverUrl = CrbmConfig.CRBMAPI_URL;
   displayedColumns: string[] = [
     'job_id',
     'created_by',

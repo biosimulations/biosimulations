@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CrbmConfig } from '../crbm-config';
 import * as config from '../../../../config.json'
 import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
@@ -54,7 +53,7 @@ export class SimulationService {
     selectedSolver: string
     ) {
     const id = this.getFileId(selectedSbatch);
-    return this.http.post(`${CrbmConfig.CRBMAPI_URL}/simulation`, {
+    return this.http.post(`${config.crbm.CRBMAPI_URL}/simulation`, {
       omex: selectedOmex,
       solver: selectedSolver,
       fileId: id

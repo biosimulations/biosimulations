@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CrbmConfig } from 'src/app/crbm-config';
 import { AlertService } from 'src/app/Services/alert.service';
 import { SimulationService } from 'src/app/Services/simulation.service';
 

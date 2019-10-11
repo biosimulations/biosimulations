@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { CrbmConfig } from 'src/app/crbm-config';
-import { AuthService } from 'src/app/Services/auth0.service';
-import { MatDialog } from '@angular/material';
-import { AlertComponent } from 'src/app/Components/alert/alert.component';
 import { AlertService } from 'src/app/Services/alert.service';
 import { FileService } from 'src/app/Services/file.service';
+import * as config from '../../../../../config.json'
 
 @Component({
   selector: 'app-upload',
@@ -55,7 +50,7 @@ export class UploadComponent implements OnInit {
       return false;
     } else if (
       !isFileNull &&
-      CrbmConfig.ALLOWED_FILE_EXTENSIONS.includes(fileExtension) &&
+      config.crbm.ALLOWED_FILE_EXTENSIONS.includes(fileExtension) &&
       this.selectedValue !== null
     ) {
       return true;
