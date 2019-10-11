@@ -3,6 +3,7 @@ import * as config from '../../../../config.json'
 import { AlertService } from './alert.service.js';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class FileService {
 
   constructor(
     private http: HttpClient,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) { }
 
   uploadFile(file: File, accessType: string) {
@@ -66,5 +68,27 @@ export class FileService {
         );
       }
     )
+  }
+
+  getFile(fileId: number) {
+    return this.http.get(`${config.crbm.CRBMAPI_URL}/file/${fileId}`);
+  }
+
+  saveFile(currentFile: object, selectedValue: string): void {
+    this.http.put(`${config.crbm.CRBMAPI_URL}/file/${currentFile['fileId']}`, {
+      accessType: selectedValue
+    })
+      .subscribe(
+        success => {
+            console.log('File update successfull', success);
+            this.alertService.openDialog('File update successful');
+            this.router.navigate(['/files']);
+
+        },
+        error => {
+          console.log('File update failed', error);
+          this.alertService.openDialog('File update failed');
+        }
+      );
   }
 }
