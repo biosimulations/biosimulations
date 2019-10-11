@@ -9,6 +9,7 @@ import { SimulationService } from 'src/app/Services/simulation.service';
   styleUrls: ['./past-simulation.component.sass'],
 })
 export class PastSimulationComponent implements OnInit {
+  isLoading = true;
   displayedColumns: string[] = [
     'job_id',
     'created_by',
@@ -38,6 +39,7 @@ export class PastSimulationComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.simulationData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.isLoading = false;
       },
       error => {
         this.alertService.openDialog(

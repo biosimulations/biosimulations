@@ -47,6 +47,7 @@ import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
+import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-spinner.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -76,6 +77,7 @@ import { AuthInterceptorService } from './Interceptors/auth-interceptor.service'
     NewSimulationComponent,
     PastSimulationComponent,
     FileTableComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
