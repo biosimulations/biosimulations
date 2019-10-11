@@ -45,7 +45,7 @@ export class FileTableComponent implements OnInit {
     );
 
     this.auth.userProfile$.subscribe(
-      profile => this.currentUser = JSON.stringify(profile, null, 2)
+      profile => this.currentUser = profile
     );
   }
 
