@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/Services/auth0.service';
 import { async } from 'q';
 import { AlertService } from 'src/app/Services/alert.service';
 import { JsonPipe } from '@angular/common';
+import { FileService } from 'src/app/Services/file.service';
 
 @Component({
   selector: 'app-file-table',
@@ -13,7 +14,7 @@ import { JsonPipe } from '@angular/common';
   styleUrls: ['./file-table.component.sass'],
 })
 export class FileTableComponent implements OnInit {
-  serverUrl = CrbmConfig.CRBMAPI_URL;
+  fileList: Array<object> = null;
   displayedColumns: string[] = [
     'fileId',
     'filename',
@@ -28,35 +29,34 @@ export class FileTableComponent implements OnInit {
 
   constructor(
     private http: HttpClient, 
+    private fileService: FileService,
     private auth: AuthService,
-    private alertService: AlertService) {
-    // Create 100 users
-    // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-    // Assign the data to the data source for the table to render
-    // this.dataSource = new MatTableDataSource(users);
-  }
+    private alertService: AlertService) { }
 
   ngOnInit() {
-    this.getFileData().subscribe(
+    this.fileService.fileChangeSubject.subscribe(
       success => {
-        console.log('File fetch was successful', success);
-        this.dataSource = new MatTableDataSource(success['data']);
+        this.fileList = this.fileService.fileList;
+        this.dataSource = new MatTableDataSource(this.fileList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error => {
-        console.log('Error file fetching file info');
+        this.alertService.openDialog(
+          'Error from FileTableComponent, can\'t fetch files: '+
+          JSON.stringify(error)
+        );
       }
     );
+
+    this.fileService.getFileData();
 
     this.auth.userProfile$.subscribe(
       profile => this.currentUser = profile
     );
   }
 
-  getFileData() {
-    return this.http.get(`${this.serverUrl}/file`);
-  }
+  
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -67,14 +67,6 @@ export class FileTableComponent implements OnInit {
   }
 
   onFileDelete(fileId: number) {
-    this.http.delete(`${this.serverUrl}/file/${fileId}`).subscribe
-    (
-      success => {
-        this.alertService.openDialog('File deleted successfully' + JSON.stringify(success));
-      },
-      error => {
-        this.alertService.openDialog('There was an error while deleting the file' + JSON.stringify(error));
-      }
-    )
+    this.fileService.deleteFile(fileId);
   }
 }
