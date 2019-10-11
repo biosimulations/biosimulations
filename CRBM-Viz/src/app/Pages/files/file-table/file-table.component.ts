@@ -12,6 +12,7 @@ import * as config from '../../../../../../config.json'
   styleUrls: ['./file-table.component.sass'],
 })
 export class FileTableComponent implements OnInit {
+  isLoading = true;
   serverUrl = config.crbm.CRBMAPI_URL; // Required in template
   fileList: Array<object> = null;
   displayedColumns: string[] = [
@@ -39,6 +40,7 @@ export class FileTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.fileList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.isLoading = false;
       },
       error => {
         this.alertService.openDialog(

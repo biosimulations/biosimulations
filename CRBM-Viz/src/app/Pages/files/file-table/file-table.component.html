@@ -1,4 +1,5 @@
-<div class="container">
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<div class="container" *ngIf="!isLoading">
   <div class="row">
     <h3>All Files</h3>
   </div>
