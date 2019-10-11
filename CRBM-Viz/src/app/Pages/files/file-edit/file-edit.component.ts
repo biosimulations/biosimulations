@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CrbmConfig } from 'src/app/crbm-config';
 import { AlertService } from 'src/app/Services/alert.service';
 
@@ -25,7 +25,8 @@ export class FileEditComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private router: Router) { }
 
   ngOnInit() {
     const fileId = this.route.snapshot.params['fileId'];
@@ -53,6 +54,8 @@ export class FileEditComponent implements OnInit {
         success => {
             console.log('File update successfull', success);
             this.alertService.openDialog('File update successful');
+            this.router.navigate(['/files']);
+
         },
         error => {
           console.log('File update failed', error);

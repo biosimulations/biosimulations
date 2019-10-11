@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   // { path: 'login', component: LoginComponent },
   { path: 'files', component: UploadComponent, canActivate: [AuthGuard] },
-  { path: 'files/edit/:fileId', component: FileEditComponent },
+  { path: 'files/edit/:fileId', component: FileEditComponent, canActivate: [AuthGuard] },
   { path: 'callback', component: CallbackComponent },
   {
     path: 'profile',

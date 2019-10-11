@@ -42,12 +42,10 @@
           <td mat-cell *matCellDef="let row">
             {{ row.accessType }}
             <span *ngIf="row.createdBy === currentUser.email" class="edit">
-              <a href="/files/edit/{{ row.fileId }}"
-                ><mat-icon>edit</mat-icon></a
-              >
+              <a [routerLink]="['edit',row.fileId]"><mat-icon>edit</mat-icon></a>
             </span>
             <span *ngIf="row.createdBy === currentUser.email" class="delete">
-              <mat-icon (click)="onFileDelete(row.fileId)">delete</mat-icon>
+              <a (click)="onFileDelete(row.fileId)"><mat-icon>delete</mat-icon></a>
             </span>
           </td>
         </ng-container>

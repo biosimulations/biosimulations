@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/Services/auth0.service';
 import { AlertService } from 'src/app/Services/alert.service';
 import { FileService } from 'src/app/Services/file.service';
+import * as config from '../../../../../../config.json'
 
 @Component({
   selector: 'app-file-table',
@@ -11,6 +12,7 @@ import { FileService } from 'src/app/Services/file.service';
   styleUrls: ['./file-table.component.sass'],
 })
 export class FileTableComponent implements OnInit {
+  serverUrl = config.crbm.CRBMAPI_URL; // Required in template
   fileList: Array<object> = null;
   displayedColumns: string[] = [
     'fileId',
