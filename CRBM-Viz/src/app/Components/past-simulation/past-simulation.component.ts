@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { CrbmConfig } from 'src/app/crbm-config';
 import { AlertService } from 'src/app/Services/alert.service';
+import { SimulationService } from 'src/app/Services/simulation.service';
 
 @Component({
   selector: 'app-past-simulation',
@@ -28,42 +29,26 @@ export class PastSimulationComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private http: HttpClient, private alertService: AlertService) {}
+  constructor(
+    private alertService: AlertService,
+    private simulationService: SimulationService
+    ) {}
 
   ngOnInit() {
-    this.getFileInfo().subscribe(
+    this.simulationService.simulationDataChangeSubject.subscribe(
       success => {
-        console.log('Fetching of Omex and solver successful', success);
-        this.simulationData = this.flattenSimulationData(
-          success['data']['simulations']
-        );
+        this.simulationData = this.simulationService.simulationData;
         this.dataSource = new MatTableDataSource(this.simulationData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error => {
-        this.alertService.openDialog('Error occured while fetching file info');
+        this.alertService.openDialog(
+          'Error in simulation service subject: ' +
+          JSON.stringify(error)
+          );
       }
     );
-  }
-
-  flattenSimulationData(simData) {
-    const data = [];
-    for (const sim of simData) {
-      const simObj = { ...sim };
-      const jobInfo = sim['jobInfo'];
-      for (const key in jobInfo) {
-        if (jobInfo.hasOwnProperty(key)) {
-          simObj[key] = jobInfo[key];
-        }
-      }
-      data.push(simObj);
-    }
-    return data;
-  }
-
-  getFileInfo() {
-    return this.http.get(`${CrbmConfig.CRBMAPI_URL}/simulation`);
   }
 
   applyFilter(filterValue: string) {

@@ -2,5 +2,9 @@
     "auth0": {
         "domain": "crbm.auth0.com",
         "clientId": "0NKMjbZuexkCgfWY3BG9C3808YsdLUrb"
+    },
+    "crbm": {
+        "CRBMAPI_URL": "http://localhost:5000",
+        "ALLOWED_FILE_EXTENSIONS": ["png", "omex", "pdf", "csv", "xlsx", "sh"]
     }
 }
