@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/Services/auth0.service';
 import { AlertService } from 'src/app/Services/alert.service';
 import { FileService } from 'src/app/Services/file.service';
-import * as config from '../../../../../../config.json'
+import * as config from '../../../../../config.json'
 
 @Component({
   selector: 'app-file-table',

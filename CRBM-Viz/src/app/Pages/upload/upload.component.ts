@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/Services/alert.service';
 import { FileService } from 'src/app/Services/file.service';
-import * as config from '../../../../../config.json'
+import * as config from '../../../../config.json'
 
 @Component({
   selector: 'app-upload',

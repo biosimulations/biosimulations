@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as config from '../../../../config.json'
+import * as config from '../../../config.json'
 import { AlertService } from './alert.service.js';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';

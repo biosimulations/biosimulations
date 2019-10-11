@@ -12,7 +12,7 @@ import {
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import * as config from '../../../../config.json';
+import * as config from '../../../config.json';
 
 @Injectable({
   providedIn: 'root',
