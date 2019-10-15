@@ -372,14 +372,15 @@ export class NavigationComponent {
 .full-content
   height: 100%
 .content
-  min-height: 95%
+  min-height: 93%
   height: auto
   overflow: auto
   padding-left: 1.5%
   padding-top: 5px
   background-image: url(&#x27;../../../assets/background-grey.png&#x27;)
 .footer
-  height: 5%
+  height: auto
+  max-height: 5%
   background: #ebebeb
   padding: 0px
   margin: 0px
@@ -450,6 +451,7 @@ export class NavigationComponent {
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
             var COMPODOC_CURRENT_PAGE_URL = 'NavigationComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
