@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewSimulationComponent } from './new-simulation.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('NewSimulationComponent', () => {
   let component: NewSimulationComponent;
@@ -8,9 +9,9 @@ describe('NewSimulationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewSimulationComponent ]
-    })
-    .compileComponents();
+      declarations: [NewSimulationComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,5 +1,5 @@
 // ng Module
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // Angular core components/modules/tools in imports
 import { BrowserModule } from '@angular/platform-browser';
@@ -78,5 +78,6 @@ import { FooterComponent } from './Layout/footer/footer.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
