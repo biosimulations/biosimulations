@@ -48,6 +48,7 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-spinner.component';
+import { FooterComponent } from './Layout/footer/footer.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -78,6 +79,7 @@ import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-sp
     PastSimulationComponent,
     FileTableComponent,
     LoadingSpinnerComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
