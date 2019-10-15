@@ -35,7 +35,7 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>LogoComponent</li>
+  <li>FooterComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Layout/logo/logo.component.ts</code>
+    <code>CRBM-Viz/src/app/Layout/footer/footer.component.ts</code>
 </p>
 
 
@@ -91,19 +91,19 @@
 
             <tr>
                 <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>app-logo</code></td>
+                <td class="col-md-9"><code>app-footer</code></td>
             </tr>
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./logo.component.sass</code></td>
+                <td class="col-md-9"><code>./footer.component.sass</code></td>
             </tr>
 
 
 
             <tr>
                 <td class="col-md-3">templateUrl</td>
-                <td class="col-md-9"><code>./logo.component.html</code></td>
+                <td class="col-md-9"><code>./footer.component.html</code></td>
             </tr>
 
 
@@ -156,7 +156,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">CRBM-Viz/src/app/Layout/logo/logo.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">CRBM-Viz/src/app/Layout/footer/footer.component.ts:8</a></div>
                             </td>
                         </tr>
 
@@ -196,7 +196,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/Layout/logo/logo.component.ts:12</a></div>
+                            class="link-to-prism">CRBM-Viz/src/app/Layout/footer/footer.component.ts:12</a></div>
                 </td>
             </tr>
 
@@ -221,11 +221,11 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 
 @Component({
-  selector: &#x27;app-logo&#x27;,
-  templateUrl: &#x27;./logo.component.html&#x27;,
-  styleUrls: [&#x27;./logo.component.sass&#x27;]
+  selector: &#x27;app-footer&#x27;,
+  templateUrl: &#x27;./footer.component.html&#x27;,
+  styleUrls: [&#x27;./footer.component.sass&#x27;]
 })
-export class LogoComponent implements OnInit {
+export class FooterComponent implements OnInit {
 
   constructor() { }
 
@@ -237,25 +237,41 @@ export class LogoComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;logo&quot;&gt;
-    &lt;a href&#x3D;&quot;https://reproduciblebiomodels.org/&quot;&gt;
-        &lt;img src&#x3D;&quot;assets/logo.png&quot; /&gt;
-    &lt;/a&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;footer&quot;&gt;
+  &lt;span class&#x3D;&quot;Auth0&quot;&gt;
+    &lt;p&gt;Powered by:&lt;/p&gt;
+    &lt;a
+      width&#x3D;&quot;150&quot;
+      height&#x3D;&quot;50&quot;
+      href&#x3D;&quot;https://auth0.com/?utm_source&#x3D;oss&amp;utm_medium&#x3D;gp&amp;utm_campaign&#x3D;oss&quot;
+      target&#x3D;&quot;_blank&quot;
+      alt&#x3D;&quot;Single Sign On &amp; Token Based Authentication - Auth0&quot;
+      &gt;&lt;img
+        width&#x3D;&quot;150&quot;
+        height&#x3D;&quot;50&quot;
+        alt&#x3D;&quot;JWT Auth for open source projects&quot;
+        src&#x3D;&quot;//cdn.auth0.com/oss/badges/a0-badge-light.png&quot;
+    /&gt;&lt;/a&gt;
+  &lt;/span&gt;
 &lt;/div&gt;
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
                 <p class="comment">
-                    <code>./logo.component.sass</code>
+                    <code>./footer.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">.logo
+                <pre class="line-numbers"><code class="language-scss">.footer
+    background: inherit
     height: 100%
     width: 100%
-a
-    img
-        height: 100%
-</code></pre>
+    display: flex
+    flex-direction: row-reverse
+
+.Auth0
+    display: flex
+    align-self: flex-end
+    flex-basis: 0 1 1</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -283,10 +299,10 @@ a
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="logo">    <a href="https://reproduciblebiomodels.org/">        <img src="assets/logo.png" />    </a></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="footer">  <span class="Auth0">    <p>Powered by:</p>    <a      width="150"      height="50"      href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss"      target="_blank"      alt="Single Sign On & Token Based Authentication - Auth0"      ><img        width="150"        height="50"        alt="JWT Auth for open source projects"        src="//cdn.auth0.com/oss/badges/a0-badge-light.png"    /></a>  </span></div></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LinksComponent', 'selector': 'app-links'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
-    var ACTUAL_COMPONENT = {'name': 'LogoComponent'};
+    var ACTUAL_COMPONENT = {'name': 'FooterComponent'};
 </script>
 <script src="../js/tree.js"></script>
 
@@ -321,7 +337,7 @@ a
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
-            var COMPODOC_CURRENT_PAGE_URL = 'LogoComponent.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'FooterComponent.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
