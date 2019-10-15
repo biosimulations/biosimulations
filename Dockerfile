@@ -21,9 +21,6 @@ RUN npm install -g @angular/cli
 # add app
 COPY ./CRBM-Viz /app
 
-# add config
-COPY ./CRBM-Viz/config.example.json /app/config.json
-
 # generate build
 RUN ng build --output-path=dist --prod --build-optimizer
 
