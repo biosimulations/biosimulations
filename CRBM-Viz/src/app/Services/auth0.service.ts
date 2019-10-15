@@ -10,7 +10,7 @@ import {
   throwError,
 } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,7 +18,9 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   // Create an observable of Auth0 instance of client
-  returnTo = window.location.origin + environment.baseUrl;
+  //returnTo = window.location.origin + environment.baseUrl;
+  returnTo;
+  //returnTo = this.route.fragment;
   redirect = this.returnTo + 'callback';
   auth0Client$ = (from(
     createAuth0Client({
@@ -47,7 +49,13 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private houte: ActivatedRoute) {
+    this.houte.fragment.subscribe(url => {
+      const returnTo = url;
+      this.returnTo = returnTo;
+      console.log(url);
+    });
+  }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
