@@ -46,6 +46,7 @@ import { MatListModule } from '@angular/material/list';
 import { LinksComponent } from './Layout/links/links.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { FooterComponent } from './Layout/footer/footer.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -76,6 +77,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
     NewSimulationComponent,
     PastSimulationComponent,
     FileTableComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
