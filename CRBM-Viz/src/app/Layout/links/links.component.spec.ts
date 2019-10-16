@@ -13,7 +13,7 @@ describe('LinksComponent', () => {
       declarations: [LinksComponent],
       imports: [RouterTestingModule],
       providers: [
-        { provide: Router, useValue: Router },
+        { provide: RouterTestingModule, useValue: RouterTestingModule },
         { provide: ActivatedRoute, useValue: ActivatedRoute },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
