@@ -17,6 +17,7 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatTabsModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 
 // Defined components
@@ -47,7 +48,6 @@ import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
-import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-spinner.component';
 import { FooterComponent } from './Layout/footer/footer.component';
 
 // Services
@@ -78,7 +78,6 @@ import { FooterComponent } from './Layout/footer/footer.component';
     NewSimulationComponent,
     PastSimulationComponent,
     FileTableComponent,
-    LoadingSpinnerComponent,
     FooterComponent,
   ],
   imports: [
@@ -99,7 +98,8 @@ import { FooterComponent } from './Layout/footer/footer.component';
     MatDialogModule, 
     MatTableModule, 
     MatPaginatorModule, 
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
