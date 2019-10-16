@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment as config }  from 'src/environments/environment';
+import { environment }  from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
 
@@ -22,7 +22,7 @@ export class SimulationService {
     ) { }
 
   getSimulationAndJobFilesInfo(): void {
-    this.http.get(`${config.crbm.CRBMAPI_URL}/simulation`)
+    this.http.get(`${environment.crbm.CRBMAPI_URL}/simulation`)
     .subscribe(
       success => {
         this.simulationData = this.flattenSimulationData(
@@ -53,7 +53,7 @@ export class SimulationService {
     selectedSolver: string
     ) {
     const id = this.getFileId(selectedSbatch);
-    return this.http.post(`${config.crbm.CRBMAPI_URL}/simulation`, {
+    return this.http.post(`${environment.crbm.CRBMAPI_URL}/simulation`, {
       omex: selectedOmex,
       solver: selectedSolver,
       fileId: id

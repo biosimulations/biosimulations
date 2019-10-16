@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/Services/auth0.service';
 import { AlertService } from 'src/app/Services/alert.service';
 import { FileService } from 'src/app/Services/file.service';
-import { environment as config }  from 'src/environments/environment';
+import { environment }  from 'src/environments/environment';
 
 @Component({
   selector: 'app-file-table',
@@ -13,7 +13,7 @@ import { environment as config }  from 'src/environments/environment';
 })
 export class FileTableComponent implements OnInit {
   isLoading = true;
-  serverUrl = config.crbm.CRBMAPI_URL; // Required in template
+  serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
   fileList: Array<object> = null;
   displayedColumns: string[] = [
     'fileId',

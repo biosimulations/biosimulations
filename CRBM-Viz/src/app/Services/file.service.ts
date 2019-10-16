@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment as config }  from 'src/environments/environment';
+import { environment }  from 'src/environments/environment';
 import { AlertService } from './alert.service.js';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -19,7 +19,7 @@ export class FileService {
   ) { }
 
   uploadFile(file: File, accessType: string) {
-    const endpoint = `${config.crbm.CRBMAPI_URL}/file`;
+    const endpoint = `${environment.crbm.CRBMAPI_URL}/file`;
     const formData = new FormData();
     formData.append('file', file, file.name);
     formData.append('accessType', accessType);
@@ -41,7 +41,7 @@ export class FileService {
   }
 
   getFileData(): void {
-    this.http.get(`${config.crbm.CRBMAPI_URL}/file`).subscribe(
+    this.http.get(`${environment.crbm.CRBMAPI_URL}/file`).subscribe(
       success => {
         this.fileList = success['data'];
         this.fileChangeSubject.next();
@@ -53,7 +53,7 @@ export class FileService {
   }
 
   deleteFile(fileId: number): void {
-    this.http.delete(`${config.crbm.CRBMAPI_URL}/file/${fileId}`).subscribe
+    this.http.delete(`${environment.crbm.CRBMAPI_URL}/file/${fileId}`).subscribe
     (
       success => {
         this.alertService.openDialog(
@@ -71,11 +71,11 @@ export class FileService {
   }
 
   getFile(fileId: number) {
-    return this.http.get(`${config.crbm.CRBMAPI_URL}/file/${fileId}`);
+    return this.http.get(`${environment.crbm.CRBMAPI_URL}/file/${fileId}`);
   }
 
   saveFile(currentFile: object, selectedValue: string): void {
-    this.http.put(`${config.crbm.CRBMAPI_URL}/file/${currentFile['fileId']}`, {
+    this.http.put(`${environment.crbm.CRBMAPI_URL}/file/${currentFile['fileId']}`, {
       accessType: selectedValue
     })
       .subscribe(

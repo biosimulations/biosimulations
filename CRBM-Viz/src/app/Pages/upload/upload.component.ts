@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/Services/alert.service';
 import { FileService } from 'src/app/Services/file.service';
-import { environment as config }  from 'src/environments/environment';
+import { environment }  from 'src/environments/environment';
 
 @Component({
   selector: 'app-upload',
@@ -50,7 +50,7 @@ export class UploadComponent implements OnInit {
       return false;
     } else if (
       !isFileNull &&
-      config.crbm.ALLOWED_FILE_EXTENSIONS.includes(fileExtension) &&
+      environment.crbm.ALLOWED_FILE_EXTENSIONS.includes(fileExtension) &&
       this.selectedValue !== null
     ) {
       return true;
