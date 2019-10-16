@@ -7,7 +7,13 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
     "e2e": "ng e2e"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix"
+    }
   },
   "private": true,
   "dependencies": {
@@ -42,6 +48,7 @@
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.1.2",
+    "husky": "^3.0.9",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
