@@ -65,6 +65,7 @@ import { FooterComponent } from './Layout/footer/footer.component';
     PastSimulationComponent,
     FileTableComponent,
     FooterComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
