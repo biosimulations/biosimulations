@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewSimulationComponent } from './new-simulation.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MatTableModule, MatDialogModule } from '@angular/material';
-// TODO change this import to simply import the app-material module?
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AlertComponent } from 'src/app/Components/alert/alert.component';
 // TODO The alert component needs to be mocked !
+import { AlertComponent } from 'src/app/Components/alert/alert.component';
+import { MaterialModule } from 'src/app/Modules/app-material.module';
 
 // TODO this test causes the next test to fail due to missing alertcomponent factory
 xdescribe('NewSimulationComponent', () => {
@@ -18,13 +18,13 @@ xdescribe('NewSimulationComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NewSimulationComponent],
       imports: [
-        MatTableModule,
+        MaterialModule,
         HttpClientModule,
-        MatDialogModule,
         BrowserAnimationsModule,
+        MatDialogModule,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [HttpClientModule, MatDialogModule],
+      providers: [HttpClientModule, MaterialModule, MatDialogModule],
     }).compileComponents();
   }));
 
