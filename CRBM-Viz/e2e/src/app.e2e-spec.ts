@@ -8,16 +8,21 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display home page', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('CRBM-Viz app is running!');
+    expect(page.getTitleText()).toEqual('home works!');
   });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+    const logs = await browser
+      .manage()
+      .logs()
+      .get(logging.Type.BROWSER);
+    expect(logs).not.toContain(
+      jasmine.objectContaining({
+        level: logging.Level.SEVERE,
+      } as logging.Entry)
+    );
   });
 });
