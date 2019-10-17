@@ -68,7 +68,7 @@ import { FooterComponent } from './Layout/footer/footer.component';
     AlertComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
