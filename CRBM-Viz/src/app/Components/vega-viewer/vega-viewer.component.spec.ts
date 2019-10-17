@@ -8,18 +8,23 @@ describe('VegaViewerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VegaViewerComponent ]
-    })
-    .compileComponents();
+      declarations: [VegaViewerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(VegaViewerComponent);
     component = fixture.componentInstance;
+    const mockviz = {
+      id: 0,
+      name: 'testViz',
+      spec: 'https://vega.github.io/vega/examples/bar-chart.vg.json',
+    };
+    component.viz = mockviz;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', async(() => {
     expect(component).toBeTruthy();
-  });
+  }));
 });
