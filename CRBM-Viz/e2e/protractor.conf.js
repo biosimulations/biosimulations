@@ -10,22 +10,23 @@ const {
  * @type { import("protractor").Config }
  */
 exports.config = {
+  SELENIUM_PROMISE_MANAGER: false,
   allScriptsTimeout: 11000,
   specs: [
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
+    'browserName': 'chrome',
     chromeOptions: {
       args: ["--headless"]
     },
-    'browserName': 'chrome'
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: 999999,
     print: function () {}
   },
   onPrepare() {

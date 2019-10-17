@@ -8,9 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display home page', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('home works!');
+  it('should display home page', async () => {
+    await page.navigateTo();
+
+    expect(await page.getTitleText()).toEqual('home works!');
   });
 
   afterEach(async () => {
