@@ -49,6 +49,7 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
+import { DrawerLinksComponent } from './Layout/drawer-links/drawer-links.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -80,6 +81,7 @@ import { FooterComponent } from './Layout/footer/footer.component';
     FileTableComponent,
     FooterComponent,
     AlertComponent,
+    DrawerLinksComponent,
   ],
   imports: [
     BrowserModule,

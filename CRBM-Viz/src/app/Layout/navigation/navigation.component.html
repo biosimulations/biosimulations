@@ -6,7 +6,7 @@
     fixedInViewport="false"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
+    
   >
     <mat-toolbar>
       Menu
@@ -22,7 +22,7 @@
       </button>
     </mat-toolbar>
     <mat-nav-list>
-      <app-links></app-links>
+      <app-drawer-links></app-drawer-links>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="full-content">
