@@ -18,6 +18,11 @@ import {
   MatSortModule,
   MatTabsModule,
   MatProgressSpinnerModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
 } from '@angular/material';
 
 // Defined components
