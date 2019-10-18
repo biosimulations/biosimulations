@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SearchBarComponent } from './search-bar.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -8,10 +9,11 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchBarComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    })
-    .compileComponents();
+      declarations: [SearchBarComponent],
+      imports: [RouterTestingModule],
+      providers: [RouterTestingModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

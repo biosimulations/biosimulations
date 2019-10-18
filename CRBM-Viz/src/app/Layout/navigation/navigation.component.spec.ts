@@ -1,30 +1,31 @@
-import { LayoutModule } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// TODO The indiviudal components should be mocked
 import { NavigationComponent } from './navigation.component';
+import { LinksComponent } from '../links/links.component';
+import { LogoComponent } from '../logo/logo.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { FooterComponent } from '../footer/footer.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from 'src/app/Modules/app-material.module';
 
+// TODO Sample content is needed and component compiled with it as input for <ng-content>
+import { AboutComponent } from 'src/app/Pages/about/about.component';
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
   let fixture: ComponentFixture<NavigationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NavigationComponent],
-      imports: [
-        NoopAnimationsModule,
-        LayoutModule,
-        MatButtonModule,
-        MatIconModule,
-        MatListModule,
-        MatSidenavModule,
-        MatToolbarModule,
-      ]
+      declarations: [
+        NavigationComponent,
+        LinksComponent,
+        LogoComponent,
+        SearchBarComponent,
+        FooterComponent,
+      ],
+      imports: [MaterialModule, BrowserAnimationsModule, RouterTestingModule],
     }).compileComponents();
   }));
 

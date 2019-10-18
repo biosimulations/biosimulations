@@ -8,7 +8,7 @@ import { Visualization } from 'src/app/Models/visualization';
 })
 export class VegaViewerComponent implements OnInit, AfterViewInit {
   @Input() viz: Visualization;
-  spec: object;
+  spec: object | string;
   specid: string;
   vizname: string;
   root: string;
@@ -27,7 +27,7 @@ export class VegaViewerComponent implements OnInit, AfterViewInit {
     this.load();
   }
   load() {
-    console.log(this.root);
+    console.log(this.viz);
     vegaEmbed(this.root, this.spec)
       // result.view provides access to the Vega View API
       .then(result => console.log(result))
