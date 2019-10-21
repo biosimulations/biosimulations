@@ -239,8 +239,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/app.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="13"
+                            class="link-to-prism">CRBM-Viz/src/app/app.component.ts:13</a></div>
                 </td>
             </tr>
 
@@ -310,9 +310,17 @@ import { AuthService } from &#x27;./Services/auth0.service&#x27;;
 export class AppComponent implements OnInit {
   title &#x3D; &#x27;CRBM-Viz&#x27;;
 
+  // TODO Test the creation of token
   constructor(private auth: AuthService) {}
   ngOnInit() {
     this.auth.localAuthSetup();
+    this.auth.userProfile$.subscribe(profile &#x3D;&gt; {
+      this.auth.getToken$().subscribe(token &#x3D;&gt; {
+        if (token) {
+          localStorage.setItem(&#x27;test&#x27;, token.__raw);
+        }
+      });
+    });
   }
 }
 </code></pre>

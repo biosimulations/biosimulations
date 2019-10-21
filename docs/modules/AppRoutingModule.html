@@ -97,7 +97,7 @@ const routes: Routes &#x3D; [
   },
   // { path: &#x27;login&#x27;, component: LoginComponent },
   { path: &#x27;files&#x27;, component: UploadComponent, canActivate: [AuthGuard] },
-  { path: &#x27;files/edit/:fileId&#x27;, component: FileEditComponent },
+  { path: &#x27;files/edit/:fileId&#x27;, component: FileEditComponent, canActivate: [AuthGuard] },
   { path: &#x27;callback&#x27;, component: CallbackComponent },
   {
     path: &#x27;profile&#x27;,
