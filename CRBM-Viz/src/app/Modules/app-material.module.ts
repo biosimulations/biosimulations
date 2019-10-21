@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import {
   MatButtonModule,
   MatButtonToggleModule,
@@ -13,9 +14,11 @@ import {
   MatTabsModule,
   MatOption,
   MatOptionModule,
+  MatSortModule,
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
+  MatDialogModule,
 } from '@angular/material';
 
 const MaterialComponents = [
@@ -34,6 +37,7 @@ const MaterialComponents = [
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
+  MatDialogModule,
 ];
 @NgModule({
   imports: [MaterialComponents],
