@@ -8,15 +8,16 @@ import { AuthService } from './Services/auth0.service';
 export class AppComponent implements OnInit {
   title = 'CRBM-Viz';
 
+  // TODO Test the creation of token
   constructor(private auth: AuthService) {}
   ngOnInit() {
     this.auth.localAuthSetup();
-    this.auth.userProfile$.subscribe(
-      profile => {
-        this.auth.getToken$().subscribe(token => {
-          localStorage.setItem('token', token.__raw);
-        });
-      }
-    );
+    this.auth.userProfile$.subscribe(profile => {
+      this.auth.getToken$().subscribe(token => {
+        if (token) {
+          localStorage.setItem('test', token.__raw);
+        }
+      });
+    });
   }
 }

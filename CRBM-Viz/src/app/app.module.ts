@@ -10,20 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // Defined Modules in Imports
 import { AppRoutingModule } from './Modules/app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
-import {
-  MatSelectModule,
-  MatDialogModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatTabsModule,
-  MatProgressSpinnerModule,
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-} from '@angular/material';
 
 // Defined components
 import { AppComponent } from './app.component';
@@ -91,21 +77,13 @@ import { DrawerLinksComponent } from './Layout/drawer-links/drawer-links.compone
     HttpClientModule,
     MaterialModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTabsModule,
-    MatSelectModule, 
-    MatDialogModule, 
-    MatTableModule, 
-    MatPaginatorModule, 
-    MatSortModule,
-    MatProgressSpinnerModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
