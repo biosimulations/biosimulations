@@ -61,7 +61,7 @@
                             <a href="#context" title="CRBM-Viz/src/test.ts"><b>context</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../test.ts)</a>
                         </li>
                         <li>
-                            <a href="#CrbmConfig" title="CRBM-Viz/src/app/crbm-config.ts"><b>CrbmConfig</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../crbm-config.ts)</a>
+                            <a href="#environment" title="CRBM-Viz/src/environments/environment.dev.ts"><b>environment</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../environment.dev.ts)</a>
                         </li>
                         <li>
                             <a href="#environment" title="CRBM-Viz/src/environments/environment.prod.ts"><b>environment</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../environment.prod.ts)</a>
@@ -128,17 +128,17 @@
             </tbody>
         </table>
 </section>
-    <h3>CRBM-Viz/src/app/crbm-config.ts</h3>
+    <h3>CRBM-Viz/src/environments/environment.dev.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="CrbmConfig"></a>
+                        <a name="environment"></a>
                         <span class="name">
                             <b>
-                            CrbmConfig</b>
-                            <a href="#CrbmConfig"><span class="icon ion-ios-link"></span></a>
+                            environment</b>
+                            <a href="#environment"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -151,10 +151,18 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
-    GOOGLE_AUTH_CLIENT_ID: &#x27;161690628487-3op0mi5vi1n1ajafqboo11boj6sm7rut.apps.googleusercontent.com&#x27;,
-    CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
-    ALLOWED_FILE_EXTENSIONS: [&#x27;png&#x27;, &#x27;omex&#x27;, &#x27;pdf&#x27;, &#x27;csv&#x27;, &#x27;xlsx&#x27;, &#x27;sh&#x27;],
-}</code>
+    production: false,
+    baseUrl: &#x27;/&#x27;,
+    auth0: {
+        domain: &#x27;dev-t2vyo8fj.auth0.com&#x27;,
+        clientId: &#x27;6euIYB0EPMSNjsPEjrNZAMmpiuVCRYNB&#x27;
+    },
+    crbm: {
+        CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
+        ALLOWED_FILE_EXTENSIONS: [&#x27;pdf&#x27;, &#x27;doc&#x27;, &#x27;ppt&#x27;, &#x27;txt&#x27;, &#x27;xlsx&#x27;, &#x27;sedx&#x27;, &#x27;sbex&#x27;,
+            &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;]
+    }
+  }</code>
                         </td>
                     </tr>
 
@@ -187,6 +195,15 @@
                             <i>Default value : </i><code>{
   production: true,
   baseUrl: &#x27;/&#x27;,
+  auth0: {
+    domain: &#x27;crbm.auth0.com&#x27;,
+    clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;
+  },
+  crbm: {
+      CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
+      ALLOWED_FILE_EXTENSIONS: [&#x27;pdf&#x27;, &#x27;doc&#x27;, &#x27;ppt&#x27;, &#x27;txt&#x27;, &#x27;xlsx&#x27;, &#x27;sedx&#x27;, &#x27;sbex&#x27;,
+          &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;]
+  }
 }</code>
                         </td>
                     </tr>
@@ -220,6 +237,32 @@
                             <i>Default value : </i><code>{
   production: false,
   baseUrl: &#x27;/&#x27;,
+  auth0: {
+    domain: &#x27;crbm.auth0.com&#x27;,
+    clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;,
+  },
+  crbm: {
+    CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
+    ALLOWED_FILE_EXTENSIONS: [
+      &#x27;pdf&#x27;,
+      &#x27;doc&#x27;,
+      &#x27;ppt&#x27;,
+      &#x27;txt&#x27;,
+      &#x27;xlsx&#x27;,
+      &#x27;sedx&#x27;,
+      &#x27;sbex&#x27;,
+      &#x27;cmex&#x27;,
+      &#x27;sbox&#x27;,
+      &#x27;neux&#x27;,
+      &#x27;phex&#x27;,
+      &#x27;zip&#x27;,
+      &#x27;jpg&#x27;,
+      &#x27;png&#x27;,
+      &#x27;jpeg&#x27;,
+      &#x27;raw&#x27;,
+      &#x27;sh&#x27;,
+    ],
+  },
 }</code>
                         </td>
                     </tr>
@@ -266,6 +309,7 @@
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
+  MatDialogModule,
 ]</code>
                         </td>
                     </tr>
