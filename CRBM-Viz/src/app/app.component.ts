@@ -11,12 +11,12 @@ export class AppComponent implements OnInit {
   constructor(private auth: AuthService) {}
   ngOnInit() {
     this.auth.localAuthSetup();
-    this.auth.userProfile$.subscribe(
-      profile => {
-        this.auth.getToken$().subscribe(token => {
-          localStorage.setItem('token', token.__raw);
-        });
-      }
-    );
+    this.auth.userProfile$.subscribe(profile => {
+      this.auth.getToken$().subscribe(token => {
+        if (token) {
+          localStorage.setItem('test', token.__raw);
+        }
+      });
+    });
   }
 }
