@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { AgGridModule } from 'ag-grid-angular';
 // Defined Modules in Imports
 import { AppRoutingModule } from './Modules/app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
@@ -35,6 +35,8 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
+import { DataTableComponent } from './Components/data-table/data-table.component';
+import { DataComponent } from './Pages/data/data.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -66,6 +68,8 @@ import { FooterComponent } from './Layout/footer/footer.component';
     FileTableComponent,
     FooterComponent,
     AlertComponent,
+    DataTableComponent,
+    DataComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +79,7 @@ import { FooterComponent } from './Layout/footer/footer.component';
     HttpClientModule,
     MaterialModule,
     LayoutModule,
+    AgGridModule.withComponents([]),
   ],
   providers: [
     {
