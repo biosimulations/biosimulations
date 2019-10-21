@@ -8,6 +8,7 @@ import { AuthService } from './Services/auth0.service';
 export class AppComponent implements OnInit {
   title = 'CRBM-Viz';
 
+  // TODO Test the creation of token
   constructor(private auth: AuthService) {}
   ngOnInit() {
     this.auth.localAuthSetup();
