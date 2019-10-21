@@ -22,8 +22,8 @@ export class AuthService {
   redirect = this.returnTo + 'callback';
   auth0Client$ = (from(
     createAuth0Client({
-      domain: 'crbm.auth0.com',
-      client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+      domain: environment.auth0.domain,
+      client_id: environment.auth0.clientId,
       redirect_uri: this.redirect,
     })
   ) as Observable<Auth0Client>).pipe(
@@ -44,6 +44,8 @@ export class AuthService {
   // Create subject and public observable of user profile data
   private userProfileSubject$ = new BehaviorSubject<any>(null);
   userProfile$ = this.userProfileSubject$.asObservable();
+  // Create local property to store token
+  token: string = null;
   // Create a local property for login status
   loggedIn: boolean = null;
 
@@ -55,6 +57,13 @@ export class AuthService {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap(user => this.userProfileSubject$.next(user))
+    );
+  }
+
+  getToken$(options?): Observable<any> {
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) => from(client.getIdTokenClaims(options))),
+      tap(token => this.token = token)
     );
   }
 
@@ -76,7 +85,16 @@ export class AuthService {
       // If authenticated, response will be user object
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
+
+      this.getToken$().subscribe(
+        token => {
+          localStorage.setItem('token', token);
+        }
+      );
     });
+
+    
+    
   }
 
   login(redirectPath: string = '/') {
@@ -121,9 +139,10 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+        client_id: environment.auth0.clientId,
         returnTo: this.returnTo,
       });
+      localStorage.removeItem('token');
     });
   }
 }

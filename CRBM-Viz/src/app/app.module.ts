@@ -22,23 +22,23 @@ import { HomeComponent } from './Pages/home/home.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-import { UploadComponent } from './Pages/upload/upload.component';
-import { AlertComponent } from './Components/alert/alert.component';
-import { FileTableComponent } from './Pages/files/file-table/file-table.component';
-import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
-import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
-import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
 import { NavigationComponent } from './Layout/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { LinksComponent } from './Layout/links/links.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { AlertComponent } from './Components/alert/alert.component';
+import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
+import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
+import { UploadComponent } from './Pages/upload/upload.component';
+import { FileTableComponent } from './Pages/files/file-table/file-table.component';
+import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
 // import { SimulationService } from './Services/simulation.service';
-// import { CrbmAuthService } from './Services/crbm-auth.service';
 
 // Service for Authconfig
 
@@ -76,7 +76,13 @@ import { FooterComponent } from './Layout/footer/footer.component';
     MaterialModule,
     LayoutModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
-import { CrbmConfig } from 'src/app/crbm-config';
 import { AuthService } from 'src/app/Services/auth0.service';
-import { async } from 'q';
+import { AlertService } from 'src/app/Services/alert.service';
+import { FileService } from 'src/app/Services/file.service';
+import { environment }  from 'src/environments/environment';
 
 @Component({
   selector: 'app-file-table',
@@ -11,7 +12,9 @@ import { async } from 'q';
   styleUrls: ['./file-table.component.sass'],
 })
 export class FileTableComponent implements OnInit {
-  serverUrl = CrbmConfig.CRBMAPI_URL;
+  isLoading = true;
+  serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
+  fileList: Array<object> = null;
   displayedColumns: string[] = [
     'fileId',
     'filename',
@@ -24,32 +27,37 @@ export class FileTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private http: HttpClient, private crbmAuthService: AuthService) {
-    // Create 100 users
-    // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-    // Assign the data to the data source for the table to render
-    // this.dataSource = new MatTableDataSource(users);
-  }
+  constructor(
+    private http: HttpClient, 
+    private fileService: FileService,
+    private auth: AuthService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
-    this.getFileData().subscribe(
+    this.fileService.fileChangeSubject.subscribe(
       success => {
-        console.log('File fetch was successful', success);
-        this.dataSource = new MatTableDataSource(success['data']);
+        this.fileList = this.fileService.fileList;
+        this.dataSource = new MatTableDataSource(this.fileList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.isLoading = false;
       },
       error => {
-        console.log('Error file fetching file info');
+        this.alertService.openDialog(
+          'Error from FileTableComponent, can\'t fetch files: '+
+          JSON.stringify(error)
+        );
       }
     );
 
-    this.currentUser = null;
+    this.fileService.getFileData();
+
+    this.auth.userProfile$.subscribe(
+      profile => this.currentUser = profile
+    );
   }
 
-  getFileData() {
-    return this.http.get(`${this.serverUrl}/file`);
-  }
+  
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -57,5 +65,9 @@ export class FileTableComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  onFileDelete(fileId: number) {
+    this.fileService.deleteFile(fileId);
   }
 }
