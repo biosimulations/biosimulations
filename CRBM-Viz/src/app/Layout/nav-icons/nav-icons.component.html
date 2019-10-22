@@ -1,0 +1,76 @@
+<div class="icons">
+  <button
+    mat-flat-button
+    color="primary"
+    [routerLink]="['']"
+    matTooltip="Home"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [routerLink]="['/about']"
+    matTooltip="About"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="About icon">help</mat-icon>
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [routerLink]="['/visualize']"
+    matTooltip="Visualizations"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="visualize icon"
+      >timeline</mat-icon
+    >
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [routerLink]="['/files']"
+    matTooltip="Models"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="Files icon">file_copy</mat-icon>
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [routerLink]="['/simulate']"
+    matTooltip="Simulations"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="Simulations icon"
+      >explore</mat-icon
+    >
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="!auth.loggedIn"
+    [routerLink]="['/profile']"
+    matTooltip="Log In"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="LogIn icon">vpn_key</mat-icon>
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="auth.loggedIn"
+    [routerLink]="['/profile']"
+    matTooltip="Profile"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="pofile icon">face</mat-icon>
+  </button>
+</div>

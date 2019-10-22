@@ -41,8 +41,8 @@
       <div class="searchbar" *ngIf="(isHandset$ | async) === false">
         <app-search-bar></app-search-bar>
       </div>
-      <div class="links" *ngIf="(isHandset$ | async) === false">
-        <app-links></app-links>
+      <div class="icons" *ngIf="(isHandset$ | async) === false">
+        <app-nav-icons></app-nav-icons>
       </div>
     </mat-toolbar>
     <div class="content"><ng-content></ng-content></div>

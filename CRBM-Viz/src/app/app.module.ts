@@ -35,6 +35,7 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
+import { NavIconsComponent } from './Layout/nav-icons/nav-icons.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -66,6 +67,7 @@ import { FooterComponent } from './Layout/footer/footer.component';
     FileTableComponent,
     FooterComponent,
     AlertComponent,
+    NavIconsComponent,
   ],
   imports: [
     BrowserModule,
