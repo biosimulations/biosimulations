@@ -7,7 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SearchBarComponent implements OnInit {
   @Input() buttonTerm = 'Search';
+  @Input() icon = 'search';
   @Input() placeholder = 'Search...';
+  @Input() baseURL = '/search/';
   constructor() {}
 
   ngOnInit() {}
