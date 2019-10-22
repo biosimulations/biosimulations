@@ -20,7 +20,9 @@ export class VisualizeComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
-      this.getVis();
+      if (this.id) {
+        this.getVis();
+      }
     });
   }
 
