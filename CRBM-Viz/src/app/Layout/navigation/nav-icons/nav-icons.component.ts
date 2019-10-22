@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth0.service';
+import { AccountMenuComponent } from '../account-menu/account-menu.component';
 
 @Component({
   selector: 'app-nav-icons',
@@ -7,6 +8,8 @@ import { AuthService } from 'src/app/Services/auth0.service';
   styleUrls: ['./nav-icons.component.sass'],
 })
 export class NavIconsComponent implements OnInit {
+  @ViewChild(AccountMenuComponent, { static: true })
+  accountMenu: AccountMenuComponent;
   constructor(public auth: AuthService) {}
 
   ngOnInit() {}

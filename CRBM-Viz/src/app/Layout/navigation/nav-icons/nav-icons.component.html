@@ -52,25 +52,27 @@
       >explore</mat-icon
     >
   </button>
-
   <button
     mat-flat-button
     color="primary"
     *ngIf="!auth.loggedIn"
-    [routerLink]="['/profile']"
+    (click)="auth.login()"
     matTooltip="Log In"
     matTooltipPosition="below"
   >
-    <mat-icon aria-hidden="false" aria-label="LogIn icon">vpn_key</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="LogIn icon">lock_open</mat-icon>
   </button>
+  <app-account-menu></app-account-menu>
   <button
     mat-flat-button
     color="primary"
     *ngIf="auth.loggedIn"
-    [routerLink]="['/profile']"
-    matTooltip="Profile"
+    matTooltip="Account"
     matTooltipPosition="below"
+    [matMenuTriggerFor]="accountMenu?.profileMenu"
   >
-    <mat-icon aria-hidden="false" aria-label="pofile icon">face</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Account icon"
+      >account_circle</mat-icon
+    >
   </button>
 </div>

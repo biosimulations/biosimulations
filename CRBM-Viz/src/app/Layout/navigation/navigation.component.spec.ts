@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // TODO The indiviudal components should be mocked
 import { NavigationComponent } from './navigation.component';
-import { NavIconsComponent } from '../nav-icons/nav-icons.component';
+import { NavIconsComponent } from './nav-icons/nav-icons.component';
 import { LogoComponent } from '../logo/logo.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FooterComponent } from '../footer/footer.component';
