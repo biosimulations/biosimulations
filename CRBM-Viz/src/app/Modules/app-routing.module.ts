@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
   { path: 'data', component: DataComponent },
+  { path: 'data/:id', component: DataComponent },
   { path: 'visualize', component: VisualizeComponent },
   { path: 'visualize/:id', component: VisualizeComponent },
   { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },

@@ -1,2 +1,18 @@
-<h1>Data</h1>
+<div class="title"><h1>Data</h1></div>
+<div class="select">
+  <app-search-bar
+    placeholder="Simulation ID..."
+    buttonTerm="View Data"
+    baseURL="/data/"
+  ></app-search-bar>
+</div>
+<div class="landing" *ngIf="!id">
+  <p>Please enter the id of a simulation run to view its visualizations</p>
+</div>
+<div class="figures" *ngIf="id">
+  <p>Species: Concentration: Time:</p>
+  <div *ngFor="let object of timecourse">
+    <p>{{ object.Species }} {{ object.Concentration }} {{ object.Time }}</p>
+  </div>
+</div>
 <app-data-table></app-data-table>
