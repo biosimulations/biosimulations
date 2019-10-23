@@ -12,7 +12,7 @@ import { environment }  from 'src/environments/environment';
   styleUrls: ['./file-table.component.sass'],
 })
 export class FileTableComponent implements OnInit {
-  isLoading = true;
+  isLoading = false;
   serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
   fileList: Array<object> = null;
   displayedColumns: string[] = [

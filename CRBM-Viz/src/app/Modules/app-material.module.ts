@@ -38,6 +38,7 @@ const MaterialComponents = [
   MatTableModule,
   MatPaginatorModule,
   MatDialogModule,
+  MatSortModule
 ];
 @NgModule({
   imports: [MaterialComponents],
