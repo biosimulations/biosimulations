@@ -9,7 +9,7 @@ import { SimulationService } from 'src/app/Services/simulation.service';
   styleUrls: ['./past-simulation.component.sass'],
 })
 export class PastSimulationComponent implements OnInit {
-  isLoading = true;
+  isLoading = false;
   displayedColumns: string[] = [
     'job_id',
     'created_by',
