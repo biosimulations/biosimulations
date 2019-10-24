@@ -8,6 +8,6 @@ export const environment = {
     crbm: {
         CRBMAPI_URL: 'http://localhost:5000',
         ALLOWED_FILE_EXTENSIONS: ['pdf', 'doc', 'ppt', 'txt', 'xlsx', 'sedx', 'sbex',
-            'cmex', 'sbox', 'neux', 'phex', 'zip', 'jpg', 'png', 'jpeg', 'raw', 'sh']
+            'cmex', 'sbox', 'neux', 'phex', 'zip', 'jpg', 'png', 'jpeg', 'raw', 'sh', 'omex', 'xml']
     }
   };
