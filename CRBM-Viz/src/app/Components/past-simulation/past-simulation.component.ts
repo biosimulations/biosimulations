@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { AlertService } from 'src/app/Services/alert.service';
 import { SimulationService } from 'src/app/Services/simulation.service';
+import { CustomLoaderService } from 'src/app/Services/custom-loader.service';
 
 @Component({
   selector: 'app-past-simulation',
@@ -9,7 +10,6 @@ import { SimulationService } from 'src/app/Services/simulation.service';
   styleUrls: ['./past-simulation.component.sass'],
 })
 export class PastSimulationComponent implements OnInit {
-  isLoading = false;
   displayedColumns: string[] = [
     'job_id',
     'created_by',
@@ -29,17 +29,19 @@ export class PastSimulationComponent implements OnInit {
 
   constructor(
     private alertService: AlertService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
+    private loaderService: CustomLoaderService
     ) {}
 
   ngOnInit() {
+    this.loaderService.showSpinner();
     this.simulationService.simulationDataChangeSubject.subscribe(
       success => {
         this.simulationData = this.simulationService.simulationData;
         this.dataSource = new MatTableDataSource(this.simulationData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.isLoading = false;
+        this.loaderService.hideSpinner();
       },
       error => {
         this.alertService.openDialog(
