@@ -1,7 +1,6 @@
 <div class="icons">
   <button
-    mat-flat-button
-    color="primary"
+    mat-icon-button
     [routerLink]="['']"
     matTooltip="Home"
     matTooltipPosition="below"
@@ -10,8 +9,7 @@
   </button>
 
   <button
-    mat-flat-button
-    color="primary"
+    mat-icon-button
     [routerLink]="['/about']"
     matTooltip="About"
     matTooltipPosition="below"
@@ -20,8 +18,7 @@
   </button>
 
   <button
-    mat-flat-button
-    color="primary"
+    mat-icon-button
     [routerLink]="['/visualize']"
     matTooltip="Visualizations"
     matTooltipPosition="below"
@@ -32,8 +29,7 @@
   </button>
 
   <button
-    mat-flat-button
-    color="primary"
+    mat-icon-button
     [routerLink]="['/files']"
     matTooltip="Models"
     matTooltipPosition="below"
@@ -42,8 +38,7 @@
   </button>
 
   <button
-    mat-flat-button
-    color="primary"
+    mat-icon-button
     [routerLink]="['/simulate']"
     matTooltip="Simulations"
     matTooltipPosition="below"
@@ -53,8 +48,7 @@
     >
   </button>
   <button
-    mat-flat-button
-    color="primary"
+    mat-icon-button
     *ngIf="!auth.loggedIn"
     (click)="auth.login()"
     matTooltip="Log In"
@@ -64,8 +58,7 @@
   </button>
   <app-account-menu></app-account-menu>
   <button
-    mat-flat-button
-    color="primary"
+    mat-icon-button
     *ngIf="auth.loggedIn"
     matTooltip="Account"
     matTooltipPosition="below"
