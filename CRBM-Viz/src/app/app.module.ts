@@ -36,6 +36,7 @@ import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
 import { DrawerLinksComponent } from './Layout/drawer-links/drawer-links.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -77,6 +78,7 @@ import { DrawerLinksComponent } from './Layout/drawer-links/drawer-links.compone
     HttpClientModule,
     MaterialModule,
     LayoutModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
