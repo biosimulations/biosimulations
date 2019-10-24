@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/Services/auth0.service';
 import { AlertService } from 'src/app/Services/alert.service';
 import { FileService } from 'src/app/Services/file.service';
 import { environment }  from 'src/environments/environment';
+import { CustomLoaderService } from 'src/app/Services/custom-loader.service';
 
 @Component({
   selector: 'app-file-table',
@@ -31,9 +32,11 @@ export class FileTableComponent implements OnInit {
     private http: HttpClient, 
     private fileService: FileService,
     private auth: AuthService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private customLoader: CustomLoaderService) { }
 
   ngOnInit() {
+    this.customLoader.showSpinner();
     this.fileService.fileChangeSubject.subscribe(
       success => {
         this.fileList = this.fileService.fileList;
@@ -41,6 +44,7 @@ export class FileTableComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.isLoading = false;
+        this.customLoader.hideSpinner();
       },
       error => {
         this.alertService.openDialog(
