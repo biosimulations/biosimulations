@@ -1,20 +1,53 @@
-<button mat-flat-button color="primary" [routerLink]="['']">Home</button>
+<!--- TODO autogenerate using ngfor-->
+<app-logo></app-logo>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <div class="exheader">
+        <mat-icon class="icon"> polymer</mat-icon>
+        <mat-panel-title class="panel-title"> BioSimulations</mat-panel-title>
+      </div>
+    </mat-expansion-panel-header>
 
-<button mat-flat-button color="primary" [routerLink]="['/about']">
+    <mat-list-item color="primary" [routerLink]="['']">
+      <mat-icon> home</mat-icon>
+      Home
+    </mat-list-item>
+
+    <mat-list-item color="primary" [routerLink]="['/about']">
+      <mat-icon> info </mat-icon>
+      About
+    </mat-list-item>
+
+    <mat-list-item color="primary" [routerLink]="['/about']">
+      <mat-icon> help</mat-icon>
+      User Guide
+    </mat-list-item>
+
+    <mat-list-item color="primary" [routerLink]="['/about']">
+      <mat-icon> face</mat-icon>
+      Team
+    </mat-list-item>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-list-item color="primary" [routerLink]="['/about']">
   About
-</button>
+</mat-list-item>
 
-<button mat-flat-button color="primary" [routerLink]="['/visualize']">
+<mat-list-item color="primary" [routerLink]="['/about']">
+  <mat-icon> home</mat-icon>
   Visualize
-</button>
+</mat-list-item>
 
-<button mat-flat-button color="primary" [routerLink]="['/files']">
+<mat-list-item color="primary" [routerLink]="['/files']">
+  <mat-icon> home</mat-icon>
   Files
-</button>
+</mat-list-item>
 
-<button mat-flat-button color="primary" [routerLink]="['/simulate']">
+<mat-list-item color="primary" [routerLink]="['/simulate']">
+  <mat-icon> home</mat-icon>
   Simulate
-</button>
+</mat-list-item>
 
 <button
   mat-flat-button
