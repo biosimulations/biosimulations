@@ -1,76 +1,32 @@
-<!--- TODO autogenerate using ngfor-->
 <app-logo></app-logo>
 <span class="spacer"></span>
+<!-- <button
+  mat-flat-button
+  [routerLink]="['/']"
+  routerLinkActive="router-link-active"
+>
+  <mat-icon> home</mat-icon>Home
+</button> -->
 <mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <div class="exheader">
-        <mat-icon class="icon"> polymer</mat-icon>
-        <mat-panel-title class="panel-title"> BioSimulations</mat-panel-title>
+  <div *ngFor="let header of headers">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <div class="header-title">
+          <mat-icon class="icon"> {{ header.icon }}</mat-icon>
+          <mat-panel-title class="panel-title">
+            {{ header.title }}</mat-panel-title
+          >
+        </div>
+      </mat-expansion-panel-header>
+      <div class="child" *ngFor="let route of routes">
+        <mat-list-item
+          *ngIf="header.children.includes(route.title)"
+          [routerLink]="route.link"
+        >
+          <mat-icon> {{ route.icon }}</mat-icon>
+          {{ route.title }}
+        </mat-list-item>
       </div>
-    </mat-expansion-panel-header>
-
-    <mat-list-item color="primary" [routerLink]="['']">
-      <mat-icon> home</mat-icon>
-      Home
-    </mat-list-item>
-
-    <mat-list-item color="primary" [routerLink]="['/about']">
-      <mat-icon> info </mat-icon>
-      About
-    </mat-list-item>
-
-    <mat-list-item color="primary" [routerLink]="['/about']">
-      <mat-icon> help</mat-icon>
-      User Guide
-    </mat-list-item>
-
-    <mat-list-item color="primary" [routerLink]="['/about']">
-      <mat-icon> face</mat-icon>
-      Team
-    </mat-list-item>
-  </mat-expansion-panel>
+    </mat-expansion-panel>
+  </div>
 </mat-accordion>
-<mat-list-item color="primary" [routerLink]="['/about']">
-  About
-</mat-list-item>
-
-<mat-list-item color="primary" [routerLink]="['/about']">
-  <mat-icon> home</mat-icon>
-  Visualize
-</mat-list-item>
-
-<mat-list-item color="primary" [routerLink]="['/files']">
-  <mat-icon> home</mat-icon>
-  Files
-</mat-list-item>
-
-<mat-list-item color="primary" [routerLink]="['/simulate']">
-  <mat-icon> home</mat-icon>
-  Simulate
-</mat-list-item>
-
-<button
-  mat-flat-button
-  *ngIf="!auth.loggedIn"
-  color="primary"
-  (click)="auth.login()"
->
-  Login
-</button>
-<button
-  mat-flat-button
-  *ngIf="auth.loggedIn"
-  color="primary"
-  [routerLink]="['/profile']"
->
-  Profile
-</button>
-<button
-  mat-flat-button
-  *ngIf="auth.loggedIn"
-  color="primary"
-  (click)="auth.logout()"
->
-  Logout
-</button>
