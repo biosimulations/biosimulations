@@ -136,10 +136,10 @@
                                 <a href="#displayedColumns">displayedColumns</a>
                             </li>
                             <li>
-                                <a href="#paginator">paginator</a>
+                                <a href="#isLoading">isLoading</a>
                             </li>
                             <li>
-                                <a href="#serverUrl">serverUrl</a>
+                                <a href="#paginator">paginator</a>
                             </li>
                             <li>
                                 <a href="#simulationData">simulationData</a>
@@ -163,12 +163,6 @@
                                 <a href="#applyFilter">applyFilter</a>
                             </li>
                             <li>
-                                <a href="#flattenSimulationData">flattenSimulationData</a>
-                            </li>
-                            <li>
-                                <a href="#getFileInfo">getFileInfo</a>
-                            </li>
-                            <li>
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
                         </ul>
@@ -189,12 +183,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, alertService: <a href="../injectables/AlertService.html">AlertService</a>)</code>
+<code>constructor(alertService: <a href="../injectables/AlertService.html">AlertService</a>, simulationService: <a href="../injectables/SimulationService.html">SimulationService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -212,10 +206,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>http</td>
+                                                        <td>alertService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                                        <code><a href="../injectables/AlertService.html" target="_self" >AlertService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -224,10 +218,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>alertService</td>
+                                                        <td>simulationService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/AlertService.html" target="_self" >AlertService</a></code>
+                                                                        <code><a href="../injectables/SimulationService.html" target="_self" >SimulationService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -275,8 +269,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:53</a></div>
                 </td>
             </tr>
 
@@ -327,111 +321,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="flattenSimulationData"></a>
-                    <span class="name">
-                        <b>
-                            flattenSimulationData
-                        </b>
-                        <a href="#flattenSimulationData"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>flattenSimulationData(simData)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:50</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>simData</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>{}</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getFileInfo"></a>
-                    <span class="name">
-                        <b>
-                            getFileInfo
-                        </b>
-                        <a href="#getFileInfo"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getFileInfo()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="65"
-                            class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:65</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
                         <b>
@@ -450,8 +339,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:35</a></div>
                 </td>
             </tr>
 
@@ -493,7 +382,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:25</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -535,7 +424,33 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <span class="name">
+                            <b>
+                            isLoading</b>
+                            <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>true</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -571,33 +486,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:28</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="serverUrl"></a>
-                        <span class="name">
-                            <b>
-                            serverUrl</b>
-                            <a href="#serverUrl"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>CrbmConfig.CRBMAPI_URL</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -629,7 +518,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:26</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -665,7 +554,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">CRBM-Viz/src/app/Components/past-simulation/past-simulation.component.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -680,9 +569,8 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
 import { MatTableDataSource, MatSort, MatPaginator } from &#x27;@angular/material&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { CrbmConfig } from &#x27;src/app/crbm-config&#x27;;
 import { AlertService } from &#x27;src/app/Services/alert.service&#x27;;
+import { SimulationService } from &#x27;src/app/Services/simulation.service&#x27;;
 
 @Component({
   selector: &#x27;app-past-simulation&#x27;,
@@ -690,7 +578,7 @@ import { AlertService } from &#x27;src/app/Services/alert.service&#x27;;
   styleUrls: [&#x27;./past-simulation.component.sass&#x27;],
 })
 export class PastSimulationComponent implements OnInit {
-  serverUrl &#x3D; CrbmConfig.CRBMAPI_URL;
+  isLoading &#x3D; true;
   displayedColumns: string[] &#x3D; [
     &#x27;job_id&#x27;,
     &#x27;created_by&#x27;,
@@ -708,42 +596,27 @@ export class PastSimulationComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private http: HttpClient, private alertService: AlertService) {}
+  constructor(
+    private alertService: AlertService,
+    private simulationService: SimulationService
+    ) {}
 
   ngOnInit() {
-    this.getFileInfo().subscribe(
+    this.simulationService.simulationDataChangeSubject.subscribe(
       success &#x3D;&gt; {
-        console.log(&#x27;Fetching of Omex and solver successful&#x27;, success);
-        this.simulationData &#x3D; this.flattenSimulationData(
-          success[&#x27;data&#x27;][&#x27;simulations&#x27;]
-        );
+        this.simulationData &#x3D; this.simulationService.simulationData;
         this.dataSource &#x3D; new MatTableDataSource(this.simulationData);
         this.dataSource.paginator &#x3D; this.paginator;
         this.dataSource.sort &#x3D; this.sort;
+        this.isLoading &#x3D; false;
       },
       error &#x3D;&gt; {
-        this.alertService.openDialog(&#x27;Error occured while fetching file info&#x27;);
+        this.alertService.openDialog(
+          &#x27;Error in simulation service subject: &#x27; +
+          JSON.stringify(error)
+          );
       }
     );
-  }
-
-  flattenSimulationData(simData) {
-    const data &#x3D; [];
-    for (const sim of simData) {
-      const simObj &#x3D; { ...sim };
-      const jobInfo &#x3D; sim[&#x27;jobInfo&#x27;];
-      for (const key in jobInfo) {
-        if (jobInfo.hasOwnProperty(key)) {
-          simObj[key] &#x3D; jobInfo[key];
-        }
-      }
-      data.push(simObj);
-    }
-    return data;
-  }
-
-  getFileInfo() {
-    return this.http.get(&#x60;${CrbmConfig.CRBMAPI_URL}/simulation&#x60;);
   }
 
   applyFilter(filterValue: string) {
@@ -758,7 +631,8 @@ export class PastSimulationComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot;&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;mat-spinner *ngIf&#x3D;&quot;isLoading&quot;&gt;&lt;/mat-spinner&gt;
+&lt;div class&#x3D;&quot;container&quot; *ngIf&#x3D;&quot;!isLoading&quot;&gt;
         &lt;div class&#x3D;&quot;row&quot;&gt;
             &lt;br&gt;
         &lt;/div&gt;
@@ -891,8 +765,8 @@ td, th
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container">        <div class="row">            <br>        </div>        <div class="row">            <div class="col-md-6">                <h3>Past Simulations</h3>            </div>        </div>        <div class="row">            <div class="col-md-6">                <hr>            </div>        </div>        <div class="row">            <div class="col-md-12">                <mat-form-field>                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">                </mat-form-field>            </div>        </div>        <div class="row">            <div class="col-md-12">                <div class="mat-elevation-z8" style="width: 100%">                    <table mat-table [dataSource]="dataSource" matSort>                                            <!-- ID Column -->                        <ng-container matColumnDef="job_id">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID </th>                        <td mat-cell *matCellDef="let row"> {{row.job_id}} </td>                        </ng-container>                                            <!-- Author Column -->                        <ng-container matColumnDef="created_by">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>                        <td mat-cell *matCellDef="let row"> {{row.created_by}}</td>                        </ng-container>                                            <!-- File Name Column -->                        <ng-container matColumnDef="created_date">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>                        <td mat-cell *matCellDef="let row">{{row.created_date}}</td>                        </ng-container>                                            <!-- Access Type Column -->                        <ng-container matColumnDef="error">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Error </th>                        <td mat-cell *matCellDef="let row">{{row.error}} </td>                        </ng-container>                            <ng-container matColumnDef="output">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Output </th>                        <td mat-cell *matCellDef="let row">{{row.output}} </td>                        </ng-container>                            <ng-container matColumnDef="sbatch_file">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sbatch file </th>                        <td mat-cell *matCellDef="let row">{{row.sbatch_file}} </td>                        </ng-container>                                <ng-container matColumnDef="sbatch_file_owner">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SBatch owner </th>                        <td mat-cell *matCellDef="let row">{{row.sbatch_file_owner}} </td>                        </ng-container>                            <ng-container matColumnDef="solver_file">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Solver File </th>                        <td mat-cell *matCellDef="let row">{{row.solver_file}} </td>                        </ng-container>                            <ng-container matColumnDef="omex_file">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Omex File </th>                        <td mat-cell *matCellDef="let row">{{row.omex_file}} </td>                        </ng-container>                                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">                        </tr>                    </table>                                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>                </div>              </div>        </div>        <div class="row">            <hr>        </div>    </div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LinksComponent', 'selector': 'app-links'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><mat-spinner *ngIf="isLoading"></mat-spinner><div class="container" *ngIf="!isLoading">        <div class="row">            <br>        </div>        <div class="row">            <div class="col-md-6">                <h3>Past Simulations</h3>            </div>        </div>        <div class="row">            <div class="col-md-6">                <hr>            </div>        </div>        <div class="row">            <div class="col-md-12">                <mat-form-field>                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">                </mat-form-field>            </div>        </div>        <div class="row">            <div class="col-md-12">                <div class="mat-elevation-z8" style="width: 100%">                    <table mat-table [dataSource]="dataSource" matSort>                                            <!-- ID Column -->                        <ng-container matColumnDef="job_id">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID </th>                        <td mat-cell *matCellDef="let row"> {{row.job_id}} </td>                        </ng-container>                                            <!-- Author Column -->                        <ng-container matColumnDef="created_by">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>                        <td mat-cell *matCellDef="let row"> {{row.created_by}}</td>                        </ng-container>                                            <!-- File Name Column -->                        <ng-container matColumnDef="created_date">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>                        <td mat-cell *matCellDef="let row">{{row.created_date}}</td>                        </ng-container>                                            <!-- Access Type Column -->                        <ng-container matColumnDef="error">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Error </th>                        <td mat-cell *matCellDef="let row">{{row.error}} </td>                        </ng-container>                            <ng-container matColumnDef="output">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Output </th>                        <td mat-cell *matCellDef="let row">{{row.output}} </td>                        </ng-container>                            <ng-container matColumnDef="sbatch_file">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sbatch file </th>                        <td mat-cell *matCellDef="let row">{{row.sbatch_file}} </td>                        </ng-container>                                <ng-container matColumnDef="sbatch_file_owner">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SBatch owner </th>                        <td mat-cell *matCellDef="let row">{{row.sbatch_file_owner}} </td>                        </ng-container>                            <ng-container matColumnDef="solver_file">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Solver File </th>                        <td mat-cell *matCellDef="let row">{{row.solver_file}} </td>                        </ng-container>                            <ng-container matColumnDef="omex_file">                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Omex File </th>                        <td mat-cell *matCellDef="let row">{{row.omex_file}} </td>                        </ng-container>                                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">                        </tr>                    </table>                                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>                </div>              </div>        </div>        <div class="row">            <hr>        </div>    </div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'PastSimulationComponent'};
 </script>

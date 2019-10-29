@@ -171,7 +171,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">CRBM-Viz/src/app/Layout/links/links.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Layout/links/links.component.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -240,8 +240,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="11"
-                            class="link-to-prism">CRBM-Viz/src/app/Layout/links/links.component.ts:11</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="12"
+                            class="link-to-prism">CRBM-Viz/src/app/Layout/links/links.component.ts:12</a></div>
                 </td>
             </tr>
 
@@ -284,7 +284,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Layout/links/links.component.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">CRBM-Viz/src/app/Layout/links/links.component.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -299,6 +299,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { AuthService } from &#x27;src/app/Services/auth0.service&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
 @Component({
   selector: &#x27;app-links&#x27;,
   templateUrl: &#x27;./links.component.html&#x27;,
@@ -307,7 +308,9 @@ import { AuthService } from &#x27;src/app/Services/auth0.service&#x27;;
 export class LinksComponent implements OnInit {
   constructor(public auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 }
 </code></pre>
     </div>
@@ -321,6 +324,10 @@ export class LinksComponent implements OnInit {
 
 &lt;button mat-flat-button color&#x3D;&quot;primary&quot; [routerLink]&#x3D;&quot;[&#x27;/visualize&#x27;]&quot;&gt;
   Visualize
+&lt;/button&gt;
+
+&lt;button mat-flat-button color&#x3D;&quot;primary&quot; [routerLink]&#x3D;&quot;[&#x27;/files&#x27;]&quot;&gt;
+  Files
 &lt;/button&gt;
 
 &lt;button mat-flat-button color&#x3D;&quot;primary&quot; [routerLink]&#x3D;&quot;[&#x27;/simulate&#x27;]&quot;&gt;
@@ -387,7 +394,7 @@ export class LinksComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><button mat-flat-button color="primary" [routerLink]="[\'\']">Home</button><button mat-flat-button color="primary" [routerLink]="[\'/about\']">  About</button><button mat-flat-button color="primary" [routerLink]="[\'/visualize\']">  Visualize</button><button mat-flat-button color="primary" [routerLink]="[\'/simulate\']">  Simulate</button><button  mat-flat-button  *ngIf="!auth.loggedIn"  color="primary"  (click)="auth.login()">  Login</button><button  mat-flat-button  *ngIf="auth.loggedIn"  color="primary"  [routerLink]="[\'/profile\']">  Profile</button><button  mat-flat-button  *ngIf="auth.loggedIn"  color="primary"  (click)="auth.logout()">  Logout</button></div>'
+        var COMPONENT_TEMPLATE = '<div><button mat-flat-button color="primary" [routerLink]="[\'\']">Home</button><button mat-flat-button color="primary" [routerLink]="[\'/about\']">  About</button><button mat-flat-button color="primary" [routerLink]="[\'/visualize\']">  Visualize</button><button mat-flat-button color="primary" [routerLink]="[\'/files\']">  Files</button><button mat-flat-button color="primary" [routerLink]="[\'/simulate\']">  Simulate</button><button  mat-flat-button  *ngIf="!auth.loggedIn"  color="primary"  (click)="auth.login()">  Login</button><button  mat-flat-button  *ngIf="auth.loggedIn"  color="primary"  [routerLink]="[\'/profile\']">  Profile</button><button  mat-flat-button  *ngIf="auth.loggedIn"  color="primary"  (click)="auth.logout()">  Logout</button></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LinksComponent', 'selector': 'app-links'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LinksComponent'};

@@ -160,9 +160,6 @@
                                 <a href="#submit">submit</a>
                             </li>
                             <li>
-                                <a href="#uploadFile">uploadFile</a>
-                            </li>
-                            <li>
                                 <a href="#validateForm">validateForm</a>
                             </li>
                         </ul>
@@ -183,12 +180,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, crbmAuthService: <a href="../injectables/AuthService.html">AuthService</a>, alertService: <a href="../injectables/AlertService.html">AlertService</a>)</code>
+<code>constructor(alertService: <a href="../injectables/AlertService.html">AlertService</a>, fileService: <a href="../injectables/FileService.html">FileService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -206,34 +203,22 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>http</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>crbmAuthService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
                                                         <td>alertService</td>
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/AlertService.html" target="_self" >AlertService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fileService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FileService.html" target="_self" >FileService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -281,8 +266,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:81</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:62</a></div>
                 </td>
             </tr>
 
@@ -351,8 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:24</a></div>
                 </td>
             </tr>
 
@@ -390,8 +375,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:27</a></div>
                 </td>
             </tr>
 
@@ -402,88 +387,6 @@
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="uploadFile"></a>
-                    <span class="name">
-                        <b>
-                            uploadFile
-                        </b>
-                        <a href="#uploadFile"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>uploadFile(file: File, accessType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:73</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>file</td>
-                                    <td>
-                                            <code>File</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>accessType</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
                     </div>
                 </td>
             </tr>
@@ -511,8 +414,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:49</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:38</a></div>
                 </td>
             </tr>
 
@@ -562,7 +465,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -594,7 +497,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -626,7 +529,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Pages/upload/upload.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -640,13 +543,9 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
-import { FormGroup, FormControl, Validators } from &#x27;@angular/forms&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { CrbmConfig } from &#x27;src/app/crbm-config&#x27;;
-import { AuthService } from &#x27;src/app/Services/auth0.service&#x27;;
-import { MatDialog } from &#x27;@angular/material&#x27;;
-import { AlertComponent } from &#x27;src/app/Components/alert/alert.component&#x27;;
 import { AlertService } from &#x27;src/app/Services/alert.service&#x27;;
+import { FileService } from &#x27;src/app/Services/file.service&#x27;;
+import { environment }  from &#x27;src/environments/environment&#x27;;
 
 @Component({
   selector: &#x27;app-upload&#x27;,
@@ -662,24 +561,17 @@ export class UploadComponent implements OnInit {
   selectedValue: string &#x3D; null;
 
   constructor(
-    private http: HttpClient,
-    private crbmAuthService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private fileService: FileService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   submit(): void {
     const isValid &#x3D; this.validateForm();
     if (isValid) {
-      this.uploadFile(this.fileToUpload, this.selectedValue).subscribe(
-        onSuccess &#x3D;&gt; {
-          this.alertService.openDialog(onSuccess[&#x27;message&#x27;]);
-        },
-        onFail &#x3D;&gt; {
-          console.log(&#x27;File upload failed &#x27;, onFail);
-        }
-      );
+      this.fileService.uploadFile(this.fileToUpload, this.selectedValue);
     } else {
       this.alertService.openDialog(
         &#x27;Either file extension is not allowed, or access Type not selected&#x27;
@@ -702,21 +594,13 @@ export class UploadComponent implements OnInit {
       return false;
     } else if (
       !isFileNull &amp;&amp;
-      CrbmConfig.ALLOWED_FILE_EXTENSIONS.includes(fileExtension) &amp;&amp;
+      environment.crbm.ALLOWED_FILE_EXTENSIONS.includes(fileExtension) &amp;&amp;
       this.selectedValue !&#x3D;&#x3D; null
     ) {
       return true;
     } else {
       return false;
     }
-  }
-
-  uploadFile(file: File, accessType: string) {
-    const endpoint &#x3D; &#x60;${CrbmConfig.CRBMAPI_URL}/file&#x60;;
-    const formData &#x3D; new FormData();
-    formData.append(&#x27;file&#x27;, file, file.name);
-    formData.append(&#x27;accessType&#x27;, accessType);
-    return this.http.post(endpoint, formData);
   }
 
   fileChange(files: FileList) {
@@ -807,7 +691,7 @@ export class UploadComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="container">    <div class="row">        <br>    </div>    <div class="row">        <div class="col-md-6">            <h3>Upload file</h3>        </div>    </div>    <div class="row">        <div class="col-md-6">                <hr>        </div>    </div>    <div class="row">        <div class="col-md-6">            <div class="form-group">                    <input mat-raised-button type="file" id="file" (change)="fileChange($event.target.files)">            </div>        </div>       </div>    <div class="row">        <div class="col-md-6">            <mat-form-field>                <mat-label>Access Type</mat-label>                <mat-select [(ngModel)]="selectedValue">                    <mat-option *ngFor="let accessType of accessTypes" [value]="accessType.value">                    {{accessType.viewValue}}                    </mat-option>                </mat-select>            </mat-form-field>        </div>    </div>    <div class="row">        <div class="col-md-6">            <button mat-raised-button color="primary" (click)="submit()">Submit</button>        </div>    </div>    <div class="row">        <hr>    </div>    <div class="row">        <app-file-table style="width: 100%"></app-file-table>    </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LinksComponent', 'selector': 'app-links'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'UploadComponent'};
 </script>

@@ -257,8 +257,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/visualize/visualize.component.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/visualize/visualize.component.ts:29</a></div>
                 </td>
             </tr>
 
@@ -406,7 +406,9 @@ export class VisualizeComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(routeParams &#x3D;&gt; {
       this.id &#x3D; routeParams.id;
-      this.getVis();
+      if (this.id) {
+        this.getVis();
+      }
     });
   }
 
@@ -424,19 +426,11 @@ export class VisualizeComponent implements OnInit {
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;title&quot;&gt;&lt;h1&gt;Visualizations&lt;/h1&gt;&lt;/div&gt;
 &lt;div class&#x3D;&quot;select&quot;&gt;
-  &lt;form class&#x3D;&quot;form-field&quot; layout layout-align&#x3D;&quot;center&quot; layout-padding&gt;
-    &lt;mat-form-field class&#x3D;&quot;form&quot;&gt;
-      &lt;input #vizInput matInput placeholder&#x3D;&quot;Simulation ID&quot; /&gt;
-    &lt;/mat-form-field&gt;
-
-    &lt;button
-      [routerLink]&#x3D;&quot;&#x27;/visualize/&#x27; + vizInput.value&quot;
-      mat-raised-button
-      color&#x3D;&quot;primary&quot;
-    &gt;
-      Visualize
-    &lt;/button&gt;
-  &lt;/form&gt;
+  &lt;app-search-bar
+    placeholder&#x3D;&quot;Visualization ID...&quot;
+    buttonTerm&#x3D;&quot;Visualize&quot;
+    baseURL&#x3D;&quot;/visualize/&quot;
+  &gt;&lt;/app-search-bar&gt;
 &lt;/div&gt;
 &lt;div class&#x3D;&quot;landing&quot; *ngIf&#x3D;&quot;!id&quot;&gt;
   &lt;p&gt;Please enter the id of a simulation run to view its visualizations&lt;/p&gt;
@@ -507,8 +501,8 @@ button
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="title"><h1>Visualizations</h1></div><div class="select">  <form class="form-field" layout layout-align="center" layout-padding>    <mat-form-field class="form">      <input #vizInput matInput placeholder="Simulation ID" />    </mat-form-field>    <button      [routerLink]="\'/visualize/\' + vizInput.value"      mat-raised-button      color="primary"    >      Visualize    </button>  </form></div><div class="landing" *ngIf="!id">  <p>Please enter the id of a simulation run to view its visualizations</p></div><div class="figures" *ngIf="id">  <div class="figure" *ngFor="let viz of visualizations; index as i">    <app-vega-viewer [viz]="viz"> </app-vega-viewer>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LinksComponent', 'selector': 'app-links'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div class="title"><h1>Visualizations</h1></div><div class="select">  <app-search-bar    placeholder="Visualization ID..."    buttonTerm="Visualize"    baseURL="/visualize/"  ></app-search-bar></div><div class="landing" *ngIf="!id">  <p>Please enter the id of a simulation run to view its visualizations</p></div><div class="figures" *ngIf="id">  <div class="figure" *ngFor="let viz of visualizations; index as i">    <app-vega-viewer [viz]="viz"> </app-vega-viewer>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'VisualizeComponent'};
 </script>

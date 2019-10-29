@@ -14,6 +14,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY CRBM-Viz/package.json /app/package.json
 COPY CRBM-Viz/package-lock.json /app/package-lock.json
+
 RUN npm install
 RUN npm install -g @angular/cli
 

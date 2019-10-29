@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SimulationService } from 'src/app/Services/simulation.service';
 
 @Component({
   selector: 'app-simulate',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SimulateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private simulationService: SimulationService) { }
 
   ngOnInit() {
+    this.simulationService.getSimulationAndJobFilesInfo();
   }
 
 }

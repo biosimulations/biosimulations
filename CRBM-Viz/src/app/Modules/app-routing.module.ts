@@ -11,10 +11,12 @@ import { UploadComponent } from '../Pages/upload/upload.component';
 import { FileEditComponent } from '../Pages/files/file-edit/file-edit.component';
 import { CallbackComponent } from '../Components/callback/callback.component';
 import { ProfileComponent } from '../Components/profile/profile.component';
-
+import { DataComponent } from '../Pages/data/data.component';
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
+  { path: 'data', component: DataComponent },
+  { path: 'data/:id', component: DataComponent },
   { path: 'visualize', component: VisualizeComponent },
   { path: 'visualize/:id', component: VisualizeComponent },
   { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },
@@ -25,7 +27,11 @@ const routes: Routes = [
   },
   // { path: 'login', component: LoginComponent },
   { path: 'files', component: UploadComponent, canActivate: [AuthGuard] },
-  { path: 'files/edit/:fileId', component: FileEditComponent },
+  {
+    path: 'files/edit/:fileId',
+    component: FileEditComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'callback', component: CallbackComponent },
   {
     path: 'profile',
