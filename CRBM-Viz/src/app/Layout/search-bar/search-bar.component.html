@@ -4,11 +4,8 @@
       <input #searchbox matInput placeholder="{{ placeholder }}" />
     </mat-form-field>
 
-    <button
-      [routerLink]="'/search/' + searchbox.value"
-      mat-flat-button
-      color="primary"
-    >
+    <button [routerLink]="baseURL + searchbox.value" mat-icon-button>
+      <mat-icon> {{ icon }}</mat-icon>
       {{ buttonTerm }}
     </button>
   </form>

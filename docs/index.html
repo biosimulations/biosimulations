@@ -31,6 +31,10 @@
                    <div class="content-data">
 
 <h1 id="crbm-viz">CRBM-Viz</h1>
+<p><a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Build,%20Lint,%20Test/badge.svg" alt="Tests" class="img-responsive"></a>
+<a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg" alt="Docker" class="img-responsive"></a>
+<a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Documentation/badge.svg" alt="Documentation" class="img-responsive"></a>
+<a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg" alt="Deploy" class="img-responsive"></a></p>
 <h2 id="current-build">Current Build</h2>
 <p><a href="https://crbm-viz.herokuapp.com/">https://crbm-viz.herokuapp.com/</a></p>
 <h2 id="documentation">Documentation</h2>
@@ -39,6 +43,8 @@
 <p>The current build is automatically deployed to heroku at above link. To deploy a new version into production:</p>
 <ol>
 <li><p>Ensure that all tests have passed</p>
+</li>
+<li><p>Visit the test deployment at the above link and visually ensure that the site is functional.</p>
 </li>
 <li><p>Create a release in github and give approriate version.
 This will update the latest build image on dockerhub</p>

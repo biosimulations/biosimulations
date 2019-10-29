@@ -1,18 +1,10 @@
 <div class="title"><h1>Visualizations</h1></div>
 <div class="select">
-  <form class="form-field" layout layout-align="center" layout-padding>
-    <mat-form-field class="form">
-      <input #vizInput matInput placeholder="Simulation ID" />
-    </mat-form-field>
-
-    <button
-      [routerLink]="'/visualize/' + vizInput.value"
-      mat-raised-button
-      color="primary"
-    >
-      Visualize
-    </button>
-  </form>
+  <app-search-bar
+    placeholder="Visualization ID..."
+    buttonTerm="Visualize"
+    baseURL="/visualize/"
+  ></app-search-bar>
 </div>
 <div class="landing" *ngIf="!id">
   <p>Please enter the id of a simulation run to view its visualizations</p>

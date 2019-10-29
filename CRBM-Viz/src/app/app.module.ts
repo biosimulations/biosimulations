@@ -6,8 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { AgGridModule } from 'ag-grid-angular';
 // Defined Modules in Imports
+
+// Defined Modules in app
 import { AppRoutingModule } from './Modules/app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
 
@@ -24,7 +26,7 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { NavigationComponent } from './Layout/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { LinksComponent } from './Layout/links/links.component';
+import { SidebarComponent } from './Layout/sidebar/sidebar.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { AlertComponent } from './Components/alert/alert.component';
@@ -35,8 +37,13 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
-import { DrawerLinksComponent } from './Layout/drawer-links/drawer-links.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { DataTableComponent } from './Components/data-table/data-table.component';
+import { DataComponent } from './Pages/data/data.component';
+import { NavIconsComponent } from './Layout/nav-icons/nav-icons.component';
+import { AccountMenuComponent } from './Layout/account-menu/account-menu.component';
+
+// Pipes defined in app
+import { FilterPipe } from './Pipes/filter.pipe';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -57,7 +64,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FourComponent,
     UnderConstructionComponent,
     NavigationComponent,
-    LinksComponent,
+    SidebarComponent,
     CallbackComponent,
     ProfileComponent,
     UploadComponent,
@@ -68,7 +75,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FileTableComponent,
     FooterComponent,
     AlertComponent,
-    DrawerLinksComponent,
+    DataTableComponent,
+    DataComponent,
+    NavIconsComponent,
+    AccountMenuComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -78,17 +89,17 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HttpClientModule,
     MaterialModule,
     LayoutModule,
-    NgxSpinnerModule
+    AgGridModule.withComponents([])
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true,
-    },
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
