@@ -1,0 +1,32 @@
+<app-logo></app-logo>
+<span class="spacer"></span>
+<!-- <button
+  mat-flat-button
+  [routerLink]="['/']"
+  routerLinkActive="router-link-active"
+>
+  <mat-icon> home</mat-icon>Home
+</button> -->
+<mat-accordion>
+  <div *ngFor="let header of NavItems | filter: isTopLevel">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="header-title">
+        <div class="header-content">
+          <mat-icon class="icon"> {{ header.icon }}</mat-icon>
+          <mat-panel-title class="panel-title">
+            {{ header.title }}</mat-panel-title
+          >
+        </div>
+      </mat-expansion-panel-header>
+      <div
+        class="child"
+        *ngFor="let route of NavItems | filter: isChildOf:[header]"
+      >
+        <mat-list-item [routerLink]="route.link">
+          <mat-icon> {{ route.icon }}</mat-icon>
+          {{ route.title }}
+        </mat-list-item>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</mat-accordion>

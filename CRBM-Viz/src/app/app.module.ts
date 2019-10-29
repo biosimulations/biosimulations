@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// Defined Modules in Imports
+// Defined Modules in app
 import { AppRoutingModule } from './Modules/app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
 
@@ -24,7 +24,7 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { NavigationComponent } from './Layout/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { LinksComponent } from './Layout/links/links.component';
+import { SidebarComponent } from './Layout/sidebar/sidebar.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { AlertComponent } from './Components/alert/alert.component';
@@ -35,6 +35,11 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
+import { NavIconsComponent } from './Layout/nav-icons/nav-icons.component';
+import { AccountMenuComponent } from './Layout/account-menu/account-menu.component';
+
+// Pipes defined in app
+import { FilterPipe } from './Pipes/filter.pipe';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -55,7 +60,7 @@ import { FooterComponent } from './Layout/footer/footer.component';
     FourComponent,
     UnderConstructionComponent,
     NavigationComponent,
-    LinksComponent,
+    SidebarComponent,
     CallbackComponent,
     ProfileComponent,
     UploadComponent,
@@ -66,6 +71,9 @@ import { FooterComponent } from './Layout/footer/footer.component';
     FileTableComponent,
     FooterComponent,
     AlertComponent,
+    NavIconsComponent,
+    AccountMenuComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

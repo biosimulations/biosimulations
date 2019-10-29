@@ -22,7 +22,7 @@
       </button>
     </mat-toolbar>
     <mat-nav-list>
-      <app-links></app-links>
+      <app-sidebar></app-sidebar>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="full-content">
@@ -37,12 +37,12 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <div class="logo"><app-logo></app-logo></div>
+      <div class="logo" *ngIf="!drawer.opened"><app-logo></app-logo></div>
       <div class="searchbar" *ngIf="(isHandset$ | async) === false">
         <app-search-bar></app-search-bar>
       </div>
-      <div class="links" *ngIf="(isHandset$ | async) === false">
-        <app-links></app-links>
+      <div class="icons" *ngIf="(isHandset$ | async) === false">
+        <app-nav-icons></app-nav-icons>
       </div>
     </mat-toolbar>
     <div class="content"><ng-content></ng-content></div>
