@@ -7,7 +7,14 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
+    "debug": "node --inspect-brk node_modules/.bin/protractor ./e2e/protractor.conf.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix"
+    },
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:ssr": "node dist/server",
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
@@ -29,8 +36,6 @@
     "@auth0/auth0-spa-js": "^1.2.4",
     "@nguniversal/express-engine": "^8.1.1",
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
-    "angular-cli-ghpages": "^0.6.0",
-    "angularx-social-login": "^1.2.7",
     "ag-grid-angular": "^21.2.2",
     "ag-grid-community": "^21.2.2",
     "bootstrap": "^4.3.1",
