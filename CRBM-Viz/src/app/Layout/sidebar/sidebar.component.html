@@ -8,7 +8,7 @@
   <mat-icon> home</mat-icon>Home
 </button> -->
 <mat-accordion>
-  <div *ngFor="let header of headers">
+  <div *ngFor="let header of NavItems | filter: isTopLevel">
     <mat-expansion-panel>
       <mat-expansion-panel-header class="header-title">
         <div class="header-content">
@@ -18,11 +18,11 @@
           >
         </div>
       </mat-expansion-panel-header>
-      <div class="child" *ngFor="let route of routes">
-        <mat-list-item
-          *ngIf="header.children.includes(route.title)"
-          [routerLink]="route.link"
-        >
+      <div
+        class="child"
+        *ngFor="let route of NavItems | filter: isChildOf:header"
+      >
+        <mat-list-item [routerLink]="route.link">
           <mat-icon> {{ route.icon }}</mat-icon>
           {{ route.title }}
         </mat-list-item>
