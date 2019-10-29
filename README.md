@@ -1,4 +1,5 @@
 # CRBM-Viz
+[![Tests](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Build,Lint,Test/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 
 ## Current Build
 
