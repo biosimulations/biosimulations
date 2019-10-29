@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth0.service';
-import { AccountMenuComponent } from '../account-menu/account-menu.component';
+import { AccountMenuComponent } from 'src/app/Layout/account-menu/account-menu.component';
 
 @Component({
   selector: 'app-nav-icons',

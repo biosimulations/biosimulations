@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SidebarComponent } from './sidebar.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { from } from 'rxjs';
-describe('LinksComponent', () => {
+import { FilterPipe } from 'src/app/Pipes/filter.pipe';
+describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SidebarComponent],
+      declarations: [SidebarComponent, FilterPipe],
       imports: [RouterTestingModule],
       providers: [
         { provide: RouterTestingModule, useValue: RouterTestingModule },
