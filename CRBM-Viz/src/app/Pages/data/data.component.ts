@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class DataComponent implements OnInit {
   timecourse: Timecourse[] = [];
   id: string;
+  columnDefs;
+  rowData;
 
   constructor(
     private dataService: DataService,
@@ -24,12 +26,21 @@ export class DataComponent implements OnInit {
         this.getData();
       }
     });
+    this.columnDefs = [
+      { headerName: 'Species', field: 'Species', sortable: true, filter: true },
+      {
+        headerName: 'Concentration',
+        field: 'Concentration',
+        sortable: true,
+        filter: true,
+      },
+      { headerName: 'Time', field: 'Time', sortable: true, filter: true },
+    ];
   }
 
   getData() {
     this.dataService.getTimecourse(this.id).subscribe((res: Timecourse[]) => {
       this.timecourse = res;
-      console.log(this.timecourse);
     });
   }
 }
