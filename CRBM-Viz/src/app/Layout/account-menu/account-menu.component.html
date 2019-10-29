@@ -1,0 +1,48 @@
+<mat-menu #profileMenu="matMenu" color="primary">
+  <button
+    mat-menu-item
+    color="primary"
+    [routerLink]="['/profile']"
+    matTooltip=" View Profile"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="Profile icon">face</mat-icon>
+    Profile
+  </button>
+
+  <button
+    mat-menu-item
+    color="primary"
+    [routerLink]="['/profile']"
+    matTooltip=" View Messages"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="notifications icon"
+      >notifications</mat-icon
+    >
+    Notifications
+  </button>
+  <button
+    mat-menu-item
+    color="primary"
+    [routerLink]="['/profile']"
+    matTooltip=" Change Settings"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="Settings icon"
+      >settings_applications</mat-icon
+    >
+    Settings
+  </button>
+
+  <button
+    mat-menu-item
+    color="primary"
+    matTooltip="Log Out"
+    matTooltipPosition="below"
+    (click)="auth.logout()"
+  >
+    <mat-icon aria-hidden="false" aria-label="Log Out icon">lock</mat-icon>
+    Log Out
+  </button>
+</mat-menu>

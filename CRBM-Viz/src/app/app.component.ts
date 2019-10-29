@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     this.auth.userProfile$.subscribe(profile => {
       this.auth.getToken$().subscribe(token => {
         if (token) {
-          localStorage.setItem('test', token.__raw);
+          localStorage.setItem('token', token.__raw);
         }
       });
     });
