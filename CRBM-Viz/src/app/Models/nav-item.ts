@@ -25,7 +25,7 @@ export const NavItems: NavItem[] = [
   {
     title: 'Simulations',
     icon: 'explore',
-    children: [],
+    children: ['Data'],
   },
   {
     title: 'Visualizations',
@@ -66,5 +66,10 @@ export const NavItems: NavItem[] = [
     title: 'Settings',
     icon: 'settings',
     link: '/settings',
+  },
+  {
+    title: 'Data',
+    icon: 'assignment',
+    link: '/data',
   },
 ];

@@ -6,6 +6,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AgGridModule } from 'ag-grid-angular';
+// Defined Modules in Imports
 
 // Defined Modules in app
 import { AppRoutingModule } from './Modules/app-routing.module';
@@ -35,6 +37,8 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
+import { DataTableComponent } from './Components/data-table/data-table.component';
+import { DataComponent } from './Pages/data/data.component';
 import { NavIconsComponent } from './Layout/nav-icons/nav-icons.component';
 import { AccountMenuComponent } from './Layout/account-menu/account-menu.component';
 
@@ -71,9 +75,11 @@ import { FilterPipe } from './Pipes/filter.pipe';
     FileTableComponent,
     FooterComponent,
     AlertComponent,
+    DataTableComponent,
+    DataComponent,
     NavIconsComponent,
     AccountMenuComponent,
-    FilterPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -83,16 +89,17 @@ import { FilterPipe } from './Pipes/filter.pipe';
     HttpClientModule,
     MaterialModule,
     LayoutModule,
+    AgGridModule.withComponents([])
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true,
-    },
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
