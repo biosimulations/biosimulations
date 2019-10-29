@@ -44,6 +44,7 @@ import { AccountMenuComponent } from './Layout/account-menu/account-menu.compone
 
 // Pipes defined in app
 import { FilterPipe } from './Pipes/filter.pipe';
+import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -79,7 +80,8 @@ import { FilterPipe } from './Pipes/filter.pipe';
     DataComponent,
     NavIconsComponent,
     AccountMenuComponent,
-    FilterPipe
+    FilterPipe,
+    FileChooserComponent
   ],
   imports: [
     BrowserModule,
