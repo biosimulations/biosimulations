@@ -8,7 +8,6 @@ import { SimulationService } from 'src/app/Services/simulation.service';
   styleUrls: ['./new-simulation.component.sass']
 })
 export class NewSimulationComponent implements OnInit {
-  isLoading = true;
   selectedSbatch: string = null;
   selectedOmex: string = null;
   selectedSolver: string = null;
@@ -27,7 +26,6 @@ export class NewSimulationComponent implements OnInit {
         this.omexFiles = this.simulationService.omexFiles;
         this.solverFiles = this.simulationService.solverFiles;
         this.sbatchFiles = this.simulationService.sbatchFiles;
-        this.isLoading = false;
       },
       error => {
         this.alertService.openDialog(
@@ -39,7 +37,6 @@ export class NewSimulationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isLoading = true;
     this.simulationService.createSimulation(
       this.selectedSbatch,
       this.selectedOmex,
@@ -51,7 +48,6 @@ export class NewSimulationComponent implements OnInit {
           JSON.stringify(success)
         );
         this.simulationService.getSimulationAndJobFilesInfo();
-        this.isLoading = false;
       },
       error => {
         this.alertService.openDialog(
