@@ -35,8 +35,8 @@ import { FileTableComponent } from './Pages/files/file-table/file-table.componen
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
 import { FooterComponent } from './Layout/footer/footer.component';
-import { NavIconsComponent } from './Layout/navigation/nav-icons/nav-icons.component';
-import { AccountMenuComponent } from './Layout/navigation/account-menu/account-menu.component';
+import { NavIconsComponent } from './Layout/nav-icons/nav-icons.component';
+import { AccountMenuComponent } from './Layout/account-menu/account-menu.component';
 
 // Pipes defined in app
 import { FilterPipe } from './Pipes/filter.pipe';
