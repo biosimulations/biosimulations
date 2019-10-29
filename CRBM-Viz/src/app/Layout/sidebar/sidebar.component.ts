@@ -13,7 +13,8 @@ export class SidebarComponent implements OnInit {
   isTopLevel(navItem: NavItem) {
     return navItem.children != null;
   }
-  isChildOf(child: NavItem, parent: NavItem) {
+  isChildOf(child: NavItem, args: any[]) {
+    const parent: NavItem = args[0];
     return parent.children.includes(child.title);
   }
 
