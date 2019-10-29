@@ -11,7 +11,7 @@ export class SidebarComponent implements OnInit {
   NavItems = NavItems;
   constructor(public auth: AuthService) {}
   isTopLevel(navItem: NavItem) {
-    return navItem.children;
+    return navItem.children != null;
   }
   isChildOf(child: NavItem, parent: NavItem) {
     return parent.children.includes(child.title);
