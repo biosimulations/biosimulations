@@ -8,8 +8,9 @@
 </div>
 <div class="landing" *ngIf="!id">
   <p>Please enter the id of a simulation run to view its data</p>
+  <p>For example, search for "004"</p>
 </div>
-<div class="table-container">
+<div class="table-container" *ngIf="id">
   <app-data-table
     class="data-table"
     [columnDefs]="columnDefs"
