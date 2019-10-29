@@ -38,6 +38,9 @@ import { FooterComponent } from './Layout/footer/footer.component';
 import { NavIconsComponent } from './Layout/navigation/nav-icons/nav-icons.component';
 import { AccountMenuComponent } from './Layout/navigation/account-menu/account-menu.component';
 
+// Pipes defined in app
+import { FilterPipe } from './Pipes/filter.pipe';
+
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
 // import { SimulationService } from './Services/simulation.service';
@@ -70,6 +73,7 @@ import { AccountMenuComponent } from './Layout/navigation/account-menu/account-m
     AlertComponent,
     NavIconsComponent,
     AccountMenuComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
