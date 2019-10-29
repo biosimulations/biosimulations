@@ -20,7 +20,7 @@
       </mat-expansion-panel-header>
       <div
         class="child"
-        *ngFor="let route of NavItems | filter: isChildOf:header"
+        *ngFor="let route of NavItems | filter: isChildOf:[header]"
       >
         <mat-list-item [routerLink]="route.link">
           <mat-icon> {{ route.icon }}</mat-icon>
