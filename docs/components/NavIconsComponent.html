@@ -35,7 +35,7 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>SimulateComponent</li>
+  <li>NavIconsComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Pages/simulate/simulate.component.ts</code>
+    <code>CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts</code>
 </p>
 
 
@@ -91,19 +91,19 @@
 
             <tr>
                 <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>app-simulate</code></td>
+                <td class="col-md-9"><code>app-nav-icons</code></td>
             </tr>
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./simulate.component.sass</code></td>
+                <td class="col-md-9"><code>./nav-icons.component.sass</code></td>
             </tr>
 
 
 
             <tr>
                 <td class="col-md-3">templateUrl</td>
-                <td class="col-md-9"><code>./simulate.component.html</code></td>
+                <td class="col-md-9"><code>./nav-icons.component.html</code></td>
             </tr>
 
 
@@ -121,6 +121,24 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#accountMenu">accountMenu</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#auth">auth</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -151,12 +169,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(simulationService: <a href="../injectables/SimulationService.html">SimulationService</a>)</code>
+<code>constructor(auth: <a href="../injectables/AuthService.html">AuthService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Pages/simulate/simulate.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -174,10 +192,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>simulationService</td>
+                                                        <td>auth</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/SimulationService.html" target="_self" >SimulationService</a></code>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -225,8 +243,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="13"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/simulate/simulate.component.ts:13</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:15</a></div>
                 </td>
             </tr>
 
@@ -243,48 +261,200 @@
         </tbody>
     </table>
 </section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="accountMenu"></a>
+                        <span class="name">
+                            <b>
+                            accountMenu</b>
+                            <a href="#accountMenu"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../components/AccountMenuComponent.html" target="_self" >AccountMenuComponent</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(AccountMenuComponent, {static: true})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="auth"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            auth</b>
+                            <a href="#auth"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
 
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
-import { SimulationService } from &#x27;src/app/Services/simulation.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { AuthService } from &#x27;src/app/Services/auth0.service&#x27;;
+import { AccountMenuComponent } from &#x27;src/app/Layout/account-menu/account-menu.component&#x27;;
 
 @Component({
-  selector: &#x27;app-simulate&#x27;,
-  templateUrl: &#x27;./simulate.component.html&#x27;,
-  styleUrls: [&#x27;./simulate.component.sass&#x27;]
+  selector: &#x27;app-nav-icons&#x27;,
+  templateUrl: &#x27;./nav-icons.component.html&#x27;,
+  styleUrls: [&#x27;./nav-icons.component.sass&#x27;],
 })
-export class SimulateComponent implements OnInit {
+export class NavIconsComponent implements OnInit {
+  @ViewChild(AccountMenuComponent, { static: true })
+  accountMenu: AccountMenuComponent;
+  constructor(public auth: AuthService) {}
 
-  constructor(private simulationService: SimulationService) { }
-
-  ngOnInit() {
-    this.simulationService.getSimulationAndJobFilesInfo();
-  }
-
+  ngOnInit() {}
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;mat-tab-group&gt;
-  &lt;mat-tab label&#x3D;&quot;Past Simulations&quot;&gt;
-    &lt;app-past-simulation&gt;&lt;/app-past-simulation&gt;
-  &lt;/mat-tab&gt;
-  &lt;mat-tab label&#x3D;&quot;New Simulation&quot;&gt;
-    &lt;app-new-simulation&gt;&lt;/app-new-simulation&gt;
-  &lt;/mat-tab&gt;
-&lt;/mat-tab-group&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;icons&quot;&gt;
+  &lt;button
+    mat-icon-button
+    [routerLink]&#x3D;&quot;[&#x27;&#x27;]&quot;
+    matTooltip&#x3D;&quot;Home&quot;
+    matTooltipPosition&#x3D;&quot;below&quot;
+  &gt;
+    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Example home icon&quot;&gt;home&lt;/mat-icon&gt;
+  &lt;/button&gt;
+
+  &lt;button
+    mat-icon-button
+    [routerLink]&#x3D;&quot;[&#x27;/about&#x27;]&quot;
+    matTooltip&#x3D;&quot;About&quot;
+    matTooltipPosition&#x3D;&quot;below&quot;
+  &gt;
+    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;About icon&quot;&gt;help&lt;/mat-icon&gt;
+  &lt;/button&gt;
+
+  &lt;button
+    mat-icon-button
+    [routerLink]&#x3D;&quot;[&#x27;/visualize&#x27;]&quot;
+    matTooltip&#x3D;&quot;Visualizations&quot;
+    matTooltipPosition&#x3D;&quot;below&quot;
+  &gt;
+    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;visualize icon&quot;
+      &gt;timeline&lt;/mat-icon
+    &gt;
+  &lt;/button&gt;
+
+  &lt;button
+    mat-icon-button
+    [routerLink]&#x3D;&quot;[&#x27;/files&#x27;]&quot;
+    matTooltip&#x3D;&quot;Models&quot;
+    matTooltipPosition&#x3D;&quot;below&quot;
+  &gt;
+    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Files icon&quot;&gt;file_copy&lt;/mat-icon&gt;
+  &lt;/button&gt;
+
+  &lt;button
+    mat-icon-button
+    [routerLink]&#x3D;&quot;[&#x27;/simulate&#x27;]&quot;
+    matTooltip&#x3D;&quot;Simulations&quot;
+    matTooltipPosition&#x3D;&quot;below&quot;
+  &gt;
+    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Simulations icon&quot;
+      &gt;explore&lt;/mat-icon
+    &gt;
+  &lt;/button&gt;
+  &lt;button
+    mat-icon-button
+    *ngIf&#x3D;&quot;!auth.loggedIn&quot;
+    (click)&#x3D;&quot;auth.login()&quot;
+    matTooltip&#x3D;&quot;Log In&quot;
+    matTooltipPosition&#x3D;&quot;below&quot;
+  &gt;
+    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;LogIn icon&quot;&gt;lock_open&lt;/mat-icon&gt;
+  &lt;/button&gt;
+  &lt;app-account-menu&gt;&lt;/app-account-menu&gt;
+  &lt;button
+    mat-icon-button
+    *ngIf&#x3D;&quot;auth.loggedIn&quot;
+    matTooltip&#x3D;&quot;Account&quot;
+    matTooltipPosition&#x3D;&quot;below&quot;
+    [matMenuTriggerFor]&#x3D;&quot;accountMenu?.profileMenu&quot;
+  &gt;
+    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Account icon&quot;
+      &gt;account_circle&lt;/mat-icon
+    &gt;
+  &lt;/button&gt;
+&lt;/div&gt;
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
                 <p class="comment">
-                    <code>./simulate.component.sass</code>
+                    <code>./nav-icons.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.sass&#x27;
+.icons
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-self: flex-end
+button
+    min-width: min-content
+    flex: 1 1 auto
+    height: 100%
+button:focus
+    outline: 0px
+button:hover
+    color: mat-color($accent)
+
+a
+    color: white
+    flex: 1 1 auto
+a:hover
+    color: mat-color($accent)
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -312,10 +482,10 @@ export class SimulateComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-tab-group>  <mat-tab label="Past Simulations">    <app-past-simulation></app-past-simulation>  </mat-tab>  <mat-tab label="New Simulation">    <app-new-simulation></app-new-simulation>  </mat-tab></mat-tab-group></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="icons">  <button    mat-icon-button    [routerLink]="[\'\']"    matTooltip="Home"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>  </button>  <button    mat-icon-button    [routerLink]="[\'/about\']"    matTooltip="About"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="About icon">help</mat-icon>  </button>  <button    mat-icon-button    [routerLink]="[\'/visualize\']"    matTooltip="Visualizations"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="visualize icon"      >timeline</mat-icon    >  </button>  <button    mat-icon-button    [routerLink]="[\'/files\']"    matTooltip="Models"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="Files icon">file_copy</mat-icon>  </button>  <button    mat-icon-button    [routerLink]="[\'/simulate\']"    matTooltip="Simulations"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="Simulations icon"      >explore</mat-icon    >  </button>  <button    mat-icon-button    *ngIf="!auth.loggedIn"    (click)="auth.login()"    matTooltip="Log In"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="LogIn icon">lock_open</mat-icon>  </button>  <app-account-menu></app-account-menu>  <button    mat-icon-button    *ngIf="auth.loggedIn"    matTooltip="Account"    matTooltipPosition="below"    [matMenuTriggerFor]="accountMenu?.profileMenu"  >    <mat-icon aria-hidden="false" aria-label="Account icon"      >account_circle</mat-icon    >  </button></div></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
-    var ACTUAL_COMPONENT = {'name': 'SimulateComponent'};
+    var ACTUAL_COMPONENT = {'name': 'NavIconsComponent'};
 </script>
 <script src="../js/tree.js"></script>
 
@@ -350,7 +520,7 @@ export class SimulateComponent implements OnInit {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
-            var COMPODOC_CURRENT_PAGE_URL = 'SimulateComponent.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'NavIconsComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

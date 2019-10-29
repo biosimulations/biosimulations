@@ -289,7 +289,7 @@ export class NavigationComponent {
       &lt;/button&gt;
     &lt;/mat-toolbar&gt;
     &lt;mat-nav-list&gt;
-      &lt;app-links&gt;&lt;/app-links&gt;
+      &lt;app-sidebar&gt;&lt;/app-sidebar&gt;
     &lt;/mat-nav-list&gt;
   &lt;/mat-sidenav&gt;
   &lt;mat-sidenav-content class&#x3D;&quot;full-content&quot;&gt;
@@ -304,12 +304,12 @@ export class NavigationComponent {
       &gt;
         &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot;&gt;menu&lt;/mat-icon&gt;
       &lt;/button&gt;
-      &lt;div class&#x3D;&quot;logo&quot;&gt;&lt;app-logo&gt;&lt;/app-logo&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;logo&quot; *ngIf&#x3D;&quot;!drawer.opened&quot;&gt;&lt;app-logo&gt;&lt;/app-logo&gt;&lt;/div&gt;
       &lt;div class&#x3D;&quot;searchbar&quot; *ngIf&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;&gt;
         &lt;app-search-bar&gt;&lt;/app-search-bar&gt;
       &lt;/div&gt;
-      &lt;div class&#x3D;&quot;links&quot; *ngIf&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;&gt;
-        &lt;app-links&gt;&lt;/app-links&gt;
+      &lt;div class&#x3D;&quot;icons&quot; *ngIf&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;&gt;
+        &lt;app-nav-icons&gt;&lt;/app-nav-icons&gt;
       &lt;/div&gt;
     &lt;/mat-toolbar&gt;
     &lt;div class&#x3D;&quot;content&quot;&gt;&lt;ng-content&gt;&lt;/ng-content&gt;&lt;/div&gt;
@@ -365,9 +365,10 @@ export class NavigationComponent {
   flex: 1 1 auto
   height: 100%
 
-.links
+.icons
+  flex: 0.25 1 auto
   height: 100%
-  flex: 0 0 auto
+  justify-self: flex-end
 
 .full-content
   height: 100%
@@ -380,7 +381,6 @@ export class NavigationComponent {
   background-image: url(&#x27;../../../assets/background-grey.png&#x27;)
 .footer
   height: auto
-  max-height: 5%
   background: #ebebeb
   padding: 0px
   margin: 0px
@@ -412,8 +412,8 @@ export class NavigationComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <!-- [ngClass]="{ hidden: (isHandset | async) === false }" -->  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport="false"    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar>      Menu      <span></span>      <button        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>    </mat-toolbar>    <mat-nav-list>      <app-links></app-links>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content class="full-content">    <mat-toolbar class="topbar" color="primary">      <button        class="menubutton"        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="!drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>      <div class="logo"><app-logo></app-logo></div>      <div class="searchbar" *ngIf="(isHandset$ | async) === false">        <app-search-bar></app-search-bar>      </div>      <div class="links" *ngIf="(isHandset$ | async) === false">        <app-links></app-links>      </div>    </mat-toolbar>    <div class="content"><ng-content></ng-content></div>    <div class="footer">      <app-footer></app-footer>    </div>  </mat-sidenav-content></mat-sidenav-container></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LinksComponent', 'selector': 'app-links'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <!-- [ngClass]="{ hidden: (isHandset | async) === false }" -->  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport="false"    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar>      Menu      <span></span>      <button        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>    </mat-toolbar>    <mat-nav-list>      <app-sidebar></app-sidebar>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content class="full-content">    <mat-toolbar class="topbar" color="primary">      <button        class="menubutton"        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="!drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>      <div class="logo" *ngIf="!drawer.opened"><app-logo></app-logo></div>      <div class="searchbar" *ngIf="(isHandset$ | async) === false">        <app-search-bar></app-search-bar>      </div>      <div class="icons" *ngIf="(isHandset$ | async) === false">        <app-nav-icons></app-nav-icons>      </div>    </mat-toolbar>    <div class="content"><ng-content></ng-content></div>    <div class="footer">      <app-footer></app-footer>    </div>  </mat-sidenav-content></mat-sidenav-container></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'NavigationComponent'};
 </script>

@@ -238,7 +238,11 @@ export class FooterComponent implements OnInit {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;footer&quot;&gt;
-  &lt;div class&#x3D;&quot;spacer&quot;&gt;&lt;/div&gt;
+  &lt;span class&#x3D;&quot;spacer&quot;&gt;&lt;/span&gt;
+  &lt;span class&#x3D;&quot;crbm&quot;&gt;
+    &lt;p&gt;Created by:&lt;/p&gt;
+    &lt;app-logo class&#x3D;&quot;app-logo&quot;&gt;&lt;/app-logo&gt;
+  &lt;/span&gt;
   &lt;span class&#x3D;&quot;Auth0&quot;&gt;
     &lt;p&gt;Authenticated by:&lt;/p&gt;
     &lt;a
@@ -281,27 +285,29 @@ export class FooterComponent implements OnInit {
                 </p>
                 <pre class="line-numbers"><code class="language-scss">.footer
     background: inherit
-    height: 100%
+    height: auto
     width: 100%
     display: flex
     flex-direction: row
     flex-wrap: false
 
-    .spacer
-        min-width: 5px
-        flex: 1 0 auto
-        height: 100%
+.spacer
+    min-width: 5px
+    flex: 1 0 auto
+    height: 100%
 
-    .Auth0, .github
-        display: flex
-        flex: 0 0 auto
-        height: auto
-        p
-            height: auto
-            align-self: flex-end
-        .octicon
-            margin-left: -40px
-        
+.Auth0, .github, .crbm
+    display: flex
+    flex: 0 0 auto
+    flex-wrap: false
+    padding: 5px
+.app-logo
+    height: 50px
+
+    p
+        justify-self: flex-start
+.octicon
+    margin-left: -40px
 </code></pre>
     </div>
 
@@ -330,8 +336,8 @@ export class FooterComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="footer">  <div class="spacer"></div>  <span class="Auth0">    <p>Authenticated by:</p>    <a      width="150"      height="50"      href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss"      target="_blank"      alt="Single Sign On & Token Based Authentication - Auth0"      ><img        width="150"        height="50"        alt="JWT Auth for open source projects"        src="//cdn.auth0.com/oss/badges/a0-badge-light.png"    /></a>  </span>  <span class="github">    <p>View Source:</p>    <a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz">      <svg        version="1.1"        width="150"        height="50"        viewBox="0 0 20 20"        class="octicon"        aria-hidden="true"      >        <path          fill-rule="evenodd"          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"        ></path></svg    ></a>  </span></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LinksComponent', 'selector': 'app-links'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div class="footer">  <span class="spacer"></span>  <span class="crbm">    <p>Created by:</p>    <app-logo class="app-logo"></app-logo>  </span>  <span class="Auth0">    <p>Authenticated by:</p>    <a      width="150"      height="50"      href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss"      target="_blank"      alt="Single Sign On & Token Based Authentication - Auth0"      ><img        width="150"        height="50"        alt="JWT Auth for open source projects"        src="//cdn.auth0.com/oss/badges/a0-badge-light.png"    /></a>  </span>  <span class="github">    <p>View Source:</p>    <a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz">      <svg        version="1.1"        width="150"        height="50"        viewBox="0 0 20 20"        class="octicon"        aria-hidden="true"      >        <path          fill-rule="evenodd"          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"        ></path></svg    ></a>  </span></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'FooterComponent'};
 </script>
