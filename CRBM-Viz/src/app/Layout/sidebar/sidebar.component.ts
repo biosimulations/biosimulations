@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth0.service';
-import { Subscription } from 'rxjs';
+
 @Component({
-  selector: 'app-links',
-  templateUrl: './links.component.html',
-  styleUrls: ['./links.component.sass'],
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.sass'],
 })
-export class LinksComponent implements OnInit {
+export class SidebarComponent implements OnInit {
   headers = [
     {
       title: 'BioSimulations',

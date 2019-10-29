@@ -12,7 +12,7 @@ import { MaterialModule } from 'src/app/Modules/app-material.module';
 
 // TODO Sample content is needed and component compiled with it as input for <ng-content>
 import { AboutComponent } from 'src/app/Pages/about/about.component';
-import { LinksComponent } from '../links/links.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
   let fixture: ComponentFixture<NavigationComponent>;
@@ -25,7 +25,7 @@ describe('NavigationComponent', () => {
         LogoComponent,
         SearchBarComponent,
         FooterComponent,
-        LinksComponent,
+        SidebarComponent,
       ],
       imports: [MaterialModule, BrowserAnimationsModule, RouterTestingModule],
     }).compileComponents();
