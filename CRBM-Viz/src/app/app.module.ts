@@ -9,6 +9,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 // Defined Modules in Imports
 
+// FontAwesome for icons
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 // Defined Modules in app
 import { AppRoutingModule } from './Modules/app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
@@ -89,7 +92,8 @@ import { FilterPipe } from './Pipes/filter.pipe';
     HttpClientModule,
     MaterialModule,
     LayoutModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    FontAwesomeModule
   ],
   providers: [
     {

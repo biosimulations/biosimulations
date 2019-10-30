@@ -1,4 +1,49 @@
-<p>Profile:</p>
-<pre *ngIf="auth.userProfile$ | async as profile">
-        <code>{{ profile | json }}</code>
-</pre>
+<h2 class="page-title">Profile 
+    <a href="#"><mat-icon class="unverified" aria-hidden="false" aria-label="Edit profile">edit</mat-icon></a>
+</h2>
+
+<div *ngIf="auth.userProfile$ | async as profile">
+    <img class="photo" src="{{ profile.picture }}"/>
+    <div class="name">{{ profile.name }}</div>
+    <div class="username">{{ profile.nickname }}</div>
+    <div class="description" *ngIf="user.description">{{ user.description }}</div>
+
+    <table class="details">
+        <tr *ngIf="user.organization">
+            <th><mat-icon aria-hidden="false" aria-label="Organization">people</mat-icon></th>
+            <td>{{ user.organization }}</td>
+        </tr>
+
+        <tr *ngIf="user.website">
+            <th><mat-icon aria-hidden="false" aria-label="Website">link</mat-icon></th>
+            <td><a href="{{ user.website }}">{{ user.website }}</a></td>
+        </tr>
+
+        <tr *ngIf="profile.email" class="email">
+            <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
+            <td><a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                <span *ngIf="profile.email_verified; else emailUnverified">
+                    <mat-icon class="verified" aria-hidden="false" aria-label="Email verified">check</mat-icon>
+                </span>
+                <ng-template #emailUnverified>x
+                    <mat-icon class="unverified" aria-hidden="false" aria-label="Email not verified">close</mat-icon>
+                </ng-template>
+            </td>
+        </tr>
+
+        <tr *ngIf="user.github">
+            <th><fa-icon [icon]="faGithub" size="lg" aria-hidden="false" aria-label="GitHub"></fa-icon></th>
+            <td><a href="https://github.com/{{ user.github }}">{{ user.github }}</a></td>
+        </tr>
+        
+        <tr *ngIf="user.google_scholar">
+            <th><fa-icon [icon]="faGoogle" size="lg" aria-hidden="false" aria-label="Google Scholar"></fa-icon></th>
+            <td><a href="https://scholar.google.com/citations?user={{ user.google_scholar }}">{{ user.google_scholar }}</a></td>
+        </tr>
+        
+        <tr *ngIf="user.orcid">
+            <th><fa-icon [icon]="faOrcid" size="lg" aria-hidden="false" aria-label="ORCID"></fa-icon></th>
+            <td><a href="https://orcid.org/{{ user.orcid }}">{{ user.orcid }}</a></td>
+        </tr>
+    </table>
+</div>
