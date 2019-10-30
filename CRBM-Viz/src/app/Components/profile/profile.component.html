@@ -6,17 +6,17 @@
     <img class="photo" src="{{ profile.picture }}"/>
     <div class="name">{{ profile.name }}</div>
     <div class="username">{{ profile.nickname }}</div>
-    <div class="description" *ngIf="user.description">{{ user.description }}</div>
+    <div class="description" *ngIf="auth.extendedProfile.description">{{ auth.extendedProfile.description }}</div>
 
     <table class="details">
-        <tr *ngIf="user.organization">
+        <tr *ngIf="auth.extendedProfile.organization">
             <th><mat-icon aria-hidden="false" aria-label="Organization">people</mat-icon></th>
-            <td>{{ user.organization }}</td>
+            <td>{{ auth.extendedProfile.organization }}</td>
         </tr>
 
-        <tr *ngIf="user.website">
+        <tr *ngIf="auth.extendedProfile.website">
             <th><mat-icon aria-hidden="false" aria-label="Website">link</mat-icon></th>
-            <td><a href="{{ user.website }}">{{ user.website }}</a></td>
+            <td><a href="{{ auth.extendedProfile.website }}">{{ auth.extendedProfile.website }}</a></td>
         </tr>
 
         <tr *ngIf="profile.email" class="email">
@@ -31,19 +31,19 @@
             </td>
         </tr>
 
-        <tr *ngIf="user.github">
-            <th><fa-icon [icon]="faGithub" size="lg" aria-hidden="false" aria-label="GitHub"></fa-icon></th>
-            <td><a href="https://github.com/{{ user.github }}">{{ user.github }}</a></td>
+        <tr *ngIf="auth.extendedProfile.github">
+            <th><fa-icon [icon]="['fab', 'github']" size="lg" aria-hidden="false" aria-label="GitHub"></fa-icon></th>
+            <td><a href="https://github.com/{{ auth.extendedProfile.github }}">{{ auth.extendedProfile.github }}</a></td>
         </tr>
         
-        <tr *ngIf="user.google_scholar">
-            <th><fa-icon [icon]="faGoogle" size="lg" aria-hidden="false" aria-label="Google Scholar"></fa-icon></th>
-            <td><a href="https://scholar.google.com/citations?user={{ user.google_scholar }}">{{ user.google_scholar }}</a></td>
+        <tr *ngIf="auth.extendedProfile.google_scholar">
+            <th><fa-icon [icon]="['fab', 'google']" size="lg" aria-hidden="false" aria-label="Google Scholar"></fa-icon></th>
+            <td><a href="https://scholar.google.com/citations?user={{ auth.extendedProfile.google_scholar }}">{{ auth.extendedProfile.google_scholar }}</a></td>
         </tr>
         
-        <tr *ngIf="user.orcid">
-            <th><fa-icon [icon]="faOrcid" size="lg" aria-hidden="false" aria-label="ORCID"></fa-icon></th>
-            <td><a href="https://orcid.org/{{ user.orcid }}">{{ user.orcid }}</a></td>
+        <tr *ngIf="auth.extendedProfile.orcid">
+            <th><fa-icon [icon]="['fab', 'orcid']" size="lg" aria-hidden="false" aria-label="ORCID"></fa-icon></th>
+            <td><a href="https://orcid.org/{{ auth.extendedProfile.orcid }}">{{ auth.extendedProfile.orcid }}</a></td>
         </tr>
     </table>
 </div>
