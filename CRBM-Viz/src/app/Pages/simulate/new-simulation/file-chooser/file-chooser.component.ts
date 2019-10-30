@@ -16,10 +16,10 @@ export class FileChooserComponent implements OnInit {
   serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
   fileList: Array<object> = null;
   displayedColumns: string[] = [
-    'fileId',
+    // 'fileId',
     'filename',
     'createdBy',
-    'accessType',
+    // 'accessType',
   ];
   dataSource: MatTableDataSource<object>;
   currentUser = null;
@@ -49,8 +49,7 @@ export class FileChooserComponent implements OnInit {
         );
       }
     );
-
-    this.fileService.getFileData();
+    this.fileService.getFileData({ extension: 'omex'});
 
     this.auth.userProfile$.subscribe(
       profile => this.currentUser = profile
