@@ -45,7 +45,7 @@ export class FileTableComponent implements OnInit {
       },
       error => {
         this.alertService.openDialog(
-          "Error from FileTableComponent, can't fetch files: " +
+          'Error from FileTableComponent, can\'t fetch files: ' +
             JSON.stringify(error)
         );
       }
