@@ -16,7 +16,9 @@ const routes: Routes = [
   {
     path: 'visualize',
     loadChildren: () =>
-      import('./visualize/visualize.module').then(m => m.VisualizeModule),
+      import('./Modules/visualize/visualize.module').then(
+        m => m.VisualizeModule
+      ),
   },
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },

@@ -1,5 +1,7 @@
 @import 'src/styles.scss'
 
+.spacer
+    padding: 5rem
 // size and spacing
 .mat-expansion-panel
     margin: 0px 0
@@ -10,7 +12,7 @@
 :host::ng-deep .mat-expansion-panel-body
     padding: 0 12px 12px
 
-.mat-list-base 
+.mat-list-base
     .mat-list-item
         height: 36px
 
@@ -22,7 +24,7 @@
     margin-right: 0.25rem
 
 // border
-.mat-accordion 
+.mat-accordion
     .mat-expansion-panel:first-of-type
         border-radius: 0px
     .mat-expansion-panel:last-of-type
@@ -32,7 +34,7 @@
     box-shadow: none
 
 // colors
-.mat-expansion-panel:not(.mat-expanded) 
+.mat-expansion-panel:not(.mat-expanded)
     .mat-expansion-panel-header:hover:not([aria-disabled=true])
         background: #c9c9c9
 .sidebar-menu-subitem:hover
