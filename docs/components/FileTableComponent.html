@@ -302,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="62"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-table/file-table.component.ts:62</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-table/file-table.component.ts:59</a></div>
                 </td>
             </tr>
 
@@ -372,8 +372,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-table/file-table.component.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-table/file-table.component.ts:37</a></div>
                 </td>
             </tr>
 
@@ -411,8 +411,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-table/file-table.component.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-table/file-table.component.ts:67</a></div>
                 </td>
             </tr>
 
@@ -726,10 +726,10 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
 import { MatTableDataSource, MatSort, MatPaginator } from &#x27;@angular/material&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { AuthService } from &#x27;src/app/Services/auth0.service&#x27;;
-import { AlertService } from &#x27;src/app/Services/alert.service&#x27;;
-import { FileService } from &#x27;src/app/Services/file.service&#x27;;
-import { environment }  from &#x27;src/environments/environment&#x27;;
+import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
+import { AlertService } from &#x27;src/app/Shared/Services/alert.service&#x27;;
+import { FileService } from &#x27;src/app/Shared/Services/file.service&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
 
 @Component({
   selector: &#x27;app-file-table&#x27;,
@@ -753,10 +753,11 @@ export class FileTableComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private fileService: FileService,
     private auth: AuthService,
-    private alertService: AlertService) { }
+    private alertService: AlertService
+  ) {}
 
   ngOnInit() {
     this.fileService.fileChangeSubject.subscribe(
@@ -769,20 +770,16 @@ export class FileTableComponent implements OnInit {
       },
       error &#x3D;&gt; {
         this.alertService.openDialog(
-          &#x27;Error from FileTableComponent, can\&#x27;t fetch files: &#x27;+
-          JSON.stringify(error)
+          &quot;Error from FileTableComponent, can&#x27;t fetch files: &quot; +
+            JSON.stringify(error)
         );
       }
     );
 
     this.fileService.getFileData();
 
-    this.auth.userProfile$.subscribe(
-      profile &#x3D;&gt; this.currentUser &#x3D; profile
-    );
+    this.auth.userProfile$.subscribe(profile &#x3D;&gt; (this.currentUser &#x3D; profile));
   }
-
-  
 
   applyFilter(filterValue: string) {
     this.dataSource.filter &#x3D; filterValue.trim().toLowerCase();
@@ -914,7 +911,7 @@ td, th
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mat-spinner *ngIf="isLoading"></mat-spinner><div class="container" *ngIf="!isLoading">  <div class="row">    <h3>All Files</h3>  </div>  <div class="row">    <mat-form-field>      <input        matInput        (keyup)="applyFilter($event.target.value)"        placeholder="Filter"      />    </mat-form-field>  </div>  <div class="row">    <div class="mat-elevation-z8" style="width: 100%">      <table mat-table [dataSource]="dataSource" matSort>        <!-- ID Column -->        <ng-container matColumnDef="fileId">          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>          <td mat-cell *matCellDef="let row">{{ row.fileId }}</td>        </ng-container>        <!-- Author Column -->        <ng-container matColumnDef="createdBy">          <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>          <td mat-cell *matCellDef="let row">{{ row.createdBy }}</td>        </ng-container>        <!-- File Name Column -->        <ng-container matColumnDef="filename">          <th mat-header-cell *matHeaderCellDef mat-sort-header>File Name</th>          <td mat-cell *matCellDef="let row">            <a href="{{ serverUrl }}/file/view/{{ row.fileId }}">{{              row.filename            }}</a>          </td>        </ng-container>        <!-- Access Type Column -->        <ng-container matColumnDef="accessType">          <th mat-header-cell *matHeaderCellDef mat-sort-header>Access Type</th>          <td mat-cell *matCellDef="let row">            {{ row.accessType }}            <span *ngIf="row.createdBy === currentUser.email" class="edit">              <a [routerLink]="[\'edit\',row.fileId]"><mat-icon>edit</mat-icon></a>            </span>            <span *ngIf="row.createdBy === currentUser.email" class="delete">              <a (click)="onFileDelete(row.fileId)"><mat-icon>delete</mat-icon></a>            </span>          </td>        </ng-container>        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>      </table>      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>    </div>  </div>  <div class="row">    <hr />  </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'FileTableComponent'};
 </script>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './Services/auth0.service';
+import { AuthService } from './Shared/Services/auth0.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

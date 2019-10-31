@@ -179,7 +179,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -260,8 +260,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:24</a></div>
                 </td>
             </tr>
 
@@ -299,8 +299,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:37</a></div>
                 </td>
             </tr>
 
@@ -343,14 +343,14 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>[
-    {value: &#x27;private&#x27;, viewValue: &#x27;Private&#x27;},
-    {value: &#x27;public&#x27;, viewValue: &#x27;Public&#x27;},
+    { value: &#x27;private&#x27;, viewValue: &#x27;Private&#x27; },
+    { value: &#x27;public&#x27;, viewValue: &#x27;Public&#x27; },
   ]</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -382,7 +382,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -414,7 +414,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Pages/files/file-edit/file-edit.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -429,21 +429,17 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { ActivatedRoute } from &#x27;@angular/router&#x27;;
-import { FileService } from &#x27;src/app/Services/file.service&#x27;;
+import { FileService } from &#x27;src/app/Shared/Services/file.service&#x27;;
 
 @Component({
   selector: &#x27;app-file-edit&#x27;,
   templateUrl: &#x27;./file-edit.component.html&#x27;,
-  styleUrls: [&#x27;./file-edit.component.sass&#x27;]
+  styleUrls: [&#x27;./file-edit.component.sass&#x27;],
 })
-
-
-
 export class FileEditComponent implements OnInit {
-
   accessTypes &#x3D; [
-    {value: &#x27;private&#x27;, viewValue: &#x27;Private&#x27;},
-    {value: &#x27;public&#x27;, viewValue: &#x27;Public&#x27;},
+    { value: &#x27;private&#x27;, viewValue: &#x27;Private&#x27; },
+    { value: &#x27;public&#x27;, viewValue: &#x27;Public&#x27; },
   ];
 
   selectedValue &#x3D; null;
@@ -451,28 +447,25 @@ export class FileEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private fileService: FileService) { }
+    private fileService: FileService
+  ) {}
 
   ngOnInit() {
     const fileId &#x3D; this.route.snapshot.params[&#x27;fileId&#x27;];
-    this.fileService.getFile(fileId)
-      .subscribe(
-        success &#x3D;&gt; {
-          this.currentFile &#x3D; success[&#x27;data&#x27;];
-          this.selectedValue &#x3D; this.currentFile[&#x27;accessType&#x27;];
-        },
-        error &#x3D;&gt; {
-          console.log(&#x27;Error in fetching specific file&#x27;, error);
-        }
-      );
+    this.fileService.getFile(fileId).subscribe(
+      success &#x3D;&gt; {
+        this.currentFile &#x3D; success[&#x27;data&#x27;];
+        this.selectedValue &#x3D; this.currentFile[&#x27;accessType&#x27;];
+      },
+      error &#x3D;&gt; {
+        console.log(&#x27;Error in fetching specific file&#x27;, error);
+      }
+    );
   }
-
-  
 
   onClickSave() {
     this.fileService.saveFile(this.currentFile, this.selectedValue);
   }
-
 }
 </code></pre>
     </div>
@@ -565,7 +558,7 @@ export class FileEditComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="container">  <div class="row">    <div class="col-md-6">      <h3>Edit your file</h3>    </div>  </div>  <div class="row">    <div class="col-md-6">      <hr />    </div>  </div>  <div class="row">    <div class="col-md-6">      <h5>File name:</h5>    </div>  </div>  <div class="row">    <div class="col-md-6">      {{ currentFile[\'filename\'] }}    </div>  </div>  <div class="row">    <br />  </div>  <div class="row">    <div class="col-md-6">      <h5>Access Type:</h5>    </div>  </div>  <div class="row">    <div class="col-md-6">      <mat-form-field>        <mat-select [(ngModel)]="selectedValue">          <mat-option            *ngFor="let accessType of accessTypes"            [value]="accessType.value"          >            {{ accessType.viewValue }}          </mat-option>        </mat-select>      </mat-form-field>    </div>  </div>  <div class="row">    <div class="col-md-6">      <button mat-raised-button color="primary" (click)="onClickSave()">        Save      </button>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'FileEditComponent'};
 </script>
