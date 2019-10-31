@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { FileService } from 'src/app/Services/file.service';
-import { AuthService } from 'src/app/Services/auth0.service';
-import { AlertService } from 'src/app/Services/alert.service';
+import { FileService } from 'src/app/Shared/Services/file.service';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
 
 @Component({
   selector: 'app-file-chooser',
