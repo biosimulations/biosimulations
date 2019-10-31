@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CallbackComponent } from './callback.component';
 
-import { AuthService } from 'src/app/Services/auth0.service';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { RouterTestingModule } from '@angular/router/testing';
 //  TODO This test does nothing, fix
 describe('CallbackComponent', () => {

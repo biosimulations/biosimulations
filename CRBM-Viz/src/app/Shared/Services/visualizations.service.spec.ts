@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { VisualizationsService } from './visualizations.service';
-import { Visualization } from 'src/app/Models/visualization';
+import { Visualization } from 'src/app/Shared/Models/visualization';
 
 describe('VisualizationsService', () => {
   let injector: TestBed;

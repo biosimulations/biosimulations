@@ -1,24 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AboutComponent } from '../Pages/about/about.component';
-import { HomeComponent } from '../Pages/home/home.component';
-import { VisualizeComponent } from '../Pages/visualize/visualize.component';
-import { SimulateComponent } from '../Pages/simulate/simulate.component';
-import { FourComponent } from '../Pages/four/four.component';
-import { UnderConstructionComponent } from '../Pages/under-construction/under-construction.component';
-import { AuthGuard } from '../Gaurds/auth.guard';
-import { UploadComponent } from '../Pages/upload/upload.component';
-import { FileEditComponent } from '../Pages/files/file-edit/file-edit.component';
-import { CallbackComponent } from '../Components/callback/callback.component';
-import { ProfileComponent } from '../Components/profile/profile.component';
-import { DataComponent } from '../Pages/data/data.component';
+import { AboutComponent } from './Pages/about/about.component';
+import { HomeComponent } from './Pages/home/home.component';
+import { VisualizeComponent } from './Pages/visualize/visualize.component';
+import { SimulateComponent } from './Pages/simulate/simulate.component';
+import { FourComponent } from './Pages/four/four.component';
+import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { AuthGuard } from './Shared/Gaurds/auth.guard';
+import { UploadComponent } from './Pages/upload/upload.component';
+import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { CallbackComponent } from './Components/callback/callback.component';
+import { ProfileComponent } from './Components/profile/profile.component';
+import { DataComponent } from './Pages/data/data.component';
 const routes: Routes = [
+  {
+    path: 'visualize',
+    loadChildren: () =>
+      import('./visualize/visualize.module').then(m => m.VisualizeModule),
+  },
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
   { path: 'data', component: DataComponent },
   { path: 'data/:id', component: DataComponent },
-  { path: 'visualize', component: VisualizeComponent },
-  { path: 'visualize/:id', component: VisualizeComponent },
   { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },
   {
     path: 'simulate/:id',

@@ -6,7 +6,7 @@ import {
   CanActivate,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/Services/auth0.service';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
