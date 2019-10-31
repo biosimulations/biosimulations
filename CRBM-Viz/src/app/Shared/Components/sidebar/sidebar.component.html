@@ -28,6 +28,7 @@
         *ngFor="let route of NavItems | filter: isChildOf:[header]"
       >
         <mat-list-item
+          class="sidebar-menu-subitem"
           *ngIf="route.display == 'always' || (auth.loggedIn && route.display == 'loggedIn') || (!auth.loggedIn && route.display == 'loggedOut')"
           [routerLink]="route.link"
           [disableRipple]="true">
