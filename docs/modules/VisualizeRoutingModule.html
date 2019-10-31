@@ -34,7 +34,7 @@
 
 <ol class="breadcrumb">
     <li>Modules</li>
-    <li>AppRoutingModule</li>
+    <li>VisualizeRoutingModule</li>
 </ol>
 
 
@@ -54,7 +54,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>CRBM-Viz/src/app/app-routing.module.ts</code>
+            <code>CRBM-Viz/src/app/visualize/visualize-routing.module.ts</code>
         </p>
 
 
@@ -72,55 +72,22 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
-import { AboutComponent } from &#x27;./Pages/about/about.component&#x27;;
-import { HomeComponent } from &#x27;./Pages/home/home.component&#x27;;
-import { VisualizeComponent } from &#x27;./Pages/visualize/visualize.component&#x27;;
-import { SimulateComponent } from &#x27;./Pages/simulate/simulate.component&#x27;;
-import { FourComponent } from &#x27;./Pages/four/four.component&#x27;;
-import { UnderConstructionComponent } from &#x27;./Pages/under-construction/under-construction.component&#x27;;
-import { AuthGuard } from &#x27;./Shared/Gaurds/auth.guard&#x27;;
-import { UploadComponent } from &#x27;./Pages/upload/upload.component&#x27;;
-import { FileEditComponent } from &#x27;./Pages/files/file-edit/file-edit.component&#x27;;
-import { CallbackComponent } from &#x27;./Components/callback/callback.component&#x27;;
-import { ProfileComponent } from &#x27;./Components/profile/profile.component&#x27;;
-import { DataComponent } from &#x27;./Pages/data/data.component&#x27;;
+
+import { VisualizeComponent } from &#x27;./visualize/visualize.component&#x27;;
+
 const routes: Routes &#x3D; [
   {
-    path: &#x27;visualize&#x27;,
-    loadChildren: () &#x3D;&gt;
-      &quot;import(&#x27;./visualize/visualize.module&#x27;).then(m &#x3D;&gt; m.VisualizeModule)&quot;,
+    path: &#x27;&#x27;,
+    component: VisualizeComponent,
   },
-  { path: &#x27;about&#x27;, component: AboutComponent },
-  { path: &#x27;&#x27;, component: HomeComponent },
-  { path: &#x27;data&#x27;, component: DataComponent },
-  { path: &#x27;data/:id&#x27;, component: DataComponent },
-  { path: &#x27;simulate&#x27;, component: SimulateComponent, canActivate: [AuthGuard] },
-  {
-    path: &#x27;simulate/:id&#x27;,
-    component: UnderConstructionComponent,
-    canActivate: [AuthGuard],
-  },
-  // { path: &#x27;login&#x27;, component: LoginComponent },
-  { path: &#x27;files&#x27;, component: UploadComponent, canActivate: [AuthGuard] },
-  {
-    path: &#x27;files/edit/:fileId&#x27;,
-    component: FileEditComponent,
-    canActivate: [AuthGuard],
-  },
-  { path: &#x27;callback&#x27;, component: CallbackComponent },
-  {
-    path: &#x27;profile&#x27;,
-    component: ProfileComponent,
-    canActivate: [AuthGuard],
-  },
-  { path: &#x27;**&#x27;, component: FourComponent },
+  { path: &#x27;:id&#x27;, component: VisualizeComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class VisualizeRoutingModule {}
 </code></pre>
     </div>
 </div>
@@ -156,7 +123,7 @@ export class AppRoutingModule {}
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppRoutingModule.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'VisualizeRoutingModule.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

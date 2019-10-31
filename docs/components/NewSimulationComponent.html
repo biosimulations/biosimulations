@@ -559,13 +559,13 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
-import { AlertService } from &#x27;src/app/Services/alert.service&#x27;;
-import { SimulationService } from &#x27;src/app/Services/simulation.service&#x27;;
+import { AlertService } from &#x27;src/app/Shared/Services/alert.service&#x27;;
+import { SimulationService } from &#x27;src/app/Shared/Services/simulation.service&#x27;;
 
 @Component({
   selector: &#x27;app-new-simulation&#x27;,
   templateUrl: &#x27;./new-simulation.component.html&#x27;,
-  styleUrls: [&#x27;./new-simulation.component.sass&#x27;]
+  styleUrls: [&#x27;./new-simulation.component.sass&#x27;],
 })
 export class NewSimulationComponent implements OnInit {
   isLoading &#x3D; true;
@@ -579,7 +579,7 @@ export class NewSimulationComponent implements OnInit {
   constructor(
     private alertService: AlertService,
     private simulationService: SimulationService
-    ) { }
+  ) {}
 
   ngOnInit() {
     this.simulationService.simulationDataChangeSubject.subscribe(
@@ -592,7 +592,7 @@ export class NewSimulationComponent implements OnInit {
       error &#x3D;&gt; {
         this.alertService.openDialog(
           &#x27;Error occured in new simulation component, while getting omexsolvers: &#x27; +
-          JSON.stringify(error)
+            JSON.stringify(error)
         );
       }
     );
@@ -600,29 +600,27 @@ export class NewSimulationComponent implements OnInit {
 
   onSubmit() {
     this.isLoading &#x3D; true;
-    this.simulationService.createSimulation(
-      this.selectedSbatch,
-      this.selectedOmex,
-      this.selectedSolver
-    ).subscribe(
-      success &#x3D;&gt; {
-        this.alertService.openDialog(
-          &#x27;Simulatin created: &#x27; + 
-          JSON.stringify(success)
-        );
-        this.simulationService.getSimulationAndJobFilesInfo();
-        this.isLoading &#x3D; false;
-      },
-      error &#x3D;&gt; {
-        this.alertService.openDialog(
-          &#x27;Error occured while creating simulation: &#x27; +
-          JSON.stringify(error)
-        );
-      }
-    );
+    this.simulationService
+      .createSimulation(
+        this.selectedSbatch,
+        this.selectedOmex,
+        this.selectedSolver
+      )
+      .subscribe(
+        success &#x3D;&gt; {
+          this.alertService.openDialog(
+            &#x27;Simulatin created: &#x27; + JSON.stringify(success)
+          );
+          this.simulationService.getSimulationAndJobFilesInfo();
+          this.isLoading &#x3D; false;
+        },
+        error &#x3D;&gt; {
+          this.alertService.openDialog(
+            &#x27;Error occured while creating simulation: &#x27; + JSON.stringify(error)
+          );
+        }
+      );
   }
-
-
 }
 </code></pre>
     </div>
@@ -723,7 +721,7 @@ export class NewSimulationComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mat-spinner *ngIf="isLoading"></mat-spinner><div class="container" *ngIf="!isLoading">    <div class="row">        <br>    </div>    <div class="row">        <div class="col-md-6">            <h3>Create new Simulation</h3>        </div>    </div>    <div class="row">        <div class="col-md-6">            <hr>        </div>    </div>    <div class="row">        <div class="col-md-6">            <mat-form-field>                <mat-label>Omex file</mat-label>                <mat-select [(ngModel)]="selectedOmex">                    <mat-option *ngFor="let omexFile of omexFiles" [value]="omexFile">                    {{omexFile}}                    </mat-option>                </mat-select>            </mat-form-field>        </div>    </div>    <div class="row">        <div class="col-md-6">            <mat-form-field>                <mat-label>Solver file</mat-label>                <mat-select [(ngModel)]="selectedSolver">                    <mat-option *ngFor="let solverFile of solverFiles" [value]="solverFile">                    {{solverFile}}                    </mat-option>                </mat-select>            </mat-form-field>        </div>    </div>    <div class="row">        <div class="col-md-6">            <mat-form-field>                <mat-label>SBatch file</mat-label>                <mat-select [(ngModel)]="selectedSbatch">                    <mat-option *ngFor="let sbatchFile of sbatchFiles" [value]="sbatchFile">                    {{sbatchFile}}                    </mat-option>                </mat-select>            </mat-form-field>        </div>    </div>    <div class="row">        <div class="col-md-6">            <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>        </div>    </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'NewSimulationComponent'};
 </script>
