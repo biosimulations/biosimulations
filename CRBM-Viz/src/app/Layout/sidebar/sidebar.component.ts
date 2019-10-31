@@ -15,7 +15,8 @@ export class SidebarComponent implements OnInit {
   }
   isChildOf(child: NavItem, args: any[]) {
     const parent: NavItem = args[0];
-    return parent.children.includes(child.title);
+    
+    return parent.children.includes(child.id);
   }
 
   ngOnInit() {}

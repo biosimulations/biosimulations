@@ -6,17 +6,19 @@
     border-bottom: 1px solid #2196f3
 .mat-expansion-panel-header
     padding: 0 10px
-.mat-expansion-panel-body
-    padding-bottom: 12px
+
+:host::ng-deep .mat-expansion-panel-body
+    padding: 0 12px 12px
+
 .mat-list-base 
     .mat-list-item
         height: 36px
 
-.header-content
+.sidebar-menu-item-content
     display: flex
     align-content: space-between
 
-.icon
+.sidebar-menu-icon
     margin-right: 0.25rem
 
 // border
@@ -30,9 +32,16 @@
     box-shadow: none
 
 // colors
-.header-title:hover
+.mat-expansion-panel:not(.mat-expanded) 
+    .mat-expansion-panel-header:hover:not([aria-disabled=true])
+        background: #d9d9d9
+.mat-list-item:hover
+    background: #d9d9d9
+
+.sidebar-menu-item-title:hover
     color: mat-color($theme-primary)
-    .panel-title
+    .sidebar-menu-item-label
         color: mat-color($theme-primary)
+
 .mat-list-item:hover
     color: mat-color($theme-primary)

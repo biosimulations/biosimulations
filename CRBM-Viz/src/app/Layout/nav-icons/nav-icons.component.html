@@ -1,13 +1,36 @@
 <div class="icons">
+  <!-- Models -->
   <button
     mat-icon-button
-    [routerLink]="['']"
-    matTooltip="Home"
+    [routerLink]="['/files']"
+    matTooltip="Models"
     matTooltipPosition="below"
   >
-    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+    <fa-icon aria-hidden="false" aria-label="Files icon" [icon]="['fas', 'project-diagram']" size="lg"></fa-icon>
   </button>
 
+  <!-- Simulations -->
+  <button
+    mat-icon-button
+    [routerLink]="['/simulate']"
+    matTooltip="Simulations"
+    matTooltipPosition="below"
+  >
+    <mat-icon aria-hidden="false" aria-label="Simulations icon"
+      >timeline</mat-icon>
+  </button>
+
+  <!-- Visualizations -->
+  <button
+    mat-icon-button
+    [routerLink]="['/visualize']"
+    matTooltip="Visualizations"
+    matTooltipPosition="below"
+  >
+    <fa-icon aria-hidden="false" aria-label="Files icon" [icon]="['fas', 'chart-area']" size="lg"></fa-icon>
+  </button>
+
+  <!-- Help -->
   <button
     mat-icon-button
     [routerLink]="['/about']"
@@ -17,55 +40,16 @@
     <mat-icon aria-hidden="false" aria-label="About icon">help</mat-icon>
   </button>
 
-  <button
-    mat-icon-button
-    [routerLink]="['/visualize']"
-    matTooltip="Visualizations"
-    matTooltipPosition="below"
-  >
-    <mat-icon aria-hidden="false" aria-label="visualize icon"
-      >timeline</mat-icon
-    >
-  </button>
 
+  <!-- User acount -->
   <button
     mat-icon-button
-    [routerLink]="['/files']"
-    matTooltip="Models"
-    matTooltipPosition="below"
-  >
-    <mat-icon aria-hidden="false" aria-label="Files icon">file_copy</mat-icon>
-  </button>
-
-  <button
-    mat-icon-button
-    [routerLink]="['/simulate']"
-    matTooltip="Simulations"
-    matTooltipPosition="below"
-  >
-    <mat-icon aria-hidden="false" aria-label="Simulations icon"
-      >explore</mat-icon
-    >
-  </button>
-  <button
-    mat-icon-button
-    *ngIf="!auth.loggedIn"
-    (click)="auth.login()"
-    matTooltip="Log In"
-    matTooltipPosition="below"
-  >
-    <mat-icon aria-hidden="false" aria-label="LogIn icon">lock_open</mat-icon>
-  </button>
-  <app-account-menu></app-account-menu>
-  <button
-    mat-icon-button
-    *ngIf="auth.loggedIn"
     matTooltip="Account"
     matTooltipPosition="below"
     [matMenuTriggerFor]="accountMenu?.profileMenu"
   >
     <mat-icon aria-hidden="false" aria-label="Account icon"
-      >account_circle</mat-icon
-    >
+      >account_circle</mat-icon>
   </button>
+  <app-account-menu></app-account-menu>
 </div>

@@ -21,3 +21,11 @@ body {
     padding-bottom: 2rem;
     margin-bottom: 0;
 }
+
+.topbar-submenu {
+    .mat-menu-item {
+        .mat-icon, fa-icon {
+            margin-right: 2px;
+        }
+    }
+}
