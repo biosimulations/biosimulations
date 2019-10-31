@@ -17,7 +17,6 @@ import { MaterialModule } from './Modules/app-material.module';
 import { AppComponent } from './app.component';
 
 import { AboutComponent } from './Pages/about/about.component';
-import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 
@@ -49,7 +48,7 @@ import { SharedModule } from './Shared/shared.module';
     AppComponent,
 
     AboutComponent,
-    VisualizeComponent,
+
     SimulateComponent,
     HomeComponent,
     FourComponent,
