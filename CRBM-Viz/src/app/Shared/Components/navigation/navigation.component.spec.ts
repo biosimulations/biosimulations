@@ -14,6 +14,8 @@ import { FilterPipe } from 'src/app/Shared/Pipes/filter.pipe';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 // TODO Sample content is needed and component compiled with it as input for <ng-content>
 import { AboutComponent } from 'src/app/Pages/about/about.component';
+import { SharedModule } from '../../shared.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -31,7 +33,12 @@ describe('NavigationComponent', () => {
         AccountMenuComponent,
         FilterPipe,
       ],
-      imports: [MaterialModule, BrowserAnimationsModule, RouterTestingModule],
+      imports: [
+        MaterialModule,
+        BrowserAnimationsModule,
+        RouterTestingModule,
+        FontAwesomeModule,
+      ],
     }).compileComponents();
   }));
 
