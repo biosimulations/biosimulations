@@ -34,6 +34,7 @@ jobs:
       with:
         token: ${{secrets.CODECOV_TOKEN}}
         flags: unittests
+        file: ./coverage/CRBM-Viz/lcov.info 
 
     - name: E2E
       working-directory: ./CRBM-Viz
