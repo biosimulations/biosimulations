@@ -3,6 +3,9 @@
 [![Docker](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Documentation](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Documentation/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Deploy](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
+[![codecov](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz/branch/master/graph/badge.svg)](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz)
+
+
 ## Current Build
 
 https://crbm-viz.herokuapp.com/
