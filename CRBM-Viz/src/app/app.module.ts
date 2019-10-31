@@ -9,22 +9,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 // Defined Modules in Imports
 
-// FontAwesome for icons
-import {
-  FontAwesomeModule,
-  FaIconLibrary,
-} from '@fortawesome/angular-fontawesome';
-import {
-  faProjectDiagram,
-  faCogs,
-  faChartArea,
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  faGithub,
-  faGoogle,
-  faOrcid,
-} from '@fortawesome/free-brands-svg-icons';
-
 // Defined Modules in app
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
@@ -92,7 +76,6 @@ import { SharedModule } from './Shared/shared.module';
     MaterialModule,
     SharedModule,
     AgGridModule.withComponents([]),
-    FontAwesomeModule,
   ],
   providers: [
     {
@@ -105,16 +88,4 @@ import { SharedModule } from './Shared/shared.module';
   entryComponents: [AlertComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {
-  constructor(library: FaIconLibrary) {
-    // Add an icon to the library for convenient access in other components
-    library.addIcons(
-      faProjectDiagram,
-      faCogs,
-      faChartArea,
-      faGithub,
-      faGoogle,
-      faOrcid
-    );
-  }
-}
+export class AppModule {}

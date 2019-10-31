@@ -11,6 +11,21 @@ import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { MaterialModule } from '../Modules/app-material.module';
 import { RouterModule } from '@angular/router';
 
+// FontAwesome for icons
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
+import {
+  faProjectDiagram,
+  faCogs,
+  faChartArea,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faGithub,
+  faGoogle,
+  faOrcid,
+} from '@fortawesome/free-brands-svg-icons';
 @NgModule({
   declarations: [
     FilterPipe,
@@ -22,7 +37,7 @@ import { RouterModule } from '@angular/router';
     NavIconsComponent,
     SidebarComponent,
   ],
-  imports: [CommonModule, MaterialModule, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterModule, FontAwesomeModule],
   exports: [
     FilterPipe,
     SearchBarComponent,
@@ -32,6 +47,19 @@ import { RouterModule } from '@angular/router';
     NavigationComponent,
     NavIconsComponent,
     SidebarComponent,
+    FontAwesomeModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor(library: FaIconLibrary) {
+    // Add an icon to the library for convenient access in other components
+    library.addIcons(
+      faProjectDiagram,
+      faCogs,
+      faChartArea,
+      faGithub,
+      faGoogle,
+      faOrcid
+    );
+  }
+}
