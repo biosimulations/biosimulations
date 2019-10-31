@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { VisualizeLandingComponent } from './visualize-landing/visualize-landing.component';
+
+import { VisualizeComponent } from './visualize/visualize.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VisualizeLandingComponent,
+    component: VisualizeComponent,
   },
-  { path: 'one', component: VisualizeLandingComponent },
+  { path: ':id', component: VisualizeComponent },
 ];
 
 @NgModule({
