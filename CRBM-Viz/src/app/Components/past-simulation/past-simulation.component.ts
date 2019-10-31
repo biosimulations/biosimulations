@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { AlertService } from 'src/app/Services/alert.service';
-import { SimulationService } from 'src/app/Services/simulation.service';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 
 @Component({
   selector: 'app-past-simulation',
@@ -28,9 +28,9 @@ export class PastSimulationComponent implements OnInit {
 
   constructor(
     private alertService: AlertService,
-    private simulationService: SimulationService,
-    ) {}
-
+    private simulationService: SimulationService
+  ) {}
+  
   ngOnInit() {
     this.simulationService.simulationDataChangeSubject.subscribe(
       success => {
@@ -41,9 +41,8 @@ export class PastSimulationComponent implements OnInit {
       },
       error => {
         this.alertService.openDialog(
-          'Error in simulation service subject: ' +
-          JSON.stringify(error)
-          );
+          'Error in simulation service subject: ' + JSON.stringify(error)
+        );
       }
     );
   }

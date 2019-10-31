@@ -10,23 +10,18 @@ import { AgGridModule } from 'ag-grid-angular';
 // Defined Modules in Imports
 
 // Defined Modules in app
-import { AppRoutingModule } from './Modules/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
 
 // Defined components
 import { AppComponent } from './app.component';
-import { SearchBarComponent } from './Layout/search-bar/search-bar.component';
-import { LogoComponent } from './Layout/logo/logo.component';
+
 import { AboutComponent } from './Pages/about/about.component';
-import { VisualizeComponent } from './Pages/visualize/visualize.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
-import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
+
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-import { NavigationComponent } from './Layout/navigation/navigation.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { SidebarComponent } from './Layout/sidebar/sidebar.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { AlertComponent } from './Components/alert/alert.component';
@@ -35,16 +30,12 @@ import { NewSimulationComponent } from './Components/new-simulation/new-simulati
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
-import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
-import { FooterComponent } from './Layout/footer/footer.component';
+import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
 import { DataTableComponent } from './Components/data-table/data-table.component';
 import { DataComponent } from './Pages/data/data.component';
-import { NavIconsComponent } from './Layout/nav-icons/nav-icons.component';
-import { AccountMenuComponent } from './Layout/account-menu/account-menu.component';
+import { SharedModule } from './Shared/shared.module';
 
 // Pipes defined in app
-import { FilterPipe } from './Pipes/filter.pipe';
-import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -55,17 +46,14 @@ import { FileChooserComponent } from './Pages/simulate/new-simulation/file-choos
 @NgModule({
   declarations: [
     AppComponent,
-    SearchBarComponent,
-    LogoComponent,
+
     AboutComponent,
-    VisualizeComponent,
+
     SimulateComponent,
     HomeComponent,
-    VegaViewerComponent,
     FourComponent,
     UnderConstructionComponent,
-    NavigationComponent,
-    SidebarComponent,
+
     CallbackComponent,
     ProfileComponent,
     UploadComponent,
@@ -74,14 +62,10 @@ import { FileChooserComponent } from './Pages/simulate/new-simulation/file-choos
     NewSimulationComponent,
     PastSimulationComponent,
     FileTableComponent,
-    FooterComponent,
+
     AlertComponent,
     DataTableComponent,
     DataComponent,
-    NavIconsComponent,
-    AccountMenuComponent,
-    FilterPipe,
-    FileChooserComponent
   ],
   imports: [
     BrowserModule,
@@ -90,18 +74,18 @@ import { FileChooserComponent } from './Pages/simulate/new-simulation/file-choos
     FormsModule,
     HttpClientModule,
     MaterialModule,
-    LayoutModule,
-    AgGridModule.withComponents([])
+    SharedModule,
+    AgGridModule.withComponents([]),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

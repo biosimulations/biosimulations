@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/Services/alert.service';
-import { FileService } from 'src/app/Services/file.service';
-import { environment }  from 'src/environments/environment';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { FileService } from 'src/app/Shared/Services/file.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-upload',
@@ -21,8 +21,7 @@ export class UploadComponent implements OnInit {
     private fileService: FileService
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   submit(): void {
     const isValid = this.validateForm();

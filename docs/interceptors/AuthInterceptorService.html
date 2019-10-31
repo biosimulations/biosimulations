@@ -57,7 +57,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>CRBM-Viz/src/app/Interceptors/auth-interceptor.service.ts</code>
+            <code>CRBM-Viz/src/app/Shared/Interceptors/auth-interceptor.service.ts</code>
         </p>
 
 
@@ -116,7 +116,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Interceptors/auth-interceptor.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Interceptors/auth-interceptor.service.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -205,8 +205,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">CRBM-Viz/src/app/Interceptors/auth-interceptor.service.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Interceptors/auth-interceptor.service.ts:22</a></div>
                 </td>
             </tr>
 
@@ -292,7 +292,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Interceptors/auth-interceptor.service.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Interceptors/auth-interceptor.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -306,7 +306,13 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { HttpInterceptor, HttpClient, HttpRequest, HttpHandler, HttpEvent } from &#x27;@angular/common/http&#x27;;
+import {
+  HttpInterceptor,
+  HttpClient,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+} from &#x27;@angular/common/http&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 import { Observable, throwError } from &#x27;rxjs&#x27;;
 import { catchError } from &#x27;rxjs/operators&#x27;;
@@ -314,7 +320,6 @@ import { AuthService } from &#x27;../Services/auth0.service&#x27;;
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
-
   constructor(
     public http: HttpClient,
     private auth: AuthService,
@@ -327,14 +332,13 @@ export class AuthInterceptorService implements HttpInterceptor {
   ): Observable&lt;HttpEvent&lt;any&gt;&gt; {
     this.auth.isAuthenticated$.subscribe(isAuthenticated &#x3D;&gt; {
       if (isAuthenticated) {
-
       }
     });
     if (this.auth.loggedIn) {
       req &#x3D; req.clone({
         setHeaders: {
-          Authorization: &#x60;Bearer ${localStorage.getItem(&#x27;token&#x27;)}&#x60;
-        }
+          Authorization: &#x60;Bearer ${localStorage.getItem(&#x27;token&#x27;)}&#x60;,
+        },
       });
     }
     return next.handle(req).pipe(
