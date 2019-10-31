@@ -12,6 +12,7 @@ import { AgGridModule } from 'ag-grid-angular';
 // Defined Modules in app
 import { AppRoutingModule } from './Modules/app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
+import { VisualizeModule } from './visualize/visualize.module';
 
 // Defined components
 import { AppComponent } from './app.component';
@@ -79,7 +80,7 @@ import { FilterPipe } from './Pipes/filter.pipe';
     DataComponent,
     NavIconsComponent,
     AccountMenuComponent,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -89,17 +90,18 @@ import { FilterPipe } from './Pipes/filter.pipe';
     HttpClientModule,
     MaterialModule,
     LayoutModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    VisualizeModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
