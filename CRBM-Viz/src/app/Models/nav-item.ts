@@ -32,18 +32,18 @@ export const NavItems: NavItem[] = [
     children: ['Visualizations-Browse'],
   },
   {
-    title: 'User',
-    label: 'Account',
-    icon: 'account_circle',
-    icon_type: 'mat',
-    children: ['User-Profile', 'User-Settings'],
-  },
-  {
     title: 'Help',
     label: 'Help',
     icon: 'help',
     icon_type: 'mat',
     children: ['Help-Help', 'Help-About'],
+  },
+  {
+    title: 'User',
+    label: 'Account',
+    icon: 'account_circle',
+    icon_type: 'mat',
+    children: ['User-Profile', 'User-Settings'],
   },
   
   // Models sub-menu
@@ -87,22 +87,6 @@ export const NavItems: NavItem[] = [
     link: '/visualize',
   },
 
-  // User account sub-menu
-  {
-    title: 'User-Profile',
-    label: 'Profile',
-    icon: 'account_circle',
-    icon_type: 'mat',
-    link: '/profile',
-  },
-  {
-    title: 'User-Settings',
-    label: 'Settings',
-    icon: 'settings',
-    icon_type: 'mat',
-    link: '/settings',
-  },
-
   // About sub-menu
   {
     title: 'Help-Help',
@@ -117,5 +101,21 @@ export const NavItems: NavItem[] = [
     icon: 'info',
     icon_type: 'mat',
     link: '/about',
+  },
+
+  // User account sub-menu
+  {
+    title: 'User-Profile',
+    label: 'Profile',
+    icon: 'account_circle',
+    icon_type: 'mat',
+    link: '/profile',
+  },
+  {
+    title: 'User-Settings',
+    label: 'Settings',
+    icon: 'settings',
+    icon_type: 'mat',
+    link: '/settings',
   },
 ];

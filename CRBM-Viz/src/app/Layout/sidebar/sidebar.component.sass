@@ -1,27 +1,39 @@
 @import "src/styles.sass"
-button
-    width: 100%
-button:hover
-    color: mat-color($accent)
-button:focus
-    outline: 0px
+
+// size and spacing
+.mat-expansion-panel
+    margin: 0px 0
+    border-bottom: 1px solid #2196f3
+.mat-expansion-panel-header
+    padding: 0 10px
+.mat-expansion-panel-body
+    padding-bottom: 12px
+.mat-list-base 
+    .mat-list-item
+        height: 36px
 
 .header-content
     display: flex
     align-content: space-between
-.header-title:hover
-    color: mat-color($accent)
-    .panel-title
-        color: mat-color($accent)
-.toplink
-    display: flex
-    align-content: space-between
-.spacer
-    padding: 5px
 
-.mat-expansion-panel
-    margin: 2px 0
-.mat-expansion-panel-header
-    padding: 0 10px
 .icon
     margin-right: 0.25rem
+
+// border
+.mat-accordion 
+    .mat-expansion-panel:first-of-type
+        border-radius: 0px
+    .mat-expansion-panel:last-of-type
+        border-radius: 0px
+
+.mat-expansion-panel:not([class*=mat-elevation-z])
+    box-shadow: none
+
+// colors
+.header-title:hover
+    color: mat-color($primary)
+    .panel-title
+        color: mat-color($primary)
+.mat-list-item:hover
+    color: mat-color($primary)
+    background: none
