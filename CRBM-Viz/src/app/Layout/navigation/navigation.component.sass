@@ -4,19 +4,28 @@
   height: 100%
 
 .sidenav
-  width: 200px
-  border: none
-  background: #ebebeb
+  width: 160px
+  border-right: 1px solid #90CAF9
+  background: #BBDEFB
 
-.sidenav .mat-toolbar
-  background: mat-color($primary)
-  color: white
-  justify-content: space-between
+  .mat-toolbar
+    background: mat-color($primary)
+    color: white
+    justify-content: space-between
 
 .mat-toolbar.mat-primary
   position: sticky
   top: 0
   z-index: 1
+
+.mat-nav-list.mat-list-base
+  padding-top: 0px
+  margin: 4px 4px 0px 2px
+
+.mat-expansion-panel-content
+  .mat-list-base
+    .mat-list-item
+      height: 36px
 
 .hidden
   display: none

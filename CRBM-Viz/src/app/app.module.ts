@@ -11,6 +11,7 @@ import { AgGridModule } from 'ag-grid-angular';
 
 // FontAwesome for icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faProjectDiagram, faCogs, faChartArea } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faGoogle, faOrcid } from '@fortawesome/free-brands-svg-icons';
 
 // Defined Modules in app
@@ -110,6 +111,6 @@ import { FilterPipe } from './Pipes/filter.pipe';
 export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
-    library.addIcons(faGithub, faGoogle, faOrcid);
+    library.addIcons(faProjectDiagram, faCogs, faChartArea, faGithub, faGoogle, faOrcid);
   }
 }

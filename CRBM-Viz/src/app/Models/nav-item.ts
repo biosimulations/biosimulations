@@ -1,75 +1,121 @@
 export interface NavItem {
   title: string;
+  label: string;
   icon?: string;
+  icon_type?: string;
   children?: string[];
   link?: string;
   tooltip?: string;
 }
 
 export const NavItems: NavItem[] = [
-  {
-    title: 'BioSimulations',
-    icon: 'polymer',
-    children: ['Home', 'About', 'User Guide', 'Team'],
-  },
-  {
-    title: 'Account',
-    icon: 'account_circle',
-    children: ['Profile', 'Notifications', 'Settings'],
-  },
+  // Top-level menu
   {
     title: 'Models',
-    icon: 'file_copy',
-    children: [],
+    label: 'Models',
+    icon: 'project-diagram',
+    icon_type: 'fas',
+    children: ['Models-Browse', 'Models-Submit'],
   },
   {
     title: 'Simulations',
-    icon: 'explore',
-    children: ['Data'],
+    label: 'Simulations',
+    icon: 'timeline',
+    icon_type: 'mat',
+    children: ['Simulations-Browse', 'Simulations-Submit'],
   },
   {
     title: 'Visualizations',
-    icon: 'timeline',
-    children: [],
+    label: 'Visualizations',
+    icon: 'chart-area',
+    icon_type: 'fas',
+    children: ['Visualizations-Browse'],
   },
   {
-    title: 'Home',
-    icon: 'home',
-    link: '/',
+    title: 'User',
+    label: 'Account',
+    icon: 'account_circle',
+    icon_type: 'mat',
+    children: ['User-Profile', 'User-Settings'],
   },
   {
-    title: 'About',
-    icon: 'info',
-    link: '/about',
-  },
-  {
-    title: 'User Guide',
+    title: 'Help',
+    label: 'Help',
     icon: 'help',
-    link: '/guide',
+    icon_type: 'mat',
+    children: ['Help-Help', 'Help-About'],
+  },
+  
+  // Models sub-menu
+  {
+    title: 'Models-Browse',
+    label: 'Browse',
+    icon: 'view_list',
+    icon_type: 'mat',
+    link: '/files',
   },
   {
-    title: 'Team',
-    icon: 'face',
-    link: '/about',
+    title: 'Models-Submit',
+    label: 'Submit',
+    icon: 'add_circle',
+    icon_type: 'mat',
+    link: '/files',
+  },
+
+  // Simulations sub-menu
+  {
+    title: 'Simulations-Browse',
+    label: 'Browse',
+    icon: 'view_list',
+    icon_type: 'mat',
+    link: '/data',
   },
   {
-    title: 'Profile',
-    icon: 'person',
-    link: '/profile/',
+    title: 'Simulations-Submit',
+    label: 'Submit',
+    icon: 'add_circle',
+    icon_type: 'mat',
+    link: '/data',
   },
+  
+  // Visualizations sub-menu
   {
-    title: 'Notifications',
-    icon: 'notifications',
+    title: 'Visualizations-Browse',
+    label: 'Browse',
+    icon: 'view_list',
+    icon_type: 'mat',
+    link: '/visualize',
+  },
+
+  // User account sub-menu
+  {
+    title: 'User-Profile',
+    label: 'Profile',
+    icon: 'account_circle',
+    icon_type: 'mat',
     link: '/profile',
   },
   {
-    title: 'Settings',
+    title: 'User-Settings',
+    label: 'Settings',
     icon: 'settings',
+    icon_type: 'mat',
     link: '/settings',
   },
+
+  // About sub-menu
   {
-    title: 'Data',
-    icon: 'assignment',
-    link: '/data',
+    title: 'Help-Help',
+    label: 'Help',
+    icon: 'help',
+    icon_type: 'mat',
+    link: '/guide',
+  },
+  {
+    title: 'Help-About',
+    label: 'About',
+    icon: 'info',
+    icon_type: 'mat',
+    link: '/about',
   },
 ];

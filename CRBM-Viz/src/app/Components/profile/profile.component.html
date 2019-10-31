@@ -25,7 +25,7 @@
                 <span *ngIf="profile.email_verified; else emailUnverified">
                     <mat-icon class="verified" aria-hidden="false" aria-label="Email verified">check</mat-icon>
                 </span>
-                <ng-template #emailUnverified>x
+                <ng-template #emailUnverified>
                     <mat-icon class="unverified" aria-hidden="false" aria-label="Email not verified">close</mat-icon>
                 </ng-template>
             </td>
