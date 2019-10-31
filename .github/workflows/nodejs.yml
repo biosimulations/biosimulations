@@ -22,7 +22,7 @@ jobs:
       run: npm install
     - name: Lint
       working-directory: ./CRBM-Viz
-      run: npm run lint
+      run: npm run lint -- --fix
     - name: Build
       working-directory: ./CRBM-Viz
       run: npm run build -- --prod
