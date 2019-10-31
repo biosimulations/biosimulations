@@ -29,6 +29,12 @@ jobs:
     - name: Test
       working-directory: ./CRBM-Viz
       run: npm test -- --watch=false
+    - name: Upload coverage to Codecov  
+      uses: codecov/codecov-action@v1.0.3
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        flags: unittests
+
     - name: E2E
       working-directory: ./CRBM-Viz
       run: npm run e2e -- 
