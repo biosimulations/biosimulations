@@ -10,9 +10,8 @@ import { AgGridModule } from 'ag-grid-angular';
 // Defined Modules in Imports
 
 // Defined Modules in app
-import { AppRoutingModule } from './Modules/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './Modules/app-material.module';
-import { VisualizeModule } from './visualize/visualize.module';
 
 // Defined components
 import { AppComponent } from './app.component';
@@ -32,13 +31,12 @@ import { NewSimulationComponent } from './Components/new-simulation/new-simulati
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
-import { AuthInterceptorService } from './Interceptors/auth-interceptor.service';
+import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
 import { DataTableComponent } from './Components/data-table/data-table.component';
 import { DataComponent } from './Pages/data/data.component';
+import { SharedModule } from './Shared/shared.module';
 
 // Pipes defined in app
-
-import { LayoutModule } from './Layout/layout.module';
 
 // Services
 // import { VisualizationsService } from './Services/visualizations.service';
@@ -77,9 +75,8 @@ import { LayoutModule } from './Layout/layout.module';
     FormsModule,
     HttpClientModule,
     MaterialModule,
-    LayoutModule,
+    SharedModule,
     AgGridModule.withComponents([]),
-    VisualizeModule,
   ],
   providers: [
     {

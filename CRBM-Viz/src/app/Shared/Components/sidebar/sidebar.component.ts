@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/Services/auth0.service';
-import { NavItem } from 'src/app/Models/nav-item';
-import { NavItems } from 'src/app/Models/nav-item';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
+import { NavItems } from 'src/app/Shared/Models/nav-item';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',

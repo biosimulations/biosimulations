@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Visualization } from 'src/app/Models/visualization';
-import { VisualizationsService } from 'src/app/Services/visualizations.service';
+import { Visualization } from 'src/app/Shared/Models/visualization';
+import { VisualizationsService } from 'src/app/Shared/Services/visualizations.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import vegaEmbed from 'vega-embed';
-import { Visualization } from 'src/app/Models/visualization';
+import { Visualization } from 'src/app/Shared/Models/visualization';
 @Component({
   selector: 'app-vega-viewer',
   templateUrl: './vega-viewer.component.html',

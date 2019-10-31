@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { SimulationService } from './simulation.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MaterialModule } from '../Modules/app-material.module';
+import { MaterialModule } from '../../Modules/app-material.module';
 
 describe('SimulationService', () => {
   beforeEach(() =>

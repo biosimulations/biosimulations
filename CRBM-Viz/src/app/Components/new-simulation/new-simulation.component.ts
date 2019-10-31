@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/Services/alert.service';
-import { SimulationService } from 'src/app/Services/simulation.service';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 
 @Component({
   selector: 'app-new-simulation',
   templateUrl: './new-simulation.component.html',
-  styleUrls: ['./new-simulation.component.sass']
+  styleUrls: ['./new-simulation.component.sass'],
 })
 export class NewSimulationComponent implements OnInit {
   isLoading = true;
@@ -19,7 +19,7 @@ export class NewSimulationComponent implements OnInit {
   constructor(
     private alertService: AlertService,
     private simulationService: SimulationService
-    ) { }
+  ) {}
 
   ngOnInit() {
     this.simulationService.simulationDataChangeSubject.subscribe(
@@ -32,7 +32,7 @@ export class NewSimulationComponent implements OnInit {
       error => {
         this.alertService.openDialog(
           'Error occured in new simulation component, while getting omexsolvers: ' +
-          JSON.stringify(error)
+            JSON.stringify(error)
         );
       }
     );
@@ -40,27 +40,25 @@ export class NewSimulationComponent implements OnInit {
 
   onSubmit() {
     this.isLoading = true;
-    this.simulationService.createSimulation(
-      this.selectedSbatch,
-      this.selectedOmex,
-      this.selectedSolver
-    ).subscribe(
-      success => {
-        this.alertService.openDialog(
-          'Simulatin created: ' + 
-          JSON.stringify(success)
-        );
-        this.simulationService.getSimulationAndJobFilesInfo();
-        this.isLoading = false;
-      },
-      error => {
-        this.alertService.openDialog(
-          'Error occured while creating simulation: ' +
-          JSON.stringify(error)
-        );
-      }
-    );
+    this.simulationService
+      .createSimulation(
+        this.selectedSbatch,
+        this.selectedOmex,
+        this.selectedSolver
+      )
+      .subscribe(
+        success => {
+          this.alertService.openDialog(
+            'Simulatin created: ' + JSON.stringify(success)
+          );
+          this.simulationService.getSimulationAndJobFilesInfo();
+          this.isLoading = false;
+        },
+        error => {
+          this.alertService.openDialog(
+            'Error occured while creating simulation: ' + JSON.stringify(error)
+          );
+        }
+      );
   }
-
-
 }
