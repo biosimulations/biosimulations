@@ -1,0 +1,68 @@
+@import 'src/styles.scss'
+
+.sidenav-container
+  height: 100%
+
+.sidenav
+  width: 160px
+  border-right: none
+  background: #efefef
+
+  .mat-toolbar
+    background: mat-color($theme-primary)
+    color: white
+    justify-content: space-between
+
+.mat-toolbar.mat-primary
+  position: sticky
+  top: 0
+  z-index: 1
+
+.mat-nav-list.mat-list-base
+  padding-top: 0px
+  margin: 0px
+
+.mat-expansion-panel-content
+  .mat-list-base
+    .mat-list-item
+      height: 36px
+
+.hidden
+  display: none
+
+.topbar
+  width: 100%
+  align-content: space-between
+  padding: 0px 2px 0px 2px
+.menubutton
+  flex: 0 0 auto
+  height: 100%
+  padding-right: 5px
+
+.logo
+  flex: 0 1 auto
+  height: 100%
+
+.searchbar
+  flex: 1 1 auto
+  height: 100%
+
+.icons
+  flex: 0.25 1 auto
+  height: 100%
+  justify-self: flex-end
+
+.full-content
+  height: 100%
+.content
+  min-height: 90%
+  height: auto
+  overflow: auto
+  padding-left: 1.5rem
+  padding-top: 1.5rem
+  background-image: url('src/assets/background-grey.png')
+.footer
+  height: auto
+  background: #ebebeb
+  padding: 0px
+  margin: 0px

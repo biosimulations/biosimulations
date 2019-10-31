@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { AuthService } from './Services/auth0.service';
+import { AuthService } from './Shared/Services/auth0.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

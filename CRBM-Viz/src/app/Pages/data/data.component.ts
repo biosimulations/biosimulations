@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Timecourse } from 'src/app/Models/timecourse';
-import { DataService } from 'src/app/Services/data.service';
+import { Timecourse } from 'src/app/Shared/Models/timecourse';
+import { DataService } from 'src/app/Shared/Services/data.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

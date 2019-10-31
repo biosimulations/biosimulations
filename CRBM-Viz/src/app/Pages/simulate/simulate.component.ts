@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { SimulationService } from 'src/app/Services/simulation.service';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 
 @Component({
   selector: 'app-simulate',
   templateUrl: './simulate.component.html',
-  styleUrls: ['./simulate.component.sass']
+  styleUrls: ['./simulate.component.sass'],
 })
 export class SimulateComponent implements OnInit {
-
-  constructor(private simulationService: SimulationService) { }
+  constructor(private simulationService: SimulationService) {}
 
   ngOnInit() {
     this.simulationService.getSimulationAndJobFilesInfo();
   }
-
 }
