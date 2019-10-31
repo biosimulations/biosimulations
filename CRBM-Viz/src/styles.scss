@@ -1,0 +1,23 @@
+@import 'src/theme.scss';
+@import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material';
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+
+$primary: mat-palette($theme-primary);
+$accent: mat-palette($theme-accent);
+$warn: mat-palette($theme-warn);
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.page-title {
+    color: mat-color($theme-primary);
+    line-height: 1rem;
+    padding-bottom: 2rem;
+    margin-bottom: 0;
+}

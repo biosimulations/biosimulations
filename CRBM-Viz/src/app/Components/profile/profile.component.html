@@ -1,10 +1,10 @@
-<h2 class="page-title">Profile 
-    <a href="#"><mat-icon class="unverified" aria-hidden="false" aria-label="Edit profile">edit</mat-icon></a>
+<h2 class="page-title mat-display-2">Profile 
+    <a href="#" class="page-title"><mat-icon class="unverified" aria-hidden="false" aria-label="Edit profile">edit</mat-icon></a>
 </h2>
 
-<div *ngIf="auth.userProfile$ | async as profile">
+<div *ngIf="auth.userProfile$ | async as profile" class="mat-body-1">
     <img class="photo" src="{{ profile.picture }}"/>
-    <div class="name">{{ profile.name }}</div>
+    <div class="name mat-title">{{ profile.name }}</div>
     <div class="username">{{ profile.nickname }}</div>
     <div class="description" *ngIf="auth.extendedProfile.description">{{ auth.extendedProfile.description }}</div>
 
