@@ -1,8 +1,8 @@
-<h2 class="page-title mat-display-2">Profile 
+<h1>Profile 
     <a href="#" class="page-title"><mat-icon class="unverified" aria-hidden="false" aria-label="Edit profile">edit</mat-icon></a>
-</h2>
+</h1>
 
-<div *ngIf="auth.userProfile$ | async as profile" class="mat-body-1">
+<div *ngIf="auth.userProfile$ | async as profile">
     <img class="photo" src="{{ profile.picture }}"/>
     <div class="name mat-title">{{ profile.name }}</div>
     <div class="username">{{ profile.nickname }}</div>
