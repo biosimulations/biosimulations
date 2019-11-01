@@ -3,59 +3,46 @@
   <button
     mat-icon-button
     [routerLink]="['/files']"
-    matTooltip="Models"
-    matTooltipPosition="below"
     disableRipple="true"
+    class="main"
   >
-    <fa-icon aria-hidden="false" aria-label="Files icon" 
+    <fa-icon class="icon" aria-hidden="false" aria-label="Files icon" 
       [icon]="['fas', 'project-diagram']" size="2x"></fa-icon>
+      <span class="label">Models</span>
   </button>
 
   <!-- Simulations -->
   <button
     mat-icon-button
     [routerLink]="['/data']"
-    matTooltip="Simulations"
-    matTooltipPosition="below"
     disableRipple="true"
+    class="main"
   >
-    <mat-icon aria-hidden="false" aria-label="Simulations icon"
+    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"
       >timeline</mat-icon>
+      <span class="label">Simulations</span>
   </button>
 
   <!-- Visualizations -->
   <button
     mat-icon-button
     [routerLink]="['/visualize']"
-    matTooltip="Visualizations"
-    matTooltipPosition="below"
     disableRipple="true"
+    class="main"
   >
-    <fa-icon aria-hidden="false" aria-label="Files icon" 
+    <fa-icon class="icon" aria-hidden="false" aria-label="Files icon" 
       [icon]="['fas', 'chart-area']" size="2x"></fa-icon>
+      <span class="label">Visualizations</span>
   </button>
 
-  <!-- Help -->
+  <!-- User account and help -->
   <button
     mat-icon-button
-    [routerLink]="['/about']"
-    matTooltip="About"
-    matTooltipPosition="below"
-    disableRipple="true"
-  >
-    <mat-icon aria-hidden="false" aria-label="About icon">help</mat-icon>
-  </button>
-
-
-  <!-- User acount -->
-  <button
-    mat-icon-button
-    matTooltip="Account"
-    matTooltipPosition="below"
     [matMenuTriggerFor]="accountMenu?.profileMenu"
     disableRipple="true"
+    class="meta"
   >
-    <mat-icon aria-hidden="false" aria-label="Account icon"
+    <mat-icon class="icon" aria-hidden="false" aria-label="Account icon"
       >account_circle</mat-icon>
   </button>
   <app-account-menu></app-account-menu>

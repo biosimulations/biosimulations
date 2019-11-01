@@ -2,8 +2,6 @@
   <button
     mat-menu-item
     *ngIf="auth.loggedIn"
-    matTooltip="Profile"
-    matTooltipPosition="below"
     color="primary"
     [routerLink]="['/profile']"
   >
@@ -15,8 +13,6 @@
   <button
     mat-menu-item
     *ngIf="auth.loggedIn"
-    matTooltip="Settings"
-    matTooltipPosition="below"
     color="primary"
     [routerLink]="['/settings']"
   >
@@ -25,11 +21,33 @@
     Settings
   </button>
 
+  <mat-divider *ngIf="auth.loggedIn"></mat-divider>
+
+  <button
+    mat-menu-item
+    color="primary"
+    [routerLink]="['/help']"
+  >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Help"
+      >help</mat-icon>
+    Help
+  </button>
+
+  <button
+    mat-menu-item
+    color="primary"
+    [routerLink]="['/about']"
+  >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Info"
+      >info</mat-icon>
+    About
+  </button>
+
+  <mat-divider></mat-divider>
+
   <button
     mat-menu-item
     *ngIf="!auth.loggedIn"
-    matTooltip="Sign in"
-    matTooltipPosition="below"
     color="primary"
     (click)="auth.login()"
   >
@@ -41,8 +59,6 @@
   <button
     mat-menu-item
     *ngIf="auth.loggedIn"
-    matTooltip="Sign out"
-    matTooltipPosition="below"
     color="primary"
     (click)="auth.logout()"
   >

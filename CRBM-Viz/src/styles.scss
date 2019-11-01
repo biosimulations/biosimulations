@@ -12,20 +12,23 @@ html {
 
 body {
     margin: 0;
-    height: 100%;
-    @include mat-typography-level-to-styles($fontConfig, body-1);
+    height: 100%;    
 }
 
-h1 {
+h1, .h1 {
     @include mat-typography-level-to-styles($fontConfig, display-1);
     line-height: 1rem;
     margin-top: 0;
     color: mat-color($theme-primary);
 }
 
-h2 {
+h2, .h2 {
     @include mat-typography-level-to-styles($fontConfig, headline);
     color: mat-color($theme-accent);
+}
+
+body, .body {
+    @include mat-typography-level-to-styles($fontConfig, body-1);
 }
 
 p:last-child {

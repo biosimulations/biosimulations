@@ -1,18 +1,20 @@
+<!--
 <pre *ngIf="auth.userProfile$ | async as profile">
-        <code>{{ profile | json }}</code>
-        <code> {{userData}}</code>
-        </pre>
-{{ userData }}
-<h2 class="page-title mat-display-2">
+  <code>{{ profile | json }}</code>
+  <code>{{ userData | json }}</code>
+</pre>
+-->
+
+<h1>
   Profile
-  <a href="#" class="page-title"
+  <a href="#" class="h1"
     ><mat-icon class="unverified" aria-hidden="false" aria-label="Edit profile"
       >edit</mat-icon
     ></a
   >
-</h2>
+</h1>
 
-<div *ngIf="auth.userProfile$ | async as profile" class="mat-body-1">
+<div *ngIf="auth.userProfile$ | async as profile">
   <img class="photo" src="{{ profile.picture }}" />
   <div class="name mat-title">{{ profile.name }}</div>
   <div class="username">{{ profile.nickname }}</div>

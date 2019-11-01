@@ -24,7 +24,7 @@ export const NavItems: NavItem[] = [
     label: 'Simulations',
     icon: 'timeline',
     icon_type: 'mat',
-    children: ['Simulations-Browse', 'Simulations-Submit'],
+    children: ['Simulations-Browse', 'Simulations-Status', 'Simulations-Submit'],
     display: 'always',
   },
   {
@@ -67,7 +67,7 @@ export const NavItems: NavItem[] = [
     icon: 'add_circle',
     icon_type: 'mat',
     display: 'always',
-    link: '/files',
+    link: '/files/new',
   },
 
   // Simulations sub-menu
@@ -80,12 +80,20 @@ export const NavItems: NavItem[] = [
     link: '/data',
   },
   {
+    id: 'Simulations-Status',
+    label: 'Status',
+    icon: 'hourglass-half',
+    icon_type: 'fas',
+    display: 'always',
+    link: '/data/status',
+  },
+  {
     id: 'Simulations-Submit',
     label: 'Submit',
     icon: 'add_circle',
     icon_type: 'mat',
     display: 'always',
-    link: '/data',
+    link: '/data/new',
   },
   
   // Visualizations sub-menu

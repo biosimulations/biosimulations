@@ -1,11 +1,9 @@
 @import 'src/styles.scss'
 
-.spacer
-    padding: 5rem
 // size and spacing
 .mat-expansion-panel
-    margin: 0px 0
-    border-bottom: 1px solid #2196f3
+    margin: 0px 0    
+    border-bottom: 1px solid #aaa
 .mat-expansion-panel-header
     padding: 0 10px
 
@@ -22,6 +20,8 @@
 
 .sidebar-menu-icon
     margin-right: 0.25rem
+    width: 1.5rem
+    text-align: center
 
 // border
 .mat-accordion
@@ -36,16 +36,26 @@
 // colors
 .mat-expansion-panel:not(.mat-expanded)
     .mat-expansion-panel-header:hover:not([aria-disabled=true])
-        background: #c9c9c9
+        background: mat-color($theme-primary)
+        color: #fff
+        .sidebar-menu-item-label
+            color: #fff
+        .mat-expansion-indicator::after
+            color: #fff
+.mat-expansion-panel.mat-expanded
+    .mat-expansion-panel-header:hover:not([aria-disabled=true])
+        background: mat-color($theme-primary)
+        color: #fff
+        .sidebar-menu-item-label
+            color: #fff
+        .mat-expansion-indicator::after
+            color: #fff
+:host::ng-deep .sidebar-menu-item-title:hover
+    .mat-expansion-indicator::after
+            color: #fff
 .sidebar-menu-subitem:hover
-    background: #c9c9c9
+    background: mat-color($theme-primary)
+    color: #fff
 .sidebar-menu-subitem:focus
-    background: #c9c9c9
-
-.sidebar-menu-item-title:hover
-    color: mat-color($theme-primary)
-    .sidebar-menu-item-label
-        color: mat-color($theme-primary)
-
-.mat-list-item:hover
-    color: mat-color($theme-primary)
+    background: mat-color($theme-primary)
+    color: #fff
