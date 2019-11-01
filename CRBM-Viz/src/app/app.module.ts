@@ -34,7 +34,6 @@ import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.s
 import { DataTableComponent } from './Components/data-table/data-table.component';
 import { DataComponent } from './Pages/data/data.component';
 import { SharedModule } from './Shared/shared.module';
-import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
 
 // Pipes defined in app
 
@@ -47,11 +46,14 @@ import { FileChooserComponent } from './Pages/simulate/new-simulation/file-choos
 @NgModule({
   declarations: [
     AppComponent,
+
     AboutComponent,
+
     SimulateComponent,
     HomeComponent,
     FourComponent,
     UnderConstructionComponent,
+
     CallbackComponent,
     ProfileComponent,
     UploadComponent,
@@ -60,7 +62,7 @@ import { FileChooserComponent } from './Pages/simulate/new-simulation/file-choos
     NewSimulationComponent,
     PastSimulationComponent,
     FileTableComponent,
-    FileChooserComponent,
+
     AlertComponent,
     DataTableComponent,
     DataComponent,

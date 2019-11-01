@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./file-table.component.sass'],
 })
 export class FileTableComponent implements OnInit {
-  isLoading = false;
+  isLoading = true;
   serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
   fileList: Array<object> = null;
   displayedColumns: string[] = [
@@ -51,7 +51,7 @@ export class FileTableComponent implements OnInit {
       }
     );
 
-    this.fileService.getFileData({});
+    this.fileService.getFileData();
 
     this.auth.userProfile$.subscribe(profile => (this.currentUser = profile));
   }
