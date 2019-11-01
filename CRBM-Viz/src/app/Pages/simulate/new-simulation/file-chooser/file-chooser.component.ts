@@ -5,6 +5,7 @@ import { FileService } from 'src/app/Shared/Services/file.service';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { AlertService } from 'src/app/Shared/Services/alert.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 
 @Component({
   selector: 'app-file-chooser',
@@ -13,6 +14,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class FileChooserComponent implements OnInit {
   selection = new SelectionModel<object>(false, null, true);
+  selectedFile = null;
 
   isLoading = false;
   serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
@@ -33,6 +35,7 @@ export class FileChooserComponent implements OnInit {
     private fileService: FileService,
     private auth: AuthService,
     private alertService: AlertService,
+    private simulationService: SimulationService
   ) { }
 
   ngOnInit() {
@@ -59,11 +62,9 @@ export class FileChooserComponent implements OnInit {
 
     this.selection.onChange.subscribe((a) =>
     {
-        console.log(a)
         if (a.added[0])   // will be undefined if no selection
         {
-          // TODO: Store the info about selected file
-            console.log('You selected ' + a.added[0]['filename']);
+          this.selectedFile = a.added[0];
         }
     });
   }
@@ -80,5 +81,9 @@ export class FileChooserComponent implements OnInit {
 
   onFileDelete(fileId: number) {
     this.fileService.deleteFile(fileId);
+  }
+
+  onClickNext() {
+    this.simulationService.parseCombineArchive(this.selectedFile);
   }
 }

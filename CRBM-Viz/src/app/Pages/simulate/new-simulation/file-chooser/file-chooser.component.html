@@ -68,9 +68,9 @@
     <div class="row">
         <br>
     </div>
-    <div class="row" *ngIf="true">
+    <div class="row" *ngIf="selectedFile">
         <div class="col-md-3 offset-md-9" style="text-align: right;">
-            <button mat-raised-button>Next</button>
+            <button mat-raised-button (click)="onClickNext()">Next</button>
         </div>
     </div>
 </div>

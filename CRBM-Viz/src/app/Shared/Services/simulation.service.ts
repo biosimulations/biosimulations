@@ -91,8 +91,8 @@ export class SimulationService {
 
   parseCombineArchive(archiveInfo) {
     this.combineArchiveSelected = archiveInfo;
-    const params = `?omex=${archiveInfo['filename']}&author=${archiveInfo['createdBy']}`;
-    const url = `${environment.crbm.CRBMAPI_URL}/simulate${params}`;
+    const params = `?omex=${encodeURIComponent(archiveInfo['filename'])}&author=${encodeURIComponent(archiveInfo['createdBy'])}`;
+    const url = `${environment.crbm.CRBMAPI_URL}/simulation${params}`;
     this.http.get(url).subscribe(
       success => {
         this.combineArchiveParsed = success;
