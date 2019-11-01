@@ -5,8 +5,10 @@
     [routerLink]="['/files']"
     matTooltip="Models"
     matTooltipPosition="below"
+    disableRipple="true"
   >
-    <fa-icon aria-hidden="false" aria-label="Files icon" [icon]="['fas', 'project-diagram']" size="lg"></fa-icon>
+    <fa-icon aria-hidden="false" aria-label="Files icon" 
+      [icon]="['fas', 'project-diagram']" size="2x"></fa-icon>
   </button>
 
   <!-- Simulations -->
@@ -15,6 +17,7 @@
     [routerLink]="['/data']"
     matTooltip="Simulations"
     matTooltipPosition="below"
+    disableRipple="true"
   >
     <mat-icon aria-hidden="false" aria-label="Simulations icon"
       >timeline</mat-icon>
@@ -26,8 +29,10 @@
     [routerLink]="['/visualize']"
     matTooltip="Visualizations"
     matTooltipPosition="below"
+    disableRipple="true"
   >
-    <fa-icon aria-hidden="false" aria-label="Files icon" [icon]="['fas', 'chart-area']" size="lg"></fa-icon>
+    <fa-icon aria-hidden="false" aria-label="Files icon" 
+      [icon]="['fas', 'chart-area']" size="2x"></fa-icon>
   </button>
 
   <!-- Help -->
@@ -36,6 +41,7 @@
     [routerLink]="['/about']"
     matTooltip="About"
     matTooltipPosition="below"
+    disableRipple="true"
   >
     <mat-icon aria-hidden="false" aria-label="About icon">help</mat-icon>
   </button>
@@ -47,6 +53,7 @@
     matTooltip="Account"
     matTooltipPosition="below"
     [matMenuTriggerFor]="accountMenu?.profileMenu"
+    disableRipple="true"
   >
     <mat-icon aria-hidden="false" aria-label="Account icon"
       >account_circle</mat-icon>

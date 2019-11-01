@@ -37,7 +37,10 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <div class="logo" *ngIf="!drawer.opened"><app-logo></app-logo></div>
+      <div class="logo" *ngIf="!drawer.opened">
+        <app-logo></app-logo>
+      </div>
+      <div class="spacer"></div>
       <div class="icons" *ngIf="(isHandset$ | async) === false">
         <app-nav-icons></app-nav-icons>
       </div>

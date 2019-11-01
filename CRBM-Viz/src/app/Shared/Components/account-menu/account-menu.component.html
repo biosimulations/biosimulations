@@ -7,7 +7,8 @@
     color="primary"
     [routerLink]="['/profile']"
   >
-    <mat-icon aria-hidden="false" aria-label="Profile">account_circle</mat-icon>
+    <mat-icon class="icon" aria-hidden="false" aria-label="Profile"
+      >account_circle</mat-icon>
     Profile
   </button>
 
@@ -19,7 +20,8 @@
     color="primary"
     [routerLink]="['/settings']"
   >
-    <mat-icon aria-hidden="false" aria-label="Settings">settings</mat-icon>
+    <mat-icon class="icon" aria-hidden="false" aria-label="Settings"
+      >settings</mat-icon>
     Settings
   </button>
 
@@ -31,7 +33,8 @@
     color="primary"
     (click)="auth.login()"
   >
-    <fa-icon aria-hidden="false" aria-label="Sign in" size="lg" [icon]="['fas', 'sign-in-alt']"></fa-icon>
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign in" size="2x" 
+      [icon]="['fas', 'sign-in-alt']"></fa-icon>
     Sign in
   </button>
 
@@ -43,7 +46,8 @@
     color="primary"
     (click)="auth.logout()"
   >
-    <fa-icon aria-hidden="false" aria-label="Sign out" size="lg" [icon]="['fas', 'sign-out-alt']"></fa-icon>
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign out" size="2x" 
+      [icon]="['fas', 'sign-out-alt']"></fa-icon>
     Sign out
   </button>
 </mat-menu>
