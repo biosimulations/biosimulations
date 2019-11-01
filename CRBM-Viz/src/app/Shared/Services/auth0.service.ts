@@ -45,7 +45,8 @@ export class AuthService {
   private userProfileSubject$ = new BehaviorSubject<any>(null);
   userProfile$ = this.userProfileSubject$.asObservable();
   extendedProfile: object = new Object({
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, \
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, \
       ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. \
       Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. \
       Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, \
@@ -58,7 +59,7 @@ export class AuthService {
     website: 'https://www.karrlab.org',
     github: 'jonrkarr',
     google_scholar: 'Yb5nVLAAAAAJ',
-    orcid: '0000-0002-2605-5080'
+    orcid: '0000-0002-2605-5080',
   });
 
   // Create local property to store token
@@ -79,8 +80,10 @@ export class AuthService {
 
   getToken$(options?): Observable<any> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getIdTokenClaims(options))),
-      tap(token => this.token = token)
+      concatMap((client: Auth0Client) =>
+        from(client.getIdTokenClaims(options))
+      ),
+      tap(token => (this.token = token))
     );
   }
 
@@ -103,15 +106,10 @@ export class AuthService {
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
 
-      this.getToken$().subscribe(
-        token => {
-          localStorage.setItem('token', token);
-        }
-      );
+      this.getToken$().subscribe(token => {
+        localStorage.setItem('token', token);
+      });
     });
-
-    
-    
   }
 
   login(redirectPath: string = '/') {
@@ -140,7 +138,7 @@ export class AuthService {
       }),
       concatMap(() => {
         // Redirect callback complete; get user and login status
-        return combineLatest(this.getUser$(), this.isAuthenticated$);
+        return combineLatest([this.getUser$(), this.isAuthenticated$]);
       })
     );
     // Subscribe to authentication completion observable
