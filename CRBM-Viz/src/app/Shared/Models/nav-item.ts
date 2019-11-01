@@ -105,7 +105,7 @@ export const NavItems: NavItem[] = [
     icon: 'help',
     icon_type: 'mat',
     display: 'always',
-    link: '/guide',
+    link: '/help',
   },
   {
     id: 'Help-About',
