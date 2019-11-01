@@ -35,6 +35,7 @@ import { DataTableComponent } from './Components/data-table/data-table.component
 import { DataComponent } from './Pages/data/data.component';
 import { SharedModule } from './Shared/shared.module';
 import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
+import { SimulationTaskComponent } from './Pages/simulate/new-simulation/simulation-task/simulation-task.component';
 
 // Pipes defined in app
 
@@ -64,6 +65,7 @@ import { FileChooserComponent } from './Pages/simulate/new-simulation/file-choos
     AlertComponent,
     DataTableComponent,
     DataComponent,
+    SimulationTaskComponent,
   ],
   imports: [
     BrowserModule,

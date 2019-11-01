@@ -12,6 +12,8 @@ import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { DataComponent } from './Pages/data/data.component';
+import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
+import { SimulationTaskComponent } from './Pages/simulate/new-simulation/simulation-task/simulation-task.component';
 const routes: Routes = [
   {
     path: 'visualize',
@@ -22,7 +24,12 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'data', component: DataComponent },
   { path: 'data/:id', component: DataComponent },
-  { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },
+  { 
+    path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] ,children: [
+      { path: '', component: FileChooserComponent},
+      { path: 'tasks', component: SimulationTaskComponent}
+    ]
+  },
   {
     path: 'simulate/:id',
     component: UnderConstructionComponent,

@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { AlertService } from 'src/app/Shared/Services/alert.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-file-chooser',
@@ -35,7 +36,9 @@ export class FileChooserComponent implements OnInit {
     private fileService: FileService,
     private auth: AuthService,
     private alertService: AlertService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -85,5 +88,6 @@ export class FileChooserComponent implements OnInit {
 
   onClickNext() {
     this.simulationService.parseCombineArchive(this.selectedFile);
+    this.router.navigate(['tasks'], {relativeTo: this.route});
   }
 }
