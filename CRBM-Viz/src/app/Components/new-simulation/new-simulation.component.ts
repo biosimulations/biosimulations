@@ -8,6 +8,7 @@ import { SimulationService } from 'src/app/Shared/Services/simulation.service';
   styleUrls: ['./new-simulation.component.sass'],
 })
 export class NewSimulationComponent implements OnInit {
+  isLoading = true;
   selectedSbatch: string = null;
   selectedOmex: string = null;
   selectedSolver: string = null;
@@ -26,6 +27,7 @@ export class NewSimulationComponent implements OnInit {
         this.omexFiles = this.simulationService.omexFiles;
         this.solverFiles = this.simulationService.solverFiles;
         this.sbatchFiles = this.simulationService.sbatchFiles;
+        this.isLoading = false;
       },
       error => {
         this.alertService.openDialog(
@@ -37,24 +39,26 @@ export class NewSimulationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.simulationService.createSimulation(
-      this.selectedSbatch,
-      this.selectedOmex,
-      this.selectedSolver
-    ).subscribe(
-      success => {
-        this.alertService.openDialog(
-          'Simulatin created: ' + 
-          JSON.stringify(success)
-        );
-        this.simulationService.getSimulationAndJobFilesInfo();
-      },
-      error => {
-        this.alertService.openDialog(
-          'Error occured while creating simulation: ' +
-          JSON.stringify(error)
-        );
-      }
-    );
+    this.isLoading = true;
+    this.simulationService
+      .createSimulation(
+        this.selectedSbatch,
+        this.selectedOmex,
+        this.selectedSolver
+      )
+      .subscribe(
+        success => {
+          this.alertService.openDialog(
+            'Simulatin created: ' + JSON.stringify(success)
+          );
+          this.simulationService.getSimulationAndJobFilesInfo();
+          this.isLoading = false;
+        },
+        error => {
+          this.alertService.openDialog(
+            'Error occured while creating simulation: ' + JSON.stringify(error)
+          );
+        }
+      );
   }
 }

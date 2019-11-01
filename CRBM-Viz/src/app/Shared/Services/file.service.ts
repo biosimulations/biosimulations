@@ -38,17 +38,8 @@ export class FileService {
     );
   }
 
-  getFileData(filters?: object): void {
-    let filterString = ''
-    if ( Object.keys(filters).length > 0) {
-      filterString = '?'
-      for (const key of Object.keys(filters)) {
-        filterString = filterString + key + '=' + filters[key] + '&';
-      }
-      filterString = filterString.substr(0, filterString.length - 1);
-    }
-    console.log('filters: ', filterString);
-    this.http.get(`${environment.crbm.CRBMAPI_URL}/file${filterString}`).subscribe(
+  getFileData(): void {
+    this.http.get(`${environment.crbm.CRBMAPI_URL}/file`).subscribe(
       success => {
         this.fileList = success['data'];
         this.fileChangeSubject.next();

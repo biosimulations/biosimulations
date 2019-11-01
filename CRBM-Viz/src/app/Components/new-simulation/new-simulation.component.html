@@ -1,4 +1,5 @@
-<!-- <div class="container">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="container" *ngIf="!isLoading">
     <div class="row">
         <br>
     </div>
@@ -53,5 +54,4 @@
             <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
         </div>
     </div>
-</div> -->
-<app-file-chooser></app-file-chooser>
+</div>
