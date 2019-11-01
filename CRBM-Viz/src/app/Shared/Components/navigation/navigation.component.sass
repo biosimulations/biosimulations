@@ -12,6 +12,15 @@
     background: #777
     color: white
     justify-content: space-between
+    padding: 0 10px
+
+    .home
+      padding: 0
+      font-size: 1.25rem  
+
+:host::ng-deep .mat-button.home:hover
+    .mat-button-focus-overlay
+      opacity: 0
 
 .mat-toolbar.mat-primary
   position: sticky
@@ -42,7 +51,7 @@
   height: calc(100% - 10px)
 
 .spacer
-  flex: 1 1 20%
+  flex: 1 1 15%
 
 .icons
   flex: 0.40 1 auto
