@@ -20,19 +20,19 @@ export const NavItems: NavItem[] = [
     display: 'always',
   },
   {
-    id: 'Simulations',
-    label: 'Simulations',
+    id: 'Simulate',
+    label: 'Simulate',
     icon: 'timeline',
     icon_type: 'mat',
-    children: ['Simulations-Browse', 'Simulations-Status', 'Simulations-Submit'],
+    children: ['Simulate-Browse', 'Simulate-Submit', 'Simulate-Status'],
     display: 'always',
   },
   {
-    id: 'Visualizations',
-    label: 'Visualizations',
+    id: 'Visualize',
+    label: 'Visualize',
     icon: 'chart-area',
     icon_type: 'fas',
-    children: ['Visualizations-Browse'],
+    children: ['Visualize-Browse'],
     display: 'always',
   },
   {
@@ -70,9 +70,9 @@ export const NavItems: NavItem[] = [
     link: '/files/new',
   },
 
-  // Simulations sub-menu
+  // Simulate sub-menu
   {
-    id: 'Simulations-Browse',
+    id: 'Simulate-Browse',
     label: 'Browse',
     icon: 'view_list',
     icon_type: 'mat',
@@ -80,25 +80,25 @@ export const NavItems: NavItem[] = [
     link: '/data',
   },
   {
-    id: 'Simulations-Status',
-    label: 'Status',
-    icon: 'hourglass-half',
-    icon_type: 'fas',
-    display: 'always',
-    link: '/data/status',
-  },
-  {
-    id: 'Simulations-Submit',
+    id: 'Simulate-Submit',
     label: 'Submit',
     icon: 'add_circle',
     icon_type: 'mat',
     display: 'always',
     link: '/data/new',
   },
-  
-  // Visualizations sub-menu
   {
-    id: 'Visualizations-Browse',
+    id: 'Simulate-Status',
+    label: 'Status',
+    icon: 'hourglass-half',
+    icon_type: 'fas',
+    display: 'always',
+    link: '/data/status',
+  },
+  
+  // Visualize sub-menu
+  {
+    id: 'Visualize-Browse',
     label: 'Browse',
     icon: 'view_list',
     icon_type: 'mat',

@@ -33,6 +33,12 @@
 .mat-expansion-panel:not([class*=mat-elevation-z])
     box-shadow: none
 
+// fonts
+.sidebar-menu-item-label
+    @include mat-typography-level-to-styles($fontConfig, subheading-2)
+.sidebar-menu-subitem
+    @include mat-typography-level-to-styles($fontConfig, subheading-1)
+
 // colors
 .mat-expansion-panel:not(.mat-expanded)
     .mat-expansion-panel-header:hover:not([aria-disabled=true])
