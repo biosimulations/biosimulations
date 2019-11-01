@@ -16,6 +16,10 @@ export class SimulationService {
   sbatchFiles: Array<string> = null;
   simulationDataChangeSubject = new Subject<null>();
 
+  // Variables used to store new simulation data
+  combineArchiveSelected = null;
+  combineArchiveParsed = null;
+
   constructor(
     private http: HttpClient,
     private alertService: AlertService
@@ -83,5 +87,19 @@ export class SimulationService {
       data.push(simObj);
     }
     return data;
+  }
+
+  parseCombineArchive(archiveInfo) {
+    this.combineArchiveSelected = archiveInfo;
+    const params = `?omex=${archiveInfo['filename']}&author=${archiveInfo['createdBy']}`;
+    const url = `${environment.crbm.CRBMAPI_URL}/simulate${params}`;
+    this.http.get(url).subscribe(
+      success => {
+        this.combineArchiveParsed = success;
+      },
+      error => {
+        this.alertService.openDialog('Error occured' + JSON.stringify(error));
+      }
+    );
   }
 }

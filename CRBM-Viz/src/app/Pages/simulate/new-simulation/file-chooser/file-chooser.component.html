@@ -55,7 +55,8 @@
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr 
-                mat-row 
+                mat-row
+                [ngClass]="{'selected': selection.isSelected(row)}"
                 *matRowDef="let row; columns: displayedColumns"
                 (click)="selection.select(row)">
             </tr>

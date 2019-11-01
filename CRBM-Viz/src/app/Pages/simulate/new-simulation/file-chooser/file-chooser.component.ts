@@ -59,7 +59,7 @@ export class FileChooserComponent implements OnInit {
 
     this.selection.onChange.subscribe((a) =>
     {
-      console.log(a)
+        console.log(a)
         if (a.added[0])   // will be undefined if no selection
         {
           // TODO: Store the info about selected file
