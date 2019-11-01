@@ -4,6 +4,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FileService } from 'src/app/Shared/Services/file.service';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-file-chooser',
@@ -11,6 +12,7 @@ import { AlertService } from 'src/app/Shared/Services/alert.service';
   styleUrls: ['./file-chooser.component.sass']
 })
 export class FileChooserComponent implements OnInit {
+  selection = new SelectionModel<object>(false, null, true);
 
   isLoading = false;
   serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
@@ -54,6 +56,16 @@ export class FileChooserComponent implements OnInit {
     this.auth.userProfile$.subscribe(
       profile => this.currentUser = profile
     );
+
+    this.selection.onChange.subscribe((a) =>
+    {
+      console.log(a)
+        if (a.added[0])   // will be undefined if no selection
+        {
+          // TODO: Store the info about selected file
+            console.log('You selected ' + a.added[0]['filename']);
+        }
+    });
   }
 
   
