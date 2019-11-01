@@ -40,6 +40,7 @@ const MaterialComponents = [
   MatTableModule,
   MatPaginatorModule,
   MatDialogModule,
+  MatSortModule,
   MatTooltipModule,
   MatExpansionModule,
 ];

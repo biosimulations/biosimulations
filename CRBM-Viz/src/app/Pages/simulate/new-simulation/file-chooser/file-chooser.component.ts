@@ -1,25 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { FileService } from 'src/app/Shared/Services/file.service';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { AlertService } from 'src/app/Shared/Services/alert.service';
-import { FileService } from 'src/app/Shared/Services/file.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-file-table',
-  templateUrl: './file-table.component.html',
-  styleUrls: ['./file-table.component.sass'],
+  selector: 'app-file-chooser',
+  templateUrl: './file-chooser.component.html',
+  styleUrls: ['./file-chooser.component.sass']
 })
-export class FileTableComponent implements OnInit {
+export class FileChooserComponent implements OnInit {
+
   isLoading = false;
   serverUrl = environment.crbm.CRBMAPI_URL; // Required in template
   fileList: Array<object> = null;
   displayedColumns: string[] = [
-    'fileId',
+    // 'fileId',
     'filename',
     'createdBy',
-    'accessType',
+    // 'accessType',
   ];
   dataSource: MatTableDataSource<object>;
   currentUser = null;
@@ -28,11 +28,10 @@ export class FileTableComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    private http: HttpClient,
     private fileService: FileService,
     private auth: AuthService,
-    private alertService: AlertService
-  ) {}
+    private alertService: AlertService,
+  ) { }
 
   ngOnInit() {
     this.fileService.fileChangeSubject.subscribe(
@@ -45,16 +44,19 @@ export class FileTableComponent implements OnInit {
       },
       error => {
         this.alertService.openDialog(
-          'Error from FileTableComponent, can\'t fetch files: ' +
-            JSON.stringify(error)
+          'Error from FileTableComponent, can\'t fetch files: '+
+          JSON.stringify(error)
         );
       }
     );
+    this.fileService.getFileData({ extension: 'omex'});
 
-    this.fileService.getFileData({});
-
-    this.auth.userProfile$.subscribe(profile => (this.currentUser = profile));
+    this.auth.userProfile$.subscribe(
+      profile => this.currentUser = profile
+    );
   }
+
+  
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

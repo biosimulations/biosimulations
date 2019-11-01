@@ -103,6 +103,9 @@
           "configurations": {
             "production": {
               "browserTarget": "CRBM-Viz:build:production"
+            },
+            "development": {
+              "browserTarget": "CRBM-Viz:build:development"
             }
           }
         },

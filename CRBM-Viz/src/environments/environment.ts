@@ -2,29 +2,12 @@ export const environment = {
   production: false,
   baseUrl: '/',
   auth0: {
-    domain: 'crbm.auth0.com',
-    clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+      domain: 'dev-t2vyo8fj.auth0.com',
+      clientId: '6euIYB0EPMSNjsPEjrNZAMmpiuVCRYNB'
   },
   crbm: {
-    CRBMAPI_URL: 'http://localhost:5000',
-    ALLOWED_FILE_EXTENSIONS: [
-      'pdf',
-      'doc',
-      'ppt',
-      'txt',
-      'xlsx',
-      'sedx',
-      'sbex',
-      'cmex',
-      'sbox',
-      'neux',
-      'phex',
-      'zip',
-      'jpg',
-      'png',
-      'jpeg',
-      'raw',
-      'sh',
-    ],
-  },
+      CRBMAPI_URL: 'http://localhost:5000',
+      ALLOWED_FILE_EXTENSIONS: ['pdf', 'doc', 'ppt', 'txt', 'xlsx', 'sedx', 'sbex',
+          'cmex', 'sbox', 'neux', 'phex', 'zip', 'jpg', 'png', 'jpeg', 'raw', 'sh', 'omex', 'xml']
+  }
 };
