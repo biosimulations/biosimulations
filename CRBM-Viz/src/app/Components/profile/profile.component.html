@@ -14,40 +14,40 @@
   >
 </h1>
 
-<div *ngIf="auth.userProfile$ | async as profile">
-  <img class="photo" src="{{ profile.picture }}" />
-  <div class="name mat-title">{{ profile.name }}</div>
-  <div class="username">{{ profile.nickname }}</div>
-  <div class="description" *ngIf="auth.extendedProfile.description">
-    {{ profile.user_metadata }}
-  </div>
+<div *ngIf="auth.userProfile$ | async as autoProfile">
+  <img class="photo" src="{{ autoProfile.picture }}" />
+  <div class="name mat-title">{{ autoProfile.name }}</div>
+  <div class="username">{{ autoProfile.nickname }}</div>
+  <div class="description" *ngIf="profile.description">{{ 
+    profile.description 
+  }}</div>
 
   <table class="details">
-    <tr *ngIf="auth.extendedProfile.organization">
+    <tr *ngIf="profile.organization">
       <th>
         <mat-icon aria-hidden="false" aria-label="Organization"
           >people</mat-icon
         >
       </th>
-      <td>{{ auth.extendedProfile.organization }}</td>
+      <td>{{ profile.organization }}</td>
     </tr>
 
-    <tr *ngIf="auth.extendedProfile.website">
+    <tr *ngIf="profile.website">
       <th>
         <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>
       </th>
       <td>
-        <a href="{{ auth.extendedProfile.website }}">{{
-          auth.extendedProfile.website
+        <a href="{{ profile.website }}">{{
+          profile.website
         }}</a>
       </td>
     </tr>
 
-    <tr *ngIf="profile.email" class="email">
+    <tr *ngIf="autoProfile.email" class="email">
       <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
       <td>
-        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
-        <span *ngIf="profile.email_verified; else emailUnverified">
+        <a href="mailto:{{ autoProfile.email }}">{{ autoProfile.email }}</a>
+        <span *ngIf="autoProfile.email_verified; else emailUnverified">
           <mat-icon
             class="verified"
             aria-hidden="false"
@@ -66,7 +66,7 @@
       </td>
     </tr>
 
-    <tr *ngIf="auth.extendedProfile.github">
+    <tr *ngIf="profile.github">
       <th>
         <fa-icon
           [icon]="['fab', 'github']"
@@ -76,13 +76,13 @@
         ></fa-icon>
       </th>
       <td>
-        <a href="https://github.com/{{ auth.extendedProfile.github }}">{{
-          auth.extendedProfile.github
+        <a href="https://github.com/{{ profile.github }}">{{
+          profile.github
         }}</a>
       </td>
     </tr>
 
-    <tr *ngIf="auth.extendedProfile.google_scholar">
+    <tr *ngIf="profile.googleScholar">
       <th>
         <fa-icon
           [icon]="['fab', 'google']"
@@ -94,14 +94,14 @@
       <td>
         <a
           href="https://scholar.google.com/citations?user={{
-            auth.extendedProfile.google_scholar
+            profile.googleScholar
           }}"
-          >{{ auth.extendedProfile.google_scholar }}</a
+          >{{ profile.googleScholar }}</a
         >
       </td>
     </tr>
 
-    <tr *ngIf="auth.extendedProfile.orcid">
+    <tr *ngIf="profile.orcid">
       <th>
         <fa-icon
           [icon]="['fab', 'orcid']"
@@ -111,8 +111,8 @@
         ></fa-icon>
       </th>
       <td>
-        <a href="https://orcid.org/{{ auth.extendedProfile.orcid }}">{{
-          auth.extendedProfile.orcid
+        <a href="https://orcid.org/{{ profile.orcid }}">{{
+          profile.orcid
         }}</a>
       </td>
     </tr>

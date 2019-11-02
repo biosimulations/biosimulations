@@ -6,7 +6,6 @@ import { NavigationComponent } from './navigation.component';
 import { NavIconsComponent } from '../nav-icons/nav-icons.component';
 import { LogoComponent } from '../logo/logo.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { FooterComponent } from '../footer/footer.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
 import { AccountMenuComponent } from '../account-menu/account-menu.component';
@@ -28,7 +27,6 @@ describe('NavigationComponent', () => {
         NavIconsComponent,
         LogoComponent,
         SearchBarComponent,
-        FooterComponent,
         SidebarComponent,
         AccountMenuComponent,
         FilterPipe,

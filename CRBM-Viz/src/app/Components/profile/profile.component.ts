@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
+import { Profile } from 'src/app/Shared/Models/profile';
 
 import { UserService } from 'src/app/Shared/Services/user.service';
 @Component({
@@ -7,9 +8,13 @@ import { UserService } from 'src/app/Shared/Services/user.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.sass'],
 })
+
 export class ProfileComponent implements OnInit {
   userData;
-  constructor(public auth: AuthService, private users: UserService) {}
+  profile: Profile = null;
+  constructor(public auth: AuthService, private users: UserService) {
+    this.profile = new Profile();
+  }
 
   ngOnInit() {
     this.users.getUser().subscribe(res => (this.userData = res));
