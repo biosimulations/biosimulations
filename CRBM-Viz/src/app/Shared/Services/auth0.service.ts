@@ -63,10 +63,8 @@ export class AuthService {
 
   getToken$(options?): Observable<any> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) =>
-        from(client.getIdTokenClaims(options))
-      ),
-      tap(token => (this.token = token))
+      concatMap((client: Auth0Client) => from(client.getIdTokenClaims(options))),
+      tap(token => this.token = token)
     );
   }
 
@@ -89,9 +87,11 @@ export class AuthService {
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
 
-      this.getToken$().subscribe(token => {
-        localStorage.setItem('token', token);
-      });
+      this.getToken$().subscribe(
+        token => {
+          localStorage.setItem('token', token);
+        }
+      );
     });
   }
 
@@ -121,7 +121,7 @@ export class AuthService {
       }),
       concatMap(() => {
         // Redirect callback complete; get user and login status
-        return combineLatest([this.getUser$(), this.isAuthenticated$]);
+        return combineLatest(this.getUser$(), this.isAuthenticated$);
       })
     );
     // Subscribe to authentication completion observable

@@ -4,6 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
@@ -15,6 +16,7 @@ describe('ProfileComponent', () => {
       providers: [
         { provide: RouterTestingModule, useValue: RouterTestingModule },
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
