@@ -121,7 +121,7 @@ export class AuthService {
       }),
       concatMap(() => {
         // Redirect callback complete; get user and login status
-        return combineLatest(this.getUser$(), this.isAuthenticated$);
+        return combineLatest([this.getUser$(), this.isAuthenticated$]);
       })
     );
     // Subscribe to authentication completion observable
