@@ -9,14 +9,22 @@
   background: #e0e0e0
 
   .mat-toolbar
-    background: #777
-    color: white
+    background: #777    
     justify-content: space-between
     padding: 0 10px
+    font-weight: bold
+
+    .bio
+      color: mat-color($theme-accent)
+    .simulations
+      color: #fff
 
     .home
       padding: 0
       font-size: 1.25rem  
+
+    .mat-icon-button
+      color: #fff
 
 :host::ng-deep .mat-button.home:hover
     .mat-button-focus-overlay
@@ -49,6 +57,7 @@
 .logo
   flex: 0 1 auto
   height: calc(100% - 10px)
+  padding-left: 0.75rem
 
 .spacer
   //flex: 1 1 20%
