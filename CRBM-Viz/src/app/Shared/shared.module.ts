@@ -81,7 +81,6 @@ import { UnderConstructionComponent } from './Components/under-construction/unde
   entryComponents: [AlertComponent],
 })
 export class SharedModule {
-  static FormsModule: any[] | Type<any> | ModuleWithProviders<{}>;
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
     library.addIcons(
