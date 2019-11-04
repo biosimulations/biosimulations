@@ -34,7 +34,7 @@
 
 <ol class="breadcrumb">
     <li>Modules</li>
-    <li>MaterialModule</li>
+    <li>AboutRoutingModule</li>
 </ol>
 
 
@@ -54,7 +54,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>CRBM-Viz/src/app/Modules/app-material.module.ts</code>
+            <code>CRBM-Viz/src/app/Modules/about/about-routing.module.ts</code>
         </p>
 
 
@@ -71,53 +71,20 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
+import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
+import { AboutComponent } from &#x27;./about/about.component&#x27;;
+import { HelpComponent } from &#x27;./help/help.component&#x27;;
 
-import {
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatToolbarModule,
-  MatCheckboxModule,
-  MatSidenavModule,
-  MatMenuModule,
-  MatListModule,
-  MatInputModule,
-  MatTabsModule,
-  MatOptionModule,
-  MatSelectModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatDialogModule,
-  MatTooltipModule,
-  MatExpansionModule,
-} from &#x27;@angular/material&#x27;;
-
-const MaterialComponents &#x3D; [
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatToolbarModule,
-  MatCheckboxModule,
-  MatSidenavModule,
-  MatMenuModule,
-  MatListModule,
-  MatInputModule,
-  MatTabsModule,
-  MatOptionModule,
-  MatSelectModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatDialogModule,
-  MatTooltipModule,
-  MatExpansionModule,
+const routes: Routes &#x3D; [
+  { path: &#x27;&#x27;, component: AboutComponent },
+  { path: &#x27;help&#x27;, component: HelpComponent },
 ];
+
 @NgModule({
-  imports: [MaterialComponents],
-  exports: [MaterialComponents],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class MaterialModule {}
+export class AboutRoutingModule {}
 </code></pre>
     </div>
 </div>
@@ -153,7 +120,7 @@ export class MaterialModule {}
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
-            var COMPODOC_CURRENT_PAGE_URL = 'MaterialModule.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'AboutRoutingModule.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

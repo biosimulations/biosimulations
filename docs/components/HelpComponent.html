@@ -35,7 +35,7 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>CallbackComponent</li>
+  <li>HelpComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,17 +61,11 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Shared/Components/callback/callback.component.ts</code>
+    <code>CRBM-Viz/src/app/Modules/about/help/help.component.ts</code>
 </p>
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-    </p>
 
 
 <section>
@@ -91,19 +85,19 @@
 
             <tr>
                 <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>app-callback</code></td>
+                <td class="col-md-9"><code>app-help</code></td>
             </tr>
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./callback.component.sass</code></td>
+                <td class="col-md-9"><code>./help.component.sass</code></td>
             </tr>
 
 
 
             <tr>
                 <td class="col-md-3">templateUrl</td>
-                <td class="col-md-9"><code>./callback.component.html</code></td>
+                <td class="col-md-9"><code>./help.component.html</code></td>
             </tr>
 
 
@@ -117,33 +111,6 @@
     </table>
 </section>
 
-    <section>
-    <h3 id="index">Index</h3>
-    <table class="table table-sm table-bordered index-table">
-        <tbody>
-
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#ngOnInit">ngOnInit</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-
-
-
-
-
-        </tbody>
-    </table>
-</section>
 
     <section>
     <h3 id="constructor">Constructor</h3>
@@ -151,45 +118,15 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(auth: <a href="../injectables/AuthService.html">AuthService</a>)</code>
+<code>constructor()</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/callback/callback.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:8</a></div>
                             </td>
                         </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>auth</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
             </tbody>
         </table>
 </section>
@@ -198,84 +135,96 @@
 
 
 
-    <section>
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
 
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/callback/callback.component.ts:12</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
 
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
-import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 
 @Component({
-  selector: &#x27;app-callback&#x27;,
-  templateUrl: &#x27;./callback.component.html&#x27;,
-  styleUrls: [&#x27;./callback.component.sass&#x27;],
+  selector: &#x27;app-help&#x27;,
+  templateUrl: &#x27;./help.component.html&#x27;,
+  styleUrls: [&#x27;./help.component.sass&#x27;],
 })
-export class CallbackComponent implements OnInit {
-  constructor(private auth: AuthService) {}
-
-  ngOnInit() {
-    this.auth.handleAuthCallback();
-  }
+export class HelpComponent {
+  constructor() {}
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;p&gt;callback works!&lt;/p&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;h1&gt;Help&lt;/h1&gt;
+
+&lt;div class&#x3D;&quot;contents&quot;&gt;
+    &lt;h2&gt;Contents&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href&#x3D;&quot;#readers&quot;&gt;For readers&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href&#x3D;&quot;#authors&quot;&gt;For authors&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href&#x3D;&quot;#reviewers&quot;&gt;For reviewers and editors&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href&#x3D;&quot;#accounts&quot;&gt;User accounts&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href&#x3D;&quot;#more&quot;&gt;Additional resources&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;a name&#x3D;&quot;readers&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;For readers&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;Finding models&lt;/li&gt;
+    &lt;li&gt;Finding simulation experiment&lt;/li&gt;
+    &lt;li&gt;Finding visualizations&lt;/li&gt;
+    &lt;li&gt;Simulating and visualizing variants of models&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;a name&#x3D;&quot;authors&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;For authors: uploading models, simulation experiments, and visualizations&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;Uploading models&lt;/li&gt;
+    &lt;li&gt;Uploading simulation experiments&lt;/li&gt;
+    &lt;li&gt;Uploading visualizations&lt;/li&gt;
+    &lt;li&gt;Sharing resources with collaborators and reviewers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;a name&#x3D;&quot;reviewers&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;For reviewers and editors&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;Accessing private resources&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;a name&#x3D;&quot;accounts&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;User accounts&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;Signing up&lt;/li&gt;
+    &lt;li&gt;Signing in&lt;/li&gt;
+    &lt;li&gt;Editing profile&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;a name&#x3D;&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;Additional resources&lt;/h2&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;API documentation&lt;/li&gt;
+    &lt;li&gt;REST API documentation&lt;/li&gt;
+&lt;/ul&gt;
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
                 <p class="comment">
-                    <code>./callback.component.sass</code>
+                    <code>./help.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">h2
+    margin-block-end: 0.25rem
+
+ul
+    margin-block-start: 0
+    padding-inline-start: 18px
+
+.contents
+    a
+        color: #000
+        text-decoration: none</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -303,10 +252,10 @@ export class CallbackComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>callback works!</p></div>'
+        var COMPONENT_TEMPLATE = '<div><h1>Help</h1><div class="contents">    <h2>Contents</h2>    <ul>        <li><a href="#readers">For readers</a></li>        <li><a href="#authors">For authors</a></li>        <li><a href="#reviewers">For reviewers and editors</a></li>        <li><a href="#accounts">User accounts</a></li>        <li><a href="#more">Additional resources</a></li>    </ul></div><a name="readers"></a><h2>For readers</h2><ul>    <li>Finding models</li>    <li>Finding simulation experiment</li>    <li>Finding visualizations</li>    <li>Simulating and visualizing variants of models</li></ul><a name="authors"></a><h2>For authors: uploading models, simulation experiments, and visualizations</h2><ul>    <li>Uploading models</li>    <li>Uploading simulation experiments</li>    <li>Uploading visualizations</li>    <li>Sharing resources with collaborators and reviewers</li></ul><a name="reviewers"></a><h2>For reviewers and editors</h2><ul>    <li>Accessing private resources</li></ul><a name="accounts"></a><h2>User accounts</h2><ul>    <li>Signing up</li>    <li>Signing in</li>    <li>Editing profile</li></ul><a name="more"></a><h2>Additional resources</h2><ul>    <li>API documentation</li>    <li>REST API documentation</li></ul></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
-    var ACTUAL_COMPONENT = {'name': 'CallbackComponent'};
+    var ACTUAL_COMPONENT = {'name': 'HelpComponent'};
 </script>
 <script src="../js/tree.js"></script>
 
@@ -341,7 +290,7 @@ export class CallbackComponent implements OnInit {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
-            var COMPODOC_CURRENT_PAGE_URL = 'CallbackComponent.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'HelpComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
