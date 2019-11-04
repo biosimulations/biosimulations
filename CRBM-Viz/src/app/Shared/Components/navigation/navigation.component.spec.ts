@@ -12,8 +12,8 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
 import { FilterPipe } from 'src/app/Shared/Pipes/filter.pipe';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 // TODO Sample content is needed and component compiled with it as input for <ng-content>
-import { HelpComponent } from 'src/app/Pages/help/help.component';
-import { AboutComponent } from 'src/app/Pages/about/about.component';
+import { HelpComponent } from 'src/app/Modules/about/help/help.component';
+import { AboutComponent } from 'src/app/Modules/about/about/about.component';
 import { SharedModule } from '../../shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
