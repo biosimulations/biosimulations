@@ -64,7 +64,9 @@ To deploy a new version into production:
 
 ## Documentation
 
-Please see the [documentation](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/).
+* [User guide](https://crbm-viz.herokuapp.com/help)
+* [Code documentation](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/)
+* REST API documentation
 
 ## License
 
@@ -72,10 +74,13 @@ This package is released under the [MIT license](LICENSE).
 
 ## Development team
 
-This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York.
+This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at the University of Connecticut Health Center as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).
 
-- [Bilal Shaikh](https://www.bshaikh.com/)
+- [Bilal Shaikh](https://www.bshaikh.com)
 - [Jonathan Karr](https://www.karrlab.org)
+- Akhil Marupilla
+- [Mike Wilson](https://www.linkedin.com/in/mike-wilson-08b3324/)
+- [Ion Moraru](https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion)
 
 ## Funding
 
