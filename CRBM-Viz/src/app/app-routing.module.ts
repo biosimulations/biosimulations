@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HelpComponent } from './Pages/help/help.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { HomeComponent } from './Pages/home/home.component';
 
@@ -21,6 +22,7 @@ const routes: Routes = [
         m => m.VisualizeModule
       ),
   },
+  { path: 'help', component: HelpComponent },
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
   { path: 'data', component: DataComponent },

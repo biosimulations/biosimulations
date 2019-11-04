@@ -21,6 +21,7 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
+import { HelpComponent } from './Pages/help/help.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
@@ -53,6 +54,7 @@ import { SharedModule } from './Shared/shared.module';
   declarations: [
     AppComponent,
 
+    HelpComponent,
     AboutComponent,
 
     SimulateComponent,
