@@ -1,12 +1,13 @@
 # CRBM-Viz
 
-[![Deployment](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
-[![Docker image](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Tests](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Build,%20Lint,%20Test/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
+[![Docker image](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Documentation](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Documentation/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Deploy](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
+
+
 [![codecov](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz/branch/master/graph/badge.svg)](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz)
-[![Maintainability](https://api.codeclimate.com/v1/badges/56fb43ab9057c3121830/maintainability)](https://codeclimate.com/github/reproducible-biomedical-modeling/CRBM-Viz/maintainability)
+[![CodeFactor](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz/badge)](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz)
 [![License](https://img.shields.io/github/license/reproducible-biomedical-modeling/CRBM-Viz.svg)](LICENSE)
 ![Analytics](https://ga-beacon.appspot.com/UA-86759801-1/CRBM-Viz/README.md?pixel)
 
