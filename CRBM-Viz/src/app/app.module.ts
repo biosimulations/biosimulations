@@ -22,15 +22,16 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { CallbackComponent } from './Shared/Components/callback/callback.component';
 
-import { UploadComponent } from './Pages/upload/upload.component';
-import { FileTableComponent } from './Pages/files/file-table/file-table.component';
-import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { UploadComponent } from './Modules/models/upload/upload.component';
+import { FileTableComponent } from './Modules/models/file-table/file-table.component';
+import { FileEditComponent } from './Modules/models/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
 
 import { SharedModule } from './Shared/shared.module';
 import { AboutModule } from './Modules/about/about.module';
 import { AccountModule } from './Modules/account/account.module';
 import { DataComponent } from './Modules/simulate/data/data.component';
+import { ModelsModule } from './Modules/models/models.module';
 
 // Pipes defined in app
 
@@ -47,11 +48,6 @@ import { DataComponent } from './Modules/simulate/data/data.component';
     HomeComponent,
     FourComponent,
     UnderConstructionComponent,
-
-    UploadComponent,
-    FileEditComponent,
-
-    FileTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +59,7 @@ import { DataComponent } from './Modules/simulate/data/data.component';
     SharedModule,
     AboutModule,
     AccountModule,
+    ModelsModule,
   ],
   providers: [
     {

@@ -8,8 +8,8 @@ import { SimulateComponent } from './Modules/simulate/simulate/simulate.componen
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { AuthGuard } from './Shared/Gaurds/auth.guard';
-import { UploadComponent } from './Pages/upload/upload.component';
-import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { UploadComponent } from './Modules/models/upload/upload.component';
+import { FileEditComponent } from './Modules/models/file-edit/file-edit.component';
 import { CallbackComponent } from './Shared/Components/callback/callback.component';
 import { ProfileComponent } from './Modules/account/profile/profile.component';
 import { ProfileEditComponent } from './Modules/account/profile/profile-edit.component';
@@ -41,6 +41,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./Modules/simulate/simulate.module').then(m => m.SimulateModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'models',
+    loadChildren: () =>
+      import('./Modules/models/models.module').then(m => m.ModelsModule),
   },
 
   // { path: 'login', component: LoginComponent },
