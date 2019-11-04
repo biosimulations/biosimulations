@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HelpComponent } from './Pages/help/help.component';
-import { AboutComponent } from './Pages/about/about.component';
+import { HelpComponent } from './Modules/about/help/help.component';
+
 import { HomeComponent } from './Pages/home/home.component';
 
 import { SimulateComponent } from './Pages/simulate/simulate.component';
@@ -15,6 +15,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { ProfileEditComponent } from './Components/profile/profile-edit.component';
 import { DataComponent } from './Pages/data/data.component';
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   {
     path: 'visualize',
     loadChildren: () =>
@@ -22,9 +23,12 @@ const routes: Routes = [
         m => m.VisualizeModule
       ),
   },
-  { path: 'help', component: HelpComponent },
-  { path: 'about', component: AboutComponent },
-  { path: '', component: HomeComponent },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./Modules/about/about.module').then(m => m.AboutModule),
+  },
+
   { path: 'data', component: DataComponent },
   { path: 'data/:id', component: DataComponent },
   { path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] },

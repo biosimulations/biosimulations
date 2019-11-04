@@ -55,7 +55,7 @@ export const NavItems: NavItem[] = [
       'User-Sign-In',
       'User-Sign-Up',
       'User-Sign-Out',
-      ],
+    ],
     display: 'always',
   },
 
@@ -120,7 +120,7 @@ export const NavItems: NavItem[] = [
     icon: 'help',
     icon_type: 'mat',
     display: 'always',
-    link: '/help',
+    link: '/about/help',
   },
   {
     id: 'Help-About',

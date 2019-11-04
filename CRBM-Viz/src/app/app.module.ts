@@ -16,8 +16,6 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
-import { HelpComponent } from './Pages/help/help.component';
-import { AboutComponent } from './Pages/about/about.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 
@@ -35,6 +33,7 @@ import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
 import { DataComponent } from './Pages/data/data.component';
 import { SharedModule } from './Shared/shared.module';
+import { AboutModule } from './Modules/about/about.module';
 
 // Pipes defined in app
 
@@ -47,9 +46,6 @@ import { SharedModule } from './Shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
-
-    HelpComponent,
-    AboutComponent,
 
     SimulateComponent,
     HomeComponent,
@@ -78,6 +74,7 @@ import { SharedModule } from './Shared/shared.module';
     HttpClientModule,
     MaterialModule,
     SharedModule,
+    AboutModule,
   ],
   providers: [
     {
