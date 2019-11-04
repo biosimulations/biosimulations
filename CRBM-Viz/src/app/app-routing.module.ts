@@ -11,8 +11,8 @@ import { AuthGuard } from './Shared/Gaurds/auth.guard';
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { CallbackComponent } from './Components/callback/callback.component';
-import { ProfileComponent } from './Components/profile/profile.component';
-import { ProfileEditComponent } from './Components/profile/profile-edit.component';
+import { ProfileComponent } from './Modules/account/profile/profile.component';
+import { ProfileEditComponent } from './Modules/account/profile/profile-edit.component';
 import { DataComponent } from './Pages/data/data.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +27,11 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () =>
       import('./Modules/about/about.module').then(m => m.AboutModule),
+  },
+  {
+    path: 'account',
+    loadChildren: () =>
+      import('./Modules/account/account.module').then(m => m.AccountModule),
   },
 
   { path: 'data', component: DataComponent },

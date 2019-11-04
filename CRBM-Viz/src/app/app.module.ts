@@ -22,8 +22,6 @@ import { HomeComponent } from './Pages/home/home.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { CallbackComponent } from './Components/callback/callback.component';
-import { ProfileComponent } from './Components/profile/profile.component';
-import { ProfileEditComponent } from './Components/profile/profile-edit.component';
 import { AlertComponent } from './Components/alert/alert.component';
 import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
 import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
@@ -34,6 +32,7 @@ import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.s
 import { DataComponent } from './Pages/data/data.component';
 import { SharedModule } from './Shared/shared.module';
 import { AboutModule } from './Modules/about/about.module';
+import { AccountModule } from './Modules/account/account.module';
 
 // Pipes defined in app
 
@@ -53,8 +52,7 @@ import { AboutModule } from './Modules/about/about.module';
     UnderConstructionComponent,
 
     CallbackComponent,
-    ProfileComponent,
-    ProfileEditComponent,
+
     UploadComponent,
     FileEditComponent,
     AlertComponent,
@@ -75,6 +73,7 @@ import { AboutModule } from './Modules/about/about.module';
     MaterialModule,
     SharedModule,
     AboutModule,
+    AccountModule,
   ],
   providers: [
     {
