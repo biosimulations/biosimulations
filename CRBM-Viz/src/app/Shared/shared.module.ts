@@ -13,7 +13,7 @@ import { NavIconsComponent } from './Components/nav-icons/nav-icons.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { DataTableComponent } from './Components/data-table/data-table.component';
 import { MaterialModule } from '../Modules/app-material.module';
-
+import { AgGridModule } from 'ag-grid-angular';
 // FontAwesome for icons
 import {
   FontAwesomeModule,
@@ -45,7 +45,13 @@ import {
     SidebarComponent,
     DataTableComponent,
   ],
-  imports: [CommonModule, MaterialModule, RouterModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+    FontAwesomeModule,
+    AgGridModule.withComponents([]),
+  ],
   exports: [
     FilterPipe,
     SearchBarComponent,

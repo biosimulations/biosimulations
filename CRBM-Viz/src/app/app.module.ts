@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AgGridModule } from 'ag-grid-angular';
+
 // Defined Modules in Imports
 
 // Defined Modules in app
@@ -78,7 +78,6 @@ import { SharedModule } from './Shared/shared.module';
     HttpClientModule,
     MaterialModule,
     SharedModule,
-    AgGridModule.withComponents([]),
   ],
   providers: [
     {
