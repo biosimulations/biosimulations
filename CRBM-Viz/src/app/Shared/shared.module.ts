@@ -24,6 +24,7 @@ import {
   faUserPlus,
   faHourglassHalf,
   faLink,
+  faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
@@ -64,6 +65,7 @@ export class SharedModule {
       faChartArea,
       faHourglassHalf,
       faLink,
+      faEnvelope,
       faGithub,
       faGoogle,
       faOrcid

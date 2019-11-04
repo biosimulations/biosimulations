@@ -1,6 +1,6 @@
-@import 'src/theme.scss';
 @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material';
-@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import '~ag-grid-community/dist/styles/ag-grid.css';
+@import 'src/theme.scss';
 
 $primary: mat-palette($theme-primary);
 $accent: mat-palette($theme-accent);
@@ -17,14 +17,21 @@ body {
 
 h1, .h1 {
     @include mat-typography-level-to-styles($fontConfig, display-1);
-    line-height: 1rem;
+    line-height: 1.8rem;
     margin-top: 0;
     color: mat-color($theme-primary);
+    border-bottom: 1px solid mat-color($theme-primary);
+
+    a {
+        color: mat-color($theme-primary);
+        text-decoration: none;
+    }
 }
 
 h2, .h2 {
     @include mat-typography-level-to-styles($fontConfig, headline);
     color: mat-color($theme-accent);
+    border-bottom: 1px dotted mat-color($theme-accent);
 }
 
 body, .body {
@@ -41,4 +48,11 @@ p:last-child {
             margin-right: 2px;
         }
     }
+}
+
+.partial-width-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
 }
