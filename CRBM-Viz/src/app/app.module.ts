@@ -16,10 +16,10 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
-import { HomeComponent } from './Pages/home/home.component';
+import { HomeComponent } from './Shared/Components/home/home.component';
 
-import { FourComponent } from './Pages/four/four.component';
-import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { FourComponent } from './Shared/Components/four/four.component';
+import { UnderConstructionComponent } from './Shared/Components/under-construction/under-construction.component';
 import { CallbackComponent } from './Shared/Components/callback/callback.component';
 
 import { UploadComponent } from './Modules/models/upload/upload.component';
@@ -42,13 +42,7 @@ import { ModelsModule } from './Modules/models/models.module';
 // Service for Authconfig
 
 @NgModule({
-  declarations: [
-    AppComponent,
-
-    HomeComponent,
-    FourComponent,
-    UnderConstructionComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

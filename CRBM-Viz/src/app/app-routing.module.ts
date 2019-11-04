@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HelpComponent } from './Modules/about/help/help.component';
 
-import { HomeComponent } from './Pages/home/home.component';
+import { HomeComponent } from './Shared/Components/home/home.component';
 
 import { SimulateComponent } from './Modules/simulate/simulate/simulate.component';
-import { FourComponent } from './Pages/four/four.component';
-import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { FourComponent } from './Shared/Components/four/four.component';
+import { UnderConstructionComponent } from './Shared/Components/under-construction/under-construction.component';
 import { AuthGuard } from './Shared/Gaurds/auth.guard';
 import { UploadComponent } from './Modules/models/upload/upload.component';
 import { FileEditComponent } from './Modules/models/file-edit/file-edit.component';

@@ -35,6 +35,9 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { AlertComponent } from './Components/alert/alert.component';
 import { CallbackComponent } from './Components/callback/callback.component';
+import { HomeComponent } from './Components/home/home.component';
+import { FourComponent } from './Components/four/four.component';
+import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { CallbackComponent } from './Components/callback/callback.component';
     DataTableComponent,
     AlertComponent,
     CallbackComponent,
+    HomeComponent,
+    FourComponent,
+    UnderConstructionComponent,
   ],
   imports: [
     CommonModule,
@@ -68,6 +74,9 @@ import { CallbackComponent } from './Components/callback/callback.component';
     DataTableComponent,
     AlertComponent,
     CallbackComponent,
+    HomeComponent,
+    FourComponent,
+    UnderConstructionComponent,
   ],
   entryComponents: [AlertComponent],
 })
