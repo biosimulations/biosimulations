@@ -16,7 +16,6 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
-import { SimulateComponent } from './Modules/simulate/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 
 import { FourComponent } from './Pages/four/four.component';
@@ -31,7 +30,7 @@ import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.s
 import { SharedModule } from './Shared/shared.module';
 import { AboutModule } from './Modules/about/about.module';
 import { AccountModule } from './Modules/account/account.module';
-import { DataComponent } from './Pages/data/data.component';
+import { DataComponent } from './Modules/simulate/data/data.component';
 
 // Pipes defined in app
 
@@ -45,7 +44,6 @@ import { DataComponent } from './Pages/data/data.component';
   declarations: [
     AppComponent,
 
-    SimulateComponent,
     HomeComponent,
     FourComponent,
     UnderConstructionComponent,
@@ -54,8 +52,6 @@ import { DataComponent } from './Pages/data/data.component';
     FileEditComponent,
 
     FileTableComponent,
-
-    DataComponent,
   ],
   imports: [
     BrowserModule,

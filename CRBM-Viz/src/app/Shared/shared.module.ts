@@ -72,6 +72,7 @@ import { CallbackComponent } from './Components/callback/callback.component';
   entryComponents: [AlertComponent],
 })
 export class SharedModule {
+  static FormsModule: any[] | Type<any> | ModuleWithProviders<{}>;
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
     library.addIcons(

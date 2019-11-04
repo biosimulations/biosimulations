@@ -13,7 +13,7 @@ import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { CallbackComponent } from './Shared/Components/callback/callback.component';
 import { ProfileComponent } from './Modules/account/profile/profile.component';
 import { ProfileEditComponent } from './Modules/account/profile/profile-edit.component';
-import { DataComponent } from './Pages/data/data.component';
+import { DataComponent } from './Modules/simulate/data/data.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -42,9 +42,6 @@ const routes: Routes = [
       import('./Modules/simulate/simulate.module').then(m => m.SimulateModule),
     canActivate: [AuthGuard],
   },
-
-  { path: 'data', component: DataComponent },
-  { path: 'data/:id', component: DataComponent },
 
   // { path: 'login', component: LoginComponent },
   { path: 'files', component: UploadComponent, canActivate: [AuthGuard] },
