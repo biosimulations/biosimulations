@@ -10,7 +10,7 @@ import { UnderConstructionComponent } from './Pages/under-construction/under-con
 import { AuthGuard } from './Shared/Gaurds/auth.guard';
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
-import { CallbackComponent } from './Components/callback/callback.component';
+import { CallbackComponent } from './Shared/Components/callback/callback.component';
 import { ProfileComponent } from './Modules/account/profile/profile.component';
 import { ProfileEditComponent } from './Modules/account/profile/profile-edit.component';
 import { DataComponent } from './Pages/data/data.component';
@@ -30,7 +30,7 @@ const routes: Routes = [
       import('./Modules/about/about.module').then(m => m.AboutModule),
   },
   {
-    path: 'account',
+    path: 'profile',
     loadChildren: () =>
       import('./Modules/account/account.module').then(m => m.AccountModule),
     canActivate: [AuthGuard],

@@ -21,7 +21,7 @@ import { HomeComponent } from './Pages/home/home.component';
 
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-import { CallbackComponent } from './Components/callback/callback.component';
+import { CallbackComponent } from './Shared/Components/callback/callback.component';
 
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
@@ -49,8 +49,6 @@ import { DataComponent } from './Pages/data/data.component';
     HomeComponent,
     FourComponent,
     UnderConstructionComponent,
-
-    CallbackComponent,
 
     UploadComponent,
     FileEditComponent,

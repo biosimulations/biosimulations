@@ -34,6 +34,7 @@ import {
   faOrcid,
 } from '@fortawesome/free-brands-svg-icons';
 import { AlertComponent } from './Components/alert/alert.component';
+import { CallbackComponent } from './Components/callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AlertComponent } from './Components/alert/alert.component';
     SidebarComponent,
     DataTableComponent,
     AlertComponent,
+    CallbackComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +67,7 @@ import { AlertComponent } from './Components/alert/alert.component';
     FontAwesomeModule,
     DataTableComponent,
     AlertComponent,
+    CallbackComponent,
   ],
   entryComponents: [AlertComponent],
 })
