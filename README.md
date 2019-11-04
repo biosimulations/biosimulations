@@ -71,7 +71,8 @@ Please see the [documentation](https://reproducible-biomedical-modeling.github.i
 ## License
 
 This package is released under the [MIT license](LICENSE).
-
+## Dependencies
+This package uses dependencies distributed under various licences. Please see the [dependencies report](https://app.fossa.com/attribution/ba821b8e-9edf-481b-a00a-eea0eb10bf63) for more information
 ## Development team
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York.
