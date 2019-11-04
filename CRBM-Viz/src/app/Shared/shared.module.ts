@@ -23,6 +23,7 @@ import {
   faSignOutAlt,
   faUserPlus,
   faHourglassHalf,
+  faLink,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
@@ -62,6 +63,7 @@ export class SharedModule {
       faCogs,
       faChartArea,
       faHourglassHalf,
+      faLink,
       faGithub,
       faGoogle,
       faOrcid
