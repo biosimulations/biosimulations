@@ -29,8 +29,9 @@
       >
         <mat-list-item
           class="sidebar-menu-subitem"
-          *ngIf="route.display == 'always' || (auth.loggedIn && route.display == 'loggedIn') || (!auth.loggedIn && route.display == 'loggedOut')"
+          *ngIf="route.display == 'always' || (auth.loggedIn && route.display == 'loggedIn') || (!auth.loggedIn && route.display == '!loggedIn')"
           [routerLink]="route.link"
+          (click)="getClick(route)"
           [disableRipple]="true">
           <mat-icon class="sidebar-menu-icon" *ngIf="route.icon_type == 'mat'; else faIcon">{{ route.icon }}</mat-icon>
           {{ route.label }}

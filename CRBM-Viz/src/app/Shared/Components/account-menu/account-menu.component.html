@@ -10,6 +10,18 @@
     Profile
   </button>
 
+  <!--
+  <button
+    mat-menu-item
+    *ngIf="auth.loggedIn"
+    color="primary"
+    [routerLink]="['/notifications']"
+  >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Notifications"
+      >notifications</mat-icon>
+    Notifications
+  </button>
+
   <button
     mat-menu-item
     *ngIf="auth.loggedIn"
@@ -20,6 +32,7 @@
       >settings</mat-icon>
     Settings
   </button>
+  -->
 
   <mat-divider *ngIf="auth.loggedIn"></mat-divider>
 
@@ -51,9 +64,20 @@
     color="primary"
     (click)="auth.login()"
   >
-    <fa-icon class="icon" aria-hidden="false" aria-label="Sign in" size="2x" 
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign in" size="2x"
       [icon]="['fas', 'sign-in-alt']"></fa-icon>
     Sign in
+  </button>
+
+  <button
+    mat-menu-item
+    *ngIf="!auth.loggedIn"
+    color="primary"
+    (click)="auth.login()"
+  >
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign up" size="2x"
+      [icon]="['fas', 'user-plus']"></fa-icon>
+    Sign up
   </button>
 
   <button
@@ -62,7 +86,7 @@
     color="primary"
     (click)="auth.logout()"
   >
-    <fa-icon class="icon" aria-hidden="false" aria-label="Sign out" size="2x" 
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign out" size="2x"
       [icon]="['fas', 'sign-out-alt']"></fa-icon>
     Sign out
   </button>

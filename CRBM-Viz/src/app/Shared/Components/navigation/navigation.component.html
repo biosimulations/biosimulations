@@ -6,7 +6,7 @@
     fixedInViewport="false"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
+    [opened]="(isHandset$ | async) === true"
   >
     <mat-toolbar>
       <button mat-button class="home" [routerLink]="['']" disableRipple="true"><span class="bio">Bio</span><span class="simulations">Simulations</span></button>
@@ -36,7 +36,7 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <div class="logo" *ngIf="!drawer.opened">
+      <div class="logo">
         <app-logo></app-logo>
       </div>
       <div class="spacer"></div>

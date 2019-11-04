@@ -48,10 +48,17 @@ export const NavItems: NavItem[] = [
     label: 'Account',
     icon: 'account_circle',
     icon_type: 'mat',
-    children: ['User-Profile', 'User-Settings', 'User-Sign-In', 'User-Sign-Out'],
+    children: [
+      'User-Profile',
+      // 'User-Notifications',
+      // 'User-Settings',
+      'User-Sign-In',
+      'User-Sign-Up',
+      'User-Sign-Out',
+      ],
     display: 'always',
   },
-  
+
   // Models sub-menu
   {
     id: 'Models-Browse',
@@ -95,7 +102,7 @@ export const NavItems: NavItem[] = [
     display: 'always',
     link: '/data/status',
   },
-  
+
   // Visualize sub-menu
   {
     id: 'Visualize-Browse',
@@ -130,31 +137,52 @@ export const NavItems: NavItem[] = [
     label: 'Profile',
     icon: 'account_circle',
     icon_type: 'mat',
-    display: 'loggedIn', 
+    display: 'loggedIn',
     link: '/profile',
+  },
+  /*
+  {
+    id: 'User-Notifications',
+    label: 'Notifications',
+    icon: 'notifications',
+    icon_type: 'mat',
+    display: 'loggedIn',
+    link: '/notifications',
   },
   {
     id: 'User-Settings',
     label: 'Settings',
     icon: 'settings',
     icon_type: 'mat',
-    display: 'loggedIn', 
+    display: 'loggedIn',
     link: '/settings',
   },
+  */
   {
     id: 'User-Sign-In',
     label: 'Sign in',
     icon: 'sign-in-alt',
     icon_type: 'fas',
-    display: 'loggedOut', 
-    click: 'auth.login()',
+    display: '!loggedIn',
+    link: null,
+    click: 'toggleLogin',
+  },
+  {
+    id: 'User-Sign-Up',
+    label: 'Sign up',
+    icon: 'user-plus',
+    icon_type: 'fas',
+    display: '!loggedIn',
+    link: null,
+    click: 'toggleLogin',
   },
   {
     id: 'User-Sign-Out',
     label: 'Sign out',
     icon: 'sign-out-alt',
     icon_type: 'fas',
-    display: 'loggedIn', 
-    click: 'auth.logout()',
+    display: 'loggedIn',
+    link: null,
+    click: 'toggleLogin',
   },
 ];
