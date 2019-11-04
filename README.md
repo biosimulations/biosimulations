@@ -1,13 +1,15 @@
 # CRBM-Viz
 
-[![Deployment](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
-[![Docker image](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Tests](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Build,%20Lint,%20Test/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
+[![Docker image](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Documentation](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Documentation/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
 [![Deploy](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
+
+
 [![codecov](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz/branch/master/graph/badge.svg)](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz)
-[![Maintainability](https://api.codeclimate.com/v1/badges/56fb43ab9057c3121830/maintainability)](https://codeclimate.com/github/reproducible-biomedical-modeling/CRBM-Viz/maintainability)
+[![CodeFactor](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz/badge)](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz)
 [![License](https://img.shields.io/github/license/reproducible-biomedical-modeling/CRBM-Viz.svg)](LICENSE)
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git.svg?type=shield)](https://app.fossa.com/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git?ref=badge_shield)
 ![Analytics](https://ga-beacon.appspot.com/UA-86759801-1/CRBM-Viz/README.md?pixel)
 
 ## Current Build
@@ -71,7 +73,8 @@ To deploy a new version into production:
 ## License
 
 This package is released under the [MIT license](LICENSE).
-
+## Dependencies
+This package uses dependencies distributed under various licences. Please see the [dependencies report](https://app.fossa.com/attribution/ba821b8e-9edf-481b-a00a-eea0eb10bf63) for more information
 ## Development team
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at the University of Connecticut Health Center as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).

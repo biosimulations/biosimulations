@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatTableModule, MatDialogModule } from '@angular/material';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AlertComponent } from 'src/app/Components/alert/alert.component';
+import { AlertComponent } from 'src/app/Shared/Components/alert/alert.component';
 // TODO The alert component needs to be mocked!
 
 // TODO this test causes the next test to fail due to missing alertcomponent factory

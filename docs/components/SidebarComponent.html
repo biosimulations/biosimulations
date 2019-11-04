@@ -149,6 +149,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#getClick">getClick</a>
+                            </li>
+                            <li>
                                 <a href="#isChildOf">isChildOf</a>
                             </li>
                             <li>
@@ -227,6 +230,76 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getClick"></a>
+                    <span class="name">
+                        <b>
+                            getClick
+                        </b>
+                        <a href="#getClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getClick(navItem: <a href="../interfaces/NavItem.html">NavItem</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/sidebar/sidebar.component.ts:21</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>navItem</td>
+                                    <td>
+                                                <code><a href="../interfaces/NavItem.html" target="_self" >NavItem</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -401,8 +474,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/sidebar/sidebar.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/sidebar/sidebar.component.ts:31</a></div>
                 </td>
             </tr>
 
@@ -501,7 +574,17 @@ export class SidebarComponent implements OnInit {
   }
   isChildOf(child: NavItem, args: any[]) {
     const parent: NavItem &#x3D; args[0];
-    return parent.children.includes(child.title);
+
+    return parent.children.includes(child.id);
+  }
+  getClick(navItem: NavItem) {
+    if (navItem.click &#x3D;&#x3D;&#x3D; &#x27;toggleLogin&#x27;) {
+      if (this.auth.loggedIn) {
+        this.auth.logout()
+      } else {
+        this.auth.login()
+      }
+    }
   }
 
   ngOnInit() {}
@@ -510,33 +593,46 @@ export class SidebarComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;app-logo&gt;&lt;/app-logo&gt;
-&lt;span class&#x3D;&quot;spacer&quot;&gt;&lt;/span&gt;
-&lt;!-- &lt;button
-  mat-flat-button
-  [routerLink]&#x3D;&quot;[&#x27;/&#x27;]&quot;
-  routerLinkActive&#x3D;&quot;router-link-active&quot;
-&gt;
-  &lt;mat-icon&gt; home&lt;/mat-icon&gt;Home
-&lt;/button&gt; --&gt;
-&lt;mat-accordion&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;mat-accordion multi&#x3D;&quot;true&quot;&gt;
   &lt;div *ngFor&#x3D;&quot;let header of NavItems | filter: isTopLevel&quot;&gt;
-    &lt;mat-expansion-panel&gt;
-      &lt;mat-expansion-panel-header class&#x3D;&quot;header-title&quot;&gt;
-        &lt;div class&#x3D;&quot;header-content&quot;&gt;
-          &lt;mat-icon class&#x3D;&quot;icon&quot;&gt; {{ header.icon }}&lt;/mat-icon&gt;
-          &lt;mat-panel-title class&#x3D;&quot;panel-title&quot;&gt;
-            {{ header.title }}&lt;/mat-panel-title
-          &gt;
+    &lt;mat-expansion-panel class&#x3D;&quot;sidebar-menu-item&quot;&gt;
+      &lt;mat-expansion-panel-header
+        class&#x3D;&quot;sidebar-menu-item-title&quot;
+        [collapsedHeight]&#x3D;&quot;&#x27;48px&#x27;&quot;
+        [expandedHeight]&#x3D;&quot;&#x27;48px&#x27;&quot;
+      &gt;
+        &lt;div class&#x3D;&quot;sidebar-menu-item-content&quot;&gt;
+          &lt;mat-icon
+            class&#x3D;&quot;sidebar-menu-icon&quot;
+            *ngIf&#x3D;&quot;header.icon_type &#x3D;&#x3D; &#x27;mat&#x27;; else faIcon&quot;&gt;{{
+            header.icon
+          }}&lt;/mat-icon&gt;
+          &lt;ng-template #faIcon&gt;
+            &lt;fa-icon
+              class&#x3D;&quot;sidebar-menu-icon&quot;
+              [icon]&#x3D;&quot;[header.icon_type, header.icon]&quot;
+              size&#x3D;&quot;lg&quot;
+            &gt;&lt;/fa-icon&gt;
+          &lt;/ng-template&gt;
+          &lt;mat-panel-title class&#x3D;&quot;sidebar-menu-item-label&quot;&gt;{{
+            header.label
+          }}&lt;/mat-panel-title&gt;
         &lt;/div&gt;
       &lt;/mat-expansion-panel-header&gt;
       &lt;div
-        class&#x3D;&quot;child&quot;
         *ngFor&#x3D;&quot;let route of NavItems | filter: isChildOf:[header]&quot;
       &gt;
-        &lt;mat-list-item [routerLink]&#x3D;&quot;route.link&quot;&gt;
-          &lt;mat-icon&gt; {{ route.icon }}&lt;/mat-icon&gt;
-          {{ route.title }}
+        &lt;mat-list-item
+          class&#x3D;&quot;sidebar-menu-subitem&quot;
+          *ngIf&#x3D;&quot;route.display &#x3D;&#x3D; &#x27;always&#x27; || (auth.loggedIn &amp;&amp; route.display &#x3D;&#x3D; &#x27;loggedIn&#x27;) || (!auth.loggedIn &amp;&amp; route.display &#x3D;&#x3D; &#x27;!loggedIn&#x27;)&quot;
+          [routerLink]&#x3D;&quot;route.link&quot;
+          (click)&#x3D;&quot;getClick(route)&quot;
+          [disableRipple]&#x3D;&quot;true&quot;&gt;
+          &lt;mat-icon class&#x3D;&quot;sidebar-menu-icon&quot; *ngIf&#x3D;&quot;route.icon_type &#x3D;&#x3D; &#x27;mat&#x27;; else faIcon&quot;&gt;{{ route.icon }}&lt;/mat-icon&gt;
+          {{ route.label }}
+          &lt;ng-template #faIcon&gt;
+            &lt;fa-icon class&#x3D;&quot;sidebar-menu-icon&quot; [icon]&#x3D;&quot;[route.icon_type, route.icon]&quot; size&#x3D;&quot;lg&quot;&gt;&lt;/fa-icon&gt;
+          &lt;/ng-template&gt;
         &lt;/mat-list-item&gt;
       &lt;/div&gt;
     &lt;/mat-expansion-panel&gt;
@@ -549,26 +645,74 @@ export class SidebarComponent implements OnInit {
                 <p class="comment">
                     <code>./sidebar.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &quot;src/styles.sass&quot;
-button
-    width: 100%
-button:hover
-    color: mat-color($accent)
-button:focus
-    outline: 0px
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.scss&#x27;
 
-.header-content
+// size and spacing
+.mat-expansion-panel
+    margin: 0px 0    
+    border-bottom: 1px solid #aaa
+.mat-expansion-panel-header
+    padding: 0 10px
+
+:host::ng-deep .mat-expansion-panel-body
+    padding: 0 12px 12px
+
+.mat-list-base
+    .mat-list-item
+        height: 36px
+
+.sidebar-menu-item-content
     display: flex
     align-content: space-between
-.header-title:hover
-    color: mat-color($accent)
-    .panel-title
-        color: mat-color($accent)
-.toplink
-    display: flex
-    align-content: space-between
-.spacer
-    padding: 5px</code></pre>
+
+.sidebar-menu-icon
+    margin-right: 0.25rem
+    width: 1.5rem
+    text-align: center
+
+// border
+.mat-accordion
+    .mat-expansion-panel:first-of-type
+        border-radius: 0px
+    .mat-expansion-panel:last-of-type
+        border-radius: 0px
+
+.mat-expansion-panel:not([class*&#x3D;mat-elevation-z])
+    box-shadow: none
+
+// fonts
+.sidebar-menu-item-label
+    @include mat-typography-level-to-styles($fontConfig, subheading-2)
+.sidebar-menu-subitem
+    @include mat-typography-level-to-styles($fontConfig, subheading-1)
+
+// colors
+.mat-expansion-panel:not(.mat-expanded)
+    .mat-expansion-panel-header:hover:not([aria-disabled&#x3D;true])
+        background: mat-color($theme-primary)
+        color: #fff
+        .sidebar-menu-item-label
+            color: #fff
+        .mat-expansion-indicator::after
+            color: #fff
+.mat-expansion-panel.mat-expanded
+    .mat-expansion-panel-header:hover:not([aria-disabled&#x3D;true])
+        background: mat-color($theme-primary)
+        color: #fff
+        .sidebar-menu-item-label
+            color: #fff
+        .mat-expansion-indicator::after
+            color: #fff
+:host::ng-deep .sidebar-menu-item-title:hover
+    .mat-expansion-indicator::after
+            color: #fff
+.sidebar-menu-subitem:hover
+    background: mat-color($theme-primary)
+    color: #fff
+.sidebar-menu-subitem:focus
+    background: mat-color($theme-primary)
+    color: #fff
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -596,8 +740,8 @@ button:focus
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><app-logo></app-logo><span class="spacer"></span><!-- <button  mat-flat-button  [routerLink]="[\'/\']"  routerLinkActive="router-link-active">  <mat-icon> home</mat-icon>Home</button> --><mat-accordion>  <div *ngFor="let header of NavItems | filter: isTopLevel">    <mat-expansion-panel>      <mat-expansion-panel-header class="header-title">        <div class="header-content">          <mat-icon class="icon"> {{ header.icon }}</mat-icon>          <mat-panel-title class="panel-title">            {{ header.title }}</mat-panel-title          >        </div>      </mat-expansion-panel-header>      <div        class="child"        *ngFor="let route of NavItems | filter: isChildOf:[header]"      >        <mat-list-item [routerLink]="route.link">          <mat-icon> {{ route.icon }}</mat-icon>          {{ route.title }}        </mat-list-item>      </div>    </mat-expansion-panel>  </div></mat-accordion></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><mat-accordion multi="true">  <div *ngFor="let header of NavItems | filter: isTopLevel">    <mat-expansion-panel class="sidebar-menu-item">      <mat-expansion-panel-header        class="sidebar-menu-item-title"        [collapsedHeight]="\'48px\'"        [expandedHeight]="\'48px\'"      >        <div class="sidebar-menu-item-content">          <mat-icon            class="sidebar-menu-icon"            *ngIf="header.icon_type == \'mat\'; else faIcon">{{            header.icon          }}</mat-icon>          <ng-template #faIcon>            <fa-icon              class="sidebar-menu-icon"              [icon]="[header.icon_type, header.icon]"              size="lg"            ></fa-icon>          </ng-template>          <mat-panel-title class="sidebar-menu-item-label">{{            header.label          }}</mat-panel-title>        </div>      </mat-expansion-panel-header>      <div        *ngFor="let route of NavItems | filter: isChildOf:[header]"      >        <mat-list-item          class="sidebar-menu-subitem"          *ngIf="route.display == \'always\' || (auth.loggedIn && route.display == \'loggedIn\') || (!auth.loggedIn && route.display == \'!loggedIn\')"          [routerLink]="route.link"          (click)="getClick(route)"          [disableRipple]="true">          <mat-icon class="sidebar-menu-icon" *ngIf="route.icon_type == \'mat\'; else faIcon">{{ route.icon }}</mat-icon>          {{ route.label }}          <ng-template #faIcon>            <fa-icon class="sidebar-menu-icon" [icon]="[route.icon_type, route.icon]" size="lg"></fa-icon>          </ng-template>        </mat-list-item>      </div>    </mat-expansion-panel>  </div></mat-accordion></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidebarComponent'};
 </script>

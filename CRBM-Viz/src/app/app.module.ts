@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AgGridModule } from 'ag-grid-angular';
+
 // Defined Modules in Imports
 
 // Defined Modules in app
@@ -16,26 +16,22 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
-import { HelpComponent } from './Pages/help/help.component';
-import { AboutComponent } from './Pages/about/about.component';
-import { SimulateComponent } from './Pages/simulate/simulate.component';
-import { HomeComponent } from './Pages/home/home.component';
+import { HomeComponent } from './Shared/Components/home/home.component';
 
-import { FourComponent } from './Pages/four/four.component';
-import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
-import { CallbackComponent } from './Components/callback/callback.component';
-import { ProfileComponent } from './Components/profile/profile.component';
-import { ProfileEditComponent } from './Components/profile/profile-edit.component';
-import { AlertComponent } from './Components/alert/alert.component';
-import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
-import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
-import { UploadComponent } from './Pages/upload/upload.component';
-import { FileTableComponent } from './Pages/files/file-table/file-table.component';
-import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
+import { FourComponent } from './Shared/Components/four/four.component';
+import { UnderConstructionComponent } from './Shared/Components/under-construction/under-construction.component';
+import { CallbackComponent } from './Shared/Components/callback/callback.component';
+
+import { UploadComponent } from './Modules/models/upload/upload.component';
+import { FileTableComponent } from './Modules/models/file-table/file-table.component';
+import { FileEditComponent } from './Modules/models/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
-import { DataTableComponent } from './Components/data-table/data-table.component';
-import { DataComponent } from './Pages/data/data.component';
+
 import { SharedModule } from './Shared/shared.module';
+import { AboutModule } from './Modules/about/about.module';
+import { AccountModule } from './Modules/account/account.module';
+import { DataComponent } from './Modules/simulate/data/data.component';
+import { ModelsModule } from './Modules/models/models.module';
 
 // Pipes defined in app
 
@@ -46,31 +42,7 @@ import { SharedModule } from './Shared/shared.module';
 // Service for Authconfig
 
 @NgModule({
-  declarations: [
-    AppComponent,
-
-    HelpComponent,
-    AboutComponent,
-
-    SimulateComponent,
-    HomeComponent,
-    FourComponent,
-    UnderConstructionComponent,
-
-    CallbackComponent,
-    ProfileComponent,
-    ProfileEditComponent,
-    UploadComponent,
-    FileEditComponent,
-    AlertComponent,
-    NewSimulationComponent,
-    PastSimulationComponent,
-    FileTableComponent,
-
-    AlertComponent,
-    DataTableComponent,
-    DataComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -79,7 +51,9 @@ import { SharedModule } from './Shared/shared.module';
     HttpClientModule,
     MaterialModule,
     SharedModule,
-    AgGridModule.withComponents([]),
+    AboutModule,
+    AccountModule,
+    ModelsModule,
   ],
   providers: [
     {
@@ -89,7 +63,7 @@ import { SharedModule } from './Shared/shared.module';
     },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AlertComponent],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {

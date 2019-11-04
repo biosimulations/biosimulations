@@ -24,7 +24,12 @@ export const NavItems: NavItem[] = [
     label: 'Simulate',
     icon: 'timeline',
     icon_type: 'mat',
-    children: ['Simulate-Browse', 'Simulate-Submit', 'Simulate-Status'],
+    children: [
+      'Simulate-Browse',
+      'Simulate-Submit',
+      'Simulate-Status',
+      'Simulate-Data',
+    ],
     display: 'always',
   },
   {
@@ -55,7 +60,7 @@ export const NavItems: NavItem[] = [
       'User-Sign-In',
       'User-Sign-Up',
       'User-Sign-Out',
-      ],
+    ],
     display: 'always',
   },
 
@@ -66,7 +71,7 @@ export const NavItems: NavItem[] = [
     icon: 'view_list',
     icon_type: 'mat',
     display: 'always',
-    link: '/files',
+    link: '/models',
   },
   {
     id: 'Models-Submit',
@@ -74,7 +79,7 @@ export const NavItems: NavItem[] = [
     icon: 'add_circle',
     icon_type: 'mat',
     display: 'always',
-    link: '/files/new',
+    link: '/models/new',
   },
 
   // Simulate sub-menu
@@ -84,7 +89,15 @@ export const NavItems: NavItem[] = [
     icon: 'view_list',
     icon_type: 'mat',
     display: 'always',
-    link: '/data',
+    link: '/simulate/browse/',
+  },
+  {
+    id: 'Simulate-Data',
+    label: 'Data',
+    icon: 'view_list',
+    icon_type: 'mat',
+    display: 'always',
+    link: '/simulate/data/',
   },
   {
     id: 'Simulate-Submit',
@@ -92,7 +105,7 @@ export const NavItems: NavItem[] = [
     icon: 'add_circle',
     icon_type: 'mat',
     display: 'always',
-    link: '/data/new',
+    link: '/simulate/new',
   },
   {
     id: 'Simulate-Status',
@@ -100,7 +113,7 @@ export const NavItems: NavItem[] = [
     icon: 'hourglass-half',
     icon_type: 'fas',
     display: 'always',
-    link: '/data/status',
+    link: '/simulate/status',
   },
 
   // Visualize sub-menu
@@ -120,7 +133,7 @@ export const NavItems: NavItem[] = [
     icon: 'help',
     icon_type: 'mat',
     display: 'always',
-    link: '/help',
+    link: '/about/help',
   },
   {
     id: 'Help-About',
