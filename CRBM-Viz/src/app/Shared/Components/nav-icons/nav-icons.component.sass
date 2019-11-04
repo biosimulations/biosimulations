@@ -1,4 +1,5 @@
-@import 'src/styles.sass'
+@import 'src/styles.scss'
+
 .icons
     display: flex
     flex-direction: row
@@ -11,10 +12,27 @@ button
 button:focus
     outline: 0px
 button:hover
-    color: mat-color($accent)
+    color: mat-color($theme-accent)
+button.main
+    margin-right: 2rem    
+    .label        
+        margin-left: 0.5rem
+        @include mat-typography-level-to-styles($fontConfig, title)
+
+mat-icon
+    font-size: 2.25rem    
+    width: 36px
+    height: 36px
+.icons
+    .mat-icon-button 
+        .mat-icon
+            line-height: 36px
+fa-icon
+    position: relative
+    top: 6px
 
 a
     color: white
     flex: 1 1 auto
 a:hover
-    color: mat-color($accent)
+    color: mat-color($theme-accent)

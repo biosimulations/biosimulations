@@ -16,6 +16,7 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
+import { HelpComponent } from './Pages/help/help.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { SimulateComponent } from './Pages/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
@@ -24,6 +25,7 @@ import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { ProfileEditComponent } from './Components/profile/profile-edit.component';
 import { AlertComponent } from './Components/alert/alert.component';
 import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
 import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
@@ -47,6 +49,7 @@ import { SharedModule } from './Shared/shared.module';
   declarations: [
     AppComponent,
 
+    HelpComponent,
     AboutComponent,
 
     SimulateComponent,
@@ -56,6 +59,7 @@ import { SharedModule } from './Shared/shared.module';
 
     CallbackComponent,
     ProfileComponent,
+    ProfileEditComponent,
     UploadComponent,
     FileEditComponent,
     AlertComponent,
@@ -88,4 +92,8 @@ import { SharedModule } from './Shared/shared.module';
   entryComponents: [AlertComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    // Add an icon to the library for convenient access in other components
+  }
+}

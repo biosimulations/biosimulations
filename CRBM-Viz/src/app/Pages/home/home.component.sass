@@ -1,0 +1,52 @@
+@import 'src/styles.scss'
+
+.container
+    display: flex
+    justify-content: center
+    align-items: center
+    text-align: center
+    height: calc(100vh - 64px - 3rem)
+
+h1
+    @include mat-typography-level-to-styles($fontConfig, display-2)
+    line-height: 1rem
+    margin-top: 0
+    margin-bottom: 1rem
+    font-weight: bold
+.title
+    p
+        @include mat-typography-level-to-styles($fontConfig, subheading-2)
+        margin-top: 0
+        margin-bottom: 2rem        
+
+.title
+    img
+        width: 50%
+
+.logos
+    text-align: center
+.logos.creators 
+    margin-bottom:1rem
+    a
+        margin-left: 0.85rem
+        margin-right: 0.85rem
+
+        img
+            height: 4.25rem
+    a.sinai
+        margin-left: 0.1rem
+.logos.partners
+    margin-bottom:1rem
+    a
+        margin-left: 0.6rem
+        margin-right: 0.6rem
+
+        img
+            height: 3.5rem
+.logos.tech 
+    a
+        margin-left: 0.35rem
+        margin-right: 0.35rem
+
+        img
+            height: 2.75rem

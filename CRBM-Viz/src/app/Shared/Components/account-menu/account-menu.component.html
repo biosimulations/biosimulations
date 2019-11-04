@@ -1,48 +1,93 @@
-<mat-menu #profileMenu="matMenu" color="primary">
+<mat-menu class="topbar-submenu" #profileMenu="matMenu" color="primary">
   <button
     mat-menu-item
+    *ngIf="auth.loggedIn"
     color="primary"
     [routerLink]="['/profile']"
-    matTooltip=" View Profile"
-    matTooltipPosition="below"
   >
-    <mat-icon aria-hidden="false" aria-label="Profile icon">face</mat-icon>
+    <mat-icon class="icon" aria-hidden="false" aria-label="Profile"
+      >account_circle</mat-icon>
     Profile
   </button>
 
+  <!--
   <button
     mat-menu-item
+    *ngIf="auth.loggedIn"
     color="primary"
-    [routerLink]="['/profile']"
-    matTooltip=" View Messages"
-    matTooltipPosition="below"
+    [routerLink]="['/notifications']"
   >
-    <mat-icon aria-hidden="false" aria-label="notifications icon"
-      >notifications</mat-icon
-    >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Notifications"
+      >notifications</mat-icon>
     Notifications
   </button>
+
+  <button
+    mat-menu-item
+    *ngIf="auth.loggedIn"
+    color="primary"
+    [routerLink]="['/settings']"
+  >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Settings"
+      >settings</mat-icon>
+    Settings
+  </button>
+  -->
+
+  <mat-divider *ngIf="auth.loggedIn"></mat-divider>
+
   <button
     mat-menu-item
     color="primary"
-    [routerLink]="['/profile']"
-    matTooltip=" Change Settings"
-    matTooltipPosition="below"
+    [routerLink]="['/help']"
   >
-    <mat-icon aria-hidden="false" aria-label="Settings icon"
-      >settings_applications</mat-icon
-    >
-    Settings
+    <mat-icon class="icon" aria-hidden="false" aria-label="Help"
+      >help</mat-icon>
+    Help
   </button>
 
   <button
     mat-menu-item
     color="primary"
-    matTooltip="Log Out"
-    matTooltipPosition="below"
+    [routerLink]="['/about']"
+  >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Info"
+      >info</mat-icon>
+    About
+  </button>
+
+  <mat-divider></mat-divider>
+
+  <button
+    mat-menu-item
+    *ngIf="!auth.loggedIn"
+    color="primary"
+    (click)="auth.login()"
+  >
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign in" size="2x"
+      [icon]="['fas', 'sign-in-alt']"></fa-icon>
+    Sign in
+  </button>
+
+  <button
+    mat-menu-item
+    *ngIf="!auth.loggedIn"
+    color="primary"
+    (click)="auth.login()"
+  >
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign up" size="2x"
+      [icon]="['fas', 'user-plus']"></fa-icon>
+    Sign up
+  </button>
+
+  <button
+    mat-menu-item
+    *ngIf="auth.loggedIn"
+    color="primary"
     (click)="auth.logout()"
   >
-    <mat-icon aria-hidden="false" aria-label="Log Out icon">lock</mat-icon>
-    Log Out
+    <fa-icon class="icon" aria-hidden="false" aria-label="Sign out" size="2x"
+      [icon]="['fas', 'sign-out-alt']"></fa-icon>
+    Sign out
   </button>
 </mat-menu>

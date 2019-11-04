@@ -1,30 +1,54 @@
-@import 'src/styles.sass'
+@import 'src/styles.scss'
 
 .sidenav-container
   height: 100%
 
 .sidenav
   width: 200px
-  border: none
-  background: #ebebeb
+  border-right: 1px solid #ccc
+  background: #e0e0e0
 
-.sidenav .mat-toolbar
-  background: mat-color($primary)
-  color: white
-  justify-content: space-between
+  .mat-toolbar
+    background: #777    
+    justify-content: space-between
+    padding: 0 10px
+    font-weight: bold
+
+    .bio
+      color: mat-color($theme-accent)
+    .simulations
+      color: #fff
+
+    .home
+      padding: 0
+      font-size: 1.25rem  
+
+    .mat-icon-button
+      color: #fff
+
+:host::ng-deep .mat-button.home:hover
+    .mat-button-focus-overlay
+      opacity: 0
 
 .mat-toolbar.mat-primary
   position: sticky
   top: 0
   z-index: 1
 
+.mat-nav-list.mat-list-base
+  padding-top: 0px
+  margin: 0px
+
+.mat-expansion-panel-content
+  .mat-list-base
+    .mat-list-item
+      height: 36px
+
 .hidden
   display: none
 
-.topbar
-  width: 100%
-  align-content: space-between
-  padding: 0px 2px 0px 2px
+.topbar.mat-toolbar
+  border-bottom: 1px solid mat-color($theme-primary, darker)
 .menubutton
   flex: 0 0 auto
   height: 100%
@@ -32,28 +56,23 @@
 
 .logo
   flex: 0 1 auto
-  height: 100%
+  height: calc(100% - 10px)
+  padding-left: 0.75rem
 
-.searchbar
-  flex: 1 1 auto
-  height: 100%
+.spacer
+  //flex: 1 1 20%
+  flex-grow: 1
 
 .icons
-  flex: 0.25 1 auto
-  height: 100%
-  justify-self: flex-end
+  //flex: 0.30 1 auto
+  //justify-self: flex-end
+  margin-right: 16rem
 
 .full-content
   height: 100%
 .content
-  min-height: 90%
+  min-height: calc(100vh - 64px - 3rem)
   height: auto
   overflow: auto
-  padding-left: 1.5%
-  padding-top: 5px
+  padding: 1.5rem
   background-image: url('src/assets/background-grey.png')
-.footer
-  height: auto
-  background: #ebebeb
-  padding: 0px
-  margin: 0px

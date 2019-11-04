@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HelpComponent } from './Pages/help/help.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { HomeComponent } from './Pages/home/home.component';
 
@@ -11,13 +12,17 @@ import { UploadComponent } from './Pages/upload/upload.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { ProfileEditComponent } from './Components/profile/profile-edit.component';
 import { DataComponent } from './Pages/data/data.component';
 const routes: Routes = [
   {
     path: 'visualize',
     loadChildren: () =>
-      import('./visualize/visualize.module').then(m => m.VisualizeModule),
+      import('./Modules/visualize/visualize.module').then(
+        m => m.VisualizeModule
+      ),
   },
+  { path: 'help', component: HelpComponent },
   { path: 'about', component: AboutComponent },
   { path: '', component: HomeComponent },
   { path: 'data', component: DataComponent },
@@ -39,6 +44,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/edit',
+    component: ProfileEditComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', component: FourComponent },
