@@ -1,5 +1,9 @@
+// Angular Modules
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+// Shared components
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 import { AccountMenuComponent } from './Components/account-menu/account-menu.component';
@@ -7,8 +11,8 @@ import { LogoComponent } from './Components/logo/logo.component';
 import { NavigationComponent } from './Components/navigation/navigation.component';
 import { NavIconsComponent } from './Components/nav-icons/nav-icons.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
+import { DataTableComponent } from './Components/data-table/data-table.component';
 import { MaterialModule } from '../Modules/app-material.module';
-import { RouterModule } from '@angular/router';
 
 // FontAwesome for icons
 import {
@@ -29,6 +33,7 @@ import {
   faGoogle,
   faOrcid,
 } from '@fortawesome/free-brands-svg-icons';
+
 @NgModule({
   declarations: [
     FilterPipe,
@@ -38,6 +43,7 @@ import {
     NavigationComponent,
     NavIconsComponent,
     SidebarComponent,
+    DataTableComponent,
   ],
   imports: [CommonModule, MaterialModule, RouterModule, FontAwesomeModule],
   exports: [
@@ -49,6 +55,7 @@ import {
     NavIconsComponent,
     SidebarComponent,
     FontAwesomeModule,
+    DataTableComponent,
   ],
 })
 export class SharedModule {

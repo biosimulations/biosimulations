@@ -33,7 +33,6 @@ import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
-import { DataTableComponent } from './Components/data-table/data-table.component';
 import { DataComponent } from './Pages/data/data.component';
 import { SharedModule } from './Shared/shared.module';
 
@@ -68,7 +67,7 @@ import { SharedModule } from './Shared/shared.module';
     FileTableComponent,
 
     AlertComponent,
-    DataTableComponent,
+
     DataComponent,
   ],
   imports: [
