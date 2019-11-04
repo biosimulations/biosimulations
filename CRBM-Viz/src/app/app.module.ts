@@ -16,23 +16,22 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
-import { SimulateComponent } from './Pages/simulate/simulate.component';
+import { SimulateComponent } from './Modules/simulate/simulate/simulate.component';
 import { HomeComponent } from './Pages/home/home.component';
 
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 
-import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
-import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
 import { UploadComponent } from './Pages/upload/upload.component';
 import { FileTableComponent } from './Pages/files/file-table/file-table.component';
 import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
 import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
-import { DataComponent } from './Pages/data/data.component';
+
 import { SharedModule } from './Shared/shared.module';
 import { AboutModule } from './Modules/about/about.module';
 import { AccountModule } from './Modules/account/account.module';
+import { DataComponent } from './Pages/data/data.component';
 
 // Pipes defined in app
 
@@ -56,8 +55,6 @@ import { AccountModule } from './Modules/account/account.module';
     UploadComponent,
     FileEditComponent,
 
-    NewSimulationComponent,
-    PastSimulationComponent,
     FileTableComponent,
 
     DataComponent,
