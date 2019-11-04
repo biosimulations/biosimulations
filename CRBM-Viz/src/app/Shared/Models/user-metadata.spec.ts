@@ -1,7 +1,7 @@
-import { Profile } from './profile';
+import { UserMetadata } from './user-metadata';
 
-describe('Profile', () => {
+describe('UserMetadata', () => {
   it('should create an instance', () => {
-    expect(new Profile()).toBeTruthy();
+    expect(new UserMetadata()).toBeTruthy();
   });
 });

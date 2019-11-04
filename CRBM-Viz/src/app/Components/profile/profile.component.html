@@ -1,10 +1,3 @@
-<!--
-<pre *ngIf="auth.userProfile$ | async as profile">
-  <code>{{ profile | json }}</code>
-  <code>{{ userData | json }}</code>
-</pre>
--->
-
 <h1>
   Profile
   <a href="#" class="h1"
@@ -14,40 +7,40 @@
   >
 </h1>
 
-<div *ngIf="auth.userProfile$ | async as autoProfile">
-  <img class="photo" src="{{ autoProfile.picture }}" />
-  <div class="name mat-title">{{ autoProfile.name }}</div>
-  <div class="username">{{ autoProfile.nickname }}</div>
-  <div class="description" *ngIf="profile.description">{{ 
-    profile.description 
+<div *ngIf="auth.userProfile$ | async as profile">
+  <img class="photo" src="{{ profile.picture }}" />
+  <div class="name mat-title">{{ profile.name }}</div>
+  <div class="username">{{ profile.nickname }}</div>
+  <div class="description" *ngIf="userMetadata.description">{{ 
+    userMetadata.description 
   }}</div>
 
   <table class="details">
-    <tr *ngIf="profile.organization">
+    <tr *ngIf="userMetadata.organization">
       <th>
         <mat-icon aria-hidden="false" aria-label="Organization"
           >people</mat-icon
         >
       </th>
-      <td>{{ profile.organization }}</td>
+      <td>{{ userMetadata.organization }}</td>
     </tr>
 
-    <tr *ngIf="profile.website">
+    <tr *ngIf="userMetadata.website">
       <th>
         <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>
       </th>
       <td>
-        <a href="{{ profile.website }}">{{
-          profile.website
+        <a href="{{ userMetadata.website }}">{{
+          userMetadata.website
         }}</a>
       </td>
     </tr>
 
-    <tr *ngIf="autoProfile.email" class="email">
+    <tr *ngIf="profile.email" class="email">
       <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
       <td>
-        <a href="mailto:{{ autoProfile.email }}">{{ autoProfile.email }}</a>
-        <span *ngIf="autoProfile.email_verified; else emailUnverified">
+        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a> (application)
+        <span *ngIf="profile.email_verified; else emailUnverified">
           <mat-icon
             class="verified"
             aria-hidden="false"
@@ -62,11 +55,18 @@
             aria-label="Email not verified"
             >close</mat-icon
           >
-        </ng-template>
+        </ng-template>        
       </td>
     </tr>
 
-    <tr *ngIf="profile.github">
+    <tr *ngIf="userMetadata.publicEmail" class="email">
+      <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
+      <td>
+        <a href="mailto:{{ userMetadata.publicEmail }}">{{ userMetadata.publicEmail }}</a> (public)
+      </td>
+    </tr>
+
+    <tr *ngIf="userMetadata.github">
       <th>
         <fa-icon
           [icon]="['fab', 'github']"
@@ -76,13 +76,13 @@
         ></fa-icon>
       </th>
       <td>
-        <a href="https://github.com/{{ profile.github }}">{{
-          profile.github
+        <a href="https://github.com/{{ userMetadata.github }}">{{
+          userMetadata.github
         }}</a>
       </td>
     </tr>
 
-    <tr *ngIf="profile.googleScholar">
+    <tr *ngIf="userMetadata.googleScholar">
       <th>
         <fa-icon
           [icon]="['fab', 'google']"
@@ -94,14 +94,14 @@
       <td>
         <a
           href="https://scholar.google.com/citations?user={{
-            profile.googleScholar
+            userMetadata.googleScholar
           }}"
-          >{{ profile.googleScholar }}</a
+          >{{ userMetadata.googleScholar }}</a
         >
       </td>
     </tr>
 
-    <tr *ngIf="profile.orcid">
+    <tr *ngIf="userMetadata.orcid">
       <th>
         <fa-icon
           [icon]="['fab', 'orcid']"
@@ -111,8 +111,8 @@
         ></fa-icon>
       </th>
       <td>
-        <a href="https://orcid.org/{{ profile.orcid }}">{{
-          profile.orcid
+        <a href="https://orcid.org/{{ userMetadata.orcid }}">{{
+          userMetadata.orcid
         }}</a>
       </td>
     </tr>

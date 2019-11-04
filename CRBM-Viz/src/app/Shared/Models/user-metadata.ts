@@ -1,7 +1,8 @@
-export class Profile {
+export class UserMetadata {
   description: string;
   organization: string;
   website: string;
+  publicEmail: string;
   github: string;
   googleScholar: string;
   orcid: string;
@@ -16,8 +17,9 @@ export class Profile {
       Integer ullamcorper est laoreet, cursus odio sit amet, molestie libero. Etiam iaculis purus at felis interdum, \
       vel lobortis turpis consequat. Etiam faucibus libero finibus, posuere lacus vel, malesuada libero. Vestibulum augue est,\
       cursus eget purus vitae, tincidunt aliquet ligula';
-    this.organization = 'Icahn School of Medicine at Mount Sinai';
+    this.organization = 'Icahn School of Medicine at Mount Sinai';    
     this.website = 'https://www.karrlab.org';
+    this.publicEmail = 'jonrkarr@gmail.com';
     this.github = 'jonrkarr';
     this.googleScholar = 'Yb5nVLAAAAAJ';
     this.orcid = '0000-0002-2605-5080';
