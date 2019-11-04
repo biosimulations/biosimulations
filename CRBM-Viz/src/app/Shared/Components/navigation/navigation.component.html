@@ -6,10 +6,12 @@
     fixedInViewport="false"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === true"
+    [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>
-      <button mat-button class="home" [routerLink]="['']" disableRipple="true"><span class="bio">Bio</span><span class="simulations">Simulations</span></button>
+      <button mat-button class="home" [routerLink]="['']" disableRipple="true">
+        <span class="bio">Bio</span><span class="simulations">Simulations</span>
+      </button>
       <button
         type="button"
         aria-label="Toggle sidenav"

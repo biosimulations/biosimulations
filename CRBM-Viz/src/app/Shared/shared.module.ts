@@ -19,6 +19,10 @@ import {
   faProjectDiagram,
   faCogs,
   faChartArea,
+  faSignInAlt,
+  faSignOutAlt,
+  faUserPlus,
+  faHourglassHalf,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
@@ -51,9 +55,13 @@ export class SharedModule {
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
     library.addIcons(
+      faSignInAlt,
+      faSignOutAlt,
+      faUserPlus,
       faProjectDiagram,
       faCogs,
       faChartArea,
+      faHourglassHalf,
       faGithub,
       faGoogle,
       faOrcid
