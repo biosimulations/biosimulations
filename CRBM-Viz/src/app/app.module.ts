@@ -22,7 +22,7 @@ import { HomeComponent } from './Pages/home/home.component';
 import { FourComponent } from './Pages/four/four.component';
 import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
 import { CallbackComponent } from './Components/callback/callback.component';
-import { AlertComponent } from './Components/alert/alert.component';
+
 import { PastSimulationComponent } from './Components/past-simulation/past-simulation.component';
 import { NewSimulationComponent } from './Components/new-simulation/new-simulation.component';
 import { UploadComponent } from './Pages/upload/upload.component';
@@ -55,12 +55,10 @@ import { AccountModule } from './Modules/account/account.module';
 
     UploadComponent,
     FileEditComponent,
-    AlertComponent,
+
     NewSimulationComponent,
     PastSimulationComponent,
     FileTableComponent,
-
-    AlertComponent,
 
     DataComponent,
   ],
@@ -83,7 +81,7 @@ import { AccountModule } from './Modules/account/account.module';
     },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AlertComponent],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {

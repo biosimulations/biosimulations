@@ -33,6 +33,7 @@ import {
   faGoogle,
   faOrcid,
 } from '@fortawesome/free-brands-svg-icons';
+import { AlertComponent } from './Components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {
     NavIconsComponent,
     SidebarComponent,
     DataTableComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,9 @@ import {
     SidebarComponent,
     FontAwesomeModule,
     DataTableComponent,
+    AlertComponent,
   ],
+  entryComponents: [AlertComponent],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {

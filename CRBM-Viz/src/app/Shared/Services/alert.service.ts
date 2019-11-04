@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertComponent } from '../../Components/alert/alert.component';
+import { AlertComponent } from '../Components/alert/alert.component';
 import { MatDialog } from '@angular/material';
 
 @Injectable({
