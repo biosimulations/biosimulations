@@ -400,127 +400,128 @@ export class ProfileComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;h1&gt;
-  Profile
-  &lt;a class&#x3D;&quot;h1&quot; [routerLink]&#x3D;&quot;[&#x27;/profile/edit&#x27;]&quot;
-    &gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Edit profile&quot;
-      &gt;edit&lt;/mat-icon
-    &gt;&lt;/a
-  &gt;
-&lt;/h1&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;partial-width-container&quot;&gt;
+  &lt;h1&gt;
+    Profile
+    &lt;a [routerLink]&#x3D;&quot;[&#x27;/profile/edit&#x27;]&quot;
+      &gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Edit profile&quot;
+        &gt;edit&lt;/mat-icon
+      &gt;&lt;/a
+    &gt;
+  &lt;/h1&gt;
 
-&lt;div *ngIf&#x3D;&quot;auth.userProfile$ | async as profile&quot;&gt;
-  &lt;img class&#x3D;&quot;photo&quot; src&#x3D;&quot;{{ profile.picture }}&quot; /&gt;
-  &lt;div class&#x3D;&quot;name mat-title&quot;&gt;{{ profile.name }}&lt;/div&gt;
-  &lt;div class&#x3D;&quot;username&quot;&gt;{{ profile.nickname }}&lt;/div&gt;
-  &lt;div class&#x3D;&quot;description&quot; *ngIf&#x3D;&quot;userMetadata.description&quot;&gt;{{ 
-    userMetadata.description 
-  }}&lt;/div&gt;
+  &lt;div *ngIf&#x3D;&quot;auth.userProfile$ | async as profile&quot;&gt;
+    &lt;img class&#x3D;&quot;photo&quot; src&#x3D;&quot;{{ profile.picture }}&quot; /&gt;
+    &lt;div class&#x3D;&quot;name mat-title&quot;&gt;{{ profile.name }}&lt;/div&gt;
+    &lt;div class&#x3D;&quot;username&quot;&gt;{{ profile.nickname }}&lt;/div&gt;
+    &lt;div class&#x3D;&quot;description&quot; *ngIf&#x3D;&quot;userMetadata.description&quot;&gt;{{ 
+      userMetadata.description 
+    }}&lt;/div&gt;
 
-  &lt;table class&#x3D;&quot;details&quot;&gt;
-    &lt;tr *ngIf&#x3D;&quot;userMetadata.organization&quot;&gt;
-      &lt;th&gt;
-        &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Organization&quot;
-          &gt;people&lt;/mat-icon
-        &gt;
-      &lt;/th&gt;
-      &lt;td&gt;{{ userMetadata.organization }}&lt;/td&gt;
-    &lt;/tr&gt;
-
-    &lt;tr *ngIf&#x3D;&quot;userMetadata.website&quot;&gt;
-      &lt;th&gt;
-        &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Website&quot;&gt;link&lt;/mat-icon&gt;
-      &lt;/th&gt;
-      &lt;td&gt;
-        &lt;a href&#x3D;&quot;{{ userMetadata.website }}&quot;&gt;{{
-          userMetadata.website
-        }}&lt;/a&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-
-    &lt;tr *ngIf&#x3D;&quot;profile.email&quot; class&#x3D;&quot;email&quot;&gt;
-      &lt;th&gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Email&quot;&gt;email&lt;/mat-icon&gt;&lt;/th&gt;
-      &lt;td&gt;
-        &lt;a href&#x3D;&quot;mailto:{{ profile.email }}&quot;&gt;{{ profile.email }}&lt;/a&gt; (application)
-        &lt;span *ngIf&#x3D;&quot;profile.email_verified; else emailUnverified&quot;&gt;
-          &lt;mat-icon
-            class&#x3D;&quot;verified&quot;
-            aria-hidden&#x3D;&quot;false&quot;
-            aria-label&#x3D;&quot;Email verified&quot;
-            &gt;check&lt;/mat-icon
+    &lt;table class&#x3D;&quot;details&quot;&gt;
+      &lt;tr *ngIf&#x3D;&quot;userMetadata.organization&quot;&gt;
+        &lt;th&gt;
+          &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Organization&quot;
+            &gt;people&lt;/mat-icon
           &gt;
-        &lt;/span&gt;
-        &lt;ng-template #emailUnverified&gt;
-          &lt;mat-icon
-            class&#x3D;&quot;unverified&quot;
+        &lt;/th&gt;
+        &lt;td&gt;{{ userMetadata.organization }}&lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;tr *ngIf&#x3D;&quot;userMetadata.website&quot;&gt;
+        &lt;th&gt;
+          &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Website&quot;&gt;link&lt;/mat-icon&gt;
+        &lt;/th&gt;
+        &lt;td&gt;
+          &lt;a href&#x3D;&quot;{{ userMetadata.website }}&quot;&gt;{{
+            userMetadata.website
+          }}&lt;/a&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;tr *ngIf&#x3D;&quot;profile.email&quot; class&#x3D;&quot;email&quot;&gt;
+        &lt;th&gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Email&quot;&gt;email&lt;/mat-icon&gt;&lt;/th&gt;
+        &lt;td&gt;
+          &lt;a href&#x3D;&quot;mailto:{{ profile.email }}&quot;&gt;{{ profile.email }}&lt;/a&gt; (application)
+          &lt;span *ngIf&#x3D;&quot;profile.email_verified; else emailUnverified&quot;&gt;
+            &lt;mat-icon
+              class&#x3D;&quot;verified&quot;
+              aria-hidden&#x3D;&quot;false&quot;
+              aria-label&#x3D;&quot;Email verified&quot;
+              &gt;check&lt;/mat-icon
+            &gt;
+          &lt;/span&gt;
+          &lt;ng-template #emailUnverified&gt;
+            &lt;mat-icon
+              class&#x3D;&quot;unverified&quot;
+              aria-hidden&#x3D;&quot;false&quot;
+              aria-label&#x3D;&quot;Email not verified&quot;
+              &gt;close&lt;/mat-icon
+            &gt;
+          &lt;/ng-template&gt;        
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;tr *ngIf&#x3D;&quot;userMetadata.publicEmail&quot; class&#x3D;&quot;email&quot;&gt;
+        &lt;th&gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Email&quot;&gt;email&lt;/mat-icon&gt;&lt;/th&gt;
+        &lt;td&gt;
+          &lt;a href&#x3D;&quot;mailto:{{ userMetadata.publicEmail }}&quot;&gt;{{ userMetadata.publicEmail }}&lt;/a&gt; (public)
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;tr *ngIf&#x3D;&quot;userMetadata.github&quot;&gt;
+        &lt;th&gt;
+          &lt;fa-icon
+            [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;github&#x27;]&quot;
+            size&#x3D;&quot;lg&quot;
             aria-hidden&#x3D;&quot;false&quot;
-            aria-label&#x3D;&quot;Email not verified&quot;
-            &gt;close&lt;/mat-icon
+            aria-label&#x3D;&quot;GitHub&quot;
+          &gt;&lt;/fa-icon&gt;
+        &lt;/th&gt;
+        &lt;td&gt;
+          &lt;a href&#x3D;&quot;https://github.com/{{ userMetadata.github }}&quot;&gt;{{
+            userMetadata.github
+          }}&lt;/a&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;tr *ngIf&#x3D;&quot;userMetadata.googleScholar&quot;&gt;
+        &lt;th&gt;
+          &lt;fa-icon
+            [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;google&#x27;]&quot;
+            size&#x3D;&quot;lg&quot;
+            aria-hidden&#x3D;&quot;false&quot;
+            aria-label&#x3D;&quot;Google Scholar&quot;
+          &gt;&lt;/fa-icon&gt;
+        &lt;/th&gt;
+        &lt;td&gt;
+          &lt;a
+            href&#x3D;&quot;https://scholar.google.com/citations?user&#x3D;{{
+              userMetadata.googleScholar
+            }}&quot;
+            &gt;{{ userMetadata.googleScholar }}&lt;/a
           &gt;
-        &lt;/ng-template&gt;        
-      &lt;/td&gt;
-    &lt;/tr&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
 
-    &lt;tr *ngIf&#x3D;&quot;userMetadata.publicEmail&quot; class&#x3D;&quot;email&quot;&gt;
-      &lt;th&gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Email&quot;&gt;email&lt;/mat-icon&gt;&lt;/th&gt;
-      &lt;td&gt;
-        &lt;a href&#x3D;&quot;mailto:{{ userMetadata.publicEmail }}&quot;&gt;{{ userMetadata.publicEmail }}&lt;/a&gt; (public)
-      &lt;/td&gt;
-    &lt;/tr&gt;
-
-    &lt;tr *ngIf&#x3D;&quot;userMetadata.github&quot;&gt;
-      &lt;th&gt;
-        &lt;fa-icon
-          [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;github&#x27;]&quot;
-          size&#x3D;&quot;lg&quot;
-          aria-hidden&#x3D;&quot;false&quot;
-          aria-label&#x3D;&quot;GitHub&quot;
-        &gt;&lt;/fa-icon&gt;
-      &lt;/th&gt;
-      &lt;td&gt;
-        &lt;a href&#x3D;&quot;https://github.com/{{ userMetadata.github }}&quot;&gt;{{
-          userMetadata.github
-        }}&lt;/a&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-
-    &lt;tr *ngIf&#x3D;&quot;userMetadata.googleScholar&quot;&gt;
-      &lt;th&gt;
-        &lt;fa-icon
-          [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;google&#x27;]&quot;
-          size&#x3D;&quot;lg&quot;
-          aria-hidden&#x3D;&quot;false&quot;
-          aria-label&#x3D;&quot;Google Scholar&quot;
-        &gt;&lt;/fa-icon&gt;
-      &lt;/th&gt;
-      &lt;td&gt;
-        &lt;a
-          href&#x3D;&quot;https://scholar.google.com/citations?user&#x3D;{{
-            userMetadata.googleScholar
-          }}&quot;
-          &gt;{{ userMetadata.googleScholar }}&lt;/a
-        &gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-
-    &lt;tr *ngIf&#x3D;&quot;userMetadata.orcid&quot;&gt;
-      &lt;th&gt;
-        &lt;fa-icon
-          [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;orcid&#x27;]&quot;
-          size&#x3D;&quot;lg&quot;
-          aria-hidden&#x3D;&quot;false&quot;
-          aria-label&#x3D;&quot;ORCID&quot;
-        &gt;&lt;/fa-icon&gt;
-      &lt;/th&gt;
-      &lt;td&gt;
-        &lt;a href&#x3D;&quot;https://orcid.org/{{ userMetadata.orcid }}&quot;&gt;{{
-          userMetadata.orcid
-        }}&lt;/a&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/table&gt;
-&lt;/div&gt;
-</code></pre>
+      &lt;tr *ngIf&#x3D;&quot;userMetadata.orcid&quot;&gt;
+        &lt;th&gt;
+          &lt;fa-icon
+            [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;orcid&#x27;]&quot;
+            size&#x3D;&quot;lg&quot;
+            aria-hidden&#x3D;&quot;false&quot;
+            aria-label&#x3D;&quot;ORCID&quot;
+          &gt;&lt;/fa-icon&gt;
+        &lt;/th&gt;
+        &lt;td&gt;
+          &lt;a href&#x3D;&quot;https://orcid.org/{{ userMetadata.orcid }}&quot;&gt;{{
+            userMetadata.orcid
+          }}&lt;/a&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -608,7 +609,7 @@ export class ProfileComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h1>  Profile  <a class="h1" [routerLink]="[\'/profile/edit\']"    ><mat-icon aria-hidden="false" aria-label="Edit profile"      >edit</mat-icon    ></a  ></h1><div *ngIf="auth.userProfile$ | async as profile">  <img class="photo" src="{{ profile.picture }}" />  <div class="name mat-title">{{ profile.name }}</div>  <div class="username">{{ profile.nickname }}</div>  <div class="description" *ngIf="userMetadata.description">{{     userMetadata.description   }}</div>  <table class="details">    <tr *ngIf="userMetadata.organization">      <th>        <mat-icon aria-hidden="false" aria-label="Organization"          >people</mat-icon        >      </th>      <td>{{ userMetadata.organization }}</td>    </tr>    <tr *ngIf="userMetadata.website">      <th>        <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>      </th>      <td>        <a href="{{ userMetadata.website }}">{{          userMetadata.website        }}</a>      </td>    </tr>    <tr *ngIf="profile.email" class="email">      <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>      <td>        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a> (application)        <span *ngIf="profile.email_verified; else emailUnverified">          <mat-icon            class="verified"            aria-hidden="false"            aria-label="Email verified"            >check</mat-icon          >        </span>        <ng-template #emailUnverified>          <mat-icon            class="unverified"            aria-hidden="false"            aria-label="Email not verified"            >close</mat-icon          >        </ng-template>              </td>    </tr>    <tr *ngIf="userMetadata.publicEmail" class="email">      <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>      <td>        <a href="mailto:{{ userMetadata.publicEmail }}">{{ userMetadata.publicEmail }}</a> (public)      </td>    </tr>    <tr *ngIf="userMetadata.github">      <th>        <fa-icon          [icon]="[\'fab\', \'github\']"          size="lg"          aria-hidden="false"          aria-label="GitHub"        ></fa-icon>      </th>      <td>        <a href="https://github.com/{{ userMetadata.github }}">{{          userMetadata.github        }}</a>      </td>    </tr>    <tr *ngIf="userMetadata.googleScholar">      <th>        <fa-icon          [icon]="[\'fab\', \'google\']"          size="lg"          aria-hidden="false"          aria-label="Google Scholar"        ></fa-icon>      </th>      <td>        <a          href="https://scholar.google.com/citations?user={{            userMetadata.googleScholar          }}"          >{{ userMetadata.googleScholar }}</a        >      </td>    </tr>    <tr *ngIf="userMetadata.orcid">      <th>        <fa-icon          [icon]="[\'fab\', \'orcid\']"          size="lg"          aria-hidden="false"          aria-label="ORCID"        ></fa-icon>      </th>      <td>        <a href="https://orcid.org/{{ userMetadata.orcid }}">{{          userMetadata.orcid        }}</a>      </td>    </tr>  </table></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="partial-width-container">  <h1>    Profile    <a [routerLink]="[\'/profile/edit\']"      ><mat-icon aria-hidden="false" aria-label="Edit profile"        >edit</mat-icon      ></a    >  </h1>  <div *ngIf="auth.userProfile$ | async as profile">    <img class="photo" src="{{ profile.picture }}" />    <div class="name mat-title">{{ profile.name }}</div>    <div class="username">{{ profile.nickname }}</div>    <div class="description" *ngIf="userMetadata.description">{{       userMetadata.description     }}</div>    <table class="details">      <tr *ngIf="userMetadata.organization">        <th>          <mat-icon aria-hidden="false" aria-label="Organization"            >people</mat-icon          >        </th>        <td>{{ userMetadata.organization }}</td>      </tr>      <tr *ngIf="userMetadata.website">        <th>          <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>        </th>        <td>          <a href="{{ userMetadata.website }}">{{            userMetadata.website          }}</a>        </td>      </tr>      <tr *ngIf="profile.email" class="email">        <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>        <td>          <a href="mailto:{{ profile.email }}">{{ profile.email }}</a> (application)          <span *ngIf="profile.email_verified; else emailUnverified">            <mat-icon              class="verified"              aria-hidden="false"              aria-label="Email verified"              >check</mat-icon            >          </span>          <ng-template #emailUnverified>            <mat-icon              class="unverified"              aria-hidden="false"              aria-label="Email not verified"              >close</mat-icon            >          </ng-template>                </td>      </tr>      <tr *ngIf="userMetadata.publicEmail" class="email">        <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>        <td>          <a href="mailto:{{ userMetadata.publicEmail }}">{{ userMetadata.publicEmail }}</a> (public)        </td>      </tr>      <tr *ngIf="userMetadata.github">        <th>          <fa-icon            [icon]="[\'fab\', \'github\']"            size="lg"            aria-hidden="false"            aria-label="GitHub"          ></fa-icon>        </th>        <td>          <a href="https://github.com/{{ userMetadata.github }}">{{            userMetadata.github          }}</a>        </td>      </tr>      <tr *ngIf="userMetadata.googleScholar">        <th>          <fa-icon            [icon]="[\'fab\', \'google\']"            size="lg"            aria-hidden="false"            aria-label="Google Scholar"          ></fa-icon>        </th>        <td>          <a            href="https://scholar.google.com/citations?user={{              userMetadata.googleScholar            }}"            >{{ userMetadata.googleScholar }}</a          >        </td>      </tr>      <tr *ngIf="userMetadata.orcid">        <th>          <fa-icon            [icon]="[\'fab\', \'orcid\']"            size="lg"            aria-hidden="false"            aria-label="ORCID"          ></fa-icon>        </th>        <td>          <a href="https://orcid.org/{{ userMetadata.orcid }}">{{            userMetadata.orcid          }}</a>        </td>      </tr>    </table>  </div></div></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ProfileComponent'};
