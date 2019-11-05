@@ -1,100 +1,102 @@
-<h1>Edit profile</h1>
+<div class="partial-width-container">
+  <h1>Edit profile</h1>
 
-<form *ngIf="auth.userProfile$ | async as profile">
-  <!-- <img class="photo" src="{{ profile.picture }}" /> -->
+  <form *ngIf="auth.userProfile$ | async as profile">
+    <!-- <img class="photo" src="{{ profile.picture }}" /> -->
 
-  <mat-form-field>
-    <mat-label>Username</mat-label>
-    <input matInput 
-      name="nickname"
-      placeholder="username" 
-      value="{{ profile.nickname }}"
-      disabled>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput 
+        name="nickname"
+        placeholder="username" 
+        value="{{ profile.nickname }}"
+        disabled>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput 
-      name="name"
-      placeholder="Name" 
-      value="{{ profile.name }}"
-      disabled>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput 
+        name="name"
+        placeholder="Name" 
+        value="{{ profile.name }}"
+        disabled>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Organization</mat-label>
-    <input matInput 
-      name="organization"
-      placeholder="XXX University" 
-      value="{{ userMetadata.organization }}">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Organization</mat-label>
+      <input matInput 
+        name="organization"
+        placeholder="XXX University" 
+        value="{{ userMetadata.organization }}">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Website</mat-label>
-    <input matInput 
-      name="website"
-      type="url" 
-      placeholder="https://www.mywebsite.org" 
-      value="{{ userMetadata.website }}">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Website</mat-label>
+      <input matInput 
+        name="website"
+        type="url" 
+        placeholder="https://www.mywebsite.org" 
+        value="{{ userMetadata.website }}">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Email address for notifications</mat-label>
-    <input matInput
-      name="email" 
-      type="email" 
-      placeholder="user@organization.org" 
-      value="{{ profile.email }}"
-      disabled>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email address for notifications</mat-label>
+      <input matInput
+        name="email" 
+        type="email" 
+        placeholder="user@organization.org" 
+        value="{{ profile.email }}"
+        disabled>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Public email address</mat-label>
-    <input matInput 
-      name="publicEmail"
-      type="email" 
-      placeholder="user@organization.org" 
-      value="{{ userMetadata.publicEmail }}">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Public email address</mat-label>
+      <input matInput 
+        name="publicEmail"
+        type="email" 
+        placeholder="user@organization.org" 
+        value="{{ userMetadata.publicEmail }}">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>GitHub username</mat-label>
-    <input matInput
-      name="github"
-      placeholder="github.username" 
-      value="{{ userMetadata.github }}">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>GitHub username</mat-label>
+      <input matInput
+        name="github"
+        placeholder="github.username" 
+        value="{{ userMetadata.github }}">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Google Scholar id</mat-label>
-    <input matInput 
-      name="googleScholar"
-      placeholder="XXXXXXXXXXXXX" 
-      value="{{ userMetadata.googleScholar }}">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Google Scholar id</mat-label>
+      <input matInput 
+        name="googleScholar"
+        placeholder="XXXXXXXXXXXXX" 
+        value="{{ userMetadata.googleScholar }}">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>ORCID</mat-label>
-    <input matInput 
-      name="orcid"
-      placeholder="xxxx-xxxx-xxxx-xxxx" 
-      value="{{ userMetadata.orcid }}">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>ORCID</mat-label>
+      <input matInput 
+        name="orcid"
+        placeholder="xxxx-xxxx-xxxx-xxxx" 
+        value="{{ userMetadata.orcid }}">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea matInput
-      name="description"
-      placeholder="XXX University"
-      rows="5"
-      >{{ 
-      userMetadata.description 
-    }}</textarea>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput
+        name="description"
+        placeholder="Description of professional interests and experience."
+        rows="10"
+        >{{ 
+        userMetadata.description 
+      }}</textarea>
+    </mat-form-field>
 
 
-  <button mat-button 
-    type="submit" 
-    value="Submit" 
-    disableRipple="true">Save</button>
-</form>
+    <button mat-button 
+      type="submit" 
+      value="Submit" 
+      disableRipple="true">Save</button>
+  </form>
+</div>

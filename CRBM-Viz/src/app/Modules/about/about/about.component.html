@@ -1,13 +1,123 @@
-<h1>About</h1>
+<div class="partial-width-container">
+    <h1>About</h1>
 
-<h2>About CRMB</h2>
-<p *ngFor="let content of fillerContent">{{ content }}</p>
+    <div #contents class="contents">
+        <h2>Contents</h2>
+        <ol>
+            <li><a (click)="scrollToElement(tech)">Technology
+                <mat-icon aria-hidden="false" aria-label="Scroll down" title="Scroll down">arrow_downward</mat-icon>
+                </a>
+            </li>
+            <li><a (click)="scrollToElement(tech)">Development team
+                <mat-icon aria-hidden="false" aria-label="Scroll down" title="Scroll down">arrow_downward</mat-icon>
+                </a>
+            </li>
+            <li><a (click)="scrollToElement(funding)">Funding
+                <mat-icon aria-hidden="false" aria-label="Scroll down" title="Scroll down">arrow_downward</mat-icon>
+                </a>
+            </li>
+            <li><a (click)="scrollToElement(contact)">Questions and comments
+                <mat-icon aria-hidden="false" aria-label="Scroll down" title="Scroll down">arrow_downward</mat-icon>
+                </a>
+            </li>
+        </ol>
+    </div>
 
-<h2>About KarrLab</h2>
-<p *ngFor="let content of fillerContent">{{ content }}</p>
+    <h2 #tech>1. Technology
+        <a class="back-to-top" (click)="scrollToElement(contents)">
+            <mat-icon aria-hidden="false" aria-label="Back to top" title="Back to top">arrow_upward</mat-icon>
+        </a>
+    </h2>
+    <ul>
+        <li>Web framework: Angular
+            <a href="http://angular.io">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Authentication: Auth0
+            <a href="https://auth0.com/">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>HTML components: Material Design
+            <a href="https://material.io">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Theme: Material Theme Generator
+            <a href="https://material-theme-generator.travetto.io">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Icons: 
+            Font Awesome <a href="https://fontawesome.com">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>, 
+            Material Design <a href="https://material.io">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Source code repository:
+            GitHub <a href="https://github.com">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Continuous integration:
+            GitHub <a href="https://github.com">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+    </ul>
 
-<h2>About Sinai</h2>
-<p *ngFor="let content of fillerContent">{{ content }}</p>
+    <h2 #center>2. Development team
+        <a class="back-to-top" (click)="scrollToElement(contents)">
+            <mat-icon aria-hidden="false" aria-label="Back to top" title="Back to top">arrow_upward</mat-icon>
+        </a>
+    </h2>
+    <p><i>BioSimulations</i> was developed by the Karr Lab <a href="https://www.karrlab.org"><fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon></a> at the Icahn School of Medicine at Mount Sinai in New York and the Center for Cell Analysis and Modeling <a href="https://health.uconn.edu/cell-analysis-modeling/"><fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon></a> at the University of Connecticut Health Center as part of the Center for Reproducible Biomodeling Modeling <a href="https://reproduciblebiomodels.org"><fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon></a>.</p>
 
-<h2>About Bilal</h2>
-<p *ngFor="let content of fillerContent">{{ content }}</p>
+    <ul>
+        <li>Bilal Shaikh 
+            <a href="https://www.bshaikh.com">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Akhil Marupilla
+            <a href="mailto:marupilla@uchc.edu">
+                <fa-icon aria-hidden="false" aria-label="Email" [icon]="['fas', 'envelope']"></fa-icon>
+            </a>
+        </li>
+        <li>Mike Wilson 
+            <a href="https://www.linkedin.com/in/mike-wilson-08b3324/">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Jonathan Karr 
+            <a href="https://www.karrlab.org">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+        <li>Ion Moraru
+            <a href="https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion">
+                <fa-icon aria-hidden="false" aria-label="Link" [icon]="['fas', 'link']"></fa-icon>
+            </a>
+        </li>
+    </ul>
+
+    <h2 #funding>3. Funding
+        <a class="back-to-top" (click)="scrollToElement(contents)">
+            <mat-icon aria-hidden="false" aria-label="Back to top" title="Back to top">arrow_upward</mat-icon>
+        </a>
+    </h2>
+    <ul>
+        <li>NIH/NIBIB/NIGMS award P41EB023912</li>
+    </ul>
+
+    <h2 #contact>4. Questions and comments
+        <a class="back-to-top" (click)="scrollToElement(contents)">
+            <mat-icon aria-hidden="false" aria-label="Back to top" title="Back to top">arrow_upward</mat-icon>
+        </a>
+    </h2>
+    
+    <p>Please contact us <a href="mailto:info@karrlab.org"><fa-icon aria-hidden="false" aria-label="Email" [icon]="['fas', 'envelope']"></fa-icon></a> with any questions or comments.</p>
+</div>

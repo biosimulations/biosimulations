@@ -25,7 +25,21 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
+              "src/favicon-16x16.png",
+              "src/favicon-32x32.png",
               "src/favicon.png",
+              "src/favicon.ico",
+              "src/android-chrome-192x192.png",
+              "src/android-chrome-512x512.png",
+              "src/apple-touch-icon.png",
+              "src/mstile-70x70.png",
+              "src/mstile-144x144.png",
+              "src/mstile-150x150.png",
+              "src/mstile-310x150.png",
+              "src/mstile-310x310.png",
+              "src/safari-pinned-tab.svg",
+              "src/site.webmanifest",
+              "src/browserconfig.xml",
               "src/assets"
             ],
             "styles": [
@@ -119,7 +133,21 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
+              "src/favicon-16x16.png",
+              "src/favicon-32x32.png",
               "src/favicon.png",
+              "src/favicon.ico",
+              "src/android-chrome-192x192.png",
+              "src/android-chrome-512x512.png",
+              "src/apple-touch-icon.png",
+              "src/mstile-70x70.png",
+              "src/mstile-144x144.png",
+              "src/mstile-150x150.png",
+              "src/mstile-310x150.png",
+              "src/mstile-310x310.png",
+              "src/safari-pinned-tab.svg",
+              "src/site.webmanifest",
+              "src/browserconfig.xml",
               "src/assets"
             ],
             "styles": [
