@@ -17,7 +17,7 @@ body {
 
 h1, .h1 {
     @include mat-typography-level-to-styles($fontConfig, display-1);
-    line-height: 1.8rem;
+    line-height: 2rem;
     margin-top: 0;
     color: mat-color($theme-primary);
     border-bottom: 1px solid mat-color($theme-primary);
