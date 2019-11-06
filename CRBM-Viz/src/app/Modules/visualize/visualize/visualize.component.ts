@@ -33,4 +33,5 @@ export class VisualizeComponent implements OnInit {
         this.visualizations = res;
       });
   }
+  getTimeChart() {}
 }

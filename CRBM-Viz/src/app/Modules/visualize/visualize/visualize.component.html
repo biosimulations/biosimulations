@@ -1,16 +1,18 @@
-<div class="title"><h1>Visualizations</h1></div>
-<div class="select">
-  <app-search-bar
-    placeholder="Visualization ID..."
-    buttonTerm="Visualize"
-    baseURL="/visualize/"
-  ></app-search-bar>
-</div>
-<div class="landing" *ngIf="!id">
-  <p>Please enter the id of a simulation run to view its visualizations</p>
-</div>
-<div class="figures" *ngIf="id">
-  <div class="figure" *ngFor="let viz of visualizations; index as i">
-    <app-vega-viewer [viz]="viz"> </app-vega-viewer>
+<div class="full-width-container">
+  <div class="title"><h1>Visualizations</h1></div>
+  <div class="select">
+    <app-search-bar
+      placeholder="Visualization ID..."
+      buttonTerm="Visualize"
+      baseURL="/visualize/"
+    ></app-search-bar>
+  </div>
+  <div class="landing" *ngIf="!id">
+    <p>Please enter the id of a simulation run to view its visualizations</p>
+  </div>
+  <div class="figures" *ngIf="id">
+    <div class="figure" *ngFor="let viz of visualizations; index as i">
+      <app-vega-viewer [viz]="viz"> </app-vega-viewer>
+    </div>
   </div>
 </div>
