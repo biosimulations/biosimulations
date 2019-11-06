@@ -1,4 +1,4 @@
-@import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material';
+@import '~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham';
 @import '~ag-grid-community/dist/styles/ag-grid.css';
 @import 'src/theme.scss';
 
@@ -56,16 +56,22 @@ p:last-child {
   }
 }
 
-.partial-width-container {
+/* Home page, models, simulate, visualize pages */
+.full-width-container {
+    padding: 2rem;
+    .content-container {
+        height: calc(100vh - 64px - 6rem - 28px);
+        box-sizing: border-box;
+    }
+}
 
+/* About pages */
+.partial-width-container {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 2rem;
 }
-
-.full-width-container {
-  padding: 2rem}
 
 .section {
     h2, .h2 {

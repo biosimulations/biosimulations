@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { SimulateRoutingModule } from './simulate-routing.module';
 import { SimulateComponent } from './simulate/simulate.component';
 import { PastSimulationComponent } from './past-simulation/past-simulation.component';
+import { BrowseComponent } from './browse/browse.component';
 import { DataComponent } from './data/data.component';
 import { MaterialModule } from '../app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
@@ -14,6 +15,7 @@ import { NewSimulationComponent } from './new-simulation/new-simulation.componen
     SimulateComponent,
     NewSimulationComponent,
     PastSimulationComponent,
+    BrowseComponent,
     DataComponent,
   ],
   imports: [
