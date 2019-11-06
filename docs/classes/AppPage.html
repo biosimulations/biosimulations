@@ -81,7 +81,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getTitleText">getTitleText</a>
+                                <a href="#getImageUrl">getImageUrl</a>
                             </li>
                             <li>
                                 <a href="#navigateTo">navigateTo</a>
@@ -109,18 +109,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getTitleText"></a>
+                    <a name="getImageUrl"></a>
                     <span class="name">
                         <b>
-                            getTitleText
+                            getImageUrl
                         </b>
-                        <a href="#getTitleText"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getImageUrl"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getTitleText()</code>
+<code>getImageUrl()</code>
                 </td>
             </tr>
 
@@ -200,8 +200,8 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise&lt;any&gt;;
   }
 
-  getTitleText() {
-    return element(by.css(&#x27;app-root .content p&#x27;)).getText() as Promise&lt;string&gt;;
+  getImageUrl() {
+    return element(by.css(&#x27;app-root .content .container object&#x27;)).getAttribute(&#x27;data&#x27;) as Promise&lt;string&gt;;
   }
 }
 </code></pre>
