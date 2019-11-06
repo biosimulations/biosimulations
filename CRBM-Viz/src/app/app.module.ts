@@ -33,7 +33,7 @@ import { ModelsModule } from './Modules/models/models.module';
 import { DataTableComponent } from './Shared/Components/data-table/data-table.component';
 import { SimulationTaskComponent } from './Shared/Components/simulate/new-simulation/simulation-task/simulation-task.component';
 import { AlertComponent } from './Shared/Components/alert/alert.component';
-import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
+import { FileChooserComponent } from './Modules/simulate/new-simulation/file-chooser/file-chooser.component';
 import { PastSimulationComponent } from './Modules/simulate/past-simulation/past-simulation.component';
 import { NewSimulationComponent } from './Modules/simulate/new-simulation/new-simulation.component';
 import { ProfileComponent } from './Modules/account/profile/profile.component';
@@ -50,11 +50,6 @@ import { SimulateComponent } from './Modules/simulate/simulate/simulate.componen
 @NgModule({
   declarations: [
     AppComponent,
-    SimulateComponent,
-    NewSimulationComponent,
-    PastSimulationComponent,
-    DataComponent,
-    SimulationTaskComponent,
   ],
   imports: [
     BrowserModule,

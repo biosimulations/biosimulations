@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NewSimulationComponent } from './new-simulation/new-simulation.component';
 import { SimulateComponent } from './simulate/simulate.component';
 import { DataComponent } from './data/data.component';
+import { FileChooserComponent } from './new-simulation/file-chooser/file-chooser.component';
+import { SimulationTaskComponent } from './new-simulation/simulation-task/simulation-task.component';
 
 const routes: Routes = [
-  { path: '', component: SimulateComponent },
+  { 
+    path: '', component: SimulateComponent, children: [
+      { path: '', component: FileChooserComponent },
+      { path: 'tasks', component: SimulationTaskComponent}
+    ]
+  },
   { path: 'browse', component: SimulateComponent },
   { path: 'data', component: DataComponent },
   { path: 'data/:id', component: DataComponent },
