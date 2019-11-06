@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 // TODO mock account menu
 import { AccountMenuComponent } from '../account-menu/account-menu.component';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 describe('NavIconsComponent', () => {
   let component: NavIconsComponent;
   let fixture: ComponentFixture<NavIconsComponent>;
@@ -15,6 +16,7 @@ describe('NavIconsComponent', () => {
       imports: [MaterialModule, RouterTestingModule],
       providers: [MaterialModule, RouterTestingModule],
       declarations: [NavIconsComponent, AccountMenuComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

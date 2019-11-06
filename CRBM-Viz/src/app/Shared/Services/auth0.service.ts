@@ -44,6 +44,7 @@ export class AuthService {
   // Create subject and public observable of user profile data
   private userProfileSubject$ = new BehaviorSubject<any>(null);
   userProfile$ = this.userProfileSubject$.asObservable();
+  
   // Create local property to store token
   token: string = null;
   // Create a local property for login status
@@ -92,9 +93,6 @@ export class AuthService {
         }
       );
     });
-
-    
-    
   }
 
   login(redirectPath: string = '/') {
@@ -123,7 +121,7 @@ export class AuthService {
       }),
       concatMap(() => {
         // Redirect callback complete; get user and login status
-        return combineLatest(this.getUser$(), this.isAuthenticated$);
+        return combineLatest([this.getUser$(), this.isAuthenticated$]);
       })
     );
     // Subscribe to authentication completion observable

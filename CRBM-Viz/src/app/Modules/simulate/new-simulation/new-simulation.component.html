@@ -1,0 +1,57 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="container" *ngIf="!isLoading">
+    <div class="row">
+        <br>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Create new Simulation</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Omex file</mat-label>
+                <mat-select [(ngModel)]="selectedOmex">
+                    <mat-option *ngFor="let omexFile of omexFiles" [value]="omexFile">
+                    {{omexFile}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Solver file</mat-label>
+                <mat-select [(ngModel)]="selectedSolver">
+                    <mat-option *ngFor="let solverFile of solverFiles" [value]="solverFile">
+                    {{solverFile}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>SBatch file</mat-label>
+                <mat-select [(ngModel)]="selectedSbatch">
+                    <mat-option *ngFor="let sbatchFile of sbatchFiles" [value]="sbatchFile">
+                    {{sbatchFile}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+        </div>
+    </div>
+</div>

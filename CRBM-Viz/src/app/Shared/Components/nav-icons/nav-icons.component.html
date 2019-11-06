@@ -1,71 +1,49 @@
 <div class="icons">
-  <button
-    mat-icon-button
-    [routerLink]="['']"
-    matTooltip="Home"
-    matTooltipPosition="below"
-  >
-    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-  </button>
-
-  <button
-    mat-icon-button
-    [routerLink]="['/about']"
-    matTooltip="About"
-    matTooltipPosition="below"
-  >
-    <mat-icon aria-hidden="false" aria-label="About icon">help</mat-icon>
-  </button>
-
-  <button
-    mat-icon-button
-    [routerLink]="['/visualize']"
-    matTooltip="Visualizations"
-    matTooltipPosition="below"
-  >
-    <mat-icon aria-hidden="false" aria-label="visualize icon"
-      >timeline</mat-icon
-    >
-  </button>
-
+  <!-- Models -->
   <button
     mat-icon-button
     [routerLink]="['/files']"
-    matTooltip="Models"
-    matTooltipPosition="below"
+    disableRipple="true"
+    class="main"
   >
-    <mat-icon aria-hidden="false" aria-label="Files icon">file_copy</mat-icon>
+    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" 
+      [icon]="['fas', 'project-diagram']" size="2x"></fa-icon>
+      <span class="label">Models</span>
   </button>
 
+  <!-- Simulations -->
   <button
     mat-icon-button
-    [routerLink]="['/simulate']"
-    matTooltip="Simulations"
-    matTooltipPosition="below"
+    [routerLink]="['/data']"
+    disableRipple="true"
+    class="main"
   >
-    <mat-icon aria-hidden="false" aria-label="Simulations icon"
-      >explore</mat-icon
-    >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Simulate icon"
+      >timeline</mat-icon>
+      <span class="label">Simulate</span>
   </button>
+
+  <!-- Visualizations -->
   <button
     mat-icon-button
-    *ngIf="!auth.loggedIn"
-    (click)="auth.login()"
-    matTooltip="Log In"
-    matTooltipPosition="below"
+    [routerLink]="['/visualize']"
+    disableRipple="true"
+    class="main"
   >
-    <mat-icon aria-hidden="false" aria-label="LogIn icon">lock_open</mat-icon>
+    <fa-icon class="icon" aria-hidden="false" aria-label="Visualize icon" 
+      [icon]="['fas', 'chart-area']" size="2x"></fa-icon>
+      <span class="label">Visualize</span>
+  </button>
+
+  <!-- User account and help -->
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="accountMenu?.profileMenu"
+    disableRipple="true"
+    class="meta"
+  >
+    <mat-icon class="icon" aria-hidden="false" aria-label="Account icon"
+      >account_circle</mat-icon>
   </button>
   <app-account-menu></app-account-menu>
-  <button
-    mat-icon-button
-    *ngIf="auth.loggedIn"
-    matTooltip="Account"
-    matTooltipPosition="below"
-    [matMenuTriggerFor]="accountMenu?.profileMenu"
-  >
-    <mat-icon aria-hidden="false" aria-label="Account icon"
-      >account_circle</mat-icon
-    >
-  </button>
 </div>

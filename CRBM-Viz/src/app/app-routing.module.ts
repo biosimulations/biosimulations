@@ -1,40 +1,53 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AboutComponent } from './Pages/about/about.component';
-import { HomeComponent } from './Pages/home/home.component';
+import { HelpComponent } from './Modules/about/help/help.component';
 
-import { SimulateComponent } from './Pages/simulate/simulate.component';
-import { FourComponent } from './Pages/four/four.component';
-import { UnderConstructionComponent } from './Pages/under-construction/under-construction.component';
+import { HomeComponent } from './Shared/Components/home/home.component';
+
+import { SimulateComponent } from './Modules/simulate/simulate/simulate.component';
+import { FourComponent } from './Shared/Components/four/four.component';
+import { UnderConstructionComponent } from './Shared/Components/under-construction/under-construction.component';
 import { AuthGuard } from './Shared/Gaurds/auth.guard';
-import { UploadComponent } from './Pages/upload/upload.component';
-import { FileEditComponent } from './Pages/files/file-edit/file-edit.component';
-import { CallbackComponent } from './Components/callback/callback.component';
-import { ProfileComponent } from './Components/profile/profile.component';
-import { DataComponent } from './Pages/data/data.component';
-import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
-import { SimulationTaskComponent } from './Pages/simulate/new-simulation/simulation-task/simulation-task.component';
+import { UploadComponent } from './Modules/models/upload/upload.component';
+import { FileEditComponent } from './Modules/models/file-edit/file-edit.component';
+import { CallbackComponent } from './Shared/Components/callback/callback.component';
+import { ProfileComponent } from './Modules/account/profile/profile.component';
+import { ProfileEditComponent } from './Modules/account/profile/profile-edit.component';
+import { DataComponent } from './Modules/simulate/data/data.component';
+
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   {
     path: 'visualize',
     loadChildren: () =>
-      import('./visualize/visualize.module').then(m => m.VisualizeModule),
-  },
-  { path: 'about', component: AboutComponent },
-  { path: '', component: HomeComponent },
-  { path: 'data', component: DataComponent },
-  { path: 'data/:id', component: DataComponent },
-  { 
-    path: 'simulate', component: SimulateComponent, canActivate: [AuthGuard] ,children: [
-      { path: '', component: FileChooserComponent},
-      { path: 'tasks', component: SimulationTaskComponent}
-    ]
+      import('./Modules/visualize/visualize.module').then(
+        m => m.VisualizeModule
+      ),
   },
   {
-    path: 'simulate/:id',
-    component: UnderConstructionComponent,
+    path: 'about',
+    loadChildren: () =>
+      import('./Modules/about/about.module').then(m => m.AboutModule),
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./Modules/account/account.module').then(m => m.AccountModule),
     canActivate: [AuthGuard],
   },
+
+  {
+    path: 'simulate',
+    loadChildren: () =>
+      import('./Modules/simulate/simulate.module').then(m => m.SimulateModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'models',
+    loadChildren: () =>
+      import('./Modules/models/models.module').then(m => m.ModelsModule),
+  },
+
   // { path: 'login', component: LoginComponent },
   { path: 'files', component: UploadComponent, canActivate: [AuthGuard] },
   {
@@ -43,11 +56,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'callback', component: CallbackComponent },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AuthGuard],
-  },
+
   { path: '**', component: FourComponent },
 ];
 

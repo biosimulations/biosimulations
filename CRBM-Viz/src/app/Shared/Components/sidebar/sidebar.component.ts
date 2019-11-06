@@ -15,7 +15,17 @@ export class SidebarComponent implements OnInit {
   }
   isChildOf(child: NavItem, args: any[]) {
     const parent: NavItem = args[0];
-    return parent.children.includes(child.title);
+
+    return parent.children.includes(child.id);
+  }
+  getClick(navItem: NavItem) {
+    if (navItem.click === 'toggleLogin') {
+      if (this.auth.loggedIn) {
+        this.auth.logout()
+      } else {
+        this.auth.login()
+      }
+    }
   }
 
   ngOnInit() {}

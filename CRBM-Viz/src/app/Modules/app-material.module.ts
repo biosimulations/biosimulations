@@ -12,9 +12,7 @@ import {
   MatListModule,
   MatInputModule,
   MatTabsModule,
-  MatOption,
   MatOptionModule,
-  MatSortModule,
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
@@ -40,7 +38,6 @@ const MaterialComponents = [
   MatTableModule,
   MatPaginatorModule,
   MatDialogModule,
-  MatSortModule,
   MatTooltipModule,
   MatExpansionModule,
 ];

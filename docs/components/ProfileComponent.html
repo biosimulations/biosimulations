@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Components/profile/profile.component.ts</code>
+    <code>CRBM-Viz/src/app/Modules/account/profile/profile.component.ts</code>
 </p>
 
 
@@ -133,6 +133,12 @@
                                     <span class="modifier">Public</span>
                                 <a href="#auth">auth</a>
                             </li>
+                            <li>
+                                <a href="#userData">userData</a>
+                            </li>
+                            <li>
+                                <a href="#userMetadata">userMetadata</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -166,12 +172,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(auth: <a href="../injectables/AuthService.html">AuthService</a>)</code>
+<code>constructor(auth: <a href="../injectables/AuthService.html">AuthService</a>, users: <a href="../injectables/UserService.html">UserService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Components/profile/profile.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -193,6 +199,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>users</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -240,8 +258,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/Components/profile/profile.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile.component.ts:18</a></div>
                 </td>
             </tr>
 
@@ -284,7 +302,66 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">CRBM-Viz/src/app/Components/profile/profile.component.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userData"></a>
+                        <span class="name">
+                            <b>
+                            userData</b>
+                            <a href="#userData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Observable&lt;any&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile.component.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userMetadata"></a>
+                        <span class="name">
+                            <b>
+                            userMetadata</b>
+                            <a href="#userMetadata"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/UserMetadata.html" target="_self" >UserMetadata</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -299,25 +376,150 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
+import { UserMetadata } from &#x27;src/app/Shared/Models/user-metadata&#x27;;
 
+import { UserService } from &#x27;src/app/Shared/Services/user.service&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
 @Component({
   selector: &#x27;app-profile&#x27;,
   templateUrl: &#x27;./profile.component.html&#x27;,
   styleUrls: [&#x27;./profile.component.sass&#x27;],
 })
-export class ProfileComponent implements OnInit {
-  constructor(public auth: AuthService) {}
 
-  ngOnInit() {}
+export class ProfileComponent implements OnInit {
+  userData: Observable&lt;any&gt;;
+  userMetadata: UserMetadata &#x3D; null;
+  constructor(public auth: AuthService, private users: UserService) {}
+
+  ngOnInit() {
+    // this.users.getUser().subscribe(res &#x3D;&gt; (this.userData &#x3D; res));
+    this.userMetadata &#x3D; new UserMetadata();
+  }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;p&gt;Profile:&lt;/p&gt;
-&lt;pre *ngIf&#x3D;&quot;auth.userProfile$ | async as profile&quot;&gt;
-        &lt;code&gt;{{ profile | json }}&lt;/code&gt;
-&lt;/pre&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;h1&gt;
+  Profile
+  &lt;a class&#x3D;&quot;h1&quot; [routerLink]&#x3D;&quot;[&#x27;/profile/edit&#x27;]&quot;
+    &gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Edit profile&quot;
+      &gt;edit&lt;/mat-icon
+    &gt;&lt;/a
+  &gt;
+&lt;/h1&gt;
+
+&lt;div *ngIf&#x3D;&quot;auth.userProfile$ | async as profile&quot;&gt;
+  &lt;img class&#x3D;&quot;photo&quot; src&#x3D;&quot;{{ profile.picture }}&quot; /&gt;
+  &lt;div class&#x3D;&quot;name mat-title&quot;&gt;{{ profile.name }}&lt;/div&gt;
+  &lt;div class&#x3D;&quot;username&quot;&gt;{{ profile.nickname }}&lt;/div&gt;
+  &lt;div class&#x3D;&quot;description&quot; *ngIf&#x3D;&quot;userMetadata.description&quot;&gt;{{ 
+    userMetadata.description 
+  }}&lt;/div&gt;
+
+  &lt;table class&#x3D;&quot;details&quot;&gt;
+    &lt;tr *ngIf&#x3D;&quot;userMetadata.organization&quot;&gt;
+      &lt;th&gt;
+        &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Organization&quot;
+          &gt;people&lt;/mat-icon
+        &gt;
+      &lt;/th&gt;
+      &lt;td&gt;{{ userMetadata.organization }}&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr *ngIf&#x3D;&quot;userMetadata.website&quot;&gt;
+      &lt;th&gt;
+        &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Website&quot;&gt;link&lt;/mat-icon&gt;
+      &lt;/th&gt;
+      &lt;td&gt;
+        &lt;a href&#x3D;&quot;{{ userMetadata.website }}&quot;&gt;{{
+          userMetadata.website
+        }}&lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr *ngIf&#x3D;&quot;profile.email&quot; class&#x3D;&quot;email&quot;&gt;
+      &lt;th&gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Email&quot;&gt;email&lt;/mat-icon&gt;&lt;/th&gt;
+      &lt;td&gt;
+        &lt;a href&#x3D;&quot;mailto:{{ profile.email }}&quot;&gt;{{ profile.email }}&lt;/a&gt; (application)
+        &lt;span *ngIf&#x3D;&quot;profile.email_verified; else emailUnverified&quot;&gt;
+          &lt;mat-icon
+            class&#x3D;&quot;verified&quot;
+            aria-hidden&#x3D;&quot;false&quot;
+            aria-label&#x3D;&quot;Email verified&quot;
+            &gt;check&lt;/mat-icon
+          &gt;
+        &lt;/span&gt;
+        &lt;ng-template #emailUnverified&gt;
+          &lt;mat-icon
+            class&#x3D;&quot;unverified&quot;
+            aria-hidden&#x3D;&quot;false&quot;
+            aria-label&#x3D;&quot;Email not verified&quot;
+            &gt;close&lt;/mat-icon
+          &gt;
+        &lt;/ng-template&gt;        
+      &lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr *ngIf&#x3D;&quot;userMetadata.publicEmail&quot; class&#x3D;&quot;email&quot;&gt;
+      &lt;th&gt;&lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Email&quot;&gt;email&lt;/mat-icon&gt;&lt;/th&gt;
+      &lt;td&gt;
+        &lt;a href&#x3D;&quot;mailto:{{ userMetadata.publicEmail }}&quot;&gt;{{ userMetadata.publicEmail }}&lt;/a&gt; (public)
+      &lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr *ngIf&#x3D;&quot;userMetadata.github&quot;&gt;
+      &lt;th&gt;
+        &lt;fa-icon
+          [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;github&#x27;]&quot;
+          size&#x3D;&quot;lg&quot;
+          aria-hidden&#x3D;&quot;false&quot;
+          aria-label&#x3D;&quot;GitHub&quot;
+        &gt;&lt;/fa-icon&gt;
+      &lt;/th&gt;
+      &lt;td&gt;
+        &lt;a href&#x3D;&quot;https://github.com/{{ userMetadata.github }}&quot;&gt;{{
+          userMetadata.github
+        }}&lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr *ngIf&#x3D;&quot;userMetadata.googleScholar&quot;&gt;
+      &lt;th&gt;
+        &lt;fa-icon
+          [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;google&#x27;]&quot;
+          size&#x3D;&quot;lg&quot;
+          aria-hidden&#x3D;&quot;false&quot;
+          aria-label&#x3D;&quot;Google Scholar&quot;
+        &gt;&lt;/fa-icon&gt;
+      &lt;/th&gt;
+      &lt;td&gt;
+        &lt;a
+          href&#x3D;&quot;https://scholar.google.com/citations?user&#x3D;{{
+            userMetadata.googleScholar
+          }}&quot;
+          &gt;{{ userMetadata.googleScholar }}&lt;/a
+        &gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr *ngIf&#x3D;&quot;userMetadata.orcid&quot;&gt;
+      &lt;th&gt;
+        &lt;fa-icon
+          [icon]&#x3D;&quot;[&#x27;fab&#x27;, &#x27;orcid&#x27;]&quot;
+          size&#x3D;&quot;lg&quot;
+          aria-hidden&#x3D;&quot;false&quot;
+          aria-label&#x3D;&quot;ORCID&quot;
+        &gt;&lt;/fa-icon&gt;
+      &lt;/th&gt;
+      &lt;td&gt;
+        &lt;a href&#x3D;&quot;https://orcid.org/{{ userMetadata.orcid }}&quot;&gt;{{
+          userMetadata.orcid
+        }}&lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
 </code></pre>
     </div>
 
@@ -325,7 +527,60 @@ export class ProfileComponent implements OnInit {
                 <p class="comment">
                     <code>./profile.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.scss&#x27;
+
+.photo
+    height: 15rem
+    border: 1px solid #999
+    margin-bottom: 0.5rem
+
+.name
+    font-size: 1.5rem
+    font-weight: regular
+    line-height: 1.5rem
+    margin-bottom: 0
+.username
+    color: #999
+.description
+    margin-top: 1rem
+
+.details
+    margin-top: 1rem
+    
+    th, td
+        line-height: 1.25rem
+
+    th
+        text-align: center
+        padding-right: 0.25rem
+
+    mat-icon
+        line-height: 1.25rem
+
+    fa-icon
+        position: relative
+        margin-top: -0.45rem
+        font-size: 0.75rem
+        line-height: 1.7rem
+
+    td
+        a
+            color: black
+            text-decoration: none
+        a:hover
+            color: mat-color($theme-primary)
+
+    .email
+        td
+            mat-icon
+                position: relative
+                top: 0.25rem    
+                margin-top: -0.5rem
+            .verified
+                color: green
+            .unverified
+                color: red
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -353,8 +608,8 @@ export class ProfileComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>Profile:</p><pre *ngIf="auth.userProfile$ | async as profile">        <code>{{ profile | json }}</code></pre></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><h1>  Profile  <a class="h1" [routerLink]="[\'/profile/edit\']"    ><mat-icon aria-hidden="false" aria-label="Edit profile"      >edit</mat-icon    ></a  ></h1><div *ngIf="auth.userProfile$ | async as profile">  <img class="photo" src="{{ profile.picture }}" />  <div class="name mat-title">{{ profile.name }}</div>  <div class="username">{{ profile.nickname }}</div>  <div class="description" *ngIf="userMetadata.description">{{     userMetadata.description   }}</div>  <table class="details">    <tr *ngIf="userMetadata.organization">      <th>        <mat-icon aria-hidden="false" aria-label="Organization"          >people</mat-icon        >      </th>      <td>{{ userMetadata.organization }}</td>    </tr>    <tr *ngIf="userMetadata.website">      <th>        <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>      </th>      <td>        <a href="{{ userMetadata.website }}">{{          userMetadata.website        }}</a>      </td>    </tr>    <tr *ngIf="profile.email" class="email">      <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>      <td>        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a> (application)        <span *ngIf="profile.email_verified; else emailUnverified">          <mat-icon            class="verified"            aria-hidden="false"            aria-label="Email verified"            >check</mat-icon          >        </span>        <ng-template #emailUnverified>          <mat-icon            class="unverified"            aria-hidden="false"            aria-label="Email not verified"            >close</mat-icon          >        </ng-template>              </td>    </tr>    <tr *ngIf="userMetadata.publicEmail" class="email">      <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>      <td>        <a href="mailto:{{ userMetadata.publicEmail }}">{{ userMetadata.publicEmail }}</a> (public)      </td>    </tr>    <tr *ngIf="userMetadata.github">      <th>        <fa-icon          [icon]="[\'fab\', \'github\']"          size="lg"          aria-hidden="false"          aria-label="GitHub"        ></fa-icon>      </th>      <td>        <a href="https://github.com/{{ userMetadata.github }}">{{          userMetadata.github        }}</a>      </td>    </tr>    <tr *ngIf="userMetadata.googleScholar">      <th>        <fa-icon          [icon]="[\'fab\', \'google\']"          size="lg"          aria-hidden="false"          aria-label="Google Scholar"        ></fa-icon>      </th>      <td>        <a          href="https://scholar.google.com/citations?user={{            userMetadata.googleScholar          }}"          >{{ userMetadata.googleScholar }}</a        >      </td>    </tr>    <tr *ngIf="userMetadata.orcid">      <th>        <fa-icon          [icon]="[\'fab\', \'orcid\']"          size="lg"          aria-hidden="false"          aria-label="ORCID"        ></fa-icon>      </th>      <td>        <a href="https://orcid.org/{{ userMetadata.orcid }}">{{          userMetadata.orcid        }}</a>      </td>    </tr>  </table></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ProfileComponent'};
 </script>

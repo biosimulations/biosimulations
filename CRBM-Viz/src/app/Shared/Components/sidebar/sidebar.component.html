@@ -1,30 +1,43 @@
-<app-logo></app-logo>
-<span class="spacer"></span>
-<!-- <button
-  mat-flat-button
-  [routerLink]="['/']"
-  routerLinkActive="router-link-active"
->
-  <mat-icon> home</mat-icon>Home
-</button> -->
-<mat-accordion>
+<mat-accordion multi="true">
   <div *ngFor="let header of NavItems | filter: isTopLevel">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header class="header-title">
-        <div class="header-content">
-          <mat-icon class="icon"> {{ header.icon }}</mat-icon>
-          <mat-panel-title class="panel-title">
-            {{ header.title }}</mat-panel-title
-          >
+    <mat-expansion-panel class="sidebar-menu-item">
+      <mat-expansion-panel-header
+        class="sidebar-menu-item-title"
+        [collapsedHeight]="'48px'"
+        [expandedHeight]="'48px'"
+      >
+        <div class="sidebar-menu-item-content">
+          <mat-icon
+            class="sidebar-menu-icon"
+            *ngIf="header.icon_type == 'mat'; else faIcon">{{
+            header.icon
+          }}</mat-icon>
+          <ng-template #faIcon>
+            <fa-icon
+              class="sidebar-menu-icon"
+              [icon]="[header.icon_type, header.icon]"
+              size="lg"
+            ></fa-icon>
+          </ng-template>
+          <mat-panel-title class="sidebar-menu-item-label">{{
+            header.label
+          }}</mat-panel-title>
         </div>
       </mat-expansion-panel-header>
       <div
-        class="child"
         *ngFor="let route of NavItems | filter: isChildOf:[header]"
       >
-        <mat-list-item [routerLink]="route.link">
-          <mat-icon> {{ route.icon }}</mat-icon>
-          {{ route.title }}
+        <mat-list-item
+          class="sidebar-menu-subitem"
+          *ngIf="route.display == 'always' || (auth.loggedIn && route.display == 'loggedIn') || (!auth.loggedIn && route.display == '!loggedIn')"
+          [routerLink]="route.link"
+          (click)="getClick(route)"
+          [disableRipple]="true">
+          <mat-icon class="sidebar-menu-icon" *ngIf="route.icon_type == 'mat'; else faIcon">{{ route.icon }}</mat-icon>
+          {{ route.label }}
+          <ng-template #faIcon>
+            <fa-icon class="sidebar-menu-icon" [icon]="[route.icon_type, route.icon]" size="lg"></fa-icon>
+          </ng-template>
         </mat-list-item>
       </div>
     </mat-expansion-panel>

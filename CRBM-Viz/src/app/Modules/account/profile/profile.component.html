@@ -1,0 +1,122 @@
+<div class="partial-width-container">
+  <h1>
+    Profile
+    <a [routerLink]="['/profile/edit']"
+      ><mat-icon aria-hidden="false" aria-label="Edit profile"
+        >edit</mat-icon
+      ></a
+    >
+  </h1>
+
+  <div *ngIf="auth.userProfile$ | async as profile">
+    <img class="photo" src="{{ profile.picture }}" />
+    <div class="name mat-title">{{ profile.name }}</div>
+    <div class="username">{{ profile.nickname }}</div>
+    <div class="description" *ngIf="userMetadata.description">{{ 
+      userMetadata.description 
+    }}</div>
+
+    <table class="details">
+      <tr *ngIf="userMetadata.organization">
+        <th>
+          <mat-icon aria-hidden="false" aria-label="Organization"
+            >people</mat-icon
+          >
+        </th>
+        <td>{{ userMetadata.organization }}</td>
+      </tr>
+
+      <tr *ngIf="userMetadata.website">
+        <th>
+          <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>
+        </th>
+        <td>
+          <a href="{{ userMetadata.website }}">{{
+            userMetadata.website
+          }}</a>
+        </td>
+      </tr>
+
+      <tr *ngIf="profile.email" class="email">
+        <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
+        <td>
+          <a href="mailto:{{ profile.email }}">{{ profile.email }}</a> (application)
+          <span *ngIf="profile.email_verified; else emailUnverified">
+            <mat-icon
+              class="verified"
+              aria-hidden="false"
+              aria-label="Email verified"
+              >check</mat-icon
+            >
+          </span>
+          <ng-template #emailUnverified>
+            <mat-icon
+              class="unverified"
+              aria-hidden="false"
+              aria-label="Email not verified"
+              >close</mat-icon
+            >
+          </ng-template>        
+        </td>
+      </tr>
+
+      <tr *ngIf="userMetadata.publicEmail" class="email">
+        <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
+        <td>
+          <a href="mailto:{{ userMetadata.publicEmail }}">{{ userMetadata.publicEmail }}</a> (public)
+        </td>
+      </tr>
+
+      <tr *ngIf="userMetadata.github">
+        <th>
+          <fa-icon
+            [icon]="['fab', 'github']"
+            size="lg"
+            aria-hidden="false"
+            aria-label="GitHub"
+          ></fa-icon>
+        </th>
+        <td>
+          <a href="https://github.com/{{ userMetadata.github }}">{{
+            userMetadata.github
+          }}</a>
+        </td>
+      </tr>
+
+      <tr *ngIf="userMetadata.googleScholar">
+        <th>
+          <fa-icon
+            [icon]="['fab', 'google']"
+            size="lg"
+            aria-hidden="false"
+            aria-label="Google Scholar"
+          ></fa-icon>
+        </th>
+        <td>
+          <a
+            href="https://scholar.google.com/citations?user={{
+              userMetadata.googleScholar
+            }}"
+            >{{ userMetadata.googleScholar }}</a
+          >
+        </td>
+      </tr>
+
+      <tr *ngIf="userMetadata.orcid">
+        <th>
+          <fa-icon
+            [icon]="['fab', 'orcid']"
+            size="lg"
+            aria-hidden="false"
+            aria-label="ORCID"
+          ></fa-icon>
+        </th>
+        <td>
+          <a href="https://orcid.org/{{ userMetadata.orcid }}">{{
+            userMetadata.orcid
+          }}</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

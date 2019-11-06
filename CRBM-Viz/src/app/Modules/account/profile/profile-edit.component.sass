@@ -1,0 +1,22 @@
+@import 'src/styles.scss'
+
+mat-form-field
+    display: block
+
+input, textarea.mat-input-element
+    background: #f9f9f9
+    border: 1px solid #efefef
+    padding: 0.25rem
+    margin: 0
+
+.mat-form-field.mat-focused
+    input, textarea
+        border: 1px solid mat-color($theme-primary)
+
+:host::ng-deep .mat-form-field-underline
+    display: none
+
+.mat-button
+    background: mat-color($theme-primary)
+    color: #fff
+    font-weight: bold

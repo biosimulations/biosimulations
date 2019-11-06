@@ -1,20 +1,67 @@
-@import "src/styles.sass"
-button
-    width: 100%
-button:hover
-    color: mat-color($accent)
-button:focus
-    outline: 0px
+@import 'src/styles.scss'
 
-.header-content
+// size and spacing
+.mat-expansion-panel
+    margin: 0px 0    
+    border-bottom: 1px solid #aaa
+.mat-expansion-panel-header
+    padding: 0 10px
+
+:host::ng-deep .mat-expansion-panel-body
+    padding: 0 12px 12px
+
+.mat-list-base
+    .mat-list-item
+        height: 36px
+
+.sidebar-menu-item-content
     display: flex
     align-content: space-between
-.header-title:hover
-    color: mat-color($accent)
-    .panel-title
-        color: mat-color($accent)
-.toplink
-    display: flex
-    align-content: space-between
-.spacer
-    padding: 5px
+
+.sidebar-menu-icon
+    margin-right: 0.25rem
+    width: 1.5rem
+    text-align: center
+
+// border
+.mat-accordion
+    .mat-expansion-panel:first-of-type
+        border-radius: 0px
+    .mat-expansion-panel:last-of-type
+        border-radius: 0px
+
+.mat-expansion-panel:not([class*=mat-elevation-z])
+    box-shadow: none
+
+// fonts
+.sidebar-menu-item-label
+    @include mat-typography-level-to-styles($fontConfig, subheading-2)
+.sidebar-menu-subitem
+    @include mat-typography-level-to-styles($fontConfig, subheading-1)
+
+// colors
+.mat-expansion-panel:not(.mat-expanded)
+    .mat-expansion-panel-header:hover:not([aria-disabled=true])
+        background: mat-color($theme-primary)
+        color: #fff
+        .sidebar-menu-item-label
+            color: #fff
+        .mat-expansion-indicator::after
+            color: #fff
+.mat-expansion-panel.mat-expanded
+    .mat-expansion-panel-header:hover:not([aria-disabled=true])
+        background: mat-color($theme-primary)
+        color: #fff
+        .sidebar-menu-item-label
+            color: #fff
+        .mat-expansion-indicator::after
+            color: #fff
+:host::ng-deep .sidebar-menu-item-title:hover
+    .mat-expansion-indicator::after
+            color: #fff
+.sidebar-menu-subitem:hover
+    background: mat-color($theme-primary)
+    color: #fff
+.sidebar-menu-subitem:focus
+    background: mat-color($theme-primary)
+    color: #fff

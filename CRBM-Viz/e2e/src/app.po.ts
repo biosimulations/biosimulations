@@ -5,7 +5,7 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.css('app-root .content p')).getText() as Promise<string>;
+  getImageUrl() {
+    return element(by.css('app-root .content .container object')).getAttribute('data') as Promise<string>;
   }
 }

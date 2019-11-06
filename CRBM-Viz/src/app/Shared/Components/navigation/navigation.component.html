@@ -6,11 +6,12 @@
     fixedInViewport="false"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    
+    [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>
-      Menu
-      <span></span>
+      <button mat-button class="home" [routerLink]="['']" disableRipple="true">
+        <span class="bio">Bio</span><span class="simulations">Simulations</span>
+      </button>
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -37,17 +38,14 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <div class="logo" *ngIf="!drawer.opened"><app-logo></app-logo></div>
-      <div class="searchbar" *ngIf="(isHandset$ | async) === false">
-        <app-search-bar></app-search-bar>
+      <div class="logo">
+        <app-logo></app-logo>
       </div>
+      <div class="spacer"></div>
       <div class="icons" *ngIf="(isHandset$ | async) === false">
         <app-nav-icons></app-nav-icons>
       </div>
     </mat-toolbar>
     <div class="content"><ng-content></ng-content></div>
-    <div class="footer">
-      <app-footer></app-footer>
-    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

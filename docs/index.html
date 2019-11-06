@@ -32,24 +32,62 @@
 
 <h1 id="crbm-viz">CRBM-Viz</h1>
 <p><a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Build,%20Lint,%20Test/badge.svg" alt="Tests" class="img-responsive"></a>
-<a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg" alt="Docker" class="img-responsive"></a>
+<a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg" alt="Docker image" class="img-responsive"></a>
 <a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Documentation/badge.svg" alt="Documentation" class="img-responsive"></a>
 <a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions"><img src="https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg" alt="Deploy" class="img-responsive"></a></p>
+<p><a href="https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz"><img src="https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz/branch/master/graph/badge.svg" alt="codecov" class="img-responsive"></a>
+<a href="https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz"><img src="https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz/badge" alt="CodeFactor" class="img-responsive"></a>
+<a href="LICENSE"><img src="https://img.shields.io/github/license/reproducible-biomedical-modeling/CRBM-Viz.svg" alt="License" class="img-responsive"></a>
+<a href="https://app.fossa.com/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git?ref=badge_shield"><img src="https://app.fossa.com/api/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git.svg?type=shield" alt="FOSSA Status" class="img-responsive"></a>
+<img src="https://ga-beacon.appspot.com/UA-86759801-1/CRBM-Viz/README.md?pixel" alt="Analytics" class="img-responsive"></p>
 <h2 id="current-build">Current Build</h2>
 <p><a href="https://crbm-viz.herokuapp.com/">https://crbm-viz.herokuapp.com/</a></p>
-<h2 id="documentation">Documentation</h2>
-<p><a href="https://reproducible-biomedical-modeling.github.io/CRBM-Viz/">https://reproducible-biomedical-modeling.github.io/CRBM-Viz/</a></p>
-<h2 id="deploying">Deploying</h2>
-<p>The current build is automatically deployed to heroku at above link. To deploy a new version into production:</p>
+<h2 id="installation-and-deployment">Installation and deployment</h2>
+<h3 id="using-the-public-deployment-of-the-latest-build">Using the public deployment of the latest build</h3>
+<p>The latest build is automatically publicly deployed <a href="https://crbm-viz.herokuapp.com/">here</a>.</p>
+<h3 id="deploying-the-app-locally">Deploying the app locally</h3>
 <ol>
-<li><p>Ensure that all tests have passed</p>
-</li>
-<li><p>Visit the test deployment at the above link and visually ensure that the site is functional.</p>
-</li>
-<li><p>Create a release in github and give approriate version.
-This will update the latest build image on dockerhub</p>
+<li><p>Install the latest long-term support release of Node.js (12.x) and NPM (6.x). Below are installation instructions for Ubuntu 18:</p>
+<div><pre class="line-numbers"><code class="language-none">curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+apt-get install nodejs</code></pre></div></li>
+<li><p>Clone the application</p>
+<div><pre class="line-numbers"><code class="language-none">git clone https://github.com/reproducible-biomedical-modeling/CRBM-Viz.git</code></pre></div></li>
+<li><p>Install the application</p>
+<div><pre class="line-numbers"><code class="language-none">cd CRBM-Viz/CRBM-Viz
+npm install -g &#64;angular/cli
+npm install .</code></pre></div></li>
+<li><p>Run the application</p>
+<div><pre class="line-numbers"><code class="language-none">ng serve</code></pre></div></li>
+<li><p>Open the application by navigating your browser to <a href="http://localhost:4200/">http://localhost:4200/</a></p>
 </li>
 </ol>
+<h3 id="deploying-a-new-production-version">Deploying a new production version</h3>
+<p>To deploy a new version into production:</p>
+<ol>
+<li><p>Ensure that all tests have passed.</p>
+</li>
+<li><p>Visit the test deployment at the above link and check that the site is functional.</p>
+</li>
+<li><p>Create a release in GitHub and assign it an appropriate version tag.
+This will update the latest build image on DockerHub.</p>
+</li>
+</ol>
+<h2 id="documentation">Documentation</h2>
+<p>Please see the <a href="https://reproducible-biomedical-modeling.github.io/CRBM-Viz/">documentation</a>.</p>
+<h2 id="license">License</h2>
+<p>This package is released under the <a href="LICENSE">MIT license</a>.</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>This package uses dependencies distributed under various licences. Please see the <a href="https://app.fossa.com/attribution/ba821b8e-9edf-481b-a00a-eea0eb10bf63">dependencies report</a> for more information</p>
+<h2 id="development-team">Development team</h2>
+<p>This package was developed by the <a href="https://www.karrlab.org">Karr Lab</a> at the Icahn School of Medicine at Mount Sinai in New York.</p>
+<ul>
+<li><a href="https://www.bshaikh.com/">Bilal Shaikh</a></li>
+<li><a href="https://www.karrlab.org">Jonathan Karr</a></li>
+</ul>
+<h2 id="funding">Funding</h2>
+<p>This package was developed with support from the National Institute for Bioimaging and Bioengineering (award P41EB023912).</p>
+<h2 id="questions-and-comments">Questions and comments</h2>
+<p>Please contact the <a href="mailto:info@karrlab.org">Karr Lab</a> with any questions or comments.</p>
 
 
 

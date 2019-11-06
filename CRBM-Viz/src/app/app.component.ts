@@ -6,7 +6,7 @@ import { AuthService } from './Shared/Services/auth0.service';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
-  title = 'CRBM-Viz';
+  title = 'BioSimulations';
 
   // TODO Test the creation of token
   constructor(private auth: AuthService) {}
