@@ -4,23 +4,36 @@ import { CallbackComponent } from './callback.component';
 
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { RouterTestingModule } from '@angular/router/testing';
-//  TODO This test does nothing, fix
+import { MaterialModule } from 'src/app/Modules/app-material.module';
+
 describe('CallbackComponent', () => {
-  // let component: CallbackComponent;
-  // let fixture: ComponentFixture<CallbackComponent>;
+  let component: CallbackComponent;
+  let fixture: ComponentFixture<CallbackComponent>;
 
   beforeEach(async(() => {
-    // tslint:disable-next-line:max-line-length
-    // TestBed.configureTestingModule({ imports: [RouterTestingModule], providers: [RouterTestingModule, AuthService],declarations: [CallbackComponent],}).compileComponents();
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule, MaterialModule],
+      providers: [RouterTestingModule, AuthService],
+      declarations: [CallbackComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    // fixture = TestBed.createComponent(CallbackComponent);
-    // component = fixture.componentInstance;
-    // fixture.detectChanges();
+    fixture = TestBed.createComponent(CallbackComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    // expect(component.ngOnInit).toThrowError();
+    expect(component).toBeTruthy();
+  });
+  it('should call login', () => {
+    const debugelement = fixture.debugElement;
+    const authService = debugelement.injector.get(AuthService);
+    const authSpy = spyOn(authService, 'handleAuthCallback').and.callFake(
+      () => {}
+    );
+    component.ngOnInit();
+    expect(authSpy).toHaveBeenCalled();
   });
 });
