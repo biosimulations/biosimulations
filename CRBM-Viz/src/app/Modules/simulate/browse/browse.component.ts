@@ -20,6 +20,7 @@ export class BrowseComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    /*
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
       if (this.id) {
@@ -36,11 +37,14 @@ export class BrowseComponent implements OnInit {
       },
       { headerName: 'Time', field: 'Time', sortable: true, filter: true },
     ];
+    */
   }
 
   getData() {
+    /*
     this.dataService.getTimecourse(this.id).subscribe((res: Timecourse[]) => {
       this.timecourse = res;
     });
+    */
   }
 }
