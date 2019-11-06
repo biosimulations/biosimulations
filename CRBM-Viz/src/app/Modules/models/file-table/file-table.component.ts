@@ -51,7 +51,7 @@ export class FileTableComponent implements OnInit {
       }
     );
 
-    this.fileService.getFileData();
+    this.fileService.getFileData({});
 
     this.auth.userProfile$.subscribe(profile => (this.currentUser = profile));
   }
