@@ -17,7 +17,7 @@ body {
 
 h1, .h1 {
     @include mat-typography-level-to-styles($fontConfig, display-1);
-    line-height: 1.8rem;
+    line-height: 2rem;
     margin-top: 0;
     color: mat-color($theme-primary);
     border-bottom: 1px solid mat-color($theme-primary);
@@ -31,7 +31,6 @@ h1, .h1 {
 h2, .h2 {
     @include mat-typography-level-to-styles($fontConfig, headline);
     color: mat-color($theme-accent);
-    border-bottom: 1px dotted mat-color($theme-accent);
 }
 
 body, .body {
@@ -55,4 +54,73 @@ p:last-child {
     margin-left: auto;
     margin-right: auto;
     padding: 2rem;
+}
+
+.section {
+    h2, .h2 {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        background: mat-color($theme-accent, lighter);
+        margin-block-start: 0;
+        margin-block-end: 0;
+        border-bottom: 1px solid #efefef;
+
+        .back-to-top {
+            margin-left: auto;
+            color: mat-color($theme-accent);
+            float: right;
+            .mat-icon {
+                position: relative;
+                top: 0.25rem;
+            }
+        }
+    }
+
+    .section-content {
+        padding: 0.25rem;
+
+        ol {
+            margin-block-start: 0;
+            margin-block-end: 0;
+            padding-inline-start: 18px;
+        }
+
+        ul {
+            margin-block-start: 0;
+            margin-block-end: 0;
+            padding-inline-start: 1.5rem;
+        }
+
+        p {
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+        a {
+            color: mat-color($theme-primary);
+        }
+    }
+
+    margin: 0;
+    margin-top: 2rem;
+    padding: 0;
+    border: 1px solid #efefef;
+}
+
+.section.toc {
+    h2, .h2 {
+        color: mat-color($theme-primary);
+        background: mat-color($theme-primary, lighter);
+    }
+    a {
+        color: #000;
+        text-decoration: none;
+
+        .mat-icon {
+            font-size: 1rem;
+            position: relative;
+            top: 0.15rem;
+            line-height: 1.3rem;
+        }
+    }
 }

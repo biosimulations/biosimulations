@@ -11,7 +11,7 @@ describe('workspace-project App', () => {
   it('should display home page', async () => {
     await page.navigateTo();
 
-    expect(await page.getTitleText()).toEqual('Welcome!');
+    expect(await page.getImageUrl()).toMatch(/assets\/home\/image\.svg$/);
   });
 
   afterEach(async () => {
