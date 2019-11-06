@@ -21,14 +21,14 @@
 
     .home
       padding: 0
-      font-size: 1.25rem  
+      font-size: 1.25rem
 
     .mat-icon-button
       color: #fff
 
 :host::ng-deep .mat-button.home:hover
-    .mat-button-focus-overlay
-      opacity: 0
+  .mat-button-focus-overlay
+    opacity: 0
 
 .mat-toolbar.mat-primary
   position: sticky
@@ -61,10 +61,15 @@
 .icons
   margin-left: auto
 
+// Firefox needs to have margin be 0 to have icons line up with edge
+@media screen and (min--moz-device-pixel-ratio:0) 
+  .icons
+    margin-right: 0px
+
 .full-content
   height: 100%
 .content
   min-height: calc(100vh - 64px)
   height: auto
-  overflow: auto  
+  overflow: auto
   background: #fff

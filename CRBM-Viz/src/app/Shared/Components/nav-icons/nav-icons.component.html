@@ -2,25 +2,31 @@
   <!-- Models -->
   <button
     mat-icon-button
-    [routerLink]="['/files']"
+    [routerLink]="['/models']"
     disableRipple="true"
     class="main"
   >
-    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" 
-      [icon]="['fas', 'project-diagram']" size="2x"></fa-icon>
-      <span class="label">Models</span>
+    <fa-icon
+      class="icon"
+      aria-hidden="false"
+      aria-label="Models icon"
+      [icon]="['fas', 'project-diagram']"
+      size="2x"
+    ></fa-icon>
+    <span class="label">Models</span>
   </button>
 
   <!-- Simulations -->
   <button
     mat-icon-button
-    [routerLink]="['/data']"
+    [routerLink]="['/simulate']"
     disableRipple="true"
     class="main"
   >
     <mat-icon class="icon" aria-hidden="false" aria-label="Simulate icon"
-      >timeline</mat-icon>
-      <span class="label">Simulate</span>
+      >timeline</mat-icon
+    >
+    <span class="label">Simulate</span>
   </button>
 
   <!-- Visualizations -->
@@ -30,9 +36,14 @@
     disableRipple="true"
     class="main"
   >
-    <fa-icon class="icon" aria-hidden="false" aria-label="Visualize icon" 
-      [icon]="['fas', 'chart-area']" size="2x"></fa-icon>
-      <span class="label">Visualize</span>
+    <fa-icon
+      class="icon"
+      aria-hidden="false"
+      aria-label="Visualize icon"
+      [icon]="['fas', 'chart-area']"
+      size="2x"
+    ></fa-icon>
+    <span class="label">Visualize</span>
   </button>
 
   <!-- User account and help -->
@@ -43,7 +54,8 @@
     class="meta"
   >
     <mat-icon class="icon" aria-hidden="false" aria-label="Account icon"
-      >account_circle</mat-icon>
+      >account_circle</mat-icon
+    >
   </button>
   <app-account-menu></app-account-menu>
 </div>

@@ -400,106 +400,108 @@ export class ProfileEditComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;h1&gt;Edit profile&lt;/h1&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;partial-width-container&quot;&gt;
+  &lt;h1&gt;Edit profile&lt;/h1&gt;
 
-&lt;form *ngIf&#x3D;&quot;auth.userProfile$ | async as profile&quot;&gt;
-  &lt;!-- &lt;img class&#x3D;&quot;photo&quot; src&#x3D;&quot;{{ profile.picture }}&quot; /&gt; --&gt;
+  &lt;form *ngIf&#x3D;&quot;auth.userProfile$ | async as profile&quot;&gt;
+    &lt;!-- &lt;img class&#x3D;&quot;photo&quot; src&#x3D;&quot;{{ profile.picture }}&quot; /&gt; --&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Username&lt;/mat-label&gt;
-    &lt;input matInput 
-      name&#x3D;&quot;nickname&quot;
-      placeholder&#x3D;&quot;username&quot; 
-      value&#x3D;&quot;{{ profile.nickname }}&quot;
-      disabled&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Username&lt;/mat-label&gt;
+      &lt;input matInput 
+        name&#x3D;&quot;nickname&quot;
+        placeholder&#x3D;&quot;username&quot; 
+        value&#x3D;&quot;{{ profile.nickname }}&quot;
+        disabled&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Name&lt;/mat-label&gt;
-    &lt;input matInput 
-      name&#x3D;&quot;name&quot;
-      placeholder&#x3D;&quot;Name&quot; 
-      value&#x3D;&quot;{{ profile.name }}&quot;
-      disabled&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Name&lt;/mat-label&gt;
+      &lt;input matInput 
+        name&#x3D;&quot;name&quot;
+        placeholder&#x3D;&quot;Name&quot; 
+        value&#x3D;&quot;{{ profile.name }}&quot;
+        disabled&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Organization&lt;/mat-label&gt;
-    &lt;input matInput 
-      name&#x3D;&quot;organization&quot;
-      placeholder&#x3D;&quot;XXX University&quot; 
-      value&#x3D;&quot;{{ userMetadata.organization }}&quot;&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Organization&lt;/mat-label&gt;
+      &lt;input matInput 
+        name&#x3D;&quot;organization&quot;
+        placeholder&#x3D;&quot;XXX University&quot; 
+        value&#x3D;&quot;{{ userMetadata.organization }}&quot;&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Website&lt;/mat-label&gt;
-    &lt;input matInput 
-      name&#x3D;&quot;website&quot;
-      type&#x3D;&quot;url&quot; 
-      placeholder&#x3D;&quot;https://www.mywebsite.org&quot; 
-      value&#x3D;&quot;{{ userMetadata.website }}&quot;&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Website&lt;/mat-label&gt;
+      &lt;input matInput 
+        name&#x3D;&quot;website&quot;
+        type&#x3D;&quot;url&quot; 
+        placeholder&#x3D;&quot;https://www.mywebsite.org&quot; 
+        value&#x3D;&quot;{{ userMetadata.website }}&quot;&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Email address for notifications&lt;/mat-label&gt;
-    &lt;input matInput
-      name&#x3D;&quot;email&quot; 
-      type&#x3D;&quot;email&quot; 
-      placeholder&#x3D;&quot;user@organization.org&quot; 
-      value&#x3D;&quot;{{ profile.email }}&quot;
-      disabled&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Email address for notifications&lt;/mat-label&gt;
+      &lt;input matInput
+        name&#x3D;&quot;email&quot; 
+        type&#x3D;&quot;email&quot; 
+        placeholder&#x3D;&quot;user@organization.org&quot; 
+        value&#x3D;&quot;{{ profile.email }}&quot;
+        disabled&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Public email address&lt;/mat-label&gt;
-    &lt;input matInput 
-      name&#x3D;&quot;publicEmail&quot;
-      type&#x3D;&quot;email&quot; 
-      placeholder&#x3D;&quot;user@organization.org&quot; 
-      value&#x3D;&quot;{{ userMetadata.publicEmail }}&quot;&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Public email address&lt;/mat-label&gt;
+      &lt;input matInput 
+        name&#x3D;&quot;publicEmail&quot;
+        type&#x3D;&quot;email&quot; 
+        placeholder&#x3D;&quot;user@organization.org&quot; 
+        value&#x3D;&quot;{{ userMetadata.publicEmail }}&quot;&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;GitHub username&lt;/mat-label&gt;
-    &lt;input matInput
-      name&#x3D;&quot;github&quot;
-      placeholder&#x3D;&quot;github.username&quot; 
-      value&#x3D;&quot;{{ userMetadata.github }}&quot;&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;GitHub username&lt;/mat-label&gt;
+      &lt;input matInput
+        name&#x3D;&quot;github&quot;
+        placeholder&#x3D;&quot;github.username&quot; 
+        value&#x3D;&quot;{{ userMetadata.github }}&quot;&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Google Scholar id&lt;/mat-label&gt;
-    &lt;input matInput 
-      name&#x3D;&quot;googleScholar&quot;
-      placeholder&#x3D;&quot;XXXXXXXXXXXXX&quot; 
-      value&#x3D;&quot;{{ userMetadata.googleScholar }}&quot;&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Google Scholar id&lt;/mat-label&gt;
+      &lt;input matInput 
+        name&#x3D;&quot;googleScholar&quot;
+        placeholder&#x3D;&quot;XXXXXXXXXXXXX&quot; 
+        value&#x3D;&quot;{{ userMetadata.googleScholar }}&quot;&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;ORCID&lt;/mat-label&gt;
-    &lt;input matInput 
-      name&#x3D;&quot;orcid&quot;
-      placeholder&#x3D;&quot;xxxx-xxxx-xxxx-xxxx&quot; 
-      value&#x3D;&quot;{{ userMetadata.orcid }}&quot;&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;ORCID&lt;/mat-label&gt;
+      &lt;input matInput 
+        name&#x3D;&quot;orcid&quot;
+        placeholder&#x3D;&quot;xxxx-xxxx-xxxx-xxxx&quot; 
+        value&#x3D;&quot;{{ userMetadata.orcid }}&quot;&gt;
+    &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Description&lt;/mat-label&gt;
-    &lt;textarea matInput
-      name&#x3D;&quot;description&quot;
-      placeholder&#x3D;&quot;XXX University&quot;
-      rows&#x3D;&quot;5&quot;
-      &gt;{{ 
-      userMetadata.description 
-    }}&lt;/textarea&gt;
-  &lt;/mat-form-field&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Description&lt;/mat-label&gt;
+      &lt;textarea matInput
+        name&#x3D;&quot;description&quot;
+        placeholder&#x3D;&quot;Description of professional interests and experience.&quot;
+        rows&#x3D;&quot;10&quot;
+        &gt;{{ 
+        userMetadata.description 
+      }}&lt;/textarea&gt;
+    &lt;/mat-form-field&gt;
 
 
-  &lt;button mat-button 
-    type&#x3D;&quot;submit&quot; 
-    value&#x3D;&quot;Submit&quot; 
-    disableRipple&#x3D;&quot;true&quot;&gt;Save&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+    &lt;button mat-button 
+      type&#x3D;&quot;submit&quot; 
+      value&#x3D;&quot;Submit&quot; 
+      disableRipple&#x3D;&quot;true&quot;&gt;Save&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -508,18 +510,18 @@ export class ProfileEditComponent implements OnInit {
                 </p>
                 <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.scss&#x27;
 
-form
-    width: 100%
-    max-width: 800px
-
 mat-form-field
     display: block
 
-input, textarea
-    background: #fff
-    padding-top: 0.5rem
-    padding-bottom: 0.5rem
-    padding-right: 0.5rem
+input, textarea.mat-input-element
+    background: #f9f9f9
+    border: 1px solid #efefef
+    padding: 0.25rem
+    margin: 0
+
+.mat-form-field.mat-focused
+    input, textarea
+        border: 1px solid mat-color($theme-primary)
 
 :host::ng-deep .mat-form-field-underline
     display: none
@@ -528,11 +530,6 @@ input, textarea
     background: mat-color($theme-primary)
     color: #fff
     font-weight: bold
-
-.photo
-    height: 15rem
-    border: 1px solid #999
-    margin-bottom: 0.5rem
 </code></pre>
     </div>
 
@@ -561,7 +558,7 @@ input, textarea
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h1>Edit profile</h1><form *ngIf="auth.userProfile$ | async as profile">  <!-- <img class="photo" src="{{ profile.picture }}" /> -->  <mat-form-field>    <mat-label>Username</mat-label>    <input matInput       name="nickname"      placeholder="username"       value="{{ profile.nickname }}"      disabled>  </mat-form-field>  <mat-form-field>    <mat-label>Name</mat-label>    <input matInput       name="name"      placeholder="Name"       value="{{ profile.name }}"      disabled>  </mat-form-field>  <mat-form-field>    <mat-label>Organization</mat-label>    <input matInput       name="organization"      placeholder="XXX University"       value="{{ userMetadata.organization }}">  </mat-form-field>  <mat-form-field>    <mat-label>Website</mat-label>    <input matInput       name="website"      type="url"       placeholder="https://www.mywebsite.org"       value="{{ userMetadata.website }}">  </mat-form-field>  <mat-form-field>    <mat-label>Email address for notifications</mat-label>    <input matInput      name="email"       type="email"       placeholder="user@organization.org"       value="{{ profile.email }}"      disabled>  </mat-form-field>  <mat-form-field>    <mat-label>Public email address</mat-label>    <input matInput       name="publicEmail"      type="email"       placeholder="user@organization.org"       value="{{ userMetadata.publicEmail }}">  </mat-form-field>  <mat-form-field>    <mat-label>GitHub username</mat-label>    <input matInput      name="github"      placeholder="github.username"       value="{{ userMetadata.github }}">  </mat-form-field>  <mat-form-field>    <mat-label>Google Scholar id</mat-label>    <input matInput       name="googleScholar"      placeholder="XXXXXXXXXXXXX"       value="{{ userMetadata.googleScholar }}">  </mat-form-field>  <mat-form-field>    <mat-label>ORCID</mat-label>    <input matInput       name="orcid"      placeholder="xxxx-xxxx-xxxx-xxxx"       value="{{ userMetadata.orcid }}">  </mat-form-field>  <mat-form-field>    <mat-label>Description</mat-label>    <textarea matInput      name="description"      placeholder="XXX University"      rows="5"      >{{       userMetadata.description     }}</textarea>  </mat-form-field>  <button mat-button     type="submit"     value="Submit"     disableRipple="true">Save</button></form></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="partial-width-container">  <h1>Edit profile</h1>  <form *ngIf="auth.userProfile$ | async as profile">    <!-- <img class="photo" src="{{ profile.picture }}" /> -->    <mat-form-field>      <mat-label>Username</mat-label>      <input matInput         name="nickname"        placeholder="username"         value="{{ profile.nickname }}"        disabled>    </mat-form-field>    <mat-form-field>      <mat-label>Name</mat-label>      <input matInput         name="name"        placeholder="Name"         value="{{ profile.name }}"        disabled>    </mat-form-field>    <mat-form-field>      <mat-label>Organization</mat-label>      <input matInput         name="organization"        placeholder="XXX University"         value="{{ userMetadata.organization }}">    </mat-form-field>    <mat-form-field>      <mat-label>Website</mat-label>      <input matInput         name="website"        type="url"         placeholder="https://www.mywebsite.org"         value="{{ userMetadata.website }}">    </mat-form-field>    <mat-form-field>      <mat-label>Email address for notifications</mat-label>      <input matInput        name="email"         type="email"         placeholder="user@organization.org"         value="{{ profile.email }}"        disabled>    </mat-form-field>    <mat-form-field>      <mat-label>Public email address</mat-label>      <input matInput         name="publicEmail"        type="email"         placeholder="user@organization.org"         value="{{ userMetadata.publicEmail }}">    </mat-form-field>    <mat-form-field>      <mat-label>GitHub username</mat-label>      <input matInput        name="github"        placeholder="github.username"         value="{{ userMetadata.github }}">    </mat-form-field>    <mat-form-field>      <mat-label>Google Scholar id</mat-label>      <input matInput         name="googleScholar"        placeholder="XXXXXXXXXXXXX"         value="{{ userMetadata.googleScholar }}">    </mat-form-field>    <mat-form-field>      <mat-label>ORCID</mat-label>      <input matInput         name="orcid"        placeholder="xxxx-xxxx-xxxx-xxxx"         value="{{ userMetadata.orcid }}">    </mat-form-field>    <mat-form-field>      <mat-label>Description</mat-label>      <textarea matInput        name="description"        placeholder="Description of professional interests and experience."        rows="10"        >{{         userMetadata.description       }}</textarea>    </mat-form-field>    <button mat-button       type="submit"       value="Submit"       disableRipple="true">Save</button>  </form></div></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ProfileEditComponent'};
