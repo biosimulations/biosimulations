@@ -40,6 +40,7 @@ import { CallbackComponent } from './Components/callback/callback.component';
 import { HomeComponent } from './Components/home/home.component';
 import { FourComponent } from './Components/four/four.component';
 import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { UnderConstructionComponent } from './Components/under-construction/unde
     RouterModule,
     FontAwesomeModule,
     AgGridModule.withComponents([]),
+    FormsModule,
   ],
   exports: [
     FilterPipe,
