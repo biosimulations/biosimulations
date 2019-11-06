@@ -16,9 +16,7 @@ import { MaterialModule } from './Modules/app-material.module';
 // Defined components
 import { AppComponent } from './app.component';
 
-import { HomeComponent } from './Shared/Components/home/home.component';
 
-import { FourComponent } from './Shared/Components/four/four.component';
 import { UnderConstructionComponent } from './Shared/Components/under-construction/under-construction.component';
 import { CallbackComponent } from './Shared/Components/callback/callback.component';
 
@@ -32,6 +30,14 @@ import { AboutModule } from './Modules/about/about.module';
 import { AccountModule } from './Modules/account/account.module';
 import { DataComponent } from './Modules/simulate/data/data.component';
 import { ModelsModule } from './Modules/models/models.module';
+import { DataTableComponent } from './Shared/Components/data-table/data-table.component';
+import { SimulationTaskComponent } from './Shared/Components/simulate/new-simulation/simulation-task/simulation-task.component';
+import { AlertComponent } from './Shared/Components/alert/alert.component';
+import { FileChooserComponent } from './Pages/simulate/new-simulation/file-chooser/file-chooser.component';
+import { PastSimulationComponent } from './Modules/simulate/past-simulation/past-simulation.component';
+import { NewSimulationComponent } from './Modules/simulate/new-simulation/new-simulation.component';
+import { ProfileComponent } from './Modules/account/profile/profile.component';
+import { SimulateComponent } from './Modules/simulate/simulate/simulate.component';
 
 // Pipes defined in app
 
@@ -44,22 +50,9 @@ import { ModelsModule } from './Modules/models/models.module';
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
     SimulateComponent,
-    HomeComponent,
-    FourComponent,
-    UnderConstructionComponent,
-    CallbackComponent,
-    ProfileComponent,
-    UploadComponent,
-    FileEditComponent,
-    AlertComponent,
     NewSimulationComponent,
     PastSimulationComponent,
-    FileTableComponent,
-    FileChooserComponent,
-    AlertComponent,
-    DataTableComponent,
     DataComponent,
     SimulationTaskComponent,
   ],
