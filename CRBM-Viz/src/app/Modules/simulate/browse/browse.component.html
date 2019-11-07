@@ -3,13 +3,16 @@
   <div class="content-container">
     <ag-grid-angular
       class="ag-theme-balham ag-grid-faceted-toolbar"
+      [frameworkComponents]="frameworkComponents"
       [defaultColDef]="defaultColDef"
       [columnDefs]="columnDefs"
       [sideBar]="sideBar"
       [statusBar]="statusBar"
       [rowData]="rowData"
       (gridReady)="onGridReady($event)"
-      [suppressHorizontalScroll]="true"
+      (onFirstDataRendered)="onFirstDataRendered($event)"
+      (onResize)="onResize($event)"
+      [suppressHorizontalScroll]="false"
       [suppressCellSelection]="true"
       [suppressContextMenu]="true"
     >

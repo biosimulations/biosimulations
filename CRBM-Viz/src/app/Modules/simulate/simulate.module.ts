@@ -5,6 +5,7 @@ import { SimulateRoutingModule } from './simulate-routing.module';
 import { SimulateComponent } from './simulate/simulate.component';
 import { PastSimulationComponent } from './past-simulation/past-simulation.component';
 import { BrowseComponent } from './browse/browse.component';
+import { DetailsRouteRendererComponent } from './browse/details-route-renderer.component';
 import { DataComponent } from './data/data.component';
 import { MaterialModule } from '../app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
@@ -17,6 +18,7 @@ import { AgGridModule } from 'ag-grid-angular';
     NewSimulationComponent,
     PastSimulationComponent,
     BrowseComponent,
+    DetailsRouteRendererComponent,
     DataComponent,
   ],
   imports: [
@@ -27,5 +29,8 @@ import { AgGridModule } from 'ag-grid-angular';
     FormsModule,
     AgGridModule.withComponents([]),
   ],
+  entryComponents: [
+    DetailsRouteRendererComponent,
+  ]
 })
 export class SimulateModule {}

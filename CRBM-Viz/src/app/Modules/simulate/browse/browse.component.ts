@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DetailsRouteRendererComponent } from './details-route-renderer.component';
 import 'ag-grid-enterprise';
 
 @Component({
@@ -6,17 +7,22 @@ import 'ag-grid-enterprise';
   styleUrls: ['./browse.component.sass'],
 })
 export class BrowseComponent implements OnInit {
-  defaultColDef;
-  columnDefs;
-  sideBar;
-  statusBar;
-  rowData;
+  private frameworkComponents;
+  private defaultColDef;
+  private columnDefs;
+  private sideBar;
+  private statusBar;
+  private rowData;
 
   private gridApi;
 
   constructor() {}
 
   ngOnInit() {
+    this.frameworkComponents = {
+      detailsRouteRendererComponent: DetailsRouteRendererComponent,
+    }
+
     this.defaultColDef = {
         filter: 'agTextColumnFilter',
         sortable: true,
@@ -27,48 +33,52 @@ export class BrowseComponent implements OnInit {
       {
         headerName: 'Id',
         field: 'id',
-        pinned: 'left',
+        cellRenderer: 'detailsRouteRendererComponent',
+        minWidth: 52,
+        width: 60,
+        maxWidth: 70,
+        suppressSizeToFit: true,
       },
       {
         headerName: 'Name',
         field: 'name',
-        pinned: 'left',
       },
 
       {
         headerName: 'Model',
         children: [
           {
-            headerName: 'Id', 
-            field: 'model.id', 
-            columnGroupShow: 'closed',
+            headerName: 'Id',
+            field: 'model.id',
+            hide: true,
           },
           {
-            headerName: 'Name', 
+            headerName: 'Name',
             field: 'model.name',
           },
           {
-            headerName: 'Taxon', 
-            field: 'model.taxon.name', 
+            headerName: 'Taxon',
+            field: 'model.taxon.name',
             filter: 'agSetColumnFilter',
           },
           {
-            headerName: 'Format', 
-            field: 'model.format.name', 
-            filter: 'agSetColumnFilter', 
-            columnGroupShow: 'closed',
+            headerName: 'Format',
+            field: 'model.format',
+            valueGetter: modelFormatGetter,
+            hide: true,
+            filter: 'agSetColumnFilter',
           },
           {
-            headerName: 'Author', 
-            field: 'model.author', 
-            valueFormatter: authorFormatter,
+            headerName: 'Author',
+            field: 'model.author',
+            valueGetter: modelAuthorGetter,
           },
           {
-            headerName: 'Year', 
-            field: 'model.date', 
-            valueFormatter: yearFormatter, 
-            filter: 'agDateColumnFilter', 
-            columnGroupShow: 'closed',
+            headerName: 'Year',
+            field: 'model.date',
+            valueGetter: modelYearGetter,
+            hide: true,
+            filter: 'agNumberColumnFilter',
           },
         ],
         marryChildren: true,
@@ -76,37 +86,38 @@ export class BrowseComponent implements OnInit {
       {
         headerName: 'Length (s)',
         field: 'length',
+        hide: true,
+        valueFormatter: lengthFormatter,
         filter: 'agNumberColumnFilter',
       },
 
       {
         headerName: 'Format',
-        children: [
-            {headerName: 'Name', field: 'format.name', filter: 'agSetColumnFilter', pinned: 'right'},
-            {headerName: 'Version', field: 'format.version', filter: 'agSetColumnFilter', pinned: 'right', columnGroupShow: 'closed'},
-        ],
-        marryChildren: true,
+        field: 'format',
+        valueGetter: formatGetter,
+        hide: true,
+        filter: 'agSetColumnFilter',
       },
       {
         headerName: 'Simulator',
-        children: [
-            {headerName: 'Name', field: 'simulator.name', filter: 'agSetColumnFilter', pinned: 'right'},
-            {headerName: 'Version', field: 'simulator.version', filter: 'agSetColumnFilter', pinned: 'right', columnGroupShow: 'closed'},
-        ],
-        marryChildren: true,
+        field: 'simulator',
+        valueGetter: simulatorGetter,
+        hide: true,
+        filter: 'agSetColumnFilter',
       },
       {
         headerName: 'Author',
         field: 'author',
-        valueFormatter: authorFormatter,
-        pinned: 'right',
+        valueGetter: authorGetter,
+        hide: true,
       },
       {
         headerName: 'Date',
         headerTooltip: 'Date when the simulation was requested',
         field: 'date',
+        valueGetter: dateGetter,
         valueFormatter: dateFormatter,
-        pinned: 'right',
+        hide: true,
         filter: 'agDateColumnFilter',
       },
     ];
@@ -132,9 +143,9 @@ export class BrowseComponent implements OnInit {
             suppressPivots: true,
             suppressPivotMode: true,
             suppressSideButtons: false,
-            suppressColumnFilter: false,
-            suppressColumnSelectAll: false,
-            suppressColumnExpandAll: false,
+            suppressColumnFilter: true,
+            suppressColumnSelectAll: true,
+            suppressColumnExpandAll: true,
           }
         }
       ],
@@ -145,6 +156,7 @@ export class BrowseComponent implements OnInit {
     this.statusBar = {
         statusPanels: [
             {
+              key: 'counts',
               statusPanel: 'agTotalAndFilteredRowCountComponent',
               align: 'left',
             }
@@ -241,43 +253,136 @@ export class BrowseComponent implements OnInit {
       ];
   }
 
-  onGridReady(params) {
-    this.gridApi = params.api;
+  onGridReady(event) {
+    this.gridApi = event.api;
 
-    // resize columns
+    const statusPanel = this.gridApi.getStatusPanel('counts');
+    statusPanel.eLabel.innerHTML = 'Simulations';
+    statusPanel.textContent = 'Simulations';
+
+    // size columns
     this.gridApi.sizeColumnsToFit();
+  }
 
-    // tslint:disable-next-line:only-arrow-functions
-    window.addEventListener('resize', function() {
-      // tslint:disable-next-line:only-arrow-functions
-      setTimeout(function() {
-        this.gridApi.sizeColumnsToFit();
-      });
-    });
-
-    // close tool panel
-    // this.gridApi.closeToolPanel();
+  onFirstDataRendered(event) {
+    this.gridApi.sizeColumnsToFit();
   }
 }
 
-function authorFormatter(params) {
-  const author = params.value;
-  let name:string = author.firstName;
+function authorGetter(params) {
+  const author = params.data.author;
+  let value:string = author.firstName;
   if (author.lastName) {
-    name += ' ' + author.lastName
+    value += ' ' + author.lastName;
   }
-  return name;
+  return value;
 }
 
+function modelAuthorGetter(params) {
+  const author = params.data.model.author;
+  let value:string = author.firstName;
+  if (author.lastName) {
+    value += ' ' + author.lastName;
+  }
+  return value;
+}
+
+function modelFormatGetter(params) {
+  const format = params.data.model.format;
+  let value:string = format.name;
+  if (format.version) {
+    value += ' ' + format.version;
+  }
+  return value;
+}
+
+function formatGetter(params) {
+  const format = params.data.format;
+  let value:string = format.name;
+  if (format.version) {
+    value += ' ' + format.version;
+  }
+  return value;
+}
+
+function simulatorGetter(params) {
+  const format = params.data.simulator;
+  let value:string = format.name;
+  if (format.version) {
+    value += ' ' + format.version;
+  }
+  return value;
+}
+
+function dateGetter(params) {
+  const date:Date = new Date(Date.parse(params.data.date));
+  return date;
+}
 function dateFormatter(params) {
-  const date:Date = new Date(Date.parse(params.value));
+  const date:Date = params.value;
   return (date.getFullYear()
      + '-' + String(date.getMonth() + 1).padStart(2, '0')
      + '-' + String(date.getDate()).padStart(2, '0'));
 }
 
-function yearFormatter(params) {
-  const date:Date = new Date(Date.parse(params.value));
+function modelYearGetter(params) {
+  const date:Date = new Date(Date.parse(params.data.model.date));
   return date.getFullYear();
+}
+
+function lengthFormatter(params) {
+  const secs:number = params.value;
+  let numerator:number;
+  let units:string;
+
+  if (secs >= 1) {
+    if (secs >= 60) {
+      if (secs >= 60 * 60) {
+        if (secs >= 60 * 60 * 24) {
+          if (secs >= 60 * 60 * 24 * 365) {
+            numerator = 60 * 60 * 24 * 365;
+            units = 'y';
+          } else {
+            numerator = 60 * 60 * 24;
+            units = 'd';
+          }
+        } else {
+          numerator = 60 * 60;
+          units = 'h';
+        }
+      } else {
+        numerator = 60;
+        units = 'm';
+      }
+    } else {
+      numerator = 1;
+      units = 's';
+    }
+  } else if (secs >= 1e-3) {
+    numerator = 1e-3;
+    units = 'ms';
+  } else if (secs >= 1e-6) {
+    numerator = 1e-6;
+    units = 'us';
+  } else if (secs >= 1e-9) {
+    numerator = 1e-9;
+    units = 'ns';
+  } else if (secs >= 1e-12) {
+    numerator = 1e-12;
+    units = 'ps';
+  } else if (secs >= 1e-15) {
+    numerator = 1e-15;
+    units = 'fs';
+  } else if (secs >= 1e-18) {
+    numerator = 1e-18;
+    units = 'as';
+  } else if (secs >= 1e-21) {
+    numerator = 1e-21;
+    units = 'zs';
+  } else {
+    numerator = 1e-24;
+    units = 'ys';
+  }
+  return Math.round(secs / numerator) + ' ' + units;
 }
 

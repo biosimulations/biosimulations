@@ -167,6 +167,10 @@ p:last-child {
     background: #f9f9f9;
 }
 
+.ag-theme-balham .ag-side-bar {
+    background: #fefbf7;
+}
+
 .ag-theme-balham .ag-side-bar .ag-side-buttons {
     background: #fff3e0;
 }
@@ -228,9 +232,10 @@ p:last-child {
         border-right-color: rgba(189, 195, 199, 0);
     }
 
-    .ag-header-row:first-child .ag-header-group-cell {
+    .ag-header-row:first-child .ag-header-group-cell.ag-header-group-cell-with-group {
         border-top: 1px solid #BDC3C7;
-        border-right: 1px solid #BDC3C7;
+        border-left: 1px solid #BDC3C7;
+        border-right: 1px solid #BDC3C7;        
     }
 
     .ag-header-row:first-child .ag-header-group-cell.ag-header-group-cell-no-group {
@@ -238,37 +243,29 @@ p:last-child {
         border-right: none;
     }
 
-    .ag-pinned-left-header
-    .ag-header-row:last-child
-    .ag-header-cell:first-child {
-        border-left: 1px solid #BDC3C7;
-    }
-
-    .ag-pinned-right-header
-    .ag-header-row:last-child
-    .ag-header-cell:last-child {
-        border-right: 1px solid #BDC3C7;
-    }
-
-    .ag-pinned-right-header {
-        border-left: none;
-    }
-
-    .ag-pinned-right-header
-    .ag-header-row:first-child
-    .ag-header-cell:first-child {
-        border-left: 1px solid #BDC3C7;
-    }
-
-    .ag-pinned-right-header
-    .ag-header-row:last-child
-    .ag-header-cell:last-child::after {
-        display: none;
+    .ag-header-row:last-child {
+        .ag-header-cell:first-child {
+            border-left: 1px solid #BDC3C7;
+        }
+        .ag-header-cell:last-child {
+            border-right: 1px solid #BDC3C7;
+        }
     }
 
     .ag-header-group-cell, .ag-cell {
         padding-left: 4px;
         padding-right: 4px;
+    }
+
+    .ag-tool-panel-wrapper {
+        width: 140px;
+        .ag-column-select-panel {
+            border-bottom: none;
+        }
+    }
+
+    .ag-column-select-panel .ag-primary-cols-list-panel {
+        border-top: none;
     }
 
     .ag-side-bar {
@@ -280,7 +277,7 @@ p:last-child {
         border: 1px solid #BDC3C7;
         padding-left: 0.25rem;
         margin-top: 0.5rem;
-        margin-left: calc(20px + 200px + 3px + 0.5rem);
+        margin-left: calc(20px + 140px + 3px + 0.5rem);
     }
 
     .ag-name-value {
