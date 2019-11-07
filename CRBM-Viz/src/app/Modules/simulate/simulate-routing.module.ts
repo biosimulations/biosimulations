@@ -8,7 +8,7 @@ import { DataComponent } from './data/data.component';
 const routes: Routes = [
   { path: '', component: BrowseComponent },  
   { path: 'new', component: SimulateComponent },  
-  { path: 'status', component: SimulateComponent }, // switch to status component
+  { path: 'status', component: SimulateComponent }, // TODO switch to status component
   { path: ':id', component: DataComponent },
 ];
 
