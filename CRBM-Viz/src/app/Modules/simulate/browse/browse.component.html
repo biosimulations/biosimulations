@@ -1,20 +1,18 @@
 <div class="full-width-container">
-  <h1>Browse simulations</h1>
+  <h1>Simulations</h1>
   <div class="content-container">
-
-    <ul>
-      <li><a [routerLink]="['001']">001</a></li>
-      <li><a [routerLink]="['002']">002</a></li>
-      <li><a [routerLink]="['003']">003</a></li>
-    </ul>
-    <!--
-    <ag-grid-angular  
-      class="ag-theme-balham"
-      [rowData]="rowData"
+    <ag-grid-angular
+      class="ag-theme-balham ag-grid-faceted-toolbar"
+      [defaultColDef]="defaultColDef"
       [columnDefs]="columnDefs"
+      [sideBar]="sideBar"
+      [statusBar]="statusBar"
+      [rowData]="rowData"
       (gridReady)="onGridReady($event)"
+      [suppressHorizontalScroll]="true"
+      [suppressCellSelection]="true"
+      [suppressContextMenu]="true"
     >
     </ag-grid-angular>
-    -->
   </div>
 </div>

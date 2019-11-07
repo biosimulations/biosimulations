@@ -9,6 +9,7 @@ import { DataComponent } from './data/data.component';
 import { MaterialModule } from '../app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { NewSimulationComponent } from './new-simulation/new-simulation.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NewSimulationComponent } from './new-simulation/new-simulation.componen
     MaterialModule,
     SharedModule,
     FormsModule,
+    AgGridModule.withComponents([]),
   ],
 })
 export class SimulateModule {}
