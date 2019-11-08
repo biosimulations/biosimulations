@@ -10,10 +10,13 @@
       [statusBar]="statusBar"
       [rowData]="rowData"
       (gridReady)="onGridReady($event)"
-      (onFirstDataRendered)="onFirstDataRendered($event)"
-      [suppressHorizontalScroll]="false"
+      (firstDataRendered)="onFirstDataRendered($event)"
+      (columnVisible)="onColumnVisible($event)"
+      (gridSizeChanged)="onGridSizeChanged($event)"
+      [suppressHorizontalScroll]="true"
       [suppressCellSelection]="true"
       [suppressContextMenu]="true"
+      [suppressAutoSize]="true"
     >
     </ag-grid-angular>
   </div>

@@ -27,6 +27,7 @@ export class BrowseComponent implements OnInit {
         filter: 'agTextColumnFilter',
         sortable: true,
         resizable: true,
+        suppressMenu: true,
     };
 
     this.columnDefs = [
@@ -43,82 +44,75 @@ export class BrowseComponent implements OnInit {
         headerName: 'Name',
         field: 'name',
       },
-
       {
         headerName: 'Model',
-        children: [
-          {
-            headerName: 'Id',
-            field: 'model.id',
-            hide: true,
-          },
-          {
-            headerName: 'Name',
-            field: 'model.name',
-          },
-          {
-            headerName: 'Taxon',
-            field: 'model.taxon.name',
-            filter: 'agSetColumnFilter',
-          },
-          {
-            headerName: 'Format',
-            field: 'model.format',
-            valueGetter: modelFormatGetter,
-            hide: true,
-            filter: 'agSetColumnFilter',
-          },
-          {
-            headerName: 'Author',
-            field: 'model.author',
-            valueGetter: modelAuthorGetter,
-          },
-          {
-            headerName: 'Year',
-            field: 'model.date',
-            valueGetter: modelYearGetter,
-            hide: true,
-            filter: 'agNumberColumnFilter',
-          },
-        ],
-        marryChildren: true,
+        field: 'model.name',
+      },
+
+      {
+        headerName: 'Taxon',
+        field: 'model.taxon.name',
+        filter: 'agSetColumnFilter',
+        hide: true,
       },
       {
         headerName: 'Length (s)',
-        field: 'length',
-        hide: true,
+        field: 'length',        
         valueFormatter: lengthFormatter,
         filter: 'agNumberColumnFilter',
+        hide: true,
       },
-
+      
       {
         headerName: 'Format',
         field: 'format',
-        valueGetter: formatGetter,
-        hide: true,
+        valueGetter: formatGetter,        
         filter: 'agSetColumnFilter',
+        hide: true,
       },
       {
         headerName: 'Simulator',
         field: 'simulator',
-        valueGetter: simulatorGetter,
-        hide: true,
+        valueGetter: simulatorGetter,        
         filter: 'agSetColumnFilter',
+        hide: true,
       },
+      {
+        headerName: 'Model format',
+        field: 'model.format',
+        valueGetter: modelFormatGetter,        
+        filter: 'agSetColumnFilter',
+        hide: true,
+      },
+
       {
         headerName: 'Author',
         field: 'author',
         valueGetter: authorGetter,
-        hide: true,
+        hide: false,
       },
       {
+        headerName: 'Model author',
+        field: 'model.author',        
+        valueGetter: modelAuthorGetter,
+        hide: true,
+      },
+
+      {
         headerName: 'Date',
-        headerTooltip: 'Date when the simulation was requested',
         field: 'date',
         valueGetter: dateGetter,
         valueFormatter: dateFormatter,
-        hide: true,
+        filter: 'ageDateColumnFilter',
+        hide: false,
+      },
+      {
+        headerName: 'Model date',
+        field: 'model.date',
+        valueGetter: modelDateGetter,
+        valueFormatter: dateFormatter,      
         filter: 'agDateColumnFilter',
+        hide: true,
       },
     ];
 
@@ -259,12 +253,20 @@ export class BrowseComponent implements OnInit {
     const statusPanel = this.gridApi.getStatusPanel('counts');
     statusPanel.eLabel.innerHTML = 'Simulations';
     statusPanel.textContent = 'Simulations';
-
-    // size columns
-    this.gridApi.sizeColumnsToFit();
   }
 
   onFirstDataRendered(event) {
+    this.gridApi = event.api;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  onColumnVisible(event) {
+    this.gridApi = event.api;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  onGridSizeChanged(event) {
+    this.gridApi = event.api;
     this.gridApi.sizeColumnsToFit();
   }
 }
@@ -318,6 +320,7 @@ function dateGetter(params) {
   const date:Date = new Date(Date.parse(params.data.date));
   return date;
 }
+
 function dateFormatter(params) {
   const date:Date = params.value;
   return (date.getFullYear()
@@ -325,9 +328,9 @@ function dateFormatter(params) {
      + '-' + String(date.getDate()).padStart(2, '0'));
 }
 
-function modelYearGetter(params) {
+function modelDateGetter(params) {
   const date:Date = new Date(Date.parse(params.data.model.date));
-  return date.getFullYear();
+  return date;
 }
 
 function lengthFormatter(params) {
