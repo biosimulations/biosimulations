@@ -7,12 +7,12 @@ import 'ag-grid-enterprise';
   styleUrls: ['./browse.component.sass'],
 })
 export class BrowseComponent implements OnInit {
-  private frameworkComponents;
-  private defaultColDef;
-  private columnDefs;
-  private sideBar;
-  private statusBar;
-  private rowData;
+  frameworkComponents;
+  defaultColDef;
+  columnDefs;
+  sideBar;
+  statusBar;
+  rowData;
 
   private gridApi;
 

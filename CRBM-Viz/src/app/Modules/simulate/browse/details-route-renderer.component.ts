@@ -6,7 +6,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   styleUrls: ['./details-route-renderer.component.sass'],
 })
 export class DetailsRouteRendererComponent implements ICellRendererAngularComp {
-  private id;
+  id;
   
   agInit(params: any): void {
     this.id = params.data.id;
