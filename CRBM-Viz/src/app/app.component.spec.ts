@@ -1,6 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { AppComponent } from './app.component';
+import { DetailsRouteRendererComponent } from './Modules/simulate/browse/details-route-renderer.component';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthService } from './Shared/Services/auth0.service';
@@ -9,9 +11,14 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       providers: [AuthService],
-      declarations: [AppComponent],
+      declarations: [AppComponent, DetailsRouteRendererComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
+    TestBed.overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [DetailsRouteRendererComponent],
+      },
+    });
   }));
 
   it('should create the app', () => {
