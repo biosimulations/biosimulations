@@ -11,7 +11,7 @@ The front end for the [Center for Reproducible Biomedical Modeling's](https://re
 
 [![codecov](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz/branch/master/graph/badge.svg)](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz)
 [![CodeFactor](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz/badge)](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz)
-[![GitHub issues](https://img.shields.io/github/issues/reproducible-biomedical-modeling/CRBM-Viz?logo=GitHub)](https://github.com/reproducible-biomedical-modeling/CRBMAPI/issues)
+[![GitHub issues](https://img.shields.io/github/issues/reproducible-biomedical-modeling/CRBM-Viz?logo=GitHub)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/issues)
 [![Documentation Coverage](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/images/coverage-badge-documentation.svg)](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/)
 [![License](https://img.shields.io/github/license/reproducible-biomedical-modeling/CRBM-Viz.svg)](LICENSE)
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git.svg?type=shield)](https://app.fossa.com/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git?ref=badge_shield)
