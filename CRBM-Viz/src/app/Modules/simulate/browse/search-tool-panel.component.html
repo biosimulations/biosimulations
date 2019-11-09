@@ -1,0 +1,19 @@
+<form>
+    <input 
+        matInput
+        #query
+        type="text"
+        placeholder="Search query"
+        />
+    <button 
+        mat-icon-button
+        type="submit"
+        disableRipple="true"
+        (click)="search(query)"
+    >
+        <mat-icon
+            aria-hidden="false" 
+            aria-label="Search icon" 
+        >search</mat-icon>
+    </button>
+</form>

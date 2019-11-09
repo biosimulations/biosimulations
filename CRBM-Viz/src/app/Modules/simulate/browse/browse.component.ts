@@ -1,26 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailsRouteRendererComponent } from './details-route-renderer.component';
+import { SearchToolPanelComponent } from './search-tool-panel.component';
 import 'ag-grid-enterprise';
+import {ElementRef, Renderer2, ViewChild} from '@angular/core';
 
 @Component({
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.sass'],
 })
 export class BrowseComponent implements OnInit {
+  icons;
   frameworkComponents;
   defaultColDef;
   columnDefs;
   sideBar;
   statusBar;
   rowData;
+  @ViewChild('searchGrid', { read: ElementRef, static: true }) searchGrid: ElementRef;
 
   private gridApi;
 
-  constructor() {}
+  constructor(private rd: Renderer2) {}
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.icons = {
+      search: `<mat-icon
+        aria-hidden="false"
+        aria-label="Search icon"
+        class="icon mat-icon material-icons search-tool-panel-icon"
+        role="img"
+        >search</mat-icon>`,
+    };
+
     this.frameworkComponents = {
-      detailsRouteRendererComponent: DetailsRouteRendererComponent,
+      detailsRouteRenderer: DetailsRouteRendererComponent,
+      searchToolPanel: SearchToolPanelComponent,
     }
 
     this.defaultColDef = {
@@ -34,7 +48,7 @@ export class BrowseComponent implements OnInit {
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: 'detailsRouteRendererComponent',
+        cellRenderer: 'detailsRouteRenderer',
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -49,6 +63,24 @@ export class BrowseComponent implements OnInit {
         field: 'model.name',
       },
 
+      {
+        headerName: 'Tags',        
+        field: 'tags',
+        filter: 'agSetColumnFilter',
+        valueGetter: tagsGetter,
+        filterValueGetter: tagsGetter,
+        valueFormatter: setFormatter,
+        hide: true,
+      },
+      {
+        headerName: 'Model tags',
+        field: 'model.tags',
+        filter: 'agSetColumnFilter',
+        valueGetter: modelTagsGetter,
+        filterValueGetter: modelTagsGetter,
+        valueFormatter: setFormatter,
+        hide: true,
+      },
       {
         headerName: 'Taxon',
         field: 'model.taxon.name',
@@ -99,12 +131,27 @@ export class BrowseComponent implements OnInit {
       },
 
       {
+        headerName: 'Access',
+        field: 'access',
+        filter: 'agSetColumnFilter', // public, private
+        valueFormatter: upperCaseFormatter,
+        hide: true,
+      },
+      {
+        headerName: 'Status',
+        field: 'status',
+        filter: 'agSetColumnFilter', // queued, running, finished, failed
+        valueFormatter: upperCaseFormatter,
+        hide: true,
+      },
+
+      {
         headerName: 'Date',
         field: 'date',
         valueGetter: dateGetter,
         valueFormatter: dateFormatter,
-        filter: 'ageDateColumnFilter',
-        hide: false,
+        filter: 'agDateColumnFilter',
+        hide: true,
       },
       {
         headerName: 'Model date',
@@ -116,8 +163,18 @@ export class BrowseComponent implements OnInit {
       },
     ];
 
+    // TODO: implement custom tool panel that displays number of matches to each facet
+    // TODO: implement custom tool panel with inverted filtering behavior (facet selection is positive rather than negative)
+    // TODO: connect values of filters to database
     this.sideBar = {
       toolPanels: [
+        {
+          id: 'search',
+          labelDefault: 'Search',
+          labelKey: 'searchToolPanel',
+          iconKey: 'search',
+          toolPanel: 'searchToolPanel',
+        },
         {
           id: 'filters',
           labelDefault: 'Filters',
@@ -143,7 +200,7 @@ export class BrowseComponent implements OnInit {
           }
         }
       ],
-      defaultToolPanel: 'filters',
+      defaultToolPanel: 'search',
       hiddenByDefault: false,
     };
 
@@ -184,13 +241,15 @@ export class BrowseComponent implements OnInit {
           simulator: {name: 'VCell', version: '7.1'},
 
           author: {id: 1, firstName: 'Yara', lastName: 'Skaf'},
+          access: 'public',
+          status: 'finished',
           date: '2019-11-06 00:00:00',
         },
 
         {
           id: '003',
           name: 'Third simulation',
-          tags: ['wild type', 'normal'],
+          tags: ['disease', 'cancer'],
 
           model: {
             id: '003',
@@ -207,19 +266,21 @@ export class BrowseComponent implements OnInit {
             date: '1991-10-15 00:00:00',
           },
 
-          format: {name: 'SED-ML', version: 'L1V3'},
+          format: {name: 'SED-ML', version: 'L1V2'},
           length: 10.,
 
           simulator: {name: 'VCell', version: '7.1'},
 
           author: {id: 1, firstName: 'Yara', lastName: 'Skaf'},
+          access: 'private',
+          status: 'queued',
           date: '2019-11-06 00:00:00',
         },
 
         {
           id: '006',
           name: 'Sixth simulation',
-          tags: ['wild type', 'normal'],
+          tags: ['disease', 'diabetes'],
 
           model: {
             id: '006',
@@ -236,12 +297,14 @@ export class BrowseComponent implements OnInit {
             date: '1991-08-15 00:00:00',
           },
 
-          format: {name: 'SED-ML', version: 'L1V3'},
+          format: {name: 'SED-ML', version: 'L1V1'},
           length: 10.,
 
           simulator: {name: 'VCell', version: '7.1'},
 
           author: {id: 1, firstName: 'Bilal', lastName: 'Shaikh'},
+          access: 'public',
+          status: 'failed',
           date: '2019-11-06 00:00:00',
         },
       ];
@@ -268,6 +331,32 @@ export class BrowseComponent implements OnInit {
   onGridSizeChanged(event) {
     this.gridApi = event.api;
     this.gridApi.sizeColumnsToFit();
+  }
+
+  onToolPanelVisibleChanged(event) {
+    this.gridApi = event.api;
+    if (this.gridApi.isToolPanelShowing()) {
+      this.searchGrid.nativeElement.classList.add('tool-panel-open');
+    } else {
+      this.searchGrid.nativeElement.classList.remove('tool-panel-open');
+    }
+  }
+}
+
+function tagsGetter(params) {  
+  return params.data.tags;
+}
+
+function modelTagsGetter(params) {  
+  return params.data.model.tags;
+}
+
+function setFormatter(params) {  
+  const value = params.value;
+  if (value instanceof Array) {
+    return value.join(', ');
+  } else {
+    return value;
   }
 }
 
@@ -316,8 +405,18 @@ function simulatorGetter(params) {
   return value;
 }
 
+function upperCaseFormatter(params) {
+  const value:string = params.value;
+  return value.substring(0, 1).toUpperCase() + value.substring(1);
+}
+
 function dateGetter(params) {
   const date:Date = new Date(Date.parse(params.data.date));
+  return date;
+}
+
+function modelDateGetter(params) {
+  const date:Date = new Date(Date.parse(params.data.model.date));
   return date;
 }
 
@@ -326,11 +425,6 @@ function dateFormatter(params) {
   return (date.getFullYear()
      + '-' + String(date.getMonth() + 1).padStart(2, '0')
      + '-' + String(date.getDate()).padStart(2, '0'));
-}
-
-function modelDateGetter(params) {
-  const date:Date = new Date(Date.parse(params.data.model.date));
-  return date;
 }
 
 function lengthFormatter(params) {
