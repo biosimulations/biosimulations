@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { DetailsRouteRendererComponent } from './details-route-renderer.component';
 import { SearchToolPanelComponent } from './search-tool-panel.component';
 import 'ag-grid-enterprise';
-import {ElementRef, Renderer2, ViewChild} from '@angular/core';
+import { ElementRef, ViewChild } from '@angular/core';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { SimulationStatus } from 'src/app/Shared/Enums/simulation-status';
+import { Format } from 'src/app/Shared/Models/format';
+import { Simulation } from 'src/app/Shared/Models/simulation';
+import { User } from 'src/app/Shared/Models/user';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -20,7 +26,7 @@ export class BrowseComponent implements OnInit {
 
   private gridApi;
 
-  constructor(private rd: Renderer2) {}
+  constructor(private simulationService: SimulationService) {}
 
   ngOnInit() {    
     this.icons = {
@@ -133,22 +139,21 @@ export class BrowseComponent implements OnInit {
       {
         headerName: 'Access',
         field: 'access',
-        filter: 'agSetColumnFilter', // public, private
-        valueFormatter: upperCaseFormatter,
+        filter: 'agSetColumnFilter',
+        valueFormatter: accessFormatter,
         hide: true,
       },
       {
         headerName: 'Status',
         field: 'status',
-        filter: 'agSetColumnFilter', // queued, running, finished, failed
-        valueFormatter: upperCaseFormatter,
+        filter: 'agSetColumnFilter',
+        valueFormatter: statusFormatter,
         hide: true,
       },
 
       {
         headerName: 'Date',
         field: 'date',
-        valueGetter: dateGetter,
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         hide: true,
@@ -156,7 +161,6 @@ export class BrowseComponent implements OnInit {
       {
         headerName: 'Model date',
         field: 'model.date',
-        valueGetter: modelDateGetter,
         valueFormatter: dateFormatter,      
         filter: 'agDateColumnFilter',
         hide: true,
@@ -214,100 +218,7 @@ export class BrowseComponent implements OnInit {
         ]
     };
 
-    this.rowData = [
-        {
-          id: '001',
-          name: 'First simulation',
-          tags: ['wild type', 'normal'],
-
-          model: {
-            id: '001',
-            name: 'EPSP ACh event',
-            tags: ['neurotransmission', 'signaling'],
-            taxon: {id: 7787, name: 'Tetronarce californica'},
-            format: {name: 'SBML', version: 'L2V4'},
-            identifiers: [
-              {namespace: 'biomodels', id: 'BIOMD0000000001'},
-              {namespace: 'doi', id: '10.1007/s004220050302'},
-              {namespace: 'pubmed', id: 8983160},
-            ],
-            author: {id: 4, firstName: 'S', lastName: 'Edelstein'},
-            date: '1996-11-01 00:00:00',
-          },
-
-          format: {name: 'SED-ML', version: 'L1V3'},
-          length: 10.,
-
-          simulator: {name: 'VCell', version: '7.1'},
-
-          author: {id: 1, firstName: 'Yara', lastName: 'Skaf'},
-          access: 'public',
-          status: 'finished',
-          date: '2019-11-06 00:00:00',
-        },
-
-        {
-          id: '003',
-          name: 'Third simulation',
-          tags: ['disease', 'cancer'],
-
-          model: {
-            id: '003',
-            name: 'Min Mit Oscil',
-            tags: ['cell cycle', 'mitosis'],
-            taxon: {id: 8292, name: 'Xenopus laevis'},
-            format: {name: 'SBML', version: 'L2V4'},
-            identifiers: [
-              {namespace: 'biomodels', id: 'BIOMD0000000003'},
-              {namespace: 'doi', id: '10.1073/pnas.88.20.9107'},
-              {namespace: 'pubmed', id: 1833774},
-            ],
-            author: {id: 5, firstName: 'A', lastName: 'Goldbeter'},
-            date: '1991-10-15 00:00:00',
-          },
-
-          format: {name: 'SED-ML', version: 'L1V2'},
-          length: 10.,
-
-          simulator: {name: 'VCell', version: '7.1'},
-
-          author: {id: 1, firstName: 'Yara', lastName: 'Skaf'},
-          access: 'private',
-          status: 'queued',
-          date: '2019-11-06 00:00:00',
-        },
-
-        {
-          id: '006',
-          name: 'Sixth simulation',
-          tags: ['disease', 'diabetes'],
-
-          model: {
-            id: '006',
-            name: 'Cell Cycle 6 var',
-            tags: ['cell cycle'],
-            taxon: {id: 33154, name: 'Homo sapiens'},
-            format: {name: 'SBML', version: 'L2V4'},
-            identifiers: [
-              {namespace: 'biomodels', id: 'BIOMD0000000006'},
-              {namespace: 'doi', id: '10.1186/1752-0509-4-92'},
-              {namespace: 'pubmed', id: 20587024},
-            ],
-            author: {id: 5, firstName: 'J', lastName: 'Tyson'},
-            date: '1991-08-15 00:00:00',
-          },
-
-          format: {name: 'SED-ML', version: 'L1V1'},
-          length: 10.,
-
-          simulator: {name: 'VCell', version: '7.1'},
-
-          author: {id: 1, firstName: 'Bilal', lastName: 'Shaikh'},
-          access: 'public',
-          status: 'failed',
-          date: '2019-11-06 00:00:00',
-        },
-      ];
+    this.rowData = this.simulationService.getSimulations();
   }
 
   onGridReady(event) {
@@ -340,14 +251,15 @@ export class BrowseComponent implements OnInit {
     } else {
       this.searchGrid.nativeElement.classList.remove('tool-panel-open');
     }
+    this.gridApi.sizeColumnsToFit();
   }
 }
 
-function tagsGetter(params) {  
+function tagsGetter(params): string[] {  
   return params.data.tags;
 }
 
-function modelTagsGetter(params) {  
+function modelTagsGetter(params): string[] {  
   return params.data.model.tags;
 }
 
@@ -360,126 +272,51 @@ function setFormatter(params) {
   }
 }
 
-function authorGetter(params) {
-  const author = params.data.author;
-  let value:string = author.firstName;
-  if (author.lastName) {
-    value += ' ' + author.lastName;
-  }
-  return value;
+function authorGetter(params): string {
+  const author:User = params.data.author;
+  return author.getFullName();
 }
 
-function modelAuthorGetter(params) {
-  const author = params.data.model.author;
-  let value:string = author.firstName;
-  if (author.lastName) {
-    value += ' ' + author.lastName;
-  }
-  return value;
+function modelAuthorGetter(params): string {
+  const author:User = params.data.model.author;
+  return author.getFullName();
 }
 
-function modelFormatGetter(params) {
-  const format = params.data.model.format;
-  let value:string = format.name;
-  if (format.version) {
-    value += ' ' + format.version;
-  }
-  return value;
+function modelFormatGetter(params): string {
+  const format:Format = params.data.model.format;
+  return format.getFullName();
 }
 
-function formatGetter(params) {
-  const format = params.data.format;
-  let value:string = format.name;
-  if (format.version) {
-    value += ' ' + format.version;
-  }
-  return value;
+function formatGetter(params): string {
+  const format:Format = params.data.format;
+  return format.getFullName();
 }
 
-function simulatorGetter(params) {
-  const format = params.data.simulator;
-  let value:string = format.name;
-  if (format.version) {
-    value += ' ' + format.version;
-  }
-  return value;
+function simulatorGetter(params): string {
+  const format:Format = params.data.simulator;
+  return format.getFullName();
 }
 
-function upperCaseFormatter(params) {
-  const value:string = params.value;
-  return value.substring(0, 1).toUpperCase() + value.substring(1);
+function accessFormatter(params): string {
+  const value:AccessLevel = params.value;
+  const valueStr: string = AccessLevel[value];
+  return valueStr.substring(0, 1).toUpperCase() + valueStr.substring(1);
 }
 
-function dateGetter(params) {
-  const date:Date = new Date(Date.parse(params.data.date));
-  return date;
+function statusFormatter(params): string {
+  const value:SimulationStatus = params.value;
+  const valueStr: string = SimulationStatus[value];
+  return valueStr.substring(0, 1).toUpperCase() + valueStr.substring(1);
 }
 
-function modelDateGetter(params) {
-  const date:Date = new Date(Date.parse(params.data.model.date));
-  return date;
-}
-
-function dateFormatter(params) {
+function dateFormatter(params): string {
   const date:Date = params.value;
   return (date.getFullYear()
      + '-' + String(date.getMonth() + 1).padStart(2, '0')
      + '-' + String(date.getDate()).padStart(2, '0'));
 }
 
-function lengthFormatter(params) {
+function lengthFormatter(params): string {
   const secs:number = params.value;
-  let numerator:number;
-  let units:string;
-
-  if (secs >= 1) {
-    if (secs >= 60) {
-      if (secs >= 60 * 60) {
-        if (secs >= 60 * 60 * 24) {
-          if (secs >= 60 * 60 * 24 * 365) {
-            numerator = 60 * 60 * 24 * 365;
-            units = 'y';
-          } else {
-            numerator = 60 * 60 * 24;
-            units = 'd';
-          }
-        } else {
-          numerator = 60 * 60;
-          units = 'h';
-        }
-      } else {
-        numerator = 60;
-        units = 'm';
-      }
-    } else {
-      numerator = 1;
-      units = 's';
-    }
-  } else if (secs >= 1e-3) {
-    numerator = 1e-3;
-    units = 'ms';
-  } else if (secs >= 1e-6) {
-    numerator = 1e-6;
-    units = 'us';
-  } else if (secs >= 1e-9) {
-    numerator = 1e-9;
-    units = 'ns';
-  } else if (secs >= 1e-12) {
-    numerator = 1e-12;
-    units = 'ps';
-  } else if (secs >= 1e-15) {
-    numerator = 1e-15;
-    units = 'fs';
-  } else if (secs >= 1e-18) {
-    numerator = 1e-18;
-    units = 'as';
-  } else if (secs >= 1e-21) {
-    numerator = 1e-21;
-    units = 'zs';
-  } else {
-    numerator = 1e-24;
-    units = 'ys';
-  }
-  return Math.round(secs / numerator) + ' ' + units;
+  return Simulation.getHumanReadableTime(secs);
 }
-

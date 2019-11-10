@@ -6,6 +6,8 @@ import { SearchToolPanelComponent } from './search-tool-panel.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 describe('BrowseComponent', () => {
@@ -15,8 +17,17 @@ describe('BrowseComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BrowseComponent, DetailsRouteRendererComponent, SearchToolPanelComponent],
-      imports: [AgGridModule.withComponents([SearchToolPanelComponent]), RouterTestingModule],
-      providers: [RouterTestingModule],
+      imports: [
+        AgGridModule.withComponents([SearchToolPanelComponent]),
+        RouterTestingModule,
+        MatDialogModule,
+        HttpClientModule,
+      ],
+      providers: [
+        RouterTestingModule,
+        MatDialogModule,
+        HttpClientModule,
+        ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
     TestBed.overrideModule(BrowserDynamicTestingModule, {
