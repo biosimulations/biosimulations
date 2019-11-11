@@ -49,7 +49,7 @@ export class SimulationService {
       },
       error => {
         this.alertService.openDialog(
-          'Error occured in Simulation service: ' + 
+          'Error occured in Simulation service: ' +
           JSON.stringify(error)
         );
       }
@@ -94,7 +94,7 @@ export class SimulationService {
     return data;
   }
 
-  getSimulations(): Simulation[] {
+  getSimulations(auth?): Simulation[] {
     const data: Simulation[] = [
       new Simulation(
         '001',

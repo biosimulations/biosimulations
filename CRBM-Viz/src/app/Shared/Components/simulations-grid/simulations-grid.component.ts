@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
@@ -13,6 +13,10 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./simulations-grid.component.sass'],
 })
 export class SimulationsGridComponent implements OnInit {
+  @Input() auth;
+  @Input() showAuthor = true;
+  @Input() showStatus = false;
+
   columnDefs;
   rowData;
 
@@ -96,7 +100,7 @@ export class SimulationsGridComponent implements OnInit {
         headerName: 'Author',
         field: 'author',
         valueGetter: authorGetter,
-        hide: false,
+        hide: !this.showAuthor,
       },
       {
         headerName: 'Model author',
@@ -117,7 +121,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'status',
         filter: 'agSetColumnFilter',
         valueFormatter: statusFormatter,
-        hide: true,
+        hide: !this.showStatus,
       },
 
       {
@@ -136,7 +140,7 @@ export class SimulationsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.simulationService.getSimulations();
+    this.rowData = this.simulationService.getSimulations(this.auth);
   }
 }
 

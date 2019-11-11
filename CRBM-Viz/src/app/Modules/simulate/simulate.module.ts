@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { SimulateRoutingModule } from './simulate-routing.module';
 import { SimulateComponent } from './simulate/simulate.component';
 import { PastSimulationComponent } from './past-simulation/past-simulation.component';
+import { StatusComponent } from './status/status.component';
 import { BrowseComponent } from './browse/browse.component';
 import { DataComponent } from './data/data.component';
 import { MaterialModule } from '../app-material.module';
@@ -17,6 +18,7 @@ import { AgGridModule } from 'ag-grid-angular';
     SimulateComponent,
     NewSimulationComponent,
     PastSimulationComponent,
+    StatusComponent,
     BrowseComponent,
     DataComponent,
   ],
