@@ -11,9 +11,9 @@ import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component
 export class GridComponent {
   @Input() rowTypePlural;
   @Input() rowData;
-  @Input() columnDefs;  
+  @Input() columnDefs;
 
-  private icons = {
+  icons = {
     search: `<mat-icon
       aria-hidden="false"
       aria-label="Search icon"
@@ -21,13 +21,13 @@ export class GridComponent {
       role="img"
       >search</mat-icon>`,
   };
- 
-  private frameworkComponents = {
+
+  frameworkComponents = {
     idRenderer: IdRendererGridComponent,
     searchToolPanel: SearchToolPanelGridComponent,
   }
- 
-  private defaultColDef = {
+
+  defaultColDef = {
       filter: 'agTextColumnFilter',
       sortable: true,
       resizable: false,
@@ -37,7 +37,7 @@ export class GridComponent {
   // TODO: implement custom tool panel that displays number of matches to each facet
   // TODO: implement custom tool panel with inverted filtering behavior (facet selection is positive rather than negative)
   // TODO: connect values of filters to database
-  private sideBar = {
+  sideBar = {
     toolPanels: [
       {
         id: 'search',
@@ -78,8 +78,8 @@ export class GridComponent {
     defaultToolPanel: 'search',
     hiddenByDefault: false,
   };
- 
-  private statusBar = {
+
+  statusBar = {
       statusPanels: [
           {
             key: 'counts',
@@ -89,8 +89,8 @@ export class GridComponent {
       ]
   };
 
-  private isToolPanelOpen;
- 
+  isToolPanelOpen;
+
   constructor() {}
 
   onGridReady(event) {

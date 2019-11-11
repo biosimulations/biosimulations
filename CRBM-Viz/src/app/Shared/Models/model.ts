@@ -32,4 +32,8 @@ export class Model {
     this.author = author;
     this.date = date;
   }
+
+  getRoute() {
+    return ['/model', this.id];
+  }
 }

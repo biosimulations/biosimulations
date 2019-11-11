@@ -16,9 +16,9 @@ describe('SimulationsGridComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SimulationsGridComponent, 
+        SimulationsGridComponent,
         GridComponent,
-        IdRendererGridComponent, 
+        IdRendererGridComponent,
         SearchToolPanelGridComponent,
         ],
       imports: [

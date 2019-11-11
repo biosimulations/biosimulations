@@ -20,8 +20,8 @@ export class Simulation {
   date: Date;
 
   constructor(
-    id?: string, 
-    name?: string, 
+    id?: string,
+    name?: string,
     tags?: string[],
     model?: Model,
     format?: Format,
@@ -98,5 +98,9 @@ export class Simulation {
       units = 'ys';
     }
     return Math.round(secs / numerator) + ' ' + units;
+  }
+
+  getRoute() {
+    return ['/simulate', this.id];
   }
 }

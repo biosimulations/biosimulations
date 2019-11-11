@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-// import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { SimulationStatus } from 'src/app/Shared/Enums/simulation-status';
@@ -14,17 +13,12 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./simulations-grid.component.sass'],
 })
 export class SimulationsGridComponent implements OnInit {
-  // frameworkComponents;
-  private columnDefs;
-  private rowData;
+  columnDefs;
+  rowData;
 
   constructor(private simulationService: SimulationService) {}
 
-  ngOnInit() {    
-    // this.frameworkComponents = {
-    //   idRenderer: IdRendererGridComponent,
-    // }
-
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: 'Id',
@@ -45,7 +39,7 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Tags',        
+        headerName: 'Tags',
         field: 'tags',
         filter: 'agSetColumnFilter',
         valueGetter: tagsGetter,
@@ -70,30 +64,30 @@ export class SimulationsGridComponent implements OnInit {
       },
       {
         headerName: 'Length (s)',
-        field: 'length',        
+        field: 'length',
         valueFormatter: lengthFormatter,
         filter: 'agNumberColumnFilter',
         hide: true,
       },
-      
+
       {
         headerName: 'Format',
         field: 'format',
-        valueGetter: formatGetter,        
+        valueGetter: formatGetter,
         filter: 'agSetColumnFilter',
         hide: true,
       },
       {
         headerName: 'Simulator',
         field: 'simulator',
-        valueGetter: simulatorGetter,        
+        valueGetter: simulatorGetter,
         filter: 'agSetColumnFilter',
         hide: true,
       },
       {
         headerName: 'Model format',
         field: 'model.format',
-        valueGetter: modelFormatGetter,        
+        valueGetter: modelFormatGetter,
         filter: 'agSetColumnFilter',
         hide: true,
       },
@@ -106,7 +100,7 @@ export class SimulationsGridComponent implements OnInit {
       },
       {
         headerName: 'Model author',
-        field: 'model.author',        
+        field: 'model.author',
         valueGetter: modelAuthorGetter,
         hide: true,
       },
@@ -136,7 +130,7 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Model date',
         field: 'model.date',
-        valueFormatter: dateFormatter,      
+        valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         hide: true,
       },
@@ -146,15 +140,15 @@ export class SimulationsGridComponent implements OnInit {
   }
 }
 
-function tagsGetter(params): string[] {  
+function tagsGetter(params): string[] {
   return params.data.tags;
 }
 
-function modelTagsGetter(params): string[] {  
+function modelTagsGetter(params): string[] {
   return params.data.model.tags;
 }
 
-function setFormatter(params) {  
+function setFormatter(params) {
   const value = params.value;
   if (value instanceof Array) {
     return value.join(', ');
