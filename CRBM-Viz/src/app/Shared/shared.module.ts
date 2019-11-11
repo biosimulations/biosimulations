@@ -44,6 +44,7 @@ import { CallbackComponent } from './Components/callback/callback.component';
 import { HomeComponent } from './Components/home/home.component';
 import { FourComponent } from './Components/four/four.component';
 import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
+import { GridComponent } from './Components/grid/grid.component';
 import { IdRendererGridComponent } from './Components/grid/id-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './Components/grid/search-tool-panel-grid.component';
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
@@ -63,6 +64,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
     HomeComponent,
     FourComponent,
     UnderConstructionComponent,
+    GridComponent,
     IdRendererGridComponent,
     SearchToolPanelGridComponent,
     SimulationsGridComponent,
@@ -90,6 +92,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
     HomeComponent,
     FourComponent,
     UnderConstructionComponent,
+    GridComponent,
     SimulationsGridComponent,
   ],
   entryComponents: [AlertComponent],

@@ -1,5 +1,5 @@
-@import '~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham';
-@import '~ag-grid-community/dist/styles/ag-grid.css';
+@import '~ag-grid-community/src/styles/ag-grid.scss';
+@import '~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss';
 @import 'src/theme.scss';
 
 $primary: mat-palette($theme-primary);
@@ -161,7 +161,6 @@ p:last-child {
 
     .ag-header-row:last-child {
         background: #e4f2fe;
-        border-bottom: 1px solid #BDC3C7;
     }
 
     .ag-header-group-cell.ag-header-group-cell-no-group {
@@ -185,13 +184,46 @@ p:last-child {
         padding-right: 4px;
     }
 
-    .ag-tool-panel-wrapper .ag-filter-panel .ag-filter-toolpanel-instance {
-        color: #000;
-        font-weight: normal;
+    .ag-tool-panel-wrapper {
+        .ag-filter-panel {
+            width: 100%;
+            color: #000;
+            font-weight: normal;
+
+            .ag-group-component {
+                background: none;
+
+                .ag-group-component-title-bar {
+                    background: none;
+                }
+            }
+
+            .ag-group-component-container {
+                .ag-group-item {
+                    margin: 0;
+
+                    .ag-filter-toolpanel-body .ag-filter-air {
+                        border: none;
+                    }
+
+                    .ag-filter-toolpanel-body:not(:empty) {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .ag-filter-toolpanel-body {
+        background: none;
+    }
+    .ag-filter-filter {
+        width: 100%;
     }
 }
 
-.search-grid {
+/* TODO: move style to grid component */
+.grid {
     .ag-root-wrapper-body {
         direction: rtl;
     }
@@ -205,10 +237,20 @@ p:last-child {
     }
 
     .ag-side-bar {
-        border-right-width: 1px;
-        border-left-width: 1px;
         margin-right: 1rem;
         margin-bottom: calc(-1rem - 22px - 2px);
+
+        .ag-side-buttons .ag-side-button button {
+            width: 100%;
+        }
+    }
+
+    .ag-ltr .ag-side-bar.ag-side-bar-right {
+        border-left: 1px solid #BDC3C7;
+    }
+    .ag-ltr .ag-side-bar.ag-side-bar-right .ag-tool-panel-wrapper {
+        border-right: none;
+        border-left: 1px solid #BDC3C7;
     }
 
     .ag-tool-panel-wrapper {
@@ -220,8 +262,13 @@ p:last-child {
         }
     }
 
-    .ag-column-select-panel .ag-primary-cols-list-panel {
-        border-top: none;
+    .ag-column-select-panel {
+        .ag-primary-cols-list-panel {
+            border-top: none;
+        }
+        .ag-column-drag {
+            display: none;
+        }
     }
 
     .ag-status-bar {
@@ -256,11 +303,11 @@ p:last-child {
     }
 }
 
-.search-grid.tool-panel-open .ag-status-bar {
+.grid.tool-panel-open .ag-status-bar {
     margin-left: calc(20px + 140px + 3px + 1rem);
 }
 
-.search-grid-col-groups {
+.grid-col-groups {
     .ag-header {
         background: none;
         border-left: 1px solid #BDC3C700;

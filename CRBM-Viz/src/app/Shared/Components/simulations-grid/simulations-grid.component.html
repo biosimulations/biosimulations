@@ -1,21 +1,5 @@
-<ag-grid-angular #searchGrid
-  class="ag-theme-balham search-grid"
-  [icons]="icons"
-  [frameworkComponents]="frameworkComponents"
-  [defaultColDef]="defaultColDef"
+<app-grid
+  [rowTypePlural]="'Simulations'"
   [columnDefs]="columnDefs"
-  [sideBar]="sideBar"
-  [statusBar]="statusBar"
   [rowData]="rowData"
-  (gridReady)="onGridReady($event)"
-  (firstDataRendered)="onFirstDataRendered($event)"
-  (columnVisible)="onColumnVisible($event)"
-  (gridSizeChanged)="onGridSizeChanged($event)"
-  (toolPanelVisibleChanged)="onToolPanelVisibleChanged($event)"
-  [suppressHorizontalScroll]="true"
-  [suppressCellSelection]="true"
-  [suppressContextMenu]="true"
-  [suppressAutoSize]="true"
-  [headerHeight]="40"
-  [rowHeight]="35"
-  ></ag-grid-angular>
+  ></app-grid>

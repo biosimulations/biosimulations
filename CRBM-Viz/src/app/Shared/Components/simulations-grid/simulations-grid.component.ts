@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import 'ag-grid-enterprise';
-import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
-import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
-import { ElementRef, ViewChild } from '@angular/core';
+import { GridComponent } from '../grid/grid.component';
+// import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { SimulationStatus } from 'src/app/Shared/Enums/simulation-status';
@@ -16,40 +14,16 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./simulations-grid.component.sass'],
 })
 export class SimulationsGridComponent implements OnInit {
-  icons;
-  frameworkComponents;
-  defaultColDef;
-  columnDefs;
-  sideBar;
-  statusBar;
-  rowData;
-  @ViewChild('searchGrid', { read: ElementRef, static: true }) searchGrid: ElementRef;
-
-  private gridApi;
+  // frameworkComponents;
+  private columnDefs;
+  private rowData;
 
   constructor(private simulationService: SimulationService) {}
 
   ngOnInit() {    
-    this.icons = {
-      search: `<mat-icon
-        aria-hidden="false"
-        aria-label="Search icon"
-        class="icon mat-icon material-icons search-tool-panel-grid-icon"
-        role="img"
-        >search</mat-icon>`,
-    };
-
-    this.frameworkComponents = {
-      idRenderer: IdRendererGridComponent,
-      searchToolPanel: SearchToolPanelGridComponent,
-    }
-
-    this.defaultColDef = {
-        filter: 'agTextColumnFilter',
-        sortable: true,
-        resizable: true,
-        suppressMenu: true,
-    };
+    // this.frameworkComponents = {
+    //   idRenderer: IdRendererGridComponent,
+    // }
 
     this.columnDefs = [
       {
@@ -168,91 +142,7 @@ export class SimulationsGridComponent implements OnInit {
       },
     ];
 
-    // TODO: implement custom tool panel that displays number of matches to each facet
-    // TODO: implement custom tool panel with inverted filtering behavior (facet selection is positive rather than negative)
-    // TODO: connect values of filters to database
-    this.sideBar = {
-      toolPanels: [
-        {
-          id: 'search',
-          labelDefault: 'Search',
-          labelKey: 'searchToolPanel',
-          iconKey: 'search',
-          toolPanel: 'searchToolPanel',
-        },
-        {
-          id: 'filters',
-          labelDefault: 'Filters',
-          labelKey: 'filters',
-          iconKey: 'filter',
-          toolPanel: 'agFiltersToolPanel',
-        },
-        {
-          id: 'columns',
-          labelDefault: 'Columns',
-          labelKey: 'columns',
-          iconKey: 'columns',
-          toolPanel: 'agColumnsToolPanel',
-          toolPanelParams: {
-            suppressRowGroups: true,
-            suppressValues: true,
-            suppressPivots: true,
-            suppressPivotMode: true,
-            suppressSideButtons: false,
-            suppressColumnFilter: true,
-            suppressColumnSelectAll: true,
-            suppressColumnExpandAll: true,
-          }
-        }
-      ],
-      defaultToolPanel: 'search',
-      hiddenByDefault: false,
-    };
-
-    this.statusBar = {
-        statusPanels: [
-            {
-              key: 'counts',
-              statusPanel: 'agTotalAndFilteredRowCountComponent',
-              align: 'left',
-            }
-        ]
-    };
-
     this.rowData = this.simulationService.getSimulations();
-  }
-
-  onGridReady(event) {
-    this.gridApi = event.api;
-
-    const statusPanel = this.gridApi.getStatusPanel('counts');
-    statusPanel.eLabel.innerHTML = 'Simulations';
-    statusPanel.textContent = 'Simulations';
-  }
-
-  onFirstDataRendered(event) {
-    this.gridApi = event.api;
-    this.gridApi.sizeColumnsToFit();
-  }
-
-  onColumnVisible(event) {
-    this.gridApi = event.api;
-    this.gridApi.sizeColumnsToFit();
-  }
-
-  onGridSizeChanged(event) {
-    this.gridApi = event.api;
-    this.gridApi.sizeColumnsToFit();
-  }
-
-  onToolPanelVisibleChanged(event) {
-    this.gridApi = event.api;
-    if (this.gridApi.isToolPanelShowing()) {
-      this.searchGrid.nativeElement.classList.add('tool-panel-open');
-    } else {
-      this.searchGrid.nativeElement.classList.remove('tool-panel-open');
-    }
-    this.gridApi.sizeColumnsToFit();
   }
 }
 
