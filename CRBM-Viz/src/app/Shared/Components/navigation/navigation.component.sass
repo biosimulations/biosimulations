@@ -9,7 +9,7 @@
   background: #ccc
 
   .mat-toolbar
-    background: #666    
+    background: #666
     justify-content: space-between
     padding: 0 10px
     font-weight: bold
@@ -48,7 +48,9 @@
   display: none
 
 .topbar.mat-toolbar
-  border-bottom: 1px solid mat-color($theme-primary, darker)
+  /* border-bottom: 1px solid mat-color($theme-primary, darker) */
+  box-shadow: 0px 3px 3px rgb(0, 0, 0, 0.25)
+  background-image: linear-gradient(to bottom, lighten(mat-color($theme-primary), 10%), darken(mat-color($theme-primary), 10%))
 .menubutton
   flex: 0 0 auto
   height: 100%
