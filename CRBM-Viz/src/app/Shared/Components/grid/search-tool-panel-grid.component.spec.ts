@@ -1,30 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailsRouteRendererComponent } from './details-route-renderer.component';
+import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-describe('DetailsRouteRendererComponent', () => {
-  let component: DetailsRouteRendererComponent;
-  let fixture: ComponentFixture<DetailsRouteRendererComponent>;
+describe('SearchToolPanelGridComponent', () => {
+  let component: SearchToolPanelGridComponent;
+  let fixture: ComponentFixture<SearchToolPanelGridComponent>;
   // TODO mock the data service and remove http and router
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DetailsRouteRendererComponent],
+      declarations: [SearchToolPanelGridComponent],
       imports: [RouterTestingModule],
       providers: [RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [DetailsRouteRendererComponent],
-      },
-    });
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DetailsRouteRendererComponent);
+    fixture = TestBed.createComponent(SearchToolPanelGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

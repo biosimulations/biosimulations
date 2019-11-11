@@ -1,24 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchToolPanelComponent } from './search-tool-panel.component';
+import { IdRendererGridComponent } from './id-renderer-grid.component';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe('SearchToolPanelComponent', () => {
-  let component: SearchToolPanelComponent;
-  let fixture: ComponentFixture<SearchToolPanelComponent>;
+describe('IdRendererGridComponent', () => {
+  let component: IdRendererGridComponent;
+  let fixture: ComponentFixture<IdRendererGridComponent>;
   // TODO mock the data service and remove http and router
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchToolPanelComponent],
-      imports: [RouterTestingModule],
+      declarations: [IdRendererGridComponent],
+      imports: [RouterModule, RouterTestingModule],
       providers: [RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchToolPanelComponent);
+    fixture = TestBed.createComponent(IdRendererGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

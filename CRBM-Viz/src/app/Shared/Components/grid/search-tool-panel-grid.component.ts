@@ -2,10 +2,10 @@ import {Component, ViewChild, ViewContainerRef} from '@angular/core';
 import {IToolPanel, IToolPanelParams} from 'ag-grid-community';
 
 @Component({
-    templateUrl: './search-tool-panel.component.html',
-    styleUrls: ['./search-tool-panel.component.sass'],
+    templateUrl: './search-tool-panel-grid.component.html',
+    styleUrls: ['./search-tool-panel-grid.component.sass'],
 })
-export class SearchToolPanelComponent implements IToolPanel{
+export class SearchToolPanelGridComponent implements IToolPanel{
     private gridApi;
 
     agInit(params: IToolPanelParams): void {

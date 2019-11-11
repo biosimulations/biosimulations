@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SimulateRoutingModule } from './simulate-routing.module';
 import { SimulateComponent } from './simulate/simulate.component';
 import { PastSimulationComponent } from './past-simulation/past-simulation.component';
 import { BrowseComponent } from './browse/browse.component';
-import { DetailsRouteRendererComponent } from './browse/details-route-renderer.component';
-import { SearchToolPanelComponent } from './browse/search-tool-panel.component';
 import { DataComponent } from './data/data.component';
 import { MaterialModule } from '../app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
@@ -19,8 +18,6 @@ import { AgGridModule } from 'ag-grid-angular';
     NewSimulationComponent,
     PastSimulationComponent,
     BrowseComponent,
-    DetailsRouteRendererComponent,
-    SearchToolPanelComponent,
     DataComponent,
   ],
   imports: [
@@ -29,10 +26,7 @@ import { AgGridModule } from 'ag-grid-angular';
     MaterialModule,
     SharedModule,
     FormsModule,
-    AgGridModule.withComponents([SearchToolPanelComponent]),
   ],
-  entryComponents: [
-    DetailsRouteRendererComponent,
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SimulateModule {}
