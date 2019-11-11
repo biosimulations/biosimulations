@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 import 'ag-grid-enterprise';
 import { IdRendererGridComponent } from './id-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component';
+
 
 @Component({
   selector: 'app-grid',
@@ -91,7 +92,7 @@ export class GridComponent {
 
   isToolPanelOpen;
 
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
   onGridReady(event) {
     const gridApi = event.api;
@@ -107,11 +108,13 @@ export class GridComponent {
   sizeColumnsToFit(event) {
     const gridApi = event.api;
     gridApi.sizeColumnsToFit();
+    this.defaultColDef['minWidth'] = this.el.nativeElement.getElementsByClassName('ag-root')[0].offsetWidth / this.columnDefs.length;
   }
 
   toggleToolPanel(event) {
     const gridApi = event.api;
     this.isToolPanelOpen = gridApi.isToolPanelShowing();
     gridApi.sizeColumnsToFit();
+    this.defaultColDef['minWidth'] = this.el.nativeElement.getElementsByClassName('ag-root')[0].offsetWidth / this.columnDefs.length;
   }
 }
