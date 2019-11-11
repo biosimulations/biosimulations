@@ -109,8 +109,8 @@ export class GridComponent {
     const gridApi = event.api;
     gridApi.sizeColumnsToFit();
 
-    let numActiveCols:number = 0;
-    for (let iCol:number = 0; iCol < this.columnDefs.length; iCol++) {
+    let numActiveCols = 0;
+    for (let iCol = 0; iCol < this.columnDefs.length; iCol++) {
       if (!('hide' in this.columnDefs[iCol]) || !this.columnDefs[iCol]['hide']) {
         numActiveCols++;
       }
