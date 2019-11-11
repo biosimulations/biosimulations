@@ -108,13 +108,20 @@ export class GridComponent {
   sizeColumnsToFit(event) {
     const gridApi = event.api;
     gridApi.sizeColumnsToFit();
-    this.defaultColDef['minWidth'] = this.el.nativeElement.getElementsByClassName('ag-root')[0].offsetWidth / this.columnDefs.length;
+
+    let numActiveCols:int = 0;
+    for (let iCol:int = 0; iCol < this.columnDefs.length; iCol++) {
+      if (!('hide' in this.columnDefs[iCol]) || !this.columnDefs[iCol]['hide']) {
+        numActiveCols++;
+      }
+    }
+    
+    this.defaultColDef['minWidth'] = this.el.nativeElement.getElementsByClassName('ag-root')[0].offsetWidth / numActiveCols;
   }
 
   toggleToolPanel(event) {
     const gridApi = event.api;
     this.isToolPanelOpen = gridApi.isToolPanelShowing();
-    gridApi.sizeColumnsToFit();
-    this.defaultColDef['minWidth'] = this.el.nativeElement.getElementsByClassName('ag-root')[0].offsetWidth / this.columnDefs.length;
+    this.sizeColumnsToFit(event);
   }
 }
