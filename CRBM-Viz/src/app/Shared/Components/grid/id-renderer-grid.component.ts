@@ -7,8 +7,8 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   styleUrls: ['./id-renderer-grid.component.sass'],
 })
 export class IdRendererGridComponent implements ICellRendererAngularComp {
-  private id;
-  private route;
+  id;
+  route;
 
   agInit(params: any): void {
     this.refresh(params);
