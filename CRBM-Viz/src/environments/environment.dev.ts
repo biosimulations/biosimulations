@@ -6,8 +6,8 @@ export const environment = {
         clientId: '6euIYB0EPMSNjsPEjrNZAMmpiuVCRYNB'
     },
     crbm: {
-        CRBMAPI_URL: 'http://localhost:5000',
+        CRBMAPI_URL: 'https://crbm-api.herokuapp.com',
         ALLOWED_FILE_EXTENSIONS: ['pdf', 'doc', 'ppt', 'txt', 'xlsx', 'sedx', 'sbex',
-            'cmex', 'sbox', 'neux', 'phex', 'zip', 'jpg', 'png', 'jpeg', 'raw', 'sh']
+            'cmex', 'sbox', 'neux', 'phex', 'zip', 'jpg', 'png', 'jpeg', 'raw', 'sh', 'omex', 'xml']
     }
   };
