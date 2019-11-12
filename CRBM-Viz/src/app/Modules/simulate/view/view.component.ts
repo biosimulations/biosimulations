@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Timecourse } from 'src/app/Shared/Models/timecourse';
-import { DataService } from 'src/app/Shared/Services/data.service';
+import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ActivatedRoute } from '@angular/router';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { TimeFormatHumanReadablePipe } from 'src/app/Shared/Pipes/time-format-human-readable.pipe';
 
 @Component({
-  selector: 'app-view-simulation',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.sass'],
 })
 export class ViewComponent implements OnInit {
-  timecourse: Timecourse[] = [];
   id: string;
-  columnDefs;
-  rowData;
+  simulation: Simulation;
 
   constructor(
-    private dataService: DataService,
+    private simulationService: SimulationService,
     private route: ActivatedRoute
   ) {}
 
@@ -26,21 +24,9 @@ export class ViewComponent implements OnInit {
         this.getData();
       }
     });
-    this.columnDefs = [
-      { headerName: 'Species', field: 'Species', sortable: true, filter: true },
-      {
-        headerName: 'Concentration',
-        field: 'Concentration',
-        sortable: true,
-        filter: true,
-      },
-      { headerName: 'Time', field: 'Time', sortable: true, filter: true },
-    ];
   }
 
   getData() {
-    this.dataService.getTimecourse(this.id).subscribe((res: Timecourse[]) => {
-      this.timecourse = res;
-    });
+    this.simulation = this.simulationService.getSimulation(this.id);
   }
 }

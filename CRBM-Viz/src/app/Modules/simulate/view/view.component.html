@@ -1,6 +1,6 @@
 <div class="full-width-container">
   <div class="page-toolbar">
-    <h1>Simulation :: {{ id }}</h1>
+    <h1>Simulation :: {{ simulation.id }}</h1>
     <div class="page-routes">
       <a [routerLink]="['..']">
         <mat-icon class="simulation browse" aria-hidden="false" aria-label="Browse icon"
@@ -16,10 +16,97 @@
       </a>
     </div>
   </div>
-  <div class="content-container">
-    <app-data-table
-      [columnDefs]="columnDefs"
-      [rowData]="timecourse"
-    ></app-data-table>
+  <div>
+    <div class="section">
+      <h2>Overview</h2>
+      <div class="section-content">
+        <div><b>Id: </b> {{ simulation.id }}</div>
+        <div><b>Name: </b> {{ simulation.name }}</div>
+        <div><b>Tags: </b> 
+          <span *ngFor="let tag of simulation.tags; let i = index">{{ i > 0 ? ', ' : ''}}{{ tag }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" *ngIf="simulation.model as model">
+      <h2>Model</h2>
+      <div class="section-content">
+        <div><b>Id: </b> 
+          <a [routerLink]="['/model', model.id]"
+          >{{ model.id }}</a>
+        </div>
+        <div><b>Name: </b> {{ model.name }}</div>
+        <div><b>Owner: </b>
+          <a [routerLink]="['/profile', model.owner.id]"
+          >{{ model.owner.getFullName() }}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Experiment</h2>
+      <div class="section-content">
+        <div><b>Changed parameters: </b> {{ simulation.changedParameters }}</div>
+        <div><b>Length: </b> {{ simulation.length | timeFormatHumanReadable }}</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Platform</h2>
+      <div class="section-content">
+        <div *ngIf="simulation.format as format"><b>Format: </b> {{ format.name }} {{ format.version }}</div>
+        <div *ngIf="simulation.simulator as simulator"><b>Simulator: </b>
+          <a href="{{ simulator.getDockerHubUrl() }}"
+          >{{ simulator.name }} {{ simulator.version }}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Access</h2>
+      <div class="section-content">
+        <div><b>Owner: </b>
+          <a [routerLink]="['/profile', simulation.owner.id]"
+          >{{ simulation.owner.getFullName() }}</a>
+        </div>
+        <div><b>Access: </b> {{ simulation.access | ucfirst }}</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Status</h2>
+      <div class="section-content">
+        <div><b>Status: </b> {{ simulation.status | ucfirst }}</div>
+        <div><b>Request date: </b> {{ simulation.date | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</div>
+        <div><b>Start date: </b> {{ simulation.startDate | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</div>
+        <div><b>End date: </b> {{ simulation.endDate | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</div>
+        <div><b>Duration: </b> {{ simulation.wallTime | timeFormatHumanReadable }}</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Logs</h2>
+      <div class="section-content">
+        <div class="sub-section">
+          <b>Output</b>
+          <div class="pre-container">
+            <pre *ngIf="simulation.outLog; else noOutLog">{{ simulation.outLog }}</pre>
+            <ng-template #noOutLog>
+              <span class="none">None.</span>
+            </ng-template>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <b>Error</b>
+          <div class="pre-container">
+            <pre *ngIf="simulation.errLog; else noErrLog">{{ simulation.errLog }}</pre>
+            <ng-template #noErrLog>
+              <span class="none">None.</span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
