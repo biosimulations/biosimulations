@@ -9,11 +9,11 @@
   </h1>
 
   <div *ngIf="auth.userProfile$ | async as profile">
-    <img class="photo" src="{{ profile.picture }}" />
-    <div class="name mat-title">{{ profile.name }}</div>
-    <div class="username">{{ profile.nickname }}</div>
-    <div class="description" *ngIf="user.description">{{ 
-      user.description 
+    <img class="photo" *ngIf="user.pictureUrl" src="{{ user.pictureUrl }}" />
+    <div class="name mat-title">{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</div>
+    <div class="username">{{ user.username }}</div>
+    <div class="description" *ngIf="user.description">{{
+      user.description
     }}</div>
 
     <table class="details">
@@ -37,11 +37,11 @@
         </td>
       </tr>
 
-      <tr *ngIf="profile.email" class="email">
+      <tr *ngIf="user.email" class="email">
         <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
         <td>
-          <a href="mailto:{{ profile.email }}">{{ profile.email }}</a> (application)
-          <span *ngIf="profile.email_verified; else emailUnverified">
+          <a href="mailto:{{ user.email }}">{{ user.email }}</a> (application)
+          <span *ngIf="user.emailVerified; else emailUnverified">
             <mat-icon
               class="verified"
               aria-hidden="false"
@@ -56,7 +56,7 @@
               aria-label="Email not verified"
               >close</mat-icon
             >
-          </ng-template>        
+          </ng-template>
         </td>
       </tr>
 

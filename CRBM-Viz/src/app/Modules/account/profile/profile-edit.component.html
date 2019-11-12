@@ -2,59 +2,68 @@
   <h1>Edit profile</h1>
 
   <form *ngIf="auth.userProfile$ | async as profile">
-    <!-- <img class="photo" src="{{ profile.picture }}" /> -->
+    <!-- <img class="photo" src="{{ user.pictureUrl }}" /> -->
 
     <mat-form-field>
       <mat-label>Username</mat-label>
-      <input matInput 
-        name="nickname"
-        placeholder="username" 
-        value="{{ profile.nickname }}"
+      <input matInput
+        name="username"
+        placeholder="username"
+        value="{{ user.username }}"
         disabled />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput 
-        name="name"
-        placeholder="Name" 
-        value="{{ profile.name }}"
-        disabled />
+      <input matInput
+        class="firstName"
+        name="firstName"
+        placeholder="John"
+        value="{{ user.firstName }}"/>
+      <input matInput
+        class="middleName"
+        name="middleName"
+        placeholder="C"
+        value="{{ user.middleName }}"/>
+      <input matInput
+        class="lastName"
+        name="lastName"
+        placeholder="Doe"
+        value="{{ user.lastName }}"/>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Organization</mat-label>
-      <input matInput 
+      <input matInput
         name="organization"
-        placeholder="XXX University" 
+        placeholder="XXX University"
         value="{{ user.organization }}" />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Website</mat-label>
-      <input matInput 
+      <input matInput
         name="website"
-        type="url" 
-        placeholder="https://www.mywebsite.org" 
+        type="url"
+        placeholder="https://www.mywebsite.org"
         value="{{ user.website }}" />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Email address for notifications</mat-label>
       <input matInput
-        name="email" 
-        type="email" 
-        placeholder="user@organization.org" 
-        value="{{ profile.email }}"
-        disabled />
+        name="email"
+        type="email"
+        placeholder="user@organization.org"
+        value="{{ user.email }}"/>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Public email address</mat-label>
-      <input matInput 
+      <input matInput
         name="publicEmail"
-        type="email" 
-        placeholder="user@organization.org" 
+        type="email"
+        placeholder="user@organization.org"
         value="{{ user.publicEmail }}" />
     </mat-form-field>
 
@@ -62,23 +71,23 @@
       <mat-label>GitHub username</mat-label>
       <input matInput
         name="github"
-        placeholder="github.username" 
+        placeholder="github.username"
         value="{{ user.github }}" />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Google Scholar id</mat-label>
-      <input matInput 
+      <input matInput
         name="googleScholar"
-        placeholder="XXXXXXXXXXXXX" 
+        placeholder="XXXXXXXXXXXXX"
         value="{{ user.googleScholar }}" />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>ORCID</mat-label>
-      <input matInput 
+      <input matInput
         name="orcid"
-        placeholder="xxxx-xxxx-xxxx-xxxx" 
+        placeholder="xxxx-xxxx-xxxx-xxxx"
         value="{{ user.orcid }}" />
     </mat-form-field>
 
@@ -88,15 +97,15 @@
         name="description"
         placeholder="Description of professional interests and experience."
         rows="10"
-        >{{ 
-        user.description 
+        >{{
+        user.description
       }}</textarea>
     </mat-form-field>
 
 
-    <button mat-button 
-      type="submit" 
-      value="Submit" 
+    <button mat-button
+      type="submit"
+      value="Submit"
       disableRipple="true">Save</button>
   </form>
 </div>
