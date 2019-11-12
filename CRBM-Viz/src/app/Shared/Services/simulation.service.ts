@@ -96,9 +96,9 @@ export class SimulationService {
     return data;
   }
 
-  getSimulations(auth?): Simulation[] {
-    const data: Simulation[] = [
-      new Simulation(
+  getSimulation(id: string): Simulation {
+    if (id === '001') {
+      return new Simulation(
         '001',
         'First simulation',
         ['wild type', 'normal'],
@@ -132,9 +132,11 @@ export class SimulationService {
         100.,
         'out',
         'err',
-      ),
+      );
+    }
 
-      new Simulation(
+    if (id === '003') {
+      return new Simulation(
         '003',
         'Third simulation',
         ['disease', 'cancer'],
@@ -169,9 +171,11 @@ export class SimulationService {
         100.,
         'out',
         'err',
-      ),
+      );
+    }
 
-      new Simulation(
+    if (id === '006') {
+      return new Simulation(
         '006',
         'Sixth simulation',
         ['disease', 'diabetes'],
@@ -206,7 +210,15 @@ export class SimulationService {
         100.,
         'out',
         'err',
-      ),
+      );
+    }
+  }
+
+  getSimulations(auth?): Simulation[] {
+    const data: Simulation[] = [
+      this.getSimulation('001'),
+      this.getSimulation('003'),
+      this.getSimulation('006'),
     ];
     return data;
   }
