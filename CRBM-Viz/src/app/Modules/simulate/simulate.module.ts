@@ -11,7 +11,6 @@ import { ViewComponent } from './view/view.component';
 import { MaterialModule } from '../app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { NewSimulationComponent } from './new-simulation/new-simulation.component';
-import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
