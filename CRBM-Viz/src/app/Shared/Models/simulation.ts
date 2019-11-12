@@ -1,8 +1,10 @@
 import { AccessLevel } from '../Enums/access-level'
 import { SimulationStatus } from '../Enums/simulation-status'
+import { ChangedParameter } from './changed-parameter'
 import { Format } from './format'
 import { Identifier } from './identifier'
 import { Model } from './model'
+import { Simulator } from './simulator'
 import { Taxon } from './taxon'
 import { User } from './user'
 
@@ -12,12 +14,18 @@ export class Simulation {
   tags: string[];
   model: Model;
   format: Format;
+  changedParameters: ChangedParameter[];
   length: number;
-  simulator: Format;
-  author: User;
+  simulator: Simulator;
+  owner: User;
   access: AccessLevel;
   status: SimulationStatus;
-  date: Date;
+  date: Date; // date/time when simulation was requested
+  startDate: Date; // date/time when simulation run started
+  endDate: Date; // date/time when simulation run finished
+  wallTime: number; // execution time in seconds
+  outLog: string;
+  errLog: string;
 
   constructor(
     id?: string,
@@ -25,24 +33,36 @@ export class Simulation {
     tags?: string[],
     model?: Model,
     format?: Format,
+    changedParameters?: ChangedParameter[],
     length?: number,
-    simulator?: Format,
-    author?: User,
+    simulator?: Simulator,
+    owner?: User,
     access?: AccessLevel,
     status?: SimulationStatus,
     date?: Date,
+    startDate?: Date,
+    endDate?: Date,
+    wallTime?: number,
+    outLog?: string,
+    errLog?: string,
     ) {
     this.id = id;
     this.name = name;
     this.tags = tags;
     this.model = model;
     this.format = format;
+    this.changedParameters = changedParameters;
     this.length = length;
     this.simulator = simulator;
-    this.author = author;
+    this.owner = owner;
     this.access = access;
     this.status = status;
     this.date = date;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.wallTime = wallTime;
+    this.outLog = outLog;
+    this.errLog = errLog;
   }
 
   static getHumanReadableTime(secs: number): string {

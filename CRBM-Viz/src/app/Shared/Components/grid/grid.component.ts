@@ -115,12 +115,12 @@ export class GridComponent {
 
     const displayedCols = columnApi.getAllDisplayedColumns();
     const numDisplayedCols: number = displayedCols.length;
-    let totDisplayedColWidth: number = 0;
+    let totDisplayedColWidth = 0;
     for (const col of displayedCols) {
       totDisplayedColWidth += Math.max(minColWidth, col.width);
     }
     for (const col of displayedCols) {
-      let colWidth = minColWidth + (
+      const colWidth = minColWidth + (
         (gridWidth - minColWidth * numDisplayedCols) /
         (totDisplayedColWidth - minColWidth * numDisplayedCols) *
         (Math.max(minColWidth, col.width) - minColWidth));

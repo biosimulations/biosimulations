@@ -6,9 +6,11 @@ import { AlertService } from './alert.service';
 
 import { AccessLevel } from '../Enums/access-level'
 import { SimulationStatus } from '../Enums/simulation-status'
+import { ChangedParameter } from '../Models/changed-parameter'
 import { Format } from '../Models/format'
 import { Identifier } from '../Models/identifier'
 import { Model } from '../Models/model'
+import { Simulator } from '../Models/simulator'
 import { Simulation } from '../Models/simulation'
 import { Taxon } from '../Models/taxon'
 import { User } from '../Models/user'
@@ -116,14 +118,20 @@ export class SimulationService {
         ),
 
         new Format('SED-ML', 'L1V3'),
+        [],
         10.,
 
-        new Format('VCell', '7.1'),
+        new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
         new User(1, 'Yara', 'Skaf'),
         AccessLevel.public,
         SimulationStatus.finished,
         new Date(Date.parse('2019-11-06 00:00:00')),
+        new Date(Date.parse('2019-11-06 00:00:00')),
+        new Date(Date.parse('2019-11-06 00:00:00')),
+        100.,
+        'out',
+        'err',
       ),
 
       new Simulation(
@@ -147,14 +155,20 @@ export class SimulationService {
         ),
 
         new Format('SED-ML', 'L1V2'),
+        [],
         10.,
 
-        new Format('VCell', '7.1'),
+        new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
         new User(1, 'Yara', 'Skaf'),
         AccessLevel.private,
         SimulationStatus.queued,
         new Date(Date.parse('2019-11-06 00:00:00')),
+        new Date(Date.parse('2019-11-06 00:00:00')),
+        new Date(Date.parse('2019-11-06 00:00:00')),
+        100.,
+        'out',
+        'err',
       ),
 
       new Simulation(
@@ -178,14 +192,20 @@ export class SimulationService {
         ),
 
         new Format('SED-ML', 'L1V1'),
+        [],
         10.,
 
-        new Format('VCell', '7.1'),
+        new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
         new User(1, 'Bilal', 'Shaikh'),
         AccessLevel.public,
         SimulationStatus.failed,
         new Date(Date.parse('2019-11-06 00:00:00')),
+        new Date(Date.parse('2019-11-06 00:00:00')),
+        new Date(Date.parse('2019-11-06 00:00:00')),
+        100.,
+        'out',
+        'err',
       ),
     ];
     return data;

@@ -10,7 +10,7 @@ export class Model {
   taxon: Taxon;
   format: Format;
   identifiers: Identifier[];
-  author: User;
+  owner: User;
   date: Date;
 
   constructor(
@@ -20,7 +20,7 @@ export class Model {
     taxon?: Taxon,
     format?: Format,
     identifiers?: Identifier[],
-    author?: User,
+    owner?: User,
     date?: Date,
     ) {
     this.id = id;
@@ -29,7 +29,7 @@ export class Model {
     this.taxon = taxon;
     this.format = format;
     this.identifiers = identifiers;
-    this.author = author;
+    this.owner = owner;
     this.date = date;
   }
 

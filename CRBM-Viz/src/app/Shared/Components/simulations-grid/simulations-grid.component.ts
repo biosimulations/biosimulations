@@ -4,6 +4,7 @@ import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { SimulationStatus } from 'src/app/Shared/Enums/simulation-status';
 import { Format } from 'src/app/Shared/Models/format';
+import { Simulator } from 'src/app/Shared/Models/simulator';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { User } from 'src/app/Shared/Models/user';
 
@@ -14,7 +15,7 @@ import { User } from 'src/app/Shared/Models/user';
 })
 export class SimulationsGridComponent implements OnInit {
   @Input() auth;
-  @Input() showAuthor = true;
+  @Input() showOwner = true;
   @Input() showStatus = false;
 
   columnDefs;
@@ -67,6 +68,13 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       {
+        headerName: 'Changed parameters',
+        field: 'changedParameters',
+        valueGetter: numChangedParametersGetter,
+        filter: 'agNumberColumnFilter',
+        hide: true,
+      },
+      {
         headerName: 'Length (s)',
         field: 'length',
         valueFormatter: lengthFormatter,
@@ -97,15 +105,15 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Author',
-        field: 'author',
-        valueGetter: authorGetter,
-        hide: !this.showAuthor,
+        headerName: 'Owner',
+        field: 'owner',
+        valueGetter: ownerGetter,
+        hide: !this.showOwner,
       },
       {
-        headerName: 'Model author',
-        field: 'model.author',
-        valueGetter: modelAuthorGetter,
+        headerName: 'Model owner',
+        field: 'model.owner',
+        valueGetter: modelOwnerGetter,
         hide: true,
       },
 
@@ -131,6 +139,29 @@ export class SimulationsGridComponent implements OnInit {
         filter: 'agDateColumnFilter',
         hide: true,
       },
+
+      {
+        headerName: 'Start date',
+        field: 'startDate',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        hide: true,
+      },
+      {
+        headerName: 'End date',
+        field: 'endDate',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        hide: true,
+      },
+      {
+        headerName: 'Wall time',
+        field: 'wallTime',
+        valueFormatter: lengthFormatter,
+        filter: 'agNumberColumnFilter',
+        hide: true,
+      },
+
       {
         headerName: 'Model date',
         field: 'model.date',
@@ -138,6 +169,9 @@ export class SimulationsGridComponent implements OnInit {
         filter: 'agDateColumnFilter',
         hide: true,
       },
+
+      // outLog
+      // errLog
     ];
 
     this.rowData = this.simulationService.getSimulations(this.auth);
@@ -161,14 +195,18 @@ function setFormatter(params) {
   }
 }
 
-function authorGetter(params): string {
-  const author:User = params.data.author;
-  return author.getFullName();
+function numChangedParametersGetter(params): number {
+  return params.data.changedParameters.length;
 }
 
-function modelAuthorGetter(params): string {
-  const author:User = params.data.model.author;
-  return author.getFullName();
+function ownerGetter(params): string {
+  const owner:User = params.data.owner;
+  return owner.getFullName();
+}
+
+function modelOwnerGetter(params): string {
+  const owner:User = params.data.model.owner;
+  return owner.getFullName();
 }
 
 function modelFormatGetter(params): string {
@@ -182,8 +220,8 @@ function formatGetter(params): string {
 }
 
 function simulatorGetter(params): string {
-  const format:Format = params.data.simulator;
-  return format.getFullName();
+  const simulator:Simulator = params.data.simulator;
+  return simulator.getFullName();
 }
 
 function accessFormatter(params): string {
