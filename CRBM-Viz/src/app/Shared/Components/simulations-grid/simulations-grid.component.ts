@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
-import { SimulationStatus } from 'src/app/Shared/Enums/simulation-status';
 import { Format } from 'src/app/Shared/Models/format';
 import { Simulator } from 'src/app/Shared/Models/simulator';
 import { Simulation } from 'src/app/Shared/Models/simulation';
@@ -133,7 +131,7 @@ export class SimulationsGridComponent implements OnInit {
         headerName: 'Access',
         field: 'access',
         filter: 'agSetColumnFilter',
-        valueFormatter: accessFormatter,
+        valueFormatter: capitalizeFormatter,
         minWidth: 75,
         hide: true,
       },
@@ -141,7 +139,7 @@ export class SimulationsGridComponent implements OnInit {
         headerName: 'Status',
         field: 'status',
         filter: 'agSetColumnFilter',
-        valueFormatter: statusFormatter,
+        valueFormatter: capitalizeFormatter,
         minWidth: 75,
         hide: !this.showStatus,
       },
@@ -243,16 +241,9 @@ function simulatorGetter(params): string {
   return simulator.getFullName();
 }
 
-function accessFormatter(params): string {
-  const value:AccessLevel = params.value;
-  const valueStr: string = AccessLevel[value];
-  return valueStr.substring(0, 1).toUpperCase() + valueStr.substring(1);
-}
-
-function statusFormatter(params): string {
-  const value:SimulationStatus = params.value;
-  const valueStr: string = SimulationStatus[value];
-  return valueStr.substring(0, 1).toUpperCase() + valueStr.substring(1);
+function capitalizeFormatter(params): string {
+  const value:string = params.value;
+  return value.substring(0, 1).toUpperCase() + value.substring(1);
 }
 
 function dateFormatter(params): string {
