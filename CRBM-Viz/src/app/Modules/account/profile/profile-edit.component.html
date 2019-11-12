@@ -15,19 +15,21 @@
 
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput
-        class="firstName"
+      <input matInput        
         name="firstName"
+        class="firstName"
+        required
         placeholder="John"
         value="{{ user.firstName }}"/>
-      <input matInput
-        class="middleName"
+      <input matInput        
         name="middleName"
+        class="middleName"
         placeholder="C"
         value="{{ user.middleName }}"/>
-      <input matInput
-        class="lastName"
+      <input matInput        
         name="lastName"
+        class="lastName"
+        required
         placeholder="Doe"
         value="{{ user.lastName }}"/>
     </mat-form-field>
@@ -51,20 +53,23 @@
 
     <mat-form-field>
       <mat-label>Email address for notifications</mat-label>
-      <input matInput
+      <input matInput        
         name="email"
+        class="email"
         type="email"
+        required
         placeholder="user@organization.org"
         value="{{ user.email }}"/>
-    </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Public email address</mat-label>
-      <input matInput
-        name="publicEmail"
-        type="email"
-        placeholder="user@organization.org"
-        value="{{ user.publicEmail }}" />
+      <mat-select
+        name="emailPublic"
+        class="emailPublic"
+        required 
+        [(ngModel)]="user.emailPublic"
+      >
+        <mat-option [value]="false">Private</mat-option>
+        <mat-option [value]="true">Public</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field>
@@ -91,7 +96,7 @@
         value="{{ user.orcid }}" />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field floatLabel="always">
       <mat-label>Description</mat-label>
       <textarea matInput
         name="description"
@@ -101,7 +106,6 @@
         user.description
       }}</textarea>
     </mat-form-field>
-
 
     <button mat-button
       type="submit"

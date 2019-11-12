@@ -8,8 +8,8 @@ export class User {
   organization: string;
   website: string;
   email: string;
-  emailVerified: boolean;
-  publicEmail: string;
+  emailVerified = false;
+  emailPublic = false;
   github: string;
   googleScholar: string;
   orcid: string;
@@ -34,7 +34,7 @@ export class User {
     this.website = 'https://www.karrlab.org';
     this.email = 'jonrkarr@gmail.com';
     this.emailVerified = true;
-    this.publicEmail = 'jonrkarr@gmail.com';
+    this.emailPublic = true;
     this.github = 'jonrkarr';
     this.googleScholar = 'Yb5nVLAAAAAJ';
     this.orcid = '0000-0002-2605-5080';

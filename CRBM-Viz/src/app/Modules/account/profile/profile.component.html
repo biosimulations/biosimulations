@@ -37,33 +37,10 @@
         </td>
       </tr>
 
-      <tr *ngIf="user.email" class="email">
+      <tr *ngIf="user.email && user.emailPublic" class="email">
         <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
         <td>
-          <a href="mailto:{{ user.email }}">{{ user.email }}</a> (application)
-          <span *ngIf="user.emailVerified; else emailUnverified">
-            <mat-icon
-              class="verified"
-              aria-hidden="false"
-              aria-label="Email verified"
-              >check</mat-icon
-            >
-          </span>
-          <ng-template #emailUnverified>
-            <mat-icon
-              class="unverified"
-              aria-hidden="false"
-              aria-label="Email not verified"
-              >close</mat-icon
-            >
-          </ng-template>
-        </td>
-      </tr>
-
-      <tr *ngIf="user.publicEmail" class="email">
-        <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
-        <td>
-          <a href="mailto:{{ user.publicEmail }}">{{ user.publicEmail }}</a> (public)
+          <a href="mailto:{{ user.email }}">{{ user.email }}</a>
         </td>
       </tr>
 

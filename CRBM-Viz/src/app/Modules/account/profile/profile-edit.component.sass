@@ -3,11 +3,13 @@
 mat-form-field
     display: block
 
-input, textarea.mat-input-element
+input, textarea.mat-input-element, mat-select
     background: #f9f9f9
     border: 1px solid #efefef
     padding: 0.25rem
+    width: calc(100% - 0.5rem - 2px)
     margin: 0
+    letter-spacing: normal
 
 .mat-form-field.mat-focused
     input, textarea
@@ -30,6 +32,12 @@ input, textarea.mat-input-element
     float: right
     width: calc(40%)
 
+.email
+    float: left
+    width: calc(100% - 10rem - 1rem - 1rem - 4px)
+.emailPublic
+    float: right
+    width: 10rem
 
 .mat-button
     background: mat-color($theme-primary)
