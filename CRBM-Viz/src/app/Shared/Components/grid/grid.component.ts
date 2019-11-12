@@ -91,6 +91,7 @@ export class GridComponent {
   };
 
   isToolPanelOpen;
+  suppressHorizontalScroll = true;
 
   constructor(private el: ElementRef) {}
 
@@ -110,25 +111,20 @@ export class GridComponent {
     const columnApi = event.columnApi;
     const gridRoot = this.el.nativeElement.getElementsByClassName('ag-root')[0];
     const gridWidth: number = gridRoot.offsetWidth;
-    const numCols: number = this.columnDefs.length;
-    const minColWidth: number = (gridWidth - 2 * (numCols + 1)) / numCols;
 
     const displayedCols = columnApi.getAllDisplayedColumns();
     const numDisplayedCols: number = displayedCols.length;
     let totDisplayedColWidth = 0;
+    let totDisplayedColMinWidth = 0;
     for (const col of displayedCols) {
-      totDisplayedColWidth += Math.max(minColWidth, col.width);
+      totDisplayedColWidth += Math.max(col.width, col.minWidth);
+      totDisplayedColMinWidth += col.minWidth;
     }
-    for (const col of displayedCols) {
-      const colWidth = minColWidth + (
-        (gridWidth - minColWidth * numDisplayedCols) /
-        (totDisplayedColWidth - minColWidth * numDisplayedCols) *
-        (Math.max(minColWidth, col.width) - minColWidth));
-      columnApi.setColumnWidth(col, colWidth);
-    }
-
-    for (const col of columnApi.getAllColumns()) {
-      col['minWidth'] = minColWidth;
+    
+    if (totDisplayedColMinWidth + 2 * (numDisplayedCols + 1) > gridWidth) {
+      this.suppressHorizontalScroll = false;
+    } else {
+      this.suppressHorizontalScroll = true;
     }
 
     gridApi.sizeColumnsToFit();

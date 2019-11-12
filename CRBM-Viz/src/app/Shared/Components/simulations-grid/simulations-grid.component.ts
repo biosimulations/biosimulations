@@ -37,10 +37,12 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Name',
         field: 'name',
+        minWidth: 150,
       },
       {
         headerName: 'Model',
         field: 'model.name',
+        minWidth: 150,
       },
 
       {
@@ -50,6 +52,7 @@ export class SimulationsGridComponent implements OnInit {
         valueGetter: tagsGetter,
         filterValueGetter: tagsGetter,
         valueFormatter: setFormatter,
+        minWidth: 150,
         hide: true,
       },
       {
@@ -59,12 +62,14 @@ export class SimulationsGridComponent implements OnInit {
         valueGetter: modelTagsGetter,
         filterValueGetter: modelTagsGetter,
         valueFormatter: setFormatter,
+        minWidth: 150,
         hide: true,
       },
       {
         headerName: 'Taxon',
         field: 'model.taxon.name',
         filter: 'agSetColumnFilter',
+        minWidth: 150,
         hide: true,
       },
       {
@@ -72,6 +77,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'changedParameters',
         valueGetter: numChangedParametersGetter,
         filter: 'agNumberColumnFilter',
+        minWidth: 150,
         hide: true,
       },
       {
@@ -79,6 +85,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'length',
         valueFormatter: lengthFormatter,
         filter: 'agNumberColumnFilter',
+        minWidth: 75,
         hide: true,
       },
 
@@ -87,6 +94,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'format',
         valueGetter: formatGetter,
         filter: 'agSetColumnFilter',
+        minWidth: 125,
         hide: true,
       },
       {
@@ -94,6 +102,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'simulator',
         valueGetter: simulatorGetter,
         filter: 'agSetColumnFilter',
+        minWidth: 125,
         hide: true,
       },
       {
@@ -101,6 +110,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'model.format',
         valueGetter: modelFormatGetter,
         filter: 'agSetColumnFilter',
+        minWidth: 125,
         hide: true,
       },
 
@@ -108,12 +118,14 @@ export class SimulationsGridComponent implements OnInit {
         headerName: 'Owner',
         field: 'owner',
         valueGetter: ownerGetter,
+        minWidth: 150,
         hide: !this.showOwner,
       },
       {
         headerName: 'Model owner',
         field: 'model.owner',
         valueGetter: modelOwnerGetter,
+        minWidth: 150,
         hide: true,
       },
 
@@ -122,6 +134,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'access',
         filter: 'agSetColumnFilter',
         valueFormatter: accessFormatter,
+        minWidth: 75,
         hide: true,
       },
       {
@@ -129,6 +142,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'status',
         filter: 'agSetColumnFilter',
         valueFormatter: statusFormatter,
+        minWidth: 75,
         hide: !this.showStatus,
       },
 
@@ -137,6 +151,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'date',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
+        minWidth: 100,
         hide: true,
       },
 
@@ -145,6 +160,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'startDate',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
+        minWidth: 100,
         hide: true,
       },
       {
@@ -152,6 +168,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'endDate',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
+        minWidth: 100,
         hide: true,
       },
       {
@@ -159,6 +176,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'wallTime',
         valueFormatter: lengthFormatter,
         filter: 'agNumberColumnFilter',
+        minWidth: 100,
         hide: true,
       },
 
@@ -167,6 +185,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'model.date',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
+        minWidth: 100,
         hide: true,
       },
 
