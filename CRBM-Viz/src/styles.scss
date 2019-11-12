@@ -57,11 +57,53 @@ p:last-child {
   }
 }
 
+.page-toolbar {
+    h1 {
+        margin-bottom: 0;
+    }
+
+    .page-routes {
+        text-align: right;
+        margin-top: 0.25em;
+
+        a {
+            text-decoration: none;
+            color: mat-color($theme-primary);
+            margin-left: 0.5rem;
+
+            mat-icon {
+                font-size: 16px;
+                height: auto;
+                width: auto;
+                position: relative;
+                top: 2px;
+                margin-right: -1px;
+            }
+
+            fa-icon {
+                position: relative;
+                top: 0.25px;
+            }
+        }
+    }
+
+    margin-bottom: 1.42375rem;
+}
+
+.no-page-routes {
+    .page-toolbar {
+        margin-bottom: 0;
+    }
+    .content-container {
+        height: calc(100vh - 64px - 6rem - 28px);
+    }
+}
+
 /* Home page, models, simulate, visualize pages */
 .full-width-container {
     padding: 2rem;
     .content-container {
-        height: calc(100vh - 64px - 6rem - 28px);
+        height: calc(100vh - 64px - 6rem - 28px - 20px);
         box-sizing: border-box;
 
         ag-grid-angular {

@@ -1,12 +1,13 @@
-<div class="partial-width-container">
-  <h1>
-    Profile
-    <a [routerLink]="['/profile/edit']"
-      ><mat-icon aria-hidden="false" aria-label="Edit profile"
-        >edit</mat-icon
-      ></a
-    >
-  </h1>
+<div class="partial-width-container no-page-routes">
+  <div class="page-toolbar">
+    <h1>Profile</h1>
+    <div class="page-routes">
+      <a [routerLink]="['edit']">
+        <mat-icon aria-hidden="false" aria-label="Edit icon"
+          >edit</mat-icon> Edit
+      </a>
+    </div>
+  </div>
 
   <div *ngIf="auth.userProfile$ | async as profile">
     <img class="photo" *ngIf="user.pictureUrl" src="{{ user.pictureUrl }}" />

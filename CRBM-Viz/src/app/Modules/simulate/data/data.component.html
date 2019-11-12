@@ -1,5 +1,8 @@
 <div class="full-width-container">
-  <h1>Simulation :: {{ id }}</h1>
+  <div class="page-toolbar">
+    <h1>Simulation :: {{ id }}</h1>
+    <div class="page-routes"></div>
+  </div>
   <div class="content-container">
     <app-data-table
       [columnDefs]="columnDefs"
