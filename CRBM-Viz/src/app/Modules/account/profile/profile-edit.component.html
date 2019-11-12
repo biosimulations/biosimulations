@@ -10,7 +10,7 @@
         name="nickname"
         placeholder="username" 
         value="{{ profile.nickname }}"
-        disabled>
+        disabled />
     </mat-form-field>
 
     <mat-form-field>
@@ -19,7 +19,7 @@
         name="name"
         placeholder="Name" 
         value="{{ profile.name }}"
-        disabled>
+        disabled />
     </mat-form-field>
 
     <mat-form-field>
@@ -27,7 +27,7 @@
       <input matInput 
         name="organization"
         placeholder="XXX University" 
-        value="{{ userMetadata.organization }}">
+        value="{{ user.organization }}" />
     </mat-form-field>
 
     <mat-form-field>
@@ -36,7 +36,7 @@
         name="website"
         type="url" 
         placeholder="https://www.mywebsite.org" 
-        value="{{ userMetadata.website }}">
+        value="{{ user.website }}" />
     </mat-form-field>
 
     <mat-form-field>
@@ -46,7 +46,7 @@
         type="email" 
         placeholder="user@organization.org" 
         value="{{ profile.email }}"
-        disabled>
+        disabled />
     </mat-form-field>
 
     <mat-form-field>
@@ -55,7 +55,7 @@
         name="publicEmail"
         type="email" 
         placeholder="user@organization.org" 
-        value="{{ userMetadata.publicEmail }}">
+        value="{{ user.publicEmail }}" />
     </mat-form-field>
 
     <mat-form-field>
@@ -63,7 +63,7 @@
       <input matInput
         name="github"
         placeholder="github.username" 
-        value="{{ userMetadata.github }}">
+        value="{{ user.github }}" />
     </mat-form-field>
 
     <mat-form-field>
@@ -71,7 +71,7 @@
       <input matInput 
         name="googleScholar"
         placeholder="XXXXXXXXXXXXX" 
-        value="{{ userMetadata.googleScholar }}">
+        value="{{ user.googleScholar }}" />
     </mat-form-field>
 
     <mat-form-field>
@@ -79,7 +79,7 @@
       <input matInput 
         name="orcid"
         placeholder="xxxx-xxxx-xxxx-xxxx" 
-        value="{{ userMetadata.orcid }}">
+        value="{{ user.orcid }}" />
     </mat-form-field>
 
     <mat-form-field>
@@ -89,7 +89,7 @@
         placeholder="Description of professional interests and experience."
         rows="10"
         >{{ 
-        userMetadata.description 
+        user.description 
       }}</textarea>
     </mat-form-field>
 

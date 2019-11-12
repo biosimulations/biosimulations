@@ -89,15 +89,7 @@ export const NavItems: NavItem[] = [
     icon: 'view_list',
     icon_type: 'mat',
     display: 'always',
-    link: '/simulate/browse/',
-  },
-  {
-    id: 'Simulate-Data',
-    label: 'Data',
-    icon: 'view_list',
-    icon_type: 'mat',
-    display: 'always',
-    link: '/simulate/data/',
+    link: '/simulate/',
   },
   {
     id: 'Simulate-Submit',
