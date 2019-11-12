@@ -33,6 +33,10 @@ export class Model {
     this.date = date;
   }
 
+  getIcon() {
+    return {type: 'fas', icon: 'project-diagram'};
+  }
+
   getRoute() {
     return ['/model', this.id];
   }

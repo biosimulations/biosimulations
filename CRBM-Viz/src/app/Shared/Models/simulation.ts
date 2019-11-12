@@ -120,6 +120,10 @@ export class Simulation {
     return Math.round(secs / numerator) + ' ' + units;
   }
 
+  getIcon() {
+    return {type: 'mat', icon: 'timeline'};
+  }
+
   getRoute() {
     return ['/simulate', this.id];
   }
