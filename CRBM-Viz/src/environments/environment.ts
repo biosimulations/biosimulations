@@ -6,8 +6,7 @@ export const environment = {
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
   },
   crbm: {
-    // TODO change this to heroku deployment
-    CRBMAPI_URL: 'http://crbmapi.cam.uchc.edu:5000',
+    CRBMAPI_URL: 'crbm-api.herokuapp.com',
     ALLOWED_FILE_EXTENSIONS: [
       'pdf',
       'doc',
