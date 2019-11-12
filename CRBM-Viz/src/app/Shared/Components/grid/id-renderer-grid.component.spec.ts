@@ -21,6 +21,10 @@ describe('IdRendererGridComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(IdRendererGridComponent);
     component = fixture.componentInstance;
+    component.icon = {
+      type: 'mat',
+      icon: 'timeline',
+    };
     fixture.detectChanges();
   });
 

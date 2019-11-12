@@ -7,6 +7,7 @@ import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.com
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material';
 
+
 describe('GridComponent', () => {
   let component: GridComponent;
   let fixture: ComponentFixture<GridComponent>;
