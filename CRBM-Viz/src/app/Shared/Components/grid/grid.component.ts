@@ -107,16 +107,31 @@ export class GridComponent {
 
   sizeColumnsToFit(event) {
     const gridApi = event.api;
-    gridApi.sizeColumnsToFit();
+    const columnApi = event.columnApi;
+    const gridRoot = this.el.nativeElement.getElementsByClassName('ag-root')[0];
+    const gridWidth: number = gridRoot.offsetWidth;
+    const numCols: number = this.columnDefs.length;
+    const minColWidth: number = (gridWidth - 2 * (numCols + 1)) / numCols;
 
-    let numActiveCols:number = 0;
-    for (const col of this.columnDefs) {
-      if (!('hide' in col) || !col['hide']) {
-        numActiveCols++;
-      }
+    const displayedCols = columnApi.getAllDisplayedColumns();
+    const numDisplayedCols: number = displayedCols.length;
+    let totDisplayedColWidth: number = 0;
+    for (const col of displayedCols) {
+      totDisplayedColWidth += Math.max(minColWidth, col.width);
     }
-    
-    this.defaultColDef['minWidth'] = this.el.nativeElement.getElementsByClassName('ag-root')[0].offsetWidth / numActiveCols;
+    for (const col of displayedCols) {
+      let colWidth = minColWidth + (
+        (gridWidth - minColWidth * numDisplayedCols) /
+        (totDisplayedColWidth - minColWidth * numDisplayedCols) *
+        (Math.max(minColWidth, col.width) - minColWidth));
+      columnApi.setColumnWidth(col, colWidth);
+    }
+
+    for (const col of columnApi.getAllColumns()) {
+      col['minWidth'] = minColWidth;
+    }
+
+    gridApi.sizeColumnsToFit();
   }
 
   toggleToolPanel(event) {
