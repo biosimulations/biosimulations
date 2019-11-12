@@ -4,11 +4,11 @@ import { DataService } from 'src/app/Shared/Services/data.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-data',
-  templateUrl: './data.component.html',
-  styleUrls: ['./data.component.sass'],
+  selector: 'app-view-simulation',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.sass'],
 })
-export class DataComponent implements OnInit {
+export class ViewComponent implements OnInit {
   timecourse: Timecourse[] = [];
   id: string;
   columnDefs;

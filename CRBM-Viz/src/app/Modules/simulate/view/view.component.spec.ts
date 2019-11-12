@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataComponent } from './data.component';
+import { ViewComponent } from './view.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('DataComponent', () => {
-  let component: DataComponent;
-  let fixture: ComponentFixture<DataComponent>;
+describe('ViewComponent', () => {
+  let component: ViewComponent;
+  let fixture: ComponentFixture<ViewComponent>;
   // TODO mock the data service and remove http and router
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DataComponent],
+      declarations: [ViewComponent],
       imports: [AgGridModule, HttpClientTestingModule, RouterTestingModule],
       providers: [HttpClientTestingModule, RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -20,7 +20,7 @@ describe('DataComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataComponent);
+    fixture = TestBed.createComponent(ViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
