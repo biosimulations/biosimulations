@@ -75,7 +75,7 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       {
-        headerName: 'Length (s)',
+        headerName: 'Length',
         field: 'length',
         valueFormatter: lengthFormatter,
         filter: 'agNumberColumnFilter',
