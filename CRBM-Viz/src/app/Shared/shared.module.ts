@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 // Third pary modules
 import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from '../Modules/app-material.module';
+import { NgPipesModule } from 'ngx-pipes';
 
 // FontAwesome for icons
 import {
@@ -25,6 +26,7 @@ import {
   faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 import {
+  faDocker,
   faGithub,
   faGoogle,
   faOrcid,
@@ -32,6 +34,7 @@ import {
 
 // Shared components
 import { FilterPipe } from './Pipes/filter.pipe';
+import { TimeFormatHumanReadablePipe } from './Pipes/time-format-human-readable.pipe';
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 import { AccountMenuComponent } from './Components/account-menu/account-menu.component';
 import { LogoComponent } from './Components/logo/logo.component';
@@ -52,6 +55,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
 @NgModule({
   declarations: [
     FilterPipe,
+    TimeFormatHumanReadablePipe,
     SearchBarComponent,
     AccountMenuComponent,
     LogoComponent,
@@ -75,10 +79,12 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
     RouterModule,
     FontAwesomeModule,
     AgGridModule.withComponents([IdRendererGridComponent, SearchToolPanelGridComponent]),
+    NgPipesModule,
     FormsModule,
   ],
   exports: [
     FilterPipe,
+    TimeFormatHumanReadablePipe,
     SearchBarComponent,
     AccountMenuComponent,
     LogoComponent,
@@ -94,6 +100,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
     UnderConstructionComponent,
     GridComponent,
     SimulationsGridComponent,
+    NgPipesModule,
   ],
   entryComponents: [AlertComponent],
 })
@@ -110,6 +117,7 @@ export class SharedModule {
       faHourglassHalf,
       faLink,
       faEnvelope,
+      faDocker,
       faGithub,
       faGoogle,
       faOrcid
