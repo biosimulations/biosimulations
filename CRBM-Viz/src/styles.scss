@@ -130,7 +130,7 @@ p:last-child {
     h2, .h2 {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
-        background: #fff4e5; /* mat-color($theme-accent, lighter); */
+        background: #ffefd8; /* mat-color($theme-accent, lighter); */
         margin-block-start: 0;
         margin-block-end: 0;
         border-bottom: 1px solid #efefef;
@@ -183,7 +183,7 @@ p:last-child {
 .section.toc {
     h2, .h2 {
         color: mat-color($theme-primary);
-        background: #e8f4fd; /* mat-color($theme-primary, lighter); */
+        background: #ddeffd; /* mat-color($theme-primary, lighter); */
     }
     a {
         color: #000;
