@@ -35,6 +35,7 @@ import {
 // Shared components
 import { FilterPipe } from './Pipes/filter.pipe';
 import { TimeFormatHumanReadablePipe } from './Pipes/time-format-human-readable.pipe';
+
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 import { AccountMenuComponent } from './Components/account-menu/account-menu.component';
 import { LogoComponent } from './Components/logo/logo.component';
@@ -56,6 +57,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
   declarations: [
     FilterPipe,
     TimeFormatHumanReadablePipe,
+
     SearchBarComponent,
     AccountMenuComponent,
     LogoComponent,
@@ -85,6 +87,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
   exports: [
     FilterPipe,
     TimeFormatHumanReadablePipe,
+
     SearchBarComponent,
     AccountMenuComponent,
     LogoComponent,
