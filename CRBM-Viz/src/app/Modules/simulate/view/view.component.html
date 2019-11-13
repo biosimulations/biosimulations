@@ -1,4 +1,4 @@
-<div class="full-width-container">
+<div class="full-width-container" *ngIf="simulation">
   <div class="page-toolbar">
     <h1>Simulation :: {{ simulation.id }}</h1>
     <div class="page-routes">
@@ -22,7 +22,7 @@
       <div class="section-content">
         <div><b>Id: </b> {{ simulation.id }}</div>
         <div><b>Name: </b> {{ simulation.name }}</div>
-        <div><b>Tags: </b> 
+        <div><b>Tags: </b>
           <span *ngFor="let tag of simulation.tags; let i = index">{{ i > 0 ? ', ' : ''}}{{ tag }}</span>
         </div>
       </div>
@@ -31,7 +31,7 @@
     <div class="section" *ngIf="simulation.model as model">
       <h2>Model</h2>
       <div class="section-content">
-        <div><b>Id: </b> 
+        <div><b>Id: </b>
           <a [routerLink]="['/model', model.id]"
           >{{ model.id }}</a>
         </div>
