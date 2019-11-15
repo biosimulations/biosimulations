@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
-import { UserMetadata } from 'src/app/Shared/Models/user-metadata';
+import { User } from 'src/app/Shared/Models/user';
 
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { Observable } from 'rxjs';
@@ -12,11 +12,11 @@ import { Observable } from 'rxjs';
 
 export class ProfileEditComponent implements OnInit {
   userData: Observable<any>;
-  userMetadata: UserMetadata = null;
+  user: User = null;
   constructor(public auth: AuthService, private users: UserService) {}
 
   ngOnInit() {
     // this.users.getUser().subscribe(res => (this.userData = res));
-    this.userMetadata = new UserMetadata();
+    this.user = new User();
   }
 }

@@ -12,27 +12,27 @@
     <img class="photo" src="{{ profile.picture }}" />
     <div class="name mat-title">{{ profile.name }}</div>
     <div class="username">{{ profile.nickname }}</div>
-    <div class="description" *ngIf="userMetadata.description">{{ 
-      userMetadata.description 
+    <div class="description" *ngIf="user.description">{{ 
+      user.description 
     }}</div>
 
     <table class="details">
-      <tr *ngIf="userMetadata.organization">
+      <tr *ngIf="user.organization">
         <th>
           <mat-icon aria-hidden="false" aria-label="Organization"
             >people</mat-icon
           >
         </th>
-        <td>{{ userMetadata.organization }}</td>
+        <td>{{ user.organization }}</td>
       </tr>
 
-      <tr *ngIf="userMetadata.website">
+      <tr *ngIf="user.website">
         <th>
           <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>
         </th>
         <td>
-          <a href="{{ userMetadata.website }}">{{
-            userMetadata.website
+          <a href="{{ user.website }}">{{
+            user.website
           }}</a>
         </td>
       </tr>
@@ -60,14 +60,14 @@
         </td>
       </tr>
 
-      <tr *ngIf="userMetadata.publicEmail" class="email">
+      <tr *ngIf="user.publicEmail" class="email">
         <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
         <td>
-          <a href="mailto:{{ userMetadata.publicEmail }}">{{ userMetadata.publicEmail }}</a> (public)
+          <a href="mailto:{{ user.publicEmail }}">{{ user.publicEmail }}</a> (public)
         </td>
       </tr>
 
-      <tr *ngIf="userMetadata.github">
+      <tr *ngIf="user.github">
         <th>
           <fa-icon
             [icon]="['fab', 'github']"
@@ -77,13 +77,13 @@
           ></fa-icon>
         </th>
         <td>
-          <a href="https://github.com/{{ userMetadata.github }}">{{
-            userMetadata.github
+          <a href="https://github.com/{{ user.github }}">{{
+            user.github
           }}</a>
         </td>
       </tr>
 
-      <tr *ngIf="userMetadata.googleScholar">
+      <tr *ngIf="user.googleScholar">
         <th>
           <fa-icon
             [icon]="['fab', 'google']"
@@ -95,14 +95,14 @@
         <td>
           <a
             href="https://scholar.google.com/citations?user={{
-              userMetadata.googleScholar
+              user.googleScholar
             }}"
-            >{{ userMetadata.googleScholar }}</a
+            >{{ user.googleScholar }}</a
           >
         </td>
       </tr>
 
-      <tr *ngIf="userMetadata.orcid">
+      <tr *ngIf="user.orcid">
         <th>
           <fa-icon
             [icon]="['fab', 'orcid']"
@@ -112,8 +112,8 @@
           ></fa-icon>
         </th>
         <td>
-          <a href="https://orcid.org/{{ userMetadata.orcid }}">{{
-            userMetadata.orcid
+          <a href="https://orcid.org/{{ user.orcid }}">{{
+            user.orcid
           }}</a>
         </td>
       </tr>

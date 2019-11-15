@@ -1,4 +1,7 @@
-export class UserMetadata {
+export class User {
+  id: number;
+  firstName: string;
+  lastName: string;
   description: string;
   organization: string;
   website: string;
@@ -7,7 +10,11 @@ export class UserMetadata {
   googleScholar: string;
   orcid: string;
 
-  constructor() {
+  constructor(id?: number, firstName?: string, lastName?: string) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    
     this.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, \
       ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. \
       Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. \
@@ -23,5 +30,16 @@ export class UserMetadata {
     this.github = 'jonrkarr';
     this.googleScholar = 'Yb5nVLAAAAAJ';
     this.orcid = '0000-0002-2605-5080';
+  }
+
+  getFullName(): string {
+    const name: string[] = [];
+    if (this.firstName) {
+        name.push(this.firstName);
+    }
+    if (this.lastName) {
+        name.push(this.lastName);
+    }
+    return name.join(' ');
   }
 }
