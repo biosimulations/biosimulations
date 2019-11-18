@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule }   from '@angular/forms';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { ProfileComponent } from './profile/profile.component';
@@ -11,7 +12,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 @NgModule({
   declarations: [ProfileComponent, ProfileEditComponent],
 
-  imports: [CommonModule, AccountRoutingModule, SharedModule, MaterialModule],
+  imports: [CommonModule, FormsModule, AccountRoutingModule, SharedModule, MaterialModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AccountModule {}

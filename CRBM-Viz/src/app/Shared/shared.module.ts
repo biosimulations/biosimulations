@@ -15,15 +15,41 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import {
+  faFileAlt,
+  faCircle,
+  faCalendarAlt,
+  faClock,
+} from '@fortawesome/free-regular-svg-icons';
+import {
   faProjectDiagram,
+  faCog,
   faCogs,
   faChartArea,
   faSignInAlt,
   faSignOutAlt,
+  faUser,
+  faUsers,
   faUserPlus,
   faHourglassHalf,
   faLink,
   faEnvelope,
+  faDna,
+  faTag,
+  faTags,
+  faInfo,
+  faQuestion,
+  faFlask,
+  faHistory,
+  faUnlockAlt,
+  faTerminal,
+  faList,
+  faStopwatch,
+  faSitemap,
+  faKey,
+  faClone,
+  faCertificate,
+  faCircle as FaSolidCircle,
+  faAlignJustify,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -33,8 +59,13 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 // Shared components
+import { UserService } from './Services/user.service';
+import { ModelService } from './Services/model.service';
+import { SimulationService } from './Services/simulation.service';
+import { VisualizationsService } from './Services/visualizations.service';
+
 import { FilterPipe } from './Pipes/filter.pipe';
-import { TimeFormatHumanReadablePipe } from './Pipes/time-format-human-readable.pipe';
+import { FormatTimeForHumansPipe } from './Pipes/format-time-for-humans.pipe';
 
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 import { AccountMenuComponent } from './Components/account-menu/account-menu.component';
@@ -56,7 +87,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
 @NgModule({
   declarations: [
     FilterPipe,
-    TimeFormatHumanReadablePipe,
+    FormatTimeForHumansPipe,
 
     SearchBarComponent,
     AccountMenuComponent,
@@ -86,7 +117,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
   ],
   exports: [
     FilterPipe,
-    TimeFormatHumanReadablePipe,
+    FormatTimeForHumansPipe,
 
     SearchBarComponent,
     AccountMenuComponent,
@@ -105,25 +136,55 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
     SimulationsGridComponent,
     NgPipesModule,
   ],
+  providers: [
+    UserService,
+    ModelService,
+    SimulationService,
+    VisualizationsService,
+  ],
   entryComponents: [AlertComponent],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
     library.addIcons(
+      faFileAlt,
+      faCircle,
+      faCalendarAlt,
+      faClock,
       faSignInAlt,
       faSignOutAlt,
+      faUser,
+      faUsers,
       faUserPlus,
       faProjectDiagram,
+      faCog,
       faCogs,
       faChartArea,
       faHourglassHalf,
       faLink,
       faEnvelope,
+      faDna,
+      faTag,
+      faTags,
+      faInfo,
+      faQuestion,
+      faFlask,
+      faHistory,
+      faUnlockAlt,
+      faTerminal,
+      faList,
+      faStopwatch,
+      faSitemap,
+      faKey,
+      faClone,
+      faCertificate,
+      FaSolidCircle,
+      faAlignJustify,
       faDocker,
       faGithub,
       faGoogle,
-      faOrcid
+      faOrcid,
     );
   }
 }

@@ -1,16 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.sass'],
+  styleUrls: ['../about.module.sass', './about.component.sass'],
 })
 export class AboutComponent implements OnInit {
-  constructor() {}
+  constructor(@Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const crumbs: Object[] = [
+      {label: 'About'},
+    ];
+    const buttons: Object[] = [
+      {iconType: 'fas', icon: 'question', label: 'Help', route: ['/about/help']},
+    ];
+    this.breadCrumbsService.set(crumbs, buttons);
+  }
 
   scrollToElement($element): void {
     $element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+  }
+
+  scrollToTop($element): void {
+    $element.parentElement.parentElement.parentElement.parentElement.scrollTo(0, 0);
   }
 }

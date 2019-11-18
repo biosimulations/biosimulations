@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { UtilsService } from 'src/app/Shared/Services/utils.service';
 import { Format } from 'src/app/Shared/Models/format';
 import { Simulator } from 'src/app/Shared/Models/simulator';
 import { Simulation } from 'src/app/Shared/Models/simulation';
@@ -19,7 +20,11 @@ export class SimulationsGridComponent implements OnInit {
   columnDefs;
   rowData;
 
-  constructor(private simulationService: SimulationService) {}
+  constructor(
+    private utilsService: UtilsService,
+    private simulationService: SimulationService
+    ) {    
+  }
 
   ngOnInit() {
     this.columnDefs = [
@@ -81,7 +86,7 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Length',
         field: 'length',
-        valueFormatter: lengthFormatter,
+        valueFormatter: this.lengthFormatter,
         filter: 'agNumberColumnFilter',
         minWidth: 75,
         hide: true,
@@ -113,11 +118,35 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
+        headerName: 'Parent',
+        field: 'parent.name',
+        minWidth: 150,
+        hide: true,
+      },
+      {
+        headerName: 'Author',
+        field: 'refs',
+        valueGetter: authorGetter,
+        filterValueGetter: authorGetter,
+        valueFormatter: authorFormatter,
+        minWidth: 150,
+        hide: true,
+      },
+      {
         headerName: 'Owner',
         field: 'owner',
         valueGetter: ownerGetter,
         minWidth: 150,
         hide: !this.showOwner,
+      },
+      {
+        headerName: 'Model author',
+        field: 'model.refs',
+        valueGetter: modelAuthorGetter,
+        filterValueGetter: modelAuthorGetter,
+        valueFormatter: authorFormatter,
+        minWidth: 150,
+        hide: true,
       },
       {
         headerName: 'Model owner',
@@ -172,7 +201,7 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Wall time',
         field: 'wallTime',
-        valueFormatter: lengthFormatter,
+        valueFormatter: this.lengthFormatter,
         filter: 'agNumberColumnFilter',
         minWidth: 100,
         hide: true,
@@ -191,7 +220,12 @@ export class SimulationsGridComponent implements OnInit {
       // errLog
     ];
 
-    this.rowData = this.simulationService.getSimulations(this.auth);
+    this.rowData = this.simulationService.list(this.auth);
+  }
+
+  lengthFormatter(params): string {
+    const secs:number = params.value;
+    return this.utilsService.formatTimeForHumans(secs);
   }
 }
 
@@ -246,14 +280,26 @@ function capitalizeFormatter(params): string {
   return value.substring(0, 1).toUpperCase() + value.substring(1);
 }
 
+function authorGetter(params): string[] {
+  return params.data.getAuthors();  
+}
+
+function modelAuthorGetter(params): string[] {
+  return params.data.model.getAuthors();  
+}
+
+function authorFormatter(params) {
+  const value = params.value;
+  if (value instanceof Array) {
+    return value.join('; ');
+  } else {
+    return value;
+  }
+}
+
 function dateFormatter(params): string {
   const date:Date = params.value;
   return (date.getFullYear()
      + '-' + String(date.getMonth() + 1).padStart(2, '0')
      + '-' + String(date.getDate()).padStart(2, '0'));
-}
-
-function lengthFormatter(params): string {
-  const secs:number = params.value;
-  return Simulation.getHumanReadableTime(secs);
 }

@@ -1,112 +1,399 @@
-<div class="full-width-container" *ngIf="simulation">
-  <div class="page-toolbar">
-    <h1>Simulation :: {{ simulation.id }}</h1>
-    <div class="page-routes">
-      <a [routerLink]="['..']">
-        <mat-icon class="simulation browse" aria-hidden="false" aria-label="Browse icon"
-        >timeline</mat-icon> Browse
-      </a>
-      <a [routerLink]="['status']">
-        <mat-icon class="simulation status" aria-hidden="false" aria-label="Status icon"
-        >hourglass_empty</mat-icon> My simulations
-      </a>
-      <a [routerLink]="['new']">
-        <mat-icon class="simulation submit" aria-hidden="false" aria-label="Submit icon"
-        >add</mat-icon> Submit
-      </a>
+<mat-tab-group class="page-content full-width" *ngIf="simulation" disableRipple="true" [selectedIndex]="1">
+  <mat-tab>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
+    </ng-template>
+    <div class="tab">
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th colspan="2" class="section-title">Id</th>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
+              Id:
+            </th>
+            <td>{{ simulation.id }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
+              Name:
+            </th>
+            <td>{{ simulation.name }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Tags icon" [icon]="['fas', 'tags']"></fa-icon>
+              Tags:
+            </th>
+            <td><span *ngFor="let tag of simulation.tags; let i = index">{{ i > 0 ? ', ' : ''}}{{ tag }}</span></td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Description icon" [icon]="['fas', 'align-justify']"></fa-icon>
+              Description:
+            </th>
+            <td>{{ simulation.description }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Parameter icon" [icon]="['fas', 'circle']"></fa-icon>
+              Parameters:
+            </th>
+            <td>{{ simulation.changedParameters.length }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['fas', 'stopwatch']"></fa-icon>
+              Length:
+            </th>
+            <td>{{ simulation.length | formatTimeForHumans }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['fas', 'cog']"></fa-icon>
+              Simulator:
+            </th>
+            <td>{{ simulation.simulator.getFullName() }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+              Format:
+            </th>
+            <td>{{ simulation.format.getFullName() }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Authors icon" [icon]="['fas', 'users']"></fa-icon>
+              Authors:
+            </th>
+            <td>{{ simulation.getAuthors().join('; ') }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Owner icon" [icon]="['fas', 'user']"></fa-icon>
+              Owner:
+            </th>
+            <td>{{ simulation.owner.getFullName() }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+              License:
+            </th>
+            <td>{{ simulation.license }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Status icon" [icon]="['fas', 'certificate']"></fa-icon>
+              Status:
+            </th>
+            <td>{{ simulation.status | ucfirst }}<span *ngIf="simulation.wallTime">{{ ' in ' + (simulation.wallTime | formatTimeForHumans) }}</span></td>
+          </tr>
+        </tbody>
+
+        <tbody class="section" *ngIf="simulation.model as model">
+          <tr>
+            <th colspan="2" class="section-title">Model</th>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
+              Id:
+            </th>
+            <td>
+              <a [routerLink]="model.getRoute()">{{ model.id }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
+              Name:
+            </th>
+            <td>{{ model.name }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Tags icon" [icon]="['fas', 'tags']"></fa-icon>
+              Tags:
+            </th>
+            <td><span *ngFor="let tag of model.tags; let i = index">{{ i > 0 ? ', ' : ''}}{{ tag }}</span></td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Description icon" [icon]="['fas', 'align-justify']"></fa-icon>
+              Description:
+            </th>
+            <td>{{ model.description }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+              Format:
+            </th>
+            <td>{{ model.format.getFullName() }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Authors icon" [icon]="['fas', 'users']"></fa-icon>
+              Authors:
+            </th>
+            <td>{{ model.getAuthors().join('; ') }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Owner icon" [icon]="['fas', 'user']"></fa-icon>
+              Owner:
+            </th>
+            <td>{{ model.owner.getFullName() }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+              License:
+            </th>
+            <td>{{ model.license }}</td>
+          </tr>
+        </tbody>
+
+        <tbody class="section">
+          <tr>
+            <th colspan="2" class="section-title">Citations</th>
+          </tr>
+          <tr *ngFor="let ref of simulation.refs">
+            <td colspan="2">
+              <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']"></fa-icon>
+              <a href="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-  <div>
-    <div class="section">
-      <h2>Overview</h2>
-      <div class="section-content">
-        <div><b>Id: </b> {{ simulation.id }}</div>
-        <div><b>Name: </b> {{ simulation.name }}</div>
-        <div><b>Tags: </b>
-          <span *ngFor="let tag of simulation.tags; let i = index">{{ i > 0 ? ', ' : ''}}{{ tag }}</span>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Experiment icon" [icon]="['fas', 'flask']"></fa-icon> Experiment
+    </ng-template>
+    <div class="tab">
+      <table cellpadding="0" cellspacing="0" class="section heading">
+        <tbody class="section">
+          <tr>
+            <th colspan="5" class="section-title">Changed parameters</th>
+          </tr>
+          <tr class="section-heading">
+            <th><div>Id</div></th>
+            <th><div>Name</div></th>
+            <th><div>Value</div></th>
+            <th><div>Default</div></th>
+            <th><div>Units</div></th>
+          </tr>
+        </tbody>
+        <tbody class="section-body">
+          <tr *ngFor="let param of simulation.changedParameters">
+            <td>{{ param.id }}</td>
+            <td>{{ param.name }}</td>
+            <td>{{ param.value }}</td>
+            <td>{{ param.defaultValue }}</td>
+            <td>{{ param.units }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table cellpadding="0" cellspacing="0" class="section">
+        <tbody class="section">
+          <tr>
+            <th colspan="2" class="section-title">Meta parameters</th>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Length icon" [icon]="['fas', 'stopwatch']"></fa-icon>
+              Length:
+            </th>
+            <td>{{ simulation.length | formatTimeForHumans }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Replicates icon" [icon]="['fas', 'clone']"></fa-icon>
+              Replicates:
+            </th>
+            <td>1</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Simulator icon" [icon]="['fas', 'cog']"></fa-icon>
+              Simulator:
+            </th>
+            <td>
+              <a href="{{ simulation.simulator.getDockerHubUrl() }}"
+              >{{ simulation.simulator.name }} {{ simulation.simulator.version }}</a>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody class="section">
+          <tr>
+            <th colspan="2" class="section-title">Format</th>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+              Format:
+            </th>
+            <td>{{ simulation.format.name }} {{ simulation.format.version }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="History icon" [icon]="['fas', 'history']"></fa-icon> History
+    </ng-template>
+    <div class="tab">
+      <table cellpadding="0" cellspacing="0" class="section">
+        <tbody *ngIf="simulation.parent" class="section">
+          <tr>
+            <th colspan="2" class="section-title">Provenance</th>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Parent icon" [icon]="['fas', 'sitemap']"></fa-icon>
+              Parent:
+            </th>
+            <td>
+              <a [routerLink]="simulation.parent.getRoute()">{{ simulation.parent.name }}</a>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody class="section">
+          <tr>
+            <th colspan="2" class="section-title">Run status</th>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Status icon" [icon]="['fas', 'tag']"></fa-icon>
+              Status:
+            </th>
+            <td>{{ simulation.status | ucfirst }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+              Submitted:
+            </th>
+            <td>{{ simulation.date | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+          </tr>
+          <tr *ngIf="simulation.startDate">
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+              Started:
+            </th>
+            <td>{{ simulation.startDate | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+          </tr>
+          <tr *ngIf="simulation.endDate">
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+              Finished:
+            </th>
+            <td>{{ simulation.endDate | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+          </tr>
+          <tr *ngIf="simulation.wallTime">
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Time icon" [icon]="['fas', 'stopwatch']"></fa-icon>
+              Duration:
+            </th>
+            <td>{{ simulation.wallTime | formatTimeForHumans }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon> Access
+    </ng-template>
+    <div class="tab">
+      <table cellpadding="0" cellspacing="0" class="section">
+        <tbody class="section">
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon>
+              Access:
+            </th>
+            <td>{{ simulation.access | ucfirst }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Token icon" [icon]="['fas', 'key']"></fa-icon>          
+              Access token:
+            </th>
+            <td>{{ simulation.accessToken }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+              License:
+            </th>
+            <td>{{ simulation.license }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'user']"></fa-icon>
+              Owner:
+            </th>
+            <td>
+              <a [routerLink]="['/profile', simulation.owner.id]"
+              >{{ simulation.owner.getFullName() }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Logs icon" [icon]="['fas', 'terminal']"></fa-icon> Logs
+    </ng-template>
+    <div class="tab logs">
+      <div class="log">
+        <div>
+          <fa-icon aria-hidden="true" aria-label="Log icon" [icon]="['fas', 'terminal']"></fa-icon>
+          <b>Standard output</b>
+        </div>
+        <div class="pre-container">
+          <pre *ngIf="simulation.outLog; else noOutLog">{{ simulation.outLog }}</pre>
+          <ng-template #noOutLog>
+            <span class="none">None.</span>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="log">
+        <div>
+          <fa-icon aria-hidden="true" aria-label="Log icon" [icon]="['fas', 'terminal']"></fa-icon>
+          <b>Standard error</b>
+        </div>
+        <div class="pre-container">
+          <pre *ngIf="simulation.errLog; else noErrLog">{{ simulation.errLog }}</pre>
+          <ng-template #noErrLog>
+            <span class="none">None.</span>
+          </ng-template>
         </div>
       </div>
     </div>
+  </mat-tab>
 
-    <div class="section" *ngIf="simulation.model as model">
-      <h2>Model</h2>
-      <div class="section-content">
-        <div><b>Id: </b>
-          <a [routerLink]="['/model', model.id]"
-          >{{ model.id }}</a>
-        </div>
-        <div><b>Name: </b> {{ model.name }}</div>
-        <div><b>Owner: </b>
-          <a [routerLink]="['/profile', model.owner.id]"
-          >{{ model.owner.getFullName() }}</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Experiment</h2>
-      <div class="section-content">
-        <div><b>Changed parameters: </b> {{ simulation.changedParameters }}</div>
-        <div><b>Length: </b> {{ simulation.length | timeFormatHumanReadable }}</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Platform</h2>
-      <div class="section-content">
-        <div *ngIf="simulation.format as format"><b>Format: </b> {{ format.name }} {{ format.version }}</div>
-        <div *ngIf="simulation.simulator as simulator"><b>Simulator: </b>
-          <a href="{{ simulator.getDockerHubUrl() }}"
-          >{{ simulator.name }} {{ simulator.version }}</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Access</h2>
-      <div class="section-content">
-        <div><b>Owner: </b>
-          <a [routerLink]="['/profile', simulation.owner.id]"
-          >{{ simulation.owner.getFullName() }}</a>
-        </div>
-        <div><b>Access: </b> {{ simulation.access | ucfirst }}</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Status</h2>
-      <div class="section-content">
-        <div><b>Status: </b> {{ simulation.status | ucfirst }}</div>
-        <div><b>Request date: </b> {{ simulation.date | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</div>
-        <div><b>Start date: </b> {{ simulation.startDate | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</div>
-        <div><b>End date: </b> {{ simulation.endDate | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</div>
-        <div><b>Duration: </b> {{ simulation.wallTime | timeFormatHumanReadable }}</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Logs</h2>
-      <div class="section-content">
-        <div class="sub-section">
-          <b>Output</b>
-          <div class="pre-container">
-            <pre *ngIf="simulation.outLog; else noOutLog">{{ simulation.outLog }}</pre>
-            <ng-template #noOutLog>
-              <span class="none">None.</span>
-            </ng-template>
-          </div>
-        </div>
-
-        <div class="sub-section">
-          <b>Error</b>
-          <div class="pre-container">
-            <pre *ngIf="simulation.errLog; else noErrLog">{{ simulation.errLog }}</pre>
-            <ng-template #noErrLog>
-              <span class="none">None.</span>
-            </ng-template>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <mat-tab>
+  </mat-tab>
+</mat-tab-group>

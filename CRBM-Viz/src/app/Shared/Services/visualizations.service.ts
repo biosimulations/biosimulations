@@ -14,4 +14,12 @@ export class VisualizationsService {
     const vizJson = this.http.get<Visualization[]>(this.vizUrl + id);
     return vizJson;
   }
+
+  get(id: number): Visualization {
+    return VisualizationsService._get(id);
+  }
+
+  static _get(id: number): Visualization {
+    return new Visualization(id, 'Viz-' + id.toString());
+  }
 }

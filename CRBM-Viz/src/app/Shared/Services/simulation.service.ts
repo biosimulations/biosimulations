@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment }  from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
+import { UserService } from './user.service';
+import { ModelService } from './model.service';
 
 import { AccessLevel } from '../Enums/access-level'
 import { SimulationStatus } from '../Enums/simulation-status'
 import { ChangedParameter } from '../Models/changed-parameter'
 import { Format } from '../Models/format'
-import { Identifier } from '../Models/identifier'
-import { Model } from '../Models/model'
+import { JournalReference } from '../Models/journal-reference'
 import { Simulator } from '../Models/simulator'
 import { Simulation } from '../Models/simulation'
-import { Taxon } from '../Models/taxon'
 import { User } from '../Models/user'
 
 @Injectable({
@@ -27,10 +27,22 @@ export class SimulationService {
   sbatchFiles: Array<string> = null;
   simulationDataChangeSubject = new Subject<null>();
 
+  private userService: UserService;
+  private modelService: ModelService;
+  
   constructor(
     private http: HttpClient,
-    private alertService: AlertService
-    ) { }
+    private alertService: AlertService,
+    private injector: Injector,
+    ) {
+  }
+
+  private getServices(): void {
+    if (this.userService == null) {
+      this.userService = this.injector.get(UserService);
+      this.modelService = this.injector.get(ModelService);
+    }
+  }
 
   getSimulationAndJobFilesInfo(): void {
     this.http.get(`${environment.crbm.CRBMAPI_URL}/simulation`)
@@ -96,129 +108,126 @@ export class SimulationService {
     return data;
   }
 
-  getSimulation(id: string): Simulation {
-    if (id === '001') {
-      return new Simulation(
-        '001',
-        'First simulation',
-        ['wild type', 'normal'],
-        new Model(
-          '001',
-          'EPSP ACh event',
-          ['neurotransmission', 'signaling'],
-          new Taxon(7787, 'Tetronarce californica'),
-          new Format('SBML', 'L2V4'),
-          [
-            new Identifier('biomodels', 'BIOMD0000000001'),
-            new Identifier('doi', '10.1007/s004220050302'),
-            new Identifier('pubmed', '8983160'),
-          ],
-          new User(4, 'S', 'Edelstein'),
-          new Date(Date.parse('1996-11-01 00:00:00')),
-        ),
-
-        new Format('SED-ML', 'L1V3'),
-        [],
-        10.,
-
-        new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
-
-        new User(1, 'Yara', 'Skaf'),
-        AccessLevel.public,
-        SimulationStatus.finished,
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        100.,
-        'out',
-        'err',
-      );
-    }
-
-    if (id === '003') {
-      return new Simulation(
-        '003',
-        'Third simulation',
-        ['disease', 'cancer'],
-
-        new Model(
-          '003',
-          'Min Mit Oscil',
-          ['cell cycle', 'mitosis'],
-          new Taxon(8292, 'Xenopus laevis'),
-          new Format('SBML', 'L2V4'),
-          [
-            new Identifier('biomodels', 'BIOMD0000000003'),
-            new Identifier('doi', '10.1073/pnas.88.20.9107'),
-            new Identifier('pubmed', '1833774'),
-          ],
-          new User(5, 'A', 'Goldbeter'),
-          new Date(Date.parse('1991-10-15 00:00:00')),
-        ),
-
-        new Format('SED-ML', 'L1V2'),
-        [],
-        10.,
-
-        new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
-
-        new User(1, 'Yara', 'Skaf'),
-        AccessLevel.private,
-        SimulationStatus.queued,
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        100.,
-        'out',
-        'err',
-      );
-    }
-
-    if (id === '006') {
-      return new Simulation(
-        '006',
-        'Sixth simulation',
-        ['disease', 'diabetes'],
-
-        new Model(
-          '006',
-          'Cell Cycle 6 var',
-          ['cell cycle'],
-          new Taxon(33154, 'Homo sapiens'),
-          new Format('SBML', 'L2V4'),
-          [
-            new Identifier('biomodels', 'BIOMD0000000006'),
-            new Identifier('doi', '10.1186/1752-0509-4-92'),
-            new Identifier('pubmed', '20587024'),
-          ],
-          new User(5, 'J', 'Tyson'),
-          new Date(Date.parse('1991-08-15 00:00:00')),
-        ),
-
-        new Format('SED-ML', 'L1V1'),
-        [],
-        10.,
-
-        new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
-
-        new User(1, 'Bilal', 'Shaikh'),
-        AccessLevel.public,
-        SimulationStatus.failed,
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        new Date(Date.parse('2019-11-06 00:00:00')),
-        100.,
-        'out',
-        'err',
-      );
-    }
+  get(id: string): Simulation {
+    this.getServices();
+    return SimulationService._get(id);
   }
 
-  getSimulations(auth?): Simulation[] {
+  static _get(id: string): Simulation {
+    let simulation: Simulation;
+
+    switch (id) {
+      case '001':
+        simulation = new Simulation(
+          '001',
+          'First simulation',
+          'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
+          ['wild type', 'normal'],
+
+          ModelService._get('001'),
+
+          new Format('SED-ML', 'L1V3'),
+          [
+            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
+            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          ],
+          10.,
+
+          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+
+          [
+            new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
+            new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
+          ],
+          new Simulation('005', 'Sim-005'),
+          UserService._get(2),
+          AccessLevel.public,
+          SimulationStatus.finished,
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          100.,
+          'out\n'.repeat(40),
+          'err\n'.repeat(40),
+        );
+        break;
+
+      case '003':
+        simulation = new Simulation(
+          '003',
+          'Third simulation',
+          'Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.',
+          ['disease', 'cancer'],
+
+          ModelService._get('003'),
+
+          new Format('SED-ML', 'L1V2'),
+          [
+            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
+            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          ],
+          10.,
+
+          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+
+          [],
+          null,
+          UserService._get(2),
+          AccessLevel.private,
+          SimulationStatus.queued,
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          100.,
+          'out\n'.repeat(40),
+          null,
+        );
+        break;
+      
+      case '006':
+        simulation = new Simulation(
+          '006',
+          'Sixth simulation',
+          'Simulation of a mathematical model of the interactions of cdc2 and cyclin.',
+          ['disease', 'diabetes'],
+
+          ModelService._get('006'),
+
+          new Format('SED-ML', 'L1V1'),
+          [
+            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
+            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          ],
+          10.,
+
+          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+
+          [],
+          null,
+          UserService._get(3),
+          AccessLevel.public,
+          SimulationStatus.failed,
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          100.,
+          'out\n'.repeat(40),
+          'err\n'.repeat(40),
+        );
+        break;
+    }
+    simulation.license = 'MIT';
+    return simulation;
+  }
+
+  list(auth?): Simulation[] {
     const data: Simulation[] = [
-      this.getSimulation('001'),
-      this.getSimulation('003'),
-      this.getSimulation('006'),
+      this.get('001'),
+      this.get('003'),
+      this.get('006'),
     ];
     return data;
   }

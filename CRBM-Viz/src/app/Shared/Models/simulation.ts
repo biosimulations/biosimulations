@@ -4,21 +4,28 @@ import { ChangedParameter } from './changed-parameter'
 import { Format } from './format'
 import { Identifier } from './identifier'
 import { Model } from './model'
+import { JournalReference } from './journal-reference';
 import { Simulator } from './simulator'
 import { Taxon } from './taxon'
 import { User } from './user'
+import { UtilsService } from '../Services/utils.service'
 
 export class Simulation {
   id: string;
   name: string;
+  description: string;
   tags: string[];
   model: Model;
   format: Format;
   changedParameters: ChangedParameter[];
   length: number;
   simulator: Simulator;
+  refs: JournalReference[];
+  parent: Simulation;
   owner: User;
   access: AccessLevel;
+  accessToken: string;
+  license: string;
   status: SimulationStatus;
   date: Date; // date/time when simulation was requested
   startDate: Date; // date/time when simulation run started
@@ -30,12 +37,15 @@ export class Simulation {
   constructor(
     id?: string,
     name?: string,
+    description?: string,
     tags?: string[],
     model?: Model,
     format?: Format,
     changedParameters?: ChangedParameter[],
     length?: number,
     simulator?: Simulator,
+    refs?: JournalReference[],
+    parent?: Simulation,
     owner?: User,
     access?: AccessLevel,
     status?: SimulationStatus,
@@ -46,16 +56,30 @@ export class Simulation {
     outLog?: string,
     errLog?: string,
     ) {
+    if (!tags) {
+      tags = [];
+    }
+    if (!changedParameters) {
+      changedParameters = [];
+    }
+    if (!refs) {
+      refs = [];
+    }
+
     this.id = id;
     this.name = name;
+    this.description = description;
     this.tags = tags;
     this.model = model;
     this.format = format;
     this.changedParameters = changedParameters;
     this.length = length;
     this.simulator = simulator;
+    this.refs = refs;
+    this.parent = parent;
     this.owner = owner;
     this.access = access;
+    this.accessToken = new UtilsService().genAccessToken();
     this.status = status;
     this.date = date;
     this.startDate = startDate;
@@ -65,66 +89,19 @@ export class Simulation {
     this.errLog = errLog;
   }
 
-  static getHumanReadableTime(secs: number): string {
-    let numerator:number;
-    let units:string;
-
-    if (secs >= 1) {
-      if (secs >= 60) {
-        if (secs >= 60 * 60) {
-          if (secs >= 60 * 60 * 24) {
-            if (secs >= 60 * 60 * 24 * 365) {
-              numerator = 60 * 60 * 24 * 365;
-              units = 'y';
-            } else {
-              numerator = 60 * 60 * 24;
-              units = 'd';
-            }
-          } else {
-            numerator = 60 * 60;
-            units = 'h';
-          }
-        } else {
-          numerator = 60;
-          units = 'm';
-        }
-      } else {
-        numerator = 1;
-        units = 's';
-      }
-    } else if (secs >= 1e-3) {
-      numerator = 1e-3;
-      units = 'ms';
-    } else if (secs >= 1e-6) {
-      numerator = 1e-6;
-      units = 'us';
-    } else if (secs >= 1e-9) {
-      numerator = 1e-9;
-      units = 'ns';
-    } else if (secs >= 1e-12) {
-      numerator = 1e-12;
-      units = 'ps';
-    } else if (secs >= 1e-15) {
-      numerator = 1e-15;
-      units = 'fs';
-    } else if (secs >= 1e-18) {
-      numerator = 1e-18;
-      units = 'as';
-    } else if (secs >= 1e-21) {
-      numerator = 1e-21;
-      units = 'zs';
-    } else {
-      numerator = 1e-24;
-      units = 'ys';
-    }
-    return Math.round(secs / numerator) + ' ' + units;
-  }
-
   getIcon() {
     return {type: 'mat', icon: 'timeline'};
   }
 
   getRoute() {
     return ['/simulate', this.id];
+  }
+
+  getAuthors(): string[] {
+    const authors: string[] = [];
+    for (const ref of this.refs) {
+      Array.prototype.push.apply(authors, ref.authors);
+    }
+    return authors;
   }
 }

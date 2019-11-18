@@ -8,23 +8,39 @@
   border-right: 1px solid #999
   background: #ccc
 
-  .mat-toolbar
-    background: #666
-    justify-content: space-between
-    padding: 0 10px
-    font-weight: bold
+.toolbar-container
+  position: sticky
+  top: 0
+  z-index: 1
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25)
 
-    .bio
-      color: mat-color($theme-accent)
-    .simulations
-      color: #fff
+.toolbar-container.tabs
+  box-shadow: none
 
-    .home
-      padding: 0
-      font-size: 1.25rem
+.mat-toolbar
+  background: #666
+  justify-content: space-between
+  padding: 0
+  padding-left: calc(1rem - 2px)
+  padding-right: 1rem
+  font-weight: bold
 
-    .mat-icon-button
-      color: #fff
+  .bio
+    color: mat-color($theme-accent)
+  .simulations
+    color: #fff
+
+  .home
+    padding: 0
+    font-size: 1.25rem
+
+  .mat-icon-button
+    color: #fff
+
+.mat-toolbar.mat-primary
+  position: static
+  top: auto
+  z-index: auto
 
 :host::ng-deep .mat-button.home:hover
   .mat-button-focus-overlay
@@ -48,26 +64,67 @@
   display: none
 
 .topbar.mat-toolbar
-  /* border-bottom: 1px solid mat-color($theme-primary, darker) */
-  box-shadow: 0px 3px 3px rgb(0, 0, 0, 0.25)
   background-image: linear-gradient(to bottom, lighten(mat-color($theme-primary), 10%), darken(mat-color($theme-primary), 10%))
+
 .menubutton
   flex: 0 0 auto
   height: 100%
-  padding-right: 5px
+  padding: 0
+  padding-right: calc(1rem - 2px)
 
 .logo
-  height: calc(100% - 10px)
-  padding-left: 0.75rem
+  height: calc(100% - 10px)  
 
 .icons
   margin-left: auto
 
+.module-toolbar
+    height: 28px
+    padding-top: 0.25rem
+    padding-bottom: 0.25rem
+    padding-left: 1rem
+    padding-right: 1rem
+    background-image: linear-gradient(to bottom, #9bcff9, #c7e4fc)    
+    color: mat-color($theme-primary)
+    font-size: 16px
+    line-height: 100%
+    font-weight: 500
+    
+    .module-title
+        float: left
+        height: 100%
+        display: flex
+        align-items: center
+
+        span:after
+            content: "»"
+            margin: 0 0.5rem
+        span:last-child:after
+            content: ""
+            margin: 0
+
+    .module-routes
+        float: right
+        height: 100%
+        display: flex
+        align-items: center
+
+    a
+        text-decoration: none
+        color: mat-color($theme-primary)
+
+    .module-routes a
+        margin-left: 1rem
+
+    .module-routes .mat-icon
+        position: relative
+        top: 5px
+        margin-top: -11px
 
 .full-content
   height: 100%
 .content
-  min-height: calc(100vh - 64px)
+  min-height: calc(100vh - 64px - 32px - 0.5rem)
   height: auto
   box-sizing: border-box
   overflow: auto

@@ -15,6 +15,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HelpComponent } from 'src/app/Modules/about/help/help.component';
 import { AboutComponent } from 'src/app/Modules/about/about/about.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -36,6 +37,9 @@ describe('NavigationComponent', () => {
         BrowserAnimationsModule,
         RouterTestingModule,
         FontAwesomeModule,
+      ],
+      providers: [
+        BreadCrumbsService,
       ],
     }).compileComponents();
   }));

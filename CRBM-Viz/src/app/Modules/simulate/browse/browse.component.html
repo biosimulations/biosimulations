@@ -1,18 +1,3 @@
-<div class="full-width-container">
-  <div class="page-toolbar">
-    <h1>Simulations</h1>
-    <div class="page-routes">
-      <a [routerLink]="['status']">
-        <mat-icon class="simulation status" aria-hidden="false" aria-label="Status icon"
-        >hourglass_empty</mat-icon> My simulations
-      </a>
-      <a [routerLink]="['new']">
-        <mat-icon class="simulation submit" aria-hidden="false" aria-label="Submit icon"
-        >add</mat-icon> Submit
-      </a>
-    </div>
-  </div>
-  <div class="content-container">
-    <app-simulations-grid></app-simulations-grid>
-  </div>
+<div class="page-content full-width padded">
+  <app-simulations-grid></app-simulations-grid>
 </div>

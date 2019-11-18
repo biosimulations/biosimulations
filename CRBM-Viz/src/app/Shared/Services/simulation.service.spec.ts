@@ -2,13 +2,12 @@ import { TestBed } from '@angular/core/testing';
 
 import { SimulationService } from './simulation.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MaterialModule } from '../../Modules/app-material.module';
 
 describe('SimulationService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MaterialModule],
-      providers: [HttpClientTestingModule, MaterialModule],
+      imports: [HttpClientTestingModule],
+      providers: [HttpClientTestingModule],
     })
   );
 
