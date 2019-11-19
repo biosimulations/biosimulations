@@ -74,19 +74,22 @@
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
 import { NewSimulationComponent } from &#x27;./new-simulation/new-simulation.component&#x27;;
 import { SimulateComponent } from &#x27;./simulate/simulate.component&#x27;;
-import { DataComponent } from &#x27;./data/data.component&#x27;;
+import { StatusComponent } from &#x27;./status/status.component&#x27;;
+import { BrowseComponent } from &#x27;./browse/browse.component&#x27;;
+import { ViewComponent } from &#x27;./view/view.component&#x27;;
 
 const routes: Routes &#x3D; [
-  { path: &#x27;&#x27;, component: SimulateComponent },
-  { path: &#x27;browse&#x27;, component: SimulateComponent },
-  { path: &#x27;data&#x27;, component: DataComponent },
-  { path: &#x27;data/:id&#x27;, component: DataComponent },
-  { path: &#x27;new&#x27;, component: DataComponent },
+  { path: &#x27;&#x27;, component: BrowseComponent },
+  { path: &#x27;browse&#x27;, component: BrowseComponent },
+  { path: &#x27;status&#x27;, component: StatusComponent },
+  { path: &#x27;new&#x27;, component: SimulateComponent },
+  { path: &#x27;:id&#x27;, component: ViewComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  entryComponents: [],
 })
 export class SimulateRoutingModule {}
 </code></pre>

@@ -75,7 +75,20 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#endpoint">endpoint</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#modelService">modelService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#simulationService">simulationService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#visualizationsService">visualizationsService</a>
                             </li>
                         </ul>
                     </td>
@@ -90,7 +103,24 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#_get">_get</a>
+                            </li>
+                            <li>
+                                <a href="#get">get</a>
+                            </li>
+                            <li>
+                                <a href="#getByAuth0Id">getByAuth0Id</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getServices">getServices</a>
+                            </li>
+                            <li>
                                 <a href="#getUser">getUser</a>
+                            </li>
+                            <li>
+                                <a href="#list">list</a>
                             </li>
                         </ul>
                     </td>
@@ -110,12 +140,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -144,6 +174,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>injector</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -158,6 +200,259 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_get"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Static</span>
+                            _get
+                        </b>
+                        <a href="#_get"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>_get(id?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="get"></a>
+                    <span class="name">
+                        <b>
+                            get
+                        </b>
+                        <a href="#get"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>get(id?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getByAuth0Id"></a>
+                    <span class="name">
+                        <b>
+                            getByAuth0Id
+                        </b>
+                        <a href="#getByAuth0Id"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getByAuth0Id(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:130</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getServices"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getServices
+                        </b>
+                        <a href="#getServices"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getServices()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:105</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -180,8 +475,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="113"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:113</a></div>
                 </td>
             </tr>
 
@@ -191,6 +486,45 @@
 
                     <div class="io-description">
                         <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="list"></a>
+                    <span class="name">
+                        <b>
+                            list
+                        </b>
+                        <a href="#list"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>list()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="143"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:143</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >User[]</a></code>
 
                     </div>
                 </td>
@@ -210,6 +544,7 @@
                         <a name="endpoint"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Private</span>
                             endpoint</b>
                             <a href="#endpoint"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -228,7 +563,91 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            modelService</b>
+                            <a href="#modelService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/ModelService.html" target="_self" >ModelService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="simulationService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            simulationService</b>
+                            <a href="#simulationService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/SimulationService.html" target="_self" >SimulationService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="visualizationsService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            visualizationsService</b>
+                            <a href="#visualizationsService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/VisualizationsService.html" target="_self" >VisualizationsService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -241,16 +660,117 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Injector } from &#x27;@angular/core&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { HttpClient, HttpHeaders } from &#x27;@angular/common/http&#x27;;
+import { User } from &#x27;../Models/user&#x27;;
+import { ModelService } from &#x27;./model.service&#x27;;
+import { SimulationService } from &#x27;./simulation.service&#x27;;
+import { VisualizationsService } from &#x27;./visualizations.service&#x27;;
+
+// tslint:disable:max-line-length
 
 @Injectable({
   providedIn: &#x27;root&#x27;,
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
-  endpoint &#x3D; &#x27;https://crbm.auth0.com/userinfo&#x27;;
+  private modelService: ModelService;
+  private simulationService: SimulationService;
+  private visualizationsService: VisualizationsService;
+  private endpoint &#x3D; &#x27;https://crbm.auth0.com/userinfo&#x27;;
+
+  constructor(
+    private http: HttpClient,
+    private injector: Injector
+    ) {}
+
+  static _get(id?: number): User {
+    let user:User;
+    switch (id) {
+      case 1:
+        user &#x3D; new User(
+          &#x27;github|2848297&#x27;,
+          1,
+          &#x27;jonrkarr&#x27;,
+          &#x27;Jonathan&#x27;,
+          &#x27;R&#x27;,
+          &#x27;Karr&#x27;,
+          &#x27;Icahn School of Medicine at Mount Sinai&#x27;,
+          &#x27;https://www.karrlab.org&#x27;,
+          &#x27;jonrkarr@gmail.com&#x27;,
+          true,
+          true,
+          &#x27;jonrkarr@gmail.com&#x27;,
+          &#x27;jonrkarr&#x27;,
+          &#x27;Yb5nVLAAAAAJ&#x27;,
+          &#x27;0000-0002-2605-5080&#x27;,
+          &#x27;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, &#x27; +
+            &#x27;ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. &#x27; +
+            &#x27;Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. &#x27; +
+            &#x27;Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, &#x27; +
+            &#x27;nec dictum erat aliquet quis.&#x27;,
+          [
+            ModelService._get(&#x27;001&#x27;),
+            ModelService._get(&#x27;003&#x27;),
+            ModelService._get(&#x27;006&#x27;),
+            ModelService._get(&#x27;001&#x27;),
+            ModelService._get(&#x27;003&#x27;),
+            ],
+          [
+            SimulationService._get(&#x27;001&#x27;),
+            SimulationService._get(&#x27;003&#x27;),
+            SimulationService._get(&#x27;006&#x27;),
+            SimulationService._get(&#x27;001&#x27;),
+          ],
+          [],
+        );
+        break;
+      case 2:
+        user &#x3D; new User(null, 2, &#x27;y.skaf&#x27;, &#x27;Yara&#x27;, null, &#x27;Skaf&#x27;,
+          &#x27;University of Connecticut Health Center&#x27;,
+          null,
+          &#x27;skaf@uchc.edu&#x27;,
+          true,
+          true,
+          &#x27;skaf@uchc.edu&#x27;,
+          null,
+          null,
+          null,
+          &#x27;Description&#x27;);
+        break;
+      case 3:
+        user &#x3D; new User(null, 3, &#x27;b.bhaikh&#x27;, &#x27;Bilal&#x27;, null, &#x27;Shaikh&#x27;,
+          &#x27;Icahn School of Medicine at Mount Sinai&#x27;,
+          &#x27;https://bilalshaikh.com&#x27;,
+          &#x27;bilal.shaikh@columbia.edu&#x27;,
+          true,
+          true,
+          null,
+          &#x27;bilalshaikh42&#x27;,
+          null,
+          null,
+          &#x27;Description&#x27;);
+        break;
+      case 4:
+        user &#x3D; new User(null, 4, &#x27;s.edelstein&#x27;, &#x27;S&#x27;, null, &#x27;Edelstein&#x27;);
+        break;
+      case 5:
+        user &#x3D; new User(null, 5, &#x27;a.goldbeter&#x27;, &#x27;A&#x27;, null, &#x27;Goldbeter&#x27;);
+        break;
+      case 6:
+        user &#x3D; new User(null, 6, &#x27;j.tyson&#x27;, &#x27;J&#x27;, null, &#x27;Tyson&#x27;);
+        break;
+    }
+    return user;
+  }
+
+  private getServices(): void {
+    if (this.modelService &#x3D;&#x3D; null) {
+      this.modelService &#x3D; this.injector.get(ModelService);
+      this.simulationService &#x3D; this.injector.get(SimulationService);
+      this.visualizationsService &#x3D; this.injector.get(VisualizationsService);
+    }
+  }
 
   getUser(): Observable&lt;any&gt; {
     const httpOptions &#x3D; {
@@ -262,6 +782,35 @@ export class UserService {
       Authorization: &#x27;Bearer SY1MOMZZVnEBtzEG7aw-y-JYDEwm-QM3&#x27;,
     });
     return this.http.get(this.endpoint, { headers: Httpheaders });
+  }
+
+  get(id?: number) : User {
+    this.getServices();
+    return UserService._get(id);
+  }
+
+  getByAuth0Id(id: string): User {
+    let user:User;
+    switch (id) {
+      case &#x27;github|2848297&#x27;:
+        user &#x3D; this.get(1);
+        break;
+      default:
+        user &#x3D; new User(id);
+        break;
+    }
+    return user;
+  }
+
+  list(): User[] {
+    return [
+      this.get(1),
+      this.get(2),
+      this.get(3),
+      this.get(4),
+      this.get(5),
+      this.get(6),
+    ];
   }
 }
 </code></pre>

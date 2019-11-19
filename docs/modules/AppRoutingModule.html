@@ -72,20 +72,14 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
-import { HelpComponent } from &#x27;./Modules/about/help/help.component&#x27;;
 
 import { HomeComponent } from &#x27;./Shared/Components/home/home.component&#x27;;
 
-import { SimulateComponent } from &#x27;./Modules/simulate/simulate/simulate.component&#x27;;
 import { FourComponent } from &#x27;./Shared/Components/four/four.component&#x27;;
-import { UnderConstructionComponent } from &#x27;./Shared/Components/under-construction/under-construction.component&#x27;;
+
 import { AuthGuard } from &#x27;./Shared/Gaurds/auth.guard&#x27;;
-import { UploadComponent } from &#x27;./Modules/models/upload/upload.component&#x27;;
-import { FileEditComponent } from &#x27;./Modules/models/file-edit/file-edit.component&#x27;;
+
 import { CallbackComponent } from &#x27;./Shared/Components/callback/callback.component&#x27;;
-import { ProfileComponent } from &#x27;./Modules/account/profile/profile.component&#x27;;
-import { ProfileEditComponent } from &#x27;./Modules/account/profile/profile-edit.component&#x27;;
-import { DataComponent } from &#x27;./Modules/simulate/data/data.component&#x27;;
 
 const routes: Routes &#x3D; [
   { path: &#x27;&#x27;, component: HomeComponent },
@@ -120,13 +114,6 @@ const routes: Routes &#x3D; [
       &quot;import(&#x27;./Modules/models/models.module&#x27;).then(m &#x3D;&gt; m.ModelsModule)&quot;,
   },
 
-  // { path: &#x27;login&#x27;, component: LoginComponent },
-  { path: &#x27;files&#x27;, component: UploadComponent, canActivate: [AuthGuard] },
-  {
-    path: &#x27;files/edit/:fileId&#x27;,
-    component: FileEditComponent,
-    canActivate: [AuthGuard],
-  },
   { path: &#x27;callback&#x27;, component: CallbackComponent },
 
   { path: &#x27;**&#x27;, component: FourComponent },
