@@ -42,13 +42,19 @@ export class ProfileComponent implements OnInit {
 
       const crumbs: object[] = [{label: 'Profile'}]
       const buttons: object[] = [];
-      if (this.auth && this.user && this.user.auth0Id === auth0Id) {
-        buttons.push({
-          iconType: 'mat',
-          icon: 'edit',
-          label: 'Edit',
-          route: ['/profile/edit'],
-        });
+      if (this.user) {
+        if (this.auth && this.user.auth0Id === auth0Id) {
+          buttons.push({
+            iconType: 'mat',
+            icon: 'edit',
+            label: 'Edit',
+            route: ['/profile/edit'],
+          });
+        } else {
+          crumbs.push({
+            label: this.user.getFullName(),
+          });
+        }
       }
 
       this.breadCrumbsService.set(crumbs, buttons);
