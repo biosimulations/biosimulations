@@ -68,7 +68,7 @@ export class Model {
 
   getBioModelsId(): string {
     for (const id of this.identifiers) {
-      if (id.namespace == 'biomodels.db') {
+      if (id.namespace === 'biomodels.db') {
         return id.id;
       }
     }
@@ -77,7 +77,7 @@ export class Model {
 
   getDoi() {
     for (const id of this.identifiers) {
-      if (id.namespace == 'doi') {
+      if (id.namespace === 'doi') {
         return id.id;
       }
     }

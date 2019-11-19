@@ -29,12 +29,122 @@ export class SimulationService {
 
   private userService: UserService;
   private modelService: ModelService;
-  
+
   constructor(
     private http: HttpClient,
     private alertService: AlertService,
     private injector: Injector,
     ) {
+  }
+
+  static _get(id: string): Simulation {
+    let simulation: Simulation;
+
+    switch (id) {
+      case '001':
+        simulation = new Simulation(
+          '001',
+          'First simulation',
+          'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
+          ['wild type', 'normal'],
+
+          ModelService._get('001'),
+
+          new Format('SED-ML', 'L1V3'),
+          [
+            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
+            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          ],
+          10.,
+
+          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+
+          [
+            new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
+            new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
+          ],
+          new Simulation('005', 'Sim-005'),
+          UserService._get(2),
+          AccessLevel.public,
+          SimulationStatus.finished,
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          100.,
+          'out\n'.repeat(40),
+          'err\n'.repeat(40),
+        );
+        break;
+
+      case '003':
+        simulation = new Simulation(
+          '003',
+          'Third simulation',
+          'Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.',
+          ['disease', 'cancer'],
+
+          ModelService._get('003'),
+
+          new Format('SED-ML', 'L1V2'),
+          [
+            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
+            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          ],
+          10.,
+
+          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+
+          [],
+          null,
+          UserService._get(2),
+          AccessLevel.private,
+          SimulationStatus.queued,
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          100.,
+          'out\n'.repeat(40),
+          null,
+        );
+        break;
+
+      case '006':
+        simulation = new Simulation(
+          '006',
+          'Sixth simulation',
+          'Simulation of a mathematical model of the interactions of cdc2 and cyclin.',
+          ['disease', 'diabetes'],
+
+          ModelService._get('006'),
+
+          new Format('SED-ML', 'L1V1'),
+          [
+            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
+            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          ],
+          10.,
+
+          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+
+          [],
+          null,
+          UserService._get(3),
+          AccessLevel.public,
+          SimulationStatus.failed,
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          new Date(Date.parse('2019-11-06 00:00:00')),
+          100.,
+          'out\n'.repeat(40),
+          'err\n'.repeat(40),
+        );
+        break;
+    }
+    simulation.license = 'MIT';
+    return simulation;
   }
 
   private getServices(): void {
@@ -111,116 +221,6 @@ export class SimulationService {
   get(id: string): Simulation {
     this.getServices();
     return SimulationService._get(id);
-  }
-
-  static _get(id: string): Simulation {
-    let simulation: Simulation;
-
-    switch (id) {
-      case '001':
-        simulation = new Simulation(
-          '001',
-          'First simulation',
-          'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
-          ['wild type', 'normal'],
-
-          ModelService._get('001'),
-
-          new Format('SED-ML', 'L1V3'),
-          [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
-          ],
-          10.,
-
-          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
-
-          [
-            new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
-            new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
-          ],
-          new Simulation('005', 'Sim-005'),
-          UserService._get(2),
-          AccessLevel.public,
-          SimulationStatus.finished,
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          100.,
-          'out\n'.repeat(40),
-          'err\n'.repeat(40),
-        );
-        break;
-
-      case '003':
-        simulation = new Simulation(
-          '003',
-          'Third simulation',
-          'Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.',
-          ['disease', 'cancer'],
-
-          ModelService._get('003'),
-
-          new Format('SED-ML', 'L1V2'),
-          [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
-          ],
-          10.,
-
-          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
-
-          [],
-          null,
-          UserService._get(2),
-          AccessLevel.private,
-          SimulationStatus.queued,
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          100.,
-          'out\n'.repeat(40),
-          null,
-        );
-        break;
-      
-      case '006':
-        simulation = new Simulation(
-          '006',
-          'Sixth simulation',
-          'Simulation of a mathematical model of the interactions of cdc2 and cyclin.',
-          ['disease', 'diabetes'],
-
-          ModelService._get('006'),
-
-          new Format('SED-ML', 'L1V1'),
-          [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
-          ],
-          10.,
-
-          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
-
-          [],
-          null,
-          UserService._get(3),
-          AccessLevel.public,
-          SimulationStatus.failed,
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          100.,
-          'out\n'.repeat(40),
-          'err\n'.repeat(40),
-        );
-        break;
-    }
-    simulation.license = 'MIT';
-    return simulation;
   }
 
   list(auth?): Simulation[] {

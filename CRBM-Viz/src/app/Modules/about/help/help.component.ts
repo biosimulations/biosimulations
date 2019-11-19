@@ -10,11 +10,11 @@ export class HelpComponent implements OnInit {
   constructor(@Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService) {}
 
   ngOnInit() {
-    const crumbs: Object[] = [
+    const crumbs: object[] = [
       {label: 'About', route: ['/about']},
       {label: 'Help'},
     ];
-    const buttons: Object[] = [
+    const buttons: object[] = [
       {iconType: 'fas', icon: 'info', label: 'About', route: ['/about']},
     ];
     this.breadCrumbsService.set(crumbs, buttons);

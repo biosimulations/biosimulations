@@ -21,11 +21,11 @@ export class ProfileEditComponent implements OnInit {
     private userService: UserService) {}
 
   ngOnInit() {
-    const crumbs: Object[] = [
+    const crumbs: object[] = [
       {label: 'Profile', route: ['/profile']},
       {label: 'Edit'},
     ];
-    const buttons: Object[] = [
+    const buttons: object[] = [
       {iconType: 'mat', icon: 'person', label: 'View', route: ['/profile']},
     ];
     this.breadCrumbsService.set(crumbs, buttons);

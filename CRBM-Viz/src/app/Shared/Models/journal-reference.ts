@@ -4,7 +4,7 @@ export class JournalReference {
   authors?: string[] = [];
   journal?: string;
   volume?: number | string;
-  number?: number;
+  num?: number;
   pages?: string;
   year?: number;
   identifiers?: Identifier[] = [];
@@ -13,7 +13,7 @@ export class JournalReference {
     authors?: string[],
     journal?: string,
     volume?: number | string,
-    number?: number,
+    num?: number,
     pages?: string,
     year?: number,
     identifiers?: Identifier[]
@@ -28,7 +28,7 @@ export class JournalReference {
     this.authors = authors;
     this.journal = journal;
     this.volume = volume;
-    this.number = number;
+    this.num = num;
     this.pages = pages;
     this.year = year;
     this.identifiers = identifiers;
@@ -36,7 +36,7 @@ export class JournalReference {
 
   getDoi(): string {
     for (const id of this.identifiers) {
-      if (id.namespace == 'doi') {
+      if (id.namespace === 'doi') {
         return id.id;
       }
     }
@@ -45,7 +45,7 @@ export class JournalReference {
 
   getPubMedId(): string {
     for (const id of this.identifiers) {
-      if (id.namespace == 'pubmed') {
+      if (id.namespace === 'pubmed') {
         return id.id;
       }
     }

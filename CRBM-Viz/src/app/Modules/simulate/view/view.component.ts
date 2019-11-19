@@ -27,11 +27,11 @@ export class ViewComponent implements OnInit {
       }
     });
 
-    const crumbs: Object[] = [
+    const crumbs: object[] = [
       {label: 'Simulate', route: '/simulate'},
       {label: 'Simulation ' + this.id},
     ];
-    const buttons: Object[] = [
+    const buttons: object[] = [
       {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate']},
       {iconType: 'mat', icon: 'add', label: 'Submit', route: ['/simulate/new']},
       {iconType: 'mat', icon: 'hourglass_empty', label: 'Status', route: ['/simulate/status']},

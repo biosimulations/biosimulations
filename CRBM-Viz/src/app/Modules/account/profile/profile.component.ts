@@ -27,12 +27,11 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       let auth0Id: string;
       if (this.auth && this.auth.token) {
-        const _auth0Id: unknown = this.auth.token.sub;
-        auth0Id = _auth0Id as string;
+        auth0Id = (this.auth.token.sub as unknown) as string;
       }
 
       if (routeParams.id) {
-        this.id = parseInt(routeParams['id']);
+        this.id = parseInt(routeParams['id'], 10);
         this.user = this.userService.get(this.id);
         // this.users.getUser().subscribe(res => (this.user = res));
       } else if (auth0Id) {
@@ -40,18 +39,18 @@ export class ProfileComponent implements OnInit {
         // this.users.getUser().subscribe(res => (this.user = res));
         this.id = this.user.id;
       }
-      
-      const crumbs:Object[] = [{label: 'Profile'}]
-      const buttons:Object[] = [];
-      if (this.auth && this.user && this.user.auth0Id == auth0Id) {
+
+      const crumbs: object[] = [{label: 'Profile'}]
+      const buttons: object[] = [];
+      if (this.auth && this.user && this.user.auth0Id === auth0Id) {
         buttons.push({
-          iconType: 'mat', 
-          icon: 'edit', 
-          label: 'Edit', 
+          iconType: 'mat',
+          icon: 'edit',
+          label: 'Edit',
           route: ['/profile/edit'],
         });
       }
-      
+
       this.breadCrumbsService.set(crumbs, buttons);
     });
   }

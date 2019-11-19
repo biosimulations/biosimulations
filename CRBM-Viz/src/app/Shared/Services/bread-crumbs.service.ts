@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class BreadCrumbsService {
-  private _data = new BehaviorSubject<Object>({crumbs: [], buttons: []});
-  public data = this._data.asObservable();
+  private dataSubject = new BehaviorSubject<object>({crumbs: [], buttons: []});
+  public data = this.dataSubject.asObservable();
 
   constructor(private router: Router) {
     router.events.subscribe(event => {
@@ -15,19 +15,15 @@ export class BreadCrumbsService {
     });
   }
 
-  set(crumbs: Object[], buttons: Object[], classes?: string[]): void {
+  set(crumbs: object[], buttons: object[], classes?: string[]): void {
     if (!classes) {
       classes = [];
     }
 
-    this._data.next({
-      crumbs: crumbs,
-      buttons: buttons,
-      classes: classes,
-    });
+    this.dataSubject.next({crumbs, buttons, classes});
   }
 
   clear(): void {
-    this._data.next({crumbs: [], buttons: [], classes: []});
+    this.dataSubject.next({crumbs: [], buttons: [], classes: []});
   }
 }

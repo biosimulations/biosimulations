@@ -6,6 +6,8 @@ import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
 import { VisualizationsService } from './visualizations.service';
 
+// tslint:disable:max-line-length
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,38 +15,12 @@ export class UserService {
   private modelService: ModelService;
   private simulationService: SimulationService;
   private visualizationsService: VisualizationsService;
-
-  constructor(
-    private http: HttpClient, 
-    private injector: Injector
-    ) {}
-
   private endpoint = 'https://crbm.auth0.com/userinfo';
 
-  private getServices(): void {
-    if (this.modelService == null) {
-      this.modelService = this.injector.get(ModelService);
-      this.simulationService = this.injector.get(SimulationService);
-      this.visualizationsService = this.injector.get(VisualizationsService);
-    }
-  }
-
-  getUser(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer W0p9s-oFubPuONgWER3JGAqnZ-HkEurI',
-      }),
-    };
-    const Httpheaders = new HttpHeaders({
-      Authorization: 'Bearer SY1MOMZZVnEBtzEG7aw-y-JYDEwm-QM3',
-    });
-    return this.http.get(this.endpoint, { headers: Httpheaders });
-  }
-
-  get(id?: number) : User {
-    this.getServices();
-    return UserService._get(id);
-  }
+  constructor(
+    private http: HttpClient,
+    private injector: Injector
+    ) {}
 
   static _get(id?: number): User {
     let user:User;
@@ -124,6 +100,31 @@ export class UserService {
         break;
     }
     return user;
+  }
+
+  private getServices(): void {
+    if (this.modelService == null) {
+      this.modelService = this.injector.get(ModelService);
+      this.simulationService = this.injector.get(SimulationService);
+      this.visualizationsService = this.injector.get(VisualizationsService);
+    }
+  }
+
+  getUser(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer W0p9s-oFubPuONgWER3JGAqnZ-HkEurI',
+      }),
+    };
+    const Httpheaders = new HttpHeaders({
+      Authorization: 'Bearer SY1MOMZZVnEBtzEG7aw-y-JYDEwm-QM3',
+    });
+    return this.http.get(this.endpoint, { headers: Httpheaders });
+  }
+
+  get(id?: number) : User {
+    this.getServices();
+    return UserService._get(id);
   }
 
   getByAuth0Id(id: string): User {

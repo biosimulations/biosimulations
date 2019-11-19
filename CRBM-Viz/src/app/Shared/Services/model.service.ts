@@ -18,19 +18,6 @@ export class ModelService {
 
   constructor(private injector: Injector) {}
 
-  private getServices(): void {
-    if (this.userService == null) {
-      this.userService = this.injector.get(UserService);
-      this.simulationService = this.injector.get(SimulationService);
-      this.visualizationsService = this.injector.get(VisualizationsService);
-    }
-  }
-
-  get(id: string): Model {
-    this.getServices();
-    return ModelService._get(id);
-  }
-
   static _get(id: string): Model {
     let model: Model;
 
@@ -55,6 +42,7 @@ export class ModelService {
           UserService._get(4),
           new Date(Date.parse('1996-11-01 00:00:00')),
         );
+        break;
 
       case '003':
         model = new Model(
@@ -62,7 +50,7 @@ export class ModelService {
           'Min Mit Oscil',
           'Minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.',
           new Taxon(8292, 'Xenopus laevis'),
-          ['cell cycle', 'mitosis'],          
+          ['cell cycle', 'mitosis'],
           new Format('SBML', 'L2V4'),
           [
             new Identifier('biomodels', 'BIOMD0000000003'),
@@ -76,7 +64,8 @@ export class ModelService {
           UserService._get(5),
           new Date(Date.parse('1991-10-15 00:00:00')),
         );
-    
+        break;
+
       case '006':
         model = new Model(
           '006',
@@ -97,10 +86,24 @@ export class ModelService {
           UserService._get(6),
           new Date(Date.parse('1991-08-15 00:00:00')),
         );
+        break;
     }
     model.access = AccessLevel.public;
     model.license = 'MIT';
     return model;
+  }
+
+  private getServices(): void {
+    if (this.userService == null) {
+      this.userService = this.injector.get(UserService);
+      this.simulationService = this.injector.get(SimulationService);
+      this.visualizationsService = this.injector.get(VisualizationsService);
+    }
+  }
+
+  get(id: string): Model {
+    this.getServices();
+    return ModelService._get(id);
   }
 
   list(auth?): Model[] {

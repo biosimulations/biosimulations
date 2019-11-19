@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 
@@ -6,18 +6,18 @@ import { AuthService } from 'src/app/Shared/Services/auth0.service';
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.sass'],
 })
-export class StatusComponent {
+export class StatusComponent implements OnInit {
   // TODO: only show simulations owned by user
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService) {}
 
   ngOnInit() {
-    const crumbs: Object[] = [
+    const crumbs: object[] = [
       {label: 'Simulate', route: '/simulate'},
       {label: 'Status'},
     ];
-    const buttons: Object[] = [
+    const buttons: object[] = [
       {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate']},
       {iconType: 'mat', icon: 'add', label: 'Submit', route: ['/simulate/new']},
     ];
