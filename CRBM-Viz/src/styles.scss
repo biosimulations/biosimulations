@@ -251,7 +251,7 @@ input, select, button {
     .mat-tab-labels {
         display: grid;
         grid-template-columns: 1rem auto auto auto auto auto 1fr;
-        grid-gap: 0rem;
+        grid-gap: 0;
     }
 
     .mat-tab-label:first-child, .mat-tab-label:last-child {
@@ -262,7 +262,7 @@ input, select, button {
     .mat-tab-label {
         height: 28px;
         border-bottom: 1px solid #ccc;
-        padding: 0rem 1rem;
+        padding: 0 1rem;
         min-width: unset;
     }
 
@@ -280,7 +280,7 @@ input, select, button {
     }
 
     .mat-ink-bar {
-        top: 0px;
+        top: 0;
         display: none;
     }
 
