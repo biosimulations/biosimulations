@@ -20,6 +20,9 @@ export class VisualizationsService {
   }
 
   static _get(id: number): Visualization {
-    return new Visualization(id, 'Viz-' + id.toString());
+    const viz: Visualization = new Visualization();
+    viz.id = id;
+    viz.name = 'Viz-' + id.toString();
+    return viz;
   }
 }

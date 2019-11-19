@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       let auth0Id: string;
-      if (this.auth) {
+      if (this.auth && this.auth.token) {
         const _auth0Id: unknown = this.auth.token.sub;
         auth0Id = _auth0Id as string;
       }
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
         this.id = parseInt(routeParams['id']);
         this.user = this.userService.get(this.id);
         // this.users.getUser().subscribe(res => (this.user = res));
-      } else {        
+      } else if (auth0Id) {
         this.user = this.userService.getByAuth0Id(auth0Id);
         // this.users.getUser().subscribe(res => (this.user = res));
         this.id = this.user.id;

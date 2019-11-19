@@ -7,19 +7,19 @@ import { User } from './user';
 import { UtilsService } from '../Services/utils.service'
 
 export class Model {
-  id: string;
-  name: string;
-  description: string;
-  taxon: Taxon;
-  tags: string[];
-  format: Format;
-  identifiers: Identifier[];
-  refs: JournalReference[];
-  owner: User;
-  access: AccessLevel;
-  accessToken: string;
-  license: string;
-  date: Date;
+  id?: string;
+  name?: string;
+  description?: string;
+  taxon?: Taxon;
+  tags?: string[] = [];
+  format?: Format;
+  identifiers?: Identifier[] = [];
+  refs?: JournalReference[] = [];
+  owner?: User;
+  access?: AccessLevel;
+  accessToken?: string;
+  license?: string;
+  date?: Date;
 
   constructor(
     id?: string,

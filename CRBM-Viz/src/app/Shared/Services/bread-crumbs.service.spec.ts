@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { BreadCrumbsService } from './bread-crumbs.service';
 
 describe('BreadCrumbsService', () => {
   beforeEach(() =>
-    TestBed.configureTestingModule({})
+    TestBed.configureTestingModule({
+        imports: [RouterTestingModule],
+        providers: [RouterTestingModule],
+    })
   );
 
   it('should be created', () => {

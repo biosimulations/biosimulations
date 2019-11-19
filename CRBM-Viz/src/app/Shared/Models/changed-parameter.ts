@@ -1,9 +1,9 @@
 export class ChangedParameter {
-  id: string;
-  name: string;
-  value: number;
-  defaultValue: number;
-  units: string;
+  id?: string;
+  name?: string;
+  value?: number;
+  defaultValue?: number;
+  units?: string;
     
   constructor (id?: string, name?: string, value?: number, defaultValue?: number, units?: string) {
     this.id = id;

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ModelService } from './simulation.service';
+import { ModelService } from './model.service';
 
 describe('ModelService', () => {
   beforeEach(() =>

@@ -4,25 +4,25 @@ import { Visualization } from './visualization';
 import * as md5 from 'md5';
 
 export class User {
-  auth0Id: string;
-  id: number;
-  username: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  organization: string;
-  website: string;
-  email: string;
+  auth0Id?: string;
+  id?: number;
+  username?: string;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
+  organization?: string;
+  website?: string;
+  email?: string;
   emailVerified = false;
   emailPublic = false;
-  gravatarEmail: string;
-  gitHubId: string;
-  googleScholarId: string;
-  orcId: string;  
-  description: string;
-  models: Model[];
-  simulations: Simulation[];
-  visualizations: Visualization[];
+  gravatarEmail?: string;
+  gitHubId?: string;
+  googleScholarId?: string;
+  orcId?: string;  
+  description?: string;
+  models?: Model[] = [];
+  simulations?: Simulation[] = [];
+  visualizations?: Visualization[] = [];
 
   constructor(auth0Id?: string, id?: number, username?: string,
     firstName?: string, middleName?: string, lastName?: string,

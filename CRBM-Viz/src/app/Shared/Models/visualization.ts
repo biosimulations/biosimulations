@@ -1,9 +1,9 @@
 export class Visualization {
-  id: number;
-  name: string;  
-  description: string;
-  tags: string[];
-  spec: object | string;
+  id?: number;
+  name?: string;
+  description?: string;
+  tags?: string[] = [];
+  spec?: object | string;
 
   constructor(id?: number, name?: string, description?: string, tags?: string[], spec?: object | string) {
     this.id = id;

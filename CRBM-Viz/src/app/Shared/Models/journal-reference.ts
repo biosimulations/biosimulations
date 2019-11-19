@@ -1,13 +1,13 @@
 import { Identifier } from './identifier';
 
 export class JournalReference {
-  authors: string[];
-  journal: string;
-  volume: number | string;
-  number: number;
-  pages: string;
-  year: number;
-  identifiers: Identifier[];
+  authors?: string[] = [];
+  journal?: string;
+  volume?: number | string;
+  number?: number;
+  pages?: string;
+  year?: number;
+  identifiers?: Identifier[] = [];
     
   constructor(
     authors?: string[],

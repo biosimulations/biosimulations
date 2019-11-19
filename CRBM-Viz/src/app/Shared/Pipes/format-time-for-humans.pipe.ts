@@ -3,9 +3,9 @@ import { UtilsService } from 'src/app/Shared/Services/utils.service';
 
 @Pipe({name: 'formatTimeForHumans'})
 export class FormatTimeForHumansPipe implements PipeTransform {
-  constructor(private utilsService: UtilsService) { }
+  constructor() { }
   
   transform(value: number): string {
-    return this.utilsService.formatTimeForHumans(value);
+    return new UtilsService().formatTimeForHumans(value);
   }
 }

@@ -30,9 +30,11 @@ export class ProfileEditComponent implements OnInit {
     ];
     this.breadCrumbsService.set(crumbs, buttons);
     
-    const auth0Id: string = (this.auth.token.sub as unknown) as string;
-    this.user = this.userService.getByAuth0Id(auth0Id);
-    // this.users.get().subscribe(res => (this.user = res));
+    if (this.auth && this.auth.token && this.auth.token.sub) {
+      const auth0Id: string = (this.auth.token.sub as unknown) as string;
+      this.user = this.userService.getByAuth0Id(auth0Id);
+      // this.users.get().subscribe(res => (this.user = res));
+    }
   }
 
   save (): void {

@@ -6,6 +6,8 @@ import { MaterialModule } from 'src/app/Modules/app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
+
 describe('ProfileEditComponent', () => {
   let component: ProfileEditComponent;
   let fixture: ComponentFixture<ProfileEditComponent>;
@@ -13,7 +15,13 @@ describe('ProfileEditComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ProfileEditComponent],
-      imports: [RouterTestingModule, MaterialModule, SharedModule, HttpClientTestingModule],
+      imports: [
+        RouterTestingModule,
+        MaterialModule,
+        SharedModule,
+        HttpClientTestingModule,
+        FormsModule,
+      ],
       providers: [
         { provide: RouterTestingModule, useValue: RouterTestingModule },
       ],

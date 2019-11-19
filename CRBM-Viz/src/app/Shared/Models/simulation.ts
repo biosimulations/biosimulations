@@ -11,28 +11,28 @@ import { User } from './user'
 import { UtilsService } from '../Services/utils.service'
 
 export class Simulation {
-  id: string;
-  name: string;
-  description: string;
-  tags: string[];
-  model: Model;
-  format: Format;
-  changedParameters: ChangedParameter[];
-  length: number;
-  simulator: Simulator;
-  refs: JournalReference[];
-  parent: Simulation;
-  owner: User;
-  access: AccessLevel;
-  accessToken: string;
-  license: string;
-  status: SimulationStatus;
-  date: Date; // date/time when simulation was requested
-  startDate: Date; // date/time when simulation run started
-  endDate: Date; // date/time when simulation run finished
-  wallTime: number; // execution time in seconds
-  outLog: string;
-  errLog: string;
+  id?: string;
+  name?: string;
+  description?: string;
+  tags?: string[] = [];
+  model?: Model;
+  format?: Format;
+  changedParameters?: ChangedParameter[] = [];
+  length?: number;
+  simulator?: Simulator;
+  refs?: JournalReference[] = [];
+  parent?: Simulation;
+  owner?: User;
+  access?: AccessLevel;
+  accessToken?: string;
+  license?: string;
+  status?: SimulationStatus;
+  date?: Date; // date/time when simulation was requested
+  startDate?: Date; // date/time when simulation run started
+  endDate?: Date; // date/time when simulation run finished
+  wallTime?: number; // execution time in seconds
+  outLog?: string;
+  errLog?: string;
 
   constructor(
     id?: string,
