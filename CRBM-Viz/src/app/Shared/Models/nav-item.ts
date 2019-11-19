@@ -143,7 +143,7 @@ export const NavItems: NavItem[] = [
     icon: 'account_circle',
     icon_type: 'mat',
     display: 'loggedIn',
-    link: '/profile',
+    link: '/user',
   },
   /*
   {

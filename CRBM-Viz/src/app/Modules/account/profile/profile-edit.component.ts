@@ -6,7 +6,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.sass'],
 })
@@ -22,11 +22,11 @@ export class ProfileEditComponent implements OnInit {
 
   ngOnInit() {
     const crumbs: object[] = [
-      {label: 'Profile', route: ['/profile']},
+      {label: 'Profile', route: ['/user']},
       {label: 'Edit'},
     ];
     const buttons: object[] = [
-      {iconType: 'mat', icon: 'person', label: 'View', route: ['/profile']},
+      {iconType: 'mat', icon: 'person', label: 'View', route: ['/user']},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
     

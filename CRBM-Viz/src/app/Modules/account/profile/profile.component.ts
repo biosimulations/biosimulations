@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
             iconType: 'mat',
             icon: 'edit',
             label: 'Edit',
-            route: ['/profile/edit'],
+            route: ['/user/edit'],
           });
         } else {
           crumbs.push({
