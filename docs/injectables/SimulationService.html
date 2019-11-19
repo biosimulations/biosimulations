@@ -78,6 +78,10 @@
                                 <a href="#fileData">fileData</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#modelService">modelService</a>
+                            </li>
+                            <li>
                                 <a href="#omexFiles">omexFiles</a>
                             </li>
                             <li>
@@ -92,6 +96,10 @@
                             <li>
                                 <a href="#solverFiles">solverFiles</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#userService">userService</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -105,16 +113,30 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#_get">_get</a>
+                            </li>
+                            <li>
                                 <a href="#createSimulation">createSimulation</a>
                             </li>
                             <li>
                                 <a href="#flattenSimulationData">flattenSimulationData</a>
                             </li>
                             <li>
+                                <a href="#get">get</a>
+                            </li>
+                            <li>
                                 <a href="#getFileId">getFileId</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getServices">getServices</a>
+                            </li>
+                            <li>
                                 <a href="#getSimulationAndJobFilesInfo">getSimulationAndJobFilesInfo</a>
+                            </li>
+                            <li>
+                                <a href="#list">list</a>
                             </li>
                         </ul>
                     </td>
@@ -134,12 +156,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, alertService: <a href="../injectables/AlertService.html">AlertService</a>)</code>
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, alertService: <a href="../injectables/AlertService.html">AlertService</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -180,6 +202,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>injector</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -194,6 +228,78 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_get"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Static</span>
+                            _get
+                        </b>
+                        <a href="#_get"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>_get(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Simulation.html" target="_self" >Simulation</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -216,8 +322,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="184"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:184</a></div>
                 </td>
             </tr>
 
@@ -310,8 +416,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:73</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="207"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:207</a></div>
                 </td>
             </tr>
 
@@ -358,6 +464,76 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="get"></a>
+                    <span class="name">
+                        <b>
+                            get
+                        </b>
+                        <a href="#get"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>get(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="222"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:222</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Simulation.html" target="_self" >Simulation</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getFileId"></a>
                     <span class="name">
                         <b>
@@ -376,8 +552,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="197"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:197</a></div>
                 </td>
             </tr>
 
@@ -428,6 +604,47 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getServices"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getServices
+                        </b>
+                        <a href="#getServices"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getServices()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="151"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:151</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getSimulationAndJobFilesInfo"></a>
                     <span class="name">
                         <b>
@@ -446,8 +663,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="158"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:158</a></div>
                 </td>
             </tr>
 
@@ -458,6 +675,72 @@
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="list"></a>
+                    <span class="name">
+                        <b>
+                            list
+                        </b>
+                        <a href="#list"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>list(auth?)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="227"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:227</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>auth</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Simulation.html" target="_self" >Simulation[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -494,7 +777,35 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            modelService</b>
+                            <a href="#modelService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/ModelService.html" target="_self" >ModelService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -526,7 +837,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -558,7 +869,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -590,7 +901,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -616,7 +927,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -648,7 +959,35 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            userService</b>
+                            <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/simulation.service.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -661,11 +1000,22 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Injector } from &#x27;@angular/core&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { environment }  from &#x27;src/environments/environment&#x27;;
 import { Subject } from &#x27;rxjs&#x27;;
 import { AlertService } from &#x27;./alert.service&#x27;;
+import { UserService } from &#x27;./user.service&#x27;;
+import { ModelService } from &#x27;./model.service&#x27;;
+
+import { AccessLevel } from &#x27;../Enums/access-level&#x27;
+import { SimulationStatus } from &#x27;../Enums/simulation-status&#x27;
+import { ChangedParameter } from &#x27;../Models/changed-parameter&#x27;
+import { Format } from &#x27;../Models/format&#x27;
+import { JournalReference } from &#x27;../Models/journal-reference&#x27;
+import { Simulator } from &#x27;../Models/simulator&#x27;
+import { Simulation } from &#x27;../Models/simulation&#x27;
+import { User } from &#x27;../Models/user&#x27;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
@@ -679,10 +1029,133 @@ export class SimulationService {
   sbatchFiles: Array&lt;string&gt; &#x3D; null;
   simulationDataChangeSubject &#x3D; new Subject&lt;null&gt;();
 
+  private userService: UserService;
+  private modelService: ModelService;
+
   constructor(
     private http: HttpClient,
-    private alertService: AlertService
-    ) { }
+    private alertService: AlertService,
+    private injector: Injector,
+    ) {
+  }
+
+  static _get(id: string): Simulation {
+    let simulation: Simulation;
+
+    switch (id) {
+      case &#x27;001&#x27;:
+        simulation &#x3D; new Simulation(
+          &#x27;001&#x27;,
+          &#x27;First simulation&#x27;,
+          &#x27;Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.&#x27;,
+          [&#x27;wild type&#x27;, &#x27;normal&#x27;],
+
+          ModelService._get(&#x27;001&#x27;),
+
+          new Format(&#x27;SED-ML&#x27;, &#x27;L1V3&#x27;),
+          [
+            new ChangedParameter(&#x27;p1&#x27;, &#x27;parameter 1&#x27;, 2., 1., &#x27;g&#x27;),
+            new ChangedParameter(&#x27;p2&#x27;, &#x27;parameter 2&#x27;, 3.5, 0.1, &#x27;s&#x27;),
+            new ChangedParameter(&#x27;p3&#x27;, &#x27;parameter 3&#x27;, 1.7, 2.6, &#x27;m^s&#x27;),
+          ],
+          10.,
+
+          new Simulator(&#x27;VCell&#x27;, &#x27;7.1&#x27;, &#x27;crbm/vcell:7.1&#x27;),
+
+          [
+            new JournalReference([&#x27;Karr, JR&#x27;, &#x27;Shaikh, B&#x27;], &#x27;Journal&#x27;, 101, 3, &#x27;10-20&#x27;, 2019),
+            new JournalReference([&#x27;Skaf, Y&#x27;, &#x27;Wilson, M&#x27;], &#x27;Journal&#x27;, 101, 3, &#x27;10-20&#x27;, 2019),
+          ],
+          new Simulation(&#x27;005&#x27;, &#x27;Sim-005&#x27;),
+          UserService._get(2),
+          AccessLevel.public,
+          SimulationStatus.finished,
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          100.,
+          &#x27;out\n&#x27;.repeat(40),
+          &#x27;err\n&#x27;.repeat(40),
+        );
+        break;
+
+      case &#x27;003&#x27;:
+        simulation &#x3D; new Simulation(
+          &#x27;003&#x27;,
+          &#x27;Third simulation&#x27;,
+          &#x27;Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.&#x27;,
+          [&#x27;disease&#x27;, &#x27;cancer&#x27;],
+
+          ModelService._get(&#x27;003&#x27;),
+
+          new Format(&#x27;SED-ML&#x27;, &#x27;L1V2&#x27;),
+          [
+            new ChangedParameter(&#x27;p1&#x27;, &#x27;parameter 1&#x27;, 2., 1., &#x27;g&#x27;),
+            new ChangedParameter(&#x27;p2&#x27;, &#x27;parameter 2&#x27;, 3.5, 0.1, &#x27;s&#x27;),
+            new ChangedParameter(&#x27;p3&#x27;, &#x27;parameter 3&#x27;, 1.7, 2.6, &#x27;m^s&#x27;),
+          ],
+          10.,
+
+          new Simulator(&#x27;VCell&#x27;, &#x27;7.1&#x27;, &#x27;crbm/vcell:7.1&#x27;),
+
+          [],
+          null,
+          UserService._get(2),
+          AccessLevel.private,
+          SimulationStatus.queued,
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          100.,
+          &#x27;out\n&#x27;.repeat(40),
+          null,
+        );
+        break;
+
+      case &#x27;006&#x27;:
+        simulation &#x3D; new Simulation(
+          &#x27;006&#x27;,
+          &#x27;Sixth simulation&#x27;,
+          &#x27;Simulation of a mathematical model of the interactions of cdc2 and cyclin.&#x27;,
+          [&#x27;disease&#x27;, &#x27;diabetes&#x27;],
+
+          ModelService._get(&#x27;006&#x27;),
+
+          new Format(&#x27;SED-ML&#x27;, &#x27;L1V1&#x27;),
+          [
+            new ChangedParameter(&#x27;p1&#x27;, &#x27;parameter 1&#x27;, 2., 1., &#x27;g&#x27;),
+            new ChangedParameter(&#x27;p2&#x27;, &#x27;parameter 2&#x27;, 3.5, 0.1, &#x27;s&#x27;),
+            new ChangedParameter(&#x27;p3&#x27;, &#x27;parameter 3&#x27;, 1.7, 2.6, &#x27;m^s&#x27;),
+          ],
+          10.,
+
+          new Simulator(&#x27;VCell&#x27;, &#x27;7.1&#x27;, &#x27;crbm/vcell:7.1&#x27;),
+
+          [],
+          null,
+          UserService._get(3),
+          AccessLevel.public,
+          SimulationStatus.failed,
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          new Date(Date.parse(&#x27;2019-11-06 00:00:00&#x27;)),
+          100.,
+          &#x27;out\n&#x27;.repeat(40),
+          &#x27;err\n&#x27;.repeat(40),
+        );
+        break;
+    }
+    simulation.framework &#x3D; &#x27;SSA&#x27;;
+    simulation.license &#x3D; &#x27;MIT&#x27;;
+    return simulation;
+  }
+
+  private getServices(): void {
+    if (this.userService &#x3D;&#x3D; null) {
+      this.userService &#x3D; this.injector.get(UserService);
+      this.modelService &#x3D; this.injector.get(ModelService);
+    }
+  }
 
   getSimulationAndJobFilesInfo(): void {
     this.http.get(&#x60;${environment.crbm.CRBMAPI_URL}/simulation&#x60;)
@@ -703,7 +1176,7 @@ export class SimulationService {
       },
       error &#x3D;&gt; {
         this.alertService.openDialog(
-          &#x27;Error occured in Simulation service: &#x27; + 
+          &#x27;Error occured in Simulation service: &#x27; +
           JSON.stringify(error)
         );
       }
@@ -745,6 +1218,20 @@ export class SimulationService {
       }
       data.push(simObj);
     }
+    return data;
+  }
+
+  get(id: string): Simulation {
+    this.getServices();
+    return SimulationService._get(id);
+  }
+
+  list(auth?): Simulation[] {
+    const data: Simulation[] &#x3D; [
+      this.get(&#x27;001&#x27;),
+      this.get(&#x27;003&#x27;),
+      this.get(&#x27;006&#x27;),
+    ];
     return data;
   }
 }

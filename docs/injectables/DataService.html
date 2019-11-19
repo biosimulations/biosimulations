@@ -90,9 +90,6 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getHeaders">getHeaders</a>
-                            </li>
-                            <li>
                                 <a href="#getTimecourse">getTimecourse</a>
                             </li>
                         </ul>
@@ -165,76 +162,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getHeaders"></a>
-                    <span class="name">
-                        <b>
-                            getHeaders
-                        </b>
-                        <a href="#getHeaders"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getHeaders(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/data.service.ts:14</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>id</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/Timecourse.html" target="_self" >Observable&lt;Timecourse[]&gt;</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="getTimecourse"></a>
                     <span class="name">
                         <b>
@@ -253,8 +180,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/data.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/data.service.ts:14</a></div>
                 </td>
             </tr>
 
@@ -358,10 +285,6 @@ export class DataService {
   constructor(private http: HttpClient) {}
   dataURL &#x3D; &#x27;https://crbm-test-api.herokuapp.com/data/&#x27;;
 
-  getHeaders(id: string): Observable&lt;Timecourse[]&gt; {
-    const headers &#x3D; this.http.get&lt;Timecourse[]&gt;(this.dataURL + id);
-    return headers;
-  }
   getTimecourse(id: string): Observable&lt;Timecourse[]&gt; {
     const data &#x3D; this.http.get&lt;Timecourse[]&gt;(this.dataURL + id);
     return data;

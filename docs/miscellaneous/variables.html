@@ -161,9 +161,9 @@
         clientId: &#x27;6euIYB0EPMSNjsPEjrNZAMmpiuVCRYNB&#x27;
     },
     crbm: {
-        CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
+        CRBMAPI_URL: &#x27;https://crbm-api.herokuapp.com&#x27;,
         ALLOWED_FILE_EXTENSIONS: [&#x27;pdf&#x27;, &#x27;doc&#x27;, &#x27;ppt&#x27;, &#x27;txt&#x27;, &#x27;xlsx&#x27;, &#x27;sedx&#x27;, &#x27;sbex&#x27;,
-            &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;]
+            &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;, &#x27;omex&#x27;, &#x27;xml&#x27;]
     }
   }</code>
                         </td>
@@ -200,13 +200,31 @@
   baseUrl: &#x27;/&#x27;,
   auth0: {
     domain: &#x27;crbm.auth0.com&#x27;,
-    clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;
+    clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;,
   },
   crbm: {
-      CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
-      ALLOWED_FILE_EXTENSIONS: [&#x27;pdf&#x27;, &#x27;doc&#x27;, &#x27;ppt&#x27;, &#x27;txt&#x27;, &#x27;xlsx&#x27;, &#x27;sedx&#x27;, &#x27;sbex&#x27;,
-          &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;]
-  }
+    CRBMAPI_URL: &#x27;http://crbmapi.cam.uchc.edu:5000&#x27;,
+
+    ALLOWED_FILE_EXTENSIONS: [
+      &#x27;pdf&#x27;,
+      &#x27;doc&#x27;,
+      &#x27;ppt&#x27;,
+      &#x27;txt&#x27;,
+      &#x27;xlsx&#x27;,
+      &#x27;sedx&#x27;,
+      &#x27;sbex&#x27;,
+      &#x27;cmex&#x27;,
+      &#x27;sbox&#x27;,
+      &#x27;neux&#x27;,
+      &#x27;phex&#x27;,
+      &#x27;zip&#x27;,
+      &#x27;jpg&#x27;,
+      &#x27;png&#x27;,
+      &#x27;jpeg&#x27;,
+      &#x27;raw&#x27;,
+      &#x27;sh&#x27;,
+    ],
+  },
 }</code>
                         </td>
                     </tr>
@@ -245,7 +263,7 @@
     clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;,
   },
   crbm: {
-    CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
+    CRBMAPI_URL: &#x27;crbm-api.herokuapp.com&#x27;,
     ALLOWED_FILE_EXTENSIONS: [
       &#x27;pdf&#x27;,
       &#x27;doc&#x27;,
@@ -425,15 +443,7 @@
     icon: &#x27;view_list&#x27;,
     icon_type: &#x27;mat&#x27;,
     display: &#x27;always&#x27;,
-    link: &#x27;/simulate/browse/&#x27;,
-  },
-  {
-    id: &#x27;Simulate-Data&#x27;,
-    label: &#x27;Data&#x27;,
-    icon: &#x27;view_list&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/simulate/data/&#x27;,
+    link: &#x27;/simulate/&#x27;,
   },
   {
     id: &#x27;Simulate-Submit&#x27;,
