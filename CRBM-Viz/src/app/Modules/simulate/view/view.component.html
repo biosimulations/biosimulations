@@ -58,9 +58,9 @@
       </div>
 
       <div class="section" *ngIf="simulation.model as model">
-        <h2>
+        <h1>
           <a [routerLink]="model.getRoute()">Model {{ model.id }}: {{ model.name }}</a>
-        </h2>
+        </h1>
 
         <div class="authors">
           {{ model.getAuthors().join('; ') }}

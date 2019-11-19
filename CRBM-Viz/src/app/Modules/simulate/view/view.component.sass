@@ -22,7 +22,7 @@
         text-align: left
         padding-right: 0.5rem
         white-space: nowrap
-    th.section-title
+    h1, h1 a, th.section-title
         color: mat-color($theme-primary)
     th, td
         padding-top: 0.1rem
@@ -68,15 +68,12 @@
             text-align: center
 
 .tab.overview
-    h1, h2
+    h1
         border-bottom: none
         @include mat-typography-level-to-styles($fontConfig, body-2)
         font-weight: bold
         line-height: 100%
         margin-bottom: 0
-
-    h2, h2 a, th.section-title, th.section-title a
-        color: mat-color($theme-accent)
 
     .authors
         margin-block-start: 0.25rem
