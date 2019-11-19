@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { UtilsService } from './utils.service';
+import { Person } from '../Models/person';
 
 describe('UtilsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -23,5 +24,19 @@ describe('UtilsService', () => {
     expect(UtilsService.formatTimeForHumans(1 + 60 * 60)).toEqual('1 h');
     expect(UtilsService.formatTimeForHumans(1 + 60 * 60 * 24)).toEqual('1 d');
     expect(UtilsService.formatTimeForHumans(1 + 60 * 60 * 24 * 365)).toEqual('1 y');
+  });
+
+  it('should get the full name of a person', () => {
+    const person:Person = new Person();
+    expect(person.getFullName()).toEqual('');
+    
+    person.firstName = 'John'
+    expect(person.getFullName()).toEqual('John');
+
+    person.lastName = 'Doe'
+    expect(person.getFullName()).toEqual('John Doe');
+
+    person.middleName = 'C'
+    expect(person.getFullName()).toEqual('John C Doe');
   });
 });

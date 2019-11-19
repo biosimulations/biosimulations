@@ -1,3 +1,5 @@
+import { PersonInterface } from '../Models/person.interface';
+
 export class UtilsService {
 
   static genAccessToken(length: number = 16): string {
@@ -62,5 +64,19 @@ export class UtilsService {
       units = 'ys';
     }
     return Math.round(secs / numerator) + ' ' + units;
+  }
+
+  static getPersonFullName(person: PersonInterface): string {
+    const name: string[] = [];
+    if (person.firstName) {
+        name.push(person.firstName);
+    }
+    if (person.middleName) {
+        name.push(person.middleName);
+    }
+    if (person.lastName) {
+        name.push(person.lastName);
+    }
+    return name.join(' ');
   }
 }

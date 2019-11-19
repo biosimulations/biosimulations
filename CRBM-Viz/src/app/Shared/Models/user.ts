@@ -1,9 +1,11 @@
+import { PersonInterface } from './person.interface';
 import { Model } from './model';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
+import { UtilsService } from '../Services/utils.service';
 import * as md5 from 'md5';
 
-export class User {
+export class User implements PersonInterface {
   auth0Id?: string;
   id?: number;
   username?: string;
@@ -73,17 +75,7 @@ export class User {
   }
 
   getFullName(): string {
-    const name: string[] = [];
-    if (this.firstName) {
-        name.push(this.firstName);
-    }
-    if (this.middleName) {
-        name.push(this.middleName);
-    }
-    if (this.lastName) {
-        name.push(this.lastName);
-    }
-    return name.join(' ');
+    return UtilsService.getPersonFullName(this);
   }
 
   getGravatarImgUrl(): string {
