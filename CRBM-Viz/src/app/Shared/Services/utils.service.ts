@@ -7,6 +7,15 @@ export class UtilsService {
 
   constructor() { }
 
+  static genAccessToken(length: number = 16): string {
+      const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let result = '';
+      for (let i: number = length; i > 0; --i) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return result;
+  }
+
   formatTimeForHumans(secs: number): string {
     let numerator:number;
     let units:string;
@@ -60,14 +69,5 @@ export class UtilsService {
       units = 'ys';
     }
     return Math.round(secs / numerator) + ' ' + units;
-  }
-
-  genAccessToken(length: number = 16): string {
-      const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let result = '';
-      for (let i: number = length; i > 0; --i) {
-        result += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return result;
   }
 }

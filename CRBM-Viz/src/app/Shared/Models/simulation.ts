@@ -80,7 +80,7 @@ export class Simulation {
     this.parent = parent;
     this.owner = owner;
     this.access = access;
-    this.accessToken = new UtilsService().genAccessToken();
+    this.accessToken = UtilsService.genAccessToken();
     this.status = status;
     this.date = date;
     this.startDate = startDate;

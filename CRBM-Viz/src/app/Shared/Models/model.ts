@@ -53,7 +53,7 @@ export class Model {
     this.refs = refs;
     this.owner = owner;
     // this.access = access;
-    this.accessToken = new UtilsService().genAccessToken();
+    this.accessToken = UtilsService.genAccessToken();
     // this.license = license;
     this.date = date;
   }
