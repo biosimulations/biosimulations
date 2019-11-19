@@ -67,6 +67,39 @@
             width: 16px
             text-align: center
 
+.tab.overview
+    h1, h2
+        border-bottom: none
+        @include mat-typography-level-to-styles($fontConfig, body-2)
+        font-weight: bold
+        line-height: 100%
+        margin-bottom: 0
+
+    h2, h2 a, th.section-title, th.section-title a
+        color: mat-color($theme-accent)
+
+    .authors
+        margin-block-start: 0.25rem
+        margin-block-end: 0.5rem
+
+    .description
+        margin-block-end: 0.5rem
+        margin-block-start: 0.5rem
+
+    .tags
+        margin-block-start: 0.5rem
+
+        span
+            white-space: nowrap
+            margin-right: 0.5rem
+
+            .ng-fa-icon
+                width: auto
+                margin-right: 0
+
+    .refs
+        margin-block-start: 0.5rem
+
 .tab.logs
     height: calc(100% - 2rem)
     display: grid

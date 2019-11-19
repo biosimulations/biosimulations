@@ -50,6 +50,8 @@ import {
   faCertificate,
   faCircle as FaSolidCircle,
   faAlignJustify,
+  faPencilAlt,
+  faCalculator,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -181,6 +183,8 @@ export class SharedModule {
       faCertificate,
       FaSolidCircle,
       faAlignJustify,
+      faPencilAlt,
+      faCalculator,
       faDocker,
       faGithub,
       faGoogle,

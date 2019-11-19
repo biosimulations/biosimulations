@@ -143,6 +143,7 @@ export class SimulationService {
         );
         break;
     }
+    simulation.framework = 'SSA';
     simulation.license = 'MIT';
     return simulation;
   }

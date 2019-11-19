@@ -93,6 +93,13 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
+        headerName: 'Framework',
+        field: 'framework',
+        filter: 'agSetColumnFilter',
+        minWidth: 125,
+        hide: true,
+      },
+      {
         headerName: 'Format',
         field: 'format',
         valueGetter: formatGetter,

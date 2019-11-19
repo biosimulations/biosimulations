@@ -19,6 +19,7 @@ export class Simulation {
   format?: Format;
   changedParameters?: ChangedParameter[] = [];
   length?: number;
+  framework?: string;
   simulator?: Simulator;
   refs?: JournalReference[] = [];
   parent?: Simulation;

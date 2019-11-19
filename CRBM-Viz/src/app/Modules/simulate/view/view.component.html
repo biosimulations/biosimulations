@@ -6,174 +6,94 @@
     <ng-template mat-tab-label>
       <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
     </ng-template>
-    <div class="tab">
-      <table cellpadding="0" cellspacing="0">
-        <tbody>
-          <tr>
-            <th colspan="2" class="section-title">Id</th>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
-              Id:
-            </th>
-            <td>{{ simulation.id }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
-              Name:
-            </th>
-            <td>{{ simulation.name }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Tags icon" [icon]="['fas', 'tags']"></fa-icon>
-              Tags:
-            </th>
-            <td><span *ngFor="let tag of simulation.tags; let i = index">{{ i > 0 ? ', ' : ''}}{{ tag }}</span></td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Description icon" [icon]="['fas', 'align-justify']"></fa-icon>
-              Description:
-            </th>
-            <td>{{ simulation.description }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Parameter icon" [icon]="['fas', 'circle']"></fa-icon>
-              Parameters:
-            </th>
-            <td>{{ simulation.changedParameters.length }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['fas', 'stopwatch']"></fa-icon>
-              Length:
-            </th>
-            <td>{{ simulation.length | formatTimeForHumans }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['fas', 'cog']"></fa-icon>
-              Simulator:
-            </th>
-            <td>{{ simulation.simulator.getFullName() }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-              Format:
-            </th>
-            <td>{{ simulation.format.getFullName() }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Authors icon" [icon]="['fas', 'users']"></fa-icon>
-              Authors:
-            </th>
-            <td>{{ simulation.getAuthors().join('; ') }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Owner icon" [icon]="['fas', 'user']"></fa-icon>
-              Owner:
-            </th>
-            <td>{{ simulation.owner.getFullName() }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-              License:
-            </th>
-            <td>{{ simulation.license }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Status icon" [icon]="['fas', 'certificate']"></fa-icon>
-              Status:
-            </th>
-            <td>{{ simulation.status | ucfirst }}<span *ngIf="simulation.wallTime">{{ ' in ' + (simulation.wallTime | formatTimeForHumans) }}</span></td>
-          </tr>
-        </tbody>
+    <div class="tab overview">
+      <div class="section">
+        <h1>Simulation {{ simulation.id }}: {{ simulation.name }}</h1>
 
-        <tbody class="section" *ngIf="simulation.model as model">
-          <tr>
-            <th colspan="2" class="section-title">Model</th>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
-              Id:
-            </th>
-            <td>
-              <a [routerLink]="model.getRoute()">{{ model.id }}</a>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Id icon" [icon]="['fas', 'circle']"></fa-icon>
-              Name:
-            </th>
-            <td>{{ model.name }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Tags icon" [icon]="['fas', 'tags']"></fa-icon>
-              Tags:
-            </th>
-            <td><span *ngFor="let tag of model.tags; let i = index">{{ i > 0 ? ', ' : ''}}{{ tag }}</span></td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Description icon" [icon]="['fas', 'align-justify']"></fa-icon>
-              Description:
-            </th>
-            <td>{{ model.description }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-              Format:
-            </th>
-            <td>{{ model.format.getFullName() }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Authors icon" [icon]="['fas', 'users']"></fa-icon>
-              Authors:
-            </th>
-            <td>{{ model.getAuthors().join('; ') }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="Owner icon" [icon]="['fas', 'user']"></fa-icon>
-              Owner:
-            </th>
-            <td>{{ model.owner.getFullName() }}</td>
-          </tr>
-          <tr>
-            <th>
-              <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-              License:
-            </th>
-            <td>{{ model.license }}</td>
-          </tr>
-        </tbody>
+        <div class="authors">
+          {{ simulation.getAuthors().join('; ') }}
+          (Owner: <a [routerLink]="simulation.owner.getRoute()">{{ simulation.owner.getFullName() }}</a>)
+        </div>
+        
+        <div class="description">{{ simulation.description }}</div>
 
-        <tbody class="section">
-          <tr>
-            <th colspan="2" class="section-title">Citations</th>
-          </tr>
-          <tr *ngFor="let ref of simulation.refs">
-            <td colspan="2">
-              <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']"></fa-icon>
-              <a href="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="tags">
+          <span>
+            <fa-icon 
+              aria-hidden="true" 
+              aria-label="Tags icon" 
+              [icon]="['fas', 'tags']"
+            ></fa-icon>
+            {{ simulation.tags.join(', ') }}
+          </span>
+
+           <span>
+              <fa-icon aria-hidden="true" aria-label="Changes icon" [icon]="['fas', 'pencil-alt']"></fa-icon>
+              {{ simulation.changedParameters.length + ' parameter'}}
+            </span>
+
+            <span>
+              <fa-icon aria-hidden="true" aria-label="Duration icon" [icon]="['fas', 'stopwatch']"></fa-icon>
+              {{ simulation.length | formatTimeForHumans }}
+            </span>
+
+            <span>
+              <fa-icon aria-hidden="true" aria-label="Framework icon" [icon]="['fas', 'calculator']"></fa-icon>
+              {{ simulation.framework }}
+            </span>
+
+            <span>
+              <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+              {{ simulation.license }}
+            </span>
+        </div>
+
+        <div class="refs" *ngIf="simulation.refs.length > 0">
+          <div *ngFor="let ref of simulation.refs">
+            <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
+            </fa-icon>
+            <a [href]="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" *ngIf="simulation.model as model">
+        <h2>
+          <a [routerLink]="model.getRoute()">Model {{ model.id }}: {{ model.name }}</a>
+        </h2>
+
+        <div class="authors">
+          {{ model.getAuthors().join('; ') }}
+          (Owner: <a [routerLink]="model.owner.getRoute()">{{ model.owner.getFullName() }}</a>)
+        </div>
+        
+        <div class="description">{{ model.description }}</div>
+
+        <div class="tags">
+          <span>
+            <fa-icon aria-hidden="true" aria-label="Tags icon" [icon]="['fas', 'tags']"></fa-icon>
+            {{ model.tags.join(', ') }}
+          </span>
+
+          <span>
+            <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+            {{ model.format.name }}
+          </span>
+
+          <span>
+            <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+            {{ model.license }}
+          </span>
+        </div>
+
+        <div class="refs" *ngIf="model.refs.length > 0">
+          <div class="ref" *ngFor="let ref of model.refs">
+            <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
+            </fa-icon>
+            <a [href]="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
+          </div>
+        </div>
+      </div>
     </div>
   </mat-tab>
 
@@ -334,7 +254,7 @@
           </tr>
           <tr>
             <th>
-              <fa-icon aria-hidden="true" aria-label="Token icon" [icon]="['fas', 'key']"></fa-icon>          
+              <fa-icon aria-hidden="true" aria-label="Token icon" [icon]="['fas', 'key']"></fa-icon>
               Access token:
             </th>
             <td>{{ simulation.accessToken }}</td>
