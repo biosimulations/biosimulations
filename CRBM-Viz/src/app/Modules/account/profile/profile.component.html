@@ -1,122 +1,224 @@
-<div class="partial-width-container">
-  <h1>
-    Profile
-    <a [routerLink]="['/profile/edit']"
-      ><mat-icon aria-hidden="false" aria-label="Edit profile"
-        >edit</mat-icon
-      ></a
-    >
-  </h1>
+<div class="page-content partial-width">
+  <div *ngIf="user">
+    <div class="profile">
+      <img class="photo" src="{{ user.getGravatarImgUrl() }}" />
+      <div class="name mat-title">{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</div>
+      <div class="username">{{ user.username }}</div>
+      <div class="description" *ngIf="user.description">{{
+        user.description
+      }}</div>
 
-  <div *ngIf="auth.userProfile$ | async as profile">
-    <img class="photo" src="{{ profile.picture }}" />
-    <div class="name mat-title">{{ profile.name }}</div>
-    <div class="username">{{ profile.nickname }}</div>
-    <div class="description" *ngIf="user.description">{{ 
-      user.description 
-    }}</div>
-
-    <table class="details">
-      <tr *ngIf="user.organization">
-        <th>
-          <mat-icon aria-hidden="false" aria-label="Organization"
-            >people</mat-icon
-          >
-        </th>
-        <td>{{ user.organization }}</td>
-      </tr>
-
-      <tr *ngIf="user.website">
-        <th>
-          <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>
-        </th>
-        <td>
-          <a href="{{ user.website }}">{{
-            user.website
-          }}</a>
-        </td>
-      </tr>
-
-      <tr *ngIf="profile.email" class="email">
-        <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
-        <td>
-          <a href="mailto:{{ profile.email }}">{{ profile.email }}</a> (application)
-          <span *ngIf="profile.email_verified; else emailUnverified">
-            <mat-icon
-              class="verified"
-              aria-hidden="false"
-              aria-label="Email verified"
-              >check</mat-icon
+      <table class="details">
+        <tr *ngIf="user.organization">
+          <th>
+            <mat-icon aria-hidden="false" aria-label="Organization"
+              >people</mat-icon
             >
-          </span>
-          <ng-template #emailUnverified>
-            <mat-icon
-              class="unverified"
+          </th>
+          <td>{{ user.organization }}</td>
+        </tr>
+
+        <tr *ngIf="user.website">
+          <th>
+            <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>
+          </th>
+          <td>
+            <a href="{{ user.website }}">{{
+              user.website
+            }}</a>
+          </td>
+        </tr>
+
+        <tr *ngIf="user.email && user.emailPublic" class="email">
+          <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
+          <td>
+            <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+          </td>
+        </tr>
+
+        <tr *ngIf="user.gitHubId">
+          <th>
+            <fa-icon
+              [icon]="['fab', 'github']"
+              size="lg"
               aria-hidden="false"
-              aria-label="Email not verified"
-              >close</mat-icon
+              aria-label="GitHub"
+            ></fa-icon>
+          </th>
+          <td>
+            <a href="https://github.com/{{ user.gitHubId }}">{{
+              user.gitHubId
+            }}</a>
+          </td>
+        </tr>
+
+        <tr *ngIf="user.googleScholarId">
+          <th>
+            <fa-icon
+              [icon]="['fab', 'google']"
+              size="lg"
+              aria-hidden="false"
+              aria-label="Google Scholar"
+            ></fa-icon>
+          </th>
+          <td>
+            <a
+              href="https://scholar.google.com/citations?user={{
+                user.googleScholarId
+              }}"
+              >{{ user.googleScholarId }}</a
             >
-          </ng-template>        
-        </td>
-      </tr>
+          </td>
+        </tr>
 
-      <tr *ngIf="user.publicEmail" class="email">
-        <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
-        <td>
-          <a href="mailto:{{ user.publicEmail }}">{{ user.publicEmail }}</a> (public)
-        </td>
-      </tr>
+        <tr *ngIf="user.orcId">
+          <th>
+            <fa-icon
+              [icon]="['fab', 'orcid']"
+              size="lg"
+              aria-hidden="false"
+              aria-label="ORCID"
+            ></fa-icon>
+          </th>
+          <td>
+            <a href="https://orcid.org/{{ user.orcId }}">{{
+              user.orcId
+            }}</a>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-      <tr *ngIf="user.github">
-        <th>
-          <fa-icon
-            [icon]="['fab', 'github']"
-            size="lg"
-            aria-hidden="false"
-            aria-label="GitHub"
-          ></fa-icon>
-        </th>
-        <td>
-          <a href="https://github.com/{{ user.github }}">{{
-            user.github
-          }}</a>
-        </td>
-      </tr>
+    <div class="resources-container">
+      <div class="resources" *ngIf="user.models && user.models.length > 0">
+        <h2>Models</h2>
+        <div *ngIf="user.models && user.models.length > 0; else noModels" class="resources-grid">
+          <div *ngFor="let model of user.models" class="resource">
+            <div class="title">
+              <a [routerLink]="model.getRoute()">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Model icon"
+                  [icon]="['fas', 'project-diagram']"
+                  ></fa-icon>
+                {{ model.id }}: {{ model.name }}
+              </a>
+            </div>
+            <div class="description">{{ model.description | shorten: 130: '...' }}</div>
+            <div class="tags">
+              <div class="tag">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Format icon"
+                  [icon]="['far', 'file-alt']"
+                ></fa-icon> {{ model.format.name }}
+              </div>
+              <div class="tag">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Model icon"
+                  [icon]="['fas', 'dna']"
+                ></fa-icon> {{ model.taxon.getShortName() | shorten: 20: '...' }}
+              </div>
+              <div class="tag">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Tags icon"
+                  [icon]="['fas', 'tags']"
+                ></fa-icon> {{ model.tags.join(', ') | shorten: 30: '...' }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noModels>
+          <i>None.</i>
+        </ng-template>
+      </div>
 
-      <tr *ngIf="user.googleScholar">
-        <th>
-          <fa-icon
-            [icon]="['fab', 'google']"
-            size="lg"
-            aria-hidden="false"
-            aria-label="Google Scholar"
-          ></fa-icon>
-        </th>
-        <td>
-          <a
-            href="https://scholar.google.com/citations?user={{
-              user.googleScholar
-            }}"
-            >{{ user.googleScholar }}</a
-          >
-        </td>
-      </tr>
+      <div class="resources" *ngIf="user.simulations && user.simulations.length > 0">
+        <h2>Simulations</h2>
+        <div *ngIf="user.simulations && user.simulations.length > 0; else noSimulations" class="resources-grid">
+          <div *ngFor="let sim of user.simulations" class="resource">
+            <div class="title">
+              <a [routerLink]="sim.getRoute()">
+                <mat-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Simulation icon"
+                  >timeline</mat-icon>
+                {{ sim.id }}: {{ sim.name }}
+              </a>
+            </div>
+            <div class="description">{{ sim.description | shorten: 130: '...' }}</div>
+            <div class="tags">
+              <div class="tag">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Format icon"
+                  [icon]="['far', 'file-alt']"
+                ></fa-icon> {{ sim.format.name }}
+              </div>
+              <div class="tag">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Tags icon"
+                  [icon]="['fas', 'tags']"
+                ></fa-icon> {{ sim.tags.join(', ') | shorten: 30: '...' }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noSimulations>
+          <i>None.</i>
+        </ng-template>
+      </div>
 
-      <tr *ngIf="user.orcid">
-        <th>
-          <fa-icon
-            [icon]="['fab', 'orcid']"
-            size="lg"
-            aria-hidden="false"
-            aria-label="ORCID"
-          ></fa-icon>
-        </th>
-        <td>
-          <a href="https://orcid.org/{{ user.orcid }}">{{
-            user.orcid
-          }}</a>
-        </td>
-      </tr>
-    </table>
+      <div class="resources" *ngIf="user.visualizations && user.visualizations.length > 0">
+        <h2>Visualizations</h2>
+        <div *ngIf="user.visualizations && user.visualizations.length > 0; else noVisualizations" class="resources-grid">
+          <div *ngFor="let viz of user.visualizations" class="resource">
+            <div class="title">
+              <a [routerLink]="viz.getRoute()">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Visualization icon"
+                  [icon]="['fas', 'chart-area']"
+                  ></fa-icon>
+                {{ viz.id }}: {{ viz.name }}
+              </a>
+            </div>
+            <div class="description">{{ viz.description | shorten: 130: '...' }}</div>
+            <div class="tags">
+              <div class="tag">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Format icon"
+                  [icon]="['far', 'file-alt']"
+                ></fa-icon> {{ viz.format.name }}
+              </div>
+              <div class="tag">
+                <fa-icon
+                  class="icon"
+                  aria-hidden="false"
+                  aria-label="Tags icon"
+                  [icon]="['fas', 'tags']"
+                ></fa-icon> {{ viz.tags.join(', ') | shorten: 30: '...' }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noVisualizations>
+          <i>None.</i>
+        </ng-template>
+      </div>
+    </div>
   </div>
 </div>

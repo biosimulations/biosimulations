@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
-import { SimulationStatus } from 'src/app/Shared/Enums/simulation-status';
+import { UtilsService } from 'src/app/Shared/Services/utils.service';
 import { Format } from 'src/app/Shared/Models/format';
+import { Simulator } from 'src/app/Shared/Models/simulator';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { User } from 'src/app/Shared/Models/user';
 
@@ -14,13 +14,17 @@ import { User } from 'src/app/Shared/Models/user';
 })
 export class SimulationsGridComponent implements OnInit {
   @Input() auth;
-  @Input() showAuthor = true;
+  @Input() showOwner = true;
   @Input() showStatus = false;
 
   columnDefs;
   rowData;
 
-  constructor(private simulationService: SimulationService) {}
+  constructor(
+    private utilsService: UtilsService,
+    private simulationService: SimulationService
+    ) {    
+  }
 
   ngOnInit() {
     this.columnDefs = [
@@ -36,10 +40,12 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Name',
         field: 'name',
+        minWidth: 150,
       },
       {
         headerName: 'Model',
         field: 'model.name',
+        minWidth: 150,
       },
 
       {
@@ -49,6 +55,7 @@ export class SimulationsGridComponent implements OnInit {
         valueGetter: tagsGetter,
         filterValueGetter: tagsGetter,
         valueFormatter: setFormatter,
+        minWidth: 150,
         hide: true,
       },
       {
@@ -58,27 +65,46 @@ export class SimulationsGridComponent implements OnInit {
         valueGetter: modelTagsGetter,
         filterValueGetter: modelTagsGetter,
         valueFormatter: setFormatter,
+        minWidth: 150,
         hide: true,
       },
       {
         headerName: 'Taxon',
         field: 'model.taxon.name',
         filter: 'agSetColumnFilter',
+        minWidth: 150,
         hide: true,
       },
       {
-        headerName: 'Length (s)',
-        field: 'length',
-        valueFormatter: lengthFormatter,
+        headerName: 'Changed parameters',
+        field: 'changedParameters',
+        valueGetter: numChangedParametersGetter,
         filter: 'agNumberColumnFilter',
+        minWidth: 150,
+        hide: true,
+      },
+      {
+        headerName: 'Length',
+        field: 'length',
+        valueFormatter: this.lengthFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 75,
         hide: true,
       },
 
+      {
+        headerName: 'Framework',
+        field: 'framework',
+        filter: 'agSetColumnFilter',
+        minWidth: 125,
+        hide: true,
+      },
       {
         headerName: 'Format',
         field: 'format',
         valueGetter: formatGetter,
         filter: 'agSetColumnFilter',
+        minWidth: 125,
         hide: true,
       },
       {
@@ -86,6 +112,7 @@ export class SimulationsGridComponent implements OnInit {
         field: 'simulator',
         valueGetter: simulatorGetter,
         filter: 'agSetColumnFilter',
+        minWidth: 125,
         hide: true,
       },
       {
@@ -93,19 +120,46 @@ export class SimulationsGridComponent implements OnInit {
         field: 'model.format',
         valueGetter: modelFormatGetter,
         filter: 'agSetColumnFilter',
+        minWidth: 125,
         hide: true,
       },
 
       {
+        headerName: 'Parent',
+        field: 'parent.name',
+        minWidth: 150,
+        hide: true,
+      },
+      {
         headerName: 'Author',
-        field: 'author',
+        field: 'refs',
         valueGetter: authorGetter,
-        hide: !this.showAuthor,
+        filterValueGetter: authorGetter,
+        valueFormatter: authorFormatter,
+        minWidth: 150,
+        hide: true,
+      },
+      {
+        headerName: 'Owner',
+        field: 'owner',
+        valueGetter: ownerGetter,
+        minWidth: 150,
+        hide: !this.showOwner,
       },
       {
         headerName: 'Model author',
-        field: 'model.author',
+        field: 'model.refs',
         valueGetter: modelAuthorGetter,
+        filterValueGetter: modelAuthorGetter,
+        valueFormatter: authorFormatter,
+        minWidth: 150,
+        hide: true,
+      },
+      {
+        headerName: 'Model owner',
+        field: 'model.owner',
+        valueGetter: modelOwnerGetter,
+        minWidth: 150,
         hide: true,
       },
 
@@ -113,14 +167,16 @@ export class SimulationsGridComponent implements OnInit {
         headerName: 'Access',
         field: 'access',
         filter: 'agSetColumnFilter',
-        valueFormatter: accessFormatter,
+        valueFormatter: capitalizeFormatter,
+        minWidth: 75,
         hide: true,
       },
       {
         headerName: 'Status',
         field: 'status',
         filter: 'agSetColumnFilter',
-        valueFormatter: statusFormatter,
+        valueFormatter: capitalizeFormatter,
+        minWidth: 75,
         hide: !this.showStatus,
       },
 
@@ -129,18 +185,54 @@ export class SimulationsGridComponent implements OnInit {
         field: 'date',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
+        minWidth: 100,
         hide: true,
       },
+
+      {
+        headerName: 'Start date',
+        field: 'startDate',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        minWidth: 100,
+        hide: true,
+      },
+      {
+        headerName: 'End date',
+        field: 'endDate',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        minWidth: 100,
+        hide: true,
+      },
+      {
+        headerName: 'Wall time',
+        field: 'wallTime',
+        valueFormatter: this.lengthFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 100,
+        hide: true,
+      },
+
       {
         headerName: 'Model date',
         field: 'model.date',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
+        minWidth: 100,
         hide: true,
       },
+
+      // outLog
+      // errLog
     ];
 
-    this.rowData = this.simulationService.getSimulations(this.auth);
+    this.rowData = this.simulationService.list(this.auth);
+  }
+
+  lengthFormatter(params): string {
+    const secs:number = params.value;
+    return this.utilsService.formatTimeForHumans(secs);
   }
 }
 
@@ -161,14 +253,18 @@ function setFormatter(params) {
   }
 }
 
-function authorGetter(params): string {
-  const author:User = params.data.author;
-  return author.getFullName();
+function numChangedParametersGetter(params): number {
+  return params.data.changedParameters.length;
 }
 
-function modelAuthorGetter(params): string {
-  const author:User = params.data.model.author;
-  return author.getFullName();
+function ownerGetter(params): string {
+  const owner:User = params.data.owner;
+  return owner.getFullName();
+}
+
+function modelOwnerGetter(params): string {
+  const owner:User = params.data.model.owner;
+  return owner.getFullName();
 }
 
 function modelFormatGetter(params): string {
@@ -182,20 +278,30 @@ function formatGetter(params): string {
 }
 
 function simulatorGetter(params): string {
-  const format:Format = params.data.simulator;
-  return format.getFullName();
+  const simulator:Simulator = params.data.simulator;
+  return simulator.getFullName();
 }
 
-function accessFormatter(params): string {
-  const value:AccessLevel = params.value;
-  const valueStr: string = AccessLevel[value];
-  return valueStr.substring(0, 1).toUpperCase() + valueStr.substring(1);
+function capitalizeFormatter(params): string {
+  const value:string = params.value;
+  return value.substring(0, 1).toUpperCase() + value.substring(1);
 }
 
-function statusFormatter(params): string {
-  const value:SimulationStatus = params.value;
-  const valueStr: string = SimulationStatus[value];
-  return valueStr.substring(0, 1).toUpperCase() + valueStr.substring(1);
+function authorGetter(params): string[] {
+  return params.data.getAuthors();  
+}
+
+function modelAuthorGetter(params): string[] {
+  return params.data.model.getAuthors();  
+}
+
+function authorFormatter(params) {
+  const value = params.value;
+  if (value instanceof Array) {
+    return value.join('; ');
+  } else {
+    return value;
+  }
 }
 
 function dateFormatter(params): string {
@@ -203,9 +309,4 @@ function dateFormatter(params): string {
   return (date.getFullYear()
      + '-' + String(date.getMonth() + 1).padStart(2, '0')
      + '-' + String(date.getDate()).padStart(2, '0'));
-}
-
-function lengthFormatter(params): string {
-  const secs:number = params.value;
-  return Simulation.getHumanReadableTime(secs);
 }

@@ -1,6 +1,6 @@
 export class Format {
-  name: string;
-  version: string;
+  name?: string;
+  version?: string;
     
   constructor (name?: string, version?: string) {
     this.name = name;

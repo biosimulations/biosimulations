@@ -1,102 +1,151 @@
-<div class="partial-width-container">
-  <h1>Edit profile</h1>
+<form 
+  class="page-content partial-width"
+  *ngIf="user"
+  #userForm="ngForm"
+  (ngSubmit)="save()">
+  <mat-form-field>
+    <mat-label>Username</mat-label>
+    <input matInput
+      id="username"
+      name="username"
+      #username="ngModel"
+      placeholder="username"
+      [(ngModel)]="user.username"
+      disabled />
+  </mat-form-field>
 
-  <form *ngIf="auth.userProfile$ | async as profile">
-    <!-- <img class="photo" src="{{ profile.picture }}" /> -->
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput
+      id="firstName"
+      name="firstName"
+      #firstName="ngModel"
+      class="firstName"
+      required
+      placeholder="John"
+      [(ngModel)]="user.firstName"/>
+    <input matInput
+      id="middleName"
+      name="middleName"
+      class="middleName"
+      #middleName="ngModel"
+      placeholder="C"
+      [(ngModel)]="user.middleName"/>
+    <input matInput
+      id="lastName"
+      name="lastName"
+      class="lastName"
+      #lastName="ngModel"
+      required
+      placeholder="Doe"
+      [(ngModel)]="user.lastName"/>
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Username</mat-label>
-      <input matInput 
-        name="nickname"
-        placeholder="username" 
-        value="{{ profile.nickname }}"
-        disabled />
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Organization</mat-label>
+    <input matInput
+      id="organization"
+      name="organization"
+      #organization="ngModel"
+      placeholder="XXX University"
+      [(ngModel)]="user.organization" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput 
-        name="name"
-        placeholder="Name" 
-        value="{{ profile.name }}"
-        disabled />
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Website</mat-label>
+    <input matInput
+      id="website"
+      name="website"
+      #website="ngModel"
+      type="url"
+      placeholder="https://www.mywebsite.org"
+      [(ngModel)]="user.website" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Organization</mat-label>
-      <input matInput 
-        name="organization"
-        placeholder="XXX University" 
-        value="{{ user.organization }}" />
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email address for notifications</mat-label>
+    <input matInput
+      id="email"
+      name="email"
+      #email="ngModel"
+      class="email"
+      type="email"
+      required
+      placeholder="user@organization.org"
+      [(ngModel)]="user.email"/>
 
-    <mat-form-field>
-      <mat-label>Website</mat-label>
-      <input matInput 
-        name="website"
-        type="url" 
-        placeholder="https://www.mywebsite.org" 
-        value="{{ user.website }}" />
-    </mat-form-field>
+    <mat-select
+      id="emailPublic"
+      name="emailPublic"
+      #emailPublic="ngModel"
+      class="emailPublic"
+      required
+      [(ngModel)]="user.emailPublic"
+    >
+      <mat-option [value]="false">Private</mat-option>
+      <mat-option [value]="true">Public</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Email address for notifications</mat-label>
-      <input matInput
-        name="email" 
-        type="email" 
-        placeholder="user@organization.org" 
-        value="{{ profile.email }}"
-        disabled />
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Gravatar email (for photo)</mat-label>
+    <input matInput
+      id="gravatarEmail"
+      name="gravatarEmail"
+      #gravatarEmail="ngModel"
+      placeholder="user@organization.edu"
+      [(ngModel)]="user.gravatarEmail" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Public email address</mat-label>
-      <input matInput 
-        name="publicEmail"
-        type="email" 
-        placeholder="user@organization.org" 
-        value="{{ user.publicEmail }}" />
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>GitHub username</mat-label>
+    <input matInput
+      id="gitHubId"
+      name="gitHubId"
+      #gitHubId="ngModel"
+      placeholder="username"
+      [(ngModel)]="user.gitHubId" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>GitHub username</mat-label>
-      <input matInput
-        name="github"
-        placeholder="github.username" 
-        value="{{ user.github }}" />
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Google Scholar id</mat-label>
+    <input matInput
+      id="googleScholarId"
+      name="googleScholarId"
+      #googleScholarId="ngModel"
+      placeholder="XXXXXXXXXXXXX"
+      [(ngModel)]="user.googleScholarId" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Google Scholar id</mat-label>
-      <input matInput 
-        name="googleScholar"
-        placeholder="XXXXXXXXXXXXX" 
-        value="{{ user.googleScholar }}" />
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>ORCID</mat-label>
+    <input matInput
+      id="orcId"
+      name="orcId"
+      #orcId="ngModel"
+      placeholder="xxxx-xxxx-xxxx-xxxx"
+      [(ngModel)]="user.orcId" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>ORCID</mat-label>
-      <input matInput 
-        name="orcid"
-        placeholder="xxxx-xxxx-xxxx-xxxx" 
-        value="{{ user.orcid }}" />
-    </mat-form-field>
+  <mat-form-field floatLabel="always">
+    <mat-label>Description</mat-label>
+    <textarea matInput
+      id="description"
+      name="description"
+      #description="ngModel"
+      placeholder="Description of professional interests and experience."
+      rows="10"
+      [(ngModel)]="user.description"
+      ></textarea>
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Description</mat-label>
-      <textarea matInput
-        name="description"
-        placeholder="Description of professional interests and experience."
-        rows="10"
-        >{{ 
-        user.description 
-      }}</textarea>
-    </mat-form-field>
-
-
-    <button mat-button 
-      type="submit" 
-      value="Submit" 
-      disableRipple="true">Save</button>
-  </form>
-</div>
+  <div class="save-button-container">
+    <button mat-button
+      type="submit"
+      disableRipple="true"
+      [disabled]="!userForm.form.valid"
+    >Save</button>
+    <div class="saved-message" [class.show-saved-message]="showSavedMessage"
+    >Your profile was saved.</div>
+  </div>
+</form>

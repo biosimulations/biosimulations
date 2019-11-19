@@ -14,8 +14,8 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 // TODO Sample content is needed and component compiled with it as input for <ng-content>
 import { HelpComponent } from 'src/app/Modules/about/help/help.component';
 import { AboutComponent } from 'src/app/Modules/about/about/about.component';
-import { SharedModule } from '../../shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -37,6 +37,9 @@ describe('NavigationComponent', () => {
         BrowserAnimationsModule,
         RouterTestingModule,
         FontAwesomeModule,
+      ],
+      providers: [
+        BreadCrumbsService,
       ],
     }).compileComponents();
   }));

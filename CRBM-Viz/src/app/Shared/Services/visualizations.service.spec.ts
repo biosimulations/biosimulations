@@ -32,10 +32,12 @@ describe('VisualizationsService', () => {
   });
 
   it('should return an Observable<Visualization[]>', () => {
-    const dummyViz: Visualization[] = [
+    const dummyVizs: Visualization[] = [
       {
-        name: 'test',
         id: 1,
+        name: 'test',
+        description: null,
+        tags: [],
         spec: {
           $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
           description: 'A simple bar chart with embedded data.',
@@ -96,15 +98,19 @@ describe('VisualizationsService', () => {
             },
           },
         },
+        getIcon: null,
+        getRoute: null,
       },
     ];
     service.getVisualizations('1').subscribe(viz => {
       expect(viz.length).toBe(1);
-      expect(viz).toEqual(dummyViz);
+      expect(viz[0].id).toEqual(dummyVizs[0].id);
+      expect(viz[0].name).toEqual(dummyVizs[0].name);
+      expect(viz[0].spec).toEqual(dummyVizs[0].spec);
     });
 
     const req = httpMock.expectOne('https://crbm-test-api.herokuapp.com/vis/1');
     expect(req.request.method).toBe('GET');
-    req.flush(dummyViz);
+    req.flush(dummyVizs);
   });
 });

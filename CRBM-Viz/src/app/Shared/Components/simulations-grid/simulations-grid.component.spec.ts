@@ -15,17 +15,12 @@ describe('SimulationsGridComponent', () => {
   // TODO mock the data service and remove http and router
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        SimulationsGridComponent,
-        GridComponent,
-        IdRendererGridComponent,
-        SearchToolPanelGridComponent,
-        ],
+      declarations: [SimulationsGridComponent, GridComponent, IdRendererGridComponent, SearchToolPanelGridComponent],
       imports: [
-        AgGridModule.withComponents([IdRendererGridComponent, SearchToolPanelGridComponent]),
         RouterTestingModule,
         MatDialogModule,
         HttpClientModule,
+        AgGridModule.withComponents([IdRendererGridComponent, SearchToolPanelGridComponent]),
       ],
       providers: [
         RouterTestingModule,

@@ -1,6 +1,6 @@
 export enum SimulationStatus {
-    queued,
-    running,
-    finished,
-    failed,
+    queued = 'queued',
+    running = 'running',
+    finished = 'finished',
+    failed = 'failed',
 }

@@ -3,11 +3,13 @@
 mat-form-field
     display: block
 
-input, textarea.mat-input-element
+input, textarea.mat-input-element, mat-select
     background: #f9f9f9
     border: 1px solid #efefef
     padding: 0.25rem
+    width: calc(100% - 0.5rem - 2px)
     margin: 0
+    letter-spacing: normal
 
 .mat-form-field.mat-focused
     input, textarea
@@ -16,7 +18,46 @@ input, textarea.mat-input-element
 :host::ng-deep .mat-form-field-underline
     display: none
 
+.firstName
+    float: left
+    width: calc(40%)
+
+.middleName
+    float: left
+    width: calc(20% - 2rem - 1.5rem - 6px)
+    margin-left: 1rem
+    margin-right: 1rem
+
+.lastName
+    float: right
+    width: calc(40%)
+
+.email
+    float: left
+    width: calc(100% - 10rem - 1rem - 1rem - 4px)
+.emailPublic
+    float: right
+    width: 10rem
+
 .mat-button
     background: mat-color($theme-primary)
     color: #fff
     font-weight: bold
+
+.saved-message
+    display: none
+    margin-left: 1rem
+    color: mat-color($theme-accent)
+
+.saved-message.show-saved-message
+    display: inline
+    animation: hideSavedMessage 0s 2.5s forwards
+    opacity: 1
+
+@keyframes hideSavedMessage
+  0%
+    opacity: 1
+  80%
+    opacity: 1
+  100%
+    opacity: 0

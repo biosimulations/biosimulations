@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationsService } from 'src/app/Shared/Services/visualizations.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+
 @Component({
   selector: 'app-visualize',
   templateUrl: './visualize.component.html',
@@ -14,15 +16,26 @@ export class VisualizeComponent implements OnInit {
 
   constructor(
     private visService: VisualizationsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
+
+      const crumbs: object[] = [{label: 'Visualize'}];
+      const buttons: object[] = [];
+
       if (this.id) {
         this.getVis();
+
+        crumbs[0]['route'] = '/visualize';
+        crumbs.push({label: 'Visualization ' + this.id});
+        buttons.push({iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/visualize']});
       }
+
+      this.breadCrumbsService.set(crumbs, buttons);
     });
   }
 
