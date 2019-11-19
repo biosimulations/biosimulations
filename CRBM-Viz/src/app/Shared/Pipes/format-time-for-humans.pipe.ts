@@ -6,6 +6,6 @@ export class FormatTimeForHumansPipe implements PipeTransform {
   constructor() { }
   
   transform(value: number): string {
-    return new UtilsService().formatTimeForHumans(value);
+    return UtilsService.formatTimeForHumans(value);
   }
 }

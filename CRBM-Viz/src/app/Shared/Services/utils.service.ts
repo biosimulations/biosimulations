@@ -1,11 +1,4 @@
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root',
-})
 export class UtilsService {
-
-  constructor() { }
 
   static genAccessToken(length: number = 16): string {
       const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -16,7 +9,7 @@ export class UtilsService {
       return result;
   }
 
-  formatTimeForHumans(secs: number): string {
+  static formatTimeForHumans(secs: number): string {
     let numerator:number;
     let units:string;
 

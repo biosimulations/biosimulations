@@ -21,7 +21,6 @@ export class SimulationsGridComponent implements OnInit {
   rowData;
 
   constructor(
-    private utilsService: UtilsService,
     private simulationService: SimulationService
     ) {    
   }
@@ -232,7 +231,7 @@ export class SimulationsGridComponent implements OnInit {
 
   lengthFormatter(params): string {
     const secs:number = params.value;
-    return this.utilsService.formatTimeForHumans(secs);
+    return UtilsService.formatTimeForHumans(secs);
   }
 }
 
