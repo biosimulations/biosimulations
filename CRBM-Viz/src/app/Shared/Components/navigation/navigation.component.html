@@ -9,9 +9,9 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>
-      <button mat-button class="home" [routerLink]="['']" disableRipple="true">
+      <a class="home" [routerLink]="['']" disableRipple="true">
         <span class="bio">Bio</span><span class="simulations">Simulations</span>
-      </button>
+      </a>
       <button
         type="button"
         aria-label="Toggle sidenav"

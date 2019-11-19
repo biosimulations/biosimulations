@@ -1,9 +1,9 @@
-<form 
-  class="page-content partial-width"
+<form
+  class="page-content partial-width form"
   *ngIf="user"
   #userForm="ngForm"
   (ngSubmit)="save()">
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>Username</mat-label>
     <input matInput
       id="username"
@@ -14,7 +14,7 @@
       disabled />
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>Name</mat-label>
     <input matInput
       id="firstName"
@@ -41,7 +41,7 @@
       [(ngModel)]="user.lastName"/>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>Organization</mat-label>
     <input matInput
       id="organization"
@@ -51,7 +51,7 @@
       [(ngModel)]="user.organization" />
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>Website</mat-label>
     <input matInput
       id="website"
@@ -62,7 +62,7 @@
       [(ngModel)]="user.website" />
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>Email address for notifications</mat-label>
     <input matInput
       id="email"
@@ -87,7 +87,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>Gravatar email (for photo)</mat-label>
     <input matInput
       id="gravatarEmail"
@@ -97,7 +97,7 @@
       [(ngModel)]="user.gravatarEmail" />
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>GitHub username</mat-label>
     <input matInput
       id="gitHubId"
@@ -107,7 +107,7 @@
       [(ngModel)]="user.gitHubId" />
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>Google Scholar id</mat-label>
     <input matInput
       id="googleScholarId"
@@ -117,7 +117,7 @@
       [(ngModel)]="user.googleScholarId" />
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="legacy">
     <mat-label>ORCID</mat-label>
     <input matInput
       id="orcId"
