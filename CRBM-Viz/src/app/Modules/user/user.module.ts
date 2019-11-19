@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 
-import { AccountRoutingModule } from './account-routing.module';
+import { UserRoutingModule } from './user-routing.module';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/profile-edit.component';
 import { SharedModule } from 'src/app/Shared/shared.module';
@@ -12,7 +12,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 @NgModule({
   declarations: [ProfileComponent, ProfileEditComponent],
 
-  imports: [CommonModule, FormsModule, AccountRoutingModule, SharedModule, MaterialModule],
+  imports: [CommonModule, FormsModule, UserRoutingModule, SharedModule, MaterialModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AccountModule {}
+export class UserModule {}

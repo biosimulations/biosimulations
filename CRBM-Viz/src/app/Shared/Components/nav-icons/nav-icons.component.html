@@ -49,13 +49,13 @@
   <!-- User account and help -->
   <button
     mat-icon-button
-    [matMenuTriggerFor]="accountMenu?.profileMenu"
+    [matMenuTriggerFor]="userMenu?.profileMenu"
     disableRipple="true"
     class="meta"
   >
-    <mat-icon class="icon" aria-hidden="false" aria-label="Account icon"
+    <mat-icon class="icon" aria-hidden="false" aria-label="User icon"
       >account_circle</mat-icon
     >
   </button>
-  <app-account-menu></app-account-menu>
+  <app-user-menu></app-user-menu>
 </div>

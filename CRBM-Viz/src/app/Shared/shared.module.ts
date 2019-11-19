@@ -70,7 +70,7 @@ import { FilterPipe } from './Pipes/filter.pipe';
 import { FormatTimeForHumansPipe } from './Pipes/format-time-for-humans.pipe';
 
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
-import { AccountMenuComponent } from './Components/account-menu/account-menu.component';
+import { UserMenuComponent } from './Components/user-menu/user-menu.component';
 import { LogoComponent } from './Components/logo/logo.component';
 import { NavigationComponent } from './Components/navigation/navigation.component';
 import { NavIconsComponent } from './Components/nav-icons/nav-icons.component';
@@ -93,7 +93,7 @@ import { AuthorsComponent } from './Components/authors/authors.component';
     FormatTimeForHumansPipe,
 
     SearchBarComponent,
-    AccountMenuComponent,
+    UserMenuComponent,
     LogoComponent,
     NavigationComponent,
     NavIconsComponent,
@@ -124,7 +124,7 @@ import { AuthorsComponent } from './Components/authors/authors.component';
     FormatTimeForHumansPipe,
 
     SearchBarComponent,
-    AccountMenuComponent,
+    UserMenuComponent,
     LogoComponent,
     NavigationComponent,
     NavIconsComponent,

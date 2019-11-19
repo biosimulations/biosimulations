@@ -8,7 +8,7 @@ import { LogoComponent } from '../logo/logo.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
-import { AccountMenuComponent } from '../account-menu/account-menu.component';
+import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { FilterPipe } from 'src/app/Shared/Pipes/filter.pipe';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 // TODO Sample content is needed and component compiled with it as input for <ng-content>
@@ -29,7 +29,7 @@ describe('NavigationComponent', () => {
         LogoComponent,
         SearchBarComponent,
         SidebarComponent,
-        AccountMenuComponent,
+        UserMenuComponent,
         FilterPipe,
       ],
       imports: [
