@@ -85,6 +85,7 @@ import { GridComponent } from './Components/grid/grid.component';
 import { IdRendererGridComponent } from './Components/grid/id-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './Components/grid/search-tool-panel-grid.component';
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
+import { AuthorsComponent } from './Components/authors/authors.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
     IdRendererGridComponent,
     SearchToolPanelGridComponent,
     SimulationsGridComponent,
+    AuthorsComponent,
   ],
   imports: [
     CommonModule,
@@ -136,6 +138,7 @@ import { SimulationsGridComponent } from './Components/simulations-grid/simulati
     UnderConstructionComponent,
     GridComponent,
     SimulationsGridComponent,
+    AuthorsComponent,
     NgPipesModule,
   ],
   providers: [

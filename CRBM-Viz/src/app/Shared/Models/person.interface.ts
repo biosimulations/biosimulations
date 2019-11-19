@@ -3,5 +3,7 @@ export interface PersonInterface {
   middleName?: string;
   lastName?: string;
 
+  getRoute(): (string | number)[];
   getFullName(): string;
+  getGravatarImgUrl(): string;
 }

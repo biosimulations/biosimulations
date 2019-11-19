@@ -88,6 +88,7 @@ export class ModelService {
         );
         break;
     }
+    model.authors = [];
     model.access = AccessLevel.public;
     model.license = 'MIT';
     return model;

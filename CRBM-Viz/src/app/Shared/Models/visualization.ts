@@ -1,6 +1,7 @@
-import { AccessLevel } from '../Enums/access-level'
-import { User } from './user'
-import { UtilsService } from '../Services/utils.service'
+import { AccessLevel } from '../Enums/access-level';
+import { Person } from './person';
+import { User } from './user';
+import { UtilsService } from '../Services/utils.service';
 
 export class Visualization {
   id?: number;
@@ -8,6 +9,7 @@ export class Visualization {
   description?: string;
   tags?: string[] = [];
   spec?: object | string;
+  authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
@@ -40,5 +42,13 @@ export class Visualization {
 
   getRoute() {
     return ['/visualize', this.id];
+  }
+
+  getAuthors(): (User | Person)[] {
+    if (this.authors && this.authors.length) {
+      return this.authors;
+    } else {
+      return [this.owner];
+    }
   }
 }

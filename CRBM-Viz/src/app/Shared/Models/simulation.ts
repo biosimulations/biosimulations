@@ -1,14 +1,15 @@
-import { AccessLevel } from '../Enums/access-level'
-import { SimulationStatus } from '../Enums/simulation-status'
-import { ChangedParameter } from './changed-parameter'
-import { Format } from './format'
-import { Identifier } from './identifier'
-import { Model } from './model'
+import { AccessLevel } from '../Enums/access-level';
+import { SimulationStatus } from '../Enums/simulation-status';
+import { ChangedParameter } from './changed-parameter';
+import { Format } from './format';
+import { Identifier } from './identifier';
+import { Model } from './model';
 import { JournalReference } from './journal-reference';
-import { Simulator } from './simulator'
-import { Taxon } from './taxon'
-import { User } from './user'
-import { UtilsService } from '../Services/utils.service'
+import { Person } from './person';
+import { Simulator } from './simulator';
+import { Taxon } from './taxon';
+import { User } from './user';
+import { UtilsService } from '../Services/utils.service';
 
 export class Simulation {
   id?: string;
@@ -21,8 +22,9 @@ export class Simulation {
   length?: number;
   framework?: string;
   simulator?: Simulator;
-  refs?: JournalReference[] = [];
   parent?: Simulation;
+  refs?: JournalReference[] = [];
+  authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
@@ -45,8 +47,8 @@ export class Simulation {
     changedParameters?: ChangedParameter[],
     length?: number,
     simulator?: Simulator,
-    refs?: JournalReference[],
     parent?: Simulation,
+    refs?: JournalReference[],
     owner?: User,
     access?: AccessLevel,
     status?: SimulationStatus,
@@ -98,11 +100,11 @@ export class Simulation {
     return ['/simulate', this.id];
   }
 
-  getAuthors(): string[] {
-    const authors: string[] = [];
-    for (const ref of this.refs) {
-      Array.prototype.push.apply(authors, ref.authors);
+  getAuthors(): (User | Person)[] {
+    if (this.authors && this.authors.length) {
+      return this.authors;
+    } else {
+      return [this.owner];
     }
-    return authors;
   }
 }

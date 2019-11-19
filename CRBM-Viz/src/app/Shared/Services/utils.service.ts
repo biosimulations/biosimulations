@@ -1,4 +1,6 @@
 import { PersonInterface } from '../Models/person.interface';
+import { Person } from '../Models/person';
+import { User } from '../Models/user';
 
 export class UtilsService {
 
@@ -78,5 +80,16 @@ export class UtilsService {
         name.push(person.lastName);
     }
     return name.join(' ');
+  }
+
+  static joinAuthorNames(authors: string[], separator: string = ', ', finalSeparator: string = ' & '): string {
+    let returnVal: string = authors.slice(0, -1).join(separator);
+    if (authors.length > 1) {
+      returnVal += finalSeparator;
+    }
+    if (authors.length > 0) {
+      returnVal += authors.slice(-1)[0];
+    }
+    return returnVal;
   }
 }

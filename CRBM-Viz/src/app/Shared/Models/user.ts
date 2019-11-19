@@ -20,7 +20,7 @@ export class User implements PersonInterface {
   gravatarEmail?: string;
   gitHubId?: string;
   googleScholarId?: string;
-  orcId?: string;  
+  orcId?: string;
   description?: string;
   models?: Model[] = [];
   simulations?: Simulation[] = [];
@@ -39,7 +39,7 @@ export class User implements PersonInterface {
     this.username = username;
     this.firstName = firstName;
     this.middleName = middleName;
-    this.lastName = lastName;    
+    this.lastName = lastName;
     this.organization = organization;
     this.website = website;
     this.email = email;
@@ -48,7 +48,7 @@ export class User implements PersonInterface {
     this.gravatarEmail = gravatarEmail;
     this.gitHubId = gitHubId;
     this.googleScholarId = googleScholarId;
-    this.orcId = orcId;    
+    this.orcId = orcId;
     this.description = description;
 
     if (models) {
@@ -70,7 +70,7 @@ export class User implements PersonInterface {
     }
   }
 
-  getRoute() {
+  getRoute(): (string | number)[] {
     return ['/profile', this.id];
   }
 

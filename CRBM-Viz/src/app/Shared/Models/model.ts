@@ -1,10 +1,11 @@
-import { AccessLevel } from '../Enums/access-level'
+import { AccessLevel } from '../Enums/access-level';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
+import { Person } from './person';
 import { Taxon } from './taxon';
 import { User } from './user';
-import { UtilsService } from '../Services/utils.service'
+import { UtilsService } from '../Services/utils.service';
 
 export class Model {
   id?: string;
@@ -15,6 +16,7 @@ export class Model {
   format?: Format;
   identifiers?: Identifier[] = [];
   refs?: JournalReference[] = [];
+  authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
@@ -84,11 +86,11 @@ export class Model {
     return null;
   }
 
-  getAuthors(): string[] {
-    const authors: string[] = [];
-    for (const ref of this.refs) {
-      Array.prototype.push.apply(authors, ref.authors);
+  getAuthors(): (User | Person)[] {
+    if (this.authors && this.authors.length) {
+      return this.authors;
+    } else {
+      return [this.owner];
     }
-    return authors;
   }
 }

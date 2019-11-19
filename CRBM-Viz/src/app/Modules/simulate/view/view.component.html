@@ -10,18 +10,19 @@
       <div class="section">
         <h1>Simulation {{ simulation.id }}: {{ simulation.name }}</h1>
 
-        <div class="authors">
-          {{ simulation.getAuthors().join('; ') }}
-          (Owner: <a [routerLink]="simulation.owner.getRoute()">{{ simulation.owner.getFullName() }}</a>)
-        </div>
-        
+        <app-authors
+          class="authors"
+          [authors]="simulation.authors"
+          [owner]="simulation.owner">
+        </app-authors>
+
         <div class="description">{{ simulation.description }}</div>
 
         <div class="tags">
           <span>
-            <fa-icon 
-              aria-hidden="true" 
-              aria-label="Tags icon" 
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Tags icon"
               [icon]="['fas', 'tags']"
             ></fa-icon>
             {{ simulation.tags.join(', ') }}
@@ -62,11 +63,12 @@
           <a [routerLink]="model.getRoute()">Model {{ model.id }}: {{ model.name }}</a>
         </h1>
 
-        <div class="authors">
-          {{ model.getAuthors().join('; ') }}
-          (Owner: <a [routerLink]="model.owner.getRoute()">{{ model.owner.getFullName() }}</a>)
-        </div>
-        
+        <app-authors
+          class="authors"
+          [authors]="model.authors"
+          [owner]="model.owner">
+        </app-authors>
+
         <div class="description">{{ model.description }}</div>
 
         <div class="tags">

@@ -6,14 +6,15 @@ import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import { ModelService } from './model.service';
 
-import { AccessLevel } from '../Enums/access-level'
-import { SimulationStatus } from '../Enums/simulation-status'
-import { ChangedParameter } from '../Models/changed-parameter'
-import { Format } from '../Models/format'
-import { JournalReference } from '../Models/journal-reference'
-import { Simulator } from '../Models/simulator'
-import { Simulation } from '../Models/simulation'
-import { User } from '../Models/user'
+import { AccessLevel } from '../Enums/access-level';
+import { SimulationStatus } from '../Enums/simulation-status';
+import { ChangedParameter } from '../Models/changed-parameter';
+import { Format } from '../Models/format';
+import { JournalReference } from '../Models/journal-reference';
+import { Person } from '../Models/person';
+import { Simulator } from '../Models/simulator';
+import { Simulation } from '../Models/simulation';
+import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -60,11 +61,11 @@ export class SimulationService {
 
           new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
+          new Simulation('005', 'Sim-005'),
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          new Simulation('005', 'Sim-005'),
           UserService._get(2),
           AccessLevel.public,
           SimulationStatus.finished,
@@ -96,8 +97,8 @@ export class SimulationService {
 
           new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
-          [],
           null,
+          [],
           UserService._get(2),
           AccessLevel.private,
           SimulationStatus.queued,
@@ -129,8 +130,8 @@ export class SimulationService {
 
           new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
-          [],
           null,
+          [],
           UserService._get(3),
           AccessLevel.public,
           SimulationStatus.failed,
@@ -145,6 +146,11 @@ export class SimulationService {
     }
     simulation.framework = 'SSA';
     simulation.license = 'MIT';
+    simulation.authors = [
+      UserService._get(4),
+      new Person('John', 'C', 'Doe'),
+      new Person('Jane', 'D', 'Doe'),
+    ];
     return simulation;
   }
 

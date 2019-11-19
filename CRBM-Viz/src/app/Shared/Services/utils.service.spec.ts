@@ -29,7 +29,7 @@ describe('UtilsService', () => {
   it('should get the full name of a person', () => {
     const person:Person = new Person();
     expect(person.getFullName()).toEqual('');
-    
+
     person.firstName = 'John'
     expect(person.getFullName()).toEqual('John');
 
@@ -38,5 +38,12 @@ describe('UtilsService', () => {
 
     person.middleName = 'C'
     expect(person.getFullName()).toEqual('John C Doe');
+  });
+
+  it('should join author names', () => {
+    expect(UtilsService.joinAuthorNames([])).toEqual('');
+    expect(UtilsService.joinAuthorNames(['John'])).toEqual('John');
+    expect(UtilsService.joinAuthorNames(['John', 'Jane'])).toEqual('John & Jane');
+    expect(UtilsService.joinAuthorNames(['John', 'Jane', 'Jim'])).toEqual('John, Jane & Jim');
   });
 });

@@ -22,7 +22,7 @@ export class SimulationsGridComponent implements OnInit {
 
   constructor(
     private simulationService: SimulationService
-    ) {    
+    ) {
   }
 
   ngOnInit() {
@@ -287,17 +287,17 @@ function capitalizeFormatter(params): string {
 }
 
 function authorGetter(params): string[] {
-  return params.data.getAuthors();  
+  return params.data.getAuthors().map(author => author.getFullName());
 }
 
 function modelAuthorGetter(params): string[] {
-  return params.data.model.getAuthors();  
+  return params.data.model.getAuthors().map(author => author.getFullName());
 }
 
 function authorFormatter(params) {
   const value = params.value;
   if (value instanceof Array) {
-    return value.join('; ');
+    return UtilsService.joinAuthorNames(value);
   } else {
     return value;
   }
