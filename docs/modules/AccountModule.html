@@ -204,6 +204,15 @@
                         </li>
                     </ul>
                 </div>
+                <div class="col-sm-3">
+                    <h3>Schemas<a href="https://angular.io/api/core/NgModule#schemas" target="_blank" title="Official documentation about module schemas"><span
+                                class="icon ion-ios-information-circle-outline"></a></h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA" target="_blank">CUSTOM_ELEMENTS_SCHEMA</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -214,17 +223,20 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule }   from &#x27;@angular/forms&#x27;;
 
 import { AccountRoutingModule } from &#x27;./account-routing.module&#x27;;
 import { ProfileComponent } from &#x27;./profile/profile.component&#x27;;
 import { ProfileEditComponent } from &#x27;./profile/profile-edit.component&#x27;;
 import { SharedModule } from &#x27;src/app/Shared/shared.module&#x27;;
 import { MaterialModule } from &#x27;../app-material.module&#x27;;
+import { CUSTOM_ELEMENTS_SCHEMA } from &#x27;@angular/core&#x27;;
 
 @NgModule({
   declarations: [ProfileComponent, ProfileEditComponent],
 
-  imports: [CommonModule, AccountRoutingModule, SharedModule, MaterialModule],
+  imports: [CommonModule, FormsModule, AccountRoutingModule, SharedModule, MaterialModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AccountModule {}
 </code></pre>
