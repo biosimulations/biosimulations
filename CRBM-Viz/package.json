@@ -45,7 +45,7 @@
     "tslib": "^1.10.0",
     "vega": "^5.8.1",
     "vega-embed": "^6.1.0",
-    "vega-lite": "^4.0.0-beta.11",
+    "vega-lite": "^4.0.0-beta.12",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
