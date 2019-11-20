@@ -1,4 +1,4 @@
-import { OntologyTerm } from './format';
+import { OntologyTerm } from './ontology-term';
 
 describe('OntologyTerm', () => {
   it('should create an instance', () => {
