@@ -273,14 +273,18 @@
     </ng-template>
   </mat-tab>
 
- <mat-tab [disabled]="true">
+  <mat-tab [disabled]="true">
     <ng-template mat-tab-label>
-      <div class="download" (click)="download()">
-        <fa-icon aria-hidden="true" aria-label="Download icon" [icon]="['fas', 'download']"></fa-icon> Download
+      <div class="tab-button" (click)="visualize()">
+        <fa-icon aria-hidden="true" aria-label="Visualize icon" [icon]="['fas', 'chart-area']"></fa-icon> Visualize
       </div>
     </ng-template>
-    <ng-template matTabContent>
-      <div class="tab">
+  </mat-tab>
+
+  <mat-tab [disabled]="true">
+    <ng-template mat-tab-label>
+      <div class="tab-button" (click)="download()">
+        <fa-icon aria-hidden="true" aria-label="Download icon" [icon]="['fas', 'download']"></fa-icon> Download
       </div>
     </ng-template>
   </mat-tab>

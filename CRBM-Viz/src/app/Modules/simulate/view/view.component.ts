@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Simulation } from 'src/app/Shared/Models/simulation';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
@@ -10,11 +10,12 @@ import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-hu
   styleUrls: ['./view.component.sass'],
 })
 export class ViewComponent implements OnInit {
-  id: string;
+  private id: string;
   simulation: Simulation;
 
   constructor(    
-    private route: ActivatedRoute,
+    private router: Router,
+    private route: ActivatedRoute,    
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private simulationService: SimulationService
   ) {}
@@ -41,6 +42,10 @@ export class ViewComponent implements OnInit {
 
   getData() {
     this.simulation = this.simulationService.get(this.id);
+  }
+
+  visualize(): void {
+    this.router.navigate(['/visualize', this.id]);
   }
 
   download(): void {
