@@ -1,4 +1,4 @@
-<div *ngIf="authors && authors.length > 0; else ownerTemplate">
+<span *ngIf="authors && authors.length > 0; else ownerTemplate">
   <span *ngFor="let author of authors; index as iAuthor">
     <a [routerLink]="author.getRoute()" *ngIf="author.getRoute(); else nameTemplate">{{
       author.getFullName()
@@ -7,7 +7,7 @@
     }}
     <ng-template #nameTemplate>{{ author.getFullName() }}</ng-template>
   </span>
-</div>
+</span>
 
 <ng-template #ownerTemplate>
   <a *ngIf="owner"

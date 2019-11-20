@@ -7,28 +7,55 @@
       <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
     </ng-template>
     <div class="tab overview">
-      <div class="section">
-        <h1>Simulation {{ simulation.id }}: {{ simulation.name }}</h1>
+      <h1>{{ simulation.name }}</h1>
+      <div class="tab-content">
+        <div class="tab-content-section">
+          <app-authors
+            class="authors"
+            [authors]="simulation.authors"
+            [owner]="simulation.owner">
+          </app-authors>
+        </div>
 
-        <app-authors
-          class="authors"
-          [authors]="simulation.authors"
-          [owner]="simulation.owner">
-        </app-authors>
+        <div class="tab-content-section description">{{ simulation.description }}</div>
 
-        <div class="description">{{ simulation.description }}</div>
-
-        <div class="tags">
-          <span>
-            <fa-icon
+        <div class="tab-content-section" *ngIf="simulation.model as model">
+          <fa-icon
               aria-hidden="true"
-              aria-label="Tags icon"
-              [icon]="['fas', 'tags']"
-            ></fa-icon>
-            {{ simulation.tags.join(', ') }}
-          </span>
+              aria-label="Model icon"
+              [icon]="['fas', 'project-diagram']"
+          ></fa-icon>
+          <a [routerLink]="model.getRoute()">{{ model.id }}: {{ model.name }}</a> 
+          (<app-authors
+            class="authors"
+            [authors]="model.authors"
+            [owner]="model.owner">
+          </app-authors>)
+        </div>
 
-           <span>
+        <div class="tab-content-section tags">
+          <div>
+            <span>
+              <fa-icon
+                aria-hidden="true"
+                aria-label="Taxon icon"
+                [icon]="['fas', 'dna']"
+              ></fa-icon>
+              {{ simulation.model.taxon.getShortName() }}
+            </span>
+
+            <span>
+              <fa-icon
+                aria-hidden="true"
+                aria-label="Tags icon"
+                [icon]="['fas', 'tags']"
+              ></fa-icon>
+              {{ simulation.tags.join(', ') }}
+            </span>
+          </div>
+
+          <div>
+            <span>
               <fa-icon aria-hidden="true" aria-label="Changes icon" [icon]="['fas', 'pencil-alt']"></fa-icon>
               {{ simulation.changedParameters.length + ' parameter'}}
             </span>
@@ -37,59 +64,33 @@
               <fa-icon aria-hidden="true" aria-label="Duration icon" [icon]="['fas', 'stopwatch']"></fa-icon>
               {{ simulation.length | formatTimeForHumans }}
             </span>
+          </div>
 
+          <div>
             <span>
               <fa-icon aria-hidden="true" aria-label="Framework icon" [icon]="['fas', 'calculator']"></fa-icon>
               {{ simulation.framework }}
             </span>
 
             <span>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+              {{ simulation.format.name }}
+            </span>
+
+            <span>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+              {{ simulation.model.format.name }}
+            </span>
+
+            <span>
               <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
               {{ simulation.license }}
             </span>
-        </div>
-
-        <div class="refs" *ngIf="simulation.refs.length > 0">
-          <div *ngFor="let ref of simulation.refs">
-            <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
-            </fa-icon>
-            <a [href]="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
           </div>
         </div>
-      </div>
 
-      <div class="section" *ngIf="simulation.model as model">
-        <h1>
-          <a [routerLink]="model.getRoute()">Model {{ model.id }}: {{ model.name }}</a>
-        </h1>
-
-        <app-authors
-          class="authors"
-          [authors]="model.authors"
-          [owner]="model.owner">
-        </app-authors>
-
-        <div class="description">{{ model.description }}</div>
-
-        <div class="tags">
-          <span>
-            <fa-icon aria-hidden="true" aria-label="Tags icon" [icon]="['fas', 'tags']"></fa-icon>
-            {{ model.tags.join(', ') }}
-          </span>
-
-          <span>
-            <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-            {{ model.format.name }}
-          </span>
-
-          <span>
-            <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-            {{ model.license }}
-          </span>
-        </div>
-
-        <div class="refs" *ngIf="model.refs.length > 0">
-          <div class="ref" *ngFor="let ref of model.refs">
+        <div class="tab-content-section" *ngIf="simulation.refs.length > 0">
+          <div *ngFor="let ref of simulation.refs">
             <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
             </fa-icon>
             <a [href]="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
