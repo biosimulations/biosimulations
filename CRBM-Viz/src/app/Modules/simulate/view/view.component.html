@@ -8,7 +8,7 @@
     </ng-template>
     <div class="tab overview">
       <h1>{{ simulation.name }}</h1>
-      <div class="tab-content">
+      <div>
         <div class="tab-content-section">
           <app-authors
             class="authors"
@@ -25,7 +25,7 @@
               aria-label="Model icon"
               [icon]="['fas', 'project-diagram']"
           ></fa-icon>
-          <a [routerLink]="model.getRoute()">{{ model.id }}: {{ model.name }}</a> 
+          <a [routerLink]="model.getRoute()">{{ model.id }}: {{ model.name }}</a>
           (<app-authors
             class="authors"
             [authors]="model.authors"
@@ -41,7 +41,9 @@
                 aria-label="Taxon icon"
                 [icon]="['fas', 'dna']"
               ></fa-icon>
-              {{ simulation.model.taxon.getShortName() }}
+              <a [href]="simulation.model.taxon.getUrl()" target="_blank">{{
+                simulation.model.taxon.getShortName()
+              }}</a>
             </span>
 
             <span>
@@ -49,42 +51,62 @@
                 aria-hidden="true"
                 aria-label="Tags icon"
                 [icon]="['fas', 'tags']"
-              ></fa-icon>
-              {{ simulation.tags.join(', ') }}
-            </span>
+              ></fa-icon>{{
+              simulation.tags.join(', ')
+            }}</span>
           </div>
 
           <div>
             <span>
-              <fa-icon aria-hidden="true" aria-label="Changes icon" [icon]="['fas', 'pencil-alt']"></fa-icon>
-              {{ simulation.changedParameters.length + ' parameter'}}
-            </span>
+              <fa-icon aria-hidden="true" aria-label="Changes icon" [icon]="['fas', 'pencil-alt']"></fa-icon>{{
+              simulation.modelParameterChanges.length + ' parameters'
+            }}</span>
 
             <span>
-              <fa-icon aria-hidden="true" aria-label="Duration icon" [icon]="['fas', 'stopwatch']"></fa-icon>
-              {{ simulation.length | formatTimeForHumans }}
-            </span>
+              <fa-icon aria-hidden="true" aria-label="Duration icon" [icon]="['fas', 'stopwatch']"></fa-icon>{{
+              simulation.length | formatTimeForHumans
+            }}</span>
           </div>
 
           <div>
             <span>
-              <fa-icon aria-hidden="true" aria-label="Framework icon" [icon]="['fas', 'calculator']"></fa-icon>
-              {{ simulation.framework }}
+              <fa-icon aria-hidden="true" aria-label="Model framework icon" [icon]="['fas', 'calculator']"></fa-icon>
+              <a [href]="simulation.model.framework.getUrl()" target="_blank">{{ simulation.model.framework.name }}</a>
+            </span>
+
+            <span>
+              <fa-icon aria-hidden="true" aria-label="Simulation algorithm icon" [icon]="['fas', 'calculator']"></fa-icon>
+              <a [href]="simulation.algorithm.getUrl()" target="_blank">{{ simulation.algorithm.name }}</a>
             </span>
 
             <span>
               <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-              {{ simulation.format.name }}
+              <a [href]="simulation.format.url" target="_blank">{{
+                simulation.format.name
+              }}</a>
             </span>
 
             <span>
               <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-              {{ simulation.model.format.name }}
+              <a [href]="simulation.model.format.url" target="_blank">{{
+                simulation.model.format.name
+              }}</a>
+            </span>
+          </div>
+
+          <div>
+            <span *ngFor="let identifier of simulation.model.identifiers">
+              <fa-icon aria-hidden="true" aria-label="Identifier icon" [icon]="['fas', 'star']"></fa-icon>
+              <a [href]="identifier.getUrl()" target="_blank">{{
+                identifier.namespaceName + ': ' + identifier.id
+              }}</a>
             </span>
 
             <span>
               <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-              {{ simulation.license }}
+              <a [href]="simulation.license.getSwoUrl()" target="_blank">{{
+                simulation.license.name
+              }}</a>
             </span>
           </div>
         </div>
@@ -105,11 +127,9 @@
       <fa-icon aria-hidden="true" aria-label="Experiment icon" [icon]="['fas', 'flask']"></fa-icon> Experiment
     </ng-template>
     <div class="tab">
-      <table cellpadding="0" cellspacing="0" class="section heading">
-        <tbody class="section">
-          <tr>
-            <th colspan="5" class="section-title">Changed parameters</th>
-          </tr>
+      <h1>Model parameter changes</h1>
+      <table cellpadding="0" cellspacing="0" class="heading">
+        <tbody>
           <tr class="section-heading">
             <th><div>Id</div></th>
             <th><div>Name</div></th>
@@ -119,7 +139,7 @@
           </tr>
         </tbody>
         <tbody class="section-body">
-          <tr *ngFor="let param of simulation.changedParameters">
+          <tr *ngFor="let param of simulation.modelParameterChanges">
             <td>{{ param.id }}</td>
             <td>{{ param.name }}</td>
             <td>{{ param.value }}</td>
@@ -129,10 +149,22 @@
         </tbody>
       </table>
 
-      <table cellpadding="0" cellspacing="0" class="section">
-        <tbody class="section">
+      <h1>Timecourse</h1>
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
           <tr>
-            <th colspan="2" class="section-title">Meta parameters</th>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Length icon" [icon]="['far', 'clock']"></fa-icon>
+              Start time:
+            </th>
+            <td>{{ simulation.startTime | formatTimeForHumans }}</td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Length icon" [icon]="['far', 'clock']"></fa-icon>
+              End time:
+            </th>
+            <td>{{ simulation.endTime | formatTimeForHumans }}</td>
           </tr>
           <tr>
             <th>
@@ -143,10 +175,38 @@
           </tr>
           <tr>
             <th>
-              <fa-icon aria-hidden="true" aria-label="Replicates icon" [icon]="['fas', 'clone']"></fa-icon>
-              Replicates:
+              <fa-icon aria-hidden="true" aria-label="Simulator icon" [icon]="['fas', 'circle']"></fa-icon>
+              Timepoints:
             </th>
-            <td>1</td>
+            <td>{{ simulation.numTimePoints }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h1>Simulation algorithm</h1>
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Modeling framework icon" [icon]="['fas', 'calculator']"></fa-icon>
+              Framework:
+            </th>
+            <td>
+              <a [href]="simulation.model.framework.getUrl()" target="_blank">{{
+                simulation.model.framework.name
+              }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Simulation algorithm icon" [icon]="['fas', 'calculator']"></fa-icon>
+              Algorithm:
+            </th>
+            <td>
+              <a [href]="simulation.algorithm.getUrl()" target="_blank">{{
+                simulation.algorithm.name
+              }}</a>
+            </td>
           </tr>
           <tr>
             <th>
@@ -154,22 +214,50 @@
               Simulator:
             </th>
             <td>
-              <a href="{{ simulation.simulator.getDockerHubUrl() }}"
-              >{{ simulation.simulator.name }} {{ simulation.simulator.version }}</a>
+              <a [href]="simulation.simulator.getDockerHubUrl()" target="_blank"
+              >{{ simulation.simulator.getFullName() }}</a>
             </td>
           </tr>
         </tbody>
+      </table>
 
-        <tbody class="section">
+      <h1>Simulation algorithm parameters</h1>
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr *ngFor="let param of simulation.algorithmParameters">
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Algorithm parameter icon" [icon]="['fas', 'circle']"></fa-icon>
+              <a [href]="param.getUrl()" target="_blank" title="{{ param.name }}">{{ param.id }}</a>:
+            </th>
+            <td [innerHTML]="param.value | scientificNotation"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h1>Format</h1>
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
           <tr>
-            <th colspan="2" class="section-title">Format</th>
+            <th>
+              <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+              Simulation:
+            </th>
+            <td>
+              <a [href]="simulation.format.url" target="_blank">{{
+                simulation.format.getFullName()
+              }}</a>
+            </td>
           </tr>
           <tr>
             <th>
               <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-              Format:
+              Model:
             </th>
-            <td>{{ simulation.format.name }} {{ simulation.format.version }}</td>
+            <td>
+              <a [href]="simulation.model.format.url" target="_blank">{{
+                simulation.model.format.getFullName()
+              }}</a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -181,11 +269,9 @@
       <fa-icon aria-hidden="true" aria-label="History icon" [icon]="['fas', 'history']"></fa-icon> History
     </ng-template>
     <div class="tab">
-      <table cellpadding="0" cellspacing="0" class="section">
-        <tbody *ngIf="simulation.parent" class="section">
-          <tr>
-            <th colspan="2" class="section-title">Provenance</th>
-          </tr>
+      <h1>Provenance</h1>
+      <table cellpadding="0" cellspacing="0">
+        <tbody *ngIf="simulation.parent">
           <tr>
             <th>
               <fa-icon aria-hidden="true" aria-label="Parent icon" [icon]="['fas', 'sitemap']"></fa-icon>
@@ -196,11 +282,11 @@
             </td>
           </tr>
         </tbody>
+      </table>
 
-        <tbody class="section">
-          <tr>
-            <th colspan="2" class="section-title">Run status</th>
-          </tr>
+      <h1>Run status</h1>
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
           <tr>
             <th>
               <fa-icon aria-hidden="true" aria-label="Status icon" [icon]="['fas', 'tag']"></fa-icon>
@@ -246,8 +332,8 @@
       <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon> Access
     </ng-template>
     <div class="tab">
-      <table cellpadding="0" cellspacing="0" class="section">
-        <tbody class="section">
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
           <tr>
             <th>
               <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon>
@@ -267,7 +353,11 @@
               <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
               License:
             </th>
-            <td>{{ simulation.license }}</td>
+            <td>
+              <a [href]="simulation.license.getSwoUrl()" target="_blank">{{
+                simulation.license.name
+              }}</a>
+            </td>
           </tr>
           <tr>
             <th>

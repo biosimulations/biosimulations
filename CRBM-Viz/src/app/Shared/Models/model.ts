@@ -2,6 +2,8 @@ import { AccessLevel } from '../Enums/access-level';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
+import { License } from './license';
+import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
 import { Taxon } from './taxon';
 import { User } from './user';
@@ -13,6 +15,7 @@ export class Model {
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];
+  framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
   identifiers?: Identifier[] = [];
   refs?: JournalReference[] = [];
@@ -20,7 +23,7 @@ export class Model {
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
-  license?: string;
+  license?: License;
   date?: Date;
 
   constructor(

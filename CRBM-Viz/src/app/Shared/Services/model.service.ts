@@ -3,7 +3,9 @@ import { AccessLevel } from '../Enums/access-level';
 import { Format } from '../Models/format';
 import { Identifier } from '../Models/identifier';
 import { JournalReference } from '../Models/journal-reference'
+import { License } from '../Models/license';
 import { Model } from '../Models/model';
+import { OntologyTerm } from '../Models/ontology-term';
 import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
 import { UserService } from './user.service';
@@ -29,11 +31,9 @@ export class ModelService {
           'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
           new Taxon(7787, 'Tetronarce californica'),
           ['neurotransmission', 'signaling'],
-          new Format('SBML', 'L2V4'),
+          new Format('SBML', 'L2V4', 2585, 'http://sbml.org'),
           [
-            new Identifier('biomodels', 'BIOMD0000000001'),
-            new Identifier('doi', '10.1007/s004220050302'),
-            new Identifier('pubmed', '8983160'),
+            new Identifier('biomodels.db', 'BioModels', 'BIOMD0000000001'),
           ],
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
@@ -51,11 +51,9 @@ export class ModelService {
           'Minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.',
           new Taxon(8292, 'Xenopus laevis'),
           ['cell cycle', 'mitosis'],
-          new Format('SBML', 'L2V4'),
+          new Format('SBML', 'L2V4', 2585, 'http://sbml.org'),
           [
-            new Identifier('biomodels', 'BIOMD0000000003'),
-            new Identifier('doi', '10.1073/pnas.88.20.9107'),
-            new Identifier('pubmed', '1833774'),
+            new Identifier('biomodels.db', 'BioModels', 'BIOMD0000000003'),
           ],
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
@@ -73,11 +71,9 @@ export class ModelService {
           'Mathematical model of the interactions of cdc2 and cyclin.',
           new Taxon(33154, 'Homo sapiens'),
           ['cell cycle'],
-          new Format('SBML', 'L2V4'),
+          new Format('SBML', 'L2V4', 2585, 'http://sbml.org'),
           [
-            new Identifier('biomodels', 'BIOMD0000000006'),
-            new Identifier('doi', '10.1186/1752-0509-4-92'),
-            new Identifier('pubmed', '20587024'),
+            new Identifier('biomodels.db', 'BioModels', 'BIOMD0000000006'),
           ],
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
@@ -88,9 +84,10 @@ export class ModelService {
         );
         break;
     }
+    model.framework = new OntologyTerm('SBO', '0000062', 'continuous framework', null, 'http://biomodels.net/SBO/SBO_0000293');
     model.authors = [];
     model.access = AccessLevel.public;
-    model.license = 'MIT';
+    model.license = new License('CC0', 1000049);
     return model;
   }
 

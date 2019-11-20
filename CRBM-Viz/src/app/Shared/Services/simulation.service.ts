@@ -8,9 +8,12 @@ import { ModelService } from './model.service';
 
 import { AccessLevel } from '../Enums/access-level';
 import { SimulationStatus } from '../Enums/simulation-status';
-import { ChangedParameter } from '../Models/changed-parameter';
+import { ModelParameterChange } from '../Models/model-parameter-change';
+import { AlgorithmParameter } from '../Models/algorithm-parameter';
 import { Format } from '../Models/format';
+import { License } from '../Models/license';
 import { JournalReference } from '../Models/journal-reference';
+import { OntologyTerm } from '../Models/ontology-term';
 import { Person } from '../Models/person';
 import { Simulator } from '../Models/simulator';
 import { Simulation } from '../Models/simulation';
@@ -51,11 +54,11 @@ export class SimulationService {
 
           ModelService._get('001'),
 
-          new Format('SED-ML', 'L1V3'),
+          new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org'),
           [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
           ],
           10.,
 
@@ -87,11 +90,11 @@ export class SimulationService {
 
           ModelService._get('003'),
 
-          new Format('SED-ML', 'L1V2'),
+          new Format('SED-ML', 'L1V2', 3685, 'https://sed-ml.org'),
           [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
           ],
           10.,
 
@@ -120,11 +123,11 @@ export class SimulationService {
 
           ModelService._get('006'),
 
-          new Format('SED-ML', 'L1V1'),
+          new Format('SED-ML', 'L1V1', 3685, 'https://sed-ml.org'),
           [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
           ],
           10.,
 
@@ -144,8 +147,17 @@ export class SimulationService {
         );
         break;
     }
-    simulation.framework = 'SSA';
-    simulation.license = 'MIT';
+    simulation.startTime = 0;
+    simulation.endTime = 3600;
+    simulation.numTimePoints = 360;
+    simulation.algorithm = new OntologyTerm('KISAO', '0000064', 'Runge-Kutta based method', null,
+      'http://www.biomodels.net/kisao/KISAO#KISAO_0000064');
+    simulation.algorithmParameters = [
+      new AlgorithmParameter('seed', 'random number generator seed', 1, 488),
+      new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211),
+      new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209),
+    ];
+    simulation.license = new License('CC0', 1000049);
     simulation.authors = [
       UserService._get(4),
       new Person('John', 'C', 'Doe'),

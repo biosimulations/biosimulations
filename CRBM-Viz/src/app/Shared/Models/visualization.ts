@@ -1,4 +1,5 @@
 import { AccessLevel } from '../Enums/access-level';
+import { License } from './license';
 import { Person } from './person';
 import { User } from './user';
 import { UtilsService } from '../Services/utils.service';
@@ -13,7 +14,7 @@ export class Visualization {
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
-  license?: string;
+  license?: License;
 
   constructor(
     id?: number,
@@ -23,7 +24,7 @@ export class Visualization {
     spec?: object | string,
     owner?: User,
     access?: AccessLevel,
-    license?: string)
+    license?: License)
   {
     this.id = id;
     this.name = name;

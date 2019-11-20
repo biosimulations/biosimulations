@@ -1,29 +1,24 @@
 @import 'src/styles.scss'
 
 .tab
-    padding: 1rem
+    padding: 2rem
 
-    .section
-        padding-top: 1.5rem
-    .section:first-child
-        padding-top: 0
+    h1
+        border-bottom: none
+        @include mat-typography-level-to-styles($fontConfig, body-2)
+        font-weight: bold
+        line-height: 100%
+        color: mat-color($theme-primary)
+        margin-bottom: 0
+        margin-top: 1.5rem
+    h1:first-child
+        margin-top: 0
 
-    tbody.section
-        tr:first-child
-            th, td
-                padding-top: 1.5rem
-
-    tbody.section:first-child
-        tr:first-child
-            th, td
-                padding-top: 0
     th
         font-weight: bold
         text-align: left
         padding-right: 0.5rem
         white-space: nowrap
-    h1, h1 a, th.section-title
-        color: mat-color($theme-primary)
     th, td
         padding-top: 0.1rem
         vertical-align: top
@@ -37,9 +32,6 @@
 
         .section-heading td:last-child
             padding-right: 0
-
-        .section-title
-            padding-left: 0
 
         .section-heading th div
             background: #ddd
@@ -68,12 +60,6 @@
             text-align: center
 
 .tab.overview
-    h1
-        border-bottom: none
-        @include mat-typography-level-to-styles($fontConfig, body-2)
-        font-weight: bold
-        line-height: 100%
-        margin-bottom: 0
 
     .tab-content-section
         margin-top: 0.5rem
@@ -90,7 +76,6 @@
 
             .ng-fa-icon
                 width: auto
-                margin-right: 0
 
 .tab.logs
     height: calc(100% - 2rem)

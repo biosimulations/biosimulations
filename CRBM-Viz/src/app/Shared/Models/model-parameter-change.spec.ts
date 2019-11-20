@@ -1,7 +1,7 @@
-import { ChangedParameter } from './changed-parameter';
+import { ModelParameterChange } from './model-parameter-change';
 
-describe('ChangedParameter', () => {
+describe('ModelParameterChange', () => {
   it('should create an instance', () => {
-    expect(new ChangedParameter()).toBeTruthy();
+    expect(new ModelParameterChange()).toBeTruthy();
   });
 });

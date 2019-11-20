@@ -52,6 +52,7 @@ import {
   faAlignJustify,
   faPencilAlt,
   faCalculator,
+  faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -68,6 +69,7 @@ import { VisualizationsService } from './Services/visualizations.service';
 
 import { FilterPipe } from './Pipes/filter.pipe';
 import { FormatTimeForHumansPipe } from './Pipes/format-time-for-humans.pipe';
+import { ScientificNotationPipe } from './Pipes/scientific-notation.pipe';
 
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 import { UserMenuComponent } from './Components/user-menu/user-menu.component';
@@ -91,6 +93,7 @@ import { AuthorsComponent } from './Components/authors/authors.component';
   declarations: [
     FilterPipe,
     FormatTimeForHumansPipe,
+    ScientificNotationPipe,
 
     SearchBarComponent,
     UserMenuComponent,
@@ -122,6 +125,7 @@ import { AuthorsComponent } from './Components/authors/authors.component';
   exports: [
     FilterPipe,
     FormatTimeForHumansPipe,
+    ScientificNotationPipe,
 
     SearchBarComponent,
     UserMenuComponent,
@@ -188,6 +192,7 @@ export class SharedModule {
       faAlignJustify,
       faPencilAlt,
       faCalculator,
+      faStar,
       faDocker,
       faGithub,
       faGoogle,

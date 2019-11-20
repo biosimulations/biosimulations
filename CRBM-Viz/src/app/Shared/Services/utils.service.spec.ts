@@ -20,6 +20,7 @@ describe('UtilsService', () => {
     expect(UtilsService.formatTimeForHumans(1e-4)).toEqual('100 us');
     expect(UtilsService.formatTimeForHumans(1e-1)).toEqual('100 ms');
     expect(UtilsService.formatTimeForHumans(10)).toEqual('10 s');
+    expect(UtilsService.formatTimeForHumans(0)).toEqual('0');
     expect(UtilsService.formatTimeForHumans(1 + 60)).toEqual('1 m');
     expect(UtilsService.formatTimeForHumans(1 + 60 * 60)).toEqual('1 h');
     expect(UtilsService.formatTimeForHumans(1 + 60 * 60 * 24)).toEqual('1 d');

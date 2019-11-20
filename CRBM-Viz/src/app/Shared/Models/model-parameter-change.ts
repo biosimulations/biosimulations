@@ -1,4 +1,4 @@
-export class ChangedParameter {
+export class ModelParameterChange {
   id?: string;
   name?: string;
   value?: number;

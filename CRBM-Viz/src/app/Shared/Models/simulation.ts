@@ -1,10 +1,13 @@
 import { AccessLevel } from '../Enums/access-level';
 import { SimulationStatus } from '../Enums/simulation-status';
-import { ChangedParameter } from './changed-parameter';
+import { ModelParameterChange } from './model-parameter-change';
+import { AlgorithmParameter } from './algorithm-parameter';
 import { Format } from './format';
 import { Identifier } from './identifier';
-import { Model } from './model';
 import { JournalReference } from './journal-reference';
+import { License } from './license';
+import { Model } from './model';
+import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
 import { Simulator } from './simulator';
 import { Taxon } from './taxon';
@@ -18,17 +21,21 @@ export class Simulation {
   tags?: string[] = [];
   model?: Model;
   format?: Format;
-  changedParameters?: ChangedParameter[] = [];
-  length?: number;
-  framework?: string;
+  modelParameterChanges?: ModelParameterChange[] = [];
+  startTime?: number; // in seconds
+  endTime?: number; // in seconds
+  length?: number; // in seconds
+  algorithm?: OntologyTerm; // KISAO modeling and simulation algorithm
+  algorithmParameters?: AlgorithmParameter[] = []; // KISAO modeling and simulation algorithm parameter
   simulator?: Simulator;
+  numTimePoints?: number;
   parent?: Simulation;
   refs?: JournalReference[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
-  license?: string;
+  license?: License;
   status?: SimulationStatus;
   date?: Date; // date/time when simulation was requested
   startDate?: Date; // date/time when simulation run started
@@ -44,7 +51,7 @@ export class Simulation {
     tags?: string[],
     model?: Model,
     format?: Format,
-    changedParameters?: ChangedParameter[],
+    modelParameterChanges?: ModelParameterChange[],
     length?: number,
     simulator?: Simulator,
     parent?: Simulation,
@@ -62,8 +69,8 @@ export class Simulation {
     if (!tags) {
       tags = [];
     }
-    if (!changedParameters) {
-      changedParameters = [];
+    if (!modelParameterChanges) {
+      modelParameterChanges = [];
     }
     if (!refs) {
       refs = [];
@@ -75,7 +82,7 @@ export class Simulation {
     this.tags = tags;
     this.model = model;
     this.format = format;
-    this.changedParameters = changedParameters;
+    this.modelParameterChanges = modelParameterChanges;
     this.length = length;
     this.simulator = simulator;
     this.refs = refs;

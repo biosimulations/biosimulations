@@ -75,17 +75,40 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       {
-        headerName: 'Changed parameters',
-        field: 'changedParameters',
-        valueGetter: numChangedParametersGetter,
+        headerName: 'Model changes',
+        field: 'modelParameterChanges',
+        valueGetter: numModelParameterChangesGetter,
         filter: 'agNumberColumnFilter',
         minWidth: 150,
         hide: true,
       },
       {
+        headerName: 'Start time',
+        field: 'startTime',
+        valueFormatter: this.timeFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: 'End time',
+        field: 'endTime',
+        valueFormatter: this.timeFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
         headerName: 'Length',
         field: 'length',
-        valueFormatter: this.lengthFormatter,
+        valueFormatter: this.timeFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: 'Timepoints',
+        field: 'numTimePoints',
         filter: 'agNumberColumnFilter',
         minWidth: 75,
         hide: true,
@@ -93,11 +116,24 @@ export class SimulationsGridComponent implements OnInit {
 
       {
         headerName: 'Framework',
-        field: 'framework',
+        field: 'model.framework.name',
         filter: 'agSetColumnFilter',
         minWidth: 125,
         hide: true,
       },
+      {
+        headerName: 'Algorithm',
+        field: 'algorithm.name',
+        filter: 'agSetColumnFilter',
+        minWidth: 125,
+        hide: true,
+      },
+      // {
+      //   headerName: 'Algorithm parameters',
+      //   field: 'algorithmParameters',
+      //   minWidth: 125,
+      //   hide: true,
+      // },
       {
         headerName: 'Format',
         field: 'format',
@@ -130,7 +166,7 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       {
-        headerName: 'Author',
+        headerName: 'Authors',
         field: 'refs',
         valueGetter: authorGetter,
         filterValueGetter: authorGetter,
@@ -146,7 +182,7 @@ export class SimulationsGridComponent implements OnInit {
         hide: !this.showOwner,
       },
       {
-        headerName: 'Model author',
+        headerName: 'Model authors',
         field: 'model.refs',
         valueGetter: modelAuthorGetter,
         filterValueGetter: modelAuthorGetter,
@@ -207,7 +243,7 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Wall time',
         field: 'wallTime',
-        valueFormatter: this.lengthFormatter,
+        valueFormatter: this.timeFormatter,
         filter: 'agNumberColumnFilter',
         minWidth: 100,
         hide: true,
@@ -229,7 +265,7 @@ export class SimulationsGridComponent implements OnInit {
     this.rowData = this.simulationService.list(this.auth);
   }
 
-  lengthFormatter(params): string {
+  timeFormatter(params): string {
     const secs:number = params.value;
     return UtilsService.formatTimeForHumans(secs);
   }
@@ -252,8 +288,8 @@ function setFormatter(params) {
   }
 }
 
-function numChangedParametersGetter(params): number {
-  return params.data.changedParameters.length;
+function numModelParameterChangesGetter(params): number {
+  return params.data.modelParameterChanges.length;
 }
 
 function ownerGetter(params): string {

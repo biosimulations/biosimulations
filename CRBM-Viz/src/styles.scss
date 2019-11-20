@@ -54,6 +54,18 @@ a {
     text-decoration: unset;
 }
 
+sup, sub {
+    vertical-align: baseline;
+    position: relative;
+    line-height: 0;
+}
+sup {
+    top: -0.4em;
+}
+sub {
+    top: 0.4em;
+}
+
 input, mat-select, button {
     font-family: Raleway, Arial, Helvetica, sans-serif;
     letter-spacing: normal;
@@ -97,7 +109,7 @@ input, mat-select, button {
 }
 
 .page-content.padded {
-    padding: 1rem;
+    padding: 2rem;
 }
 
 /* AG Grid */
@@ -188,8 +200,8 @@ input, mat-select, button {
     }
 
     .ag-side-bar {
-        margin-right: 1rem;
-        margin-bottom: calc(-1rem - 22px - 2px);
+        margin-right: 2rem;
+        margin-bottom: calc(-2rem - 22px - 2px);
 
         .ag-side-buttons .ag-side-button button {
             width: 100%;
@@ -227,8 +239,8 @@ input, mat-select, button {
         background: #fefbf7;
         border: 1px solid #BDC3C7;
         padding-left: 0.25rem;
-        margin-top: 1rem;
-        margin-left: calc(20px + 2px + 1rem);
+        margin-top: 2rem;
+        margin-left: calc(20px + 2px + 2rem);
     }
 
     .ag-name-value {
@@ -255,7 +267,7 @@ input, mat-select, button {
 }
 
 .grid.tool-panel-open .ag-status-bar {
-    margin-left: calc(20px + 150px + 3px + 1rem);
+    margin-left: calc(20px + 150px + 3px + 2rem);
 }
 
 /* Tabs */
@@ -306,7 +318,7 @@ input, mat-select, button {
     .mat-ink-bar {
         top: 28px;
         background-color: #fff;
-        height: 5px;
+        height: 6px;
     }
 
     .mat-tab-body-wrapper {
