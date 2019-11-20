@@ -44,12 +44,10 @@ export class ViewComponent implements OnInit {
   }
 
   download(): void {
-    const url: string = '/assets/examples/simulation.xml';
+    const url = this.simulation.getFileUrl();
     const link = document.createElement('a');
-    link.style.display = 'none';    
     link.download = `simulation-${ this.id }.xml`;
     link.href = url;
-    document.body.appendChild(link);
     link.click();
   }
 }

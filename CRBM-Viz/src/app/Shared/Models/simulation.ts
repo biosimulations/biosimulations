@@ -103,8 +103,12 @@ export class Simulation {
     return {type: 'mat', icon: 'timeline'};
   }
 
-  getRoute() {
+  getRoute(): (string | number)[] {
     return ['/simulate', this.id];
+  }
+
+  getFileUrl(): string {
+    return '/assets/examples/simulation.xml';
   }
 
   getAuthors(): (User | Person)[] {
