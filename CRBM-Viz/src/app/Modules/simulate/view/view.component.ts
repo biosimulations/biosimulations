@@ -42,4 +42,14 @@ export class ViewComponent implements OnInit {
   getData() {
     this.simulation = this.simulationService.get(this.id);
   }
+
+  download(): void {
+    const url: string = '/assets/examples/simulation.xml';
+    const link = document.createElement('a');
+    link.style.display = 'none';    
+    link.download = `simulation-${ this.id }.xml`;
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+  }
 }

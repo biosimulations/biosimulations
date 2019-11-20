@@ -26,22 +26,18 @@
     table.heading
         max-width: 100%
 
-        .section-heading th div, td
+        th, td
             padding-left: 0.5rem
             padding-right: 0.5rem
+            border-right: 2px solid #fff
 
-        .section-heading td:last-child
-            padding-right: 0
-
-        .section-heading th div
+        th
             background: #ddd
-            border-radius: 2px
             padding-top: 0.1rem
             padding-bottom: 0.1rem
-            margin-right: 0.5rem
-            width: calc(100% - 1rem)
-        .section-heading th:last-child div
-            margin-right: 0rem
+
+        th:last-child, td:last-child
+            border-right: none
 
         .section-body tr:hover
             background: #f6f6f6
@@ -59,7 +55,7 @@
             width: 16px
             text-align: center
 
-.tab.overview
+.overview
 
     .tab-content-section
         margin-top: 0.5rem
@@ -77,8 +73,8 @@
             .ng-fa-icon
                 width: auto
 
-.tab.logs
-    height: calc(100% - 2rem)
+.logs
+    height: calc(100% - 4rem)
     display: grid
     grid-template-rows: 1fr 1fr
     grid-gap: 1.5rem
@@ -102,3 +98,7 @@
 
             .none
                 font-style: italic
+
+.download 
+    cursor: pointer
+    color: rgba(0, 0, 0, 0.87)

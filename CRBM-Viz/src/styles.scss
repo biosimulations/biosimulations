@@ -285,8 +285,7 @@ input, mat-select, button {
     }
 
     .mat-tab-labels {
-        display: grid;
-        grid-template-columns: 1rem auto auto auto auto auto 1fr;
+        display: grid;        
         grid-gap: 0;
     }
 
@@ -302,6 +301,11 @@ input, mat-select, button {
         min-width: unset;
     }
 
+    .mat-tab-label:hover {
+        color: #000;
+        opacity: 1;
+    }
+
     .mat-tab-label-active {
         border-top: 2px solid mat-color($theme-primary);
         border-left: 1px solid #ccc;
@@ -309,6 +313,7 @@ input, mat-select, button {
         border-bottom: none;
         background: #fff;
         opacity: 1;
+        color: mat-color($theme-primary);
     }
 
     .mat-tab-label .ng-fa-icon {
@@ -324,6 +329,10 @@ input, mat-select, button {
     .mat-tab-body-wrapper {
         height: 100%;
     }
+}
+
+.page-content.simulation-view.mat-tab-group .mat-tab-labels {
+    grid-template-columns: 1rem auto auto auto auto auto auto 1fr;
 }
 
 /* Forms */

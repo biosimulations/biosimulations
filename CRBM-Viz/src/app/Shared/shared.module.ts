@@ -53,6 +53,7 @@ import {
   faPencilAlt,
   faCalculator,
   faStar,
+  faDownload,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -193,6 +194,7 @@ export class SharedModule {
       faPencilAlt,
       faCalculator,
       faStar,
+      faDownload,
       faDocker,
       faGithub,
       faGoogle,
