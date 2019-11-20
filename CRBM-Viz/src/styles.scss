@@ -264,6 +264,12 @@ input, mat-select, button {
         background: #ddeffd;
         border-bottom: none;
         padding-top: 8px;
+        overflow: visible;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    }
+
+    .mat-tab-label-container {
+        overflow: visible;
     }
 
     .mat-tab-labels {
@@ -298,8 +304,9 @@ input, mat-select, button {
     }
 
     .mat-ink-bar {
-        top: 0;
-        display: none;
+        top: 28px;
+        background-color: #fff;
+        height: 5px;
     }
 
     .mat-tab-body-wrapper {
