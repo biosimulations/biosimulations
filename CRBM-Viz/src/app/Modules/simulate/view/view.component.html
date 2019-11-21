@@ -1,12 +1,9 @@
 <mat-tab-group
-  class="page-content full-width simulation-view"
+  class="page-content full-width"
   *ngIf="simulation"
   disableRipple="true"
   [selectedIndex]="1"
   >
-  <mat-tab>
-  </mat-tab>
-
   <mat-tab>
     <ng-template mat-tab-label>
       <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
@@ -435,8 +432,5 @@
         </div>
       </div>
     </ng-template>
-  </mat-tab>
-
-  <mat-tab>
   </mat-tab>
 </mat-tab-group>
