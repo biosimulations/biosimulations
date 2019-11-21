@@ -13,8 +13,18 @@ export class BrowseComponent implements OnInit {
       {label: 'Simulate'},
     ];
     const buttons: object[] = [
-      {iconType: 'mat', icon: 'add', label: 'Submit', route: ['/simulate/new']},
-      {iconType: 'mat', icon: 'hourglass_empty', label: 'Status', route: ['/simulate/status']},
+      {
+        iconType: 'mat',
+        icon: 'add',
+        label: 'New',
+        route: ['/simulate/new'],
+      },
+      {
+        iconType: 'mat',
+        icon: 'hourglass_empty',
+        label: 'My simulations',
+        route: ['/simulate/mine'],
+      },
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

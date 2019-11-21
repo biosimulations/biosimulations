@@ -25,18 +25,19 @@
         </div>
       </mat-expansion-panel-header>
       <div
-        *ngFor="let route of NavItems | filter: isChildOf:[header]"
+        *ngFor="let navItem of NavItems | filter: isChildOf:[header]"
       >
         <mat-list-item
           class="sidebar-menu-subitem"
-          *ngIf="route.display == 'always' || (auth.loggedIn && route.display == 'loggedIn') || (!auth.loggedIn && route.display == '!loggedIn')"
-          [routerLink]="route.link"
-          (click)="getClick(route)"
+          *ngIf="navItem.display == 'always' || (auth.loggedIn && navItem.display == 'loggedIn') || (!auth.loggedIn && navItem.display == '!loggedIn')"
+          [class.disabled]="navItem.disabled === true"
+          [routerLink]="navItem.link"
+          (click)="getClick(navItem)"
           [disableRipple]="true">
-          <mat-icon class="sidebar-menu-icon" *ngIf="route.icon_type == 'mat'; else faIcon">{{ route.icon }}</mat-icon>
-          {{ route.label }}
+          <mat-icon class="sidebar-menu-icon" *ngIf="navItem.icon_type == 'mat'; else faIcon">{{ navItem.icon }}</mat-icon>
+          {{ navItem.label }}
           <ng-template #faIcon>
-            <fa-icon class="sidebar-menu-icon" [icon]="[route.icon_type, route.icon]" size="lg"></fa-icon>
+            <fa-icon class="sidebar-menu-icon" [icon]="[navItem.icon_type, navItem.icon]" size="lg"></fa-icon>
           </ng-template>
         </mat-list-item>
       </div>

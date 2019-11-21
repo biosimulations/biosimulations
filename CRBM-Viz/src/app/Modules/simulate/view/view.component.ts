@@ -34,9 +34,24 @@ export class ViewComponent implements OnInit {
       {label: 'Simulation ' + this.id},
     ];
     const buttons: object[] = [
-      {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate']},
-      {iconType: 'mat', icon: 'add', label: 'Submit', route: ['/simulate/new']},
-      {iconType: 'mat', icon: 'hourglass_empty', label: 'Status', route: ['/simulate/status']},
+      {
+        iconType: 'mat',
+        icon: 'view_list',
+        label: 'Browse',
+        route: ['/simulate'],
+      },
+      {
+        iconType: 'mat',
+        icon: 'add',
+        label: 'New',
+        route: ['/simulate/new'],
+      },
+      {
+        iconType: 'mat',
+        icon: 'hourglass_empty',
+        label: 'My simulations',
+        route: ['/simulate/mine'],
+      },
     ];
     this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
   }

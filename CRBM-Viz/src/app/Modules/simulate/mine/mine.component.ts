@@ -3,10 +3,10 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 
 @Component({
-  templateUrl: './status.component.html',
-  styleUrls: ['./status.component.sass'],
+  templateUrl: './mine.component.html',
+  styleUrls: ['./mine.component.sass'],
 })
-export class StatusComponent implements OnInit {
+export class MineComponent implements OnInit {
   // TODO: only show simulations owned by user
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -15,11 +15,11 @@ export class StatusComponent implements OnInit {
   ngOnInit() {
     const crumbs: object[] = [
       {label: 'Simulate', route: '/simulate'},
-      {label: 'Status'},
+      {label: 'My simulations'},
     ];
     const buttons: object[] = [
       {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate']},
-      {iconType: 'mat', icon: 'add', label: 'Submit', route: ['/simulate/new']},
+      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new']},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

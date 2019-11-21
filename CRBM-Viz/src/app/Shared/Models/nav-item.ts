@@ -7,6 +7,7 @@ export interface NavItem {
   display: string;
   link?: string;
   click?: string;
+  disabled?: boolean;
 }
 
 export const NavItems: NavItem[] = [
@@ -16,7 +17,11 @@ export const NavItems: NavItem[] = [
     label: 'Models',
     icon: 'project-diagram',
     icon_type: 'fas',
-    children: ['Models-Browse', 'Models-Submit'],
+    children: [
+      'Models-Browse',
+      'Models-New',
+      'Models-Mine',
+    ],
     display: 'always',
   },
   {
@@ -26,9 +31,8 @@ export const NavItems: NavItem[] = [
     icon_type: 'mat',
     children: [
       'Simulate-Browse',
-      'Simulate-Submit',
-      'Simulate-Status',
-      'Simulate-Data',
+      'Simulate-New',
+      'Simulate-Mine',
     ],
     display: 'always',
   },
@@ -74,12 +78,21 @@ export const NavItems: NavItem[] = [
     link: '/models',
   },
   {
-    id: 'Models-Submit',
-    label: 'Submit',
+    id: 'Models-New',
+    label: 'New',
     icon: 'add_circle',
     icon_type: 'mat',
-    display: 'always',
+    display: 'loggedIn',
     link: '/models/new',
+  },
+  {
+    id: 'Models-Mine',
+    label: 'My models',
+    icon: 'account_circle',
+    icon_type: 'mat',
+    display: 'loggedIn',
+    link: '/models/mine',
+    disabled: true,
   },
 
   // Simulate sub-menu
@@ -92,20 +105,20 @@ export const NavItems: NavItem[] = [
     link: '/simulate/',
   },
   {
-    id: 'Simulate-Submit',
-    label: 'Submit',
+    id: 'Simulate-New',
+    label: 'New',
     icon: 'add_circle',
     icon_type: 'mat',
-    display: 'always',
+    display: 'loggedIn',
     link: '/simulate/new',
   },
   {
-    id: 'Simulate-Status',
-    label: 'Status',
-    icon: 'hourglass-half',
-    icon_type: 'fas',
-    display: 'always',
-    link: '/simulate/status',
+    id: 'Simulate-Mine',
+    label: 'My simulations',
+    icon: 'account_circle',
+    icon_type: 'mat',
+    display: 'loggedIn',
+    link: '/simulate/mine',
   },
 
   // Visualize sub-menu
