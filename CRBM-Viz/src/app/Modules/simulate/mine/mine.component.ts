@@ -21,7 +21,7 @@ export class MineComponent implements OnInit {
     ];
     const buttons: NavItem[] = [
       {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate'], display: NavItemDisplayLevel.always},
-      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new'], display: NavItemDisplayLevel.loggedIn},
+      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new'], display: NavItemDisplayLevel.always},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

@@ -48,7 +48,7 @@ export class ViewComponent implements OnInit {
         icon: 'add',
         label: 'New',
         route: ['/simulate/new'],
-        display: NavItemDisplayLevel.loggedIn,
+        display: NavItemDisplayLevel.always,
       },
       {
         iconType: 'mat',

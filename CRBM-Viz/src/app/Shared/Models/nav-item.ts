@@ -84,7 +84,7 @@ export const navItems: NavItem[] = [
     label: 'New',
     icon: 'add_circle',
     iconType: 'mat',
-    display: NavItemDisplayLevel.loggedIn,
+    display: NavItemDisplayLevel.always,
     route: ['/models/new'],
   },
   {
@@ -111,7 +111,7 @@ export const navItems: NavItem[] = [
     label: 'New',
     icon: 'add_circle',
     iconType: 'mat',
-    display: NavItemDisplayLevel.loggedIn,
+    display: NavItemDisplayLevel.always,
     route: ['/simulate/new'],
   },
   {
