@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { User } from 'src/app/Shared/Models/user';
 import { UserService } from 'src/app/Shared/Services/user.service';
+import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { Observable } from 'rxjs';
 
@@ -41,7 +43,7 @@ export class ProfileComponent implements OnInit {
       }
 
       const crumbs: object[] = [{label: 'Profile'}]
-      const buttons: object[] = [];
+      const buttons: NavItem[] = [];
       if (this.user) {
         if (this.auth && this.user.auth0Id === auth0Id) {
           buttons.push({
@@ -49,7 +51,7 @@ export class ProfileComponent implements OnInit {
             icon: 'edit',
             label: 'Edit',
             route: ['/user/edit'],
-            display: 'loggedIn',
+            display: NavItemDisplayLevel.loggedIn,
           });
         } else {
           crumbs.push({

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 
@@ -20,8 +22,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   private crumbsSubscription: Subscription;
   public moduleCrumbs;
-  public moduleButtons;
+  public moduleButtons: NavItem[];
   public moduleClasses: string[] = [];
+  public NavItemDisplayLevel = NavItemDisplayLevel;
 
   constructor(
     private breakpointObserver: BreakpointObserver,

@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 
 @Component({
@@ -17,9 +19,9 @@ export class MineComponent implements OnInit {
       {label: 'Simulate', route: '/simulate'},
       {label: 'My simulations'},
     ];
-    const buttons: object[] = [
-      {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate'], display: 'always'},
-      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new'], display: 'loggedIn'},
+    const buttons: NavItem[] = [
+      {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate'], display: NavItemDisplayLevel.always},
+      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new'], display: NavItemDisplayLevel.loggedIn},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

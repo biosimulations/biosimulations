@@ -3,6 +3,8 @@ import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationsService } from 'src/app/Shared/Services/visualizations.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 
 @Component({
@@ -25,14 +27,14 @@ export class VisualizeComponent implements OnInit {
       this.id = routeParams.id;
 
       const crumbs: object[] = [{label: 'Visualize'}];
-      const buttons: object[] = [];
+      const buttons: NavItem[] = [];
 
       if (this.id) {
         this.getVis();
 
         crumbs[0]['route'] = '/visualize';
         crumbs.push({label: 'Visualization ' + this.id});
-        buttons.push({iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/visualize'], display: 'always'});
+        buttons.push({iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/visualize'], display: NavItemDisplayLevel.always});
       }
 
       this.breadCrumbsService.set(crumbs, buttons);

@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { User } from 'src/app/Shared/Models/user';
 import { UserService } from 'src/app/Shared/Services/user.service';
+import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { Observable } from 'rxjs';
 
@@ -25,8 +27,8 @@ export class ProfileEditComponent implements OnInit {
       {label: 'Profile', route: ['/user']},
       {label: 'Edit'},
     ];
-    const buttons: object[] = [
-      {iconType: 'mat', icon: 'person', label: 'View', route: ['/user'], display: 'loggedIn'},
+    const buttons: NavItem[] = [
+      {iconType: 'mat', icon: 'person', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
 
