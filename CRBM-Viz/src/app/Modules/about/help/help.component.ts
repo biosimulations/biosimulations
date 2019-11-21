@@ -15,7 +15,7 @@ export class HelpComponent implements OnInit {
       {label: 'Help'},
     ];
     const buttons: object[] = [
-      {iconType: 'fas', icon: 'info', label: 'About', route: ['/about']},
+      {iconType: 'fas', icon: 'info', label: 'About', route: ['/about'], display: 'always'},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

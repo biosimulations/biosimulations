@@ -14,7 +14,7 @@ export class AboutComponent implements OnInit {
       {label: 'About'},
     ];
     const buttons: object[] = [
-      {iconType: 'fas', icon: 'question', label: 'Help', route: ['/about/help']},
+      {iconType: 'fas', icon: 'question', label: 'Help', route: ['/about/help'], display: 'always'},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit {
             icon: 'edit',
             label: 'Edit',
             route: ['/user/edit'],
+            display: 'loggedIn',
           });
         } else {
           crumbs.push({

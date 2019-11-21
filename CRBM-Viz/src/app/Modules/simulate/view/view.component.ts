@@ -39,6 +39,7 @@ export class ViewComponent implements OnInit {
         icon: 'view_list',
         label: 'Browse',
         route: ['/simulate'],
+        display: 'always',
       },
       {
         iconType: 'mat',

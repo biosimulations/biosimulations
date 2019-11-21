@@ -18,8 +18,8 @@ export class MineComponent implements OnInit {
       {label: 'My simulations'},
     ];
     const buttons: object[] = [
-      {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate']},
-      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new']},
+      {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate'], display: 'always'},
+      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new'], display: 'loggedIn'},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

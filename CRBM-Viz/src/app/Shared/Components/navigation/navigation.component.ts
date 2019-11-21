@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
 
 @Component({
   selector: 'app-navigation',
@@ -24,7 +25,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {

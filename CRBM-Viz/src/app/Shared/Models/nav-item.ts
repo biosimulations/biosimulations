@@ -10,7 +10,7 @@ export interface NavItem {
   disabled?: boolean;
 }
 
-export const NavItems: NavItem[] = [
+export const navItems: NavItem[] = [
   // Top-level menu
   {
     id: 'Models',

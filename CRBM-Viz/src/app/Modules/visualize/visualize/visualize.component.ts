@@ -32,7 +32,7 @@ export class VisualizeComponent implements OnInit {
 
         crumbs[0]['route'] = '/visualize';
         crumbs.push({label: 'Visualization ' + this.id});
-        buttons.push({iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/visualize']});
+        buttons.push({iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/visualize'], display: 'always'});
       }
 
       this.breadCrumbsService.set(crumbs, buttons);

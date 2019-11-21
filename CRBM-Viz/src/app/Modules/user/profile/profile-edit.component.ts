@@ -26,7 +26,7 @@ export class ProfileEditComponent implements OnInit {
       {label: 'Edit'},
     ];
     const buttons: object[] = [
-      {iconType: 'mat', icon: 'person', label: 'View', route: ['/user']},
+      {iconType: 'mat', icon: 'person', label: 'View', route: ['/user'], display: 'loggedIn'},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
 

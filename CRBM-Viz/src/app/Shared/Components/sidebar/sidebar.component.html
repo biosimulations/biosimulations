@@ -1,5 +1,5 @@
 <mat-accordion multi="true">
-  <div *ngFor="let header of NavItems | filter: isTopLevel">
+  <div *ngFor="let header of navItems | filter: isTopLevel">
     <mat-expansion-panel class="sidebar-menu-item">
       <mat-expansion-panel-header
         class="sidebar-menu-item-title"
@@ -25,7 +25,7 @@
         </div>
       </mat-expansion-panel-header>
       <div
-        *ngFor="let navItem of NavItems | filter: isChildOf:[header]"
+        *ngFor="let navItem of navItems | filter: isChildOf:[header]"
       >
         <mat-list-item
           class="sidebar-menu-subitem"
