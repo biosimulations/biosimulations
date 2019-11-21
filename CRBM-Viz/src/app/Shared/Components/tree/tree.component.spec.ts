@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MaterialModule } from 'src/app/Modules/app-material.module';
 import { TreeComponent } from './tree.component';
 
 describe('TreeComponent', () => {
@@ -10,7 +11,7 @@ describe('TreeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TreeComponent ],
-      imports: [ RouterTestingModule ],
+      imports: [ RouterTestingModule, MaterialModule ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     })
     .compileComponents();

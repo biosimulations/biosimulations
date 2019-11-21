@@ -1,12 +1,24 @@
-.node-content-wrapper
-    padding: 0
+.mat-nested-tree-node .mat-nested-tree-node
+    display: block
+    padding-left: 1.1rem
 
-.node-content-wrapper:hover
-    background: none
-    box-shadow: none
+.mat-tree-node
+    min-height: auto
+    padding-left: 1.1rem
 
-.node-highlighted > .tree-node-wrapper
+.mat-icon-button
+    padding-right: 4px
+    width: auto
+    height: auto
+    line-height: 100%
+    position: relative
+    top: -2px
+
+.mat-icon-button[disabled][disabled]
+    color: #000
+
+.mat-tree-node-invisible
+    display: none
+
+.mat-tree-node-highlighted
     font-weight: bold
-
-.toggle-children-wrapper
-    padding: 0 3px 0 0

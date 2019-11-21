@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from '../Modules/app-material.module';
 import { NgPipesModule } from 'ngx-pipes';
-import { TreeModule } from 'angular-tree-component';
 
 
 // FontAwesome for icons
@@ -129,7 +128,6 @@ import { TreeComponent } from './Components/tree/tree.component';
     AgGridModule.withComponents([IdRendererGridComponent, SearchToolPanelGridComponent]),
     NgPipesModule,
     FormsModule,
-    TreeModule.forRoot(),
   ],
   exports: [
     FilterPipe,
@@ -154,7 +152,6 @@ import { TreeComponent } from './Components/tree/tree.component';
     AuthorsComponent,
     TreeComponent,
     NgPipesModule,
-    TreeModule,
   ],
   providers: [
     UserService,

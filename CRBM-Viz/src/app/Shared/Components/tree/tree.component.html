@@ -1,56 +1,39 @@
-<tree-root
-  [nodes]="nodes"
-  [options]="options"
-  >
-  <ng-template #treeNodeFullTemplate
-    let-node
-    let-index="index"
-    let-templates="templates">
-    <div
-      [class]="node.getClass()"
-      [class.tree-node]="true"
-      [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
-      [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
-      [class.tree-node-leaf]="node.isLeaf">
-
-      <tree-node-wrapper
-        [node]="node"
-        [index]="index"
-        [templates]="templates"
-        class="tree-node-wrapper">
-      </tree-node-wrapper>
-
-      <tree-node-children [node]="node" [templates]="templates">
-      </tree-node-children>
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- Leaf nodes -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+    <!-- use a disabled button to provide padding for tree leaf -->
+    <div [class.mat-tree-node-highlighted]="isNodeHighlighted(node)">
+      <button
+        mat-icon-button
+        disabled
+        aria-hidden="false"
+        aria-label="Leaf icon"
+        disableRipple="true"
+        >
+        <fa-icon [icon]="['far', 'square']"></fa-icon>
+      </button>
+      <a [routerLink]="node.route">{{ node.name }}</a>
     </div>
-  </ng-template>
+  </mat-tree-node>
 
-  <ng-template #treeNodeWrapperTemplate let-node let-index="index">
-    <div class="node-wrapper">
-      <span class="toggle-children-wrapper">
-        <span
-          *ngIf="node.hasChildren"
-          (click)="node.mouseAction('expanderClick', $event)">
-          <fa-icon *ngIf="node.isExpanded" [icon]="['far', 'minus-square']"></fa-icon>
-          <fa-icon *ngIf="node.isCollapsed" [icon]="['far', 'plus-square']"></fa-icon>
-        </span>
-        <fa-icon *ngIf="!node.hasChildren" [icon]="['far', 'square']"></fa-icon>
-      </span>
-
-      <div class="node-content-wrapper">
-        <tree-node-content
-          [node]="node"
-          [index]="index"
-          [template]="treeNodeTemplate">
-        </tree-node-content>
-      </div>
+  <!-- Expandable nodes -->
+  <mat-nested-tree-node
+    *matTreeNodeDef="let node; when: hasChild"
+    >
+    <div [class.mat-tree-node-highlighted]="isNodeHighlighted(node)">
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        aria-hidden="false"
+        aria-label="Toggle icon"
+        disableRipple="true"
+        >
+        <fa-icon [icon]="['far', (treeControl.isExpanded(node) ? 'minus-square' : 'plus-square')]"></fa-icon>
+      </button>
+      <a [routerLink]="node.route">{{ node.name }}</a>
     </div>
-  </ng-template>
-
-  <ng-template
-    #treeNodeTemplate
-    let-node
-    let-index="index">
-    <a [routerLink]="node.data.route">{{ node.data.name }}</a>
-  </ng-template>
-</tree-root>
+    <div [class.mat-tree-node-invisible]="!treeControl.isExpanded(node)">
+      <ng-container matTreeNodeOutlet></ng-container>
+    </div>
+  </mat-nested-tree-node>
+</mat-tree>

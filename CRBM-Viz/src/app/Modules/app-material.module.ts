@@ -21,6 +21,8 @@ import {
   MatExpansionModule,
 } from '@angular/material';
 
+import { MatTreeModule } from '@angular/material/tree';
+
 const MaterialComponents = [
   MatButtonModule,
   MatButtonToggleModule,
@@ -40,6 +42,7 @@ const MaterialComponents = [
   MatDialogModule,
   MatTooltipModule,
   MatExpansionModule,
+  MatTreeModule,
 ];
 @NgModule({
   imports: [MaterialComponents],
