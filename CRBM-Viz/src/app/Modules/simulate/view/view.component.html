@@ -275,6 +275,14 @@
 
   <mat-tab [disabled]="true">
     <ng-template mat-tab-label>
+      <div class="tab-button" (click)="edit()">
+        <fa-icon aria-hidden="true" aria-label="Edit icon" [icon]="['fas', 'pencil-alt']"></fa-icon> Edit
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab [disabled]="true">
+    <ng-template mat-tab-label>
       <div class="tab-button" (click)="visualize()">
         <fa-icon aria-hidden="true" aria-label="Visualize icon" [icon]="['fas', 'chart-area']"></fa-icon> Visualize
       </div>

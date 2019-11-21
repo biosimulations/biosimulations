@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'browse', component: BrowseComponent },
   { path: 'mine', component: MineComponent },
   { path: 'new', component: SimulateComponent },
+  { path: 'new/:id', component: SimulateComponent },
   { path: ':id', component: ViewComponent },
 ];
 

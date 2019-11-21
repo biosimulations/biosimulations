@@ -61,6 +61,10 @@ export class ViewComponent implements OnInit {
     this.simulationHistoryTreeNodes = this.simulationService.getHistory(this.id, true, true);
   }
 
+  edit(): void {
+    this.router.navigate(['/simulate', 'new', this.id]);
+  }
+
   visualize(): void {
     this.router.navigate(['/visualize', this.id]);
   }
