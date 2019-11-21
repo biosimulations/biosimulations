@@ -45,9 +45,10 @@ export class SimulationService {
     let simulation: Simulation;
 
     switch (id) {
+      default:
       case '001':
         simulation = new Simulation(
-          '001',
+          id,
           'First simulation',
           'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
           ['wild type', 'normal'],

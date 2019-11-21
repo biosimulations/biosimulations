@@ -24,9 +24,10 @@ export class ModelService {
     let model: Model;
 
     switch (id) {
+      default:
       case '001':
         model = new Model(
-          '001',
+          id,
           'EPSP ACh event',
           'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
           new Taxon(7787, 'Tetronarce californica'),

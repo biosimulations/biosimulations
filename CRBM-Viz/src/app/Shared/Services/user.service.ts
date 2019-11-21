@@ -25,10 +25,11 @@ export class UserService {
   static _get(id?: number): User {
     let user:User;
     switch (id) {
+      default:
       case 1:
         user = new User(
           'github|2848297',
-          1,
+          id,
           'jonrkarr',
           'Jonathan',
           'R',
