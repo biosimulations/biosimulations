@@ -29,7 +29,7 @@ export class ProfileEditComponent implements OnInit {
       {iconType: 'mat', icon: 'person', label: 'View', route: ['/user']},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
-    
+
     if (this.auth && this.auth.token && this.auth.token.sub) {
       const auth0Id: string = (this.auth.token.sub as unknown) as string;
       this.user = this.userService.getByAuth0Id(auth0Id);

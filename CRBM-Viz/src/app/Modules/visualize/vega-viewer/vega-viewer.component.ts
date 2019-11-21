@@ -21,7 +21,7 @@ export class VegaViewerComponent implements OnInit, AfterViewInit {
     this.vizname = this.viz.name;
     this.root = '#' + this.specid;
   }
-  /* This must be done after the view initilizes since the div with the appropriate id has not been created untill view initilization. 
+  /* This must be done after the view initilizes since the div with the appropriate id has not been created untill view initilization.
   There will be an error about a non existant element if callled during init */
   ngAfterViewInit() {
     this.load();

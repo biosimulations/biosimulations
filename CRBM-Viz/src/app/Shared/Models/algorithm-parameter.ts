@@ -3,7 +3,7 @@ export class AlgorithmParameter {
   name?: string;
   value?: number;
   kisaoId?: number;
-    
+
   constructor (id?: string, name?: string, value?: number, kisaoId?: number) {
     this.id = id
     this.name = name;

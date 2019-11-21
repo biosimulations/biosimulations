@@ -4,7 +4,7 @@ export class ModelParameterChange {
   value?: number;
   defaultValue?: number;
   units?: string;
-    
+
   constructor (id?: string, name?: string, value?: number, defaultValue?: number, units?: string) {
     this.id = id;
     this.name = name;

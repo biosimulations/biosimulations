@@ -120,7 +120,7 @@ export class GridComponent {
       totDisplayedColWidth += Math.max(col.width, col.minWidth);
       totDisplayedColMinWidth += col.minWidth;
     }
-    
+
     if (totDisplayedColMinWidth + 2 * (numDisplayedCols + 1) > gridWidth) {
       this.suppressHorizontalScroll = false;
     } else {

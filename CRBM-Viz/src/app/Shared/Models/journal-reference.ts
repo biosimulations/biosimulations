@@ -8,7 +8,7 @@ export class JournalReference {
   pages?: string;
   year?: number;
   identifiers?: Identifier[] = [];
-    
+
   constructor(
     authors?: string[],
     journal?: string,
@@ -55,12 +55,12 @@ export class JournalReference {
   getUrl(): string {
     const doi: string = this.getDoi();
     if (doi) {
-      return 'https://doi.org/' + doi;  
+      return 'https://doi.org/' + doi;
     }
 
     const pubMedId: string = this.getPubMedId();
     if (pubMedId) {
-      return 'https://www.ncbi.nlm.nih.gov/pubmed/' + pubMedId;  
+      return 'https://www.ncbi.nlm.nih.gov/pubmed/' + pubMedId;
     }
 
     return null;
