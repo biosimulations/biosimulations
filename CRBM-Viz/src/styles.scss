@@ -1,5 +1,6 @@
 $font-family: Raleway, Arial, Helvetica, sans-serif;
 
+@import '~angular-tree-component/dist/angular-tree-component.css';
 @import '~ag-grid-community/src/styles/ag-grid.scss';
 @import '~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss';
 @import 'src/theme.scss';
@@ -69,6 +70,21 @@ sub {
 input, mat-select, button {
     font-family: Raleway, Arial, Helvetica, sans-serif;
     letter-spacing: normal;
+}
+
+/* Animation */
+@keyframes flashAlert {
+    0% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 /* navigation */
@@ -285,7 +301,7 @@ input, mat-select, button {
     }
 
     .mat-tab-labels {
-        display: grid;        
+        display: grid;
         grid-gap: 0;
     }
 
@@ -364,20 +380,5 @@ input, mat-select, button {
         background: mat-color($theme-primary);
         color: #fff;
         font-weight: bold;
-    }
-}
-
-/* Animations */
-@keyframes flashAlert {
-    0% {
-        opacity: 1;
-    }
-
-    80% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
     }
 }

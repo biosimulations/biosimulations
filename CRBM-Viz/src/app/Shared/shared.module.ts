@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from '../Modules/app-material.module';
 import { NgPipesModule } from 'ngx-pipes';
+import { TreeModule } from 'angular-tree-component';
+
 
 // FontAwesome for icons
 import {
@@ -19,6 +21,9 @@ import {
   faCircle,
   faCalendarAlt,
   faClock,
+  faSquare,
+  faPlusSquare,
+  faMinusSquare,
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faProjectDiagram,
@@ -89,6 +94,7 @@ import { IdRendererGridComponent } from './Components/grid/id-renderer-grid.comp
 import { SearchToolPanelGridComponent } from './Components/grid/search-tool-panel-grid.component';
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
 import { AuthorsComponent } from './Components/authors/authors.component';
+import { TreeComponent } from './Components/tree/tree.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +119,7 @@ import { AuthorsComponent } from './Components/authors/authors.component';
     SearchToolPanelGridComponent,
     SimulationsGridComponent,
     AuthorsComponent,
+    TreeComponent,
   ],
   imports: [
     CommonModule,
@@ -122,6 +129,7 @@ import { AuthorsComponent } from './Components/authors/authors.component';
     AgGridModule.withComponents([IdRendererGridComponent, SearchToolPanelGridComponent]),
     NgPipesModule,
     FormsModule,
+    TreeModule.forRoot(),
   ],
   exports: [
     FilterPipe,
@@ -144,7 +152,9 @@ import { AuthorsComponent } from './Components/authors/authors.component';
     GridComponent,
     SimulationsGridComponent,
     AuthorsComponent,
+    TreeComponent,
     NgPipesModule,
+    TreeModule,
   ],
   providers: [
     UserService,
@@ -162,6 +172,9 @@ export class SharedModule {
       faCircle,
       faCalendarAlt,
       faClock,
+      faSquare,
+      faPlusSquare,
+      faMinusSquare,
       faSignInAlt,
       faSignOutAlt,
       faUser,

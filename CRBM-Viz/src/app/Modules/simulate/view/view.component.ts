@@ -12,10 +12,11 @@ import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-hu
 export class ViewComponent implements OnInit {
   private id: string;
   simulation: Simulation;
+  simulationHistoryTreeNodes: object[];
 
-  constructor(    
+  constructor(
     private router: Router,
-    private route: ActivatedRoute,    
+    private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private simulationService: SimulationService
   ) {}
@@ -42,6 +43,7 @@ export class ViewComponent implements OnInit {
 
   getData() {
     this.simulation = this.simulationService.get(this.id);
+    this.simulationHistoryTreeNodes = this.simulationService.getHistory(this.id, true, true);
   }
 
   visualize(): void {

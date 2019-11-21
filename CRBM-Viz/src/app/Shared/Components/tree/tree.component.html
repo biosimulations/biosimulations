@@ -1,0 +1,56 @@
+<tree-root
+  [nodes]="nodes"
+  [options]="options"
+  >
+  <ng-template #treeNodeFullTemplate
+    let-node
+    let-index="index"
+    let-templates="templates">
+    <div
+      [class]="node.getClass()"
+      [class.tree-node]="true"
+      [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
+      [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
+      [class.tree-node-leaf]="node.isLeaf">
+
+      <tree-node-wrapper
+        [node]="node"
+        [index]="index"
+        [templates]="templates"
+        class="tree-node-wrapper">
+      </tree-node-wrapper>
+
+      <tree-node-children [node]="node" [templates]="templates">
+      </tree-node-children>
+    </div>
+  </ng-template>
+
+  <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+    <div class="node-wrapper">
+      <span class="toggle-children-wrapper">
+        <span
+          *ngIf="node.hasChildren"
+          (click)="node.mouseAction('expanderClick', $event)">
+          <fa-icon *ngIf="node.isExpanded" [icon]="['far', 'minus-square']"></fa-icon>
+          <fa-icon *ngIf="node.isCollapsed" [icon]="['far', 'plus-square']"></fa-icon>
+        </span>
+        <fa-icon *ngIf="!node.hasChildren" [icon]="['far', 'square']"></fa-icon>
+      </span>
+
+      <div class="node-content-wrapper">
+        <tree-node-content
+          [node]="node"
+          [index]="index"
+          [template]="treeNodeTemplate">
+        </tree-node-content>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template
+    #treeNodeTemplate
+    let-node
+    let-index="index">
+    <a [routerLink]="node.data.route">{{ node.data.name }}</a>
+  </ng-template>
+</tree-root>
