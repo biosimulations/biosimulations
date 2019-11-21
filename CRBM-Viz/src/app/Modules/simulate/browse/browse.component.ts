@@ -18,12 +18,14 @@ export class BrowseComponent implements OnInit {
         icon: 'add',
         label: 'New',
         route: ['/simulate/new'],
+        display: 'loggedIn',
       },
       {
         iconType: 'mat',
         icon: 'hourglass_empty',
         label: 'My simulations',
         route: ['/simulate/mine'],
+        display: 'loggedIn',
       },
     ];
     this.breadCrumbsService.set(crumbs, buttons);

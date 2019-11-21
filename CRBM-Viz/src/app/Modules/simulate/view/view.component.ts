@@ -10,7 +10,7 @@ import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-hu
   styleUrls: ['./view.component.sass'],
 })
 export class ViewComponent implements OnInit {
-  private id: string;
+  id: string;
   simulation: Simulation;
   simulationHistoryTreeNodes: object[];
 
@@ -45,12 +45,14 @@ export class ViewComponent implements OnInit {
         icon: 'add',
         label: 'New',
         route: ['/simulate/new'],
+        display: 'loggedIn',
       },
       {
         iconType: 'mat',
         icon: 'hourglass_empty',
         label: 'My simulations',
         route: ['/simulate/mine'],
+        display: 'loggedIn',
       },
     ];
     this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
