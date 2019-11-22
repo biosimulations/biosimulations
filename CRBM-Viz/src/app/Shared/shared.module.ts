@@ -86,6 +86,7 @@ import { DataTableComponent } from './Components/data-table/data-table.component
 import { AlertComponent } from './Components/alert/alert.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { HomeComponent } from './Components/home/home.component';
+import { HomeImageComponent } from './Components/home/home-image.component';
 import { FourComponent } from './Components/four/four.component';
 import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
 import { GridComponent } from './Components/grid/grid.component';
@@ -111,6 +112,7 @@ import { TreeComponent } from './Components/tree/tree.component';
     AlertComponent,
     CallbackComponent,
     HomeComponent,
+    HomeImageComponent,
     FourComponent,
     UnderConstructionComponent,
     GridComponent,
@@ -145,6 +147,7 @@ import { TreeComponent } from './Components/tree/tree.component';
     AlertComponent,
     CallbackComponent,
     HomeComponent,
+    HomeImageComponent,
     FourComponent,
     UnderConstructionComponent,
     GridComponent,
