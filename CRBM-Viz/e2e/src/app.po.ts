@@ -6,6 +6,6 @@ export class AppPage {
   }
 
   getImageSvgVersion() {
-    return element(by.css('app-root .content .container app-home-image sv')).getAttribute('version') as Promise<string>;
+    return element(by.css('app-root .content .container app-home-image svg')).getAttribute('version') as Promise<string>;
   }
 }
