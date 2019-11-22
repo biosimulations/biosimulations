@@ -5,13 +5,17 @@
             <div class="section-content">
                 <ol>
                     <li>
-                        <a (click)="scrollToElement(tech)"
-                        >Technology</a>
+                        <a (click)="scrollToElement(team)"
+                        >Development team</a>
+                    </li>
+                    <li>
+                        <a (click)="scrollToElement(partners)"
+                        >Partners</a>
                     </li>
                     <li>
                         <a (click)="scrollToElement(tech)"
-                        >Development team</a>
-                    </li>
+                        >Technology</a>
+                    </li>                    
                     <li>
                         <a (click)="scrollToElement(funding)"
                         >Funding</a>
@@ -53,35 +57,133 @@
 
     <div #top class="text">
         <div class="section">
-            <h2 #tech>1. Technology
+            <h2 #team>1. Development team
+                <a class="back-to-top" (click)="scrollToTop(top)">
+                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>
+                </a>
+            </h2>
+            <div class="section-content">
+                <p><i>BioSimulations</i> was developed by 
+
+                    Bilal Shaikh
+                        <a href="https://www.bshaikh.com" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a> and
+
+                    Jonathan Karr
+                        <a href="https://www.karrlab.org" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+
+                    at the Icahn School of Medicine at Mount Sinai <a href="https://icahn.mssm.edu" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> and
+                    
+                    Akhil Marupilla,
+
+                    Mike Wilson
+                        <a href="https://www.linkedin.com/in/mike-wilson-08b3324/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>,
+
+                    , and
+
+                    Ion Moraru
+                        <a href="https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+
+                    at the Center for Cell Analysis and Modeling <a href="https://health.uconn.edu/cell-analysis-modeling/" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> at the University of Connecticut Health Center.
+
+                <object class="logo-grid" type="image/svg+xml" data="assets/about/team.svg"></object>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 #center>2. Partners
+                <a class="back-to-top" (click)="scrollToTop(top)">
+                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>
+                </a>
+            </h2>
+            <div class="section-content">
+                <p><i>BioSimulations</i> will support a wide range of community standards and resources including several
+                modeling languages 
+                    (CellML 
+                        <a href="https://www.cellml.org/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>, 
+                   SBML 
+                        <a href="http://sbml.org" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>, 
+                   NeuroML
+                        <a href="https://www.neuroml.org/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>, 
+                   pharmML
+                        <a href="http://www.pharmml.org/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>),
+                experiment description languages 
+                    (SED-ML 
+                        <a href="https://sed-ml.org/" target="_blank">
+                          <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>),
+                other standards (OMEX 
+                        <a href="https://co.mbine.org/standards/omex" target="_blank">
+                          <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>),
+                model repositories (
+                    BioModels
+                        <a href="http://www.ebi.ac.uk/biomodels/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>, 
+                    Open Source Brain
+                        <a href="http://www.opensourcebrain.org/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>, 
+                    Physiome
+                        <a href="https://models.physiomeproject.org" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>), and
+                simulators 
+                    (COBRApy,
+                        <a href="https://opencobra.github.io/cobrapy/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+                    COPASI
+                        <a href="http://copasi.org/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>, 
+                    libRoadRunner, 
+                        <a href="http://libroadrunner.org/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+                    NFSim, 
+                        <a href="http://michaelsneddon.net/nfsim/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+                    OpenCOR,
+                        <a href="https://opencor.ws/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a> 
+                    VCell
+                        <a href="https://vcell.org/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>).
+                </p>
+
+                <object class="logo-grid" type="image/svg+xml" data="assets/about/partners.svg"></object>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 #partners>3. Technology
                 <a class="back-to-top" (click)="scrollToTop(top)">
                     <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>
                 </a>
             </h2>
             <div class="section-content">
                 <p><i>BioSimulations</i> is implemented using the following technologies:</p>
-                <ul>
-                    <li>Models:
-                        CellML <a href="https://www.cellml.org/" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>,
-                        SBML <a href="http://sbml.org" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
-                    <li>Simulation experiments:
-                        SED-ML <a href="https://sed-ml.org/" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
-                    <li>Simulations:
-                        COPASI <a href="http://copasi.org/" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>,
-                        VCell <a href="https://vcell.org/" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
+                <ul class="columns columns-2">
                     <li>Data visualization:
                         Vega <a href="https://vega.github.io/vega/" target="_blank">
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
@@ -90,18 +192,22 @@
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
                         </a>
                     </li>
-                    <li>Web framework:
+                    <li>Web frameworks:
                         Angular <a href="https://angular.io" target="_blank">
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
-                    <li>Authentication:
-                        Auth0 <a href="https://auth0.com/" target="_blank">
+                        </a>,
+                        Flask <a href="https://flask.palletsprojects.com/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>,
+                        GraphQL <a href="https://graphql.org/" target="_blank">
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
                         </a>
-                    </li>
+                    </li>                    
                     <li>HTML components:
                         Material Design <a href="https://material.io" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+                        ag-Grid <a href="https://www.ag-grid.com/" target="_blank">
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
                         </a>
                     </li>
@@ -118,13 +224,26 @@
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
                         </a>
                     </li>
-                    <li>Source code version control:
-                        GitHub <a href="https://github.com" target="_blank">
+                    <li>Authentication:
+                        Auth0 <a href="https://auth0.com/" target="_blank">
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
                         </a>
                     </li>
                     <li>Containers:
                         Docker <a href="https://www.docker.com/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+                        Kubernetes <a href="https://kubernetes.io/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+                    </li>
+                    <li>Deployment:
+                        Heroku <a href="https://www.heroku.com/" target="_blank">
+                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
+                        </a>
+                    </li>
+                    <li>Source code version control:
+                        GitHub <a href="https://github.com" target="_blank">
                             <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
                         </a>
                     </li>
@@ -137,58 +256,23 @@
                     <!--
                     Favicon: https://realfavicongenerator.net/
                     Grid: https://www.ag-grid.com/
-                    -->
+                    -->                    
                 </ul>
+
+                <object class="logo-grid" type="image/svg+xml" data="assets/about/tech.svg"></object>
             </div>
         </div>
 
         <div class="section">
-            <h2 #center>2. Development team
+            <h2 #funding>4. Funding
                 <a class="back-to-top" (click)="scrollToTop(top)">
                     <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>
                 </a>
             </h2>
             <div class="section-content">
-                <p><i>BioSimulations</i> was developed by the Karr Lab <a href="https://www.karrlab.org" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> at the Icahn School of Medicine at Mount Sinai in New York and the Center for Cell Analysis and Modeling <a href="https://health.uconn.edu/cell-analysis-modeling/" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> at the University of Connecticut Health Center as part of the Center for Reproducible Biomodeling Modeling <a href="https://reproduciblebiomodels.org" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a>.</p>
+                <p>BioSimulations was developed with support from the Center for Reproducible Biomodeling Modeling <a href="https://reproduciblebiomodels.org" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> from the National Institute of Bioimaging and Bioengineering <a href="https://www.nibib.nih.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> and the National Institute of General Medical Sciences <a href="https://www.nigms.nih.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> of the National Institutes of Health <a href="https://nih.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> and the National Science Foundation <a href="https://nsf.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> (award P41EB023912).</p>
 
-                <ul>
-                    <li>Bilal Shaikh
-                        <a href="https://www.bshaikh.com" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
-                    <li>Akhil Marupilla
-                        <a href="mailto:marupilla@uchc.edu">
-                            <fa-icon aria-hidden="false" aria-label="Email icon" [icon]="['fas', 'envelope']"></fa-icon>
-                        </a>
-                    </li>
-                    <li>Mike Wilson
-                        <a href="https://www.linkedin.com/in/mike-wilson-08b3324/" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
-                    <li>Jonathan Karr
-                        <a href="https://www.karrlab.org" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
-                    <li>Ion Moraru
-                        <a href="https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion" target="_blank">
-                            <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2 #funding>3. Funding
-                <a class="back-to-top" (click)="scrollToTop(top)">
-                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>
-                </a>
-            </h2>
-            <div class="section-content">
-                <p>BioSimulations was developed with support from the National Institute of Bioimaging and Bioengineering <a href="https://www.nibib.nih.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> and the National Institute of General Medical Sciences <a href="https://www.nigms.nih.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> of the National Institutes of Health <a href="https://nih.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> and the National Science Foundation <a href="https://nsf.gov" target="_blank"><fa-icon aria-hidden="false" aria-label="Link icon" [icon]="['fas', 'link']"></fa-icon></a> (award P41EB023912).</p>
+                <object class="logo-grid" type="image/svg+xml" data="assets/about/funding.svg"></object>
             </div>
         </div>
     </div>
