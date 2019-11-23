@@ -23,7 +23,7 @@ describe('GridComponent', () => {
       ],
       imports: [
         AgGridModule.withComponents([
-          IdRendererGridComponent, \
+          IdRendererGridComponent,
           RouteRendererGridComponent,
           SearchToolPanelGridComponent,
         ]),

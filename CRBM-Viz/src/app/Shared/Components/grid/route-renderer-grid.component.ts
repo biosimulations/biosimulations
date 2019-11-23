@@ -14,7 +14,6 @@ export class RouteRendererGridComponent implements ICellRendererAngularComp {
   }
 
   refresh(params: any): boolean {
-    console.log(params)
     this.value = params.value;
     this.route = params.data.getRoute();
     return true;

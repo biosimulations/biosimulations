@@ -18,6 +18,8 @@ describe('RouteRendererGridComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RouteRendererGridComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
