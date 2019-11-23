@@ -6,8 +6,12 @@ import { FileEditComponent } from './file-edit/file-edit.component';
 import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
 
 const routes: Routes = [
-  { path: 'new', component: UploadComponent },
   { path: '', component: FileTableComponent },
+  { 
+    path: 'new', 
+    component: UploadComponent,
+    canActivate: [AuthGuard],
+  },  
   {
     path: 'edit/:modelid',
     component: FileEditComponent,

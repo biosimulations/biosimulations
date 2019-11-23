@@ -8,7 +8,10 @@ const routes: Routes = [
     path: '',
     component: VisualizeComponent,
   },
-  { path: ':id', component: VisualizeComponent },
+  { 
+    path: ':id', 
+    component: VisualizeComponent,
+  },
 ];
 
 @NgModule({

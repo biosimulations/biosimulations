@@ -61,8 +61,6 @@ export const navItems: NavItem[] = [
     iconType: 'mat',
     children: [
       'User-Profile',
-      // 'User-Notifications',
-      // 'User-Settings',
       'User-Sign-In',
       'User-Sign-Up',
       'User-Sign-Out',
@@ -160,24 +158,6 @@ export const navItems: NavItem[] = [
     display: NavItemDisplayLevel.loggedIn,
     route: ['/user'],
   },
-  /*
-  {
-    id: 'User-Notifications',
-    label: 'Notifications',
-    icon: 'notifications',
-    iconType: 'mat',
-    display: NavItemDisplayLevel.loggedIn,
-    route: ['/notifications'],
-  },
-  {
-    id: 'User-Settings',
-    label: 'Settings',
-    icon: 'settings',
-    iconType: 'mat',
-    display: NavItemDisplayLevel.loggedIn,
-    route: ['/settings'],
-  },
-  */
   {
     id: 'User-Sign-In',
     label: 'Sign in',

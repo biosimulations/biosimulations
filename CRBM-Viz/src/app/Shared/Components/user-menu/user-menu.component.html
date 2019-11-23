@@ -10,29 +10,36 @@
     Profile
   </button>
 
-  <!--
   <button
     mat-menu-item
     *ngIf="auth.loggedIn"
     color="primary"
-    [routerLink]="['/notifications']"
+    [routerLink]="['/user', 'models']"
   >
-    <mat-icon class="icon" aria-hidden="false" aria-label="Notifications"
-      >notifications</mat-icon>
-    Notifications
+    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="['fas', 'project-diagram']"></fa-icon>
+    Your models
   </button>
 
   <button
     mat-menu-item
     *ngIf="auth.loggedIn"
     color="primary"
-    [routerLink]="['/settings']"
+    [routerLink]="['/user', 'simulations']"
   >
-    <mat-icon class="icon" aria-hidden="false" aria-label="Settings"
-      >settings</mat-icon>
-    Settings
+    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"
+      >timeline</mat-icon>
+    Your simulations
   </button>
-  -->
+
+  <button
+    mat-menu-item
+    *ngIf="auth.loggedIn"
+    color="primary"
+    [routerLink]="['/user', 'visualizations']"
+  >
+    <fa-icon class="icon" aria-hidden="false" aria-label="Visualizations icon" size="2x" [icon]="['fas', 'chart-area']"></fa-icon>
+    Your visualizations
+  </button>
 
   <mat-divider *ngIf="auth.loggedIn"></mat-divider>
 

@@ -9,7 +9,6 @@ import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
   { path: '', component: BrowseComponent },
-  { path: 'browse', component: BrowseComponent },
   { path: 'mine', component: MineComponent, canActivate: [AuthGuard] },
   { path: 'new', component: SimulateComponent, canActivate: [AuthGuard] },
   { path: 'new/:id', component: SimulateComponent, canActivate: [AuthGuard] },
