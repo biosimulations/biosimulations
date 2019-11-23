@@ -16,12 +16,12 @@ export class MineComponent implements OnInit {
 
   ngOnInit() {
     const crumbs: object[] = [
-      {label: 'Simulate', route: '/simulate'},
+      {label: 'Simulate', route: '/simulations'},
       {label: 'My simulations'},
     ];
     const buttons: NavItem[] = [
-      {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulate'], display: NavItemDisplayLevel.always},
-      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulate/new'], display: NavItemDisplayLevel.always},
+      {iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/simulations'], display: NavItemDisplayLevel.always},
+      {iconType: 'mat', icon: 'add', label: 'New', route: ['/simulations/new'], display: NavItemDisplayLevel.always},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

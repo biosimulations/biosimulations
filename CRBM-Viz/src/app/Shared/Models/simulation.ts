@@ -104,7 +104,7 @@ export class Simulation {
   }
 
   getRoute(): (string | number)[] {
-    return ['/simulate', this.id];
+    return ['/simulations', this.id];
   }
 
   getFileUrl(): string {

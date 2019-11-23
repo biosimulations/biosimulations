@@ -32,7 +32,7 @@ export class ViewComponent implements OnInit {
     });
 
     const crumbs: object[] = [
-      {label: 'Simulate', route: '/simulate'},
+      {label: 'Simulate', route: '/simulations'},
       {label: 'Simulation ' + this.id},
     ];
     const buttons: NavItem[] = [
@@ -40,21 +40,21 @@ export class ViewComponent implements OnInit {
         iconType: 'mat',
         icon: 'view_list',
         label: 'Browse',
-        route: ['/simulate'],
+        route: ['/simulations'],
         display: NavItemDisplayLevel.always,
       },
       {
         iconType: 'mat',
         icon: 'add',
         label: 'New',
-        route: ['/simulate/new'],
+        route: ['/simulations/new'],
         display: NavItemDisplayLevel.always,
       },
       {
         iconType: 'mat',
         icon: 'hourglass_empty',
         label: 'My simulations',
-        route: ['/simulate/mine'],
+        route: ['/simulations/mine'],
         display: NavItemDisplayLevel.loggedIn,
       },
     ];
@@ -67,11 +67,11 @@ export class ViewComponent implements OnInit {
   }
 
   edit(): void {
-    this.router.navigate(['/simulate', 'new', this.id]);
+    this.router.navigate(['/simulations', 'new', this.id]);
   }
 
   visualize(): void {
-    this.router.navigate(['/visualize', this.id]);
+    this.router.navigate(['/visualizations', this.id]);
   }
 
   download(): void {

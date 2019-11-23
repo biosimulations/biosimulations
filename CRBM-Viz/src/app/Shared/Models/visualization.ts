@@ -42,7 +42,7 @@ export class Visualization {
   }
 
   getRoute() {
-    return ['/visualize', this.id];
+    return ['/visualizations', this.id];
   }
 
   getAuthors(): (User | Person)[] {

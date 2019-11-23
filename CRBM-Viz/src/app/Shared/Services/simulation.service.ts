@@ -258,36 +258,36 @@ export class SimulationService {
       {
         id: '003',
         name: 'Grandparent',
-        route: ['/simulate', '003'],
+        route: ['/simulations', '003'],
         isExpanded: true,
         children: [
           {
             id: '002',
             name: 'Parent',
-            route: ['/simulate', '006'],
+            route: ['/simulations', '006'],
             isExpanded: true,
             children: [
               {
                 id: '001',
                 name: 'This simulation',
-                route: ['/simulate', '001'],
+                route: ['/simulations', '001'],
                 isExpanded: true,
                 children: [
                   {
                     id: '004',
                     name: 'Child-1',
-                    route: ['/simulate', '004'],
+                    route: ['/simulations', '004'],
                     children: [
                       {
                         id: '005',
                         name: 'Grandchild-1-1',
-                        route: ['/simulate', '005'],
+                        route: ['/simulations', '005'],
                         children: [],
                       },
                       {
                         id: '006',
                         name: 'Grandchild-1-2',
-                        route: ['/simulate', '006'],
+                        route: ['/simulations', '006'],
                         children: [],
                       },
                     ],
@@ -295,18 +295,18 @@ export class SimulationService {
                   {
                     id: '007',
                     name: 'Child-2',
-                    route: ['/simulate', '007'],
+                    route: ['/simulations', '007'],
                     children: [
                       {
                         id: '008',
                         name: 'Grandchild-2-1',
-                        route: ['/simulate', '008'],
+                        route: ['/simulations', '008'],
                         children: [],
                       },
                       {
                         id: '009',
                         name: 'Grandchild-2-2',
-                        route: ['/simulate', '009'],
+                        route: ['/simulations', '009'],
                         children: [],
                       },
                     ],
@@ -316,18 +316,18 @@ export class SimulationService {
               {
                 id: '010',
                 name: 'Sibling',
-                route: ['/simulate', '010'],
+                route: ['/simulations', '010'],
                 children: [
                   {
                     id: '011',
                     name: 'Nephew',
-                    route: ['/simulate', '011'],
+                    route: ['/simulations', '011'],
                     children: [],
                   },
                   {
                     id: '012',
                     name: 'Niece',
-                    route: ['/simulate', '012'],
+                    route: ['/simulations', '012'],
                     children: [],
                   },
                 ]

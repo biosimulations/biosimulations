@@ -32,9 +32,15 @@ export class VisualizeComponent implements OnInit {
       if (this.id) {
         this.getVis();
 
-        crumbs[0]['route'] = '/visualize';
+        crumbs[0]['route'] = '/visualizations';
         crumbs.push({label: 'Visualization ' + this.id});
-        buttons.push({iconType: 'mat', icon: 'view_list', label: 'Browse', route: ['/visualize'], display: NavItemDisplayLevel.always});
+        buttons.push({
+          iconType: 'mat',
+          icon: 'view_list',
+          label: 'Browse',
+          route: ['/visualizations'],
+          display: NavItemDisplayLevel.always,
+        });
       }
 
       this.breadCrumbsService.set(crumbs, buttons);

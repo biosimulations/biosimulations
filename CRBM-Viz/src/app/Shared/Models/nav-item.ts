@@ -27,23 +27,23 @@ export const navItems: NavItem[] = [
     display: NavItemDisplayLevel.always,
   },
   {
-    id: 'Simulate',
-    label: 'Simulate',
+    id: 'Simulations',
+    label: 'Simulations',
     icon: 'timeline',
     iconType: 'mat',
     children: [
-      'Simulate-Browse',
-      'Simulate-New',
-      'Simulate-Mine',
+      'Simulations-Browse',
+      'Simulations-New',
+      'Simulations-Mine',
     ],
     display: NavItemDisplayLevel.always,
   },
   {
-    id: 'Visualize',
-    label: 'Visualize',
+    id: 'Visualizations',
+    label: 'Visualizations',
     icon: 'chart-area',
     iconType: 'fas',
-    children: ['Visualize-Browse'],
+    children: ['Visualizations-Browse'],
     display: NavItemDisplayLevel.always,
   },
   {
@@ -97,40 +97,40 @@ export const navItems: NavItem[] = [
     disabled: true,
   },
 
-  // Simulate sub-menu
+  // Simulations sub-menu
   {
-    id: 'Simulate-Browse',
+    id: 'Simulations-Browse',
     label: 'Browse',
     icon: 'view_list',
     iconType: 'mat',
     display: NavItemDisplayLevel.always,
-    route: ['/simulate/'],
+    route: ['/simulations/'],
   },
   {
-    id: 'Simulate-New',
+    id: 'Simulations-New',
     label: 'New',
     icon: 'add_circle',
     iconType: 'mat',
     display: NavItemDisplayLevel.always,
-    route: ['/simulate/new'],
+    route: ['/simulations/new'],
   },
   {
-    id: 'Simulate-Mine',
+    id: 'Simulations-Mine',
     label: 'My simulations',
     icon: 'account_circle',
     iconType: 'mat',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/simulate/mine'],
+    route: ['/simulations/mine'],
   },
 
-  // Visualize sub-menu
+  // Visualizations sub-menu
   {
-    id: 'Visualize-Browse',
+    id: 'Visualizations-Browse',
     label: 'Browse',
     icon: 'view_list',
     iconType: 'mat',
     display: NavItemDisplayLevel.always,
-    route: ['/visualize'],
+    route: ['/visualizations'],
   },
 
   // About sub-menu
