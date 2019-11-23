@@ -162,6 +162,12 @@ input, mat-select, button {
         padding-right: 4px;
     }
 
+    .ag-cell {
+        ng-component {
+            width: 100%;
+        }
+    }
+
     .ag-tool-panel-wrapper {
         .ag-filter-panel {
             width: 100%;

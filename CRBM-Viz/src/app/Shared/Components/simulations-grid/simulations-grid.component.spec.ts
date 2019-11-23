@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SimulationsGridComponent } from './simulations-grid.component';
 import { GridComponent } from '../grid/grid.component';
 import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
+import { RouteRendererGridComponent } from '../grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material';
@@ -15,12 +16,22 @@ describe('SimulationsGridComponent', () => {
   // TODO mock the data service and remove http and router
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SimulationsGridComponent, GridComponent, IdRendererGridComponent, SearchToolPanelGridComponent],
+      declarations: [
+        SimulationsGridComponent,
+        GridComponent,
+        IdRendererGridComponent,
+        RouteRendererGridComponent,
+        SearchToolPanelGridComponent,
+      ],
       imports: [
         RouterTestingModule,
         MatDialogModule,
         HttpClientModule,
-        AgGridModule.withComponents([IdRendererGridComponent, SearchToolPanelGridComponent]),
+        AgGridModule.withComponents([
+          IdRendererGridComponent,
+          RouteRendererGridComponent,
+          SearchToolPanelGridComponent,
+        ]),
       ],
       providers: [
         RouterTestingModule,

@@ -1,6 +1,7 @@
 import { Component, Input, ElementRef } from '@angular/core';
 import 'ag-grid-enterprise';
 import { IdRendererGridComponent } from './id-renderer-grid.component';
+import { RouteRendererGridComponent } from './route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component';
 
 
@@ -25,11 +26,13 @@ export class GridComponent {
 
   frameworkComponents = {
     idRenderer: IdRendererGridComponent,
+    routerRenderer: RouteRendererGridComponent,
     searchToolPanel: SearchToolPanelGridComponent,
   }
 
   defaultColDef = {
       filter: 'agTextColumnFilter',
+      cellRenderer: 'routerRenderer',
       sortable: true,
       resizable: false,
       suppressMenu: true,

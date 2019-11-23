@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
-  templateUrl: './id-renderer-grid.component.html',
-  styleUrls: ['./id-renderer-grid.component.sass'],
+  templateUrl: './route-renderer-grid.component.html',
+  styleUrls: ['./route-renderer-grid.component.sass'],
 })
-export class IdRendererGridComponent implements ICellRendererAngularComp {
-  id;
-  icon;
+export class RouteRendererGridComponent implements ICellRendererAngularComp {
+  value;
   route;
 
   agInit(params: any): void {
@@ -15,8 +14,8 @@ export class IdRendererGridComponent implements ICellRendererAngularComp {
   }
 
   refresh(params: any): boolean {
-    this.id = params.data.id;
-    this.icon = params.data.getIcon();
+    console.log(params)
+    this.value = params.value;
     this.route = params.data.getRoute();
     return true;
   }

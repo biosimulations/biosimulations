@@ -3,6 +3,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { GridComponent } from './grid.component';
 import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
+import { RouteRendererGridComponent } from '../grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material';
@@ -14,9 +15,18 @@ describe('GridComponent', () => {
   // TODO mock the data service and remove http and router
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GridComponent, IdRendererGridComponent, SearchToolPanelGridComponent],
+      declarations: [
+        GridComponent,
+        IdRendererGridComponent,
+        RouteRendererGridComponent,
+        SearchToolPanelGridComponent,
+      ],
       imports: [
-        AgGridModule.withComponents([IdRendererGridComponent, SearchToolPanelGridComponent]),
+        AgGridModule.withComponents([
+          IdRendererGridComponent, \
+          RouteRendererGridComponent,
+          SearchToolPanelGridComponent,
+        ]),
         RouterTestingModule,
         MatDialogModule,
       ],
