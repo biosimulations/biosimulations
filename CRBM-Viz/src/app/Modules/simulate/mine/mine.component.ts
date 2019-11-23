@@ -16,7 +16,7 @@ export class MineComponent implements OnInit {
 
   ngOnInit() {
     const crumbs: object[] = [
-      {label: 'Simulate', route: '/simulations'},
+      {label: 'Simulations', route: '/simulations'},
       {label: 'My simulations'},
     ];
     const buttons: NavItem[] = [

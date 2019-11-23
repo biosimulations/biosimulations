@@ -26,7 +26,7 @@ export class VisualizeComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
 
-      const crumbs: object[] = [{label: 'Visualize'}];
+      const crumbs: object[] = [{label: 'Visualizations'}];
       const buttons: NavItem[] = [];
 
       if (this.id) {

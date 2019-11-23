@@ -12,7 +12,7 @@ export class BrowseComponent implements OnInit {
 
   ngOnInit() {
     const crumbs: object[] = [
-      {label: 'Simulate'},
+      {label: 'Simulations'},
     ];
     const buttons: NavItem[] = [
       {

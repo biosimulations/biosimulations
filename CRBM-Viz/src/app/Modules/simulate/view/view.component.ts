@@ -32,7 +32,7 @@ export class ViewComponent implements OnInit {
     });
 
     const crumbs: object[] = [
-      {label: 'Simulate', route: '/simulations'},
+      {label: 'Simulations', route: '/simulations'},
       {label: 'Simulation ' + this.id},
     ];
     const buttons: NavItem[] = [
