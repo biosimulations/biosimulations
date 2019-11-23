@@ -58,6 +58,7 @@ import {
   faCalculator,
   faStar,
   faDownload,
+  faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -208,6 +209,7 @@ export class SharedModule {
       faCalculator,
       faStar,
       faDownload,
+      faCodeBranch,
       faDocker,
       faGithub,
       faGoogle,
