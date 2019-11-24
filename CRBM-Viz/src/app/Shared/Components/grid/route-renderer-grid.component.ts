@@ -14,7 +14,11 @@ export class RouteRendererGridComponent implements ICellRendererAngularComp {
   }
 
   refresh(params: any): boolean {
-    this.value = params.value;
+    if (params.valueFormatted) {
+      this.value = params.valueFormatted;
+    } else {
+      this.value = params.value;
+    }
     this.route = params.data.getRoute();
     return true;
   }
