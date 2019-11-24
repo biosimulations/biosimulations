@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../Models/user';
 import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
-import { VisualizationsService } from './visualizations.service';
+import { VisualizationService } from './visualization.service';
 
 // tslint:disable:max-line-length
 
@@ -14,7 +14,7 @@ import { VisualizationsService } from './visualizations.service';
 export class UserService {
   private modelService: ModelService;
   private simulationService: SimulationService;
-  private visualizationsService: VisualizationsService;
+  private visualizationService: VisualizationService;
   private endpoint = 'https://crbm.auth0.com/userinfo';
 
   constructor(
@@ -107,7 +107,7 @@ export class UserService {
     if (this.modelService == null) {
       this.modelService = this.injector.get(ModelService);
       this.simulationService = this.injector.get(SimulationService);
-      this.visualizationsService = this.injector.get(VisualizationsService);
+      this.visualizationService = this.injector.get(VisualizationService);
     }
   }
 

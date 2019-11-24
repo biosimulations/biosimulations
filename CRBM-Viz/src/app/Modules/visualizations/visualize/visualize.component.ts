@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Visualization } from 'src/app/Shared/Models/visualization';
-import { VisualizationsService } from 'src/app/Shared/Services/visualizations.service';
+import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
@@ -17,7 +17,7 @@ export class VisualizeComponent implements OnInit {
   id: string;
 
   constructor(
-    private visService: VisualizationsService,
+    private visService: VisualizationService,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService
   ) {}

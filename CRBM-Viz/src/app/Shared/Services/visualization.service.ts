@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class VisualizationsService {
+export class VisualizationService {
   constructor(private http: HttpClient) {}
   vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
 
@@ -18,7 +18,7 @@ export class VisualizationsService {
   }
 
   get(id: number): Visualization {
-    return VisualizationsService._get(id);
+    return VisualizationService._get(id);
   }
 
   getVisualizations(id: string): Observable<Visualization[]> {

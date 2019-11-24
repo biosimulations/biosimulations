@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
+
 import { NewSimulationComponent } from './new-simulation/new-simulation.component';
 import { SimulateComponent } from './simulate/simulate.component';
 import { BrowseComponent } from './browse/browse.component';

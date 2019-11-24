@@ -71,7 +71,7 @@ import {
 import { UserService } from './Services/user.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
-import { VisualizationsService } from './Services/visualizations.service';
+import { VisualizationService } from './Services/visualization.service';
 
 import { FilterPipe } from './Pipes/filter.pipe';
 import { FormatTimeForHumansPipe } from './Pipes/format-time-for-humans.pipe';
@@ -167,7 +167,7 @@ import { TreeComponent } from './Components/tree/tree.component';
     UserService,
     ModelService,
     SimulationService,
-    VisualizationsService,
+    VisualizationService,
   ],
   entryComponents: [AlertComponent],
 })

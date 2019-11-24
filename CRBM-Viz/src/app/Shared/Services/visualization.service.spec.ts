@@ -4,20 +4,20 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 
-import { VisualizationsService } from './visualizations.service';
+import { VisualizationService } from './visualization.service';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 
-describe('VisualizationsService', () => {
+describe('VisualizationService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
-  let service: VisualizationsService;
+  let service: VisualizationService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [VisualizationsService],
+      providers: [VisualizationService],
       imports: [HttpClientTestingModule],
     });
     injector = getTestBed();
-    service = injector.get(VisualizationsService);
+    service = injector.get(VisualizationService);
     httpMock = injector.get(HttpTestingController);
   });
   afterEach(() => {
@@ -25,8 +25,8 @@ describe('VisualizationsService', () => {
   });
 
   it('should be created', () => {
-    const visservice: VisualizationsService = TestBed.get(
-      VisualizationsService
+    const visservice: VisualizationService = TestBed.get(
+      VisualizationService
     );
     expect(visservice).toBeTruthy();
   });

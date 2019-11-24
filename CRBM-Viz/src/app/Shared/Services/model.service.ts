@@ -16,7 +16,7 @@ import { UserService } from './user.service';
 export class ModelService {
   private userService: UserService;
   private simulationService: SimulationService;
-  private visualizationsService: VisualizationsService;
+  private visualizationService: VisualizationService;
 
   constructor(private injector: Injector) {}
 
@@ -96,7 +96,7 @@ export class ModelService {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
       this.simulationService = this.injector.get(SimulationService);
-      this.visualizationsService = this.injector.get(VisualizationsService);
+      this.visualizationService = this.injector.get(VisualizationService);
     }
   }
 
@@ -116,4 +116,4 @@ export class ModelService {
 }
 
 import { SimulationService } from './simulation.service';
-import { VisualizationsService } from './visualizations.service';
+import { VisualizationService } from './visualization.service';

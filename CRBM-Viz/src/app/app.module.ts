@@ -23,7 +23,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 // Pipes defined in app
 
 // Services
-// import { VisualizationsService } from './Services/visualizations.service';
+// import { VisualizationService } from './Services/visualization.service';
 // import { SimulationService } from './Services/simulation.service';
 
 // Service for Authconfig
