@@ -70,6 +70,8 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Taxon',
         field: 'model.taxon.name',
+        valueGetter: taxonGetter,
+        filterValueGetter: taxonGetter,
         filter: 'agSetColumnFilter',
         minWidth: 150,
         hide: true,
@@ -294,13 +296,13 @@ function modelTagsGetter(params): string[] {
   return params.data.model.tags;
 }
 
+function taxonGetter(params): string {
+  return params.data.model.taxon.getShortName();
+}
+
 function setFormatter(params) {
   const value = params.value;
-  if (value instanceof Array) {
-    return value.join(', ');
-  } else {
-    return value;
-  }
+  return value.join(', ');
 }
 
 function numModelParameterChangesGetter(params): number {
@@ -347,11 +349,7 @@ function modelAuthorGetter(params): string[] {
 
 function authorFormatter(params) {
   const value = params.value;
-  if (value instanceof Array) {
-    return UtilsService.joinAuthorNames(value);
-  } else {
-    return value;
-  }
+  return UtilsService.joinAuthorNames(value);
 }
 
 function dateFormatter(params): string {
