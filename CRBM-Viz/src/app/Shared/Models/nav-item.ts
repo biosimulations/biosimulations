@@ -88,6 +88,7 @@ export const navItems: NavItem[] = [
     iconType: 'mat',
     display: NavItemDisplayLevel.always,
     route: ['/models/new'],
+    disabled: true,
   },
   {
     id: 'Models-Yours',
@@ -115,6 +116,7 @@ export const navItems: NavItem[] = [
     iconType: 'mat',
     display: NavItemDisplayLevel.always,
     route: ['/simulations/new'],
+    disabled: true,
   },
   {
     id: 'Simulations-Yours',
