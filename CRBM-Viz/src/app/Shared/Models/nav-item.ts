@@ -45,8 +45,8 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     children: [
       'Visualizations-Browse',
-      // 'Visualizations-New',
-      // 'Visualizations-Yours',
+      'Visualizations-New',
+      'Visualizations-Yours',
       ],
     display: NavItemDisplayLevel.always,
   },
@@ -133,6 +133,24 @@ export const navItems: NavItem[] = [
     iconType: 'mat',
     display: NavItemDisplayLevel.always,
     route: ['/visualizations'],
+  },
+  {
+    id: 'Visualizations-New',
+    label: 'New',
+    icon: 'add_circle',
+    iconType: 'mat',
+    display: NavItemDisplayLevel.always,
+    route: ['/visualizations/new'],
+    disabled: true,
+  },
+  {
+    id: 'Visualizations-Yours',
+    label: 'Your visualizations',
+    icon: 'account_circle',
+    iconType: 'mat',
+    display: NavItemDisplayLevel.loggedIn,
+    route: ['/user/visualizations'],
+    disabled: true,
   },
 
   // About sub-menu
