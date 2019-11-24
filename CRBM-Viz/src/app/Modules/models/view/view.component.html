@@ -1,0 +1,179 @@
+<mat-tab-group
+  class="page-content full-width"
+  *ngIf="model"
+  disableRipple="true"
+  >
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab overview">
+        <h1>{{ model.name }}</h1>
+        <div>
+          <div class="tab-content-section">
+            <app-authors
+              class="authors"
+              [authors]="model.authors"
+              [owner]="model.owner">
+            </app-authors>
+          </div>
+
+          <div class="tab-content-section description">{{ model.description }}</div>
+
+          <div class="tab-content-section tags">
+            <div>
+              <span>
+                <fa-icon
+                  aria-hidden="true"
+                  aria-label="Taxon icon"
+                  [icon]="['fas', 'dna']"
+                ></fa-icon>
+                <a [href]="model.taxon.getUrl()" target="_blank">{{
+                  model.taxon.getShortName()
+                }}</a>
+              </span>
+
+              <span>
+                <fa-icon
+                  aria-hidden="true"
+                  aria-label="Tags icon"
+                  [icon]="['fas', 'tags']"
+                ></fa-icon>{{
+                model.tags.join(', ') | ucfirst
+              }}</span>
+            </div>
+
+            <div>
+              <span>
+                <fa-icon aria-hidden="true" aria-label="Model framework icon" [icon]="['fas', 'calculator']"></fa-icon>
+                <a [href]="model.framework.getUrl()" target="_blank">{{ model.framework.name | ucfirst }}</a>
+              </span>
+
+              <span>
+                <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
+                <a [href]="model.format.url" target="_blank">{{
+                  model.format.name
+                }}</a>
+              </span>
+            </div>
+
+            <div>
+              <span *ngFor="let identifier of model.identifiers">
+                <fa-icon aria-hidden="true" aria-label="Identifier icon" [icon]="['fas', 'star']"></fa-icon>
+                <a [href]="identifier.getUrl()" target="_blank">{{
+                  identifier.namespaceName + ': ' + identifier.id
+                }}</a>
+              </span>
+
+              <span>
+                <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+                <a [href]="model.license.getSwoUrl()" target="_blank">{{
+                  model.license.name
+                }}</a>
+              </span>
+            </div>
+          </div>
+
+          <div class="tab-content-section" *ngIf="model.refs.length > 0">
+            <div *ngFor="let ref of model.refs">
+              <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
+              </fa-icon>
+              <a [href]="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon aria-hidden="true" aria-label="Simulations icon">timeline</mat-icon> Simulations
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <h1>Existing</h1>
+        <h1>Create new</h1>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab [disabled]="true">
+    <ng-template mat-tab-label>
+      <div class="tab-button" (click)="download()">
+        <fa-icon aria-hidden="true" aria-label="Download icon" [icon]="['fas', 'download']"></fa-icon> Download
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="History icon" [icon]="['fas', 'history']"></fa-icon> History
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab history">
+        <table cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <th>
+                <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+                Submitted:
+              </th>
+              <td>{{ model.date | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon> Access
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <table cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <th>
+                <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon>
+                Access:
+              </th>
+              <td>{{ model.access | ucfirst }}</td>
+            </tr>
+            <tr>
+              <th>
+                <fa-icon aria-hidden="true" aria-label="Token icon" [icon]="['fas', 'key']"></fa-icon>
+                Access token:
+              </th>
+              <td>{{ model.accessToken }}</td>
+            </tr>
+            <tr>
+              <th>
+                <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+                License:
+              </th>
+              <td>
+                <a [href]="model.license.getSwoUrl()" target="_blank">{{
+                  model.license.name
+                }}</a>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'user']"></fa-icon>
+                Owner:
+              </th>
+              <td>
+                <a [routerLink]="['/user', model.owner.id]"
+                >{{ model.owner.getFullName() }}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

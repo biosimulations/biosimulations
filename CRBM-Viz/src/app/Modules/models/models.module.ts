@@ -10,7 +10,7 @@ import { BrowseComponent } from './browse/browse.component';
 import { FileTableComponent } from './file-table/file-table.component';
 import { FileEditComponent } from './file-edit/file-edit.component';
 import { UploadComponent } from './upload/upload.component';
-// import { ViewComponent } from './view/view.component';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { UploadComponent } from './upload/upload.component';
     FileTableComponent,
     FileEditComponent,
     UploadComponent,
-    // ViewComponent,
+    ViewComponent,
   ],
   imports: [
     CommonModule,

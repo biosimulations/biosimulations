@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Simulation } from 'src/app/Shared/Models/simulation';
+import { Model } from 'src/app/Shared/Models/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { ModelService } from 'src/app/Shared/Services/model.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
 
 @Component({
@@ -13,14 +13,13 @@ import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-hu
 })
 export class ViewComponent implements OnInit {
   id: string;
-  simulation: Simulation;
-  simulationHistoryTreeNodes: object[];
+  model: Model;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    private simulationService: SimulationService
+    private modelService: ModelService
   ) {}
 
   ngOnInit() {
@@ -32,29 +31,29 @@ export class ViewComponent implements OnInit {
     });
 
     const crumbs: object[] = [
-      {label: 'Simulations', route: '/simulations'},
-      {label: 'Simulation ' + this.id},
+      {label: 'Models', route: '/models'},
+      {label: 'Model ' + this.id},
     ];
     const buttons: NavItem[] = [
       {
         iconType: 'mat',
         icon: 'view_list',
         label: 'Browse',
-        route: ['/simulations'],
+        route: ['/models'],
         display: NavItemDisplayLevel.always,
       },
       {
         iconType: 'mat',
         icon: 'add',
         label: 'New',
-        route: ['/simulations/new'],
+        route: ['/models/new'],
         display: NavItemDisplayLevel.always,
       },
       {
         iconType: 'mat',
         icon: 'hourglass_empty',
-        label: 'Your simulations',
-        route: ['/user/simulations'],
+        label: 'Your models',
+        route: ['/user/models'],
         display: NavItemDisplayLevel.loggedIn,
       },
     ];
@@ -62,22 +61,13 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    this.simulation = this.simulationService.get(this.id);
-    this.simulationHistoryTreeNodes = this.simulationService.getHistory(this.id, true, true);
-  }
-
-  edit(): void {
-    this.router.navigate(['/simulations', 'new', this.id]);
-  }
-
-  visualize(): void {
-    this.router.navigate(['/visualizations', this.id]);
+    this.model = this.modelService.get(this.id);
   }
 
   download(): void {
-    const url = this.simulation.getDefinitionFileUrl();
+    const url = this.model.getFileUrl();
     const link = document.createElement('a');
-    link.download = `simulation-${ this.id }.xml`;
+    link.download = `model-${ this.id }.xml`;
     link.href = url;
     link.click();
   }

@@ -6,7 +6,7 @@ import { BrowseComponent } from './browse/browse.component';
 import { FileTableComponent } from './file-table/file-table.component';
 import { UploadComponent } from './upload/upload.component';
 import { FileEditComponent } from './file-edit/file-edit.component';
-// import { ViewComponent } from './view/view.component';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
   {
@@ -27,7 +27,7 @@ const routes: Routes = [
     component: FileEditComponent,
     canActivate: [AuthGuard],
   },
-  // { path: ':id', component: ViewComponent },
+  { path: ':id', component: ViewComponent },
 ];
 
 @NgModule({
