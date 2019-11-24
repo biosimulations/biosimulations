@@ -107,8 +107,12 @@ export class Simulation {
     return ['/simulations', this.id];
   }
 
-  getFileUrl(): string {
+  getDefinitionFileUrl(): string {
     return '/assets/examples/simulation.xml';
+  }
+
+  getResultsFileUrl(): string {
+    return '/assets/examples/simulation.ida';
   }
 
   getAuthors(): (User | Person)[] {
