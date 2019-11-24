@@ -67,8 +67,12 @@ export class Model {
     return {type: 'fas', icon: 'project-diagram'};
   }
 
-  getRoute() {
-    return ['/model', this.id];
+  getRoute(): (string | number)[] {
+    return ['/models', this.id];
+  }
+
+  getFileUrl(): string {
+    return '/assets/examples/model.xml';    
   }
 
   getBioModelsId(): string {
