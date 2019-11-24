@@ -18,12 +18,12 @@ const routes: Routes = [
   {
     path: 'simulations',
     loadChildren: () =>
-      import('./Modules/simulate/simulate.module').then(m => m.SimulateModule),
+      import('./Modules/simulations/simulations.module').then(m => m.SimulationsModule),
   },
   {
     path: 'visualizations',
     loadChildren: () =>
-      import('./Modules/visualize/visualize.module').then(m => m.VisualizeModule),
+      import('./Modules/visualizations/visualizations.module').then(m => m.VisualizationsModule),
   },
   {
     path: 'user',

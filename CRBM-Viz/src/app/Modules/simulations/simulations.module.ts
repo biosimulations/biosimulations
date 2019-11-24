@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
 
-import { SimulateRoutingModule } from './simulate-routing.module';
+import { SimulationsRoutingModule } from './simulations-routing.module';
 
 import { SimulateComponent } from './simulate/simulate.component';
 import { PastSimulationComponent } from './past-simulation/past-simulation.component';
@@ -22,11 +22,11 @@ import { NewSimulationComponent } from './new-simulation/new-simulation.componen
   ],
   imports: [
     CommonModule,
-    SimulateRoutingModule,
+    SimulationsRoutingModule,
     MaterialModule,
     SharedModule,
     FormsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SimulateModule {}
+export class SimulationsModule {}
