@@ -54,7 +54,7 @@
                   aria-label="Tags icon"
                   [icon]="['fas', 'tags']"
                 ></fa-icon>{{
-                simulation.tags.join(', ')
+                simulation.tags.join(', ') | ucfirst
               }}</span>
             </div>
 
@@ -73,12 +73,12 @@
             <div>
               <span>
                 <fa-icon aria-hidden="true" aria-label="Model framework icon" [icon]="['fas', 'calculator']"></fa-icon>
-                <a [href]="simulation.model.framework.getUrl()" target="_blank">{{ simulation.model.framework.name }}</a>
+                <a [href]="simulation.model.framework.getUrl()" target="_blank">{{ simulation.model.framework.name | ucfirst }}</a>
               </span>
 
               <span>
                 <fa-icon aria-hidden="true" aria-label="Simulation algorithm icon" [icon]="['fas', 'calculator']"></fa-icon>
-                <a [href]="simulation.algorithm.getUrl()" target="_blank">{{ simulation.algorithm.name }}</a>
+                <a [href]="simulation.algorithm.getUrl()" target="_blank">{{ simulation.algorithm.name | ucfirst }}</a>
               </span>
 
               <span>
