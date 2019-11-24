@@ -5,14 +5,29 @@ import { FormsModule }   from '@angular/forms';
 import { UserRoutingModule } from './user-routing.module';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/profile-edit.component';
+// import { ModelsComponent } from './models/models.component';
+import { SimulationsComponent } from './simulations/simulations.component';
+// import { VisualizationsComponent } from './visualizations/visualizations.component';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { MaterialModule } from '../app-material.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
-  declarations: [ProfileComponent, ProfileEditComponent],
+  declarations: [
+    ProfileComponent,
+    ProfileEditComponent,
+    // ModelsComponent,
+    SimulationsComponent,
+    // VisualizationsComponent,
+    ],
 
-  imports: [CommonModule, FormsModule, UserRoutingModule, SharedModule, MaterialModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    UserRoutingModule,
+    SharedModule,
+    MaterialModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UserModule {}

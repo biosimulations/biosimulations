@@ -70,7 +70,7 @@ export class SimulationService {
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          UserService._get(2),
+          UserService._get('y.skaf'),
           AccessLevel.public,
           SimulationStatus.finished,
           new Date(Date.parse('2019-11-06 00:00:00')),
@@ -103,7 +103,7 @@ export class SimulationService {
 
           null,
           [],
-          UserService._get(2),
+          UserService._get('y.skaf'),
           AccessLevel.private,
           SimulationStatus.queued,
           new Date(Date.parse('2019-11-06 00:00:00')),
@@ -136,7 +136,7 @@ export class SimulationService {
 
           null,
           [],
-          UserService._get(3),
+          UserService._get('b.shaikh'),
           AccessLevel.public,
           SimulationStatus.failed,
           new Date(Date.parse('2019-11-06 00:00:00')),
@@ -160,7 +160,7 @@ export class SimulationService {
     ];
     simulation.license = new License('CC0', 1000049);
     simulation.authors = [
-      UserService._get(4),
+      UserService._get('s.edelstein'),
       new Person('John', 'C', 'Doe'),
       new Person('Jane', 'D', 'Doe'),
     ];

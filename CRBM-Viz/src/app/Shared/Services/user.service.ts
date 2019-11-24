@@ -22,15 +22,15 @@ export class UserService {
     private injector: Injector
     ) {}
 
-  static _get(id?: number): User {
+  static _get(username?: string): User {
     let user:User;
-    switch (id) {
+    switch (username) {
       default:
-      case 1:
+      case 'jonrkarr':
         user = new User(
           'github|2848297',
-          id,
-          'jonrkarr',
+          1,
+          username,
           'Jonathan',
           'R',
           'Karr',
@@ -64,7 +64,7 @@ export class UserService {
           [],
         );
         break;
-      case 2:
+      case 'y.skaf':
         user = new User(null, 2, 'y.skaf', 'Yara', null, 'Skaf',
           'University of Connecticut Health Center',
           null,
@@ -77,7 +77,7 @@ export class UserService {
           null,
           'Description');
         break;
-      case 3:
+      case 'b.shaikh':
         user = new User(null, 3, 'b.bhaikh', 'Bilal', null, 'Shaikh',
           'Icahn School of Medicine at Mount Sinai',
           'https://bilalshaikh.com',
@@ -90,13 +90,13 @@ export class UserService {
           null,
           'Description');
         break;
-      case 4:
+      case 's.edelstein':
         user = new User(null, 4, 's.edelstein', 'S', null, 'Edelstein');
         break;
-      case 5:
+      case 'a.goldbeter':
         user = new User(null, 5, 'a.goldbeter', 'A', null, 'Goldbeter');
         break;
-      case 6:
+      case 'j.tyson':
         user = new User(null, 6, 'j.tyson', 'J', null, 'Tyson');
         break;
     }
@@ -123,16 +123,16 @@ export class UserService {
     return this.http.get(this.endpoint, { headers: Httpheaders });
   }
 
-  get(id?: number) : User {
+  get(username?: string) : User {
     this.getServices();
-    return UserService._get(id);
+    return UserService._get(username);
   }
 
   getByAuth0Id(id: string): User {
     let user:User;
     switch (id) {
       case 'github|2848297':
-        user = this.get(1);
+        user = this.get('jonrkarr');
         break;
       default:
         user = new User(id);
@@ -143,12 +143,12 @@ export class UserService {
 
   list(): User[] {
     return [
-      this.get(1),
-      this.get(2),
-      this.get(3),
-      this.get(4),
-      this.get(5),
-      this.get(6),
+      this.get('jonrkarr'),
+     this.get('y.skaf'),
+      this.get('b.shaikh'),
+      this.get('s.edelstein'),
+      this.get('a.goldbeter'),
+      this.get('j.tyson'),
     ];
   }
 }

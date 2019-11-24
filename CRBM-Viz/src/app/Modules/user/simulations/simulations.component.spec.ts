@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MineComponent } from './mine.component';
+import { SimulationsComponent } from './simulations.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('MineComponent', () => {
-  let component: MineComponent;
-  let fixture: ComponentFixture<MineComponent>;
+describe('SimulationsComponent', () => {
+  let component: SimulationsComponent;
+  let fixture: ComponentFixture<SimulationsComponent>;
   // TODO mock the data service and remove http and router
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MineComponent],
+      declarations: [SimulationsComponent],
       imports: [RouterTestingModule, SharedModule, HttpClientTestingModule],
       providers: [
         { provide: RouterTestingModule, useValue: RouterTestingModule },
@@ -21,7 +21,7 @@ describe('MineComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MineComponent);
+    fixture = TestBed.createComponent(SimulationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

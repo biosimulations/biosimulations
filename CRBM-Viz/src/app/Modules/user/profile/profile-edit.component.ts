@@ -24,8 +24,8 @@ export class ProfileEditComponent implements OnInit {
 
   ngOnInit() {
     const crumbs: object[] = [
-      {label: 'Profile', route: ['/user']},
-      {label: 'Edit'},
+      {label: 'User', route: ['/user']},
+      {label: 'Edit your profile'},
     ];
     const buttons: NavItem[] = [
       {iconType: 'mat', icon: 'person', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn},

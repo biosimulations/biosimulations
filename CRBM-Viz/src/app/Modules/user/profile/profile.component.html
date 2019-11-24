@@ -91,9 +91,12 @@
 
     <div class="resources-container">
       <div class="resources" *ngIf="user.models && user.models.length > 0">
-        <h2>Models</h2>
+        <div class="resources-title">
+          <h2>Models ({{ user.models.length }})</h2>
+          <a [routerLink]="['models']">View all</a>
+        </div>
         <div *ngIf="user.models && user.models.length > 0; else noModels" class="resources-grid">
-          <div *ngFor="let model of user.models" class="resource">
+          <div *ngFor="let model of user.models.slice(0, 10)" class="resource">
             <div class="title">
               <a [routerLink]="model.getRoute()">
                 <fa-icon
@@ -140,9 +143,12 @@
       </div>
 
       <div class="resources" *ngIf="user.simulations && user.simulations.length > 0">
-        <h2>Simulations</h2>
+        <div class="resources-title">
+          <h2>Simulations ({{ user.simulations.length }})</h2>
+          <a [routerLink]="['simulations']">View all</a>
+        </div>
         <div *ngIf="user.simulations && user.simulations.length > 0; else noSimulations" class="resources-grid">
-          <div *ngFor="let sim of user.simulations" class="resource">
+          <div *ngFor="let sim of user.simulations.slice(0, 10)" class="resource">
             <div class="title">
               <a [routerLink]="sim.getRoute()">
                 <mat-icon
@@ -180,9 +186,13 @@
       </div>
 
       <div class="resources" *ngIf="user.visualizations && user.visualizations.length > 0">
-        <h2>Visualizations</h2>
+        <div class="resources-title">
+          <h2>Visualizations ({{ user.visualizations.length }})</h2>
+          <a [routerLink]="['visualizations']">View all</a>
+        </div>
+
         <div *ngIf="user.visualizations && user.visualizations.length > 0; else noVisualizations" class="resources-grid">
-          <div *ngFor="let viz of user.visualizations" class="resource">
+          <div *ngFor="let viz of user.visualizations.slice(0, 10)" class="resource">
             <div class="title">
               <a [routerLink]="viz.getRoute()">
                 <fa-icon

@@ -66,10 +66,22 @@
     .resources:first-child
         margin-block-start: 0
 
+    .resources-title
+        h2
+            float: left
+            display: inline
+        a
+            float: right
+            color: mat-color($theme-primary)
+    .resources-title:after
+        content: " "
+        display: table
+        clear: both
+
     h2
         margin-top: 0
         margin-bottom: 0.5rem
-        line-height: 100%
+        line-height: 100%        
 
     .resources-grid
         display: grid

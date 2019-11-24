@@ -25,8 +25,8 @@ export class BrowseComponent implements OnInit {
       {
         iconType: 'mat',
         icon: 'hourglass_empty',
-        label: 'My simulations',
-        route: ['/simulations/mine'],
+        label: 'Your simulations',
+        route: ['/user/simulations'],
         display: NavItemDisplayLevel.loggedIn,
       },
     ];

@@ -40,7 +40,7 @@ export class ModelService {
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          UserService._get(4),
+          UserService._get('s.edelstein'),
           new Date(Date.parse('1996-11-01 00:00:00')),
         );
         break;
@@ -60,7 +60,7 @@ export class ModelService {
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          UserService._get(5),
+          UserService._get('a.goldbeter'),
           new Date(Date.parse('1991-10-15 00:00:00')),
         );
         break;
@@ -80,7 +80,7 @@ export class ModelService {
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          UserService._get(6),
+          UserService._get('j.tyson'),
           new Date(Date.parse('1991-08-15 00:00:00')),
         );
         break;

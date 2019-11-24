@@ -22,7 +22,7 @@ export const navItems: NavItem[] = [
     children: [
       'Models-Browse',
       'Models-New',
-      'Models-Mine',
+      'Models-Yours',
     ],
     display: NavItemDisplayLevel.always,
   },
@@ -34,7 +34,7 @@ export const navItems: NavItem[] = [
     children: [
       'Simulations-Browse',
       'Simulations-New',
-      'Simulations-Mine',
+      'Simulations-Yours',
     ],
     display: NavItemDisplayLevel.always,
   },
@@ -43,7 +43,11 @@ export const navItems: NavItem[] = [
     label: 'Visualizations',
     icon: 'chart-area',
     iconType: 'fas',
-    children: ['Visualizations-Browse'],
+    children: [
+      'Visualizations-Browse',
+      // 'Visualizations-New',
+      // 'Visualizations-Yours',
+      ],
     display: NavItemDisplayLevel.always,
   },
   {
@@ -86,12 +90,12 @@ export const navItems: NavItem[] = [
     route: ['/models/new'],
   },
   {
-    id: 'Models-Mine',
-    label: 'My models',
+    id: 'Models-Yours',
+    label: 'Your models',
     icon: 'account_circle',
     iconType: 'mat',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/models/mine'],
+    route: ['/user/models'],
     disabled: true,
   },
 
@@ -113,12 +117,12 @@ export const navItems: NavItem[] = [
     route: ['/simulations/new'],
   },
   {
-    id: 'Simulations-Mine',
-    label: 'My simulations',
+    id: 'Simulations-Yours',
+    label: 'Your simulations',
     icon: 'account_circle',
     iconType: 'mat',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/simulations/mine'],
+    route: ['/user/simulations'],
   },
 
   // Visualizations sub-menu

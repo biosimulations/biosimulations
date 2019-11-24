@@ -8,7 +8,6 @@ import { SimulateRoutingModule } from './simulate-routing.module';
 
 import { SimulateComponent } from './simulate/simulate.component';
 import { PastSimulationComponent } from './past-simulation/past-simulation.component';
-import { MineComponent } from './mine/mine.component';
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 import { NewSimulationComponent } from './new-simulation/new-simulation.component';
@@ -18,7 +17,6 @@ import { NewSimulationComponent } from './new-simulation/new-simulation.componen
     SimulateComponent,
     NewSimulationComponent,
     PastSimulationComponent,
-    MineComponent,
     BrowseComponent,
     ViewComponent,
   ],

@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 })
 
 export class ProfileComponent implements OnInit {
-  id: number;
+  private username: string;
   user: User;
 
   constructor(
@@ -32,20 +32,23 @@ export class ProfileComponent implements OnInit {
         auth0Id = (this.auth.token.sub as unknown) as string;
       }
 
-      if (routeParams.id) {
-        this.id = parseInt(routeParams['id'], 10);
-        this.user = this.userService.get(this.id);
+      if (routeParams.username) {
+        this.username = routeParams['username'];
+        this.user = this.userService.get(this.username);
         // this.users.getUser().subscribe(res => (this.user = res));
       } else if (auth0Id) {
         this.user = this.userService.getByAuth0Id(auth0Id);
         // this.users.getUser().subscribe(res => (this.user = res));
-        this.id = this.user.id;
+        this.username = this.user.username;
       }
 
-      const crumbs: object[] = [{label: 'Profile'}]
+      const crumbs: object[] = [{label: 'User', route: '/user'}];
       const buttons: NavItem[] = [];
       if (this.user) {
         if (this.auth && this.user.auth0Id === auth0Id) {
+          crumbs.push({
+            label: 'Your profile',
+          });
           buttons.push({
             iconType: 'mat',
             icon: 'edit',
@@ -55,7 +58,7 @@ export class ProfileComponent implements OnInit {
           });
         } else {
           crumbs.push({
-            label: this.user.getFullName(),
+            label: this.user.username,
           });
         }
       }

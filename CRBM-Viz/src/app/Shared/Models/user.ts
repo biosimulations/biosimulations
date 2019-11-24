@@ -71,7 +71,7 @@ export class User implements PersonInterface {
   }
 
   getRoute(): (string | number)[] {
-    return ['/user', this.id];
+    return ['/user', this.username];
   }
 
   getFullName(): string {
