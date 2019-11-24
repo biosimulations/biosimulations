@@ -5,7 +5,7 @@ import { FormsModule }   from '@angular/forms';
 import { UserRoutingModule } from './user-routing.module';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/profile-edit.component';
-// import { ModelsComponent } from './models/models.component';
+import { ModelsComponent } from './models/models.component';
 import { SimulationsComponent } from './simulations/simulations.component';
 // import { VisualizationsComponent } from './visualizations/visualizations.component';
 import { SharedModule } from 'src/app/Shared/shared.module';
@@ -16,7 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   declarations: [
     ProfileComponent,
     ProfileEditComponent,
-    // ModelsComponent,
+    ModelsComponent,
     SimulationsComponent,
     // VisualizationsComponent,
     ],
