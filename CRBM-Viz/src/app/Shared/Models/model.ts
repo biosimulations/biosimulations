@@ -72,7 +72,7 @@ export class Model {
   }
 
   getFileUrl(): string {
-    return '/assets/examples/model.xml';    
+    return '/assets/examples/model.xml';
   }
 
   getBioModelsId(): string {
