@@ -207,6 +207,21 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       {
+        headerName: 'License',
+        field: 'license.name',
+        filter: 'agSetColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: 'Model license',
+        field: 'model.license.name',
+        filter: 'agSetColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+
+      {
         headerName: 'Status',
         field: 'status',
         filter: 'agSetColumnFilter',
