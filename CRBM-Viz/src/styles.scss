@@ -369,7 +369,7 @@ input, mat-select, button {
             font-weight: bold;
             line-height: 100%;
             color: mat-color($theme-primary);
-            margin-bottom: 0.25rem;            
+            margin-bottom: 0.25rem;
         }
     }
 }
@@ -383,7 +383,7 @@ table.icon-key-vals {
             font-weight: bold;
             white-space: nowrap;
         }
-        
+
         th:first-child {
             text-align: center;
             padding-right: 0.25rem;
@@ -436,7 +436,7 @@ ul.inline {
         display: inline;
         margin-right: 0.5rem;
     }
-    
+
     li:last-child {
         margin-right: 0;
     }
