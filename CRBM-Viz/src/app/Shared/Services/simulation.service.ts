@@ -6,14 +6,18 @@ import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import { ModelService } from './model.service';
 
-import { AccessLevel } from '../Enums/access-level'
-import { SimulationStatus } from '../Enums/simulation-status'
-import { ChangedParameter } from '../Models/changed-parameter'
-import { Format } from '../Models/format'
-import { JournalReference } from '../Models/journal-reference'
-import { Simulator } from '../Models/simulator'
-import { Simulation } from '../Models/simulation'
-import { User } from '../Models/user'
+import { AccessLevel } from '../Enums/access-level';
+import { SimulationStatus } from '../Enums/simulation-status';
+import { ModelParameterChange } from '../Models/model-parameter-change';
+import { AlgorithmParameter } from '../Models/algorithm-parameter';
+import { Format } from '../Models/format';
+import { License } from '../Models/license';
+import { JournalReference } from '../Models/journal-reference';
+import { OntologyTerm } from '../Models/ontology-term';
+import { Person } from '../Models/person';
+import { Simulator } from '../Models/simulator';
+import { Simulation } from '../Models/simulation';
+import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -37,35 +41,36 @@ export class SimulationService {
     ) {
   }
 
-  static _get(id: string): Simulation {
+  static _get(id: string, includeRelObj = false): Simulation {
     let simulation: Simulation;
 
     switch (id) {
+      default:
       case '001':
         simulation = new Simulation(
-          '001',
+          id,
           'First simulation',
           'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
           ['wild type', 'normal'],
 
           ModelService._get('001'),
 
-          new Format('SED-ML', 'L1V3'),
+          new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org'),
           [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
           ],
           10.,
 
           new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
+          new Simulation('005', 'Sim-005'),
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          new Simulation('005', 'Sim-005'),
-          UserService._get(2),
+          UserService._get('y.skaf'),
           AccessLevel.public,
           SimulationStatus.finished,
           new Date(Date.parse('2019-11-06 00:00:00')),
@@ -86,19 +91,19 @@ export class SimulationService {
 
           ModelService._get('003'),
 
-          new Format('SED-ML', 'L1V2'),
+          new Format('SED-ML', 'L1V2', 3685, 'https://sed-ml.org'),
           [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
           ],
           10.,
 
           new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
-          [],
           null,
-          UserService._get(2),
+          [],
+          UserService._get('y.skaf'),
           AccessLevel.private,
           SimulationStatus.queued,
           new Date(Date.parse('2019-11-06 00:00:00')),
@@ -119,19 +124,19 @@ export class SimulationService {
 
           ModelService._get('006'),
 
-          new Format('SED-ML', 'L1V1'),
+          new Format('SED-ML', 'L1V1', 3685, 'https://sed-ml.org'),
           [
-            new ChangedParameter('p1', 'parameter 1', 2., 1., 'g'),
-            new ChangedParameter('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ChangedParameter('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
           ],
           10.,
 
           new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
 
-          [],
           null,
-          UserService._get(3),
+          [],
+          UserService._get('b.shaikh'),
           AccessLevel.public,
           SimulationStatus.failed,
           new Date(Date.parse('2019-11-06 00:00:00')),
@@ -143,8 +148,22 @@ export class SimulationService {
         );
         break;
     }
-    simulation.framework = 'SSA';
-    simulation.license = 'MIT';
+    simulation.startTime = 0;
+    simulation.endTime = 3600;
+    simulation.numTimePoints = 360;
+    simulation.algorithm = new OntologyTerm('KISAO', '0000064', 'Runge-Kutta based method', null,
+      'http://www.biomodels.net/kisao/KISAO#KISAO_0000064');
+    simulation.algorithmParameters = [
+      new AlgorithmParameter('seed', 'random number generator seed', 1, 488),
+      new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211),
+      new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209),
+    ];
+    simulation.license = new License('CC0', 1000049);
+    simulation.authors = [
+      UserService._get('s.edelstein'),
+      new Person('John', 'C', 'Doe'),
+      new Person('Jane', 'D', 'Doe'),
+    ];
     return simulation;
   }
 
@@ -221,7 +240,7 @@ export class SimulationService {
 
   get(id: string): Simulation {
     this.getServices();
-    return SimulationService._get(id);
+    return SimulationService._get(id, true);
   }
 
   list(auth?): Simulation[] {
@@ -231,5 +250,92 @@ export class SimulationService {
       this.get('006'),
     ];
     return data;
+  }
+
+  getHistory(id: string, includeParents: boolean = true, includeChildren: boolean = true): object[] {
+    // tslint:disable:max-line-length
+    return [
+      {
+        id: '003',
+        name: 'Grandparent',
+        route: ['/simulations', '003'],
+        isExpanded: true,
+        children: [
+          {
+            id: '002',
+            name: 'Parent',
+            route: ['/simulations', '006'],
+            isExpanded: true,
+            children: [
+              {
+                id: '001',
+                name: 'This simulation',
+                route: ['/simulations', '001'],
+                isExpanded: true,
+                children: [
+                  {
+                    id: '004',
+                    name: 'Child-1',
+                    route: ['/simulations', '004'],
+                    children: [
+                      {
+                        id: '005',
+                        name: 'Grandchild-1-1',
+                        route: ['/simulations', '005'],
+                        children: [],
+                      },
+                      {
+                        id: '006',
+                        name: 'Grandchild-1-2',
+                        route: ['/simulations', '006'],
+                        children: [],
+                      },
+                    ],
+                  },
+                  {
+                    id: '007',
+                    name: 'Child-2',
+                    route: ['/simulations', '007'],
+                    children: [
+                      {
+                        id: '008',
+                        name: 'Grandchild-2-1',
+                        route: ['/simulations', '008'],
+                        children: [],
+                      },
+                      {
+                        id: '009',
+                        name: 'Grandchild-2-2',
+                        route: ['/simulations', '009'],
+                        children: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: '010',
+                name: 'Sibling',
+                route: ['/simulations', '010'],
+                children: [
+                  {
+                    id: '011',
+                    name: 'Nephew',
+                    route: ['/simulations', '011'],
+                    children: [],
+                  },
+                  {
+                    id: '012',
+                    name: 'Niece',
+                    route: ['/simulations', '012'],
+                    children: [],
+                  },
+                ]
+              },
+            ],
+          },
+        ],
+      },
+    ];
   }
 }

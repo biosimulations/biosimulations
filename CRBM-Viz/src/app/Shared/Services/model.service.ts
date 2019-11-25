@@ -3,7 +3,9 @@ import { AccessLevel } from '../Enums/access-level';
 import { Format } from '../Models/format';
 import { Identifier } from '../Models/identifier';
 import { JournalReference } from '../Models/journal-reference'
+import { License } from '../Models/license';
 import { Model } from '../Models/model';
+import { OntologyTerm } from '../Models/ontology-term';
 import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
 import { UserService } from './user.service';
@@ -14,32 +16,31 @@ import { UserService } from './user.service';
 export class ModelService {
   private userService: UserService;
   private simulationService: SimulationService;
-  private visualizationsService: VisualizationsService;
+  private visualizationService: VisualizationService;
 
   constructor(private injector: Injector) {}
 
-  static _get(id: string): Model {
+  static _get(id: string, includeRelatedObjects = false): Model {
     let model: Model;
 
     switch (id) {
+      default:
       case '001':
         model = new Model(
-          '001',
+          id,
           'EPSP ACh event',
           'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
           new Taxon(7787, 'Tetronarce californica'),
           ['neurotransmission', 'signaling'],
-          new Format('SBML', 'L2V4'),
+          new Format('SBML', 'L2V4', 2585, 'http://sbml.org'),
           [
-            new Identifier('biomodels', 'BIOMD0000000001'),
-            new Identifier('doi', '10.1007/s004220050302'),
-            new Identifier('pubmed', '8983160'),
+            new Identifier('biomodels.db', 'BioModels', 'BIOMD0000000001'),
           ],
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          UserService._get(4),
+          UserService._get('s.edelstein'),
           new Date(Date.parse('1996-11-01 00:00:00')),
         );
         break;
@@ -51,17 +52,15 @@ export class ModelService {
           'Minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.',
           new Taxon(8292, 'Xenopus laevis'),
           ['cell cycle', 'mitosis'],
-          new Format('SBML', 'L2V4'),
+          new Format('SBML', 'L2V4', 2585, 'http://sbml.org'),
           [
-            new Identifier('biomodels', 'BIOMD0000000003'),
-            new Identifier('doi', '10.1073/pnas.88.20.9107'),
-            new Identifier('pubmed', '1833774'),
+            new Identifier('biomodels.db', 'BioModels', 'BIOMD0000000003'),
           ],
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          UserService._get(5),
+          UserService._get('a.goldbeter'),
           new Date(Date.parse('1991-10-15 00:00:00')),
         );
         break;
@@ -73,23 +72,30 @@ export class ModelService {
           'Mathematical model of the interactions of cdc2 and cyclin.',
           new Taxon(33154, 'Homo sapiens'),
           ['cell cycle'],
-          new Format('SBML', 'L2V4'),
+          new Format('SBML', 'L2V4', 2585, 'http://sbml.org'),
           [
-            new Identifier('biomodels', 'BIOMD0000000006'),
-            new Identifier('doi', '10.1186/1752-0509-4-92'),
-            new Identifier('pubmed', '20587024'),
+            new Identifier('biomodels.db', 'BioModels', 'BIOMD0000000006'),
           ],
           [
             new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
             new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
           ],
-          UserService._get(6),
+          UserService._get('j.tyson'),
           new Date(Date.parse('1991-08-15 00:00:00')),
         );
         break;
     }
+    model.framework = new OntologyTerm('SBO', '0000062', 'continuous framework', null, 'http://biomodels.net/SBO/SBO_0000293');
+    model.authors = [];
     model.access = AccessLevel.public;
-    model.license = 'MIT';
+    model.license = new License('CC0', 1000049);
+    if (includeRelatedObjects) {
+      model.simulations = [
+        SimulationService._get('001'),
+        SimulationService._get('003'),
+        SimulationService._get('006'),
+      ];
+    }
     return model;
   }
 
@@ -97,13 +103,13 @@ export class ModelService {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
       this.simulationService = this.injector.get(SimulationService);
-      this.visualizationsService = this.injector.get(VisualizationsService);
+      this.visualizationService = this.injector.get(VisualizationService);
     }
   }
 
   get(id: string): Model {
     this.getServices();
-    return ModelService._get(id);
+    return ModelService._get(id, true);
   }
 
   list(auth?): Model[] {
@@ -117,4 +123,4 @@ export class ModelService {
 }
 
 import { SimulationService } from './simulation.service';
-import { VisualizationsService } from './visualizations.service';
+import { VisualizationService } from './visualization.service';

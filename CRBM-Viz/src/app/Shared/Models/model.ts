@@ -1,10 +1,15 @@
-import { AccessLevel } from '../Enums/access-level'
+import { AccessLevel } from '../Enums/access-level';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
+import { License } from './license';
+import { OntologyTerm } from './ontology-term';
+import { Person } from './person';
+import { Simulation } from './simulation';
 import { Taxon } from './taxon';
 import { User } from './user';
-import { UtilsService } from '../Services/utils.service'
+import { Visualization } from './visualization';
+import { UtilsService } from '../Services/utils.service';
 
 export class Model {
   id?: string;
@@ -12,14 +17,18 @@ export class Model {
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];
+  framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
   identifiers?: Identifier[] = [];
   refs?: JournalReference[] = [];
+  authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
-  license?: string;
+  license?: License;
   date?: Date;
+  simulations?: Simulation[] = [];
+  visualizations?: Visualization[] = [];
 
   constructor(
     id?: string,
@@ -53,17 +62,24 @@ export class Model {
     this.refs = refs;
     this.owner = owner;
     // this.access = access;
-    this.accessToken = new UtilsService().genAccessToken();
+    this.accessToken = UtilsService.genAccessToken();
     // this.license = license;
     this.date = date;
+
+    this.simulations = [];
+    this.visualizations = [];
   }
 
   getIcon() {
     return {type: 'fas', icon: 'project-diagram'};
   }
 
-  getRoute() {
-    return ['/model', this.id];
+  getRoute(): (string | number)[] {
+    return ['/models', this.id];
+  }
+
+  getFileUrl(): string {
+    return '/assets/examples/model.xml';
   }
 
   getBioModelsId(): string {
@@ -84,11 +100,11 @@ export class Model {
     return null;
   }
 
-  getAuthors(): string[] {
-    const authors: string[] = [];
-    for (const ref of this.refs) {
-      Array.prototype.push.apply(authors, ref.authors);
+  getAuthors(): (User | Person)[] {
+    if (this.authors && this.authors.length) {
+      return this.authors;
+    } else {
+      return [this.owner];
     }
-    return authors;
   }
 }

@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../Models/user';
 import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
-import { VisualizationsService } from './visualizations.service';
+import { VisualizationService } from './visualization.service';
 
 // tslint:disable:max-line-length
 
@@ -14,7 +14,7 @@ import { VisualizationsService } from './visualizations.service';
 export class UserService {
   private modelService: ModelService;
   private simulationService: SimulationService;
-  private visualizationsService: VisualizationsService;
+  private visualizationService: VisualizationService;
   private endpoint = 'https://crbm.auth0.com/userinfo';
 
   constructor(
@@ -22,14 +22,15 @@ export class UserService {
     private injector: Injector
     ) {}
 
-  static _get(id?: number): User {
+  static _get(username?: string, includeRelObj = false): User {
     let user:User;
-    switch (id) {
-      case 1:
+    switch (username) {
+      default:
+      case 'jonrkarr':
         user = new User(
           'github|2848297',
           1,
-          'jonrkarr',
+          username,
           'Jonathan',
           'R',
           'Karr',
@@ -63,7 +64,7 @@ export class UserService {
           [],
         );
         break;
-      case 2:
+      case 'y.skaf':
         user = new User(null, 2, 'y.skaf', 'Yara', null, 'Skaf',
           'University of Connecticut Health Center',
           null,
@@ -76,7 +77,7 @@ export class UserService {
           null,
           'Description');
         break;
-      case 3:
+      case 'b.shaikh':
         user = new User(null, 3, 'b.bhaikh', 'Bilal', null, 'Shaikh',
           'Icahn School of Medicine at Mount Sinai',
           'https://bilalshaikh.com',
@@ -89,13 +90,13 @@ export class UserService {
           null,
           'Description');
         break;
-      case 4:
+      case 's.edelstein':
         user = new User(null, 4, 's.edelstein', 'S', null, 'Edelstein');
         break;
-      case 5:
+      case 'a.goldbeter':
         user = new User(null, 5, 'a.goldbeter', 'A', null, 'Goldbeter');
         break;
-      case 6:
+      case 'j.tyson':
         user = new User(null, 6, 'j.tyson', 'J', null, 'Tyson');
         break;
     }
@@ -106,7 +107,7 @@ export class UserService {
     if (this.modelService == null) {
       this.modelService = this.injector.get(ModelService);
       this.simulationService = this.injector.get(SimulationService);
-      this.visualizationsService = this.injector.get(VisualizationsService);
+      this.visualizationService = this.injector.get(VisualizationService);
     }
   }
 
@@ -122,16 +123,16 @@ export class UserService {
     return this.http.get(this.endpoint, { headers: Httpheaders });
   }
 
-  get(id?: number) : User {
+  get(username?: string) : User {
     this.getServices();
-    return UserService._get(id);
+    return UserService._get(username, true);
   }
 
   getByAuth0Id(id: string): User {
     let user:User;
     switch (id) {
       case 'github|2848297':
-        user = this.get(1);
+        user = this.get('jonrkarr');
         break;
       default:
         user = new User(id);
@@ -142,12 +143,16 @@ export class UserService {
 
   list(): User[] {
     return [
-      this.get(1),
-      this.get(2),
-      this.get(3),
-      this.get(4),
-      this.get(5),
-      this.get(6),
+      this.get('jonrkarr'),
+     this.get('y.skaf'),
+      this.get('b.shaikh'),
+      this.get('s.edelstein'),
+      this.get('a.goldbeter'),
+      this.get('j.tyson'),
     ];
+  }
+
+  set(user: User): void {
+
   }
 }

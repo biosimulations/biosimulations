@@ -1,0 +1,89 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="container" *ngIf="!isLoading">
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Past Simulations</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mat-elevation-z8" style="width: 100%">
+                    <table mat-table [dataSource]="dataSource" matSort>
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="job_id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.job_id}} </td>
+                        </ng-container>
+
+                        <!-- Author Column -->
+                        <ng-container matColumnDef="created_by">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
+                        <td mat-cell *matCellDef="let row"> {{row.created_by}}</td>
+                        </ng-container>
+
+                        <!-- File Name Column -->
+                        <ng-container matColumnDef="created_date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+                        <td mat-cell *matCellDef="let row">{{row.created_date}}</td>
+                        </ng-container>
+
+                        <!-- Access Type Column -->
+                        <ng-container matColumnDef="error">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Error </th>
+                        <td mat-cell *matCellDef="let row">{{row.error}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="output">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Output </th>
+                        <td mat-cell *matCellDef="let row">{{row.output}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="sbatch_file">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sbatch file </th>
+                        <td mat-cell *matCellDef="let row">{{row.sbatch_file}} </td>
+                        </ng-container>
+
+                            <ng-container matColumnDef="sbatch_file_owner">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SBatch owner </th>
+                        <td mat-cell *matCellDef="let row">{{row.sbatch_file_owner}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="solver_file">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Solver File </th>
+                        <td mat-cell *matCellDef="let row">{{row.solver_file}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="omex_file">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Omex File </th>
+                        <td mat-cell *matCellDef="let row">{{row.omex_file}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+    </div>

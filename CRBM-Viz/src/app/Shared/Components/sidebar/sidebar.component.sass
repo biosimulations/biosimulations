@@ -1,14 +1,11 @@
-@import 'src/styles.scss'
+@import 'src/theme.scss'
 
 // size and spacing
 .mat-expansion-panel
-    margin: 0px 0    
+    margin: 0px 0
     border-bottom: 1px solid #aaa
 .mat-expansion-panel-header
     padding: 0 10px
-
-:host::ng-deep .mat-expansion-panel-body
-    padding: 0 12px 12px
 
 .mat-list-base
     .mat-list-item
@@ -58,12 +55,9 @@
             color: #fff
         .mat-expansion-indicator::after
             color: #fff
-:host::ng-deep .sidebar-menu-item-title:hover
-    .mat-expansion-indicator::after
-            color: #fff
 .sidebar-menu-subitem:hover
     background: mat-color($theme-primary)
     color: #fff
-.sidebar-menu-subitem:focus
-    background: mat-color($theme-primary)
-    color: #fff
+.sidebar-menu-subitem.disabled
+    cursor: default
+    pointer-events: none

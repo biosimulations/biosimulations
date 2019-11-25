@@ -1,18 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UploadComponent } from './upload/upload.component';
-import { FileTableComponent } from './file-table/file-table.component';
-import { FileEditComponent } from './file-edit/file-edit.component';
 import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
 
+import { BrowseComponent } from './browse/browse.component';
+import { UploadComponent } from './upload/upload.component';
+import { FileEditComponent } from './file-edit/file-edit.component';
+import { ViewComponent } from './view/view.component';
+
 const routes: Routes = [
-  { path: 'new', component: UploadComponent },
-  { path: '', component: FileTableComponent },
+  {
+    path: '',
+    component: BrowseComponent,
+  },
+  {
+   path: 'new',
+   component: UploadComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'edit/:modelid',
     component: FileEditComponent,
     canActivate: [AuthGuard],
   },
+  { path: ':id', component: ViewComponent },
 ];
 
 @NgModule({

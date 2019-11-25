@@ -1,4 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 
 @Component({
@@ -13,8 +15,8 @@ export class AboutComponent implements OnInit {
     const crumbs: object[] = [
       {label: 'About'},
     ];
-    const buttons: object[] = [
-      {iconType: 'fas', icon: 'question', label: 'Help', route: ['/about/help']},
+    const buttons: NavItem[] = [
+      {iconType: 'fas', icon: 'question', label: 'Help', route: ['/about/help'], display: NavItemDisplayLevel.always},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }

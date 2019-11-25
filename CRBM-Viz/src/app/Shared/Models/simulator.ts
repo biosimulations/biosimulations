@@ -2,7 +2,7 @@ export class Simulator {
   name?: string;
   version?: string;
   dockerHubImageId?: string;
-    
+
   constructor (name?: string, version?: string, dockerHubImageId?: string) {
     this.name = name;
     this.version = version;

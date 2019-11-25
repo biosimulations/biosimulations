@@ -21,9 +21,8 @@ export class SimulationsGridComponent implements OnInit {
   rowData;
 
   constructor(
-    private utilsService: UtilsService,
     private simulationService: SimulationService
-    ) {    
+    ) {
   }
 
   ngOnInit() {
@@ -71,22 +70,47 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Taxon',
         field: 'model.taxon.name',
+        valueGetter: taxonGetter,
+        filterValueGetter: taxonGetter,
         filter: 'agSetColumnFilter',
         minWidth: 150,
         hide: true,
       },
       {
-        headerName: 'Changed parameters',
-        field: 'changedParameters',
-        valueGetter: numChangedParametersGetter,
+        headerName: 'Model changes',
+        field: 'modelParameterChanges',
+        valueGetter: numModelParameterChangesGetter,
         filter: 'agNumberColumnFilter',
         minWidth: 150,
         hide: true,
       },
       {
+        headerName: 'Start time',
+        field: 'startTime',
+        valueFormatter: this.timeFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: 'End time',
+        field: 'endTime',
+        valueFormatter: this.timeFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
         headerName: 'Length',
         field: 'length',
-        valueFormatter: this.lengthFormatter,
+        valueFormatter: this.timeFormatter,
+        filter: 'agNumberColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: 'Timepoints',
+        field: 'numTimePoints',
         filter: 'agNumberColumnFilter',
         minWidth: 75,
         hide: true,
@@ -94,11 +118,24 @@ export class SimulationsGridComponent implements OnInit {
 
       {
         headerName: 'Framework',
-        field: 'framework',
+        field: 'model.framework.name',
         filter: 'agSetColumnFilter',
         minWidth: 125,
         hide: true,
       },
+      {
+        headerName: 'Algorithm',
+        field: 'algorithm.name',
+        filter: 'agSetColumnFilter',
+        minWidth: 125,
+        hide: true,
+      },
+      // {
+      //   headerName: 'Algorithm parameters',
+      //   field: 'algorithmParameters',
+      //   minWidth: 125,
+      //   hide: true,
+      // },
       {
         headerName: 'Format',
         field: 'format',
@@ -131,7 +168,7 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       {
-        headerName: 'Author',
+        headerName: 'Authors',
         field: 'refs',
         valueGetter: authorGetter,
         filterValueGetter: authorGetter,
@@ -147,7 +184,7 @@ export class SimulationsGridComponent implements OnInit {
         hide: !this.showOwner,
       },
       {
-        headerName: 'Model author',
+        headerName: 'Model authors',
         field: 'model.refs',
         valueGetter: modelAuthorGetter,
         filterValueGetter: modelAuthorGetter,
@@ -171,6 +208,21 @@ export class SimulationsGridComponent implements OnInit {
         minWidth: 75,
         hide: true,
       },
+      {
+        headerName: 'License',
+        field: 'license.name',
+        filter: 'agSetColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: 'Model license',
+        field: 'model.license.name',
+        filter: 'agSetColumnFilter',
+        minWidth: 75,
+        hide: true,
+      },
+
       {
         headerName: 'Status',
         field: 'status',
@@ -208,7 +260,7 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: 'Wall time',
         field: 'wallTime',
-        valueFormatter: this.lengthFormatter,
+        valueFormatter: this.timeFormatter,
         filter: 'agNumberColumnFilter',
         minWidth: 100,
         hide: true,
@@ -230,9 +282,9 @@ export class SimulationsGridComponent implements OnInit {
     this.rowData = this.simulationService.list(this.auth);
   }
 
-  lengthFormatter(params): string {
+  timeFormatter(params): string {
     const secs:number = params.value;
-    return this.utilsService.formatTimeForHumans(secs);
+    return UtilsService.formatTimeForHumans(secs);
   }
 }
 
@@ -244,17 +296,17 @@ function modelTagsGetter(params): string[] {
   return params.data.model.tags;
 }
 
-function setFormatter(params) {
-  const value = params.value;
-  if (value instanceof Array) {
-    return value.join(', ');
-  } else {
-    return value;
-  }
+function taxonGetter(params): string {
+  return params.data.model.taxon.getShortName();
 }
 
-function numChangedParametersGetter(params): number {
-  return params.data.changedParameters.length;
+function setFormatter(params) {
+  const value = params.value;
+  return value.join(', ');
+}
+
+function numModelParameterChangesGetter(params): number {
+  return params.data.modelParameterChanges.length;
 }
 
 function ownerGetter(params): string {
@@ -288,20 +340,16 @@ function capitalizeFormatter(params): string {
 }
 
 function authorGetter(params): string[] {
-  return params.data.getAuthors();  
+  return params.data.getAuthors().map(author => author.getFullName());
 }
 
 function modelAuthorGetter(params): string[] {
-  return params.data.model.getAuthors();  
+  return params.data.model.getAuthors().map(author => author.getFullName());
 }
 
 function authorFormatter(params) {
   const value = params.value;
-  if (value instanceof Array) {
-    return value.join('; ');
-  } else {
-    return value;
-  }
+  return UtilsService.joinAuthorNames(value);
 }
 
 function dateFormatter(params): string {

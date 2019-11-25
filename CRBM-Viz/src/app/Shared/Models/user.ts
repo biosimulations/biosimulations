@@ -1,9 +1,11 @@
+import { PersonInterface } from './person.interface';
 import { Model } from './model';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
+import { UtilsService } from '../Services/utils.service';
 import * as md5 from 'md5';
 
-export class User {
+export class User implements PersonInterface {
   auth0Id?: string;
   id?: number;
   username?: string;
@@ -18,7 +20,7 @@ export class User {
   gravatarEmail?: string;
   gitHubId?: string;
   googleScholarId?: string;
-  orcId?: string;  
+  orcId?: string;
   description?: string;
   models?: Model[] = [];
   simulations?: Simulation[] = [];
@@ -37,7 +39,7 @@ export class User {
     this.username = username;
     this.firstName = firstName;
     this.middleName = middleName;
-    this.lastName = lastName;    
+    this.lastName = lastName;
     this.organization = organization;
     this.website = website;
     this.email = email;
@@ -46,7 +48,7 @@ export class User {
     this.gravatarEmail = gravatarEmail;
     this.gitHubId = gitHubId;
     this.googleScholarId = googleScholarId;
-    this.orcId = orcId;    
+    this.orcId = orcId;
     this.description = description;
 
     if (models) {
@@ -68,22 +70,12 @@ export class User {
     }
   }
 
-  getRoute() {
-    return ['/profile', this.id];
+  getRoute(): (string | number)[] {
+    return ['/user', this.username];
   }
 
   getFullName(): string {
-    const name: string[] = [];
-    if (this.firstName) {
-        name.push(this.firstName);
-    }
-    if (this.middleName) {
-        name.push(this.middleName);
-    }
-    if (this.lastName) {
-        name.push(this.lastName);
-    }
-    return name.join(' ');
+    return UtilsService.getPersonFullName(this);
   }
 
   getGravatarImgUrl(): string {

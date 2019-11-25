@@ -1,14 +1,19 @@
-import { AccessLevel } from '../Enums/access-level'
-import { SimulationStatus } from '../Enums/simulation-status'
-import { ChangedParameter } from './changed-parameter'
-import { Format } from './format'
-import { Identifier } from './identifier'
-import { Model } from './model'
+import { AccessLevel } from '../Enums/access-level';
+import { SimulationResultsFormat } from '../Enums/simulation-results-format';
+import { SimulationStatus } from '../Enums/simulation-status';
+import { ModelParameterChange } from './model-parameter-change';
+import { AlgorithmParameter } from './algorithm-parameter';
+import { Format } from './format';
+import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
-import { Simulator } from './simulator'
-import { Taxon } from './taxon'
-import { User } from './user'
-import { UtilsService } from '../Services/utils.service'
+import { License } from './license';
+import { Model } from './model';
+import { OntologyTerm } from './ontology-term';
+import { Person } from './person';
+import { Simulator } from './simulator';
+import { Taxon } from './taxon';
+import { User } from './user';
+import { UtilsService } from '../Services/utils.service';
 
 export class Simulation {
   id?: string;
@@ -17,16 +22,21 @@ export class Simulation {
   tags?: string[] = [];
   model?: Model;
   format?: Format;
-  changedParameters?: ChangedParameter[] = [];
-  length?: number;
-  framework?: string;
+  modelParameterChanges?: ModelParameterChange[] = [];
+  startTime?: number; // in seconds
+  endTime?: number; // in seconds
+  length?: number; // in seconds
+  algorithm?: OntologyTerm; // KISAO modeling and simulation algorithm
+  algorithmParameters?: AlgorithmParameter[] = []; // KISAO modeling and simulation algorithm parameter
   simulator?: Simulator;
-  refs?: JournalReference[] = [];
+  numTimePoints?: number;
   parent?: Simulation;
+  refs?: JournalReference[] = [];
+  authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
   accessToken?: string;
-  license?: string;
+  license?: License;
   status?: SimulationStatus;
   date?: Date; // date/time when simulation was requested
   startDate?: Date; // date/time when simulation run started
@@ -42,11 +52,11 @@ export class Simulation {
     tags?: string[],
     model?: Model,
     format?: Format,
-    changedParameters?: ChangedParameter[],
+    modelParameterChanges?: ModelParameterChange[],
     length?: number,
     simulator?: Simulator,
-    refs?: JournalReference[],
     parent?: Simulation,
+    refs?: JournalReference[],
     owner?: User,
     access?: AccessLevel,
     status?: SimulationStatus,
@@ -60,8 +70,8 @@ export class Simulation {
     if (!tags) {
       tags = [];
     }
-    if (!changedParameters) {
-      changedParameters = [];
+    if (!modelParameterChanges) {
+      modelParameterChanges = [];
     }
     if (!refs) {
       refs = [];
@@ -73,14 +83,14 @@ export class Simulation {
     this.tags = tags;
     this.model = model;
     this.format = format;
-    this.changedParameters = changedParameters;
+    this.modelParameterChanges = modelParameterChanges;
     this.length = length;
     this.simulator = simulator;
     this.refs = refs;
     this.parent = parent;
     this.owner = owner;
     this.access = access;
-    this.accessToken = new UtilsService().genAccessToken();
+    this.accessToken = UtilsService.genAccessToken();
     this.status = status;
     this.date = date;
     this.startDate = startDate;
@@ -94,15 +104,33 @@ export class Simulation {
     return {type: 'mat', icon: 'timeline'};
   }
 
-  getRoute() {
-    return ['/simulate', this.id];
+  getRoute(): (string | number)[] {
+    return ['/simulations', this.id];
   }
 
-  getAuthors(): string[] {
-    const authors: string[] = [];
-    for (const ref of this.refs) {
-      Array.prototype.push.apply(authors, ref.authors);
+  getDescriptionFileUrl(): string {
+    return '/assets/examples/simulation.xml';
+  }
+
+  // Size in Mb
+  getDescriptionFileSize(): number {
+    return 0.1;
+  }
+
+  getResultsFileUrl(format: SimulationResultsFormat): string {
+    return '/assets/examples/simulation.ida';
+  }
+
+  // Size in Mb
+  getResultsFileSize(format: SimulationResultsFormat): number {
+    return 10.3;
+  }
+
+  getAuthors(): (User | Person)[] {
+    if (this.authors && this.authors.length) {
+      return this.authors;
+    } else {
+      return [this.owner];
     }
-    return authors;
   }
 }

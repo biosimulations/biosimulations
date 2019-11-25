@@ -1,0 +1,39 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- Leaf nodes -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+    <!-- use a disabled button to provide padding for tree leaf -->
+    <div [class.mat-tree-node-highlighted]="isNodeHighlighted(node)">
+      <button
+        mat-icon-button
+        disabled
+        aria-hidden="false"
+        aria-label="Leaf icon"
+        disableRipple="true"
+        >
+        <fa-icon [icon]="['far', 'square']"></fa-icon>
+      </button>
+      <a [routerLink]="node.route">{{ node.name }}</a>
+    </div>
+  </mat-tree-node>
+
+  <!-- Expandable nodes -->
+  <mat-nested-tree-node
+    *matTreeNodeDef="let node; when: hasChild"
+    >
+    <div [class.mat-tree-node-highlighted]="isNodeHighlighted(node)">
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        aria-hidden="false"
+        aria-label="Toggle icon"
+        disableRipple="true"
+        >
+        <fa-icon [icon]="['far', (treeControl.isExpanded(node) ? 'minus-square' : 'plus-square')]"></fa-icon>
+      </button>
+      <a [routerLink]="node.route">{{ node.name }}</a>
+    </div>
+    <div [class.mat-tree-node-invisible]="!treeControl.isExpanded(node)">
+      <ng-container matTreeNodeOutlet></ng-container>
+    </div>
+  </mat-nested-tree-node>
+</mat-tree>

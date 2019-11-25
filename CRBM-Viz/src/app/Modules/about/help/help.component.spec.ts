@@ -13,7 +13,7 @@ describe('HelpComponent', () => {
     TestBed.configureTestingModule({
       imports: [ MaterialModule, SharedModule, RouterTestingModule ],
       providers: [ RouterTestingModule ],
-      declarations: [ HelpComponent ],      
+      declarations: [ HelpComponent ],
     })
     .compileComponents();
   }));

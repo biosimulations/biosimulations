@@ -1,39 +1,40 @@
-import { Injectable } from '@angular/core';
+import { PersonInterface } from '../Models/person.interface';
+import { Person } from '../Models/person';
+import { User } from '../Models/user';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class UtilsService {
 
-  constructor() { }
+  static genAccessToken(length: number = 16): string {
+      const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let result = '';
+      for (let i: number = length; i > 0; --i) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return result;
+  }
 
-  formatTimeForHumans(secs: number): string {
+  static formatTimeForHumans(secs: number): string {
     let numerator:number;
     let units:string;
 
-    if (secs >= 1) {
-      if (secs >= 60) {
-        if (secs >= 60 * 60) {
-          if (secs >= 60 * 60 * 24) {
-            if (secs >= 60 * 60 * 24 * 365) {
-              numerator = 60 * 60 * 24 * 365;
-              units = 'y';
-            } else {
-              numerator = 60 * 60 * 24;
-              units = 'd';
-            }
-          } else {
-            numerator = 60 * 60;
-            units = 'h';
-          }
-        } else {
-          numerator = 60;
-          units = 'm';
-        }
-      } else {
-        numerator = 1;
-        units = 's';
-      }
+    if (secs >= 60 * 60 * 24 * 365) {
+      numerator = 60 * 60 * 24 * 365;
+      units = 'y';
+    } else if (secs >= 60 * 60 * 24) {
+      numerator = 60 * 60 * 24;
+      units = 'd';
+    } else if (secs >= 60 * 60) {
+      numerator = 60 * 60;
+      units = 'h';
+    } else if (secs >= 60) {
+      numerator = 60;
+      units = 'm';
+    } else if (secs >= 1) {
+      numerator = 1;
+      units = 's';
+    } else if (secs === 0) {
+      numerator = 1;
+      units = null;
     } else if (secs >= 1e-3) {
       numerator = 1e-3;
       units = 'ms';
@@ -59,15 +60,35 @@ export class UtilsService {
       numerator = 1e-24;
       units = 'ys';
     }
-    return Math.round(secs / numerator) + ' ' + units;
+    let returnVal: string = Math.round(secs / numerator).toString();
+    if (units) {
+      returnVal += ' ' + units;
+    }
+    return returnVal;
   }
 
-  genAccessToken(length: number = 16): string {
-      const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let result = '';
-      for (let i: number = length; i > 0; --i) {
-        result += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return result;
+  static getPersonFullName(person: PersonInterface): string {
+    const name: string[] = [];
+    if (person.firstName) {
+        name.push(person.firstName);
+    }
+    if (person.middleName) {
+        name.push(person.middleName);
+    }
+    if (person.lastName) {
+        name.push(person.lastName);
+    }
+    return name.join(' ');
+  }
+
+  static joinAuthorNames(authors: string[], separator: string = ', ', finalSeparator: string = ' & '): string {
+    let returnVal: string = authors.slice(0, -1).join(separator);
+    if (authors.length > 1) {
+      returnVal += finalSeparator;
+    }
+    if (authors.length > 0) {
+      returnVal += authors.slice(-1)[0];
+    }
+    return returnVal;
   }
 }

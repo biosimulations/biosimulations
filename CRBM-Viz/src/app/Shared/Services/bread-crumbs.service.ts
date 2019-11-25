@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { NavItem } from 'src/app/Shared/Models/nav-item';
 
 @Injectable({
   providedIn: 'root',

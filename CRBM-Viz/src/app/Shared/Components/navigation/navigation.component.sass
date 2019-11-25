@@ -1,10 +1,10 @@
-@import 'src/styles.scss'
+@import 'src/theme.scss'
 
 .sidenav-container
   height: 100%
 
 .sidenav
-  width: 200px
+  width: 230px
   border-right: 1px solid #999
   background: #ccc
 
@@ -33,6 +33,7 @@
   .home
     padding: 0
     font-size: 1.25rem
+    font-weight: 500
 
   .mat-icon-button
     color: #fff
@@ -42,10 +43,6 @@
   top: auto
   z-index: auto
 
-:host::ng-deep .mat-button.home:hover
-  .mat-button-focus-overlay
-    opacity: 0
-
 .mat-toolbar.mat-primary
   position: sticky
   top: 0
@@ -54,6 +51,8 @@
 .mat-nav-list.mat-list-base
   padding-top: 0px
   margin: 0px
+  height: calc(100% - 64px)
+  overflow: auto
 
 .mat-expansion-panel-content
   .mat-list-base
@@ -73,7 +72,7 @@
   padding-right: calc(1rem - 2px)
 
 .logo
-  height: calc(100% - 10px)  
+  height: calc(100% - 10px)
 
 .icons
   margin-left: auto
@@ -84,12 +83,12 @@
     padding-bottom: 0.25rem
     padding-left: 1rem
     padding-right: 1rem
-    background-image: linear-gradient(to bottom, #9bcff9, #c7e4fc)    
+    background: #bcdffb
     color: mat-color($theme-primary)
     font-size: 16px
     line-height: 100%
     font-weight: 500
-    
+
     .module-title
         float: left
         height: 100%

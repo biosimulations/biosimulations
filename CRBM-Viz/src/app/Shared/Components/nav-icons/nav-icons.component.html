@@ -19,43 +19,43 @@
   <!-- Simulations -->
   <button
     mat-icon-button
-    [routerLink]="['/simulate']"
+    [routerLink]="['/simulations']"
     disableRipple="true"
     class="main"
   >
-    <mat-icon class="icon" aria-hidden="false" aria-label="Simulate icon"
+    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"
       >timeline</mat-icon
     >
-    <span class="label">Simulate</span>
+    <span class="label">Simulations</span>
   </button>
 
   <!-- Visualizations -->
   <button
     mat-icon-button
-    [routerLink]="['/visualize']"
+    [routerLink]="['/visualizations']"
     disableRipple="true"
     class="main"
   >
     <fa-icon
       class="icon"
       aria-hidden="false"
-      aria-label="Visualize icon"
+      aria-label="Visualizaions icon"
       [icon]="['fas', 'chart-area']"
       size="2x"
     ></fa-icon>
-    <span class="label">Visualize</span>
+    <span class="label">Visualizations</span>
   </button>
 
   <!-- User account and help -->
   <button
     mat-icon-button
-    [matMenuTriggerFor]="accountMenu?.profileMenu"
+    [matMenuTriggerFor]="userMenu?.profileMenu"
     disableRipple="true"
     class="meta"
   >
-    <mat-icon class="icon" aria-hidden="false" aria-label="Account icon"
+    <mat-icon class="icon" aria-hidden="false" aria-label="User icon"
       >account_circle</mat-icon
     >
   </button>
-  <app-account-menu></app-account-menu>
+  <app-user-menu></app-user-menu>
 </div>
