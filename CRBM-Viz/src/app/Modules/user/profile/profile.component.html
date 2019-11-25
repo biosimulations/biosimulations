@@ -102,7 +102,7 @@
       </div>
 
       <div class="resources" *ngIf="user.simulations && user.simulations.length > 0">
-        <div class="resources-title">
+        <div class="resources-title float-container">
           <h2>Simulations ({{ user.simulations.length }})</h2>
           <a [routerLink]="['simulations']">View all</a>
         </div>
@@ -113,7 +113,7 @@
       </div>
 
       <div class="resources" *ngIf="user.visualizations && user.visualizations.length > 0">
-        <div class="resources-title">
+        <div class="resources-title float-container">
           <h2>Visualizations ({{ user.visualizations.length }})</h2>
           <a [routerLink]="['visualizations']">View all</a>
         </div>
