@@ -151,4 +151,8 @@ export class UserService {
       this.get('j.tyson'),
     ];
   }
+
+  set(user: User): void {
+    
+  }
 }
