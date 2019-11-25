@@ -340,6 +340,122 @@ input, mat-select, button {
     .mat-tab-body-wrapper {
         height: 100%;
     }
+
+    .tab-button {
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.87);
+    }
+
+    .tab {
+        padding: 2rem;
+
+        .section {
+            margin-bottom: 1.5rem;
+        }
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-section {
+            margin-bottom: 0.5rem;
+        }
+        .sub-section:last-child {
+            margin-bottom: 0;
+        }
+
+        h1 {
+            border-bottom: none;
+            @include mat-typography-level-to-styles($fontConfig, body-2);
+            font-weight: bold;
+            line-height: 100%;
+            color: mat-color($theme-primary);
+            margin-bottom: 0.25rem;            
+        }
+    }
+}
+
+/* Properties tables */
+table.icon-key-vals {
+    max-width: 100%;
+
+    tr {
+        th {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        th:first-child {
+            text-align: center;
+            padding-right: 0.25rem;
+        }
+
+        th:nth-child(2) {
+            text-align: left;
+        }
+
+        th:nth-child(2):after {
+            content: ':';
+            padding-right: 0.5rem;
+        }
+
+        th, td {
+            vertical-align: top;
+        }
+    }
+}
+
+table.col-headings {
+    max-width: 100%;
+
+    th, td {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-right: 2px solid #fff;
+        padding-top: 0.1rem;
+        vertical-align: top;
+    }
+
+    th:last-child, td:last-child {
+        border-right: none;
+    }
+
+    thead th {
+        background: #ddd;
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+    }
+
+    tbody tr:hover {
+        background: #f6f6f6;
+    }
+}
+
+/* Inline list */
+ul.inline {
+    li {
+        display: inline;
+        margin-right: 0.5rem;
+    }
+    
+    li:last-child {
+        margin-right: 0;
+    }
+}
+
+ul.no-wrap li {
+    white-space: nowrap;
+}
+
+/* Icon list: list which uses Font Awesome icons instead of bullets */
+ul.icon-text {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    .ng-fa-icon {
+        width: auto;
+        margin-right: 0.25rem;
+    }
 }
 
 /* Forms */
@@ -372,4 +488,16 @@ input, mat-select, button {
         color: #fff;
         font-weight: bold;
     }
+}
+
+
+/* Style text */
+.light {
+    color: #666;
+}
+
+
+/* Highlighting */
+.hover-light-background:hover {
+    background: #f6f6f6;
 }

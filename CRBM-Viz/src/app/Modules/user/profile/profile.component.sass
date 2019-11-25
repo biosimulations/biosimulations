@@ -15,8 +15,6 @@
         font-weight: regular
         line-height: 1.5rem
         margin-bottom: 0
-    .username
-        color: #999
     .description
         margin-top: 1rem
 
@@ -118,13 +116,5 @@
             height: 1.25rem
             overflow: hidden
 
-        .tag
-            display: inline
-            margin-right: 0.5rem
-            @include mat-typography-level-to-styles($fontConfig, caption)
-
-        .tag:last-child
-            margin-right: 0
-
-    .resource:hover
-        background: #f6f6f6
+            li
+                @include mat-typography-level-to-styles($fontConfig, caption)    

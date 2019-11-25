@@ -3,7 +3,7 @@
     <div class="profile">
       <img class="photo" src="{{ user.getGravatarImgUrl() }}" />
       <div class="name mat-title">{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</div>
-      <div class="username">{{ user.username }}</div>
+      <div class="username light">{{ user.username }}</div>
       <div class="description" *ngIf="user.description">{{
         user.description
       }}</div>
@@ -96,7 +96,7 @@
           <a [routerLink]="['models']">View all</a>
         </div>
         <div *ngIf="user.models && user.models.length > 0; else noModels" class="resources-grid">
-          <div *ngFor="let model of user.models.slice(0, 10)" class="resource">
+          <div *ngFor="let model of user.models.slice(0, 10)" class="resource hover-light-background">
             <div class="title">
               <a [routerLink]="model.getRoute()">
                 <fa-icon
@@ -109,32 +109,32 @@
               </a>
             </div>
             <div class="description">{{ model.description | shorten: 130: '...' }}</div>
-            <div class="tags">
-              <div class="tag">
+            <ul class="icon-text inline tags">
+              <li>
                 <fa-icon
                   class="icon"
                   aria-hidden="false"
                   aria-label="Format icon"
                   [icon]="['far', 'file-alt']"
                 ></fa-icon> {{ model.format.name }}
-              </div>
-              <div class="tag">
+              </li>
+              <li>
                 <fa-icon
                   class="icon"
                   aria-hidden="false"
                   aria-label="Model icon"
                   [icon]="['fas', 'dna']"
                 ></fa-icon> {{ model.taxon.getShortName() | shorten: 20: '...' }}
-              </div>
-              <div class="tag">
+              </li>
+              <li>
                 <fa-icon
                   class="icon"
                   aria-hidden="false"
                   aria-label="Tags icon"
                   [icon]="['fas', 'tags']"
                 ></fa-icon> {{ model.tags.join(', ') | shorten: 30: '...' }}
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
         <ng-template #noModels>
@@ -148,7 +148,7 @@
           <a [routerLink]="['simulations']">View all</a>
         </div>
         <div *ngIf="user.simulations && user.simulations.length > 0; else noSimulations" class="resources-grid">
-          <div *ngFor="let sim of user.simulations.slice(0, 10)" class="resource">
+          <div *ngFor="let sim of user.simulations.slice(0, 10)" class="resource hover-light-background">
             <div class="title">
               <a [routerLink]="sim.getRoute()">
                 <mat-icon
@@ -160,24 +160,24 @@
               </a>
             </div>
             <div class="description">{{ sim.description | shorten: 130: '...' }}</div>
-            <div class="tags">
-              <div class="tag">
+            <ul class="icon-text inline tags">
+              <li>
                 <fa-icon
                   class="icon"
                   aria-hidden="false"
                   aria-label="Format icon"
                   [icon]="['far', 'file-alt']"
                 ></fa-icon> {{ sim.format.name }}
-              </div>
-              <div class="tag">
+              </li>
+              <li>
                 <fa-icon
                   class="icon"
                   aria-hidden="false"
                   aria-label="Tags icon"
                   [icon]="['fas', 'tags']"
                 ></fa-icon> {{ sim.tags.join(', ') | shorten: 30: '...' }}
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
         <ng-template #noSimulations>
@@ -192,7 +192,7 @@
         </div>
 
         <div *ngIf="user.visualizations && user.visualizations.length > 0; else noVisualizations" class="resources-grid">
-          <div *ngFor="let viz of user.visualizations.slice(0, 10)" class="resource">
+          <div *ngFor="let viz of user.visualizations.slice(0, 10)" class="resource hover-light-background">
             <div class="title">
               <a [routerLink]="viz.getRoute()">
                 <fa-icon
@@ -205,24 +205,24 @@
               </a>
             </div>
             <div class="description">{{ viz.description | shorten: 130: '...' }}</div>
-            <div class="tags">
-              <div class="tag">
+            <ul class="icon-text inline tags">
+              <li>
                 <fa-icon
                   class="icon"
                   aria-hidden="false"
                   aria-label="Format icon"
                   [icon]="['far', 'file-alt']"
                 ></fa-icon> {{ viz.format.name }}
-              </div>
-              <div class="tag">
+              </li>
+              <li>
                 <fa-icon
                   class="icon"
                   aria-hidden="false"
                   aria-label="Tags icon"
                   [icon]="['fas', 'tags']"
                 ></fa-icon> {{ viz.tags.join(', ') | shorten: 30: '...' }}
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
         <ng-template #noVisualizations>
