@@ -3,6 +3,7 @@ import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
+import { SimulationResultsFormat } from 'src/app/Shared/Enums/simulation-results-format';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
@@ -15,6 +16,7 @@ export class ViewComponent implements OnInit {
   id: string;
   simulation: Simulation;
   simulationHistoryTreeNodes: object[];
+  SimulationResultsFormat = SimulationResultsFormat;
 
   constructor(
     private router: Router,
@@ -72,13 +74,5 @@ export class ViewComponent implements OnInit {
 
   visualize(): void {
     this.router.navigate(['/visualizations', this.id]);
-  }
-
-  download(): void {
-    const url = this.simulation.getDefinitionFileUrl();
-    const link = document.createElement('a');
-    link.download = `simulation-${ this.id }.xml`;
-    link.href = url;
-    link.click();
   }
 }

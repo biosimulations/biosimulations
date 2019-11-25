@@ -305,10 +305,78 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab [disabled]="true">
+  <mat-tab>
     <ng-template mat-tab-label>
-      <div class="tab-button" (click)="download()">
+      <div class="tab-button">
         <fa-icon aria-hidden="true" aria-label="Download icon" [icon]="['fas', 'download']"></fa-icon> Download
+      </div>
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <h1>Description</h1>
+          <ul class="section-content icon-text">
+            <li>
+              <fa-icon
+                aria-hidden="true"
+                aria-label="Download icon"
+                [icon]="['far', 'file-alt']"
+              ></fa-icon>
+              <a [routerLink]="simulation.getDescriptionFileUrl()"
+              >SED-ML ({{ simulation.getDescriptionFileSize() }} Mb)</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h1>Results</h1>
+          <ul class="section-content icon-text">
+            <li>
+              <fa-icon
+                aria-label="Download icon"
+                aria-hidden="true"
+                [icon]="['far', 'file-alt']"
+              ></fa-icon>
+              <a
+                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.csv)"
+                download="simulation-{{ simulation.id }}.csv"
+              >CSV ({{ simulation.getResultsFileSize(SimulationResultsFormat.csv) }} Mb)</a>
+            </li>
+            <li>
+              <fa-icon
+                aria-label="Download icon"
+                aria-hidden="true"
+                [icon]="['far', 'file-alt']"
+              ></fa-icon>
+              <a
+                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.hdf5)"
+                download="simulation-{{ simulation.id }}.hdf5"
+              >HDF5 ({{ simulation.getResultsFileSize(SimulationResultsFormat.hdf5) }} Mb)</a>
+            </li>
+            <li>
+              <fa-icon
+                aria-label="Download icon"
+                aria-hidden="true"
+                [icon]="['far', 'file-alt']"
+              ></fa-icon>
+              <a
+                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.numl)"
+                download="simulation-{{ simulation.id }}.xml"
+              >NuML ({{ simulation.getResultsFileSize(SimulationResultsFormat.numl) }} Mb)</a>
+            </li>
+            <li>
+              <fa-icon
+                aria-label="Download icon"
+                aria-hidden="true"
+                [icon]="['far', 'file-alt']"
+              ></fa-icon>
+              <a
+                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.zarr)"
+                download="simulation-{{ simulation.id }}.zarr"
+              >Zarr ({{ simulation.getResultsFileSize(SimulationResultsFormat.zarr) }} Mb)</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </ng-template>
   </mat-tab>

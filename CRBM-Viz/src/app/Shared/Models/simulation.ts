@@ -1,4 +1,5 @@
 import { AccessLevel } from '../Enums/access-level';
+import { SimulationResultsFormat } from '../Enums/simulation-results-format';
 import { SimulationStatus } from '../Enums/simulation-status';
 import { ModelParameterChange } from './model-parameter-change';
 import { AlgorithmParameter } from './algorithm-parameter';
@@ -107,12 +108,22 @@ export class Simulation {
     return ['/simulations', this.id];
   }
 
-  getDefinitionFileUrl(): string {
+  getDescriptionFileUrl(): string {
     return '/assets/examples/simulation.xml';
   }
 
-  getResultsFileUrl(): string {
+  // Size in Mb
+  getDescriptionFileSize(): number {
+    return 0.1;
+  }
+
+  getResultsFileUrl(format: SimulationResultsFormat): string {
     return '/assets/examples/simulation.ida';
+  }
+
+  // Size in Mb
+  getResultsFileSize(format: SimulationResultsFormat): number {
+    return 10.3;
   }
 
   getAuthors(): (User | Person)[] {
