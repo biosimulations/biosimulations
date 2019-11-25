@@ -41,7 +41,7 @@ export class ProfileEditComponent implements OnInit {
 
   save (): void {
     this.userService.set(this.user);
-    
+
     this.showSavedMessage = true;
     setTimeout(() => {
       this.showSavedMessage = false;

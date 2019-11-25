@@ -22,7 +22,7 @@ export class UserService {
     private injector: Injector
     ) {}
 
-  static _get(username?: string): User {
+  static _get(username?: string, includeRelObj = false): User {
     let user:User;
     switch (username) {
       default:
@@ -125,7 +125,7 @@ export class UserService {
 
   get(username?: string) : User {
     this.getServices();
-    return UserService._get(username);
+    return UserService._get(username, true);
   }
 
   getByAuth0Id(id: string): User {
@@ -153,6 +153,6 @@ export class UserService {
   }
 
   set(user: User): void {
-    
+
   }
 }

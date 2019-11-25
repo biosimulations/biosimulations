@@ -41,7 +41,7 @@ export class SimulationService {
     ) {
   }
 
-  static _get(id: string): Simulation {
+  static _get(id: string, includeRelObj = false): Simulation {
     let simulation: Simulation;
 
     switch (id) {
@@ -240,7 +240,7 @@ export class SimulationService {
 
   get(id: string): Simulation {
     this.getServices();
-    return SimulationService._get(id);
+    return SimulationService._get(id, true);
   }
 
   list(auth?): Simulation[] {

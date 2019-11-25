@@ -452,9 +452,17 @@ ul.icon-text {
     padding: 0;
     list-style-type: none;
 
-    .ng-fa-icon {
+    .mat-icon, .ng-fa-icon {
         width: auto;
         margin-right: 0.25rem;
+    }
+
+    .mat-icon {
+        font-size: 20px;
+        height: auto;
+        line-height: 0;
+        position: relative;
+        top: 5px;
     }
 }
 
@@ -500,4 +508,11 @@ ul.icon-text {
 /* Highlighting */
 .hover-light-background:hover {
     background: #f6f6f6;
+}
+
+/* Clear float */
+.float-container:after {
+    content: " ";
+    display: table;
+    clear: both;
 }

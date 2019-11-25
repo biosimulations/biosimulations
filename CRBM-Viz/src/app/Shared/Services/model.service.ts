@@ -20,7 +20,7 @@ export class ModelService {
 
   constructor(private injector: Injector) {}
 
-  static _get(id: string): Model {
+  static _get(id: string, includeRelatedObjects = false): Model {
     let model: Model;
 
     switch (id) {
@@ -89,6 +89,13 @@ export class ModelService {
     model.authors = [];
     model.access = AccessLevel.public;
     model.license = new License('CC0', 1000049);
+    if (includeRelatedObjects) {
+      model.simulations = [
+        SimulationService._get('001'),
+        SimulationService._get('003'),
+        SimulationService._get('006'),
+      ];
+    }
     return model;
   }
 
@@ -102,7 +109,7 @@ export class ModelService {
 
   get(id: string): Model {
     this.getServices();
-    return ModelService._get(id);
+    return ModelService._get(id, true);
   }
 
   list(auth?): Model[] {

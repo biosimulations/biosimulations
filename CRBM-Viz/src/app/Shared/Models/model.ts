@@ -5,8 +5,10 @@ import { JournalReference } from './journal-reference';
 import { License } from './license';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
+import { Simulation } from './simulation';
 import { Taxon } from './taxon';
 import { User } from './user';
+import { Visualization } from './visualization';
 import { UtilsService } from '../Services/utils.service';
 
 export class Model {
@@ -25,6 +27,8 @@ export class Model {
   accessToken?: string;
   license?: License;
   date?: Date;
+  simulations?: Simulation[] = [];
+  visualizations?: Visualization[] = [];
 
   constructor(
     id?: string,
@@ -61,6 +65,9 @@ export class Model {
     this.accessToken = UtilsService.genAccessToken();
     // this.license = license;
     this.date = date;
+
+    this.simulations = [];
+    this.visualizations = [];
   }
 
   getIcon() {

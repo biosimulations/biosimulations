@@ -59,6 +59,7 @@ import {
   faStar,
   faDownload,
   faCodeBranch,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -98,6 +99,9 @@ import { ModelsGridComponent } from './Components/models-grid/models-grid.compon
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
 import { AuthorsComponent } from './Components/authors/authors.component';
 import { TreeComponent } from './Components/tree/tree.component';
+import { ModelCardsComponent } from './Components/model-cards/model-cards.component';
+import { SimulationCardsComponent } from './Components/simulation-cards/simulation-cards.component';
+import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
 
 @NgModule({
   declarations: [
@@ -126,6 +130,9 @@ import { TreeComponent } from './Components/tree/tree.component';
     SimulationsGridComponent,
     AuthorsComponent,
     TreeComponent,
+    ModelCardsComponent,
+    SimulationCardsComponent,
+    VisualizationCardsComponent,
   ],
   imports: [
     CommonModule,
@@ -164,6 +171,9 @@ import { TreeComponent } from './Components/tree/tree.component';
     SimulationsGridComponent,
     AuthorsComponent,
     TreeComponent,
+    ModelCardsComponent,
+    SimulationCardsComponent,
+    VisualizationCardsComponent,
     NgPipesModule,
   ],
   providers: [
@@ -219,6 +229,7 @@ export class SharedModule {
       faStar,
       faDownload,
       faCodeBranch,
+      faPlus,
       faDocker,
       faGithub,
       faGoogle,
