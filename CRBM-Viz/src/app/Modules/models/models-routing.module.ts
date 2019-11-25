@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
 
 import { BrowseComponent } from './browse/browse.component';
-import { FileTableComponent } from './file-table/file-table.component';
 import { UploadComponent } from './upload/upload.component';
 import { FileEditComponent } from './file-edit/file-edit.component';
 import { ViewComponent } from './view/view.component';
@@ -17,10 +16,6 @@ const routes: Routes = [
    path: 'new',
    component: UploadComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'list',
-    component: FileTableComponent,
   },
   {
     path: 'edit/:modelid',
