@@ -131,6 +131,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#authService">authService</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Private</span>
                                 <a href="#crumbsSubscription">crumbsSubscription</a>
                             </li>
@@ -148,6 +152,10 @@
                             <li>
                                     <span class="modifier">Public</span>
                                 <a href="#moduleCrumbs">moduleCrumbs</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#NavItemDisplayLevel">NavItemDisplayLevel</a>
                             </li>
                         </ul>
                     </td>
@@ -185,12 +193,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(breakpointObserver: BreakpointObserver, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>)</code>
+<code>constructor(breakpointObserver: BreakpointObserver, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>, authService: <a href="../injectables/AuthService.html">AuthService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -224,6 +232,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/BreadCrumbsService.html" target="_self" >BreadCrumbsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -271,8 +291,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:45</a></div>
                 </td>
             </tr>
 
@@ -310,8 +330,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:30</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:35</a></div>
                 </td>
             </tr>
 
@@ -337,6 +357,34 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="authService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            authService</b>
+                            <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="crumbsSubscription"></a>
                         <span class="name">
                             <b>
@@ -354,7 +402,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -391,7 +439,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -411,9 +459,15 @@
                         </span>
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/NavItem.html" target="_self" >NavItem[]</a></code>
+
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -446,7 +500,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -468,7 +522,34 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="NavItemDisplayLevel"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            NavItemDisplayLevel</b>
+                            <a href="#NavItemDisplayLevel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>NavItemDisplayLevel</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -485,7 +566,10 @@
 import { BreakpointObserver, Breakpoints } from &#x27;@angular/cdk/layout&#x27;;
 import { Observable, Subscription } from &#x27;rxjs&#x27;;
 import { map, shareReplay } from &#x27;rxjs/operators&#x27;;
+import { NavItemDisplayLevel } from &#x27;src/app/Shared/Enums/nav-item-display-level&#x27;;
+import { NavItem } from &#x27;src/app/Shared/Models/nav-item&#x27;;
 import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.service&#x27;;
+import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
 
 @Component({
   selector: &#x27;app-navigation&#x27;,
@@ -502,12 +586,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   private crumbsSubscription: Subscription;
   public moduleCrumbs;
-  public moduleButtons;
+  public moduleButtons: NavItem[];
   public moduleClasses: string[] &#x3D; [];
+  public NavItemDisplayLevel &#x3D; NavItemDisplayLevel;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -539,9 +625,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     [opened]&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;
   &gt;
     &lt;mat-toolbar&gt;
-      &lt;button mat-button class&#x3D;&quot;home&quot; [routerLink]&#x3D;&quot;[&#x27;&#x27;]&quot; disableRipple&#x3D;&quot;true&quot;&gt;
+      &lt;a class&#x3D;&quot;home&quot; [routerLink]&#x3D;&quot;[&#x27;&#x27;]&quot; disableRipple&#x3D;&quot;true&quot;&gt;
         &lt;span class&#x3D;&quot;bio&quot;&gt;Bio&lt;/span&gt;&lt;span class&#x3D;&quot;simulations&quot;&gt;Simulations&lt;/span&gt;
-      &lt;/button&gt;
+      &lt;/a&gt;
       &lt;button
         type&#x3D;&quot;button&quot;
         aria-label&#x3D;&quot;Toggle sidenav&quot;
@@ -584,20 +670,25 @@ export class NavigationComponent implements OnInit, OnDestroy {
           &lt;/span&gt;
         &lt;/div&gt;
         &lt;div class&#x3D;&quot;module-routes&quot;&gt;
-          &lt;a *ngFor&#x3D;&quot;let button of moduleButtons&quot; [routerLink]&#x3D;&quot;button.route&quot;&gt;
-            &lt;mat-icon *ngIf&#x3D;&quot;button.iconType &#x3D;&#x3D;&#x3D; &#x27;mat&#x27;; else faIcon&quot;
-              aria-hidden&#x3D;&quot;false&quot;
-              aria-label&#x3D;&quot;Icon&quot;
-            &gt;{{ button.icon }}&lt;/mat-icon&gt;
-            &lt;ng-template #faIcon&gt;
-              &lt;fa-icon
-                [icon]&#x3D;&quot;[button.iconType, button.icon]&quot;
+          &lt;ng-container *ngFor&#x3D;&quot;let button of moduleButtons&quot;&gt;
+            &lt;a
+              *ngIf&#x3D;&quot;button.display &#x3D;&#x3D; NavItemDisplayLevel.always || (button.display &#x3D;&#x3D; NavItemDisplayLevel.loggedIn &amp;&amp; authService &amp;&amp; authService.loggedIn) || (button.display &#x3D;&#x3D; NavItemDisplayLevel.loggedOut &amp;&amp; (!authService || !authService.loggedIn))&quot;
+              [routerLink]&#x3D;&quot;button.route&quot;
+              &gt;
+              &lt;mat-icon *ngIf&#x3D;&quot;button.iconType &#x3D;&#x3D;&#x3D; &#x27;mat&#x27;; else faIcon&quot;
                 aria-hidden&#x3D;&quot;false&quot;
                 aria-label&#x3D;&quot;Icon&quot;
-              &gt;&lt;/fa-icon&gt;
-            &lt;/ng-template&gt;
-            {{ button.label }}
-          &lt;/a&gt;
+              &gt;{{ button.icon }}&lt;/mat-icon&gt;
+              &lt;ng-template #faIcon&gt;
+                &lt;fa-icon
+                  [icon]&#x3D;&quot;[button.iconType, button.icon]&quot;
+                  aria-hidden&#x3D;&quot;false&quot;
+                  aria-label&#x3D;&quot;Icon&quot;
+                &gt;&lt;/fa-icon&gt;
+              &lt;/ng-template&gt;
+              {{ button.label }}
+            &lt;/a&gt;
+          &lt;/ng-container&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -611,13 +702,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 <p class="comment">
                     <code>./navigation.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.scss&#x27;
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/theme.scss&#x27;
 
 .sidenav-container
   height: 100%
 
 .sidenav
-  width: 200px
+  width: 230px
   border-right: 1px solid #999
   background: #ccc
 
@@ -646,6 +737,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   .home
     padding: 0
     font-size: 1.25rem
+    font-weight: 500
 
   .mat-icon-button
     color: #fff
@@ -655,10 +747,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   top: auto
   z-index: auto
 
-:host::ng-deep .mat-button.home:hover
-  .mat-button-focus-overlay
-    opacity: 0
-
 .mat-toolbar.mat-primary
   position: sticky
   top: 0
@@ -667,6 +755,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 .mat-nav-list.mat-list-base
   padding-top: 0px
   margin: 0px
+  height: calc(100% - 64px)
+  overflow: auto
 
 .mat-expansion-panel-content
   .mat-list-base
@@ -686,7 +776,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   padding-right: calc(1rem - 2px)
 
 .logo
-  height: calc(100% - 10px)  
+  height: calc(100% - 10px)
 
 .icons
   margin-left: auto
@@ -697,12 +787,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
     padding-bottom: 0.25rem
     padding-left: 1rem
     padding-right: 1rem
-    background-image: linear-gradient(to bottom, #9bcff9, #c7e4fc)    
+    background: #bcdffb
     color: mat-color($theme-primary)
     font-size: 16px
     line-height: 100%
     font-weight: 500
-    
+
     .module-title
         float: left
         height: 100%
@@ -770,8 +860,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <!-- [ngClass]="{ hidden: (isHandset | async) === false }" -->  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport="false"    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar>      <button mat-button class="home" [routerLink]="[\'\']" disableRipple="true">        <span class="bio">Bio</span><span class="simulations">Simulations</span>      </button>      <button        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>    </mat-toolbar>    <mat-nav-list>      <app-sidebar></app-sidebar>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content class="full-content">    <div [ngClass]="[\'toolbar-container\'].concat(moduleClasses).join(\' \')">      <mat-toolbar class="topbar" color="primary">        <button          class="menubutton"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          (click)="drawer.toggle()"          *ngIf="!drawer.opened"        >          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>        </button>        <div class="logo">          <app-logo></app-logo>        </div>        <div class="icons" *ngIf="(isHandset$ | async) === false">          <app-nav-icons></app-nav-icons>        </div>      </mat-toolbar>      <div class="module-toolbar" *ngIf="moduleCrumbs && moduleButtons && (moduleCrumbs.length > 0 || moduleButtons.length > 0)">        <div class="module-title">          <span *ngFor="let crumb of moduleCrumbs">            <a *ngIf="crumb.route; else plainCrumb" [routerLink]="crumb.route">{{ crumb.label }}</a>            <ng-template #plainCrumb>{{ crumb.label }}</ng-template>          </span>        </div>        <div class="module-routes">          <a *ngFor="let button of moduleButtons" [routerLink]="button.route">            <mat-icon *ngIf="button.iconType === \'mat\'; else faIcon"              aria-hidden="false"              aria-label="Icon"            >{{ button.icon }}</mat-icon>            <ng-template #faIcon>              <fa-icon                [icon]="[button.iconType, button.icon]"                aria-hidden="false"                aria-label="Icon"              ></fa-icon>            </ng-template>            {{ button.label }}          </a>        </div>      </div>    </div>    <div class="content"><ng-content></ng-content></div>  </mat-sidenav-content></mat-sidenav-container></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IdRendererGridComponent', 'selector': 'app-id-renderer-grid'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'StatusComponent', 'selector': ''},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <!-- [ngClass]="{ hidden: (isHandset | async) === false }" -->  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport="false"    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar>      <a class="home" [routerLink]="[\'\']" disableRipple="true">        <span class="bio">Bio</span><span class="simulations">Simulations</span>      </a>      <button        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>    </mat-toolbar>    <mat-nav-list>      <app-sidebar></app-sidebar>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content class="full-content">    <div [ngClass]="[\'toolbar-container\'].concat(moduleClasses).join(\' \')">      <mat-toolbar class="topbar" color="primary">        <button          class="menubutton"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          (click)="drawer.toggle()"          *ngIf="!drawer.opened"        >          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>        </button>        <div class="logo">          <app-logo></app-logo>        </div>        <div class="icons" *ngIf="(isHandset$ | async) === false">          <app-nav-icons></app-nav-icons>        </div>      </mat-toolbar>      <div class="module-toolbar" *ngIf="moduleCrumbs && moduleButtons && (moduleCrumbs.length > 0 || moduleButtons.length > 0)">        <div class="module-title">          <span *ngFor="let crumb of moduleCrumbs">            <a *ngIf="crumb.route; else plainCrumb" [routerLink]="crumb.route">{{ crumb.label }}</a>            <ng-template #plainCrumb>{{ crumb.label }}</ng-template>          </span>        </div>        <div class="module-routes">          <ng-container *ngFor="let button of moduleButtons">            <a              *ngIf="button.display == NavItemDisplayLevel.always || (button.display == NavItemDisplayLevel.loggedIn && authService && authService.loggedIn) || (button.display == NavItemDisplayLevel.loggedOut && (!authService || !authService.loggedIn))"              [routerLink]="button.route"              >              <mat-icon *ngIf="button.iconType === \'mat\'; else faIcon"                aria-hidden="false"                aria-label="Icon"              >{{ button.icon }}</mat-icon>              <ng-template #faIcon>                <fa-icon                  [icon]="[button.iconType, button.icon]"                  aria-hidden="false"                  aria-label="Icon"                ></fa-icon>              </ng-template>              {{ button.label }}            </a>          </ng-container>        </div>      </div>    </div>    <div class="content"><ng-content></ng-content></div>  </mat-sidenav-content></mat-sidenav-container></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'NavigationComponent'};
 </script>

@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Modules/visualize/visualize/visualize.component.ts</code>
+    <code>CRBM-Viz/src/app/Modules/visualizations/visualize/visualize.component.ts</code>
 </p>
 
 
@@ -174,12 +174,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(visService: <a href="../injectables/VisualizationsService.html">VisualizationsService</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>)</code>
+<code>constructor(visService: <a href="../injectables/VisualizationService.html">VisualizationService</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Modules/visualize/visualize/visualize.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/visualize/visualize.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -200,7 +200,7 @@
                                                         <td>visService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/VisualizationsService.html" target="_self" >VisualizationsService</a></code>
+                                                                        <code><a href="../injectables/VisualizationService.html" target="_self" >VisualizationService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -272,8 +272,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualize/visualize/visualize.component.ts:49</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/visualize/visualize.component.ts:57</a></div>
                 </td>
             </tr>
 
@@ -311,8 +311,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualize/visualize/visualize.component.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/visualize/visualize.component.ts:50</a></div>
                 </td>
             </tr>
 
@@ -350,8 +350,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualize/visualize/visualize.component.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/visualize/visualize.component.ts:25</a></div>
                 </td>
             </tr>
 
@@ -393,7 +393,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Modules/visualize/visualize/visualize.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/visualize/visualize.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -425,7 +425,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Modules/visualize/visualize/visualize.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/visualize/visualize.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -440,9 +440,11 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Inject } from &#x27;@angular/core&#x27;;
 import { Visualization } from &#x27;src/app/Shared/Models/visualization&#x27;;
-import { VisualizationsService } from &#x27;src/app/Shared/Services/visualizations.service&#x27;;
+import { VisualizationService } from &#x27;src/app/Shared/Services/visualization.service&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { NavItemDisplayLevel } from &#x27;src/app/Shared/Enums/nav-item-display-level&#x27;;
+import { NavItem } from &#x27;src/app/Shared/Models/nav-item&#x27;;
 import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.service&#x27;;
 
 @Component({
@@ -455,7 +457,7 @@ export class VisualizeComponent implements OnInit {
   id: string;
 
   constructor(
-    private visService: VisualizationsService,
+    private visService: VisualizationService,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService
   ) {}
@@ -464,15 +466,21 @@ export class VisualizeComponent implements OnInit {
     this.route.params.subscribe(routeParams &#x3D;&gt; {
       this.id &#x3D; routeParams.id;
 
-      const crumbs: object[] &#x3D; [{label: &#x27;Visualize&#x27;}];
-      const buttons: object[] &#x3D; [];
+      const crumbs: object[] &#x3D; [{label: &#x27;Visualizations&#x27;}];
+      const buttons: NavItem[] &#x3D; [];
 
       if (this.id) {
         this.getVis();
 
-        crumbs[0][&#x27;route&#x27;] &#x3D; &#x27;/visualize&#x27;;
+        crumbs[0][&#x27;route&#x27;] &#x3D; &#x27;/visualizations&#x27;;
         crumbs.push({label: &#x27;Visualization &#x27; + this.id});
-        buttons.push({iconType: &#x27;mat&#x27;, icon: &#x27;view_list&#x27;, label: &#x27;Browse&#x27;, route: [&#x27;/visualize&#x27;]});
+        buttons.push({
+          iconType: &#x27;mat&#x27;,
+          icon: &#x27;view_list&#x27;,
+          label: &#x27;Browse&#x27;,
+          route: [&#x27;/visualizations&#x27;],
+          display: NavItemDisplayLevel.always,
+        });
       }
 
       this.breadCrumbsService.set(crumbs, buttons);
@@ -497,7 +505,7 @@ export class VisualizeComponent implements OnInit {
     &lt;app-search-bar
       placeholder&#x3D;&quot;Visualization ID...&quot;
       buttonTerm&#x3D;&quot;Visualize&quot;
-      baseURL&#x3D;&quot;/visualize/&quot;
+      baseURL&#x3D;&quot;/visualizations/&quot;
     &gt;&lt;/app-search-bar&gt;
   &lt;/div&gt;
   &lt;div class&#x3D;&quot;landing&quot; *ngIf&#x3D;&quot;!id&quot;&gt;
@@ -568,8 +576,8 @@ button
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="page-content partial-width">  <div class="select">    <app-search-bar      placeholder="Visualization ID..."      buttonTerm="Visualize"      baseURL="/visualize/"    ></app-search-bar>  </div>  <div class="landing" *ngIf="!id">    <p>Please enter the id of a simulation run to view its visualizations</p>  </div>  <div class="figures" *ngIf="id">    <div class="figure" *ngFor="let viz of visualizations; index as i">      <app-vega-viewer [viz]="viz"> </app-vega-viewer>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IdRendererGridComponent', 'selector': 'app-id-renderer-grid'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'StatusComponent', 'selector': ''},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div class="page-content partial-width">  <div class="select">    <app-search-bar      placeholder="Visualization ID..."      buttonTerm="Visualize"      baseURL="/visualizations/"    ></app-search-bar>  </div>  <div class="landing" *ngIf="!id">    <p>Please enter the id of a simulation run to view its visualizations</p>  </div>  <div class="figures" *ngIf="id">    <div class="figure" *ngFor="let viz of visualizations; index as i">      <app-vega-viewer [viz]="viz"> </app-vega-viewer>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'VisualizeComponent'};
 </script>

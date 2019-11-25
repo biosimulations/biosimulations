@@ -81,7 +81,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getImageUrl">getImageUrl</a>
+                                <a href="#getImageSvgVersion">getImageSvgVersion</a>
                             </li>
                             <li>
                                 <a href="#navigateTo">navigateTo</a>
@@ -109,18 +109,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getImageUrl"></a>
+                    <a name="getImageSvgVersion"></a>
                     <span class="name">
                         <b>
-                            getImageUrl
+                            getImageSvgVersion
                         </b>
-                        <a href="#getImageUrl"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getImageSvgVersion"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getImageUrl()</code>
+<code>getImageSvgVersion()</code>
                 </td>
             </tr>
 
@@ -200,8 +200,8 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise&lt;any&gt;;
   }
 
-  getImageUrl() {
-    return element(by.css(&#x27;app-root .content .container object&#x27;)).getAttribute(&#x27;data&#x27;) as Promise&lt;string&gt;;
+  getImageSvgVersion() {
+    return element(by.css(&#x27;app-root .content .container app-home-image svg&#x27;)).getAttribute(&#x27;version&#x27;) as Promise&lt;string&gt;;
   }
 }
 </code></pre>

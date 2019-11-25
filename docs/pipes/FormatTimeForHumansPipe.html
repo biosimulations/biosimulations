@@ -164,9 +164,9 @@ import { UtilsService } from &#x27;src/app/Shared/Services/utils.service&#x27;;
 @Pipe({name: &#x27;formatTimeForHumans&#x27;})
 export class FormatTimeForHumansPipe implements PipeTransform {
   constructor() { }
-  
+
   transform(value: number): string {
-    return new UtilsService().formatTimeForHumans(value);
+    return UtilsService.formatTimeForHumans(value);
   }
 }
 </code></pre>

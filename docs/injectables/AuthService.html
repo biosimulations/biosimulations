@@ -840,7 +840,7 @@ export class AuthService {
   // Create subject and public observable of user profile data
   private userProfileSubject$ &#x3D; new BehaviorSubject&lt;any&gt;(null);
   userProfile$ &#x3D; this.userProfileSubject$.asObservable();
-  
+
   // Create local property to store token
   token: string &#x3D; null;
   // Create a local property for login status
