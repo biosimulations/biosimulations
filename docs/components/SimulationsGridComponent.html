@@ -148,10 +148,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#lengthFormatter">lengthFormatter</a>
+                                <a href="#ngOnInit">ngOnInit</a>
                             </li>
                             <li>
-                                <a href="#ngOnInit">ngOnInit</a>
+                                <a href="#timeFormatter">timeFormatter</a>
                             </li>
                         </ul>
                     </td>
@@ -191,7 +191,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(utilsService: <a href="../injectables/UtilsService.html">UtilsService</a>, simulationService: <a href="../injectables/SimulationService.html">SimulationService</a>)</code>
+<code>constructor(simulationService: <a href="../injectables/SimulationService.html">SimulationService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -213,18 +213,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <tr>
-                                                        <td>utilsService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/UtilsService.html" target="_self" >UtilsService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
                                                 <tr>
                                                         <td>simulationService</td>
                                                   
@@ -316,26 +304,65 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="lengthFormatter"></a>
+                    <a name="ngOnInit"></a>
                     <span class="name">
                         <b>
-                            lengthFormatter
+                            ngOnInit
                         </b>
-                        <a href="#lengthFormatter"><span class="icon ion-ios-link"></span></a>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>lengthFormatter(params)</code>
+<code>ngOnInit()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="233"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/simulations-grid/simulations-grid.component.ts:233</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/simulations-grid/simulations-grid.component.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeFormatter"></a>
+                    <span class="name">
+                        <b>
+                            timeFormatter
+                        </b>
+                        <a href="#timeFormatter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>timeFormatter(params)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="285"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/simulations-grid/simulations-grid.component.ts:285</a></div>
                 </td>
             </tr>
 
@@ -373,45 +400,6 @@
                     </div>
                     <div class="io-description">
                         
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/simulations-grid/simulations-grid.component.ts:29</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
                     </div>
                 </td>
             </tr>
@@ -494,9 +482,8 @@ export class SimulationsGridComponent implements OnInit {
   rowData;
 
   constructor(
-    private utilsService: UtilsService,
     private simulationService: SimulationService
-    ) {    
+    ) {
   }
 
   ngOnInit() {
@@ -544,22 +531,47 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: &#x27;Taxon&#x27;,
         field: &#x27;model.taxon.name&#x27;,
+        valueGetter: taxonGetter,
+        filterValueGetter: taxonGetter,
         filter: &#x27;agSetColumnFilter&#x27;,
         minWidth: 150,
         hide: true,
       },
       {
-        headerName: &#x27;Changed parameters&#x27;,
-        field: &#x27;changedParameters&#x27;,
-        valueGetter: numChangedParametersGetter,
+        headerName: &#x27;Model changes&#x27;,
+        field: &#x27;modelParameterChanges&#x27;,
+        valueGetter: numModelParameterChangesGetter,
         filter: &#x27;agNumberColumnFilter&#x27;,
         minWidth: 150,
         hide: true,
       },
       {
+        headerName: &#x27;Start time&#x27;,
+        field: &#x27;startTime&#x27;,
+        valueFormatter: this.timeFormatter,
+        filter: &#x27;agNumberColumnFilter&#x27;,
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: &#x27;End time&#x27;,
+        field: &#x27;endTime&#x27;,
+        valueFormatter: this.timeFormatter,
+        filter: &#x27;agNumberColumnFilter&#x27;,
+        minWidth: 75,
+        hide: true,
+      },
+      {
         headerName: &#x27;Length&#x27;,
         field: &#x27;length&#x27;,
-        valueFormatter: this.lengthFormatter,
+        valueFormatter: this.timeFormatter,
+        filter: &#x27;agNumberColumnFilter&#x27;,
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: &#x27;Timepoints&#x27;,
+        field: &#x27;numTimePoints&#x27;,
         filter: &#x27;agNumberColumnFilter&#x27;,
         minWidth: 75,
         hide: true,
@@ -567,11 +579,24 @@ export class SimulationsGridComponent implements OnInit {
 
       {
         headerName: &#x27;Framework&#x27;,
-        field: &#x27;framework&#x27;,
+        field: &#x27;model.framework.name&#x27;,
         filter: &#x27;agSetColumnFilter&#x27;,
         minWidth: 125,
         hide: true,
       },
+      {
+        headerName: &#x27;Algorithm&#x27;,
+        field: &#x27;algorithm.name&#x27;,
+        filter: &#x27;agSetColumnFilter&#x27;,
+        minWidth: 125,
+        hide: true,
+      },
+      // {
+      //   headerName: &#x27;Algorithm parameters&#x27;,
+      //   field: &#x27;algorithmParameters&#x27;,
+      //   minWidth: 125,
+      //   hide: true,
+      // },
       {
         headerName: &#x27;Format&#x27;,
         field: &#x27;format&#x27;,
@@ -604,7 +629,7 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       {
-        headerName: &#x27;Author&#x27;,
+        headerName: &#x27;Authors&#x27;,
         field: &#x27;refs&#x27;,
         valueGetter: authorGetter,
         filterValueGetter: authorGetter,
@@ -620,7 +645,7 @@ export class SimulationsGridComponent implements OnInit {
         hide: !this.showOwner,
       },
       {
-        headerName: &#x27;Model author&#x27;,
+        headerName: &#x27;Model authors&#x27;,
         field: &#x27;model.refs&#x27;,
         valueGetter: modelAuthorGetter,
         filterValueGetter: modelAuthorGetter,
@@ -644,6 +669,21 @@ export class SimulationsGridComponent implements OnInit {
         minWidth: 75,
         hide: true,
       },
+      {
+        headerName: &#x27;License&#x27;,
+        field: &#x27;license.name&#x27;,
+        filter: &#x27;agSetColumnFilter&#x27;,
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: &#x27;Model license&#x27;,
+        field: &#x27;model.license.name&#x27;,
+        filter: &#x27;agSetColumnFilter&#x27;,
+        minWidth: 75,
+        hide: true,
+      },
+
       {
         headerName: &#x27;Status&#x27;,
         field: &#x27;status&#x27;,
@@ -681,7 +721,7 @@ export class SimulationsGridComponent implements OnInit {
       {
         headerName: &#x27;Wall time&#x27;,
         field: &#x27;wallTime&#x27;,
-        valueFormatter: this.lengthFormatter,
+        valueFormatter: this.timeFormatter,
         filter: &#x27;agNumberColumnFilter&#x27;,
         minWidth: 100,
         hide: true,
@@ -703,9 +743,9 @@ export class SimulationsGridComponent implements OnInit {
     this.rowData &#x3D; this.simulationService.list(this.auth);
   }
 
-  lengthFormatter(params): string {
+  timeFormatter(params): string {
     const secs:number &#x3D; params.value;
-    return this.utilsService.formatTimeForHumans(secs);
+    return UtilsService.formatTimeForHumans(secs);
   }
 }
 
@@ -717,17 +757,17 @@ function modelTagsGetter(params): string[] {
   return params.data.model.tags;
 }
 
-function setFormatter(params) {
-  const value &#x3D; params.value;
-  if (value instanceof Array) {
-    return value.join(&#x27;, &#x27;);
-  } else {
-    return value;
-  }
+function taxonGetter(params): string {
+  return params.data.model.taxon.getShortName();
 }
 
-function numChangedParametersGetter(params): number {
-  return params.data.changedParameters.length;
+function setFormatter(params) {
+  const value &#x3D; params.value;
+  return value.join(&#x27;, &#x27;);
+}
+
+function numModelParameterChangesGetter(params): number {
+  return params.data.modelParameterChanges.length;
 }
 
 function ownerGetter(params): string {
@@ -761,20 +801,16 @@ function capitalizeFormatter(params): string {
 }
 
 function authorGetter(params): string[] {
-  return params.data.getAuthors();  
+  return params.data.getAuthors().map(author &#x3D;&gt; author.getFullName());
 }
 
 function modelAuthorGetter(params): string[] {
-  return params.data.model.getAuthors();  
+  return params.data.model.getAuthors().map(author &#x3D;&gt; author.getFullName());
 }
 
 function authorFormatter(params) {
   const value &#x3D; params.value;
-  if (value instanceof Array) {
-    return value.join(&#x27;; &#x27;);
-  } else {
-    return value;
-  }
+  return UtilsService.joinAuthorNames(value);
 }
 
 function dateFormatter(params): string {
@@ -827,7 +863,7 @@ function dateFormatter(params): string {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><app-grid  [rowTypePlural]="\'Simulations\'"  [columnDefs]="columnDefs"  [rowData]="rowData"  ></app-grid></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IdRendererGridComponent', 'selector': 'app-id-renderer-grid'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'StatusComponent', 'selector': ''},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SimulationsGridComponent'};
 </script>

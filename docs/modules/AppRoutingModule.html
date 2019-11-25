@@ -72,46 +72,40 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
+// import { AuthGuard } from &#x27;./Shared/Gaurds/auth.guard&#x27;;
 
 import { HomeComponent } from &#x27;./Shared/Components/home/home.component&#x27;;
 
 import { FourComponent } from &#x27;./Shared/Components/four/four.component&#x27;;
-
-import { AuthGuard } from &#x27;./Shared/Gaurds/auth.guard&#x27;;
 
 import { CallbackComponent } from &#x27;./Shared/Components/callback/callback.component&#x27;;
 
 const routes: Routes &#x3D; [
   { path: &#x27;&#x27;, component: HomeComponent },
   {
-    path: &#x27;visualize&#x27;,
+    path: &#x27;models&#x27;,
     loadChildren: () &#x3D;&gt;
-      &quot;import(&#x27;./Modules/visualize/visualize.module&#x27;).then(\
-        m &#x3D;&gt; m.VisualizeModule\
-      )&quot;,
+      &quot;import(&#x27;./Modules/models/models.module&#x27;).then(m &#x3D;&gt; m.ModelsModule)&quot;,
+  },
+  {
+    path: &#x27;simulations&#x27;,
+    loadChildren: () &#x3D;&gt;
+      &quot;import(&#x27;./Modules/simulations/simulations.module&#x27;).then(m &#x3D;&gt; m.SimulationsModule)&quot;,
+  },
+  {
+    path: &#x27;visualizations&#x27;,
+    loadChildren: () &#x3D;&gt;
+      &quot;import(&#x27;./Modules/visualizations/visualizations.module&#x27;).then(m &#x3D;&gt; m.VisualizationsModule)&quot;,
+  },
+  {
+    path: &#x27;user&#x27;,
+    loadChildren: () &#x3D;&gt;
+      &quot;import(&#x27;./Modules/user/user.module&#x27;).then(m &#x3D;&gt; m.UserModule)&quot;,
   },
   {
     path: &#x27;about&#x27;,
     loadChildren: () &#x3D;&gt;
       &quot;import(&#x27;./Modules/about/about.module&#x27;).then(m &#x3D;&gt; m.AboutModule)&quot;,
-  },
-  {
-    path: &#x27;profile&#x27;,
-    loadChildren: () &#x3D;&gt;
-      &quot;import(&#x27;./Modules/account/account.module&#x27;).then(m &#x3D;&gt; m.AccountModule)&quot;,
-    canActivate: [AuthGuard],
-  },
-
-  {
-    path: &#x27;simulate&#x27;,
-    loadChildren: () &#x3D;&gt;
-      &quot;import(&#x27;./Modules/simulate/simulate.module&#x27;).then(m &#x3D;&gt; m.SimulateModule)&quot;,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: &#x27;models&#x27;,
-    loadChildren: () &#x3D;&gt;
-      &quot;import(&#x27;./Modules/models/models.module&#x27;).then(m &#x3D;&gt; m.ModelsModule)&quot;,
   },
 
   { path: &#x27;callback&#x27;, component: CallbackComponent },

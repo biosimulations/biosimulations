@@ -73,7 +73,7 @@
                             <a href="#MaterialComponents" title="CRBM-Viz/src/app/Modules/app-material.module.ts"><b>MaterialComponents</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../app-material.module.ts)</a>
                         </li>
                         <li>
-                            <a href="#NavItems" title="CRBM-Viz/src/app/Shared/Models/nav-item.ts"><b>NavItems</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../nav-item.ts)</a>
+                            <a href="#navItems" title="CRBM-Viz/src/app/Shared/Models/nav-item.ts"><b>navItems</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../nav-item.ts)</a>
                         </li>
                         <li>
                             <a href="#require" title="CRBM-Viz/src/test.ts"><b>require</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../test.ts)</a>
@@ -333,6 +333,7 @@
   MatDialogModule,
   MatTooltipModule,
   MatExpansionModule,
+  MatTreeModule,
 ]</code>
                         </td>
                     </tr>
@@ -347,11 +348,11 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="NavItems"></a>
+                        <a name="navItems"></a>
                         <span class="name">
                             <b>
-                            NavItems</b>
-                            <a href="#NavItems"><span class="icon ion-ios-link"></span></a>
+                            navItems</b>
+                            <a href="#navItems"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -369,53 +370,58 @@
     id: &#x27;Models&#x27;,
     label: &#x27;Models&#x27;,
     icon: &#x27;project-diagram&#x27;,
-    icon_type: &#x27;fas&#x27;,
-    children: [&#x27;Models-Browse&#x27;, &#x27;Models-Submit&#x27;],
-    display: &#x27;always&#x27;,
-  },
-  {
-    id: &#x27;Simulate&#x27;,
-    label: &#x27;Simulate&#x27;,
-    icon: &#x27;timeline&#x27;,
-    icon_type: &#x27;mat&#x27;,
+    iconType: &#x27;fas&#x27;,
     children: [
-      &#x27;Simulate-Browse&#x27;,
-      &#x27;Simulate-Submit&#x27;,
-      &#x27;Simulate-Status&#x27;,
-      &#x27;Simulate-Data&#x27;,
+      &#x27;Models-Browse&#x27;,
+      &#x27;Models-New&#x27;,
+      &#x27;Models-Yours&#x27;,
     ],
-    display: &#x27;always&#x27;,
+    display: NavItemDisplayLevel.always,
   },
   {
-    id: &#x27;Visualize&#x27;,
-    label: &#x27;Visualize&#x27;,
+    id: &#x27;Simulations&#x27;,
+    label: &#x27;Simulations&#x27;,
+    icon: &#x27;timeline&#x27;,
+    iconType: &#x27;mat&#x27;,
+    children: [
+      &#x27;Simulations-Browse&#x27;,
+      &#x27;Simulations-New&#x27;,
+      &#x27;Simulations-Yours&#x27;,
+    ],
+    display: NavItemDisplayLevel.always,
+  },
+  {
+    id: &#x27;Visualizations&#x27;,
+    label: &#x27;Visualizations&#x27;,
     icon: &#x27;chart-area&#x27;,
-    icon_type: &#x27;fas&#x27;,
-    children: [&#x27;Visualize-Browse&#x27;],
-    display: &#x27;always&#x27;,
+    iconType: &#x27;fas&#x27;,
+    children: [
+      &#x27;Visualizations-Browse&#x27;,
+      &#x27;Visualizations-New&#x27;,
+      &#x27;Visualizations-Yours&#x27;,
+      ],
+    display: NavItemDisplayLevel.always,
   },
   {
     id: &#x27;Help&#x27;,
     label: &#x27;Help&#x27;,
     icon: &#x27;help&#x27;,
-    icon_type: &#x27;mat&#x27;,
+    iconType: &#x27;mat&#x27;,
     children: [&#x27;Help-Help&#x27;, &#x27;Help-About&#x27;],
-    display: &#x27;always&#x27;,
+    display: NavItemDisplayLevel.always,
   },
   {
     id: &#x27;User&#x27;,
     label: &#x27;Account&#x27;,
     icon: &#x27;account_circle&#x27;,
-    icon_type: &#x27;mat&#x27;,
+    iconType: &#x27;mat&#x27;,
     children: [
       &#x27;User-Profile&#x27;,
-      // &#x27;User-Notifications&#x27;,
-      // &#x27;User-Settings&#x27;,
       &#x27;User-Sign-In&#x27;,
       &#x27;User-Sign-Up&#x27;,
       &#x27;User-Sign-Out&#x27;,
     ],
-    display: &#x27;always&#x27;,
+    display: NavItemDisplayLevel.always,
   },
 
   // Models sub-menu
@@ -423,53 +429,82 @@
     id: &#x27;Models-Browse&#x27;,
     label: &#x27;Browse&#x27;,
     icon: &#x27;view_list&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/models&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/models&#x27;],
   },
   {
-    id: &#x27;Models-Submit&#x27;,
-    label: &#x27;Submit&#x27;,
+    id: &#x27;Models-New&#x27;,
+    label: &#x27;New&#x27;,
     icon: &#x27;add_circle&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/models/new&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/models/new&#x27;],
+    disabled: true,
+  },
+  {
+    id: &#x27;Models-Yours&#x27;,
+    label: &#x27;Your models&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user/models&#x27;],
+    disabled: true,
   },
 
-  // Simulate sub-menu
+  // Simulations sub-menu
   {
-    id: &#x27;Simulate-Browse&#x27;,
+    id: &#x27;Simulations-Browse&#x27;,
     label: &#x27;Browse&#x27;,
     icon: &#x27;view_list&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/simulate/&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/simulations/&#x27;],
   },
   {
-    id: &#x27;Simulate-Submit&#x27;,
-    label: &#x27;Submit&#x27;,
+    id: &#x27;Simulations-New&#x27;,
+    label: &#x27;New&#x27;,
     icon: &#x27;add_circle&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/simulate/new&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/simulations/new&#x27;],
+    disabled: true,
   },
   {
-    id: &#x27;Simulate-Status&#x27;,
-    label: &#x27;Status&#x27;,
-    icon: &#x27;hourglass-half&#x27;,
-    icon_type: &#x27;fas&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/simulate/status&#x27;,
+    id: &#x27;Simulations-Yours&#x27;,
+    label: &#x27;Your simulations&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user/simulations&#x27;],
   },
 
-  // Visualize sub-menu
+  // Visualizations sub-menu
   {
-    id: &#x27;Visualize-Browse&#x27;,
+    id: &#x27;Visualizations-Browse&#x27;,
     label: &#x27;Browse&#x27;,
     icon: &#x27;view_list&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/visualize&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/visualizations&#x27;],
+  },
+  {
+    id: &#x27;Visualizations-New&#x27;,
+    label: &#x27;New&#x27;,
+    icon: &#x27;add_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/visualizations/new&#x27;],
+    disabled: true,
+  },
+  {
+    id: &#x27;Visualizations-Yours&#x27;,
+    label: &#x27;Your visualizations&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user/visualizations&#x27;],
+    disabled: true,
   },
 
   // About sub-menu
@@ -477,17 +512,17 @@
     id: &#x27;Help-Help&#x27;,
     label: &#x27;Help&#x27;,
     icon: &#x27;help&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/about/help&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/about/help&#x27;],
   },
   {
     id: &#x27;Help-About&#x27;,
     label: &#x27;About&#x27;,
     icon: &#x27;info&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;always&#x27;,
-    link: &#x27;/about&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/about&#x27;],
   },
 
   // User account sub-menu
@@ -495,53 +530,35 @@
     id: &#x27;User-Profile&#x27;,
     label: &#x27;Profile&#x27;,
     icon: &#x27;account_circle&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;loggedIn&#x27;,
-    link: &#x27;/profile&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user&#x27;],
   },
-  /*
-  {
-    id: &#x27;User-Notifications&#x27;,
-    label: &#x27;Notifications&#x27;,
-    icon: &#x27;notifications&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;loggedIn&#x27;,
-    link: &#x27;/notifications&#x27;,
-  },
-  {
-    id: &#x27;User-Settings&#x27;,
-    label: &#x27;Settings&#x27;,
-    icon: &#x27;settings&#x27;,
-    icon_type: &#x27;mat&#x27;,
-    display: &#x27;loggedIn&#x27;,
-    link: &#x27;/settings&#x27;,
-  },
-  */
   {
     id: &#x27;User-Sign-In&#x27;,
     label: &#x27;Sign in&#x27;,
     icon: &#x27;sign-in-alt&#x27;,
-    icon_type: &#x27;fas&#x27;,
-    display: &#x27;!loggedIn&#x27;,
-    link: null,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.loggedOut,
+    route: null,
     click: &#x27;toggleLogin&#x27;,
   },
   {
     id: &#x27;User-Sign-Up&#x27;,
     label: &#x27;Sign up&#x27;,
     icon: &#x27;user-plus&#x27;,
-    icon_type: &#x27;fas&#x27;,
-    display: &#x27;!loggedIn&#x27;,
-    link: null,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.loggedOut,
+    route: null,
     click: &#x27;toggleLogin&#x27;,
   },
   {
     id: &#x27;User-Sign-Out&#x27;,
     label: &#x27;Sign out&#x27;,
     icon: &#x27;sign-out-alt&#x27;,
-    icon_type: &#x27;fas&#x27;,
-    display: &#x27;loggedIn&#x27;,
-    link: null,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: null,
     click: &#x27;toggleLogin&#x27;,
   },
 ]</code>
