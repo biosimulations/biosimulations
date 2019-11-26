@@ -21,18 +21,21 @@
   </mat-form-field>
 
   <mat-form-field appearance="legacy" floatLabel="always"
-    formGroupName="taxon">
+    formGroupName="taxon"
+    class="taxon">
     <mat-label>Taxon</mat-label>
-    <input matInput
-      formControlName="id"
-      type="number"
-      placeholder="NCBI Taxonomy id (e.g., 9606)"
-      />
-    <input matInput
-      formControlName="name"
-      type="text"
-      placeholder="Taxon name (e.g., Homo sapiens)"
-      />
+    <div class="input-container">
+      <input matInput
+        formControlName="id"
+        type="text"
+        placeholder="NCBI Taxonomy id (e.g., 9606)"
+        />
+      <input matInput
+        formControlName="name"
+        type="text"
+        placeholder="Taxon name (e.g., Homo sapiens)"
+        />
+      </div>
   </mat-form-field>
 
   <mat-form-field appearance="legacy" floatLabel="always"
@@ -41,10 +44,10 @@
     <mat-label>Tags</mat-label>
 
     <mat-chip-list #tagChipList aria-label="Tag list">
-      <mat-chip *ngFor="let tag of formGroup.controls.tags.controls; let iTag=index"
+      <mat-chip *ngFor="let tag of formGroup.controls.tags.controls; let iFormArrayEl=index"
         [selectable]="false"
         [removable]="true"
-        (removed)="removeTag(iTag)">
+        (removed)="removeFormArrayElement('tag', iFormArrayEl)">
         {{ tag.value }}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
@@ -60,89 +63,137 @@
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="authors"
     *ngIf="formGroup.controls.authors.controls.length > 0"
+    class="authors"
     >
-    <mat-label>Authors</mat-label>
-    <div *ngFor="let author of formGroup.controls.authors.controls; let iAuthor=index"
+    <mat-label>
+      Authors
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Add icon"
+        [icon]="['fas', 'plus']"
+        (click)="addAuthorFormElement()"
+      ></fa-icon>
+    </mat-label>
+    <div
+      *ngFor="let author of formGroup.controls.authors.controls; let iFormArrayEl=index"
+      [formGroupName]="iFormArrayEl"
+      class="input-container"
     >
-      <div [formGroupName]="iAuthor">
-        <input matInput
-          formControlName="firstName"
-          placeholder="John"
-          required
-          />
-        <input matInput
-          formControlName="middleName"
-          placeholder="C"
-          />
-        <input matInput
-          formControlName="lastName"
-          placeholder="Doe"
-          required
-          />
-      </div>
+      <input matInput
+        formControlName="firstName"
+        placeholder="John"
+        required
+        />
+      <input matInput
+        formControlName="middleName"
+        placeholder="C"
+        />
+      <input matInput
+        formControlName="lastName"
+        placeholder="Doe"
+        required
+        />
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Delete icon"
+        [icon]="['fas', 'trash-alt']"
+        (click)="removeFormArrayElement('authors', iFormArrayEl)"
+      ></fa-icon>
     </div>
   </mat-form-field>
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="identifiers"
     *ngIf="formGroup.controls.identifiers.controls.length > 0"
+    class="identifiers"
     >
-    <mat-label>Identifiers</mat-label>
-    <div *ngFor="let identifier of formGroup.controls.identifiers.controls; let iIdentifier=index"
+    <div>
+      <mat-label>Identifiers</mat-label>
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Add icon"
+        [icon]="['fas', 'plus']"
+        (click)="addIdentifierFormElement()"
+      ></fa-icon>
+    </div>
+    <div
+      *ngFor="let identifier of formGroup.controls.identifiers.controls; let iFormArrayEl=index"
+      [formGroupName]="iFormArrayEl"
+      class="input-container"
     >
-      <div [formGroupName]="iIdentifier">
-        <input matInput
-          formControlName="namespace"
-          placeholder="biomodels.db"
-          required
-          />
-        <input matInput
-          formControlName="id"
-          placeholder="BIOMD0000000001"
-          required
-          />
-      </div>
+      <input matInput
+        formControlName="namespace"
+        placeholder="biomodels.db"
+        required
+        />
+      <input matInput
+        formControlName="id"
+        placeholder="BIOMD0000000001"
+        required
+        />
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Delete icon"
+        [icon]="['fas', 'trash-alt']"
+        (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
+      ></fa-icon>
     </div>
   </mat-form-field>
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="refs"
     *ngIf="formGroup.controls.refs.controls.length > 0"
+    class="refs"
     >
-    <mat-label>References</mat-label>
-    <div *ngFor="let identifier of formGroup.controls.refs.controls; let iRef=index"
+    <div>
+      <mat-label>References</mat-label>
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Add icon"
+        [icon]="['fas', 'plus']"
+        (click)="addRefFormElement()"
+      ></fa-icon>
+    </div>
+    <div
+      *ngFor="let identifier of formGroup.controls.refs.controls; let iFormArrayEl=index"
+      [formGroupName]="iFormArrayEl"
+      class="input-container"
     >
-      <div [formGroupName]="iRef">
-        <input matInput
-          formControlName="authors"
-          placeholder="Doe JC & Doe JD"
-          />
-        <input matInput
-          formControlName="journal"
-          placeholder="PLoS Comput Biol"
-          />
-        <input matInput
-          formControlName="volume"
-          placeholder="10"
-          />
-        <input matInput
-          formControlName="num"
-          placeholder="1"
-          />
-        <input matInput
-          formControlName="pages"
-          placeholder="1-10"
-          />
-        <input matInput
-          formControlName="year"
-          type="number"
-          placeholder="2019"
-          />
-        <input matInput
-          formControlName="doi"
-          placeholder="10.1002/0470841559.ch1"
-          />
-      </div>
+      <input matInput
+        formControlName="authors"
+        placeholder="Doe JC & Doe JD"
+        />
+      <input matInput
+        formControlName="journal"
+        placeholder="PLoS Comput Biol"
+        />
+      <input matInput
+        formControlName="volume"
+        placeholder="10"
+        />
+      <input matInput
+        formControlName="num"
+        placeholder="1"
+        />
+      <input matInput
+        formControlName="pages"
+        placeholder="1-10"
+        />
+      <input matInput
+        formControlName="year"
+        type="number"
+        placeholder="2019"
+        />
+      <input matInput
+        formControlName="doi"
+        placeholder="10.1002/0470841559.ch1"
+        />
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Delete icon"
+        [icon]="['fas', 'trash-alt']"
+        (click)="removeFormArrayElement('refs', iFormArrayEl)"
+      ></fa-icon>
     </div>
   </mat-form-field>
 

@@ -151,12 +151,12 @@ export class EditComponent implements OnInit {
     }
   }
 
-  removeTag(iTag: number): void {
-    const formArray: FormArray = this.formGroup.get('tags') as FormArray;
-    formArray.removeAt(iTag);
+  removeFormArrayElement(array: string, iEl: number): void {
+    const formArray: FormArray = this.formGroup.get(array) as FormArray;
+    formArray.removeAt(iEl);
   }
 
-  addAuthorFormElement() {
+  addAuthorFormElement(): void {
     const formArray: FormArray = this.formGroup.get('authors') as FormArray;
     formArray.push(this.formBuilder.group({
       firstName: [''],
@@ -165,7 +165,7 @@ export class EditComponent implements OnInit {
     }));
   }
 
-  addIdentifierFormElement() {
+  addIdentifierFormElement(): void {
     const formArray: FormArray = this.formGroup.get('identifiers') as FormArray;
     formArray.push(this.formBuilder.group({
       namespace: [''],
@@ -173,7 +173,7 @@ export class EditComponent implements OnInit {
     }));
   }
 
-  addRefFormElement() {
+  addRefFormElement(): void {
     const formArray: FormArray = this.formGroup.get('refs') as FormArray;
     formArray.push(this.formBuilder.group({
       authors: [''],
