@@ -43,7 +43,7 @@ export class ViewComponent implements OnInit {
           label: 'Edit',
           route: ['/models', this.id, 'edit'],
           display: NavItemDisplayLevel.user,
-          displayUser: this.model.owner,
+          displayUser: (this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.owner),
         },
         {
           iconType: 'fas',
