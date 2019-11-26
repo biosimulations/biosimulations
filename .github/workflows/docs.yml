@@ -1,18 +1,18 @@
 name: Documentation
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
 
 jobs:
   Document:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout  
+    - name: Checkout
       uses: actions/checkout@v1
-    - name: Install Node.js 
+    - name: Install Node.js
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
@@ -30,7 +30,7 @@ jobs:
         PULL_REQUEST_LABELS: Documentation
         PULL_REQUEST_BRANCH: documentation
         PULL_REQUEST_ASSIGNEES: bilalshaikh42
-        PULL_REQUEST_REVIEWERS: bilalshaikh42  
+        PULL_REQUEST_REVIEWERS: bilalshaikh42
         BRANCH_SUFFIX: none
 
 

@@ -61,11 +61,18 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Layout/navigation/navigation.component.ts</code>
+    <code>CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts</code>
 </p>
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
 
 
 <section>
@@ -124,12 +131,53 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#authService">authService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#crumbsSubscription">crumbsSubscription</a>
+                            </li>
+                            <li>
                                 <a href="#isHandset$">isHandset$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#moduleButtons">moduleButtons</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#moduleClasses">moduleClasses</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#moduleCrumbs">moduleCrumbs</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#NavItemDisplayLevel">NavItemDisplayLevel</a>
                             </li>
                         </ul>
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -145,12 +193,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(breakpointObserver: BreakpointObserver)</code>
+<code>constructor(breakpointObserver: BreakpointObserver, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>, authService: <a href="../injectables/AuthService.html">AuthService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Layout/navigation/navigation.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -179,6 +227,30 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>breadCrumbsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BreadCrumbsService.html" target="_self" >BreadCrumbsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -192,12 +264,151 @@
 
 
 
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:45</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
     <section>
     
         <h3 id="inputs">
             Properties
         </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="authService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            authService</b>
+                            <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="crumbsSubscription"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            crumbsSubscription</b>
+                            <a href="#crumbsSubscription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
@@ -228,7 +439,117 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Layout/navigation/navigation.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="moduleButtons"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            moduleButtons</b>
+                            <a href="#moduleButtons"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/NavItem.html" target="_self" >NavItem[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="moduleClasses"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            moduleClasses</b>
+                            <a href="#moduleClasses"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>string[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="moduleCrumbs"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            moduleCrumbs</b>
+                            <a href="#moduleCrumbs"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="NavItemDisplayLevel"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            NavItemDisplayLevel</b>
+                            <a href="#NavItemDisplayLevel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>NavItemDisplayLevel</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/navigation/navigation.component.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -241,17 +562,21 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, Inject } from &#x27;@angular/core&#x27;;
 import { BreakpointObserver, Breakpoints } from &#x27;@angular/cdk/layout&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+import { Observable, Subscription } from &#x27;rxjs&#x27;;
 import { map, shareReplay } from &#x27;rxjs/operators&#x27;;
+import { NavItemDisplayLevel } from &#x27;src/app/Shared/Enums/nav-item-display-level&#x27;;
+import { NavItem } from &#x27;src/app/Shared/Models/nav-item&#x27;;
+import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.service&#x27;;
+import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
 
 @Component({
   selector: &#x27;app-navigation&#x27;,
   templateUrl: &#x27;./navigation.component.html&#x27;,
   styleUrls: [&#x27;./navigation.component.sass&#x27;],
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit, OnDestroy {
   isHandset$: Observable&lt;boolean&gt; &#x3D; this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -259,7 +584,31 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  private crumbsSubscription: Subscription;
+  public moduleCrumbs;
+  public moduleButtons: NavItem[];
+  public moduleClasses: string[] &#x3D; [];
+  public NavItemDisplayLevel &#x3D; NavItemDisplayLevel;
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    public authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.crumbsSubscription &#x3D; this.breadCrumbsService.data.subscribe(
+      data &#x3D;&gt; {
+        this.moduleCrumbs &#x3D; data[&#x27;crumbs&#x27;];
+        this.moduleButtons &#x3D; data[&#x27;buttons&#x27;];
+        this.moduleClasses &#x3D; data[&#x27;classes&#x27;];
+      }
+    )
+  }
+
+  ngOnDestroy() {
+    this.crumbsSubscription.unsubscribe();
+  }
 }
 </code></pre>
     </div>
@@ -276,8 +625,9 @@ export class NavigationComponent {
     [opened]&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;
   &gt;
     &lt;mat-toolbar&gt;
-      Menu
-      &lt;span&gt;&lt;/span&gt;
+      &lt;a class&#x3D;&quot;home&quot; [routerLink]&#x3D;&quot;[&#x27;&#x27;]&quot; disableRipple&#x3D;&quot;true&quot;&gt;
+        &lt;span class&#x3D;&quot;bio&quot;&gt;Bio&lt;/span&gt;&lt;span class&#x3D;&quot;simulations&quot;&gt;Simulations&lt;/span&gt;
+      &lt;/a&gt;
       &lt;button
         type&#x3D;&quot;button&quot;
         aria-label&#x3D;&quot;Toggle sidenav&quot;
@@ -293,29 +643,56 @@ export class NavigationComponent {
     &lt;/mat-nav-list&gt;
   &lt;/mat-sidenav&gt;
   &lt;mat-sidenav-content class&#x3D;&quot;full-content&quot;&gt;
-    &lt;mat-toolbar class&#x3D;&quot;topbar&quot; color&#x3D;&quot;primary&quot;&gt;
-      &lt;button
-        class&#x3D;&quot;menubutton&quot;
-        type&#x3D;&quot;button&quot;
-        aria-label&#x3D;&quot;Toggle sidenav&quot;
-        mat-icon-button
-        (click)&#x3D;&quot;drawer.toggle()&quot;
-        *ngIf&#x3D;&quot;!drawer.opened&quot;
-      &gt;
-        &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot;&gt;menu&lt;/mat-icon&gt;
-      &lt;/button&gt;
-      &lt;div class&#x3D;&quot;logo&quot; *ngIf&#x3D;&quot;!drawer.opened&quot;&gt;&lt;app-logo&gt;&lt;/app-logo&gt;&lt;/div&gt;
-      &lt;div class&#x3D;&quot;searchbar&quot; *ngIf&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;&gt;
-        &lt;app-search-bar&gt;&lt;/app-search-bar&gt;
+    &lt;div [ngClass]&#x3D;&quot;[&#x27;toolbar-container&#x27;].concat(moduleClasses).join(&#x27; &#x27;)&quot;&gt;
+      &lt;mat-toolbar class&#x3D;&quot;topbar&quot; color&#x3D;&quot;primary&quot;&gt;
+        &lt;button
+          class&#x3D;&quot;menubutton&quot;
+          type&#x3D;&quot;button&quot;
+          aria-label&#x3D;&quot;Toggle sidenav&quot;
+          mat-icon-button
+          (click)&#x3D;&quot;drawer.toggle()&quot;
+          *ngIf&#x3D;&quot;!drawer.opened&quot;
+        &gt;
+          &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot;&gt;menu&lt;/mat-icon&gt;
+        &lt;/button&gt;
+        &lt;div class&#x3D;&quot;logo&quot;&gt;
+          &lt;app-logo&gt;&lt;/app-logo&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;icons&quot; *ngIf&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;&gt;
+          &lt;app-nav-icons&gt;&lt;/app-nav-icons&gt;
+        &lt;/div&gt;
+      &lt;/mat-toolbar&gt;
+      &lt;div class&#x3D;&quot;module-toolbar&quot; *ngIf&#x3D;&quot;moduleCrumbs &amp;&amp; moduleButtons &amp;&amp; (moduleCrumbs.length &gt; 0 || moduleButtons.length &gt; 0)&quot;&gt;
+        &lt;div class&#x3D;&quot;module-title&quot;&gt;
+          &lt;span *ngFor&#x3D;&quot;let crumb of moduleCrumbs&quot;&gt;
+            &lt;a *ngIf&#x3D;&quot;crumb.route; else plainCrumb&quot; [routerLink]&#x3D;&quot;crumb.route&quot;&gt;{{ crumb.label }}&lt;/a&gt;
+            &lt;ng-template #plainCrumb&gt;{{ crumb.label }}&lt;/ng-template&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;module-routes&quot;&gt;
+          &lt;ng-container *ngFor&#x3D;&quot;let button of moduleButtons&quot;&gt;
+            &lt;a
+              *ngIf&#x3D;&quot;button.display &#x3D;&#x3D; NavItemDisplayLevel.always || (button.display &#x3D;&#x3D; NavItemDisplayLevel.loggedIn &amp;&amp; authService &amp;&amp; authService.loggedIn) || (button.display &#x3D;&#x3D; NavItemDisplayLevel.loggedOut &amp;&amp; (!authService || !authService.loggedIn))&quot;
+              [routerLink]&#x3D;&quot;button.route&quot;
+              &gt;
+              &lt;mat-icon *ngIf&#x3D;&quot;button.iconType &#x3D;&#x3D;&#x3D; &#x27;mat&#x27;; else faIcon&quot;
+                aria-hidden&#x3D;&quot;false&quot;
+                aria-label&#x3D;&quot;Icon&quot;
+              &gt;{{ button.icon }}&lt;/mat-icon&gt;
+              &lt;ng-template #faIcon&gt;
+                &lt;fa-icon
+                  [icon]&#x3D;&quot;[button.iconType, button.icon]&quot;
+                  aria-hidden&#x3D;&quot;false&quot;
+                  aria-label&#x3D;&quot;Icon&quot;
+                &gt;&lt;/fa-icon&gt;
+              &lt;/ng-template&gt;
+              {{ button.label }}
+            &lt;/a&gt;
+          &lt;/ng-container&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
-      &lt;div class&#x3D;&quot;icons&quot; *ngIf&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;&gt;
-        &lt;app-nav-icons&gt;&lt;/app-nav-icons&gt;
-      &lt;/div&gt;
-    &lt;/mat-toolbar&gt;
-    &lt;div class&#x3D;&quot;content&quot;&gt;&lt;ng-content&gt;&lt;/ng-content&gt;&lt;/div&gt;
-    &lt;div class&#x3D;&quot;footer&quot;&gt;
-      &lt;app-footer&gt;&lt;/app-footer&gt;
     &lt;/div&gt;
+    &lt;div class&#x3D;&quot;content&quot;&gt;&lt;ng-content&gt;&lt;/ng-content&gt;&lt;/div&gt;
   &lt;/mat-sidenav-content&gt;
 &lt;/mat-sidenav-container&gt;
 </code></pre>
@@ -325,65 +702,136 @@ export class NavigationComponent {
                 <p class="comment">
                     <code>./navigation.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.sass&#x27;
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/theme.scss&#x27;
 
 .sidenav-container
   height: 100%
 
 .sidenav
-  width: 200px
-  border: none
-  background: #ebebeb
+  width: 230px
+  border-right: 1px solid #999
+  background: #ccc
 
-.sidenav .mat-toolbar
-  background: mat-color($primary)
-  color: white
+.toolbar-container
+  position: sticky
+  top: 0
+  z-index: 1
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25)
+
+.toolbar-container.tabs
+  box-shadow: none
+
+.mat-toolbar
+  background: #666
   justify-content: space-between
+  padding: 0
+  padding-left: calc(1rem - 2px)
+  padding-right: 1rem
+  font-weight: bold
+
+  .bio
+    color: mat-color($theme-accent)
+  .simulations
+    color: #fff
+
+  .home
+    padding: 0
+    font-size: 1.25rem
+    font-weight: 500
+
+  .mat-icon-button
+    color: #fff
+
+.mat-toolbar.mat-primary
+  position: static
+  top: auto
+  z-index: auto
 
 .mat-toolbar.mat-primary
   position: sticky
   top: 0
   z-index: 1
 
+.mat-nav-list.mat-list-base
+  padding-top: 0px
+  margin: 0px
+  height: calc(100% - 64px)
+  overflow: auto
+
+.mat-expansion-panel-content
+  .mat-list-base
+    .mat-list-item
+      height: 36px
+
 .hidden
   display: none
 
-.topbar
-  width: 100%
-  align-content: space-between
-  padding: 0px 2px 0px 2px
+.topbar.mat-toolbar
+  background-image: linear-gradient(to bottom, lighten(mat-color($theme-primary), 10%), darken(mat-color($theme-primary), 10%))
+
 .menubutton
   flex: 0 0 auto
   height: 100%
-  padding-right: 5px
+  padding: 0
+  padding-right: calc(1rem - 2px)
 
 .logo
-  flex: 0 1 auto
-  height: 100%
-
-.searchbar
-  flex: 1 1 auto
-  height: 100%
+  height: calc(100% - 10px)
 
 .icons
-  flex: 0.25 1 auto
-  height: 100%
-  justify-self: flex-end
+  margin-left: auto
+
+.module-toolbar
+    height: 28px
+    padding-top: 0.25rem
+    padding-bottom: 0.25rem
+    padding-left: 1rem
+    padding-right: 1rem
+    background: #bcdffb
+    color: mat-color($theme-primary)
+    font-size: 16px
+    line-height: 100%
+    font-weight: 500
+
+    .module-title
+        float: left
+        height: 100%
+        display: flex
+        align-items: center
+
+        span:after
+            content: &quot;»&quot;
+            margin: 0 0.5rem
+        span:last-child:after
+            content: &quot;&quot;
+            margin: 0
+
+    .module-routes
+        float: right
+        height: 100%
+        display: flex
+        align-items: center
+
+    a
+        text-decoration: none
+        color: mat-color($theme-primary)
+
+    .module-routes a
+        margin-left: 1rem
+
+    .module-routes .mat-icon
+        position: relative
+        top: 5px
+        margin-top: -11px
 
 .full-content
   height: 100%
 .content
-  min-height: 90%
+  min-height: calc(100vh - 64px - 32px - 0.5rem)
   height: auto
+  box-sizing: border-box
   overflow: auto
-  padding-left: 1.5%
-  padding-top: 5px
-  background-image: url(&#x27;../../../assets/background-grey.png&#x27;)
-.footer
-  height: auto
-  background: #ebebeb
-  padding: 0px
-  margin: 0px
+  background: #fff
 </code></pre>
     </div>
 
@@ -412,8 +860,8 @@ export class NavigationComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <!-- [ngClass]="{ hidden: (isHandset | async) === false }" -->  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport="false"    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar>      Menu      <span></span>      <button        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>    </mat-toolbar>    <mat-nav-list>      <app-sidebar></app-sidebar>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content class="full-content">    <mat-toolbar class="topbar" color="primary">      <button        class="menubutton"        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="!drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>      <div class="logo" *ngIf="!drawer.opened"><app-logo></app-logo></div>      <div class="searchbar" *ngIf="(isHandset$ | async) === false">        <app-search-bar></app-search-bar>      </div>      <div class="icons" *ngIf="(isHandset$ | async) === false">        <app-nav-icons></app-nav-icons>      </div>    </mat-toolbar>    <div class="content"><ng-content></ng-content></div>    <div class="footer">      <app-footer></app-footer>    </div>  </mat-sidenav-content></mat-sidenav-container></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <!-- [ngClass]="{ hidden: (isHandset | async) === false }" -->  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport="false"    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar>      <a class="home" [routerLink]="[\'\']" disableRipple="true">        <span class="bio">Bio</span><span class="simulations">Simulations</span>      </a>      <button        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="drawer.opened"      >        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>      </button>    </mat-toolbar>    <mat-nav-list>      <app-sidebar></app-sidebar>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content class="full-content">    <div [ngClass]="[\'toolbar-container\'].concat(moduleClasses).join(\' \')">      <mat-toolbar class="topbar" color="primary">        <button          class="menubutton"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          (click)="drawer.toggle()"          *ngIf="!drawer.opened"        >          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>        </button>        <div class="logo">          <app-logo></app-logo>        </div>        <div class="icons" *ngIf="(isHandset$ | async) === false">          <app-nav-icons></app-nav-icons>        </div>      </mat-toolbar>      <div class="module-toolbar" *ngIf="moduleCrumbs && moduleButtons && (moduleCrumbs.length > 0 || moduleButtons.length > 0)">        <div class="module-title">          <span *ngFor="let crumb of moduleCrumbs">            <a *ngIf="crumb.route; else plainCrumb" [routerLink]="crumb.route">{{ crumb.label }}</a>            <ng-template #plainCrumb>{{ crumb.label }}</ng-template>          </span>        </div>        <div class="module-routes">          <ng-container *ngFor="let button of moduleButtons">            <a              *ngIf="button.display == NavItemDisplayLevel.always || (button.display == NavItemDisplayLevel.loggedIn && authService && authService.loggedIn) || (button.display == NavItemDisplayLevel.loggedOut && (!authService || !authService.loggedIn))"              [routerLink]="button.route"              >              <mat-icon *ngIf="button.iconType === \'mat\'; else faIcon"                aria-hidden="false"                aria-label="Icon"              >{{ button.icon }}</mat-icon>              <ng-template #faIcon>                <fa-icon                  [icon]="[button.iconType, button.icon]"                  aria-hidden="false"                  aria-label="Icon"                ></fa-icon>              </ng-template>              {{ button.label }}            </a>          </ng-container>        </div>      </div>    </div>    <div class="content"><ng-content></ng-content></div>  </mat-sidenav-content></mat-sidenav-container></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'NavigationComponent'};
 </script>

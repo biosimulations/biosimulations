@@ -6,7 +6,7 @@ export const environment = {
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
   },
   crbm: {
-    CRBMAPI_URL: 'http://localhost:5000',
+    CRBMAPI_URL: 'crbm-api.herokuapp.com',
     ALLOWED_FILE_EXTENSIONS: [
       'pdf',
       'doc',

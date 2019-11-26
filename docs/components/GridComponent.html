@@ -1,0 +1,1059 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Application documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">Application documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>GridComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts</code>
+</p>
+
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-grid</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./grid.component.sass</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./grid.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#defaultColDef">defaultColDef</a>
+                            </li>
+                            <li>
+                                <a href="#frameworkComponents">frameworkComponents</a>
+                            </li>
+                            <li>
+                                <a href="#icons">icons</a>
+                            </li>
+                            <li>
+                                <a href="#isToolPanelOpen">isToolPanelOpen</a>
+                            </li>
+                            <li>
+                                <a href="#sideBar">sideBar</a>
+                            </li>
+                            <li>
+                                <a href="#statusBar">statusBar</a>
+                            </li>
+                            <li>
+                                <a href="#suppressHorizontalScroll">suppressHorizontalScroll</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#onGridReady">onGridReady</a>
+                            </li>
+                            <li>
+                                <a href="#sizeColumnsToFit">sizeColumnsToFit</a>
+                            </li>
+                            <li>
+                                <a href="#toggleToolPanel">toggleToolPanel</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#columnDefs">columnDefs</a>
+                            </li>
+                            <li>
+                                <a href="#rowData">rowData</a>
+                            </li>
+                            <li>
+                                <a href="#rowTypePlural">rowTypePlural</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:97</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="columnDefs"></a>
+                        <b>columnDefs</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:16</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rowData"></a>
+                        <b>rowData</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:15</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rowTypePlural"></a>
+                        <b>rowTypePlural</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:14</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onGridReady"></a>
+                    <span class="name">
+                        <b>
+                            onGridReady
+                        </b>
+                        <a href="#onGridReady"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onGridReady(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:101</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sizeColumnsToFit"></a>
+                    <span class="name">
+                        <b>
+                            sizeColumnsToFit
+                        </b>
+                        <a href="#sizeColumnsToFit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sizeColumnsToFit(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:112</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleToolPanel"></a>
+                    <span class="name">
+                        <b>
+                            toggleToolPanel
+                        </b>
+                        <a href="#toggleToolPanel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleToolPanel(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="136"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:136</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaultColDef"></a>
+                        <span class="name">
+                            <b>
+                            defaultColDef</b>
+                            <a href="#defaultColDef"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+      filter: &#x27;agTextColumnFilter&#x27;,
+      cellRenderer: &#x27;routerRenderer&#x27;,
+      sortable: true,
+      resizable: false,
+      suppressMenu: true,
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="frameworkComponents"></a>
+                        <span class="name">
+                            <b>
+                            frameworkComponents</b>
+                            <a href="#frameworkComponents"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+    idRenderer: IdRendererGridComponent,
+    routerRenderer: RouteRendererGridComponent,
+    searchToolPanel: SearchToolPanelGridComponent,
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="icons"></a>
+                        <span class="name">
+                            <b>
+                            icons</b>
+                            <a href="#icons"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+    search: &#x60;&lt;mat-icon
+      aria-hidden&#x3D;&quot;false&quot;
+      aria-label&#x3D;&quot;Search icon&quot;
+      class&#x3D;&quot;icon mat-icon material-icons search-tool-panel-grid-icon&quot;
+      role&#x3D;&quot;img&quot;
+      &gt;search&lt;/mat-icon&gt;&#x60;,
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isToolPanelOpen"></a>
+                        <span class="name">
+                            <b>
+                            isToolPanelOpen</b>
+                            <a href="#isToolPanelOpen"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:96</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sideBar"></a>
+                        <span class="name">
+                            <b>
+                            sideBar</b>
+                            <a href="#sideBar"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+    toolPanels: [
+      {
+        id: &#x27;search&#x27;,
+        labelDefault: &#x27;Search&#x27;,
+        labelKey: &#x27;searchToolPanel&#x27;,
+        iconKey: &#x27;search&#x27;,
+        toolPanel: &#x27;searchToolPanel&#x27;,
+      },
+      {
+        id: &#x27;filters&#x27;,
+        labelDefault: &#x27;Filters&#x27;,
+        labelKey: &#x27;filters&#x27;,
+        iconKey: &#x27;filter&#x27;,
+        toolPanel: &#x27;agFiltersToolPanel&#x27;,
+        toolPanelParams: {
+          suppressFilterSearch: true,
+          suppressExpandAll: true,
+        }
+      },
+      {
+        id: &#x27;columns&#x27;,
+        labelDefault: &#x27;Columns&#x27;,
+        labelKey: &#x27;columns&#x27;,
+        iconKey: &#x27;columns&#x27;,
+        toolPanel: &#x27;agColumnsToolPanel&#x27;,
+        toolPanelParams: {
+          suppressRowGroups: true,
+          suppressValues: true,
+          suppressPivots: true,
+          suppressPivotMode: true,
+          suppressSideButtons: false,
+          suppressColumnFilter: true,
+          suppressColumnSelectAll: true,
+          suppressColumnExpandAll: true,
+        }
+      }
+    ],
+    defaultToolPanel: &#x27;search&#x27;,
+    hiddenByDefault: false,
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="statusBar"></a>
+                        <span class="name">
+                            <b>
+                            statusBar</b>
+                            <a href="#statusBar"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+      statusPanels: [
+          {
+            key: &#x27;counts&#x27;,
+            statusPanel: &#x27;agTotalAndFilteredRowCountComponent&#x27;,
+            align: &#x27;left&#x27;,
+          }
+      ]
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:86</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="suppressHorizontalScroll"></a>
+                        <span class="name">
+                            <b>
+                            suppressHorizontalScroll</b>
+                            <a href="#suppressHorizontalScroll"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>true</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:97</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, ElementRef } from &#x27;@angular/core&#x27;;
+import &#x27;ag-grid-enterprise&#x27;;
+import { IdRendererGridComponent } from &#x27;./id-renderer-grid.component&#x27;;
+import { RouteRendererGridComponent } from &#x27;./route-renderer-grid.component&#x27;;
+import { SearchToolPanelGridComponent } from &#x27;./search-tool-panel-grid.component&#x27;;
+
+
+@Component({
+  selector: &#x27;app-grid&#x27;,
+  templateUrl: &#x27;./grid.component.html&#x27;,
+  styleUrls: [&#x27;./grid.component.sass&#x27;],
+})
+export class GridComponent {
+  @Input() rowTypePlural;
+  @Input() rowData;
+  @Input() columnDefs;
+
+  icons &#x3D; {
+    search: &#x60;&lt;mat-icon
+      aria-hidden&#x3D;&quot;false&quot;
+      aria-label&#x3D;&quot;Search icon&quot;
+      class&#x3D;&quot;icon mat-icon material-icons search-tool-panel-grid-icon&quot;
+      role&#x3D;&quot;img&quot;
+      &gt;search&lt;/mat-icon&gt;&#x60;,
+  };
+
+  frameworkComponents &#x3D; {
+    idRenderer: IdRendererGridComponent,
+    routerRenderer: RouteRendererGridComponent,
+    searchToolPanel: SearchToolPanelGridComponent,
+  }
+
+  defaultColDef &#x3D; {
+      filter: &#x27;agTextColumnFilter&#x27;,
+      cellRenderer: &#x27;routerRenderer&#x27;,
+      sortable: true,
+      resizable: false,
+      suppressMenu: true,
+  };
+
+  // TODO: implement custom tool panel that displays number of matches to each facet
+  // TODO: implement custom tool panel with inverted filtering behavior (facet selection is positive rather than negative)
+  // TODO: connect values of filters to database
+  sideBar &#x3D; {
+    toolPanels: [
+      {
+        id: &#x27;search&#x27;,
+        labelDefault: &#x27;Search&#x27;,
+        labelKey: &#x27;searchToolPanel&#x27;,
+        iconKey: &#x27;search&#x27;,
+        toolPanel: &#x27;searchToolPanel&#x27;,
+      },
+      {
+        id: &#x27;filters&#x27;,
+        labelDefault: &#x27;Filters&#x27;,
+        labelKey: &#x27;filters&#x27;,
+        iconKey: &#x27;filter&#x27;,
+        toolPanel: &#x27;agFiltersToolPanel&#x27;,
+        toolPanelParams: {
+          suppressFilterSearch: true,
+          suppressExpandAll: true,
+        }
+      },
+      {
+        id: &#x27;columns&#x27;,
+        labelDefault: &#x27;Columns&#x27;,
+        labelKey: &#x27;columns&#x27;,
+        iconKey: &#x27;columns&#x27;,
+        toolPanel: &#x27;agColumnsToolPanel&#x27;,
+        toolPanelParams: {
+          suppressRowGroups: true,
+          suppressValues: true,
+          suppressPivots: true,
+          suppressPivotMode: true,
+          suppressSideButtons: false,
+          suppressColumnFilter: true,
+          suppressColumnSelectAll: true,
+          suppressColumnExpandAll: true,
+        }
+      }
+    ],
+    defaultToolPanel: &#x27;search&#x27;,
+    hiddenByDefault: false,
+  };
+
+  statusBar &#x3D; {
+      statusPanels: [
+          {
+            key: &#x27;counts&#x27;,
+            statusPanel: &#x27;agTotalAndFilteredRowCountComponent&#x27;,
+            align: &#x27;left&#x27;,
+          }
+      ]
+  };
+
+  isToolPanelOpen;
+  suppressHorizontalScroll &#x3D; true;
+
+  constructor(private el: ElementRef) {}
+
+  onGridReady(event) {
+    const gridApi &#x3D; event.api;
+
+    const toolPanel &#x3D; gridApi.getToolPanelInstance(&#x27;columns&#x27;);
+    toolPanel.allowDragging &#x3D; false;
+
+    const statusPanel &#x3D; gridApi.getStatusPanel(&#x27;counts&#x27;);
+    statusPanel.eLabel.innerHTML &#x3D; this.rowTypePlural;
+    statusPanel.textContent &#x3D; this.rowTypePlural;
+  }
+
+  sizeColumnsToFit(event) {
+    const gridApi &#x3D; event.api;
+    const columnApi &#x3D; event.columnApi;
+    const gridRoot &#x3D; this.el.nativeElement.getElementsByClassName(&#x27;ag-root&#x27;)[0];
+    const gridWidth: number &#x3D; gridRoot.offsetWidth;
+
+    const displayedCols &#x3D; columnApi.getAllDisplayedColumns();
+    const numDisplayedCols: number &#x3D; displayedCols.length;
+    let totDisplayedColWidth &#x3D; 0;
+    let totDisplayedColMinWidth &#x3D; 0;
+    for (const col of displayedCols) {
+      totDisplayedColWidth +&#x3D; Math.max(col.width, col.minWidth);
+      totDisplayedColMinWidth +&#x3D; col.minWidth;
+    }
+
+    if (totDisplayedColMinWidth + 2 * (numDisplayedCols + 1) &gt; gridWidth) {
+      this.suppressHorizontalScroll &#x3D; false;
+    } else {
+      this.suppressHorizontalScroll &#x3D; true;
+    }
+
+    gridApi.sizeColumnsToFit();
+  }
+
+  toggleToolPanel(event) {
+    const gridApi &#x3D; event.api;
+    this.isToolPanelOpen &#x3D; gridApi.isToolPanelShowing();
+    this.sizeColumnsToFit(event);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ag-grid-angular
+  class&#x3D;&quot;ag-theme-balham grid&quot;
+  [class.tool-panel-open]&#x3D;&quot;isToolPanelOpen&quot;
+  [icons]&#x3D;&quot;icons&quot;
+  [frameworkComponents]&#x3D;&quot;frameworkComponents&quot;
+  [defaultColDef]&#x3D;&quot;defaultColDef&quot;
+  [columnDefs]&#x3D;&quot;columnDefs&quot;
+  [sideBar]&#x3D;&quot;sideBar&quot;
+  [statusBar]&#x3D;&quot;statusBar&quot;
+  [rowData]&#x3D;&quot;rowData&quot;
+  (gridReady)&#x3D;&quot;onGridReady($event)&quot;
+  (firstDataRendered)&#x3D;&quot;sizeColumnsToFit($event)&quot;
+  (columnVisible)&#x3D;&quot;sizeColumnsToFit($event)&quot;
+  (gridSizeChanged)&#x3D;&quot;sizeColumnsToFit($event)&quot;
+  (toolPanelVisibleChanged)&#x3D;&quot;toggleToolPanel($event)&quot;
+  [suppressMovableColumns]&#x3D;&quot;true&quot;
+  [suppressHorizontalScroll]&#x3D;&quot;suppressHorizontalScroll&quot;
+  [suppressCellSelection]&#x3D;&quot;true&quot;
+  [suppressContextMenu]&#x3D;&quot;true&quot;
+  [suppressAutoSize]&#x3D;&quot;true&quot;
+  [headerHeight]&#x3D;&quot;40&quot;
+  [rowHeight]&#x3D;&quot;35&quot;
+&gt;&lt;/ag-grid-angular&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./grid.component.sass</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ag-grid-angular  class="ag-theme-balham grid"  [class.tool-panel-open]="isToolPanelOpen"  [icons]="icons"  [frameworkComponents]="frameworkComponents"  [defaultColDef]="defaultColDef"  [columnDefs]="columnDefs"  [sideBar]="sideBar"  [statusBar]="statusBar"  [rowData]="rowData"  (gridReady)="onGridReady($event)"  (firstDataRendered)="sizeColumnsToFit($event)"  (columnVisible)="sizeColumnsToFit($event)"  (gridSizeChanged)="sizeColumnsToFit($event)"  (toolPanelVisibleChanged)="toggleToolPanel($event)"  [suppressMovableColumns]="true"  [suppressHorizontalScroll]="suppressHorizontalScroll"  [suppressCellSelection]="true"  [suppressContextMenu]="true"  [suppressAutoSize]="true"  [headerHeight]="40"  [rowHeight]="35"></ag-grid-angular></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'GridComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'GridComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

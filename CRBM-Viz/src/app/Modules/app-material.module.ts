@@ -12,9 +12,7 @@ import {
   MatListModule,
   MatInputModule,
   MatTabsModule,
-  MatOption,
   MatOptionModule,
-  MatSortModule,
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
@@ -22,6 +20,8 @@ import {
   MatTooltipModule,
   MatExpansionModule,
 } from '@angular/material';
+
+import { MatTreeModule } from '@angular/material/tree';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -42,6 +42,7 @@ const MaterialComponents = [
   MatDialogModule,
   MatTooltipModule,
   MatExpansionModule,
+  MatTreeModule,
 ];
 @NgModule({
   imports: [MaterialComponents],

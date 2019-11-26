@@ -1,0 +1,13 @@
+<a [routerLink]="route" title="View details">
+    <mat-icon *ngIf="icon.type === 'mat'; else faIcon"
+        aria-hidden="false"
+        aria-label="Icon"
+        >{{ icon.icon }}</mat-icon>
+    <ng-template #faIcon>
+        <fa-icon
+            aria-hidden="false"
+            aria-label="Icon"
+            [icon]="[icon.type, icon.icon]"></fa-icon>
+    </ng-template>
+    {{ id }}
+</a>

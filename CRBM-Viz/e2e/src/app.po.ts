@@ -5,7 +5,7 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.css('app-root .content p')).getText() as Promise<string>;
+  getImageSvgVersion() {
+    return element(by.css('app-root .content .container app-home-image svg')).getAttribute('version') as Promise<string>;
   }
 }

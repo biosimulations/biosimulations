@@ -73,7 +73,7 @@
                             <a href="#MaterialComponents" title="CRBM-Viz/src/app/Modules/app-material.module.ts"><b>MaterialComponents</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../app-material.module.ts)</a>
                         </li>
                         <li>
-                            <a href="#NavItems" title="CRBM-Viz/src/app/Models/nav-item.ts"><b>NavItems</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../nav-item.ts)</a>
+                            <a href="#navItems" title="CRBM-Viz/src/app/Shared/Models/nav-item.ts"><b>navItems</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../nav-item.ts)</a>
                         </li>
                         <li>
                             <a href="#require" title="CRBM-Viz/src/test.ts"><b>require</b>&nbsp;&nbsp;&nbsp;(CRBM-Viz/.../test.ts)</a>
@@ -161,9 +161,9 @@
         clientId: &#x27;6euIYB0EPMSNjsPEjrNZAMmpiuVCRYNB&#x27;
     },
     crbm: {
-        CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
+        CRBMAPI_URL: &#x27;https://crbm-api.herokuapp.com&#x27;,
         ALLOWED_FILE_EXTENSIONS: [&#x27;pdf&#x27;, &#x27;doc&#x27;, &#x27;ppt&#x27;, &#x27;txt&#x27;, &#x27;xlsx&#x27;, &#x27;sedx&#x27;, &#x27;sbex&#x27;,
-            &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;]
+            &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;, &#x27;omex&#x27;, &#x27;xml&#x27;]
     }
   }</code>
                         </td>
@@ -200,13 +200,31 @@
   baseUrl: &#x27;/&#x27;,
   auth0: {
     domain: &#x27;crbm.auth0.com&#x27;,
-    clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;
+    clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;,
   },
   crbm: {
-      CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
-      ALLOWED_FILE_EXTENSIONS: [&#x27;pdf&#x27;, &#x27;doc&#x27;, &#x27;ppt&#x27;, &#x27;txt&#x27;, &#x27;xlsx&#x27;, &#x27;sedx&#x27;, &#x27;sbex&#x27;,
-          &#x27;cmex&#x27;, &#x27;sbox&#x27;, &#x27;neux&#x27;, &#x27;phex&#x27;, &#x27;zip&#x27;, &#x27;jpg&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;, &#x27;raw&#x27;, &#x27;sh&#x27;]
-  }
+    CRBMAPI_URL: &#x27;http://crbmapi.cam.uchc.edu:5000&#x27;,
+
+    ALLOWED_FILE_EXTENSIONS: [
+      &#x27;pdf&#x27;,
+      &#x27;doc&#x27;,
+      &#x27;ppt&#x27;,
+      &#x27;txt&#x27;,
+      &#x27;xlsx&#x27;,
+      &#x27;sedx&#x27;,
+      &#x27;sbex&#x27;,
+      &#x27;cmex&#x27;,
+      &#x27;sbox&#x27;,
+      &#x27;neux&#x27;,
+      &#x27;phex&#x27;,
+      &#x27;zip&#x27;,
+      &#x27;jpg&#x27;,
+      &#x27;png&#x27;,
+      &#x27;jpeg&#x27;,
+      &#x27;raw&#x27;,
+      &#x27;sh&#x27;,
+    ],
+  },
 }</code>
                         </td>
                     </tr>
@@ -245,7 +263,7 @@
     clientId: &#x27;0NKMjbZuexkCgfWY3BG9C3808YsdLUrb&#x27;,
   },
   crbm: {
-    CRBMAPI_URL: &#x27;http://localhost:5000&#x27;,
+    CRBMAPI_URL: &#x27;crbm-api.herokuapp.com&#x27;,
     ALLOWED_FILE_EXTENSIONS: [
       &#x27;pdf&#x27;,
       &#x27;doc&#x27;,
@@ -315,6 +333,7 @@
   MatDialogModule,
   MatTooltipModule,
   MatExpansionModule,
+  MatTreeModule,
 ]</code>
                         </td>
                     </tr>
@@ -323,17 +342,17 @@
             </tbody>
         </table>
 </section>
-    <h3>CRBM-Viz/src/app/Models/nav-item.ts</h3>
+    <h3>CRBM-Viz/src/app/Shared/Models/nav-item.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="NavItems"></a>
+                        <a name="navItems"></a>
                         <span class="name">
                             <b>
-                            NavItems</b>
-                            <a href="#NavItems"><span class="icon ion-ios-link"></span></a>
+                            navItems</b>
+                            <a href="#navItems"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -346,70 +365,201 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>[
+  // Top-level menu
   {
-    title: &#x27;BioSimulations&#x27;,
-    icon: &#x27;polymer&#x27;,
-    children: [&#x27;Home&#x27;, &#x27;About&#x27;, &#x27;User Guide&#x27;, &#x27;Team&#x27;],
+    id: &#x27;Models&#x27;,
+    label: &#x27;Models&#x27;,
+    icon: &#x27;project-diagram&#x27;,
+    iconType: &#x27;fas&#x27;,
+    children: [
+      &#x27;Models-Browse&#x27;,
+      &#x27;Models-New&#x27;,
+      &#x27;Models-Yours&#x27;,
+    ],
+    display: NavItemDisplayLevel.always,
   },
   {
-    title: &#x27;Account&#x27;,
-    icon: &#x27;account_circle&#x27;,
-    children: [&#x27;Profile&#x27;, &#x27;Notifications&#x27;, &#x27;Settings&#x27;],
-  },
-  {
-    title: &#x27;Models&#x27;,
-    icon: &#x27;file_copy&#x27;,
-    children: [],
-  },
-  {
-    title: &#x27;Simulations&#x27;,
-    icon: &#x27;explore&#x27;,
-    children: [&#x27;Data&#x27;],
-  },
-  {
-    title: &#x27;Visualizations&#x27;,
+    id: &#x27;Simulations&#x27;,
+    label: &#x27;Simulations&#x27;,
     icon: &#x27;timeline&#x27;,
-    children: [],
+    iconType: &#x27;mat&#x27;,
+    children: [
+      &#x27;Simulations-Browse&#x27;,
+      &#x27;Simulations-New&#x27;,
+      &#x27;Simulations-Yours&#x27;,
+    ],
+    display: NavItemDisplayLevel.always,
   },
   {
-    title: &#x27;Home&#x27;,
-    icon: &#x27;home&#x27;,
-    link: &#x27;/&#x27;,
+    id: &#x27;Visualizations&#x27;,
+    label: &#x27;Visualizations&#x27;,
+    icon: &#x27;chart-area&#x27;,
+    iconType: &#x27;fas&#x27;,
+    children: [
+      &#x27;Visualizations-Browse&#x27;,
+      &#x27;Visualizations-New&#x27;,
+      &#x27;Visualizations-Yours&#x27;,
+      ],
+    display: NavItemDisplayLevel.always,
   },
   {
-    title: &#x27;About&#x27;,
-    icon: &#x27;info&#x27;,
-    link: &#x27;/about&#x27;,
-  },
-  {
-    title: &#x27;User Guide&#x27;,
+    id: &#x27;Help&#x27;,
+    label: &#x27;Help&#x27;,
     icon: &#x27;help&#x27;,
-    link: &#x27;/guide&#x27;,
+    iconType: &#x27;mat&#x27;,
+    children: [&#x27;Help-Help&#x27;, &#x27;Help-About&#x27;],
+    display: NavItemDisplayLevel.always,
   },
   {
-    title: &#x27;Team&#x27;,
-    icon: &#x27;face&#x27;,
-    link: &#x27;/about&#x27;,
+    id: &#x27;User&#x27;,
+    label: &#x27;Account&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    children: [
+      &#x27;User-Profile&#x27;,
+      &#x27;User-Sign-In&#x27;,
+      &#x27;User-Sign-Up&#x27;,
+      &#x27;User-Sign-Out&#x27;,
+    ],
+    display: NavItemDisplayLevel.always,
+  },
+
+  // Models sub-menu
+  {
+    id: &#x27;Models-Browse&#x27;,
+    label: &#x27;Browse&#x27;,
+    icon: &#x27;view_list&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/models&#x27;],
   },
   {
-    title: &#x27;Profile&#x27;,
-    icon: &#x27;person&#x27;,
-    link: &#x27;/profile/&#x27;,
+    id: &#x27;Models-New&#x27;,
+    label: &#x27;New&#x27;,
+    icon: &#x27;add_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/models/new&#x27;],
+    disabled: true,
   },
   {
-    title: &#x27;Notifications&#x27;,
-    icon: &#x27;notifications&#x27;,
-    link: &#x27;/profile&#x27;,
+    id: &#x27;Models-Yours&#x27;,
+    label: &#x27;Your models&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user/models&#x27;],
+    disabled: true,
+  },
+
+  // Simulations sub-menu
+  {
+    id: &#x27;Simulations-Browse&#x27;,
+    label: &#x27;Browse&#x27;,
+    icon: &#x27;view_list&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/simulations/&#x27;],
   },
   {
-    title: &#x27;Settings&#x27;,
-    icon: &#x27;settings&#x27;,
-    link: &#x27;/settings&#x27;,
+    id: &#x27;Simulations-New&#x27;,
+    label: &#x27;New&#x27;,
+    icon: &#x27;add_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/simulations/new&#x27;],
+    disabled: true,
   },
   {
-    title: &#x27;Data&#x27;,
-    icon: &#x27;assignment&#x27;,
-    link: &#x27;/data&#x27;,
+    id: &#x27;Simulations-Yours&#x27;,
+    label: &#x27;Your simulations&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user/simulations&#x27;],
+  },
+
+  // Visualizations sub-menu
+  {
+    id: &#x27;Visualizations-Browse&#x27;,
+    label: &#x27;Browse&#x27;,
+    icon: &#x27;view_list&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/visualizations&#x27;],
+  },
+  {
+    id: &#x27;Visualizations-New&#x27;,
+    label: &#x27;New&#x27;,
+    icon: &#x27;add_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/visualizations/new&#x27;],
+    disabled: true,
+  },
+  {
+    id: &#x27;Visualizations-Yours&#x27;,
+    label: &#x27;Your visualizations&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user/visualizations&#x27;],
+    disabled: true,
+  },
+
+  // About sub-menu
+  {
+    id: &#x27;Help-Help&#x27;,
+    label: &#x27;Help&#x27;,
+    icon: &#x27;help&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/about/help&#x27;],
+  },
+  {
+    id: &#x27;Help-About&#x27;,
+    label: &#x27;About&#x27;,
+    icon: &#x27;info&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/about&#x27;],
+  },
+
+  // User account sub-menu
+  {
+    id: &#x27;User-Profile&#x27;,
+    label: &#x27;Profile&#x27;,
+    icon: &#x27;account_circle&#x27;,
+    iconType: &#x27;mat&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user&#x27;],
+  },
+  {
+    id: &#x27;User-Sign-In&#x27;,
+    label: &#x27;Sign in&#x27;,
+    icon: &#x27;sign-in-alt&#x27;,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.loggedOut,
+    route: null,
+    click: &#x27;toggleLogin&#x27;,
+  },
+  {
+    id: &#x27;User-Sign-Up&#x27;,
+    label: &#x27;Sign up&#x27;,
+    icon: &#x27;user-plus&#x27;,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.loggedOut,
+    route: null,
+    click: &#x27;toggleLogin&#x27;,
+  },
+  {
+    id: &#x27;User-Sign-Out&#x27;,
+    label: &#x27;Sign out&#x27;,
+    icon: &#x27;sign-out-alt&#x27;,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: null,
+    click: &#x27;toggleLogin&#x27;,
   },
 ]</code>
                         </td>

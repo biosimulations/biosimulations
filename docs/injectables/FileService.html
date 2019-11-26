@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>CRBM-Viz/src/app/Services/file.service.ts</code>
+            <code>CRBM-Viz/src/app/Shared/Services/file.service.ts</code>
         </p>
 
 
@@ -130,7 +130,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -219,8 +219,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:51</a></div>
                 </td>
             </tr>
 
@@ -289,8 +289,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:73</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:70</a></div>
                 </td>
             </tr>
 
@@ -359,8 +359,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -398,8 +398,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="77"
-                            class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:77</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:74</a></div>
                 </td>
             </tr>
 
@@ -481,7 +481,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:21</a></div>
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:21</a></div>
                 </td>
             </tr>
 
@@ -565,7 +565,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -597,7 +597,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Services/file.service.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/file.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -611,14 +611,14 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { environment }  from &#x27;src/environments/environment&#x27;;
-import { AlertService } from &#x27;./alert.service.js&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
+import { AlertService } from &#x27;./alert.service&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { Subject } from &#x27;rxjs&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 
 @Injectable({
-  providedIn: &#x27;root&#x27;
+  providedIn: &#x27;root&#x27;,
 })
 export class FileService {
   fileList: Array&lt;object&gt; &#x3D; null;
@@ -628,7 +628,7 @@ export class FileService {
     private http: HttpClient,
     private alertService: AlertService,
     private router: Router
-  ) { }
+  ) {}
 
   uploadFile(file: File, accessType: string) {
     const endpoint &#x3D; &#x60;${environment.crbm.CRBMAPI_URL}/file&#x60;;
@@ -638,16 +638,14 @@ export class FileService {
     this.http.post(endpoint, formData).subscribe(
       success &#x3D;&gt; {
         this.alertService.openDialog(
-          &#x27;File upload was successful: &#x27; + 
-          JSON.stringify(success)
+          &#x27;File upload was successful: &#x27; + JSON.stringify(success)
         );
         this.getFileData();
       },
       error &#x3D;&gt; {
         this.alertService.openDialog(
-          &#x27;File upload failed: &#x27; +
-          JSON.stringify(error)
-        )
+          &#x27;File upload failed: &#x27; + JSON.stringify(error)
+        );
       }
     );
   }
@@ -658,28 +656,27 @@ export class FileService {
         this.fileList &#x3D; success[&#x27;data&#x27;];
         this.fileChangeSubject.next();
       },
-      error &#x3D;&gt; {
-
-      }
+      error &#x3D;&gt; {}
     );
   }
 
   deleteFile(fileId: number): void {
-    this.http.delete(&#x60;${environment.crbm.CRBMAPI_URL}/file/${fileId}&#x60;).subscribe
-    (
-      success &#x3D;&gt; {
-        this.alertService.openDialog(
-          &#x27;File deleted successfully&#x27; + JSON.stringify(success)
-        );
-        this.getFileData();
-        this.fileChangeSubject.next();
-      },
-      error &#x3D;&gt; {
-        this.alertService.openDialog(
-          &#x27;There was an error while deleting the file&#x27; + JSON.stringify(error)
-        );
-      }
-    )
+    this.http
+      .delete(&#x60;${environment.crbm.CRBMAPI_URL}/file/${fileId}&#x60;)
+      .subscribe(
+        success &#x3D;&gt; {
+          this.alertService.openDialog(
+            &#x27;File deleted successfully&#x27; + JSON.stringify(success)
+          );
+          this.getFileData();
+          this.fileChangeSubject.next();
+        },
+        error &#x3D;&gt; {
+          this.alertService.openDialog(
+            &#x27;There was an error while deleting the file&#x27; + JSON.stringify(error)
+          );
+        }
+      );
   }
 
   getFile(fileId: number) {
@@ -687,15 +684,15 @@ export class FileService {
   }
 
   saveFile(currentFile: object, selectedValue: string): void {
-    this.http.put(&#x60;${environment.crbm.CRBMAPI_URL}/file/${currentFile[&#x27;fileId&#x27;]}&#x60;, {
-      accessType: selectedValue
-    })
+    this.http
+      .put(&#x60;${environment.crbm.CRBMAPI_URL}/file/${currentFile[&#x27;fileId&#x27;]}&#x60;, {
+        accessType: selectedValue,
+      })
       .subscribe(
         success &#x3D;&gt; {
-            console.log(&#x27;File update successfull&#x27;, success);
-            this.alertService.openDialog(&#x27;File update successful&#x27;);
-            this.router.navigate([&#x27;/files&#x27;]);
-
+          console.log(&#x27;File update successfull&#x27;, success);
+          this.alertService.openDialog(&#x27;File update successful&#x27;);
+          this.router.navigate([&#x27;/files&#x27;]);
         },
         error &#x3D;&gt; {
           console.log(&#x27;File update failed&#x27;, error);

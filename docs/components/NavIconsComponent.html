@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts</code>
+    <code>CRBM-Viz/src/app/Shared/Components/nav-icons/nav-icons.component.ts</code>
 </p>
 
 
@@ -130,11 +130,11 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#accountMenu">accountMenu</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Public</span>
                                 <a href="#auth">auth</a>
+                            </li>
+                            <li>
+                                <a href="#userMenu">userMenu</a>
                             </li>
                         </ul>
                     </td>
@@ -174,7 +174,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/nav-icons/nav-icons.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -244,7 +244,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:15</a></div>
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/nav-icons/nav-icons.component.ts:15</a></div>
                 </td>
             </tr>
 
@@ -270,42 +270,6 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="accountMenu"></a>
-                        <span class="name">
-                            <b>
-                            accountMenu</b>
-                            <a href="#accountMenu"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../components/AccountMenuComponent.html" target="_self" >AccountMenuComponent</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Decorators : </b>
-                            <br />
-                            <code>
-                                @ViewChild(AccountMenuComponent, {static: true})<br />
-                            </code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:12</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
                         <a name="auth"></a>
                         <span class="name">
                             <b>
@@ -323,7 +287,43 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Layout/nav-icons/nav-icons.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/nav-icons/nav-icons.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userMenu"></a>
+                        <span class="name">
+                            <b>
+                            userMenu</b>
+                            <a href="#userMenu"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >UserMenuComponent</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(UserMenuComponent, {static: true})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/nav-icons/nav-icons.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -337,8 +337,8 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
-import { AuthService } from &#x27;src/app/Services/auth0.service&#x27;;
-import { AccountMenuComponent } from &#x27;src/app/Layout/account-menu/account-menu.component&#x27;;
+import { AuthService } from &#x27;../../Services/auth0.service&#x27;;
+import { UserMenuComponent } from &#x27;../user-menu/user-menu.component&#x27;;
 
 @Component({
   selector: &#x27;app-nav-icons&#x27;,
@@ -346,8 +346,8 @@ import { AccountMenuComponent } from &#x27;src/app/Layout/account-menu/account-m
   styleUrls: [&#x27;./nav-icons.component.sass&#x27;],
 })
 export class NavIconsComponent implements OnInit {
-  @ViewChild(AccountMenuComponent, { static: true })
-  accountMenu: AccountMenuComponent;
+  @ViewChild(UserMenuComponent, { static: true })
+  userMenu: UserMenuComponent;
   constructor(public auth: AuthService) {}
 
   ngOnInit() {}
@@ -357,75 +357,65 @@ export class NavIconsComponent implements OnInit {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;icons&quot;&gt;
+  &lt;!-- Models --&gt;
   &lt;button
     mat-icon-button
-    [routerLink]&#x3D;&quot;[&#x27;&#x27;]&quot;
-    matTooltip&#x3D;&quot;Home&quot;
-    matTooltipPosition&#x3D;&quot;below&quot;
+    [routerLink]&#x3D;&quot;[&#x27;/models&#x27;]&quot;
+    disableRipple&#x3D;&quot;true&quot;
+    class&#x3D;&quot;main&quot;
   &gt;
-    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Example home icon&quot;&gt;home&lt;/mat-icon&gt;
+    &lt;fa-icon
+      class&#x3D;&quot;icon&quot;
+      aria-hidden&#x3D;&quot;false&quot;
+      aria-label&#x3D;&quot;Models icon&quot;
+      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;project-diagram&#x27;]&quot;
+      size&#x3D;&quot;2x&quot;
+    &gt;&lt;/fa-icon&gt;
+    &lt;span class&#x3D;&quot;label&quot;&gt;Models&lt;/span&gt;
   &lt;/button&gt;
 
+  &lt;!-- Simulations --&gt;
   &lt;button
     mat-icon-button
-    [routerLink]&#x3D;&quot;[&#x27;/about&#x27;]&quot;
-    matTooltip&#x3D;&quot;About&quot;
-    matTooltipPosition&#x3D;&quot;below&quot;
+    [routerLink]&#x3D;&quot;[&#x27;/simulations&#x27;]&quot;
+    disableRipple&#x3D;&quot;true&quot;
+    class&#x3D;&quot;main&quot;
   &gt;
-    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;About icon&quot;&gt;help&lt;/mat-icon&gt;
-  &lt;/button&gt;
-
-  &lt;button
-    mat-icon-button
-    [routerLink]&#x3D;&quot;[&#x27;/visualize&#x27;]&quot;
-    matTooltip&#x3D;&quot;Visualizations&quot;
-    matTooltipPosition&#x3D;&quot;below&quot;
-  &gt;
-    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;visualize icon&quot;
+    &lt;mat-icon class&#x3D;&quot;icon&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Simulations icon&quot;
       &gt;timeline&lt;/mat-icon
     &gt;
+    &lt;span class&#x3D;&quot;label&quot;&gt;Simulations&lt;/span&gt;
   &lt;/button&gt;
 
+  &lt;!-- Visualizations --&gt;
   &lt;button
     mat-icon-button
-    [routerLink]&#x3D;&quot;[&#x27;/files&#x27;]&quot;
-    matTooltip&#x3D;&quot;Models&quot;
-    matTooltipPosition&#x3D;&quot;below&quot;
+    [routerLink]&#x3D;&quot;[&#x27;/visualizations&#x27;]&quot;
+    disableRipple&#x3D;&quot;true&quot;
+    class&#x3D;&quot;main&quot;
   &gt;
-    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Files icon&quot;&gt;file_copy&lt;/mat-icon&gt;
+    &lt;fa-icon
+      class&#x3D;&quot;icon&quot;
+      aria-hidden&#x3D;&quot;false&quot;
+      aria-label&#x3D;&quot;Visualizaions icon&quot;
+      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;chart-area&#x27;]&quot;
+      size&#x3D;&quot;2x&quot;
+    &gt;&lt;/fa-icon&gt;
+    &lt;span class&#x3D;&quot;label&quot;&gt;Visualizations&lt;/span&gt;
   &lt;/button&gt;
 
+  &lt;!-- User account and help --&gt;
   &lt;button
     mat-icon-button
-    [routerLink]&#x3D;&quot;[&#x27;/simulate&#x27;]&quot;
-    matTooltip&#x3D;&quot;Simulations&quot;
-    matTooltipPosition&#x3D;&quot;below&quot;
+    [matMenuTriggerFor]&#x3D;&quot;userMenu?.profileMenu&quot;
+    disableRipple&#x3D;&quot;true&quot;
+    class&#x3D;&quot;meta&quot;
   &gt;
-    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Simulations icon&quot;
-      &gt;explore&lt;/mat-icon
-    &gt;
-  &lt;/button&gt;
-  &lt;button
-    mat-icon-button
-    *ngIf&#x3D;&quot;!auth.loggedIn&quot;
-    (click)&#x3D;&quot;auth.login()&quot;
-    matTooltip&#x3D;&quot;Log In&quot;
-    matTooltipPosition&#x3D;&quot;below&quot;
-  &gt;
-    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;LogIn icon&quot;&gt;lock_open&lt;/mat-icon&gt;
-  &lt;/button&gt;
-  &lt;app-account-menu&gt;&lt;/app-account-menu&gt;
-  &lt;button
-    mat-icon-button
-    *ngIf&#x3D;&quot;auth.loggedIn&quot;
-    matTooltip&#x3D;&quot;Account&quot;
-    matTooltipPosition&#x3D;&quot;below&quot;
-    [matMenuTriggerFor]&#x3D;&quot;accountMenu?.profileMenu&quot;
-  &gt;
-    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Account icon&quot;
+    &lt;mat-icon class&#x3D;&quot;icon&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;User icon&quot;
       &gt;account_circle&lt;/mat-icon
     &gt;
   &lt;/button&gt;
+  &lt;app-user-menu&gt;&lt;/app-user-menu&gt;
 &lt;/div&gt;
 </code></pre>
     </div>
@@ -434,26 +424,39 @@ export class NavIconsComponent implements OnInit {
                 <p class="comment">
                     <code>./nav-icons.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.sass&#x27;
-.icons
-    display: flex
-    flex-direction: row
-    justify-content: space-between
-    align-self: flex-end
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/theme.scss&#x27;
+
 button
     min-width: min-content
-    flex: 1 1 auto
     height: 100%
 button:focus
     outline: 0px
 button:hover
-    color: mat-color($accent)
+    color: mat-color($theme-accent)
+button.main
+    margin-right: 2rem
+    .label
+        margin-left: 0.5rem
+        @include mat-typography-level-to-styles($fontConfig, title)
+
+mat-icon
+    font-size: 2.25rem
+    width: 36px
+    height: 36px
+.icons
+    .mat-icon-button
+        width: auto
+        .mat-icon
+            line-height: 36px
+fa-icon
+    position: relative
+    top: 6px
 
 a
     color: white
     flex: 1 1 auto
 a:hover
-    color: mat-color($accent)
+    color: mat-color($theme-accent)
 </code></pre>
     </div>
 
@@ -482,8 +485,8 @@ a:hover
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="icons">  <button    mat-icon-button    [routerLink]="[\'\']"    matTooltip="Home"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>  </button>  <button    mat-icon-button    [routerLink]="[\'/about\']"    matTooltip="About"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="About icon">help</mat-icon>  </button>  <button    mat-icon-button    [routerLink]="[\'/visualize\']"    matTooltip="Visualizations"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="visualize icon"      >timeline</mat-icon    >  </button>  <button    mat-icon-button    [routerLink]="[\'/files\']"    matTooltip="Models"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="Files icon">file_copy</mat-icon>  </button>  <button    mat-icon-button    [routerLink]="[\'/simulate\']"    matTooltip="Simulations"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="Simulations icon"      >explore</mat-icon    >  </button>  <button    mat-icon-button    *ngIf="!auth.loggedIn"    (click)="auth.login()"    matTooltip="Log In"    matTooltipPosition="below"  >    <mat-icon aria-hidden="false" aria-label="LogIn icon">lock_open</mat-icon>  </button>  <app-account-menu></app-account-menu>  <button    mat-icon-button    *ngIf="auth.loggedIn"    matTooltip="Account"    matTooltipPosition="below"    [matMenuTriggerFor]="accountMenu?.profileMenu"  >    <mat-icon aria-hidden="false" aria-label="Account icon"      >account_circle</mat-icon    >  </button></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataComponent', 'selector': 'app-data'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div class="icons">  <!-- Models -->  <button    mat-icon-button    [routerLink]="[\'/models\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Models icon"      [icon]="[\'fas\', \'project-diagram\']"      size="2x"    ></fa-icon>    <span class="label">Models</span>  </button>  <!-- Simulations -->  <button    mat-icon-button    [routerLink]="[\'/simulations\']"    disableRipple="true"    class="main"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"      >timeline</mat-icon    >    <span class="label">Simulations</span>  </button>  <!-- Visualizations -->  <button    mat-icon-button    [routerLink]="[\'/visualizations\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Visualizaions icon"      [icon]="[\'fas\', \'chart-area\']"      size="2x"    ></fa-icon>    <span class="label">Visualizations</span>  </button>  <!-- User account and help -->  <button    mat-icon-button    [matMenuTriggerFor]="userMenu?.profileMenu"    disableRipple="true"    class="meta"  >    <mat-icon class="icon" aria-hidden="false" aria-label="User icon"      >account_circle</mat-icon    >  </button>  <app-user-menu></app-user-menu></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'NavIconsComponent'};
 </script>

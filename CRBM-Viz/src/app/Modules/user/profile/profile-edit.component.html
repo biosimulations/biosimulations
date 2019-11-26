@@ -1,0 +1,151 @@
+<form
+  class="page-content partial-width form"
+  *ngIf="user"
+  #userForm="ngForm"
+  (ngSubmit)="save()">
+  <mat-form-field appearance="legacy">
+    <mat-label>Username</mat-label>
+    <input matInput
+      id="username"
+      name="username"
+      #username="ngModel"
+      placeholder="username"
+      [(ngModel)]="user.username"
+      disabled />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Name</mat-label>
+    <input matInput
+      id="firstName"
+      name="firstName"
+      #firstName="ngModel"
+      class="firstName"
+      required
+      placeholder="John"
+      [(ngModel)]="user.firstName"/>
+    <input matInput
+      id="middleName"
+      name="middleName"
+      class="middleName"
+      #middleName="ngModel"
+      placeholder="C"
+      [(ngModel)]="user.middleName"/>
+    <input matInput
+      id="lastName"
+      name="lastName"
+      class="lastName"
+      #lastName="ngModel"
+      required
+      placeholder="Doe"
+      [(ngModel)]="user.lastName"/>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Organization</mat-label>
+    <input matInput
+      id="organization"
+      name="organization"
+      #organization="ngModel"
+      placeholder="XXX University"
+      [(ngModel)]="user.organization" />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Website</mat-label>
+    <input matInput
+      id="website"
+      name="website"
+      #website="ngModel"
+      type="url"
+      placeholder="https://www.mywebsite.org"
+      [(ngModel)]="user.website" />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Email address</mat-label>
+    <input matInput
+      id="email"
+      name="email"
+      #email="ngModel"
+      class="email"
+      type="email"
+      required
+      placeholder="user@organization.org"
+      [(ngModel)]="user.email"/>
+
+    <mat-select
+      id="emailPublic"
+      name="emailPublic"
+      #emailPublic="ngModel"
+      class="emailPublic"
+      required
+      [(ngModel)]="user.emailPublic"
+    >
+      <mat-option [value]="false">Private</mat-option>
+      <mat-option [value]="true">Public</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Gravatar email (for photo)</mat-label>
+    <input matInput
+      id="gravatarEmail"
+      name="gravatarEmail"
+      #gravatarEmail="ngModel"
+      placeholder="user@organization.edu"
+      [(ngModel)]="user.gravatarEmail" />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>GitHub username</mat-label>
+    <input matInput
+      id="gitHubId"
+      name="gitHubId"
+      #gitHubId="ngModel"
+      placeholder="username"
+      [(ngModel)]="user.gitHubId" />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Google Scholar id</mat-label>
+    <input matInput
+      id="googleScholarId"
+      name="googleScholarId"
+      #googleScholarId="ngModel"
+      placeholder="XXXXXXXXXXXXX"
+      [(ngModel)]="user.googleScholarId" />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>ORCID</mat-label>
+    <input matInput
+      id="orcId"
+      name="orcId"
+      #orcId="ngModel"
+      placeholder="xxxx-xxxx-xxxx-xxxx"
+      [(ngModel)]="user.orcId" />
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>Description</mat-label>
+    <textarea matInput
+      id="description"
+      name="description"
+      #description="ngModel"
+      placeholder="Description of professional interests and experience."
+      rows="10"
+      [(ngModel)]="user.description"
+      ></textarea>
+  </mat-form-field>
+
+  <div class="save-button-container">
+    <button mat-button
+      type="submit"
+      disableRipple="true"
+      [disabled]="!userForm.form.valid"
+    >Save</button>
+    <div class="saved-message" [class.show-saved-message]="showSavedMessage"
+    >Your profile was saved.</div>
+  </div>
+</form>
