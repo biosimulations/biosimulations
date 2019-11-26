@@ -35,6 +35,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
     SharedModule,

@@ -48,9 +48,9 @@
                     aria-label="Taxon icon"
                     [icon]="['fas', 'dna']"
                   ></fa-icon>
-                  <a [href]="simulation.model.taxon.getUrl()" target="_blank">{{
+                  <app-hyperlink [href]="simulation.model.taxon.getUrl()">{{
                     simulation.model.taxon.getShortName()
-                  }}</a>
+                  }}</app-hyperlink>
                 </li>
 
                 <li>
@@ -78,42 +78,46 @@
               <ul class="icon-text inline no-wrap">
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Model framework icon" [icon]="['fas', 'calculator']"></fa-icon>
-                  <a [href]="simulation.model.framework.getUrl()" target="_blank">{{ simulation.model.framework.name | ucfirst }}</a>
+                  <app-hyperlink [href]="simulation.model.framework.getUrl()">{{
+                    simulation.model.framework.name | ucfirst
+                  }}</app-hyperlink>
                 </li>
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Simulation algorithm icon" [icon]="['fas', 'calculator']"></fa-icon>
-                  <a [href]="simulation.algorithm.getUrl()" target="_blank">{{ simulation.algorithm.name | ucfirst }}</a>
+                  <app-hyperlink [href]="simulation.algorithm.getUrl()">{{
+                    simulation.algorithm.name | ucfirst
+                  }}</app-hyperlink>
                 </li>
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-                  <a [href]="simulation.format.url" target="_blank">{{
+                  <app-hyperlink [href]="simulation.format.url">{{
                     simulation.format.name
-                  }}</a>
+                  }}</app-hyperlink>
                 </li>
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-                  <a [href]="simulation.model.format.url" target="_blank">{{
+                  <app-hyperlink [href]="simulation.model.format.url">{{
                     simulation.model.format.name
-                  }}</a>
+                  }}</app-hyperlink>
                 </li>
               </ul>
 
               <ul class="icon-text inline no-wrap">
                 <li *ngFor="let identifier of simulation.model.identifiers">
                   <fa-icon aria-hidden="true" aria-label="Identifier icon" [icon]="['fas', 'star']"></fa-icon>
-                  <a [href]="identifier.getUrl()" target="_blank">{{
-                    identifier.namespaceName + ': ' + identifier.id
-                  }}</a>
+                  <app-hyperlink [href]="identifier.getUrl()">{{
+                    identifier.getNamespaceName() + ': ' + identifier.id
+                  }}</app-hyperlink>
                 </li>
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-                  <a [href]="simulation.license.getSwoUrl()" target="_blank">{{
-                    simulation.license.name
-                  }}</a>
+                  <app-hyperlink [href]="getLicenseInfo(simulation.license).url">{{
+                    getLicenseInfo(simulation.license).name
+                  }}</app-hyperlink>
                 </li>
               </ul>
             </div>
@@ -123,7 +127,7 @@
                 <li *ngFor="let ref of simulation.refs">
                   <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
                   </fa-icon>
-                  <a [href]="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
+                  <app-hyperlink [href]="ref.getUrl()">{{ ref.authors }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
                 </li>
               </ul>
             </div>
@@ -209,9 +213,9 @@
                 </th>
                 <th>Framework</th>
                 <td>
-                  <a [href]="simulation.model.framework.getUrl()" target="_blank">{{
+                  <app-hyperlink [href]="simulation.model.framework.getUrl()">{{
                     simulation.model.framework.name
-                  }}</a>
+                  }}</app-hyperlink>
                 </td>
               </tr>
               <tr>
@@ -220,9 +224,9 @@
                 </th>
                 <th>Algorithm</th>
                 <td>
-                  <a [href]="simulation.algorithm.getUrl()" target="_blank">{{
+                  <app-hyperlink [href]="simulation.algorithm.getUrl()">{{
                     simulation.algorithm.name
-                  }}</a>
+                  }}</app-hyperlink>
                 </td>
               </tr>
               <tr>
@@ -231,8 +235,9 @@
                 </th>
                 <th>Simulator</th>
                 <td>
-                  <a [href]="simulation.simulator.getDockerHubUrl()" target="_blank"
-                  >{{ simulation.simulator.getFullName() }}</a>
+                  <app-hyperlink [href]="simulation.simulator.getDockerHubUrl()">{{
+                    simulation.simulator.getFullName()
+                  }}</app-hyperlink>
                 </td>
               </tr>
             </tbody>
@@ -248,7 +253,11 @@
                   <fa-icon aria-hidden="true" aria-label="Algorithm parameter icon" [icon]="['fas', 'circle']"></fa-icon>
                 </th>
                 <th>
-                  <a [href]="param.getUrl()" target="_blank" title="{{ param.name }}">{{ param.id }}</a>
+                  <app-hyperlink
+                    [href]="param.getUrl()"
+                    title="{{ param.name }}">{{
+                    param.id
+                  }}</app-hyperlink>
                 </th>
                 <td [innerHTML]="param.value | scientificNotation"></td>
               </tr>
@@ -266,9 +275,9 @@
                 </th>
                 <th>Simulation</th>
                 <td>
-                  <a [href]="simulation.format.url" target="_blank">{{
+                  <app-hyperlink [href]="simulation.format.url">{{
                     simulation.format.getFullName()
-                  }}</a>
+                  }}</app-hyperlink>
                 </td>
               </tr>
               <tr>
@@ -277,9 +286,9 @@
                 </th>
                 <th>Model</th>
                 <td>
-                  <a [href]="simulation.model.format.url" target="_blank">{{
+                  <app-hyperlink [href]="simulation.model.format.url">{{
                     simulation.model.format.getFullName()
-                  }}</a>
+                  }}</app-hyperlink>
                 </td>
               </tr>
             </tbody>
@@ -322,7 +331,7 @@
                 aria-label="Download icon"
                 [icon]="['far', 'file-alt']"
               ></fa-icon>
-              <a [routerLink]="simulation.getDescriptionFileUrl()"
+              <a [href]="simulation.getDescriptionFileUrl()"
               >SED-ML ({{ simulation.getDescriptionFileSize() }} Mb)</a>
             </li>
           </ul>
@@ -338,8 +347,8 @@
                 [icon]="['far', 'file-alt']"
               ></fa-icon>
               <a
-                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.csv)"
-                download="simulation-{{ simulation.id }}.csv"
+                [href]="simulation.getResultsFileUrl(SimulationResultsFormat.csv)"
+                download="simulation-{{ simulation.id }}.csv.zip"
               >CSV ({{ simulation.getResultsFileSize(SimulationResultsFormat.csv) }} Mb)</a>
             </li>
             <li>
@@ -349,31 +358,9 @@
                 [icon]="['far', 'file-alt']"
               ></fa-icon>
               <a
-                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.hdf5)"
+                [href]="simulation.getResultsFileUrl(SimulationResultsFormat.hdf5)"
                 download="simulation-{{ simulation.id }}.hdf5"
               >HDF5 ({{ simulation.getResultsFileSize(SimulationResultsFormat.hdf5) }} Mb)</a>
-            </li>
-            <li>
-              <fa-icon
-                aria-label="Download icon"
-                aria-hidden="true"
-                [icon]="['far', 'file-alt']"
-              ></fa-icon>
-              <a
-                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.numl)"
-                download="simulation-{{ simulation.id }}.xml"
-              >NuML ({{ simulation.getResultsFileSize(SimulationResultsFormat.numl) }} Mb)</a>
-            </li>
-            <li>
-              <fa-icon
-                aria-label="Download icon"
-                aria-hidden="true"
-                [icon]="['far', 'file-alt']"
-              ></fa-icon>
-              <a
-                [routerLink]="simulation.getResultsFileUrl(SimulationResultsFormat.zarr)"
-                download="simulation-{{ simulation.id }}.zarr"
-              >Zarr ({{ simulation.getResultsFileSize(SimulationResultsFormat.zarr) }} Mb)</a>
             </li>
           </ul>
         </div>
@@ -412,8 +399,15 @@
                 <th>
                   <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
                 </th>
-                <th>Submitted</th>
-                <td>{{ simulation.date | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+                <th>Created</th>
+                <td>{{ simulation.created | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+              </tr>
+              <tr>
+                <th>
+                  <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+                </th>
+                <th>Updated</th>
+                <td>{{ simulation.updated | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
               </tr>
               <tr *ngIf="simulation.startDate">
                 <th>
@@ -472,9 +466,9 @@
                 </th>
                 <th>License</th>
                 <td>
-                  <a [href]="simulation.license.getSwoUrl()" target="_blank">{{
-                    simulation.license.name
-                  }}</a>
+                  <app-hyperlink [href]="getLicenseInfo(simulation.license).url">{{
+                    getLicenseInfo(simulation.license).name
+                  }}</app-hyperlink>
                 </td>
               </tr>
               <tr>

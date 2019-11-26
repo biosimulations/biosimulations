@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
 
@@ -26,6 +26,7 @@ import { NewSimulationComponent } from './new-simulation/new-simulation.componen
     MaterialModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

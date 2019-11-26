@@ -8,10 +8,10 @@ import { ModelService } from './model.service';
 
 import { AccessLevel } from '../Enums/access-level';
 import { SimulationStatus } from '../Enums/simulation-status';
+import { License } from '../Enums/license';
 import { ModelParameterChange } from '../Models/model-parameter-change';
 import { AlgorithmParameter } from '../Models/algorithm-parameter';
 import { Format } from '../Models/format';
-import { License } from '../Models/license';
 import { JournalReference } from '../Models/journal-reference';
 import { OntologyTerm } from '../Models/ontology-term';
 import { Person } from '../Models/person';
@@ -47,109 +47,110 @@ export class SimulationService {
     switch (id) {
       default:
       case '001':
-        simulation = new Simulation(
-          id,
-          'First simulation',
-          'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.',
-          ['wild type', 'normal'],
+        simulation = new Simulation();
+        simulation.id = id;
+        simulation.name = 'First simulation';
+        simulation.description = 'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+        simulation.tags = ['wild type', 'normal'];
 
-          ModelService._get('001'),
+        simulation.model = ModelService._get('001');
 
-          new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org'),
-          [
-            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
-            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
-          ],
-          10.,
+        simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
+        simulation.modelParameterChanges = [
+          new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+          new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+          new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+        ];
+        simulation.length = 10.;
 
-          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+        simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
 
-          new Simulation('005', 'Sim-005'),
-          [
-            new JournalReference(['Karr, JR', 'Shaikh, B'], 'Journal', 101, 3, '10-20', 2019),
-            new JournalReference(['Skaf, Y', 'Wilson, M'], 'Journal', 101, 3, '10-20', 2019),
-          ],
-          UserService._get('y.skaf'),
-          AccessLevel.public,
-          SimulationStatus.finished,
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          100.,
-          'out\n'.repeat(40),
-          'err\n'.repeat(40),
-        );
+        simulation.parent = new Simulation();
+        simulation.parent.id = '005';
+        simulation.parent.name = 'Sim-005';
+
+        simulation.refs = [
+          new JournalReference('Karr JR & Shaikh B', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Skaf Y & Wilson M', 'Journal', 101, 3, '10-20', 2019),
+        ];
+        simulation.owner = UserService._get('y.skaf');
+        simulation.access = AccessLevel.public;
+        simulation.status = SimulationStatus.finished;
+        simulation.created = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.wallTime = 100.;
+        simulation.outLog = 'out\n'.repeat(40);
+        simulation.errLog = 'err\n'.repeat(40);
         break;
 
       case '003':
-        simulation = new Simulation(
-          '003',
-          'Third simulation',
-          'Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.',
-          ['disease', 'cancer'],
+        simulation = new Simulation();
+        simulation.id = '003';
+        simulation.name = 'Third simulation';
+        simulation.description = 'Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.';
+        simulation.tags = ['disease', 'cancer'];
 
-          ModelService._get('003'),
+        simulation.model = ModelService._get('003');
 
-          new Format('SED-ML', 'L1V2', 3685, 'https://sed-ml.org'),
-          [
-            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
-            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
-          ],
-          10.,
+        simulation.format = new Format('SED-ML', 'L1V2', 3685, 'https://sed-ml.org');
+        simulation.modelParameterChanges = [
+          new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+          new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+          new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+        ];
+        simulation.length = 10.;
 
-          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+        simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
 
-          null,
-          [],
-          UserService._get('y.skaf'),
-          AccessLevel.private,
-          SimulationStatus.queued,
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          100.,
-          'out\n'.repeat(40),
-          null,
-        );
+        simulation.parent = null;
+        simulation.refs = [];
+        simulation.owner = UserService._get('y.skaf');
+        simulation.access = AccessLevel.private;
+        simulation.status = SimulationStatus.queued;
+        simulation.created = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.wallTime = 100.;
+        simulation.outLog = 'out\n'.repeat(40);
+        simulation.errLog = null;
         break;
 
       case '006':
-        simulation = new Simulation(
-          '006',
-          'Sixth simulation',
-          'Simulation of a mathematical model of the interactions of cdc2 and cyclin.',
-          ['disease', 'diabetes'],
+        simulation = new Simulation();
+        simulation.id = '006';
+        simulation.name = 'Sixth simulation';
+        simulation.description = 'Simulation of a mathematical model of the interactions of cdc2 and cyclin.';
+        simulation.tags = ['disease', 'diabetes'];
 
-          ModelService._get('006'),
+        simulation.model = ModelService._get('006');
 
-          new Format('SED-ML', 'L1V1', 3685, 'https://sed-ml.org'),
-          [
-            new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
-            new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
-            new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
-          ],
-          10.,
+        simulation.format = new Format('SED-ML', 'L1V1', 3685, 'https://sed-ml.org');
+        simulation.modelParameterChanges = [
+          new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
+          new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
+          new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+        ];
+        simulation.length = 10.;
 
-          new Simulator('VCell', '7.1', 'crbm/vcell:7.1'),
+        simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
 
-          null,
-          [],
-          UserService._get('b.shaikh'),
-          AccessLevel.public,
-          SimulationStatus.failed,
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          new Date(Date.parse('2019-11-06 00:00:00')),
-          100.,
-          'out\n'.repeat(40),
-          'err\n'.repeat(40),
-        );
+        simulation.parent = null;
+        simulation.refs = [];
+        simulation.owner = UserService._get('b.shaikh');
+        simulation.access = AccessLevel.public;
+        simulation.status = SimulationStatus.failed;
+        simulation.created = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.wallTime = 100.;
+        simulation.outLog = 'out\n'.repeat(40);
+        simulation.errLog = 'err\n'.repeat(40);
         break;
     }
-    simulation.startTime = 0;
-    simulation.endTime = 3600;
     simulation.numTimePoints = 360;
     simulation.algorithm = new OntologyTerm('KISAO', '0000064', 'Runge-Kutta based method', null,
       'http://www.biomodels.net/kisao/KISAO#KISAO_0000064');
@@ -158,7 +159,7 @@ export class SimulationService {
       new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211),
       new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209),
     ];
-    simulation.license = new License('CC0', 1000049);
+    simulation.license = License.cc0;
     simulation.authors = [
       UserService._get('s.edelstein'),
       new Person('John', 'C', 'Doe'),
@@ -337,5 +338,17 @@ export class SimulationService {
         ],
       },
     ];
+  }
+
+  save(simulation:Simulation): void {
+    simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
+    simulation.owner = this.userService.get();
+    simulation.created = new Date(Date.now());
+    simulation.updated = new Date(Date.now());
+    simulation.id = '007';
+  }
+
+  publish(simulation: Simulation): void {
+    simulation.access = AccessLevel.public;
   }
 }

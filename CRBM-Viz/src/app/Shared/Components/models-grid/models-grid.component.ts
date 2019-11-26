@@ -105,8 +105,16 @@ export class ModelsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Date',
-        field: 'date',
+        headerName: 'Created',
+        field: 'created',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        minWidth: 100,
+        hide: true,
+      },
+      {
+        headerName: 'Updated',
+        field: 'updated',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         minWidth: 100,

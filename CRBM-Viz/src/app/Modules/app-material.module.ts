@@ -22,6 +22,7 @@ import {
 } from '@angular/material';
 
 import { MatTreeModule } from '@angular/material/tree';
+import { MatChipsModule } from '@angular/material/chips';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -43,6 +44,7 @@ const MaterialComponents = [
   MatTooltipModule,
   MatExpansionModule,
   MatTreeModule,
+  MatChipsModule,
 ];
 @NgModule({
   imports: [MaterialComponents],

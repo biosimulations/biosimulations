@@ -30,9 +30,8 @@
                     aria-label="Taxon icon"
                     [icon]="['fas', 'dna']"
                   ></fa-icon>
-                  <a [href]="model.taxon.getUrl()" target="_blank">{{
-                    model.taxon.getShortName()
-                  }}</a>
+                  <app-hyperlink [href]="model.taxon.getUrl()"
+                  >{{ model.taxon.getShortName() }}</app-hyperlink>
                 </li>
 
                 <li>
@@ -48,30 +47,26 @@
               <ul class="icon-text inline no-wrap">
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Model framework icon" [icon]="['fas', 'calculator']"></fa-icon>
-                  <a [href]="model.framework.getUrl()" target="_blank">{{ model.framework.name | ucfirst }}</a>
+                  <app-hyperlink [href]="model.framework.getUrl()">{{ model.framework.name | ucfirst }}</app-hyperlink>
                 </li>
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-                  <a [href]="model.format.url" target="_blank">{{
-                    model.format.name
-                  }}</a>
+                  <app-hyperlink [href]="model.format.url">{{ model.format.name }}</app-hyperlink>
                 </li>
               </ul>
 
               <ul class="icon-text inline no-wrap">
                 <li *ngFor="let identifier of model.identifiers">
                   <fa-icon aria-hidden="true" aria-label="Identifier icon" [icon]="['fas', 'star']"></fa-icon>
-                  <a [href]="identifier.getUrl()" target="_blank">{{
-                    identifier.namespaceName + ': ' + identifier.id
-                  }}</a>
+                  <app-hyperlink [href]="identifier.getUrl()"
+                  >{{ identifier.getNamespaceName() + ': ' + identifier.id }}</app-hyperlink>
                 </li>
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-                  <a [href]="model.license.getSwoUrl()" target="_blank">{{
-                    model.license.name
-                  }}</a>
+                  <app-hyperlink [href]="getLicenseInfo(model.license).url"
+                  >{{ getLicenseInfo(model.license).name }}</app-hyperlink>
                 </li>
               </ul>
             </div>
@@ -81,7 +76,8 @@
                 <li *ngFor="let ref of model.refs">
                   <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
                   </fa-icon>
-                  <a [href]="ref.getUrl()" target="_blank">{{ ref.authors.join('; ') }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</a>
+                  <app-hyperlink [href]="ref.getUrl()"
+                  >{{ ref.authors }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
                 </li>
               </ul>
             </div>
@@ -143,8 +139,15 @@
                 <th>
                   <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
                 </th>
-                <th>Submitted</th>
-                <td>{{ model.date | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+                <th>Created</th>
+                <td>{{ model.created | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+              </tr>
+              <tr>
+                <th>
+                  <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+                </th>
+                <th>Updated</th>
+                <td>{{ model.updated | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
               </tr>
             </tbody>
           </table>
@@ -182,9 +185,8 @@
                 </th>
                 <th>License</th>
                 <td>
-                  <a [href]="model.license.getSwoUrl()" target="_blank">{{
-                    model.license.name
-                  }}</a>
+                  <app-hyperlink [href]="getLicenseInfo(model.license).url"
+                  >{{ getLicenseInfo(model.license).name }}</app-hyperlink>
                 </td>
               </tr>
               <tr>

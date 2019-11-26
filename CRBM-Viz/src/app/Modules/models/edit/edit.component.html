@@ -1,0 +1,182 @@
+<form
+  class="page-content partial-width form"
+  [formGroup]="formGroup"
+  (ngSubmit)="submit()">
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>Name</mat-label>
+    <input matInput
+      formControlName="name"
+      placeholder="Brief name for the model"
+      required
+      />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>Description</mat-label>
+    <textarea matInput
+      formControlName="description"
+      rows="10"
+      placeholder="Description of the model"
+      ></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formGroupName="taxon">
+    <mat-label>Taxon</mat-label>
+    <input matInput
+      formControlName="id"
+      type="number"
+      placeholder="NCBI Taxonomy id (e.g., 9606)"
+      />
+    <input matInput
+      formControlName="name"
+      type="text"
+      placeholder="Taxon name (e.g., Homo sapiens)"
+      />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="tags"
+    >
+    <mat-label>Tags</mat-label>
+
+    <mat-chip-list #tagChipList aria-label="Tag list">
+      <mat-chip *ngFor="let tag of formGroup.controls.tags.controls; let iTag=index"
+        [selectable]="false"
+        [removable]="true"
+        (removed)="removeTag(iTag)">
+        {{ tag.value }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        [placeholder]="formGroup.controls.tags.controls.length === 0 ? 'Enter a tag' : null"
+        [matChipInputFor]="tagChipList"
+        [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+        [matChipInputAddOnBlur]="false"
+        (matChipInputTokenEnd)="addTag($event)" />
+    </mat-chip-list>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="authors"
+    *ngIf="formGroup.controls.authors.controls.length > 0"
+    >
+    <mat-label>Authors</mat-label>
+    <div *ngFor="let author of formGroup.controls.authors.controls; let iAuthor=index"
+    >
+      <div [formGroupName]="iAuthor">
+        <input matInput
+          formControlName="firstName"
+          placeholder="John"
+          required
+          />
+        <input matInput
+          formControlName="middleName"
+          placeholder="C"
+          />
+        <input matInput
+          formControlName="lastName"
+          placeholder="Doe"
+          required
+          />
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="identifiers"
+    *ngIf="formGroup.controls.identifiers.controls.length > 0"
+    >
+    <mat-label>Identifiers</mat-label>
+    <div *ngFor="let identifier of formGroup.controls.identifiers.controls; let iIdentifier=index"
+    >
+      <div [formGroupName]="iIdentifier">
+        <input matInput
+          formControlName="namespace"
+          placeholder="biomodels.db"
+          required
+          />
+        <input matInput
+          formControlName="id"
+          placeholder="BIOMD0000000001"
+          required
+          />
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="refs"
+    *ngIf="formGroup.controls.refs.controls.length > 0"
+    >
+    <mat-label>References</mat-label>
+    <div *ngFor="let identifier of formGroup.controls.refs.controls; let iRef=index"
+    >
+      <div [formGroupName]="iRef">
+        <input matInput
+          formControlName="authors"
+          placeholder="Doe JC & Doe JD"
+          />
+        <input matInput
+          formControlName="journal"
+          placeholder="PLoS Comput Biol"
+          />
+        <input matInput
+          formControlName="volume"
+          placeholder="10"
+          />
+        <input matInput
+          formControlName="num"
+          placeholder="1"
+          />
+        <input matInput
+          formControlName="pages"
+          placeholder="1-10"
+          />
+        <input matInput
+          formControlName="year"
+          type="number"
+          placeholder="2019"
+          />
+        <input matInput
+          formControlName="doi"
+          placeholder="10.1002/0470841559.ch1"
+          />
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>Access level</mat-label>
+    <mat-select
+      formControlName="access"
+      required
+    >
+      <mat-option [value]="AccessLevel.private">Private</mat-option>
+      <mat-option [value]="AccessLevel.public">Public</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>License</mat-label>
+    <mat-select
+      formControlName="license"
+      required
+    >
+      <mat-option
+        *ngFor="let aLicense of licenses"
+        [value]="aLicense.license"
+      >{{ aLicense.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="save-button-container">
+    <button mat-button
+      type="submit"
+      disableRipple="true"
+      [disabled]="!formGroup.valid"
+    >{{ this.id ? 'Save' : 'Upload' }}</button>
+    <div class="after-submit-message" [class.show-after-submit-message]="showAfterSubmitMessage"
+    >Model was saved.</div>
+  </div>
+</form>

@@ -233,8 +233,16 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Date',
-        field: 'date',
+        headerName: 'Created',
+        field: 'created',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        minWidth: 100,
+        hide: true,
+      },
+      {
+        headerName: 'Updated',
+        field: 'updated',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         minWidth: 100,
@@ -267,8 +275,8 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Model date',
-        field: 'model.date',
+        headerName: 'Model created',
+        field: 'model.created',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         minWidth: 100,
