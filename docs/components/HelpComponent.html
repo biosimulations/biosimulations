@@ -162,7 +162,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -231,8 +231,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:14</a></div>
                 </td>
             </tr>
 
@@ -270,8 +270,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:25</a></div>
                 </td>
             </tr>
 
@@ -336,8 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/about/help/help.component.ts:29</a></div>
                 </td>
             </tr>
 
@@ -387,6 +387,8 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit } from &#x27;@angular/core&#x27;;
+import { NavItemDisplayLevel } from &#x27;src/app/Shared/Enums/nav-item-display-level&#x27;;
+import { NavItem } from &#x27;src/app/Shared/Models/nav-item&#x27;;
 import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.service&#x27;;
 
 @Component({
@@ -402,8 +404,8 @@ export class HelpComponent implements OnInit {
       {label: &#x27;About&#x27;, route: [&#x27;/about&#x27;]},
       {label: &#x27;Help&#x27;},
     ];
-    const buttons: object[] &#x3D; [
-      {iconType: &#x27;fas&#x27;, icon: &#x27;info&#x27;, label: &#x27;About&#x27;, route: [&#x27;/about&#x27;]},
+    const buttons: NavItem[] &#x3D; [
+      {iconType: &#x27;fas&#x27;, icon: &#x27;info&#x27;, label: &#x27;About&#x27;, route: [&#x27;/about&#x27;], display: NavItemDisplayLevel.always},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
   }
@@ -446,6 +448,11 @@ export class HelpComponent implements OnInit {
                         &lt;a (click)&#x3D;&quot;scrollToElement(accounts)&quot;
                         &gt;User accounts&lt;/a&gt;
                     &lt;/li&gt;
+
+                    &lt;li&gt;
+                        &lt;a (click)&#x3D;&quot;scrollToElement(faq)&quot;
+                        &gt;Frequently asked questions&lt;/a&gt;
+                    &lt;/li&gt;
                 &lt;/ol&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -456,7 +463,7 @@ export class HelpComponent implements OnInit {
                 &lt;div&gt;
                     &lt;a href&#x3D;&quot;https://reproducible-biomedical-modeling.github.io/CRBM-Viz/&quot; target&#x3D;&quot;_blank&quot;&gt;
                         &lt;fa-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Link icon&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;link&#x27;]&quot;&gt;&lt;/fa-icon&gt;
-                        API documentation 
+                        API documentation
                     &lt;/a&gt;
                 &lt;/div&gt;
                 &lt;div&gt;
@@ -499,7 +506,7 @@ export class HelpComponent implements OnInit {
                     &lt;li&gt;Finding models&lt;/li&gt;
                     &lt;li&gt;Finding simulation experiment&lt;/li&gt;
                     &lt;li&gt;Simulating variants of models&lt;/li&gt;
-                    &lt;li&gt;Finding visualizations&lt;/li&gt;    
+                    &lt;li&gt;Finding visualizations&lt;/li&gt;
                     &lt;li&gt;Configuring visualizations&lt;/li&gt;
                 &lt;/ul&gt;
             &lt;/div&gt;
@@ -578,6 +585,68 @@ export class HelpComponent implements OnInit {
                 &lt;/ul&gt;
             &lt;/div&gt;
         &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;section q-and-a&quot;&gt;
+            &lt;h2 #faq&gt;6. Frequently asked questions
+                &lt;a class&#x3D;&quot;back-to-top&quot; (click)&#x3D;&quot;scrollToTop(top)&quot;&gt;
+                    &lt;mat-icon aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Back to top icon&quot; title&#x3D;&quot;Back to top&quot;&gt;arrow_upward&lt;/mat-icon&gt;
+                &lt;/a&gt;
+            &lt;/h2&gt;
+            &lt;div class&#x3D;&quot;section-content&quot;&gt;
+                &lt;div class&#x3D;&quot;subsection&quot;&gt;
+                    &lt;h3&gt;Models&lt;/h3&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;div class&#x3D;&quot;q&quot;&gt;Which model formats are supported?&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;a&quot;&gt;Currently, simulations can only be uploaded in SBML format.&lt;/div&gt;
+                        &lt;/li&gt;
+
+                        &lt;li&gt;
+                            &lt;div class&#x3D;&quot;q&quot;&gt;Which SBML features are supported?&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;a&quot;&gt;TBA.&lt;/div&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;subsection&quot;&gt;
+                    &lt;h3&gt;Simulations&lt;/h3&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;div class&#x3D;&quot;q&quot;&gt;Which simulation formats are supported?&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;a&quot;&gt;Currently, simulations can only be uploaded in SED-ML format.&lt;/div&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;div class&#x3D;&quot;q&quot;&gt;Which SED-ML features are supported?&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;a&quot;&gt;TBA.&lt;/div&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;div class&#x3D;&quot;q&quot;&gt;Can simulation results be uploaded?&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;a&quot;&gt;To ensure the provenance of simulation results, simulation results can only be generated by &lt;i&gt;BioSimulations&lt;/i&gt;.&lt;/div&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;subsection&quot;&gt;
+                    &lt;h3&gt;Visualizations&lt;/h3&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;div class&#x3D;&quot;q&quot;&gt;Which visualization formats are supported?&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;a&quot;&gt;Currently, simulations can only be uploaded in Vega format.&lt;/div&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;subsection&quot;&gt;
+                    &lt;h3&gt;General&lt;/h3&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;div class&#x3D;&quot;q&quot;&gt;Can models, simulations, and visualizations be deleted?&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;a&quot;&gt;To ensure the community has permanent access to published resources, models, simulations, and visualizations cannot be deleted once they have been published.&lt;/div&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
     </div>
@@ -586,7 +655,7 @@ export class HelpComponent implements OnInit {
                 <p class="comment">
                     <code>../about.module.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.scss&#x27;
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/theme.scss&#x27;
 
 .toc
     float: left
@@ -599,11 +668,11 @@ export class HelpComponent implements OnInit {
     width: calc(100% - 16rem - 4px - 2rem)
 
 .section
-    h2, .h2
+    h2
         padding-left: 0.5rem
         padding-right: 0.5rem
         background: #f0f0f0
-        color: #666
+        color: #000
         margin-block-start: 0
         margin-block-end: 0
         border-bottom: 1px solid #efefef
@@ -612,30 +681,30 @@ export class HelpComponent implements OnInit {
 
         .back-to-top
             margin-left: auto
-            color: #666
+            color: #000
             float: right
             .mat-icon
                 position: relative
                 top: 0.25rem
 
+    h3
+        @include mat-typography-level-to-styles($fontConfig, subheading-1)
+        color: mat-color($theme-primary)
+
     .section-content
         padding: 0.5rem
 
         ol
-            margin-block-start: 0
-            margin-block-end: 0
             padding-inline-start: 16px
 
         ul
-            margin-block-start: 0
-            margin-block-end: 0
             padding-inline-start: 1rem
 
-        p
+        p, ol, ul
             margin-block-start: 0
             margin-block-end: 0.5em
 
-        p:last-child
+        p:last-child, ol:last-child, ul:last-child
             margin-block-end: 0
 
         a
@@ -651,7 +720,7 @@ export class HelpComponent implements OnInit {
     margin-top: 0rem
 
 .toc .section
-    h2, .h2
+    h2
         color: mat-color($theme-primary)
         background: mat-color($theme-primary, lighter)
 
@@ -665,12 +734,69 @@ export class HelpComponent implements OnInit {
             top: 0.15rem
             line-height: 1.3rem
 
+.subsection
+    margin-top: 1.5rem
+
+    h3
+        line-height: 100%
+        margin-top: 0
+        margin-bottom: 0.5rem
+
+.subsection:first-child
+    margin-top: 0
+
 a
-    cursor: pointer</code></pre>
+    cursor: pointer
+
+ul.columns
+    column-gap: 1rem
+
+ul.columns-2
+    column-count: 2
+
+ul.columns-3
+    column-count: 3
+
+.logo-grid
+    width: 100%
+    margin-top: 0.5rem
+
+.logos-grid
+    text-align: center
+    margin-block-end: 0.5rem
+
+    a
+        margin-right: 0.25rem
+        margin-left: 0.25rem
+    a:first-child
+        margin-left: 0
+    a:last-child
+        margin-right: 0
+
+    a:hover img
+        transform: scale(1.10)
+
+    img
+        height: 50px
+        transition: all 0.5s
+
+.logos-grid:last-child
+    margin-block-end: 0</code></pre>
                 <p class="comment">
                     <code>./help.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">.q-and-a
+    ul
+        list-style-type: none
+        padding-left: 0
+
+    li .q
+        font-weight: bold
+        margin-top: 0.5rem
+
+    li:first-child .q
+        margin-top: 0
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -698,8 +824,8 @@ a
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="page-content partial-width">    <div class="toc">        <div class="section">            <h2>Contents</h2>            <div class="section-content">                <ol>                    <li>                        <a (click)="scrollToElement(readers)"                        >Guide for users</a>                    </li>                    <li>                        <a (click)="scrollToElement(authors)"                        >Guide for authors</a>                    </li>                    <li>                        <a (click)="scrollToElement(reviewers)"                        >Guide for reviewers and editors</a>                    </li>                    <li>                        <a (click)="scrollToElement(developers)"                        >Guide for simulation software developers</a>                    </li>                    <li>                        <a (click)="scrollToElement(accounts)"                        >User accounts</a>                    </li>                </ol>            </div>        </div>        <div class="section">            <h2>Related resources</h2>            <div class="section-content">                <div>                    <a href="https://reproducible-biomedical-modeling.github.io/CRBM-Viz/" target="_blank">                        <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="[\'fas\', \'link\']"></fa-icon>                        API documentation                     </a>                </div>                <div>                    <a href="https://app.swaggerhub.com/" target="_blank">                        <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="[\'fas\', \'link\']"></fa-icon>                        REST API documentation                    </a>                </div>            </div>        </div>        <div class="section">            <h2>Need help?</h2>            <div class="section-content">                <div>                    <a href="mailto:info@karrlab.org">                        <fa-icon aria-hidden="false" aria-label="Email icon" [icon]="[\'fas\', \'envelope\']"></fa-icon>                        Contact us                    </a>                </div>                <div>                    <a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz" target="_blank">                        <fa-icon aria-hidden="false" aria-label="GitHub icon" [icon]="[\'fab\', \'github\']"></fa-icon>                        Submit an issue                    </a>                </div>            </div>        </div>    </div>    <div #top class="text">        <div class="section">            <h2 #readers>1. Guide for users: Simulating and visualizing published models                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Finding models</li>                    <li>Finding simulation experiment</li>                    <li>Simulating variants of models</li>                    <li>Finding visualizations</li>                        <li>Configuring visualizations</li>                </ul>            </div>        </div>        <div class="section">            <h2 #authors>2. Guide for authors: Publishing models, simulations, and visualizations                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Uploading models                        <ul>                            <li>CellML</li>                            <li>SBML</li>                        </ul>                    </li>                    <li>Uploading simulation experiments                        <ul>                            <li>SED-ML</li>                        </ul>                    </li>                    <li>Uploading visualizations                        <ul>                            <li>Vega</li>                        </ul>                    </li>                    <li>Sharing resources with collaborators</li>                    <li>Anonymously sharing resources reviewers and editors</li>                </ul>            </div>        </div>        <div class="section">            <h2 #reviewers>3. Guide for reviewers and editors: Reviewing private resources                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Accessing private resources</li>                </ul>            </div>        </div>        <div class="section">            <h2 #developers>4. Guide for simulation software developers: Incorporating an additional simulator                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Supported model formats</li>                    <li>Supported simulation experiment formats</li>                    <li>Containerizing a simulator</li>                    <li>Submitting a simulator</li>                </ul>            </div>        </div>        <div class="section">            <h2 #accounts>5. User accounts                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Signing up</li>                    <li>Signing in</li>                    <li>Editing profile</li>                </ul>            </div>        </div>    </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IdRendererGridComponent', 'selector': 'app-id-renderer-grid'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'StatusComponent', 'selector': ''},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div class="page-content partial-width">    <div class="toc">        <div class="section">            <h2>Contents</h2>            <div class="section-content">                <ol>                    <li>                        <a (click)="scrollToElement(readers)"                        >Guide for users</a>                    </li>                    <li>                        <a (click)="scrollToElement(authors)"                        >Guide for authors</a>                    </li>                    <li>                        <a (click)="scrollToElement(reviewers)"                        >Guide for reviewers and editors</a>                    </li>                    <li>                        <a (click)="scrollToElement(developers)"                        >Guide for simulation software developers</a>                    </li>                    <li>                        <a (click)="scrollToElement(accounts)"                        >User accounts</a>                    </li>                    <li>                        <a (click)="scrollToElement(faq)"                        >Frequently asked questions</a>                    </li>                </ol>            </div>        </div>        <div class="section">            <h2>Related resources</h2>            <div class="section-content">                <div>                    <a href="https://reproducible-biomedical-modeling.github.io/CRBM-Viz/" target="_blank">                        <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="[\'fas\', \'link\']"></fa-icon>                        API documentation                    </a>                </div>                <div>                    <a href="https://app.swaggerhub.com/" target="_blank">                        <fa-icon aria-hidden="false" aria-label="Link icon" [icon]="[\'fas\', \'link\']"></fa-icon>                        REST API documentation                    </a>                </div>            </div>        </div>        <div class="section">            <h2>Need help?</h2>            <div class="section-content">                <div>                    <a href="mailto:info@karrlab.org">                        <fa-icon aria-hidden="false" aria-label="Email icon" [icon]="[\'fas\', \'envelope\']"></fa-icon>                        Contact us                    </a>                </div>                <div>                    <a href="https://github.com/reproducible-biomedical-modeling/CRBM-Viz" target="_blank">                        <fa-icon aria-hidden="false" aria-label="GitHub icon" [icon]="[\'fab\', \'github\']"></fa-icon>                        Submit an issue                    </a>                </div>            </div>        </div>    </div>    <div #top class="text">        <div class="section">            <h2 #readers>1. Guide for users: Simulating and visualizing published models                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Finding models</li>                    <li>Finding simulation experiment</li>                    <li>Simulating variants of models</li>                    <li>Finding visualizations</li>                    <li>Configuring visualizations</li>                </ul>            </div>        </div>        <div class="section">            <h2 #authors>2. Guide for authors: Publishing models, simulations, and visualizations                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Uploading models                        <ul>                            <li>CellML</li>                            <li>SBML</li>                        </ul>                    </li>                    <li>Uploading simulation experiments                        <ul>                            <li>SED-ML</li>                        </ul>                    </li>                    <li>Uploading visualizations                        <ul>                            <li>Vega</li>                        </ul>                    </li>                    <li>Sharing resources with collaborators</li>                    <li>Anonymously sharing resources reviewers and editors</li>                </ul>            </div>        </div>        <div class="section">            <h2 #reviewers>3. Guide for reviewers and editors: Reviewing private resources                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Accessing private resources</li>                </ul>            </div>        </div>        <div class="section">            <h2 #developers>4. Guide for simulation software developers: Incorporating an additional simulator                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Supported model formats</li>                    <li>Supported simulation experiment formats</li>                    <li>Containerizing a simulator</li>                    <li>Submitting a simulator</li>                </ul>            </div>        </div>        <div class="section">            <h2 #accounts>5. User accounts                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <ul>                    <li>Signing up</li>                    <li>Signing in</li>                    <li>Editing profile</li>                </ul>            </div>        </div>        <div class="section q-and-a">            <h2 #faq>6. Frequently asked questions                <a class="back-to-top" (click)="scrollToTop(top)">                    <mat-icon aria-hidden="false" aria-label="Back to top icon" title="Back to top">arrow_upward</mat-icon>                </a>            </h2>            <div class="section-content">                <div class="subsection">                    <h3>Models</h3>                    <ul>                        <li>                            <div class="q">Which model formats are supported?</div>                            <div class="a">Currently, simulations can only be uploaded in SBML format.</div>                        </li>                        <li>                            <div class="q">Which SBML features are supported?</div>                            <div class="a">TBA.</div>                        </li>                    </ul>                </div>                <div class="subsection">                    <h3>Simulations</h3>                    <ul>                        <li>                            <div class="q">Which simulation formats are supported?</div>                            <div class="a">Currently, simulations can only be uploaded in SED-ML format.</div>                        </li>                        <li>                            <div class="q">Which SED-ML features are supported?</div>                            <div class="a">TBA.</div>                        </li>                        <li>                            <div class="q">Can simulation results be uploaded?</div>                            <div class="a">To ensure the provenance of simulation results, simulation results can only be generated by <i>BioSimulations</i>.</div>                        </li>                    </ul>                </div>                <div class="subsection">                    <h3>Visualizations</h3>                    <ul>                        <li>                            <div class="q">Which visualization formats are supported?</div>                            <div class="a">Currently, simulations can only be uploaded in Vega format.</div>                        </li>                    </ul>                </div>                <div class="subsection">                    <h3>General</h3>                    <ul>                        <li>                            <div class="q">Can models, simulations, and visualizations be deleted?</div>                            <div class="a">To ensure the community has permanent access to published resources, models, simulations, and visualizations cannot be deleted once they have been published.</div>                        </li>                    </ul>                </div>            </div>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HelpComponent'};
 </script>

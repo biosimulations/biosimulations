@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Modules/account/profile/profile-edit.component.ts</code>
+    <code>CRBM-Viz/src/app/Modules/user/profile/profile-edit.component.ts</code>
 </p>
 
 
@@ -91,7 +91,7 @@
 
             <tr>
                 <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>app-profile</code></td>
+                <td class="col-md-9"><code>app-profile-edit</code></td>
             </tr>
 
             <tr>
@@ -180,7 +180,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile-edit.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile-edit.component.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -273,8 +273,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile-edit.component.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile-edit.component.ts:25</a></div>
                 </td>
             </tr>
 
@@ -312,8 +312,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile-edit.component.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile-edit.component.ts:42</a></div>
                 </td>
             </tr>
 
@@ -356,7 +356,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile-edit.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile-edit.component.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -382,7 +382,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile-edit.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile-edit.component.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -409,7 +409,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Modules/account/profile/profile-edit.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile-edit.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -426,11 +426,13 @@
 import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
 import { User } from &#x27;src/app/Shared/Models/user&#x27;;
 import { UserService } from &#x27;src/app/Shared/Services/user.service&#x27;;
+import { NavItemDisplayLevel } from &#x27;src/app/Shared/Enums/nav-item-display-level&#x27;;
+import { NavItem } from &#x27;src/app/Shared/Models/nav-item&#x27;;
 import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.service&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 
 @Component({
-  selector: &#x27;app-profile&#x27;,
+  selector: &#x27;app-profile-edit&#x27;,
   templateUrl: &#x27;./profile-edit.component.html&#x27;,
   styleUrls: [&#x27;./profile-edit.component.sass&#x27;],
 })
@@ -446,14 +448,14 @@ export class ProfileEditComponent implements OnInit {
 
   ngOnInit() {
     const crumbs: object[] &#x3D; [
-      {label: &#x27;Profile&#x27;, route: [&#x27;/profile&#x27;]},
-      {label: &#x27;Edit&#x27;},
+      {label: &#x27;User&#x27;, route: [&#x27;/user&#x27;]},
+      {label: &#x27;Edit your profile&#x27;},
     ];
-    const buttons: object[] &#x3D; [
-      {iconType: &#x27;mat&#x27;, icon: &#x27;person&#x27;, label: &#x27;View&#x27;, route: [&#x27;/profile&#x27;]},
+    const buttons: NavItem[] &#x3D; [
+      {iconType: &#x27;mat&#x27;, icon: &#x27;person&#x27;, label: &#x27;View&#x27;, route: [&#x27;/user&#x27;], display: NavItemDisplayLevel.loggedIn},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
-    
+
     if (this.auth &amp;&amp; this.auth.token &amp;&amp; this.auth.token.sub) {
       const auth0Id: string &#x3D; (this.auth.token.sub as unknown) as string;
       this.user &#x3D; this.userService.getByAuth0Id(auth0Id);
@@ -462,6 +464,8 @@ export class ProfileEditComponent implements OnInit {
   }
 
   save (): void {
+    this.userService.set(this.user);
+
     this.showSavedMessage &#x3D; true;
     setTimeout(() &#x3D;&gt; {
       this.showSavedMessage &#x3D; false;
@@ -472,12 +476,12 @@ export class ProfileEditComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;form 
-  class&#x3D;&quot;page-content partial-width&quot;
+        <pre class="line-numbers"><code class="language-html">&lt;form
+  class&#x3D;&quot;page-content partial-width form&quot;
   *ngIf&#x3D;&quot;user&quot;
   #userForm&#x3D;&quot;ngForm&quot;
   (ngSubmit)&#x3D;&quot;save()&quot;&gt;
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;Username&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;username&quot;
@@ -488,7 +492,7 @@ export class ProfileEditComponent implements OnInit {
       disabled /&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;Name&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;firstName&quot;
@@ -515,7 +519,7 @@ export class ProfileEditComponent implements OnInit {
       [(ngModel)]&#x3D;&quot;user.lastName&quot;/&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;Organization&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;organization&quot;
@@ -525,7 +529,7 @@ export class ProfileEditComponent implements OnInit {
       [(ngModel)]&#x3D;&quot;user.organization&quot; /&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;Website&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;website&quot;
@@ -536,8 +540,8 @@ export class ProfileEditComponent implements OnInit {
       [(ngModel)]&#x3D;&quot;user.website&quot; /&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
-    &lt;mat-label&gt;Email address for notifications&lt;/mat-label&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
+    &lt;mat-label&gt;Email address&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;email&quot;
       name&#x3D;&quot;email&quot;
@@ -561,7 +565,7 @@ export class ProfileEditComponent implements OnInit {
     &lt;/mat-select&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;Gravatar email (for photo)&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;gravatarEmail&quot;
@@ -571,7 +575,7 @@ export class ProfileEditComponent implements OnInit {
       [(ngModel)]&#x3D;&quot;user.gravatarEmail&quot; /&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;GitHub username&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;gitHubId&quot;
@@ -581,7 +585,7 @@ export class ProfileEditComponent implements OnInit {
       [(ngModel)]&#x3D;&quot;user.gitHubId&quot; /&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;Google Scholar id&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;googleScholarId&quot;
@@ -591,7 +595,7 @@ export class ProfileEditComponent implements OnInit {
       [(ngModel)]&#x3D;&quot;user.googleScholarId&quot; /&gt;
   &lt;/mat-form-field&gt;
 
-  &lt;mat-form-field&gt;
+  &lt;mat-form-field appearance&#x3D;&quot;legacy&quot;&gt;
     &lt;mat-label&gt;ORCID&lt;/mat-label&gt;
     &lt;input matInput
       id&#x3D;&quot;orcId&quot;
@@ -630,69 +634,39 @@ export class ProfileEditComponent implements OnInit {
                 <p class="comment">
                     <code>./profile-edit.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/styles.scss&#x27;
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/theme.scss&#x27;
 
-mat-form-field
-    display: block
+.form
+    input.firstName
+        float: left
+        width: calc(40%)
 
-input, textarea.mat-input-element, mat-select
-    background: #f9f9f9
-    border: 1px solid #efefef
-    padding: 0.25rem
-    width: calc(100% - 0.5rem - 2px)
-    margin: 0
-    letter-spacing: normal
+    input.middleName
+        float: left
+        width: calc(20% - 2rem - 1.5rem - 6px)
+        margin-left: 1rem
+        margin-right: 1rem
 
-.mat-form-field.mat-focused
-    input, textarea
-        border: 1px solid mat-color($theme-primary)
+    input.lastName
+        float: right
+        width: calc(40%)
 
-:host::ng-deep .mat-form-field-underline
-    display: none
+    input.email
+        float: left
+        width: calc(100% - 10rem - 1rem - 1rem - 4px)
+    mat-select.emailPublic
+        float: right
+        width: 10rem
 
-.firstName
-    float: left
-    width: calc(40%)
+    .saved-message
+        display: none
+        margin-left: 1rem
+        color: mat-color($theme-accent)
 
-.middleName
-    float: left
-    width: calc(20% - 2rem - 1.5rem - 6px)
-    margin-left: 1rem
-    margin-right: 1rem
-
-.lastName
-    float: right
-    width: calc(40%)
-
-.email
-    float: left
-    width: calc(100% - 10rem - 1rem - 1rem - 4px)
-.emailPublic
-    float: right
-    width: 10rem
-
-.mat-button
-    background: mat-color($theme-primary)
-    color: #fff
-    font-weight: bold
-
-.saved-message
-    display: none
-    margin-left: 1rem
-    color: mat-color($theme-accent)
-
-.saved-message.show-saved-message
-    display: inline
-    animation: hideSavedMessage 0s 2.5s forwards
-    opacity: 1
-
-@keyframes hideSavedMessage
-  0%
-    opacity: 1
-  80%
-    opacity: 1
-  100%
-    opacity: 0
+    .saved-message.show-saved-message
+        display: inline
+        animation: flashAlert 0s 2.5s forwards
+        opacity: 1
 </code></pre>
     </div>
 
@@ -721,8 +695,8 @@ input, textarea.mat-input-element, mat-select
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><form   class="page-content partial-width"  *ngIf="user"  #userForm="ngForm"  (ngSubmit)="save()">  <mat-form-field>    <mat-label>Username</mat-label>    <input matInput      id="username"      name="username"      #username="ngModel"      placeholder="username"      [(ngModel)]="user.username"      disabled />  </mat-form-field>  <mat-form-field>    <mat-label>Name</mat-label>    <input matInput      id="firstName"      name="firstName"      #firstName="ngModel"      class="firstName"      required      placeholder="John"      [(ngModel)]="user.firstName"/>    <input matInput      id="middleName"      name="middleName"      class="middleName"      #middleName="ngModel"      placeholder="C"      [(ngModel)]="user.middleName"/>    <input matInput      id="lastName"      name="lastName"      class="lastName"      #lastName="ngModel"      required      placeholder="Doe"      [(ngModel)]="user.lastName"/>  </mat-form-field>  <mat-form-field>    <mat-label>Organization</mat-label>    <input matInput      id="organization"      name="organization"      #organization="ngModel"      placeholder="XXX University"      [(ngModel)]="user.organization" />  </mat-form-field>  <mat-form-field>    <mat-label>Website</mat-label>    <input matInput      id="website"      name="website"      #website="ngModel"      type="url"      placeholder="https://www.mywebsite.org"      [(ngModel)]="user.website" />  </mat-form-field>  <mat-form-field>    <mat-label>Email address for notifications</mat-label>    <input matInput      id="email"      name="email"      #email="ngModel"      class="email"      type="email"      required      placeholder="user@organization.org"      [(ngModel)]="user.email"/>    <mat-select      id="emailPublic"      name="emailPublic"      #emailPublic="ngModel"      class="emailPublic"      required      [(ngModel)]="user.emailPublic"    >      <mat-option [value]="false">Private</mat-option>      <mat-option [value]="true">Public</mat-option>    </mat-select>  </mat-form-field>  <mat-form-field>    <mat-label>Gravatar email (for photo)</mat-label>    <input matInput      id="gravatarEmail"      name="gravatarEmail"      #gravatarEmail="ngModel"      placeholder="user@organization.edu"      [(ngModel)]="user.gravatarEmail" />  </mat-form-field>  <mat-form-field>    <mat-label>GitHub username</mat-label>    <input matInput      id="gitHubId"      name="gitHubId"      #gitHubId="ngModel"      placeholder="username"      [(ngModel)]="user.gitHubId" />  </mat-form-field>  <mat-form-field>    <mat-label>Google Scholar id</mat-label>    <input matInput      id="googleScholarId"      name="googleScholarId"      #googleScholarId="ngModel"      placeholder="XXXXXXXXXXXXX"      [(ngModel)]="user.googleScholarId" />  </mat-form-field>  <mat-form-field>    <mat-label>ORCID</mat-label>    <input matInput      id="orcId"      name="orcId"      #orcId="ngModel"      placeholder="xxxx-xxxx-xxxx-xxxx"      [(ngModel)]="user.orcId" />  </mat-form-field>  <mat-form-field floatLabel="always">    <mat-label>Description</mat-label>    <textarea matInput      id="description"      name="description"      #description="ngModel"      placeholder="Description of professional interests and experience."      rows="10"      [(ngModel)]="user.description"      ></textarea>  </mat-form-field>  <div class="save-button-container">    <button mat-button      type="submit"      disableRipple="true"      [disabled]="!userForm.form.valid"    >Save</button>    <div class="saved-message" [class.show-saved-message]="showSavedMessage"    >Your profile was saved.</div>  </div></form></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountMenuComponent', 'selector': 'app-account-menu'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FileTableComponent', 'selector': 'app-file-table'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IdRendererGridComponent', 'selector': 'app-id-renderer-grid'},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile'},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'StatusComponent', 'selector': ''},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><form  class="page-content partial-width form"  *ngIf="user"  #userForm="ngForm"  (ngSubmit)="save()">  <mat-form-field appearance="legacy">    <mat-label>Username</mat-label>    <input matInput      id="username"      name="username"      #username="ngModel"      placeholder="username"      [(ngModel)]="user.username"      disabled />  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>Name</mat-label>    <input matInput      id="firstName"      name="firstName"      #firstName="ngModel"      class="firstName"      required      placeholder="John"      [(ngModel)]="user.firstName"/>    <input matInput      id="middleName"      name="middleName"      class="middleName"      #middleName="ngModel"      placeholder="C"      [(ngModel)]="user.middleName"/>    <input matInput      id="lastName"      name="lastName"      class="lastName"      #lastName="ngModel"      required      placeholder="Doe"      [(ngModel)]="user.lastName"/>  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>Organization</mat-label>    <input matInput      id="organization"      name="organization"      #organization="ngModel"      placeholder="XXX University"      [(ngModel)]="user.organization" />  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>Website</mat-label>    <input matInput      id="website"      name="website"      #website="ngModel"      type="url"      placeholder="https://www.mywebsite.org"      [(ngModel)]="user.website" />  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>Email address</mat-label>    <input matInput      id="email"      name="email"      #email="ngModel"      class="email"      type="email"      required      placeholder="user@organization.org"      [(ngModel)]="user.email"/>    <mat-select      id="emailPublic"      name="emailPublic"      #emailPublic="ngModel"      class="emailPublic"      required      [(ngModel)]="user.emailPublic"    >      <mat-option [value]="false">Private</mat-option>      <mat-option [value]="true">Public</mat-option>    </mat-select>  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>Gravatar email (for photo)</mat-label>    <input matInput      id="gravatarEmail"      name="gravatarEmail"      #gravatarEmail="ngModel"      placeholder="user@organization.edu"      [(ngModel)]="user.gravatarEmail" />  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>GitHub username</mat-label>    <input matInput      id="gitHubId"      name="gitHubId"      #gitHubId="ngModel"      placeholder="username"      [(ngModel)]="user.gitHubId" />  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>Google Scholar id</mat-label>    <input matInput      id="googleScholarId"      name="googleScholarId"      #googleScholarId="ngModel"      placeholder="XXXXXXXXXXXXX"      [(ngModel)]="user.googleScholarId" />  </mat-form-field>  <mat-form-field appearance="legacy">    <mat-label>ORCID</mat-label>    <input matInput      id="orcId"      name="orcId"      #orcId="ngModel"      placeholder="xxxx-xxxx-xxxx-xxxx"      [(ngModel)]="user.orcId" />  </mat-form-field>  <mat-form-field floatLabel="always">    <mat-label>Description</mat-label>    <textarea matInput      id="description"      name="description"      #description="ngModel"      placeholder="Description of professional interests and experience."      rows="10"      [(ngModel)]="user.description"      ></textarea>  </mat-form-field>  <div class="save-button-container">    <button mat-button      type="submit"      disableRipple="true"      [disabled]="!userForm.form.valid"    >Save</button>    <div class="saved-message" [class.show-saved-message]="showSavedMessage"    >Your profile was saved.</div>  </div></form></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ProfileEditComponent'};
 </script>

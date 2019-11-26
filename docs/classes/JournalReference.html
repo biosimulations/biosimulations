@@ -616,7 +616,7 @@ export class JournalReference {
   pages?: string;
   year?: number;
   identifiers?: Identifier[] &#x3D; [];
-    
+
   constructor(
     authors?: string[],
     journal?: string,
@@ -663,12 +663,12 @@ export class JournalReference {
   getUrl(): string {
     const doi: string &#x3D; this.getDoi();
     if (doi) {
-      return &#x27;https://doi.org/&#x27; + doi;  
+      return &#x27;https://doi.org/&#x27; + doi;
     }
 
     const pubMedId: string &#x3D; this.getPubMedId();
     if (pubMedId) {
-      return &#x27;https://www.ncbi.nlm.nih.gov/pubmed/&#x27; + pubMedId;  
+      return &#x27;https://www.ncbi.nlm.nih.gov/pubmed/&#x27; + pubMedId;
     }
 
     return null;

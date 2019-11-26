@@ -102,6 +102,9 @@
                             <li>
                                 <a href="#getShortName">getShortName</a>
                             </li>
+                            <li>
+                                <a href="#getUrl">getUrl</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -282,6 +285,45 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUrl"></a>
+                    <span class="name">
+                        <b>
+                            getUrl
+                        </b>
+                        <a href="#getUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUrl()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/taxon.ts:15</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 
@@ -295,7 +337,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class Taxon {
   id?: number;
   name?: string;
-    
+
   constructor(id?: number, name?: string) {
     this.id &#x3D; id;
     this.name &#x3D; name;
@@ -304,6 +346,10 @@
   getShortName(): string {
     const parts: string[] &#x3D; this.name.split(&#x27; &#x27;);
     return parts[0].substring(0, 1) + &#x27;. &#x27; + parts.slice(1).join(&#x27; &#x27;);
+  }
+
+  getUrl(): string {
+    return &#x60;https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id&#x3D;${ this.id }&#x60;;
   }
 }
 </code></pre>
