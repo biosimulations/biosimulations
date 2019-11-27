@@ -115,8 +115,8 @@
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-                  <app-hyperlink [href]="getLicenseInfo(simulation.license).url">{{
-                    getLicenseInfo(simulation.license).name
+                  <app-hyperlink [href]="getLicenseInfo(simulation.license)['url']">{{
+                    getLicenseInfo(simulation.license)['name']
                   }}</app-hyperlink>
                 </li>
               </ul>
@@ -466,8 +466,8 @@
                 </th>
                 <th>License</th>
                 <td>
-                  <app-hyperlink [href]="getLicenseInfo(simulation.license).url">{{
-                    getLicenseInfo(simulation.license).name
+                  <app-hyperlink [href]="getLicenseInfo(simulation.license)['url']">{{
+                    getLicenseInfo(simulation.license)['name']
                   }}</app-hyperlink>
                 </td>
               </tr>

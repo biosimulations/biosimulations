@@ -130,8 +130,12 @@ export class EditComponent implements OnInit {
     });
   }
 
+  getFormArray(array: string): FormArray {
+    return this.formGroup.get(array) as FormArray;
+  }
+
   addTagFormElement() {
-    const formArray: FormArray = this.formGroup.get('tags') as FormArray;
+    const formArray: FormArray = this.getFormArray('tags');
     formArray.push(this.formBuilder.control(''));
   }
 
@@ -142,7 +146,7 @@ export class EditComponent implements OnInit {
     // Add tag
     value = (value || '').trim();
     if (value && !this.formGroup.value.tags.includes(value)) {
-      const formArray: FormArray = this.formGroup.get('tags') as FormArray;
+      const formArray: FormArray = this.getFormArray('tags');
       formArray.push(this.formBuilder.control(value));
     }
 
@@ -153,12 +157,12 @@ export class EditComponent implements OnInit {
   }
 
   removeFormArrayElement(array: string, iEl: number): void {
-    const formArray: FormArray = this.formGroup.get(array) as FormArray;
+    const formArray: FormArray = this.getFormArray(array);
     formArray.removeAt(iEl);
   }
 
   addAuthorFormElement(): void {
-    const formArray: FormArray = this.formGroup.get('authors') as FormArray;
+    const formArray: FormArray = this.getFormArray('authors');
     formArray.push(this.formBuilder.group({
       firstName: [''],
       middleName: [''],
@@ -167,7 +171,7 @@ export class EditComponent implements OnInit {
   }
 
   addIdentifierFormElement(): void {
-    const formArray: FormArray = this.formGroup.get('identifiers') as FormArray;
+    const formArray: FormArray = this.getFormArray('identifiers');
     formArray.push(this.formBuilder.group({
       namespace: [''],
       id: [''],
@@ -175,7 +179,7 @@ export class EditComponent implements OnInit {
   }
 
   addRefFormElement(): void {
-    const formArray: FormArray = this.formGroup.get('refs') as FormArray;
+    const formArray: FormArray = this.getFormArray('refs');
     formArray.push(this.formBuilder.group({
       authors: [''],
       journal: [''],

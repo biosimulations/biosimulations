@@ -44,7 +44,7 @@
     <mat-label>Tags</mat-label>
 
     <mat-chip-list #tagChipList aria-label="Tag list">
-      <mat-chip *ngFor="let tag of formGroup.controls.tags.controls; let iFormArrayEl=index"
+      <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
         [selectable]="false"
         [removable]="true"
         (removed)="removeFormArrayElement('tag', iFormArrayEl)">
@@ -52,7 +52,7 @@
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
       <input
-        [placeholder]="formGroup.controls.tags.controls.length === 0 ? 'Enter a tag' : null"
+        [placeholder]="getFormArray('tags').controls.length === 0 ? 'Enter a tag' : null"
         [matChipInputFor]="tagChipList"
         [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
         [matChipInputAddOnBlur]="false"
@@ -62,7 +62,7 @@
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="authors"
-    *ngIf="formGroup.controls.authors.controls.length > 0"
+    *ngIf="getFormArray('authors').controls.length > 0"
     class="authors"
     >
     <mat-label>
@@ -75,7 +75,7 @@
       ></fa-icon>
     </mat-label>
     <div
-      *ngFor="let author of formGroup.controls.authors.controls; let iFormArrayEl=index"
+      *ngFor="let author of getFormArray('authors').controls; let iFormArrayEl=index"
       [formGroupName]="iFormArrayEl"
       class="input-container"
     >
@@ -104,7 +104,7 @@
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="identifiers"
-    *ngIf="formGroup.controls.identifiers.controls.length > 0"
+    *ngIf="getFormArray('identifiers').controls.length > 0"
     class="identifiers"
     >
     <div>
@@ -117,7 +117,7 @@
       ></fa-icon>
     </div>
     <div
-      *ngFor="let identifier of formGroup.controls.identifiers.controls; let iFormArrayEl=index"
+      *ngFor="let identifier of getFormArray('identifiers').controls; let iFormArrayEl=index"
       [formGroupName]="iFormArrayEl"
       class="input-container"
     >
@@ -142,7 +142,7 @@
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="refs"
-    *ngIf="formGroup.controls.refs.controls.length > 0"
+    *ngIf="getFormArray('refs').controls.length > 0"
     class="refs"
     >
     <div>
@@ -155,7 +155,7 @@
       ></fa-icon>
     </div>
     <div
-      *ngFor="let identifier of formGroup.controls.refs.controls; let iFormArrayEl=index"
+      *ngFor="let identifier of getFormArray('refs').controls; let iFormArrayEl=index"
       [formGroupName]="iFormArrayEl"
       class="input-container"
     >
