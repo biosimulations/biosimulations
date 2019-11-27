@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { ENTER } from '@angular/cdk/keycodes';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
@@ -19,6 +20,17 @@ export class EditComponent implements OnInit {
   AccessLevel = AccessLevel;
   licenses = licenses;
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
+
+  movies = [
+    'Episode I - The Phantom Menace',
+    'Episode II - Attack of the Clones',
+    'Episode III - Revenge of the Sith',
+    'Episode IV - A New Hope',
+    'Episode V - The Empire Strikes Back',
+    'Episode VI - Return of the Jedi',
+    'Episode VII - The Force Awakens',
+    'Episode VIII - The Last Jedi'
+  ];
 
   id: string;
   formGroup: FormGroup;
@@ -134,7 +146,7 @@ export class EditComponent implements OnInit {
     return this.formGroup.get(array) as FormArray;
   }
 
-  addTagFormElement() {
+  addTagFormElement(): void {
     const formArray: FormArray = this.getFormArray('tags');
     formArray.push(this.formBuilder.control(''));
   }
@@ -189,6 +201,17 @@ export class EditComponent implements OnInit {
       year: [''],
       doi: [''],
     }));
+  }
+
+  drop(array: string, event: CdkDragDrop<string[]>): void {
+    moveItemInArray(
+      this.getFormArray(array).controls, 
+      event.previousIndex, 
+      event.currentIndex);
+  }
+
+  dropMovie(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
 
   submit() {

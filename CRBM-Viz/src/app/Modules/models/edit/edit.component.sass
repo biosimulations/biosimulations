@@ -1,18 +1,25 @@
-.input-container
-    display: grid
-    grid-gap: 0.25rem
+.form-array-el
     margin-top: 0.5rem
-.input-container:first-child
+.form-array-el:first-child
     margin-top: 0
 
-.taxon .input-container
+.form-group
+    display: grid
+    grid-gap: 0.25rem
+
+    .ng-fa-icon
+        display: flex
+        align-items: center
+        cursor: pointer
+
+.form-group.taxon
     grid-template-columns: 1fr 1fr
 
-.authors .input-container
-    grid-template-columns: 1fr 10rem 1fr 0.765625rem
+.form-group.authors
+    grid-template-columns: auto 1fr 5rem 1fr auto
 
-.identifiers .input-container
-    grid-template-columns: 1fr 1fr 0.765625rem
+.form-group.identifiers
+    grid-template-columns: auto 1fr 1fr auto
 
-.refs .input-container
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.765625rem
+.form-group.refs
+    grid-template-columns: auto 1fr 1fr 5rem 5rem 5rem 5rem 1fr auto

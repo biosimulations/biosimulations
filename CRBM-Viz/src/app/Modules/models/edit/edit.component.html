@@ -22,9 +22,9 @@
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formGroupName="taxon"
-    class="taxon">
+    >
     <mat-label>Taxon</mat-label>
-    <div class="input-container">
+    <div class="form-group taxon">
       <input matInput
         formControlName="id"
         type="text"
@@ -62,8 +62,7 @@
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="authors"
-    *ngIf="getFormArray('authors').controls.length > 0"
-    class="authors"
+    *ngIf="getFormArray('authors').controls.length > 0"    
     >
     <mat-label>
       Authors
@@ -75,37 +74,50 @@
       ></fa-icon>
     </mat-label>
     <div
-      *ngFor="let author of getFormArray('authors').controls; let iFormArrayEl=index"
-      [formGroupName]="iFormArrayEl"
-      class="input-container"
-    >
-      <input matInput
-        formControlName="firstName"
-        placeholder="John"
-        required
-        />
-      <input matInput
-        formControlName="middleName"
-        placeholder="C"
-        />
-      <input matInput
-        formControlName="lastName"
-        placeholder="Doe"
-        required
-        />
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Delete icon"
-        [icon]="['fas', 'trash-alt']"
-        (click)="removeFormArrayElement('authors', iFormArrayEl)"
-      ></fa-icon>
+      cdkDropList
+      (cdkDropListDropped)="drop('authors', $event)"
+      >
+      <div
+        *ngFor="let author of getFormArray('authors').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        cdkDrag
+      >
+        <div class="form-group authors">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Drag icon"
+            [icon]="['fas', 'grip-lines-vertical']"
+            class="drag"
+          ></fa-icon>
+          <input matInput
+            formControlName="firstName"
+            placeholder="John"
+            required
+            />
+          <input matInput
+            formControlName="middleName"
+            placeholder="C"
+            />
+          <input matInput
+            formControlName="lastName"
+            placeholder="Doe"
+            required
+            />
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Delete icon"
+            [icon]="['fas', 'trash-alt']"
+            (click)="removeFormArrayElement('authors', iFormArrayEl)"
+          ></fa-icon>
+        </div>
+      </div>
     </div>
   </mat-form-field>
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="identifiers"
     *ngIf="getFormArray('identifiers').controls.length > 0"
-    class="identifiers"
     >
     <div>
       <mat-label>Identifiers</mat-label>
@@ -116,34 +128,47 @@
         (click)="addIdentifierFormElement()"
       ></fa-icon>
     </div>
-    <div
-      *ngFor="let identifier of getFormArray('identifiers').controls; let iFormArrayEl=index"
-      [formGroupName]="iFormArrayEl"
-      class="input-container"
-    >
-      <input matInput
-        formControlName="namespace"
-        placeholder="biomodels.db"
-        required
-        />
-      <input matInput
-        formControlName="id"
-        placeholder="BIOMD0000000001"
-        required
-        />
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Delete icon"
-        [icon]="['fas', 'trash-alt']"
-        (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
-      ></fa-icon>
+    <div      
+      cdkDropList
+      (cdkDropListDropped)="drop('authors', $event)"
+      >
+      <div
+        *ngFor="let identifier of getFormArray('identifiers').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        cdkDrag
+      >
+        <div class="form-group identifiers">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Drag icon"
+            [icon]="['fas', 'grip-lines-vertical']"
+            class="drag"
+          ></fa-icon>
+          <input matInput
+            formControlName="namespace"
+            placeholder="biomodels.db"
+            required
+            />
+          <input matInput
+            formControlName="id"
+            placeholder="BIOMD0000000001"
+            required
+            />
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Delete icon"
+            [icon]="['fas', 'trash-alt']"
+            (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
+          ></fa-icon>
+        </div>
+      </div>
     </div>
   </mat-form-field>
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="refs"
     *ngIf="getFormArray('refs').controls.length > 0"
-    class="refs"
     >
     <div>
       <mat-label>References</mat-label>
@@ -155,45 +180,60 @@
       ></fa-icon>
     </div>
     <div
-      *ngFor="let identifier of getFormArray('refs').controls; let iFormArrayEl=index"
-      [formGroupName]="iFormArrayEl"
-      class="input-container"
-    >
-      <input matInput
-        formControlName="authors"
-        placeholder="Doe JC & Doe JD"
-        />
-      <input matInput
-        formControlName="journal"
-        placeholder="PLoS Comput Biol"
-        />
-      <input matInput
-        formControlName="volume"
-        placeholder="10"
-        />
-      <input matInput
-        formControlName="num"
-        placeholder="1"
-        />
-      <input matInput
-        formControlName="pages"
-        placeholder="1-10"
-        />
-      <input matInput
-        formControlName="year"
-        type="number"
-        placeholder="2019"
-        />
-      <input matInput
-        formControlName="doi"
-        placeholder="10.1002/0470841559.ch1"
-        />
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Delete icon"
-        [icon]="['fas', 'trash-alt']"
-        (click)="removeFormArrayElement('refs', iFormArrayEl)"
-      ></fa-icon>
+      cdkDropList
+      (cdkDropListDropped)="drop('authors', $event)"
+      >    
+      <div
+        *ngFor="let identifier of getFormArray('refs').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        cdkDrag
+      >
+        <div
+        class="form-group refs"
+        >
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Drag icon"
+            [icon]="['fas', 'grip-lines-vertical']"
+            class="drag"
+          ></fa-icon>
+          <input matInput
+            formControlName="authors"
+            placeholder="Doe JC & Doe JD"
+            />
+          <input matInput
+            formControlName="journal"
+            placeholder="PLoS Comput Biol"
+            />
+          <input matInput
+            formControlName="volume"
+            placeholder="10"
+            />
+          <input matInput
+            formControlName="num"
+            placeholder="1"
+            />
+          <input matInput
+            formControlName="pages"
+            placeholder="1-10"
+            />
+          <input matInput
+            formControlName="year"
+            placeholder="2019"
+            />
+          <input matInput
+            formControlName="doi"
+            placeholder="10.1002/0470841559.ch1"
+            />
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Delete icon"
+            [icon]="['fas', 'trash-alt']"
+            (click)="removeFormArrayElement('refs', iFormArrayEl)"
+          ></fa-icon>
+        </div>
+      </div>
     </div>
   </mat-form-field>
 

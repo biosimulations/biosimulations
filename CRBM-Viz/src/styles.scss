@@ -482,7 +482,7 @@ ul.icon-text {
     }
 
     .mat-form-field.mat-focused {
-        input, textarea {
+        input:focus, textarea:focus {
             border-bottom: 1px solid mat-color($theme-primary);
         }
     }
@@ -520,6 +520,37 @@ ul.icon-text {
 /* Highlighting */
 .hover-light-background:hover {
     background: #f6f6f6;
+}
+
+/* Dragging to order list */
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .draggable:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging {
+  border: solid 1px #ccc;
+  background: white;
+  overflow: hidden;
+}
+
+.ng-fa-icon.drag {
+    color: #aaa;
 }
 
 /* Clear float */
