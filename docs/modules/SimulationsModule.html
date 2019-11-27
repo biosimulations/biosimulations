@@ -238,7 +238,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
-import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
 import { MaterialModule } from &#x27;../app-material.module&#x27;;
 import { SharedModule } from &#x27;src/app/Shared/shared.module&#x27;;
 
@@ -264,6 +264,7 @@ import { NewSimulationComponent } from &#x27;./new-simulation/new-simulation.com
     MaterialModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

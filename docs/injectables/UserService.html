@@ -314,8 +314,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="126"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:126</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="140"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:140</a></div>
                 </td>
             </tr>
 
@@ -377,15 +377,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getByAuth0Id(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>getByAuth0Id(auth0Id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="131"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:131</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="145"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:145</a></div>
                 </td>
             </tr>
 
@@ -405,7 +405,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>id</td>
+                                    <td>auth0Id</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -456,8 +456,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="106"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:106</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:120</a></div>
                 </td>
             </tr>
 
@@ -495,8 +495,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="114"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:114</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:128</a></div>
                 </td>
             </tr>
 
@@ -534,8 +534,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="144"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:144</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="159"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:159</a></div>
                 </td>
             </tr>
 
@@ -573,8 +573,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="155"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:155</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="170"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:170</a></div>
                 </td>
             </tr>
 
@@ -779,77 +779,91 @@ export class UserService {
     switch (username) {
       default:
       case &#x27;jonrkarr&#x27;:
-        user &#x3D; new User(
-          &#x27;github|2848297&#x27;,
-          1,
-          username,
-          &#x27;Jonathan&#x27;,
-          &#x27;R&#x27;,
-          &#x27;Karr&#x27;,
-          &#x27;Icahn School of Medicine at Mount Sinai&#x27;,
-          &#x27;https://www.karrlab.org&#x27;,
-          &#x27;jonrkarr@gmail.com&#x27;,
-          true,
-          true,
-          &#x27;jonrkarr@gmail.com&#x27;,
-          &#x27;jonrkarr&#x27;,
-          &#x27;Yb5nVLAAAAAJ&#x27;,
-          &#x27;0000-0002-2605-5080&#x27;,
-          &#x27;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, &#x27; +
+        user &#x3D; new User();
+        user.auth0Id &#x3D; &#x27;github|2848297&#x27;;
+        user.id &#x3D; 1;
+        user.username &#x3D; username;
+        user.firstName &#x3D; &#x27;Jonathan&#x27;;
+        user.middleName &#x3D; &#x27;R&#x27;;
+        user.lastName &#x3D; &#x27;Karr&#x27;;
+        user.organization &#x3D; &#x27;Icahn School of Medicine at Mount Sinai&#x27;;
+        user.website &#x3D; &#x27;https://www.karrlab.org&#x27;;
+        user.email &#x3D; &#x27;jonrkarr@gmail.com&#x27;;
+        user.emailVerified &#x3D; true;
+        user.emailPublic &#x3D; true;
+        user.gravatarEmail &#x3D; &#x27;jonrkarr@gmail.com&#x27;;
+        user.gitHubId &#x3D; &#x27;jonrkarr&#x27;;
+        user.googleScholarId &#x3D; &#x27;Yb5nVLAAAAAJ&#x27;;
+        user.orcId &#x3D; &#x27;0000-0002-2605-5080&#x27;;
+        user.description &#x3D; &#x27;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, &#x27; +
             &#x27;ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. &#x27; +
             &#x27;Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. &#x27; +
             &#x27;Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, &#x27; +
-            &#x27;nec dictum erat aliquet quis.&#x27;,
-          [
+            &#x27;nec dictum erat aliquet quis.&#x27;;
+        if (includeRelObj) {
+          user.models &#x3D; [
             ModelService._get(&#x27;001&#x27;),
             ModelService._get(&#x27;003&#x27;),
             ModelService._get(&#x27;006&#x27;),
             ModelService._get(&#x27;001&#x27;),
             ModelService._get(&#x27;003&#x27;),
-            ],
-          [
+            ];
+          user.simulations &#x3D; [
             SimulationService._get(&#x27;001&#x27;),
             SimulationService._get(&#x27;003&#x27;),
             SimulationService._get(&#x27;006&#x27;),
             SimulationService._get(&#x27;001&#x27;),
-          ],
-          [],
-        );
+          ];
+          user.visualizations &#x3D; [];
+        }
         break;
       case &#x27;y.skaf&#x27;:
-        user &#x3D; new User(null, 2, &#x27;y.skaf&#x27;, &#x27;Yara&#x27;, null, &#x27;Skaf&#x27;,
-          &#x27;University of Connecticut Health Center&#x27;,
-          null,
-          &#x27;skaf@uchc.edu&#x27;,
-          true,
-          true,
-          &#x27;skaf@uchc.edu&#x27;,
-          null,
-          null,
-          null,
-          &#x27;Description&#x27;);
+        user &#x3D; new User();
+        user.id &#x3D; 2;
+        user.username &#x3D; &#x27;y.skaf&#x27;;
+        user.firstName &#x3D; &#x27;Yara&#x27;;
+        user.lastName &#x3D; &#x27;Skaf&#x27;;
+        user.organization &#x3D; &#x27;University of Connecticut Health Center&#x27;;
+        user.email &#x3D; &#x27;skaf@uchc.edu&#x27;;
+        user.emailVerified &#x3D; true;
+        user.emailPublic &#x3D; true;
+        user.gravatarEmail &#x3D; &#x27;skaf@uchc.edu&#x27;;
+        user.description &#x3D; &#x27;Description&#x27;;
         break;
       case &#x27;b.shaikh&#x27;:
-        user &#x3D; new User(null, 3, &#x27;b.bhaikh&#x27;, &#x27;Bilal&#x27;, null, &#x27;Shaikh&#x27;,
-          &#x27;Icahn School of Medicine at Mount Sinai&#x27;,
-          &#x27;https://bilalshaikh.com&#x27;,
-          &#x27;bilal.shaikh@columbia.edu&#x27;,
-          true,
-          true,
-          null,
-          &#x27;bilalshaikh42&#x27;,
-          null,
-          null,
-          &#x27;Description&#x27;);
+        user &#x3D; new User();
+        user.id &#x3D; 3;
+        user.username &#x3D; &#x27;b.bhaikh&#x27;;
+        user.firstName &#x3D; &#x27;Bilal&#x27;;
+        user.lastName &#x3D; &#x27;Shaikh&#x27;;
+        user.organization &#x3D; &#x27;Icahn School of Medicine at Mount Sinai&#x27;;
+        user.website &#x3D; &#x27;https://bilalshaikh.com&#x27;;
+        user.email &#x3D; &#x27;bilal.shaikh@columbia.edu&#x27;;
+        user.emailVerified &#x3D; true;
+        user.emailPublic &#x3D; true;
+        user.gitHubId &#x3D; &#x27;bilalshaikh42&#x27;;
+        user.description &#x3D; &#x27;Description&#x27;;
         break;
       case &#x27;s.edelstein&#x27;:
-        user &#x3D; new User(null, 4, &#x27;s.edelstein&#x27;, &#x27;S&#x27;, null, &#x27;Edelstein&#x27;);
+        user &#x3D; new User();
+        user.id &#x3D; 4;
+        user.username &#x3D; &#x27;s.edelstein&#x27;;
+        user.firstName &#x3D; &#x27;S&#x27;;
+        user.lastName &#x3D; &#x27;Edelstein&#x27;;
         break;
       case &#x27;a.goldbeter&#x27;:
-        user &#x3D; new User(null, 5, &#x27;a.goldbeter&#x27;, &#x27;A&#x27;, null, &#x27;Goldbeter&#x27;);
+        user &#x3D; new User();
+        user.id &#x3D; 5;
+        user.username &#x3D; &#x27;a.goldbeter&#x27;;
+        user.firstName &#x3D; &#x27;A&#x27;;
+        user.lastName &#x3D; &#x27;Goldbeter&#x27;;
         break;
       case &#x27;j.tyson&#x27;:
-        user &#x3D; new User(null, 6, &#x27;j.tyson&#x27;, &#x27;J&#x27;, null, &#x27;Tyson&#x27;);
+        user &#x3D; new User();
+        user.id &#x3D; 6;
+        user.username &#x3D; &#x27;j.tyson&#x27;;
+        user.firstName &#x3D; &#x27;J&#x27;;
+        user.lastName &#x3D; &#x27;Tyson&#x27;;
         break;
     }
     return user;
@@ -880,14 +894,15 @@ export class UserService {
     return UserService._get(username, true);
   }
 
-  getByAuth0Id(id: string): User {
+  getByAuth0Id(auth0Id: string): User {
     let user:User;
-    switch (id) {
+    switch (auth0Id) {
       case &#x27;github|2848297&#x27;:
         user &#x3D; this.get(&#x27;jonrkarr&#x27;);
         break;
       default:
-        user &#x3D; new User(id);
+        user &#x3D; new User();
+        user.auth0Id &#x3D; auth0Id;
         break;
     }
     return user;
