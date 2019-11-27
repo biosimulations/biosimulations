@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
@@ -13,6 +14,8 @@ import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-hu
   styleUrls: ['./view.component.sass'],
 })
 export class ViewComponent implements OnInit {
+  getLicenseInfo = getLicenseInfo;
+
   id: string;
   simulation: Simulation;
   simulationHistoryTreeNodes: object[];
@@ -39,22 +42,22 @@ export class ViewComponent implements OnInit {
     ];
     const buttons: NavItem[] = [
       {
-        iconType: 'mat',
-        icon: 'view_list',
+        iconType: 'fas',
+        icon: 'list',
         label: 'Browse',
         route: ['/simulations'],
         display: NavItemDisplayLevel.always,
       },
       {
-        iconType: 'mat',
-        icon: 'add',
+        iconType: 'fas',
+        icon: 'plus',
         label: 'New',
         route: ['/simulations/new'],
         display: NavItemDisplayLevel.always,
       },
       {
-        iconType: 'mat',
-        icon: 'hourglass_empty',
+        iconType: 'fas',
+        icon: 'user',
         label: 'Your simulations',
         route: ['/user/simulations'],
         display: NavItemDisplayLevel.loggedIn,

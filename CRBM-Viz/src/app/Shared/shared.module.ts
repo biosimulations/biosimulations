@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Third pary modules
 import { AgGridModule } from 'ag-grid-angular';
@@ -60,6 +60,12 @@ import {
   faDownload,
   faCodeBranch,
   faPlus,
+  faTrashAlt,
+  faBars,
+  faQuestionCircle,
+  faInfoCircle,
+  faUserCircle,
+  faPlusCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -102,6 +108,7 @@ import { TreeComponent } from './Components/tree/tree.component';
 import { ModelCardsComponent } from './Components/model-cards/model-cards.component';
 import { SimulationCardsComponent } from './Components/simulation-cards/simulation-cards.component';
 import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
+import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
 
 @NgModule({
   declarations: [
@@ -133,6 +140,7 @@ import { VisualizationCardsComponent } from './Components/visualization-cards/vi
     ModelCardsComponent,
     SimulationCardsComponent,
     VisualizationCardsComponent,
+    HyperlinkComponent,
   ],
   imports: [
     CommonModule,
@@ -146,6 +154,7 @@ import { VisualizationCardsComponent } from './Components/visualization-cards/vi
       ]),
     NgPipesModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     FilterPipe,
@@ -174,6 +183,7 @@ import { VisualizationCardsComponent } from './Components/visualization-cards/vi
     ModelCardsComponent,
     SimulationCardsComponent,
     VisualizationCardsComponent,
+    HyperlinkComponent,
     NgPipesModule,
   ],
   providers: [
@@ -230,6 +240,12 @@ export class SharedModule {
       faDownload,
       faCodeBranch,
       faPlus,
+      faTrashAlt,
+      faBars,
+      faQuestionCircle,
+      faInfoCircle,
+      faUserCircle,
+      faPlusCircle,
       faDocker,
       faGithub,
       faGoogle,

@@ -44,8 +44,8 @@ export class SimulationsComponent implements OnInit {
           label: 'Your simulations',
         });
         buttons.push({
-          iconType: 'mat',
-          icon: 'add',
+          iconType: 'fas',
+          icon: 'plus',
           label: 'New',
           route: ['/simulations/new'],
           display: NavItemDisplayLevel.always

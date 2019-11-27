@@ -44,8 +44,8 @@ export class ModelsComponent implements OnInit {
           label: 'Your models',
         });
         buttons.push({
-          iconType: 'mat',
-          icon: 'add',
+          iconType: 'fas',
+          icon: 'plus',
           label: 'New',
           route: ['/models/new'],
           display: NavItemDisplayLevel.always

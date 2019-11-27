@@ -50,8 +50,8 @@ export class ProfileComponent implements OnInit {
             label: 'Your profile',
           });
           buttons.push({
-            iconType: 'mat',
-            icon: 'edit',
+            iconType: 'fas',
+            icon: 'pencil-alt',
             label: 'Edit',
             route: ['/user/edit'],
             display: NavItemDisplayLevel.loggedIn,

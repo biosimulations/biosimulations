@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 
 export class ProfileEditComponent implements OnInit {
   user: User;
-  showSavedMessage = false;
+  showAfterSubmitMessage = false;
 
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -28,7 +28,7 @@ export class ProfileEditComponent implements OnInit {
       {label: 'Edit your profile'},
     ];
     const buttons: NavItem[] = [
-      {iconType: 'mat', icon: 'person', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn},
+      {iconType: 'fas', icon: 'user', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn},
     ];
     this.breadCrumbsService.set(crumbs, buttons);
 
@@ -39,12 +39,12 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
-  save (): void {
+  submit (): void {
     this.userService.set(this.user);
 
-    this.showSavedMessage = true;
+    this.showAfterSubmitMessage = true;
     setTimeout(() => {
-      this.showSavedMessage = false;
+      this.showAfterSubmitMessage = false;
     }, 2500);
   }
 }

@@ -35,8 +35,8 @@ export class VisualizeComponent implements OnInit {
         crumbs[0]['route'] = '/visualizations';
         crumbs.push({label: 'Visualization ' + this.id});
         buttons.push({
-          iconType: 'mat',
-          icon: 'view_list',
+          iconType: 'fas',
+          icon: 'list',
           label: 'Browse',
           route: ['/visualizations'],
           display: NavItemDisplayLevel.always,

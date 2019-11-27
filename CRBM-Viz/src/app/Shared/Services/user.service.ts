@@ -27,77 +27,91 @@ export class UserService {
     switch (username) {
       default:
       case 'jonrkarr':
-        user = new User(
-          'github|2848297',
-          1,
-          username,
-          'Jonathan',
-          'R',
-          'Karr',
-          'Icahn School of Medicine at Mount Sinai',
-          'https://www.karrlab.org',
-          'jonrkarr@gmail.com',
-          true,
-          true,
-          'jonrkarr@gmail.com',
-          'jonrkarr',
-          'Yb5nVLAAAAAJ',
-          '0000-0002-2605-5080',
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
+        user = new User();
+        user.auth0Id = 'github|2848297';
+        user.id = 1;
+        user.username = username;
+        user.firstName = 'Jonathan';
+        user.middleName = 'R';
+        user.lastName = 'Karr';
+        user.organization = 'Icahn School of Medicine at Mount Sinai';
+        user.website = 'https://www.karrlab.org';
+        user.email = 'jonrkarr@gmail.com';
+        user.emailVerified = true;
+        user.emailPublic = true;
+        user.gravatarEmail = 'jonrkarr@gmail.com';
+        user.gitHubId = 'jonrkarr';
+        user.googleScholarId = 'Yb5nVLAAAAAJ';
+        user.orcId = '0000-0002-2605-5080';
+        user.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
             'ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. ' +
             'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
             'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
-            'nec dictum erat aliquet quis.',
-          [
+            'nec dictum erat aliquet quis.';
+        if (includeRelObj) {
+          user.models = [
             ModelService._get('001'),
             ModelService._get('003'),
             ModelService._get('006'),
             ModelService._get('001'),
             ModelService._get('003'),
-            ],
-          [
+            ];
+          user.simulations = [
             SimulationService._get('001'),
             SimulationService._get('003'),
             SimulationService._get('006'),
             SimulationService._get('001'),
-          ],
-          [],
-        );
+          ];
+          user.visualizations = [];
+        }
         break;
       case 'y.skaf':
-        user = new User(null, 2, 'y.skaf', 'Yara', null, 'Skaf',
-          'University of Connecticut Health Center',
-          null,
-          'skaf@uchc.edu',
-          true,
-          true,
-          'skaf@uchc.edu',
-          null,
-          null,
-          null,
-          'Description');
+        user = new User();
+        user.id = 2;
+        user.username = 'y.skaf';
+        user.firstName = 'Yara';
+        user.lastName = 'Skaf';
+        user.organization = 'University of Connecticut Health Center';
+        user.email = 'skaf@uchc.edu';
+        user.emailVerified = true;
+        user.emailPublic = true;
+        user.gravatarEmail = 'skaf@uchc.edu';
+        user.description = 'Description';
         break;
       case 'b.shaikh':
-        user = new User(null, 3, 'b.bhaikh', 'Bilal', null, 'Shaikh',
-          'Icahn School of Medicine at Mount Sinai',
-          'https://bilalshaikh.com',
-          'bilal.shaikh@columbia.edu',
-          true,
-          true,
-          null,
-          'bilalshaikh42',
-          null,
-          null,
-          'Description');
+        user = new User();
+        user.id = 3;
+        user.username = 'b.bhaikh';
+        user.firstName = 'Bilal';
+        user.lastName = 'Shaikh';
+        user.organization = 'Icahn School of Medicine at Mount Sinai';
+        user.website = 'https://bilalshaikh.com';
+        user.email = 'bilal.shaikh@columbia.edu';
+        user.emailVerified = true;
+        user.emailPublic = true;
+        user.gitHubId = 'bilalshaikh42';
+        user.description = 'Description';
         break;
       case 's.edelstein':
-        user = new User(null, 4, 's.edelstein', 'S', null, 'Edelstein');
+        user = new User();
+        user.id = 4;
+        user.username = 's.edelstein';
+        user.firstName = 'S';
+        user.lastName = 'Edelstein';
         break;
       case 'a.goldbeter':
-        user = new User(null, 5, 'a.goldbeter', 'A', null, 'Goldbeter');
+        user = new User();
+        user.id = 5;
+        user.username = 'a.goldbeter';
+        user.firstName = 'A';
+        user.lastName = 'Goldbeter';
         break;
       case 'j.tyson':
-        user = new User(null, 6, 'j.tyson', 'J', null, 'Tyson');
+        user = new User();
+        user.id = 6;
+        user.username = 'j.tyson';
+        user.firstName = 'J';
+        user.lastName = 'Tyson';
         break;
     }
     return user;
@@ -128,14 +142,15 @@ export class UserService {
     return UserService._get(username, true);
   }
 
-  getByAuth0Id(id: string): User {
+  getByAuth0Id(auth0Id: string): User {
     let user:User;
-    switch (id) {
+    switch (auth0Id) {
       case 'github|2848297':
         user = this.get('jonrkarr');
         break;
       default:
-        user = new User(id);
+        user = new User();
+        user.auth0Id = auth0Id;
         break;
     }
     return user;

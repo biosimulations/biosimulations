@@ -1,0 +1,233 @@
+<form
+  class="page-content partial-width form"
+  [formGroup]="formGroup"
+  (ngSubmit)="submit()">
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>Name</mat-label>
+    <input matInput
+      formControlName="name"
+      placeholder="Brief name for the model"
+      required
+      />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>Description</mat-label>
+    <textarea matInput
+      formControlName="description"
+      rows="10"
+      placeholder="Description of the model"
+      ></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formGroupName="taxon"
+    class="taxon">
+    <mat-label>Taxon</mat-label>
+    <div class="input-container">
+      <input matInput
+        formControlName="id"
+        type="text"
+        placeholder="NCBI Taxonomy id (e.g., 9606)"
+        />
+      <input matInput
+        formControlName="name"
+        type="text"
+        placeholder="Taxon name (e.g., Homo sapiens)"
+        />
+      </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="tags"
+    >
+    <mat-label>Tags</mat-label>
+
+    <mat-chip-list #tagChipList aria-label="Tag list">
+      <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
+        [selectable]="false"
+        [removable]="true"
+        (removed)="removeFormArrayElement('tag', iFormArrayEl)">
+        {{ tag.value }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        [placeholder]="getFormArray('tags').controls.length === 0 ? 'Enter a tag' : null"
+        [matChipInputFor]="tagChipList"
+        [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+        [matChipInputAddOnBlur]="false"
+        (matChipInputTokenEnd)="addTag($event)" />
+    </mat-chip-list>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="authors"
+    *ngIf="getFormArray('authors').controls.length > 0"
+    class="authors"
+    >
+    <mat-label>
+      Authors
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Add icon"
+        [icon]="['fas', 'plus']"
+        (click)="addAuthorFormElement()"
+      ></fa-icon>
+    </mat-label>
+    <div
+      *ngFor="let author of getFormArray('authors').controls; let iFormArrayEl=index"
+      [formGroupName]="iFormArrayEl"
+      class="input-container"
+    >
+      <input matInput
+        formControlName="firstName"
+        placeholder="John"
+        required
+        />
+      <input matInput
+        formControlName="middleName"
+        placeholder="C"
+        />
+      <input matInput
+        formControlName="lastName"
+        placeholder="Doe"
+        required
+        />
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Delete icon"
+        [icon]="['fas', 'trash-alt']"
+        (click)="removeFormArrayElement('authors', iFormArrayEl)"
+      ></fa-icon>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="identifiers"
+    *ngIf="getFormArray('identifiers').controls.length > 0"
+    class="identifiers"
+    >
+    <div>
+      <mat-label>Identifiers</mat-label>
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Add icon"
+        [icon]="['fas', 'plus']"
+        (click)="addIdentifierFormElement()"
+      ></fa-icon>
+    </div>
+    <div
+      *ngFor="let identifier of getFormArray('identifiers').controls; let iFormArrayEl=index"
+      [formGroupName]="iFormArrayEl"
+      class="input-container"
+    >
+      <input matInput
+        formControlName="namespace"
+        placeholder="biomodels.db"
+        required
+        />
+      <input matInput
+        formControlName="id"
+        placeholder="BIOMD0000000001"
+        required
+        />
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Delete icon"
+        [icon]="['fas', 'trash-alt']"
+        (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
+      ></fa-icon>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always"
+    formArrayName="refs"
+    *ngIf="getFormArray('refs').controls.length > 0"
+    class="refs"
+    >
+    <div>
+      <mat-label>References</mat-label>
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Add icon"
+        [icon]="['fas', 'plus']"
+        (click)="addRefFormElement()"
+      ></fa-icon>
+    </div>
+    <div
+      *ngFor="let identifier of getFormArray('refs').controls; let iFormArrayEl=index"
+      [formGroupName]="iFormArrayEl"
+      class="input-container"
+    >
+      <input matInput
+        formControlName="authors"
+        placeholder="Doe JC & Doe JD"
+        />
+      <input matInput
+        formControlName="journal"
+        placeholder="PLoS Comput Biol"
+        />
+      <input matInput
+        formControlName="volume"
+        placeholder="10"
+        />
+      <input matInput
+        formControlName="num"
+        placeholder="1"
+        />
+      <input matInput
+        formControlName="pages"
+        placeholder="1-10"
+        />
+      <input matInput
+        formControlName="year"
+        type="number"
+        placeholder="2019"
+        />
+      <input matInput
+        formControlName="doi"
+        placeholder="10.1002/0470841559.ch1"
+        />
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Delete icon"
+        [icon]="['fas', 'trash-alt']"
+        (click)="removeFormArrayElement('refs', iFormArrayEl)"
+      ></fa-icon>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>Access level</mat-label>
+    <mat-select
+      formControlName="access"
+      required
+    >
+      <mat-option [value]="AccessLevel.private">Private</mat-option>
+      <mat-option [value]="AccessLevel.public">Public</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" floatLabel="always">
+    <mat-label>License</mat-label>
+    <mat-select
+      formControlName="license"
+      required
+    >
+      <mat-option
+        *ngFor="let aLicense of licenses"
+        [value]="aLicense.license"
+      >{{ aLicense.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="save-button-container">
+    <button mat-button
+      type="submit"
+      disableRipple="true"
+      [disabled]="!formGroup.valid"
+    >{{ this.id ? 'Save' : 'Upload' }}</button>
+    <div class="after-submit-message" [class.show-after-submit-message]="showAfterSubmitMessage"
+    >Model was saved.</div>
+  </div>
+</form>

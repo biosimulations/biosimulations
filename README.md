@@ -96,4 +96,4 @@ This package was developed with support from the National Institute for Bioimagi
 
 ## Questions and comments
 
-Please contact the [Karr Lab](mailto:info@karrlab.org) with any questions or comments.
+Please contact [us](mailto:info@biosimulations.org) with any questions or comments.
