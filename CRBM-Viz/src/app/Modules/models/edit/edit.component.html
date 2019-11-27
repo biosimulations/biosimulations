@@ -62,7 +62,7 @@
 
   <mat-form-field appearance="legacy" floatLabel="always"
     formArrayName="authors"
-    *ngIf="getFormArray('authors').controls.length > 0"    
+    *ngIf="getFormArray('authors').controls.length > 0"
     >
     <mat-label>
       Authors
@@ -128,7 +128,7 @@
         (click)="addIdentifierFormElement()"
       ></fa-icon>
     </div>
-    <div      
+    <div
       cdkDropList
       (cdkDropListDropped)="drop('authors', $event)"
       >
@@ -182,7 +182,7 @@
     <div
       cdkDropList
       (cdkDropListDropped)="drop('authors', $event)"
-      >    
+      >
       <div
         *ngFor="let identifier of getFormArray('refs').controls; let iFormArrayEl=index"
         [formGroupName]="iFormArrayEl"
