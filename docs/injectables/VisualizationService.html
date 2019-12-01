@@ -75,6 +75,14 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#modelService">modelService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#userService">userService</a>
+                            </li>
+                            <li>
                                 <a href="#vizUrl">vizUrl</a>
                             </li>
                         </ul>
@@ -97,7 +105,17 @@
                                 <a href="#get">get</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getServices">getServices</a>
+                            </li>
+                            <li>
                                 <a href="#getVisualizations">getVisualizations</a>
+                            </li>
+                            <li>
+                                <a href="#publish">publish</a>
+                            </li>
+                            <li>
+                                <a href="#save">save</a>
                             </li>
                         </ul>
                     </td>
@@ -117,12 +135,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -144,6 +162,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>injector</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -189,8 +219,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="13"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:13</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="19"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:19</a></div>
                 </td>
             </tr>
 
@@ -276,8 +306,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:33</a></div>
                 </td>
             </tr>
 
@@ -328,6 +358,47 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getServices"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getServices
+                        </b>
+                        <a href="#getServices"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getServices()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:26</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getVisualizations"></a>
                     <span class="name">
                         <b>
@@ -346,8 +417,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:37</a></div>
                 </td>
             </tr>
 
@@ -394,12 +465,208 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="publish"></a>
+                    <span class="name">
+                        <b>
+                            publish
+                        </b>
+                        <a href="#publish"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>publish(visualization: <a href="../classes/Visualization.html">Visualization</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:49</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>visualization</td>
+                                    <td>
+                                                <code><a href="../classes/Visualization.html" target="_self" >Visualization</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <b>
+                            save
+                        </b>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>save(visualization: <a href="../classes/Visualization.html">Visualization</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:42</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>visualization</td>
+                                    <td>
+                                                <code><a href="../classes/Visualization.html" target="_self" >Visualization</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
             <section>
     
         <h3 id="inputs">
             Properties
         </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            modelService</b>
+                            <a href="#modelService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/ModelService.html" target="_self" >ModelService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            userService</b>
+                            <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
@@ -425,7 +692,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/visualization.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -438,8 +705,11 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Injector } from &#x27;@angular/core&#x27;;
+import { AccessLevel } from &#x27;../Enums/access-level&#x27;;
 import { Visualization } from &#x27;src/app/Shared/Models/visualization&#x27;;
+import { UserService } from &#x27;src/app/Shared/Services/user.service&#x27;;
+import { ModelService } from &#x27;src/app/Shared/Services/model.service&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 
@@ -447,7 +717,10 @@ import { Observable } from &#x27;rxjs&#x27;;
   providedIn: &#x27;root&#x27;,
 })
 export class VisualizationService {
-  constructor(private http: HttpClient) {}
+  private userService: UserService;
+  private modelService: ModelService;
+
+  constructor(private http: HttpClient, private injector:Injector) {}
   vizUrl &#x3D; &#x27;https://crbm-test-api.herokuapp.com/vis/&#x27;;
 
   static _get(id: number, includeRelObj &#x3D; false): Visualization {
@@ -457,6 +730,13 @@ export class VisualizationService {
     return viz;
   }
 
+  private getServices(): void {
+    if (this.userService &#x3D;&#x3D; null) {
+      this.userService &#x3D; this.injector.get(UserService);
+      this.modelService &#x3D; this.injector.get(ModelService);
+    }
+  }
+
   get(id: number): Visualization {
     return VisualizationService._get(id, true);
   }
@@ -464,6 +744,17 @@ export class VisualizationService {
   getVisualizations(id: string): Observable&lt;Visualization[]&gt; {
     const vizJson &#x3D; this.http.get&lt;Visualization[]&gt;(this.vizUrl + id);
     return vizJson;
+  }
+
+  save(visualization:Visualization): void {
+    visualization.owner &#x3D; this.userService.get();
+    visualization.created &#x3D; new Date(Date.now());
+    visualization.updated &#x3D; new Date(Date.now());
+    visualization.id &#x3D; 7;
+  }
+
+  publish(visualization: Visualization): void {
+    visualization.access &#x3D; AccessLevel.public;
   }
 }
 </code></pre>
