@@ -42,6 +42,28 @@ export class ModelService {
           new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('jonrkarr');
+        model.access = AccessLevel.public;
+        model.created = new Date(Date.parse('1996-11-01 00:00:00'));
+        model.updated = new Date(Date.parse('1996-11-01 00:00:00'));
+        break;
+
+      case '002':
+        model = new Model();
+        model.id = id;
+        model.name ='EPSP ACh event';
+        model.description = 'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+        model.taxon = new Taxon(7787, 'Tetronarce californica');
+        model.tags = ['neurotransmission', 'signaling'];
+        model.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
+        model.identifiers = [
+          new Identifier('biomodels.db', 'BIOMD0000000001'),
+        ];
+        model.refs = [
+          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+        ];
+        model.owner = UserService._get('jonrkarr');
+        model.access = AccessLevel.private;
         model.created = new Date(Date.parse('1996-11-01 00:00:00'));
         model.updated = new Date(Date.parse('1996-11-01 00:00:00'));
         break;
@@ -62,6 +84,7 @@ export class ModelService {
           new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('a.goldbeter');
+        model.access = AccessLevel.public;
         model.created = new Date(Date.parse('1991-10-15 00:00:00'));
         model.updated = new Date(Date.parse('1991-10-15 00:00:00'));
         break;
@@ -82,6 +105,7 @@ export class ModelService {
           new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('j.tyson');
+        model.access = AccessLevel.public;
         model.created = new Date(Date.parse('1991-08-15 00:00:00'));
         model.updated = new Date(Date.parse('1991-08-15 00:00:00'));
         break;
@@ -90,8 +114,7 @@ export class ModelService {
     model.authors = [
           new Person('Jimmie', 'D', 'Doe'),
           new Person('Jane', 'E', 'Doe'),
-        ];
-    model.access = AccessLevel.public;
+        ];    
     model.license = License.cc0;
     if (includeRelatedObjects) {
       model.simulations = [
@@ -119,6 +142,7 @@ export class ModelService {
   list(auth?): Model[] {
     const data: Model[] = [
       this.get('001'),
+      this.get('002'),
       this.get('003'),
       this.get('006'),
     ];
