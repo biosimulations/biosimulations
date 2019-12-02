@@ -147,16 +147,20 @@ export class EditComponent implements OnInit {
     return this.formGroup.get(array) as FormArray;
   }
 
-  selectFile(controlName: string, files: File[]): void {
+  selectFile(controlName: string, files: File[], fileNameEl): void {
     let file: File;
+    let fileName: string;
     if (files.length) {
       file = files[0];
+      fileName = file.name;
     } else {
       file = null;
+      fileName = '';
     }
     const value: Array = new Array();
     value[controlName] = file;
     this.formGroup.patchValue(value);
+    fileNameEl.innerHTML = fileName;
   }
 
   displayTaxon(taxon: Taxon): string | undefined {

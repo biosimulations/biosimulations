@@ -15,16 +15,20 @@
   </div>
 
   <div class="form-field">
-    <div class="form-field-title">Definition (e.g., SBML file)</div>
+    <div class="form-field-title">Definition file</div>
     <div class="form-field-input">
       <input
-        mat-raised-button
+        id="file"
         type="file"
-        placeholder="File which defines model (e.g., SBML file)"
+        accept=".xml,application/xml"
         required
-        (change)="selectFile('file', $event.target.files)"
-        class="form-input"
+        (change)="selectFile('file', $event.target.files, fileName)"
+        class="form-file-input"
         />
+      <div class="form-input">
+        <label for="file" class="form-file-input-label" tabindex="0">Choose a file (e.g., SBML)</label>
+        <span #fileName class="form-file-input-name"></span>
+      </div>
     </div>
   </div>
 

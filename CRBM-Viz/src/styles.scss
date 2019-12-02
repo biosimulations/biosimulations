@@ -547,7 +547,7 @@ ul.icon-text {
     letter-spacing: normal;
 }
 
-.form-input:focus {
+.form-input:focus, .form-input:focus-within {
     outline: none;
     background: #e2f1fd;
     border-bottom: 1px solid mat-color($theme-primary);
@@ -607,6 +607,27 @@ ul.icon-text {
     .form-chip:hover::after {
         opacity: 0;
     }
+}
+
+.form-file-input {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    display: block;
+}
+
+.form-file-input-label {
+    background: white;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+}
+.form-file-input-label:focus{
+    outline: none;
+}
+
+.form-file-input-name {
+    margin-left: 0.25rem;
 }
 
 .form-submit-button {
