@@ -59,6 +59,8 @@
       <mat-autocomplete
         #taxonAutoComplete
         [displayWith]="displayTaxon"
+        disableRipple="true"
+        class="form-select-input-panel"
       >
         <mat-option *ngFor="let taxon of taxa | async"
           [value]="taxon"
@@ -349,6 +351,8 @@
       formControlName="access"
       required
       class="form-input"
+      disableRipple="true"
+      panelClass="form-select-input-panel bottom"
     >
       <mat-option [value]="AccessLevel.private">Private</mat-option>
       <mat-option [value]="AccessLevel.public">Public</mat-option>
@@ -361,6 +365,8 @@
       formControlName="license"
       required
       class="form-input"
+      disableRipple="true"
+      panelClass="form-select-input-panel top"
     >
       <mat-option
         *ngFor="let aLicense of licenses"

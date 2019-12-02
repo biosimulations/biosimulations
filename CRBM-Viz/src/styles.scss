@@ -553,6 +553,26 @@ ul.icon-text {
     border-bottom: 1px solid mat-color($theme-primary);
 }
 
+.form-select-input-panel {
+    .mat-option {
+        padding-left: 0.25rem;
+        line-height: normal;
+        height: calc(2rem - 1px);
+    }
+    .mat-option-text {
+        line-height: normal;
+    }
+    .mat-option.mat-selected:not(.mat-option-multiple) {
+        background: #e9e9e9;
+    }
+}
+
+.form-select-input-panel.mat-select-panel .mat-option {
+    padding-left: 0.25rem;
+    line-height: normal;
+    height: calc(2rem - 1px);
+}
+
 .form-chip-input {
     .mat-chip-list-wrapper {
         margin: 0;

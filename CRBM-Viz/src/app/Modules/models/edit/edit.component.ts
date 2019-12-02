@@ -157,7 +157,7 @@ export class EditComponent implements OnInit {
       file = null;
       fileName = '';
     }
-    const value: Array = new Array();
+    const value: object = {};
     value[controlName] = file;
     this.formGroup.patchValue(value);
     fileNameEl.innerHTML = fileName;
