@@ -38,8 +38,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000001'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('jonrkarr');
         model.created = new Date(Date.parse('1996-11-01 00:00:00'));
@@ -58,8 +58,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000003'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('a.goldbeter');
         model.created = new Date(Date.parse('1991-10-15 00:00:00'));
@@ -78,8 +78,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000006'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('j.tyson');
         model.created = new Date(Date.parse('1991-08-15 00:00:00'));

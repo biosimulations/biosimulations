@@ -1,5 +1,6 @@
 export class JournalReference {
   authors?: string;
+  title?: string;
   journal?: string;
   volume?: number | string;
   num?: number;
@@ -9,6 +10,7 @@ export class JournalReference {
 
   constructor(
     authors?: string,
+    title?: string,
     journal?: string,
     volume?: number | string,
     num?: number,
@@ -17,6 +19,7 @@ export class JournalReference {
     doi?: string
 ) {
     this.authors = authors;
+    this.title = title;
     this.journal = journal;
     this.volume = volume;
     this.num = num;
