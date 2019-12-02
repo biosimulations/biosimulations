@@ -2,80 +2,103 @@
   class="page-content partial-width form"
   [formGroup]="formGroup"
   (ngSubmit)="submit()">
-  <mat-form-field appearance="legacy" floatLabel="always">
-    <mat-label>Name</mat-label>
-    <input matInput
-      formControlName="name"
-      placeholder="Brief name for the model"
-      required
-      />
-  </mat-form-field>
+  <div class="form-field">
+    <div class="form-field-title">Name *</div>
+    <div class="form-field-input">
+      <input matInput
+        formControlName="name"
+        placeholder="Brief name for the model"
+        required
+        class="form-input"
+        />
+    </div>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always">
-    <mat-label>Description</mat-label>
-    <textarea matInput
-      formControlName="description"
-      rows="10"
-      placeholder="Description of the model"
+  <div class="form-field">
+    <div class="form-field-title">Description</div>
+    <div class="form-field-input">
+      <textarea matInput
+        formControlName="description"
+        rows="10"
+        placeholder="Description of the model"
+        class="form-input"
       ></textarea>
-  </mat-form-field>
+    </div>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always"
-    formGroupName="taxon"
-    >
-    <mat-label>Taxon</mat-label>
-    <div class="form-group taxon">
+  <div class="form-field" formGroupName="taxon">
+    <div class="form-field-title">Taxon</div>
+    <div class="field-input form-group taxon">
       <input matInput
         formControlName="id"
         type="text"
         placeholder="NCBI Taxonomy id (e.g., 9606)"
+        class="form-input"
         />
       <input matInput
         formControlName="name"
         type="text"
         placeholder="Taxon name (e.g., Homo sapiens)"
+        class="form-input"
         />
-      </div>
-  </mat-form-field>
+    </div>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always"
-    formArrayName="tags"
-    >
-    <mat-label>Tags</mat-label>
+  <div class="form-field" formArrayName="tags">
+    <div class="form-field-title">Tags</div>
 
-    <mat-chip-list #tagChipList aria-label="Tag list">
+    <mat-chip-list #tagChipList 
+      aria-label="Tag list"
+      class="form-chip-input">
       <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
         [selectable]="false"
         [removable]="true"
-        (removed)="removeFormArrayElement('tag', iFormArrayEl)">
+        (removed)="removeFormArrayElement('tags', iFormArrayEl)"
+        class="form-chip"
+        disableRipple="true">
         {{ tag.value }}
-        <mat-icon matChipRemove>cancel</mat-icon>
+        <mat-icon 
+          matChipRemove
+          class="form-chip-icon"
+          >cancel</mat-icon>
       </mat-chip>
       <input
-        [placeholder]="getFormArray('tags').controls.length === 0 ? 'Enter a tag' : null"
+        [placeholder]="getFormArray('tags').controls.length === 0 ? 'Enter a list of tags (e.g., wild-type, knock out, knock up)' : null"
         [matChipInputFor]="tagChipList"
         [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
         [matChipInputAddOnBlur]="false"
-        (matChipInputTokenEnd)="addTag($event)" />
+        (matChipInputTokenEnd)="addTag($event)"        
+        />
     </mat-chip-list>
-  </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always"
+  <div
+    class="form-field"
     formArrayName="authors"
-    *ngIf="getFormArray('authors').controls.length > 0"
     >
-    <mat-label>
-      Authors
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Add icon"
-        [icon]="['fas', 'plus']"
-        (click)="addAuthorFormElement()"
-      ></fa-icon>
-    </mat-label>
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">Authors</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addAuthorFormElement()">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div class="form-field-subtitle form-group authors">
+      <div>First *</div>
+      <div>Middle</div>
+      <div>Last *</div>
+      <div></div>
+    </div>
     <div
       cdkDropList
       (cdkDropListDropped)="drop('authors', $event)"
+      class="form-field-input"
       >
       <div
         *ngFor="let author of getFormArray('authors').controls; let iFormArrayEl=index"
@@ -83,54 +106,69 @@
         class="draggable form-array-el"
         cdkDrag
       >
-        <div class="form-group authors">
-          <fa-icon
-            aria-hidden="true"
-            aria-label="Drag icon"
-            [icon]="['fas', 'grip-lines-vertical']"
-            class="drag"
-          ></fa-icon>
+        <div class="form-group authors">          
           <input matInput
             formControlName="firstName"
             placeholder="John"
             required
+            class="form-input"
             />
           <input matInput
             formControlName="middleName"
             placeholder="C"
+            class="form-input"
             />
           <input matInput
             formControlName="lastName"
             placeholder="Doe"
             required
+            class="form-input"
             />
-          <fa-icon
-            aria-hidden="true"
-            aria-label="Delete icon"
-            [icon]="['fas', 'trash-alt']"
-            (click)="removeFormArrayElement('authors', iFormArrayEl)"
-          ></fa-icon>
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="removeFormArrayElement('authors', iFormArrayEl)"
+            ></fa-icon>
+          </div>
         </div>
       </div>
     </div>
-  </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always"
+  <div
+    class="form-field"
     formArrayName="identifiers"
-    *ngIf="getFormArray('identifiers').controls.length > 0"
     >
-    <div>
-      <mat-label>Identifiers</mat-label>
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Add icon"
-        [icon]="['fas', 'plus']"
-        (click)="addIdentifierFormElement()"
-      ></fa-icon>
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">Identifiers</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addIdentifierFormElement()">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div class="form-field-subtitle form-group identifiers">
+      <div>Namespace *</div>
+      <div>Id *</div>
+      <div></div>
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('authors', $event)"
+      (cdkDropListDropped)="drop('identifiers', $event)"
+      class="form-field-input"
       >
       <div
         *ngFor="let identifier of getFormArray('identifiers').controls; let iFormArrayEl=index"
@@ -139,49 +177,69 @@
         cdkDrag
       >
         <div class="form-group identifiers">
-          <fa-icon
-            aria-hidden="true"
-            aria-label="Drag icon"
-            [icon]="['fas', 'grip-lines-vertical']"
-            class="drag"
-          ></fa-icon>
           <input matInput
             formControlName="namespace"
             placeholder="biomodels.db"
             required
+            class="form-input"
             />
           <input matInput
             formControlName="id"
             placeholder="BIOMD0000000001"
             required
+            class="form-input"
             />
-          <fa-icon
-            aria-hidden="true"
-            aria-label="Delete icon"
-            [icon]="['fas', 'trash-alt']"
-            (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
-          ></fa-icon>
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
+            ></fa-icon>
+          </div>
         </div>
       </div>
     </div>
-  </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always"
+  <div
+    class="form-field" 
     formArrayName="refs"
-    *ngIf="getFormArray('refs').controls.length > 0"
     >
-    <div>
-      <mat-label>References</mat-label>
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Add icon"
-        [icon]="['fas', 'plus']"
-        (click)="addRefFormElement()"
-      ></fa-icon>
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">References</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addRefFormElement()">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div class="form-field-subtitle form-group refs">
+      <div>Authors *</div>
+      <div>Title *</div>
+      <div>Journal</div>
+      <div>Volume</div>
+      <div>Number</div>
+      <div>Pages</div>
+      <div>Year *</div>
+      <div>DOI</div>
+      <div></div>
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('authors', $event)"
+      (cdkDropListDropped)="drop('refs', $event)"
+      class="form-field-input"
       >
       <div
         *ngFor="let identifier of getFormArray('refs').controls; let iFormArrayEl=index"
@@ -191,83 +249,103 @@
       >
         <div
         class="form-group refs"
-        >
-          <fa-icon
-            aria-hidden="true"
-            aria-label="Drag icon"
-            [icon]="['fas', 'grip-lines-vertical']"
-            class="drag"
-          ></fa-icon>
+        >          
           <input matInput
             formControlName="authors"
             placeholder="Doe JC & Doe JD"
+            required
+            class="form-input"
+            />
+          <input matInput
+            formControlName="title"
+            placeholder="Title"
+            required
+            class="form-input"
             />
           <input matInput
             formControlName="journal"
             placeholder="PLoS Comput Biol"
+            class="form-input"
             />
           <input matInput
             formControlName="volume"
             placeholder="10"
+            class="form-input"
             />
           <input matInput
             formControlName="num"
             placeholder="1"
+            class="form-input"
             />
           <input matInput
             formControlName="pages"
             placeholder="1-10"
+            class="form-input"
             />
           <input matInput
             formControlName="year"
             placeholder="2019"
+            required
+            class="form-input"
             />
           <input matInput
             formControlName="doi"
             placeholder="10.1002/0470841559.ch1"
+            class="form-input"
             />
-          <fa-icon
-            aria-hidden="true"
-            aria-label="Delete icon"
-            [icon]="['fas', 'trash-alt']"
-            (click)="removeFormArrayElement('refs', iFormArrayEl)"
-          ></fa-icon>
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="removeFormArrayElement('refs', iFormArrayEl)"
+            ></fa-icon>
+          </div>
         </div>
       </div>
     </div>
-  </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always">
-    <mat-label>Access level</mat-label>
+  <div class="form-field">
+    <div class="form-field-title">Access level *</div>
     <mat-select
       formControlName="access"
       required
+      class="form-input"
     >
       <mat-option [value]="AccessLevel.private">Private</mat-option>
       <mat-option [value]="AccessLevel.public">Public</mat-option>
     </mat-select>
-  </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="legacy" floatLabel="always">
-    <mat-label>License</mat-label>
+  <div class="form-field">
+    <div class="form-field-title">License *</div>
     <mat-select
       formControlName="license"
       required
+      class="form-input"
     >
       <mat-option
         *ngFor="let aLicense of licenses"
         [value]="aLicense.license"
       >{{ aLicense.name }}</mat-option>
     </mat-select>
-  </mat-form-field>
+  </div>
 
-  <div class="save-button-container">
+  <div class="form-field">
     <button mat-button
       type="submit"
       disableRipple="true"
       [disabled]="!formGroup.valid"
+      class="form-submit-button"
     >{{ this.id ? 'Save' : 'Upload' }}</button>
-    <div class="after-submit-message" [class.show-after-submit-message]="showAfterSubmitMessage"
+    <div class="form-after-submit-message" [class.form-show-after-submit-message]="showAfterSubmitMessage"
     >Model was saved.</div>
   </div>
 </form>

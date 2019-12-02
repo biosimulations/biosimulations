@@ -194,6 +194,7 @@ export class EditComponent implements OnInit {
     const formArray: FormArray = this.getFormArray('refs');
     formArray.push(this.formBuilder.group({
       authors: [''],
+      title: [''],
       journal: [''],
       volume: [''],
       num: [''],
