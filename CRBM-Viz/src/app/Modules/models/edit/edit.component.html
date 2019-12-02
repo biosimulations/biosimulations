@@ -42,7 +42,7 @@
         #taxonAutoComplete
         [displayWith]="displayTaxon"
       >
-        <mat-option *ngFor="let taxon of filteredTaxa | async"
+        <mat-option *ngFor="let taxon of taxa | async"
           [value]="taxon"
         >
           {{ taxon.name }}

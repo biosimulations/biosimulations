@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
 import { Taxon } from 'src/app/Shared/Models/taxon';
+import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 
 @Component({
@@ -20,13 +21,7 @@ import { ModelService } from 'src/app/Shared/Services/model.service';
   styleUrls: ['./edit.component.sass'],
 })
 export class EditComponent implements OnInit {
-  @ViewChild("taxonInput", { static: true }) taxonInput: ElementRef;
-  private taxa: Taxon[] = [
-    new Taxon(2, 'Bacillus subtilis'),
-    new Taxon(1, 'Escherichia coli'),
-    new Taxon(9606, 'Homo sapiens'),
-  ];
-  filteredTaxa: Observable<Taxon[]>;
+  taxa: Observable<Taxon[]>;
   AccessLevel = AccessLevel;
   licenses = licenses;
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
@@ -40,6 +35,7 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private router: Router,
+    private metadataService: MetadataService,
     private modelService: ModelService
     ) {
     this.formGroup = this.formBuilder.group({
@@ -56,11 +52,11 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filteredTaxa = this.formGroup.get('taxon').valueChanges
+    this.taxa = this.formGroup.get('taxon').valueChanges
       .pipe(
         startWith(''),
         map(value => value === null || typeof value === 'string' ? value : value.name),
-        map(taxonName => taxonName ? this.filterTaxa(taxonName) : this.taxa.slice())
+        map(taxonName => this.metadataService.getTaxa(taxonName))
       );
 
     this.route.params.subscribe(routeParams => {
@@ -147,11 +143,6 @@ export class EditComponent implements OnInit {
 
   getFormArray(array: string): FormArray {
     return this.formGroup.get(array) as FormArray;
-  }
-
-  private filterTaxa(taxonName: string): Taxon[] {
-    const lowCaseTaxonName: string = taxonName.toLowerCase();
-    return this.taxa.filter(taxon => taxon.name.toLowerCase().includes(lowCaseTaxonName));
   }
 
   displayTaxon(taxon: Taxon): string | undefined {

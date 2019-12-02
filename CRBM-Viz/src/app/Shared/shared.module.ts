@@ -77,6 +77,7 @@ import {
 
 // Shared components
 import { UserService } from './Services/user.service';
+import { MetadataService } from './Services/metadata.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
 import { VisualizationService } from './Services/visualization.service';
@@ -190,6 +191,7 @@ import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
   ],
   providers: [
     UserService,
+    MetadataService,
     ModelService,
     SimulationService,
     VisualizationService,
