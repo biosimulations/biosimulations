@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -166,7 +166,7 @@ export class EditComponent implements OnInit {
     return taxon ? taxon.name : undefined;
   }
 
-  validateAutocomplete(formControl: FormControl, required = false): void {
+  validateAutocomplete(formControl: AbstractControl, required = false): void {
     const value = formControl.value;
     if (required && (typeof value === 'string' || value === null)) {
       formControl.setErrors({incorrect: true});
