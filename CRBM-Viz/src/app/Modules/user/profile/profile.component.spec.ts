@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfileComponent } from './profile.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
@@ -13,7 +14,12 @@ describe('ProfileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ProfileComponent],
-      imports: [RouterTestingModule, MaterialModule, SharedModule, HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MaterialModule,
+        SharedModule,
+      ],
       providers: [
         { provide: RouterTestingModule, useValue: RouterTestingModule },
       ],

@@ -168,7 +168,6 @@ export class EditComponent implements OnInit {
 
   validateAutocomplete(formControl: FormControl, required = false): void {
     const value = formControl.value;
-    let incorrect: boolean;
     if (required && (typeof value === 'string' || value === null)) {
       formControl.setErrors({incorrect: true});
     } else if (!required && typeof value === 'string' && value !== '') {
