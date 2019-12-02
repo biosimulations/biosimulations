@@ -1,5 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -10,6 +12,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
+import { Taxon } from 'src/app/Shared/Models/taxon';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 
 @Component({
@@ -17,20 +20,16 @@ import { ModelService } from 'src/app/Shared/Services/model.service';
   styleUrls: ['./edit.component.sass'],
 })
 export class EditComponent implements OnInit {
+  @ViewChild("taxonInput", { static: true }) taxonInput: ElementRef;
+  private taxa: Taxon[] = [
+    new Taxon(2, 'Bacillus subtilis'),
+    new Taxon(1, 'Escherichia coli'),
+    new Taxon(9606, 'Homo sapiens'),
+  ];
+  filteredTaxa: Observable<Taxon[]>;
   AccessLevel = AccessLevel;
   licenses = licenses;
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
-
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi'
-  ];
 
   id: string;
   formGroup: FormGroup;
@@ -46,10 +45,7 @@ export class EditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [''],
       description: [''],
-      taxon: this.formBuilder.group({
-        id: [''],
-        name: [''],
-      }),
+      taxon: [''],
       tags: this.formBuilder.array([]),
       authors: this.formBuilder.array([]),
       identifiers: this.formBuilder.array([]),
@@ -60,6 +56,13 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.filteredTaxa = this.formGroup.get('taxon').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value === null || typeof value === 'string' ? value : value.name),
+        map(taxonName => taxonName ? this.filterTaxa(taxonName) : this.taxa.slice())
+      );
+
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
 
@@ -146,6 +149,30 @@ export class EditComponent implements OnInit {
     return this.formGroup.get(array) as FormArray;
   }
 
+  private filterTaxa(taxonName: string): Taxon[] {
+    const lowCaseTaxonName: string = taxonName.toLowerCase();
+    return this.taxa.filter(taxon => taxon.name.toLowerCase().includes(lowCaseTaxonName));
+  }
+
+  displayTaxon(taxon: Taxon): string | undefined {
+    return taxon ? taxon.name : undefined;
+  }
+
+  validateAutocomplete(formControl: FormControl, required = false): void {
+    const value = formControl.value;
+    let incorrect: boolean;
+    if (required && (typeof value === 'string' || value === null)) {
+      formControl.setErrors({incorrect: true});
+    } else if (!required && typeof value === 'string' && value !== '') {
+      formControl.setErrors({incorrect: true});
+    } else {
+      if (value === '') {
+        formControl.patchValue(null);
+      }
+      formControl.setErrors(null);
+    }
+  }
+
   addTagFormElement(): void {
     const formArray: FormArray = this.getFormArray('tags');
     formArray.push(this.formBuilder.control(''));
@@ -209,10 +236,6 @@ export class EditComponent implements OnInit {
       this.getFormArray(array).controls,
       event.previousIndex,
       event.currentIndex);
-  }
-
-  dropMovie(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
 
   submit() {
