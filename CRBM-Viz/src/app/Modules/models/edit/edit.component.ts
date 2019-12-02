@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
 import { Taxon } from 'src/app/Shared/Models/taxon';
@@ -22,7 +22,7 @@ import { ModelService } from 'src/app/Shared/Services/model.service';
 })
 export class EditComponent implements OnInit {
   taxa: Observable<Taxon[]>;
-  AccessLevel = AccessLevel;
+  accessLevels = accessLevels;
   licenses = licenses;
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
 

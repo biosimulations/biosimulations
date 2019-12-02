@@ -22,7 +22,7 @@ export function getLicenseInfo(license: License): object {
     switch (license) {
         case License.cc0:
             return {
-                license,
+                value: license,
                 name: 'CC0',
                 version: '1.0',
                 swoId: 1000049,
@@ -30,7 +30,7 @@ export function getLicenseInfo(license: License): object {
             };
         case License.cc_by:
             return {
-                license,
+                value: license,
                 name: 'CC BY',
                 version: '4.0',
                 swoId: 1000065,
@@ -38,7 +38,7 @@ export function getLicenseInfo(license: License): object {
             };
         case License.cc_by_sa:
             return {
-                license,
+                value: license,
                 name: 'CC BY-SA',
                 version: '4.0',
                 swoId: 1000094,
@@ -46,7 +46,7 @@ export function getLicenseInfo(license: License): object {
             };
         case License.cc_by_nc:
             return {
-                license,
+                value: license,
                 name: 'CC BY-NC',
                 version: '4.0',
                 swoId: 1000080,
@@ -54,7 +54,7 @@ export function getLicenseInfo(license: License): object {
             };
         case License.cc_by_nc_sa:
             return {
-                license,
+                value: license,
                 name: 'CC BY-NC-SA',
                 version: '4.0',
                 swoId: 1000090 ,
@@ -62,7 +62,7 @@ export function getLicenseInfo(license: License): object {
             };
         case License.mit:
             return {
-                license,
+                value: license,
                 name: 'MIT',
                 version: null,
                 swoId: 9000074 ,
@@ -70,7 +70,7 @@ export function getLicenseInfo(license: License): object {
             };
         case License.other:
             return {
-                license,
+                value: license,
                 name: 'Other',
                 version: null,
                 swoId: null ,

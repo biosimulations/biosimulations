@@ -354,8 +354,10 @@
       disableRipple="true"
       panelClass="form-select-input-panel"
     >
-      <mat-option [value]="AccessLevel.private">Private</mat-option>
-      <mat-option [value]="AccessLevel.public">Public</mat-option>
+      <mat-option
+        *ngFor="let option of accessLevels"
+        [value]="option.value"
+      >{{ option.name }}</mat-option>
     </mat-select>
   </div>
 
@@ -369,9 +371,9 @@
       panelClass="form-select-input-panel"
     >
       <mat-option
-        *ngFor="let aLicense of licenses"
-        [value]="aLicense.license"
-      >{{ aLicense.name }}</mat-option>
+        *ngFor="let option of licenses"
+        [value]="option.value"
+      >{{ option.name }}</mat-option>
     </mat-select>
   </div>
 
