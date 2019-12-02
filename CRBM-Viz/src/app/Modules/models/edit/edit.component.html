@@ -15,6 +15,20 @@
   </div>
 
   <div class="form-field">
+    <div class="form-field-title">Definition (e.g., SBML file)</div>
+    <div class="form-field-input">
+      <input
+        mat-raised-button
+        type="file"
+        placeholder="File which defines model (e.g., SBML file)"
+        required
+        (change)="selectFile('file', $event.target.files)"
+        class="form-input"
+        />
+    </div>
+  </div>
+
+  <div class="form-field">
     <div class="form-field-title">Description</div>
     <div class="form-field-input">
       <textarea matInput

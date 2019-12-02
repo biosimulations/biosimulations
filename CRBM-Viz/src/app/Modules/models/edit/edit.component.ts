@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -32,6 +32,7 @@ export class EditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private router: Router,
@@ -40,6 +41,7 @@ export class EditComponent implements OnInit {
     ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
+      file: [null, Validators.required],
       description: [''],
       taxon: [''],
       tags: this.formBuilder.array([]),
@@ -145,6 +147,18 @@ export class EditComponent implements OnInit {
     return this.formGroup.get(array) as FormArray;
   }
 
+  selectFile(controlName: string, files: File[]): void {
+    let file: File;
+    if (files.length) {
+      file = files[0];
+    } else {
+      file = null;
+    }
+    const value: Array = new Array();
+    value[controlName] = file;
+    this.formGroup.patchValue(value);
+  }
+
   displayTaxon(taxon: Taxon): string | undefined {
     return taxon ? taxon.name : undefined;
   }
@@ -230,7 +244,8 @@ export class EditComponent implements OnInit {
   }
 
   submit() {
-    const modelId: string = this.modelService.save(this.id, this.formGroup.value as Model);
+    const data: Model = this.formGroup.value as Model;
+    const modelId: string = this.modelService.save(this.id, data);
 
     this.showAfterSubmitMessage = true;
     setTimeout(() => {
