@@ -14,6 +14,7 @@ import { UtilsService } from '../Services/utils.service';
 export class Model {
   id?: string;
   name?: string;
+  file?: File;
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];

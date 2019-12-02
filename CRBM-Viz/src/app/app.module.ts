@@ -5,6 +5,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Defined Modules in Imports
@@ -36,6 +37,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     HttpClientModule,
     MaterialModule,
     SharedModule,

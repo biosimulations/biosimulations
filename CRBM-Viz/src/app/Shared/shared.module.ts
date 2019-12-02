@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // Third pary modules
 import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from '../Modules/app-material.module';
 import { NgPipesModule } from 'ngx-pipes';
-
 
 // FontAwesome for icons
 import {
@@ -66,6 +66,7 @@ import {
   faInfoCircle,
   faUserCircle,
   faPlusCircle,
+  faGripLinesVertical,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -76,6 +77,7 @@ import {
 
 // Shared components
 import { UserService } from './Services/user.service';
+import { MetadataService } from './Services/metadata.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
 import { VisualizationService } from './Services/visualization.service';
@@ -155,6 +157,7 @@ import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
     NgPipesModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
   ],
   exports: [
     FilterPipe,
@@ -188,6 +191,7 @@ import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
   ],
   providers: [
     UserService,
+    MetadataService,
     ModelService,
     SimulationService,
     VisualizationService,
@@ -246,6 +250,7 @@ export class SharedModule {
       faInfoCircle,
       faUserCircle,
       faPlusCircle,
+      faGripLinesVertical,
       faDocker,
       faGithub,
       faGoogle,

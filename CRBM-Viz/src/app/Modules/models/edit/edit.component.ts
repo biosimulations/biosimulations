@@ -1,14 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { ENTER } from '@angular/cdk/keycodes';
+import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { ENTER } from '@angular/cdk/keycodes';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
+import { Taxon } from 'src/app/Shared/Models/taxon';
+import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 
 @Component({
@@ -16,7 +21,8 @@ import { ModelService } from 'src/app/Shared/Services/model.service';
   styleUrls: ['./edit.component.sass'],
 })
 export class EditComponent implements OnInit {
-  AccessLevel = AccessLevel;
+  taxa: Observable<Taxon[]>;
+  accessLevels = accessLevels;
   licenses = licenses;
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
 
@@ -29,15 +35,14 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private router: Router,
+    private metadataService: MetadataService,
     private modelService: ModelService
     ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
+      file: [null, Validators.required],
       description: [''],
-      taxon: this.formBuilder.group({
-        id: [''],
-        name: [''],
-      }),
+      taxon: [''],
       tags: this.formBuilder.array([]),
       authors: this.formBuilder.array([]),
       identifiers: this.formBuilder.array([]),
@@ -48,6 +53,13 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.taxa = this.formGroup.get('taxon').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value === null || typeof value === 'string' ? value : value.name),
+        map(taxonName => this.metadataService.getTaxa(taxonName))
+      );
+
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
 
@@ -134,7 +146,41 @@ export class EditComponent implements OnInit {
     return this.formGroup.get(array) as FormArray;
   }
 
-  addTagFormElement() {
+  selectFile(controlName: string, files: File[], fileNameEl): void {
+    let file: File;
+    let fileName: string;
+    if (files.length) {
+      file = files[0];
+      fileName = file.name;
+    } else {
+      file = null;
+      fileName = '';
+    }
+    const value: object = {};
+    value[controlName] = file;
+    this.formGroup.patchValue(value);
+    fileNameEl.innerHTML = fileName;
+  }
+
+  displayTaxon(taxon: Taxon): string | undefined {
+    return taxon ? taxon.name : undefined;
+  }
+
+  validateAutocomplete(formControl: AbstractControl, required = false): void {
+    const value = formControl.value;
+    if (required && (typeof value === 'string' || value === null)) {
+      formControl.setErrors({incorrect: true});
+    } else if (!required && typeof value === 'string' && value !== '') {
+      formControl.setErrors({incorrect: true});
+    } else {
+      if (value === '') {
+        formControl.patchValue(null);
+      }
+      formControl.setErrors(null);
+    }
+  }
+
+  addTagFormElement(): void {
     const formArray: FormArray = this.getFormArray('tags');
     formArray.push(this.formBuilder.control(''));
   }
@@ -182,6 +228,7 @@ export class EditComponent implements OnInit {
     const formArray: FormArray = this.getFormArray('refs');
     formArray.push(this.formBuilder.group({
       authors: [''],
+      title: [''],
       journal: [''],
       volume: [''],
       num: [''],
@@ -191,8 +238,16 @@ export class EditComponent implements OnInit {
     }));
   }
 
+  drop(array: string, event: CdkDragDrop<string[]>): void {
+    moveItemInArray(
+      this.getFormArray(array).controls,
+      event.previousIndex,
+      event.currentIndex);
+  }
+
   submit() {
-    const modelId: string = this.modelService.save(this.id, this.formGroup.value as Model);
+    const data: Model = this.formGroup.value as Model;
+    const modelId: string = this.modelService.save(this.id, data);
 
     this.showAfterSubmitMessage = true;
     setTimeout(() => {
