@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { User } from 'src/app/Shared/Models/user';
 import { UserService } from 'src/app/Shared/Services/user.service';
@@ -14,13 +15,30 @@ import { Observable } from 'rxjs';
 })
 
 export class ProfileEditComponent implements OnInit {
-  user: User;
+  formGroup: FormGroup;
   showAfterSubmitMessage = false;
 
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    private formBuilder: FormBuilder,
     public auth: AuthService,
-    private userService: UserService) {}
+    private userService: UserService) {
+    this.formGroup = this.formBuilder.group({
+      username: [''],
+      firstName: [''],
+      middleName: [''],
+      lastName: [''],
+      organization: [''],
+      website: [''],
+      email: [''],
+      emailPublic: [''],
+      gravatarEmail: [''],
+      gitHubId: [''],
+      googleScholarId: [''],
+      orcId: [''],
+      description: [''],
+    });
+  }
 
   ngOnInit() {
     const crumbs: object[] = [
@@ -34,13 +52,15 @@ export class ProfileEditComponent implements OnInit {
 
     if (this.auth && this.auth.token && this.auth.token.sub) {
       const auth0Id: string = (this.auth.token.sub as unknown) as string;
-      this.user = this.userService.getByAuth0Id(auth0Id);
+      const user: User = this.userService.getByAuth0Id(auth0Id);
+      this.formGroup.patchValue(user);
       // this.users.get().subscribe(res => (this.user = res));
     }
   }
 
   submit (): void {
-    this.userService.set(this.user);
+    const data: User = this.formGroup.value as User;
+    this.userService.set(data);
 
     this.showAfterSubmitMessage = true;
     setTimeout(() => {

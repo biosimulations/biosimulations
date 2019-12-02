@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -32,7 +32,6 @@ export class EditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private router: Router,
