@@ -122,7 +122,7 @@ export class ModelsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.modelService.list(this.auth);
+    this.rowData = this.modelService.list();
   }
 
   timeFormatter(params): string {

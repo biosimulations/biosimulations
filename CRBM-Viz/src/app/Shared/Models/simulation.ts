@@ -2,7 +2,8 @@ import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
 import { SimulationResultsFormat } from '../Enums/simulation-results-format';
 import { SimulationStatus } from '../Enums/simulation-status';
-import { ModelParameterChange } from './model-parameter-change';
+import { ParameterChange } from './parameter-change';
+import { Algorithm } from './algorithm';
 import { AlgorithmParameter } from './algorithm-parameter';
 import { Format } from './format';
 import { Identifier } from './identifier';
@@ -22,12 +23,12 @@ export class Simulation {
   tags?: string[] = [];
   model?: Model;
   format?: Format;
-  modelParameterChanges?: ModelParameterChange[] = [];
+  modelParameterChanges?: ParameterChange[] = [];
   startTime?: number; // in seconds
   endTime?: number; // in seconds
   length?: number; // in seconds
-  algorithm?: OntologyTerm; // KISAO modeling and simulation algorithm
-  algorithmParameters?: AlgorithmParameter[] = []; // KISAO modeling and simulation algorithm parameter
+  algorithm?: Algorithm; // KISAO modeling and simulation algorithm
+  algorithmParameterChanges?: ParameterChange[] = []; // KISAO modeling and simulation algorithm parameter
   simulator?: Simulator;
   numTimePoints?: number;
   parent?: Simulation;

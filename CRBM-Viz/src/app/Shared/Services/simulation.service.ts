@@ -3,17 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { environment }  from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from './user.service';
 import { ModelService } from './model.service';
 
 import { AccessLevel } from '../Enums/access-level';
 import { SimulationStatus } from '../Enums/simulation-status';
 import { License } from '../Enums/license';
-import { ModelParameterChange } from '../Models/model-parameter-change';
+import { ModelParameter } from '../Models/model-parameter';
+import { Algorithm } from '../Models/algorithm';
 import { AlgorithmParameter } from '../Models/algorithm-parameter';
 import { Format } from '../Models/format';
 import { JournalReference } from '../Models/journal-reference';
 import { OntologyTerm } from '../Models/ontology-term';
+import { ParameterChange } from '../Models/parameter-change';
 import { Person } from '../Models/person';
 import { Simulator } from '../Models/simulator';
 import { Simulation } from '../Models/simulation';
@@ -37,6 +40,7 @@ export class SimulationService {
   constructor(
     private http: HttpClient,
     private alertService: AlertService,
+    private authService: AuthService,
     private injector: Injector,
     ) {
   }
@@ -57,11 +61,10 @@ export class SimulationService {
 
         simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
         simulation.modelParameterChanges = [
-          new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
-          new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
-          new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
+          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
+          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
         ];
-        simulation.length = 10.;
 
         simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
 
@@ -96,11 +99,10 @@ export class SimulationService {
 
         simulation.format = new Format('SED-ML', 'L1V2', 3685, 'https://sed-ml.org');
         simulation.modelParameterChanges = [
-          new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
-          new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
-          new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
+          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
+          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
         ];
-        simulation.length = 10.;
 
         simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
 
@@ -129,12 +131,10 @@ export class SimulationService {
 
         simulation.format = new Format('SED-ML', 'L1V1', 3685, 'https://sed-ml.org');
         simulation.modelParameterChanges = [
-          new ModelParameterChange('p1', 'parameter 1', 2., 1., 'g'),
-          new ModelParameterChange('p2', 'parameter 2', 3.5, 0.1, 's'),
-          new ModelParameterChange('p3', 'parameter 3', 1.7, 2.6, 'm^s'),
+          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
+          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
+          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
         ];
-        simulation.length = 10.;
-
         simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
 
         simulation.parent = null;
@@ -151,13 +151,20 @@ export class SimulationService {
         simulation.errLog = 'err\n'.repeat(40);
         break;
     }
+    simulation.startTime = 0.;
+    simulation.endTime = 10.;
+    simulation.length = 10.;
     simulation.numTimePoints = 360;
-    simulation.algorithm = new OntologyTerm('KISAO', '0000064', 'Runge-Kutta based method', null,
-      'http://www.biomodels.net/kisao/KISAO#KISAO_0000064');
-    simulation.algorithmParameters = [
+    simulation.algorithm = new Algorithm('0000064', 'Runge-Kutta based method');
+    simulation.algorithm.parameters = [
       new AlgorithmParameter('seed', 'random number generator seed', 1, 488),
       new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211),
       new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209),
+    ];
+    simulation.algorithmParameterChanges = [
+      new ParameterChange(new AlgorithmParameter('seed', 'random number generator seed', 1, 488), 2),
+      new ParameterChange(new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211), 2e-6),
+      new ParameterChange(new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209), 2e-6),
     ];
     simulation.license = License.cc0;
     simulation.authors = [
@@ -244,13 +251,22 @@ export class SimulationService {
     return SimulationService._get(id, true);
   }
 
-  list(auth?): Simulation[] {
+  list(name?: string): Simulation[] {
     const data: Simulation[] = [
       this.get('001'),
       this.get('003'),
       this.get('006'),
     ];
-    return data;
+    return this.filter(data, name) as Simulation[];
+  }
+
+  private filter(list: object[], name: string): object[] {
+    if (name) {
+      const lowCaseName: string = name.toLowerCase();
+      return list.filter(item => item['name'].toLowerCase().includes(lowCaseName));
+    } else {
+      return list;
+    }
   }
 
   getHistory(id: string, includeParents: boolean = true, includeChildren: boolean = true): object[] {
@@ -340,15 +356,13 @@ export class SimulationService {
     ];
   }
 
-  save(simulation:Simulation): void {
+  save(id: string, simulation:Simulation): string {
     simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
     simulation.owner = this.userService.get();
     simulation.created = new Date(Date.now());
     simulation.updated = new Date(Date.now());
     simulation.id = '007';
-  }
 
-  publish(simulation: Simulation): void {
-    simulation.access = AccessLevel.public;
+    return simulation.id;
   }
 }

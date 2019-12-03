@@ -520,7 +520,15 @@ ul.icon-text {
 
 .form-group {
     display: grid;
-    grid-gap: 0.25rem;
+    grid-gap: 0.5rem 0.25rem;
+}
+
+.form-field-label {
+     display: flex;
+     align-items: center;
+}
+.form-field-label:after {
+    content: ":";
 }
 
 .form-group-buttons {
@@ -551,6 +559,11 @@ ul.icon-text {
     outline: none;
     background: #e2f1fd;
     border-bottom: 1px solid mat-color($theme-primary);
+}
+
+.form-input-disabled {
+    background: #d6d6d6;
+    border-bottom: 1px solid #bbb;
 }
 
 .form-select-input-panel {

@@ -116,7 +116,6 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.always,
     route: ['/simulations/new'],
-    disabled: true,
   },
   {
     id: 'Simulations-Yours',

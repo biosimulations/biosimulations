@@ -3,6 +3,7 @@ import { License } from '../Enums/license';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
+import { ModelParameter } from './model-parameter';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
 import { Simulation } from './simulation';
@@ -15,6 +16,7 @@ export class Model {
   id?: string;
   name?: string;
   file?: File;
+  parameters: ModelParameter[] = [];
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];

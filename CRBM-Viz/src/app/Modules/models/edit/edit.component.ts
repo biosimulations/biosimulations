@@ -57,7 +57,7 @@ export class EditComponent implements OnInit {
       .pipe(
         startWith(''),
         map(value => value === null || typeof value === 'string' ? value : value.name),
-        map(taxonName => this.metadataService.getTaxa(taxonName))
+        map(value => this.metadataService.getTaxa(value))
       );
 
     this.route.params.subscribe(routeParams => {
@@ -162,11 +162,11 @@ export class EditComponent implements OnInit {
     fileNameEl.innerHTML = fileName;
   }
 
-  displayTaxon(taxon: Taxon): string | undefined {
-    return taxon ? taxon.name : undefined;
+  displayAutocompleteEl(el: object): string | undefined {
+    return el ? el['name'] : undefined;
   }
 
-  validateAutocomplete(formControl: AbstractControl, required = false): void {
+  selectAutocomplete(formControl: AbstractControl, required = false): void {
     const value = formControl.value;
     if (required && (typeof value === 'string' || value === null)) {
       formControl.setErrors({incorrect: true});

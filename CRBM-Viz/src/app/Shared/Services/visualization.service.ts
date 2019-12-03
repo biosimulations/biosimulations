@@ -39,14 +39,12 @@ export class VisualizationService {
     return vizJson;
   }
 
-  save(visualization:Visualization): void {
+  save(id: number, visualization:Visualization): number {
     visualization.owner = this.userService.get();
     visualization.created = new Date(Date.now());
     visualization.updated = new Date(Date.now());
     visualization.id = 7;
-  }
 
-  publish(visualization: Visualization): void {
-    visualization.access = AccessLevel.public;
+    return visualization.id;
   }
 }
