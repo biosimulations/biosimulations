@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'new/:modelId', component: EditComponent, canActivate: [AuthGuard] },
   { path: ':id', component: ViewComponent },
   { path: ':id/edit', component: EditComponent, canActivate: [AuthGuard] },
+  { path: ':id/fork', component: EditComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

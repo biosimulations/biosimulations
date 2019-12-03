@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { SimulationResultsFormat } from 'src/app/Shared/Enums/simulation-results-format';
@@ -33,49 +34,63 @@ export class ViewComponent implements OnInit {
       this.id = routeParams.id;
       if (this.id) {
         this.getData();
-      }
-    });
+      }    
 
-    const crumbs: object[] = [
-      {label: 'Simulations', route: '/simulations'},
-      {label: 'Simulation ' + this.id},
-    ];
-    const buttons: NavItem[] = [
-      {
-        iconType: 'fas',
-        icon: 'list',
-        label: 'Browse',
-        route: ['/simulations'],
-        display: NavItemDisplayLevel.always,
-      },
-      {
-        iconType: 'fas',
-        icon: 'plus',
-        label: 'New',
-        route: ['/simulations/new'],
-        display: NavItemDisplayLevel.always,
-      },
-      {
-        iconType: 'fas',
-        icon: 'user',
-        label: 'Your simulations',
-        route: ['/user/simulations'],
-        display: NavItemDisplayLevel.loggedIn,
-      },
-    ];
-    this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
+      const crumbs: object[] = [
+        {label: 'Simulations', route: '/simulations'},
+        {label: 'Simulation ' + this.id},
+      ];
+      const buttons: NavItem[] = [      
+        {
+          iconType: 'fas',
+          icon: 'chart-area',
+          label: 'Visualize',
+          route: ['/visualizations', this.id],
+          display: NavItemDisplayLevel.always,
+        },
+        {
+          iconType: 'fas',
+          icon: 'pencil-alt',
+          label: 'Edit',
+          route: ['/simulations', this.id, 'edit'],
+          display: (this.simulation.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
+          displayUser: this.simulation.owner,
+        },
+        {
+          iconType: 'fas',
+          icon: 'code-branch',
+          label: 'Fork',
+          route: ['/simulations', this.id, 'fork'],
+          display: NavItemDisplayLevel.loggedIn,
+        },
+        {
+          iconType: 'fas',
+          icon: 'plus',
+          label: 'New',
+          route: ['/simulations/new'],
+          display: NavItemDisplayLevel.loggedIn,
+        },
+        {
+          iconType: 'fas',
+          icon: 'user',
+          label: 'Your simulations',
+          route: ['/user/simulations'],
+          display: NavItemDisplayLevel.loggedIn,
+        },
+        {
+          iconType: 'fas',
+          icon: 'list',
+          label: 'Browse',
+          route: ['/simulations'],
+          display: NavItemDisplayLevel.always,
+        },
+      ];
+      this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
+    });
   }
 
   getData() {
     this.simulation = this.simulationService.get(this.id);
     this.simulationHistoryTreeNodes = this.simulationService.getHistory(this.id, true, true);
-  }
-
-  edit(): void {
-    this.router.navigate(['/simulations', 'new', this.id]);
-  }
-
-  visualize(): void {
-    this.router.navigate(['/visualizations', this.id]);
   }
 }

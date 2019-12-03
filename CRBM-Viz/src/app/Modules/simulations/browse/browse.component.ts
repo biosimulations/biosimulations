@@ -20,7 +20,7 @@ export class BrowseComponent implements OnInit {
         icon: 'plus',
         label: 'New',
         route: ['/simulations/new'],
-        display: NavItemDisplayLevel.always,
+        display: NavItemDisplayLevel.loggedIn,
       },
       {
         iconType: 'fas',

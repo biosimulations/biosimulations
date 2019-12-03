@@ -68,10 +68,25 @@ export class EditComponent implements OnInit {
       ];
       const buttons: NavItem[] = [
         {
+          iconType: 'mat',
+          icon: 'timeline',
+          label: 'Simulate',
+          route: ['/simulations', 'new', this.id],
+          display: NavItemDisplayLevel.always,
+        },
+        {
           iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/models'],
+          icon: 'trash-alt',
+          label: 'Delete',
+          route: ['/models', this.id, 'delete'],
+          display: (this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
+          displayUser: this.model.owner,
+        },
+        {
+          iconType: 'fas',
+          icon: 'plus',
+          label: 'New',
+          route: ['/models', 'new'],
           display: NavItemDisplayLevel.always,
         },
         {
@@ -80,6 +95,13 @@ export class EditComponent implements OnInit {
           label: 'Your models',
           route: ['/user', 'models'],
           display: NavItemDisplayLevel.loggedIn,
+        },
+        {
+          iconType: 'fas',
+          icon: 'list',
+          label: 'Browse',
+          route: ['/models'],
+          display: NavItemDisplayLevel.always,
         },
       ];
 
