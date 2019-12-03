@@ -47,8 +47,15 @@ export class SimulationsComponent implements OnInit {
           iconType: 'fas',
           icon: 'plus',
           label: 'New',
-          route: ['/simulations/new'],
+          route: ['/simulations', 'new'],
           display: NavItemDisplayLevel.always
+        });
+        buttons.push({
+          iconType: 'fas',
+          icon: 'list',
+          label: 'Browse',
+          route: ['/simulations'],
+          display: NavItemDisplayLevel.always,
         });
       } else {
         crumbs.push({

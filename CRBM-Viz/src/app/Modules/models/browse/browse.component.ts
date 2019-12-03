@@ -19,22 +19,15 @@ export class BrowseComponent implements OnInit {
         iconType: 'fas',
         icon: 'plus',
         label: 'New',
-        route: ['/models/new'],
+        route: ['/models', 'new'],
         display: NavItemDisplayLevel.always,
       },
       {
         iconType: 'fas',
         icon: 'user',
         label: 'Your models',
-        route: ['/user/models'],
+        route: ['/user', 'models'],
         display: NavItemDisplayLevel.loggedIn,
-      },
-      {
-        iconType: 'fas',
-        icon: 'list',
-        label: 'Browse',
-        route: ['/models'],
-        display: NavItemDisplayLevel.always,
       },
     ];
     this.breadCrumbsService.set(crumbs, buttons);

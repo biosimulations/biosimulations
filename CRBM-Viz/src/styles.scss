@@ -74,6 +74,12 @@ input, textarea.mat-input-element, mat-select, button {
     letter-spacing: normal;
 }
 
+/* Disabling */
+.disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
 /* Animation */
 @keyframes flashAlert {
     0% {

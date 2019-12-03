@@ -34,18 +34,25 @@ export class ViewComponent implements OnInit {
       this.id = routeParams.id;
       if (this.id) {
         this.getData();
-      }    
+      }
 
       const crumbs: object[] = [
         {label: 'Simulations', route: '/simulations'},
         {label: 'Simulation ' + this.id},
       ];
-      const buttons: NavItem[] = [      
+      const buttons: NavItem[] = [
         {
           iconType: 'fas',
           icon: 'chart-area',
           label: 'Visualize',
           route: ['/visualizations', this.id],
+          display: NavItemDisplayLevel.always,
+        },
+        {
+          iconType: 'fas',
+          icon: 'code-branch',
+          label: 'Fork',
+          route: ['/simulations', this.id, 'fork'],
           display: NavItemDisplayLevel.always,
         },
         {
@@ -58,23 +65,24 @@ export class ViewComponent implements OnInit {
         },
         {
           iconType: 'fas',
-          icon: 'code-branch',
-          label: 'Fork',
-          route: ['/simulations', this.id, 'fork'],
-          display: NavItemDisplayLevel.loggedIn,
+          icon: 'trash-alt',
+          label: 'Delete',
+          route: ['/simulations', this.id, 'delete'],
+          display: (this.simulation.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
+          displayUser: this.simulation.owner,
         },
         {
           iconType: 'fas',
           icon: 'plus',
           label: 'New',
-          route: ['/simulations/new'],
-          display: NavItemDisplayLevel.loggedIn,
+          route: ['/simulations', 'new'],
+          display: NavItemDisplayLevel.always,
         },
         {
           iconType: 'fas',
           icon: 'user',
           label: 'Your simulations',
-          route: ['/user/simulations'],
+          route: ['/user', 'simulations'],
           display: NavItemDisplayLevel.loggedIn,
         },
         {

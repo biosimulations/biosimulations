@@ -29,7 +29,7 @@
       >
         <mat-list-item
           class="sidebar-menu-subitem"
-          *ngIf="navItem.display == NavItemDisplayLevel.always || (auth.loggedIn && navItem.display == NavItemDisplayLevel.loggedIn) || (!auth.loggedIn && navItem.display == NavItemDisplayLevel.loggedOut) || (navItem.display == NavItemDisplayLevel.user && auth.token && auth.token.sub == navItem.displayUser.auth0Id)"
+          *ngIf="navItem.display == NavItemDisplayLevel.always || (auth.loggedIn && navItem.display == NavItemDisplayLevel.loggedIn) || (!auth.loggedIn && navItem.display == NavItemDisplayLevel.loggedOut) || (navItem.display == NavItemDisplayLevel.user && auth.token && navItem.displayUser && auth.token.sub == navItem.displayUser.auth0Id)"
           [class.disabled]="navItem.disabled === true"
           [routerLink]="navItem.route"
           (click)="getClick(navItem)"

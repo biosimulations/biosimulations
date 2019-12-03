@@ -59,7 +59,7 @@ export class ViewComponent implements OnInit {
           route: ['/models', this.id, 'delete'],
           display: (this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
           displayUser: this.model.owner,
-        },      
+        },
         {
           iconType: 'fas',
           icon: 'plus',

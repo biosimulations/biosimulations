@@ -87,6 +87,43 @@ export class SimulationService {
         simulation.outLog = 'out\n'.repeat(40);
         simulation.errLog = 'err\n'.repeat(40);
         break;
+      case '002':
+        simulation = new Simulation();
+        simulation.id = id;
+        simulation.name = 'First simulation';
+        simulation.description = 'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+        simulation.tags = ['wild type', 'normal'];
+
+        simulation.model = ModelService._get('002');
+
+        simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
+        simulation.modelParameterChanges = [
+          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
+          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
+          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
+        ];
+
+        simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
+
+        simulation.parent = new Simulation();
+        simulation.parent.id = '005';
+        simulation.parent.name = 'Sim-005';
+
+        simulation.refs = [
+          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+        ];
+        simulation.owner = UserService._get('jonrkarr');
+        simulation.access = AccessLevel.private;
+        simulation.status = SimulationStatus.finished;
+        simulation.created = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
+        simulation.wallTime = 100.;
+        simulation.outLog = 'out\n'.repeat(40);
+        simulation.errLog = 'err\n'.repeat(40);
+        break;
 
       case '003':
         simulation = new Simulation();
@@ -254,6 +291,7 @@ export class SimulationService {
   list(name?: string): Simulation[] {
     const data: Simulation[] = [
       this.get('001'),
+      this.get('002'),
       this.get('003'),
       this.get('006'),
     ];

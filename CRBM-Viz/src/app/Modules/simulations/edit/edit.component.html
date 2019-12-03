@@ -10,6 +10,7 @@
         formControlName="model"
         placeholder="Model"
         class="form-input"
+        [class.form-input-disabled]="modelInputDisabled"
         [matAutocomplete]="modelAutoComplete"
         (blur)="selectAutocompleteModel(formGroup.get('model'))"
         />
@@ -125,13 +126,14 @@
         *ngFor="let formArrayEl of getFormArray('modelParameterChanges').controls; let iFormArrayEl=index"
         [formGroupName]="iFormArrayEl"
         class="draggable form-array-el"
-        cdkDrag
+        [attr.cdkDrag]="!simulationInputsDisabled"
       >
         <div class="form-group model-parameter-changes">
           <input matInput
             formControlName="parameter"
             placeholder="Parameter id (e.g., kcat)"
             class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
             required
             [matAutocomplete]="modelParameterAutoComplete"
             (keyup)="getModelParameters($event.target.value)"
@@ -147,6 +149,7 @@
             placeholder="1.0"
             required
             class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
             />
           <input matInput
             formControlName="units"
@@ -158,12 +161,14 @@
               aria-label="Drag icon"
               [icon]="['fas', 'grip-lines-vertical']"
               class="drag"
+              [class.disabled]="simulationInputsDisabled"
             ></fa-icon>
             <fa-icon
               aria-hidden="true"
               aria-label="Delete icon"
               [icon]="['fas', 'trash-alt']"
-              (click)="removeFormArrayElement('modelParameterChanges', iFormArrayEl)"
+              (click)="!simulationInputsDisabled && removeFormArrayElement('modelParameterChanges', iFormArrayEl)"
+              [class.disabled]="simulationInputsDisabled"
             ></fa-icon>
           </div>
         </div>
@@ -180,6 +185,7 @@
         placeholder="0.0"
         required
         class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
         />
 
       <div class="form-field-label">End time</div>
@@ -188,6 +194,7 @@
         placeholder="1.0"
         required
         class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
         />
 
       <div class="form-field-label">Time steps</div>
@@ -196,6 +203,7 @@
         placeholder="100"
         required
         class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
         />
     </div>
   </div>
@@ -207,6 +215,7 @@
         formControlName="algorithm"
         placeholder="Algorithm (e.g., Runge-Kutta based method)"
         class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
         [matAutocomplete]="algorithmAutoComplete"
         (blur)="selectAutocompleteAlgorithm(formGroup.get('algorithm'))"
         />
@@ -269,13 +278,14 @@
         *ngFor="let formArrayEl of getFormArray('algorithmParameterChanges').controls; let iFormArrayEl=index"
         [formGroupName]="iFormArrayEl"
         class="draggable form-array-el"
-        cdkDrag
+        [attr.cdkDrag]="!simulationInputsDisabled"
       >
         <div class="form-group algorithm-parameter-changes">
           <input matInput
             formControlName="parameter"
             placeholder="Parameter id (e.g., kcat)"
             class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
             required
             [matAutocomplete]="algorithmParameterAutoComplete"
             (keyup)="getAlgorithmParameters($event.target.value)"
@@ -291,6 +301,7 @@
             placeholder="1.0"
             required
             class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
             />
           <div class="form-group-buttons">
             <fa-icon
@@ -298,12 +309,14 @@
               aria-label="Drag icon"
               [icon]="['fas', 'grip-lines-vertical']"
               class="drag"
+              [class.disabled]="simulationInputsDisabled"
             ></fa-icon>
             <fa-icon
               aria-hidden="true"
               aria-label="Delete icon"
               [icon]="['fas', 'trash-alt']"
-              (click)="removeFormArrayElement('algorithmParameterChanges', iFormArrayEl)"
+              (click)="!simulationInputsDisabled && removeFormArrayElement('algorithmParameterChanges', iFormArrayEl)"
+              [class.disabled]="simulationInputsDisabled"
             ></fa-icon>
           </div>
         </div>
@@ -318,6 +331,7 @@
         formControlName="simulator"
         placeholder="Simulator (e.g., VCell)"
         class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
         [matAutocomplete]="simulatorAutoComplete"
         (blur)="selectAutocomplete(formGroup.get('simulator'), true)"
         />
