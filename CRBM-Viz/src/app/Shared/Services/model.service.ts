@@ -1,4 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
 import { Format } from '../Models/format';
@@ -21,7 +22,10 @@ export class ModelService {
   private simulationService: SimulationService;
   private visualizationService: VisualizationService;
 
-  constructor(private authService: AuthService, private injector: Injector) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private injector: Injector) {}
 
   static _get(id: string, includeRelatedObjects = false): Model {
     let model: Model;
