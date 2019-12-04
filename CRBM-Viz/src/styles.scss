@@ -552,9 +552,9 @@ ul.icon-text {
 }
 
 .form-input {
-    background: #e9e9e9;
+    background: #f6f6f6;
     border: none;
-    border-bottom: 1px solid #c9c9c9;
+    border-bottom: 1px solid #d9d9d9;
     padding: calc(0.25rem + 1px);
     width: calc(100% - 0.5rem - 4px);
     margin: 0;
@@ -568,8 +568,13 @@ ul.icon-text {
 }
 
 .form-input-disabled {
-    background: #d6d6d6;
-    border-bottom: 1px solid #bbb;
+    background: repeating-linear-gradient(
+        45deg,
+        #f6f6f6,
+        #f6f6f6 5px,
+        #eaeaea 5px,
+        #eaeaea 10px
+    );
 }
 
 .form-select-input-panel {
@@ -582,7 +587,7 @@ ul.icon-text {
         line-height: normal;
     }
     .mat-option.mat-selected:not(.mat-option-multiple) {
-        background: #e9e9e9;
+        background: #f6f6f6;
     }
 }
 
@@ -598,8 +603,8 @@ ul.icon-text {
         padding-left: calc(0.25rem + 1px);
         padding-top: 1px;
         padding-bottom: 1px;
-        background: #e9e9e9;
-        border-bottom: 1px solid #c9c9c9;
+        background: #f6f6f6;
+        border-bottom: 1px solid #d9d9d9;
     }
 
     .form-chip {
@@ -608,7 +613,7 @@ ul.icon-text {
         line-height: normal;
         min-height: auto;
         height: auto;
-        background: #fff;
+        background: #d9d9d9;
         border-radius: 4px;
     }
 
@@ -640,6 +645,10 @@ ul.icon-text {
     .mat-chip-list-wrapper:focus-within {
         background: #e2f1fd;
         border-bottom: 1px solid mat-color($theme-primary);
+
+        .form-chip {
+            background: #8fcaf9;
+        }
     }
 
     .form-chip:focus::after,
@@ -656,13 +665,16 @@ ul.icon-text {
 }
 
 .form-file-input-label {
-    background: white;
+    background: #d9d9d9;
     border-radius: 4px;
     padding: 4px;
     cursor: pointer;
 }
 .form-file-input-label:focus{
     outline: none;
+}
+.form-input:focus-within .form-file-input-label {
+    background: #8fcaf9;
 }
 
 .form-file-input-name {
