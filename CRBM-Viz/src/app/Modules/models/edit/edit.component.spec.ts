@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
@@ -15,6 +16,7 @@ describe('EditComponent', () => {
     TestBed.configureTestingModule({
       declarations: [EditComponent],
       imports: [
+        HttpClientTestingModule,
         RouterTestingModule,
         FormsModule,
         MaterialModule,
@@ -23,6 +25,7 @@ describe('EditComponent', () => {
         SharedModule,
         ],
       providers: [
+        HttpClientTestingModule,
         { provide: RouterTestingModule, useValue: RouterTestingModule },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

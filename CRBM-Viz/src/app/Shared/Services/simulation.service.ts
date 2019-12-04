@@ -70,8 +70,8 @@ export class SimulationService {
         simulation.parent.name = 'Sim-005';
 
         simulation.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         simulation.owner = UserService._get('y.skaf');
         simulation.access = AccessLevel.public;
