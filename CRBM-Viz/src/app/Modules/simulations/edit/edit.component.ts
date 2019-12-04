@@ -5,7 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
@@ -25,7 +25,7 @@ import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 enum Mode {
   new = 'new',
   newOfModel = 'newOfModel',
-  form = 'fork',
+  fork = 'fork',
   edit = 'edit',
 }
 
@@ -43,14 +43,16 @@ export class EditComponent implements OnInit {
   licenses = licenses;
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
 
-  mode: Mode;
+  private mode: Mode;
   modelInputDisabled: boolean;
   simulationInputsDisabled: boolean;
-  id: string;
-  simulation: Simulation;
+  private url: UrlSegment[];
+  private id: string;
+  private modelId: string;
+  private simulation: Simulation;
   formGroup: FormGroup;
-  model: Model;
-  algorithm: Algorithm;
+  private model: Model;
+  private algorithm: Algorithm;
   showAfterSubmitMessage = false;
 
   constructor(
@@ -101,38 +103,66 @@ export class EditComponent implements OnInit {
         map(value => this.metadataService.getSimulators(value))
       );
 
-    this.route.params.subscribe(routeParams => {
-      // determine mode: new, new of a model, edit, fork
-      this.id = routeParams.id;
-      const modelId: string = routeParams.modelId;
+    this.route.params.subscribe(params => {
+      this.url = this.route.snapshot.url;
+      this.id = params.id;
+      this.modelId = params.modelId;
+      this.setUp();
+    });
+  }
 
-      if (modelId) {
-        // new simulation of a model
-        this.mode = Mode.newOfModel;
-      } else if (this.id) {
-        if (this.route.url._value[1] === 'fork') {
-          this.mode = Mode.fork;
-        } else {
-          this.mode = Mode.edit;
-        }
+  setUp(): void {
+    // determine mode: new, new of a model, edit, fork
+    if (this.modelId) {
+      // new simulation of a model
+      this.mode = Mode.newOfModel;
+    } else if (this.id) {
+      if (this.url.length > 1 && this.url[1].path === 'fork') {
+        this.mode = Mode.fork;
       } else {
-        // new simulation
-        this.mode = Mode.new;
+        this.mode = Mode.edit;
       }
+    } else {
+      // new simulation
+      this.mode = Mode.new;
+    }
 
-      // get data
-      if (this.id) {
-        this.simulation = this.simulationService.get(this.id);
-      }
-      if (modelId) {
-        this.model = this.modelService.get(modelId);
-      }
+    // get data
+    if (this.id) {
+      this.simulation = this.simulationService.get(this.id);
+    }
+    if (this.modelId) {
+      this.model = this.modelService.get(this.modelId);
+    }
 
-      // bread crumbs and buttons
-      const crumbs: object[] = [
-        {label: 'Simulations', route: ['/simulations']},
-      ];
-      if (this.id) {
+    // bread crumbs and buttons
+    const crumbs: object[] = [
+      {label: 'Simulations', route: ['/simulations']},
+    ];
+    switch (this.mode) {
+      case Mode.new:
+        crumbs.push({
+          label: 'New',
+        });
+        break;
+      case Mode.newOfModel:
+        crumbs.push({
+          label: 'Model ' + this.model.id,
+        });
+        crumbs.push({
+          label: 'New',
+        });
+        break;
+      case Mode.fork:
+        crumbs.push({
+          label: 'Simulation ' + this.id,
+          route: ['/simulations', this.id],
+        });
+        crumbs.push({
+          label: 'Fork',
+        });
+        break;
+      case Mode.edit:
         crumbs.push({
           label: 'Simulation ' + this.id,
           route: ['/simulations', this.id],
@@ -140,134 +170,128 @@ export class EditComponent implements OnInit {
         crumbs.push({
           label: 'Edit',
         });
-      } else {
-        crumbs.push({
-          label: 'New',
-        });
+        break;
+    }
+
+    const buttons: NavItem[] = [
+      {
+        iconType: 'fas',
+        icon: 'chart-area',
+        label: 'Visualize',
+        route: ['/visualizations', this.id],
+        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+      },
+      {
+        iconType: 'fas',
+        icon: 'bars',
+        label: 'View',
+        route: ['/simulations', this.id],
+        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+      },
+      {
+        iconType: 'fas',
+        icon: 'code-branch',
+        label: 'Fork',
+        route: ['/simulations', this.id, 'fork'],
+        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+      },
+      {
+        iconType: 'fas',
+        icon: 'trash-alt',
+        label: 'Delete',
+        route: ['/simulations', this.id, 'delete'],
+        display: (this.mode === Mode.edit && this.simulation.access === AccessLevel.private ? NavItemDisplayLevel.user : NavItemDisplayLevel.never),
+        displayUser: (this.simulation ? this.simulation.owner : null),
+      },
+      {
+        iconType: 'fas',
+        icon: 'plus',
+        label: 'New',
+        route: ['/simulations', 'new'],
+        display: (this.mode === Mode.new ? NavItemDisplayLevel.never : NavItemDisplayLevel.always),
+      },
+      {
+        iconType: 'fas',
+        icon: 'user',
+        label: 'Your simulations',
+        route: ['/user', 'simulations'],
+        display: NavItemDisplayLevel.loggedIn,
+      },
+      {
+        iconType: 'fas',
+        icon: 'list',
+        label: 'Browse',
+        route: ['/simulations'],
+        display: NavItemDisplayLevel.always,
+      },
+    ];
+
+    this.breadCrumbsService.set(crumbs, buttons);
+
+    // set field enable/disabled
+    this.modelInputDisabled = this.mode === Mode.edit || this.mode === Mode.newOfModel;
+    if (this.modelInputDisabled) {
+      this.formGroup.get('model').disable();
+    } else {
+      this.formGroup.get('model').enable();
+    }
+
+    this.simulationInputsDisabled = this.mode === Mode.edit;
+    if (this.simulationInputsDisabled) {
+      this.formGroup.get('modelParameterChanges').disable();
+      this.formGroup.get('startTime').disable();
+      this.formGroup.get('endTime').disable();
+      this.formGroup.get('numTimePoints').disable();
+      this.formGroup.get('algorithm').disable();
+      this.formGroup.get('algorithmParameterChanges').disable();
+      this.formGroup.get('simulator').disable();
+    } else {
+      this.formGroup.get('modelParameterChanges').enable();
+      this.formGroup.get('startTime').enable();
+      this.formGroup.get('endTime').enable();
+      this.formGroup.get('numTimePoints').enable();
+      this.formGroup.get('algorithm').enable();
+      this.formGroup.get('algorithmParameterChanges').enable();
+      this.formGroup.get('simulator').enable();
+    }
+
+    // populate form
+    if (this.modelId) {
+      this.formGroup.patchValue({model: this.model});
+    }
+
+    if (this.id) {
+      for (const el of this.simulation.tags) { this.addTagFormElement(); }
+      for (const el of this.simulation.modelParameterChanges) { this.addModelParameterChangeFormElement(); }
+      for (const el of this.simulation.algorithmParameterChanges) { this.addAlgorithmParameterChangeFormElement(); }
+      for (const el of this.simulation.authors) { this.addAuthorFormElement(); }
+      for (const el of this.simulation.refs) { this.addRefFormElement(); }
+      this.model = this.simulation.model;
+      this.algorithm = this.simulation.algorithm;
+      this.formGroup.patchValue(this.simulation);
+      for (const changeFormGroup of this.getFormArray('modelParameterChanges').controls) {
+        const parameter = changeFormGroup.value.parameter
+        changeFormGroup.patchValue({
+          defaultValue: parameter.value,
+          units: parameter.units,
+        })
+      }
+      for (const changeFormGroup of this.getFormArray('algorithmParameterChanges').controls) {
+        const parameter = changeFormGroup.value.parameter
+        changeFormGroup.patchValue({
+          defaultValue: parameter.value,
+        })
       }
 
-      const buttons: NavItem[] = [
-        {
-          iconType: 'fas',
-          icon: 'chart-area',
-          label: 'Visualize',
-          route: ['/visualizations', this.id],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
-        },
-        {
-          iconType: 'fas',
-          icon: 'bars',
-          label: 'View',
-          route: ['/simulations', this.id],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
-        },
-        {
-          iconType: 'fas',
-          icon: 'code-branch',
-          label: 'Fork',
-          route: ['/simulations', this.id, 'fork'],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
-        },
-        {
-          iconType: 'fas',
-          icon: 'trash-alt',
-          label: 'Delete',
-          route: ['/simulations', this.id, 'delete'],
-          display: (this.id && this.simulation.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: (this.simulation ? this.simulation.owner : null),
-        },
-        {
-          iconType: 'fas',
-          icon: 'plus',
-          label: 'New',
-          route: ['/simulations', 'new'],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
-        },
-        {
-          iconType: 'fas',
-          icon: 'user',
-          label: 'Your simulations',
-          route: ['/user', 'simulations'],
-          display: NavItemDisplayLevel.loggedIn,
-        },
-        {
-          iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/simulations'],
-          display: NavItemDisplayLevel.always,
-        },
-      ];
-
-      this.breadCrumbsService.set(crumbs, buttons);
-
-      // set field enable/disabled
-      console.log(this.mode)
-
-      this.modelInputDisabled = this.mode === Mode.edit || this.mode === Mode.newOfModel;
-      if (this.modelInputDisabled) {
-        this.formGroup.get('model').disable();
-      } else {
-        this.formGroup.get('model').enable();
+    } else {
+      for (let i = 0; i < 3; i++) {
+        // this.addTagFormElement();
+        // this.addModelParameterChangeFormElement();
+        // this.addAlgorithmParameterChangeFormElement();
+        this.addAuthorFormElement();
+        this.addRefFormElement();
       }
-
-      this.simulationInputsDisabled = this.mode === Mode.edit;
-      if (this.simulationInputsDisabled) {
-        this.formGroup.get('modelParameterChanges').disable();
-        this.formGroup.get('startTime').disable();
-        this.formGroup.get('endTime').disable();
-        this.formGroup.get('numTimePoints').disable();
-        this.formGroup.get('algorithm').disable();
-        this.formGroup.get('algorithmParameterChanges').disable();
-        this.formGroup.get('simulator').disable();
-      } else {
-        this.formGroup.get('modelParameterChanges').enable();
-        this.formGroup.get('startTime').enable();
-        this.formGroup.get('endTime').enable();
-        this.formGroup.get('numTimePoints').enable();
-        this.formGroup.get('algorithm').enable();
-        this.formGroup.get('algorithmParameterChanges').enable();
-        this.formGroup.get('simulator').enable();
-      }
-
-      // populate form
-      if (modelId) {
-        this.formGroup.patchValue({model: this.model});
-      }
-
-      if (this.id) {
-        for (const el of this.simulation.tags) { this.addTagFormElement(); }
-        for (const el of this.simulation.modelParameterChanges) { this.addModelParameterChangeFormElement(); }
-        for (const el of this.simulation.algorithmParameterChanges) { this.addAlgorithmParameterChangeFormElement(); }
-        for (const el of this.simulation.authors) { this.addAuthorFormElement(); }
-        for (const el of this.simulation.refs) { this.addRefFormElement(); }
-        this.model = this.simulation.model;
-        this.algorithm = this.simulation.algorithm;
-        this.formGroup.patchValue(this.simulation);
-        for (const changeFormGroup of this.getFormArray('modelParameterChanges').controls) {
-          const parameter = changeFormGroup.value.parameter
-          changeFormGroup.patchValue({
-            defaultValue: parameter.value,
-            units: parameter.units,
-          })
-        }
-        for (const changeFormGroup of this.getFormArray('algorithmParameterChanges').controls) {
-          const parameter = changeFormGroup.value.parameter
-          changeFormGroup.patchValue({
-            defaultValue: parameter.value,
-          })
-        }
-
-      } else {
-        for (let i = 0; i < 3; i++) {
-          // this.addTagFormElement();
-          // this.addModelParameterChangeFormElement();
-          // this.addAlgorithmParameterChangeFormElement();
-          this.addAuthorFormElement();
-          this.addRefFormElement();
-        }
-      }
-    });
+    }
   }
 
   getModelParameters(value: string): void {

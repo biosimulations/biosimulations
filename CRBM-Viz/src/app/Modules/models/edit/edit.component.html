@@ -7,7 +7,6 @@
     <div class="form-field-input">
       <ng-container *ngIf="id === null; else fileName">
         <input
-          id="file"
           type="file"
           accept=".xml,application/xml"
           required
@@ -394,7 +393,7 @@
       disableRipple="true"
       [disabled]="!formGroup.valid"
       class="form-submit-button"
-    >{{ this.id ? 'Save' : 'Upload' }}</button>
+    >Save</button>
     <div class="form-after-submit-message" [class.form-show-after-submit-message]="showAfterSubmitMessage"
     >Model was saved.</div>
   </div>
