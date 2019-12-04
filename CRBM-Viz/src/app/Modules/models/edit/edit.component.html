@@ -5,7 +5,7 @@
   <div class="form-field">
     <div class="form-field-title">Definition file</div>
     <div class="form-field-input">
-      <ng-container *ngIf="id === null; else fileName">
+      <ng-container *ngIf="!id; else fileInputDisabled">
         <input
           type="file"
           accept=".xml,application/xml"
@@ -18,7 +18,7 @@
           <span #fileName class="form-file-input-name"></span>
         </div>
       </ng-container>
-      <ng-template #fileName>
+      <ng-template #fileInputDisabled>
         <div class="form-input form-input-disabled" *ngIf="model">{{
           model.format.name + ' file'
         }}</div>

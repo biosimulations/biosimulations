@@ -61,8 +61,8 @@ export class EditComponent implements OnInit {
         map(value => this.metadataService.getTaxa(value))
       );
 
-    this.route.params.subscribe(routeParams => {
-      this.id = routeParams.id;
+    this.route.params.subscribe(params => {
+      this.id = params.id;
 
       if (this.id) {
         this.model = this.modelService.get(this.id);
