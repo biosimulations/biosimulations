@@ -3,6 +3,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { VisualizationService } from './visualization.service';
 import { Visualization } from 'src/app/Shared/Models/visualization';
@@ -13,8 +14,8 @@ describe('VisualizationService', () => {
   let service: VisualizationService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [VisualizationService],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [HttpClientTestingModule, RouterTestingModule, VisualizationService],
     });
     injector = getTestBed();
     service = injector.get(VisualizationService);

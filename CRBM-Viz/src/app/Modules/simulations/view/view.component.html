@@ -156,12 +156,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let param of simulation.modelParameterChanges">
-                <td>{{ param.id }}</td>
-                <td>{{ param.name }}</td>
-                <td>{{ param.value }}</td>
-                <td>{{ param.defaultValue }}</td>
-                <td>{{ param.units }}</td>
+              <tr *ngFor="let change of simulation.modelParameterChanges">
+                <td>{{ change.parameter.id }}</td>
+                <td>{{ change.parameter.name }}</td>
+                <td>{{ change.value }}</td>
+                <td>{{ change.parameter.value }}</td>
+                <td>{{ change.parameter.units }}</td>
               </tr>
             </tbody>
           </table>
@@ -214,7 +214,7 @@
                 <th>Framework</th>
                 <td>
                   <app-hyperlink [href]="simulation.model.framework.getUrl()">{{
-                    simulation.model.framework.name
+                    simulation.model.framework.name | ucfirst
                   }}</app-hyperlink>
                 </td>
               </tr>
@@ -245,21 +245,21 @@
         </div>
 
         <div class="section">
-          <h1>Simulation algorithm parameters</h1>
+          <h1>Algorithm parameter changes</h1>
           <table cellpadding="0" cellspacing="0" class="icon-key-vals section-content">
             <tbody>
-              <tr *ngFor="let param of simulation.algorithmParameters">
+              <tr *ngFor="let change of simulation.algorithmParameterChanges">
                 <th>
                   <fa-icon aria-hidden="true" aria-label="Algorithm parameter icon" [icon]="['fas', 'circle']"></fa-icon>
                 </th>
                 <th>
                   <app-hyperlink
-                    [href]="param.getUrl()"
-                    title="{{ param.name }}">{{
-                    param.id
+                    [href]="change.parameter.getUrl()"
+                    title="{{ change.parameter.name }}">{{
+                    change.parameter.id
                   }}</app-hyperlink>
                 </th>
-                <td [innerHTML]="param.value | scientificNotation"></td>
+                <td [innerHTML]="change.value | scientificNotation"></td>
               </tr>
             </tbody>
           </table>
@@ -294,22 +294,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab [disabled]="true">
-    <ng-template mat-tab-label>
-      <div class="tab-button" (click)="edit()">
-        <fa-icon aria-hidden="true" aria-label="Fork icon" [icon]="['fas', 'code-branch']"></fa-icon> Fork
-      </div>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab [disabled]="true">
-    <ng-template mat-tab-label>
-      <div class="tab-button" (click)="visualize()">
-        <fa-icon aria-hidden="true" aria-label="Visualize icon" [icon]="['fas', 'chart-area']"></fa-icon> Visualize
       </div>
     </ng-template>
   </mat-tab>

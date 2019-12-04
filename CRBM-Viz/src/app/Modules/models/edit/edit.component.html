@@ -3,32 +3,38 @@
   [formGroup]="formGroup"
   (ngSubmit)="submit()">
   <div class="form-field">
-    <div class="form-field-title">Name *</div>
+    <div class="form-field-title">Definition file</div>
     <div class="form-field-input">
-      <input matInput
-        formControlName="name"
-        placeholder="Brief name for the model"
-        required
-        class="form-input"
-        />
+      <ng-container *ngIf="!id; else fileInputDisabled">
+        <input
+          type="file"
+          accept=".xml,application/xml"
+          required
+          (change)="selectFile('file', $event.target.files, fileName)"
+          class="form-file-input"
+          />
+        <div class="form-input">
+          <label for="file" class="form-file-input-label" tabindex="0">Choose a file (e.g., SBML)</label>
+          <span #fileName class="form-file-input-name"></span>
+        </div>
+      </ng-container>
+      <ng-template #fileInputDisabled>
+        <div class="form-input form-input-disabled" *ngIf="model">{{
+          model.format.name + ' file'
+        }}</div>
+      </ng-template>
     </div>
   </div>
 
   <div class="form-field">
-    <div class="form-field-title">Definition file</div>
+    <div class="form-field-title">Name *</div>
     <div class="form-field-input">
-      <input
-        id="file"
-        type="file"
-        accept=".xml,application/xml"
+      <input matInput
+        formControlName="name"
+        placeholder="Brief name"
         required
-        (change)="selectFile('file', $event.target.files, fileName)"
-        class="form-file-input"
+        class="form-input"
         />
-      <div class="form-input">
-        <label for="file" class="form-file-input-label" tabindex="0">Choose a file (e.g., SBML)</label>
-        <span #fileName class="form-file-input-name"></span>
-      </div>
     </div>
   </div>
 
@@ -38,7 +44,7 @@
       <textarea matInput
         formControlName="description"
         rows="10"
-        placeholder="Description of the model"
+        placeholder="Description"
         class="form-input"
       ></textarea>
     </div>
@@ -46,19 +52,19 @@
 
   <div class="form-field">
     <div class="form-field-title">Taxon</div>
-    <div class="field-input">
-      <input #taxonInput matInput
+    <div class="form-field-input">
+      <input matInput
         formControlName="taxon"
         type="text"
         placeholder="Taxon (e.g., Homo sapiens)"
         class="form-input"
         [matAutocomplete]="taxonAutoComplete"
-        (blur)="validateAutocomplete(formGroup.get('taxon'))"
+        (blur)="selectAutocomplete(formGroup.get('taxon'))"
         />
 
       <mat-autocomplete
         #taxonAutoComplete
-        [displayWith]="displayTaxon"
+        [displayWith]="displayAutocompleteEl"
         disableRipple="true"
         class="form-select-input-panel"
       >
@@ -90,7 +96,7 @@
           >cancel</mat-icon>
       </mat-chip>
       <input
-        [placeholder]="getFormArray('tags').controls.length === 0 ? 'Enter a list of tags (e.g., wild-type, knock out, knock up)' : null"
+        [placeholder]="getFormArray('tags').controls.length === 0 ? 'List of tags (e.g., wild-type, knock out, knock up)' : null"
         [matChipInputFor]="tagChipList"
         [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
         [matChipInputAddOnBlur]="false"
@@ -130,7 +136,7 @@
       class="form-field-input"
       >
       <div
-        *ngFor="let author of getFormArray('authors').controls; let iFormArrayEl=index"
+        *ngFor="let formArrayEl of getFormArray('authors').controls; let iFormArrayEl=index"
         [formGroupName]="iFormArrayEl"
         class="draggable form-array-el"
         cdkDrag
@@ -202,7 +208,7 @@
       class="form-field-input"
       >
       <div
-        *ngFor="let identifier of getFormArray('identifiers').controls; let iFormArrayEl=index"
+        *ngFor="let formArrayEl of getFormArray('identifiers').controls; let iFormArrayEl=index"
         [formGroupName]="iFormArrayEl"
         class="draggable form-array-el"
         cdkDrag
@@ -275,7 +281,7 @@
       class="form-field-input"
       >
       <div
-        *ngFor="let identifier of getFormArray('refs').controls; let iFormArrayEl=index"
+        *ngFor="let formArrayEl of getFormArray('refs').controls; let iFormArrayEl=index"
         [formGroupName]="iFormArrayEl"
         class="draggable form-array-el"
         cdkDrag
@@ -347,34 +353,38 @@
 
   <div class="form-field">
     <div class="form-field-title">Access level *</div>
-    <mat-select
-      formControlName="access"
-      required
-      class="form-input"
-      disableRipple="true"
-      panelClass="form-select-input-panel"
-    >
-      <mat-option
-        *ngFor="let option of accessLevels"
-        [value]="option.value"
-      >{{ option.name }}</mat-option>
-    </mat-select>
+    <div class="form-field-input">
+      <mat-select
+        formControlName="access"
+        required
+        class="form-input"
+        disableRipple="true"
+        panelClass="form-select-input-panel"
+      >
+        <mat-option
+          *ngFor="let option of accessLevels"
+          [value]="option.value"
+        >{{ option.name }}</mat-option>
+      </mat-select>
+    </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">License *</div>
-    <mat-select
-      formControlName="license"
-      required
-      class="form-input"
-      disableRipple="true"
-      panelClass="form-select-input-panel"
-    >
-      <mat-option
-        *ngFor="let option of licenses"
-        [value]="option.value"
-      >{{ option.name }}</mat-option>
-    </mat-select>
+    <div class="form-field-input">
+      <mat-select
+        formControlName="license"
+        required
+        class="form-input"
+        disableRipple="true"
+        panelClass="form-select-input-panel"
+      >
+        <mat-option
+          *ngFor="let option of licenses"
+          [value]="option.value"
+        >{{ option.name }}</mat-option>
+      </mat-select>
+    </div>
   </div>
 
   <div class="form-field">
@@ -383,7 +393,7 @@
       disableRipple="true"
       [disabled]="!formGroup.valid"
       class="form-submit-button"
-    >{{ this.id ? 'Save' : 'Upload' }}</button>
+    >Save</button>
     <div class="form-after-submit-message" [class.form-show-after-submit-message]="showAfterSubmitMessage"
     >Model was saved.</div>
   </div>

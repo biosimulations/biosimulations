@@ -27,6 +27,7 @@ export class EditComponent implements OnInit {
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
 
   id: string;
+  model: Model;
   formGroup: FormGroup;
   showAfterSubmitMessage = false;
 
@@ -40,7 +41,7 @@ export class EditComponent implements OnInit {
     ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
-      file: [null, Validators.required],
+      file: [''],
       description: [''],
       taxon: [''],
       tags: this.formBuilder.array([]),
@@ -57,22 +58,68 @@ export class EditComponent implements OnInit {
       .pipe(
         startWith(''),
         map(value => value === null || typeof value === 'string' ? value : value.name),
-        map(taxonName => this.metadataService.getTaxa(taxonName))
+        map(value => this.metadataService.getTaxa(value))
       );
 
-    this.route.params.subscribe(routeParams => {
-      this.id = routeParams.id;
+    this.route.params.subscribe(params => {
+      this.id = params.id;
 
+      if (this.id) {
+        this.model = this.modelService.get(this.id);
+      }
+
+      // setup bread crumbs and buttons
       const crumbs: object[] = [
         {label: 'Models', route: ['/models']},
       ];
+      if (this.id) {
+        crumbs.push({
+          label: 'Model ' + this.id,
+          route: ['/models', this.id],
+        });
+        crumbs.push({
+          label: 'Edit',
+        });
+      } else {
+        crumbs.push({
+          label: 'New',
+        });
+      }
+
       const buttons: NavItem[] = [
         {
+          iconType: 'mat',
+          icon: 'timeline',
+          label: 'Simulate',
+          route: ['/simulations', 'new', this.id],
+          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        },
+        {
           iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/models'],
-          display: NavItemDisplayLevel.always,
+          icon: 'bars',
+          label: 'View',
+          route: ['/models', this.id],
+          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        },
+        {
+          iconType: 'fas',
+          icon: 'trash-alt',
+          label: 'Delete',
+          route: ['/models', this.id, 'delete'],
+          display: (
+            this.id
+            && this.model
+            && this.model.access === AccessLevel.public
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.user),
+          displayUser: (!!this.model ? this.model.owner : null),
+        },
+        {
+          iconType: 'fas',
+          icon: 'plus',
+          label: 'New',
+          route: ['/models', 'new'],
+          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
         },
         {
           iconType: 'fas',
@@ -81,57 +128,27 @@ export class EditComponent implements OnInit {
           route: ['/user', 'models'],
           display: NavItemDisplayLevel.loggedIn,
         },
+        {
+          iconType: 'fas',
+          icon: 'list',
+          label: 'Browse',
+          route: ['/models'],
+          display: NavItemDisplayLevel.always,
+        },
       ];
-
-      let model: Model;
-      if (this.id) {
-        model = this.modelService.get(this.id);
-
-        crumbs.push({
-          label: 'Model ' + this.id,
-          route: ['/models', this.id],
-        });
-        crumbs.push({
-          label: 'Edit',
-        });
-
-        buttons.splice(0, 0, {
-          iconType: 'fas',
-          icon: 'bars',
-          label: 'View',
-          route: ['/models', this.id],
-          display: NavItemDisplayLevel.always,
-        });
-        buttons.splice(1, 0, {
-          iconType: 'fas',
-          icon: 'trash-alt',
-          label: 'Delete',
-          route: ['/models', this.id, 'delete'],
-          display: (model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: model.owner,
-        });
-        buttons.splice(3, 0, {
-          iconType: 'fas',
-          icon: 'plus',
-          label: 'New',
-          route: ['/models', 'new'],
-          display: NavItemDisplayLevel.always,
-        });
-      } else {
-        crumbs.push({
-          label: 'New',
-        });
-      }
 
       this.breadCrumbsService.set(crumbs, buttons);
 
+      // setup form
       if (this.id) {
-        for (const tag of model.tags) { this.addTagFormElement(); }
-        for (const author of model.authors) { this.addAuthorFormElement(); }
-        for (const identifiers of model.identifiers) { this.addIdentifierFormElement(); }
-        for (const ref of model.refs) { this.addRefFormElement(); }
-        this.formGroup.patchValue(model);
+        this.formGroup.get('file').validator = null;
+        for (const tag of this.model.tags) { this.addTagFormElement(); }
+        for (const author of this.model.authors) { this.addAuthorFormElement(); }
+        for (const identifiers of this.model.identifiers) { this.addIdentifierFormElement(); }
+        for (const ref of this.model.refs) { this.addRefFormElement(); }
+        this.formGroup.patchValue(this.model);
       } else {
+        this.formGroup.get('file').validator = Validators.required;
         for (let i = 0; i < 3; i++) {
           // this.addTagFormElement();
           this.addAuthorFormElement();
@@ -162,11 +179,11 @@ export class EditComponent implements OnInit {
     fileNameEl.innerHTML = fileName;
   }
 
-  displayTaxon(taxon: Taxon): string | undefined {
-    return taxon ? taxon.name : undefined;
+  displayAutocompleteEl(el: object): string | undefined {
+    return el ? el['name'] : undefined;
   }
 
-  validateAutocomplete(formControl: AbstractControl, required = false): void {
+  selectAutocomplete(formControl: AbstractControl, required = false): void {
     const value = formControl.value;
     if (required && (typeof value === 'string' || value === null)) {
       formControl.setErrors({incorrect: true});
@@ -247,7 +264,7 @@ export class EditComponent implements OnInit {
 
   submit() {
     const data: Model = this.formGroup.value as Model;
-    const modelId: string = this.modelService.save(this.id, data);
+    const modelId: string = this.modelService.set(data, this.id);
 
     this.showAfterSubmitMessage = true;
     setTimeout(() => {

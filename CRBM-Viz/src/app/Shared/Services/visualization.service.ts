@@ -1,6 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { AccessLevel } from '../Enums/access-level';
 import { Visualization } from 'src/app/Shared/Models/visualization';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +14,10 @@ export class VisualizationService {
   private userService: UserService;
   private modelService: ModelService;
 
-  constructor(private http: HttpClient, private injector:Injector) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private injector:Injector) {}
   vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
 
   static _get(id: number, includeRelObj = false): Visualization {
@@ -39,14 +43,16 @@ export class VisualizationService {
     return vizJson;
   }
 
-  save(visualization:Visualization): void {
-    visualization.owner = this.userService.get();
-    visualization.created = new Date(Date.now());
-    visualization.updated = new Date(Date.now());
-    visualization.id = 7;
-  }
+  set(data: Visualization, id?: number): number {
+    if (!id) {
+      id = 7;
+    }
 
-  publish(visualization: Visualization): void {
-    visualization.access = AccessLevel.public;
+    data.id = id;
+    data.owner = this.userService.get();
+    data.created = new Date(Date.now());
+    data.updated = new Date(Date.now());
+
+    return id;
   }
 }

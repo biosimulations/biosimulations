@@ -1,0 +1,579 @@
+<form
+  class="page-content partial-width form"
+  [formGroup]="formGroup"
+  (ngSubmit)="submit()">
+
+  <div class="form-field">
+    <div class="form-field-title">Model *</div>
+    <div class="form-field-input">
+      <input matInput
+        formControlName="model"
+        placeholder="Model"
+        class="form-input"
+        [class.form-input-disabled]="modelInputDisabled"
+        [matAutocomplete]="modelAutoComplete"
+        (blur)="selectAutocompleteModel(formGroup.get('model'))"
+        />
+
+      <mat-autocomplete
+        #modelAutoComplete
+        [displayWith]="displayAutocompleteEl"
+        disableRipple="true"
+        class="form-select-input-panel"
+      >
+        <mat-option *ngFor="let item of models | async"
+          [value]="item"
+        >
+          {{ item.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="form-field-title">Name *</div>
+    <div class="form-field-input">
+      <input matInput
+        formControlName="name"
+        placeholder="Brief name"
+        required
+        class="form-input"
+        />
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="form-field-title">Description</div>
+    <div class="form-field-input">
+      <textarea matInput
+        formControlName="description"
+        rows="10"
+        placeholder="Description"
+        class="form-input"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="form-field" formArrayName="tags">
+    <div class="form-field-title">Tags</div>
+
+    <mat-chip-list #tagChipList
+      aria-label="Tag list"
+      class="form-chip-input">
+      <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
+        [selectable]="false"
+        [removable]="true"
+        (removed)="removeFormArrayElement('tags', iFormArrayEl)"
+        class="form-chip"
+        disableRipple="true">
+        {{ tag.value }}
+        <mat-icon
+          matChipRemove
+          class="form-chip-icon"
+          >cancel</mat-icon>
+      </mat-chip>
+      <input
+        [placeholder]="getFormArray('tags').controls.length === 0 ? 'List of tags (e.g., wild-type, knock out, knock up)' : null"
+        [matChipInputFor]="tagChipList"
+        [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+        [matChipInputAddOnBlur]="false"
+        (matChipInputTokenEnd)="addTag($event)"
+        />
+    </mat-chip-list>
+  </div>
+
+  <div class="form-field" formArrayName="modelParameterChanges">
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">Model parameter changes</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addModelParameterChangeFormElement()"
+          *ngIf="model">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div
+      class="form-field-subtitle form-group model-parameter-changes"
+      *ngIf="getFormArray('modelParameterChanges').controls.length > 0">
+      <div>Id/Name *</div>
+      <div>Default</div>
+      <div>Value *</div>
+      <div>Units</div>
+      <div></div>
+    </div>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="drop('modelParameterChanges', $event)"
+      class="form-field-input"
+      >
+
+      <mat-autocomplete
+        #modelParameterAutoComplete
+        [displayWith]="displayAutocompleteParameter"
+        disableRipple="true"
+        class="form-select-input-panel">
+        <mat-option *ngFor="let item of modelParameters" [value]="item">{{
+          item.id + ': ' + item.name
+        }}</mat-option>
+      </mat-autocomplete>
+
+      <div
+        *ngFor="let formArrayEl of getFormArray('modelParameterChanges').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        [attr.cdkDrag]="!simulationInputsDisabled"
+      >
+        <div class="form-group model-parameter-changes">
+          <input matInput
+            formControlName="parameter"
+            placeholder="Parameter id (e.g., kcat)"
+            class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
+            required
+            [matAutocomplete]="modelParameterAutoComplete"
+            (keyup)="getModelParameters($event.target.value)"
+            (focus)="getModelParameters($event.target.value)"
+            (blur)="selectAutocompleteModelParameter(formArrayEl)"
+            />
+          <input matInput
+            formControlName="defaultValue"
+            class="form-input form-input-disabled"
+            />
+          <input matInput
+            formControlName="value"
+            placeholder="1.0"
+            required
+            class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
+            />
+          <input matInput
+            formControlName="units"
+            class="form-input form-input-disabled"
+            />
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+              [class.disabled]="simulationInputsDisabled"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="!simulationInputsDisabled && removeFormArrayElement('modelParameterChanges', iFormArrayEl)"
+              [class.disabled]="simulationInputsDisabled"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="form-field-title">Time course *</div>
+    <div class="form-field-input form-group time-course">
+      <div class="form-field-label">Start time</div>
+      <input matInput
+        formControlName="startTime"
+        placeholder="0.0"
+        required
+        class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
+        />
+
+      <div class="form-field-label">End time</div>
+      <input matInput
+        formControlName="endTime"
+        placeholder="1.0"
+        required
+        class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
+        />
+
+      <div class="form-field-label">Time steps</div>
+      <input matInput
+        formControlName="numTimePoints"
+        placeholder="100"
+        required
+        class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
+        />
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="form-field-title">Algorithm *</div>
+    <div class="form-field-input">
+      <input matInput
+        formControlName="algorithm"
+        placeholder="Algorithm (e.g., Runge-Kutta based method)"
+        class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
+        [matAutocomplete]="algorithmAutoComplete"
+        (blur)="selectAutocompleteAlgorithm(formGroup.get('algorithm'))"
+        />
+
+      <mat-autocomplete
+        #algorithmAutoComplete
+        [displayWith]="displayAutocompleteEl"
+        disableRipple="true"
+        class="form-select-input-panel"
+      >
+        <mat-option *ngFor="let item of algorithms | async"
+          [value]="item"
+        >
+          {{ item.name | ucfirst }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+
+  <div class="form-field" formArrayName="algorithmParameterChanges">
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">Algorithm parameter changes</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addAlgorithmParameterChangeFormElement()"
+          *ngIf="algorithm">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div
+      class="form-field-subtitle form-group algorithm-parameter-changes"
+      *ngIf="getFormArray('algorithmParameterChanges').controls.length > 0">
+      <div>Id/Name *</div>
+      <div>Default</div>
+      <div>Value *</div>
+      <div></div>
+    </div>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="drop('algorithmParameterChanges', $event)"
+      class="form-field-input"
+      >
+
+      <mat-autocomplete
+        #algorithmParameterAutoComplete
+        [displayWith]="displayAutocompleteParameter"
+        disableRipple="true"
+        class="form-select-input-panel">
+        <mat-option *ngFor="let item of algorithmParameters" [value]="item">{{
+          item.id + ': ' + item.name
+        }}</mat-option>
+      </mat-autocomplete>
+
+      <div
+        *ngFor="let formArrayEl of getFormArray('algorithmParameterChanges').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        [attr.cdkDrag]="!simulationInputsDisabled"
+      >
+        <div class="form-group algorithm-parameter-changes">
+          <input matInput
+            formControlName="parameter"
+            placeholder="Parameter id (e.g., kcat)"
+            class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
+            required
+            [matAutocomplete]="algorithmParameterAutoComplete"
+            (keyup)="getAlgorithmParameters($event.target.value)"
+            (focus)="getAlgorithmParameters($event.target.value)"
+            (blur)="selectAutocompleteAlgorithmParameter(formArrayEl)"
+            />
+          <input matInput
+            formControlName="defaultValue"
+            class="form-input form-input-disabled"
+            />
+          <input matInput
+            formControlName="value"
+            placeholder="1.0"
+            required
+            class="form-input"
+            [class.form-input-disabled]="simulationInputsDisabled"
+            />
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+              [class.disabled]="simulationInputsDisabled"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="!simulationInputsDisabled && removeFormArrayElement('algorithmParameterChanges', iFormArrayEl)"
+              [class.disabled]="simulationInputsDisabled"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="form-field-title">Simulator *</div>
+    <div class="form-field-input">
+      <input matInput
+        formControlName="simulator"
+        placeholder="Simulator (e.g., VCell)"
+        class="form-input"
+        [class.form-input-disabled]="simulationInputsDisabled"
+        [matAutocomplete]="simulatorAutoComplete"
+        (blur)="selectAutocomplete(formGroup.get('simulator'), true)"
+        />
+
+      <mat-autocomplete
+        #simulatorAutoComplete
+        [displayWith]="displayAutocompleteEl"
+        disableRipple="true"
+        class="form-select-input-panel"
+      >
+        <mat-option *ngFor="let item of simulators | async"
+          [value]="item"
+        >{{
+          item.name + (item.version ? ' ' + item.version : '')
+        }}</mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+
+  <div
+    class="form-field"
+    formArrayName="authors"
+    >
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">Authors</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addAuthorFormElement()">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div
+      class="form-field-subtitle form-group authors"
+      *ngIf="getFormArray('authors').controls.length > 0">
+      <div>First *</div>
+      <div>Middle</div>
+      <div>Last *</div>
+      <div></div>
+    </div>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="drop('authors', $event)"
+      class="form-field-input"
+      >
+      <div
+        *ngFor="let formArrayEl of getFormArray('authors').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        cdkDrag
+      >
+        <div class="form-group authors">
+          <input matInput
+            formControlName="firstName"
+            placeholder="John"
+            required
+            class="form-input"
+            />
+          <input matInput
+            formControlName="middleName"
+            placeholder="C"
+            class="form-input"
+            />
+          <input matInput
+            formControlName="lastName"
+            placeholder="Doe"
+            required
+            class="form-input"
+            />
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="removeFormArrayElement('authors', iFormArrayEl)"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="form-field"
+    formArrayName="refs"
+    >
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">References</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addRefFormElement()">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div
+      class="form-field-subtitle form-group refs"
+      *ngIf="getFormArray('refs').controls.length > 0">
+      <div>Authors *</div>
+      <div>Title *</div>
+      <div>Journal</div>
+      <div>Volume</div>
+      <div>Number</div>
+      <div>Pages</div>
+      <div>Year *</div>
+      <div>DOI</div>
+      <div></div>
+    </div>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="drop('refs', $event)"
+      class="form-field-input"
+      >
+      <div
+        *ngFor="let formArrayEl of getFormArray('refs').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        cdkDrag
+      >
+        <div
+        class="form-group refs"
+        >
+          <input matInput
+            formControlName="authors"
+            placeholder="Doe JC & Doe JD"
+            required
+            class="form-input"
+            />
+          <input matInput
+            formControlName="title"
+            placeholder="Title"
+            required
+            class="form-input"
+            />
+          <input matInput
+            formControlName="journal"
+            placeholder="PLoS Comput Biol"
+            class="form-input"
+            />
+          <input matInput
+            formControlName="volume"
+            placeholder="10"
+            class="form-input"
+            />
+          <input matInput
+            formControlName="num"
+            placeholder="1"
+            class="form-input"
+            />
+          <input matInput
+            formControlName="pages"
+            placeholder="1-10"
+            class="form-input"
+            />
+          <input matInput
+            formControlName="year"
+            placeholder="2019"
+            required
+            class="form-input"
+            />
+          <input matInput
+            formControlName="doi"
+            placeholder="10.1002/0470841559.ch1"
+            class="form-input"
+            />
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="removeFormArrayElement('refs', iFormArrayEl)"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="form-field-title">Access level *</div>
+    <div class="form-field-input">
+      <mat-select
+        formControlName="access"
+        required
+        class="form-input"
+        disableRipple="true"
+        panelClass="form-select-input-panel"
+      >
+        <mat-option
+          *ngFor="let option of accessLevels"
+          [value]="option.value"
+        >{{ option.name }}</mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="form-field-title">License *</div>
+    <div class="form-field-input">
+      <mat-select
+        formControlName="license"
+        required
+        class="form-input"
+        disableRipple="true"
+        panelClass="form-select-input-panel"
+      >
+        <mat-option
+          *ngFor="let option of licenses"
+          [value]="option.value"
+        >{{ option.name }}</mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <button mat-button
+      type="submit"
+      disableRipple="true"
+      [disabled]="!formGroup.valid"
+      class="form-submit-button"
+    >Save</button>
+    <div class="form-after-submit-message" [class.form-show-after-submit-message]="showAfterSubmitMessage"
+    >Simulation was saved.</div>
+  </div>
+</form>

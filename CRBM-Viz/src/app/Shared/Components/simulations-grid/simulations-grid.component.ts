@@ -131,8 +131,8 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       // {
-      //   headerName: 'Algorithm parameters',
-      //   field: 'algorithmParameters',
+      //   headerName: 'Algorithm parameter changes',
+      //   field: 'algorithmParameterChanges',
       //   minWidth: 125,
       //   hide: true,
       // },
@@ -287,7 +287,7 @@ export class SimulationsGridComponent implements OnInit {
       // errLog
     ];
 
-    this.rowData = this.simulationService.list(this.auth);
+    this.rowData = this.simulationService.list();
   }
 
   timeFormatter(params): string {

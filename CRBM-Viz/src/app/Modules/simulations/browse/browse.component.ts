@@ -19,14 +19,14 @@ export class BrowseComponent implements OnInit {
         iconType: 'fas',
         icon: 'plus',
         label: 'New',
-        route: ['/simulations/new'],
+        route: ['/simulations', 'new'],
         display: NavItemDisplayLevel.always,
       },
       {
         iconType: 'fas',
         icon: 'user',
         label: 'Your simulations',
-        route: ['/user/simulations'],
+        route: ['/user', 'simulations'],
         display: NavItemDisplayLevel.loggedIn,
       },
     ];

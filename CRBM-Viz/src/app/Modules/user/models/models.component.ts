@@ -47,7 +47,14 @@ export class ModelsComponent implements OnInit {
           iconType: 'fas',
           icon: 'plus',
           label: 'New',
-          route: ['/models/new'],
+          route: ['/models', 'new'],
+          display: NavItemDisplayLevel.always
+        });
+        buttons.push({
+          iconType: 'fas',
+          icon: 'list',
+          label: 'Browse',
+          route: ['/models'],
           display: NavItemDisplayLevel.always
         });
       } else {

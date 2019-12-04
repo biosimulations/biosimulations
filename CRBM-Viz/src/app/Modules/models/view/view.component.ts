@@ -38,27 +38,27 @@ export class ViewComponent implements OnInit {
       ];
       const buttons: NavItem[] = [
         {
+          iconType: 'mat',
+          icon: 'timeline',
+          label: 'Simulate',
+          route: ['/simulations', 'new', this.id],
+          display: NavItemDisplayLevel.always,
+        },
+        {
           iconType: 'fas',
           icon: 'pencil-alt',
           label: 'Edit',
           route: ['/models', this.id, 'edit'],
-          display: (this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: this.model.owner,
+          display: (this.model && this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
+          displayUser: (!!this.model ? this.model.owner : null),
         },
         {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
           route: ['/models', this.id, 'delete'],
-          display: (this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: this.model.owner,
-        },
-        {
-          iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/models'],
-          display: NavItemDisplayLevel.always,
+          display: (this.model && this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
+          displayUser: (!!this.model ? this.model.owner : null),
         },
         {
           iconType: 'fas',
@@ -73,6 +73,13 @@ export class ViewComponent implements OnInit {
           label: 'Your models',
           route: ['/user', 'models'],
           display: NavItemDisplayLevel.loggedIn,
+        },
+        {
+          iconType: 'fas',
+          icon: 'list',
+          label: 'Browse',
+          route: ['/models'],
+          display: NavItemDisplayLevel.always,
         },
       ];
       this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
