@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
@@ -55,16 +56,16 @@ export class EditComponent implements OnInit {
   formGroup: FormGroup;
   model: Model;
   algorithm: Algorithm;
-  showAfterSubmitMessage = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,    
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    private snackBar: MatSnackBar,
     private router: Router,
+    private route: ActivatedRoute,
     private metadataService: MetadataService,
     private modelService: ModelService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
     ) {
     this.formGroup = this.formBuilder.group({
       model: [''],
@@ -482,7 +483,11 @@ export class EditComponent implements OnInit {
     const simulationId: string = this.simulationService.set(
       data, this.mode === Mode.edit ? this.id : null);
 
-    this.showAfterSubmitMessage = true;
+    this.snackBar.open('Simulation saved', '', {
+      panelClass: 'centered-snack-bar',
+      duration: 3000,
+    });
+
     setTimeout(() => {
       this.router.navigate(['/simulations', simulationId]);
     }, 2500);

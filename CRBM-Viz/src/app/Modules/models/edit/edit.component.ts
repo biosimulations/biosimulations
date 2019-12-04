@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
@@ -29,13 +30,13 @@ export class EditComponent implements OnInit {
   id: string;
   model: Model;
   formGroup: FormGroup;
-  showAfterSubmitMessage = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
     private router: Router,
+    private route: ActivatedRoute,
     private metadataService: MetadataService,
     private modelService: ModelService
     ) {
@@ -266,7 +267,11 @@ export class EditComponent implements OnInit {
     const data: Model = this.formGroup.value as Model;
     const modelId: string = this.modelService.set(data, this.id);
 
-    this.showAfterSubmitMessage = true;
+    this.snackBar.open('Model saved', '', {
+      panelClass: 'centered-snack-bar',
+      duration: 3000,
+    });
+
     setTimeout(() => {
       this.router.navigate(['/models', modelId]);
     }, 2500);

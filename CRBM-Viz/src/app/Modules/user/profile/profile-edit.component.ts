@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { User } from 'src/app/Shared/Models/user';
 import { UserService } from 'src/app/Shared/Services/user.service';
@@ -16,11 +17,11 @@ import { Observable } from 'rxjs';
 
 export class ProfileEditComponent implements OnInit {
   formGroup: FormGroup;
-  showAfterSubmitMessage = false;
 
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
     public auth: AuthService,
     private userService: UserService) {
     this.formGroup = this.formBuilder.group({
@@ -62,9 +63,9 @@ export class ProfileEditComponent implements OnInit {
     const data: User = this.formGroup.value as User;
     this.userService.set(data);
 
-    this.showAfterSubmitMessage = true;
-    setTimeout(() => {
-      this.showAfterSubmitMessage = false;
-    }, 2500);
+    this.snackBar.open('Profile saved', '', {
+      panelClass: 'centered-snack-bar',
+      duration: 3000,
+    });
   }
 }

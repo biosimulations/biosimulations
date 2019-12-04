@@ -693,23 +693,21 @@ ul.icon-text {
     font-weight: bold;
 }
 
-.form-after-submit-message {
-    display: none;
-    margin-left: 1rem;
-    color: mat-color($theme-accent);
+/* Snack bar */
+.mat-snack-bar-container {
+    background: mat-color($theme-accent);
+    color: #333;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
 }
 
-.form-after-submit-message.form-show-after-submit-message {
-    display: inline;
-    animation: flashAlert 0s 2.5s forwards;
-    opacity: 1;
+.centered-snack-bar .mat-simple-snackbar {
+    justify-content: center;
 }
 
 /* Style text */
 .light {
     color: #666;
 }
-
 
 /* Highlighting */
 .hover-light-background:hover {
