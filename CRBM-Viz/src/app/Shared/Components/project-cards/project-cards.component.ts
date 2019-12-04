@@ -9,7 +9,8 @@ import { Project } from '../../Models/project';
 })
 export class ProjectCardsComponent {
   @Input() projects: Project[];
-  @Input() maxProjects = Infinity;
+  @Input() maxProjects: number = Infinity;
+  @Input() cols: number = 2;
 
   constructor(private router: Router) { }
 }

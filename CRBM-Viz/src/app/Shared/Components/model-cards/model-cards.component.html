@@ -1,4 +1,7 @@
-<div *ngIf="models && models.length > 0; else noModels" class="card-grid">
+<div
+  *ngIf="models && models.length > 0; else noModels"
+  class="card-grid"
+  [style.grid-template-columns]="'1fr '.repeat(cols)">
   <div *ngFor="let model of models.slice(0, maxModels)" class="card hover-light-background">
     <div class="title">
       <a [routerLink]="model.getRoute()">

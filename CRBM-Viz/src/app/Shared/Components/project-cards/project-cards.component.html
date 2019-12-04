@@ -1,4 +1,7 @@
-<div *ngIf="projects && projects.length > 0; else noProjects" class="card-grid">
+<div
+  *ngIf="projects && projects.length > 0; else noProjects"
+  class="card-grid"
+  [style.grid-template-columns]="'1fr '.repeat(cols)">
   <div *ngFor="let project of projects.slice(0, maxProjects)" class="card hover-light-background">
     <div class="title">
       <a [routerLink]="project.getRoute()">

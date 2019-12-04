@@ -9,7 +9,8 @@ import { Simulation } from '../../Models/simulation';
 })
 export class SimulationCardsComponent {
   @Input() simulations: Simulation[];
-  @Input() maxSimulations = Infinity;
+  @Input() maxSimulations: number = Infinity;
+  @Input() cols: number = 2;
 
   constructor(private router: Router) { }
 }

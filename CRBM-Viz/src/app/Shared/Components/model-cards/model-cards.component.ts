@@ -9,7 +9,8 @@ import { Model } from '../../Models/model';
 })
 export class ModelCardsComponent {
   @Input() models: Model[];
-  @Input() maxModels = Infinity;
+  @Input() maxModels: number = Infinity;
+  @Input() cols: number = 2;
 
   constructor(private router: Router) { }
 }
