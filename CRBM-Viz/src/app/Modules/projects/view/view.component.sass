@@ -1,12 +1,11 @@
 @import 'src/theme.scss'
 
-.section-title
-    h1
-        float: left
+.products-container
+	grid-template-columns: 1fr 1fr 1fr 1fr
 
-    .routes
-        float: right
-        color: mat-color($theme-primary)
+.card
+	height: calc(100% - 1rem - 2px)
 
-    margin-bottom: 0.25rem
-
+	.tags
+		height: auto
+		overflow: visible

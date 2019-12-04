@@ -68,6 +68,9 @@ import {
   faPlusCircle,
   faGripLinesVertical,
   faFolderOpen,
+  faChartBar,
+  faChartPie,
+  faTable,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -267,6 +270,9 @@ export class SharedModule {
       faPlusCircle,
       faGripLinesVertical,
       faFolderOpen,
+      faChartBar,
+      faChartPie,
+      faTable,
       faDocker,
       faGithub,
       faGoogle,

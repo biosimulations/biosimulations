@@ -13,7 +13,7 @@ import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Comp
 
 @Component({
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.sass'],
+  styleUrls: ['../../../Shared/Components/cards/cards.component.sass', './view.component.sass'],
 })
 export class ViewComponent implements OnInit {
   getLicenseInfo = getLicenseInfo;

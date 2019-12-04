@@ -2,10 +2,12 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
+import { ProjectProductType } from '../Enums/project-product-type';
 import { Identifier } from '../Models/identifier';
-import { JournalReference } from '../Models/journal-reference'
+import { JournalReference } from '../Models/journal-reference';
 import { Person } from '../Models/person';
 import { Project } from '../Models/project';
+import { ProjectProduct } from '../Models/project-product';
 import { User } from '../Models/user';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from './user.service';
@@ -111,16 +113,20 @@ export class ProjectService {
         ];
     project.license = License.cc0;
     if (includeRelatedObjects) {
-      project.models = [
-        ModelService._get('001'),
-        ModelService._get('003'),
-        ModelService._get('006'),
-      ];
-      project.simulations = [
-        SimulationService._get('001'),
-        SimulationService._get('003'),
-        SimulationService._get('006'),
-      ];
+      project.products = [];
+      for (let i = 0; i < 7; i++) {
+        const product:ProjectProduct = new ProjectProduct();
+        product.type = ProjectProductType.figure;
+        product.label = (i + 1).toString();
+        product.description = 'Description of product ' + product.label;
+        product.identifiers = [new Identifier('fairdomhub', 'XYZ')];
+        product.resources = [
+          ModelService._get('00' + product.label),
+          SimulationService._get('00' + product.label),
+          VisualizationService._get(i + 1),
+        ];
+        project.products.push(product);
+      }
     }
     return project;
   }

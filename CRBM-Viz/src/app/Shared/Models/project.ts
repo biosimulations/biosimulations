@@ -3,10 +3,8 @@ import { License } from '../Enums/license';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
 import { Person } from './person';
-import { Model } from './model';
-import { Simulation } from './simulation';
+import { ProjectProduct } from './project-product';
 import { User } from './user';
-import { Visualization } from './visualization';
 import { UtilsService } from '../Services/utils.service';
 
 export class Project {
@@ -23,9 +21,7 @@ export class Project {
   license?: License;
   created?: Date;
   updated?: Date;
-  models?: Model[] = [];
-  simulations?: Simulation[] = [];
-  visualizations?: Visualization[] = [];
+  products?: ProjectProduct[] = [];
 
   getIcon() {
     return {type: 'fas', icon: 'folder-open'};
