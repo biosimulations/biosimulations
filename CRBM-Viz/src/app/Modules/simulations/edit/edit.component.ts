@@ -53,8 +53,8 @@ export class EditComponent implements OnInit {
   private modelId: string;
   private simulation: Simulation;
   formGroup: FormGroup;
-  private model: Model;
-  private algorithm: Algorithm;
+  model: Model;
+  algorithm: Algorithm;
   showAfterSubmitMessage = false;
 
   constructor(
