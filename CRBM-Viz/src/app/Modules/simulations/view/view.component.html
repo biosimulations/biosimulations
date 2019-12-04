@@ -300,6 +300,38 @@
 
   <mat-tab>
     <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Projects icon" [icon]="['fas', 'folder-open']"></fa-icon> Projects ({{ simulation.projects.length }})
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <div class="section-title float-container">
+            <h1>Projects</h1>
+            <a
+              class="routes"
+              [routerLink]="['/projects', 'new']"
+              >
+              <fa-icon
+                aria-hidden="true"
+                aria-label="New project icon"
+                [icon]="['fas', 'plus']"
+              ></fa-icon>
+                New
+            </a>
+          </div>
+          <div class="section-content">
+            <app-project-cards
+              [projects]="simulation.projects"
+              [cols]="4"
+            ></app-project-cards>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
       <div class="tab-button">
         <fa-icon aria-hidden="true" aria-label="Download icon" [icon]="['fas', 'download']"></fa-icon> Download
       </div>
