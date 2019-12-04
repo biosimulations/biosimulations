@@ -394,13 +394,17 @@ export class SimulationService {
     ];
   }
 
-  save(id: string, simulation:Simulation): string {
-    simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
-    simulation.owner = this.userService.get();
-    simulation.created = new Date(Date.now());
-    simulation.updated = new Date(Date.now());
-    simulation.id = '007';
+  set(data:Simulation, id?: string): string {
+    if (!id) {
+      id = '007';
+    }
 
-    return simulation.id;
+    data.id = id;
+    data.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
+    data.owner = this.userService.get();
+    data.created = new Date(Date.now());
+    data.updated = new Date(Date.now());
+
+    return id;
   }
 }

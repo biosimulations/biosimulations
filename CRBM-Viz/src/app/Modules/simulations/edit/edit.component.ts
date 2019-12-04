@@ -476,7 +476,8 @@ export class EditComponent implements OnInit {
 
   submit() {
     const data: Simulation = this.formGroup.value as Simulation;
-    const simulationId: string = this.simulationService.save(this.id, data);
+    const simulationId: string = this.simulationService.set(
+      data, this.mode === Mode.edit ? this.id : null);
 
     this.showAfterSubmitMessage = true;
     setTimeout(() => {

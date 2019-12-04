@@ -43,12 +43,16 @@ export class VisualizationService {
     return vizJson;
   }
 
-  save(id: number, visualization:Visualization): number {
-    visualization.owner = this.userService.get();
-    visualization.created = new Date(Date.now());
-    visualization.updated = new Date(Date.now());
-    visualization.id = 7;
+  set(data: Visualization, id?: number): number {
+    if (!id) {
+      id = 7;
+    }
 
-    return visualization.id;
+    data.id = id;
+    data.owner = this.userService.get();
+    data.created = new Date(Date.now());
+    data.updated = new Date(Date.now());
+
+    return id;
   }
 }

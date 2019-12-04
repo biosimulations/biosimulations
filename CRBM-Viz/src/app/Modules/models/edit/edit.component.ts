@@ -264,7 +264,7 @@ export class EditComponent implements OnInit {
 
   submit() {
     const data: Model = this.formGroup.value as Model;
-    const modelId: string = this.modelService.save(this.id, data);
+    const modelId: string = this.modelService.set(data, this.id);
 
     this.showAfterSubmitMessage = true;
     setTimeout(() => {

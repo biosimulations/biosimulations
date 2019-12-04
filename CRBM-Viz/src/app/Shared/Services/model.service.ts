@@ -184,17 +184,18 @@ export class ModelService {
     }
   }
 
-  save(id: string, modelData: Model): string {
+  set(data: Model, id?: string): string {
     this.getServices();
 
     if (!id) {
       id = '007';
     }
 
-    modelData.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
-    modelData.owner = this.userService.get();
-    modelData.created = new Date(Date.now());
-    modelData.updated = new Date(Date.now());
+    data.id = id;
+    data.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
+    data.owner = this.userService.get();
+    data.created = new Date(Date.now());
+    data.updated = new Date(Date.now());
 
     return id;
   }
