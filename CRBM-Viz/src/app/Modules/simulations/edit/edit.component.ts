@@ -476,6 +476,9 @@ export class EditComponent implements OnInit {
 
   submit() {
     const data: Simulation = this.formGroup.value as Simulation;
+    if (this.mode === Mode.fork) {
+      data.parent = this.simulation;
+    }
     const simulationId: string = this.simulationService.set(
       data, this.mode === Mode.edit ? this.id : null);
 
