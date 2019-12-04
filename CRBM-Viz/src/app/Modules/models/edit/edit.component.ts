@@ -107,11 +107,11 @@ export class EditComponent implements OnInit {
           label: 'Delete',
           route: ['/models', this.id, 'delete'],
           display: (
-            this.id &&
-            this.model &&
-            this.model.access === AccessLevel.public ?
-            NavItemDisplayLevel.never :
-            NavItemDisplayLevel.user),
+            this.id
+            && this.model
+            && this.model.access === AccessLevel.public
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.user),
           displayUser: (!!this.model ? this.model.owner : null),
         },
         {

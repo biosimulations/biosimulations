@@ -203,11 +203,11 @@ export class EditComponent implements OnInit {
         label: 'Delete',
         route: ['/simulations', this.id, 'delete'],
         display: (
-          this.mode === Mode.edit &&
-          this.simulation &&
-          this.simulation.access === AccessLevel.private ?
-          NavItemDisplayLevel.user :
-          NavItemDisplayLevel.never),
+          this.mode === Mode.edit
+          && this.simulation
+          && this.simulation.access === AccessLevel.private
+          ? NavItemDisplayLevel.user
+          : NavItemDisplayLevel.never),
         displayUser: (!!this.simulation ? this.simulation.owner : null),
       },
       {

@@ -60,7 +60,11 @@ export class ViewComponent implements OnInit {
           icon: 'pencil-alt',
           label: 'Edit',
           route: ['/simulations', this.id, 'edit'],
-          display: (this.simulation && this.simulation.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
+          display: (
+            this.simulation
+            && this.simulation.access === AccessLevel.public
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.user),
           displayUser: (!!this.simulation ? this.simulation.owner : null),
         },
         {
@@ -68,7 +72,11 @@ export class ViewComponent implements OnInit {
           icon: 'trash-alt',
           label: 'Delete',
           route: ['/simulations', this.id, 'delete'],
-          display: (this.simulation && this.simulation.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
+          display: (
+            this.simulation
+            && this.simulation.access === AccessLevel.public
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.user),
           displayUser: (!!this.simulation ? this.simulation.owner : null),
         },
         {
