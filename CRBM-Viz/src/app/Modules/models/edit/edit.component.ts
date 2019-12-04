@@ -106,8 +106,13 @@ export class EditComponent implements OnInit {
           icon: 'trash-alt',
           label: 'Delete',
           route: ['/models', this.id, 'delete'],
-          display: (this.id && this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: (this.model ? this.model.owner : null),
+          display: (
+            this.id &&
+            this.model &&
+            this.model.access === AccessLevel.public ?
+            NavItemDisplayLevel.never :
+            NavItemDisplayLevel.user),
+          displayUser: (!!this.model ? this.model.owner : null),
         },
         {
           iconType: 'fas',

@@ -29,6 +29,8 @@ enum Mode {
   edit = 'edit',
 }
 
+// tslint:disable:max-line-length
+
 @Component({
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.sass'],
@@ -200,8 +202,13 @@ export class EditComponent implements OnInit {
         icon: 'trash-alt',
         label: 'Delete',
         route: ['/simulations', this.id, 'delete'],
-        display: (this.mode === Mode.edit && this.simulation.access === AccessLevel.private ? NavItemDisplayLevel.user : NavItemDisplayLevel.never),
-        displayUser: (this.simulation ? this.simulation.owner : null),
+        display: (
+          this.mode === Mode.edit &&
+          this.simulation &&
+          this.simulation.access === AccessLevel.private ?
+          NavItemDisplayLevel.user :
+          NavItemDisplayLevel.never),
+        displayUser: (!!this.simulation ? this.simulation.owner : null),
       },
       {
         iconType: 'fas',
