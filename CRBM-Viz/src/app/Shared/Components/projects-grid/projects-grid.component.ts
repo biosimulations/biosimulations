@@ -1,24 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { ModelService } from 'src/app/Shared/Services/model.service';
+import { ProjectService } from 'src/app/Shared/Services/project.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
 import { Format } from 'src/app/Shared/Models/format';
-import { Model } from 'src/app/Shared/Models/model';
+import { Project } from 'src/app/Shared/Models/project';
 import { User } from 'src/app/Shared/Models/user';
 
 @Component({
-  selector: 'app-models-grid',
-  templateUrl: './models-grid.component.html',
-  styleUrls: ['./models-grid.component.sass'],
+  selector: 'app-projects-grid',
+  templateUrl: './projects-grid.component.html',
+  styleUrls: ['./projects-grid.component.sass'],
 })
-export class ModelsGridComponent implements OnInit {
+export class ProjectsGridComponent implements OnInit {
   @Input() auth;
 
   columnDefs;
   rowData;
 
   constructor(
-    private modelService: ModelService
+    private projectService: ProjectService
     ) {
   }
 
@@ -39,15 +39,7 @@ export class ModelsGridComponent implements OnInit {
         minWidth: 150,
       },
 
-      {
-        headerName: 'Taxon',
-        field: 'taxon.name',
-        valueGetter: taxonGetter,
-        filterValueGetter: taxonGetter,
-        filter: 'agSetColumnFilter',
-        minWidth: 150,
-      },
-      {
+     {
         headerName: 'Tags',
         field: 'tags',
         filter: 'agSetColumnFilter',
@@ -57,22 +49,7 @@ export class ModelsGridComponent implements OnInit {
         minWidth: 150,
       },
 
-      {
-        headerName: 'Framework',
-        field: 'framework.name',
-        filter: 'agSetColumnFilter',
-        minWidth: 125,
-      },
-      {
-        headerName: 'Format',
-        field: 'format',
-        valueGetter: formatGetter,
-        filter: 'agSetColumnFilter',
-        minWidth: 125,
-        hide: true,
-      },
-
-      {
+     {
         headerName: 'Authors',
         field: 'refs',
         valueGetter: authorGetter,
@@ -122,12 +99,8 @@ export class ModelsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.modelService.list();
+    this.rowData = this.projectService.list();
   }
-}
-
-function taxonGetter(params): string {
-  return params.data.taxon.getShortName();
 }
 
 function tagsGetter(params): string[] {
@@ -137,11 +110,6 @@ function tagsGetter(params): string[] {
 function ownerGetter(params): string {
   const owner:User = params.data.owner;
   return owner.getFullName();
-}
-
-function formatGetter(params): string {
-  const format:Format = params.data.format;
-  return format.getFullName();
 }
 
 function capitalizeFormatter(params): string {

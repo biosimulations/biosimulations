@@ -11,6 +11,7 @@ import { JournalReference } from './journal-reference';
 import { Model } from './model';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
+import { Project } from './project';
 import { Simulator } from './simulator';
 import { Taxon } from './taxon';
 import { User } from './user';
@@ -46,6 +47,7 @@ export class Simulation {
   wallTime?: number; // execution time in seconds
   outLog?: string;
   errLog?: string;
+  projects?: Project[] = [];
 
   getIcon() {
     return {type: 'mat', icon: 'timeline'};

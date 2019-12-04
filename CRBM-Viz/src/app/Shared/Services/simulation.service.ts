@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from './user.service';
+import { ProjectService } from './project.service';
 import { ModelService } from './model.service';
 
 import { AccessLevel } from '../Enums/access-level';
@@ -35,6 +36,7 @@ export class SimulationService {
   simulationDataChangeSubject = new Subject<null>();
 
   private userService: UserService;
+  private projectService: ProjectService;
   private modelService: ModelService;
 
   constructor(
@@ -45,7 +47,7 @@ export class SimulationService {
     ) {
   }
 
-  static _get(id: string, includeRelObj = false): Simulation {
+  static _get(id: string, includeRelatedObjects = false): Simulation {
     let simulation: Simulation;
 
     switch (id) {
@@ -209,12 +211,20 @@ export class SimulationService {
       new Person('John', 'C', 'Doe'),
       new Person('Jane', 'D', 'Doe'),
     ];
+    if (includeRelatedObjects) {
+      simulation.projects = [
+        ProjectService._get('001'),
+        ProjectService._get('003'),
+        ProjectService._get('006'),
+      ];
+    }
     return simulation;
   }
 
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
+      this.projectService = this.injector.get(ProjectService);
       this.modelService = this.injector.get(ModelService);
     }
   }

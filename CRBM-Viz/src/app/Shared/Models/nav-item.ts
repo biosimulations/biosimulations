@@ -18,6 +18,18 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   // Top-level menu
   {
+    id: 'Projects',
+    label: 'Projects',
+    icon: 'folder-open',
+    iconType: 'fas',
+    children: [
+      'Projects-Browse',
+      'Projects-New',
+      'Projects-Yours',
+    ],
+    display: NavItemDisplayLevel.always,
+  },
+  {
     id: 'Models',
     label: 'Models',
     icon: 'project-diagram',
@@ -75,6 +87,32 @@ export const navItems: NavItem[] = [
     display: NavItemDisplayLevel.always,
   },
 
+  // Projects sub-menu
+  {
+    id: 'Projects-Browse',
+    label: 'Browse',
+    icon: 'list',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.always,
+    route: ['/projects'],
+  },
+  {
+    id: 'Projects-New',
+    label: 'New',
+    icon: 'plus-circle',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.always,
+    route: ['/projects', 'new'],
+  },
+  {
+    id: 'Projects-Yours',
+    label: 'Your projects',
+    icon: 'user-circle',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.loggedIn,
+    route: ['/user', 'projects'],
+  },
+
   // Models sub-menu
   {
     id: 'Models-Browse',
@@ -90,7 +128,7 @@ export const navItems: NavItem[] = [
     icon: 'plus-circle',
     iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/models/new'],
+    route: ['/models', 'new'],
   },
   {
     id: 'Models-Yours',
@@ -98,7 +136,7 @@ export const navItems: NavItem[] = [
     icon: 'user-circle',
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/user/models'],
+    route: ['/user', 'models'],
   },
 
   // Simulations sub-menu
@@ -108,7 +146,7 @@ export const navItems: NavItem[] = [
     icon: 'list',
     iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/simulations/'],
+    route: ['/simulations'],
   },
   {
     id: 'Simulations-New',
@@ -116,7 +154,7 @@ export const navItems: NavItem[] = [
     icon: 'plus-circle',
     iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/simulations/new'],
+    route: ['/simulations', 'new'],
   },
   {
     id: 'Simulations-Yours',
@@ -124,7 +162,7 @@ export const navItems: NavItem[] = [
     icon: 'user-circle',
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/user/simulations'],
+    route: ['/user', 'simulations'],
   },
 
   // Visualizations sub-menu
@@ -142,7 +180,7 @@ export const navItems: NavItem[] = [
     icon: 'plus-circle',
     iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/visualizations/new'],
+    route: ['/visualizations', 'new'],
     disabled: true,
   },
   {
@@ -162,7 +200,7 @@ export const navItems: NavItem[] = [
     icon: 'question-circle',
     iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/about/help'],
+    route: ['/about', 'help'],
   },
   {
     id: 'Help-About',

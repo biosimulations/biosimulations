@@ -13,12 +13,14 @@ import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from './user.service';
+import { ProjectService } from './project.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
   private userService: UserService;
+  private projectService: ProjectService;
   private simulationService: SimulationService;
   private visualizationService: VisualizationService;
 
@@ -128,6 +130,11 @@ export class ModelService {
         ];
     model.license = License.cc0;
     if (includeRelatedObjects) {
+      model.projects = [
+        ProjectService._get('001'),
+        ProjectService._get('003'),
+        ProjectService._get('006'),
+      ];
       model.simulations = [
         SimulationService._get('001'),
         SimulationService._get('003'),
@@ -140,6 +147,7 @@ export class ModelService {
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
+      this.projectService = this.injector.get(ProjectService);
       this.simulationService = this.injector.get(SimulationService);
       this.visualizationService = this.injector.get(VisualizationService);
     }

@@ -2,6 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../Models/user';
+import { ProjectService } from './project.service';
 import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
 import { VisualizationService } from './visualization.service';
@@ -12,6 +13,7 @@ import { VisualizationService } from './visualization.service';
   providedIn: 'root',
 })
 export class UserService {
+  private projectService: ProjectService;
   private modelService: ModelService;
   private simulationService: SimulationService;
   private visualizationService: VisualizationService;
@@ -22,7 +24,7 @@ export class UserService {
     private injector: Injector
     ) {}
 
-  static _get(username?: string, includeRelObj = false): User {
+  static _get(username?: string, includeRelatedObjects = false): User {
     let user:User;
     switch (username) {
       default:
@@ -48,7 +50,14 @@ export class UserService {
             'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
             'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
             'nec dictum erat aliquet quis.';
-        if (includeRelObj) {
+        if (includeRelatedObjects) {
+          user.projects = [
+            ProjectService._get('001'),
+            ProjectService._get('003'),
+            ProjectService._get('006'),
+            ProjectService._get('001'),
+            ProjectService._get('003'),
+            ];
           user.models = [
             ModelService._get('001'),
             ModelService._get('003'),
@@ -119,6 +128,7 @@ export class UserService {
 
   private getServices(): void {
     if (this.modelService == null) {
+      this.projectService = this.injector.get(ProjectService);
       this.modelService = this.injector.get(ModelService);
       this.simulationService = this.injector.get(SimulationService);
       this.visualizationService = this.injector.get(VisualizationService);

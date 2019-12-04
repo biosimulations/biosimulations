@@ -67,6 +67,7 @@ import {
   faUserCircle,
   faPlusCircle,
   faGripLinesVertical,
+  faFolderOpen,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -78,6 +79,7 @@ import {
 // Shared components
 import { UserService } from './Services/user.service';
 import { MetadataService } from './Services/metadata.service';
+import { ProjectService } from './Services/project.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
 import { VisualizationService } from './Services/visualization.service';
@@ -103,10 +105,12 @@ import { GridComponent } from './Components/grid/grid.component';
 import { IdRendererGridComponent } from './Components/grid/id-renderer-grid.component';
 import { RouteRendererGridComponent } from './Components/grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './Components/grid/search-tool-panel-grid.component';
+import { ProjectsGridComponent } from './Components/projects-grid/projects-grid.component';
 import { ModelsGridComponent } from './Components/models-grid/models-grid.component';
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
 import { AuthorsComponent } from './Components/authors/authors.component';
 import { TreeComponent } from './Components/tree/tree.component';
+import { ProjectCardsComponent } from './Components/project-cards/project-cards.component';
 import { ModelCardsComponent } from './Components/model-cards/model-cards.component';
 import { SimulationCardsComponent } from './Components/simulation-cards/simulation-cards.component';
 import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
@@ -136,10 +140,12 @@ import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel
     IdRendererGridComponent,
     RouteRendererGridComponent,
     SearchToolPanelGridComponent,
+    ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
     AuthorsComponent,
     TreeComponent,
+    ProjectCardsComponent,
     ModelCardsComponent,
     SimulationCardsComponent,
     VisualizationCardsComponent,
@@ -181,10 +187,12 @@ import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel
     FourComponent,
     UnderConstructionComponent,
     GridComponent,
+    ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
     AuthorsComponent,
     TreeComponent,
+    ProjectCardsComponent,
     ModelCardsComponent,
     SimulationCardsComponent,
     VisualizationCardsComponent,
@@ -195,6 +203,7 @@ import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel
   providers: [
     UserService,
     MetadataService,
+    ProjectService,
     ModelService,
     SimulationService,
     VisualizationService,
@@ -257,6 +266,7 @@ export class SharedModule {
       faUserCircle,
       faPlusCircle,
       faGripLinesVertical,
+      faFolderOpen,
       faDocker,
       faGithub,
       faGoogle,

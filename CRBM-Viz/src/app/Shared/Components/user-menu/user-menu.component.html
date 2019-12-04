@@ -14,6 +14,16 @@
     mat-menu-item
     *ngIf="auth.loggedIn"
     color="primary"
+    [routerLink]="['/user', 'projects']"
+  >
+    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="['fas', 'folder-open']"></fa-icon>
+    Your projects
+  </button>
+
+  <button
+    mat-menu-item
+    *ngIf="auth.loggedIn"
+    color="primary"
     [routerLink]="['/user', 'models']"
   >
     <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="['fas', 'project-diagram']"></fa-icon>
