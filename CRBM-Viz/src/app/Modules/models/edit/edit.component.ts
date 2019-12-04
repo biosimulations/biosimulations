@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
@@ -16,6 +17,7 @@ import { Model } from 'src/app/Shared/Models/model';
 import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
+import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './edit.component.html',
@@ -34,6 +36,7 @@ export class EditComponent implements OnInit {
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
@@ -106,7 +109,7 @@ export class EditComponent implements OnInit {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          route: ['/models', this.id, 'delete'],
+          click: () => { this.openDeleteDialog() },
           display: (
             this.id
             && this.model
@@ -275,5 +278,17 @@ export class EditComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/models', modelId]);
     }, 2500);
+  }
+
+  openDeleteDialog(): void {
+    this.dialog.open(OkCancelDialogComponent, {
+      data: {
+        title: `Delete model ${ this.id }?`,
+        action: () => {
+          this.modelService.delete(this.id);
+          this.router.navigate(['/models']);
+        },
+      },
+    });
   }
 }

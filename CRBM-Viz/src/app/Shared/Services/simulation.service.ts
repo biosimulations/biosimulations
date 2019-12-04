@@ -407,4 +407,6 @@ export class SimulationService {
 
     return id;
   }
+
+  delete(id?: string): void {}
 }

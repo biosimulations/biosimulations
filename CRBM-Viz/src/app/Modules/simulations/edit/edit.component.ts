@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
@@ -22,6 +23,7 @@ import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 enum Mode {
   new = 'new',
@@ -58,8 +60,9 @@ export class EditComponent implements OnInit {
   algorithm: Algorithm;
 
   constructor(
-    private formBuilder: FormBuilder,    
+    private formBuilder: FormBuilder,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
@@ -202,7 +205,7 @@ export class EditComponent implements OnInit {
         iconType: 'fas',
         icon: 'trash-alt',
         label: 'Delete',
-        route: ['/simulations', this.id, 'delete'],
+        click: () => { this.openDeleteDialog() },
         display: (
           this.mode === Mode.edit
           && this.simulation
@@ -491,5 +494,17 @@ export class EditComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/simulations', simulationId]);
     }, 2500);
+  }
+
+  openDeleteDialog(): void {
+    this.dialog.open(OkCancelDialogComponent, {
+      data: {
+        title: `Delete simulation ${ this.id }?`,
+        action: () => {
+          this.simulationService.delete(this.id);
+          this.router.navigate(['/simulations']);
+        },
+      },
+    });
   }
 }

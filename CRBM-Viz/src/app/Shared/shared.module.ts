@@ -111,6 +111,7 @@ import { ModelCardsComponent } from './Components/model-cards/model-cards.compon
 import { SimulationCardsComponent } from './Components/simulation-cards/simulation-cards.component';
 import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
 import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
+import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
     SimulationCardsComponent,
     VisualizationCardsComponent,
     HyperlinkComponent,
+    OkCancelDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -187,6 +189,7 @@ import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
     SimulationCardsComponent,
     VisualizationCardsComponent,
     HyperlinkComponent,
+    OkCancelDialogComponent,
     NgPipesModule,
   ],
   providers: [
@@ -196,7 +199,10 @@ import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
     SimulationService,
     VisualizationService,
   ],
-  entryComponents: [AlertComponent],
+  entryComponents: [
+    AlertComponent,
+    OkCancelDialogComponent,
+    ],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {

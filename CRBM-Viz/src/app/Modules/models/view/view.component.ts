@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
@@ -8,6 +9,7 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
+import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './view.component.html',
@@ -20,6 +22,7 @@ export class ViewComponent implements OnInit {
   model: Model;
 
   constructor(
+    private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -56,7 +59,7 @@ export class ViewComponent implements OnInit {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          route: ['/models', this.id, 'delete'],
+          click: () => { this.openDeleteDialog() },
           display: (this.model && this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
           displayUser: (!!this.model ? this.model.owner : null),
         },
@@ -96,5 +99,17 @@ export class ViewComponent implements OnInit {
     link.download = `model-${ this.id }.xml`;
     link.href = url;
     link.click();
+  }
+
+  openDeleteDialog(): void {
+    this.dialog.open(OkCancelDialogComponent, {
+      data: {
+        title: `Delete model ${ this.id }?`,
+        action: () => {
+          this.modelService.delete(this.id);
+          this.router.navigate(['/models']);
+        },
+      },
+    });
   }
 }

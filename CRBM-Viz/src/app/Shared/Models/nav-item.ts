@@ -10,7 +10,8 @@ export interface NavItem {
   display: NavItemDisplayLevel;
   displayUser?: User;
   route?: (string | number)[];
-  click?: string;
+  click?: () => void;
+  clickData?: string;
   disabled?: boolean;
 }
 
@@ -188,7 +189,7 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedOut,
     route: null,
-    click: 'toggleLogin',
+    clickData: 'toggleLogin',
   },
   {
     id: 'User-Sign-Up',
@@ -197,7 +198,7 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedOut,
     route: null,
-    click: 'toggleLogin',
+    clickData: 'toggleLogin',
   },
   {
     id: 'User-Sign-Out',
@@ -206,6 +207,6 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
     route: null,
-    click: 'toggleLogin',
+    clickData: 'toggleLogin',
   },
 ];

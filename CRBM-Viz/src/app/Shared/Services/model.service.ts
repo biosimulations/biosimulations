@@ -199,6 +199,8 @@ export class ModelService {
 
     return id;
   }
+
+  delete(id?: string): void {}
 }
 
 import { SimulationService } from './simulation.service';

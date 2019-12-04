@@ -55,4 +55,6 @@ export class VisualizationService {
 
     return id;
   }
+
+  delete(id?: number): void {}
 }
