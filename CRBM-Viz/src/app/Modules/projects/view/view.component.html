@@ -55,7 +55,7 @@
                   <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
                   </fa-icon>
                   <app-hyperlink [href]="ref.getUrl()"
-                  >{{ ref.authors }}{{ '. ' }}{{ ref.title }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
+                  >{{ ref.getAuthorsStr() }}{{ '. ' }}{{ ref.title }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
                 </li>
               </ul>
             </div>
@@ -74,7 +74,10 @@
         <div class="section">
           <div class="section-content card-grid products-container">
             <div *ngFor="let product of project.products" class="card hover-light-background">
-              <div class="title">{{ product.type | ucfirst }} {{ product.label }}</div>
+              <div class="title">
+                <span *ngIf="product.ref">{{ product.ref.getShortName() }}</span>
+                <span>{{ product.type | ucfirst }} {{ product.label }}</span>
+              </div>
 
               <div class="description">{{ product.description }}</div>
 
@@ -96,19 +99,6 @@
                     </ng-template>
                   </ng-container>
                   <a [routerLink]="resource.getRoute()">{{ resource.id + ': ' + resource.name }}</a>
-                </li>
-              </ul>
-
-              <ul class="tags icon-text inline no-wrap">
-                <li *ngFor="let identifier of product.identifiers">
-                  <fa-icon
-                    aria-hidden="true"
-                    aria-label="Resource icon"
-                    [icon]="['fas', 'star']"
-                  ></fa-icon>
-                  <app-hyperlink [href]="identifier.getUrl()">{{
-                    identifier.getNamespaceName() + ': ' + identifier.id
-                  }}</app-hyperlink>
                 </li>
               </ul>
             </div>

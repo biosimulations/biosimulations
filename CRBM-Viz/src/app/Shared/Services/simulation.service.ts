@@ -75,8 +75,8 @@ export class SimulationService {
         simulation.parent.name = 'Sim-005';
 
         simulation.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         simulation.owner = UserService._get('y.skaf');
         simulation.access = AccessLevel.public;
@@ -112,8 +112,8 @@ export class SimulationService {
         simulation.parent.name = 'Sim-005';
 
         simulation.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         simulation.owner = UserService._get('jonrkarr');
         simulation.access = AccessLevel.private;

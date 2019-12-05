@@ -1,5 +1,5 @@
 import { ProjectProductType } from '../Enums/project-product-type';
-import { Identifier } from './identifier';
+import { JournalReference } from './journal-reference';
 import { Model } from './model';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
@@ -9,9 +9,9 @@ import { Visualization } from './visualization';
 Synonyms: artifact, output, display item
 */
 export class ProjectProduct {
+	ref?: JournalReference;
 	type?: ProjectProductType;
 	label?: string;
 	description?: string;
-	identifiers?: Identifier[] = [];	
 	resources?: (Model | Simulation | Visualization)[] = [];
 }

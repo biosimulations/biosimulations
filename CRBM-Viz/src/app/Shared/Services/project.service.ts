@@ -41,8 +41,8 @@ export class ProjectService {
           new Identifier('github.repository', 'KarrLab/ProjectA'),
         ];
         project.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         project.owner = UserService._get('jonrkarr');
         project.access = AccessLevel.public;
@@ -60,8 +60,8 @@ export class ProjectService {
           new Identifier('github.repository', 'KarrLab/ProjectB'),
         ];
         project.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         project.owner = UserService._get('jonrkarr');
         project.access = AccessLevel.private;
@@ -79,8 +79,8 @@ export class ProjectService {
           new Identifier('github.repository', 'KarrLab/ProjectC'),
         ];
         project.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         project.owner = UserService._get('a.goldbeter');
         project.access = AccessLevel.public;
@@ -98,8 +98,8 @@ export class ProjectService {
           new Identifier('github.repository', 'KarrLab/ProjectD'),
         ];
         project.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         project.owner = UserService._get('j.tyson');
         project.access = AccessLevel.public;
@@ -116,10 +116,10 @@ export class ProjectService {
       project.products = [];
       for (let i = 0; i < 7; i++) {
         const product:ProjectProduct = new ProjectProduct();
+        product.ref = new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019);
         product.type = ProjectProductType.figure;
         product.label = (i + 1).toString();
         product.description = 'Description of product ' + product.label;
-        product.identifiers = [new Identifier('fairdomhub', 'XYZ')];
         product.resources = [
           ModelService._get('00' + product.label),
           SimulationService._get('00' + product.label),

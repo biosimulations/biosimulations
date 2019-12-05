@@ -77,7 +77,7 @@
                   <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
                   </fa-icon>
                   <app-hyperlink [href]="ref.getUrl()"
-                  >{{ ref.authors }}{{ '. ' }}{{ ref.title }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
+                  >{{ ref.getAuthorsStr() }}{{ '. ' }}{{ ref.title }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
                 </li>
               </ul>
             </div>

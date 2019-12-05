@@ -46,8 +46,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000001'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('jonrkarr');
         model.access = AccessLevel.public;
@@ -67,8 +67,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000001'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('jonrkarr');
         model.access = AccessLevel.private;
@@ -88,8 +88,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000003'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('a.goldbeter');
         model.access = AccessLevel.public;
@@ -109,8 +109,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000006'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('j.tyson');
         model.access = AccessLevel.public;
