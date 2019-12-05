@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from './user.service';
+import { ProjectService } from './project.service';
 import { ModelService } from './model.service';
 
 import { AccessLevel } from '../Enums/access-level';
@@ -35,6 +36,7 @@ export class SimulationService {
   simulationDataChangeSubject = new Subject<null>();
 
   private userService: UserService;
+  private projectService: ProjectService;
   private modelService: ModelService;
 
   constructor(
@@ -45,7 +47,7 @@ export class SimulationService {
     ) {
   }
 
-  static _get(id: string, includeRelObj = false): Simulation {
+  static _get(id: string, includeRelatedObjects = false): Simulation {
     let simulation: Simulation;
 
     switch (id) {
@@ -73,8 +75,8 @@ export class SimulationService {
         simulation.parent.name = 'Sim-005';
 
         simulation.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         simulation.owner = UserService._get('y.skaf');
         simulation.access = AccessLevel.public;
@@ -110,8 +112,8 @@ export class SimulationService {
         simulation.parent.name = 'Sim-005';
 
         simulation.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         simulation.owner = UserService._get('jonrkarr');
         simulation.access = AccessLevel.private;
@@ -209,12 +211,20 @@ export class SimulationService {
       new Person('John', 'C', 'Doe'),
       new Person('Jane', 'D', 'Doe'),
     ];
+    if (includeRelatedObjects) {
+      simulation.projects = [
+        ProjectService._get('001'),
+        ProjectService._get('003'),
+        ProjectService._get('006'),
+      ];
+    }
     return simulation;
   }
 
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
+      this.projectService = this.injector.get(ProjectService);
       this.modelService = this.injector.get(ModelService);
     }
   }
@@ -298,7 +308,7 @@ export class SimulationService {
     return this.filter(data, name) as Simulation[];
   }
 
-  private filter(list: object[], name: string): object[] {
+  private filter(list: object[], name?: string): object[] {
     if (name) {
       const lowCaseName: string = name.toLowerCase();
       return list.filter(item => item['name'].toLowerCase().includes(lowCaseName));
@@ -407,4 +417,6 @@ export class SimulationService {
 
     return id;
   }
+
+  delete(id?: string): void {}
 }

@@ -1,4 +1,7 @@
-<div *ngIf="visualizations && visualizations.length > 0; else noVisualizations" class="card-grid">
+<div
+  *ngIf="visualizations && visualizations.length > 0; else noVisualizations"
+  class="card-grid"
+  [style.grid-template-columns]="'1fr '.repeat(cols)">
   <div *ngFor="let viz of visualizations.slice(0, maxVisualizations)" class="card hover-light-background">
     <div class="title">
       <a [routerLink]="viz.getRoute()">

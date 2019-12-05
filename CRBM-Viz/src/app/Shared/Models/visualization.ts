@@ -1,6 +1,7 @@
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
 import { Person } from './person';
+import { Project } from './project';
 import { User } from './user';
 import { UtilsService } from '../Services/utils.service';
 
@@ -17,6 +18,7 @@ export class Visualization {
   license?: License;
   created?: Date;
   updated?: Date;
+  projects?: Project[] = [];
 
   getIcon() {
     return {type: 'fas', icon: 'chart-area'};

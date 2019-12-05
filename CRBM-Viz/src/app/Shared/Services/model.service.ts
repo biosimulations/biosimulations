@@ -13,12 +13,14 @@ import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from './user.service';
+import { ProjectService } from './project.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
   private userService: UserService;
+  private projectService: ProjectService;
   private simulationService: SimulationService;
   private visualizationService: VisualizationService;
 
@@ -44,8 +46,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000001'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('jonrkarr');
         model.access = AccessLevel.public;
@@ -65,8 +67,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000001'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('jonrkarr');
         model.access = AccessLevel.private;
@@ -86,8 +88,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000003'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('a.goldbeter');
         model.access = AccessLevel.public;
@@ -107,8 +109,8 @@ export class ModelService {
           new Identifier('biomodels.db', 'BIOMD0000000006'),
         ];
         model.refs = [
-          new JournalReference('Karr JR & Shaikh B', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Skaf Y & Wilson M', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
         ];
         model.owner = UserService._get('j.tyson');
         model.access = AccessLevel.public;
@@ -128,6 +130,11 @@ export class ModelService {
         ];
     model.license = License.cc0;
     if (includeRelatedObjects) {
+      model.projects = [
+        ProjectService._get('001'),
+        ProjectService._get('003'),
+        ProjectService._get('006'),
+      ];
       model.simulations = [
         SimulationService._get('001'),
         SimulationService._get('003'),
@@ -140,6 +147,7 @@ export class ModelService {
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
+      this.projectService = this.injector.get(ProjectService);
       this.simulationService = this.injector.get(SimulationService);
       this.visualizationService = this.injector.get(VisualizationService);
     }
@@ -176,8 +184,8 @@ export class ModelService {
 
     if (id || name) {
       return list.filter(item =>
-        (id === undefined || item['id'].toLowerCase().includes(lowCaseId)) ||
-        (name === undefined || item['name'].toLowerCase().includes(lowCaseName))
+        (id && item['id'].toLowerCase().includes(lowCaseId)) ||
+        (name && item['name'].toLowerCase().includes(lowCaseName))
       );
     } else {
       return list;
@@ -199,6 +207,8 @@ export class ModelService {
 
     return id;
   }
+
+  delete(id?: string): void {}
 }
 
 import { SimulationService } from './simulation.service';

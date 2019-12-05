@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
   }
 
   getClick(navItem: NavItem) {
-    if (navItem.click === 'toggleLogin') {
+    if (navItem.clickData === 'toggleLogin') {
       if (this.auth.loggedIn) {
         this.auth.logout()
       } else {

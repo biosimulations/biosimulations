@@ -10,6 +10,7 @@ import { Visualization } from '../../Models/visualization';
 export class VisualizationCardsComponent {
   @Input() visualizations: Visualization[];
   @Input() maxVisualizations = Infinity;
+  @Input() cols = 2;
 
   constructor(private router: Router) { }
 }

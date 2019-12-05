@@ -10,6 +10,7 @@ import { Simulation } from '../../Models/simulation';
 export class SimulationCardsComponent {
   @Input() simulations: Simulation[];
   @Input() maxSimulations = Infinity;
+  @Input() cols = 2;
 
   constructor(private router: Router) { }
 }

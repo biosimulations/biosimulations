@@ -77,10 +77,42 @@
                   <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
                   </fa-icon>
                   <app-hyperlink [href]="ref.getUrl()"
-                  >{{ ref.authors }}{{ '. ' }}{{ ref.title }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
+                  >{{ ref.getAuthorsStr() }}{{ '. ' }}{{ ref.title }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyperlink>
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Projects icon" [icon]="['fas', 'folder-open']"></fa-icon> Projects ({{ model.projects.length }})
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <div class="section-title float-container">
+            <h1>Projects</h1>
+            <a
+              class="routes"
+              [routerLink]="['/projects', 'new']"
+              >
+              <fa-icon
+                aria-hidden="true"
+                aria-label="New project icon"
+                [icon]="['fas', 'plus']"
+              ></fa-icon>
+                New
+            </a>
+          </div>
+          <div class="section-content">
+            <app-project-cards
+              [projects]="model.projects"
+              [cols]="4"
+            ></app-project-cards>
           </div>
         </div>
       </div>
@@ -95,7 +127,7 @@
       <div class="tab">
         <div class="section">
           <div class="section-title float-container">
-            <h1>Saved simulations</h1>
+            <h1>Simulations</h1>
             <a
               class="routes"
               [routerLink]="['/simulations', 'new', model.id]"
@@ -111,6 +143,7 @@
           <div class="section-content">
             <app-simulation-cards
               [simulations]="model.simulations"
+              [cols]="4"
             ></app-simulation-cards>
           </div>
         </div>

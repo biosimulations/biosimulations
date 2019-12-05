@@ -24,6 +24,7 @@ import {
 
 import { MatTreeModule } from '@angular/material/tree';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -47,6 +48,7 @@ const MaterialComponents = [
   MatExpansionModule,
   MatTreeModule,
   MatChipsModule,
+  MatSnackBarModule,
 ];
 @NgModule({
   imports: [MaterialComponents],
