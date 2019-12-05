@@ -4,7 +4,6 @@ export const environment = {
   auth0: {
     domain: 'crbm.auth0.com',
     audience: 'https://crbm.auth0.com/api/v2/',
-
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
   },
   crbm: {
