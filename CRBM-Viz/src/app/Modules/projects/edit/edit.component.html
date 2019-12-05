@@ -300,6 +300,185 @@
     </div>
   </div>
 
+  <div
+    class="form-field"
+    formArrayName="products"
+    >
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">Products</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addProductFormElement()">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div
+      class="form-field-subtitle form-group products"
+      *ngIf="getFormArray('products').controls.length > 0">
+      <div>Reference</div>
+      <div>Type *</div>
+      <div>Label *</div>
+      <div>Description</div>
+      <div>Models/Simulations/Visualizations</div>
+      <div></div>
+    </div>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="drop('products', $event)"
+      class="form-field-input"
+      >
+      <div
+        *ngFor="let formArrayEl of getFormArray('products').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        cdkDrag
+      >
+        <div
+        class="form-group products"
+        >
+          <input matInput
+            formControlName="ref"
+            required
+            [matAutocomplete]="productRefAutoComplete"
+            placeholder="A reference"
+            (keyup)="getRefs($event.target.value)"
+            (focus)="getRefs($event.target.value)"
+            (blur)="selectAutocomplete(formArrayEl.get('ref'))"
+            class="form-input"
+            />
+
+          <input matInput
+            formControlName="type"
+            required
+            [matAutocomplete]="productTypeAutoComplete"
+            placeholder="E.g. Figure, Table"
+            (keyup)="getProductTypes($event.target.value)"
+            (focus)="getProductTypes($event.target.value)"
+            (blur)="selectAutocomplete(formArrayEl.get('type'))"
+            class="form-input"
+            />
+
+          <input matInput
+            formControlName="label"
+            placeholder="E.g., 1A"
+            class="form-input"
+            />
+
+          <input matInput
+            formControlName="description"
+            placeholder="Description of product"
+            class="form-input"
+            />
+
+          <mat-chip-list #productResourceChipList
+            aria-label="Resource list"
+            class="form-chip-input">
+            <mat-chip *ngFor="let resource of formArrayEl.get('resources').controls; let iResource=index"
+              [selectable]="false"
+              [removable]="true"
+              (removed)="removeProductResource(formArrayEl, iResource)"
+              class="form-chip"
+              disableRipple="true">
+              {{ resource.value.id + ': ' + resource.value.name }}
+              <mat-icon
+                matChipRemove
+                class="form-chip-icon"
+                >cancel</mat-icon>
+            </mat-chip>
+            <input
+              #resourcesInput
+              [placeholder]="formArrayEl.get('resources').controls.length === 0 ? 'Figures, tables, etc.' : null"
+              [matChipInputFor]="productResourceChipList"
+              [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+              [matChipInputAddOnBlur]="true"
+              (matChipInputTokenEnd)="clearProductResourceInput($event)"
+              [matAutocomplete]="productResourceAutoComplete"
+              (keyup)="getProductResources($event.target.value)"
+              (focus)="getProductResources($event.target.value)"
+              class="form-product-resource-input"
+              />
+          </mat-chip-list>
+
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="removeFormArrayElement('products', iFormArrayEl)"
+            ></fa-icon>
+          </div>
+        </div>
+
+        <mat-autocomplete
+          #productRefAutoComplete
+          [displayWith]="productRefDisplayAutocompleteEl"
+          disableRipple="true"
+          class="form-select-input-panel"
+        >
+          <mat-option *ngFor="let item of refs"
+            [value]="item"
+          >{{
+            item.getShortName()
+          }}</mat-option>
+        </mat-autocomplete>
+
+        <mat-autocomplete
+          #productTypeAutoComplete
+          [displayWith]="productTypeDisplayAutocompleteEl"
+          disableRipple="true"
+          class="form-select-input-panel"
+        >
+          <mat-option *ngFor="let item of productTypes"
+            [value]="item.value"
+          >{{
+            item.name | ucfirst
+          }}</mat-option>
+        </mat-autocomplete>
+
+        <mat-autocomplete
+          #productResourceAutoComplete
+          [displayWith]="productResourceDisplayAutocompleteEl"
+          disableRipple="true"
+          class="form-select-input-panel"
+          (optionSelected)="addProductResource(formArrayEl, $event, resourcesInput)"
+        >
+          <mat-optgroup label="Model">
+            <mat-option *ngFor="let item of models"
+              [value]="item"
+            >
+              {{ item.id + ': ' + item.name }}
+            </mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Simulation">
+            <mat-option *ngFor="let item of simulations"
+              [value]="item"
+            >
+              {{ item.id + ': ' + item.name }}
+            </mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Visualization">
+            <mat-option *ngFor="let item of visualizations"
+              [value]="item"
+            >
+              {{ item.id + ': ' + item.name }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
+      </div>
+    </div>
+  </div>
+
   <div class="form-field">
     <div class="form-field-title">Access level *</div>
     <div class="form-field-input">

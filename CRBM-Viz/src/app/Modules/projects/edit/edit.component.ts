@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +14,8 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
+import { ProjectProductType, projectProductTypes } from 'src/app/Shared/Enums/project-product-type';
+import { JournalReference } from 'src/app/Shared/Models/journal-reference';
 import { Project } from 'src/app/Shared/Models/project';
 import { Model } from 'src/app/Shared/Models/model';
 import { Simulation } from 'src/app/Shared/Models/simulation';
@@ -30,6 +33,11 @@ import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Comp
 export class EditComponent implements OnInit {
   accessLevels = accessLevels;
   licenses = licenses;
+  productTypes: object[];
+  refs: JournalReference[];
+  models: Model[];
+  simulations: Simulation[];
+  visualizations: Visualization[];
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
 
   id: string;
@@ -55,6 +63,7 @@ export class EditComponent implements OnInit {
       authors: this.formBuilder.array([]),
       identifiers: this.formBuilder.array([]),
       refs: this.formBuilder.array([]),
+      products: this.formBuilder.array([]),
       access: [''],
       license: [''],
     });
@@ -138,6 +147,12 @@ export class EditComponent implements OnInit {
         for (const author of this.project.authors) { this.addAuthorFormElement(); }
         for (const identifiers of this.project.identifiers) { this.addIdentifierFormElement(); }
         for (const ref of this.project.refs) { this.addRefFormElement(); }
+        for (const product of this.project.products) {
+          const productFormGroup: FormGroup = this.addProductFormElement();
+          for (const resource of product.resources) {
+            this.addProductResourceElement(productFormGroup);
+          }
+        }
         this.formGroup.patchValue(this.project);
       } else {
         for (let i = 0; i < 3; i++) {
@@ -145,6 +160,7 @@ export class EditComponent implements OnInit {
           this.addAuthorFormElement();
           this.addIdentifierFormElement();
           this.addRefFormElement();
+          this.addProductFormElement();
         }
       }
     });
@@ -154,8 +170,59 @@ export class EditComponent implements OnInit {
     return this.formGroup.get(array) as FormArray;
   }
 
+  getRefs(value: string): void {
+    const allRefs: JournalReference[] = this.formGroup.value.refs.map(data => {
+      const ref = new JournalReference();
+      return Object.assign(ref, data);
+    });
+
+    if (value) {
+      const lowCaseValue: string = value.toLowerCase();
+      this.refs = allRefs.filter(ref =>
+        ((ref.authors && ref.authors.toLowerCase().includes(lowCaseValue))
+        || (ref.title && ref.title.toLowerCase().includes(lowCaseValue))
+        || (ref.journal && ref.journal.toLowerCase().includes(lowCaseValue))
+        || (ref.doi && ref.doi.toLowerCase().includes(lowCaseValue)))
+      );
+    } else {
+      this.refs = allRefs.slice();
+    }
+  }
+
+  getProductTypes(value: string): void {
+    if (value) {
+      const lowCaseValue: string = value.toLowerCase();
+      this.productTypes = projectProductTypes.filter(el =>
+        el['name'].toLowerCase().includes(lowCaseValue)
+      );
+    } else {
+      this.productTypes = projectProductTypes;
+    }
+  }
+
+  getProductResources(value: string): void {
+    this.models = this.modelService.list(value);
+    this.simulations = this.simulationService.list(value);
+    this.visualizations = this.visualizationService.list(value);
+  }
+
   displayAutocompleteEl(el: object): string | undefined {
     return el ? el['name'] : undefined;
+  }
+
+  productRefDisplayAutocompleteEl(ref: JournalReference): string | undefined {
+    return ref ? ref.getShortName() : undefined;
+  }
+
+  productTypeDisplayAutocompleteEl(el: any): string | undefined {
+    return (
+      el in ProjectProductType
+      ? ProjectProductType[el][0].toUpperCase() + ProjectProductType[el].substring(1)
+      : undefined);
+  }
+
+  productResourceDisplayAutocompleteEl(el: object): string | undefined {
+    return el ? el['id'] + ': ' + el['name'] : undefined;
   }
 
   selectAutocomplete(formControl: AbstractControl, required = false): void {
@@ -194,9 +261,26 @@ export class EditComponent implements OnInit {
     }
   }
 
+  clearProductResourceInput(event: MatChipInputEvent): void {
+    const input = event.input;
+    input.value = '';
+  }
+
+  addProductResource(formGroup: FormGroup, event: MatAutocompleteSelectedEvent, input) {
+    const formArray: FormArray = formGroup.get('resources') as FormArray;
+    if (!formGroup.value.resources.map(res => res.id).includes(event.option.value.id)) {
+      formArray.push(this.formBuilder.control(event.option.value));
+    }
+    input.value = '';
+  }
+
   removeFormArrayElement(array: string, iEl: number): void {
     const formArray: FormArray = this.getFormArray(array);
     formArray.removeAt(iEl);
+  }
+
+  removeProductResource(formGroup: FormGroup, iResource: number): void {
+    (formGroup.get('resources') as FormArray).removeAt(iResource);
   }
 
   addAuthorFormElement(): void {
@@ -228,6 +312,24 @@ export class EditComponent implements OnInit {
       year: [''],
       doi: [''],
     }));
+  }
+
+  addProductFormElement(): FormGroup {
+    const formArray: FormArray = this.getFormArray('products');
+    const formGroup: FormGroup = this.formBuilder.group({
+      ref: [''],
+      type: [''],
+      label: [''],
+      description: [''],
+      resources: this.formBuilder.array([]),
+    });
+    formArray.push(formGroup);
+    return formGroup;
+  }
+
+  addProductResourceElement(formGroup: FormGroup): void {
+    const formArray: FormArray = formGroup.get('resources') as FormArray;
+    formArray.push(this.formBuilder.control(''));
   }
 
   drop(array: string, event: CdkDragDrop<string[]>): void {

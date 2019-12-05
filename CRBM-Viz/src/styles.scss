@@ -584,6 +584,17 @@ ul.icon-text {
 }
 
 .form-select-input-panel {
+    .mat-optgroup .mat-optgroup-label {
+        height: calc(2rem - 1px);
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        padding-top: 1rem;
+        color: mat-color($theme-primary);
+    }
+    .mat-optgroup:first-child .mat-optgroup-label {
+        padding-top: 0.5rem;
+    }
     .mat-option {
         padding-left: 0.25rem;
         line-height: normal;

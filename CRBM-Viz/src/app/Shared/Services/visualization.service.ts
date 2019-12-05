@@ -46,6 +46,25 @@ export class VisualizationService {
     return vizJson;
   }
 
+  list(name?: string): Visualization[] {
+    const data: Visualization[] = [
+      this.get(1),
+      this.get(2),
+      this.get(3),
+      this.get(6),
+    ];
+    return this.filter(data, name) as Visualization[];
+  }
+
+  private filter(list: object[], name?: string): object[] {
+    if (name) {
+      const lowCaseName: string = name.toLowerCase();
+      return list.filter(item => item['name'].toLowerCase().includes(lowCaseName));
+    } else {
+      return list;
+    }
+  }
+
   set(data: Visualization, id?: number): number {
     if (!id) {
       id = 7;

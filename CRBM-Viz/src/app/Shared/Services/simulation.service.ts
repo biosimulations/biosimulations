@@ -308,7 +308,7 @@ export class SimulationService {
     return this.filter(data, name) as Simulation[];
   }
 
-  private filter(list: object[], name: string): object[] {
+  private filter(list: object[], name?: string): object[] {
     if (name) {
       const lowCaseName: string = name.toLowerCase();
       return list.filter(item => item['name'].toLowerCase().includes(lowCaseName));

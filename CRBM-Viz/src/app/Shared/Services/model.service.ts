@@ -184,8 +184,8 @@ export class ModelService {
 
     if (id || name) {
       return list.filter(item =>
-        (id === undefined || item['id'].toLowerCase().includes(lowCaseId)) ||
-        (name === undefined || item['name'].toLowerCase().includes(lowCaseName))
+        (id && item['id'].toLowerCase().includes(lowCaseId)) ||
+        (name && item['name'].toLowerCase().includes(lowCaseName))
       );
     } else {
       return list;
