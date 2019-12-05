@@ -715,6 +715,14 @@ ul.icon-text {
     justify-content: center;
 }
 
+.mat-simple-snackbar-action {
+    color: #fff;
+
+    .mat-button-ripple, .mat-button-focus-overlay {
+        display: none;
+    }
+}
+
 /* Style text */
 .light {
     color: #666;

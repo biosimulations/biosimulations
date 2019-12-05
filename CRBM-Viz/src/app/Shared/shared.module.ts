@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // Third pary modules
 import { AgGridModule } from 'ag-grid-angular';
@@ -23,6 +24,7 @@ import {
   faSquare,
   faPlusSquare,
   faMinusSquare,
+  faComment,
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faProjectDiagram,
@@ -119,6 +121,7 @@ import { SimulationCardsComponent } from './Components/simulation-cards/simulati
 import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
 import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
 import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { FeedbackComponent } from './Components/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -154,6 +157,7 @@ import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel
     VisualizationCardsComponent,
     HyperlinkComponent,
     OkCancelDialogComponent,
+    FeedbackComponent,
   ],
   imports: [
     CommonModule,
@@ -201,6 +205,7 @@ import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel
     VisualizationCardsComponent,
     HyperlinkComponent,
     OkCancelDialogComponent,
+    FeedbackComponent,
     NgPipesModule,
   ],
   providers: [
@@ -215,6 +220,9 @@ import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel
     AlertComponent,
     OkCancelDialogComponent,
     ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {
@@ -227,6 +235,7 @@ export class SharedModule {
       faSquare,
       faPlusSquare,
       faMinusSquare,
+      faComment,
       faSignInAlt,
       faSignOutAlt,
       faUser,
