@@ -25,6 +25,9 @@ export class AuthService {
       domain: environment.auth0.domain,
       client_id: environment.auth0.clientId,
       redirect_uri: this.redirect,
+      response_type: "id_token, token",
+      scope: "update:current_user_metadata read:current_user",
+      audience: environment.auth0.audience,
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -50,7 +53,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
