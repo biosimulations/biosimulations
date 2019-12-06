@@ -1,3 +1,174 @@
 <div class="container">
-    <app-home-image class="image"></app-home-image>
+    <div class="container-inner">
+        <div class="workflow">
+            <div class="workflow-el float-container projects">
+                <div class="title" [routerLink]="['/projects']">
+                    <div class="title-text">Projects</div>
+                </div>
+                <div class="graphics" [routerLink]="['/projects']">                    
+                    <div class="graphics-inner">
+                        <div class="icon-container">
+                            <img class="icon" src="assets/home/projects.svg" />
+                        </div>
+                        <div class="logos">
+                            <div class="logo-row">
+                                <img
+                                    class="logo"
+                                    title="CellML"
+                                    src="assets/about/partners/cellml.svg" />
+                                <img
+                                    class="logo"
+                                    title="NeuroML"
+                                    src="assets/about/partners/neuroml.svg" />
+                                <img
+                                    class="logo"
+                                    title="pharmML"
+                                    src="assets/about/partners/pharmml.svg" />
+                                <img
+                                    class="logo"
+                                    title="SBML"
+                                    src="assets/about/partners/sbml.svg" />
+                            </div>
+                            <div class="logo-row">
+                                <img
+                                    class="logo"
+                                    title="BioModels"
+                                    src="assets/about/partners/biomodels.svg" />
+                                <img
+                                    class="logo"
+                                    title="Physiome Model Repository"
+                                    src="assets/about/partners/physiome.svg" />
+                                <img
+                                    class="logo"
+                                    title="Open Source Brain"
+                                    src="assets/about/partners/open-source-brain.svg" />
+                                <img
+                                    class="logo"
+                                    title="JWS Online"
+                                    src="assets/about/partners/jws.svg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text">
+                    <ul>
+                        <li>Share projects with reviewers and editors</li>
+                        <li>Publish modeling projects</li>
+                        <li>Describe the simulations that generate each figure</li>
+                        <li>Supports several standards including CellML and SBML</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workflow-el float-container simulations">
+                <div class="title" [routerLink]="['/simulations']">
+                    <div class="title-text">Simulations</div>
+                </div>
+                <div class="graphics" [routerLink]="['/simulations']">
+                    <div class="graphics-inner">
+                        <div class="icon-container">
+                            <img class="icon" src="assets/home/simulations.svg" />
+                        </div>
+                        <div class="logos">
+                            <div class="logo-row">
+                                <img
+                                    class="logo"
+                                    title="SED-ML"
+                                    src="assets/about/partners/sed-ml.svg" />
+                                <img
+                                    class="logo"
+                                    title="COBRApy"
+                                    src="assets/about/partners/cobrapy.svg" />
+                                <img
+                                    class="logo"
+                                    title="COPASI"
+                                    src="assets/about/partners/copasi.svg" />                                
+                            </div>
+                            <div class="logo-row">
+                                <img
+                                    class="logo"
+                                    title="libRoadRunner"
+                                    src="assets/about/partners/libroadrunner.svg" />
+                                <img
+                                    class="logo"
+                                    title="NFsim"
+                                    src="assets/about/partners/nfsim.svg" />
+                                <img
+                                    class="logo"
+                                    title="OpenCOR"
+                                    src="assets/about/partners/opencor.svg" />
+                                <img
+                                    class="logo"
+                                    title="VCell"
+                                    src="assets/about/partners/vcell.svg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text">
+                    <ul>
+                        <li>Publish simulation experiments</li>
+                        <li>Browse and execute simulation experiments</li>
+                        <li>Simulate variants of experiments</li>
+                        <li>Supports SED-ML and numerous simulation algorithms</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workflow-el float-container visualizations">
+                <div class="title" [routerLink]="['/visualizations']">
+                    <div class="title-text">Visualizations</div>
+                </div>
+                <div class="graphics" [routerLink]="['/visualizations']">
+                    <div class="graphics-inner">
+                        <div class="icon-container">
+                            <img class="icon" src="assets/home/visualizations.svg" />
+                        </div>
+                        <div class="logos">
+                            <div class="logo-row">
+                                <img
+                                    class="logo"
+                                    title="Vega"
+                                    src="assets/about/partners/vega.svg" />
+                                <img
+                                    class="logo"
+                                    title="Vega-lite"
+                                    src="assets/about/partners/vegalite.svg" />
+                            </div>
+                            <div class="logo-row">
+                                <img
+                                    class="logo"
+                                    title="Krayon"
+                                    src="assets/about/partners/krayon.svg" />
+                                <img
+                                    class="logo"
+                                    title="Newt"
+                                    src="assets/about/partners/newt.svg" />
+                                <img
+                                    class="logo"
+                                    title="SBGN"
+                                    src="assets/about/partners/sbgn.svg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text">
+                    <ul>
+                        <li>Publish visualizations of simulation results</li>
+                        <li>Browse and display visualizations</li>
+                        <li>Re-paint visualizations with alternative simulations</li>
+                        <li>Supports the Vega data visualization grammar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="title">
+                <div class="title-text">Stats</div>
+            </div>
+            <div class="graphics">
+            </div>
+        </div>
+    </div>
 </div>

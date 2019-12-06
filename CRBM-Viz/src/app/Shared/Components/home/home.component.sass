@@ -1,3 +1,5 @@
+@import 'src/theme.scss'
+
 .container
     height: calc(100vh - 64px)
     max-height: calc(100vh - 64px)
@@ -7,9 +9,163 @@
     justify-content: center
     align-items: center
 
-    .image
-        max-width: 80%
-        max-height: 80%
+.container-inner
+    height: 80%
+    display: grid
+    grid-template-columns: auto auto
+    grid-gap: 2rem
+
+.workflow
+    height: 100%
+    display: grid
+    grid-template-rows: 1fr 1fr 1fr
+    grid-gap: 2rem
+
+    .workflow-el
         width: 100%
-        /* height: 100% */
-        filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))
+        height: calc(((100vh - 64px) * 0.8 - 3rem) / 3 - 2px)
+        border-radius: 4px
+
+    .title, .graphics, .text
+        float: left
+
+    .title
+        width: 2rem
+        height: 100%
+        cursor: pointer
+        .title-text
+            transform: rotate(-90deg)
+    .graphics
+        height: calc(100% - 1rem)
+        padding: 0.5rem
+        cursor: pointer
+        text-align: center
+
+        .graphics-inner
+            height: 100%
+            transition: all 0.5s
+
+        .icon-container
+            height: calc(100% - 0.5rem - 2rem - 0.25rem)
+        .icon
+            height: 100%
+        .logos
+            margin-top: 0.5rem
+        .logo-row
+            line-height: 0
+        .logo-row:not(:first-child)
+            margin-top: 0.25rem
+            text-align: center            
+        .logo
+            height: 1rem
+            margin-left: 0.125rem
+            margin-right: 0.125rem
+
+    .text
+        max-width: 40rem
+        height: calc(100% - 2rem)
+        padding: 1rem
+        overflow: hidden
+        display: flex
+        align-items: center
+        ul
+            margin: 0
+            padding-inline-start: 1rem
+            list-style-type: circle
+            font-size: 125%
+            line-height: 150%
+            font-weight: 500
+
+        li:not(:first-child)
+            margin-top: 5%
+
+    .projects
+        border: 1px solid mat-color($theme-primary)
+        background: #e8f4fd
+        .title
+            background: mat-color($theme-primary)
+        .graphics
+            background: #c7e4fc
+            border-right: 1px solid mat-color($theme-primary)
+
+    .projects:hover
+        border: 1px solid mat-color($theme-primary, darker)
+        background: #d2eafc
+        .title
+            background: mat-color($theme-primary, darker)
+        .graphics
+            background: #b1dafa
+            border-right: 1px solid mat-color($theme-primary, darker)
+
+    .simulations
+        border: 1px solid mat-color($theme-accent)
+        background: #fff4e5
+        .title
+            background: mat-color($theme-accent)
+        .graphics
+            background: #ffe5bf
+            border-right: 1px solid mat-color($theme-accent)
+
+    .simulations:hover
+        border: 1px solid mat-color($theme-accent, darker)
+        background: #feeacc
+        .title
+            background: mat-color($theme-accent, darker)
+        .graphics
+            background: #ffdaa5
+            border-right: 1px solid mat-color($theme-accent, darker)
+
+    .visualizations
+        border: 1px solid mat-color($theme-warn)
+        background: #fdecea
+        .title
+            background: mat-color($theme-warn)
+        .graphics
+            background: #fcd0cc
+            border-right: 1px solid mat-color($theme-warn)
+
+    .visualizations:hover
+        border: 1px solid mat-color($theme-warn, darker)
+        background: #fcd9d6
+        .title
+            background: mat-color($theme-warn, darker)
+        .graphics
+            background: #fbbdb8
+            border-right: 1px solid mat-color($theme-warn, darker)
+
+    .workflow-el:hover
+        .graphics-inner
+            transform: scale(1.06)
+
+.stats
+    width: 20rem
+    height: 100%
+    border-radius: 4px
+    border: 1px solid #ccc
+    background: #f6f6f6
+    .title
+        height: 2rem
+        background: #aaa
+    .graphics
+
+.stats:hover
+    border: 1px solid #bcbcbc
+    background: #e6e6e6
+    .title
+        background: #9a9a9a
+
+.title
+    display: flex
+    align-items: center
+    justify-content: center
+.title-text
+    color: #fff
+    font-size: 2.5vh
+    line-height: normal
+    font-weight: bold
+    margin-right: 0.2rem
+
+.title:focus, .graphics:focus
+    outline: none
+.graphics
+    overflow: hidden
