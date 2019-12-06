@@ -3,7 +3,7 @@
 .container
     height: calc(100vh - 64px)
     max-height: calc(100vh - 64px)
-    background-image: url('src/assets/background/network/light-blue-3.png')
+    background-image: url('src/assets/background/network/grey-3.png')
     background-size: cover
     display: flex
     justify-content: center
@@ -23,8 +23,7 @@
 
     .workflow-el
         width: 100%
-        height: calc(((100vh - 64px) * 0.8 - 3rem) / 3 - 2px)
-        border-radius: 4px
+        height: 100%        
 
     .title, .graphics, .text
         float: left
@@ -40,13 +39,15 @@
         padding: 0.5rem
         cursor: pointer
         text-align: center
+        border-width: 0 1px 0 0
+        border-style: solid
 
         .graphics-inner
-            height: 100%
+            height: calc(((100vh - 64px) * 0.8 - 2 * 2rem) / 3 - 2 * 0.5rem - 2 * 1px)
             transition: all 0.5s
 
         .icon-container
-            height: calc(100% - 0.5rem - 2rem - 0.25rem)
+            height: calc(100% - 0.5rem - 2 * 1.5rem - 0.25rem)
         .icon
             height: 100%
         .logos
@@ -55,83 +56,85 @@
             line-height: 0
         .logo-row:not(:first-child)
             margin-top: 0.25rem
-            text-align: center            
+            text-align: center
         .logo
-            height: 1rem
+            height: 1.5rem
             margin-left: 0.125rem
             margin-right: 0.125rem
 
     .text
         max-width: 40rem
-        height: calc(100% - 2rem)
-        padding: 1rem
+        height: calc(100% - 1rem)
+        padding: 0.5rem 1rem 0.5rem 1rem
         overflow: hidden
         display: flex
         align-items: center
-        ul
-            margin: 0
-            padding-inline-start: 1rem
-            list-style-type: circle
-            font-size: 125%
-            line-height: 150%
-            font-weight: 500
+        flex-direction: column
+        font-size: 125%
+        line-height: 125%
+        font-weight: 500       
 
-        li:not(:first-child)
-            margin-top: 5%
+        .bullet
+            width: 100%
+            display: flex
+            align-items: center
+            flex-grow: 1
+            text-indent: -1rem
+            margin-left: 1rem
 
     .projects
-        border: 1px solid mat-color($theme-primary)
+        border-color: mat-color($theme-primary)
         background: #e8f4fd
         .title
             background: mat-color($theme-primary)
         .graphics
             background: #c7e4fc
-            border-right: 1px solid mat-color($theme-primary)
+            border-color: #a6d5fa
 
     .projects:hover
-        border: 1px solid mat-color($theme-primary, darker)
+        border-color: mat-color($theme-primary, darker)
         background: #d2eafc
         .title
             background: mat-color($theme-primary, darker)
         .graphics
             background: #b1dafa
-            border-right: 1px solid mat-color($theme-primary, darker)
+            border-color: #8fcaf9
 
     .simulations
-        border: 1px solid mat-color($theme-accent)
+        border-color: mat-color($theme-accent)
         background: #fff4e5
         .title
             background: mat-color($theme-accent)
         .graphics
             background: #ffe5bf
-            border-right: 1px solid mat-color($theme-accent)
+            border-color: #ffd599
 
     .simulations:hover
-        border: 1px solid mat-color($theme-accent, darker)
+        border-color: mat-color($theme-accent, darker)
         background: #feeacc
         .title
             background: mat-color($theme-accent, darker)
         .graphics
             background: #ffdaa5
-            border-right: 1px solid mat-color($theme-accent, darker)
+            border-color: #ffcb7f
 
     .visualizations
-        border: 1px solid mat-color($theme-warn)
+        border-color: mat-color($theme-warn)
         background: #fdecea
         .title
             background: mat-color($theme-warn)
         .graphics
             background: #fcd0cc
-            border-right: 1px solid mat-color($theme-warn)
+            border-color: #fab3ae
 
     .visualizations:hover
-        border: 1px solid mat-color($theme-warn, darker)
+        border-color: mat-color($theme-warn, darker)
         background: #fcd9d6
         .title
             background: mat-color($theme-warn, darker)
         .graphics
             background: #fbbdb8
-            border-right: 1px solid mat-color($theme-warn, darker)
+            border-color: #f9a19a
 
     .workflow-el:hover
         .graphics-inner
@@ -139,21 +142,38 @@
 
 .stats
     width: 20rem
-    height: 100%
-    border-radius: 4px
-    border: 1px solid #ccc
-    background: #f6f6f6
+    height: calc(100% - 2px)
+    border-color: #999
+    background: #e3e3e3
     .title
         height: 2rem
-        background: #aaa
+        background: #999
     .graphics
+        height: calc(100% - 3rem)
+        padding: 0.5rem
+        display: grid
+        grid-template-rows: 1fr 1fr 1fr
+        grid-gap: 0.5rem
+        overflow: hidden
+
+        .graph
+            height: 100%
+            height: calc(((100vh - 64px) * 0.8 - 2rem - 2px - 2rem) / 3)
+            transition: all 0.5s
 
 .stats:hover
-    border: 1px solid #bcbcbc
-    background: #e6e6e6
+    border-color: #898989
+    background: #cccccc
     .title
-        background: #9a9a9a
+        background: #898989
 
+.graph:hover
+    transform: scale(1.06)
+
+.box
+    border-radius: 4px
+    border-width: 1px
+    border-style: solid
 .title
     display: flex
     align-items: center

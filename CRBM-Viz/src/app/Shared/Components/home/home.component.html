@@ -1,11 +1,11 @@
 <div class="container">
     <div class="container-inner">
         <div class="workflow">
-            <div class="workflow-el float-container projects">
+            <div class="box workflow-el float-container projects">
                 <div class="title" [routerLink]="['/projects']">
                     <div class="title-text">Projects</div>
                 </div>
-                <div class="graphics" [routerLink]="['/projects']">                    
+                <div class="graphics" [routerLink]="['/projects']">
                     <div class="graphics-inner">
                         <div class="icon-container">
                             <img class="icon" src="assets/home/projects.svg" />
@@ -51,16 +51,14 @@
                     </div>
                 </div>
                 <div class="text">
-                    <ul>
-                        <li>Share projects with reviewers and editors</li>
-                        <li>Publish modeling projects</li>
-                        <li>Describe the simulations that generate each figure</li>
-                        <li>Supports several standards including CellML and SBML</li>
-                    </ul>
+                    <div class="bullet">‣ Share projects with reviewers and editors</div>
+                    <div class="bullet">‣ Publish modeling projects</div>
+                    <div class="bullet">‣ Describe the simulations that generate each figure</div>
+                    <div class="bullet">‣ Supports several standards including CellML and SBML</div>
                 </div>
             </div>
 
-            <div class="workflow-el float-container simulations">
+            <div class="box workflow-el float-container simulations">
                 <div class="title" [routerLink]="['/simulations']">
                     <div class="title-text">Simulations</div>
                 </div>
@@ -82,7 +80,7 @@
                                 <img
                                     class="logo"
                                     title="COPASI"
-                                    src="assets/about/partners/copasi.svg" />                                
+                                    src="assets/about/partners/copasi.svg" />
                             </div>
                             <div class="logo-row">
                                 <img
@@ -106,16 +104,14 @@
                     </div>
                 </div>
                 <div class="text">
-                    <ul>
-                        <li>Publish simulation experiments</li>
-                        <li>Browse and execute simulation experiments</li>
-                        <li>Simulate variants of experiments</li>
-                        <li>Supports SED-ML and numerous simulation algorithms</li>
-                    </ul>
+                    <div class="bullet">‣ Publish simulation experiments</div>
+                    <div class="bullet">‣ Browse and execute simulation experiments</div>
+                    <div class="bullet">‣ Simulate variants of experiments</div>
+                    <div class="bullet">‣ Supports SED-ML and numerous simulation algorithms</div>
                 </div>
             </div>
 
-            <div class="workflow-el float-container visualizations">
+            <div class="box workflow-el float-container visualizations">
                 <div class="title" [routerLink]="['/visualizations']">
                     <div class="title-text">Visualizations</div>
                 </div>
@@ -153,21 +149,26 @@
                     </div>
                 </div>
                 <div class="text">
-                    <ul>
-                        <li>Publish visualizations of simulation results</li>
-                        <li>Browse and display visualizations</li>
-                        <li>Re-paint visualizations with alternative simulations</li>
-                        <li>Supports the Vega data visualization grammar</li>
-                    </ul>
+                    <div class="bullet">‣ Publish visualizations of simulation results</div>
+                    <div class="bullet">‣ Browse and display visualizations</div>
+                    <div class="bullet">‣ Re-paint visualizations with alternative simulations</div>
+                    <div class="bullet">‣ Supports the Vega data visualization grammar</div>
                 </div>
             </div>
         </div>
 
-        <div class="stats">
+        <div class="box stats">
             <div class="title">
                 <div class="title-text">Stats</div>
             </div>
             <div class="graphics">
+                <div class="graph" *ngFor="let graph of statGraphs">
+                    <app-vega-viewer                        
+                        [spec]="graph"
+                        [options]="vegaOptions"
+                        class="vega block no-actions"
+                    ></app-vega-viewer>
+                </div>
             </div>
         </div>
     </div>

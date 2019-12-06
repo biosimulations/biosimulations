@@ -88,6 +88,7 @@ import { ProjectService } from './Services/project.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
 import { VisualizationService } from './Services/visualization.service';
+import { StatsService } from './Services/stats.service';
 
 import { FilterPipe } from './Pipes/filter.pipe';
 import { FormatTimeForHumansPipe } from './Pipes/format-time-for-humans.pipe';
@@ -215,6 +216,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     ModelService,
     SimulationService,
     VisualizationService,
+    StatsService,
   ],
   entryComponents: [
     AlertComponent,

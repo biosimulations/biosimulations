@@ -723,6 +723,23 @@ ul.icon-text {
     }
 }
 
+/* Vega */
+app-vega-viewer.block {
+    height: 100%;
+    .vega-embed {
+        display: block;
+        line-height: 0;
+        height: 100%;
+    }
+}
+
+app-vega-viewer.no-actions .vega-embed.has-actions {
+    padding-right: 0;
+}
+app-vega-viewer.no-actions .vega-embed.has-actions > details {
+    display: none;
+}
+
 /* Style text */
 .light {
     color: #666;
