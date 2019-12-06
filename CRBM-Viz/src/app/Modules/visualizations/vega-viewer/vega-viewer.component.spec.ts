@@ -19,7 +19,7 @@ describe('VegaViewerComponent', () => {
     mockviz.id = 0;
     mockviz.name = 'testViz';
     mockviz.spec = 'https://vega.github.io/vega/examples/bar-chart.vg.json';
-    component.viz = mockviz;
+    component.spec = mockviz.spec;
     fixture.detectChanges();
   });
 

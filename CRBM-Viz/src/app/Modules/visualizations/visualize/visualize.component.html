@@ -11,7 +11,10 @@
   </div>
   <div class="figures" *ngIf="id">
     <div class="figure" *ngFor="let viz of visualizations; index as i">
-      <app-vega-viewer [viz]="viz"> </app-vega-viewer>
+      <h3 class="figure-title">{{ viz.name }}:</h3>
+      <app-vega-viewer
+        [spec]="viz.spec"
+      ></app-vega-viewer>
     </div>
   </div>
 </div>
