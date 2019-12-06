@@ -9,7 +9,7 @@ export class AppComponent implements OnInit {
   title = 'BioSimulations';
 
   // TODO Test the creation of token
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
   ngOnInit() {
     this.auth.localAuthSetup();
     this.auth.userProfile$.subscribe(profile => {

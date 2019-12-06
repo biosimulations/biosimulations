@@ -1,46 +1,33 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpInterceptor,
-  HttpClient,
   HttpRequest,
   HttpHandler,
   HttpEvent,
+  HttpInterceptor
 } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { AuthService } from '../Services/auth0.service';
+import { mergeMap, catchError } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(
-    public http: HttpClient,
-    private auth: AuthService,
-    private router: Router
-  ) {}
+
+  constructor(private auth: AuthService) { }
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.auth.isAuthenticated$.subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-      }
-    });
-    if (this.auth.loggedIn) {
-      req = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-    }
-    return next.handle(req).pipe(
-      catchError(err => {
-        if (err.status === 401) {
-          this.auth.logout();
-        }
-        return throwError(err.error.message || err.statusText);
-      })
+    return this.auth.getTokenSilently$().pipe(
+      mergeMap(token => {
+        const tokenReq = req.clone({
+          setHeaders: { Authorization: `Bearer ${token}` }
+        });
+        return next.handle(tokenReq);
+      }),
+      catchError(err => throwError(err))
     );
   }
 }

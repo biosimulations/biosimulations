@@ -25,8 +25,8 @@ export class AuthService {
       domain: environment.auth0.domain,
       client_id: environment.auth0.clientId,
       redirect_uri: this.redirect,
-      response_type: 'id_token, token',
-      scope: 'update:current_user_metadata read:current_user',
+      response_type: 'token id_token',
+      scope: 'update:current_user_metadata read:current_user read:models',
       audience: environment.auth0.audience,
     })
   ) as Observable<Auth0Client>).pipe(
@@ -68,6 +68,11 @@ export class AuthService {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getIdTokenClaims(options))),
       tap(token => this.token = token)
+    );
+  }
+  getTokenSilently$(options?): Observable<string> {
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
     );
   }
 
