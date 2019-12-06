@@ -8,12 +8,13 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { tap } from 'rxjs/operators';
+import { UserService } from '../Services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -23,6 +24,10 @@ export class AuthGuard implements CanActivate {
       tap(loggedIn => {
         if (!loggedIn) {
           this.auth.login(state.url);
+        } else {
+          this.auth.userProfile$.subscribe(userProfile => {
+            UserService.ping(userProfile)
+          })
         }
       })
     );

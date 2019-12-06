@@ -20,10 +20,22 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private injector: Injector
-    ) {}
+  ) { }
+
+  /**
+   * This method takes in a user profile and calls an api endpoint to ensure that the user is in the database
+   * The user might not be in the database if they are using a new account. The profile is created via Auth0
+   * The method is currently called everytime the user acesses a web page that requires authentication
+   * @param  user This is the user profile object that is returned by the authentication service 
+   * 
+   */
+  static ping(user) {
+    // TODO implement this to call the biosimulatons API 
+    console.log(user)
+  }
 
   static _get(username?: string, includeRelObj = false): User {
-    let user:User;
+    let user: User;
     switch (username) {
       default:
       case 'jonrkarr':
@@ -44,10 +56,10 @@ export class UserService {
         user.googleScholarId = 'Yb5nVLAAAAAJ';
         user.orcId = '0000-0002-2605-5080';
         user.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
-            'ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. ' +
-            'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
-            'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
-            'nec dictum erat aliquet quis.';
+          'ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. ' +
+          'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
+          'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
+          'nec dictum erat aliquet quis.';
         if (includeRelObj) {
           user.models = [
             ModelService._get('001'),
@@ -55,7 +67,7 @@ export class UserService {
             ModelService._get('006'),
             ModelService._get('001'),
             ModelService._get('003'),
-            ];
+          ];
           user.simulations = [
             SimulationService._get('001'),
             SimulationService._get('003'),
@@ -137,13 +149,13 @@ export class UserService {
     return this.http.get(this.endpoint, { headers: Httpheaders });
   }
 
-  get(username?: string) : User {
+  get(username?: string): User {
     this.getServices();
     return UserService._get(username, true);
   }
 
   getByAuth0Id(auth0Id: string): User {
-    let user:User;
+    let user: User;
     switch (auth0Id) {
       case 'github|2848297':
         user = this.get('jonrkarr');
@@ -159,7 +171,7 @@ export class UserService {
   list(): User[] {
     return [
       this.get('jonrkarr'),
-     this.get('y.skaf'),
+      this.get('y.skaf'),
       this.get('b.shaikh'),
       this.get('s.edelstein'),
       this.get('a.goldbeter'),
