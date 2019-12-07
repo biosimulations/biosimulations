@@ -9,7 +9,7 @@ import vegaEmbed from 'vega-embed';
 export class VegaViewerComponent {
   private privateSpec: object | string;
   private privateOptions: object;
-  @ViewChild("vegaContainer", { static: true }) vegaContainer: ElementRef;
+  @ViewChild('vegaContainer', { static: true }) vegaContainer: ElementRef;
 
   @Input()
   set spec(value: object | string) {

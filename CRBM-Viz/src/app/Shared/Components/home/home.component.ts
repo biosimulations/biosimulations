@@ -20,23 +20,23 @@ export class HomeComponent implements OnInit {
 
     this.statGraphs = [
         this.getBarGraph(
-          'Count', null, 'log', 
-          this.stats.countObjectsByType),
+          'Count', null, 'log',
+          this.stats['countObjectsByType']),
         this.getBarGraph(
-          'Models', null, 'linear', 
-          this.stats.countModelsByFramework),
+          'Models', null, 'linear',
+          this.stats['countModelsByFramework']),
         this.getBarGraph(
-          'Models', null, 'linear', 
-          this.stats.countModelsByFormat),
+          'Models', null, 'linear',
+          this.stats['countModelsByFormat']),
     ];
   }
 
   getBarGraph(xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
-    let xScale: object = null;
+    const xScale: object = null;
     return {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      width: "container",
-      height: "container",
+      $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+      width: 'container',
+      height: 'container',
       padding: {
         left: 3,
         right: 3,
@@ -44,13 +44,13 @@ export class HomeComponent implements OnInit {
         bottom: 0,
       },
       autosize: {
-        type: "fit",
+        type: 'fit',
         resize: true,
       },
-      background: "transparent",
+      background: 'transparent',
       config: {
         view: {
-          stroke: "transparent",
+          stroke: 'transparent',
         },
       },
       data: {
@@ -58,8 +58,8 @@ export class HomeComponent implements OnInit {
       },
       encoding: {
         y: {
-          field: "category",
-          type: "ordinal", 
+          field: 'category',
+          type: 'ordinal',
           axis: {
             title: yAxisLabel,
             gridOpacity: 0,
@@ -68,8 +68,8 @@ export class HomeComponent implements OnInit {
           },
         },
         x: {
-          field: "count", 
-          type: "quantitative",
+          field: 'count',
+          type: 'quantitative',
           scale: {
             type: xScaleType,
           },
@@ -78,8 +78,8 @@ export class HomeComponent implements OnInit {
             gridOpacity: 0,
           },
         },
-      },      
-      mark: {type: "bar", color: "#2196f3"},
+      },
+      mark: {type: 'bar', color: '#2196f3'},
     };
   }
 }
