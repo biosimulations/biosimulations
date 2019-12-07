@@ -25,11 +25,11 @@ export class UserService {
   /**
    * This method takes in a user profile and calls an api endpoint to ensure that the user is in the database
    * The user might not be in the database if they are using a new account. The profile is created via Auth0
-   * The method is currently called everytime the user acesses a web page that requires authentication
-   * @param  user This is the user profile object that is returned by the authentication service 
+   * The method is currently called everytime the user accesses a web page that requires authentication
+   * @param  user The user profile object that is returned by the authentication service 
    * 
    */
-  static ping(user) {
+  static confirmExists(user) {
     // TODO implement this to call the biosimulatons API 
     console.log(user)
   }

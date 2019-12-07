@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
           this.auth.login(state.url);
         } else {
           this.auth.userProfile$.subscribe(userProfile => {
-            UserService.ping(userProfile)
+            UserService.confirmExists(userProfile)
           })
         }
       })
