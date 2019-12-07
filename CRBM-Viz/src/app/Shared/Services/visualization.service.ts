@@ -1,6 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { AccessLevel } from '../Enums/access-level';
 import { Visualization } from 'src/app/Shared/Models/visualization';
+import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { ProjectService } from 'src/app/Shared/Services/project.service';
@@ -20,7 +21,8 @@ export class VisualizationService {
     private http: HttpClient,
     private authService: AuthService,
     private injector:Injector) {}
-  vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
+
+  private vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
 
   static _get(id: number, includeRelatedObjects = false): Visualization {
     const viz: Visualization = new Visualization();
@@ -41,9 +43,96 @@ export class VisualizationService {
     return VisualizationService._get(id, true);
   }
 
-  getVisualizations(id: string): Observable<Visualization[]> {
-    const vizJson = this.http.get<Visualization[]>(this.vizUrl + id);
+  getVisualization(id: string): Observable<object[]> {
+    const vizJson = this.http.get<object[]>(this.vizUrl + id);
     return vizJson;
+  }
+
+  getHistory(id: string, includeParents: boolean = true, includeChildren: boolean = true): object[] {
+    // tslint:disable:max-line-length
+    return [
+      {
+        id: 3,
+        name: 'Grandparent',
+        route: ['/visualizations', 3],
+        isExpanded: true,
+        children: [
+          {
+            id: 2,
+            name: 'Parent',
+            route: ['/visualizations', 6],
+            isExpanded: true,
+            children: [
+              {
+                id: 1,
+                name: 'This visualization',
+                route: ['/visualizations', 1],
+                isExpanded: true,
+                children: [
+                  {
+                    id: 4,
+                    name: 'Child-1',
+                    route: ['/visualizations', 4],
+                    children: [
+                      {
+                        id: 5,
+                        name: 'Grandchild-1-1',
+                        route: ['/visualizations', 5],
+                        children: [],
+                      },
+                      {
+                        id: 6,
+                        name: 'Grandchild-1-2',
+                        route: ['/visualizations', 6],
+                        children: [],
+                      },
+                    ],
+                  },
+                  {
+                    id: 7,
+                    name: 'Child-2',
+                    route: ['/visualizations', 7],
+                    children: [
+                      {
+                        id: 8,
+                        name: 'Grandchild-2-1',
+                        route: ['/visualizations', 8],
+                        children: [],
+                      },
+                      {
+                        id: 9,
+                        name: 'Grandchild-2-2',
+                        route: ['/visualizations', 9],
+                        children: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: 10,
+                name: 'Sibling',
+                route: ['/visualizations', 10],
+                children: [
+                  {
+                    id: 11,
+                    name: 'Nephew',
+                    route: ['/visualizations', 11],
+                    children: [],
+                  },
+                  {
+                    id: 12,
+                    name: 'Niece',
+                    route: ['/visualizations', 12],
+                    children: [],
+                  },
+                ]
+              },
+            ],
+          },
+        ],
+      },
+    ];
   }
 
   list(name?: string): Visualization[] {

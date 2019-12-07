@@ -1,20 +1,6 @@
 <div class="page-content partial-width">
-  <div class="select">
-    <app-search-bar
-      placeholder="Visualization ID..."
-      buttonTerm="Visualize"
-      baseURL="/visualizations/"
-    ></app-search-bar>
-  </div>
-  <div class="landing" *ngIf="!id">
-    <p>Please enter the id of a simulation run to view its visualizations</p>
-  </div>
-  <div class="figures" *ngIf="id">
-    <div class="figure" *ngFor="let viz of visualizations; index as i">
-      <h3 class="figure-title">{{ viz.name }}:</h3>
-      <app-vega-viewer
-        [spec]="viz.spec"
-      ></app-vega-viewer>
-    </div>
-  </div>
+  <app-vega-viewer
+    *ngIf="visualization"
+    [spec]="visualization.schema.spec"
+  ></app-vega-viewer>
 </div>

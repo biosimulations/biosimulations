@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Visualization } from 'src/app/Shared/Models/visualization';
+import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +14,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
   styleUrls: ['./visualize.component.sass'],
 })
 export class VisualizeComponent implements OnInit {
-  visualizations: Visualization[] = [];
+  visualization: Visualization;
   id: string;
 
   constructor(
@@ -49,10 +50,12 @@ export class VisualizeComponent implements OnInit {
 
   getVis() {
     this.visService
-      .getVisualizations(this.id)
-      .subscribe((res: Visualization[]) => {
-        this.visualizations = res;
+      .getVisualization(this.id)
+      .subscribe((res: object[]) => {
+        this.visualization = new Visualization();
+        Object.assign(this.visualization, res[0]);
+        this.visualization.schema = new VisualizationSchema();
+        this.visualization.schema.spec = res[0]['spec'];
       });
   }
-  getTimeChart() {}
 }
