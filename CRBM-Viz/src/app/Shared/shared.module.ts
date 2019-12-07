@@ -88,6 +88,7 @@ import { ProjectService } from './Services/project.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
 import { VisualizationService } from './Services/visualization.service';
+import { StatsService } from './Services/stats.service';
 
 import { FilterPipe } from './Pipes/filter.pipe';
 import { FormatTimeForHumansPipe } from './Pipes/format-time-for-humans.pipe';
@@ -103,7 +104,6 @@ import { DataTableComponent } from './Components/data-table/data-table.component
 import { AlertComponent } from './Components/alert/alert.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { HomeComponent } from './Components/home/home.component';
-import { HomeImageComponent } from './Components/home/home-image.component';
 import { FourComponent } from './Components/four/four.component';
 import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
 import { GridComponent } from './Components/grid/grid.component';
@@ -122,6 +122,7 @@ import { VisualizationCardsComponent } from './Components/visualization-cards/vi
 import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
 import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
+import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,6 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
     AlertComponent,
     CallbackComponent,
     HomeComponent,
-    HomeImageComponent,
     FourComponent,
     UnderConstructionComponent,
     GridComponent,
@@ -158,6 +158,7 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
     HyperlinkComponent,
     OkCancelDialogComponent,
     FeedbackComponent,
+    VegaViewerComponent,
   ],
   imports: [
     CommonModule,
@@ -190,7 +191,6 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
     AlertComponent,
     CallbackComponent,
     HomeComponent,
-    HomeImageComponent,
     FourComponent,
     UnderConstructionComponent,
     GridComponent,
@@ -206,6 +206,7 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
     HyperlinkComponent,
     OkCancelDialogComponent,
     FeedbackComponent,
+    VegaViewerComponent,
     NgPipesModule,
   ],
   providers: [
@@ -215,6 +216,7 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
     ModelService,
     SimulationService,
     VisualizationService,
+    StatsService,
   ],
   entryComponents: [
     AlertComponent,

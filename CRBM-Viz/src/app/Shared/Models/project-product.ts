@@ -9,9 +9,9 @@ import { Visualization } from './visualization';
 Synonyms: artifact, output, display item
 */
 export class ProjectProduct {
-	ref?: JournalReference;
-	type?: ProjectProductType;
-	label?: string;
-	description?: string;
-	resources?: (Model | Simulation | Visualization)[] = [];
+    ref?: JournalReference;
+    type?: ProjectProductType;
+    label?: string;
+    description?: string;
+    resources?: (Model | Simulation | Visualization)[] = [];
 }

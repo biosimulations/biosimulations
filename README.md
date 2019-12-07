@@ -1,4 +1,4 @@
-![Logo](CRBM-Viz/src/assets/logo/logo-white.svg)
+![Logo](https://raw.githubusercontent.com/reproducible-biomedical-modeling/CRBM-Viz/master/CRBM-Viz/src/assets/logo/logo-white.svg)
 
 # BioSimulations
 The front end for the [Center for Reproducible Biomedical Modeling's](https://reproduciblebiomodels.org/) simulation service
