@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
+  private projectService: ProjectService;
 
   constructor(
     private http: HttpClient,
