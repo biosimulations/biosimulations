@@ -71,7 +71,12 @@ export class UserService {
             SimulationService._get('006'),
             SimulationService._get('001'),
           ];
-          user.visualizations = [];
+          user.visualizations = [
+            VisualizationService._get(1),
+            VisualizationService._get(3),
+            VisualizationService._get(6),
+            VisualizationService._get(1),
+          ];
         }
         break;
       case 'y.skaf':

@@ -1,8 +1,11 @@
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
+import { JournalReference } from './journal-reference';
 import { Person } from './person';
 import { Project } from './project';
+import { SimulationResult } from './simulation-result';
 import { User } from './user';
+import { VisualizationSchema } from './visualization-schema';
 import { UtilsService } from '../Services/utils.service';
 
 export class Visualization {
@@ -10,7 +13,10 @@ export class Visualization {
   name?: string;
   description?: string;
   tags?: string[] = [];
-  spec?: object | string;
+  schema?: VisualizationSchema;
+  data?: SimulationResult[];
+  parent?: Visualization;
+  refs?: JournalReference[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;

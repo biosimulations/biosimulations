@@ -385,6 +385,9 @@ input, textarea.mat-input-element, mat-select, button {
             margin-bottom: 0.25rem;
         }
     }
+    .tab.grid {
+        height: calc(100% - 2 * 2rem);
+    }
 }
 
 /* Properties tables */

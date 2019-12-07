@@ -1,16 +1,39 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
 
-import { VisualizeComponent } from './visualize/visualize.component';
+import { BrowseComponent } from './browse/browse.component';
+import { EditComponent } from './edit/edit.component';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VisualizeComponent,
+    component: BrowseComponent,
   },
   {
-   path: ':id',
-   component: VisualizeComponent,
+    path: 'new',
+    component: EditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'new/:simulationId',
+    component: EditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: ':id',
+    component: ViewComponent,
+  },
+  {
+    path: ':id/edit',
+    component: EditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: ':id/fork',
+    component: EditComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

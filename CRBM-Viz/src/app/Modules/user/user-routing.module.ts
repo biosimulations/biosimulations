@@ -6,7 +6,7 @@ import { ProfileEditComponent } from './profile/profile-edit.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ModelsComponent } from './models/models.component';
 import { SimulationsComponent } from './simulations/simulations.component';
-// import { VisualizationsComponent } from './visualizations/visualizations.component';
+import { VisualizationsComponent } from './visualizations/visualizations.component';
 
 const routes: Routes = [
   { path: '', component: ProfileComponent, canActivate: [AuthGuard] },
@@ -15,14 +15,14 @@ const routes: Routes = [
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
   { path: 'models', component: ModelsComponent, canActivate: [AuthGuard] },
   { path: 'simulations', component: SimulationsComponent, canActivate: [AuthGuard] },
-  // { path: 'visualizations', component: VisualizationsComponent, canActivate: [AuthGuard] },
+  { path: 'visualizations', component: VisualizationsComponent, canActivate: [AuthGuard] },
 
   { path: ':username', component: ProfileComponent },
 
   { path: ':username/projects', component: ProjectsComponent},
   { path: ':username/models', component: ModelsComponent},
   { path: ':username/simulations', component: SimulationsComponent},
-  // { path: ':username/visualizations', component: VisualizationsComponent},
+  { path: ':username/visualizations', component: VisualizationsComponent},
 ];
 
 @NgModule({
