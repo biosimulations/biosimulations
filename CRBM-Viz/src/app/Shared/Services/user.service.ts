@@ -5,6 +5,8 @@ import { User } from '../Models/user';
 import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
 import { VisualizationService } from './visualization.service';
+import { AuthService } from './auth0.service';
+import { environment } from 'src/environments/environment';
 
 // tslint:disable:max-line-length
 
@@ -12,27 +14,16 @@ import { VisualizationService } from './visualization.service';
   providedIn: 'root',
 })
 export class UserService {
-  private modelService: ModelService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
-  private endpoint = 'https://crbm.auth0.com/userinfo';
 
   constructor(
     private http: HttpClient,
+    private auth: AuthService,
     private injector: Injector
   ) { }
-
-  /**
-   * This method takes in a user profile and calls an api endpoint to ensure that the user is in the database
-   * The user might not be in the database if they are using a new account. The profile is created via Auth0
-   * The method is currently called everytime the user accesses a web page that requires authentication
-   * @param  user The user profile object that is returned by the authentication service 
-   * 
-   */
-  static confirmExists(user) {
-    // TODO implement this to call the biosimulatons API 
-    console.log(user)
-  }
+  private modelService: ModelService;
+  private simulationService: SimulationService;
+  private visualizationService: VisualizationService;
+  private endpoint = environment.crbm.CRBMAPI_URL
 
   static _get(username?: string, includeRelObj = false): User {
     let user: User;
@@ -128,6 +119,14 @@ export class UserService {
     }
     return user;
   }
+  getUser$(): Observable<User> {
+    let user: Observable<User>
+    this.auth.userProfile$.subscribe((profile) => (
+      user = this.http.get<User>(this.endpoint + '/user/' + profile.nickname)));
+
+    return user;
+
+  }
 
   private getServices(): void {
     if (this.modelService == null) {
@@ -137,17 +136,7 @@ export class UserService {
     }
   }
 
-  getUser(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer W0p9s-oFubPuONgWER3JGAqnZ-HkEurI',
-      }),
-    };
-    const Httpheaders = new HttpHeaders({
-      Authorization: 'Bearer SY1MOMZZVnEBtzEG7aw-y-JYDEwm-QM3',
-    });
-    return this.http.get(this.endpoint, { headers: Httpheaders });
-  }
+
 
   get(username?: string): User {
     this.getServices();

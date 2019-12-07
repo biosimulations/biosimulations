@@ -23,9 +23,12 @@ export class ProfileComponent implements OnInit {
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
+    this.userService.getUser$().subscribe((user) =>
+      this.user = user)
+    // Todo remove auth0 logic, get id from user only. route params should check if user.nickname= user/Username
     this.route.params.subscribe(routeParams => {
       let auth0Id: string;
       if (this.auth && this.auth.token) {
@@ -42,7 +45,7 @@ export class ProfileComponent implements OnInit {
         this.username = this.user.username;
       }
 
-      const crumbs: object[] = [{label: 'User', route: '/user'}];
+      const crumbs: object[] = [{ label: 'User', route: '/user' }];
       const buttons: NavItem[] = [];
       if (this.user) {
         if (this.auth && this.user.auth0Id === auth0Id) {
