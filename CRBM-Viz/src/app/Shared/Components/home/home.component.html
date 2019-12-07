@@ -1,7 +1,7 @@
 <div class="container">
     <div class="container-inner">
         <div class="workflow">
-            <div class="box workflow-el float-container projects">
+            <div class="box workflow-el projects">
                 <div class="title" [routerLink]="['/projects']">
                     <div class="title-text">Projects</div>
                 </div>
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="box workflow-el float-container simulations">
+            <div class="box workflow-el simulations">
                 <div class="title" [routerLink]="['/simulations']">
                     <div class="title-text">Simulations</div>
                 </div>
@@ -111,7 +111,7 @@
                 </div>
             </div>
 
-            <div class="box workflow-el float-container visualizations">
+            <div class="box workflow-el visualizations">
                 <div class="title" [routerLink]="['/visualizations']">
                     <div class="title-text">Visualizations</div>
                 </div>
@@ -163,7 +163,7 @@
             </div>
             <div class="graphics">
                 <div class="graph" *ngFor="let graph of statGraphs">
-                    <app-vega-viewer                        
+                    <app-vega-viewer
                         [spec]="graph"
                         [options]="vegaOptions"
                         class="vega block no-actions"

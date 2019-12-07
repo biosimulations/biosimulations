@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 
   getGraph1(): object {
     return {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",      
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
       "width": "container",
       "height": "container",
       "padding": 0,
@@ -62,16 +62,16 @@ export class HomeComponent implements OnInit {
       "mark": "bar",
       "encoding": {
         "x": {
-          "field": "Day", 
-          "type": "ordinal", 
+          "field": "Day",
+          "type": "ordinal",
           "axis": {
             "labelAngle": 0,
             "gridOpacity": 0,
           },
         },
         "y": {
-          "field": "Value", 
-          "type": "quantitative", 
+          "field": "Value",
+          "type": "quantitative",
           "axis": {
             "gridOpacity": 0,
           },

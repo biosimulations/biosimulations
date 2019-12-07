@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class StatsService {
-    constructor(private http: HttpClient) {} 
+    constructor(private http: HttpClient) {}
 
     get(): object {
         return {
