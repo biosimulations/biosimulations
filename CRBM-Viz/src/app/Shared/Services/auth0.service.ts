@@ -12,6 +12,7 @@ import {
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +54,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -135,9 +136,28 @@ export class AuthService {
     // Subscribe to authentication completion observable
     // Response will be an array of user and login status
     authComplete$.subscribe(([user, loggedIn]) => {
+      // Call a method in the user serivce to ensure that the user exists in the database
+      this.getUser$().subscribe(userProfile => {
+        this.confirmExists(userProfile)
+      })
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
     });
+  }
+  /**
+   * This method takes in a user profile and calls an api endpoint to ensure that the user is in the database
+   * The user might not be in the database if they are using a new account.
+   * @param  user The user profile object that is returned by the authentication service 
+   * 
+   */
+  confirmExists(userProfile: any) {
+    const res = this.http.post(environment.crbm.CRBMAPI_URL + '/user/', userProfile)
+    if (!environment.production) {
+      res.subscribe((response) => {
+        console.log(response)
+      })
+      console.log('Called confirmed user exists endpoint for user' + userProfile.user_id)
+    }
   }
 
   logout() {

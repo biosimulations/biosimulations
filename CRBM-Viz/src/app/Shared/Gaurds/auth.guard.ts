@@ -24,10 +24,6 @@ export class AuthGuard implements CanActivate {
       tap(loggedIn => {
         if (!loggedIn) {
           this.auth.login(state.url);
-        } else {
-          this.auth.userProfile$.subscribe(userProfile => {
-            UserService.confirmExists(userProfile)
-          })
         }
       })
     );
