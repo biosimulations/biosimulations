@@ -1,4 +1,5 @@
 import { PersonInterface } from './person.interface';
+import { Project } from './project';
 import { Model } from './model';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
@@ -22,6 +23,7 @@ export class User implements PersonInterface {
   googleScholarId?: string;
   orcId?: string;
   description?: string;
+  projects?: Project[] = [];
   models?: Model[] = [];
   simulations?: Simulation[] = [];
   visualizations?: Visualization[] = [];

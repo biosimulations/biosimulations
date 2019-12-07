@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { SimulationResultsFormat } from 'src/app/Shared/Enums/simulation-results
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
+import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './view.component.html',
@@ -19,10 +21,11 @@ export class ViewComponent implements OnInit {
 
   id: string;
   simulation: Simulation;
-  simulationHistoryTreeNodes: object[];
+  historyTreeNodes: object[];
   SimulationResultsFormat = SimulationResultsFormat;
 
   constructor(
+    private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -71,7 +74,7 @@ export class ViewComponent implements OnInit {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          route: ['/simulations', this.id, 'delete'],
+          click: () => { this.openDeleteDialog() },
           display: (
             this.simulation
             && this.simulation.access === AccessLevel.public
@@ -107,6 +110,18 @@ export class ViewComponent implements OnInit {
 
   getData() {
     this.simulation = this.simulationService.get(this.id);
-    this.simulationHistoryTreeNodes = this.simulationService.getHistory(this.id, true, true);
+    this.historyTreeNodes = this.simulationService.getHistory(this.id, true, true);
+  }
+
+  openDeleteDialog(): void {
+    this.dialog.open(OkCancelDialogComponent, {
+      data: {
+        title: `Delete simulation ${ this.id }?`,
+        action: () => {
+          this.simulationService.delete(this.id);
+          this.router.navigate(['/simulations']);
+        },
+      },
+    });
   }
 }

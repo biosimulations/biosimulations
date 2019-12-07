@@ -2,7 +2,6 @@
 
 .card-grid
     display: grid
-    grid-template-columns: 1fr 1fr
     grid-gap: 0.5rem
 
 .card
@@ -24,12 +23,13 @@
             margin-top: -9px
 
     .description
-        margin-top: 0.5rem
-        margin-bottom: 0.5rem
+        margin-top: 0.25rem
+        margin-bottom: 0.25rem
         height: 1.5rem
         overflow: hidden
         @include mat-typography-level-to-styles($fontConfig, caption)
         line-height: 100%
+        color: #666
 
     .tags
         height: 1.25rem

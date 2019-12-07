@@ -124,11 +124,6 @@ export class ModelsGridComponent implements OnInit {
 
     this.rowData = this.modelService.list();
   }
-
-  timeFormatter(params): string {
-    const secs:number = params.value;
-    return UtilsService.formatTimeForHumans(secs);
-  }
 }
 
 function taxonGetter(params): string {
@@ -137,13 +132,6 @@ function taxonGetter(params): string {
 
 function tagsGetter(params): string[] {
   return params.data.tags;
-}
-
-function setFormatter(params): string {
-  const value = params.value;
-  let returnVal: string;
-  returnVal = value.join(', ');
-  return returnVal;
 }
 
 function ownerGetter(params): string {

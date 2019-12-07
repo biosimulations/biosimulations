@@ -5,6 +5,8 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
@@ -21,6 +23,7 @@ import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 enum Mode {
   new = 'new',
@@ -55,16 +58,17 @@ export class EditComponent implements OnInit {
   formGroup: FormGroup;
   model: Model;
   algorithm: Algorithm;
-  showAfterSubmitMessage = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private router: Router,
+    private route: ActivatedRoute,
     private metadataService: MetadataService,
     private modelService: ModelService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
     ) {
     this.formGroup = this.formBuilder.group({
       model: [''],
@@ -201,7 +205,7 @@ export class EditComponent implements OnInit {
         iconType: 'fas',
         icon: 'trash-alt',
         label: 'Delete',
-        route: ['/simulations', this.id, 'delete'],
+        click: () => { this.openDeleteDialog() },
         display: (
           this.mode === Mode.edit
           && this.simulation
@@ -482,9 +486,25 @@ export class EditComponent implements OnInit {
     const simulationId: string = this.simulationService.set(
       data, this.mode === Mode.edit ? this.id : null);
 
-    this.showAfterSubmitMessage = true;
+    this.snackBar.open('Simulation saved', '', {
+      panelClass: 'centered-snack-bar',
+      duration: 3000,
+    });
+
     setTimeout(() => {
       this.router.navigate(['/simulations', simulationId]);
     }, 2500);
+  }
+
+  openDeleteDialog(): void {
+    this.dialog.open(OkCancelDialogComponent, {
+      data: {
+        title: `Delete simulation ${ this.id }?`,
+        action: () => {
+          this.simulationService.delete(this.id);
+          this.router.navigate(['/simulations']);
+        },
+      },
+    });
   }
 }

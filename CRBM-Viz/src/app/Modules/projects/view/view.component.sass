@@ -1,0 +1,16 @@
+@import 'src/theme.scss'
+
+.products-container
+    grid-template-columns: 1fr 1fr 1fr
+
+.card
+    height: calc(100% - 1rem - 2px)
+
+    .title
+        span:not(:last-child):after
+            content: "»"
+            margin: 0 0.5rem
+
+    .tags
+        height: auto
+        overflow: visible

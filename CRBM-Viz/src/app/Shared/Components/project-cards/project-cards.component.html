@@ -1,0 +1,32 @@
+<div
+  *ngIf="projects && projects.length > 0; else noProjects"
+  class="card-grid"
+  [style.grid-template-columns]="'1fr '.repeat(cols)">
+  <div *ngFor="let project of projects.slice(0, maxProjects)" class="card hover-light-background">
+    <div class="title">
+      <a [routerLink]="project.getRoute()">
+        <fa-icon
+          class="icon"
+          aria-hidden="false"
+          aria-label="Project icon"
+          [icon]="['fas', 'project-diagram']"
+          ></fa-icon>
+        {{ project.id }}: {{ project.name }}
+      </a>
+    </div>
+    <div class="description">{{ project.description | shorten: 130: '...' }}</div>
+    <ul class="icon-text inline tags">
+      <li>
+        <fa-icon
+          class="icon"
+          aria-hidden="false"
+          aria-label="Tags icon"
+          [icon]="['fas', 'tags']"
+        ></fa-icon> {{ project.tags.join(', ') | shorten: 30: '...' }}
+      </li>
+    </ul>
+  </div>
+</div>
+<ng-template #noProjects>
+  <i>None.</i>
+</ng-template>

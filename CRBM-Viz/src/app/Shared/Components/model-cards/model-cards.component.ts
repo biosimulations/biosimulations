@@ -10,6 +10,7 @@ import { Model } from '../../Models/model';
 export class ModelCardsComponent {
   @Input() models: Model[];
   @Input() maxModels = Infinity;
+  @Input() cols = 2;
 
   constructor(private router: Router) { }
 }

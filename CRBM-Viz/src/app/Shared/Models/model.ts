@@ -6,6 +6,7 @@ import { JournalReference } from './journal-reference';
 import { ModelParameter } from './model-parameter';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
+import { Project } from './project';
 import { Simulation } from './simulation';
 import { Taxon } from './taxon';
 import { User } from './user';
@@ -31,6 +32,7 @@ export class Model {
   license?: License;
   created?: Date;
   updated?: Date;
+  projects?: Project[] = [];
   simulations?: Simulation[] = [];
   visualizations?: Visualization[] = [];
 

@@ -80,6 +80,10 @@ input, textarea.mat-input-element, mat-select, button {
     pointer-events: none;
 }
 
+.mat-input-element:disabled {
+    color: #666;
+}
+
 /* Animation */
 @keyframes flashAlert {
     0% {
@@ -381,6 +385,9 @@ input, textarea.mat-input-element, mat-select, button {
             margin-bottom: 0.25rem;
         }
     }
+    .tab.grid {
+        height: calc(100% - 2 * 2rem);
+    }
 }
 
 /* Properties tables */
@@ -568,16 +575,29 @@ ul.icon-text {
 }
 
 .form-input-disabled {
-    background: repeating-linear-gradient(
-        45deg,
-        #f6f6f6,
-        #f6f6f6 5px,
-        #eaeaea 5px,
-        #eaeaea 10px
-    );
+    background-image: linear-gradient(45deg,
+        #f6f6f6 44.4444%,
+        #e6e6e6 44.4444%,
+        #e6e6e6 50%,
+        #f6f6f6 50%,
+        #f6f6f6 94.4444%,
+        #e6e6e6 94.4444%,
+        #e6e6e6 100%);
+    background-size: 9.00px 9.00px;
 }
 
 .form-select-input-panel {
+    .mat-optgroup .mat-optgroup-label {
+        height: calc(2rem - 1px);
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        padding-top: 1rem;
+        color: mat-color($theme-primary);
+    }
+    .mat-optgroup:first-child .mat-optgroup-label {
+        padding-top: 0.5rem;
+    }
     .mat-option {
         padding-left: 0.25rem;
         line-height: normal;
@@ -687,23 +707,46 @@ ul.icon-text {
     font-weight: bold;
 }
 
-.form-after-submit-message {
-    display: none;
-    margin-left: 1rem;
-    color: mat-color($theme-accent);
+/* Snack bar */
+.mat-snack-bar-container {
+    background: mat-color($theme-accent);
+    color: #333;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
 }
 
-.form-after-submit-message.form-show-after-submit-message {
-    display: inline;
-    animation: flashAlert 0s 2.5s forwards;
-    opacity: 1;
+.centered-snack-bar .mat-simple-snackbar {
+    justify-content: center;
+}
+
+.mat-simple-snackbar-action {
+    color: #fff;
+
+    .mat-button-ripple, .mat-button-focus-overlay {
+        display: none;
+    }
+}
+
+/* Vega */
+app-vega-viewer.block {
+    height: 100%;
+    .vega-embed {
+        display: block;
+        line-height: 0;
+        height: 100%;
+    }
+}
+
+app-vega-viewer.no-actions .vega-embed.has-actions {
+    padding-right: 0;
+}
+app-vega-viewer.no-actions .vega-embed.has-actions > details {
+    display: none;
 }
 
 /* Style text */
 .light {
     color: #666;
 }
-
 
 /* Highlighting */
 .hover-light-background:hover {
