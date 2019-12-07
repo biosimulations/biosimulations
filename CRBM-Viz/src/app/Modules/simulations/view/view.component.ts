@@ -21,7 +21,7 @@ export class ViewComponent implements OnInit {
 
   id: string;
   simulation: Simulation;
-  simulationHistoryTreeNodes: object[];
+  historyTreeNodes: object[];
   SimulationResultsFormat = SimulationResultsFormat;
 
   constructor(
@@ -110,7 +110,7 @@ export class ViewComponent implements OnInit {
 
   getData() {
     this.simulation = this.simulationService.get(this.id);
-    this.simulationHistoryTreeNodes = this.simulationService.getHistory(this.id, true, true);
+    this.historyTreeNodes = this.simulationService.getHistory(this.id, true, true);
   }
 
   openDeleteDialog(): void {

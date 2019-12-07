@@ -63,8 +63,8 @@ export class HomeComponent implements OnInit {
           axis: {
             title: yAxisLabel,
             gridOpacity: 0,
-            minExtent: 82,
-            maxExtent: 82,
+            minExtent: 84,
+            maxExtent: 84,
           },
         },
         x: {

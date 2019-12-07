@@ -1,11 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { AccessLevel } from '../Enums/access-level';
+import { License } from '../Enums/license';
+import { JournalReference } from 'src/app/Shared/Models/journal-reference';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { ProjectService } from 'src/app/Shared/Services/project.service';
-import { ModelService } from 'src/app/Shared/Services/model.service';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -15,7 +17,7 @@ import { Observable } from 'rxjs';
 export class VisualizationService {
   private userService: UserService;
   private projectService: ProjectService;
-  private modelService: ModelService;
+  private simulationService: SimulationService;
 
   constructor(
     private http: HttpClient,
@@ -28,6 +30,27 @@ export class VisualizationService {
     const viz: Visualization = new Visualization();
     viz.id = id;
     viz.name = 'Viz-' + id.toString();
+    viz.description = 'Visualization of a simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+    viz.tags = ['tag-1', 'tag-2'];
+    viz.parent = new Visualization();
+    viz.parent.id = 5;
+    viz.parent.name = 'Viz-005';
+    viz.refs = [
+      new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
+      new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+    ];
+    viz.owner = UserService._get('jonrkarr');
+    viz.access = AccessLevel.private;
+    viz.license = License.cc0;
+    viz.created = new Date(Date.parse('2019-11-06 00:00:00'));
+    viz.updated = new Date(Date.parse('2019-11-06 00:00:00'));
+    if (includeRelatedObjects) {
+      viz.projects = [
+        ProjectService._get('001'),
+        ProjectService._get('003'),
+        ProjectService._get('006'),
+      ];
+    }
     return viz;
   }
 
@@ -35,7 +58,7 @@ export class VisualizationService {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
       this.projectService = this.injector.get(ProjectService);
-      this.modelService = this.injector.get(ModelService);
+      this.simulationService = this.injector.get(SimulationService);
     }
   }
 
@@ -43,12 +66,14 @@ export class VisualizationService {
     return VisualizationService._get(id, true);
   }
 
-  getVisualization(id: string): Observable<object[]> {
-    const vizJson = this.http.get<object[]>(this.vizUrl + id);
+  getVisualization(id: number): Observable<any[]> {
+    const vizJson = this.http.get<any[]>(this.vizUrl
+      + '0'.repeat(3 - id.toString().length)
+      + id.toString());
     return vizJson;
   }
 
-  getHistory(id: string, includeParents: boolean = true, includeChildren: boolean = true): object[] {
+  getHistory(id: number, includeParents: boolean = true, includeChildren: boolean = true): object[] {
     // tslint:disable:max-line-length
     return [
       {

@@ -113,6 +113,7 @@ import { SearchToolPanelGridComponent } from './Components/grid/search-tool-pane
 import { ProjectsGridComponent } from './Components/projects-grid/projects-grid.component';
 import { ModelsGridComponent } from './Components/models-grid/models-grid.component';
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
+import { VisualizationsGridComponent } from './Components/visualizations-grid/visualizations-grid.component';
 import { AuthorsComponent } from './Components/authors/authors.component';
 import { TreeComponent } from './Components/tree/tree.component';
 import { ProjectCardsComponent } from './Components/project-cards/project-cards.component';
@@ -149,6 +150,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
+    VisualizationsGridComponent,
     AuthorsComponent,
     TreeComponent,
     ProjectCardsComponent,
@@ -197,6 +199,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
+    VisualizationsGridComponent,
     AuthorsComponent,
     TreeComponent,
     ProjectCardsComponent,
