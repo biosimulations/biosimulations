@@ -17,66 +17,69 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.stats = this.statsService.get();
+
     this.statGraphs = [
-        this.getGraph1(),
-        this.getGraph1(),
-        this.getGraph1(),
+        this.getBarGraph(
+          'Count', null, 'log', 
+          this.stats.countObjectsByType),
+        this.getBarGraph(
+          'Models', null, 'linear', 
+          this.stats.countModelsByFramework),
+        this.getBarGraph(
+          'Models', null, 'linear', 
+          this.stats.countModelsByFormat),
     ];
   }
 
-  getGraph1(): object {
+  getBarGraph(xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
+    let xScale: object = null;
     return {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "width": "container",
-      "height": "container",
-      "padding": 0,
-      "autosize": {
-        "type": "fit",
-        "resize": true,
+      width: "container",
+      height: "container",
+      padding: {
+        left: 3,
+        right: 3,
+        top: 0,
+        bottom: 0,
       },
-      "background": "#ffffff00",
-      "config": {
-        "view": {
-          "stroke": "transparent",
+      autosize: {
+        type: "fit",
+        resize: true,
+      },
+      background: "transparent",
+      config: {
+        view: {
+          stroke: "transparent",
         },
       },
-      "data": {
-        "values": [
-          {"Day": 1, "Value": 54.8},
-          {"Day": 2, "Value": 112.1},
-          {"Day": 3, "Value": 63.6},
-          {"Day": 4, "Value": 37.6},
-          {"Day": 5, "Value": 79.7},
-          {"Day": 6, "Value": 137.9},
-          {"Day": 7, "Value": 120.1},
-          {"Day": 8, "Value": 103.3},
-          {"Day": 9, "Value": 394.8},
-          {"Day": 10, "Value": 199.5},
-          {"Day": 11, "Value": 72.3},
-          {"Day": 12, "Value": 51.1},
-          {"Day": 13, "Value": 112.0},
-          {"Day": 14, "Value": 174.5},
-          {"Day": 15, "Value": 130.5}
-        ]
+      data: {
+        values: data
       },
-      "mark": "bar",
-      "encoding": {
-        "x": {
-          "field": "Day",
-          "type": "ordinal",
-          "axis": {
-            "labelAngle": 0,
-            "gridOpacity": 0,
+      encoding: {
+        y: {
+          field: "category",
+          type: "ordinal", 
+          axis: {
+            title: yAxisLabel,
+            gridOpacity: 0,
+            minExtent: 82,
+            maxExtent: 82,
           },
         },
-        "y": {
-          "field": "Value",
-          "type": "quantitative",
-          "axis": {
-            "gridOpacity": 0,
+        x: {
+          field: "count", 
+          type: "quantitative",
+          scale: {
+            type: xScaleType,
+          },
+          axis: {
+            title: xAxisLabel,
+            gridOpacity: 0,
           },
         },
-      },
+      },      
+      mark: {type: "bar", color: "#2196f3"},
     };
   }
 }
