@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   private stats: object;
   public statGraphs: object[] = [];
   public readonly vegaOptions: object = {
-    renderer: 'svg',
+    renderer: 'canvas',
   };
 
   constructor(@Inject(StatsService) private statsService: StatsService) { }
