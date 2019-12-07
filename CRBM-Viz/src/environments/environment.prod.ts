@@ -7,7 +7,7 @@ export const environment = {
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
   },
   crbm: {
-    CRBMAPI_URL: 'http://crbmapi.cam.uchc.edu:5000',
+    CRBMAPI_URL: 'https://crbm-api.herokuapp.com',
 
     ALLOWED_FILE_EXTENSIONS: [
       'pdf',
