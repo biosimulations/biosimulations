@@ -148,8 +148,8 @@ export class AuthService {
   /**
    * This method takes in a user profile and calls an api endpoint to ensure that the user is in the database
    * The user might not be in the database if they are using a new account.
-   * @param  user The user profile object that is returned by the authentication service 
-   * 
+   * @param  user The user profile object that is returned by the authentication service
+   *
    */
   confirmExists(userProfile: any) {
     const res = this.http.post(environment.crbm.CRBMAPI_URL + '/user/', userProfile)

@@ -16,7 +16,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 export class ProfileComponent implements OnInit {
 
   /**
-   * The object representing the user displayed in the profile   
+   * The object representing the user displayed in the profile
    */
   user: User;
 
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
 
   /**
    * This method takes in a boolean and then constructs the appropriate crumbs. If the displayed profile is the users
-   * profile, the breadcrumbs state "Your profile" and provide a link to edit the profile. If not, then the username of the 
+   * profile, the breadcrumbs state "Your profile" and provide a link to edit the profile. If not, then the username of the
    *  profile is displayed. This method depends on the breadcrumbs service
    * @param {boolean} isOwnProfile Whether the crumbs should reflect the user's own profile, or another users profile
    */
