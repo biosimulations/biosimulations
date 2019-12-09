@@ -6,7 +6,6 @@ import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +14,8 @@ import { Observable } from 'rxjs';
 })
 
 export class ProfileComponent implements OnInit {
-  private username: string;
   user: User;
-  crumbs: object[] = [{ label: 'User', route: '/user' }];
-  buttons: NavItem[] = [];
+
   constructor(
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -26,42 +23,52 @@ export class ProfileComponent implements OnInit {
     private userService: UserService
   ) { }
 
+
   ngOnInit() {
-    this.route.params.subscribe(routeParams => {
-      const username = routeParams.username
-      this.auth.getUser$().subscribe(profile => {
-        if (username) {
-          this.userService.get$(username).subscribe(user => {
-            this.user = user
-          });
+    this.auth.getUser$().subscribe(profile => {
+
+      this.route.params.subscribe(routeParams => {
+        let username;
+        if (routeParams.username) {
+          username = routeParams.username
         }
         else {
-          this.userService.get$(profile.nickname).subscribe(user => {
-            this.user = user
-          })
+          username = profile.nickname
         }
-        if (this.user.username === profile.nickname) {
-          this.crumbs.push({
-            label: 'Your profile',
-          });
-          this.buttons.push({
-            iconType: 'fas',
-            icon: 'pencil-alt',
-            label: 'Edit',
-            route: ['/user/edit'],
-            display: NavItemDisplayLevel.loggedIn,
-          });
-        } else {
-          this.crumbs.push({
-            label: this.user.username
+        this.userService.get$(username).subscribe(user => {
+          this.user = user
+        });
 
-          })
-        }
-        this.breadCrumbsService.set(this.crumbs, this.buttons);
+        this.setCrumbs(username === profile.nickname);
       })
-    });
+    })
+  }
+
+  setCrumbs(isOwnProfile: boolean) {
+    let crumbs: object[] = [{ label: 'User', route: '/user' }];
+    let buttons: NavItem[] = [];
+    if (isOwnProfile) {
+      crumbs.push({
+        label: 'Your profile',
+      });
+      buttons.push({
+        iconType: 'fas',
+        icon: 'pencil-alt',
+        label: 'Edit',
+        route: ['/user/edit'],
+        display: NavItemDisplayLevel.loggedIn,
+      });
+    } else {
+      crumbs.push({
+        label: this.user.username
+      })
+    }
+    this.breadCrumbsService.set(crumbs, buttons);
+
   }
 }
+
+
 
 
 
