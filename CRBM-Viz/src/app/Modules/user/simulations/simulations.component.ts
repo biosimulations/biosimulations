@@ -12,6 +12,8 @@ import { UserService } from 'src/app/Shared/Services/user.service';
   styleUrls: ['./simulations.component.sass'],
 })
 export class SimulationsComponent implements OnInit {
+  public reqUsername: string;
+
   // TODO: only show simulations owned by user
   constructor(
     private route: ActivatedRoute,
@@ -21,7 +23,6 @@ export class SimulationsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
-      let reqUsername: string;
       const authUsername: string = null;
       if (this.auth && this.auth.token) {
         // TODO get username from auth0 profile
@@ -29,13 +30,15 @@ export class SimulationsComponent implements OnInit {
       }
 
       if (routeParams.username) {
-        reqUsername = routeParams['username'];
+        this.reqUsername = routeParams['username'];
+      } else {
+        this.reqUsername = authUsername;
       }
 
       const crumbs: object[] = [{ label: 'User', route: '/user' }];
       const buttons: NavItem[] = [];
 
-      if (reqUsername === null || reqUsername === authUsername) {
+      if (this.reqUsername === null || this.reqUsername === authUsername) {
         crumbs.push({
           label: 'Your simulations',
         });
@@ -55,8 +58,8 @@ export class SimulationsComponent implements OnInit {
         });
       } else {
         crumbs.push({
-          label: reqUsername,
-          route: '/user/' + reqUsername,
+          label: this.reqUsername,
+          route: '/user/' + this.reqUsername,
         });
         crumbs.push({
           label: 'Simulations',
