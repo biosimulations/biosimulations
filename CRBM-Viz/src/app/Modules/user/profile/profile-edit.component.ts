@@ -8,6 +8,7 @@ import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { Observable } from 'rxjs';
+import { ProvidedFilter } from 'ag-grid-community';
 
 @Component({
   selector: 'app-profile-edit',
@@ -43,23 +44,26 @@ export class ProfileEditComponent implements OnInit {
 
   ngOnInit() {
     const crumbs: object[] = [
-      {label: 'User', route: ['/user']},
-      {label: 'Edit your profile'},
+      { label: 'User', route: ['/user'] },
+      { label: 'Edit your profile' },
     ];
     const buttons: NavItem[] = [
-      {iconType: 'fas', icon: 'user', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn},
+      { iconType: 'fas', icon: 'user', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn },
     ];
     this.breadCrumbsService.set(crumbs, buttons);
-
+    let user: User
     if (this.auth && this.auth.token && this.auth.token.sub) {
-      const auth0Id: string = (this.auth.token.sub as unknown) as string;
-      const user: User = this.userService.getByAuth0Id(auth0Id);
+      this.auth.userProfile$.subscribe(profile =>
+        this.userService.get$(profile.nickname).subscribe(getUser =>
+          user = user
+        )
+      )
       this.formGroup.patchValue(user);
       // this.users.get().subscribe(res => (this.user = res));
     }
   }
 
-  submit (): void {
+  submit(): void {
     const data: User = this.formGroup.value as User;
     this.userService.set(data);
 

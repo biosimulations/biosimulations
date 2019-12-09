@@ -162,7 +162,8 @@ export class ModelService {
     return this.filter(model.parameters, value, value) as ModelParameter[];
   }
 
-  list(name?: string): Model[] {
+  list(name?: string, owner?: string): Model[] {
+    // TODO: filter on name, owner attributes
     const data: Model[] = [
       this.get('001'),
       this.get('002'),

@@ -27,15 +27,15 @@ export class TreeComponent {
     this.expandHighlightedNode();
   }
 
-  private privateHighlightedNodeId: string | number;
+  private _highlightedNodeId: string | number;
 
   get highlightedNodeId(): string | number {
-    return this.privateHighlightedNodeId;
+    return this._highlightedNodeId;
   }
 
   @Input()
   set highlightedNodeId(val: string | number) {
-    this.privateHighlightedNodeId = val;
+    this._highlightedNodeId = val;
     this.expandHighlightedNode();
   }
 
@@ -48,7 +48,7 @@ export class TreeComponent {
   isNodeHighlighted = (node: Node) => this.highlightedNodeId !== undefined && node.id === this.highlightedNodeId;
 
   private expandHighlightedNode(): void {
-    if (this.dataSource.data && this.privateHighlightedNodeId !== undefined) {
+    if (this.dataSource.data && this._highlightedNodeId !== undefined) {
       this.treeControl.collapseAll();
 
       const stack = [];
@@ -60,7 +60,7 @@ export class TreeComponent {
         const nodes: Node[] = stack.pop();
         const node: Node = nodes.slice(-1)[0];
 
-        if (node.id === this.privateHighlightedNodeId) {
+        if (node.id === this._highlightedNodeId) {
           for (const parentNode of nodes) {
             this.treeControl.expand(parentNode);
           }

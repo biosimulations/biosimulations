@@ -7,8 +7,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('AuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      providers: [RouterTestingModule, AuthGuard],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      providers: [RouterTestingModule, HttpClientTestingModule, AuthGuard],
     });
   });
 
