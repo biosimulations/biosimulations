@@ -34,7 +34,7 @@ export class ProjectsComponent implements OnInit {
       } else if (auth0Id) {
         // !BUG the method does not exist
         // TODO Find alternative implementation
-        //user = this.userService.getByAuth0Id(auth0Id);
+        // user = this.userService.getByAuth0Id(auth0Id);
         username = user.username;
       }
 
