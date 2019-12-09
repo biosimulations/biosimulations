@@ -17,7 +17,8 @@ import { Observable } from 'rxjs';
 export class ProfileComponent implements OnInit {
   private username: string;
   user: User;
-
+  crumbs: object[] = [{ label: 'User', route: '/user' }];
+  buttons: NavItem[] = [];
   constructor(
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -26,33 +27,24 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getUser$().subscribe((user) =>
-      this.user = user)
-    // Todo remove auth0 logic, get id from user only. route params should check if user.nickname= user/Username
     this.route.params.subscribe(routeParams => {
-      let auth0Id: string;
-      if (this.auth && this.auth.token) {
-        auth0Id = (this.auth.token.sub as unknown) as string;
-      }
-
-      if (routeParams.username) {
-        this.username = routeParams['username'];
-        this.user = this.userService.get(this.username);
-        // this.users.getUser().subscribe(res => (this.user = res));
-      } else if (auth0Id) {
-        this.user = this.userService.getByAuth0Id(auth0Id);
-        // this.users.getUser().subscribe(res => (this.user = res));
-        this.username = this.user.username;
-      }
-
-      const crumbs: object[] = [{ label: 'User', route: '/user' }];
-      const buttons: NavItem[] = [];
-      if (this.user) {
-        if (this.auth && this.user.auth0Id === auth0Id) {
-          crumbs.push({
+      const username = routeParams.username
+      this.auth.getUser$().subscribe(profile => {
+        if (username) {
+          this.userService.get$(username).subscribe(user => {
+            this.user = user
+          });
+        }
+        else {
+          this.userService.get$(profile.nickname).subscribe(user => {
+            this.user = user
+          })
+        }
+        if (this.user.username === profile.nickname) {
+          this.crumbs.push({
             label: 'Your profile',
           });
-          buttons.push({
+          this.buttons.push({
             iconType: 'fas',
             icon: 'pencil-alt',
             label: 'Edit',
@@ -60,13 +52,17 @@ export class ProfileComponent implements OnInit {
             display: NavItemDisplayLevel.loggedIn,
           });
         } else {
-          crumbs.push({
-            label: this.user.username,
-          });
-        }
-      }
+          this.crumbs.push({
+            label: this.user.username
 
-      this.breadCrumbsService.set(crumbs, buttons);
+          })
+        }
+        this.breadCrumbsService.set(this.crumbs, this.buttons);
+      })
     });
   }
 }
+
+
+
+

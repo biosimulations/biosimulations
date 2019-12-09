@@ -101,7 +101,7 @@ describe('VisualizationService', () => {
       name: 'test',
       description: null,
       tags: [],
-      schema: schema,        
+      schema,        
       getIcon: null,
       getRoute: null,
       getAuthors: null,
