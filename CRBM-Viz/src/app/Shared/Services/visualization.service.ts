@@ -160,7 +160,8 @@ export class VisualizationService {
     ];
   }
 
-  list(name?: string): Visualization[] {
+  list(name?: string, owner?: string): Visualization[] {
+    // TODO: filter on name, owner attributes
     const data: Visualization[] = [
       this.get(1),
       this.get(2),

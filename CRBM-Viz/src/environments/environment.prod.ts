@@ -3,10 +3,11 @@ export const environment = {
   baseUrl: '/',
   auth0: {
     domain: 'crbm.auth0.com',
+    audience: 'api.biosimulations.org',
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
   },
   crbm: {
-    CRBMAPI_URL: 'http://crbmapi.cam.uchc.edu:5000',
+    CRBMAPI_URL: 'https://crbm-api.herokuapp.com',
 
     ALLOWED_FILE_EXTENSIONS: [
       'pdf',

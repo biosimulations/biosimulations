@@ -1,11 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../Models/user';
 import { ProjectService } from './project.service';
 import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
 import { VisualizationService } from './visualization.service';
+import { environment } from 'src/environments/environment';
 
 // tslint:disable:max-line-length
 
@@ -14,18 +15,18 @@ import { VisualizationService } from './visualization.service';
 })
 export class UserService {
   private projectService: ProjectService;
-  private modelService: ModelService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
-  private endpoint = 'https://crbm.auth0.com/userinfo';
 
   constructor(
     private http: HttpClient,
     private injector: Injector
-    ) {}
+  ) { }
+  private modelService: ModelService;
+  private simulationService: SimulationService;
+  private visualizationService: VisualizationService;
+  private endpoint = environment.crbm.CRBMAPI_URL
 
   static _get(username?: string, includeRelatedObjects = false): User {
-    let user:User;
+    let user: User;
     switch (username) {
       default:
       case 'jonrkarr':
@@ -46,10 +47,10 @@ export class UserService {
         user.googleScholarId = 'Yb5nVLAAAAAJ';
         user.orcId = '0000-0002-2605-5080';
         user.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
-            'ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. ' +
-            'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
-            'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
-            'nec dictum erat aliquet quis.';
+          'ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. ' +
+          'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
+          'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
+          'nec dictum erat aliquet quis.';
         if (includeRelatedObjects) {
           user.projects = [
             ProjectService._get('001'),
@@ -57,14 +58,14 @@ export class UserService {
             ProjectService._get('006'),
             ProjectService._get('001'),
             ProjectService._get('003'),
-            ];
+          ];
           user.models = [
             ModelService._get('001'),
             ModelService._get('003'),
             ModelService._get('006'),
             ModelService._get('001'),
             ModelService._get('003'),
-            ];
+          ];
           user.simulations = [
             SimulationService._get('001'),
             SimulationService._get('003'),
@@ -92,10 +93,10 @@ export class UserService {
         user.gravatarEmail = 'skaf@uchc.edu';
         user.description = 'Description';
         break;
-      case 'b.shaikh':
+      case 'bill2507733':
         user = new User();
         user.id = 3;
-        user.username = 'b.bhaikh';
+        user.username = 'bill2507733';
         user.firstName = 'Bilal';
         user.lastName = 'Shaikh';
         user.organization = 'Icahn School of Medicine at Mount Sinai';
@@ -130,6 +131,14 @@ export class UserService {
     }
     return user;
   }
+  // TODO get the current logged in user if no username is provided
+  getUser$(username?: string): Observable<User> {
+    let user: Observable<User>
+    user = this.http.get<User>(this.endpoint + '/user/' + username);
+
+    return user;
+
+  }
 
   private getServices(): void {
     if (this.modelService == null) {
@@ -140,41 +149,21 @@ export class UserService {
     }
   }
 
-  getUser(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer W0p9s-oFubPuONgWER3JGAqnZ-HkEurI',
-      }),
-    };
-    const Httpheaders = new HttpHeaders({
-      Authorization: 'Bearer SY1MOMZZVnEBtzEG7aw-y-JYDEwm-QM3',
-    });
-    return this.http.get(this.endpoint, { headers: Httpheaders });
-  }
 
-  get(username?: string) : User {
+
+  get(username?: string): User {
     this.getServices();
     return UserService._get(username, true);
   }
-
-  getByAuth0Id(auth0Id: string): User {
-    let user:User;
-    switch (auth0Id) {
-      case 'github|2848297':
-        user = this.get('jonrkarr');
-        break;
-      default:
-        user = new User();
-        user.auth0Id = auth0Id;
-        break;
-    }
-    return user;
+  get$(username?: string): Observable<User> {
+    return of(this.get(username))
   }
+
 
   list(): User[] {
     return [
       this.get('jonrkarr'),
-     this.get('y.skaf'),
+      this.get('y.skaf'),
       this.get('b.shaikh'),
       this.get('s.edelstein'),
       this.get('a.goldbeter'),

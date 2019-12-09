@@ -1,5 +1,5 @@
 export class Timecourse {
-  Concentration?: number;
-  Species?: string;
-  Time?: number;
+  concentration?: number;
+  species?: string;
+  time?: number;
 }

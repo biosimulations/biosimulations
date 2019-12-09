@@ -12,34 +12,33 @@ import { UserService } from 'src/app/Shared/Services/user.service';
   styleUrls: ['./simulations.component.sass'],
 })
 export class SimulationsComponent implements OnInit {
+  public reqUsername: string;
+
   // TODO: only show simulations owned by user
   constructor(
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
-    private userService: UserService) {}
+    private userService: UserService) { }
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
-      let auth0Id: string;
+      const authUsername: string = null;
       if (this.auth && this.auth.token) {
-        auth0Id = (this.auth.token.sub as unknown) as string;
+        // TODO get username from auth0 profile
+        // authUsername = ...
       }
 
-      let username: string;
-      let user: User;
       if (routeParams.username) {
-        username = routeParams['username'];
-        user = this.userService.get(username);
-      } else if (auth0Id) {
-        user = this.userService.getByAuth0Id(auth0Id);
-        username = user.username;
+        this.reqUsername = routeParams['username'];
+      } else {
+        this.reqUsername = authUsername;
       }
 
-      const crumbs: object[] = [{label: 'User', route: '/user'}];
+      const crumbs: object[] = [{ label: 'User', route: '/user' }];
       const buttons: NavItem[] = [];
 
-      if (user && user.auth0Id === auth0Id) {
+      if (this.reqUsername === null || this.reqUsername === authUsername) {
         crumbs.push({
           label: 'Your simulations',
         });
@@ -59,8 +58,8 @@ export class SimulationsComponent implements OnInit {
         });
       } else {
         crumbs.push({
-          label: routeParams.username,
-          route: '/user/' + routeParams.username,
+          label: this.reqUsername,
+          route: '/user/' + this.reqUsername,
         });
         crumbs.push({
           label: 'Simulations',

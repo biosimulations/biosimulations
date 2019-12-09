@@ -12,10 +12,16 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./projects-grid.component.sass'],
 })
 export class ProjectsGridComponent implements OnInit {
-  @Input() auth;
-
   columnDefs;
   rowData;
+
+  private _owner: string;
+
+  @Input()
+  set owner(value: string) {
+    this._owner = value;
+    this.rowData = this.projectService.list(null, value);
+  }
 
   constructor(
     private projectService: ProjectService
@@ -99,7 +105,7 @@ export class ProjectsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.projectService.list();
+    this.rowData = this.projectService.list(null, this._owner);
   }
 }
 

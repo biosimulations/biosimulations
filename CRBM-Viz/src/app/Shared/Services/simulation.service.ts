@@ -298,7 +298,8 @@ export class SimulationService {
     return SimulationService._get(id, true);
   }
 
-  list(name?: string): Simulation[] {
+  list(name?: string, owner?: string): Simulation[] {
+    // TODO: filter on name, owner attributes
     const data: Simulation[] = [
       this.get('001'),
       this.get('002'),

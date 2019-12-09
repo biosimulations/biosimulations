@@ -26,7 +26,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-const MaterialComponents = [
+const materialComponents = [
   MatButtonModule,
   MatButtonToggleModule,
   MatIconModule,
@@ -51,7 +51,7 @@ const MaterialComponents = [
   MatSnackBarModule,
 ];
 @NgModule({
-  imports: [MaterialComponents],
-  exports: [MaterialComponents],
+  imports: [materialComponents],
+  exports: [materialComponents],
 })
 export class MaterialModule {}

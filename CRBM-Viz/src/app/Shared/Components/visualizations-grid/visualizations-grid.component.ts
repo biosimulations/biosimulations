@@ -11,12 +11,19 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./visualizations-grid.component.sass'],
 })
 export class VisualizationsGridComponent implements OnInit {
-  @Input() auth;
   @Input() showOwner = true;
   @Input() showStatus = false;
 
   columnDefs;
   rowData;
+
+  private _owner: string;
+
+  @Input()
+  set owner(value: string) {
+    this._owner = value;
+    this.rowData = this.visualizationService.list(null, value);
+  }
 
   constructor(
     private visualizationService: VisualizationService
@@ -106,7 +113,7 @@ export class VisualizationsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.visualizationService.list();
+    this.rowData = this.visualizationService.list(null, this._owner);
   }
 
   timeFormatter(params): string {
