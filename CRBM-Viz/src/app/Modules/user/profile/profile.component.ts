@@ -14,6 +14,10 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 })
 
 export class ProfileComponent implements OnInit {
+
+  /**
+   * The object representing the user displayed in the profile   
+   */
   user: User;
 
   constructor(
@@ -24,6 +28,10 @@ export class ProfileComponent implements OnInit {
   ) { }
 
 
+  /**
+   * The init method subscribes to the user profile and the route. If a url parameter is provided, it pulls the username from
+   * the user service. If not, it assumes the logged in profile's username. It then calls a method to create the view's breadcrumbs
+   */
   ngOnInit() {
     this.auth.getUser$().subscribe(profile => {
 
@@ -44,9 +52,15 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  /**
+   * This method takes in a boolean and then constructs the appropriate crumbs. If the displayed profile is the users
+   * profile, the breadcrumbs state "Your profile" and provide a link to edit the profile. If not, then the username of the 
+   *  profile is displayed. This method depends on the breadcrumbs service
+   * @param {boolean} isOwnProfile Whether the crumbs should reflect the user's own profile, or another users profile
+   */
   setCrumbs(isOwnProfile: boolean) {
-    let crumbs: object[] = [{ label: 'User', route: '/user' }];
-    let buttons: NavItem[] = [];
+    const crumbs: object[] = [{ label: 'User', route: '/user' }];
+    const buttons: NavItem[] = [];
     if (isOwnProfile) {
       crumbs.push({
         label: 'Your profile',
