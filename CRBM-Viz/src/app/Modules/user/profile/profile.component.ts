@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
    * This method takes in a boolean and then constructs the appropriate crumbs. If the displayed profile is the users
    * profile, the breadcrumbs state "Your profile" and provide a link to edit the profile. If not, then the username of the
    *  profile is displayed. This method depends on the breadcrumbs service
-   * @param {boolean} isOwnProfile Whether the crumbs should reflect the user's own profile, or another users profile
+   * @param isOwnProfile Whether the crumbs should reflect the user's own profile, or another users profile
    */
   setCrumbs(isOwnProfile: boolean) {
     const crumbs: object[] = [{ label: 'User', route: '/user' }];
