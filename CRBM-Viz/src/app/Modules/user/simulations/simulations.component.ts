@@ -17,7 +17,7 @@ export class SimulationsComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
-    private userService: UserService) {}
+    private userService: UserService) { }
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
@@ -32,11 +32,13 @@ export class SimulationsComponent implements OnInit {
         username = routeParams['username'];
         user = this.userService.get(username);
       } else if (auth0Id) {
-        user = this.userService.getByAuth0Id(auth0Id);
+        // !BUG the method does not exist
+        // TODO Find alternative implementation
+        //user = this.userService.getByAuth0Id(auth0Id);
         username = user.username;
       }
 
-      const crumbs: object[] = [{label: 'User', route: '/user'}];
+      const crumbs: object[] = [{ label: 'User', route: '/user' }];
       const buttons: NavItem[] = [];
 
       if (user && user.auth0Id === auth0Id) {

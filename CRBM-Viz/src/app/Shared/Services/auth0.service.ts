@@ -21,6 +21,7 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   returnTo = window.location.origin + environment.baseUrl;
   redirect = this.returnTo + 'callback';
+  // TODO determine the correct scopes and add here
   auth0Client$ = (from(
     createAuth0Client({
       domain: environment.auth0.domain,
