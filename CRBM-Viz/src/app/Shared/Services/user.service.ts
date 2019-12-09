@@ -158,19 +158,6 @@ export class UserService {
     return of(this.get(username))
   }
 
-  getByAuth0Id(auth0Id: string): User {
-    let user: User;
-    switch (auth0Id) {
-      case 'github|2848297':
-        user = this.get('jonrkarr');
-        break;
-      default:
-        user = new User();
-        user.auth0Id = auth0Id;
-        break;
-    }
-    return user;
-  }
 
   list(): User[] {
     return [
