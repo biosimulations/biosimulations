@@ -12,10 +12,16 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./models-grid.component.sass'],
 })
 export class ModelsGridComponent implements OnInit {
-  @Input() auth;
-
   columnDefs;
   rowData;
+
+  private _owner: string;
+
+  @Input()
+  set owner(value: string) {
+    this._owner = value;
+    this.rowData = this.modelService.list(null, value);
+  }
 
   constructor(
     private modelService: ModelService
@@ -122,7 +128,7 @@ export class ModelsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.modelService.list();
+    this.rowData = this.modelService.list(null, this._owner);
   }
 }
 

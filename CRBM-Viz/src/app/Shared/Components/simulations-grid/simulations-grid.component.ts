@@ -13,12 +13,19 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./simulations-grid.component.sass'],
 })
 export class SimulationsGridComponent implements OnInit {
-  @Input() auth;
   @Input() showOwner = true;
   @Input() showStatus = false;
 
   columnDefs;
   rowData;
+
+  private _owner: string;
+
+  @Input()
+  set owner(value: string) {
+    this._owner = value;
+    this.rowData = this.simulationService.list(null, value);
+  }
 
   constructor(
     private simulationService: SimulationService
@@ -287,7 +294,7 @@ export class SimulationsGridComponent implements OnInit {
       // errLog
     ];
 
-    this.rowData = this.simulationService.list();
+    this.rowData = this.simulationService.list(null, this._owner);
   }
 
   timeFormatter(params): string {

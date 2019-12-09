@@ -145,7 +145,8 @@ export class ProjectService {
     return ProjectService._get(id, true);
   }
 
-  list(name?: string): Project[] {
+  list(name?: string, owner?: string): Project[] {
+    // TODO: filter on name, owner attributes
     const data: Project[] = [
       this.get('001'),
       this.get('002'),

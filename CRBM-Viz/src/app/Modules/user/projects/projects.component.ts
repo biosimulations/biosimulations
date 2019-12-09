@@ -21,27 +21,21 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
-      let auth0Id: string;
+      let reqUsername: string;
+      const authUsername: string = null;
       if (this.auth && this.auth.token) {
-        auth0Id = (this.auth.token.sub as unknown) as string;
+        // TODO get username from auth0 profile
+        // authUsername = ...
       }
 
-      let username: string;
-      let user: User;
       if (routeParams.username) {
-        username = routeParams['username'];
-        user = this.userService.get(username);
-      } else if (auth0Id) {
-        // !BUG the method does not exist
-        // TODO Find alternative implementation
-        // user = this.userService.getByAuth0Id(auth0Id);
-        username = user.username;
+        reqUsername = routeParams['username'];
       }
 
       const crumbs: object[] = [{ label: 'User', route: '/user' }];
       const buttons: NavItem[] = [];
 
-      if (user && user.auth0Id === auth0Id) {
+      if (reqUsername === null || reqUsername === authUsername) {
         crumbs.push({
           label: 'Your projects',
         });
@@ -61,8 +55,8 @@ export class ProjectsComponent implements OnInit {
         });
       } else {
         crumbs.push({
-          label: routeParams.username,
-          route: '/user/' + routeParams.username,
+          label: reqUsername,
+          route: '/user/' + reqUsername,
         });
         crumbs.push({
           label: 'Projects',

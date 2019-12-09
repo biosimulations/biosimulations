@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
    * The object representing the user displayed in the profile
    */
   user: User;
+  private loggedInUsername: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,20 +35,24 @@ export class ProfileComponent implements OnInit {
    */
   ngOnInit() {
     this.auth.getUser$().subscribe(profile => {
+      if (profile) {
+        this.loggedInUsername = profile.nickname;
+      } else {
+        this.loggedInUsername = null;
+      }
 
       this.route.params.subscribe(routeParams => {
         let username;
         if (routeParams.username) {
-          username = routeParams.username
-        }
-        else {
-          username = profile.nickname
+          username = routeParams.username;
+        } else {
+          username = this.loggedInUsername;
         }
         this.userService.get$(username).subscribe(user => {
           this.user = user
         });
 
-        this.setCrumbs(username === profile.nickname);
+        this.setCrumbs(username === this.loggedInUsername);
       })
     })
   }
