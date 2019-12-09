@@ -1,12 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../Models/user';
 import { ProjectService } from './project.service';
 import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
 import { VisualizationService } from './visualization.service';
-import { AuthService } from './auth0.service';
 import { environment } from 'src/environments/environment';
 
 // tslint:disable:max-line-length
@@ -19,7 +18,6 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService,
     private injector: Injector
   ) { }
   private modelService: ModelService;
@@ -95,10 +93,10 @@ export class UserService {
         user.gravatarEmail = 'skaf@uchc.edu';
         user.description = 'Description';
         break;
-      case 'b.shaikh':
+      case 'bill2507733':
         user = new User();
         user.id = 3;
-        user.username = 'b.bhaikh';
+        user.username = 'bill2507733';
         user.firstName = 'Bilal';
         user.lastName = 'Shaikh';
         user.organization = 'Icahn School of Medicine at Mount Sinai';
@@ -133,10 +131,9 @@ export class UserService {
     }
     return user;
   }
-  getUser$(): Observable<User> {
+  getUser$(username?: string): Observable<User> {
     let user: Observable<User>
-    this.auth.userProfile$.subscribe((profile) => (
-      user = this.http.get<User>(this.endpoint + '/user/' + profile.nickname)));
+    user = this.http.get<User>(this.endpoint + '/user/' + username);
 
     return user;
 
@@ -156,6 +153,9 @@ export class UserService {
   get(username?: string): User {
     this.getServices();
     return UserService._get(username, true);
+  }
+  get$(username?: string): Observable<User> {
+    return of(this.get(username))
   }
 
   getByAuth0Id(auth0Id: string): User {
