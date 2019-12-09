@@ -30,6 +30,15 @@ export class StatsService {
         {category: 'SBML-qual', count: 87},
         {category: 'pharmML', count: 5},
       ],
+      countSimulationsBySimulator: [
+        {category: 'COBRApy', count: 13},
+        {category: 'COPASI', count: 43},        
+        {category: 'NFsim', count: 403},
+        {category: 'libRoadRunner', count: 113},
+        {category: 'Neuron', count: 64},
+        {category: 'OpenCOR', count: 87},
+        {category: 'VCell', count: 5},
+      ],
     };
   }
 }
