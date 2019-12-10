@@ -32,7 +32,7 @@ export class StatsService {
       ],
       countSimulationsBySimulator: [
         {category: 'COBRApy', count: 13},
-        {category: 'COPASI', count: 43},        
+        {category: 'COPASI', count: 43},
         {category: 'NFsim', count: 403},
         {category: 'libRoadRunner', count: 113},
         {category: 'Neuron', count: 64},

@@ -30,14 +30,14 @@ export class HomeComponent implements OnInit {
           this.stats['countModelsByFormat']),
         this.getBarGraph(
           'Simulations', null, 'linear',
-          this.stats['countSimulationsBySimulator']),        
+          this.stats['countSimulationsBySimulator']),
     ];
   }
 
   getBarGraph(xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
     const xScale: object = null;
-    let maxVal: number = 0;
-    for (const datum:object of data) {
+    let maxVal = 0;
+    for (const datum of data) {
       maxVal = Math.max(maxVal, datum['count']);
     }
     const xTicks: number[] = [];

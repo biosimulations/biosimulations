@@ -10,6 +10,7 @@ import { UtilsService } from '../Services/utils.service';
 export class Project {
   id?: string;
   name?: string;
+  image?: File;
   description?: string;
   tags?: string[] = [];
   identifiers?: Identifier[] = [];
@@ -36,6 +37,14 @@ export class Project {
       return this.authors;
     } else {
       return [this.owner];
+    }
+  }
+
+  getImageUrl(): string {
+    if (this.image) {
+      // TODO
+    } else {
+      return 'assets/default-resource-images/project.svg';
     }
   }
 }

@@ -11,6 +11,7 @@ import { UtilsService } from '../Services/utils.service';
 export class Visualization {
   id?: number;
   name?: string;
+  image?: File;
   description?: string;
   tags?: string[] = [];
   schema?: VisualizationSchema;
@@ -39,6 +40,14 @@ export class Visualization {
       return this.authors;
     } else {
       return [this.owner];
+    }
+  }
+
+  getImageUrl(): string {
+    if (this.image) {
+      // TODO
+    } else {
+      return 'assets/default-resource-images/visualization.svg';
     }
   }
 }

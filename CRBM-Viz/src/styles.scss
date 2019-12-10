@@ -159,6 +159,7 @@ input, textarea.mat-input-element, mat-select, button {
     }
 
     .ag-side-bar {
+        margin-top: calc(1.5rem + 2px + 2rem);
         background: #fefbf7;
 
         .ag-side-buttons {
@@ -302,6 +303,11 @@ input, textarea.mat-input-element, mat-select, button {
 
 .grid.tool-panel-open .ag-status-bar {
     margin-left: calc(20px + 150px + 2px + 2rem);
+}
+
+/* Icon grid */
+.icon-grid .ag-root {
+    visibility: hidden;
 }
 
 /* Tabs */

@@ -20,6 +20,7 @@ import { UtilsService } from '../Services/utils.service';
 export class Simulation {
   id?: string;
   name?: string;
+  image?: string;
   description?: string;
   tags?: string[] = [];
   model?: Model;
@@ -80,6 +81,14 @@ export class Simulation {
       return this.authors;
     } else {
       return [this.owner];
+    }
+  }
+
+  getImageUrl(): string {
+    if (this.image) {
+      // TODO
+    } else {
+      return 'assets/default-resource-images/simulation.svg';
     }
   }
 }

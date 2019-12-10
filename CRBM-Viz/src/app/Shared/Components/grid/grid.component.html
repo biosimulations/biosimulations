@@ -1,6 +1,7 @@
 <ag-grid-angular
   class="ag-theme-balham grid"
   [class.tool-panel-open]="isToolPanelOpen"
+  [class.icon-grid]="view === View.icons"
   [icons]="icons"
   [frameworkComponents]="frameworkComponents"
   [defaultColDef]="defaultColDef"
@@ -11,6 +12,8 @@
   (gridReady)="onGridReady($event)"
   (firstDataRendered)="sizeColumnsToFit($event)"
   (columnVisible)="sizeColumnsToFit($event)"
+  (rowDataChanged)="updateFilteredRowData($event)"
+  (filterChanged)="updateFilteredRowData($event)"
   (gridSizeChanged)="sizeColumnsToFit($event)"
   (toolPanelVisibleChanged)="toggleToolPanel($event)"
   [suppressMovableColumns]="true"
@@ -21,3 +24,73 @@
   [headerHeight]="40"
   [rowHeight]="35"
 ></ag-grid-angular>
+<div
+  class="view-toggle-container"
+  [class.tool-panel-open]="isToolPanelOpen"
+  >
+  <span class="label">View:</span>
+  <fa-icon
+    aria-hidden="false"
+    aria-label="Icons view icon"
+    [icon]="['fas', 'th-large']"
+    matTooltip="Icons view"
+    [class.selected]="view === View.icons"
+    (click)="toggleView()"
+  ></fa-icon>
+  <fa-icon
+    aria-hidden="false"
+    aria-label="Details view icon"
+    [icon]="['fas', 'th-list']"
+    matTooltip="Details view"
+    [class.selected]="view === View.details"
+    (click)="toggleView()"
+  ></fa-icon>
+</div>
+<div
+  *ngIf="view === View.icons"
+  class="icons-container"
+  [class.tool-panel-open]="isToolPanelOpen"
+>
+  <div class="row-icon" *ngFor="let row of filteredRowData">
+    <div class="row-icon-inner">
+      <img
+        class="image"
+        *ngIf="row.image; else fontImage"
+        src="row.getImageUrl()" />
+      <ng-template #fontImage>
+        <div class="image font-image" *ngIf="row.getIcon() as icon">
+          <mat-icon
+            *ngIf="icon.type === 'mat'; else faFontImage"
+            aria-hidden="false"
+            aria-label="Icon"
+          >{{
+            icon.icon
+          }}</mat-icon>
+          <ng-template #faFontImage>
+            <fa-icon
+              aria-hidden="false"
+              aria-label="Icon"
+              [icon]="[icon.type, icon.icon]">
+            </fa-icon>
+          </ng-template>
+        </div>
+      </ng-template>
+      <div class="details">
+        <div class="details-inner">
+          <div class="title">{{ row.id + ': ' + row.name }}</div>
+          <app-authors
+               class="authors"
+               [authors]="row.authors"
+               [owner]="row.owner">
+           </app-authors>
+          <div
+            *ngIf="row.description"
+            class="description"
+          >{{
+            row.description
+          }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
