@@ -18,6 +18,7 @@ export class GridComponent {
   @Input() rowTypePlural: string;
   @Input() columnDefs: object;
   @Input() rowData;
+  @Input() inTab = false;
 
   filteredRowData: object[];
 

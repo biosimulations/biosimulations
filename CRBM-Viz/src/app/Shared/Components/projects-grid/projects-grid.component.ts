@@ -23,6 +23,8 @@ export class ProjectsGridComponent implements OnInit {
     this.rowData = this.projectService.list(null, value);
   }
 
+  @Input() inTab = false;
+
   constructor(
     private projectService: ProjectService
     ) {
