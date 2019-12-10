@@ -55,7 +55,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {}
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -68,8 +68,10 @@ export class AuthService {
 
   getToken$(options?): Observable<any> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getIdTokenClaims(options))),
-      tap(token => this.token = token)
+      concatMap((client: Auth0Client) =>
+        from(client.getIdTokenClaims(options))
+      ),
+      tap(token => (this.token = token))
     );
   }
   getTokenSilently$(options?): Observable<string> {
@@ -97,11 +99,9 @@ export class AuthService {
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
 
-      this.getToken$().subscribe(
-        token => {
-          localStorage.setItem('token', token);
-        }
-      );
+      this.getToken$().subscribe(token => {
+        localStorage.setItem('token', token);
+      });
     });
   }
 
@@ -139,8 +139,8 @@ export class AuthService {
     authComplete$.subscribe(([user, loggedIn]) => {
       // Call a method in the user serivce to ensure that the user exists in the database
       this.getUser$().subscribe(userProfile => {
-        this.confirmExists(userProfile)
-      })
+        this.confirmExists(userProfile);
+      });
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
     });
@@ -152,12 +152,17 @@ export class AuthService {
    *
    */
   confirmExists(userProfile: any) {
-    const res = this.http.post(environment.crbm.CRBMAPI_URL + '/user/', userProfile)
+    const res = this.http.post(
+      environment.crbm.CRBMAPI_URL + '/users',
+      userProfile
+    );
     if (!environment.production) {
-      res.subscribe((response) => {
-        console.log(response)
-      })
-      console.log('Called confirmed user exists endpoint for user' + userProfile.user_id)
+      res.subscribe(response => {
+        console.log(response);
+      });
+      console.log(
+        'Called confirmed user exists endpoint for user' + userProfile.user_id
+      );
     }
   }
 
