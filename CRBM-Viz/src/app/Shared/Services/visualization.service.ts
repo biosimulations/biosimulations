@@ -34,10 +34,10 @@ export class VisualizationService {
 
     if (id === 2) {
       viz.image = new RemoteFile()
-      viz.image.name = 'defaultSilhouette.svg';
-      viz.image.type = 'image/svg+xml';
+      viz.image.name = 'visualization.png';
+      viz.image.type = 'image/png';
       viz.image.size = 3986;
-      viz.image.url = 'assets/defaultSilhouette.svg';
+      viz.image.url = 'assets/examples/visualization-image.png';
     }
 
     viz.description = 'Visualization of a simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';

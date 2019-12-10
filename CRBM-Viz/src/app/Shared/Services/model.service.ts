@@ -61,10 +61,10 @@ export class ModelService {
         model.id = id;
         model.name ='EPSP ACh event';
         model.image = new RemoteFile()
-        model.image.name = 'defaultSilhouette.svg';
-        model.image.type = 'image/svg+xml';
+        model.image.name = 'model.png';
+        model.image.type = 'image/png';
         model.image.size = 3986;
-        model.image.url = 'assets/defaultSilhouette.svg';
+        model.image.url = 'assets/examples/model-image.png';
         model.description = 'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
         model.taxon = new Taxon(7787, 'Tetronarce californica');
         model.tags = ['neurotransmission', 'signaling'];
