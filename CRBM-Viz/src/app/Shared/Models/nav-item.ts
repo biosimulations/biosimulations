@@ -181,7 +181,6 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.always,
     route: ['/visualizations', 'new'],
-    disabled: true,
   },
   {
     id: 'Visualizations-Yours',
@@ -190,7 +189,6 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
     route: ['/user/visualizations'],
-    disabled: true,
   },
 
   // About sub-menu
