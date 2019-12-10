@@ -74,10 +74,12 @@
       <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'chart-area']"></fa-icon> Visualization
     </ng-template>
     <ng-template matTabContent>
-      <div class="tab visualization">
+      <div class="tab full-height visualization">
         <app-vega-viewer
           *ngIf="visualization"
           [spec]="visualization.schema.spec"
+          [options]="vegaOptions"
+          class="vega block"
         ></app-vega-viewer>
       </div>
     </ng-template>

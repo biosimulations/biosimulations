@@ -18,6 +18,9 @@ import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Comp
 })
 export class ViewComponent implements OnInit {
   getLicenseInfo = getLicenseInfo;
+  public readonly vegaOptions: object = {
+    renderer: 'canvas',
+  };
 
   id: number;
   visualization: Visualization;
