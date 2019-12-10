@@ -3,6 +3,7 @@ import { License } from '../Enums/license';
 import { JournalReference } from './journal-reference';
 import { Person } from './person';
 import { Project } from './project';
+import { RemoteFile } from './remote-file';
 import { SimulationResult } from './simulation-result';
 import { User } from './user';
 import { VisualizationSchema } from './visualization-schema';
@@ -11,7 +12,7 @@ import { UtilsService } from '../Services/utils.service';
 export class Visualization {
   id?: number;
   name?: string;
-  image?: File;
+  image?: File | RemoteFile;
   description?: string;
   tags?: string[] = [];
   schema?: VisualizationSchema;
@@ -40,14 +41,6 @@ export class Visualization {
       return this.authors;
     } else {
       return [this.owner];
-    }
-  }
-
-  getImageUrl(): string {
-    if (this.image) {
-      // TODO
-    } else {
-      return 'assets/default-resource-images/visualization.svg';
     }
   }
 }

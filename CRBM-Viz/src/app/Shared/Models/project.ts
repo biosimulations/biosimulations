@@ -4,13 +4,14 @@ import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
 import { Person } from './person';
 import { ProjectProduct } from './project-product';
+import { RemoteFile } from './remote-file';
 import { User } from './user';
 import { UtilsService } from '../Services/utils.service';
 
 export class Project {
   id?: string;
   name?: string;
-  image?: File;
+  image?: File | RemoteFile;
   description?: string;
   tags?: string[] = [];
   identifiers?: Identifier[] = [];
@@ -37,14 +38,6 @@ export class Project {
       return this.authors;
     } else {
       return [this.owner];
-    }
-  }
-
-  getImageUrl(): string {
-    if (this.image) {
-      // TODO
-    } else {
-      return 'assets/default-resource-images/project.svg';
     }
   }
 }

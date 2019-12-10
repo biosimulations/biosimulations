@@ -12,6 +12,7 @@ import { Model } from './model';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
 import { Project } from './project';
+import { RemoteFile } from './remote-file';
 import { Simulator } from './simulator';
 import { Taxon } from './taxon';
 import { User } from './user';
@@ -20,7 +21,7 @@ import { UtilsService } from '../Services/utils.service';
 export class Simulation {
   id?: string;
   name?: string;
-  image?: string;
+  image?: File | RemoteFile;
   description?: string;
   tags?: string[] = [];
   model?: Model;
@@ -81,14 +82,6 @@ export class Simulation {
       return this.authors;
     } else {
       return [this.owner];
-    }
-  }
-
-  getImageUrl(): string {
-    if (this.image) {
-      // TODO
-    } else {
-      return 'assets/default-resource-images/simulation.svg';
     }
   }
 }

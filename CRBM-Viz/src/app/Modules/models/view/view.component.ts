@@ -94,7 +94,7 @@ export class ViewComponent implements OnInit {
   }
 
   download(): void {
-    const url = this.model.getFileUrl();
+    const url = this.model.file.url;
     const link = document.createElement('a');
     link.download = `model-${ this.id }.xml`;
     link.href = url;

@@ -9,6 +9,7 @@ import { Model } from '../Models/model';
 import { ModelParameter } from '../Models/model-parameter';
 import { OntologyTerm } from '../Models/ontology-term';
 import { Person } from '../Models/person';
+import { RemoteFile } from '../Models/remote-file';
 import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
@@ -59,6 +60,11 @@ export class ModelService {
         model = new Model();
         model.id = id;
         model.name ='EPSP ACh event';
+        model.image = new RemoteFile()
+        model.image.name = 'defaultSilhouette.svg';
+        model.image.type = 'image/svg+xml';
+        model.image.size = 3986;
+        model.image.url = 'assets/defaultSilhouette.svg';
         model.description = 'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
         model.taxon = new Taxon(7787, 'Tetronarce californica');
         model.tags = ['neurotransmission', 'signaling'];
@@ -118,11 +124,18 @@ export class ModelService {
         model.updated = new Date(Date.parse('1991-08-15 00:00:00'));
         break;
     }
+    model.file = new RemoteFile()
+    model.file.name = 'model.xml';
+    model.file.type = 'application/sbml+xml';
+    model.file.size = 1749;
+    model.file.url = 'assets/examples/model.xml';
+
     model.parameters = [
       new ModelParameter('kcat', 'Catalytic rate', 1.5, 's^-1'),
       new ModelParameter('Km', 'Association constant', 2.1, 'dimensionless'),
       new ModelParameter('Vmax', 'Maximum rate', 3.1, 'catal'),
     ];
+
     model.framework = new OntologyTerm('SBO', '0000062', 'continuous framework', null, 'http://biomodels.net/SBO/SBO_0000293');
     model.authors = [
           new Person('Jimmie', 'D', 'Doe'),

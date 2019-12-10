@@ -43,6 +43,23 @@
   </div>
 
   <div class="form-field">
+    <div class="form-field-title">Image</div>
+    <div class="form-field-input">
+      <input
+        id="image"
+        type="file"
+        accept=".gif,.jpeg,.jpg,.png,image/gif,image/jpeg,image/png"
+        (change)="selectFile('image', $event.target.files, imageFileName)"
+        class="form-file-input"
+        />
+      <div class="form-input">
+        <label for="image" class="form-file-input-label" tabindex="0">Choose an image</label>
+        <span #imageFileName class="form-file-input-name">{{ simulation && simulation.image ? simulation.image.name : '' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-field">
     <div class="form-field-title">Description</div>
     <div class="form-field-input">
       <textarea matInput

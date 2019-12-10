@@ -73,6 +73,7 @@ export class EditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       model: [''],
       name: [''],
+      image: [''],
       description: [''],
       tags: this.formBuilder.array([]),
       modelParameterChanges: this.formBuilder.array([]),
@@ -316,6 +317,22 @@ export class EditComponent implements OnInit {
 
   getFormArray(array: string): FormArray {
     return this.formGroup.get(array) as FormArray;
+  }
+
+  selectFile(controlName: string, files: File[], fileNameEl): void {
+    let file: File;
+    let fileName: string;
+    if (files.length) {
+      file = files[0];
+      fileName = file.name;
+    } else {
+      file = null;
+      fileName = '';
+    }
+    const value: object = {};
+    value[controlName] = file;
+    this.formGroup.patchValue(value);
+    fileNameEl.innerHTML = fileName;
   }
 
   displayAutocompleteEl(el: object): string | undefined {
