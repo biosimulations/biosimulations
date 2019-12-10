@@ -56,7 +56,7 @@
       <img
         class="image"
         *ngIf="row.image; else defaultImage"
-        [src]="row.image.url" />
+        [src]="row.image['url']" />
       <ng-template #defaultImage>
         <div class="image default-image" *ngIf="row.getIcon() as icon">
           <mat-icon
