@@ -8,7 +8,10 @@
       <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
     </ng-template>
     <ng-template matTabContent>
-      <div class="tab overview">
+      <div class="tab overview" [class.overview-image]="simulation.image">
+        <div class="image" *ngIf="simulation.image">
+          <img [src]="simulation.image.url" />
+        </div>
         <div class="section">
           <h1>{{ simulation.name }}</h1>
           <div class="section-content">

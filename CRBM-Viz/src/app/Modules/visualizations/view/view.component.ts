@@ -33,7 +33,7 @@ export class ViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
-      this.id = routeParams.id;
+      this.id = parseInt(routeParams.id, 10);
       if (this.id) {
         this.getData();
       } else {

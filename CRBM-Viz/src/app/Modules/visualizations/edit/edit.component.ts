@@ -44,7 +44,7 @@ export class EditComponent implements OnInit {
   private url: UrlSegment[];
   private id: number;
   private simulationId: string;
-  private visualization: Visualization;
+  visualization: Visualization;
   formGroup: FormGroup;
 
   constructor(
@@ -74,7 +74,7 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.url = this.route.snapshot.url;
-      this.id = params.id;
+      this.id = parseInt(params.id, 10);
       this.simulationId = params.simulationId;
       this.setUp();
     });

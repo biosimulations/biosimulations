@@ -2,6 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';
+import { RemoteFile } from 'src/app/Shared/Models/remote-file';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
@@ -30,6 +31,15 @@ export class VisualizationService {
     const viz: Visualization = new Visualization();
     viz.id = id;
     viz.name = 'Viz-' + id.toString();
+
+    if (id === 2) {
+      viz.image = new RemoteFile()
+      viz.image.name = 'defaultSilhouette.svg';
+      viz.image.type = 'image/svg+xml';
+      viz.image.size = 3986;
+      viz.image.url = 'assets/defaultSilhouette.svg';
+    }
+
     viz.description = 'Visualization of a simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
     viz.tags = ['tag-1', 'tag-2'];
     viz.parent = new Visualization();

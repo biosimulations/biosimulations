@@ -1,5 +1,21 @@
 @import 'src/theme.scss'
 
+.overview-image
+    display: grid
+    grid-template-columns: 15rem 1fr
+    grid-gap: 1rem
+
+    .image
+        border: 1px solid #ccc
+        overflow: hidden
+        height: min-content
+        line-height: 0
+        img
+            width: 100%
+            transition: all 0.5s
+        img:hover
+            transform: scale(1.08)
+
 .products-container
     grid-template-columns: 1fr 1fr 1fr
 

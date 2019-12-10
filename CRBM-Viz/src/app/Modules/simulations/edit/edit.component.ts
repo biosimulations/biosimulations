@@ -54,7 +54,7 @@ export class EditComponent implements OnInit {
   private url: UrlSegment[];
   private id: string;
   private modelId: string;
-  private simulation: Simulation;
+  simulation: Simulation;
   formGroup: FormGroup;
   model: Model;
   algorithm: Algorithm;
