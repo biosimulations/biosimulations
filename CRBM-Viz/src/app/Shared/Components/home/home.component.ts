@@ -28,11 +28,23 @@ export class HomeComponent implements OnInit {
         this.getBarGraph(
           'Models', null, 'linear',
           this.stats['countModelsByFormat']),
+        this.getBarGraph(
+          'Simulations', null, 'linear',
+          this.stats['countSimulationsBySimulator']),
     ];
   }
 
   getBarGraph(xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
     const xScale: object = null;
+    let maxVal = 0;
+    for (const datum of data) {
+      maxVal = Math.max(maxVal, datum['count']);
+    }
+    const xTicks: number[] = [];
+    for (let iPower = 1; iPower <= Math.log10(maxVal); iPower++) {
+      xTicks.push(Math.pow(10, iPower));
+    }
+
     return {
       $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
       width: 'container',
@@ -76,6 +88,7 @@ export class HomeComponent implements OnInit {
           axis: {
             title: xAxisLabel,
             gridOpacity: 0,
+            values: (xScaleType === 'log' ? xTicks : undefined)
           },
         },
       },

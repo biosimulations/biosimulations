@@ -18,6 +18,7 @@ export class Model {
   name?: string;
   file?: File;
   parameters: ModelParameter[] = [];
+  image?: File;
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];
@@ -62,6 +63,14 @@ export class Model {
       return this.authors;
     } else {
       return [this.owner];
+    }
+  }
+
+  getImageUrl(): string {
+    if (this.image) {
+      // TODO
+    } else {
+      return 'assets/default-resource-images/model.svg';
     }
   }
 }

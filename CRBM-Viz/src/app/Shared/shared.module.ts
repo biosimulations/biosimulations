@@ -73,6 +73,8 @@ import {
   faChartBar,
   faChartPie,
   faTable,
+  faThList,
+  faThLarge,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -287,6 +289,8 @@ export class SharedModule {
       faChartBar,
       faChartPie,
       faTable,
+      faThList,
+      faThLarge,
       faDocker,
       faGithub,
       faGoogle,
