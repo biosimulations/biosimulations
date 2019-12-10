@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
+import { RemoteFile } from 'src/app/Shared/Models/remote-file';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
@@ -94,7 +95,7 @@ export class ViewComponent implements OnInit {
   }
 
   download(): void {
-    const url = this.model.file.url;
+    const url = (this.model.file as RemoteFile).url;
     const link = document.createElement('a');
     link.download = `model-${ this.id }.xml`;
     link.href = url;

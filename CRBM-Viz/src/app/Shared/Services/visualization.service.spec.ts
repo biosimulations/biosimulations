@@ -105,7 +105,6 @@ describe('VisualizationService', () => {
       getIcon: null,
       getRoute: null,
       getAuthors: null,
-      getImageUrl: null,
     }];
 
     service.getVisualization(1).subscribe(vizs => {
