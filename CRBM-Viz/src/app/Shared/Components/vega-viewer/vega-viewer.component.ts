@@ -14,6 +14,17 @@ export class VegaViewerComponent {
   @Input()
   set spec(value: object | string) {
     this._spec = value;
+
+    if (typeof value !== 'string') {
+      value['width'] = 'container';
+      value['height'] = 'container';
+      value['autosize'] = {
+        type: 'fit',
+        resize: true,
+      };
+      value['background'] = 'transparent';
+    }
+
     this.load();
   }
 

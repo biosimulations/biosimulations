@@ -8,7 +8,10 @@
       <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
     </ng-template>
     <ng-template matTabContent>
-      <div class="tab overview">
+      <div class="tab overview" [class.overview-image]="visualization.image">
+        <div class="image" *ngIf="visualization.image">
+          <img [src]="visualization.image['url']" />
+        </div>
         <div class="section">
           <h1>{{ visualization.name }}</h1>
           <div class="section-content">
@@ -71,10 +74,12 @@
       <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'chart-area']"></fa-icon> Visualization
     </ng-template>
     <ng-template matTabContent>
-      <div class="tab visualization">
+      <div class="tab full-height visualization">
         <app-vega-viewer
           *ngIf="visualization"
           [spec]="visualization.schema.spec"
+          [options]="vegaOptions"
+          class="vega block"
         ></app-vega-viewer>
       </div>
     </ng-template>

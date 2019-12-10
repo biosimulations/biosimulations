@@ -46,6 +46,7 @@ export class EditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [''],
       file: [''],
+      image: [''],
       description: [''],
       taxon: [''],
       tags: this.formBuilder.array([]),

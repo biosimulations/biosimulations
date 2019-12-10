@@ -163,6 +163,5 @@ export class GridComponent {
     gridApi.forEachNodeAfterFilter((rowNode, index) => {
       this.filteredRowData.push(rowNode.data);
     });
-    console.log(this.filteredRowData)
   }
 }

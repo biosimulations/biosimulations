@@ -52,13 +52,13 @@
   [class.tool-panel-open]="isToolPanelOpen"
 >
   <div class="row-icon" *ngFor="let row of filteredRowData">
-    <div class="row-icon-inner">
+    <div class="row-icon-inner" [routerLink]="row.getRoute()">
       <img
         class="image"
-        *ngIf="row.image; else fontImage"
-        src="row.getImageUrl()" />
-      <ng-template #fontImage>
-        <div class="image font-image" *ngIf="row.getIcon() as icon">
+        *ngIf="row.image; else defaultImage"
+        [src]="row.image['url']" />
+      <ng-template #defaultImage>
+        <div class="image default-image" *ngIf="row.getIcon() as icon">
           <mat-icon
             *ngIf="icon.type === 'mat'; else faFontImage"
             aria-hidden="false"

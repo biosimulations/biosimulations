@@ -7,6 +7,7 @@ import { ModelParameter } from './model-parameter';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
 import { Project } from './project';
+import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { Taxon } from './taxon';
 import { User } from './user';
@@ -16,9 +17,9 @@ import { UtilsService } from '../Services/utils.service';
 export class Model {
   id?: string;
   name?: string;
-  file?: File;
+  file?: File | RemoteFile;
   parameters: ModelParameter[] = [];
-  image?: File;
+  image?: File | RemoteFile;
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];
@@ -45,10 +46,6 @@ export class Model {
     return ['/models', this.id];
   }
 
-  getFileUrl(): string {
-    return '/assets/examples/model.xml';
-  }
-
   getBioModelsId(): string {
     for (const id of this.identifiers) {
       if (id.namespace === 'biomodels.db') {
@@ -63,14 +60,6 @@ export class Model {
       return this.authors;
     } else {
       return [this.owner];
-    }
-  }
-
-  getImageUrl(): string {
-    if (this.image) {
-      // TODO
-    } else {
-      return 'assets/default-resource-images/model.svg';
     }
   }
 }
