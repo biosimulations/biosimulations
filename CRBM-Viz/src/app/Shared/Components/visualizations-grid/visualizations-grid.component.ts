@@ -25,6 +25,8 @@ export class VisualizationsGridComponent implements OnInit {
     this.rowData = this.visualizationService.list(null, value);
   }
 
+  @Input() inTab = false;
+
   constructor(
     private visualizationService: VisualizationService
     ) {

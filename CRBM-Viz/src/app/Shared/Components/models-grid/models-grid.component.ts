@@ -23,6 +23,8 @@ export class ModelsGridComponent implements OnInit {
     this.rowData = this.modelService.list(null, value);
   }
 
+  @Input() inTab = false;
+
   constructor(
     private modelService: ModelService
     ) {

@@ -27,6 +27,8 @@ export class SimulationsGridComponent implements OnInit {
     this.rowData = this.simulationService.list(null, value);
   }
 
+  @Input() inTab = false;
+
   constructor(
     private simulationService: SimulationService
     ) {

@@ -26,6 +26,7 @@
 ></ag-grid-angular>
 <div
   class="view-toggle-container"
+  [class.in-tab]="inTab"
   [class.tool-panel-open]="isToolPanelOpen"
   >
   <span class="label">View:</span>
@@ -49,6 +50,7 @@
 <div
   *ngIf="view === View.icons"
   class="icons-container"
+  [class.in-tab]="inTab"
   [class.tool-panel-open]="isToolPanelOpen"
 >
   <div class="row-icon" *ngFor="let row of filteredRowData">

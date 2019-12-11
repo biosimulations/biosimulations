@@ -13,7 +13,9 @@
       </ng-template>
       <ng-template matTabContent>
         <div class="tab full-height simulation">
-          <app-simulations-grid></app-simulations-grid>
+          <app-simulations-grid
+            [inTab]="true"
+          ></app-simulations-grid>
         </div>
       </ng-template>
     </mat-tab>
@@ -24,7 +26,9 @@
       </ng-template>
       <ng-template matTabContent>
         <div class="tab full-height visualization">
-          <app-visualizations-grid></app-visualizations-grid>
+          <app-visualizations-grid
+            [inTab]="true"
+          ></app-visualizations-grid>
         </div>
       </ng-template>
     </mat-tab>
