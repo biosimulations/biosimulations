@@ -105,7 +105,7 @@ import { NavIconsComponent } from './Components/nav-icons/nav-icons.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { DataTableComponent } from './Components/data-table/data-table.component';
 import { AlertComponent } from './Components/alert/alert.component';
-import { CallbackComponent } from './Components/callback/callback.component';
+import { Auth0CallbackComponent } from './Components/auth-0-callback/auth-0-callback.component';
 import { HomeComponent } from './Components/home/home.component';
 import { Error404Component } from './Components/error-404/error-404.component';
 import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
@@ -142,7 +142,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     SidebarComponent,
     DataTableComponent,
     AlertComponent,
-    CallbackComponent,
+    Auth0CallbackComponent,
     HomeComponent,
     Error404Component,
     UnderConstructionComponent,
@@ -194,7 +194,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     FontAwesomeModule,
     DataTableComponent,
     AlertComponent,
-    CallbackComponent,
+    Auth0CallbackComponent,
     HomeComponent,
     Error404Component,
     UnderConstructionComponent,

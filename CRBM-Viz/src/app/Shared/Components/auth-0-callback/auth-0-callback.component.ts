@@ -6,10 +6,10 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 
 @Component({
   selector: 'app-callback',
-  templateUrl: './callback.component.html',
-  styleUrls: ['./callback.component.sass'],
+  templateUrl: './auth-0-callback.component.html',
+  styleUrls: ['./auth-0-callback.component.sass'],
 })
-export class CallbackComponent implements OnInit {
+export class Auth0CallbackComponent implements OnInit {
   constructor(
       private auth: AuthService,
       @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService) { }

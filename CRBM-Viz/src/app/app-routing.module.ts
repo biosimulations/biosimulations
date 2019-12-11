@@ -5,7 +5,7 @@ import { HomeComponent } from './Shared/Components/home/home.component';
 
 import { Error404Component } from './Shared/Components/error-404/error-404.component';
 
-import { CallbackComponent } from './Shared/Components/callback/callback.component';
+import { Auth0CallbackComponent } from './Shared/Components/auth-0-callback/auth-0-callback.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,7 +40,7 @@ const routes: Routes = [
       import('./Modules/about/about.module').then(m => m.AboutModule),
   },
 
-  { path: 'callback', component: CallbackComponent },
+  { path: 'callback', component: Auth0CallbackComponent },
 
   { path: '**', component: Error404Component },
 ];
