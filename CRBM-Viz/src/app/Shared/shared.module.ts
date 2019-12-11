@@ -107,7 +107,7 @@ import { DataTableComponent } from './Components/data-table/data-table.component
 import { AlertComponent } from './Components/alert/alert.component';
 import { CallbackComponent } from './Components/callback/callback.component';
 import { HomeComponent } from './Components/home/home.component';
-import { FourComponent } from './Components/four/four.component';
+import { Error404Component } from './Components/error-404/error-404.component';
 import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
 import { GridComponent } from './Components/grid/grid.component';
 import { IdRendererGridComponent } from './Components/grid/id-renderer-grid.component';
@@ -144,7 +144,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     AlertComponent,
     CallbackComponent,
     HomeComponent,
-    FourComponent,
+    Error404Component,
     UnderConstructionComponent,
     GridComponent,
     IdRendererGridComponent,
@@ -196,7 +196,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     AlertComponent,
     CallbackComponent,
     HomeComponent,
-    FourComponent,
+    Error404Component,
     UnderConstructionComponent,
     GridComponent,
     ProjectsGridComponent,

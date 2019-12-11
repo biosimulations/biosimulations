@@ -5,10 +5,10 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 
 @Component({
   selector: 'app-four',
-  templateUrl: './four.component.html',
-  styleUrls: ['./four.component.sass'],
+  templateUrl: './error-404.component.html',
+  styleUrls: ['./error-404.component.sass'],
 })
-export class FourComponent implements OnInit {
+export class Error404Component implements OnInit {
 
   constructor(@Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService) {}
 

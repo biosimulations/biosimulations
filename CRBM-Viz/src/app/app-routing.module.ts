@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './Shared/Components/home/home.component';
 
-import { FourComponent } from './Shared/Components/four/four.component';
+import { Error404Component } from './Shared/Components/error-404/error-404.component';
 
 import { CallbackComponent } from './Shared/Components/callback/callback.component';
 
@@ -42,7 +42,7 @@ const routes: Routes = [
 
   { path: 'callback', component: CallbackComponent },
 
-  { path: '**', component: FourComponent },
+  { path: '**', component: Error404Component },
 ];
 
 @NgModule({
