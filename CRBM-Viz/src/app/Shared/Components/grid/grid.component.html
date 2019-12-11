@@ -61,13 +61,12 @@
         [src]="row.image['url']" />
       <ng-template #defaultImage>
         <div class="image default-image" *ngIf="row.getIcon() as icon">
-          <mat-icon
+          <img
             *ngIf="icon.type === 'mat'; else faFontImage"
             aria-hidden="false"
             aria-label="Icon"
-          >{{
-            icon.icon
-          }}</mat-icon>
+            [src]="'assets/icons/' + icon.icon + '.svg'" 
+            class="mat-icon"/>
           <ng-template #faFontImage>
             <fa-icon
               aria-hidden="false"
