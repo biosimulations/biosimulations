@@ -5,10 +5,8 @@ import { JournalReference } from 'src/app/Shared/Models/journal-reference';
 import { RemoteFile } from 'src/app/Shared/Models/remote-file';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { ProjectService } from 'src/app/Shared/Services/project.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -17,12 +15,9 @@ import { Observable } from 'rxjs';
 })
 export class VisualizationService {
   private userService: UserService;
-  private projectService: ProjectService;
-  private simulationService: SimulationService;
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
     private injector:Injector) {}
 
   private vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
@@ -67,8 +62,6 @@ export class VisualizationService {
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
-      this.projectService = this.injector.get(ProjectService);
-      this.simulationService = this.injector.get(SimulationService);
     }
   }
 

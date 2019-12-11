@@ -9,7 +9,6 @@ import { Person } from '../Models/person';
 import { Project } from '../Models/project';
 import { ProjectProduct } from '../Models/project-product';
 import { User } from '../Models/user';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -17,13 +16,9 @@ import { UserService } from './user.service';
 })
 export class ProjectService {
   private userService: UserService;
-  private modelService: ModelService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
     private injector: Injector) {}
 
   static _get(id: string, includeRelatedObjects = false): Project {
@@ -134,9 +129,6 @@ export class ProjectService {
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
-      this.modelService = this.injector.get(ModelService);
-      this.simulationService = this.injector.get(SimulationService);
-      this.visualizationService = this.injector.get(VisualizationService);
     }
   }
 

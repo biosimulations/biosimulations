@@ -15,7 +15,6 @@ import { Person } from '../Models/person';
 import { RemoteFile } from '../Models/remote-file';
 import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import { ProjectService } from './project.service';
@@ -25,16 +24,12 @@ import { ProjectService } from './project.service';
 })
 export class ModelService {
   private userService: UserService;
-  private projectService: ProjectService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
 
   fileList: Array<object> = null;
   fileChangeSubject = new Subject<null>();
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
     private alertService: AlertService,
     private router: Router,
     private injector: Injector) {}
@@ -169,9 +164,6 @@ export class ModelService {
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
-      this.projectService = this.injector.get(ProjectService);
-      this.simulationService = this.injector.get(SimulationService);
-      this.visualizationService = this.injector.get(VisualizationService);
     }
   }
 
