@@ -18,6 +18,8 @@ import { User } from '../Models/user';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import { ProjectService } from './project.service';
+import { SimulationService } from './simulation.service';
+import { VisualizationService } from './visualization.service';
 
 @Injectable({
   providedIn: 'root',
@@ -299,6 +301,3 @@ export class ModelService {
       );
   }
 }
-
-import { SimulationService } from './simulation.service';
-import { VisualizationService } from './visualization.service';

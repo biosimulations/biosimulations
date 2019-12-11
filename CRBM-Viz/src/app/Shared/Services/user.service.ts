@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../Models/user';
@@ -14,15 +14,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private projectService: ProjectService;
-
   constructor(
     private http: HttpClient,
-    private injector: Injector
   ) { }
-  private modelService: ModelService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
   private endpoint = environment.crbm.CRBMAPI_URL
 
   static _get(username?: string, includeRelatedObjects = false): User {
@@ -140,19 +134,7 @@ export class UserService {
 
   }
 
-  private getServices(): void {
-    if (this.modelService == null) {
-      this.projectService = this.injector.get(ProjectService);
-      this.modelService = this.injector.get(ModelService);
-      this.simulationService = this.injector.get(SimulationService);
-      this.visualizationService = this.injector.get(VisualizationService);
-    }
-  }
-
-
-
   get(username?: string): User {
-    this.getServices();
     return UserService._get(username, true);
   }
   get$(username?: string): Observable<User> {
