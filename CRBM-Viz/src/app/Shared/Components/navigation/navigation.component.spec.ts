@@ -6,7 +6,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NavigationComponent } from './navigation.component';
 import { NavIconsComponent } from '../nav-icons/nav-icons.component';
 import { LogoComponent } from '../logo/logo.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
@@ -28,7 +27,6 @@ describe('NavigationComponent', () => {
         NavigationComponent,
         NavIconsComponent,
         LogoComponent,
-        SearchBarComponent,
         SidebarComponent,
         UserMenuComponent,
         FilterPipe,
