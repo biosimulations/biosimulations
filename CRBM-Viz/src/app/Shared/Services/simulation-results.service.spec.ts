@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataService } from './data.service';
+import { SimulationResultsService } from './simulation-results.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('DataService', () => {
+describe('SimulationResultsService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -12,7 +12,7 @@ describe('DataService', () => {
   );
 
   it('should be created', () => {
-    const service: DataService = TestBed.get(DataService);
+    const service: SimulationResultsService = TestBed.get(SimulationResultsService);
     expect(service).toBeTruthy();
   });
 });

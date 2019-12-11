@@ -91,6 +91,7 @@ import { MetadataService } from './Services/metadata.service';
 import { ProjectService } from './Services/project.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
+import { SimulationResultsService } from './Services/simulation-results.service';
 import { VisualizationService } from './Services/visualization.service';
 import { StatsService } from './Services/stats.service';
 
@@ -216,6 +217,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     ProjectService,
     ModelService,
     SimulationService,
+    SimulationResultsService,
     VisualizationService,
     StatsService,
   ],

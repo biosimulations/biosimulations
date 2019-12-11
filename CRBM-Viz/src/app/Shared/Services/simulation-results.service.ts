@@ -7,7 +7,7 @@ import { Time } from '@angular/common';
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class SimulationResultsService {
   constructor(private http: HttpClient) {}
   dataURL = 'https://crbm-test-api.herokuapp.com/data/';
 
