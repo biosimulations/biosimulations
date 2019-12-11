@@ -74,6 +74,13 @@ input, textarea.mat-input-element, mat-select, button {
     letter-spacing: normal;
 }
 
+.ng-fa-icon.full-width .svg-inline--fa {
+    width: 100%
+}
+.ng-fa-icon.full-height .svg-inline--fa {
+    height: 100%
+}
+
 /* Disabling */
 .disabled {
     cursor: default;
