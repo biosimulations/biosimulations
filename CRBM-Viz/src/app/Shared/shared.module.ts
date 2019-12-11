@@ -75,6 +75,7 @@ import {
   faTable,
   faThList,
   faThLarge,
+  faBug,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -291,6 +292,7 @@ export class SharedModule {
       faTable,
       faThList,
       faThLarge,
+      faBug,
       faDocker,
       faGithub,
       faGoogle,
