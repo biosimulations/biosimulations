@@ -84,6 +84,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
+                                <a href="#projectService">projectService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#simulationService">simulationService</a>
                             </li>
                             <li>
@@ -110,14 +114,14 @@
                                 <a href="#get">get</a>
                             </li>
                             <li>
-                                <a href="#getByAuth0Id">getByAuth0Id</a>
+                                <a href="#get$">get$</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#getServices">getServices</a>
                             </li>
                             <li>
-                                <a href="#getUser">getUser</a>
+                                <a href="#getUser$">getUser$</a>
                             </li>
                             <li>
                                 <a href="#list">list</a>
@@ -148,7 +152,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -220,15 +224,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>_get(username?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, includeRelObj)</code>
+                    <code>_get(username?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, includeRelatedObjects)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:28</a></div>
                 </td>
             </tr>
 
@@ -263,7 +267,7 @@
 
                                 </tr>
                                 <tr>
-                                    <td>includeRelObj</td>
+                                    <td>includeRelatedObjects</td>
                                     <td>
                                     </td>
 
@@ -314,8 +318,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="140"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:140</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="154"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:154</a></div>
                 </td>
             </tr>
 
@@ -366,26 +370,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getByAuth0Id"></a>
+                    <a name="get$"></a>
                     <span class="name">
                         <b>
-                            getByAuth0Id
+                            get$
                         </b>
-                        <a href="#getByAuth0Id"><span class="icon ion-ios-link"></span></a>
+                        <a href="#get$"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getByAuth0Id(auth0Id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>get$(username?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="145"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:145</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="158"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:158</a></div>
                 </td>
             </tr>
 
@@ -405,13 +409,13 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>auth0Id</td>
+                                    <td>username</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
-                                        No
+                                        Yes
                                     </td>
 
 
@@ -422,7 +426,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >Observable&lt;User&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -456,8 +460,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="120"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:120</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="143"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:143</a></div>
                 </td>
             </tr>
 
@@ -477,26 +481,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getUser"></a>
+                    <a name="getUser$"></a>
                     <span class="name">
                         <b>
-                            getUser
+                            getUser$
                         </b>
-                        <a href="#getUser"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getUser$"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getUser()</code>
+<code>getUser$(username?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="128"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:128</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="135"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:135</a></div>
                 </td>
             </tr>
 
@@ -505,8 +509,39 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>username</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
 
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >Observable&lt;User&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -534,8 +569,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="159"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:159</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="163"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:163</a></div>
                 </td>
             </tr>
 
@@ -573,8 +608,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="170"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:170</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="174"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:174</a></div>
                 </td>
             </tr>
 
@@ -642,18 +677,12 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;https://crbm.auth0.com/userinfo&#x27;</code>
+                            <i>Default value : </i><code>environment.crbm.CRBMAPI_URL</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -681,7 +710,35 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="projectService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            projectService</b>
+                            <a href="#projectService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/ProjectService.html" target="_self" >ProjectService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -709,7 +766,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -737,7 +794,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/user.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -751,12 +808,14 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Injector } from &#x27;@angular/core&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+import { Observable, of } from &#x27;rxjs&#x27;;
 import { HttpClient, HttpHeaders } from &#x27;@angular/common/http&#x27;;
 import { User } from &#x27;../Models/user&#x27;;
+import { ProjectService } from &#x27;./project.service&#x27;;
 import { ModelService } from &#x27;./model.service&#x27;;
 import { SimulationService } from &#x27;./simulation.service&#x27;;
 import { VisualizationService } from &#x27;./visualization.service&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
 
 // tslint:disable:max-line-length
 
@@ -764,18 +823,19 @@ import { VisualizationService } from &#x27;./visualization.service&#x27;;
   providedIn: &#x27;root&#x27;,
 })
 export class UserService {
-  private modelService: ModelService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
-  private endpoint &#x3D; &#x27;https://crbm.auth0.com/userinfo&#x27;;
+  private projectService: ProjectService;
 
   constructor(
     private http: HttpClient,
     private injector: Injector
-    ) {}
+  ) { }
+  private modelService: ModelService;
+  private simulationService: SimulationService;
+  private visualizationService: VisualizationService;
+  private endpoint &#x3D; environment.crbm.CRBMAPI_URL
 
-  static _get(username?: string, includeRelObj &#x3D; false): User {
-    let user:User;
+  static _get(username?: string, includeRelatedObjects &#x3D; false): User {
+    let user: User;
     switch (username) {
       default:
       case &#x27;jonrkarr&#x27;:
@@ -796,25 +856,37 @@ export class UserService {
         user.googleScholarId &#x3D; &#x27;Yb5nVLAAAAAJ&#x27;;
         user.orcId &#x3D; &#x27;0000-0002-2605-5080&#x27;;
         user.description &#x3D; &#x27;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, &#x27; +
-            &#x27;ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. &#x27; +
-            &#x27;Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. &#x27; +
-            &#x27;Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, &#x27; +
-            &#x27;nec dictum erat aliquet quis.&#x27;;
-        if (includeRelObj) {
+          &#x27;ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. &#x27; +
+          &#x27;Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. &#x27; +
+          &#x27;Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, &#x27; +
+          &#x27;nec dictum erat aliquet quis.&#x27;;
+        if (includeRelatedObjects) {
+          user.projects &#x3D; [
+            ProjectService._get(&#x27;001&#x27;),
+            ProjectService._get(&#x27;003&#x27;),
+            ProjectService._get(&#x27;006&#x27;),
+            ProjectService._get(&#x27;001&#x27;),
+            ProjectService._get(&#x27;003&#x27;),
+          ];
           user.models &#x3D; [
             ModelService._get(&#x27;001&#x27;),
             ModelService._get(&#x27;003&#x27;),
             ModelService._get(&#x27;006&#x27;),
             ModelService._get(&#x27;001&#x27;),
             ModelService._get(&#x27;003&#x27;),
-            ];
+          ];
           user.simulations &#x3D; [
             SimulationService._get(&#x27;001&#x27;),
             SimulationService._get(&#x27;003&#x27;),
             SimulationService._get(&#x27;006&#x27;),
             SimulationService._get(&#x27;001&#x27;),
           ];
-          user.visualizations &#x3D; [];
+          user.visualizations &#x3D; [
+            VisualizationService._get(1),
+            VisualizationService._get(3),
+            VisualizationService._get(6),
+            VisualizationService._get(1),
+          ];
         }
         break;
       case &#x27;y.skaf&#x27;:
@@ -830,10 +902,10 @@ export class UserService {
         user.gravatarEmail &#x3D; &#x27;skaf@uchc.edu&#x27;;
         user.description &#x3D; &#x27;Description&#x27;;
         break;
-      case &#x27;b.shaikh&#x27;:
+      case &#x27;bill2507733&#x27;:
         user &#x3D; new User();
         user.id &#x3D; 3;
-        user.username &#x3D; &#x27;b.bhaikh&#x27;;
+        user.username &#x3D; &#x27;bill2507733&#x27;;
         user.firstName &#x3D; &#x27;Bilal&#x27;;
         user.lastName &#x3D; &#x27;Shaikh&#x27;;
         user.organization &#x3D; &#x27;Icahn School of Medicine at Mount Sinai&#x27;;
@@ -868,50 +940,39 @@ export class UserService {
     }
     return user;
   }
+  // TODO get the current logged in user if no username is provided
+  getUser$(username?: string): Observable&lt;User&gt; {
+    let user: Observable&lt;User&gt;
+    user &#x3D; this.http.get&lt;User&gt;(this.endpoint + &#x27;/user/&#x27; + username);
+
+    return user;
+
+  }
 
   private getServices(): void {
     if (this.modelService &#x3D;&#x3D; null) {
+      this.projectService &#x3D; this.injector.get(ProjectService);
       this.modelService &#x3D; this.injector.get(ModelService);
       this.simulationService &#x3D; this.injector.get(SimulationService);
       this.visualizationService &#x3D; this.injector.get(VisualizationService);
     }
   }
 
-  getUser(): Observable&lt;any&gt; {
-    const httpOptions &#x3D; {
-      headers: new HttpHeaders({
-        Authorization: &#x27;Bearer W0p9s-oFubPuONgWER3JGAqnZ-HkEurI&#x27;,
-      }),
-    };
-    const Httpheaders &#x3D; new HttpHeaders({
-      Authorization: &#x27;Bearer SY1MOMZZVnEBtzEG7aw-y-JYDEwm-QM3&#x27;,
-    });
-    return this.http.get(this.endpoint, { headers: Httpheaders });
-  }
 
-  get(username?: string) : User {
+
+  get(username?: string): User {
     this.getServices();
     return UserService._get(username, true);
   }
-
-  getByAuth0Id(auth0Id: string): User {
-    let user:User;
-    switch (auth0Id) {
-      case &#x27;github|2848297&#x27;:
-        user &#x3D; this.get(&#x27;jonrkarr&#x27;);
-        break;
-      default:
-        user &#x3D; new User();
-        user.auth0Id &#x3D; auth0Id;
-        break;
-    }
-    return user;
+  get$(username?: string): Observable&lt;User&gt; {
+    return of(this.get(username))
   }
+
 
   list(): User[] {
     return [
       this.get(&#x27;jonrkarr&#x27;),
-     this.get(&#x27;y.skaf&#x27;),
+      this.get(&#x27;y.skaf&#x27;),
       this.get(&#x27;b.shaikh&#x27;),
       this.get(&#x27;s.edelstein&#x27;),
       this.get(&#x27;a.goldbeter&#x27;),

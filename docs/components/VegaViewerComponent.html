@@ -61,18 +61,11 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts</code>
+    <code>CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts</code>
 </p>
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
-    </p>
 
 
 <section>
@@ -131,16 +124,15 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#root">root</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#_options">_options</a>
                             </li>
                             <li>
-                                <a href="#spec">spec</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#_spec">_spec</a>
                             </li>
                             <li>
-                                <a href="#specid">specid</a>
-                            </li>
-                            <li>
-                                <a href="#vizname">vizname</a>
+                                <a href="#vegaContainer">vegaContainer</a>
                             </li>
                         </ul>
                     </td>
@@ -157,12 +149,6 @@
                             <li>
                                 <a href="#load">load</a>
                             </li>
-                            <li>
-                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnInit">ngOnInit</a>
-                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -176,7 +162,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#viz">viz</a>
+                                <a href="#options">options</a>
+                            </li>
+                            <li>
+                                <a href="#spec">spec</a>
                             </li>
                         </ul>
                     </td>
@@ -185,6 +174,23 @@
 
 
 
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#spec">spec</a>
+                                </li>
+                                <li>
+                                    <a href="#options">options</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
         </tbody>
     </table>
 </section>
@@ -200,7 +206,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:35</a></div>
                             </td>
                         </tr>
 
@@ -214,19 +220,34 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="viz"></a>
-                        <b>viz</b>
+                        <a name="options"></a>
+                        <b>options</b>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/Visualization.html" target="_self" >Visualization</a></code>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
 
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="spec"></a>
+                        <b>spec</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:15</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -262,86 +283,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:29</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngAfterViewInit"></a>
-                    <span class="name">
-                        <b>
-                            ngAfterViewInit
-                        </b>
-                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngAfterViewInit()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:26</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:39</a></div>
                 </td>
             </tr>
 
@@ -367,23 +310,24 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="root"></a>
+                        <a name="_options"></a>
                         <span class="name">
                             <b>
-                            root</b>
-                            <a href="#root"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Private</span>
+                            _options</b>
+                            <a href="#_options"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -394,11 +338,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="spec"></a>
+                        <a name="_spec"></a>
                         <span class="name">
                             <b>
-                            spec</b>
-                            <a href="#spec"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Private</span>
+                            _spec</b>
+                            <a href="#_spec"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -410,7 +355,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -421,50 +366,32 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="specid"></a>
+                        <a name="vegaContainer"></a>
                         <span class="name">
                             <b>
-                            specid</b>
-                            <a href="#specid"><span class="icon ion-ios-link"></span></a>
+                            vegaContainer</b>
+                            <a href="#vegaContainer"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                            <i>Type : </i>        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
 
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:12</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="vizname"></a>
-                        <span class="name">
-                            <b>
-                            vizname</b>
-                            <a href="#vizname"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;vegaContainer&#x27;, {static: true})<br />
+                            </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/vega-viewer/vega-viewer.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -473,52 +400,182 @@
         </table>
 </section>
 
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="spec"></a>
+                        <span class="name"><b>spec</b><a href="#spec"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>spec(value)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:15</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="options"></a>
+                        <span class="name"><b>options</b><a href="#options"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>options(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank">object</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/vega-viewer/vega-viewer.component.ts:32</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, AfterViewInit, Input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, ElementRef, ViewChild } from &#x27;@angular/core&#x27;;
 import vegaEmbed from &#x27;vega-embed&#x27;;
-import { Visualization } from &#x27;src/app/Shared/Models/visualization&#x27;;
+
 @Component({
   selector: &#x27;app-vega-viewer&#x27;,
   templateUrl: &#x27;./vega-viewer.component.html&#x27;,
   styleUrls: [&#x27;./vega-viewer.component.sass&#x27;],
 })
-export class VegaViewerComponent implements OnInit, AfterViewInit {
-  @Input() viz: Visualization;
-  spec: object | string;
-  specid: string;
-  vizname: string;
-  root: string;
+export class VegaViewerComponent {
+  private _spec: object | string;
+  private _options: object;
+  @ViewChild(&#x27;vegaContainer&#x27;, { static: true }) vegaContainer: ElementRef;
+
+  @Input()
+  set spec(value: object | string) {
+    this._spec &#x3D; value;
+
+    if (typeof value !&#x3D;&#x3D; &#x27;string&#x27;) {
+      value[&#x27;width&#x27;] &#x3D; &#x27;container&#x27;;
+      value[&#x27;height&#x27;] &#x3D; &#x27;container&#x27;;
+      value[&#x27;autosize&#x27;] &#x3D; {
+        type: &#x27;fit&#x27;,
+        resize: true,
+      };
+      value[&#x27;background&#x27;] &#x3D; &#x27;transparent&#x27;;
+    }
+
+    this.load();
+  }
+
+  @Input()
+  set options(value: object) {
+    this._options &#x3D; value;
+    this.load();
+  }
 
   constructor() {}
 
-  ngOnInit() {
-    this.spec &#x3D; this.viz.spec;
-    this.specid &#x3D; &#x27;test&#x27; + this.viz.id.toString();
-    this.vizname &#x3D; this.viz.name;
-    this.root &#x3D; &#x27;#&#x27; + this.specid;
-  }
-  /* This must be done after the view initilizes since the div with the appropriate id has not been created untill view initilization.
-  There will be an error about a non existant element if callled during init */
-  ngAfterViewInit() {
-    this.load();
-  }
   load() {
-    console.log(this.viz);
-    vegaEmbed(this.root, this.spec)
-      // result.view provides access to the Vega View API
-      .then(result &#x3D;&gt; console.log(result))
-      .catch(console.error);
+    if (this.vegaContainer &amp;&amp; this._spec) {
+      // console.log(this._spec);
+      vegaEmbed(this.vegaContainer.nativeElement, this._spec, this._options)
+        // result.view provides access to the Vega View API
+        // .then(result &#x3D;&gt; console.log(result))
+        .catch(console.error);
+    }
   }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;h3 class&#x3D;&quot;figure-title&quot;&gt;{{ vizname }}:&lt;/h3&gt;
-&lt;div class&#x3D;&quot;vega-figure&quot; id&#x3D;&quot;{{ specid }}&quot;&gt;&lt;/div&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div #vegaContainer&gt;&lt;/div&gt;
 </code></pre>
     </div>
 
@@ -558,8 +615,8 @@ export class VegaViewerComponent implements OnInit, AfterViewInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h3 class="figure-title">{{ vizname }}:</h3><div class="vega-figure" id="{{ specid }}"></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div #vegaContainer></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'VegaViewerComponent'};
 </script>

@@ -76,6 +76,19 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#filter">filter</a>
+                            </li>
+                            <li>
+                                <a href="#getAlgorithmParameters">getAlgorithmParameters</a>
+                            </li>
+                            <li>
+                                <a href="#getAlgorithms">getAlgorithms</a>
+                            </li>
+                            <li>
+                                <a href="#getSimulators">getSimulators</a>
+                            </li>
+                            <li>
                                 <a href="#getTaxa">getTaxa</a>
                             </li>
                         </ul>
@@ -101,7 +114,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -148,26 +161,28 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getTaxa"></a>
+                    <a name="filter"></a>
                     <span class="name">
                         <b>
-                            getTaxa
+                            <span class="modifier">Private</span>
+                            filter
                         </b>
-                        <a href="#getTaxa"><span class="icon ion-ios-link"></span></a>
+                        <a href="#filter"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getTaxa(taxonName?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>filter(list: object[], id?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, name?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:15</a></div>
                 </td>
             </tr>
 
@@ -187,7 +202,323 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>taxonName</td>
+                                    <td>list</td>
+                                    <td>
+                                            <code>object[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>object[]</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAlgorithmParameters"></a>
+                    <span class="name">
+                        <b>
+                            getAlgorithmParameters
+                        </b>
+                        <a href="#getAlgorithmParameters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAlgorithmParameters(algorithm: <a href="../classes/Algorithm.html">Algorithm</a>, value?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:54</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>algorithm</td>
+                                    <td>
+                                                <code><a href="../classes/Algorithm.html" target="_self" >Algorithm</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>AlgorithmParameter[]</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAlgorithms"></a>
+                    <span class="name">
+                        <b>
+                            getAlgorithms
+                        </b>
+                        <a href="#getAlgorithms"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAlgorithms(name?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Algorithm.html" target="_self" >Algorithm[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSimulators"></a>
+                    <span class="name">
+                        <b>
+                            getSimulators
+                        </b>
+                        <a href="#getSimulators"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSimulators(name?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Simulator.html" target="_self" >Simulator[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTaxa"></a>
+                    <span class="name">
+                        <b>
+                            getTaxa
+                        </b>
+                        <a href="#getTaxa"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTaxa(name?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/metadata.service.ts:68</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -221,6 +552,9 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { Algorithm } from &#x27;src/app/Shared/Models/algorithm&#x27;;
+import { AlgorithmParameter } from &#x27;src/app/Shared/Models/algorithm-parameter&#x27;;
+import { Simulator } from &#x27;src/app/Shared/Models/simulator&#x27;;
 import { Taxon } from &#x27;src/app/Shared/Models/taxon&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
@@ -231,19 +565,66 @@ import { Observable } from &#x27;rxjs&#x27;;
 export class MetadataService {
   constructor(private http: HttpClient) {}
 
-  getTaxa(taxonName?: string): Taxon[] {
-    const taxa: Taxon[] &#x3D; [
+  private filter(list: object[], id?: string, name?: string): object[] {
+    let lowCaseId: string;
+    let lowCaseName: string;
+    if (id) {
+      lowCaseId &#x3D; id.toLowerCase();
+    }
+    if (name) {
+      lowCaseName &#x3D; name.toLowerCase();
+    }
+
+    if (id || name) {
+      return list.filter(item &#x3D;&gt;
+        (id &#x3D;&#x3D;&#x3D; undefined || item[&#x27;id&#x27;].toLowerCase().includes(lowCaseName)) ||
+        (name &#x3D;&#x3D;&#x3D; undefined || item[&#x27;name&#x27;].toLowerCase().includes(lowCaseName))
+      ) ;
+    } else {
+      return list;
+    }
+  }
+
+  getAlgorithms(name?: string): Algorithm[] {
+    const list: Algorithm[] &#x3D; [
+      new Algorithm(&#x27;0000499&#x27;, &#x27;dynamic flux balance analysis&#x27;),
+      new Algorithm(&#x27;0000025&#x27;, &#x27;Gillespie-like stochastic simulation method&#x27;),
+      new Algorithm(&#x27;0000448&#x27;, &#x27;logical model simulation method&#x27;),
+      new Algorithm(&#x27;0000064&#x27;, &#x27;Runge-Kutta based method&#x27;),
+    ];
+
+    for (const alg of list) {
+      alg.parameters &#x3D; [
+        new AlgorithmParameter(&#x27;seed&#x27;, &#x27;random number generator seed&#x27;, 1, 488),
+        new AlgorithmParameter(&#x27;atol&#x27;, &#x27;absolute tolerance&#x27;, 1e-6, 211),
+        new AlgorithmParameter(&#x27;rtol&#x27;, &#x27;relative tolerance&#x27;, 1e-6, 209),
+      ];
+    }
+
+    return this.filter(list, undefined, name) as Algorithm[];
+  }
+
+  getAlgorithmParameters(algorithm: Algorithm, value?: string): AlgorithmParameter[] {
+    return this.filter(algorithm.parameters, value, value) as AlgorithmParameter[];
+  }
+
+  getSimulators(name?: string): Simulator[] {
+    const list: Simulator[] &#x3D; [
+      new Simulator(&#x27;COPASI&#x27;, &#x27;4.0&#x27;),
+      new Simulator(&#x27;COPASI&#x27;, &#x27;3.0&#x27;),
+      new Simulator(&#x27;VCell&#x27;, &#x27;6.1&#x27;),
+      new Simulator(&#x27;VCell&#x27;, &#x27;6.0&#x27;),
+    ];
+    return this.filter(list, undefined, name) as Simulator[];
+  }
+
+  getTaxa(name?: string): Taxon[] {
+    const list: Taxon[] &#x3D; [
       new Taxon(2, &#x27;Bacillus subtilis&#x27;),
       new Taxon(1, &#x27;Escherichia coli&#x27;),
       new Taxon(9606, &#x27;Homo sapiens&#x27;),
     ];
-
-    if (taxonName) {
-      const lowCaseTaxonName: string &#x3D; taxonName.toLowerCase();
-      return taxa.filter(taxon &#x3D;&gt; taxon.name.toLowerCase().includes(lowCaseTaxonName));
-    } else {
-      return taxa;
-    }
+    return this.filter(list, undefined, name) as Taxon[];
   }
 }
 </code></pre>
