@@ -327,8 +327,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="193"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/project.service.ts:193</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="194"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/project.service.ts:194</a></div>
                 </td>
             </tr>
 
@@ -399,8 +399,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="158"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/project.service.ts:158</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="159"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/project.service.ts:159</a></div>
                 </td>
             </tr>
 
@@ -597,7 +597,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>list(name?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>list(name?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, owner?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -626,6 +626,18 @@
                             <tbody>
                                 <tr>
                                     <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>owner</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -674,8 +686,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="178"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/project.service.ts:178</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="179"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/project.service.ts:179</a></div>
                 </td>
             </tr>
 
@@ -1005,7 +1017,8 @@ export class ProjectService {
     return ProjectService._get(id, true);
   }
 
-  list(name?: string): Project[] {
+  list(name?: string, owner?: string): Project[] {
+    // TODO: filter on name, owner attributes
     const data: Project[] &#x3D; [
       this.get(&#x27;001&#x27;),
       this.get(&#x27;002&#x27;),

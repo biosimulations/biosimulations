@@ -289,15 +289,15 @@ export class TreeComponent {
     this.expandHighlightedNode();
   }
 
-  private privateHighlightedNodeId: string | number;
+  private _highlightedNodeId: string | number;
 
   get highlightedNodeId(): string | number {
-    return this.privateHighlightedNodeId;
+    return this._highlightedNodeId;
   }
 
   @Input()
   set highlightedNodeId(val: string | number) {
-    this.privateHighlightedNodeId &#x3D; val;
+    this._highlightedNodeId &#x3D; val;
     this.expandHighlightedNode();
   }
 
@@ -310,7 +310,7 @@ export class TreeComponent {
   isNodeHighlighted &#x3D; (node: Node) &#x3D;&gt; this.highlightedNodeId !&#x3D;&#x3D; undefined &amp;&amp; node.id &#x3D;&#x3D;&#x3D; this.highlightedNodeId;
 
   private expandHighlightedNode(): void {
-    if (this.dataSource.data &amp;&amp; this.privateHighlightedNodeId !&#x3D;&#x3D; undefined) {
+    if (this.dataSource.data &amp;&amp; this._highlightedNodeId !&#x3D;&#x3D; undefined) {
       this.treeControl.collapseAll();
 
       const stack &#x3D; [];
@@ -322,7 +322,7 @@ export class TreeComponent {
         const nodes: Node[] &#x3D; stack.pop();
         const node: Node &#x3D; nodes.slice(-1)[0];
 
-        if (node.id &#x3D;&#x3D;&#x3D; this.privateHighlightedNodeId) {
+        if (node.id &#x3D;&#x3D;&#x3D; this._highlightedNodeId) {
           for (const parentNode of nodes) {
             this.treeControl.expand(parentNode);
           }

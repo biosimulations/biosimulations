@@ -124,6 +124,15 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#getAuthors">getAuthors</a>
+                            </li>
+                            <li>
+                                <a href="#getAuthorsStr">getAuthorsStr</a>
+                            </li>
+                            <li>
+                                <a href="#getShortName">getShortName</a>
+                            </li>
+                            <li>
                                 <a href="#getUrl">getUrl</a>
                             </li>
                         </ul>
@@ -511,6 +520,123 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getAuthors"></a>
+                    <span class="name">
+                        <b>
+                            getAuthors
+                        </b>
+                        <a href="#getAuthors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAuthors()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/journal-reference.ts:31</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>object[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAuthorsStr"></a>
+                    <span class="name">
+                        <b>
+                            getAuthorsStr
+                        </b>
+                        <a href="#getAuthorsStr"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAuthorsStr()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/journal-reference.ts:42</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getShortName"></a>
+                    <span class="name">
+                        <b>
+                            getShortName
+                        </b>
+                        <a href="#getShortName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getShortName()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/journal-reference.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getUrl"></a>
                     <span class="name">
                         <b>
@@ -529,8 +655,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/journal-reference.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/journal-reference.ts:81</a></div>
                 </td>
             </tr>
 
@@ -584,6 +710,56 @@
     this.pages &#x3D; pages;
     this.year &#x3D; year;
     this.doi &#x3D; doi;
+  }
+
+  getAuthors(): object[] {
+    return this.authors.split(/ *(?:,|;|&amp;|and|(?:(?:,|;) *(?:&amp;|and))) */).map(name &#x3D;&gt; {
+      const names: string[] &#x3D; name.split(/ +/);
+      return {
+        firstName: names[0],
+        middleNames: names.slice(1, -1),
+        lastName: names.slice(-1)[0],
+      };
+    });
+  }
+
+  getAuthorsStr(): string {
+    const authorStrs: string[] &#x3D; this.getAuthors().map(author &#x3D;&gt; {
+      return (
+        author[&#x27;lastName&#x27;]
+        + &#x27; &#x27;
+        + author[&#x27;firstName&#x27;][0]
+        + author[&#x27;middleNames&#x27;].map(name &#x3D;&gt;name[0]).join(&#x27;&#x27;)
+        );
+    });
+
+    switch (authorStrs.length) {
+      case 1:
+        return authorStrs[0];
+      case 2:
+        return authorStrs.join(&#x27; &amp; &#x27;);
+      default:
+        return authorStrs.slice(0, -1).join(&#x27;, &#x27;) + &#x27; &amp; &#x27; + authorStrs.slice(-1)[0];
+    }
+  }
+
+  getShortName(): string {
+    const authorsArr: object[] &#x3D; this.getAuthors();
+
+    let authorsStr: string;
+    switch (authorsArr.length) {
+      case 1:
+        authorsStr &#x3D; authorsArr[0][&#x27;lastName&#x27;];
+        break;
+      case 2:
+        authorsStr &#x3D; authorsArr[0][&#x27;lastName&#x27;] + &#x27; and &#x27; + authorsArr[1][&#x27;lastName&#x27;];
+        break;
+      default:
+        authorsStr &#x3D; authorsArr[0][&#x27;lastName&#x27;] + &#x27; et al.&#x27;;
+        break;
+    }
+
+    return authorsStr + &#x27; &#x27; + this.year.toString();
   }
 
   getUrl(): string {

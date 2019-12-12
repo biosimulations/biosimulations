@@ -126,6 +126,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#cols">cols</a>
+                            </li>
+                            <li>
                                 <a href="#maxVisualizations">maxVisualizations</a>
                             </li>
                             <li>
@@ -153,7 +156,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualization-cards/visualization-cards.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualization-cards/visualization-cards.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -193,6 +196,26 @@
 
     <section>
     <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="cols"></a>
+                        <b>cols</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>2</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualization-cards/visualization-cards.component.ts:13</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
@@ -256,6 +279,7 @@ import { Visualization } from &#x27;../../Models/visualization&#x27;;
 export class VisualizationCardsComponent {
   @Input() visualizations: Visualization[];
   @Input() maxVisualizations &#x3D; Infinity;
+  @Input() cols &#x3D; 2;
 
   constructor(private router: Router) { }
 }
@@ -263,7 +287,10 @@ export class VisualizationCardsComponent {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div *ngIf&#x3D;&quot;visualizations &amp;&amp; visualizations.length &gt; 0; else noVisualizations&quot; class&#x3D;&quot;card-grid&quot;&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div
+  *ngIf&#x3D;&quot;visualizations &amp;&amp; visualizations.length &gt; 0; else noVisualizations&quot;
+  class&#x3D;&quot;card-grid&quot;
+  [style.grid-template-columns]&#x3D;&quot;&#x27;1fr &#x27;.repeat(cols)&quot;&gt;
   &lt;div *ngFor&#x3D;&quot;let viz of visualizations.slice(0, maxVisualizations)&quot; class&#x3D;&quot;card hover-light-background&quot;&gt;
     &lt;div class&#x3D;&quot;title&quot;&gt;
       &lt;a [routerLink]&#x3D;&quot;viz.getRoute()&quot;&gt;
@@ -284,7 +311,7 @@ export class VisualizationCardsComponent {
           aria-hidden&#x3D;&quot;false&quot;
           aria-label&#x3D;&quot;Format icon&quot;
           [icon]&#x3D;&quot;[&#x27;far&#x27;, &#x27;file-alt&#x27;]&quot;
-        &gt;&lt;/fa-icon&gt; {{ viz.format.name }}
+        &gt;&lt;/fa-icon&gt; Vega
       &lt;/li&gt;
       &lt;li&gt;
         &lt;fa-icon
@@ -335,8 +362,8 @@ export class VisualizationCardsComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div *ngIf="visualizations && visualizations.length > 0; else noVisualizations" class="card-grid">  <div *ngFor="let viz of visualizations.slice(0, maxVisualizations)" class="card hover-light-background">    <div class="title">      <a [routerLink]="viz.getRoute()">        <fa-icon          class="icon"          aria-hidden="false"          aria-label="Visualization icon"          [icon]="[\'fas\', \'chart-area\']"          ></fa-icon>        {{ viz.id }}: {{ viz.name }}      </a>    </div>    <div class="description">{{ viz.description | shorten: 130: \'...\' }}</div>    <ul class="icon-text inline tags">      <li>        <fa-icon          class="icon"          aria-hidden="false"          aria-label="Format icon"          [icon]="[\'far\', \'file-alt\']"        ></fa-icon> {{ viz.format.name }}      </li>      <li>        <fa-icon          class="icon"          aria-hidden="false"          aria-label="Tags icon"          [icon]="[\'fas\', \'tags\']"        ></fa-icon> {{ viz.tags.join(\', \') | shorten: 30: \'...\' }}      </li>    </ul>  </div></div><ng-template #noVisualizations>  <i>None.</i></ng-template></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div  *ngIf="visualizations && visualizations.length > 0; else noVisualizations"  class="card-grid"  [style.grid-template-columns]="\'1fr \'.repeat(cols)">  <div *ngFor="let viz of visualizations.slice(0, maxVisualizations)" class="card hover-light-background">    <div class="title">      <a [routerLink]="viz.getRoute()">        <fa-icon          class="icon"          aria-hidden="false"          aria-label="Visualization icon"          [icon]="[\'fas\', \'chart-area\']"          ></fa-icon>        {{ viz.id }}: {{ viz.name }}      </a>    </div>    <div class="description">{{ viz.description | shorten: 130: \'...\' }}</div>    <ul class="icon-text inline tags">      <li>        <fa-icon          class="icon"          aria-hidden="false"          aria-label="Format icon"          [icon]="[\'far\', \'file-alt\']"        ></fa-icon> Vega      </li>      <li>        <fa-icon          class="icon"          aria-hidden="false"          aria-label="Tags icon"          [icon]="[\'fas\', \'tags\']"        ></fa-icon> {{ viz.tags.join(\', \') | shorten: 30: \'...\' }}      </li>    </ul>  </div></div><ng-template #noVisualizations>  <i>None.</i></ng-template></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'VisualizationCardsComponent'};
 </script>

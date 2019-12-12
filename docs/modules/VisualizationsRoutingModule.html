@@ -72,17 +72,40 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
+import { AuthGuard } from &#x27;src/app/Shared/Gaurds/auth.guard&#x27;;
 
-import { VisualizeComponent } from &#x27;./visualize/visualize.component&#x27;;
+import { BrowseComponent } from &#x27;./browse/browse.component&#x27;;
+import { EditComponent } from &#x27;./edit/edit.component&#x27;;
+import { ViewComponent } from &#x27;./view/view.component&#x27;;
 
 const routes: Routes &#x3D; [
   {
     path: &#x27;&#x27;,
-    component: VisualizeComponent,
+    component: BrowseComponent,
   },
   {
-   path: &#x27;:id&#x27;,
-   component: VisualizeComponent,
+    path: &#x27;new&#x27;,
+    component: EditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: &#x27;new/:simulationId&#x27;,
+    component: EditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: &#x27;:id&#x27;,
+    component: ViewComponent,
+  },
+  {
+    path: &#x27;:id/edit&#x27;,
+    component: EditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: &#x27;:id/fork&#x27;,
+    component: EditComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

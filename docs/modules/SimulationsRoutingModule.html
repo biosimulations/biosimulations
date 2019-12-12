@@ -74,16 +74,17 @@
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
 import { AuthGuard } from &#x27;src/app/Shared/Gaurds/auth.guard&#x27;;
 
-import { NewSimulationComponent } from &#x27;./new-simulation/new-simulation.component&#x27;;
-import { SimulateComponent } from &#x27;./simulate/simulate.component&#x27;;
 import { BrowseComponent } from &#x27;./browse/browse.component&#x27;;
+import { EditComponent } from &#x27;./edit/edit.component&#x27;;
 import { ViewComponent } from &#x27;./view/view.component&#x27;;
 
 const routes: Routes &#x3D; [
   { path: &#x27;&#x27;, component: BrowseComponent },
-  { path: &#x27;new&#x27;, component: SimulateComponent, canActivate: [AuthGuard] },
-  { path: &#x27;new/:id&#x27;, component: SimulateComponent, canActivate: [AuthGuard] },
+  { path: &#x27;new&#x27;, component: EditComponent, canActivate: [AuthGuard] },
+  { path: &#x27;new/:modelId&#x27;, component: EditComponent, canActivate: [AuthGuard] },
   { path: &#x27;:id&#x27;, component: ViewComponent },
+  { path: &#x27;:id/edit&#x27;, component: EditComponent, canActivate: [AuthGuard] },
+  { path: &#x27;:id/fork&#x27;, component: EditComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
