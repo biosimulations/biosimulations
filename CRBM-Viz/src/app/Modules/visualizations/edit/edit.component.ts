@@ -233,8 +233,8 @@ export class EditComponent implements OnInit {
   }
 
   selectVisualizationSchema(event): void {
-    let schema = event['data'];
-    let selected: boolean = event['selected'];
+    const schema = event['data'];
+    const selected: boolean = event['selected'];
     const formArray: FormArray = this.getFormArray('visualizationSchemas');
     if (selected) {
         const dataFormArray: FormArray = this.formBuilder.array([]);
@@ -298,8 +298,8 @@ export class EditComponent implements OnInit {
   }
 
   getAllSimulationResults(event): void {
-    let simulation = event['data'];
-    let selected = event['selected'];
+    const simulation = event['data'];
+    const selected = event['selected'];
 
     if (selected) {
       const simulationResults: SimulationResult[] = [];
@@ -314,7 +314,7 @@ export class EditComponent implements OnInit {
         simulation,
         simulationResults,
       });
-      this.allSimulationResults.sort((a, b) => (a['simulation'].id, b['simulation'].id));
+      this.allSimulationResults = this.allSimulationResults.sort((a, b) => (a['simulation'].id, b['simulation'].id));
     } else {
       for (let iGroup = 0; iGroup < this.allSimulationResults.length; iGroup++) {
         if (this.allSimulationResults[iGroup]['simulation'].id === simulation.id) {

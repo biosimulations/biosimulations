@@ -38,7 +38,7 @@ export class GridComponent {
 
   selected: Set<object> = new Set();
 
-  @Output() onSelect = new EventEmitter();
+  @Output() selectRow = new EventEmitter();
 
   @Input() inTab = false;
 
@@ -208,18 +208,18 @@ export class GridComponent {
       rowDatum['_selected'] = false;
       this.selected.delete(rowDatum);
       this.gridApi.getRowNode(rowDatum['id']).setSelected(false, false);
-      this.onSelect.emit({data: rowDatum, selected: false});
+      this.selectRow.emit({data: rowDatum, selected: false});
     } else {
       if (this._selectable === 'single') {
-        for (const rowDatum of this.selected) {
-          rowDatum['_selected'] = false;
+        for (const rowDatum2 of this.selected) {
+          rowDatum2['_selected'] = false;
         }
         this.selected.clear();
       }
       rowDatum['_selected'] = true;
       this.selected.add(rowDatum);
       this.gridApi.getRowNode(rowDatum['id']).setSelected(true, false);
-      this.onSelect.emit({data: rowDatum, selected: true});
+      this.selectRow.emit({data: rowDatum, selected: true});
     }
   }
 

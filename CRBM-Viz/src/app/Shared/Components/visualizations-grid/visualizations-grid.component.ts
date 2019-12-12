@@ -42,7 +42,7 @@ export class VisualizationsGridComponent implements OnInit {
     return this._selectable;
   }
 
-  @Output() onSelect = new EventEmitter();
+  @Output() selectRow = new EventEmitter();
 
   @Input() inTab = false;
 
@@ -142,8 +142,8 @@ export class VisualizationsGridComponent implements OnInit {
     return UtilsService.formatTimeForHumans(secs);
   }
 
-  select(event) {
-    this.onSelect.emit(event)
+  onSelectRow(event) {
+    this.selectRow.emit(event);
   }
 }
 

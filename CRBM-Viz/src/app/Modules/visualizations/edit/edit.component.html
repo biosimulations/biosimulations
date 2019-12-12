@@ -14,7 +14,7 @@
       <div class="tab full-height simulation">
         <app-simulations-grid
           selectable="multiple"
-          (onSelect)="getAllSimulationResults($event)"
+          (selectRow)="getAllSimulationResults($event)"
           inTab="true"
         ></app-simulations-grid>
       </div>
@@ -27,7 +27,7 @@
       <div class="tab full-height visualization">
         <app-visualizations-grid
           selectable="multiple"
-          (onSelect)="selectVisualizationSchema($event)"
+          (selectRow)="selectVisualizationSchema($event)"
           inTab="true"
         ></app-visualizations-grid>
       </div>

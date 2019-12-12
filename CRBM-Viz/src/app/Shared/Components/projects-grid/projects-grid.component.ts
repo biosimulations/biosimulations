@@ -40,7 +40,7 @@ export class ProjectsGridComponent implements OnInit {
     return this._selectable;
   }
 
-  @Output() onSelect = new EventEmitter();
+  @Output() elect = new EventEmitter();
 
   @Input() inTab = false;
 
@@ -129,8 +129,8 @@ export class ProjectsGridComponent implements OnInit {
     this.rowData = this.projectService.list(null, this._owner);
   }
 
-  select(event) {
-    this.onSelect.emit(event)
+  onSelectRow(event) {
+    this.selectRow.emit(event);
   }
 }
 

@@ -40,7 +40,7 @@ export class ModelsGridComponent implements OnInit {
     return this._selectable;
   }
 
-  @Output() onSelect = new EventEmitter();
+  @Output() selectRow = new EventEmitter();
 
   @Input() inTab = false;
 
@@ -152,8 +152,8 @@ export class ModelsGridComponent implements OnInit {
     this.rowData = this.modelService.list(null, this._owner);
   }
 
-  select(event) {
-    this.onSelect.emit(event)
+  onSelectRow(event) {
+    this.selectRow.emit(event)
   }
 }
 
