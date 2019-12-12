@@ -2,5 +2,7 @@
   [rowTypePlural]="'Simulations'"
   [columnDefs]="columnDefs"
   [rowData]="rowData"
+  [selectable]="selectable"
+  (onSelect)="select($event)"
   [inTab]="inTab"
   ></app-grid>

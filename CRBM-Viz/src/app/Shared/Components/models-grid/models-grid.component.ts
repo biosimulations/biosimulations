@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -23,6 +23,25 @@ export class ModelsGridComponent implements OnInit {
     this.rowData = this.modelService.list(null, value);
   }
 
+  private _selectable: string = null;
+
+  @Input()
+  set selectable(value: string) {
+    this._selectable = value;
+    if (this.columnDefs) {
+      if (value) {
+        this.columnDefs[0]['cellRenderer'] = 'idRenderer';
+      } else {
+        this.columnDefs[0]['cellRenderer'] = 'idRouteRenderer';
+      }
+    }
+  }
+  get selectable(): string {
+    return this._selectable;
+  }
+
+  @Output() onSelect = new EventEmitter();
+
   @Input() inTab = false;
 
   constructor(
@@ -35,7 +54,7 @@ export class ModelsGridComponent implements OnInit {
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: 'idRenderer',
+        cellRenderer: (this._selectable ? 'idRenderer' : 'idRouteRenderer'),
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -131,6 +150,10 @@ export class ModelsGridComponent implements OnInit {
     ];
 
     this.rowData = this.modelService.list(null, this._owner);
+  }
+
+  select(event) {
+    this.onSelect.emit(event)
   }
 }
 

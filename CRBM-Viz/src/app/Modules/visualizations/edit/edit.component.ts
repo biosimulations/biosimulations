@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { Visualization } from 'src/app/Shared/Models/visualization';
+import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
@@ -46,6 +47,7 @@ export class EditComponent implements OnInit {
   private simulationId: string;
   visualization: Visualization;
   formGroup: FormGroup;
+  @ViewChild('visualizationSchemaLayout', { static: true }) visualizationSchemaLayout: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,6 +70,8 @@ export class EditComponent implements OnInit {
       refs: this.formBuilder.array([]),
       access: [''],
       license: [''],
+      columns: [1, Validators.min(1)],
+      visualizationSchemas: this.formBuilder.array([]),
     });
   }
 
@@ -217,6 +221,50 @@ export class EditComponent implements OnInit {
         this.addRefFormElement();
       }
     }
+
+    // update layout
+    this.updateLayoutGrid();
+  }
+
+  selectVisualizationSchema(event): void {
+    let schema = event['data'];
+    let selected: boolean = event['selected'];
+    const formArray: FormArray = this.getFormArray('visualizationSchemas');
+    if (selected) {
+        formArray.push(this.formBuilder.group({
+          schema: this.formBuilder.control(schema),
+          variables: this.formBuilder.array([]),
+        }));
+    } else {
+      for (let iSchema = 0; iSchema < formArray.controls.length; iSchema++) {
+        if (formArray.controls[iSchema].value === schema) {
+          formArray.removeAt(iSchema);
+          break;
+        }
+      }
+    }
+
+    this.updateLayoutGrid();
+  }
+
+  changeColumns(event): void {
+    if (event.target.valueAsNumber < 1) {
+      this.formGroup.patchValue({columns: 1});
+    }
+    this.updateLayoutGrid();
+  }
+
+  updateLayoutGrid(): void {
+    const columns: number = this.formGroup.value.columns;
+    const rows = Math.max(1, Math.ceil(this.formGroup.value.visualizationSchemas.length / columns));
+
+    //this.visualizationSchemaLayout.nativeElement.setAttribute('style', (
+    //  `width: calc(${ columns } * (10rem + 2 * 1px) + (${ columns } - 1) * 2 * 0.25rem + 2 * 0.25rem);` +
+    //  `height: calc(${ rows } * (10rem + 2 * 1px) + (${ rows } - 1) * 2 * 0.25rem + 2 * 0.25rem)`));
+
+    this.visualizationSchemaLayout.nativeElement.setAttribute('style', (
+      `grid-template-rows: repeat(${ rows }, 10rem);` +
+      `grid-template-columns: repeat(${ columns }, 10rem)`));
   }
 
   getFormArray(array: string): FormArray {

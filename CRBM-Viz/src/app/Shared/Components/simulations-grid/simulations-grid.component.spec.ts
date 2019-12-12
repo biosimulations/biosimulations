@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SimulationsGridComponent } from './simulations-grid.component';
 import { GridComponent } from '../grid/grid.component';
 import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
+import { IdRouteRendererGridComponent } from '../grid/id-route-renderer-grid.component';
 import { RouteRendererGridComponent } from '../grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,6 +21,7 @@ describe('SimulationsGridComponent', () => {
         SimulationsGridComponent,
         GridComponent,
         IdRendererGridComponent,
+        IdRouteRendererGridComponent,
         RouteRendererGridComponent,
         SearchToolPanelGridComponent,
       ],
@@ -29,6 +31,7 @@ describe('SimulationsGridComponent', () => {
         HttpClientModule,
         AgGridModule.withComponents([
           IdRendererGridComponent,
+          IdRouteRendererGridComponent,
           RouteRendererGridComponent,
           SearchToolPanelGridComponent,
         ]),

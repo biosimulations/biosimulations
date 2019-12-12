@@ -10,6 +10,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from '../Modules/app-material.module';
 import { NgPipesModule } from 'ngx-pipes';
+import { NgxDnDModule } from '@swimlane/ngx-dnd';
 
 // FontAwesome for icons
 import {
@@ -111,6 +112,8 @@ import { Error404Component } from './Components/error-404/error-404.component';
 import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
 import { GridComponent } from './Components/grid/grid.component';
 import { IdRendererGridComponent } from './Components/grid/id-renderer-grid.component';
+import { IdRouteRendererGridComponent } from './Components/grid/id-route-renderer-grid.component';
+import { GridCardComponent } from './Components/grid/grid-card.component';
 import { RouteRendererGridComponent } from './Components/grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './Components/grid/search-tool-panel-grid.component';
 import { ProjectsGridComponent } from './Components/projects-grid/projects-grid.component';
@@ -124,6 +127,7 @@ import { ModelCardsComponent } from './Components/model-cards/model-cards.compon
 import { SimulationCardsComponent } from './Components/simulation-cards/simulation-cards.component';
 import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
 import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
+import { RouterlinkComponent } from './Components/routerlink/routerlink.component';
 import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
@@ -146,6 +150,8 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     UnderConstructionComponent,
     GridComponent,
     IdRendererGridComponent,
+    IdRouteRendererGridComponent,
+    GridCardComponent,
     RouteRendererGridComponent,
     SearchToolPanelGridComponent,
     ProjectsGridComponent,
@@ -159,6 +165,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     SimulationCardsComponent,
     VisualizationCardsComponent,
     HyperlinkComponent,
+    RouterlinkComponent,
     OkCancelDialogComponent,
     FeedbackComponent,
     VegaViewerComponent,
@@ -170,6 +177,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     FontAwesomeModule,
     AgGridModule.withComponents([
       IdRendererGridComponent,
+      IdRouteRendererGridComponent,
       RouteRendererGridComponent,
       SearchToolPanelGridComponent,
       ]),
@@ -177,6 +185,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
+    NgxDnDModule,
   ],
   exports: [
     FilterPipe,
@@ -195,6 +204,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     Error404Component,
     UnderConstructionComponent,
     GridComponent,
+    GridCardComponent,
     ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
@@ -206,10 +216,12 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     SimulationCardsComponent,
     VisualizationCardsComponent,
     HyperlinkComponent,
+    RouterlinkComponent,
     OkCancelDialogComponent,
     FeedbackComponent,
     VegaViewerComponent,
     NgPipesModule,
+    NgxDnDModule,
   ],
   providers: [
     UserService,

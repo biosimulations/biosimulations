@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -25,6 +25,25 @@ export class VisualizationsGridComponent implements OnInit {
     this.rowData = this.visualizationService.list(null, value);
   }
 
+  private _selectable: string = null;
+
+  @Input()
+  set selectable(value: string) {
+    this._selectable = value;
+    if (this.columnDefs) {
+      if (value) {
+        this.columnDefs[0]['cellRenderer'] = 'idRenderer';
+      } else {
+        this.columnDefs[0]['cellRenderer'] = 'idRouteRenderer';
+      }
+    }
+  }
+  get selectable(): string {
+    return this._selectable;
+  }
+
+  @Output() onSelect = new EventEmitter();
+
   @Input() inTab = false;
 
   constructor(
@@ -37,7 +56,7 @@ export class VisualizationsGridComponent implements OnInit {
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: 'idRenderer',
+        cellRenderer: (this._selectable ? 'idRenderer' : 'idRouteRenderer'),
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -121,6 +140,10 @@ export class VisualizationsGridComponent implements OnInit {
   timeFormatter(params): string {
     const secs:number = params.value;
     return UtilsService.formatTimeForHumans(secs);
+  }
+
+  select(event) {
+    this.onSelect.emit(event)
   }
 }
 

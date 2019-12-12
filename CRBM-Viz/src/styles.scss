@@ -2,6 +2,7 @@ $font-family: Raleway, Arial, Helvetica, sans-serif;
 
 @import '~ag-grid-community/src/styles/ag-grid.scss';
 @import '~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss';
+@import '@swimlane/ngx-dnd/release/index.css';
 @import 'src/theme.scss';
 
 $primary: mat-palette($theme-primary);
@@ -400,6 +401,8 @@ input, textarea.mat-input-element, mat-select, button {
     }
     .tab.full-height {
         height: calc(100% - 2 * 2rem);
+        min-height: calc(100% - 2 * 2rem);
+        overflow: hidden;
     }
 }
 
