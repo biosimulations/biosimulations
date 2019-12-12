@@ -26,6 +26,7 @@ import {
   faPlusSquare,
   faMinusSquare,
   faComment,
+  faEye,
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faProjectDiagram,
@@ -253,6 +254,7 @@ export class SharedModule {
       faPlusSquare,
       faMinusSquare,
       faComment,
+      faEye,
       faSignInAlt,
       faSignOutAlt,
       faUser,

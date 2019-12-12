@@ -85,9 +85,9 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab>
+  <mat-tab *ngIf="visualization.getProjects() as projects">
     <ng-template mat-tab-label>
-      <fa-icon aria-hidden="true" aria-label="Projects icon" [icon]="['fas', 'folder-open']"></fa-icon> Projects ({{ visualization.projects.length }})
+      <fa-icon aria-hidden="true" aria-label="Projects icon" [icon]="['fas', 'folder-open']"></fa-icon> Projects ({{ projects.length }})
     </ng-template>
     <ng-template matTabContent>
       <div class="tab">
@@ -108,7 +108,7 @@
           </div>
           <div class="section-content">
             <app-project-cards
-              [projects]="visualization.projects"
+              [projects]="projects"
               [cols]="4"
             ></app-project-cards>
           </div>

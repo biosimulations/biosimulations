@@ -16,7 +16,13 @@ import { RemoteFile } from './remote-file';
 import { Simulator } from './simulator';
 import { Taxon } from './taxon';
 import { User } from './user';
+import { Visualization } from './visualization';
+import { VisualizationSchema } from './visualization-schema';
+import { ProjectService } from '../Services/project.service';
 import { UtilsService } from '../Services/utils.service';
+import { VisualizationService } from '../Services/visualization.service';
+import { VisualizationSchemaService } from '../Services/visualization-schema.service';
+
 
 export class Simulation {
   id?: string;
@@ -49,7 +55,6 @@ export class Simulation {
   wallTime?: number; // execution time in seconds
   outLog?: string;
   errLog?: string;
-  projects?: Project[] = [];
 
   getIcon() {
     return {type: 'mat', icon: 'timeline'};
@@ -83,5 +88,29 @@ export class Simulation {
     } else {
       return [this.owner];
     }
+  }
+
+  getProjects(): Project[] {
+    return [
+      ProjectService._get('001'),
+      ProjectService._get('002'),
+      ProjectService._get('003'),
+    ];
+  }
+
+  getVisualizations(): Visualization[] {
+    return [
+      VisualizationService._get(1),
+      VisualizationService._get(2),
+      VisualizationService._get(3),
+    ];
+  }
+
+  getVisualizationSchemas(): VisualizationSchema[] {
+    return [
+      VisualizationSchemaService._get('001'),
+      VisualizationSchemaService._get('002'),
+      VisualizationSchemaService._get('003'),
+    ];
   }
 }

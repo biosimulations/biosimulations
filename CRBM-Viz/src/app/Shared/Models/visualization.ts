@@ -7,6 +7,7 @@ import { RemoteFile } from './remote-file';
 import { SimulationResult } from './simulation-result';
 import { User } from './user';
 import { VisualizationSchema } from './visualization-schema';
+import { ProjectService } from '../Services/project.service';
 import { UtilsService } from '../Services/utils.service';
 
 export class Visualization {
@@ -26,7 +27,6 @@ export class Visualization {
   license?: License;
   created?: Date;
   updated?: Date;
-  projects?: Project[] = [];
 
   getIcon() {
     return {type: 'fas', icon: 'chart-area'};
@@ -42,5 +42,13 @@ export class Visualization {
     } else {
       return [this.owner];
     }
+  }
+
+  getProjects(): Project[] {
+    return [
+      ProjectService._get('001'),
+      ProjectService._get('002'),
+      ProjectService._get('003'),
+    ];
   }
 }

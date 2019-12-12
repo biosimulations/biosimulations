@@ -6,7 +6,7 @@ import { RemoteFile } from 'src/app/Shared/Models/remote-file';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
 import { UserService } from 'src/app/Shared/Services/user.service';
-import { ProjectService } from 'src/app/Shared/Services/project.service';
+import { VisualizationSchemaService } from 'src/app/Shared/Services/visualization-schema.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -49,13 +49,9 @@ export class VisualizationService {
     viz.license = License.cc0;
     viz.created = new Date(Date.parse('2019-11-06 00:00:00'));
     viz.updated = new Date(Date.parse('2019-11-06 00:00:00'));
-    if (includeRelatedObjects) {
-      viz.projects = [
-        ProjectService._get('001'),
-        ProjectService._get('003'),
-        ProjectService._get('006'),
-      ];
-    }
+
+    viz.schema = VisualizationSchemaService._get('001'); // TODO: update
+
     return viz;
   }
 

@@ -4,7 +4,6 @@ import { environment }  from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
-import { ProjectService } from './project.service';
 import { ModelService } from './model.service';
 
 import { AccessLevel } from '../Enums/access-level';
@@ -207,13 +206,6 @@ export class SimulationService {
       new Person('John', 'C', 'Doe'),
       new Person('Jane', 'D', 'Doe'),
     ];
-    if (includeRelatedObjects) {
-      simulation.projects = [
-        ProjectService._get('001'),
-        ProjectService._get('003'),
-        ProjectService._get('006'),
-      ];
-    }
     return simulation;
   }
 

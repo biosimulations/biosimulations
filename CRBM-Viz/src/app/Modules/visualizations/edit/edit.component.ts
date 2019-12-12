@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
@@ -14,6 +15,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Simulation } from 'src/app/Shared/Models/simulation';
+import { SimulationResult } from 'src/app/Shared/Models/simulation-result';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
@@ -47,7 +49,11 @@ export class EditComponent implements OnInit {
   private simulationId: string;
   visualization: Visualization;
   formGroup: FormGroup;
-  @ViewChild('visualizationSchemaLayout', { static: true }) visualizationSchemaLayout: ElementRef;
+  @ViewChild('visualizationSchemaLayout', { static: false }) visualizationSchemaLayout: ElementRef;
+  allSimulationResults: object[] = [];
+  filteredSimulationResults: object[] = [];
+  private currSimulationResultsFormArray: FormArray;
+  private currSimulationResultsInput;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -231,10 +237,18 @@ export class EditComponent implements OnInit {
     let selected: boolean = event['selected'];
     const formArray: FormArray = this.getFormArray('visualizationSchemas');
     if (selected) {
-        formArray.push(this.formBuilder.group({
+        const dataFormArray: FormArray = this.formBuilder.array([]);
+        for (const dataField of schema.schema.getDataFields()) { // TODO: change to schema.getDataFields
+          dataFormArray.push(this.formBuilder.group({
+            dataField: this.formBuilder.control(dataField),
+            simulationResults: this.formBuilder.array([]),
+          }));
+        }
+        const formGroup: FormGroup = this.formBuilder.group({
           schema: this.formBuilder.control(schema),
-          variables: this.formBuilder.array([]),
-        }));
+          data: dataFormArray,
+        });
+        formArray.push(formGroup);
     } else {
       for (let iSchema = 0; iSchema < formArray.controls.length; iSchema++) {
         if (formArray.controls[iSchema].value === schema) {
@@ -257,10 +271,6 @@ export class EditComponent implements OnInit {
   updateLayoutGrid(): void {
     const columns: number = this.formGroup.value.columns;
     const rows = Math.max(1, Math.ceil(this.formGroup.value.visualizationSchemas.length / columns));
-
-    //this.visualizationSchemaLayout.nativeElement.setAttribute('style', (
-    //  `width: calc(${ columns } * (10rem + 2 * 1px) + (${ columns } - 1) * 2 * 0.25rem + 2 * 0.25rem);` +
-    //  `height: calc(${ rows } * (10rem + 2 * 1px) + (${ rows } - 1) * 2 * 0.25rem + 2 * 0.25rem)`));
 
     this.visualizationSchemaLayout.nativeElement.setAttribute('style', (
       `grid-template-rows: repeat(${ rows }, 10rem);` +
@@ -287,8 +297,67 @@ export class EditComponent implements OnInit {
     fileNameEl.innerHTML = fileName;
   }
 
+  getAllSimulationResults(event): void {
+    let simulation = event['data'];
+    let selected = event['selected'];
+
+    if (selected) {
+      const simulationResults: SimulationResult[] = [];
+      for (const variable of this.modelService.getVariables(simulation.model)) {
+        const simulationResult = new SimulationResult();
+        simulationResult.simulation = simulation;
+        simulationResult.variable = variable;
+        simulationResults.push(simulationResult);
+      }
+
+      this.allSimulationResults.push({
+        simulation,
+        simulationResults,
+      });
+      this.allSimulationResults.sort((a, b) => (a['simulation'].id, b['simulation'].id));
+    } else {
+      for (let iGroup = 0; iGroup < this.allSimulationResults.length; iGroup++) {
+        if (this.allSimulationResults[iGroup]['simulation'].id === simulation.id) {
+          this.allSimulationResults.splice(iGroup, 1);
+        }
+      }
+    }
+  }
+
+  filterSimulationResults(value: string, formArray: FormArray, input) {
+    // filter simulation results
+    value = value.toLowerCase();
+
+    const filteredSimulationResults = [];
+    for (const group of this.allSimulationResults) {
+      if (group['simulation'].id.toLowerCase().includes(value) || group['simulation'].name.toLowerCase().includes(value)) {
+        filteredSimulationResults.push(group);
+      } else {
+        const filteredGroup = {simulation: group['simulation'], simulationResults: []};
+        for (const simulationResult of group['simulationResults']) {
+          if (simulationResult.variable.id.toLowerCase().includes(value) || simulationResult.variable.name.toLowerCase().includes(value)) {
+            filteredGroup['simulationResults'].push(simulationResult);
+          }
+        }
+        if (filteredGroup['simulationResults'].length) {
+          filteredSimulationResults.push(filteredGroup);
+        }
+      }
+    }
+
+    this.filteredSimulationResults = filteredSimulationResults;
+
+    // store current simulation results form, input
+    this.currSimulationResultsFormArray = formArray;
+    this.currSimulationResultsInput = input;
+  }
+
   displayAutocompleteEl(el: object): string | undefined {
     return el ? el['name'] : undefined;
+  }
+
+  simulationResultsDisplayAutocompleteEl(el: SimulationResult): string | undefined {
+    return el ? el.simulation.name + ': ' + el.variable.id : undefined;
   }
 
   selectAutocomplete(formControl: AbstractControl, required = false): void {
@@ -303,6 +372,22 @@ export class EditComponent implements OnInit {
       }
       formControl.setErrors(null);
     }
+  }
+
+  addSimulationResult(event: MatAutocompleteSelectedEvent) {
+    let inArray = false;
+    for (const simulationResult of this.currSimulationResultsFormArray.value) {
+      if (simulationResult.simulation.id === event.option.value.simulation.id &&
+        simulationResult.variable.id === event.option.value.variable.id) {
+        inArray = true;
+        break;
+      }
+    }
+
+    if (!inArray) {
+      this.currSimulationResultsFormArray.push(this.formBuilder.control(event.option.value));
+    }
+    this.currSimulationResultsInput.value = '';
   }
 
   addTagFormElement(): void {
@@ -327,9 +412,8 @@ export class EditComponent implements OnInit {
     }
   }
 
-  removeFormArrayElement(array: string, iEl: number): void {
-    const formArray: FormArray = this.getFormArray(array);
-    formArray.removeAt(iEl);
+  removeFormArrayElement(formArray, iEl: number): void {
+    (formArray as FormArray).removeAt(iEl);
   }
 
   addAuthorFormElement(): void {

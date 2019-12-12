@@ -301,9 +301,9 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab>
+  <mat-tab *ngIf="simulation.getProjects() as projects">
     <ng-template mat-tab-label>
-      <fa-icon aria-hidden="true" aria-label="Projects icon" [icon]="['fas', 'folder-open']"></fa-icon> Projects ({{ simulation.projects.length }})
+      <fa-icon aria-hidden="true" aria-label="Projects icon" [icon]="['fas', 'folder-open']"></fa-icon> Projects ({{ projects.length }})
     </ng-template>
     <ng-template matTabContent>
       <div class="tab">
@@ -324,9 +324,41 @@
           </div>
           <div class="section-content">
             <app-project-cards
-              [projects]="simulation.projects"
+              [projects]="projects"
               [cols]="4"
             ></app-project-cards>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab *ngIf="simulation.getVisualizations() as visualizations">
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Visualizations icon" [icon]="['fas', 'folder-open']"></fa-icon> Visualizations ({{ visualizations.length }})
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <div class="section-title float-container">
+            <h1>Visualizations</h1>
+            <a
+              class="routes"
+              [routerLink]="['/visualizations', 'new']"
+              >
+              <fa-icon
+                aria-hidden="true"
+                aria-label="New visualization icon"
+                [icon]="['fas', 'plus']"
+              ></fa-icon>
+                New
+            </a>
+          </div>
+          <div class="section-content">
+            <app-visualization-cards
+              [visualizations]="visualizations"
+              [cols]="4"
+            ></app-visualization-cards>
           </div>
         </div>
       </div>

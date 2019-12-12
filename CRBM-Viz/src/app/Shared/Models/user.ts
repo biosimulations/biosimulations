@@ -1,9 +1,15 @@
 import { PersonInterface } from './person.interface';
-import { Project } from './project';
 import { Model } from './model';
+import { Project } from './project';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
+import { VisualizationSchema } from './visualization-schema';
+import { ModelService } from '../Services/model.service';
+import { ProjectService } from '../Services/project.service';
+import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
+import { VisualizationService } from '../Services/visualization.service';
+import { VisualizationSchemaService } from '../Services/visualization-schema.service';
 import * as md5 from 'md5';
 
 export class User implements PersonInterface {
@@ -42,5 +48,45 @@ export class User implements PersonInterface {
     } else {
       return 'assets/defaultSilhouette.svg';
     }
+  }
+
+  getProjects(): Project[] {
+    return [
+      ProjectService._get('001'),
+      ProjectService._get('002'),
+      ProjectService._get('003'),
+    ];
+  }
+
+  getModels(): Model[] {
+    return [
+      ModelService._get('001'),
+      ModelService._get('002'),
+      ModelService._get('003'),
+    ];
+  }
+
+  getSimulations(): Simulation[] {
+    return [
+      SimulationService._get('001'),
+      SimulationService._get('002'),
+      SimulationService._get('003'),
+    ];
+  }
+
+  getVisualizations(): Visualization[] {
+    return [
+      VisualizationService._get(1),
+      VisualizationService._get(2),
+      VisualizationService._get(3),
+    ];
+  }
+
+  getVisualizationSchemas(): VisualizationSchema[] {
+    return [
+      VisualizationSchemaService._get('001'),
+      VisualizationSchemaService._get('002'),
+      VisualizationSchemaService._get('003'),
+    ];
   }
 }

@@ -10,6 +10,7 @@ import { Identifier } from '../Models/identifier';
 import { JournalReference } from '../Models/journal-reference'
 import { Model } from '../Models/model';
 import { ModelParameter } from '../Models/model-parameter';
+import { ModelVariable } from '../Models/model-variable';
 import { OntologyTerm } from '../Models/ontology-term';
 import { Person } from '../Models/person';
 import { RemoteFile } from '../Models/remote-file';
@@ -17,9 +18,6 @@ import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
-import { ProjectService } from './project.service';
-import { SimulationService } from './simulation.service';
-import { VisualizationService } from './visualization.service';
 
 @Injectable({
   providedIn: 'root',
@@ -148,18 +146,6 @@ export class ModelService {
           new Person('Jane', 'E', 'Doe'),
         ];
     model.license = License.cc0;
-    if (includeRelatedObjects) {
-      model.projects = [
-        ProjectService._get('001'),
-        ProjectService._get('003'),
-        ProjectService._get('006'),
-      ];
-      model.simulations = [
-        SimulationService._get('001'),
-        SimulationService._get('003'),
-        SimulationService._get('006'),
-      ];
-    }
     return model;
   }
 
@@ -172,6 +158,17 @@ export class ModelService {
   get(id: string): Model {
     this.getServices();
     return ModelService._get(id, true);
+  }
+
+  getVariables(model: Model): ModelVariable[] {
+    const variables: ModelVariable[] = [];
+    for (let iVariable = 0; iVariable < 3; iVariable++) {
+      const variable = new ModelVariable();
+      variable.id = `var-${ iVariable + 1 }`;
+      variable.name = `Variable ${ iVariable + 1 }`;
+      variables.push(variable);
+    }
+    return variables;
   }
 
   getParameters(model: Model, value?: string): ModelParameter[] {

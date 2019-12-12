@@ -45,34 +45,6 @@ export class UserService {
           'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
           'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
           'nec dictum erat aliquet quis.';
-        if (includeRelatedObjects) {
-          user.projects = [
-            ProjectService._get('001'),
-            ProjectService._get('003'),
-            ProjectService._get('006'),
-            ProjectService._get('001'),
-            ProjectService._get('003'),
-          ];
-          user.models = [
-            ModelService._get('001'),
-            ModelService._get('003'),
-            ModelService._get('006'),
-            ModelService._get('001'),
-            ModelService._get('003'),
-          ];
-          user.simulations = [
-            SimulationService._get('001'),
-            SimulationService._get('003'),
-            SimulationService._get('006'),
-            SimulationService._get('001'),
-          ];
-          user.visualizations = [
-            VisualizationService._get(1),
-            VisualizationService._get(3),
-            VisualizationService._get(6),
-            VisualizationService._get(1),
-          ];
-        }
         break;
       case 'y.skaf':
         user = new User();

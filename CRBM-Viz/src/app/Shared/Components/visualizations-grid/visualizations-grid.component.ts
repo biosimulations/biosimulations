@@ -167,7 +167,11 @@ function ownerGetter(params): string {
 
 function capitalizeFormatter(params): string {
   const value:string = params.value;
-  return value.substring(0, 1).toUpperCase() + value.substring(1);
+  if (value) {
+    return value.substring(0, 1).toUpperCase() + value.substring(1);
+  } else {
+    return '';
+  }
 }
 
 function authorGetter(params): string[] {

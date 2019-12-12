@@ -14,6 +14,7 @@
       <div class="tab full-height simulation">
         <app-simulations-grid
           selectable="multiple"
+          (onSelect)="getAllSimulationResults($event)"
           inTab="true"
         ></app-simulations-grid>
       </div>
@@ -32,9 +33,11 @@
       </div>
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab
+      *ngIf="getFormArray('visualizationSchemas').controls as visualizationSchemaControls"
+      [disabled]="getFormArray('visualizationSchemas').controls.length === 0">
       <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Variable icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout visuals
+        <fa-icon aria-hidden="true" aria-label="Layout icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout visuals
       </ng-template>
       <div class="tab layout">
 
@@ -55,38 +58,113 @@
         <div class="form-field">
           <div class="form-field-title">Order *</div>
           <div class="form-field-input">
+            <div
+              #visualizationSchemaLayout
+              ngxDroppable
+              [model]="getFormArray('visualizationSchemas').controls"
+              class="vis-schema-layout ngx-dnd-container"
+              >
               <div
-                #visualizationSchemaLayout
-                ngxDroppable
-                [model]="getFormArray('visualizationSchemas').controls"
-                class="vis-schema-layout ngx-dnd-container"
-                >
-                <div
-                  *ngFor="let formArrayEl of getFormArray('visualizationSchemas').controls"
-                  class="grid-card-container ngx-dnd-item"
-                  ngxDraggable
-                  [model]="formArrayEl">
-                  <app-grid-card
-                    [data]="formArrayEl.get('schema').value"
-                  ></app-grid-card>
-                </div>
+                *ngFor="let formArrayEl of getFormArray('visualizationSchemas').controls"
+                class="grid-card-container ngx-dnd-item"
+                ngxDraggable
+                [model]="formArrayEl">
+                <app-grid-card
+                  [data]="formArrayEl.get('schema').value"
+                ></app-grid-card>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab
+      *ngIf="getFormArray('visualizationSchemas').controls as visualizationSchemaControls"
+      [disabled]="allSimulationResults.length === 0 || visualizationSchemaControls.length === 0"
+      >
       <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Variable icon" [icon]="['fas', 'list']"></fa-icon> 4. Select variables
+        <fa-icon aria-hidden="true" aria-label="Simulation results icon" [icon]="['fas', 'list']"></fa-icon> 4. Select simulation results
       </ng-template>
-      <div class="tab variable">
+      <div class="tab simulation-results">
+
+         <div class="form-field" *ngFor="let formArrayEl of visualizationSchemaControls">
+          <div class="form-field-title">{{
+            formArrayEl.get('schema').value.id + ': ' + formArrayEl.get('schema').value.name
+          }} *</div>
+          <div class="form-field-input">
+            <div class="form-group simulation-results">
+              <ng-container *ngFor="let dataControl of formArrayEl.get('data').controls">
+                <ng-container *ngIf="dataControl.get('dataField').value as dataField">
+                  <div class="form-field-label">{{(
+                    (dataField.name | shorten: 100: '...')
+                    + ' ('
+                    +  (dataField.type === 'scalar' ? '1' : '+')
+                    + ')'
+                  )}}</div>
+                  <mat-chip-list #simulationResultsChipList
+                    aria-label="Simulation results list"
+                    class="form-chip-input">
+                    <mat-chip *ngFor="let simulationResult of dataControl.get('simulationResults').controls; let iSimResult=index"
+                      [selectable]="false"
+                      [removable]="true"
+                      (removed)="removeFormArrayElement(dataControl.get('simulationResults'), iSimResult)"
+                      class="form-chip"
+                      disableRipple="true">
+                      {{ simulationResult.value.simulation.name + ': ' + simulationResult.value.variable.id }}
+                      <mat-icon
+                        matChipRemove
+                        class="form-chip-icon"
+                        >cancel</mat-icon>
+                    </mat-chip>
+                    <input
+                      #simulationResultsInput
+                      [placeholder]="dataControl.get('simulationResults').controls.length === 0 ? 'List of simulation results' : null"
+                      [matChipInputFor]="simulationResultsChipList"
+                      [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+                      [matChipInputAddOnBlur]="true"
+                      (matChipInputTokenEnd)="$event.input.value = ''"
+                      [matAutocomplete]="simulationResultsAutoComplete"
+                      (keyup)="filterSimulationResults($event.target.value, dataControl.get('simulationResults'), $event.target)"
+                      (focus)="filterSimulationResults($event.target.value, dataControl.get('simulationResults'), $event.target)"
+                      [disabled]="dataField.type === 'scalar' && dataControl.get('simulationResults').controls.length >= 1"
+                      />
+                  </mat-chip-list>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <mat-autocomplete
+          #simulationResultsAutoComplete
+          [displayWith]="simulationResultsDisplayAutocompleteEl"
+          disableRipple="true"
+          class="form-select-input-panel"
+          (optionSelected)="addSimulationResult($event)"
+        >
+          <mat-optgroup *ngFor="let group of filteredSimulationResults" [label]="group.simulation.id + ': ' + group.simulation.name">
+            <mat-option *ngFor="let simulationResult of group['simulationResults']"
+              [value]="simulationResult"
+            >
+              {{ simulationResult.variable.id + ': ' + simulationResult.variable.name }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
       </div>
     </mat-tab>
 
     <mat-tab>
       <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['far', 'file-alt']"></fa-icon> 5. Save
+        <fa-icon aria-hidden="true" aria-label="Preview icon" [icon]="['far', 'eye']"></fa-icon> 5. Preview
+      </ng-template>
+      <div class="tab preview">
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['far', 'file-alt']"></fa-icon> 6. Save
       </ng-template>
       <div class="tab overview">
 
@@ -140,7 +218,7 @@
             <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
               [selectable]="false"
               [removable]="true"
-              (removed)="removeFormArrayElement('tags', iFormArrayEl)"
+              (removed)="removeFormArrayElement(getFormArray('tags'), iFormArrayEl)"
               class="form-chip"
               disableRipple="true">
               {{ tag.value }}
@@ -224,7 +302,7 @@
                     aria-hidden="true"
                     aria-label="Delete icon"
                     [icon]="['fas', 'trash-alt']"
-                    (click)="removeFormArrayElement('authors', iFormArrayEl)"
+                    (click)="removeFormArrayElement(getFormArray('authors'), iFormArrayEl)"
                   ></fa-icon>
                 </div>
               </div>
@@ -330,7 +408,7 @@
                     aria-hidden="true"
                     aria-label="Delete icon"
                     [icon]="['fas', 'trash-alt']"
-                    (click)="removeFormArrayElement('refs', iFormArrayEl)"
+                    (click)="removeFormArrayElement(getFormArray('refs'), iFormArrayEl)"
                   ></fa-icon>
                 </div>
               </div>
