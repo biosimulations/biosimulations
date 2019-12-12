@@ -152,18 +152,17 @@ export class AuthService {
    *
    */
   confirmExists(userProfile: any) {
-    const res = this.http.post(
-      environment.crbm.CRBMAPI_URL + '/users',
-      userProfile
-    );
-    if (!environment.production) {
-      res.subscribe(response => {
-        console.log(response);
+    this.http
+      .post(environment.crbm.CRBMAPI_URL + '/users/validate', userProfile)
+      .subscribe(res => {
+        if (!environment.production) {
+          console.log(res);
+          console.log(
+            'Called confirmed user exists endpoint for user' + userProfile.sub
+          );
+          console.log('got username' + res);
+        }
       });
-      console.log(
-        'Called confirmed user exists endpoint for user' + userProfile.user_id
-      );
-    }
   }
 
   logout() {
