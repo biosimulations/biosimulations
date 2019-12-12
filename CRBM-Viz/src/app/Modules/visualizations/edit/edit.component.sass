@@ -1,3 +1,5 @@
+@import '@swimlane/ngx-dnd/release/index.css'
+
 .form-group.authors
     grid-template-columns: 1fr 5rem 1fr 1.453125rem
 
@@ -7,19 +9,22 @@
 .vis-schema-layout
     max-width: fit-content
     /* height: calc(100vh - 64px - 28px - 0.5rem - 36px - 2 * 2rem - 19px - 4px - 30px - 2rem - 19px - 4px - 2* 0.5rem - 2px) */
-    padding: 0.5rem
-    background: #f6f6f6
-    border: 1px solid #d9d9d9
     display: grid
     grid-template-rows: 10rem
     grid-template-columns: 10rem
     grid-gap: 0.5rem
 
-.grid-card-container
-    background: #d9d9d9
-    border: 1px solid #BCBCBC
-    cursor: pointer
+.vis-schema-layout.ngx-dnd-container
+    margin: 0
+    padding: 0.5rem
+    background: #f6f6f6
+    border: 1px solid #d9d9d9
 
 .grid-card-container.ngx-dnd-item
     margin: 0
     padding: 0
+    background: #d9d9d9
+    border: 1px solid #BCBCBC
+    cursor: move
+    cursor: grab
+    transition: opacity 0.4s ease-in-out
