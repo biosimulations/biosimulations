@@ -12,9 +12,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.sass'],
 })
-
 export class ProfileComponent implements OnInit {
-
   /**
    * The object representing the user displayed in the profile
    */
@@ -26,8 +24,7 @@ export class ProfileComponent implements OnInit {
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
     private userService: UserService
-  ) { }
-
+  ) {}
 
   /**
    * The init method subscribes to the user profile and the route. If a url parameter is provided, it pulls the username from
@@ -36,7 +33,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.auth.getUser$().subscribe(profile => {
       if (profile) {
-        this.loggedInUsername = profile.nickname;
+        this.loggedInUsername =
+          profile['https://www.biosimulations.org:app_metadata']['username'];
+        console.log(profile);
       } else {
         this.loggedInUsername = null;
       }
@@ -49,12 +48,12 @@ export class ProfileComponent implements OnInit {
           username = this.loggedInUsername;
         }
         this.userService.get$(username).subscribe(user => {
-          this.user = user
+          this.user = user;
         });
 
         this.setCrumbs(username === this.loggedInUsername);
-      })
-    })
+      });
+    });
   }
 
   /**
@@ -79,16 +78,9 @@ export class ProfileComponent implements OnInit {
       });
     } else {
       crumbs.push({
-        label: this.user.username
-      })
+        label: this.user.username,
+      });
     }
     this.breadCrumbsService.set(crumbs, buttons);
-
   }
 }
-
-
-
-
-
-
