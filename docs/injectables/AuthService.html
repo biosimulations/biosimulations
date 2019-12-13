@@ -1112,7 +1112,7 @@ export class AuthService {
       .post(environment.crbm.CRBMAPI_URL + &#x27;/users/validate&#x27;, userProfile)
       .subscribe(res &#x3D;&gt; {
         if (!environment.production) {
-          console.log(res);
+          console.log(userProfile);
           console.log(
             &#x27;Called confirmed user exists endpoint for user&#x27; + userProfile.sub
           );

@@ -181,7 +181,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -286,8 +286,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:33</a></div>
                 </td>
             </tr>
 
@@ -328,8 +328,8 @@ the user service. If not, it assumes the logged in profile&#39;s username. It th
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="66"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:66</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:65</a></div>
                 </td>
             </tr>
 
@@ -412,7 +412,7 @@ profile, the breadcrumbs state &quot;Your profile&quot; and provide a link to ed
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -440,7 +440,7 @@ profile, the breadcrumbs state &quot;Your profile&quot; and provide a link to ed
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -467,7 +467,7 @@ profile, the breadcrumbs state &quot;Your profile&quot; and provide a link to ed
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -500,9 +500,7 @@ import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.se
   templateUrl: &#x27;./profile.component.html&#x27;,
   styleUrls: [&#x27;./profile.component.sass&#x27;],
 })
-
 export class ProfileComponent implements OnInit {
-
   /**
    * The object representing the user displayed in the profile
    */
@@ -514,8 +512,7 @@ export class ProfileComponent implements OnInit {
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
     private userService: UserService
-  ) { }
-
+  ) {}
 
   /**
    * The init method subscribes to the user profile and the route. If a url parameter is provided, it pulls the username from
@@ -524,7 +521,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.auth.getUser$().subscribe(profile &#x3D;&gt; {
       if (profile) {
-        this.loggedInUsername &#x3D; profile.nickname;
+        this.loggedInUsername &#x3D;
+          profile[&#x27;https://www.biosimulations.org:app_metadata&#x27;][&#x27;username&#x27;];
+        console.log(profile);
       } else {
         this.loggedInUsername &#x3D; null;
       }
@@ -537,12 +536,12 @@ export class ProfileComponent implements OnInit {
           username &#x3D; this.loggedInUsername;
         }
         this.userService.get$(username).subscribe(user &#x3D;&gt; {
-          this.user &#x3D; user
+          this.user &#x3D; user;
         });
 
         this.setCrumbs(username &#x3D;&#x3D;&#x3D; this.loggedInUsername);
-      })
-    })
+      });
+    });
   }
 
   /**
@@ -567,19 +566,12 @@ export class ProfileComponent implements OnInit {
       });
     } else {
       crumbs.push({
-        label: this.user.username
-      })
+        label: this.user.username,
+      });
     }
     this.breadCrumbsService.set(crumbs, buttons);
-
   }
 }
-
-
-
-
-
-
 </code></pre>
     </div>
 
