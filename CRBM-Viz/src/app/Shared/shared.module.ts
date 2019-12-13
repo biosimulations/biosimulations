@@ -117,6 +117,7 @@ import { IdRouteRendererGridComponent } from './Components/grid/id-route-rendere
 import { GridCardComponent } from './Components/grid/grid-card.component';
 import { RouteRendererGridComponent } from './Components/grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './Components/grid/search-tool-panel-grid.component';
+import { SortToolPanelGridComponent } from './Components/grid/sort-tool-panel-grid.component';
 import { ProjectsGridComponent } from './Components/projects-grid/projects-grid.component';
 import { ModelsGridComponent } from './Components/models-grid/models-grid.component';
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
@@ -155,6 +156,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     GridCardComponent,
     RouteRendererGridComponent,
     SearchToolPanelGridComponent,
+    SortToolPanelGridComponent,
     ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
@@ -181,6 +183,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
       IdRouteRendererGridComponent,
       RouteRendererGridComponent,
       SearchToolPanelGridComponent,
+      SortToolPanelGridComponent,
       ]),
     NgPipesModule,
     FormsModule,

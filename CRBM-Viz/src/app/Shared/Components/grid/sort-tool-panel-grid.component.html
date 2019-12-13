@@ -1,0 +1,21 @@
+<form>
+    <select
+        matInput
+        #column
+        (change)="sort(column.value, direction.value)"
+        class="column"
+        >
+        <option selected></option>
+        <option *ngFor="let colDef of columnDefs" [value]="colDef['field']">{{ colDef['headerName'] }}</option>
+    </select>
+
+    <select
+        matInput
+        #direction
+        (change)="sort(column.value, direction.value)"
+        class="direction"
+        >
+        <option value='asc' selected>&darr;</option>
+        <option value='desc'>&uarr;</option>
+    </select>
+</form>

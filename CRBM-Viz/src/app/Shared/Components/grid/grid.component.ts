@@ -4,6 +4,7 @@ import { IdRendererGridComponent } from './id-renderer-grid.component';
 import { IdRouteRendererGridComponent } from './id-route-renderer-grid.component';
 import { RouteRendererGridComponent } from './route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component';
+import { SortToolPanelGridComponent } from './sort-tool-panel-grid.component';
 
 enum View {
   icons = 'icons',
@@ -53,9 +54,15 @@ export class GridComponent {
     search: `<mat-icon
       aria-hidden="false"
       aria-label="Search icon"
-      class="icon mat-icon material-icons search-tool-panel-grid-icon"
+      class="icon mat-icon material-icons tool-panel-grid-icon"
       role="img"
       >search</mat-icon>`,
+    sort: `<mat-icon
+      aria-hidden="false"
+      aria-label="Sort icon"
+      class="icon mat-icon material-icons tool-panel-grid-icon"
+      role="img"
+      >sort</mat-icon>`,
   };
 
   frameworkComponents = {
@@ -63,6 +70,7 @@ export class GridComponent {
     idRouteRenderer: IdRouteRendererGridComponent,
     routerRenderer: RouteRendererGridComponent,
     searchToolPanel: SearchToolPanelGridComponent,
+    sortToolPanel: SortToolPanelGridComponent,
   }
 
   defaultColDef = {
@@ -95,6 +103,13 @@ export class GridComponent {
           suppressFilterSearch: true,
           suppressExpandAll: true,
         }
+      },
+      {
+        id: 'sort',
+        labelDefault: 'Sort',
+        labelKey: 'sortToolPanel',
+        iconKey: 'sort',
+        toolPanel: 'sortToolPanel',
       },
       {
         id: 'columns',
@@ -180,7 +195,7 @@ export class GridComponent {
     const gridApi = event.api;
 
     this.filteredRowData = [];
-    gridApi.forEachNodeAfterFilter((rowNode, index) => {
+    gridApi.forEachNodeAfterFilterAndSort((rowNode, index) => {
       this.filteredRowData.push(rowNode.data);
     });
   }

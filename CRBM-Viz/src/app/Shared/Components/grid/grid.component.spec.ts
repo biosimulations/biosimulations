@@ -6,6 +6,7 @@ import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
 import { IdRouteRendererGridComponent } from '../grid/id-route-renderer-grid.component';
 import { RouteRendererGridComponent } from '../grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
+import { SortToolPanelGridComponent } from '../grid/sort-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material';
 
@@ -22,6 +23,7 @@ describe('GridComponent', () => {
         IdRouteRendererGridComponent,
         RouteRendererGridComponent,
         SearchToolPanelGridComponent,
+        SortToolPanelGridComponent,
       ],
       imports: [
         AgGridModule.withComponents([
@@ -29,6 +31,7 @@ describe('GridComponent', () => {
           IdRouteRendererGridComponent,
           RouteRendererGridComponent,
           SearchToolPanelGridComponent,
+          SortToolPanelGridComponent
         ]),
         RouterTestingModule,
         MatDialogModule,
