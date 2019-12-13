@@ -31,14 +31,9 @@ export class ProfileComponent implements OnInit {
    * the user service. If not, it assumes the logged in profile's username. It then calls a method to create the view's breadcrumbs
    */
   ngOnInit() {
-    this.auth.getUser$().subscribe(profile => {
-      if (profile) {
-        this.loggedInUsername =
-          profile['https://www.biosimulations.org:app_metadata']['username'];
-        console.log(profile);
-      } else {
-        this.loggedInUsername = null;
-      }
+    this.auth.getUsername$().subscribe(name => {
+      this.loggedInUsername = name;
+      console.log(name);
 
       this.route.params.subscribe(routeParams => {
         let username;

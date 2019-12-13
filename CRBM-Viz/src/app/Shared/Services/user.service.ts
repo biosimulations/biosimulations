@@ -16,15 +16,13 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   private projectService: ProjectService;
 
-  constructor(
-    private http: HttpClient,
-    private injector: Injector
-  ) { }
+  constructor(private http: HttpClient, private injector: Injector) {}
   private modelService: ModelService;
   private simulationService: SimulationService;
   private visualizationService: VisualizationService;
-  private endpoint = environment.crbm.CRBMAPI_URL
+  private endpoint = environment.crbm.CRBMAPI_URL;
 
+  // TODO Remove this method
   static _get(username?: string, includeRelatedObjects = false): User {
     let user: User;
     switch (username) {
@@ -46,7 +44,8 @@ export class UserService {
         user.gitHubId = 'jonrkarr';
         user.googleScholarId = 'Yb5nVLAAAAAJ';
         user.orcId = '0000-0002-2605-5080';
-        user.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
+        user.description =
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
           'ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. ' +
           'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
           'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
@@ -133,11 +132,10 @@ export class UserService {
   }
   // TODO get the current logged in user if no username is provided
   getUser$(username?: string): Observable<User> {
-    let user: Observable<User>
+    let user: Observable<User>;
     user = this.http.get<User>(this.endpoint + '/user/' + username);
 
     return user;
-
   }
 
   private getServices(): void {
@@ -149,17 +147,17 @@ export class UserService {
     }
   }
 
-
-
+  // TODO Remove this method
   get(username?: string): User {
     this.getServices();
     return UserService._get(username, true);
   }
+  // TODO Remove this method
   get$(username?: string): Observable<User> {
-    return of(this.get(username))
+    return of(this.get(username));
   }
 
-
+  // TODO Remove
   list(): User[] {
     return [
       this.get('jonrkarr'),
@@ -171,7 +169,5 @@ export class UserService {
     ];
   }
 
-  set(user: User): void {
-
-  }
+  set(user: User): void {}
 }

@@ -9,7 +9,15 @@ import {
   combineLatest,
   throwError,
 } from 'rxjs';
-import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
+import {
+  tap,
+  catchError,
+  concatMap,
+  shareReplay,
+  concatAll,
+  map,
+  pluck,
+} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -63,6 +71,12 @@ export class AuthService {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap(user => this.userProfileSubject$.next(user))
+    );
+  }
+
+  getUsername$(): Observable<string> {
+    return this.getUser$().pipe(
+      pluck('https://www.biosimulations.org:app_metadata', 'username')
     );
   }
 
@@ -138,9 +152,9 @@ export class AuthService {
     // Response will be an array of user and login status
     authComplete$.subscribe(([user, loggedIn]) => {
       // Call a method in the user serivce to ensure that the user exists in the database
-      this.getUser$().subscribe(userProfile => {
-        this.confirmExists(userProfile);
-      });
+
+      this.confirmExists(user);
+
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
     });
