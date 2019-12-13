@@ -34,7 +34,7 @@
     </mat-tab>
 
     <mat-tab
-      *ngIf="getFormArray('visualizationSchemas').controls as visualizationSchemaControls"
+      *ngIf="getFormArray('layout').controls as layoutControls"
       [disabled]="selectedVisualizationSchemas.length === 0">
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Layout icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout visuals
@@ -90,13 +90,13 @@
             <div
               #visualizationSchemaLayout
               ngxDroppable
-              [model]="getFormArray('visualizationSchemas').controls"
+              [model]="getFormArray('layout').controls"
               [removeOnSpill]="true"
               (remove)="updateLayoutGrid()"
               class="vis-schema-layout ngx-dnd-container"
               >
               <div
-                *ngFor="let formArrayEl of getFormArray('visualizationSchemas').controls"
+                *ngFor="let formArrayEl of getFormArray('layout').controls"
                 class="grid-card-container ngx-dnd-item"
                 ngxDraggable
                 [model]="formArrayEl"
@@ -112,15 +112,15 @@
     </mat-tab>
 
     <mat-tab
-      *ngIf="getFormArray('visualizationSchemas').controls as visualizationSchemaControls"
-      [disabled]="allSimulationResults.length === 0 || visualizationSchemaControls.length === 0"
+      *ngIf="getFormArray('layout').controls as layoutControls"
+      [disabled]="allSimulationResults.length === 0 || layoutControls.length === 0"
       >
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Simulation results icon" [icon]="['fas', 'list']"></fa-icon> 4. Select simulation results
       </ng-template>
       <div class="tab simulation-results">
 
-         <div class="form-field" *ngFor="let formArrayEl of visualizationSchemaControls; let iFormArrayEl=index">
+         <div class="form-field" *ngFor="let formArrayEl of layoutControls; let iFormArrayEl=index">
           <div class="form-field-title">{{
             formArrayEl.get('schema').value.id
             + ': '
@@ -202,8 +202,8 @@
     </mat-tab>
 
     <mat-tab
-      *ngIf="getFormArray('visualizationSchemas') as visualizationSchemaFormArray"
-      [disabled]="allSimulationResults.length === 0 || visualizationSchemaFormArray.controls.length === 0 || !visualizationSchemaFormArray.valid"
+      *ngIf="getFormArray('layout') as layoutControls"
+      [disabled]="allSimulationResults.length === 0 || layoutControls.controls.length === 0 || !layoutControls.valid"
       >
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Preview icon" [icon]="['far', 'eye']"></fa-icon> 5. Preview
@@ -213,8 +213,8 @@
     </mat-tab>
 
     <mat-tab
-      *ngIf="getFormArray('visualizationSchemas') as visualizationSchemaFormArray"
-      [disabled]="allSimulationResults.length === 0 || visualizationSchemaFormArray.controls.length === 0 || !visualizationSchemaFormArray.valid"
+      *ngIf="getFormArray('layout') as layoutControls"
+      [disabled]="allSimulationResults.length === 0 || layoutControls.controls.length === 0 || !layoutControls.valid"
       >
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['far', 'file-alt']"></fa-icon> 6. Save

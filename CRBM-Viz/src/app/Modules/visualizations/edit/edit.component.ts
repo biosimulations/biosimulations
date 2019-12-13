@@ -80,6 +80,7 @@ export class EditComponent implements OnInit {
     ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
+      layout: this.formBuilder.array([]),
       image: [''],
       description: [''],
       tags: this.formBuilder.array([]),
@@ -87,8 +88,7 @@ export class EditComponent implements OnInit {
       refs: this.formBuilder.array([]),
       access: [''],
       license: [''],
-      columns: [1, Validators.min(1)],
-      visualizationSchemas: this.formBuilder.array([]),
+      columns: [1, Validators.min(1)],      
     });
   }
 
@@ -246,7 +246,7 @@ export class EditComponent implements OnInit {
   selectVisualizationSchema(event): void {
     const schema = event['data'];
     const selected: boolean = event['selected'];
-    const formArray: FormArray = this.getFormArray('visualizationSchemas');
+    const formArray: FormArray = this.getFormArray('layout');
     if (selected) {
       this.selectedVisualizationSchemas.push(schema);
       this.selectedVisualizationSchemas = this.selectedVisualizationSchemas.sort((a, b) => 
@@ -269,11 +269,11 @@ export class EditComponent implements OnInit {
   }
 
   addVisualizationSchemaToLayout(schema): void {
-    const formArray: FormArray = this.getFormArray('visualizationSchemas');
-    formArray.push(this.genVisualizationSchemaFormGroup(schema));
+    const formArray: FormArray = this.getFormArray('layout');
+    formArray.push(this.genLayoutFormGroup(schema));
   }
 
-  genVisualizationSchemaFormGroup(schema): FormGroup {    
+  genLayoutFormGroup(schema): FormGroup {    
     const dataFormArray: FormArray = this.formBuilder.array([]);
     for (const dataField of schema.schema.getDataFields()) { // TODO: change to schema.getDataFields
       dataFormArray.push(this.formBuilder.group({
@@ -300,7 +300,7 @@ export class EditComponent implements OnInit {
 
   updateLayoutGrid(): void {
     this.columns = this.formGroup.value.columns;
-    const rows = Math.max(1, Math.ceil(this.getFormArray('visualizationSchemas').length / this.columns));
+    const rows = Math.max(1, Math.ceil(this.getFormArray('layout').length / this.columns));
 
     if (this._visualizationSchemaLayout) {
       this._visualizationSchemaLayout.nativeElement.setAttribute('style', (

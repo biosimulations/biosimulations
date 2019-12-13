@@ -6,17 +6,17 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { SimulationResult } from './simulation-result';
 import { User } from './user';
-import { VisualizationSchema } from './visualization-schema';
+import { VisualizationLayoutElement } from './visualization-layout-element';
 import { ProjectService } from '../Services/project.service';
 import { UtilsService } from '../Services/utils.service';
 
 export class Visualization {
   id?: number;
   name?: string;
+  layout?: VisualizationLayoutElement[];
   image?: File | RemoteFile;
   description?: string;
-  tags?: string[] = [];
-  schema?: VisualizationSchema;
+  tags?: string[] = [];  
   data?: SimulationResult[];
   parent?: Visualization;
   refs?: JournalReference[] = [];
