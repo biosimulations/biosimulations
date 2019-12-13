@@ -35,14 +35,14 @@
 
     <mat-tab
       *ngIf="getFormArray('visualizationSchemas').controls as visualizationSchemaControls"
-      [disabled]="getFormArray('visualizationSchemas').controls.length === 0">
+      [disabled]="selectedVisualizationSchemas.length === 0">
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Layout icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout visuals
       </ng-template>
       <div class="tab layout">
 
         <div class="form-field">
-          <div class="form-field-title">Columns *</div>
+          <div class="form-field-title">Enter number of columns *</div>
           <div class="form-field-input">
             <input matInput
               formControlName="columns"
@@ -56,19 +56,51 @@
         </div>
 
         <div class="form-field">
-          <div class="form-field-title">Order *</div>
+          <div class="form-field-title">Add visuals to grid *</div>
+          <div class="form-field-input">
+            <div class="form-group select-visualization-schema">
+              <mat-select
+                #visualizationSchemaSelect
+                class="form-input"
+                disableRipple="true"
+                panelClass="form-select-input-panel"
+                >
+                <mat-option
+                *ngFor="let schema of selectedVisualizationSchemas"
+                [value]="schema"
+                >{{
+                  schema.id + ': ' + schema.name
+                }}</mat-option>
+              </mat-select>
+              <button
+                type="button"
+                (click)="addVisualizationSchemaToLayout(visualizationSchemaSelect.value)"
+                [disabled]="!visualizationSchemaSelect.value"
+                mat-button
+                class="form-button"
+                disableRipple="true"
+              >Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="form-field-title">Arrange visuals in grid *</div>
           <div class="form-field-input">
             <div
               #visualizationSchemaLayout
               ngxDroppable
               [model]="getFormArray('visualizationSchemas').controls"
+              [removeOnSpill]="true"
+              (remove)="updateLayoutGrid()"
               class="vis-schema-layout ngx-dnd-container"
               >
               <div
                 *ngFor="let formArrayEl of getFormArray('visualizationSchemas').controls"
                 class="grid-card-container ngx-dnd-item"
                 ngxDraggable
-                [model]="formArrayEl">
+                [model]="formArrayEl"
+                >
                 <app-grid-card
                   [data]="formArrayEl.get('schema').value"
                 ></app-grid-card>
@@ -88,9 +120,15 @@
       </ng-template>
       <div class="tab simulation-results">
 
-         <div class="form-field" *ngFor="let formArrayEl of visualizationSchemaControls">
+         <div class="form-field" *ngFor="let formArrayEl of visualizationSchemaControls; let iFormArrayEl=index">
           <div class="form-field-title">{{
-            formArrayEl.get('schema').value.id + ': ' + formArrayEl.get('schema').value.name
+            formArrayEl.get('schema').value.id
+            + ': '
+            + formArrayEl.get('schema').value.name
+            + ' @ '
+            + 'Row ' + (((iFormArrayEl / columns) | floor) + 1)
+            + ', '
+            + 'Column ' + ((iFormArrayEl % columns) + 1)
           }} *</div>
           <div class="form-field-input">
             <div class="form-group simulation-results">
@@ -116,7 +154,11 @@
                       [cdkDragDisabled]="dataField.type === 'scalar'"
                       class="form-chip draggable"
                       disableRipple="true">
-                      {{ simulationResult.value.simulation.name + ': ' + simulationResult.value.variable.id }}
+                      {{
+                        simulationResult.value.simulation.name
+                        + ': '
+                        + simulationResult.value.variable.id
+                      }}
                       <mat-icon
                         matChipRemove
                         class="form-chip-icon"

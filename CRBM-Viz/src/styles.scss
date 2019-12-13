@@ -601,6 +601,10 @@ ul.icon-text {
     background-size: 9.00px 9.00px;
 }
 
+.form-input.mat-select {
+    width: calc(100% - 2 * (0.25rem + 1px));
+}
+
 .form-select-input-panel {
     .mat-optgroup .mat-optgroup-label {
         height: calc(2rem - 1px);
@@ -723,6 +727,11 @@ ul.icon-text {
 
 .form-file-input-name {
     margin-left: 0.25rem;
+}
+
+.form-button {
+    font-weight: normal;
+    background: #f6f6f6;    
 }
 
 .form-submit-button {

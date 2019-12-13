@@ -51,6 +51,8 @@ export class EditComponent implements OnInit {
   visualization: Visualization;
   formGroup: FormGroup;
 
+  selectedVisualizationSchemas = [];
+  columns = 1;
   private _visualizationSchemaLayout: ElementRef;
 
   @ViewChild('visualizationSchemaLayout', { static: false })
@@ -246,31 +248,47 @@ export class EditComponent implements OnInit {
     const selected: boolean = event['selected'];
     const formArray: FormArray = this.getFormArray('visualizationSchemas');
     if (selected) {
-        const dataFormArray: FormArray = this.formBuilder.array([]);
-        for (const dataField of schema.schema.getDataFields()) { // TODO: change to schema.getDataFields
-          dataFormArray.push(this.formBuilder.group({
-            dataField: this.formBuilder.control(dataField),
-            simulationResults: this.formBuilder.array([],
-              (dataField.type === VisualizationSchemaDataFieldType.array
-                ? [Validators.required, Validators.minLength(1)]
-                : Validators.maxLength(1))),
-          }));
-        }
-        const formGroup: FormGroup = this.formBuilder.group({
-          schema: this.formBuilder.control(schema),
-          data: dataFormArray,
-        });
-        formArray.push(formGroup);
+      this.selectedVisualizationSchemas.push(schema);
+      this.selectedVisualizationSchemas = this.selectedVisualizationSchemas.sort((a, b) => 
+        (a.id > b.id ? 1 : -1));
     } else {
+      for (let iSchema = 0; iSchema < this.selectedVisualizationSchemas.length; iSchema++) {
+        if (this.selectedVisualizationSchemas[iSchema].id === schema.id) {
+          this.selectedVisualizationSchemas.slice(iSchema, 1);
+        }
+      }
+
       for (let iSchema = 0; iSchema < formArray.controls.length; iSchema++) {
-        if (formArray.controls[iSchema].value === schema) {
+        if (formArray.controls[iSchema].value.schema.id === schema.id) {
           formArray.removeAt(iSchema);
-          break;
         }
       }
     }
 
     this.updateLayoutGrid();
+  }
+
+  addVisualizationSchemaToLayout(schema): void {
+    const formArray: FormArray = this.getFormArray('visualizationSchemas');
+    formArray.push(this.genVisualizationSchemaFormGroup(schema));
+  }
+
+  genVisualizationSchemaFormGroup(schema): FormGroup {    
+    const dataFormArray: FormArray = this.formBuilder.array([]);
+    for (const dataField of schema.schema.getDataFields()) { // TODO: change to schema.getDataFields
+      dataFormArray.push(this.formBuilder.group({
+        dataField: this.formBuilder.control(dataField),
+        simulationResults: this.formBuilder.array([],
+          (dataField.type === VisualizationSchemaDataFieldType.array
+            ? [Validators.required, Validators.minLength(1)]
+            : Validators.maxLength(1))),
+      }));
+    }
+    const formGroup: FormGroup = this.formBuilder.group({
+      schema: this.formBuilder.control(schema),
+      data: dataFormArray,
+    });
+    return formGroup;
   }
 
   changeColumns(event): void {
@@ -281,13 +299,13 @@ export class EditComponent implements OnInit {
   }
 
   updateLayoutGrid(): void {
-    const columns: number = this.formGroup.value.columns;
-    const rows = Math.max(1, Math.ceil(this.formGroup.value.visualizationSchemas.length / columns));
+    this.columns = this.formGroup.value.columns;
+    const rows = Math.max(1, Math.ceil(this.getFormArray('visualizationSchemas').length / this.columns));
 
     if (this._visualizationSchemaLayout) {
       this._visualizationSchemaLayout.nativeElement.setAttribute('style', (
         `grid-template-rows: repeat(${ rows }, 10rem);` +
-        `grid-template-columns: repeat(${ columns }, 10rem)`));
+        `grid-template-columns: repeat(${ this.columns }, 10rem)`));
     }
   }
 
