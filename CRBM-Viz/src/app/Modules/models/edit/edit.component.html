@@ -100,11 +100,15 @@
 
     <mat-chip-list #tagChipList
       aria-label="Tag list"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop(getFormArray('tags'), $event)"
       class="form-chip-input">
       <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
         [selectable]="false"
         [removable]="true"
         (removed)="removeFormArrayElement('tags', iFormArrayEl)"
+        cdkDrag
         class="form-chip"
         disableRipple="true">
         {{ tag.value }}
@@ -150,7 +154,7 @@
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('authors', $event)"
+      (cdkDropListDropped)="drop(getFormArray('authors'), $event)"
       class="form-field-input"
       >
       <div
@@ -222,7 +226,7 @@
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('identifiers', $event)"
+      (cdkDropListDropped)="drop(getFormArray('identifiers'), $event)"
       class="form-field-input"
       >
       <div
@@ -295,7 +299,7 @@
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('refs', $event)"
+      (cdkDropListDropped)="drop(getFormArray('refs'), $event)"
       class="form-field-input"
       >
       <div

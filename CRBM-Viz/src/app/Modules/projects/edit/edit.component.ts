@@ -349,9 +349,9 @@ export class EditComponent implements OnInit {
     formArray.push(this.formBuilder.control(''));
   }
 
-  drop(array: string, event: CdkDragDrop<string[]>): void {
+  drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
     moveItemInArray(
-      this.getFormArray(array).controls,
+      formArray.controls,
       event.previousIndex,
       event.currentIndex);
   }
