@@ -159,7 +159,10 @@
       </div>
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab
+      *ngIf="getFormArray('visualizationSchemas') as visualizationSchemaFormArray"
+      [disabled]="allSimulationResults.length === 0 || visualizationSchemaFormArray.controls.length === 0 || !visualizationSchemaFormArray.valid"
+      >
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Preview icon" [icon]="['far', 'eye']"></fa-icon> 5. Preview
       </ng-template>
@@ -167,7 +170,10 @@
       </div>
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab
+      *ngIf="getFormArray('visualizationSchemas') as visualizationSchemaFormArray"
+      [disabled]="allSimulationResults.length === 0 || visualizationSchemaFormArray.controls.length === 0 || !visualizationSchemaFormArray.valid"
+      >
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['far', 'file-alt']"></fa-icon> 6. Save
       </ng-template>

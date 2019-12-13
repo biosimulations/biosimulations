@@ -14,6 +14,7 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
+import { VisualizationSchemaDataFieldType } from 'src/app/Shared/Enums/visualization-schema-data-field-type';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { SimulationResult } from 'src/app/Shared/Models/simulation-result';
 import { Visualization } from 'src/app/Shared/Models/visualization';
@@ -249,7 +250,10 @@ export class EditComponent implements OnInit {
         for (const dataField of schema.schema.getDataFields()) { // TODO: change to schema.getDataFields
           dataFormArray.push(this.formBuilder.group({
             dataField: this.formBuilder.control(dataField),
-            simulationResults: this.formBuilder.array([]),
+            simulationResults: this.formBuilder.array([],
+              (dataField.type === VisualizationSchemaDataFieldType.array
+                ? [Validators.required, Validators.minLength(1)]
+                : Validators.maxLength(1))),
           }));
         }
         const formGroup: FormGroup = this.formBuilder.group({
