@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { VisualizationSchemaSevice } from './visualization-schema.service';
+import { VisualizationSchemaService } from './visualization-schema.service';
 
-describe('VisualizationSchemaSevice', () => {
+describe('VisualizationSchemaService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -11,7 +11,7 @@ describe('VisualizationSchemaSevice', () => {
   );
 
   it('should be created', () => {
-    const service: VisualizationSchemaSevice = TestBed.get(VisualizationSchemaSevice);
+    const service: VisualizationSchemaService = TestBed.get(VisualizationSchemaService);
     expect(service).toBeTruthy();
   });
 });

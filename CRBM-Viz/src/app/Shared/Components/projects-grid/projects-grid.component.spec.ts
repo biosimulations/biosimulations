@@ -21,7 +21,7 @@ describe('ProjectsGridComponent', () => {
         ProjectsGridComponent,
         GridComponent,
         IdRendererGridComponent,
-        IdRouteRendererGridComponent
+        IdRouteRendererGridComponent,
         RouteRendererGridComponent,
         SearchToolPanelGridComponent,
       ],

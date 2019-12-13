@@ -40,7 +40,7 @@ export class ProjectsGridComponent implements OnInit {
     return this._selectable;
   }
 
-  @Output() elect = new EventEmitter();
+  @Output() selectRow = new EventEmitter();
 
   @Input() inTab = false;
 

@@ -49,7 +49,15 @@ export class EditComponent implements OnInit {
   private simulationId: string;
   visualization: Visualization;
   formGroup: FormGroup;
-  @ViewChild('visualizationSchemaLayout', { static: false }) visualizationSchemaLayout: ElementRef;
+
+  private _visualizationSchemaLayout: ElementRef;
+
+  @ViewChild('visualizationSchemaLayout', { static: false })
+  set visualizationSchemaLayout(value:ElementRef) {
+    this._visualizationSchemaLayout = value;
+    this.updateLayoutGrid();
+  }
+
   allSimulationResults: object[] = [];
   filteredSimulationResults: object[] = [];
   private currSimulationResultsFormArray: FormArray;
@@ -272,9 +280,11 @@ export class EditComponent implements OnInit {
     const columns: number = this.formGroup.value.columns;
     const rows = Math.max(1, Math.ceil(this.formGroup.value.visualizationSchemas.length / columns));
 
-    this.visualizationSchemaLayout.nativeElement.setAttribute('style', (
-      `grid-template-rows: repeat(${ rows }, 10rem);` +
-      `grid-template-columns: repeat(${ columns }, 10rem)`));
+    if (this._visualizationSchemaLayout) {
+      this._visualizationSchemaLayout.nativeElement.setAttribute('style', (
+        `grid-template-rows: repeat(${ rows }, 10rem);` +
+        `grid-template-columns: repeat(${ columns }, 10rem)`));
+    }
   }
 
   getFormArray(array: string): FormArray {
@@ -314,7 +324,9 @@ export class EditComponent implements OnInit {
         simulation,
         simulationResults,
       });
-      this.allSimulationResults = this.allSimulationResults.sort((a, b) => (a['simulation'].id, b['simulation'].id));
+      this.allSimulationResults = this.allSimulationResults.sort((a, b) => {
+        return a['simulation'].id > b['simulation'].id ? 1 : -1;
+      });
     } else {
       for (let iGroup = 0; iGroup < this.allSimulationResults.length; iGroup++) {
         if (this.allSimulationResults[iGroup]['simulation'].id === simulation.id) {
