@@ -92,10 +92,10 @@ export class UserService {
         user.gravatarEmail = 'skaf@uchc.edu';
         user.description = 'Description';
         break;
-      case 'bill2507733':
+      case 'bilalshaikh42':
         user = new User();
         user.id = 3;
-        user.username = 'bill2507733';
+        user.username = username;
         user.firstName = 'Bilal';
         user.lastName = 'Shaikh';
         user.organization = 'Icahn School of Medicine at Mount Sinai';
