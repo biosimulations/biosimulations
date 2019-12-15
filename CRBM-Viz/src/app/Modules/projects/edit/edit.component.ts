@@ -144,6 +144,12 @@ export class EditComponent implements OnInit {
 
       // setup form
       if (this.id) {
+        this.getFormArray('tags').clear();
+        this.getFormArray('authors').clear();
+        this.getFormArray('identifiers').clear();
+        this.getFormArray('refs').clear();
+        this.getFormArray('products').clear();
+
         for (const tag of this.project.tags) { this.addTagFormElement(); }
         for (const author of this.project.authors) { this.addAuthorFormElement(); }
         for (const identifiers of this.project.identifiers) { this.addIdentifierFormElement(); }
@@ -349,9 +355,9 @@ export class EditComponent implements OnInit {
     formArray.push(this.formBuilder.control(''));
   }
 
-  drop(array: string, event: CdkDragDrop<string[]>): void {
+  drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
     moveItemInArray(
-      this.getFormArray(array).controls,
+      formArray.controls,
       event.previousIndex,
       event.currentIndex);
   }

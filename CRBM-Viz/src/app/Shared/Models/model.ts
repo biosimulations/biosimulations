@@ -1,5 +1,6 @@
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
+import { ChartType } from './chart-type';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
@@ -10,11 +11,16 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { Taxon } from './taxon';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { Visualization } from './visualization';
+import { ProjectService } from '../Services/project.service';
+import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
+import { ChartTypeService } from '../Services/chart-type.service';
+import { VisualizationService } from '../Services/visualization.service';
 
-export class Model {
+export class Model implements TopLevelResource {
   id?: string;
   name?: string;
   file?: File | RemoteFile;
@@ -34,9 +40,6 @@ export class Model {
   license?: License;
   created?: Date;
   updated?: Date;
-  projects?: Project[] = [];
-  simulations?: Simulation[] = [];
-  visualizations?: Visualization[] = [];
 
   getIcon() {
     return {type: 'fas', icon: 'project-diagram'};
@@ -61,5 +64,37 @@ export class Model {
     } else {
       return [this.owner];
     }
+  }
+
+  getProjects(): Project[] {
+    return [
+      ProjectService._get('001'),
+      ProjectService._get('002'),
+      ProjectService._get('003'),
+    ];
+  }
+
+  getSimulations(): Simulation[] {
+    return [
+      SimulationService._get('001'),
+      SimulationService._get('002'),
+      SimulationService._get('003'),
+    ];
+  }
+
+ getChartTypes(): ChartType[] {
+    return [
+      ChartTypeService._get('001'),
+      ChartTypeService._get('002'),
+      ChartTypeService._get('003'),
+    ];
+  }
+
+  getVisualizations(): Visualization[] {
+    return [
+      VisualizationService._get('001'),
+      VisualizationService._get('002'),
+      VisualizationService._get('003'),
+    ];
   }
 }

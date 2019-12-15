@@ -45,9 +45,19 @@
     mat-menu-item
     *ngIf="auth.loggedIn"
     color="primary"
+    [routerLink]="['/user', 'chart-types']"
+  >
+    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Chart types icon" size="2x" [icon]="['fas', 'chart-area']"></fa-icon>
+    Your chart types
+  </button>
+
+  <button
+    mat-menu-item
+    *ngIf="auth.loggedIn"
+    color="primary"
     [routerLink]="['/user', 'visualizations']"
   >
-    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Visualizations icon" size="2x" [icon]="['fas', 'chart-area']"></fa-icon>
+    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Visualizations icon" size="2x" [icon]="['fas', 'paint-brush']"></fa-icon>
     Your visualizations
   </button>
 

@@ -14,6 +14,7 @@
   (columnVisible)="sizeColumnsToFit($event)"
   (rowDataChanged)="updateFilteredRowData($event)"
   (filterChanged)="updateFilteredRowData($event)"
+  (sortChanged)="updateFilteredRowData($event)"
   (gridSizeChanged)="sizeColumnsToFit($event)"
   (toolPanelVisibleChanged)="toggleToolPanel($event)"
   [suppressMovableColumns]="true"
@@ -23,6 +24,10 @@
   [suppressAutoSize]="true"
   [headerHeight]="40"
   [rowHeight]="35"
+  [rowSelection]="selectable"
+  rowDeselection="true"
+  (rowSelected)="rowSelected($event)"
+  [getRowNodeId]="getRowNodeId"
 ></ag-grid-angular>
 <div
   class="view-toggle-container"
@@ -53,46 +58,14 @@
   [class.in-tab]="inTab"
   [class.tool-panel-open]="isToolPanelOpen"
 >
-  <div class="row-icon" *ngFor="let row of filteredRowData">
-    <div class="row-icon-inner" [routerLink]="row.getRoute()">
-      <img
-        class="image"
-        *ngIf="row.image; else defaultImage"
-        [src]="row.image['url']" />
-      <ng-template #defaultImage>
-        <div class="image default-image" *ngIf="row.getIcon() as icon">
-          <mat-icon
-            *ngIf="icon.type === 'mat'; else faFontImage"
-            aria-hidden="false"
-            aria-label="Icon"
-          >{{
-            icon.icon
-          }}</mat-icon>
-          <ng-template #faFontImage>
-            <fa-icon
-              aria-hidden="false"
-              aria-label="Icon"
-              [icon]="[icon.type, icon.icon]">
-            </fa-icon>
-          </ng-template>
-        </div>
-      </ng-template>
-      <div class="details">
-        <div class="details-inner">
-          <div class="title">{{ row.id + ': ' + row.name }}</div>
-          <app-authors
-               class="authors"
-               [authors]="row.authors"
-               [owner]="row.owner">
-           </app-authors>
-          <div
-            *ngIf="row.description"
-            class="description"
-          >{{
-            row.description
-          }}</div>
-        </div>
+  <div
+    *ngFor="let row of filteredRowData"
+    (click)="toggleSelection(row)"
+    class="row-icon"
+    [class.selected]="row['_selected']"
+    >
+      <div class="row-icon-inner" [routerLink]="selectable ? null : row.getRoute()">
+        <app-grid-card [data]="row"></app-grid-card>
       </div>
-    </div>
   </div>
 </div>

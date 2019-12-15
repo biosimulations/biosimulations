@@ -9,341 +9,586 @@
     >
     <mat-tab>
       <ng-template mat-tab-label>
-        <mat-icon aria-hidden="true" aria-label="Simulation icon">timeline</mat-icon> Select simulation(s)
+        <mat-icon aria-hidden="true" aria-label="Simulation icon">timeline</mat-icon> 1. Select simulation(s)
       </ng-template>
-      <ng-template matTabContent>
-        <div class="tab full-height simulation">
-          <app-simulations-grid
-            [inTab]="true"
-          ></app-simulations-grid>
-        </div>
-      </ng-template>
+      <div class="tab full-height simulation">
+        <app-simulations-grid
+          #simulationsGrid
+          selectable="multiple"
+          (ready)="onSimulationsGridReady($event)"
+          (selectRow)="selectSimulation($event.data, $event.selected)"
+          inTab="true"
+        ></app-simulations-grid>
+      </div>
     </mat-tab>
 
     <mat-tab>
       <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Visualization icon" [icon]="['fas', 'chart-area']"></fa-icon> Select visualization
+        <fa-icon aria-hidden="true" aria-label="Chart type icon" [icon]="['fas', 'chart-area']"></fa-icon> 2. Select chart types(s)
       </ng-template>
-      <ng-template matTabContent>
-        <div class="tab full-height visualization">
-          <app-visualizations-grid
-            [inTab]="true"
-          ></app-visualizations-grid>
-        </div>
-      </ng-template>
+      <div class="tab full-height chart-types">
+        <app-chart-types-grid
+          #chartTypesGrid
+          selectable="multiple"
+          (ready)="onChartTypesGridReady($event)"
+          (selectRow)="selectChartType($event.data, $event.selected)"
+          inTab="true"
+        ></app-chart-types-grid>
+      </div>
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab
+      *ngIf="getFormArray('layout').controls as layoutControls"
+      [disabled]="selectedChartTypes.length === 0">
       <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Variable icon" [icon]="['fas', 'list']"></fa-icon> Select variables
+        <fa-icon aria-hidden="true" aria-label="Layout icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout charts
       </ng-template>
-      <ng-template matTabContent>
-        <div class="tab variable">
+      <div class="tab layout">
+
+        <div class="form-field">
+          <div class="form-field-title">Enter number of columns *</div>
+          <div class="form-field-input">
+            <input matInput
+              formControlName="columns"
+              type="number"
+              placeholder="1"
+              required
+              class="form-input"
+              (change)="changeColumns($event)"
+              />
+          </div>
         </div>
-      </ng-template>
-    </mat-tab>
 
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['far', 'file-alt']"></fa-icon> Save
-      </ng-template>
-      <ng-template matTabContent>
-        <div class="tab overview">
-
-          <div class="form-field">
-            <div class="form-field-title">Name *</div>
-            <div class="form-field-input">
-              <input matInput
-                formControlName="name"
-                placeholder="Brief name"
-                required
+        <div class="form-field">
+          <div class="form-field-title">Add chart types to grid *</div>
+          <div class="form-field-input">
+            <div class="form-group select-chart-type">
+              <mat-select
+                #chartTypeSelect
                 class="form-input"
-                />
-            </div>
-          </div>
-
-          <div class="form-field">
-            <div class="form-field-title">Image</div>
-            <div class="form-field-input">
-              <input
-                id="image"
-                type="file"
-                accept=".gif,.jpeg,.jpg,.png,image/gif,image/jpeg,image/png"
-                (change)="selectFile('image', $event.target.files, imageFileName)"
-                class="form-file-input"
-                />
-              <div class="form-input">
-                <label for="image" class="form-file-input-label" tabindex="0">Choose an image</label>
-                <span #imageFileName class="form-file-input-name">{{ visualization && visualization.image ? visualization.image.name : '' }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-field">
-            <div class="form-field-title">Description</div>
-            <div class="form-field-input">
-              <textarea matInput
-                formControlName="description"
-                rows="10"
-                placeholder="Description"
-                class="form-input"
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="form-field" formArrayName="tags">
-            <div class="form-field-title">Tags</div>
-
-            <mat-chip-list #tagChipList
-              aria-label="Tag list"
-              class="form-chip-input">
-              <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
-                [selectable]="false"
-                [removable]="true"
-                (removed)="removeFormArrayElement('tags', iFormArrayEl)"
-                class="form-chip"
-                disableRipple="true">
-                {{ tag.value }}
-                <mat-icon
-                  matChipRemove
-                  class="form-chip-icon"
-                  >cancel</mat-icon>
-              </mat-chip>
-              <input
-                [placeholder]="getFormArray('tags').controls.length === 0 ? 'List of tags (e.g., wild-type, knock out, knock up)' : null"
-                [matChipInputFor]="tagChipList"
-                [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
-                [matChipInputAddOnBlur]="false"
-                (matChipInputTokenEnd)="addTag($event)"
-                />
-            </mat-chip-list>
-          </div>
-
-          <div
-            class="form-field"
-            formArrayName="authors"
-            >
-            <div class="form-field-title float-container">
-              <div class="form-field-title-text">Authors</div>
-              <div class="form-field-title-buttons">
-                <a (click)="addAuthorFormElement()">
-                  <fa-icon
-                    aria-hidden="true"
-                    aria-label="Add icon"
-                    [icon]="['fas', 'plus']"
-                  ></fa-icon>
-                  Add
-                </a>
-              </div>
-            </div>
-            <div
-              class="form-field-subtitle form-group authors"
-              *ngIf="getFormArray('authors').controls.length > 0">
-              <div>First *</div>
-              <div>Middle</div>
-              <div>Last *</div>
-              <div></div>
-            </div>
-            <div
-              cdkDropList
-              (cdkDropListDropped)="drop('authors', $event)"
-              class="form-field-input"
-              >
-              <div
-                *ngFor="let formArrayEl of getFormArray('authors').controls; let iFormArrayEl=index"
-                [formGroupName]="iFormArrayEl"
-                class="draggable form-array-el"
-                cdkDrag
-              >
-                <div class="form-group authors">
-                  <input matInput
-                    formControlName="firstName"
-                    placeholder="John"
-                    required
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="middleName"
-                    placeholder="C"
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="lastName"
-                    placeholder="Doe"
-                    required
-                    class="form-input"
-                    />
-                  <div class="form-group-buttons">
-                    <fa-icon
-                      aria-hidden="true"
-                      aria-label="Drag icon"
-                      [icon]="['fas', 'grip-lines-vertical']"
-                      class="drag"
-                    ></fa-icon>
-                    <fa-icon
-                      aria-hidden="true"
-                      aria-label="Delete icon"
-                      [icon]="['fas', 'trash-alt']"
-                      (click)="removeFormArrayElement('authors', iFormArrayEl)"
-                    ></fa-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="form-field"
-            formArrayName="refs"
-            >
-            <div class="form-field-title float-container">
-              <div class="form-field-title-text">References</div>
-              <div class="form-field-title-buttons">
-                <a (click)="addRefFormElement()">
-                  <fa-icon
-                    aria-hidden="true"
-                    aria-label="Add icon"
-                    [icon]="['fas', 'plus']"
-                  ></fa-icon>
-                  Add
-                </a>
-              </div>
-            </div>
-            <div
-              class="form-field-subtitle form-group refs"
-              *ngIf="getFormArray('refs').controls.length > 0">
-              <div>Authors *</div>
-              <div>Title *</div>
-              <div>Journal</div>
-              <div>Volume</div>
-              <div>Number</div>
-              <div>Pages</div>
-              <div>Year *</div>
-              <div>DOI</div>
-              <div></div>
-            </div>
-            <div
-              cdkDropList
-              (cdkDropListDropped)="drop('refs', $event)"
-              class="form-field-input"
-              >
-              <div
-                *ngFor="let formArrayEl of getFormArray('refs').controls; let iFormArrayEl=index"
-                [formGroupName]="iFormArrayEl"
-                class="draggable form-array-el"
-                cdkDrag
-              >
-                <div
-                class="form-group refs"
+                disableRipple="true"
+                panelClass="form-select-input-panel"
                 >
-                  <input matInput
-                    formControlName="authors"
-                    placeholder="Doe JC & Doe JD"
-                    required
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="title"
-                    placeholder="Title"
-                    required
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="journal"
-                    placeholder="PLoS Comput Biol"
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="volume"
-                    placeholder="10"
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="num"
-                    placeholder="1"
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="pages"
-                    placeholder="1-10"
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="year"
-                    placeholder="2019"
-                    required
-                    class="form-input"
-                    />
-                  <input matInput
-                    formControlName="doi"
-                    placeholder="10.1002/0470841559.ch1"
-                    class="form-input"
-                    />
-                  <div class="form-group-buttons">
-                    <fa-icon
-                      aria-hidden="true"
-                      aria-label="Drag icon"
-                      [icon]="['fas', 'grip-lines-vertical']"
-                      class="drag"
-                    ></fa-icon>
-                    <fa-icon
-                      aria-hidden="true"
-                      aria-label="Delete icon"
-                      [icon]="['fas', 'trash-alt']"
-                      (click)="removeFormArrayElement('refs', iFormArrayEl)"
-                    ></fa-icon>
-                  </div>
+                <mat-option
+                *ngFor="let chartType of selectedChartTypes"
+                [value]="chartType"
+                >{{
+                  chartType.id + ': ' + chartType.name
+                }}</mat-option>
+              </mat-select>
+              <button
+                type="button"
+                (click)="addChartTypeToLayout(chartTypeSelect.value)"
+                [disabled]="!chartTypeSelect.value"
+                mat-button
+                class="form-button"
+                disableRipple="true"
+              >Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="form-field-title">Arrange chart types in grid *</div>
+          <div class="form-field-input">
+            <div
+              #layout
+              ngxDroppable
+              [model]="getFormArray('layout').controls"
+              [removeOnSpill]="true"
+              (remove)="updateLayout()"
+              class="form-field-layout-input ngx-dnd-container"
+              >
+              <div
+                *ngFor="let formArrayEl of getFormArray('layout').controls"
+                class="grid-card-container ngx-dnd-item"
+                ngxDraggable
+                [model]="formArrayEl"
+                >
+                <app-grid-card
+                  [data]="formArrayEl.get('chartType').value"
+                ></app-grid-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="getFormArray('layout').controls as layoutControls"
+      [disabled]="allSimulationResults.length === 0 || layoutControls.length === 0"
+      >
+      <ng-template mat-tab-label>
+        <fa-icon aria-hidden="true" aria-label="Simulation results icon" [icon]="['fas', 'list']"></fa-icon> 4. Select simulation results
+      </ng-template>
+      <div class="tab simulation-results">
+
+         <div class="form-field" *ngFor="let formArrayEl of layoutControls; let iFormArrayEl=index">
+          <div class="form-field-title">{{
+            formArrayEl.get('chartType').value.id
+            + ': '
+            + formArrayEl.get('chartType').value.name
+            + ' @ '
+            + 'Row ' + (((iFormArrayEl / columns) | floor) + 1)
+            + ', '
+            + 'Column ' + ((iFormArrayEl % columns) + 1)
+          }} *</div>
+          <div class="form-field-input">
+            <div class="form-group simulation-results">
+              <ng-container *ngFor="let dataControl of formArrayEl.get('data').controls">
+                <ng-container *ngIf="dataControl.get('dataField').value as dataField">
+                  <div class="form-field-label">{{(
+                    (dataField.name | shorten: 100: '...')
+                    + ' ('
+                    +  (dataField.type === 'scalar' ? '1' : '+')
+                    + ')'
+                  )}}</div>
+                  <mat-chip-list #simulationResultsChipList
+                    aria-label="Simulation results list"
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="drop(dataControl.get('simulationResults'), $event)"
+                    class="form-chip-input">
+                    <mat-chip *ngFor="let simulationResult of dataControl.get('simulationResults').controls; let iSimResult=index"
+                      [selectable]="false"
+                      [removable]="true"
+                      (removed)="removeFormArrayElement(dataControl.get('simulationResults'), iSimResult)"
+                      cdkDrag
+                      [cdkDragDisabled]="dataField.type === 'scalar'"
+                      class="form-chip draggable"
+                      disableRipple="true">
+                      {{
+                        simulationResult.value.simulation.name
+                        + ': '
+                        + simulationResult.value.variable.id
+                      }}
+                      <mat-icon
+                        matChipRemove
+                        class="form-chip-icon"
+                        >cancel</mat-icon>
+                    </mat-chip>
+                    <input
+                      #simulationResultsInput
+                      [placeholder]="dataControl.get('simulationResults').controls.length === 0 ? 'List of simulation results' : null"
+                      [matChipInputFor]="simulationResultsChipList"
+                      [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+                      [matChipInputAddOnBlur]="true"
+                      (matChipInputTokenEnd)="$event.input.value = ''"
+                      [matAutocomplete]="simulationResultsAutoComplete"
+                      (keyup)="filterSimulationResults($event.target.value, dataControl.get('simulationResults'), $event.target)"
+                      (focus)="filterSimulationResults($event.target.value, dataControl.get('simulationResults'), $event.target)"
+                      [disabled]="dataField.type === 'scalar' && dataControl.get('simulationResults').controls.length >= 1"
+                      />
+                  </mat-chip-list>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <mat-autocomplete
+          #simulationResultsAutoComplete
+          [displayWith]="simulationResultsDisplayAutocompleteEl"
+          disableRipple="true"
+          class="form-select-input-panel"
+          (optionSelected)="addSimulationResult($event)"
+        >
+          <mat-optgroup *ngFor="let group of filteredSimulationResults" [label]="group.simulation.id + ': ' + group.simulation.name">
+            <mat-option *ngFor="let simulationResult of group['simulationResults']"
+              [value]="simulationResult"
+            >
+              {{ simulationResult.variable.id + ': ' + simulationResult.variable.name }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
+      </div>
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="getFormArray('layout') as layoutControls"
+      [disabled]="allSimulationResults.length === 0 || layoutControls.controls.length === 0 || !layoutControls.valid"
+      >
+      <ng-template mat-tab-label>
+        <fa-icon aria-hidden="true" aria-label="Preview icon" [icon]="['far', 'eye']"></fa-icon> 5. Preview
+      </ng-template>
+      <div class="tab preview">
+      </div>
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="getFormArray('layout') as layoutControls"
+      [disabled]="allSimulationResults.length === 0 || layoutControls.controls.length === 0 || !layoutControls.valid"
+      >
+      <ng-template mat-tab-label>
+        <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['far', 'file-alt']"></fa-icon> 6. Save
+      </ng-template>
+      <div class="tab overview">
+
+        <div class="form-field">
+          <div class="form-field-title">Name *</div>
+          <div class="form-field-input">
+            <input matInput
+              formControlName="name"
+              placeholder="Brief name"
+              required
+              class="form-input"
+              />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="form-field-title">Image</div>
+          <div class="form-field-input">
+            <input
+              id="image"
+              type="file"
+              accept=".gif,.jpeg,.jpg,.png,image/gif,image/jpeg,image/png"
+              (change)="selectFile('image', $event.target.files, imageFileName)"
+              class="form-file-input"
+              />
+            <div class="form-input">
+              <label for="image" class="form-file-input-label" tabindex="0">Choose an image</label>
+              <span #imageFileName class="form-file-input-name">{{ visualization && visualization.image ? visualization.image.name : '' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="form-field-title">Description</div>
+          <div class="form-field-input">
+            <textarea matInput
+              formControlName="description"
+              rows="10"
+              placeholder="Description"
+              class="form-input"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-field" formArrayName="tags">
+          <div class="form-field-title">Tags</div>
+
+          <mat-chip-list #tagChipList
+            aria-label="Tag list"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop(getFormArray('tags'), $event)"
+            class="form-chip-input">
+            <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
+              [selectable]="false"
+              [removable]="true"
+              (removed)="removeFormArrayElement(getFormArray('tags'), iFormArrayEl)"
+              cdkDrag
+              class="form-chip"
+              disableRipple="true">
+              {{ tag.value }}
+              <mat-icon
+                matChipRemove
+                class="form-chip-icon"
+                >cancel</mat-icon>
+            </mat-chip>
+            <input
+              [placeholder]="getFormArray('tags').controls.length === 0 ? 'List of tags (e.g., wild-type, knock out, knock up)' : null"
+              [matChipInputFor]="tagChipList"
+              [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+              [matChipInputAddOnBlur]="false"
+              (matChipInputTokenEnd)="addTag($event)"
+              />
+          </mat-chip-list>
+        </div>
+
+        <div
+          class="form-field"
+          formArrayName="authors"
+          >
+          <div class="form-field-title float-container">
+            <div class="form-field-title-text">Authors</div>
+            <div class="form-field-title-buttons">
+              <a (click)="addAuthorFormElement()">
+                <fa-icon
+                  aria-hidden="true"
+                  aria-label="Add icon"
+                  [icon]="['fas', 'plus']"
+                ></fa-icon>
+                Add
+              </a>
+            </div>
+          </div>
+          <div
+            class="form-field-subtitle form-group authors"
+            *ngIf="getFormArray('authors').controls.length > 0">
+            <div>First *</div>
+            <div>Middle</div>
+            <div>Last *</div>
+            <div></div>
+          </div>
+          <div
+            cdkDropList
+            (cdkDropListDropped)="drop(getFormArray('authors'), $event)"
+            class="form-field-input"
+            >
+            <div
+              *ngFor="let formArrayEl of getFormArray('authors').controls; let iFormArrayEl=index"
+              [formGroupName]="iFormArrayEl"
+              class="draggable form-array-el"
+              cdkDrag
+            >
+              <div class="form-group authors">
+                <input matInput
+                  formControlName="firstName"
+                  placeholder="John"
+                  required
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="middleName"
+                  placeholder="C"
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="lastName"
+                  placeholder="Doe"
+                  required
+                  class="form-input"
+                  />
+                <div class="form-group-buttons">
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Drag icon"
+                    [icon]="['fas', 'grip-lines-vertical']"
+                    class="drag"
+                  ></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Delete icon"
+                    [icon]="['fas', 'trash-alt']"
+                    (click)="removeFormArrayElement(getFormArray('authors'), iFormArrayEl)"
+                  ></fa-icon>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="form-field">
-            <div class="form-field-title">Access level *</div>
-            <div class="form-field-input">
-              <mat-select
-                formControlName="access"
-                required
-                class="form-input"
-                disableRipple="true"
-                panelClass="form-select-input-panel"
-              >
-                <mat-option
-                  *ngFor="let option of accessLevels"
-                  [value]="option.value"
-                >{{ option.name }}</mat-option>
-              </mat-select>
+        <div
+          class="form-field"
+          formArrayName="identifiers"
+          >
+          <div class="form-field-title float-container">
+            <div class="form-field-title-text">Identifiers</div>
+            <div class="form-field-title-buttons">
+              <a (click)="addIdentifierFormElement()">
+                <fa-icon
+                  aria-hidden="true"
+                  aria-label="Add icon"
+                  [icon]="['fas', 'plus']"
+                ></fa-icon>
+                Add
+              </a>
             </div>
           </div>
-
-          <div class="form-field">
-            <div class="form-field-title">License *</div>
-            <div class="form-field-input">
-              <mat-select
-                formControlName="license"
-                required
-                class="form-input"
-                disableRipple="true"
-                panelClass="form-select-input-panel"
-              >
-                <mat-option
-                  *ngFor="let option of licenses"
-                  [value]="option.value"
-                >{{ option.name }}</mat-option>
-              </mat-select>
-            </div>
+          <div
+            class="form-field-subtitle form-group identifiers"
+            *ngIf="getFormArray('identifiers').controls.length > 0">
+            <div>Namespace *</div>
+            <div>Id *</div>
+            <div></div>
           </div>
-
-          <div class="form-field">
-            <button mat-button
-              type="submit"
-              disableRipple="true"
-              [disabled]="!formGroup.valid"
-              class="form-submit-button"
-            >Save</button>
+          <div
+            cdkDropList
+            (cdkDropListDropped)="drop(getFormArray('identifiers'), $event)"
+            class="form-field-input"
+            >
+            <div
+              *ngFor="let formArrayEl of getFormArray('identifiers').controls; let iFormArrayEl=index"
+              [formGroupName]="iFormArrayEl"
+              class="draggable form-array-el"
+              cdkDrag
+            >
+              <div class="form-group identifiers">
+                <input matInput
+                  formControlName="namespace"
+                  placeholder="biomodels.db"
+                  required
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="id"
+                  placeholder="BIOMD0000000001"
+                  required
+                  class="form-input"
+                  />
+                <div class="form-group-buttons">
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Drag icon"
+                    [icon]="['fas', 'grip-lines-vertical']"
+                    class="drag"
+                  ></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Delete icon"
+                    [icon]="['fas', 'trash-alt']"
+                    (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
+                  ></fa-icon>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </ng-template>
+
+        <div
+          class="form-field"
+          formArrayName="refs"
+          >
+          <div class="form-field-title float-container">
+            <div class="form-field-title-text">References</div>
+            <div class="form-field-title-buttons">
+              <a (click)="addRefFormElement()">
+                <fa-icon
+                  aria-hidden="true"
+                  aria-label="Add icon"
+                  [icon]="['fas', 'plus']"
+                ></fa-icon>
+                Add
+              </a>
+            </div>
+          </div>
+          <div
+            class="form-field-subtitle form-group refs"
+            *ngIf="getFormArray('refs').controls.length > 0">
+            <div>Authors *</div>
+            <div>Title *</div>
+            <div>Journal</div>
+            <div>Volume</div>
+            <div>Number</div>
+            <div>Pages</div>
+            <div>Year *</div>
+            <div>DOI</div>
+            <div></div>
+          </div>
+          <div
+            cdkDropList
+            (cdkDropListDropped)="drop(getFormArray('refs'), $event)"
+            class="form-field-input"
+            >
+            <div
+              *ngFor="let formArrayEl of getFormArray('refs').controls; let iFormArrayEl=index"
+              [formGroupName]="iFormArrayEl"
+              class="draggable form-array-el"
+              cdkDrag
+            >
+              <div
+              class="form-group refs"
+              >
+                <input matInput
+                  formControlName="authors"
+                  placeholder="Doe JC & Doe JD"
+                  required
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="title"
+                  placeholder="Title"
+                  required
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="journal"
+                  placeholder="PLoS Comput Biol"
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="volume"
+                  placeholder="10"
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="num"
+                  placeholder="1"
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="pages"
+                  placeholder="1-10"
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="year"
+                  placeholder="2019"
+                  required
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="doi"
+                  placeholder="10.1002/0470841559.ch1"
+                  class="form-input"
+                  />
+                <div class="form-group-buttons">
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Drag icon"
+                    [icon]="['fas', 'grip-lines-vertical']"
+                    class="drag"
+                  ></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Delete icon"
+                    [icon]="['fas', 'trash-alt']"
+                    (click)="removeFormArrayElement(getFormArray('refs'), iFormArrayEl)"
+                  ></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="form-field-title">Access level *</div>
+          <div class="form-field-input">
+            <mat-select
+              formControlName="access"
+              required
+              class="form-input"
+              disableRipple="true"
+              panelClass="form-select-input-panel"
+            >
+              <mat-option
+                *ngFor="let option of accessLevels"
+                [value]="option.value"
+              >{{ option.name }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="form-field-title">License *</div>
+          <div class="form-field-input">
+            <mat-select
+              formControlName="license"
+              required
+              class="form-input"
+              disableRipple="true"
+              panelClass="form-select-input-panel"
+            >
+              <mat-option
+                *ngFor="let option of licenses"
+                [value]="option.value"
+              >{{ option.name }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <button mat-button
+            type="submit"
+            disableRipple="true"
+            [disabled]="!formGroup.valid"
+            class="form-submit-button"
+          >Save</button>
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </form>

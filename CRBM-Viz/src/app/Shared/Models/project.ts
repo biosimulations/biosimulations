@@ -5,10 +5,11 @@ import { JournalReference } from './journal-reference';
 import { Person } from './person';
 import { ProjectProduct } from './project-product';
 import { RemoteFile } from './remote-file';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { UtilsService } from '../Services/utils.service';
 
-export class Project {
+export class Project implements TopLevelResource {
   id?: string;
   name?: string;
   image?: File | RemoteFile;

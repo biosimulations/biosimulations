@@ -48,11 +48,15 @@
 
     <mat-chip-list #tagChipList
       aria-label="Tag list"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop(getFormArray('tags'), $event)"
       class="form-chip-input">
       <mat-chip *ngFor="let tag of getFormArray('tags').controls; let iFormArrayEl=index"
         [selectable]="false"
         [removable]="true"
         (removed)="removeFormArrayElement('tags', iFormArrayEl)"
+        cdkDrag
         class="form-chip"
         disableRipple="true">
         {{ tag.value }}
@@ -98,7 +102,7 @@
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('authors', $event)"
+      (cdkDropListDropped)="drop(getFormArray('authors'), $event)"
       class="form-field-input"
       >
       <div
@@ -170,7 +174,7 @@
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('identifiers', $event)"
+      (cdkDropListDropped)="drop(getFormArray('identifiers'), $event)"
       class="form-field-input"
       >
       <div
@@ -243,7 +247,7 @@
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('refs', $event)"
+      (cdkDropListDropped)="drop(getFormArray('refs'), $event)"
       class="form-field-input"
       >
       <div
@@ -346,7 +350,7 @@
     </div>
     <div
       cdkDropList
-      (cdkDropListDropped)="drop('products', $event)"
+      (cdkDropListDropped)="drop(getFormArray('products'), $event)"
       class="form-field-input"
       >
       <div
@@ -394,11 +398,15 @@
 
           <mat-chip-list #productResourceChipList
             aria-label="Resource list"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop(formArrayEl.get('resources'), $event)"
             class="form-chip-input">
             <mat-chip *ngFor="let resource of formArrayEl.get('resources').controls; let iResource=index"
               [selectable]="false"
               [removable]="true"
               (removed)="removeProductResource(formArrayEl, iResource)"
+              cdkDrag
               class="form-chip"
               disableRipple="true">
               {{ resource.value.id + ': ' + resource.value.name }}

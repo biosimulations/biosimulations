@@ -3,8 +3,10 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { GridComponent } from './grid.component';
 import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
+import { IdRouteRendererGridComponent } from '../grid/id-route-renderer-grid.component';
 import { RouteRendererGridComponent } from '../grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
+import { SortToolPanelGridComponent } from '../grid/sort-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material';
 
@@ -18,14 +20,18 @@ describe('GridComponent', () => {
       declarations: [
         GridComponent,
         IdRendererGridComponent,
+        IdRouteRendererGridComponent,
         RouteRendererGridComponent,
         SearchToolPanelGridComponent,
+        SortToolPanelGridComponent,
       ],
       imports: [
         AgGridModule.withComponents([
           IdRendererGridComponent,
+          IdRouteRendererGridComponent,
           RouteRendererGridComponent,
           SearchToolPanelGridComponent,
+          SortToolPanelGridComponent
         ]),
         RouterTestingModule,
         MatDialogModule,

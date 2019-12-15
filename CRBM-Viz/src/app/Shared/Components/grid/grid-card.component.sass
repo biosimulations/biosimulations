@@ -1,0 +1,74 @@
+.grid-card-container
+    height: 100%
+    width: 100%
+    overflow: hidden
+
+.grid-card-container:hover
+    .image
+        transform: scale(1.08)
+    .details
+        visibility: visible
+
+.image
+    height: 100%
+    width: 100%
+    transition: all 0.5s
+
+.resource-image
+    background: #ffffff
+
+.default-image
+    background: #efefef
+    display: flex
+    align-items: center
+    justify-content: center
+    color: #999
+    .ng-fa-icon, .mat-icon
+        padding: 10%
+        max-width: 80%
+        max-height: 80%
+        width: 80%
+        height: 80%
+    .mat-icon
+        filter: opacity(0.6)
+
+.custom-image
+    height: 100%
+    width: 100%
+
+.details
+    visibility: hidden
+    height: calc(100% - 2rem)
+    width: calc(100% - 2rem)
+    position: relative
+    top: -100%
+    display: flex
+    align-items: center
+    justify-content: center
+    overflow: hidden
+    padding: 1rem
+    background: #000000AA
+    font-weight: 500
+    color: #fff
+
+    .details-inner
+        width: 100%
+        max-height: 100%
+
+    .title
+        font-weight: bold
+        text-align: center
+        max-height: 2.5rem
+        overflow: hidden
+    .authors
+        margin-top: 0.25rem
+        text-align: center
+        display: block
+        max-height: 2.5rem
+        overflow: hidden
+        font-style: italic
+    .description
+        margin-top: 0.25rem
+        text-align: center
+        max-height: 2.5rem
+        overflow: hidden

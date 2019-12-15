@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -23,7 +23,30 @@ export class ModelsGridComponent implements OnInit {
     this.rowData = this.modelService.list(null, value);
   }
 
+  @Output() ready = new EventEmitter();
+
+  private _selectable: string = null;
+
+  @Input()
+  set selectable(value: string) {
+    this._selectable = value;
+    if (this.columnDefs) {
+      if (value) {
+        this.columnDefs[0]['cellRenderer'] = 'idRenderer';
+      } else {
+        this.columnDefs[0]['cellRenderer'] = 'idRouteRenderer';
+      }
+    }
+  }
+  get selectable(): string {
+    return this._selectable;
+  }
+
+  @Output() selectRow = new EventEmitter();
+
   @Input() inTab = false;
+
+  @ViewChild('grid', { static: true }) grid;
 
   constructor(
     private modelService: ModelService
@@ -35,7 +58,7 @@ export class ModelsGridComponent implements OnInit {
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: 'idRenderer',
+        cellRenderer: (this._selectable ? 'idRenderer' : 'idRouteRenderer'),
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -132,6 +155,22 @@ export class ModelsGridComponent implements OnInit {
 
     this.rowData = this.modelService.list(null, this._owner);
   }
+
+  onReady(event): void {
+    this.ready.emit();
+  }
+
+  unselectAllRows(): void {
+    this.grid.unselectAllRows();
+  }
+
+  setRowSelection(rowDatum: object, selection: boolean): void {
+    this.grid.setRowSelection(rowDatum, selection);
+  }
+
+  onSelectRow(event) {
+    this.selectRow.emit(event)
+  }
 }
 
 function taxonGetter(params): string {
@@ -154,7 +193,11 @@ function formatGetter(params): string {
 
 function capitalizeFormatter(params): string {
   const value:string = params.value;
-  return value.substring(0, 1).toUpperCase() + value.substring(1);
+  if (value) {
+    return value.substring(0, 1).toUpperCase() + value.substring(1);
+  } else {
+    return '';
+  }
 }
 
 function authorGetter(params): string[] {

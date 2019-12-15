@@ -1,3 +1,5 @@
+@import 'src/theme.scss'
+
 .view-toggle-container
     position: absolute
     top: calc(64px + 28px + 0.5rem + 2rem)
@@ -43,8 +45,12 @@
     display: grid
     grid-template-columns: 1fr 1fr 1fr 1fr
     grid-template-rows: max-content
-    grid-gap: 0.25rem
-    padding-right: 0.25rem
+    grid-gap: 0.5rem
+    padding-top: 2px
+    padding-bottom: 2px
+    padding-left: 2px
+    padding-right: calc(2px + 0.25rem)
+    margin: -2px
 
     overflow-y: scroll
 
@@ -55,6 +61,10 @@
         height: 0
         padding-top: calc(100% - 2px)
 
+    .row-icon.selected
+        border-color: mat-color($theme-primary)
+        outline: 2px solid mat-color($theme-primary)
+
     .row-icon-inner
         position: absolute
         left: 0
@@ -64,65 +74,8 @@
         overflow: hidden
         cursor: pointer
 
-        .image
-            height: 100%
-            width: 100%
-            transition: all 0.5s
-
-        .default-image
-            background: #efefef
-            display: flex
-            align-items: center
-            justify-content: center
-            color: #999
-        .default-image .ng-fa-icon
-            font-size: 15vw
-        .default-image .mat-icon
-            font-size: 15vw
-            height: auto
-            width: auto
-
-        .details
-            visibility: hidden
-            height: 100%
-            width: calc(100% - 2rem)
-            position: relative
-            top: -100%
-            display: flex
-            align-items: center
-            overflow: hidden
-            padding-left: 1rem
-            padding-right: 1rem
-            background: #000000AA
-            font-weight: 500
-            color: #fff
-
-            .details-inner
-                max-height: 100%
-
-            .title
-                font-weight: bold
-                text-align: center
-                max-height: 2.5rem
-                overflow: hidden
-            .authors
-                margin-top: 0.25rem
-                text-align: center
-                display: block
-                max-height: 2.5rem
-                overflow: hidden
-                font-style: italic
-            .description
-                margin-top: 0.25rem
-                text-align: center
-                max-height: 2.5rem
-                overflow: hidden
-
-    .row-icon:hover
-        .image
-            transform: scale(1.08)
-        .details
-            visibility: visible
+    .row-icon-inner:focus
+        outline: none
 
 .icons-container.tool-panel-open
     left: calc(2rem + 20px + 149px + 3px + 2rem)

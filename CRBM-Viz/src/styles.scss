@@ -74,6 +74,13 @@ input, textarea.mat-input-element, mat-select, button {
     letter-spacing: normal;
 }
 
+.ng-fa-icon.full-width .svg-inline--fa {
+    width: 100%
+}
+.ng-fa-icon.full-height .svg-inline--fa {
+    height: 100%
+}
+
 /* Disabling */
 .disabled {
     cursor: default;
@@ -283,7 +290,7 @@ input, textarea.mat-input-element, mat-select, button {
         padding-bottom: 2px;
     }
 
-    .search-tool-panel-grid-icon {
+    .tool-panel-grid-icon {
         font-size: 16px;
         width: 16px;
         height: 16px;
@@ -393,6 +400,8 @@ input, textarea.mat-input-element, mat-select, button {
     }
     .tab.full-height {
         height: calc(100% - 2 * 2rem);
+        min-height: calc(100% - 2 * 2rem);
+        overflow: hidden;
     }
 }
 
@@ -592,6 +601,10 @@ ul.icon-text {
     background-size: 9.00px 9.00px;
 }
 
+.form-input.mat-select {
+    width: calc(100% - 2 * (0.25rem + 1px));
+}
+
 .form-select-input-panel {
     .mat-optgroup .mat-optgroup-label {
         height: calc(2rem - 1px);
@@ -623,6 +636,12 @@ ul.icon-text {
     height: calc(2rem - 1px);
 }
 
+.form-chip-input.cdk-drop-list-dragging {
+    border: none;
+    padding: 0;
+    margin: 0 !important;
+}
+
 .form-chip-input {
     .mat-chip-list-wrapper {
         margin: 0;
@@ -631,31 +650,6 @@ ul.icon-text {
         padding-bottom: 1px;
         background: #f6f6f6;
         border-bottom: 1px solid #d9d9d9;
-    }
-
-    .form-chip {
-        @include mat-typography-level-to-styles($fontConfig, body-1);
-        font-weight: normal;
-        line-height: normal;
-        min-height: auto;
-        height: auto;
-        background: #d9d9d9;
-        border-radius: 4px;
-    }
-
-    .mat-chip-list-wrapper .form-chip {
-        margin: 0 0.25rem 0 0;
-        padding-left: 4px;
-        padding-right: 2px;
-        padding-top: 0px;
-        padding-bottom: 2px;
-    }
-
-    .form-chip .form-chip-icon.mat-icon {
-        font-size: inherit;
-        height: auto;
-        width: auto;
-        margin-left: 2px;
     }
 
     .mat-chip-input {
@@ -683,6 +677,34 @@ ul.icon-text {
     }
 }
 
+.form-chip.mat-standard-chip {
+    @include mat-typography-level-to-styles($fontConfig, body-1);
+    font-weight: normal;
+    line-height: normal;
+    min-height: auto;
+    height: auto;
+    background: #d9d9d9;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: move;
+    cursor: grab;
+}
+
+.form-chip.mat-standard-chip.mat-chip-with-trailing-icon {
+    margin: 0 0.25rem 0 0;
+    padding-left: 4px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 2px;
+}
+
+.form-chip.mat-standard-chip .form-chip-icon.mat-chip-remove.mat-icon {
+    font-size: inherit;
+    height: auto;
+    width: auto;
+    margin-left: 2px;
+}
+
 .form-file-input {
     height: 0;
     width: 0;
@@ -705,6 +727,11 @@ ul.icon-text {
 
 .form-file-input-name {
     margin-left: 0.25rem;
+}
+
+.form-button {
+    font-weight: normal;
+    background: #f6f6f6;
 }
 
 .form-submit-button {
@@ -760,6 +787,11 @@ app-vega-viewer.no-actions .vega-embed.has-actions > details {
 }
 
 /* Dragging to order list */
+.draggable {
+    cursor: move;
+    cursor: grab;
+}
+
 .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;

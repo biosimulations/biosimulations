@@ -90,49 +90,70 @@
     </div>
 
     <div class="resources-container">
-      <div class="resources" *ngIf="user.projects && user.projects.length > 0">
-        <div class="resources-title float-container">
-          <h2>Projects ({{ user.projects.length }})</h2>
-          <a [routerLink]="['projects']">View all</a>
+      <ng-container *ngIf="user.getProjects() as projects">
+        <div class="resources" *ngIf="projects.length > 0">
+          <div class="resources-title float-container">
+            <h2>Projects ({{ projects.length }})</h2>
+            <a [routerLink]="['projects']">View all</a>
+          </div>
+          <app-project-cards
+            [projects]="projects"
+            [maxProjects]="10"
+          ></app-project-cards>
         </div>
-        <app-project-cards
-          [projects]="user.projects"
-          [maxProjects]="10"
-        ></app-project-cards>
-      </div>
+      </ng-container>
 
-      <div class="resources" *ngIf="user.models && user.models.length > 0">
-        <div class="resources-title float-container">
-          <h2>Models ({{ user.models.length }})</h2>
-          <a [routerLink]="['models']">View all</a>
+      <ng-container *ngIf="user.getModels() as models">
+        <div class="resources" *ngIf="models.length > 0">
+          <div class="resources-title float-container">
+            <h2>Models ({{ models.length }})</h2>
+            <a [routerLink]="['models']">View all</a>
+          </div>
+          <app-model-cards
+            [models]="models"
+            [maxModels]="10"
+          ></app-model-cards>
         </div>
-        <app-model-cards
-          [models]="user.models"
-          [maxModels]="10"
-        ></app-model-cards>
-      </div>
+      </ng-container>
 
-      <div class="resources" *ngIf="user.simulations && user.simulations.length > 0">
-        <div class="resources-title float-container">
-          <h2>Simulations ({{ user.simulations.length }})</h2>
-          <a [routerLink]="['simulations']">View all</a>
+      <ng-container *ngIf="user.getSimulations() as simulations">
+        <div class="resources" *ngIf="simulations.length > 0">
+          <div class="resources-title float-container">
+            <h2>Simulations ({{ simulations.length }})</h2>
+            <a [routerLink]="['simulations']">View all</a>
+          </div>
+          <app-simulation-cards
+            [simulations]="simulations"
+            [maxSimulations]="10"
+          ></app-simulation-cards>
         </div>
-        <app-simulation-cards
-          [simulations]="user.simulations"
-          [maxSimulations]="10"
-        ></app-simulation-cards>
-      </div>
+      </ng-container>
 
-      <div class="resources" *ngIf="user.visualizations && user.visualizations.length > 0">
-        <div class="resources-title float-container">
-          <h2>Visualizations ({{ user.visualizations.length }})</h2>
-          <a [routerLink]="['visualizations']">View all</a>
+      <ng-container *ngIf="user.getChartTypes() as chartTypes">
+        <div class="resources" *ngIf="chartTypes.length > 0">
+          <div class="resources-title float-container">
+            <h2>Chart types ({{ chartTypes.length }})</h2>
+            <a [routerLink]="['chart-types']">View all</a>
+          </div>
+          <app-chart-type-cards
+            [chartTypes]="chartTypes"
+            [maxChartTypes]="10"
+          ></app-chart-type-cards>
         </div>
-        <app-visualization-cards
-          [visualizations]="user.visualizations"
-          [maxVisualizations]="10"
-        ></app-visualization-cards>
-      </div>
+      </ng-container>
+
+      <ng-container *ngIf="user.getVisualizations() as visualizations">
+        <div class="resources" *ngIf="visualizations.length > 0">
+          <div class="resources-title float-container">
+            <h2>Visualizations ({{ visualizations.length }})</h2>
+            <a [routerLink]="['visualizations']">View all</a>
+          </div>
+          <app-visualization-cards
+            [visualizations]="visualizations"
+            [maxVisualizations]="10"
+          ></app-visualization-cards>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
