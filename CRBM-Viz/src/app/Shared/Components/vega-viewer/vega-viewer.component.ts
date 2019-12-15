@@ -11,7 +11,7 @@ export class VegaViewerComponent {
   private _spec: object;
   private _options: object;
   @ViewChild('vegaContainer', { static: true }) vegaContainer: ElementRef;
-  private viewApi;
+  viewApi;
 
   @Input()
   set spec(value: object) {
