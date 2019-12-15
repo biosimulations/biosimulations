@@ -129,6 +129,19 @@
         </div>
       </ng-container>
 
+      <ng-container *ngIf="user.getChartTypes() as chartTypes">
+        <div class="resources" *ngIf="chartTypes.length > 0">
+          <div class="resources-title float-container">
+            <h2>Chart types ({{ chartTypes.length }})</h2>
+            <a [routerLink]="['chart-types']">View all</a>
+          </div>
+          <app-chart-type-cards
+            [chartTypes]="chartTypes"
+            [maxChartTypes]="10"
+          ></app-chart-type-cards>
+        </div>
+      </ng-container>
+
       <ng-container *ngIf="user.getVisualizations() as visualizations">
         <div class="resources" *ngIf="visualizations.length > 0">
           <div class="resources-title float-container">

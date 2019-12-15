@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -27,6 +27,8 @@ export class SimulationsGridComponent implements OnInit {
     this.rowData = this.simulationService.list(null, value);
   }
 
+  @Output() ready = new EventEmitter();
+
   private _selectable: string = null;
 
   @Input()
@@ -47,6 +49,8 @@ export class SimulationsGridComponent implements OnInit {
   @Output() selectRow = new EventEmitter();
 
   @Input() inTab = false;
+
+  @ViewChild('grid', { static: true }) grid;
 
   constructor(
     private simulationService: SimulationService
@@ -318,9 +322,21 @@ export class SimulationsGridComponent implements OnInit {
     this.rowData = this.simulationService.list(null, this._owner);
   }
 
+  onReady(event): void {
+    this.ready.emit();
+  }
+
   timeFormatter(params): string {
     const secs:number = params.value;
     return UtilsService.formatTimeForHumans(secs);
+  }
+
+  unselectAllRows(): void {
+    this.grid.unselectAllRows();
+  }
+
+  setRowSelection(rowDatum: object, selection: boolean): void {
+    this.grid.setRowSelection(rowDatum, selection);
   }
 
   onSelectRow(event) {

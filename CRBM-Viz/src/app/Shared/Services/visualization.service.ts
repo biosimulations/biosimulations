@@ -1,12 +1,21 @@
 import { Injectable, Injector } from '@angular/core';
 import { AccessLevel } from '../Enums/access-level';
+import { ChartTypeDataFieldShape } from '../Enums/chart-type-data-field-shape';
+import { ChartTypeDataFieldType } from '../Enums/chart-type-data-field-type';
 import { License } from '../Enums/license';
+import { ChartType } from 'src/app/Shared/Models/chart-type';
+import { ChartTypeDataField } from 'src/app/Shared/Models/chart-type-data-field';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';
+import { ModelVariable } from 'src/app/Shared/Models/model-variable';
 import { RemoteFile } from 'src/app/Shared/Models/remote-file';
+import { SimulationResult } from 'src/app/Shared/Models/simulation-result';
+import { TimePoint } from 'src/app/Shared/Models/time-point';
 import { Visualization } from 'src/app/Shared/Models/visualization';
-import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
+import { VisualizationDataField } from 'src/app/Shared/Models/visualization-data-field';
+import { VisualizationLayoutElement } from 'src/app/Shared/Models/visualization-layout-element';
 import { UserService } from 'src/app/Shared/Services/user.service';
-import { VisualizationSchemaService } from 'src/app/Shared/Services/visualization-schema.service';
+import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -50,7 +59,30 @@ export class VisualizationService {
     viz.created = new Date(Date.parse('2019-11-06 00:00:00'));
     viz.updated = new Date(Date.parse('2019-11-06 00:00:00'));
 
-    viz.schema = VisualizationSchemaService._get('001'); // TODO: update
+    viz.columns = 2
+    viz.layout = []
+    for (let iCell = 0; iCell < 1; iCell++) {
+      const visLayoutEl = new VisualizationLayoutElement();
+      viz.layout.push(visLayoutEl);
+      visLayoutEl.chartType = ChartTypeService._get('002')
+      visLayoutEl.data = [];
+      let iData = 0;
+      for (const dataField of visLayoutEl.chartType.getDataFields()) {
+        iData++;
+        const visDataField = new VisualizationDataField();
+        visLayoutEl.data.push(visDataField)
+        visDataField.dataField = dataField;
+        visDataField.simulationResults = [];
+        for (let iSimResult = 0; iSimResult < 3; iSimResult++) {
+          const simResult = new SimulationResult();
+          visDataField.simulationResults.push(simResult);
+          simResult.simulation = SimulationService._get('001');
+          simResult.variable = new ModelVariable();
+          simResult.variable.id = `species-${ iData }-${ iSimResult + 1}`;
+          simResult.variable.name = `species (${ iData }, ${ iSimResult + 1})`;
+        }
+      }
+    }
 
     return viz;
   }

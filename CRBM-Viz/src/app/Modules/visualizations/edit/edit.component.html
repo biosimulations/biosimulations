@@ -13,8 +13,10 @@
       </ng-template>
       <div class="tab full-height simulation">
         <app-simulations-grid
+          #simulationsGrid
           selectable="multiple"
-          (selectRow)="getAllSimulationResults($event)"
+          (ready)="onSimulationsGridReady($event)"
+          (selectRow)="selectSimulation($event.data, $event.selected)"
           inTab="true"
         ></app-simulations-grid>
       </div>
@@ -22,22 +24,24 @@
 
     <mat-tab>
       <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Visualization icon" [icon]="['fas', 'chart-area']"></fa-icon> 2. Select visual(s)
+        <fa-icon aria-hidden="true" aria-label="Chart type icon" [icon]="['fas', 'chart-area']"></fa-icon> 2. Select chart types(s)
       </ng-template>
-      <div class="tab full-height visualization">
-        <app-visualizations-grid
+      <div class="tab full-height chart-types">
+        <app-chart-types-grid
+          #chartTypesGrid
           selectable="multiple"
-          (selectRow)="selectVisualizationSchema($event)"
+          (ready)="onChartTypesGridReady($event)"
+          (selectRow)="selectChartType($event.data, $event.selected)"
           inTab="true"
-        ></app-visualizations-grid>
+        ></app-chart-types-grid>
       </div>
     </mat-tab>
 
     <mat-tab
       *ngIf="getFormArray('layout').controls as layoutControls"
-      [disabled]="selectedVisualizationSchemas.length === 0">
+      [disabled]="selectedChartTypes.length === 0">
       <ng-template mat-tab-label>
-        <fa-icon aria-hidden="true" aria-label="Layout icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout visuals
+        <fa-icon aria-hidden="true" aria-label="Layout icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout charts
       </ng-template>
       <div class="tab layout">
 
@@ -56,26 +60,26 @@
         </div>
 
         <div class="form-field">
-          <div class="form-field-title">Add visuals to grid *</div>
+          <div class="form-field-title">Add chart types to grid *</div>
           <div class="form-field-input">
-            <div class="form-group select-visualization-schema">
+            <div class="form-group select-chart-type">
               <mat-select
-                #visualizationSchemaSelect
+                #chartTypeSelect
                 class="form-input"
                 disableRipple="true"
                 panelClass="form-select-input-panel"
                 >
                 <mat-option
-                *ngFor="let schema of selectedVisualizationSchemas"
-                [value]="schema"
+                *ngFor="let chartType of selectedChartTypes"
+                [value]="chartType"
                 >{{
-                  schema.id + ': ' + schema.name
+                  chartType.id + ': ' + chartType.name
                 }}</mat-option>
               </mat-select>
               <button
                 type="button"
-                (click)="addVisualizationSchemaToLayout(visualizationSchemaSelect.value)"
-                [disabled]="!visualizationSchemaSelect.value"
+                (click)="addChartTypeToLayout(chartTypeSelect.value)"
+                [disabled]="!chartTypeSelect.value"
                 mat-button
                 class="form-button"
                 disableRipple="true"
@@ -85,15 +89,15 @@
         </div>
 
         <div class="form-field">
-          <div class="form-field-title">Arrange visuals in grid *</div>
+          <div class="form-field-title">Arrange chart types in grid *</div>
           <div class="form-field-input">
             <div
-              #visualizationSchemaLayout
+              #layout
               ngxDroppable
               [model]="getFormArray('layout').controls"
               [removeOnSpill]="true"
-              (remove)="updateLayoutGrid()"
-              class="vis-schema-layout ngx-dnd-container"
+              (remove)="updateLayout()"
+              class="form-field-layout-input ngx-dnd-container"
               >
               <div
                 *ngFor="let formArrayEl of getFormArray('layout').controls"
@@ -102,7 +106,7 @@
                 [model]="formArrayEl"
                 >
                 <app-grid-card
-                  [data]="formArrayEl.get('schema').value"
+                  [data]="formArrayEl.get('chartType').value"
                 ></app-grid-card>
               </div>
             </div>
@@ -122,9 +126,9 @@
 
          <div class="form-field" *ngFor="let formArrayEl of layoutControls; let iFormArrayEl=index">
           <div class="form-field-title">{{
-            formArrayEl.get('schema').value.id
+            formArrayEl.get('chartType').value.id
             + ': '
-            + formArrayEl.get('schema').value.name
+            + formArrayEl.get('chartType').value.name
             + ' @ '
             + 'Row ' + (((iFormArrayEl / columns) | floor) + 1)
             + ', '
@@ -360,6 +364,73 @@
                     aria-label="Delete icon"
                     [icon]="['fas', 'trash-alt']"
                     (click)="removeFormArrayElement(getFormArray('authors'), iFormArrayEl)"
+                  ></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="form-field"
+          formArrayName="identifiers"
+          >
+          <div class="form-field-title float-container">
+            <div class="form-field-title-text">Identifiers</div>
+            <div class="form-field-title-buttons">
+              <a (click)="addIdentifierFormElement()">
+                <fa-icon
+                  aria-hidden="true"
+                  aria-label="Add icon"
+                  [icon]="['fas', 'plus']"
+                ></fa-icon>
+                Add
+              </a>
+            </div>
+          </div>
+          <div
+            class="form-field-subtitle form-group identifiers"
+            *ngIf="getFormArray('identifiers').controls.length > 0">
+            <div>Namespace *</div>
+            <div>Id *</div>
+            <div></div>
+          </div>
+          <div
+            cdkDropList
+            (cdkDropListDropped)="drop(getFormArray('identifiers'), $event)"
+            class="form-field-input"
+            >
+            <div
+              *ngFor="let formArrayEl of getFormArray('identifiers').controls; let iFormArrayEl=index"
+              [formGroupName]="iFormArrayEl"
+              class="draggable form-array-el"
+              cdkDrag
+            >
+              <div class="form-group identifiers">
+                <input matInput
+                  formControlName="namespace"
+                  placeholder="biomodels.db"
+                  required
+                  class="form-input"
+                  />
+                <input matInput
+                  formControlName="id"
+                  placeholder="BIOMD0000000001"
+                  required
+                  class="form-input"
+                  />
+                <div class="form-group-buttons">
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Drag icon"
+                    [icon]="['fas', 'grip-lines-vertical']"
+                    class="drag"
+                  ></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Delete icon"
+                    [icon]="['fas', 'trash-alt']"
+                    (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
                   ></fa-icon>
                 </div>
               </div>

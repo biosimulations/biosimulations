@@ -1,6 +1,8 @@
 import { AccessLevel } from '../Enums/access-level';
+import { ChartTypeDataFieldShape } from '../Enums/chart-type-data-field-shape';
 import { License } from '../Enums/license';
-import { VisualizationSchemaDataFieldType } from '../Enums/visualization-schema-data-field-type';
+import { ChartTypeDataField } from './chart-type-data-field';
+import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
 import { Model } from './model';
 import { Person } from './person';
@@ -9,20 +11,20 @@ import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { User } from './user';
 import { Visualization } from './visualization';
-import { VisualizationSchemaDataField } from './visualization-schema-data-field';
 import { ModelService } from '../Services/model.service';
 import { ProjectService } from '../Services/project.service';
 import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
 import { VisualizationService } from '../Services/visualization.service';
 
-export class VisualizationSchema {
+export class ChartType {
   id?: string;
   name?: string;
-  spec?: object | string;
+  spec?: object;
   image?: File | RemoteFile;
   description?: string;
   tags?: string[] = [];
+  identifiers?: Identifier[] = [];
   refs?: JournalReference[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
@@ -32,12 +34,28 @@ export class VisualizationSchema {
   created?: Date;
   updated?: Date;
 
-  getDataFields(): VisualizationSchemaDataField[] {
-    const fields: VisualizationSchemaDataField[] = [];
+  getIcon() {
+    return {type: 'fas', icon: 'paint-brush'};
+  }
+
+  getRoute() {
+    return ['/chart-types', this.id];
+  }
+
+  getAuthors(): (User | Person)[] {
+    if (this.authors && this.authors.length) {
+      return this.authors;
+    } else {
+      return [this.owner];
+    }
+  }
+
+  getDataFields(): ChartTypeDataField[] {
+    const fields: ChartTypeDataField[] = [];
     for (let iField = 0; iField < 3; iField++) {
-      const field: VisualizationSchemaDataField = new VisualizationSchemaDataField();
+      const field: ChartTypeDataField = new ChartTypeDataField();
       field.name = `field-${ iField + 1}`;
-      field.type = (iField === 1 ? VisualizationSchemaDataFieldType.array : VisualizationSchemaDataFieldType.scalar);
+      field.shape = ChartTypeDataFieldShape.array;
       fields.push(field);
     }
     return fields;

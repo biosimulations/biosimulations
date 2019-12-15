@@ -146,6 +146,11 @@ export class EditComponent implements OnInit {
 
       // setup form
       if (this.id) {
+        this.getFormArray('tags').clear();
+        this.getFormArray('authors').clear();
+        this.getFormArray('identifiers').clear();
+        this.getFormArray('refs').clear();
+
         this.formGroup.get('file').validator = null;
         for (const tag of this.model.tags) { this.addTagFormElement(); }
         for (const author of this.model.authors) { this.addAuthorFormElement(); }

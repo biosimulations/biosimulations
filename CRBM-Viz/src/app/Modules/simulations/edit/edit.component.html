@@ -447,6 +447,73 @@
 
   <div
     class="form-field"
+    formArrayName="identifiers"
+    >
+    <div class="form-field-title float-container">
+      <div class="form-field-title-text">Identifiers</div>
+      <div class="form-field-title-buttons">
+        <a (click)="addIdentifierFormElement()">
+          <fa-icon
+            aria-hidden="true"
+            aria-label="Add icon"
+            [icon]="['fas', 'plus']"
+          ></fa-icon>
+          Add
+        </a>
+      </div>
+    </div>
+    <div
+      class="form-field-subtitle form-group identifiers"
+      *ngIf="getFormArray('identifiers').controls.length > 0">
+      <div>Namespace *</div>
+      <div>Id *</div>
+      <div></div>
+    </div>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="drop(getFormArray('identifiers'), $event)"
+      class="form-field-input"
+      >
+      <div
+        *ngFor="let formArrayEl of getFormArray('identifiers').controls; let iFormArrayEl=index"
+        [formGroupName]="iFormArrayEl"
+        class="draggable form-array-el"
+        cdkDrag
+      >
+        <div class="form-group identifiers">
+          <input matInput
+            formControlName="namespace"
+            placeholder="biomodels.db"
+            required
+            class="form-input"
+            />
+          <input matInput
+            formControlName="id"
+            placeholder="BIOMD0000000001"
+            required
+            class="form-input"
+            />
+          <div class="form-group-buttons">
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Drag icon"
+              [icon]="['fas', 'grip-lines-vertical']"
+              class="drag"
+            ></fa-icon>
+            <fa-icon
+              aria-hidden="true"
+              aria-label="Delete icon"
+              [icon]="['fas', 'trash-alt']"
+              (click)="removeFormArrayElement('identifiers', iFormArrayEl)"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="form-field"
     formArrayName="refs"
     >
     <div class="form-field-title float-container">

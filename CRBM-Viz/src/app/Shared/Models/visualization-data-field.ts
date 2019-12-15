@@ -1,7 +1,7 @@
 import { SimulationResult } from './simulation-result';
-import { VisualizationSchemaDataField } from './visualization-data-field';
+import { ChartTypeDataField } from './chart-type-data-field';
 
 export class VisualizationDataField {
-  dataField: VisualizationSchemaDataField;
+  dataField: ChartTypeDataField;
   simulationResults: SimulationResult[];
 }

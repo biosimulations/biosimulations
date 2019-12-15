@@ -13,17 +13,21 @@ import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
+import { ChartTypeDataFieldShape } from 'src/app/Shared/Enums/chart-type-data-field-shape';
 import { License, licenses } from 'src/app/Shared/Enums/license';
-import { VisualizationSchemaDataFieldType } from 'src/app/Shared/Enums/visualization-schema-data-field-type';
+import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { SimulationResult } from 'src/app/Shared/Models/simulation-result';
 import { Visualization } from 'src/app/Shared/Models/visualization';
-import { VisualizationSchema } from 'src/app/Shared/Models/visualization-schema';
+import { VisualizationDataField } from 'src/app/Shared/Models/visualization-data-field';
+import { VisualizationLayoutElement } from 'src/app/Shared/Models/visualization-layout-element';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { ChartTypesGridComponent } from 'src/app/Shared/Components/chart-types-grid/chart-types-grid.component';
+import { SimulationsGridComponent } from 'src/app/Shared/Components/simulations-grid/simulations-grid.component';
 
 enum Mode {
   new = 'new',
@@ -51,14 +55,32 @@ export class EditComponent implements OnInit {
   visualization: Visualization;
   formGroup: FormGroup;
 
-  selectedVisualizationSchemas = [];
-  columns = 1;
-  private _visualizationSchemaLayout: ElementRef;
+  private _simulationsGrid: SimulationsGridComponent;
+  private _chartTypesGrid: ChartTypesGridComponent;
+  private simulationsGridReady = false;
+  private chartTypesGridReady = false;
 
-  @ViewChild('visualizationSchemaLayout', { static: false })
-  set visualizationSchemaLayout(value:ElementRef) {
-    this._visualizationSchemaLayout = value;
-    this.updateLayoutGrid();
+  @ViewChild('simulationsGrid', { static: false })
+  set simulationsGrid(value:ElementRef) {
+    this._simulationsGrid = (value as unknown) as SimulationsGridComponent;
+    this.updateSimulationsGrid();
+  }
+
+  @ViewChild('chartTypesGrid', { static: false })
+  set chartTypesGrid(value:ElementRef) {
+    this._chartTypesGrid = (value as unknown) as ChartTypesGridComponent;
+    this.updateChartTypesGrid();
+  }
+
+  selectedChartTypes = [];
+
+  columns = 1;
+  private _layout: ElementRef;
+
+  @ViewChild('layout', { static: false })
+  set layout(value:ElementRef) {
+    this._layout = value;
+    this.updateLayout();
   }
 
   allSimulationResults: object[] = [];
@@ -85,10 +107,11 @@ export class EditComponent implements OnInit {
       description: [''],
       tags: this.formBuilder.array([]),
       authors: this.formBuilder.array([]),
+      identifiers: this.formBuilder.array([]),
       refs: this.formBuilder.array([]),
       access: [''],
       license: [''],
-      columns: [1, Validators.min(1)],      
+      columns: [1, Validators.min(1)],
     });
   }
 
@@ -165,7 +188,7 @@ export class EditComponent implements OnInit {
     const buttons: NavItem[] = [
       {
         iconType: 'fas',
-        icon: 'chart-area',
+        icon: 'paint-brush',
         label: 'Visualize',
         route: ['/visualizations', this.id],
         display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
@@ -227,65 +250,123 @@ export class EditComponent implements OnInit {
     }
 
     if (this.id) {
+      this.getFormArray('layout').clear();
+      this.getFormArray('tags').clear();
+      this.getFormArray('authors').clear();
+      this.getFormArray('identifiers').clear();
+      this.getFormArray('refs').clear();
+
+      for (const el of this.visualization.layout) { this.addChartTypeToLayout(el.chartType, el.data); }
       for (const el of this.visualization.tags) { this.addTagFormElement(); }
       for (const el of this.visualization.authors) { this.addAuthorFormElement(); }
+      for (const el of this.visualization.identifiers) { this.addIdentifierFormElement(); }
       for (const el of this.visualization.refs) { this.addRefFormElement(); }
       this.formGroup.patchValue(this.visualization);
+
+      this.updateSimulationsGrid();
+      this.updateChartTypesGrid();
     } else {
       for (let i = 0; i < 3; i++) {
+        // this.addLayoutFormElement();
         // this.addTagFormElement();
         this.addAuthorFormElement();
+        this.addIdentifierFormElement();
         this.addRefFormElement();
       }
     }
 
     // update layout
-    this.updateLayoutGrid();
+    this.updateLayout();
   }
 
-  selectVisualizationSchema(event): void {
-    const schema = event['data'];
-    const selected: boolean = event['selected'];
+  onSimulationsGridReady(event): void {
+    this.simulationsGridReady = true;
+    this.updateSimulationsGrid();
+  }
+
+  onChartTypesGridReady(event): void {
+    this.chartTypesGridReady = true;
+    this.updateChartTypesGrid();
+  }
+
+  updateSimulationsGrid(): void {
+    if (this._simulationsGrid && this.simulationsGridReady && this.visualization) {
+      this.allSimulationResults = [];
+      this._simulationsGrid.unselectAllRows();
+      for (const layoutEl of this.visualization.layout) {
+        for (const data of layoutEl.data) {
+          for (const simResult of data.simulationResults) {
+            this._simulationsGrid.setRowSelection(simResult.simulation, true);
+            this.selectSimulation(simResult.simulation, true);
+          }
+        }
+      }
+    }
+  }
+
+  updateChartTypesGrid(): void {
+    if (this._chartTypesGrid && this.chartTypesGridReady && this.visualization) {
+      this.selectedChartTypes = [];
+      this._chartTypesGrid.unselectAllRows();
+      for (const layoutEl of this.visualization.layout) {
+        this._chartTypesGrid.setRowSelection(layoutEl.chartType, true);
+        this.selectChartType(layoutEl.chartType, true);
+      }
+    }
+  }
+
+  selectChartType(chartType: ChartType, selected: boolean): void {
     const formArray: FormArray = this.getFormArray('layout');
     if (selected) {
-      this.selectedVisualizationSchemas.push(schema);
-      this.selectedVisualizationSchemas = this.selectedVisualizationSchemas.sort((a, b) => 
+      this.selectedChartTypes.push(chartType);
+      this.selectedChartTypes = this.selectedChartTypes.sort((a, b) =>
         (a.id > b.id ? 1 : -1));
     } else {
-      for (let iSchema = 0; iSchema < this.selectedVisualizationSchemas.length; iSchema++) {
-        if (this.selectedVisualizationSchemas[iSchema].id === schema.id) {
-          this.selectedVisualizationSchemas.slice(iSchema, 1);
+      for (let iChartType = 0; iChartType < this.selectedChartTypes.length; iChartType++) {
+        if (this.selectedChartTypes[iChartType].id === chartType.id) {
+          this.selectedChartTypes.slice(iChartType, 1);
         }
       }
 
-      for (let iSchema = 0; iSchema < formArray.controls.length; iSchema++) {
-        if (formArray.controls[iSchema].value.schema.id === schema.id) {
-          formArray.removeAt(iSchema);
+      for (let iChartType = 0; iChartType < formArray.controls.length; iChartType++) {
+        if (formArray.controls[iChartType].value.chartType.id === chartType.id) {
+          formArray.removeAt(iChartType);
         }
       }
     }
 
-    this.updateLayoutGrid();
+    this.updateLayout();
   }
 
-  addVisualizationSchemaToLayout(schema): void {
+  addChartTypeToLayout(chartType: ChartType, vizDataFields: VisualizationDataField[] = []): void {
     const formArray: FormArray = this.getFormArray('layout');
-    formArray.push(this.genLayoutFormGroup(schema));
+    const formGroup: FormGroup = this.genLayoutFormGroup(chartType);
+    formArray.push(formGroup);
+
+    const dataFormArray: FormArray = formGroup.get('data') as FormArray;
+    for (let iVizDataField=0; iVizDataField < vizDataFields.length; iVizDataField++) {
+      const vizDataField: VisualizationDataField = vizDataFields[iVizDataField];
+      const simResultsFormArray: FormArray = dataFormArray.controls[iVizDataField].get('simulationResults') as FormArray;
+      for (const simResult of vizDataField.simulationResults) {
+        simResultsFormArray.push(this.formBuilder.control(simResult));
+      }
+    }
   }
 
-  genLayoutFormGroup(schema): FormGroup {    
+  genLayoutFormGroup(chartType: ChartType): FormGroup {
     const dataFormArray: FormArray = this.formBuilder.array([]);
-    for (const dataField of schema.schema.getDataFields()) { // TODO: change to schema.getDataFields
+    for (const dataField of chartType.getDataFields()) {
+      const simResultsFormArray: FormArray = this.formBuilder.array([],
+        (dataField.shape === ChartTypeDataFieldShape.array
+          ? [Validators.required, Validators.minLength(1)]
+          : Validators.maxLength(1)));
       dataFormArray.push(this.formBuilder.group({
         dataField: this.formBuilder.control(dataField),
-        simulationResults: this.formBuilder.array([],
-          (dataField.type === VisualizationSchemaDataFieldType.array
-            ? [Validators.required, Validators.minLength(1)]
-            : Validators.maxLength(1))),
+        simulationResults: simResultsFormArray,
       }));
     }
     const formGroup: FormGroup = this.formBuilder.group({
-      schema: this.formBuilder.control(schema),
+      chartType: this.formBuilder.control(chartType),
       data: dataFormArray,
     });
     return formGroup;
@@ -295,15 +376,15 @@ export class EditComponent implements OnInit {
     if (event.target.valueAsNumber < 1) {
       this.formGroup.patchValue({columns: 1});
     }
-    this.updateLayoutGrid();
+    this.updateLayout();
   }
 
-  updateLayoutGrid(): void {
+  updateLayout(): void {
     this.columns = this.formGroup.value.columns;
     const rows = Math.max(1, Math.ceil(this.getFormArray('layout').length / this.columns));
 
-    if (this._visualizationSchemaLayout) {
-      this._visualizationSchemaLayout.nativeElement.setAttribute('style', (
+    if (this._layout) {
+      this._layout.nativeElement.setAttribute('style', (
         `grid-template-rows: repeat(${ rows }, 10rem);` +
         `grid-template-columns: repeat(${ this.columns }, 10rem)`));
     }
@@ -329,10 +410,7 @@ export class EditComponent implements OnInit {
     fileNameEl.innerHTML = fileName;
   }
 
-  getAllSimulationResults(event): void {
-    const simulation = event['data'];
-    const selected = event['selected'];
-
+  selectSimulation(simulation: Simulation, selected: boolean): void {
     if (selected) {
       const simulationResults: SimulationResult[] = [];
       for (const variable of this.modelService.getVariables(simulation.model)) {
@@ -456,6 +534,14 @@ export class EditComponent implements OnInit {
       firstName: [''],
       middleName: [''],
       lastName: [''],
+    }));
+  }
+
+  addIdentifierFormElement(): void {
+    const formArray: FormArray = this.getFormArray('identifiers');
+    formArray.push(this.formBuilder.group({
+      namespace: [''],
+      id: [''],
     }));
   }
 

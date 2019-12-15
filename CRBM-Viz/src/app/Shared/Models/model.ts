@@ -1,5 +1,6 @@
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
+import { ChartType } from './chart-type';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
@@ -12,12 +13,11 @@ import { Simulation } from './simulation';
 import { Taxon } from './taxon';
 import { User } from './user';
 import { Visualization } from './visualization';
-import { VisualizationSchema } from './visualization-schema';
 import { ProjectService } from '../Services/project.service';
 import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
+import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
-import { VisualizationSchemaService } from '../Services/visualization-schema.service';
 
 export class Model {
   id?: string;
@@ -81,19 +81,19 @@ export class Model {
     ];
   }
 
+ getChartTypes(): ChartType[] {
+    return [
+      ChartTypeService._get('001'),
+      ChartTypeService._get('002'),
+      ChartTypeService._get('003'),
+    ];
+  }
+
   getVisualizations(): Visualization[] {
     return [
       VisualizationService._get(1),
       VisualizationService._get(2),
       VisualizationService._get(3),
-    ];
-  }
-
-  getVisualizationSchemas(): VisualizationSchema[] {
-    return [
-      VisualizationSchemaService._get('001'),
-      VisualizationSchemaService._get('002'),
-      VisualizationSchemaService._get('003'),
     ];
   }
 }

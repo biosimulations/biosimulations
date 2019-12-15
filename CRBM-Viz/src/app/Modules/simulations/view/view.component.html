@@ -109,7 +109,7 @@
               </ul>
 
               <ul class="icon-text inline no-wrap">
-                <li *ngFor="let identifier of simulation.model.identifiers">
+                <li *ngFor="let identifier of simulation.identifiers">
                   <fa-icon aria-hidden="true" aria-label="Identifier icon" [icon]="['fas', 'star']"></fa-icon>
                   <app-hyperlink [href]="identifier.getUrl()">{{
                     identifier.getNamespaceName() + ': ' + identifier.id
@@ -327,6 +327,38 @@
               [projects]="projects"
               [cols]="4"
             ></app-project-cards>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab *ngIf="simulation.getChartTypes() as chartTypes">
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Chart types icon" [icon]="['fas', 'folder-open']"></fa-icon> Chart types ({{ chartTypes.length }})
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <div class="section-title float-container">
+            <h1>Chart types</h1>
+            <a
+              class="routes"
+              [routerLink]="['/chart-types', 'new']"
+              >
+              <fa-icon
+                aria-hidden="true"
+                aria-label="New chart type icon"
+                [icon]="['fas', 'plus']"
+              ></fa-icon>
+                New
+            </a>
+          </div>
+          <div class="section-content">
+            <app-chart-type-cards
+              [chartTypes]="chartTypes"
+              [cols]="4"
+            ></app-chart-type-cards>
           </div>
         </div>
       </div>

@@ -45,6 +45,12 @@
               </ul>
 
               <ul class="icon-text inline no-wrap">
+                <li *ngFor="let identifier of visualization.identifiers">
+                  <fa-icon aria-hidden="true" aria-label="Identifier icon" [icon]="['fas', 'star']"></fa-icon>
+                  <app-hyperlink [href]="identifier.getUrl()"
+                  >{{ identifier.getNamespaceName() + ': ' + identifier.id }}</app-hyperlink>
+                </li>
+
                 <li>
                   <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
                   <app-hyperlink [href]="getLicenseInfo(visualization.license)['url']">{{
@@ -71,13 +77,13 @@
 
   <mat-tab>
     <ng-template mat-tab-label>
-      <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'chart-area']"></fa-icon> Visualization
+      <fa-icon aria-hidden="true" aria-label="Visualization icon" [icon]="['fas', 'paint-brush']"></fa-icon> Visualization
     </ng-template>
     <ng-template matTabContent>
       <div class="tab full-height visualization">
         <app-vega-viewer
-          *ngIf="visualization"
-          [spec]="visualization.schema.spec"
+          *ngIf="vegaSpec && vegaData"
+          [spec]="vegaSpec"
           [options]="vegaOptions"
           class="vega block"
         ></app-vega-viewer>
@@ -111,6 +117,102 @@
               [projects]="projects"
               [cols]="4"
             ></app-project-cards>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab *ngIf="visualization.getModels() as models">
+    <ng-template mat-tab-label>
+      <mat-icon aria-hidden="true" aria-label="Models icon">timeline</mat-icon> Models ({{ models.length }})
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <div class="section-title float-container">
+            <h1>Models</h1>
+            <a
+              class="routes"
+              [routerLink]="['/models', 'new']"
+              >
+              <fa-icon
+                aria-hidden="true"
+                aria-label="New model icon"
+                [icon]="['fas', 'plus']"
+              ></fa-icon>
+                New
+            </a>
+          </div>
+          <div class="section-content">
+            <app-model-cards
+              [models]="models"
+              [cols]="4"
+            ></app-model-cards>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab *ngIf="visualization.getSimulations() as simulations">
+    <ng-template mat-tab-label>
+      <mat-icon aria-hidden="true" aria-label="Simulations icon">timeline</mat-icon> Simulations ({{ simulations.length }})
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <div class="section-title float-container">
+            <h1>Simulations</h1>
+            <a
+              class="routes"
+              [routerLink]="['/simulations', 'new']"
+              >
+              <fa-icon
+                aria-hidden="true"
+                aria-label="New simulation icon"
+                [icon]="['fas', 'plus']"
+              ></fa-icon>
+                New
+            </a>
+          </div>
+          <div class="section-content">
+            <app-simulation-cards
+              [simulations]="simulations"
+              [cols]="4"
+            ></app-simulation-cards>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab *ngIf="visualization.getChartTypes() as chartTypes">
+    <ng-template mat-tab-label>
+      <fa-icon aria-hidden="true" aria-label="Chart types icon" [icon]="['fas', 'folder-open']"></fa-icon> Chart types ({{ chartTypes.length }})
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="tab">
+        <div class="section">
+          <div class="section-title float-container">
+            <h1>Chart types</h1>
+            <a
+              class="routes"
+              [routerLink]="['/chart-types', 'new']"
+              >
+              <fa-icon
+                aria-hidden="true"
+                aria-label="New chart type icon"
+                [icon]="['fas', 'plus']"
+              ></fa-icon>
+                New
+            </a>
+          </div>
+          <div class="section-content">
+            <app-chart-type-cards
+              [chartTypes]="chartTypes"
+              [cols]="4"
+            ></app-chart-type-cards>
           </div>
         </div>
       </div>

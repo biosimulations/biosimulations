@@ -37,6 +37,8 @@ export class GridComponent {
     return this._selectable;
   }
 
+  @Output() ready = new EventEmitter();
+
   selected: Set<object> = new Set();
 
   @Output() selectRow = new EventEmitter();
@@ -158,6 +160,8 @@ export class GridComponent {
     const statusPanel = gridApi.getStatusPanel('counts');
     statusPanel.eLabel.innerHTML = this.rowTypePlural;
     statusPanel.textContent = this.rowTypePlural;
+
+    this.ready.emit();
   }
 
   sizeColumnsToFit(event) {
@@ -190,7 +194,6 @@ export class GridComponent {
     this.sizeColumnsToFit(event);
   }
 
-
   updateFilteredRowData(event): void {
     const gridApi = event.api;
 
@@ -206,6 +209,24 @@ export class GridComponent {
     } else {
       this.view = View.icons;
     }
+  }
+
+  unselectAllRows(): void {
+    for (const rowDatum of this.selected) {
+      rowDatum['_selected'] = false;
+    }
+    this.selected.clear();
+    this.gridApi.deselectAll();
+  }
+
+  setRowSelection(rowDatum: object, selection: boolean): void {
+    rowDatum['_selected'] = selection;
+    if (selection) {
+      this.selected.add(rowDatum);
+    } else {
+      this.selected.delete(rowDatum);
+    }
+    this.gridApi.getRowNode(rowDatum['id']).setSelected(selection, false);
   }
 
   rowSelected(event): void {

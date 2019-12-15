@@ -164,7 +164,8 @@
             <div class="graphics">
                 <div class="graph" *ngFor="let graph of statGraphs">
                     <app-vega-viewer
-                        [spec]="graph"
+                        [spec]="graph.spec"
+                        [data]="graph.data"
                         [options]="vegaOptions"
                         class="vega block no-actions"
                     ></app-vega-viewer>

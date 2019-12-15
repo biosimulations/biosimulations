@@ -1,7 +1,7 @@
-import { VisualizationSchema } from './visualization-schema';
+import { ChartType } from './chart-type';
 import { VisualizationDataField } from './visualization-data-field';
 
 export class VisualizationLayoutElement {
-  schema: VisualizationSchema;
+  chartType: ChartType;
   data: VisualizationDataField[];
 }

@@ -25,6 +25,11 @@ const routes: Routes = [
       import('./Modules/simulations/simulations.module').then(m => m.SimulationsModule),
   },
   {
+    path: 'chart-types',
+    loadChildren: () =>
+      import('./Modules/chart-types/chart-types.module').then(m => m.ChartTypesModule),
+  },
+  {
     path: 'visualizations',
     loadChildren: () =>
       import('./Modules/visualizations/visualizations.module').then(m => m.VisualizationsModule),

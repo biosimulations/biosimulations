@@ -1,4 +1,21 @@
 <div class="icons">
+  <!-- Projects -->
+  <button
+    mat-icon-button
+    [routerLink]="['/projects']"
+    disableRipple="true"
+    class="main"
+  >
+    <fa-icon
+      class="icon"
+      aria-hidden="false"
+      aria-label="Projects icon"
+      [icon]="['fas', 'folder-open']"
+      size="2x"
+    ></fa-icon>
+    <span class="label">Projects</span>
+  </button>
+
   <!-- Models -->
   <button
     mat-icon-button
@@ -29,6 +46,23 @@
     <span class="label">Simulations</span>
   </button>
 
+  <!-- Chart types -->
+  <button
+    mat-icon-button
+    [routerLink]="['/chart-types']"
+    disableRipple="true"
+    class="main"
+  >
+    <fa-icon
+      class="icon"
+      aria-hidden="false"
+      aria-label="Chart types icon"
+      [icon]="['fas', 'chart-area']"
+      size="2x"
+    ></fa-icon>
+    <span class="label">Chart types</span>
+  </button>
+
   <!-- Visualizations -->
   <button
     mat-icon-button
@@ -39,8 +73,8 @@
     <fa-icon
       class="icon"
       aria-hidden="false"
-      aria-label="Visualizaions icon"
-      [icon]="['fas', 'chart-area']"
+      aria-label="Visualizations icon"
+      [icon]="['fas', 'paint-brush']"
       size="2x"
     ></fa-icon>
     <span class="label">Visualizations</span>

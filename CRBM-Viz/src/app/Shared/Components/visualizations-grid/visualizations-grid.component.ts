@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -25,6 +25,8 @@ export class VisualizationsGridComponent implements OnInit {
     this.rowData = this.visualizationService.list(null, value);
   }
 
+  @Output() ready = new EventEmitter();
+
   private _selectable: string = null;
 
   @Input()
@@ -45,6 +47,8 @@ export class VisualizationsGridComponent implements OnInit {
   @Output() selectRow = new EventEmitter();
 
   @Input() inTab = false;
+
+  @ViewChild('grid', { static: true }) grid;
 
   constructor(
     private visualizationService: VisualizationService
@@ -137,9 +141,16 @@ export class VisualizationsGridComponent implements OnInit {
     this.rowData = this.visualizationService.list(null, this._owner);
   }
 
-  timeFormatter(params): string {
-    const secs:number = params.value;
-    return UtilsService.formatTimeForHumans(secs);
+  onReady(event): void {
+    this.ready.emit();
+  }
+
+  unselectAllRows(): void {
+    this.grid.unselectAllRows();
+  }
+
+  setRowSelection(rowDatum: object, selection: boolean): void {
+    this.grid.setRowSelection(rowDatum, selection);
   }
 
   onSelectRow(event) {
@@ -149,10 +160,6 @@ export class VisualizationsGridComponent implements OnInit {
 
 function tagsGetter(params): string[] {
   return params.data.tags;
-}
-
-function taxonGetter(params): string {
-  return params.data.model.taxon.getShortName();
 }
 
 function setFormatter(params) {

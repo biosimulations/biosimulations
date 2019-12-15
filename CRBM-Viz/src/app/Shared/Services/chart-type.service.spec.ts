@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { VisualizationSchemaService } from './visualization-schema.service';
+import { ChartTypeService } from './chart-type.service';
 
-describe('VisualizationSchemaService', () => {
+describe('ChartTypeService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -11,7 +11,7 @@ describe('VisualizationSchemaService', () => {
   );
 
   it('should be created', () => {
-    const service: VisualizationSchemaService = TestBed.get(VisualizationSchemaService);
+    const service: ChartTypeService = TestBed.get(ChartTypeService);
     expect(service).toBeTruthy();
   });
 });

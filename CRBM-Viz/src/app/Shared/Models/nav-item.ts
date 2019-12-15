@@ -54,9 +54,21 @@ export const navItems: NavItem[] = [
     display: NavItemDisplayLevel.always,
   },
   {
+    id: 'ChartTypes',
+    label: 'Chart types',
+    icon: 'chart-area',
+    iconType: 'fas',
+    children: [
+      'ChartTypes-Browse',
+      'ChartTypes-New',
+      'ChartTypes-Yours',
+      ],
+    display: NavItemDisplayLevel.always,
+  },
+  {
     id: 'Visualizations',
     label: 'Visualizations',
-    icon: 'chart-area',
+    icon: 'paint-brush',
     iconType: 'fas',
     children: [
       'Visualizations-Browse',
@@ -165,6 +177,32 @@ export const navItems: NavItem[] = [
     route: ['/user', 'simulations'],
   },
 
+  // Chart types sub-menu
+  {
+    id: 'ChartTypes-Browse',
+    label: 'Browse',
+    icon: 'list',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.always,
+    route: ['/chart-types'],
+  },
+  {
+    id: 'ChartTypes-New',
+    label: 'New',
+    icon: 'plus-circle',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.always,
+    route: ['/chart-types', 'new'],
+  },
+  {
+    id: 'ChartTypes-Yours',
+    label: 'Your chart types',
+    icon: 'user-circle',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.loggedIn,
+    route: ['/user', 'chart-types'],
+  },
+
   // Visualizations sub-menu
   {
     id: 'Visualizations-Browse',
@@ -188,7 +226,7 @@ export const navItems: NavItem[] = [
     icon: 'user-circle',
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/user/visualizations'],
+    route: ['/user', 'visualizations'],
   },
 
   // About sub-menu

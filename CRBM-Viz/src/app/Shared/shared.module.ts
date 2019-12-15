@@ -79,6 +79,8 @@ import {
   faThLarge,
   faBug,
   faTools,
+  faMap,
+  faPaintBrush,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -94,6 +96,7 @@ import { ProjectService } from './Services/project.service';
 import { ModelService } from './Services/model.service';
 import { SimulationService } from './Services/simulation.service';
 import { SimulationResultsService } from './Services/simulation-results.service';
+import { ChartTypeService } from './Services/chart-type.service';
 import { VisualizationService } from './Services/visualization.service';
 import { StatsService } from './Services/stats.service';
 
@@ -121,12 +124,14 @@ import { SortToolPanelGridComponent } from './Components/grid/sort-tool-panel-gr
 import { ProjectsGridComponent } from './Components/projects-grid/projects-grid.component';
 import { ModelsGridComponent } from './Components/models-grid/models-grid.component';
 import { SimulationsGridComponent } from './Components/simulations-grid/simulations-grid.component';
+import { ChartTypesGridComponent } from './Components/chart-types-grid/chart-types-grid.component';
 import { VisualizationsGridComponent } from './Components/visualizations-grid/visualizations-grid.component';
 import { AuthorsComponent } from './Components/authors/authors.component';
 import { TreeComponent } from './Components/tree/tree.component';
 import { ProjectCardsComponent } from './Components/project-cards/project-cards.component';
 import { ModelCardsComponent } from './Components/model-cards/model-cards.component';
 import { SimulationCardsComponent } from './Components/simulation-cards/simulation-cards.component';
+import { ChartTypeCardsComponent } from './Components/chart-type-cards/chart-type-cards.component';
 import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
 import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
 import { RouterlinkComponent } from './Components/routerlink/routerlink.component';
@@ -160,12 +165,14 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
+    ChartTypesGridComponent,
     VisualizationsGridComponent,
     AuthorsComponent,
     TreeComponent,
     ProjectCardsComponent,
     ModelCardsComponent,
     SimulationCardsComponent,
+    ChartTypeCardsComponent,
     VisualizationCardsComponent,
     HyperlinkComponent,
     RouterlinkComponent,
@@ -212,12 +219,14 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     ProjectsGridComponent,
     ModelsGridComponent,
     SimulationsGridComponent,
+    ChartTypesGridComponent,
     VisualizationsGridComponent,
     AuthorsComponent,
     TreeComponent,
     ProjectCardsComponent,
     ModelCardsComponent,
     SimulationCardsComponent,
+    ChartTypeCardsComponent,
     VisualizationCardsComponent,
     HyperlinkComponent,
     RouterlinkComponent,
@@ -234,6 +243,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     ModelService,
     SimulationService,
     SimulationResultsService,
+    ChartTypeService,
     VisualizationService,
     StatsService,
   ],
@@ -308,6 +318,8 @@ export class SharedModule {
       faThLarge,
       faBug,
       faTools,
+      faMap,
+      faPaintBrush,
       faDocker,
       faGithub,
       faGoogle,
