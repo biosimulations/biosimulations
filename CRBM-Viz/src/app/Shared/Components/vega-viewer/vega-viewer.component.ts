@@ -61,7 +61,7 @@ export class VegaViewerComponent {
 
   loadData() {
     if (this.viewApi && this._data) {
-      this._data.forEach((key, val) => {
+      Object.entries(this._data).forEach((key, val) => {
         const changeSet = vega
           .changeset()
           .remove(vega.truthy)

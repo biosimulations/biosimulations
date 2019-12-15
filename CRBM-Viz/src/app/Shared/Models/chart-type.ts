@@ -35,7 +35,7 @@ export class ChartType {
   updated?: Date;
 
   getIcon() {
-    return {type: 'fas', icon: 'paint-brush'};
+    return {type: 'fas', icon: 'chart-area'};
   }
 
   getRoute() {

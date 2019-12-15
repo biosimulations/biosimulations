@@ -75,7 +75,11 @@ export class JournalReference {
         break;
     }
 
-    return authorsStr + ' ' + this.year.toString();
+    if (this.year) {
+      authorsStr += ' ' + this.year.toString();
+    }
+
+    return authorsStr;
   }
 
   getUrl(): string {

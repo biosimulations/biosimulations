@@ -55,7 +55,7 @@ export class ChartTypeService {
         }
       }
     };
-    chartType.name = 'Chart type ' + id.toString();
+    chartType.name = 'Chart type ' + id;
 
     if (id === '002') {
       chartType.image = new RemoteFile()
