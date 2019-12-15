@@ -1,5 +1,6 @@
 import { AccessLevel } from '../Enums/access-level';
 import { ChartTypeDataFieldShape } from '../Enums/chart-type-data-field-shape';
+import { ChartTypeDataFieldType } from '../Enums/chart-type-data-field-type';
 import { License } from '../Enums/license';
 import { ChartTypeDataField } from './chart-type-data-field';
 import { Identifier } from './identifier';
@@ -52,15 +53,43 @@ export class ChartType implements TopLevelResource {
   }
 
   getDataFields(): ChartTypeDataField[] {
-    // TODO: find named data fields in this.spec
     const fields: ChartTypeDataField[] = [];
-    for (let iField = 0; iField < 3; iField++) {
-      const field: ChartTypeDataField = new ChartTypeDataField();
-      field.name = `field-${ iField + 1}`;
-      field.shape = ChartTypeDataFieldShape.array;
-      fields.push(field);
+
+    const specsToCheck = [this.spec];
+
+    while(specsToCheck.length) {
+      const spec: object = specsToCheck.pop();
+      if ('data' in spec && 'name' in spec['data'] &&
+        !('type' in spec['data'] &&
+          spec['data']['type'] !== 'dynamicSimulationResult')) {
+        fields.push(this.genDataField(spec));
+      }
+
+      if ('facet' in spec && 'spec' in spec) {
+        specsToCheck.push(spec['spec']);
+      }
+
+      for (const compType of ['layer', 'hconcat', 'vconcat']) {
+        if (compType in spec) {
+          for (const layer of spec[compType]) {
+            specsToCheck.push(layer)
+          }
+        }
+      }
     }
     return fields;
+  }
+
+  genDataField(spec: object): ChartTypeDataField {
+    const dataField = new ChartTypeDataField();
+    dataField.name = spec['data']['name'];
+    if ('shape' in spec['data']) {
+      dataField.shape = ChartTypeDataFieldShape[spec['data']['shape'] as string];
+    } else {
+      dataField.shape = ChartTypeDataFieldShape.array;
+    }
+    dataField.type = ChartTypeDataFieldType.dynamicSimulationResult;
+    return dataField;
   }
 
   getProjects(): Project[] {
