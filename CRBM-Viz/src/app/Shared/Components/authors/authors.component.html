@@ -1,18 +1,18 @@
 <span *ngIf="authors && authors.length > 0; else ownerTemplate">
   <span *ngFor="let author of authors; index as iAuthor">
-    <app-routerlink [routerLink]="route ? author.getRoute() : null">{{
+    <app-router-link [routerLink]="route ? author.getRoute() : null">{{
       author.getFullName()
-    }}</app-routerlink>{{
+    }}</app-router-link>{{
     iAuthor < authors.length - 2 ? ', ' : (iAuthor == authors.length - 2 ? ' &amp; ' : '')
     }}
   </span>
 </span>
 
 <ng-template #ownerTemplate>
-  <app-routerlink
+  <app-router-link
     *ngIf="owner"
     [routerLink]="route ? owner.getRoute() : null"
   >{{
     owner.getFullName()
-  }}</app-routerlink>
+  }}</app-router-link>
 </ng-template>

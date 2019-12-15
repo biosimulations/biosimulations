@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-routerlink',
-  templateUrl: './routerlink.component.html',
-  styleUrls: ['./routerlink.component.sass']
+  selector: 'app-router-link',
+  templateUrl: './router-link.component.html',
+  styleUrls: ['./router-link.component.sass']
 })
-export class RouterlinkComponent {
-  @Input() routerlink: string | number | (string | number)[];
+export class RouterLinkComponent {
+  @Input() routerLink: string | number | (string | number)[];
 
   constructor() { }
 }

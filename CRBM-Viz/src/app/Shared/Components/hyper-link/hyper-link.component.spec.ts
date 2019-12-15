@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HyperlinkComponent } from './hyperlink.component';
+import { HyperLinkComponent } from './hyper-link.component';
 
-describe('HyperlinkComponent', () => {
-  let component: HyperlinkComponent;
-  let fixture: ComponentFixture<HyperlinkComponent>;
+describe('HyperLinkComponent', () => {
+  let component: HyperLinkComponent;
+  let fixture: ComponentFixture<HyperLinkComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HyperlinkComponent ],
+      declarations: [ HyperLinkComponent ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HyperlinkComponent);
+    fixture = TestBed.createComponent(HyperLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

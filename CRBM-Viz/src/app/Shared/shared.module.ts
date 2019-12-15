@@ -133,8 +133,8 @@ import { ModelCardsComponent } from './Components/model-cards/model-cards.compon
 import { SimulationCardsComponent } from './Components/simulation-cards/simulation-cards.component';
 import { ChartTypeCardsComponent } from './Components/chart-type-cards/chart-type-cards.component';
 import { VisualizationCardsComponent } from './Components/visualization-cards/visualization-cards.component';
-import { HyperlinkComponent } from './Components/hyperlink/hyperlink.component';
-import { RouterlinkComponent } from './Components/routerlink/routerlink.component';
+import { HyperLinkComponent } from './Components/hyper-link/hyper-link.component';
+import { RouterLinkComponent } from './Components/router-link/router-link.component';
 import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
@@ -174,8 +174,8 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     SimulationCardsComponent,
     ChartTypeCardsComponent,
     VisualizationCardsComponent,
-    HyperlinkComponent,
-    RouterlinkComponent,
+    HyperLinkComponent,
+    RouterLinkComponent,
     OkCancelDialogComponent,
     FeedbackComponent,
     VegaViewerComponent,
@@ -228,8 +228,8 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     SimulationCardsComponent,
     ChartTypeCardsComponent,
     VisualizationCardsComponent,
-    HyperlinkComponent,
-    RouterlinkComponent,
+    HyperLinkComponent,
+    RouterLinkComponent,
     OkCancelDialogComponent,
     FeedbackComponent,
     VegaViewerComponent,

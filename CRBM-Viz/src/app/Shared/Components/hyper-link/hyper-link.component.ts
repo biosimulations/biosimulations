@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-hyperlink',
-  templateUrl: './hyperlink.component.html',
-  styleUrls: ['./hyperlink.component.sass']
+  selector: 'app-hyper-link',
+  templateUrl: './hyper-link.component.html',
+  styleUrls: ['./hyper-link.component.sass']
 })
-export class HyperlinkComponent {
+export class HyperLinkComponent {
   @Input() href: string;
 
   constructor() { }
