@@ -118,7 +118,7 @@ export class ProjectService {
         product.resources = [
           ModelService._get('00' + product.label),
           SimulationService._get('00' + product.label),
-          VisualizationService._get(i + 1),
+          VisualizationService._get('00' + (i + 1).toString()),
         ];
         project.products.push(product);
       }

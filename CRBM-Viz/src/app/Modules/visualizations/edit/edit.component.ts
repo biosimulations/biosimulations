@@ -50,7 +50,7 @@ export class EditComponent implements OnInit {
 
   private mode: Mode;
   private url: UrlSegment[];
-  private id: number;
+  private id: string;
   private simulationId: string;
   visualization: Visualization;
   formGroup: FormGroup;
@@ -118,7 +118,7 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.url = this.route.snapshot.url;
-      this.id = parseInt(params.id, 10);
+      this.id = params.id;
       this.simulationId = params.simulationId;
       this.setUp();
     });
@@ -571,7 +571,7 @@ export class EditComponent implements OnInit {
     if (this.mode === Mode.fork) {
       data.parent = this.visualization;
     }
-    const visualizationId: number = this.visualizationService.set(
+    const visualizationId: string = this.visualizationService.set(
       data, this.mode === Mode.edit ? this.id : null);
 
     this.snackBar.open('Visualization saved', '', {

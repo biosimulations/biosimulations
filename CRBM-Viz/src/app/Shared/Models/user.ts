@@ -80,9 +80,9 @@ export class User implements PersonInterface {
 
   getVisualizations(): Visualization[] {
     return [
-      VisualizationService._get(1),
-      VisualizationService._get(2),
-      VisualizationService._get(3),
+      VisualizationService._get('001'),
+      VisualizationService._get('002'),
+      VisualizationService._get('003'),
     ];
   }
 }

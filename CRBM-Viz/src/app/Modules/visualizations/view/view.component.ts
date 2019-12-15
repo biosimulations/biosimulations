@@ -22,7 +22,7 @@ export class ViewComponent implements OnInit {
     renderer: 'canvas',
   };
 
-  id: number;
+  id: string;
   visualization: Visualization;
   vegaSpec: object;
   vegaData: object;
@@ -38,7 +38,7 @@ export class ViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
-      this.id = parseInt(routeParams.id, 10);
+      this.id = routeParams.id;
       if (this.id) {
         this.getData();
       } else {

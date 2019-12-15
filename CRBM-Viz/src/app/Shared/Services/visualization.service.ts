@@ -31,12 +31,12 @@ export class VisualizationService {
 
   private vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
 
-  static _get(id: number, includeRelatedObjects = false): Visualization {
+  static _get(id: string, includeRelatedObjects = false): Visualization {
     const viz: Visualization = new Visualization();
     viz.id = id;
-    viz.name = 'Viz-' + id.toString();
+    viz.name = 'Viz-' + id;
 
-    if (id === 2) {
+    if (id === '002') {
       viz.image = new RemoteFile()
       viz.image.name = 'visualization.png';
       viz.image.type = 'image/png';
@@ -47,7 +47,7 @@ export class VisualizationService {
     viz.description = 'Visualization of a simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
     viz.tags = ['tag-1', 'tag-2'];
     viz.parent = new Visualization();
-    viz.parent.id = 5;
+    viz.parent.id = '005';
     viz.parent.name = 'Viz-005';
     viz.refs = [
       new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
@@ -93,72 +93,72 @@ export class VisualizationService {
     }
   }
 
-  get(id: number): Visualization {
+  get(id: string): Visualization {
     return VisualizationService._get(id, true);
   }
 
-  getVisualization(id: number): Observable<any[]> {
+  getVisualization(id: string): Observable<any[]> {
     const vizJson = this.http.get<any[]>(this.vizUrl
-      + '0'.repeat(3 - id.toString().length)
-      + id.toString());
+      + '0'.repeat(3 - id.length)
+      + id);
     return vizJson;
   }
 
-  getHistory(id: number, includeParents: boolean = true, includeChildren: boolean = true): object[] {
+  getHistory(id: string, includeParents: boolean = true, includeChildren: boolean = true): object[] {
     // tslint:disable:max-line-length
     return [
       {
-        id: 3,
+        id: '003',
         name: 'Grandparent',
-        route: ['/visualizations', 3],
+        route: ['/visualizations', '003'],
         isExpanded: true,
         children: [
           {
-            id: 2,
+            id: '002',
             name: 'Parent',
-            route: ['/visualizations', 6],
+            route: ['/visualizations', '006'],
             isExpanded: true,
             children: [
               {
-                id: 1,
+                id: '001',
                 name: 'This visualization',
-                route: ['/visualizations', 1],
+                route: ['/visualizations', '001'],
                 isExpanded: true,
                 children: [
                   {
-                    id: 4,
+                    id: '004',
                     name: 'Child-1',
-                    route: ['/visualizations', 4],
+                    route: ['/visualizations', '004'],
                     children: [
                       {
-                        id: 5,
+                        id: '005',
                         name: 'Grandchild-1-1',
-                        route: ['/visualizations', 5],
+                        route: ['/visualizations', '005'],
                         children: [],
                       },
                       {
-                        id: 6,
+                        id: '006',
                         name: 'Grandchild-1-2',
-                        route: ['/visualizations', 6],
+                        route: ['/visualizations', '006'],
                         children: [],
                       },
                     ],
                   },
                   {
-                    id: 7,
+                    id: '007',
                     name: 'Child-2',
-                    route: ['/visualizations', 7],
+                    route: ['/visualizations', '007'],
                     children: [
                       {
-                        id: 8,
+                        id: '008',
                         name: 'Grandchild-2-1',
-                        route: ['/visualizations', 8],
+                        route: ['/visualizations', '008'],
                         children: [],
                       },
                       {
-                        id: 9,
+                        id: '009',
                         name: 'Grandchild-2-2',
-                        route: ['/visualizations', 9],
+                        route: ['/visualizations', '009'],
                         children: [],
                       },
                     ],
@@ -166,20 +166,20 @@ export class VisualizationService {
                 ],
               },
               {
-                id: 10,
+                id: '010',
                 name: 'Sibling',
-                route: ['/visualizations', 10],
+                route: ['/visualizations', '010'],
                 children: [
                   {
-                    id: 11,
+                    id: '011',
                     name: 'Nephew',
-                    route: ['/visualizations', 11],
+                    route: ['/visualizations', '011'],
                     children: [],
                   },
                   {
-                    id: 12,
+                    id: '012',
                     name: 'Niece',
-                    route: ['/visualizations', 12],
+                    route: ['/visualizations', '012'],
                     children: [],
                   },
                 ]
@@ -194,10 +194,10 @@ export class VisualizationService {
   list(name?: string, owner?: string): Visualization[] {
     // TODO: filter on name, owner attributes
     const data: Visualization[] = [
-      this.get(1),
-      this.get(2),
-      this.get(3),
-      this.get(6),
+      this.get('001'),
+      this.get('002'),
+      this.get('003'),
+      this.get('006'),
     ];
     return this.filter(data, name) as Visualization[];
   }
@@ -211,9 +211,9 @@ export class VisualizationService {
     }
   }
 
-  set(data: Visualization, id?: number): number {
+  set(data: Visualization, id?: string): string {
     if (!id) {
-      id = 7;
+      id = '007';
     }
 
     data.id = id;
@@ -224,5 +224,5 @@ export class VisualizationService {
     return id;
   }
 
-  delete(id?: number): void {}
+  delete(id?: string): void {}
 }

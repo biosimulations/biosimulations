@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 
 @Component({
   selector: 'app-grid-card',
@@ -6,7 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./grid-card.component.sass']
 })
 export class GridCardComponent {
-  @Input() data: object;
+  @Input() data: TopLevelResource;
 
   constructor() { }
 }

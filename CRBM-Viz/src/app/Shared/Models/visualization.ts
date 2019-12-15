@@ -9,6 +9,7 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { SimulationResult } from './simulation-result';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { VisualizationLayoutElement } from './visualization-layout-element';
 import { ChartTypeService } from '../Services/chart-type.service';
@@ -17,8 +18,8 @@ import { ProjectService } from '../Services/project.service';
 import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
 
-export class Visualization {
-  id?: number;
+export class Visualization implements TopLevelResource {
+  id?: string;
   name?: string;
   columns: number;
   layout?: VisualizationLayoutElement[];

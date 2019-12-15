@@ -9,6 +9,7 @@ import { Person } from './person';
 import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { Visualization } from './visualization';
 import { ModelService } from '../Services/model.service';
@@ -17,7 +18,7 @@ import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
 import { VisualizationService } from '../Services/visualization.service';
 
-export class ChartType {
+export class ChartType implements TopLevelResource {
   id?: string;
   name?: string;
   spec?: object;
@@ -51,6 +52,7 @@ export class ChartType {
   }
 
   getDataFields(): ChartTypeDataField[] {
+    // TODO: find named data fields in this.spec
     const fields: ChartTypeDataField[] = [];
     for (let iField = 0; iField < 3; iField++) {
       const field: ChartTypeDataField = new ChartTypeDataField();
@@ -87,9 +89,9 @@ export class ChartType {
 
   getVisualizations(): Visualization[] {
     return [
-      VisualizationService._get(1),
-      VisualizationService._get(2),
-      VisualizationService._get(3),
+      VisualizationService._get('001'),
+      VisualizationService._get('002'),
+      VisualizationService._get('003'),
     ];
   }
 }

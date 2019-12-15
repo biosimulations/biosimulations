@@ -11,6 +11,7 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { Taxon } from './taxon';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { Visualization } from './visualization';
 import { ProjectService } from '../Services/project.service';
@@ -19,7 +20,7 @@ import { UtilsService } from '../Services/utils.service';
 import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
 
-export class Model {
+export class Model implements TopLevelResource {
   id?: string;
   name?: string;
   file?: File | RemoteFile;
@@ -91,9 +92,9 @@ export class Model {
 
   getVisualizations(): Visualization[] {
     return [
-      VisualizationService._get(1),
-      VisualizationService._get(2),
-      VisualizationService._get(3),
+      VisualizationService._get('001'),
+      VisualizationService._get('002'),
+      VisualizationService._get('003'),
     ];
   }
 }
