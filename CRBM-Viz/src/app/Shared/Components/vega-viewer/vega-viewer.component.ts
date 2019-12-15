@@ -61,13 +61,10 @@ export class VegaViewerComponent {
 
   loadData() {
     if (this.viewApi && this._data) {
-      Object.entries(this._data).forEach((key, val) => {
-        const changeSet = vega
-          .changeset()
-          .remove(vega.truthy)
-          .insert(val);
-        this.viewApi.view.change(key, changeSet).run();
-      });
+      for(const [key, val] of Object.entries(this._data)) {
+        this.viewApi.view.data(key, val);
+      };
+      this.viewApi.view.runAsync();
     }
   }
 }
