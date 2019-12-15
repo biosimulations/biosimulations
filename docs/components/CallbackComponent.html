@@ -151,12 +151,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(auth: <a href="../injectables/AuthService.html">AuthService</a>)</code>
+<code>constructor(auth: <a href="../injectables/AuthService.html">AuthService</a>, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/callback/callback.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/callback/callback.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -178,6 +178,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>breadCrumbsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BreadCrumbsService.html" target="_self" >BreadCrumbsService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -225,8 +237,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/callback/callback.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/callback/callback.component.ts:17</a></div>
                 </td>
             </tr>
 
@@ -248,8 +260,11 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Inject } from &#x27;@angular/core&#x27;;
 import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
+import { NavItemDisplayLevel } from &#x27;src/app/Shared/Enums/nav-item-display-level&#x27;;
+import { NavItem } from &#x27;src/app/Shared/Models/nav-item&#x27;;
+import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.service&#x27;;
 
 @Component({
   selector: &#x27;app-callback&#x27;,
@@ -257,24 +272,37 @@ import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
   styleUrls: [&#x27;./callback.component.sass&#x27;],
 })
 export class CallbackComponent implements OnInit {
-  constructor(private auth: AuthService) {}
+  constructor(
+      private auth: AuthService,
+      @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService) { }
 
   ngOnInit() {
     this.auth.handleAuthCallback();
+
+    const crumbs: object[] &#x3D; [
+      {label: &#x27;Logging in&#x27;},
+    ];
+    const buttons: NavItem[] &#x3D; [];
+    this.breadCrumbsService.set(crumbs, buttons);
   }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;partial-width-container&quot;&gt;
-  &lt;h1&gt;Logging in....&lt;/h1&gt;
-  &lt;mat-spinner&gt;&lt;/mat-spinner&gt;
-  &lt;p&gt;
-    If you still see this page after a few seconds, navigate to the
-    &lt;a routerLink&#x3D;&quot;/&quot;&gt;home&lt;/a&gt; page and try again. Do not use the browser back
-    button.
-  &lt;/p&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;page-content partial-width centered&quot;&gt;
+  &lt;div class&#x3D;&quot;inner&quot;&gt;
+    &lt;div class&#x3D;&quot;spinner-container&quot;&gt;
+        &lt;mat-progress-spinner
+          mode&#x3D;&quot;indeterminate&quot;
+        &gt;&lt;/mat-progress-spinner&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;message&quot;&gt;
+      If you still see this page after a few seconds, navigate to the
+      &lt;a routerLink&#x3D;&quot;/&quot;&gt;home&lt;/a&gt; page and try again. Do not use the browser back
+      button.
+    &lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
     </div>
@@ -283,7 +311,24 @@ export class CallbackComponent implements OnInit {
                 <p class="comment">
                     <code>./callback.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">.centered
+    height: calc(100vh - 64px - 28px - 0.5rem - 4rem)
+    display: flex
+    align-items: center
+
+.inner
+    width: 100%
+
+.spinner-container
+    width: 100%
+    display: flex
+    justify-content: center
+
+.message
+    width: 100%
+    margin-top: 1rem
+    text-align: center
+    </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -311,8 +356,8 @@ export class CallbackComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="partial-width-container">  <h1>Logging in....</h1>  <mat-spinner></mat-spinner>  <p>    If you still see this page after a few seconds, navigate to the    <a routerLink="/">home</a> page and try again. Do not use the browser back    button.  </p></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div class="page-content partial-width centered">  <div class="inner">    <div class="spinner-container">        <mat-progress-spinner          mode="indeterminate"        ></mat-progress-spinner>    </div>    <div class="message">      If you still see this page after a few seconds, navigate to the      <a routerLink="/">home</a> page and try again. Do not use the browser back      button.    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CallbackComponent'};
 </script>

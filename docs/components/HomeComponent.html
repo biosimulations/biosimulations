@@ -66,6 +66,12 @@
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
 
 
 <section>
@@ -111,6 +117,60 @@
     </table>
 </section>
 
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#statGraphs">statGraphs</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#stats">stats</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#vegaOptions">vegaOptions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getBarGraph">getBarGraph</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
 
     <section>
     <h3 id="constructor">Constructor</h3>
@@ -118,15 +178,45 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor()</code>
+<code>constructor(statsService: <a href="../injectables/StatsService.html">StatsService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/home/home.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/home/home.component.ts:14</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>statsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StatsService.html" target="_self" >StatsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -135,28 +225,541 @@
 
 
 
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBarGraph"></a>
+                    <span class="name">
+                        <b>
+                            getBarGraph
+                        </b>
+                        <a href="#getBarGraph"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getBarGraph(xAxisLabel: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, yAxisLabel: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, xScaleType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, data: object[])</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/home/home.component.ts:37</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>xAxisLabel</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>yAxisLabel</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>xScaleType</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                            <code>object[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/home/home.component.ts:18</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="statGraphs"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            statGraphs</b>
+                            <a href="#statGraphs"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>object[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/home/home.component.ts:11</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="stats"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            stats</b>
+                            <a href="#stats"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/home/home.component.ts:10</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="vegaOptions"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                                <span class="modifier">Readonly</span>
+                            vegaOptions</b>
+                            <a href="#vegaOptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+    renderer: &#x27;canvas&#x27;,
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/home/home.component.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
 
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Inject } from &#x27;@angular/core&#x27;;
+import { StatsService } from &#x27;src/app/Shared/Services/stats.service&#x27;;
 
 @Component({
   selector: &#x27;app-home&#x27;,
   templateUrl: &#x27;./home.component.html&#x27;,
   styleUrls: [&#x27;./home.component.sass&#x27;]
 })
-export class HomeComponent {
-  constructor() { }
+export class HomeComponent implements OnInit {
+  private stats: object;
+  public statGraphs: object[] &#x3D; [];
+  public readonly vegaOptions: object &#x3D; {
+    renderer: &#x27;canvas&#x27;,
+  };
+
+  constructor(@Inject(StatsService) private statsService: StatsService) { }
+
+  ngOnInit() {
+    this.stats &#x3D; this.statsService.get();
+
+    this.statGraphs &#x3D; [
+        this.getBarGraph(
+          &#x27;Count&#x27;, null, &#x27;log&#x27;,
+          this.stats[&#x27;countObjectsByType&#x27;]),
+        this.getBarGraph(
+          &#x27;Models&#x27;, null, &#x27;linear&#x27;,
+          this.stats[&#x27;countModelsByFramework&#x27;]),
+        this.getBarGraph(
+          &#x27;Models&#x27;, null, &#x27;linear&#x27;,
+          this.stats[&#x27;countModelsByFormat&#x27;]),
+        this.getBarGraph(
+          &#x27;Simulations&#x27;, null, &#x27;linear&#x27;,
+          this.stats[&#x27;countSimulationsBySimulator&#x27;]),
+    ];
+  }
+
+  getBarGraph(xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
+    const xScale: object &#x3D; null;
+    let maxVal &#x3D; 0;
+    for (const datum of data) {
+      maxVal &#x3D; Math.max(maxVal, datum[&#x27;count&#x27;]);
+    }
+    const xTicks: number[] &#x3D; [];
+    for (let iPower &#x3D; 1; iPower &lt;&#x3D; Math.log10(maxVal); iPower++) {
+      xTicks.push(Math.pow(10, iPower));
+    }
+
+    return {
+      $schema: &#x27;https://vega.github.io/schema/vega-lite/v4.json&#x27;,
+      width: &#x27;container&#x27;,
+      height: &#x27;container&#x27;,
+      padding: {
+        left: 3,
+        right: 3,
+        top: 0,
+        bottom: 0,
+      },
+      autosize: {
+        type: &#x27;fit&#x27;,
+        resize: true,
+      },
+      background: &#x27;transparent&#x27;,
+      config: {
+        view: {
+          stroke: &#x27;transparent&#x27;,
+        },
+      },
+      data: {
+        values: data
+      },
+      encoding: {
+        y: {
+          field: &#x27;category&#x27;,
+          type: &#x27;ordinal&#x27;,
+          axis: {
+            title: yAxisLabel,
+            gridOpacity: 0,
+            minExtent: 84,
+            maxExtent: 84,
+          },
+        },
+        x: {
+          field: &#x27;count&#x27;,
+          type: &#x27;quantitative&#x27;,
+          scale: {
+            type: xScaleType,
+          },
+          axis: {
+            title: xAxisLabel,
+            gridOpacity: 0,
+            values: (xScaleType &#x3D;&#x3D;&#x3D; &#x27;log&#x27; ? xTicks : undefined)
+          },
+        },
+      },
+      mark: {type: &#x27;bar&#x27;, color: &#x27;#2196f3&#x27;},
+    };
+  }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot;&gt;
-    &lt;app-home-image class&#x3D;&quot;image&quot;&gt;&lt;/app-home-image&gt;
+    &lt;div class&#x3D;&quot;container-inner&quot;&gt;
+        &lt;div class&#x3D;&quot;workflow&quot;&gt;
+            &lt;div class&#x3D;&quot;box workflow-el projects&quot;&gt;
+                &lt;div class&#x3D;&quot;title&quot; [routerLink]&#x3D;&quot;[&#x27;/projects&#x27;]&quot;&gt;
+                    &lt;div class&#x3D;&quot;title-text&quot;&gt;Projects&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;graphics&quot; [routerLink]&#x3D;&quot;[&#x27;/projects&#x27;]&quot;&gt;
+                    &lt;div class&#x3D;&quot;graphics-inner&quot;&gt;
+                        &lt;div class&#x3D;&quot;icon-container&quot;&gt;
+                            &lt;img class&#x3D;&quot;icon&quot; src&#x3D;&quot;assets/home/projects.svg&quot; /&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;logos&quot;&gt;
+                            &lt;div class&#x3D;&quot;logo-row&quot;&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;CellML&quot;
+                                    src&#x3D;&quot;assets/about/partners/cellml.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;NeuroML&quot;
+                                    src&#x3D;&quot;assets/about/partners/neuroml.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;pharmML&quot;
+                                    src&#x3D;&quot;assets/about/partners/pharmml.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;SBML&quot;
+                                    src&#x3D;&quot;assets/about/partners/sbml.svg&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class&#x3D;&quot;logo-row&quot;&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;BioModels&quot;
+                                    src&#x3D;&quot;assets/about/partners/biomodels.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;Physiome Model Repository&quot;
+                                    src&#x3D;&quot;assets/about/partners/physiome.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;Open Source Brain&quot;
+                                    src&#x3D;&quot;assets/about/partners/open-source-brain.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;JWS Online&quot;
+                                    src&#x3D;&quot;assets/about/partners/jws.svg&quot; /&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;text&quot;&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Share projects with reviewers and editors&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Publish modeling projects&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Describe the simulations that generate each figure&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Supports several standards including CellML and SBML&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;box workflow-el simulations&quot;&gt;
+                &lt;div class&#x3D;&quot;title&quot; [routerLink]&#x3D;&quot;[&#x27;/simulations&#x27;]&quot;&gt;
+                    &lt;div class&#x3D;&quot;title-text&quot;&gt;Simulations&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;graphics&quot; [routerLink]&#x3D;&quot;[&#x27;/simulations&#x27;]&quot;&gt;
+                    &lt;div class&#x3D;&quot;graphics-inner&quot;&gt;
+                        &lt;div class&#x3D;&quot;icon-container&quot;&gt;
+                            &lt;img class&#x3D;&quot;icon&quot; src&#x3D;&quot;assets/home/simulations.svg&quot; /&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;logos&quot;&gt;
+                            &lt;div class&#x3D;&quot;logo-row&quot;&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;SED-ML&quot;
+                                    src&#x3D;&quot;assets/about/partners/sed-ml.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;COBRApy&quot;
+                                    src&#x3D;&quot;assets/about/partners/cobrapy.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;COPASI&quot;
+                                    src&#x3D;&quot;assets/about/partners/copasi.svg&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class&#x3D;&quot;logo-row&quot;&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;libRoadRunner&quot;
+                                    src&#x3D;&quot;assets/about/partners/libroadrunner.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;NFsim&quot;
+                                    src&#x3D;&quot;assets/about/partners/nfsim.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;OpenCOR&quot;
+                                    src&#x3D;&quot;assets/about/partners/opencor.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;VCell&quot;
+                                    src&#x3D;&quot;assets/about/partners/vcell.svg&quot; /&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;text&quot;&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Publish simulation experiments&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Browse and execute simulation experiments&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Simulate variants of experiments&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Supports SED-ML and numerous simulation algorithms&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;box workflow-el visualizations&quot;&gt;
+                &lt;div class&#x3D;&quot;title&quot; [routerLink]&#x3D;&quot;[&#x27;/visualizations&#x27;]&quot;&gt;
+                    &lt;div class&#x3D;&quot;title-text&quot;&gt;Visualizations&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;graphics&quot; [routerLink]&#x3D;&quot;[&#x27;/visualizations&#x27;]&quot;&gt;
+                    &lt;div class&#x3D;&quot;graphics-inner&quot;&gt;
+                        &lt;div class&#x3D;&quot;icon-container&quot;&gt;
+                            &lt;img class&#x3D;&quot;icon&quot; src&#x3D;&quot;assets/home/visualizations.svg&quot; /&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;logos&quot;&gt;
+                            &lt;div class&#x3D;&quot;logo-row&quot;&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;Vega&quot;
+                                    src&#x3D;&quot;assets/about/partners/vega.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;Vega-lite&quot;
+                                    src&#x3D;&quot;assets/about/partners/vegalite.svg&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class&#x3D;&quot;logo-row&quot;&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;Krayon&quot;
+                                    src&#x3D;&quot;assets/about/partners/krayon.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;Newt&quot;
+                                    src&#x3D;&quot;assets/about/partners/newt.svg&quot; /&gt;
+                                &lt;img
+                                    class&#x3D;&quot;logo&quot;
+                                    title&#x3D;&quot;SBGN&quot;
+                                    src&#x3D;&quot;assets/about/partners/sbgn.svg&quot; /&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;text&quot;&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Publish visualizations of simulation results&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Browse and display visualizations&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Re-paint visualizations with alternative simulations&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;bullet&quot;&gt;‣ Supports the Vega data visualization grammar&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;box stats&quot;&gt;
+            &lt;div class&#x3D;&quot;title&quot;&gt;
+                &lt;div class&#x3D;&quot;title-text&quot;&gt;Stats&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;graphics&quot;&gt;
+                &lt;div class&#x3D;&quot;graph&quot; *ngFor&#x3D;&quot;let graph of statGraphs&quot;&gt;
+                    &lt;app-vega-viewer
+                        [spec]&#x3D;&quot;graph&quot;
+                        [options]&#x3D;&quot;vegaOptions&quot;
+                        class&#x3D;&quot;vega block no-actions&quot;
+                    &gt;&lt;/app-vega-viewer&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;</code></pre>
     </div>
 
@@ -164,21 +767,199 @@ export class HomeComponent {
                 <p class="comment">
                     <code>./home.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">.container
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;src/theme.scss&#x27;
+
+.container
     height: calc(100vh - 64px)
     max-height: calc(100vh - 64px)
-    background-image: url(&#x27;src/assets/background/network/light-blue-3.png&#x27;)
+    background-image: url(&#x27;src/assets/background/network/grey-3.png&#x27;)
     background-size: cover
     display: flex
     justify-content: center
     align-items: center
 
-    .image
-        max-width: 80%
-        max-height: 80%
-        width: 100%
-        /* height: 100% */
-        filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))
+.container-inner
+    height: 80%
+    display: grid
+    grid-template-columns: auto auto
+    grid-gap: 2rem
+
+.workflow
+    height: 100%
+    display: grid
+    grid-template-rows: 1fr 1fr 1fr
+    grid-gap: 2rem
+
+    .workflow-el
+        width: calc(100% - 2px)
+        height: calc(100% - 2px)
+        display: grid
+        grid-template-columns: 2rem 1fr auto
+        grid-gap: 0
+
+    .title
+        width: 2rem
+        height: 100%
+        cursor: pointer
+        .title-text
+            transform: rotate(-90deg)
+    .graphics
+        height: calc(100% - 1rem)
+        padding: 0.5rem
+        cursor: pointer
+        text-align: center
+        border-width: 0 1px 0 0
+        border-style: solid
+
+        .graphics-inner
+            height: calc(((100vh - 64px) * 0.8 - 2 * 2rem) / 3 - 2 * 0.5rem - 2 * 1px)
+            transition: all 0.5s
+
+        .icon-container
+            height: 65%
+        .icon
+            height: 100%
+        .logos
+            margin-top: 0.5rem
+            height: calc(35% - 0.5rem)
+        .logo-row
+            line-height: 0
+            height: calc((100% - 0.25rem) / 2)
+        .logo-row:not(:first-child)
+            margin-top: 0.25rem
+            text-align: center
+        .logo
+            height: 100%
+        .logo:not(:first-child)
+            margin-left: 0.25rem
+
+    .text
+        width: 29.5rem
+        height: 100%
+        padding: 0 0.5rem 0 1rem
+        overflow: hidden
+        display: flex
+        align-items: center
+        flex-direction: column
+        font-size: 125%
+        line-height: 125%
+        font-weight: 500
+
+        .bullet
+            width: 100%
+            display: flex
+            align-items: center
+            flex-grow: 1
+            text-indent: -1rem
+            margin-left: 1rem
+
+    .projects
+        border-color: mat-color($theme-primary)
+        background: #e8f4fd
+        .title
+            background: mat-color($theme-primary)
+        .graphics
+            background: #c7e4fc
+            border-color: #a6d5fa
+
+    .projects:hover
+        border-color: mat-color($theme-primary, darker)
+        background: #d2eafc
+        .title
+            background: mat-color($theme-primary, darker)
+        .graphics
+            background: #b1dafa
+            border-color: #8fcaf9
+
+    .simulations
+        border-color: mat-color($theme-accent)
+        background: #fff4e5
+        .title
+            background: mat-color($theme-accent)
+        .graphics
+            background: #ffe5bf
+            border-color: #ffd599
+
+    .simulations:hover
+        border-color: mat-color($theme-accent, darker)
+        background: #feeacc
+        .title
+            background: mat-color($theme-accent, darker)
+        .graphics
+            background: #ffdaa5
+            border-color: #ffcb7f
+
+    .visualizations
+        border-color: mat-color($theme-warn)
+        background: #fdecea
+        .title
+            background: mat-color($theme-warn)
+        .graphics
+            background: #fcd0cc
+            border-color: #fab3ae
+
+    .visualizations:hover
+        border-color: mat-color($theme-warn, darker)
+        background: #fcd9d6
+        .title
+            background: mat-color($theme-warn, darker)
+        .graphics
+            background: #fbbdb8
+            border-color: #f9a19a
+
+    .workflow-el:hover
+        .graphics-inner
+            transform: scale(1.06)
+
+.stats
+    width: 20rem
+    height: calc(100% - 2px)
+    border-color: #999
+    background: #e3e3e3
+    overflow: hidden
+    .title
+        height: 2rem
+        background: #999
+    .graphics
+        height: calc(100% - 2rem - 2 * 1rem)
+        padding: 1rem
+        display: grid
+        grid-template-rows: 1.1fr 1.1fr 1.7fr 1.7fr
+        grid-gap: 1rem
+        overflow: visible
+
+        .graph
+            height: 100%
+            transition: all 0.5s
+
+.stats:hover
+    border-color: #898989
+    background: #cccccc
+    .title
+        background: #898989
+
+.graph:hover
+    transform: scale(1.06)
+
+.box
+    border-radius: 4px
+    border-width: 1px
+    border-style: solid
+.title
+    display: flex
+    align-items: center
+    justify-content: center
+.title-text
+    color: #fff
+    font-size: 2.5vh
+    line-height: normal
+    font-weight: bold
+    margin-right: 0.2rem
+
+.title:focus, .graphics:focus
+    outline: none
+.graphics
+    overflow: hidden
 </code></pre>
     </div>
 
@@ -207,8 +988,8 @@ export class HomeComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container">    <app-home-image class="image"></app-home-image></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container">    <div class="container-inner">        <div class="workflow">            <div class="box workflow-el projects">                <div class="title" [routerLink]="[\'/projects\']">                    <div class="title-text">Projects</div>                </div>                <div class="graphics" [routerLink]="[\'/projects\']">                    <div class="graphics-inner">                        <div class="icon-container">                            <img class="icon" src="assets/home/projects.svg" />                        </div>                        <div class="logos">                            <div class="logo-row">                                <img                                    class="logo"                                    title="CellML"                                    src="assets/about/partners/cellml.svg" />                                <img                                    class="logo"                                    title="NeuroML"                                    src="assets/about/partners/neuroml.svg" />                                <img                                    class="logo"                                    title="pharmML"                                    src="assets/about/partners/pharmml.svg" />                                <img                                    class="logo"                                    title="SBML"                                    src="assets/about/partners/sbml.svg" />                            </div>                            <div class="logo-row">                                <img                                    class="logo"                                    title="BioModels"                                    src="assets/about/partners/biomodels.svg" />                                <img                                    class="logo"                                    title="Physiome Model Repository"                                    src="assets/about/partners/physiome.svg" />                                <img                                    class="logo"                                    title="Open Source Brain"                                    src="assets/about/partners/open-source-brain.svg" />                                <img                                    class="logo"                                    title="JWS Online"                                    src="assets/about/partners/jws.svg" />                            </div>                        </div>                    </div>                </div>                <div class="text">                    <div class="bullet">‣ Share projects with reviewers and editors</div>                    <div class="bullet">‣ Publish modeling projects</div>                    <div class="bullet">‣ Describe the simulations that generate each figure</div>                    <div class="bullet">‣ Supports several standards including CellML and SBML</div>                </div>            </div>            <div class="box workflow-el simulations">                <div class="title" [routerLink]="[\'/simulations\']">                    <div class="title-text">Simulations</div>                </div>                <div class="graphics" [routerLink]="[\'/simulations\']">                    <div class="graphics-inner">                        <div class="icon-container">                            <img class="icon" src="assets/home/simulations.svg" />                        </div>                        <div class="logos">                            <div class="logo-row">                                <img                                    class="logo"                                    title="SED-ML"                                    src="assets/about/partners/sed-ml.svg" />                                <img                                    class="logo"                                    title="COBRApy"                                    src="assets/about/partners/cobrapy.svg" />                                <img                                    class="logo"                                    title="COPASI"                                    src="assets/about/partners/copasi.svg" />                            </div>                            <div class="logo-row">                                <img                                    class="logo"                                    title="libRoadRunner"                                    src="assets/about/partners/libroadrunner.svg" />                                <img                                    class="logo"                                    title="NFsim"                                    src="assets/about/partners/nfsim.svg" />                                <img                                    class="logo"                                    title="OpenCOR"                                    src="assets/about/partners/opencor.svg" />                                <img                                    class="logo"                                    title="VCell"                                    src="assets/about/partners/vcell.svg" />                            </div>                        </div>                    </div>                </div>                <div class="text">                    <div class="bullet">‣ Publish simulation experiments</div>                    <div class="bullet">‣ Browse and execute simulation experiments</div>                    <div class="bullet">‣ Simulate variants of experiments</div>                    <div class="bullet">‣ Supports SED-ML and numerous simulation algorithms</div>                </div>            </div>            <div class="box workflow-el visualizations">                <div class="title" [routerLink]="[\'/visualizations\']">                    <div class="title-text">Visualizations</div>                </div>                <div class="graphics" [routerLink]="[\'/visualizations\']">                    <div class="graphics-inner">                        <div class="icon-container">                            <img class="icon" src="assets/home/visualizations.svg" />                        </div>                        <div class="logos">                            <div class="logo-row">                                <img                                    class="logo"                                    title="Vega"                                    src="assets/about/partners/vega.svg" />                                <img                                    class="logo"                                    title="Vega-lite"                                    src="assets/about/partners/vegalite.svg" />                            </div>                            <div class="logo-row">                                <img                                    class="logo"                                    title="Krayon"                                    src="assets/about/partners/krayon.svg" />                                <img                                    class="logo"                                    title="Newt"                                    src="assets/about/partners/newt.svg" />                                <img                                    class="logo"                                    title="SBGN"                                    src="assets/about/partners/sbgn.svg" />                            </div>                        </div>                    </div>                </div>                <div class="text">                    <div class="bullet">‣ Publish visualizations of simulation results</div>                    <div class="bullet">‣ Browse and display visualizations</div>                    <div class="bullet">‣ Re-paint visualizations with alternative simulations</div>                    <div class="bullet">‣ Supports the Vega data visualization grammar</div>                </div>            </div>        </div>        <div class="box stats">            <div class="title">                <div class="title-text">Stats</div>            </div>            <div class="graphics">                <div class="graph" *ngFor="let graph of statGraphs">                    <app-vega-viewer                        [spec]="graph"                        [options]="vegaOptions"                        class="vega block no-actions"                    ></app-vega-viewer>                </div>            </div>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
 </script>

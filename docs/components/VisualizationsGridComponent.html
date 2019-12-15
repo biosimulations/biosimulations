@@ -1,0 +1,880 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Application documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">Application documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>VisualizationsGridComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-visualizations-grid</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./visualizations-grid.component.sass</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./visualizations-grid.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_owner">_owner</a>
+                            </li>
+                            <li>
+                                <a href="#columnDefs">columnDefs</a>
+                            </li>
+                            <li>
+                                <a href="#rowData">rowData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#timeFormatter">timeFormatter</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#inTab">inTab</a>
+                            </li>
+                            <li>
+                                <a href="#owner">owner</a>
+                            </li>
+                            <li>
+                                <a href="#showOwner">showOwner</a>
+                            </li>
+                            <li>
+                                <a href="#showStatus">showStatus</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#owner">owner</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(visualizationService: <a href="../injectables/VisualizationService.html">VisualizationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>visualizationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/VisualizationService.html" target="_self" >VisualizationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="inTab"></a>
+                        <b>inTab</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="owner"></a>
+                        <b>owner</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:23</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showOwner"></a>
+                        <b>showOwner</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:14</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showStatus"></a>
+                        <b>showStatus</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:15</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeFormatter"></a>
+                    <span class="name">
+                        <b>
+                            timeFormatter
+                        </b>
+                        <a href="#timeFormatter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>timeFormatter(params)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:121</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>params</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_owner"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _owner</b>
+                            <a href="#_owner"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="columnDefs"></a>
+                        <span class="name">
+                            <b>
+                            columnDefs</b>
+                            <a href="#columnDefs"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rowData"></a>
+                        <span class="name">
+                            <b>
+                            rowData</b>
+                            <a href="#rowData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="owner"></a>
+                        <span class="name"><b>owner</b><a href="#owner"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>owner(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Components/visualizations-grid/visualizations-grid.component.ts:23</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnInit } from &#x27;@angular/core&#x27;;
+import { GridComponent } from &#x27;../grid/grid.component&#x27;;
+import { VisualizationService } from &#x27;src/app/Shared/Services/visualization.service&#x27;;
+import { UtilsService } from &#x27;src/app/Shared/Services/utils.service&#x27;;
+import { Visualization } from &#x27;src/app/Shared/Models/visualization&#x27;;
+import { User } from &#x27;src/app/Shared/Models/user&#x27;;
+
+@Component({
+  selector: &#x27;app-visualizations-grid&#x27;,
+  templateUrl: &#x27;./visualizations-grid.component.html&#x27;,
+  styleUrls: [&#x27;./visualizations-grid.component.sass&#x27;],
+})
+export class VisualizationsGridComponent implements OnInit {
+  @Input() showOwner &#x3D; true;
+  @Input() showStatus &#x3D; false;
+
+  columnDefs;
+  rowData;
+
+  private _owner: string;
+
+  @Input()
+  set owner(value: string) {
+    this._owner &#x3D; value;
+    this.rowData &#x3D; this.visualizationService.list(null, value);
+  }
+
+  @Input() inTab &#x3D; false;
+
+  constructor(
+    private visualizationService: VisualizationService
+    ) {
+  }
+
+  ngOnInit() {
+    this.columnDefs &#x3D; [
+      {
+        headerName: &#x27;Id&#x27;,
+        field: &#x27;id&#x27;,
+        cellRenderer: &#x27;idRenderer&#x27;,
+        minWidth: 52,
+        width: 60,
+        maxWidth: 70,
+        suppressSizeToFit: true,
+      },
+      {
+        headerName: &#x27;Name&#x27;,
+        field: &#x27;name&#x27;,
+        minWidth: 150,
+      },
+
+      {
+        headerName: &#x27;Tags&#x27;,
+        field: &#x27;tags&#x27;,
+        filter: &#x27;agSetColumnFilter&#x27;,
+        valueGetter: tagsGetter,
+        filterValueGetter: tagsGetter,
+        valueFormatter: setFormatter,
+        minWidth: 150,
+        hide: true,
+      },
+      {
+        headerName: &#x27;Parent&#x27;,
+        field: &#x27;parent.name&#x27;,
+        minWidth: 150,
+        hide: true,
+      },
+      {
+        headerName: &#x27;Authors&#x27;,
+        field: &#x27;refs&#x27;,
+        valueGetter: authorGetter,
+        filterValueGetter: authorGetter,
+        valueFormatter: authorFormatter,
+        minWidth: 150,
+        hide: true,
+      },
+      {
+        headerName: &#x27;Owner&#x27;,
+        field: &#x27;owner&#x27;,
+        valueGetter: ownerGetter,
+        minWidth: 150,
+        hide: !this.showOwner,
+      },
+      {
+        headerName: &#x27;Access&#x27;,
+        field: &#x27;access&#x27;,
+        filter: &#x27;agSetColumnFilter&#x27;,
+        valueFormatter: capitalizeFormatter,
+        minWidth: 75,
+        hide: true,
+      },
+      {
+        headerName: &#x27;License&#x27;,
+        field: &#x27;license.name&#x27;,
+        filter: &#x27;agSetColumnFilter&#x27;,
+        minWidth: 75,
+        hide: true,
+      },
+
+      {
+        headerName: &#x27;Created&#x27;,
+        field: &#x27;created&#x27;,
+        valueFormatter: dateFormatter,
+        filter: &#x27;agDateColumnFilter&#x27;,
+        minWidth: 100,
+        hide: true,
+      },
+      {
+        headerName: &#x27;Updated&#x27;,
+        field: &#x27;updated&#x27;,
+        valueFormatter: dateFormatter,
+        filter: &#x27;agDateColumnFilter&#x27;,
+        minWidth: 100,
+        hide: true,
+      },
+    ];
+
+    this.rowData &#x3D; this.visualizationService.list(null, this._owner);
+  }
+
+  timeFormatter(params): string {
+    const secs:number &#x3D; params.value;
+    return UtilsService.formatTimeForHumans(secs);
+  }
+}
+
+function tagsGetter(params): string[] {
+  return params.data.tags;
+}
+
+function taxonGetter(params): string {
+  return params.data.model.taxon.getShortName();
+}
+
+function setFormatter(params) {
+  const value &#x3D; params.value;
+  return value.join(&#x27;, &#x27;);
+}
+
+function ownerGetter(params): string {
+  const owner:User &#x3D; params.data.owner;
+  return owner.getFullName();
+}
+
+function capitalizeFormatter(params): string {
+  const value:string &#x3D; params.value;
+  return value.substring(0, 1).toUpperCase() + value.substring(1);
+}
+
+function authorGetter(params): string[] {
+  return params.data.getAuthors().map(author &#x3D;&gt; author.getFullName());
+}
+
+function authorFormatter(params) {
+  const value &#x3D; params.value;
+  return UtilsService.joinAuthorNames(value);
+}
+
+function dateFormatter(params): string {
+  const date:Date &#x3D; params.value;
+  return (date.getFullYear()
+     + &#x27;-&#x27; + String(date.getMonth() + 1).padStart(2, &#x27;0&#x27;)
+     + &#x27;-&#x27; + String(date.getDate()).padStart(2, &#x27;0&#x27;));
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;app-grid
+  [rowTypePlural]&#x3D;&quot;&#x27;Visualizations&#x27;&quot;
+  [columnDefs]&#x3D;&quot;columnDefs&quot;
+  [rowData]&#x3D;&quot;rowData&quot;
+  [inTab]&#x3D;&quot;inTab&quot;
+  &gt;&lt;/app-grid&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./visualizations-grid.component.sass</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><app-grid  [rowTypePlural]="\'Visualizations\'"  [columnDefs]="columnDefs"  [rowData]="rowData"  [inTab]="inTab"  ></app-grid></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'VisualizationsGridComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VisualizationsGridComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
