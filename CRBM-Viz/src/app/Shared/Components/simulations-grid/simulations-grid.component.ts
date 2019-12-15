@@ -13,12 +13,21 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./simulations-grid.component.sass'],
 })
 export class SimulationsGridComponent implements OnInit {
-  @Input() auth;
   @Input() showOwner = true;
   @Input() showStatus = false;
 
   columnDefs;
   rowData;
+
+  private _owner: string;
+
+  @Input()
+  set owner(value: string) {
+    this._owner = value;
+    this.rowData = this.simulationService.list(null, value);
+  }
+
+  @Input() inTab = false;
 
   constructor(
     private simulationService: SimulationService
@@ -131,8 +140,8 @@ export class SimulationsGridComponent implements OnInit {
         hide: true,
       },
       // {
-      //   headerName: 'Algorithm parameters',
-      //   field: 'algorithmParameters',
+      //   headerName: 'Algorithm parameter changes',
+      //   field: 'algorithmParameterChanges',
       //   minWidth: 125,
       //   hide: true,
       // },
@@ -233,8 +242,16 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Date',
-        field: 'date',
+        headerName: 'Created',
+        field: 'created',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        minWidth: 100,
+        hide: true,
+      },
+      {
+        headerName: 'Updated',
+        field: 'updated',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         minWidth: 100,
@@ -267,8 +284,8 @@ export class SimulationsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Model date',
-        field: 'model.date',
+        headerName: 'Model created',
+        field: 'model.created',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         minWidth: 100,
@@ -279,7 +296,7 @@ export class SimulationsGridComponent implements OnInit {
       // errLog
     ];
 
-    this.rowData = this.simulationService.list(this.auth);
+    this.rowData = this.simulationService.list(null, this._owner);
   }
 
   timeFormatter(params): string {

@@ -4,6 +4,10 @@ import { IdRendererGridComponent } from './id-renderer-grid.component';
 import { RouteRendererGridComponent } from './route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component';
 
+enum View {
+  icons = 'icons',
+  details = 'details',
+}
 
 @Component({
   selector: 'app-grid',
@@ -11,9 +15,15 @@ import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component
   styleUrls: ['./grid.component.sass'],
 })
 export class GridComponent {
-  @Input() rowTypePlural;
+  @Input() rowTypePlural: string;
+  @Input() columnDefs: object;
   @Input() rowData;
-  @Input() columnDefs;
+  @Input() inTab = false;
+
+  filteredRowData: object[];
+
+  view: View = View.icons;
+  View = View;
 
   icons = {
     search: `<mat-icon
@@ -137,5 +147,22 @@ export class GridComponent {
     const gridApi = event.api;
     this.isToolPanelOpen = gridApi.isToolPanelShowing();
     this.sizeColumnsToFit(event);
+  }
+
+  toggleView(): void {
+    if (this.view === View.icons) {
+      this.view = View.details;
+    } else {
+      this.view = View.icons;
+    }
+  }
+
+  updateFilteredRowData(event): void {
+    const gridApi = event.api;
+
+    this.filteredRowData = [];
+    gridApi.forEachNodeAfterFilter((rowNode, index) => {
+      this.filteredRowData.push(rowNode.data);
+    });
   }
 }

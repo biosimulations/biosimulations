@@ -1,4 +1,7 @@
-<div *ngIf="simulations && simulations.length > 0; else noSimulations" class="card-grid">
+<div
+  *ngIf="simulations && simulations.length > 0; else noSimulations"
+  class="card-grid"
+  [style.grid-template-columns]="'1fr '.repeat(cols)">
   <div *ngFor="let sim of simulations.slice(0, maxSimulations)" class="card hover-light-background">
     <div class="title">
       <a [routerLink]="sim.getRoute()">

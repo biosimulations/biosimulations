@@ -1,4 +1,5 @@
 import { NavItemDisplayLevel } from '../Enums/nav-item-display-level';
+import { User } from '../Models/user';
 
 export interface NavItem {
   id?: string;
@@ -7,13 +8,27 @@ export interface NavItem {
   iconType?: string;
   children?: string[];
   display: NavItemDisplayLevel;
+  displayUser?: User;
   route?: (string | number)[];
-  click?: string;
+  click?: () => void;
+  clickData?: string;
   disabled?: boolean;
 }
 
 export const navItems: NavItem[] = [
   // Top-level menu
+  {
+    id: 'Projects',
+    label: 'Projects',
+    icon: 'folder-open',
+    iconType: 'fas',
+    children: [
+      'Projects-Browse',
+      'Projects-New',
+      'Projects-Yours',
+    ],
+    display: NavItemDisplayLevel.always,
+  },
   {
     id: 'Models',
     label: 'Models',
@@ -53,16 +68,16 @@ export const navItems: NavItem[] = [
   {
     id: 'Help',
     label: 'Help',
-    icon: 'help',
-    iconType: 'mat',
+    icon: 'question-circle',
+    iconType: 'fas',
     children: ['Help-Help', 'Help-About'],
     display: NavItemDisplayLevel.always,
   },
   {
     id: 'User',
     label: 'Account',
-    icon: 'account_circle',
-    iconType: 'mat',
+    icon: 'user-circle',
+    iconType: 'fas',
     children: [
       'User-Profile',
       'User-Sign-In',
@@ -72,103 +87,124 @@ export const navItems: NavItem[] = [
     display: NavItemDisplayLevel.always,
   },
 
+  // Projects sub-menu
+  {
+    id: 'Projects-Browse',
+    label: 'Browse',
+    icon: 'list',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.always,
+    route: ['/projects'],
+  },
+  {
+    id: 'Projects-New',
+    label: 'New',
+    icon: 'plus-circle',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.always,
+    route: ['/projects', 'new'],
+  },
+  {
+    id: 'Projects-Yours',
+    label: 'Your projects',
+    icon: 'user-circle',
+    iconType: 'fas',
+    display: NavItemDisplayLevel.loggedIn,
+    route: ['/user', 'projects'],
+  },
+
   // Models sub-menu
   {
     id: 'Models-Browse',
     label: 'Browse',
-    icon: 'view_list',
-    iconType: 'mat',
+    icon: 'list',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
     route: ['/models'],
   },
   {
     id: 'Models-New',
     label: 'New',
-    icon: 'add_circle',
-    iconType: 'mat',
+    icon: 'plus-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/models/new'],
-    disabled: true,
+    route: ['/models', 'new'],
   },
   {
     id: 'Models-Yours',
     label: 'Your models',
-    icon: 'account_circle',
-    iconType: 'mat',
+    icon: 'user-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/user/models'],
-    disabled: true,
+    route: ['/user', 'models'],
   },
 
   // Simulations sub-menu
   {
     id: 'Simulations-Browse',
     label: 'Browse',
-    icon: 'view_list',
-    iconType: 'mat',
+    icon: 'list',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/simulations/'],
+    route: ['/simulations'],
   },
   {
     id: 'Simulations-New',
     label: 'New',
-    icon: 'add_circle',
-    iconType: 'mat',
+    icon: 'plus-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/simulations/new'],
-    disabled: true,
+    route: ['/simulations', 'new'],
   },
   {
     id: 'Simulations-Yours',
     label: 'Your simulations',
-    icon: 'account_circle',
-    iconType: 'mat',
+    icon: 'user-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
-    route: ['/user/simulations'],
+    route: ['/user', 'simulations'],
   },
 
   // Visualizations sub-menu
   {
     id: 'Visualizations-Browse',
     label: 'Browse',
-    icon: 'view_list',
-    iconType: 'mat',
+    icon: 'list',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
     route: ['/visualizations'],
   },
   {
     id: 'Visualizations-New',
     label: 'New',
-    icon: 'add_circle',
-    iconType: 'mat',
+    icon: 'plus-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/visualizations/new'],
-    disabled: true,
+    route: ['/visualizations', 'new'],
   },
   {
     id: 'Visualizations-Yours',
     label: 'Your visualizations',
-    icon: 'account_circle',
-    iconType: 'mat',
+    icon: 'user-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
     route: ['/user/visualizations'],
-    disabled: true,
   },
 
   // About sub-menu
   {
     id: 'Help-Help',
     label: 'Help',
-    icon: 'help',
-    iconType: 'mat',
+    icon: 'question-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
-    route: ['/about/help'],
+    route: ['/about', 'help'],
   },
   {
     id: 'Help-About',
     label: 'About',
-    icon: 'info',
-    iconType: 'mat',
+    icon: 'info-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.always,
     route: ['/about'],
   },
@@ -177,8 +213,8 @@ export const navItems: NavItem[] = [
   {
     id: 'User-Profile',
     label: 'Profile',
-    icon: 'account_circle',
-    iconType: 'mat',
+    icon: 'user-circle',
+    iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
     route: ['/user'],
   },
@@ -189,7 +225,7 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedOut,
     route: null,
-    click: 'toggleLogin',
+    clickData: 'toggleLogin',
   },
   {
     id: 'User-Sign-Up',
@@ -198,7 +234,7 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedOut,
     route: null,
-    click: 'toggleLogin',
+    clickData: 'toggleLogin',
   },
   {
     id: 'User-Sign-Out',
@@ -207,6 +243,6 @@ export const navItems: NavItem[] = [
     iconType: 'fas',
     display: NavItemDisplayLevel.loggedIn,
     route: null,
-    click: 'toggleLogin',
+    clickData: 'toggleLogin',
   },
 ];

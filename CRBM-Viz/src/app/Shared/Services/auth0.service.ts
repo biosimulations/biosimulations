@@ -12,6 +12,7 @@ import {
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -20,11 +21,15 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   returnTo = window.location.origin + environment.baseUrl;
   redirect = this.returnTo + 'callback';
+  // TODO determine the correct scopes and add here
   auth0Client$ = (from(
     createAuth0Client({
       domain: environment.auth0.domain,
       client_id: environment.auth0.clientId,
       redirect_uri: this.redirect,
+      response_type: 'token id_token',
+      scope: 'update:current_user_metadata read:current_user read:models',
+      audience: environment.auth0.audience,
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -50,7 +55,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -63,8 +68,15 @@ export class AuthService {
 
   getToken$(options?): Observable<any> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getIdTokenClaims(options))),
-      tap(token => this.token = token)
+      concatMap((client: Auth0Client) =>
+        from(client.getIdTokenClaims(options))
+      ),
+      tap(token => (this.token = token))
+    );
+  }
+  getTokenSilently$(options?): Observable<string> {
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
     );
   }
 
@@ -87,11 +99,9 @@ export class AuthService {
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
 
-      this.getToken$().subscribe(
-        token => {
-          localStorage.setItem('token', token);
-        }
-      );
+      this.getToken$().subscribe(token => {
+        localStorage.setItem('token', token);
+      });
     });
   }
 
@@ -127,9 +137,32 @@ export class AuthService {
     // Subscribe to authentication completion observable
     // Response will be an array of user and login status
     authComplete$.subscribe(([user, loggedIn]) => {
+      // Call a method in the user serivce to ensure that the user exists in the database
+      this.getUser$().subscribe(userProfile => {
+        this.confirmExists(userProfile);
+      });
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
     });
+  }
+  /**
+   * This method takes in a user profile and calls an api endpoint to ensure that the user is in the database
+   * The user might not be in the database if they are using a new account.
+   * @param  user The user profile object that is returned by the authentication service
+   *
+   */
+  confirmExists(userProfile: any) {
+    this.http
+      .post(environment.crbm.CRBMAPI_URL + '/users/validate', userProfile)
+      .subscribe(res => {
+        if (!environment.production) {
+          console.log(userProfile);
+          console.log(
+            'Called confirmed user exists endpoint for user' + userProfile.sub
+          );
+          console.log('got username' + res);
+        }
+      });
   }
 
   logout() {

@@ -16,17 +16,17 @@ export class BrowseComponent implements OnInit {
     ];
     const buttons: NavItem[] = [
       {
-        iconType: 'mat',
-        icon: 'add',
+        iconType: 'fas',
+        icon: 'plus',
         label: 'New',
-        route: ['/simulations/new'],
+        route: ['/simulations', 'new'],
         display: NavItemDisplayLevel.always,
       },
       {
-        iconType: 'mat',
-        icon: 'hourglass_empty',
+        iconType: 'fas',
+        icon: 'user',
         label: 'Your simulations',
-        route: ['/user/simulations'],
+        route: ['/user', 'simulations'],
         display: NavItemDisplayLevel.loggedIn,
       },
     ];

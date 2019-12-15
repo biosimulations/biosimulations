@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -8,8 +9,8 @@ import { AuthService } from './Shared/Services/auth0.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      providers: [AuthService],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [HttpClientTestingModule, AuthService],
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

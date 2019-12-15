@@ -1,10 +1,13 @@
 import { AccessLevel } from '../Enums/access-level';
+import { License } from '../Enums/license';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
-import { License } from './license';
+import { ModelParameter } from './model-parameter';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
+import { Project } from './project';
+import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { Taxon } from './taxon';
 import { User } from './user';
@@ -14,6 +17,9 @@ import { UtilsService } from '../Services/utils.service';
 export class Model {
   id?: string;
   name?: string;
+  file?: File | RemoteFile;
+  parameters: ModelParameter[] = [];
+  image?: File | RemoteFile;
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];
@@ -24,51 +30,13 @@ export class Model {
   authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
-  accessToken?: string;
+  accessToken?: string = UtilsService.genAccessToken();
   license?: License;
-  date?: Date;
+  created?: Date;
+  updated?: Date;
+  projects?: Project[] = [];
   simulations?: Simulation[] = [];
   visualizations?: Visualization[] = [];
-
-  constructor(
-    id?: string,
-    name?: string,
-    description?: string,
-    taxon?: Taxon,
-    tags?: string[],
-    format?: Format,
-    identifiers?: Identifier[],
-    refs?: JournalReference[],
-    owner?: User,
-    date?: Date,
-    ) {
-    if (!tags) {
-      tags = [];
-    }
-    if (!identifiers) {
-      identifiers = [];
-    }
-    if (!refs) {
-      refs = [];
-    }
-
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.taxon = taxon;
-    this.tags = tags;
-    this.format = format;
-    this.identifiers = identifiers;
-    this.refs = refs;
-    this.owner = owner;
-    // this.access = access;
-    this.accessToken = UtilsService.genAccessToken();
-    // this.license = license;
-    this.date = date;
-
-    this.simulations = [];
-    this.visualizations = [];
-  }
 
   getIcon() {
     return {type: 'fas', icon: 'project-diagram'};
@@ -78,22 +46,9 @@ export class Model {
     return ['/models', this.id];
   }
 
-  getFileUrl(): string {
-    return '/assets/examples/model.xml';
-  }
-
   getBioModelsId(): string {
     for (const id of this.identifiers) {
       if (id.namespace === 'biomodels.db') {
-        return id.id;
-      }
-    }
-    return null;
-  }
-
-  getDoi() {
-    for (const id of this.identifiers) {
-      if (id.namespace === 'doi') {
         return id.id;
       }
     }

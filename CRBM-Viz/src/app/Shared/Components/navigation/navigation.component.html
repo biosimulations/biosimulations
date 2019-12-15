@@ -56,8 +56,9 @@
         <div class="module-routes">
           <ng-container *ngFor="let button of moduleButtons">
             <a
-              *ngIf="button.display == NavItemDisplayLevel.always || (button.display == NavItemDisplayLevel.loggedIn && authService && authService.loggedIn) || (button.display == NavItemDisplayLevel.loggedOut && (!authService || !authService.loggedIn))"
+              *ngIf="button.display == NavItemDisplayLevel.always || (button.display == NavItemDisplayLevel.loggedIn && authService && authService.loggedIn) || (button.display == NavItemDisplayLevel.loggedOut && (!authService || !authService.loggedIn)) || (button.display == NavItemDisplayLevel.user && authService.token && button.displayUser && authService.token.sub == button.displayUser.auth0Id)"
               [routerLink]="button.route"
+              (click)="button.click && button.click()"
               >
               <mat-icon *ngIf="button.iconType === 'mat'; else faIcon"
                 aria-hidden="false"

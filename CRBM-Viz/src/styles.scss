@@ -66,9 +66,22 @@ sub {
     top: 0.4em;
 }
 
-input, mat-select, button {
+input, textarea.mat-input-element, mat-select {
+    @include mat-typography-level-to-styles($fontConfig, body-1);
+}
+input, textarea.mat-input-element, mat-select, button {
     font-family: Raleway, Arial, Helvetica, sans-serif;
     letter-spacing: normal;
+}
+
+/* Disabling */
+.disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+.mat-input-element:disabled {
+    color: #666;
 }
 
 /* Animation */
@@ -142,10 +155,11 @@ input, mat-select, button {
     }
 
     .ag-header-group-cell.ag-header-group-cell-no-group {
-        background: #f9f9f9;
+        background: #f6f6f6;
     }
 
     .ag-side-bar {
+        margin-top: calc(1.5rem + 2px + 2rem);
         background: #fefbf7;
 
         .ag-side-buttons {
@@ -291,6 +305,11 @@ input, mat-select, button {
     margin-left: calc(20px + 150px + 2px + 2rem);
 }
 
+/* Icon grid */
+.icon-grid .ag-root {
+    visibility: hidden;
+}
+
 /* Tabs */
 .page-content.mat-tab-group {
     .mat-tab-header {
@@ -371,6 +390,9 @@ input, mat-select, button {
             color: mat-color($theme-primary);
             margin-bottom: 0.25rem;
         }
+    }
+    .tab.full-height {
+        height: calc(100% - 2 * 2rem);
     }
 }
 
@@ -467,47 +489,307 @@ ul.icon-text {
 }
 
 /* Forms */
-.form {
-    mat-form-field {
-        display: block;
+.form-field {
+    margin-top: 2.0rem;
+}
+.form-field:first-child {
+    margin-top: 0;
+}
+
+.form-field-title {
+    @include mat-typography-level-to-styles($fontConfig, subheading-2);
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 0.25rem;
+
+    .form-field-title-text {
+        display: inline-block;
+        float: left;
     }
 
-    input, textarea.mat-input-element, mat-select {
-        background: #f9f9f9;
-        border-bottom: 1px solid #efefef;
-        padding: 0.25rem;
-        width: calc(100% - 0.5rem - 2px);
-        margin: 0;
-        letter-spacing: normal;
-    }
+    .form-field-title-buttons {
+        display: inline-block;
+        float: right;
+        @include mat-typography-level-to-styles($fontConfig, body-1);
+        font-weight: normal;
+        color: #666;
 
-    .mat-form-field.mat-focused {
-        input, textarea {
-            border-bottom: 1px solid mat-color($theme-primary);
+        a {
+            cursor: pointer;
         }
-    }
-
-    .mat-form-field-underline {
-        display: none;
-    }
-
-    .mat-button {
-        background: mat-color($theme-primary);
-        color: #fff;
-        font-weight: bold;
     }
 }
 
+.form-field-subtitle, .form-field-input {
+    margin-top: 0.25rem;
+}
+
+.form-field:focus-within {
+    .form-field-title, .form-field-subtitle {
+        color: mat-color($theme-primary);
+    }
+}
+
+.form-array-el {
+    margin-top: 0.5rem;
+}
+.form-array-el:first-child {
+    margin-top: 0;
+}
+
+.form-group {
+    display: grid;
+    grid-gap: 0.5rem 0.25rem;
+}
+
+.form-field-label {
+     display: flex;
+     align-items: center;
+}
+.form-field-label:after {
+    content: ":";
+}
+
+.form-group-buttons {
+    display: flex;
+    align-items: center;
+    color: #666;
+
+    .ng-fa-icon {
+        cursor: pointer;
+        margin-left: 0.25rem;
+    }
+    .ng-fa-icon:first-child {
+        margin-left: 0rem;
+    }
+}
+
+.form-input {
+    background: #f6f6f6;
+    border: none;
+    border-bottom: 1px solid #d9d9d9;
+    padding: calc(0.25rem + 1px);
+    width: calc(100% - 0.5rem - 4px);
+    margin: 0;
+    letter-spacing: normal;
+}
+
+.form-input:focus, .form-input:focus-within {
+    outline: none;
+    background: #e2f1fd;
+    border-bottom: 1px solid mat-color($theme-primary);
+}
+
+.form-input-disabled {
+    background-image: linear-gradient(45deg,
+        #f6f6f6 44.4444%,
+        #e6e6e6 44.4444%,
+        #e6e6e6 50%,
+        #f6f6f6 50%,
+        #f6f6f6 94.4444%,
+        #e6e6e6 94.4444%,
+        #e6e6e6 100%);
+    background-size: 9.00px 9.00px;
+}
+
+.form-select-input-panel {
+    .mat-optgroup .mat-optgroup-label {
+        height: calc(2rem - 1px);
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        padding-top: 1rem;
+        color: mat-color($theme-primary);
+    }
+    .mat-optgroup:first-child .mat-optgroup-label {
+        padding-top: 0.5rem;
+    }
+    .mat-option {
+        padding-left: 0.25rem;
+        line-height: normal;
+        height: calc(2rem - 1px);
+    }
+    .mat-option-text {
+        line-height: normal;
+    }
+    .mat-option.mat-selected:not(.mat-option-multiple) {
+        background: #f6f6f6;
+    }
+}
+
+.form-select-input-panel.mat-select-panel .mat-option {
+    padding-left: 0.25rem;
+    line-height: normal;
+    height: calc(2rem - 1px);
+}
+
+.form-chip-input {
+    .mat-chip-list-wrapper {
+        margin: 0;
+        padding-left: calc(0.25rem + 1px);
+        padding-top: 1px;
+        padding-bottom: 1px;
+        background: #f6f6f6;
+        border-bottom: 1px solid #d9d9d9;
+    }
+
+    .form-chip {
+        @include mat-typography-level-to-styles($fontConfig, body-1);
+        font-weight: normal;
+        line-height: normal;
+        min-height: auto;
+        height: auto;
+        background: #d9d9d9;
+        border-radius: 4px;
+    }
+
+    .mat-chip-list-wrapper .form-chip {
+        margin: 0 0.25rem 0 0;
+        padding-left: 4px;
+        padding-right: 2px;
+        padding-top: 0px;
+        padding-bottom: 2px;
+    }
+
+    .form-chip .form-chip-icon.mat-icon {
+        font-size: inherit;
+        height: auto;
+        width: auto;
+        margin-left: 2px;
+    }
+
+    .mat-chip-input {
+        background: none;
+        border: none;
+        padding: 0;
+    }
+
+    .mat-chip-input:focus {
+        outline: none;
+    }
+
+    .mat-chip-list-wrapper:focus-within {
+        background: #e2f1fd;
+        border-bottom: 1px solid mat-color($theme-primary);
+
+        .form-chip {
+            background: #8fcaf9;
+        }
+    }
+
+    .form-chip:focus::after,
+    .form-chip:hover::after {
+        opacity: 0;
+    }
+}
+
+.form-file-input {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    display: block;
+}
+
+.form-file-input-label {
+    background: #d9d9d9;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+}
+.form-file-input-label:focus{
+    outline: none;
+}
+.form-input:focus-within .form-file-input-label {
+    background: #8fcaf9;
+}
+
+.form-file-input-name {
+    margin-left: 0.25rem;
+}
+
+.form-submit-button {
+    background: mat-color($theme-primary);
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Snack bar */
+.mat-snack-bar-container {
+    background: mat-color($theme-accent);
+    color: #333;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.centered-snack-bar .mat-simple-snackbar {
+    justify-content: center;
+}
+
+.mat-simple-snackbar-action {
+    color: #fff;
+
+    .mat-button-ripple, .mat-button-focus-overlay {
+        display: none;
+    }
+}
+
+/* Vega */
+app-vega-viewer.block {
+    height: 100%;
+    .vega-embed {
+        display: block;
+        line-height: 0;
+        height: 100%;
+    }
+}
+
+app-vega-viewer.no-actions .vega-embed.has-actions {
+    padding-right: 0;
+}
+app-vega-viewer.no-actions .vega-embed.has-actions > details {
+    display: none;
+}
 
 /* Style text */
 .light {
     color: #666;
 }
 
-
 /* Highlighting */
 .hover-light-background:hover {
     background: #f6f6f6;
+}
+
+/* Dragging to order list */
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .draggable:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging {
+    border: solid 1px #ccc;
+    padding: 0.25rem;
+    margin:
+        -1px
+        calc(-0.25rem - 1px)
+        calc(-0.25rem - 1px)
+        calc(-0.25rem - 1px)
+        !important;
+    overflow: hidden;
 }
 
 /* Clear float */

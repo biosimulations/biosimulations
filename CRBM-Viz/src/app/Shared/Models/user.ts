@@ -1,4 +1,5 @@
 import { PersonInterface } from './person.interface';
+import { Project } from './project';
 import { Model } from './model';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
@@ -22,53 +23,10 @@ export class User implements PersonInterface {
   googleScholarId?: string;
   orcId?: string;
   description?: string;
+  projects?: Project[] = [];
   models?: Model[] = [];
   simulations?: Simulation[] = [];
   visualizations?: Visualization[] = [];
-
-  constructor(auth0Id?: string, id?: number, username?: string,
-    firstName?: string, middleName?: string, lastName?: string,
-    organization?: string, website?: string,
-    email?: string, emailVerified?: boolean, emailPublic?: boolean,
-    gravatarEmail?: string, gitHubId?: string, googleScholarId?: string, orcId?: string,
-    description?: string,
-    models?: Model[], simulations?: Simulation[], visualizations?: Visualization[]
-    ) {
-    this.auth0Id = auth0Id;
-    this.id = id;
-    this.username = username;
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
-    this.organization = organization;
-    this.website = website;
-    this.email = email;
-    this.emailVerified = emailVerified;
-    this.emailPublic = emailPublic;
-    this.gravatarEmail = gravatarEmail;
-    this.gitHubId = gitHubId;
-    this.googleScholarId = googleScholarId;
-    this.orcId = orcId;
-    this.description = description;
-
-    if (models) {
-      this.models = models;
-    } else {
-      this.models = [];
-    }
-
-    if (simulations) {
-      this.simulations = simulations;
-    } else {
-      this.simulations = [];
-    }
-
-    if (visualizations) {
-      this.visualizations = visualizations;
-    } else {
-      this.visualizations = [];
-    }
-  }
 
   getRoute(): (string | number)[] {
     return ['/user', this.username];

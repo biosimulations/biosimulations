@@ -6,17 +6,18 @@ import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.sass'],
 })
-
 export class ProfileComponent implements OnInit {
-  private username: string;
+  /**
+   * The object representing the user displayed in the profile
+   */
   user: User;
+  private loggedInUsername: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,45 +26,61 @@ export class ProfileComponent implements OnInit {
     private userService: UserService
   ) {}
 
+  /**
+   * The init method subscribes to the user profile and the route. If a url parameter is provided, it pulls the username from
+   * the user service. If not, it assumes the logged in profile's username. It then calls a method to create the view's breadcrumbs
+   */
   ngOnInit() {
-    this.route.params.subscribe(routeParams => {
-      let auth0Id: string;
-      if (this.auth && this.auth.token) {
-        auth0Id = (this.auth.token.sub as unknown) as string;
+    this.auth.getUser$().subscribe(profile => {
+      if (profile) {
+        this.loggedInUsername =
+          profile['https://www.biosimulations.org:app_metadata']['username'];
+        console.log(profile);
+      } else {
+        this.loggedInUsername = null;
       }
 
-      if (routeParams.username) {
-        this.username = routeParams['username'];
-        this.user = this.userService.get(this.username);
-        // this.users.getUser().subscribe(res => (this.user = res));
-      } else if (auth0Id) {
-        this.user = this.userService.getByAuth0Id(auth0Id);
-        // this.users.getUser().subscribe(res => (this.user = res));
-        this.username = this.user.username;
-      }
-
-      const crumbs: object[] = [{label: 'User', route: '/user'}];
-      const buttons: NavItem[] = [];
-      if (this.user) {
-        if (this.auth && this.user.auth0Id === auth0Id) {
-          crumbs.push({
-            label: 'Your profile',
-          });
-          buttons.push({
-            iconType: 'mat',
-            icon: 'edit',
-            label: 'Edit',
-            route: ['/user/edit'],
-            display: NavItemDisplayLevel.loggedIn,
-          });
+      this.route.params.subscribe(routeParams => {
+        let username;
+        if (routeParams.username) {
+          username = routeParams.username;
         } else {
-          crumbs.push({
-            label: this.user.username,
-          });
+          username = this.loggedInUsername;
         }
-      }
+        this.userService.get$(username).subscribe(user => {
+          this.user = user;
+        });
 
-      this.breadCrumbsService.set(crumbs, buttons);
+        this.setCrumbs(username === this.loggedInUsername);
+      });
     });
+  }
+
+  /**
+   * This method takes in a boolean and then constructs the appropriate crumbs. If the displayed profile is the users
+   * profile, the breadcrumbs state "Your profile" and provide a link to edit the profile. If not, then the username of the
+   *  profile is displayed. This method depends on the breadcrumbs service
+   * @param isOwnProfile Whether the crumbs should reflect the user's own profile, or another users profile
+   */
+  setCrumbs(isOwnProfile: boolean) {
+    const crumbs: object[] = [{ label: 'User', route: '/user' }];
+    const buttons: NavItem[] = [];
+    if (isOwnProfile) {
+      crumbs.push({
+        label: 'Your profile',
+      });
+      buttons.push({
+        iconType: 'fas',
+        icon: 'pencil-alt',
+        label: 'Edit',
+        route: ['/user/edit'],
+        display: NavItemDisplayLevel.loggedIn,
+      });
+    } else {
+      crumbs.push({
+        label: this.user.username,
+      });
+    }
+    this.breadCrumbsService.set(crumbs, buttons);
   }
 }

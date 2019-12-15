@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { AuthGuard } from './Shared/Gaurds/auth.guard';
 
 import { HomeComponent } from './Shared/Components/home/home.component';
 
@@ -10,6 +9,11 @@ import { CallbackComponent } from './Shared/Components/callback/callback.compone
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: 'projects',
+    loadChildren: () =>
+      import('./Modules/projects/projects.module').then(m => m.ProjectsModule),
+  },
   {
     path: 'models',
     loadChildren: () =>

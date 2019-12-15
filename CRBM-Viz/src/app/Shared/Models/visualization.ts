@@ -1,41 +1,32 @@
 import { AccessLevel } from '../Enums/access-level';
-import { License } from './license';
+import { License } from '../Enums/license';
+import { JournalReference } from './journal-reference';
 import { Person } from './person';
+import { Project } from './project';
+import { RemoteFile } from './remote-file';
+import { SimulationResult } from './simulation-result';
 import { User } from './user';
+import { VisualizationSchema } from './visualization-schema';
 import { UtilsService } from '../Services/utils.service';
 
 export class Visualization {
   id?: number;
   name?: string;
+  image?: File | RemoteFile;
   description?: string;
   tags?: string[] = [];
-  spec?: object | string;
+  schema?: VisualizationSchema;
+  data?: SimulationResult[];
+  parent?: Visualization;
+  refs?: JournalReference[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
-  accessToken?: string;
+  accessToken?: string = UtilsService.genAccessToken();
   license?: License;
-
-  constructor(
-    id?: number,
-    name?: string,
-    description?: string,
-    tags?: string[],
-    spec?: object | string,
-    owner?: User,
-    access?: AccessLevel,
-    license?: License)
-  {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.tags = tags;
-    this.spec = spec;
-    this.owner = owner;
-    this.access = access;
-    this.accessToken = UtilsService.genAccessToken();
-    this.license = license;
-  }
+  created?: Date;
+  updated?: Date;
+  projects?: Project[] = [];
 
   getIcon() {
     return {type: 'fas', icon: 'chart-area'};

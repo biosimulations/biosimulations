@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { NavIconsComponent } from './nav-icons.component';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
@@ -13,8 +14,8 @@ describe('NavIconsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, RouterTestingModule],
-      providers: [MaterialModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, MaterialModule, RouterTestingModule],
+      providers: [HttpClientTestingModule, MaterialModule, RouterTestingModule],
       declarations: [NavIconsComponent, UserMenuComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

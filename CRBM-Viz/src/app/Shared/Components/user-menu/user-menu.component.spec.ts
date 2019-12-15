@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { UserMenuComponent } from './user-menu.component';
 import { MaterialModule } from 'src/app/Modules/app-material.module';
@@ -12,7 +13,8 @@ describe('UserMenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserMenuComponent],
-      imports: [MaterialModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, MaterialModule, RouterTestingModule],
+      providers: [HttpClientTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));

@@ -90,6 +90,17 @@
     </div>
 
     <div class="resources-container">
+      <div class="resources" *ngIf="user.projects && user.projects.length > 0">
+        <div class="resources-title float-container">
+          <h2>Projects ({{ user.projects.length }})</h2>
+          <a [routerLink]="['projects']">View all</a>
+        </div>
+        <app-project-cards
+          [projects]="user.projects"
+          [maxProjects]="10"
+        ></app-project-cards>
+      </div>
+
       <div class="resources" *ngIf="user.models && user.models.length > 0">
         <div class="resources-title float-container">
           <h2>Models ({{ user.models.length }})</h2>

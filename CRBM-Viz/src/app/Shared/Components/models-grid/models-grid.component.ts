@@ -12,10 +12,18 @@ import { User } from 'src/app/Shared/Models/user';
   styleUrls: ['./models-grid.component.sass'],
 })
 export class ModelsGridComponent implements OnInit {
-  @Input() auth;
-
   columnDefs;
   rowData;
+
+  private _owner: string;
+
+  @Input()
+  set owner(value: string) {
+    this._owner = value;
+    this.rowData = this.modelService.list(null, value);
+  }
+
+  @Input() inTab = false;
 
   constructor(
     private modelService: ModelService
@@ -105,8 +113,16 @@ export class ModelsGridComponent implements OnInit {
       },
 
       {
-        headerName: 'Date',
-        field: 'date',
+        headerName: 'Created',
+        field: 'created',
+        valueFormatter: dateFormatter,
+        filter: 'agDateColumnFilter',
+        minWidth: 100,
+        hide: true,
+      },
+      {
+        headerName: 'Updated',
+        field: 'updated',
         valueFormatter: dateFormatter,
         filter: 'agDateColumnFilter',
         minWidth: 100,
@@ -114,12 +130,7 @@ export class ModelsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.modelService.list(this.auth);
-  }
-
-  timeFormatter(params): string {
-    const secs:number = params.value;
-    return UtilsService.formatTimeForHumans(secs);
+    this.rowData = this.modelService.list(null, this._owner);
   }
 }
 
@@ -129,13 +140,6 @@ function taxonGetter(params): string {
 
 function tagsGetter(params): string[] {
   return params.data.tags;
-}
-
-function setFormatter(params): string {
-  const value = params.value;
-  let returnVal: string;
-  returnVal = value.join(', ');
-  return returnVal;
 }
 
 function ownerGetter(params): string {

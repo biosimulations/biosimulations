@@ -1,33 +1,5 @@
-@import 'src/theme.scss'
+.form-group.name
+    grid-template-columns: 1fr 5rem 1fr
 
-.form
-    input.firstName
-        float: left
-        width: calc(40%)
-
-    input.middleName
-        float: left
-        width: calc(20% - 2rem - 1.5rem - 6px)
-        margin-left: 1rem
-        margin-right: 1rem
-
-    input.lastName
-        float: right
-        width: calc(40%)
-
-    input.email
-        float: left
-        width: calc(100% - 10rem - 1rem - 1rem - 4px)
-    mat-select.emailPublic
-        float: right
-        width: 10rem
-
-    .saved-message
-        display: none
-        margin-left: 1rem
-        color: mat-color($theme-accent)
-
-    .saved-message.show-saved-message
-        display: inline
-        animation: flashAlert 0s 2.5s forwards
-        opacity: 1
+.form-group.email
+    grid-template-columns: 1fr 10rem

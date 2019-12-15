@@ -370,9 +370,19 @@ export class UserMenuComponent implements OnInit {
     mat-menu-item
     *ngIf&#x3D;&quot;auth.loggedIn&quot;
     color&#x3D;&quot;primary&quot;
+    [routerLink]&#x3D;&quot;[&#x27;/user&#x27;, &#x27;projects&#x27;]&quot;
+  &gt;
+    &lt;fa-icon class&#x3D;&quot;icon&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Models icon&quot; size&#x3D;&quot;2x&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;folder-open&#x27;]&quot;&gt;&lt;/fa-icon&gt;
+    Your projects
+  &lt;/button&gt;
+
+  &lt;button
+    mat-menu-item
+    *ngIf&#x3D;&quot;auth.loggedIn&quot;
+    color&#x3D;&quot;primary&quot;
     [routerLink]&#x3D;&quot;[&#x27;/user&#x27;, &#x27;models&#x27;]&quot;
   &gt;
-    &lt;fa-icon class&#x3D;&quot;icon models&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Models icon&quot; size&#x3D;&quot;2x&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;project-diagram&#x27;]&quot;&gt;&lt;/fa-icon&gt;
+    &lt;fa-icon class&#x3D;&quot;icon&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Models icon&quot; size&#x3D;&quot;2x&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;project-diagram&#x27;]&quot;&gt;&lt;/fa-icon&gt;
     Your models
   &lt;/button&gt;
 
@@ -393,7 +403,7 @@ export class UserMenuComponent implements OnInit {
     color&#x3D;&quot;primary&quot;
     [routerLink]&#x3D;&quot;[&#x27;/user&#x27;, &#x27;visualizations&#x27;]&quot;
   &gt;
-    &lt;fa-icon class&#x3D;&quot;icon visualizations&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Visualizations icon&quot; size&#x3D;&quot;2x&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;chart-area&#x27;]&quot;&gt;&lt;/fa-icon&gt;
+    &lt;fa-icon class&#x3D;&quot;icon icon-16&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Visualizations icon&quot; size&#x3D;&quot;2x&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;chart-area&#x27;]&quot;&gt;&lt;/fa-icon&gt;
     Your visualizations
   &lt;/button&gt;
 
@@ -427,7 +437,7 @@ export class UserMenuComponent implements OnInit {
     color&#x3D;&quot;primary&quot;
     (click)&#x3D;&quot;auth.login()&quot;
   &gt;
-    &lt;fa-icon class&#x3D;&quot;icon&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Sign in&quot; size&#x3D;&quot;2x&quot;
+    &lt;fa-icon class&#x3D;&quot;icon icon-16&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Sign in&quot; size&#x3D;&quot;2x&quot;
       [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;sign-in-alt&#x27;]&quot;&gt;&lt;/fa-icon&gt;
     Sign in
   &lt;/button&gt;
@@ -449,7 +459,7 @@ export class UserMenuComponent implements OnInit {
     color&#x3D;&quot;primary&quot;
     (click)&#x3D;&quot;auth.logout()&quot;
   &gt;
-    &lt;fa-icon class&#x3D;&quot;icon&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Sign out&quot; size&#x3D;&quot;2x&quot;
+    &lt;fa-icon class&#x3D;&quot;icon icon-16&quot; aria-hidden&#x3D;&quot;false&quot; aria-label&#x3D;&quot;Sign out&quot; size&#x3D;&quot;2x&quot;
       [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;sign-out-alt&#x27;]&quot;&gt;&lt;/fa-icon&gt;
     Sign out
   &lt;/button&gt;
@@ -470,17 +480,14 @@ export class UserMenuComponent implements OnInit {
 .icon
     color: rgba(0, 0, 0, 0.54)
 .ng-fa-icon
-   width: 24px
-    max-width: 24px
-   overflow: hidden
+    overflow: hidden
     position: relative
-    top: 4px
-
-.ng-fa-icon
-    font-size: 0.75rem
-
-.ng-fa-icon.models
+    top: 2px
     font-size: 0.6rem
+.ng-fa-icon.icon-16
+    padding-left: 2.9px
+    padding-right: 2.9px
+
 </code></pre>
     </div>
 
@@ -509,8 +516,8 @@ export class UserMenuComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-menu class="topbar-submenu" #profileMenu="matMenu" color="primary">  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Profile"      >account_circle</mat-icon>    Your profile  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\', \'models\']"  >    <fa-icon class="icon models" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="[\'fas\', \'project-diagram\']"></fa-icon>    Your models  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\', \'simulations\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"      >timeline</mat-icon>    Your simulations  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\', \'visualizations\']"  >    <fa-icon class="icon visualizations" aria-hidden="false" aria-label="Visualizations icon" size="2x" [icon]="[\'fas\', \'chart-area\']"></fa-icon>    Your visualizations  </button>  <mat-divider *ngIf="auth.loggedIn"></mat-divider>  <button    mat-menu-item    color="primary"    [routerLink]="[\'/about/help\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Help"      >help</mat-icon>    Help  </button>  <button    mat-menu-item    color="primary"    [routerLink]="[\'/about\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Info"      >info</mat-icon>    About  </button>  <mat-divider></mat-divider>  <button    mat-menu-item    *ngIf="!auth.loggedIn"    color="primary"    (click)="auth.login()"  >    <fa-icon class="icon" aria-hidden="false" aria-label="Sign in" size="2x"      [icon]="[\'fas\', \'sign-in-alt\']"></fa-icon>    Sign in  </button>  <button    mat-menu-item    *ngIf="!auth.loggedIn"    color="primary"    (click)="auth.login()"  >    <fa-icon class="icon" aria-hidden="false" aria-label="Sign up" size="2x"      [icon]="[\'fas\', \'user-plus\']"></fa-icon>    Sign up  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    (click)="auth.logout()"  >    <fa-icon class="icon" aria-hidden="false" aria-label="Sign out" size="2x"      [icon]="[\'fas\', \'sign-out-alt\']"></fa-icon>    Sign out  </button></mat-menu></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'FileEditComponent', 'selector': 'app-file-edit'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeImageComponent', 'selector': 'app-home-image'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewSimulationComponent', 'selector': 'app-new-simulation'},{'name': 'PastSimulationComponent', 'selector': 'app-past-simulation'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulateComponent', 'selector': 'app-simulate'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UploadComponent', 'selector': 'app-upload'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizeComponent', 'selector': 'app-visualize'}];
+        var COMPONENT_TEMPLATE = '<div><mat-menu class="topbar-submenu" #profileMenu="matMenu" color="primary">  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Profile"      >account_circle</mat-icon>    Your profile  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\', \'projects\']"  >    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="[\'fas\', \'folder-open\']"></fa-icon>    Your projects  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\', \'models\']"  >    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="[\'fas\', \'project-diagram\']"></fa-icon>    Your models  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\', \'simulations\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"      >timeline</mat-icon>    Your simulations  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    [routerLink]="[\'/user\', \'visualizations\']"  >    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Visualizations icon" size="2x" [icon]="[\'fas\', \'chart-area\']"></fa-icon>    Your visualizations  </button>  <mat-divider *ngIf="auth.loggedIn"></mat-divider>  <button    mat-menu-item    color="primary"    [routerLink]="[\'/about/help\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Help"      >help</mat-icon>    Help  </button>  <button    mat-menu-item    color="primary"    [routerLink]="[\'/about\']"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Info"      >info</mat-icon>    About  </button>  <mat-divider></mat-divider>  <button    mat-menu-item    *ngIf="!auth.loggedIn"    color="primary"    (click)="auth.login()"  >    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Sign in" size="2x"      [icon]="[\'fas\', \'sign-in-alt\']"></fa-icon>    Sign in  </button>  <button    mat-menu-item    *ngIf="!auth.loggedIn"    color="primary"    (click)="auth.login()"  >    <fa-icon class="icon" aria-hidden="false" aria-label="Sign up" size="2x"      [icon]="[\'fas\', \'user-plus\']"></fa-icon>    Sign up  </button>  <button    mat-menu-item    *ngIf="auth.loggedIn"    color="primary"    (click)="auth.logout()"  >    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Sign out" size="2x"      [icon]="[\'fas\', \'sign-out-alt\']"></fa-icon>    Sign out  </button></mat-menu></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'UserMenuComponent'};
 </script>

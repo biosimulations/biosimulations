@@ -1,0 +1,136 @@
+.view-toggle-container
+    position: absolute
+    top: calc(64px + 28px + 0.5rem + 2rem)
+    left: 2rem
+    height: 1.5rem
+    background: #fefbf7
+    border: 1px solid #BDC3C7
+    width: calc(20px + 2px - 2px)
+    display: flex
+    align-items: center
+    justify-content: center
+
+    .label
+        display: none
+
+    .ng-fa-icon
+        color: gray
+        cursor: pointer
+    .ng-fa-icon:last-child
+        display: none
+
+    .ng-fa-icon.selected
+        color: #333
+
+.view-toggle-container.tool-panel-open
+    width: calc(20px + 149px + 3px - 2px)
+    justify-content: flex-start
+    .label
+        display: inline
+        margin-left: 0.25rem
+        margin-right: 0.25rem
+    .ng-fa-icon:last-child
+        display: inline
+        margin-left: 0.25rem
+
+.icons-container
+    position: absolute
+    top: calc(64px + 28px + 0.5rem + 2rem)
+    left: calc(2rem + 20px + 2px + 2rem - 1px)
+    width: calc(100% - (4rem + 20px + 2px + 2rem + 1px) - 3px)
+    height: calc(100vh - 64px - 28px - 0.5rem - 4rem - 2rem - 1.5rem - 2px)
+
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-rows: max-content
+    grid-gap: 0.25rem
+    padding-right: 0.25rem
+
+    overflow-y: scroll
+
+    .row-icon
+        border: 1px solid #BDC3C7
+        position: relative
+        width: calc(100% - 2px)
+        height: 0
+        padding-top: calc(100% - 2px)
+
+    .row-icon-inner
+        position: absolute
+        left: 0
+        top: 0
+        width: 100%
+        height: 100%
+        overflow: hidden
+        cursor: pointer
+
+        .image
+            height: 100%
+            width: 100%
+            transition: all 0.5s
+
+        .default-image
+            background: #efefef
+            display: flex
+            align-items: center
+            justify-content: center
+            color: #999
+        .default-image .ng-fa-icon
+            font-size: 15vw
+        .default-image .mat-icon
+            font-size: 15vw
+            height: auto
+            width: auto
+
+        .details
+            visibility: hidden
+            height: 100%
+            width: calc(100% - 2rem)
+            position: relative
+            top: -100%
+            display: flex
+            align-items: center
+            overflow: hidden
+            padding-left: 1rem
+            padding-right: 1rem
+            background: #000000AA
+            font-weight: 500
+            color: #fff
+
+            .details-inner
+                max-height: 100%
+
+            .title
+                font-weight: bold
+                text-align: center
+                max-height: 2.5rem
+                overflow: hidden
+            .authors
+                margin-top: 0.25rem
+                text-align: center
+                display: block
+                max-height: 2.5rem
+                overflow: hidden
+                font-style: italic
+            .description
+                margin-top: 0.25rem
+                text-align: center
+                max-height: 2.5rem
+                overflow: hidden
+
+    .row-icon:hover
+        .image
+            transform: scale(1.08)
+        .details
+            visibility: visible
+
+.icons-container.tool-panel-open
+    left: calc(2rem + 20px + 149px + 3px + 2rem)
+    width: calc(100% - (4rem + 20px + 150px + 3px + 2rem + 1px) - 2px)
+
+.view-toggle-container.in-tab
+    top: 2rem
+
+.icons-container.in-tab
+    top: 2rem
+    height: calc(100vh - 64px - 28px - 0.5rem - 36px - 4rem - 2rem - 1.5rem - 2px)

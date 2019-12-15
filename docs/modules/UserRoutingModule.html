@@ -75,23 +75,26 @@ import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
 import { AuthGuard } from &#x27;src/app/Shared/Gaurds/auth.guard&#x27;;
 import { ProfileComponent } from &#x27;./profile/profile.component&#x27;;
 import { ProfileEditComponent } from &#x27;./profile/profile-edit.component&#x27;;
+import { ProjectsComponent } from &#x27;./projects/projects.component&#x27;;
 import { ModelsComponent } from &#x27;./models/models.component&#x27;;
 import { SimulationsComponent } from &#x27;./simulations/simulations.component&#x27;;
-// import { VisualizationsComponent } from &#x27;./visualizations/visualizations.component&#x27;;
+import { VisualizationsComponent } from &#x27;./visualizations/visualizations.component&#x27;;
 
 const routes: Routes &#x3D; [
   { path: &#x27;&#x27;, component: ProfileComponent, canActivate: [AuthGuard] },
   { path: &#x27;edit&#x27;, component: ProfileEditComponent, canActivate: [AuthGuard] },
 
+  { path: &#x27;projects&#x27;, component: ProjectsComponent, canActivate: [AuthGuard] },
   { path: &#x27;models&#x27;, component: ModelsComponent, canActivate: [AuthGuard] },
   { path: &#x27;simulations&#x27;, component: SimulationsComponent, canActivate: [AuthGuard] },
-  // { path: &#x27;visualizations&#x27;, component: VisualizationsComponent, canActivate: [AuthGuard] },
+  { path: &#x27;visualizations&#x27;, component: VisualizationsComponent, canActivate: [AuthGuard] },
 
- { path: &#x27;:username&#x27;, component: ProfileComponent },
+  { path: &#x27;:username&#x27;, component: ProfileComponent },
 
+  { path: &#x27;:username/projects&#x27;, component: ProjectsComponent},
   { path: &#x27;:username/models&#x27;, component: ModelsComponent},
   { path: &#x27;:username/simulations&#x27;, component: SimulationsComponent},
-  // { path: &#x27;:username/visualizations&#x27;, component: VisualizationsComponent},
+  { path: &#x27;:username/visualizations&#x27;, component: VisualizationsComponent},
 ];
 
 @NgModule({

@@ -14,9 +14,19 @@
     mat-menu-item
     *ngIf="auth.loggedIn"
     color="primary"
+    [routerLink]="['/user', 'projects']"
+  >
+    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="['fas', 'folder-open']"></fa-icon>
+    Your projects
+  </button>
+
+  <button
+    mat-menu-item
+    *ngIf="auth.loggedIn"
+    color="primary"
     [routerLink]="['/user', 'models']"
   >
-    <fa-icon class="icon models" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="['fas', 'project-diagram']"></fa-icon>
+    <fa-icon class="icon" aria-hidden="false" aria-label="Models icon" size="2x" [icon]="['fas', 'project-diagram']"></fa-icon>
     Your models
   </button>
 
@@ -37,7 +47,7 @@
     color="primary"
     [routerLink]="['/user', 'visualizations']"
   >
-    <fa-icon class="icon visualizations" aria-hidden="false" aria-label="Visualizations icon" size="2x" [icon]="['fas', 'chart-area']"></fa-icon>
+    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Visualizations icon" size="2x" [icon]="['fas', 'chart-area']"></fa-icon>
     Your visualizations
   </button>
 
@@ -71,7 +81,7 @@
     color="primary"
     (click)="auth.login()"
   >
-    <fa-icon class="icon" aria-hidden="false" aria-label="Sign in" size="2x"
+    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Sign in" size="2x"
       [icon]="['fas', 'sign-in-alt']"></fa-icon>
     Sign in
   </button>
@@ -93,7 +103,7 @@
     color="primary"
     (click)="auth.logout()"
   >
-    <fa-icon class="icon" aria-hidden="false" aria-label="Sign out" size="2x"
+    <fa-icon class="icon icon-16" aria-hidden="false" aria-label="Sign out" size="2x"
       [icon]="['fas', 'sign-out-alt']"></fa-icon>
     Sign out
   </button>

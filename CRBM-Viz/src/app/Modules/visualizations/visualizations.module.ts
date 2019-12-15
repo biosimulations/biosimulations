@@ -1,19 +1,30 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MaterialModule } from '../app-material.module';
+import { SharedModule } from 'src/app/Shared/shared.module';
 
 import { VisualizationsRoutingModule } from './visualizations-routing.module';
-import { VisualizeComponent } from './visualize/visualize.component';
-import { VegaViewerComponent } from './vega-viewer/vega-viewer.component';
-import { SharedModule } from '../../Shared/shared.module';
-import { MaterialModule } from '../app-material.module';
+
+import { BrowseComponent } from './browse/browse.component';
+import { EditComponent } from './edit/edit.component';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
-  declarations: [VisualizeComponent, VegaViewerComponent],
+  declarations: [
+    BrowseComponent,
+    EditComponent,
+    ViewComponent,
+  ],
   imports: [
     CommonModule,
-    VisualizationsRoutingModule,
-    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DragDropModule,
     MaterialModule,
+    SharedModule,
+    VisualizationsRoutingModule,
   ],
   exports: [],
 })

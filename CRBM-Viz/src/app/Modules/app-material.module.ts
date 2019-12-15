@@ -11,6 +11,7 @@ import {
   MatMenuModule,
   MatListModule,
   MatInputModule,
+  MatAutocompleteModule,
   MatTabsModule,
   MatOptionModule,
   MatSelectModule,
@@ -22,8 +23,10 @@ import {
 } from '@angular/material';
 
 import { MatTreeModule } from '@angular/material/tree';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-const MaterialComponents = [
+const materialComponents = [
   MatButtonModule,
   MatButtonToggleModule,
   MatIconModule,
@@ -34,6 +37,7 @@ const MaterialComponents = [
   MatMenuModule,
   MatListModule,
   MatInputModule,
+  MatAutocompleteModule,
   MatTabsModule,
   MatOptionModule,
   MatSelectModule,
@@ -43,9 +47,11 @@ const MaterialComponents = [
   MatTooltipModule,
   MatExpansionModule,
   MatTreeModule,
+  MatChipsModule,
+  MatSnackBarModule,
 ];
 @NgModule({
-  imports: [MaterialComponents],
-  exports: [MaterialComponents],
+  imports: [materialComponents],
+  exports: [materialComponents],
 })
 export class MaterialModule {}

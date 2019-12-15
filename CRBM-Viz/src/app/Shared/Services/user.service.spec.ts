@@ -16,6 +16,6 @@ describe('UserService', () => {
 
   it('should have getUser function', () => {
     const service: UserService = TestBed.get(UserService);
-    expect(service.getUser).toBeTruthy();
+    expect(service.getUser$).toBeTruthy();
   });
 });

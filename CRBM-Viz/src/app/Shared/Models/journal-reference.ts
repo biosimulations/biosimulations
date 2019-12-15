@@ -1,68 +1,88 @@
-import { Identifier } from './identifier';
-
 export class JournalReference {
-  authors?: string[] = [];
+  authors?: string;
+  title?: string;
   journal?: string;
   volume?: number | string;
   num?: number;
   pages?: string;
   year?: number;
-  identifiers?: Identifier[] = [];
+  doi?: string;
 
   constructor(
-    authors?: string[],
+    authors?: string,
+    title?: string,
     journal?: string,
     volume?: number | string,
     num?: number,
     pages?: string,
     year?: number,
-    identifiers?: Identifier[]
+    doi?: string
 ) {
-    if (!authors) {
-      authors = [];
-    }
-    if (!identifiers) {
-      identifiers = [];
-    }
-
     this.authors = authors;
+    this.title = title;
     this.journal = journal;
     this.volume = volume;
     this.num = num;
     this.pages = pages;
     this.year = year;
-    this.identifiers = identifiers;
+    this.doi = doi;
   }
 
-  getDoi(): string {
-    for (const id of this.identifiers) {
-      if (id.namespace === 'doi') {
-        return id.id;
-      }
-    }
-    return null;
+  getAuthors(): object[] {
+    return this.authors.split(/ *(?:,|;|&|and|(?:(?:,|;) *(?:&|and))) */).map(name => {
+      const names: string[] = name.split(/ +/);
+      return {
+        firstName: names[0],
+        middleNames: names.slice(1, -1),
+        lastName: names.slice(-1)[0],
+      };
+    });
   }
 
-  getPubMedId(): string {
-    for (const id of this.identifiers) {
-      if (id.namespace === 'pubmed') {
-        return id.id;
-      }
+  getAuthorsStr(): string {
+    const authorStrs: string[] = this.getAuthors().map(author => {
+      return (
+        author['lastName']
+        + ' '
+        + author['firstName'][0]
+        + author['middleNames'].map(name =>name[0]).join('')
+        );
+    });
+
+    switch (authorStrs.length) {
+      case 1:
+        return authorStrs[0];
+      case 2:
+        return authorStrs.join(' & ');
+      default:
+        return authorStrs.slice(0, -1).join(', ') + ' & ' + authorStrs.slice(-1)[0];
     }
-    return null;
+  }
+
+  getShortName(): string {
+    const authorsArr: object[] = this.getAuthors();
+
+    let authorsStr: string;
+    switch (authorsArr.length) {
+      case 1:
+        authorsStr = authorsArr[0]['lastName'];
+        break;
+      case 2:
+        authorsStr = authorsArr[0]['lastName'] + ' and ' + authorsArr[1]['lastName'];
+        break;
+      default:
+        authorsStr = authorsArr[0]['lastName'] + ' et al.';
+        break;
+    }
+
+    return authorsStr + ' ' + this.year.toString();
   }
 
   getUrl(): string {
-    const doi: string = this.getDoi();
-    if (doi) {
-      return 'https://doi.org/' + doi;
+    if (this.doi) {
+      return 'https://doi.org/' + this.doi;
+    } else {
+      return null;
     }
-
-    const pubMedId: string = this.getPubMedId();
-    if (pubMedId) {
-      return 'https://www.ncbi.nlm.nih.gov/pubmed/' + pubMedId;
-    }
-
-    return null;
   }
 }
