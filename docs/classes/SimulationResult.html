@@ -91,6 +91,20 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getTimePoints">getTimePoints</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -127,7 +141,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">CRBM-Viz/src/app/Shared/Models/simulation-result.ts:5</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">CRBM-Viz/src/app/Shared/Models/simulation-result.ts:6</a></div>
                             </td>
                         </tr>
 
@@ -155,7 +169,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">CRBM-Viz/src/app/Shared/Models/simulation-result.ts:6</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">CRBM-Viz/src/app/Shared/Models/simulation-result.ts:7</a></div>
                             </td>
                         </tr>
 
@@ -164,7 +178,51 @@
         </table>
 </section>
 
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTimePoints"></a>
+                    <span class="name">
+                        <b>
+                            getTimePoints
+                        </b>
+                        <a href="#getTimePoints"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTimePoints()</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="9"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/simulation-result.ts:9</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/TimePoint.html" target="_self" >TimePoint[]</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 
 
@@ -176,10 +234,22 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ModelVariable } from &#x27;./model-variable&#x27;;
 import { Simulation } from &#x27;./simulation&#x27;;
+import { TimePoint } from &#x27;./time-point&#x27;;
 
 export class SimulationResult {
   simulation?: Simulation;
   variable?: ModelVariable;
+
+  getTimePoints(): TimePoint[] {
+    const timePoints: TimePoint[] &#x3D; [];
+    for (let iTime &#x3D; 0; iTime &lt; 100; iTime++) {
+      const timePoint &#x3D; new TimePoint();
+      timePoint.time &#x3D; iTime;
+      timePoint.value &#x3D; Math.cos(iTime / 100 * 4 * Math.PI) + 0.1 * (Math.random() - 0.5);
+      timePoints.push(timePoint);
+    }
+    return timePoints;
+  }
 }</code></pre>
     </div>
 </div>

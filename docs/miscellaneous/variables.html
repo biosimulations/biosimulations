@@ -617,9 +617,21 @@
     display: NavItemDisplayLevel.always,
   },
   {
+    id: &#x27;ChartTypes&#x27;,
+    label: &#x27;Chart types&#x27;,
+    icon: &#x27;chart-area&#x27;,
+    iconType: &#x27;fas&#x27;,
+    children: [
+      &#x27;ChartTypes-Browse&#x27;,
+      &#x27;ChartTypes-New&#x27;,
+      &#x27;ChartTypes-Yours&#x27;,
+      ],
+    display: NavItemDisplayLevel.always,
+  },
+  {
     id: &#x27;Visualizations&#x27;,
     label: &#x27;Visualizations&#x27;,
-    icon: &#x27;chart-area&#x27;,
+    icon: &#x27;paint-brush&#x27;,
     iconType: &#x27;fas&#x27;,
     children: [
       &#x27;Visualizations-Browse&#x27;,
@@ -728,6 +740,32 @@
     route: [&#x27;/user&#x27;, &#x27;simulations&#x27;],
   },
 
+  // Chart types sub-menu
+  {
+    id: &#x27;ChartTypes-Browse&#x27;,
+    label: &#x27;Browse&#x27;,
+    icon: &#x27;list&#x27;,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/chart-types&#x27;],
+  },
+  {
+    id: &#x27;ChartTypes-New&#x27;,
+    label: &#x27;New&#x27;,
+    icon: &#x27;plus-circle&#x27;,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.always,
+    route: [&#x27;/chart-types&#x27;, &#x27;new&#x27;],
+  },
+  {
+    id: &#x27;ChartTypes-Yours&#x27;,
+    label: &#x27;Your chart types&#x27;,
+    icon: &#x27;user-circle&#x27;,
+    iconType: &#x27;fas&#x27;,
+    display: NavItemDisplayLevel.loggedIn,
+    route: [&#x27;/user&#x27;, &#x27;chart-types&#x27;],
+  },
+
   // Visualizations sub-menu
   {
     id: &#x27;Visualizations-Browse&#x27;,
@@ -751,7 +789,7 @@
     icon: &#x27;user-circle&#x27;,
     iconType: &#x27;fas&#x27;,
     display: NavItemDisplayLevel.loggedIn,
-    route: [&#x27;/user/visualizations&#x27;],
+    route: [&#x27;/user&#x27;, &#x27;visualizations&#x27;],
   },
 
   // About sub-menu
