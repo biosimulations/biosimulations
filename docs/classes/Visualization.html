@@ -187,7 +187,13 @@
                                 <a href="#getRoute">getRoute</a>
                             </li>
                             <li>
+                                <a href="#getRows">getRows</a>
+                            </li>
+                            <li>
                                 <a href="#getSimulations">getSimulations</a>
+                            </li>
+                            <li>
+                                <a href="#getSpec">getSpec</a>
                             </li>
                         </ul>
                     </td>
@@ -803,8 +809,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:81</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:120</a></div>
                 </td>
             </tr>
 
@@ -881,8 +887,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="65"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:65</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:104</a></div>
                 </td>
             </tr>
 
@@ -920,8 +926,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:57</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:96</a></div>
                 </td>
             </tr>
 
@@ -980,6 +986,45 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getRows"></a>
+                    <span class="name">
+                        <b>
+                            getRows
+                        </b>
+                        <a href="#getRows"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRows()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getSimulations"></a>
                     <span class="name">
                         <b>
@@ -998,8 +1043,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:73</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:112</a></div>
                 </td>
             </tr>
 
@@ -1009,6 +1054,45 @@
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="../classes/Simulation.html" target="_self" >Simulation[]</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSpec"></a>
+                    <span class="name">
+                        <b>
+                            getSpec
+                        </b>
+                        <a href="#getSpec"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSpec()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/visualization.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
 
                     </div>
                 </td>
@@ -1078,6 +1162,45 @@ export class Visualization implements TopLevelResource {
       return this.authors;
     } else {
       return [this.owner];
+    }
+  }
+
+   getRows(): number {
+    return Math.ceil(this.layout.length / this.columns);
+  }
+
+  getSpec(): object {
+    if (this.layout.length &#x3D;&#x3D;&#x3D; 0) {
+      return null;
+
+    } else if (this.layout.length &#x3D;&#x3D;&#x3D; 1) {
+      return this.layout[0].chartType.spec;
+
+    } else {
+
+      const spec: object &#x3D; {
+        $schema: this.layout[0].chartType.spec[&#x27;$schema&#x27;],
+        vconcat: [],
+      }
+      const rows &#x3D; this.getRows();
+      for (let iRow &#x3D; 0; iRow &lt; rows; iRow++) {
+        const maxColumns: number &#x3D; Math.min(
+          this.columns,
+          this.layout.length - iRow * this.columns);
+        const row &#x3D; [];
+        spec[&#x27;vconcat&#x27;].push({hconcat: row});
+        for (let iCol &#x3D; 0; iCol &lt; maxColumns; iCol++) {
+          const specCopy: object &#x3D; {};
+          Object.assign(specCopy, this.layout[iRow * this.columns + iCol].chartType.spec);
+          for (const prop of [&#x27;autosize&#x27;, &#x27;height&#x27;, &#x27;width&#x27;]) {
+            if (prop in specCopy) {
+              delete specCopy[prop];
+            }
+          }
+          row.push(specCopy);
+        }
+      }
+      return spec;
     }
   }
 
