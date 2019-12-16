@@ -79,7 +79,14 @@ export class Visualization implements TopLevelResource {
         const row = [];
         spec['vconcat'].push({hconcat: row});
         for (let iCol = 0; iCol < maxColumns; iCol++) {
-          row.push(this.layout[iRow * this.columns + iCol].chartType.spec);
+          const specCopy: object = {};
+          Object.assign(specCopy, this.layout[iRow * this.columns + iCol].chartType.spec);
+          for (const prop of ['autosize', 'height', 'width']) {
+            if (prop in specCopy) {
+              delete specCopy[prop];
+            }
+          }
+          row.push(specCopy);
         }
       }
       return spec;
