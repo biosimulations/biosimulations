@@ -8,7 +8,7 @@ import vegaEmbed from 'vega-embed';
   styleUrls: ['./vega-viewer.component.sass'],
 })
 export class VegaViewerComponent {
-  /* 
+  /*
   TODO: make size response
   See https://github.com/vega/vega/issues/755
   */
@@ -65,7 +65,7 @@ export class VegaViewerComponent {
       vegaEmbed(this.vegaContainer.nativeElement, this._spec, this._options)
         // result.view provides access to the Vega View API
         .then(viewApi => {
-          this.viewApi = viewApi;          
+          this.viewApi = viewApi;
           this.loadData();
         })
         .catch(console.error);

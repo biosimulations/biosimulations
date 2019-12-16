@@ -38,7 +38,6 @@
     </mat-tab>
 
     <mat-tab
-      *ngIf="getFormArray('layout').controls as layoutControls"
       [disabled]="selectedChartTypes.length === 0">
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Layout icon" [icon]="['fas', 'list']"></fa-icon> 3. Layout charts
@@ -92,21 +91,23 @@
           <div class="form-field-title">Arrange chart types in grid *</div>
           <div class="form-field-input">
             <div
-              #layout
+              #layoutContainer
               ngxDroppable
-              [model]="getFormArray('layout').controls"
+              [model]="layout"
               [removeOnSpill]="true"
-              (remove)="updateVegaWithDelay($event)"
+              (drop)="dropLayoutEl($event)"
+              (remove)="removeLayoutEl()"
               class="form-field-layout-input ngx-dnd-container"
               >
               <div
-                *ngFor="let formArrayEl of getFormArray('layout').controls"
+                *ngFor="let layoutEl of layout; let iLayoutEl=index"
                 class="grid-card-container ngx-dnd-item"
                 ngxDraggable
-                [model]="formArrayEl"
+                [model]="layoutEl"
+                (drag)="dragLayoutEl(iLayoutEl)"
                 >
                 <app-grid-card
-                  [data]="formArrayEl.get('chartType').value"
+                  [data]="layoutEl.chartType"
                 ></app-grid-card>
               </div>
             </div>
@@ -212,7 +213,7 @@
       <ng-template mat-tab-label>
         <fa-icon aria-hidden="true" aria-label="Preview icon" [icon]="['far', 'eye']"></fa-icon> 5. Preview
       </ng-template>
-      <div class="tab preview">
+      <div class="tab full-height preview">
         <app-vega-viewer
           *ngIf="vegaSpec"
           [spec]="vegaSpec"
