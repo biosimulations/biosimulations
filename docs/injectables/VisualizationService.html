@@ -1029,10 +1029,10 @@ export class VisualizationService {
 
     viz.columns &#x3D; 2
     viz.layout &#x3D; []
-    for (let iCell &#x3D; 0; iCell &lt; 1; iCell++) {
+    for (let iCell &#x3D; 0; iCell &lt; 2; iCell++) {
       const visLayoutEl &#x3D; new VisualizationLayoutElement();
       viz.layout.push(visLayoutEl);
-      visLayoutEl.chartType &#x3D; ChartTypeService._get(&#x27;002&#x27;)
+      visLayoutEl.chartType &#x3D; ChartTypeService._get(&#x27;00&#x27; + (iCell + 1).toString());
       visLayoutEl.data &#x3D; [];
       let iData &#x3D; 0;
       for (const dataField of visLayoutEl.chartType.getDataFields()) {
