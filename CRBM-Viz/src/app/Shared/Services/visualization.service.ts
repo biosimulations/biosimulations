@@ -64,7 +64,7 @@ export class VisualizationService {
     for (let iCell = 0; iCell < 2; iCell++) {
       const visLayoutEl = new VisualizationLayoutElement();
       viz.layout.push(visLayoutEl);
-      visLayoutEl.chartType = ChartTypeService._get('002')
+      visLayoutEl.chartType = ChartTypeService._get('00' + (iCell + 1).toString());
       visLayoutEl.data = [];
       let iData = 0;
       for (const dataField of visLayoutEl.chartType.getDataFields()) {
