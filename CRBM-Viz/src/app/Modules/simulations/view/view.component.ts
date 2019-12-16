@@ -46,7 +46,7 @@ export class ViewComponent implements OnInit {
       const buttons: NavItem[] = [
         {
           iconType: 'fas',
-          icon: 'chart-area',
+          icon: 'paint-brush',
           label: 'Visualize',
           route: ['/visualizations', this.id],
           display: NavItemDisplayLevel.always,

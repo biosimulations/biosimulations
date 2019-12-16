@@ -11,6 +11,7 @@ import { User } from 'src/app/Shared/Models/user';
 export class AuthorsComponent {
   @Input() authors: (User | Person)[];
   @Input() owner: User;
+  @Input() route = true;
 
   constructor(private router: Router) { }
 }

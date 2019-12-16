@@ -655,8 +655,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/journal-reference.ts:81</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="85"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Models/journal-reference.ts:85</a></div>
                 </td>
             </tr>
 
@@ -759,7 +759,11 @@
         break;
     }
 
-    return authorsStr + &#x27; &#x27; + this.year.toString();
+    if (this.year) {
+      authorsStr +&#x3D; &#x27; &#x27; + this.year.toString();
+    }
+
+    return authorsStr;
   }
 
   getUrl(): string {

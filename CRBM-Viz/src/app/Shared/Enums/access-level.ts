@@ -3,7 +3,6 @@ export enum AccessLevel {
     private = 'private',
 }
 
-
 export const accessLevels = [
     {value: AccessLevel.public, name: 'Public'},
     {value: AccessLevel.private, name: 'Private'},

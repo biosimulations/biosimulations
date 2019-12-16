@@ -8,7 +8,6 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 export class IdRendererGridComponent implements ICellRendererAngularComp {
   id;
   icon;
-  route;
 
   agInit(params: any): void {
     this.refresh(params);
@@ -17,7 +16,6 @@ export class IdRendererGridComponent implements ICellRendererAngularComp {
   refresh(params: any): boolean {
     this.id = params.data.id;
     this.icon = params.data.getIcon();
-    this.route = params.data.getRoute();
     return true;
   }
 }

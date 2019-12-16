@@ -181,7 +181,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -286,8 +286,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:33</a></div>
                 </td>
             </tr>
 
@@ -328,8 +328,8 @@ the user service. If not, it assumes the logged in profile&#39;s username. It th
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="66"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:66</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:65</a></div>
                 </td>
             </tr>
 
@@ -412,7 +412,7 @@ profile, the breadcrumbs state &quot;Your profile&quot; and provide a link to ed
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -440,7 +440,7 @@ profile, the breadcrumbs state &quot;Your profile&quot; and provide a link to ed
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -467,7 +467,7 @@ profile, the breadcrumbs state &quot;Your profile&quot; and provide a link to ed
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">CRBM-Viz/src/app/Modules/user/profile/profile.component.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -500,9 +500,7 @@ import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.se
   templateUrl: &#x27;./profile.component.html&#x27;,
   styleUrls: [&#x27;./profile.component.sass&#x27;],
 })
-
 export class ProfileComponent implements OnInit {
-
   /**
    * The object representing the user displayed in the profile
    */
@@ -514,8 +512,7 @@ export class ProfileComponent implements OnInit {
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
     private userService: UserService
-  ) { }
-
+  ) {}
 
   /**
    * The init method subscribes to the user profile and the route. If a url parameter is provided, it pulls the username from
@@ -524,7 +521,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.auth.getUser$().subscribe(profile &#x3D;&gt; {
       if (profile) {
-        this.loggedInUsername &#x3D; profile.nickname;
+        this.loggedInUsername &#x3D;
+          profile[&#x27;https://www.biosimulations.org:app_metadata&#x27;][&#x27;username&#x27;];
+        console.log(profile);
       } else {
         this.loggedInUsername &#x3D; null;
       }
@@ -537,12 +536,12 @@ export class ProfileComponent implements OnInit {
           username &#x3D; this.loggedInUsername;
         }
         this.userService.get$(username).subscribe(user &#x3D;&gt; {
-          this.user &#x3D; user
+          this.user &#x3D; user;
         });
 
         this.setCrumbs(username &#x3D;&#x3D;&#x3D; this.loggedInUsername);
-      })
-    })
+      });
+    });
   }
 
   /**
@@ -567,19 +566,12 @@ export class ProfileComponent implements OnInit {
       });
     } else {
       crumbs.push({
-        label: this.user.username
-      })
+        label: this.user.username,
+      });
     }
     this.breadCrumbsService.set(crumbs, buttons);
-
   }
 }
-
-
-
-
-
-
 </code></pre>
     </div>
 
@@ -676,49 +668,70 @@ export class ProfileComponent implements OnInit {
     &lt;/div&gt;
 
     &lt;div class&#x3D;&quot;resources-container&quot;&gt;
-      &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;user.projects &amp;&amp; user.projects.length &gt; 0&quot;&gt;
-        &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
-          &lt;h2&gt;Projects ({{ user.projects.length }})&lt;/h2&gt;
-          &lt;a [routerLink]&#x3D;&quot;[&#x27;projects&#x27;]&quot;&gt;View all&lt;/a&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;user.getProjects() as projects&quot;&gt;
+        &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;projects.length &gt; 0&quot;&gt;
+          &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
+            &lt;h2&gt;Projects ({{ projects.length }})&lt;/h2&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;projects&#x27;]&quot;&gt;View all&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;app-project-cards
+            [projects]&#x3D;&quot;projects&quot;
+            [maxProjects]&#x3D;&quot;10&quot;
+          &gt;&lt;/app-project-cards&gt;
         &lt;/div&gt;
-        &lt;app-project-cards
-          [projects]&#x3D;&quot;user.projects&quot;
-          [maxProjects]&#x3D;&quot;10&quot;
-        &gt;&lt;/app-project-cards&gt;
-      &lt;/div&gt;
+      &lt;/ng-container&gt;
 
-      &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;user.models &amp;&amp; user.models.length &gt; 0&quot;&gt;
-        &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
-          &lt;h2&gt;Models ({{ user.models.length }})&lt;/h2&gt;
-          &lt;a [routerLink]&#x3D;&quot;[&#x27;models&#x27;]&quot;&gt;View all&lt;/a&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;user.getModels() as models&quot;&gt;
+        &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;models.length &gt; 0&quot;&gt;
+          &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
+            &lt;h2&gt;Models ({{ models.length }})&lt;/h2&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;models&#x27;]&quot;&gt;View all&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;app-model-cards
+            [models]&#x3D;&quot;models&quot;
+            [maxModels]&#x3D;&quot;10&quot;
+          &gt;&lt;/app-model-cards&gt;
         &lt;/div&gt;
-        &lt;app-model-cards
-          [models]&#x3D;&quot;user.models&quot;
-          [maxModels]&#x3D;&quot;10&quot;
-        &gt;&lt;/app-model-cards&gt;
-      &lt;/div&gt;
+      &lt;/ng-container&gt;
 
-      &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;user.simulations &amp;&amp; user.simulations.length &gt; 0&quot;&gt;
-        &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
-          &lt;h2&gt;Simulations ({{ user.simulations.length }})&lt;/h2&gt;
-          &lt;a [routerLink]&#x3D;&quot;[&#x27;simulations&#x27;]&quot;&gt;View all&lt;/a&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;user.getSimulations() as simulations&quot;&gt;
+        &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;simulations.length &gt; 0&quot;&gt;
+          &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
+            &lt;h2&gt;Simulations ({{ simulations.length }})&lt;/h2&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;simulations&#x27;]&quot;&gt;View all&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;app-simulation-cards
+            [simulations]&#x3D;&quot;simulations&quot;
+            [maxSimulations]&#x3D;&quot;10&quot;
+          &gt;&lt;/app-simulation-cards&gt;
         &lt;/div&gt;
-        &lt;app-simulation-cards
-          [simulations]&#x3D;&quot;user.simulations&quot;
-          [maxSimulations]&#x3D;&quot;10&quot;
-        &gt;&lt;/app-simulation-cards&gt;
-      &lt;/div&gt;
+      &lt;/ng-container&gt;
 
-      &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;user.visualizations &amp;&amp; user.visualizations.length &gt; 0&quot;&gt;
-        &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
-          &lt;h2&gt;Visualizations ({{ user.visualizations.length }})&lt;/h2&gt;
-          &lt;a [routerLink]&#x3D;&quot;[&#x27;visualizations&#x27;]&quot;&gt;View all&lt;/a&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;user.getChartTypes() as chartTypes&quot;&gt;
+        &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;chartTypes.length &gt; 0&quot;&gt;
+          &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
+            &lt;h2&gt;Chart types ({{ chartTypes.length }})&lt;/h2&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;chart-types&#x27;]&quot;&gt;View all&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;app-chart-type-cards
+            [chartTypes]&#x3D;&quot;chartTypes&quot;
+            [maxChartTypes]&#x3D;&quot;10&quot;
+          &gt;&lt;/app-chart-type-cards&gt;
         &lt;/div&gt;
-        &lt;app-visualization-cards
-          [visualizations]&#x3D;&quot;user.visualizations&quot;
-          [maxVisualizations]&#x3D;&quot;10&quot;
-        &gt;&lt;/app-visualization-cards&gt;
-      &lt;/div&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container *ngIf&#x3D;&quot;user.getVisualizations() as visualizations&quot;&gt;
+        &lt;div class&#x3D;&quot;resources&quot; *ngIf&#x3D;&quot;visualizations.length &gt; 0&quot;&gt;
+          &lt;div class&#x3D;&quot;resources-title float-container&quot;&gt;
+            &lt;h2&gt;Visualizations ({{ visualizations.length }})&lt;/h2&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;visualizations&#x27;]&quot;&gt;View all&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;app-visualization-cards
+            [visualizations]&#x3D;&quot;visualizations&quot;
+            [maxVisualizations]&#x3D;&quot;10&quot;
+          &gt;&lt;/app-visualization-cards&gt;
+        &lt;/div&gt;
+      &lt;/ng-container&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -835,8 +848,8 @@ export class ProfileComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="page-content partial-width">  <div *ngIf="user">    <div class="profile">      <img class="photo" src="{{ user.getGravatarImgUrl() }}" />      <div class="name mat-title">{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</div>      <div class="username light">{{ user.username }}</div>      <div class="description" *ngIf="user.description">{{        user.description      }}</div>      <table class="details">        <tr *ngIf="user.organization">          <th>            <mat-icon aria-hidden="false" aria-label="Organization"              >people</mat-icon            >          </th>          <td>{{ user.organization }}</td>        </tr>        <tr *ngIf="user.website">          <th>            <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>          </th>          <td>            <a href="{{ user.website }}">{{              user.website            }}</a>          </td>        </tr>        <tr *ngIf="user.email && user.emailPublic" class="email">          <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>          <td>            <a href="mailto:{{ user.email }}">{{ user.email }}</a>          </td>        </tr>        <tr *ngIf="user.gitHubId">          <th>            <fa-icon              [icon]="[\'fab\', \'github\']"              size="lg"              aria-hidden="false"              aria-label="GitHub"            ></fa-icon>          </th>          <td>            <a href="https://github.com/{{ user.gitHubId }}">{{              user.gitHubId            }}</a>          </td>        </tr>        <tr *ngIf="user.googleScholarId">          <th>            <fa-icon              [icon]="[\'fab\', \'google\']"              size="lg"              aria-hidden="false"              aria-label="Google Scholar"            ></fa-icon>          </th>          <td>            <a              href="https://scholar.google.com/citations?user={{                user.googleScholarId              }}"              >{{ user.googleScholarId }}</a            >          </td>        </tr>        <tr *ngIf="user.orcId">          <th>            <fa-icon              [icon]="[\'fab\', \'orcid\']"              size="lg"              aria-hidden="false"              aria-label="ORCID"            ></fa-icon>          </th>          <td>            <a href="https://orcid.org/{{ user.orcId }}">{{              user.orcId            }}</a>          </td>        </tr>      </table>    </div>    <div class="resources-container">      <div class="resources" *ngIf="user.projects && user.projects.length > 0">        <div class="resources-title float-container">          <h2>Projects ({{ user.projects.length }})</h2>          <a [routerLink]="[\'projects\']">View all</a>        </div>        <app-project-cards          [projects]="user.projects"          [maxProjects]="10"        ></app-project-cards>      </div>      <div class="resources" *ngIf="user.models && user.models.length > 0">        <div class="resources-title float-container">          <h2>Models ({{ user.models.length }})</h2>          <a [routerLink]="[\'models\']">View all</a>        </div>        <app-model-cards          [models]="user.models"          [maxModels]="10"        ></app-model-cards>      </div>      <div class="resources" *ngIf="user.simulations && user.simulations.length > 0">        <div class="resources-title float-container">          <h2>Simulations ({{ user.simulations.length }})</h2>          <a [routerLink]="[\'simulations\']">View all</a>        </div>        <app-simulation-cards          [simulations]="user.simulations"          [maxSimulations]="10"        ></app-simulation-cards>      </div>      <div class="resources" *ngIf="user.visualizations && user.visualizations.length > 0">        <div class="resources-title float-container">          <h2>Visualizations ({{ user.visualizations.length }})</h2>          <a [routerLink]="[\'visualizations\']">View all</a>        </div>        <app-visualization-cards          [visualizations]="user.visualizations"          [maxVisualizations]="10"        ></app-visualization-cards>      </div>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
+        var COMPONENT_TEMPLATE = '<div><div class="page-content partial-width">  <div *ngIf="user">    <div class="profile">      <img class="photo" src="{{ user.getGravatarImgUrl() }}" />      <div class="name mat-title">{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</div>      <div class="username light">{{ user.username }}</div>      <div class="description" *ngIf="user.description">{{        user.description      }}</div>      <table class="details">        <tr *ngIf="user.organization">          <th>            <mat-icon aria-hidden="false" aria-label="Organization"              >people</mat-icon            >          </th>          <td>{{ user.organization }}</td>        </tr>        <tr *ngIf="user.website">          <th>            <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>          </th>          <td>            <a href="{{ user.website }}">{{              user.website            }}</a>          </td>        </tr>        <tr *ngIf="user.email && user.emailPublic" class="email">          <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>          <td>            <a href="mailto:{{ user.email }}">{{ user.email }}</a>          </td>        </tr>        <tr *ngIf="user.gitHubId">          <th>            <fa-icon              [icon]="[\'fab\', \'github\']"              size="lg"              aria-hidden="false"              aria-label="GitHub"            ></fa-icon>          </th>          <td>            <a href="https://github.com/{{ user.gitHubId }}">{{              user.gitHubId            }}</a>          </td>        </tr>        <tr *ngIf="user.googleScholarId">          <th>            <fa-icon              [icon]="[\'fab\', \'google\']"              size="lg"              aria-hidden="false"              aria-label="Google Scholar"            ></fa-icon>          </th>          <td>            <a              href="https://scholar.google.com/citations?user={{                user.googleScholarId              }}"              >{{ user.googleScholarId }}</a            >          </td>        </tr>        <tr *ngIf="user.orcId">          <th>            <fa-icon              [icon]="[\'fab\', \'orcid\']"              size="lg"              aria-hidden="false"              aria-label="ORCID"            ></fa-icon>          </th>          <td>            <a href="https://orcid.org/{{ user.orcId }}">{{              user.orcId            }}</a>          </td>        </tr>      </table>    </div>    <div class="resources-container">      <ng-container *ngIf="user.getProjects() as projects">        <div class="resources" *ngIf="projects.length > 0">          <div class="resources-title float-container">            <h2>Projects ({{ projects.length }})</h2>            <a [routerLink]="[\'projects\']">View all</a>          </div>          <app-project-cards            [projects]="projects"            [maxProjects]="10"          ></app-project-cards>        </div>      </ng-container>      <ng-container *ngIf="user.getModels() as models">        <div class="resources" *ngIf="models.length > 0">          <div class="resources-title float-container">            <h2>Models ({{ models.length }})</h2>            <a [routerLink]="[\'models\']">View all</a>          </div>          <app-model-cards            [models]="models"            [maxModels]="10"          ></app-model-cards>        </div>      </ng-container>      <ng-container *ngIf="user.getSimulations() as simulations">        <div class="resources" *ngIf="simulations.length > 0">          <div class="resources-title float-container">            <h2>Simulations ({{ simulations.length }})</h2>            <a [routerLink]="[\'simulations\']">View all</a>          </div>          <app-simulation-cards            [simulations]="simulations"            [maxSimulations]="10"          ></app-simulation-cards>        </div>      </ng-container>      <ng-container *ngIf="user.getChartTypes() as chartTypes">        <div class="resources" *ngIf="chartTypes.length > 0">          <div class="resources-title float-container">            <h2>Chart types ({{ chartTypes.length }})</h2>            <a [routerLink]="[\'chart-types\']">View all</a>          </div>          <app-chart-type-cards            [chartTypes]="chartTypes"            [maxChartTypes]="10"          ></app-chart-type-cards>        </div>      </ng-container>      <ng-container *ngIf="user.getVisualizations() as visualizations">        <div class="resources" *ngIf="visualizations.length > 0">          <div class="resources-title float-container">            <h2>Visualizations ({{ visualizations.length }})</h2>            <a [routerLink]="[\'visualizations\']">View all</a>          </div>          <app-visualization-cards            [visualizations]="visualizations"            [maxVisualizations]="10"          ></app-visualization-cards>        </div>      </ng-container>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'Auth0CallbackComponent', 'selector': 'app-callback'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'ChartTypeCardsComponent', 'selector': 'app-chart-type-cards'},{'name': 'ChartTypesComponent', 'selector': ''},{'name': 'ChartTypesGridComponent', 'selector': 'app-chart-types-grid'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'Error404Component', 'selector': 'app-four'},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'GridCardComponent', 'selector': 'app-grid-card'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperLinkComponent', 'selector': 'app-hyper-link'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'IdRouteRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'RouterLinkComponent', 'selector': 'app-router-link'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'SortToolPanelGridComponent', 'selector': ''},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ProfileComponent'};
 </script>

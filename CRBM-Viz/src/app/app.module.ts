@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgxDnDModule } from '@swimlane/ngx-dnd';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Defined Modules in Imports
@@ -38,6 +39,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
+    NgxDnDModule,
     HttpClientModule,
     MaterialModule,
     SharedModule,

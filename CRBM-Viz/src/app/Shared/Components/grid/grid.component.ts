@@ -1,8 +1,10 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import 'ag-grid-enterprise';
 import { IdRendererGridComponent } from './id-renderer-grid.component';
+import { IdRouteRendererGridComponent } from './id-route-renderer-grid.component';
 import { RouteRendererGridComponent } from './route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from './search-tool-panel-grid.component';
+import { SortToolPanelGridComponent } from './sort-tool-panel-grid.component';
 
 enum View {
   icons = 'icons',
@@ -18,6 +20,29 @@ export class GridComponent {
   @Input() rowTypePlural: string;
   @Input() columnDefs: object;
   @Input() rowData;
+
+  private _selectable: string = null;
+  @Input()
+  set selectable(value: string) {
+    this._selectable = value;
+    if (this.defaultColDef) {
+      if (value) {
+        this.defaultColDef['cellRenderer'] = null;
+      } else {
+        this.defaultColDef['cellRenderer'] = 'routerRenderer';
+      }
+    }
+  }
+  get selectable(): string {
+    return this._selectable;
+  }
+
+  @Output() ready = new EventEmitter();
+
+  selected: Set<object> = new Set();
+
+  @Output() selectRow = new EventEmitter();
+
   @Input() inTab = false;
 
   filteredRowData: object[];
@@ -25,24 +50,34 @@ export class GridComponent {
   view: View = View.icons;
   View = View;
 
+  private gridApi;
+
   icons = {
     search: `<mat-icon
       aria-hidden="false"
       aria-label="Search icon"
-      class="icon mat-icon material-icons search-tool-panel-grid-icon"
+      class="icon mat-icon material-icons tool-panel-grid-icon"
       role="img"
       >search</mat-icon>`,
+    sort: `<mat-icon
+      aria-hidden="false"
+      aria-label="Sort icon"
+      class="icon mat-icon material-icons tool-panel-grid-icon"
+      role="img"
+      >sort</mat-icon>`,
   };
 
   frameworkComponents = {
     idRenderer: IdRendererGridComponent,
+    idRouteRenderer: IdRouteRendererGridComponent,
     routerRenderer: RouteRendererGridComponent,
     searchToolPanel: SearchToolPanelGridComponent,
+    sortToolPanel: SortToolPanelGridComponent,
   }
 
   defaultColDef = {
       filter: 'agTextColumnFilter',
-      cellRenderer: 'routerRenderer',
+      cellRenderer: (this._selectable ? null : 'routerRenderer'),
       sortable: true,
       resizable: false,
       suppressMenu: true,
@@ -70,6 +105,13 @@ export class GridComponent {
           suppressFilterSearch: true,
           suppressExpandAll: true,
         }
+      },
+      {
+        id: 'sort',
+        labelDefault: 'Sort',
+        labelKey: 'sortToolPanel',
+        iconKey: 'sort',
+        toolPanel: 'sortToolPanel',
       },
       {
         id: 'columns',
@@ -109,7 +151,8 @@ export class GridComponent {
   constructor(private el: ElementRef) {}
 
   onGridReady(event) {
-    const gridApi = event.api;
+    this.gridApi = event.api;
+    const gridApi = this.gridApi;
 
     const toolPanel = gridApi.getToolPanelInstance('columns');
     toolPanel.allowDragging = false;
@@ -117,6 +160,8 @@ export class GridComponent {
     const statusPanel = gridApi.getStatusPanel('counts');
     statusPanel.eLabel.innerHTML = this.rowTypePlural;
     statusPanel.textContent = this.rowTypePlural;
+
+    this.ready.emit();
   }
 
   sizeColumnsToFit(event) {
@@ -149,6 +194,15 @@ export class GridComponent {
     this.sizeColumnsToFit(event);
   }
 
+  updateFilteredRowData(event): void {
+    const gridApi = event.api;
+
+    this.filteredRowData = [];
+    gridApi.forEachNodeAfterFilterAndSort((rowNode, index) => {
+      this.filteredRowData.push(rowNode.data);
+    });
+  }
+
   toggleView(): void {
     if (this.view === View.icons) {
       this.view = View.details;
@@ -157,12 +211,56 @@ export class GridComponent {
     }
   }
 
-  updateFilteredRowData(event): void {
-    const gridApi = event.api;
+  unselectAllRows(): void {
+    for (const rowDatum of this.selected) {
+      rowDatum['_selected'] = false;
+    }
+    this.selected.clear();
+    this.gridApi.deselectAll();
+  }
 
-    this.filteredRowData = [];
-    gridApi.forEachNodeAfterFilter((rowNode, index) => {
-      this.filteredRowData.push(rowNode.data);
-    });
+  setRowSelection(rowDatum: object, selection: boolean): void {
+    const row = this.gridApi.getRowNode(rowDatum['id']);
+    row.data['_selected'] = selection;
+    if (selection) {
+      this.selected.add(row.data);
+    } else {
+      this.selected.delete(row.data);
+    }
+    row.setSelected(selection, false);
+  }
+
+  rowSelected(event): void {
+    if (event.node.selected) {
+      event.data['_selected'] = true;
+      this.selected.add(event.data);
+    } else {
+      event.data['_selected'] = false;
+      this.selected.delete(event.data);
+    }
+  }
+
+  toggleSelection(rowDatum): void {
+    if ('_selected' in rowDatum && rowDatum['_selected']) {
+      rowDatum['_selected'] = false;
+      this.selected.delete(rowDatum);
+      this.gridApi.getRowNode(rowDatum['id']).setSelected(false, false);
+      this.selectRow.emit({data: rowDatum, selected: false});
+    } else {
+      if (this._selectable === 'single') {
+        for (const rowDatum2 of this.selected) {
+          rowDatum2['_selected'] = false;
+        }
+        this.selected.clear();
+      }
+      rowDatum['_selected'] = true;
+      this.selected.add(rowDatum);
+      this.gridApi.getRowNode(rowDatum['id']).setSelected(true, false);
+      this.selectRow.emit({data: rowDatum, selected: true});
+    }
+  }
+
+  getRowNodeId(rowData: object): string | number {
+    return rowData['id'];
   }
 }

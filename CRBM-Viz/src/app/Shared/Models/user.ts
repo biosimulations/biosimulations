@@ -1,9 +1,15 @@
 import { PersonInterface } from './person.interface';
-import { Project } from './project';
+import { ChartType } from './chart-type';
 import { Model } from './model';
+import { Project } from './project';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
+import { ModelService } from '../Services/model.service';
+import { ProjectService } from '../Services/project.service';
+import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
+import { ChartTypeService } from '../Services/chart-type.service';
+import { VisualizationService } from '../Services/visualization.service';
 import * as md5 from 'md5';
 
 export class User implements PersonInterface {
@@ -24,10 +30,6 @@ export class User implements PersonInterface {
   googleScholarId?: string;
   orcId?: string;
   description?: string;
-  projects?: Project[] = [];
-  models?: Model[] = [];
-  simulations?: Simulation[] = [];
-  visualizations?: Visualization[] = [];
 
   getRoute(): (string | number)[] {
     return ['/user', this.username];
@@ -47,5 +49,45 @@ export class User implements PersonInterface {
     } else {
       return 'assets/defaultSilhouette.svg';
     }
+  }
+
+  getProjects(): Project[] {
+    return [
+      ProjectService._get('001'),
+      ProjectService._get('002'),
+      ProjectService._get('003'),
+    ];
+  }
+
+  getModels(): Model[] {
+    return [
+      ModelService._get('001'),
+      ModelService._get('002'),
+      ModelService._get('003'),
+    ];
+  }
+
+  getSimulations(): Simulation[] {
+    return [
+      SimulationService._get('001'),
+      SimulationService._get('002'),
+      SimulationService._get('003'),
+    ];
+  }
+
+  getChartTypes(): ChartType[] {
+    return [
+      ChartTypeService._get('001'),
+      ChartTypeService._get('002'),
+      ChartTypeService._get('003'),
+    ];
+  }
+
+  getVisualizations(): Visualization[] {
+    return [
+      VisualizationService._get('001'),
+      VisualizationService._get('002'),
+      VisualizationService._get('003'),
+    ];
   }
 }

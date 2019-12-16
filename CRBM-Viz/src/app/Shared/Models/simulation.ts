@@ -5,6 +5,7 @@ import { SimulationStatus } from '../Enums/simulation-status';
 import { ParameterChange } from './parameter-change';
 import { Algorithm } from './algorithm';
 import { AlgorithmParameter } from './algorithm-parameter';
+import { ChartType } from './chart-type';
 import { Format } from './format';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
@@ -15,10 +16,16 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulator } from './simulator';
 import { Taxon } from './taxon';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
+import { Visualization } from './visualization';
+import { ProjectService } from '../Services/project.service';
 import { UtilsService } from '../Services/utils.service';
+import { ChartTypeService } from '../Services/chart-type.service';
+import { VisualizationService } from '../Services/visualization.service';
 
-export class Simulation {
+
+export class Simulation implements TopLevelResource {
   id?: string;
   name?: string;
   image?: File | RemoteFile;
@@ -35,6 +42,7 @@ export class Simulation {
   simulator?: Simulator;
   numTimePoints?: number;
   parent?: Simulation;
+  identifiers?: Identifier[] = [];
   refs?: JournalReference[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
@@ -49,7 +57,6 @@ export class Simulation {
   wallTime?: number; // execution time in seconds
   outLog?: string;
   errLog?: string;
-  projects?: Project[] = [];
 
   getIcon() {
     return {type: 'mat', icon: 'timeline'};
@@ -83,5 +90,29 @@ export class Simulation {
     } else {
       return [this.owner];
     }
+  }
+
+  getProjects(): Project[] {
+    return [
+      ProjectService._get('001'),
+      ProjectService._get('002'),
+      ProjectService._get('003'),
+    ];
+  }
+
+  getChartTypes(): ChartType[] {
+    return [
+      ChartTypeService._get('001'),
+      ChartTypeService._get('002'),
+      ChartTypeService._get('003'),
+    ];
+  }
+
+  getVisualizations(): Visualization[] {
+    return [
+      VisualizationService._get('001'),
+      VisualizationService._get('002'),
+      VisualizationService._get('003'),
+    ];
   }
 }

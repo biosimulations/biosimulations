@@ -1,5 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
 import { Format } from '../Models/format';
@@ -7,27 +10,28 @@ import { Identifier } from '../Models/identifier';
 import { JournalReference } from '../Models/journal-reference'
 import { Model } from '../Models/model';
 import { ModelParameter } from '../Models/model-parameter';
+import { ModelVariable } from '../Models/model-variable';
 import { OntologyTerm } from '../Models/ontology-term';
 import { Person } from '../Models/person';
 import { RemoteFile } from '../Models/remote-file';
 import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
+import { AlertService } from './alert.service';
 import { UserService } from './user.service';
-import { ProjectService } from './project.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
   private userService: UserService;
-  private projectService: ProjectService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
+
+  fileList: Array<object> = null;
+  fileChangeSubject = new Subject<null>();
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private alertService: AlertService,
+    private router: Router,
     private injector: Injector) {}
 
   static _get(id: string, includeRelatedObjects = false): Model {
@@ -142,33 +146,29 @@ export class ModelService {
           new Person('Jane', 'E', 'Doe'),
         ];
     model.license = License.cc0;
-    if (includeRelatedObjects) {
-      model.projects = [
-        ProjectService._get('001'),
-        ProjectService._get('003'),
-        ProjectService._get('006'),
-      ];
-      model.simulations = [
-        SimulationService._get('001'),
-        SimulationService._get('003'),
-        SimulationService._get('006'),
-      ];
-    }
     return model;
   }
 
   private getServices(): void {
     if (this.userService == null) {
       this.userService = this.injector.get(UserService);
-      this.projectService = this.injector.get(ProjectService);
-      this.simulationService = this.injector.get(SimulationService);
-      this.visualizationService = this.injector.get(VisualizationService);
     }
   }
 
   get(id: string): Model {
     this.getServices();
     return ModelService._get(id, true);
+  }
+
+  getVariables(model: Model): ModelVariable[] {
+    const variables: ModelVariable[] = [];
+    for (let iVariable = 0; iVariable < 3; iVariable++) {
+      const variable = new ModelVariable();
+      variable.id = `var-${ iVariable + 1 }`;
+      variable.name = `Variable ${ iVariable + 1 }`;
+      variables.push(variable);
+    }
+    return variables;
   }
 
   getParameters(model: Model, value?: string): ModelParameter[] {
@@ -223,7 +223,78 @@ export class ModelService {
   }
 
   delete(id?: string): void {}
-}
 
-import { SimulationService } from './simulation.service';
-import { VisualizationService } from './visualization.service';
+
+  /////////////////////////////
+  // Methods from FileService
+  uploadFile(file: File, accessType: string) {
+    const endpoint = `${environment.crbm.CRBMAPI_URL}/file`;
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('accessType', accessType);
+    this.http.post(endpoint, formData).subscribe(
+      success => {
+        this.alertService.openDialog(
+          'File upload was successful: ' + JSON.stringify(success)
+        );
+        this.getFileData();
+      },
+      error => {
+        this.alertService.openDialog(
+          'File upload failed: ' + JSON.stringify(error)
+        );
+      }
+    );
+  }
+
+  getFileData(): void {
+    this.http.get(`${environment.crbm.CRBMAPI_URL}/file`).subscribe(
+      success => {
+        this.fileList = success['data'];
+        this.fileChangeSubject.next();
+      },
+      error => {}
+    );
+  }
+
+  deleteFile(fileId: number): void {
+    this.http
+      .delete(`${environment.crbm.CRBMAPI_URL}/file/${fileId}`)
+      .subscribe(
+        success => {
+          this.alertService.openDialog(
+            'File deleted successfully' + JSON.stringify(success)
+          );
+          this.getFileData();
+          this.fileChangeSubject.next();
+        },
+        error => {
+          this.alertService.openDialog(
+            'There was an error while deleting the file' + JSON.stringify(error)
+          );
+        }
+      );
+  }
+
+  getFile(fileId: number) {
+    return this.http.get(`${environment.crbm.CRBMAPI_URL}/file/${fileId}`);
+  }
+
+  saveFile(currentFile: object, selectedValue: string): void {
+    this.http
+      .put(`${environment.crbm.CRBMAPI_URL}/file/${currentFile['fileId']}`, {
+        accessType: selectedValue,
+      })
+      .subscribe(
+        success => {
+          console.log('File update successfull', success);
+          this.alertService.openDialog('File update successful');
+          this.router.navigate(['/models']);
+        },
+        error => {
+          console.log('File update failed', error);
+          this.alertService.openDialog('File update failed');
+        }
+      );
+  }
+}

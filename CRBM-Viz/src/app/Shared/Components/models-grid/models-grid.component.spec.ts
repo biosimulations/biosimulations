@@ -4,8 +4,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ModelsGridComponent } from './models-grid.component';
 import { GridComponent } from '../grid/grid.component';
 import { IdRendererGridComponent } from '../grid/id-renderer-grid.component';
+import { IdRouteRendererGridComponent } from '../grid/id-route-renderer-grid.component';
 import { RouteRendererGridComponent } from '../grid/route-renderer-grid.component';
 import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
+import { SortToolPanelGridComponent } from '../grid/sort-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,8 +22,10 @@ describe('ModelsGridComponent', () => {
         ModelsGridComponent,
         GridComponent,
         IdRendererGridComponent,
+        IdRouteRendererGridComponent,
         RouteRendererGridComponent,
         SearchToolPanelGridComponent,
+        SortToolPanelGridComponent,
       ],
       imports: [
         RouterTestingModule,
@@ -29,8 +33,10 @@ describe('ModelsGridComponent', () => {
         HttpClientModule,
         AgGridModule.withComponents([
           IdRendererGridComponent,
+          IdRouteRendererGridComponent,
           RouteRendererGridComponent,
           SearchToolPanelGridComponent,
+          SortToolPanelGridComponent,
         ]),
       ],
       providers: [

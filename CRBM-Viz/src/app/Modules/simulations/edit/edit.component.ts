@@ -84,6 +84,7 @@ export class EditComponent implements OnInit {
       simulator: [''],
       numTimePoints: [''],
       authors: this.formBuilder.array([]),
+      identifiers: this.formBuilder.array([]),
       refs: this.formBuilder.array([]),
       access: [''],
       license: [''],
@@ -183,7 +184,7 @@ export class EditComponent implements OnInit {
     const buttons: NavItem[] = [
       {
         iconType: 'fas',
-        icon: 'chart-area',
+        icon: 'paint-brush',
         label: 'Visualize',
         route: ['/visualizations', this.id],
         display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
@@ -273,10 +274,19 @@ export class EditComponent implements OnInit {
     }
 
     if (this.id) {
+      this.getFormArray('tags').clear();
+      this.getFormArray('modelParameterChanges').clear();
+      this.getFormArray('algorithmParameterChanges').clear();
+      this.getFormArray('authors').clear();
+      this.getFormArray('identifiers').clear();
+      this.getFormArray('refs').clear();
+      this.getFormArray('modelParameterChanges')
+
       for (const el of this.simulation.tags) { this.addTagFormElement(); }
       for (const el of this.simulation.modelParameterChanges) { this.addModelParameterChangeFormElement(); }
       for (const el of this.simulation.algorithmParameterChanges) { this.addAlgorithmParameterChangeFormElement(); }
       for (const el of this.simulation.authors) { this.addAuthorFormElement(); }
+      for (const el of this.simulation.identifiers) { this.addIdentifierFormElement(); }
       for (const el of this.simulation.refs) { this.addRefFormElement(); }
       this.model = this.simulation.model;
       this.algorithm = this.simulation.algorithm;
@@ -301,6 +311,7 @@ export class EditComponent implements OnInit {
         // this.addModelParameterChangeFormElement();
         // this.addAlgorithmParameterChangeFormElement();
         this.addAuthorFormElement();
+        this.addIdentifierFormElement();
         this.addRefFormElement();
       }
     }
@@ -474,6 +485,14 @@ export class EditComponent implements OnInit {
     }));
   }
 
+  addIdentifierFormElement(): void {
+    const formArray: FormArray = this.getFormArray('identifiers');
+    formArray.push(this.formBuilder.group({
+      namespace: [''],
+      id: [''],
+    }));
+  }
+
   addRefFormElement(): void {
     const formArray: FormArray = this.getFormArray('refs');
     formArray.push(this.formBuilder.group({
@@ -488,9 +507,9 @@ export class EditComponent implements OnInit {
     }));
   }
 
-  drop(array: string, event: CdkDragDrop<string[]>): void {
+  drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
     moveItemInArray(
-      this.getFormArray(array).controls,
+      formArray.controls,
       event.previousIndex,
       event.currentIndex);
   }

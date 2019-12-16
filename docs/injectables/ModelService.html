@@ -75,20 +75,14 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#projectService">projectService</a>
+                                <a href="#fileChangeSubject">fileChangeSubject</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#simulationService">simulationService</a>
+                                <a href="#fileList">fileList</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#userService">userService</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#visualizationService">visualizationService</a>
                             </li>
                         </ul>
                     </td>
@@ -110,11 +104,20 @@
                                 <a href="#delete">delete</a>
                             </li>
                             <li>
+                                <a href="#deleteFile">deleteFile</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Private</span>
                                 <a href="#filter">filter</a>
                             </li>
                             <li>
                                 <a href="#get">get</a>
+                            </li>
+                            <li>
+                                <a href="#getFile">getFile</a>
+                            </li>
+                            <li>
+                                <a href="#getFileData">getFileData</a>
                             </li>
                             <li>
                                 <a href="#getParameters">getParameters</a>
@@ -124,10 +127,19 @@
                                 <a href="#getServices">getServices</a>
                             </li>
                             <li>
+                                <a href="#getVariables">getVariables</a>
+                            </li>
+                            <li>
                                 <a href="#list">list</a>
                             </li>
                             <li>
+                                <a href="#saveFile">saveFile</a>
+                            </li>
+                            <li>
                                 <a href="#set">set</a>
+                            </li>
+                            <li>
+                                <a href="#uploadFile">uploadFile</a>
                             </li>
                         </ul>
                     </td>
@@ -147,12 +159,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, authService: <a href="../injectables/AuthService.html">AuthService</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, alertService: <a href="../injectables/AlertService.html">AlertService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -182,10 +194,22 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>authService</td>
+                                                        <td>alertService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                                        <code><a href="../injectables/AlertService.html" target="_self" >AlertService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -243,8 +267,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:37</a></div>
                 </td>
             </tr>
 
@@ -358,6 +382,76 @@
 
                                     <td>
                                         Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteFile"></a>
+                    <span class="name">
+                        <b>
+                            deleteFile
+                        </b>
+                        <a href="#deleteFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteFile(fileId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="260"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:260</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>fileId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
                                     </td>
 
 
@@ -496,8 +590,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="169"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:169</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="158"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:158</a></div>
                 </td>
             </tr>
 
@@ -539,6 +633,115 @@
                     </div>
                     <div class="io-description">
                         
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFile"></a>
+                    <span class="name">
+                        <b>
+                            getFile
+                        </b>
+                        <a href="#getFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getFile(fileId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="279"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:279</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>fileId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFileData"></a>
+                    <span class="name">
+                        <b>
+                            getFileData
+                        </b>
+                        <a href="#getFileData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getFileData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="250"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:250</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
                     </div>
                 </td>
             </tr>
@@ -650,8 +853,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="160"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:160</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="152"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:152</a></div>
                 </td>
             </tr>
 
@@ -662,6 +865,76 @@
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVariables"></a>
+                    <span class="name">
+                        <b>
+                            getVariables
+                        </b>
+                        <a href="#getVariables"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVariables(model: <a href="../classes/Model.html">Model</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="163"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:163</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>model</td>
+                                    <td>
+                                                <code><a href="../classes/Model.html" target="_self" >Model</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>ModelVariable[]</code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -753,6 +1026,88 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="saveFile"></a>
+                    <span class="name">
+                        <b>
+                            saveFile
+                        </b>
+                        <a href="#saveFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveFile(currentFile: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank">object</a>, selectedValue: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="283"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:283</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>currentFile</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>selectedValue</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="set"></a>
                     <span class="name">
                         <b>
@@ -831,6 +1186,88 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadFile"></a>
+                    <span class="name">
+                        <b>
+                            uploadFile
+                        </b>
+                        <a href="#uploadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>uploadFile(file: File, accessType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="230"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:230</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>file</td>
+                                    <td>
+                                            <code>File</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>accessType</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
             <section>
     
@@ -841,24 +1278,22 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="projectService"></a>
+                        <a name="fileChangeSubject"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Private</span>
-                            projectService</b>
-                            <a href="#projectService"><span class="icon ion-ios-link"></span></a>
+                            fileChangeSubject</b>
+                            <a href="#fileChangeSubject"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../injectables/ProjectService.html" target="_self" >ProjectService</a></code>
-
+                            <i>Default value : </i><code>new Subject&lt;null&gt;()</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:24</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -869,24 +1304,28 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="simulationService"></a>
+                        <a name="fileList"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Private</span>
-                            simulationService</b>
-                            <a href="#simulationService"><span class="icon ion-ios-link"></span></a>
+                            fileList</b>
+                            <a href="#fileList"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../injectables/SimulationService.html" target="_self" >SimulationService</a></code>
+                            <i>Type : </i>    <code>Array&lt;object&gt;</code>
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:25</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -914,34 +1353,6 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:23</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="visualizationService"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            visualizationService</b>
-                            <a href="#visualizationService"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../injectables/VisualizationService.html" target="_self" >VisualizationService</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
                                     <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">CRBM-Viz/src/app/Shared/Services/model.service.ts:26</a></div>
                             </td>
                         </tr>
@@ -956,7 +1367,10 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Injector } from &#x27;@angular/core&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
 import { AccessLevel } from &#x27;../Enums/access-level&#x27;;
 import { License } from &#x27;../Enums/license&#x27;;
 import { Format } from &#x27;../Models/format&#x27;;
@@ -964,27 +1378,28 @@ import { Identifier } from &#x27;../Models/identifier&#x27;;
 import { JournalReference } from &#x27;../Models/journal-reference&#x27;
 import { Model } from &#x27;../Models/model&#x27;;
 import { ModelParameter } from &#x27;../Models/model-parameter&#x27;;
+import { ModelVariable } from &#x27;../Models/model-variable&#x27;;
 import { OntologyTerm } from &#x27;../Models/ontology-term&#x27;;
 import { Person } from &#x27;../Models/person&#x27;;
 import { RemoteFile } from &#x27;../Models/remote-file&#x27;;
 import { Taxon } from &#x27;../Models/taxon&#x27;;
 import { User } from &#x27;../Models/user&#x27;;
-import { AuthService } from &#x27;src/app/Shared/Services/auth0.service&#x27;;
+import { AlertService } from &#x27;./alert.service&#x27;;
 import { UserService } from &#x27;./user.service&#x27;;
-import { ProjectService } from &#x27;./project.service&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;,
 })
 export class ModelService {
   private userService: UserService;
-  private projectService: ProjectService;
-  private simulationService: SimulationService;
-  private visualizationService: VisualizationService;
+
+  fileList: Array&lt;object&gt; &#x3D; null;
+  fileChangeSubject &#x3D; new Subject&lt;null&gt;();
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private alertService: AlertService,
+    private router: Router,
     private injector: Injector) {}
 
   static _get(id: string, includeRelatedObjects &#x3D; false): Model {
@@ -1099,33 +1514,29 @@ export class ModelService {
           new Person(&#x27;Jane&#x27;, &#x27;E&#x27;, &#x27;Doe&#x27;),
         ];
     model.license &#x3D; License.cc0;
-    if (includeRelatedObjects) {
-      model.projects &#x3D; [
-        ProjectService._get(&#x27;001&#x27;),
-        ProjectService._get(&#x27;003&#x27;),
-        ProjectService._get(&#x27;006&#x27;),
-      ];
-      model.simulations &#x3D; [
-        SimulationService._get(&#x27;001&#x27;),
-        SimulationService._get(&#x27;003&#x27;),
-        SimulationService._get(&#x27;006&#x27;),
-      ];
-    }
     return model;
   }
 
   private getServices(): void {
     if (this.userService &#x3D;&#x3D; null) {
       this.userService &#x3D; this.injector.get(UserService);
-      this.projectService &#x3D; this.injector.get(ProjectService);
-      this.simulationService &#x3D; this.injector.get(SimulationService);
-      this.visualizationService &#x3D; this.injector.get(VisualizationService);
     }
   }
 
   get(id: string): Model {
     this.getServices();
     return ModelService._get(id, true);
+  }
+
+  getVariables(model: Model): ModelVariable[] {
+    const variables: ModelVariable[] &#x3D; [];
+    for (let iVariable &#x3D; 0; iVariable &lt; 3; iVariable++) {
+      const variable &#x3D; new ModelVariable();
+      variable.id &#x3D; &#x60;var-${ iVariable + 1 }&#x60;;
+      variable.name &#x3D; &#x60;Variable ${ iVariable + 1 }&#x60;;
+      variables.push(variable);
+    }
+    return variables;
   }
 
   getParameters(model: Model, value?: string): ModelParameter[] {
@@ -1180,10 +1591,81 @@ export class ModelService {
   }
 
   delete(id?: string): void {}
-}
 
-import { SimulationService } from &#x27;./simulation.service&#x27;;
-import { VisualizationService } from &#x27;./visualization.service&#x27;;
+
+  /////////////////////////////
+  // Methods from FileService
+  uploadFile(file: File, accessType: string) {
+    const endpoint &#x3D; &#x60;${environment.crbm.CRBMAPI_URL}/file&#x60;;
+    const formData &#x3D; new FormData();
+    formData.append(&#x27;file&#x27;, file, file.name);
+    formData.append(&#x27;accessType&#x27;, accessType);
+    this.http.post(endpoint, formData).subscribe(
+      success &#x3D;&gt; {
+        this.alertService.openDialog(
+          &#x27;File upload was successful: &#x27; + JSON.stringify(success)
+        );
+        this.getFileData();
+      },
+      error &#x3D;&gt; {
+        this.alertService.openDialog(
+          &#x27;File upload failed: &#x27; + JSON.stringify(error)
+        );
+      }
+    );
+  }
+
+  getFileData(): void {
+    this.http.get(&#x60;${environment.crbm.CRBMAPI_URL}/file&#x60;).subscribe(
+      success &#x3D;&gt; {
+        this.fileList &#x3D; success[&#x27;data&#x27;];
+        this.fileChangeSubject.next();
+      },
+      error &#x3D;&gt; {}
+    );
+  }
+
+  deleteFile(fileId: number): void {
+    this.http
+      .delete(&#x60;${environment.crbm.CRBMAPI_URL}/file/${fileId}&#x60;)
+      .subscribe(
+        success &#x3D;&gt; {
+          this.alertService.openDialog(
+            &#x27;File deleted successfully&#x27; + JSON.stringify(success)
+          );
+          this.getFileData();
+          this.fileChangeSubject.next();
+        },
+        error &#x3D;&gt; {
+          this.alertService.openDialog(
+            &#x27;There was an error while deleting the file&#x27; + JSON.stringify(error)
+          );
+        }
+      );
+  }
+
+  getFile(fileId: number) {
+    return this.http.get(&#x60;${environment.crbm.CRBMAPI_URL}/file/${fileId}&#x60;);
+  }
+
+  saveFile(currentFile: object, selectedValue: string): void {
+    this.http
+      .put(&#x60;${environment.crbm.CRBMAPI_URL}/file/${currentFile[&#x27;fileId&#x27;]}&#x60;, {
+        accessType: selectedValue,
+      })
+      .subscribe(
+        success &#x3D;&gt; {
+          console.log(&#x27;File update successfull&#x27;, success);
+          this.alertService.openDialog(&#x27;File update successful&#x27;);
+          this.router.navigate([&#x27;/models&#x27;]);
+        },
+        error &#x3D;&gt; {
+          console.log(&#x27;File update failed&#x27;, error);
+          this.alertService.openDialog(&#x27;File update failed&#x27;);
+        }
+      );
+  }
+}
 </code></pre>
     </div>
 

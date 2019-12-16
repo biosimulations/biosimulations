@@ -75,9 +75,9 @@ import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
 
 import { HomeComponent } from &#x27;./Shared/Components/home/home.component&#x27;;
 
-import { FourComponent } from &#x27;./Shared/Components/four/four.component&#x27;;
+import { Error404Component } from &#x27;./Shared/Components/error-404/error-404.component&#x27;;
 
-import { CallbackComponent } from &#x27;./Shared/Components/callback/callback.component&#x27;;
+import { Auth0CallbackComponent } from &#x27;./Shared/Components/auth-0-callback/auth-0-callback.component&#x27;;
 
 const routes: Routes &#x3D; [
   { path: &#x27;&#x27;, component: HomeComponent },
@@ -97,6 +97,11 @@ const routes: Routes &#x3D; [
       &quot;import(&#x27;./Modules/simulations/simulations.module&#x27;).then(m &#x3D;&gt; m.SimulationsModule)&quot;,
   },
   {
+    path: &#x27;chart-types&#x27;,
+    loadChildren: () &#x3D;&gt;
+      &quot;import(&#x27;./Modules/chart-types/chart-types.module&#x27;).then(m &#x3D;&gt; m.ChartTypesModule)&quot;,
+  },
+  {
     path: &#x27;visualizations&#x27;,
     loadChildren: () &#x3D;&gt;
       &quot;import(&#x27;./Modules/visualizations/visualizations.module&#x27;).then(m &#x3D;&gt; m.VisualizationsModule)&quot;,
@@ -112,9 +117,9 @@ const routes: Routes &#x3D; [
       &quot;import(&#x27;./Modules/about/about.module&#x27;).then(m &#x3D;&gt; m.AboutModule)&quot;,
   },
 
-  { path: &#x27;callback&#x27;, component: CallbackComponent },
+  { path: &#x27;callback&#x27;, component: Auth0CallbackComponent },
 
-  { path: &#x27;**&#x27;, component: FourComponent },
+  { path: &#x27;**&#x27;, component: Error404Component },
 ];
 
 @NgModule({

@@ -46,53 +46,61 @@ export class HomeComponent implements OnInit {
     }
 
     return {
-      $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-      width: 'container',
-      height: 'container',
-      padding: {
-        left: 3,
-        right: 3,
-        top: 0,
-        bottom: 0,
-      },
-      autosize: {
-        type: 'fit',
-        resize: true,
-      },
-      background: 'transparent',
-      config: {
-        view: {
-          stroke: 'transparent',
+      spec: {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        width: 'container',
+        height: 'container',
+        padding: {
+          left: 3,
+          right: 3,
+          top: 0,
+          bottom: 0,
         },
+        autosize: {
+          type: 'fit',
+          resize: true,
+        },
+        background: 'transparent',
+        config: {
+          view: {
+            stroke: 'transparent',
+          },
+        },
+        datasets: {
+          values: [],
+        },
+        data: {
+          name: 'values'
+        },
+        encoding: {
+          y: {
+            field: 'category',
+            type: 'ordinal',
+            axis: {
+              title: yAxisLabel,
+              gridOpacity: 0,
+              minExtent: 84,
+              maxExtent: 84,
+            },
+          },
+          x: {
+            field: 'count',
+            type: 'quantitative',
+            scale: {
+              type: xScaleType,
+            },
+            axis: {
+              title: xAxisLabel,
+              gridOpacity: 0,
+              values: (xScaleType === 'log' ? xTicks : undefined)
+            },
+          },
+        },
+        mark: {type: 'bar', color: '#2196f3'},
       },
       data: {
         values: data
-      },
-      encoding: {
-        y: {
-          field: 'category',
-          type: 'ordinal',
-          axis: {
-            title: yAxisLabel,
-            gridOpacity: 0,
-            minExtent: 84,
-            maxExtent: 84,
-          },
-        },
-        x: {
-          field: 'count',
-          type: 'quantitative',
-          scale: {
-            type: xScaleType,
-          },
-          axis: {
-            title: xAxisLabel,
-            gridOpacity: 0,
-            values: (xScaleType === 'log' ? xTicks : undefined)
-          },
-        },
-      },
-      mark: {type: 'bar', color: '#2196f3'},
-    };
+      }
+    }
   }
 }
