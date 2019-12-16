@@ -24,9 +24,8 @@ export class UserService {
       default:
       case 'jonrkarr':
         user = new User();
-        user.auth0Id = 'github|2848297';
-        user.id = 1;
-        user.username = username;
+        user.userId = 1;
+        user.userName = username;
         user.firstName = 'Jonathan';
         user.middleName = 'R';
         user.lastName = 'Karr';
@@ -48,8 +47,8 @@ export class UserService {
         break;
       case 'y.skaf':
         user = new User();
-        user.id = 2;
-        user.username = 'y.skaf';
+        user.userId = 2;
+        user.userName = 'y.skaf';
         user.firstName = 'Yara';
         user.lastName = 'Skaf';
         user.organization = 'University of Connecticut Health Center';
@@ -61,8 +60,8 @@ export class UserService {
         break;
       case 'bilalshaikh42':
         user = new User();
-        user.id = 3;
-        user.username = username;
+        user.userId = 3;
+        user.userName = 'bill2507733';
         user.firstName = 'Bilal';
         user.lastName = 'Shaikh';
         user.organization = 'Icahn School of Medicine at Mount Sinai';
@@ -75,22 +74,22 @@ export class UserService {
         break;
       case 's.edelstein':
         user = new User();
-        user.id = 4;
-        user.username = 's.edelstein';
+        user.userId = 4;
+        user.userName = 's.edelstein';
         user.firstName = 'S';
         user.lastName = 'Edelstein';
         break;
       case 'a.goldbeter':
         user = new User();
-        user.id = 5;
-        user.username = 'a.goldbeter';
+        user.userId = 5;
+        user.userName = 'a.goldbeter';
         user.firstName = 'A';
         user.lastName = 'Goldbeter';
         break;
       case 'j.tyson':
         user = new User();
-        user.id = 6;
-        user.username = 'j.tyson';
+        user.userId = 6;
+        user.userName = 'j.tyson';
         user.firstName = 'J';
         user.lastName = 'Tyson';
         break;
@@ -113,7 +112,6 @@ export class UserService {
     return of(this.get(username));
   }
 
-  // TODO Remove
   list(): User[] {
     return [
       this.get('jonrkarr'),

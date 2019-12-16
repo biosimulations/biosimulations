@@ -13,10 +13,8 @@ import { VisualizationService } from '../Services/visualization.service';
 import * as md5 from 'md5';
 
 export class User implements PersonInterface {
-  userId: string;
-  auth0Id?: string;
-  id?: number;
-  username?: string;
+  userId?: number;
+  userName?: string;
   firstName?: string;
   middleName?: string;
   lastName?: string;
@@ -32,7 +30,7 @@ export class User implements PersonInterface {
   description?: string;
 
   getRoute(): (string | number)[] {
-    return ['/user', this.username];
+    return ['/user', this.userName];
   }
 
   getFullName(): string {

@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
       });
     } else {
       crumbs.push({
-        label: this.user.username,
+        label: this.user.userName,
       });
     }
     this.breadCrumbsService.set(crumbs, buttons);
