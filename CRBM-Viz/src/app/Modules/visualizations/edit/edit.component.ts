@@ -111,7 +111,7 @@ export class EditComponent implements OnInit {
       refs: this.formBuilder.array([]),
       access: [''],
       license: [''],
-      columns: [1, Validators.min(1)],
+      columns: [1, [Validators.min(1), Validators.max(1)]],
     });
   }
 
@@ -358,8 +358,8 @@ export class EditComponent implements OnInit {
     for (const dataField of chartType.getDataFields()) {
       const simResultsFormArray: FormArray = this.formBuilder.array([],
         (dataField.shape === ChartTypeDataFieldShape.array
-          ? [Validators.required, Validators.minLength(1)]
-          : Validators.maxLength(1)));
+          ? []
+          : [Validators.required, Validators.maxLength(1)]));
       dataFormArray.push(this.formBuilder.group({
         dataField: this.formBuilder.control(dataField),
         simulationResults: simResultsFormArray,
@@ -380,7 +380,14 @@ export class EditComponent implements OnInit {
   }
 
   updateLayout(): void {
-    this.columns = this.formGroup.value.columns;
+    const maxColumns: number = this.getFormArray('layout').length;
+    this.columns = Math.min(maxColumns, this.formGroup.value.columns);
+    this.formGroup.patchValue({columns: this.columns});
+    this.formGroup.get('columns').setValidators([
+      Validators.min(1),
+      Validators.max(maxColumns),
+      ]);
+
     const rows = Math.max(1, Math.ceil(this.getFormArray('layout').length / this.columns));
 
     if (this._layout) {
