@@ -96,7 +96,7 @@
               ngxDroppable
               [model]="getFormArray('layout').controls"
               [removeOnSpill]="true"
-              (remove)="updateLayout()"
+              (remove)="updateVegaWithDelay($event)"
               class="form-field-layout-input ngx-dnd-container"
               >
               <div
@@ -213,6 +213,13 @@
         <fa-icon aria-hidden="true" aria-label="Preview icon" [icon]="['far', 'eye']"></fa-icon> 5. Preview
       </ng-template>
       <div class="tab preview">
+        <app-vega-viewer
+          *ngIf="vegaSpec"
+          [spec]="vegaSpec"
+          [data]="vegaData"
+          [options]="vegaOptions"
+          class="vega block"
+        ></app-vega-viewer>
       </div>
     </mat-tab>
 

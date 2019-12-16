@@ -61,7 +61,7 @@ export class VisualizationService {
 
     viz.columns = 2
     viz.layout = []
-    for (let iCell = 0; iCell < 1; iCell++) {
+    for (let iCell = 0; iCell < 2; iCell++) {
       const visLayoutEl = new VisualizationLayoutElement();
       viz.layout.push(visLayoutEl);
       visLayoutEl.chartType = ChartTypeService._get('002')

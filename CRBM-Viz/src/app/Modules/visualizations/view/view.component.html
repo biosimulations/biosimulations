@@ -83,8 +83,9 @@
       <div class="tab full-height visualization">
         <app-vega-viewer
           #vegaViewer
-          *ngIf="vegaSpec && vegaData"
+          *ngIf="vegaSpec"
           [spec]="vegaSpec"
+          [data]="vegaData"
           [options]="vegaOptions"
           class="vega block"
         ></app-vega-viewer>

@@ -125,8 +125,10 @@ export class ViewComponent implements OnInit {
       .getVisualization(this.id)
       .subscribe((res: object[]) => {
         this.visualization = VisualizationService._get(this.id);
-        this.vegaSpec = this.visualization.layout[0].chartType.spec;
-        console.log(res[0]['spec']);
+        this.vegaSpec = this.visualization.getSpec();
+
+        // TODO: get data from simulation service
+        this.vegaData = {};
 
         this.setUp();
       });

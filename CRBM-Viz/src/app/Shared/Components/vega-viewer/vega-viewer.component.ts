@@ -48,7 +48,6 @@ export class VegaViewerComponent {
 
   loadSpec() {
     if (this.vegaContainer && this._spec) {
-      // console.log(this._spec);
       vegaEmbed(this.vegaContainer.nativeElement, this._spec, this._options)
         // result.view provides access to the Vega View API
         .then(viewApi => {

@@ -81,12 +81,19 @@ export class EditComponent implements OnInit {
   set layout(value:ElementRef) {
     this._layout = value;
     this.updateLayout();
+    this.updatePreview();
   }
 
   allSimulationResults: object[] = [];
   filteredSimulationResults: object[] = [];
   private currSimulationResultsFormArray: FormArray;
   private currSimulationResultsInput;
+
+  vegaSpec: object;
+  vegaData: object;
+  public readonly vegaOptions: object = {
+    renderer: 'canvas',
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -100,9 +107,23 @@ export class EditComponent implements OnInit {
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
     ) {
+    const columnsFormControl = this.formBuilder.control(1, [
+      Validators.min(1),
+      ]);
+    columnsFormControl.valueChanges.subscribe(val => {
+      this.updateLayout();
+      this.updatePreview();
+    })
+
+    const layoutFormArray: FormArray = this.formBuilder.array([]);
+    layoutFormArray.valueChanges.subscribe(val => {
+      this.updateLayout();
+      this.updatePreview();
+    })
+
     this.formGroup = this.formBuilder.group({
       name: [''],
-      layout: this.formBuilder.array([]),
+      layout: layoutFormArray,
       image: [''],
       description: [''],
       tags: this.formBuilder.array([]),
@@ -111,7 +132,7 @@ export class EditComponent implements OnInit {
       refs: this.formBuilder.array([]),
       access: [''],
       license: [''],
-      columns: [1, [Validators.min(1), Validators.max(1)]],
+      columns: columnsFormControl,
     });
   }
 
@@ -274,9 +295,6 @@ export class EditComponent implements OnInit {
         this.addRefFormElement();
       }
     }
-
-    // update layout
-    this.updateLayout();
   }
 
   onSimulationsGridReady(event): void {
@@ -335,13 +353,13 @@ export class EditComponent implements OnInit {
       }
     }
 
-    this.updateLayout();
+    // this.updateLayout();
+    // this.updatePreview();
   }
 
   addChartTypeToLayout(chartType: ChartType, vizDataFields: VisualizationDataField[] = []): void {
     const formArray: FormArray = this.getFormArray('layout');
     const formGroup: FormGroup = this.genLayoutFormGroup(chartType);
-    formArray.push(formGroup);
 
     const dataFormArray: FormArray = formGroup.get('data') as FormArray;
     for (let iVizDataField=0; iVizDataField < vizDataFields.length; iVizDataField++) {
@@ -351,6 +369,10 @@ export class EditComponent implements OnInit {
         simResultsFormArray.push(this.formBuilder.control(simResult));
       }
     }
+
+    formArray.push(formGroup);
+    // this.updateLayout();
+    // this.updatePreview();
   }
 
   genLayoutFormGroup(chartType: ChartType): FormGroup {
@@ -376,18 +398,11 @@ export class EditComponent implements OnInit {
     if (event.target.valueAsNumber < 1) {
       this.formGroup.patchValue({columns: 1});
     }
-    this.updateLayout();
+    // this.updateLayout();
   }
 
   updateLayout(): void {
-    const maxColumns: number = this.getFormArray('layout').length;
-    this.columns = Math.min(maxColumns, this.formGroup.value.columns);
-    this.formGroup.patchValue({columns: this.columns});
-    this.formGroup.get('columns').setValidators([
-      Validators.min(1),
-      Validators.max(maxColumns),
-      ]);
-
+    this.columns = this.formGroup.get('columns').value;
     const rows = Math.max(1, Math.ceil(this.getFormArray('layout').length / this.columns));
 
     if (this._layout) {
@@ -395,6 +410,31 @@ export class EditComponent implements OnInit {
         `grid-template-rows: repeat(${ rows }, 10rem);` +
         `grid-template-columns: repeat(${ this.columns }, 10rem)`));
     }
+  }
+
+  updatePreview(): void {
+    return; 
+    
+    const vis: Visualization = new Visualization();
+    vis.columns = this.formGroup.get('columns').value;
+    vis.layout = [];
+    for (const layoutElData of this.formGroup.get('layout').value) {
+      const layoutEl = new VisualizationLayoutElement();
+      Object.assign(layoutEl, layoutElData);
+      vis.layout.push(layoutEl);
+    }
+    this.vegaSpec = vis.getSpec();
+
+    // TODO: update data
+    this.vegaData = {};
+  }
+
+  updateVegaWithDelay(event): void {
+    return;
+    console.log('here', event)
+    setTimeout(() => {
+      this.updatePreview();
+    }, 2500);
   }
 
   getFormArray(array: string): FormArray {
