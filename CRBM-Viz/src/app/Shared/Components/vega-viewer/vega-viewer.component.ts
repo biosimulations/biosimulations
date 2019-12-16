@@ -9,8 +9,12 @@ import vegaEmbed from 'vega-embed';
 })
 export class VegaViewerComponent {
   /*
-  TODO: make size response
+  TODO: make size responsive to screen size
   See https://github.com/vega/vega/issues/755
+
+  (JRK) I already tried adding a handler for window.resize to set the width and height. Wasn't successful.
+
+  Note, Vega can only automatically fit visualizations with that do not use facets, layers, or concatenation.
   */
 
   private _spec: object;
