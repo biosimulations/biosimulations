@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { VegaViewerComponent } from 'src/app/Shared/Components/vega-viewer/vega-viewer.component';
 import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
@@ -26,6 +27,9 @@ export class ViewComponent implements OnInit {
   visualization: Visualization;
   vegaSpec: object;
   vegaData: object;
+
+  @ViewChild('vegaViewer', { static: false }) vegaViewer: VegaViewerComponent;
+
   historyTreeNodes: object[];
 
   constructor(
@@ -121,12 +125,34 @@ export class ViewComponent implements OnInit {
       .getVisualization(this.id)
       .subscribe((res: object[]) => {
         this.visualization = VisualizationService._get(this.id);
-        this.vegaSpec = this.visualization.layout[0].chartType.spec;
-        console.log(res[0]['spec']);
+        this.vegaSpec = this.visualization.getSpec();
+
+        // TODO: get data from simulation service
+        this.vegaData = {};
 
         this.setUp();
       });
     this.historyTreeNodes = this.visualizationService.getHistory(this.id, true, true);
+  }
+
+  download(format: string): void {
+    if (format === 'png' || format === 'svg') {
+      // TODO: get this working after vega viewer is working
+      this.vegaViewer.viewApi.view.toImageURL(format).then(url => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'visualization-${ this.id }.${ format }';
+        link.click();
+      })
+    } else {
+      const link = document.createElement('a');
+      const blob: Blob = new Blob(
+        [JSON.stringify(this.vegaSpec)],
+        {type : 'application/json'});
+      link.href = URL.createObjectURL(blob);
+      link.download = 'visualization-${ this.id }.${ format }';
+      link.click();
+    }
   }
 
   openDeleteDialog(): void {

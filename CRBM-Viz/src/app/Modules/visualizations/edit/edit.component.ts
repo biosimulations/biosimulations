@@ -55,38 +55,30 @@ export class EditComponent implements OnInit {
   visualization: Visualization;
   formGroup: FormGroup;
 
-  private _simulationsGrid: SimulationsGridComponent;
-  private _chartTypesGrid: ChartTypesGridComponent;
   private simulationsGridReady = false;
   private chartTypesGridReady = false;
 
-  @ViewChild('simulationsGrid', { static: false })
-  set simulationsGrid(value:ElementRef) {
-    this._simulationsGrid = (value as unknown) as SimulationsGridComponent;
-    this.updateSimulationsGrid();
-  }
-
-  @ViewChild('chartTypesGrid', { static: false })
-  set chartTypesGrid(value:ElementRef) {
-    this._chartTypesGrid = (value as unknown) as ChartTypesGridComponent;
-    this.updateChartTypesGrid();
-  }
+  @ViewChild('simulationsGrid', { static: true }) simulationsGrid: SimulationsGridComponent;
+  @ViewChild('chartTypesGrid', { static: true }) chartTypesGrid: ChartTypesGridComponent;
 
   selectedChartTypes = [];
 
   columns = 1;
-  private _layout: ElementRef;
+  @ViewChild('layoutContainer', { static: true }) layoutContainer: ElementRef;
 
-  @ViewChild('layout', { static: false })
-  set layout(value:ElementRef) {
-    this._layout = value;
-    this.updateLayout();
-  }
+  layout: VisualizationLayoutElement[] = [];
+  private iDraggingLayoutEl: number = null;
 
   allSimulationResults: object[] = [];
   filteredSimulationResults: object[] = [];
   private currSimulationResultsFormArray: FormArray;
   private currSimulationResultsInput;
+
+  vegaSpec: object;
+  vegaData: object;
+  public readonly vegaOptions: object = {
+    renderer: 'canvas',
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -100,9 +92,24 @@ export class EditComponent implements OnInit {
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
     ) {
+    const columnsFormControl = this.formBuilder.control(1, [
+      Validators.min(1),
+      Validators.max(1),
+      ]);
+    columnsFormControl.valueChanges.subscribe(val => {
+      this.updateLayout();
+      this.updatePreview();
+    })
+
+    const layoutFormArray: FormArray = this.formBuilder.array([]);
+    layoutFormArray.valueChanges.subscribe(val => {
+      this.updateLayout();
+      this.updatePreview();
+    })
+
     this.formGroup = this.formBuilder.group({
       name: [''],
-      layout: this.formBuilder.array([]),
+      layout: layoutFormArray,
       image: [''],
       description: [''],
       tags: this.formBuilder.array([]),
@@ -111,7 +118,7 @@ export class EditComponent implements OnInit {
       refs: this.formBuilder.array([]),
       access: [''],
       license: [''],
-      columns: [1, Validators.min(1)],
+      columns: columnsFormControl,
     });
   }
 
@@ -250,6 +257,7 @@ export class EditComponent implements OnInit {
     }
 
     if (this.id) {
+      this.layout = [];
       this.getFormArray('layout').clear();
       this.getFormArray('tags').clear();
       this.getFormArray('authors').clear();
@@ -262,10 +270,12 @@ export class EditComponent implements OnInit {
       for (const el of this.visualization.identifiers) { this.addIdentifierFormElement(); }
       for (const el of this.visualization.refs) { this.addRefFormElement(); }
       this.formGroup.patchValue(this.visualization);
+      this.columns = this.visualization.columns;
 
       this.updateSimulationsGrid();
       this.updateChartTypesGrid();
     } else {
+      this.columns = 1;
       for (let i = 0; i < 3; i++) {
         // this.addLayoutFormElement();
         // this.addTagFormElement();
@@ -274,9 +284,6 @@ export class EditComponent implements OnInit {
         this.addRefFormElement();
       }
     }
-
-    // update layout
-    this.updateLayout();
   }
 
   onSimulationsGridReady(event): void {
@@ -290,13 +297,13 @@ export class EditComponent implements OnInit {
   }
 
   updateSimulationsGrid(): void {
-    if (this._simulationsGrid && this.simulationsGridReady && this.visualization) {
+    if (this.simulationsGrid && this.simulationsGridReady && this.visualization) {
       this.allSimulationResults = [];
-      this._simulationsGrid.unselectAllRows();
+      this.simulationsGrid.unselectAllRows();
       for (const layoutEl of this.visualization.layout) {
         for (const data of layoutEl.data) {
           for (const simResult of data.simulationResults) {
-            this._simulationsGrid.setRowSelection(simResult.simulation, true);
+            this.simulationsGrid.setRowSelection(simResult.simulation, true);
             this.selectSimulation(simResult.simulation, true);
           }
         }
@@ -305,22 +312,24 @@ export class EditComponent implements OnInit {
   }
 
   updateChartTypesGrid(): void {
-    if (this._chartTypesGrid && this.chartTypesGridReady && this.visualization) {
+    if (this.chartTypesGrid && this.chartTypesGridReady && this.visualization) {
       this.selectedChartTypes = [];
-      this._chartTypesGrid.unselectAllRows();
+      this.chartTypesGrid.unselectAllRows();
       for (const layoutEl of this.visualization.layout) {
-        this._chartTypesGrid.setRowSelection(layoutEl.chartType, true);
+        this.chartTypesGrid.setRowSelection(layoutEl.chartType, true);
         this.selectChartType(layoutEl.chartType, true);
       }
     }
   }
 
   selectChartType(chartType: ChartType, selected: boolean): void {
-    const formArray: FormArray = this.getFormArray('layout');
     if (selected) {
-      this.selectedChartTypes.push(chartType);
+      const chartTypeCopy = new ChartType();
+      Object.assign(chartTypeCopy, chartType);
+      this.selectedChartTypes.push(chartTypeCopy);
       this.selectedChartTypes = this.selectedChartTypes.sort((a, b) =>
         (a.id > b.id ? 1 : -1));
+
     } else {
       for (let iChartType = 0; iChartType < this.selectedChartTypes.length; iChartType++) {
         if (this.selectedChartTypes[iChartType].id === chartType.id) {
@@ -328,20 +337,24 @@ export class EditComponent implements OnInit {
         }
       }
 
-      for (let iChartType = 0; iChartType < formArray.controls.length; iChartType++) {
-        if (formArray.controls[iChartType].value.chartType.id === chartType.id) {
-          formArray.removeAt(iChartType);
+      const formArray: FormArray = this.getFormArray('layout');
+      for (let iLayoutEl = 0; iLayoutEl < formArray.controls.length; iLayoutEl++) {
+        if (formArray.controls[iLayoutEl].value.chartType.id === chartType.id) {
+          formArray.removeAt(iLayoutEl);
+        }
+      }
+
+      for (let iLayoutEl = this.layout.length - 1; iLayoutEl >= 0; iLayoutEl--) {
+        if (this.layout[iLayoutEl].chartType.id === chartType.id) {
+          this.layout.splice(iLayoutEl, 1);
         }
       }
     }
-
-    this.updateLayout();
   }
 
   addChartTypeToLayout(chartType: ChartType, vizDataFields: VisualizationDataField[] = []): void {
     const formArray: FormArray = this.getFormArray('layout');
     const formGroup: FormGroup = this.genLayoutFormGroup(chartType);
-    formArray.push(formGroup);
 
     const dataFormArray: FormArray = formGroup.get('data') as FormArray;
     for (let iVizDataField=0; iVizDataField < vizDataFields.length; iVizDataField++) {
@@ -351,6 +364,13 @@ export class EditComponent implements OnInit {
         simResultsFormArray.push(this.formBuilder.control(simResult));
       }
     }
+
+    formArray.push(formGroup);
+
+    const layoutEl = new VisualizationLayoutElement();
+    layoutEl.chartType = new ChartType();
+    Object.assign(layoutEl.chartType, chartType);
+    this.layout.push(layoutEl);
   }
 
   genLayoutFormGroup(chartType: ChartType): FormGroup {
@@ -358,8 +378,8 @@ export class EditComponent implements OnInit {
     for (const dataField of chartType.getDataFields()) {
       const simResultsFormArray: FormArray = this.formBuilder.array([],
         (dataField.shape === ChartTypeDataFieldShape.array
-          ? [Validators.required, Validators.minLength(1)]
-          : Validators.maxLength(1)));
+          ? []
+          : [Validators.required, Validators.maxLength(1)]));
       dataFormArray.push(this.formBuilder.group({
         dataField: this.formBuilder.control(dataField),
         simulationResults: simResultsFormArray,
@@ -373,21 +393,66 @@ export class EditComponent implements OnInit {
   }
 
   changeColumns(event): void {
+    const maxColumns: number = Math.max(1, this.getFormArray('layout').length);
     if (event.target.valueAsNumber < 1) {
       this.formGroup.patchValue({columns: 1});
+      this.columns = 1;
+    } else if (event.target.valueAsNumber > maxColumns) {
+      this.formGroup.patchValue({columns: maxColumns});
+      this.columns = maxColumns;
+    } else {
+      this.columns = event.target.valueAsNumber;
     }
-    this.updateLayout();
+  }
+
+  dragLayoutEl(iLayoutEl: number) {
+    this.iDraggingLayoutEl = iLayoutEl;
+  }
+
+  dropLayoutEl(event) {
+    const formArray = this.getFormArray('layout');
+    moveItemInArray(
+      formArray.controls,
+      this.iDraggingLayoutEl,
+      event.dropIndex);
+    this.iDraggingLayoutEl = null;
+  }
+
+  removeLayoutEl() {
+    if (this.iDraggingLayoutEl !== null) {
+      const formArray = this.getFormArray('layout')
+      formArray.removeAt(this.iDraggingLayoutEl);
+      this.iDraggingLayoutEl = null;
+    }
   }
 
   updateLayout(): void {
-    this.columns = this.formGroup.value.columns;
-    const rows = Math.max(1, Math.ceil(this.getFormArray('layout').length / this.columns));
+    const numLayoutEl: number = this.getFormArray('layout').length;
+    const columnsFormControl: FormControl = this.formGroup.get('columns') as FormControl;
+    columnsFormControl.setValidators([Validators.min(1), Validators.max(numLayoutEl)]);
 
-    if (this._layout) {
-      this._layout.nativeElement.setAttribute('style', (
+    if (this.layoutContainer) {
+      const columns: number = columnsFormControl.value;
+      const rows = Math.max(1, Math.ceil(numLayoutEl / columns));
+      this.layoutContainer.nativeElement.setAttribute('style', (
         `grid-template-rows: repeat(${ rows }, 10rem);` +
-        `grid-template-columns: repeat(${ this.columns }, 10rem)`));
+        `grid-template-columns: repeat(${ columns }, 10rem)`));
     }
+  }
+
+  updatePreview(): void {
+    const vis: Visualization = new Visualization();
+    vis.columns = this.formGroup.get('columns').value;
+    vis.layout = [];
+    for (const layoutElData of this.formGroup.get('layout').value) {
+      const layoutEl = new VisualizationLayoutElement();
+      Object.assign(layoutEl, layoutElData);
+      vis.layout.push(layoutEl);
+    }
+    this.vegaSpec = vis.getSpec();
+
+    // TODO: update data
+    this.vegaData = {};
   }
 
   getFormArray(array: string): FormArray {
@@ -412,21 +477,34 @@ export class EditComponent implements OnInit {
 
   selectSimulation(simulation: Simulation, selected: boolean): void {
     if (selected) {
-      const simulationResults: SimulationResult[] = [];
-      for (const variable of this.modelService.getVariables(simulation.model)) {
-        const simulationResult = new SimulationResult();
-        simulationResult.simulation = simulation;
-        simulationResult.variable = variable;
-        simulationResults.push(simulationResult);
+      let alreadySelected = false;
+      for (const simResult of this.allSimulationResults) {
+        if (simResult['simulation'].id === simulation.id) {
+          alreadySelected = true;
+          break;
+        }
       }
 
-      this.allSimulationResults.push({
-        simulation,
-        simulationResults,
-      });
-      this.allSimulationResults = this.allSimulationResults.sort((a, b) => {
-        return a['simulation'].id > b['simulation'].id ? 1 : -1;
-      });
+      if (!alreadySelected) {
+        const simulationCopy = new Simulation();
+        Object.assign(simulationCopy, simulation);
+        const simulationResults: SimulationResult[] = [];
+        for (const variable of this.modelService.getVariables(simulationCopy.model)) {
+          const simulationResult = new SimulationResult();
+          simulationResult.simulation = simulationCopy;
+          simulationResult.variable = variable;
+          simulationResults.push(simulationResult);
+        }
+
+        this.allSimulationResults.push({
+          simulation: simulationCopy,
+          simulationResults,
+        });
+        this.allSimulationResults = this.allSimulationResults.sort((a, b) => {
+          return a['simulation'].id > b['simulation'].id ? 1 : -1;
+        });
+      }
+
     } else {
       for (let iGroup = 0; iGroup < this.allSimulationResults.length; iGroup++) {
         if (this.allSimulationResults[iGroup]['simulation'].id === simulation.id) {

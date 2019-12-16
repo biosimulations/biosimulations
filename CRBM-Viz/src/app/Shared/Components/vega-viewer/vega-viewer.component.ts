@@ -8,24 +8,42 @@ import vegaEmbed from 'vega-embed';
   styleUrls: ['./vega-viewer.component.sass'],
 })
 export class VegaViewerComponent {
+  /*
+  TODO: make size responsive to screen size
+  See https://github.com/vega/vega/issues/755
+
+  (JRK) I already tried adding a handler for window.resize to set the width and height. Wasn't successful.
+
+  Note, Vega can only automatically fit visualizations with that do not use facets, layers, or concatenation.
+  */
+
   private _spec: object;
   private _options: object;
   @ViewChild('vegaContainer', { static: true }) vegaContainer: ElementRef;
-  private viewApi;
+  viewApi;
 
   @Input()
   set spec(value: object) {
-    this._spec = value;
+    this._spec = {};
+    Object.assign(this._spec, value);
 
-    if (typeof value !== 'string') {
+    if (('facet' in this._spec) || ('layer' in this._spec) || ('hconcat' in this._spec) || ('vconcat' in this._spec)) {
+      for (const prop of ['autosize', 'height', 'width']) {
+        if (prop in this._spec) {
+          delete this._spec[prop];
+        }
+      }
+
+    } else {
       value['width'] = 'container';
       value['height'] = 'container';
       value['autosize'] = {
         type: 'fit',
         resize: true,
       };
-      value['background'] = 'transparent';
     }
+
+    value['background'] = 'transparent';
 
     this.loadSpec();
   }
@@ -48,7 +66,6 @@ export class VegaViewerComponent {
 
   loadSpec() {
     if (this.vegaContainer && this._spec) {
-      // console.log(this._spec);
       vegaEmbed(this.vegaContainer.nativeElement, this._spec, this._options)
         // result.view provides access to the Vega View API
         .then(viewApi => {

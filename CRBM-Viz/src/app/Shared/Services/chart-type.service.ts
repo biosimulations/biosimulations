@@ -26,7 +26,7 @@ export class ChartTypeService {
     chartType.spec = {
       $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
       data: {
-        name: 'data-0',
+        name: 'values',
         shape: 'array',
         type: 'dynamicSimulationResult',
         values: [

@@ -54,6 +54,45 @@ export class Visualization implements TopLevelResource {
     }
   }
 
+   getRows(): number {
+    return Math.ceil(this.layout.length / this.columns);
+  }
+
+  getSpec(): object {
+    if (this.layout.length === 0) {
+      return null;
+
+    } else if (this.layout.length === 1) {
+      return this.layout[0].chartType.spec;
+
+    } else {
+
+      const spec: object = {
+        $schema: this.layout[0].chartType.spec['$schema'],
+        vconcat: [],
+      }
+      const rows = this.getRows();
+      for (let iRow = 0; iRow < rows; iRow++) {
+        const maxColumns: number = Math.min(
+          this.columns,
+          this.layout.length - iRow * this.columns);
+        const row = [];
+        spec['vconcat'].push({hconcat: row});
+        for (let iCol = 0; iCol < maxColumns; iCol++) {
+          const specCopy: object = {};
+          Object.assign(specCopy, this.layout[iRow * this.columns + iCol].chartType.spec);
+          for (const prop of ['autosize', 'height', 'width']) {
+            if (prop in specCopy) {
+              delete specCopy[prop];
+            }
+          }
+          row.push(specCopy);
+        }
+      }
+      return spec;
+    }
+  }
+
   getProjects(): Project[] {
     return [
       ProjectService._get('001'),

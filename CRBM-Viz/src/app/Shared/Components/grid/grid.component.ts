@@ -220,13 +220,14 @@ export class GridComponent {
   }
 
   setRowSelection(rowDatum: object, selection: boolean): void {
-    rowDatum['_selected'] = selection;
+    const row = this.gridApi.getRowNode(rowDatum['id']);
+    row.data['_selected'] = selection;
     if (selection) {
-      this.selected.add(rowDatum);
+      this.selected.add(row.data);
     } else {
-      this.selected.delete(rowDatum);
+      this.selected.delete(row.data);
     }
-    this.gridApi.getRowNode(rowDatum['id']).setSelected(selection, false);
+    row.setSelected(selection, false);
   }
 
   rowSelected(event): void {
