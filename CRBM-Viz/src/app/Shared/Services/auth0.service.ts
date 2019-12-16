@@ -21,6 +21,7 @@ import {
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -166,8 +167,17 @@ export class AuthService {
    *
    */
   confirmExists(userProfile: any) {
+    let user = new User();
+    user.userId = userProfile.sub;
+    if (userProfile.email) {
+      user.email = userProfile.email;
+    }
+    user.username =
+      userProfile['https://www.biosimulations.org:app_metadata']['username'];
+    user.firstName = userProfile.given_name;
+    user.lastName = userProfile.given_name;
     this.http
-      .post(environment.crbm.CRBMAPI_URL + '/users/validate', userProfile)
+      .post(environment.crbm.CRBMAPI_URL + '/users', user)
       .subscribe(res => {
         if (!environment.production) {
           console.log(userProfile);

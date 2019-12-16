@@ -7,6 +7,7 @@ import { UtilsService } from '../Services/utils.service';
 import * as md5 from 'md5';
 
 export class User implements PersonInterface {
+  userId: string;
   auth0Id?: string;
   id?: number;
   username?: string;
@@ -38,7 +39,11 @@ export class User implements PersonInterface {
 
   getGravatarImgUrl(): string {
     if (this.gravatarEmail) {
-      return 'https://www.gravatar.com/avatar/' + md5(this.gravatarEmail.trim().toLowerCase()) + '?size=320';
+      return (
+        'https://www.gravatar.com/avatar/' +
+        md5(this.gravatarEmail.trim().toLowerCase()) +
+        '?size=320'
+      );
     } else {
       return 'assets/defaultSilhouette.svg';
     }
