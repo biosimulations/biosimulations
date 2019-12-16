@@ -167,7 +167,7 @@ export class AuthService {
    *
    */
   confirmExists(userProfile: any) {
-    let user = new User();
+    const user = new User();
     user.userId = userProfile.sub;
     if (userProfile.email) {
       user.email = userProfile.email;
