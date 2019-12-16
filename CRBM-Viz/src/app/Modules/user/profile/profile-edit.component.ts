@@ -15,7 +15,6 @@ import { ProvidedFilter } from 'ag-grid-community';
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.sass'],
 })
-
 export class ProfileEditComponent implements OnInit {
   formGroup: FormGroup;
 
@@ -24,7 +23,8 @@ export class ProfileEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     public auth: AuthService,
-    private userService: UserService) {
+    private userService: UserService
+  ) {
     this.formGroup = this.formBuilder.group({
       username: [''],
       firstName: [''],
@@ -48,16 +48,22 @@ export class ProfileEditComponent implements OnInit {
       { label: 'Edit your profile' },
     ];
     const buttons: NavItem[] = [
-      { iconType: 'fas', icon: 'user', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn },
+      {
+        iconType: 'fas',
+        icon: 'user',
+        label: 'View',
+        route: ['/user'],
+        display: NavItemDisplayLevel.loggedIn,
+      },
     ];
     this.breadCrumbsService.set(crumbs, buttons);
-    let user: User
+    let user: User;
     if (this.auth && this.auth.token && this.auth.token.sub) {
       this.auth.userProfile$.subscribe(profile =>
-        this.userService.get$(profile.nickname).subscribe(getUser =>
-          user = user
-        )
-      )
+        this.userService
+          .get$(profile.nickname)
+          .subscribe(getUser => (user = user))
+      );
       this.formGroup.patchValue(user);
       // this.users.get().subscribe(res => (this.user = res));
     }
@@ -65,7 +71,9 @@ export class ProfileEditComponent implements OnInit {
 
   submit(): void {
     const data: User = this.formGroup.value as User;
-    this.userService.set(data);
+    this.auth.getUsername$().subscribe(name => {
+      this.userService.set(data, name);
+    });
 
     this.snackBar.open('Profile saved', '', {
       panelClass: 'centered-snack-bar',

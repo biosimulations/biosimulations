@@ -125,5 +125,9 @@ export class UserService {
     ];
   }
 
-  set(user: User): void {}
+  set(user: User, userName: string): void {
+    this.http
+      .put(this.endpoint + '/users/' + userName, user)
+      .subscribe(res => console.log(res));
+  }
 }
