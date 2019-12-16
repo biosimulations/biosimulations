@@ -20,21 +20,25 @@ export class HomeComponent implements OnInit {
 
     this.statGraphs = [
         this.getBarGraph(
+          'BioSimulations content',
           'Count', null, 'log',
           this.stats['countObjectsByType']),
         this.getBarGraph(
+          'Modeling frameworks',
           'Models', null, 'linear',
           this.stats['countModelsByFramework']),
         this.getBarGraph(
+          'Model formats',
           'Models', null, 'linear',
           this.stats['countModelsByFormat']),
         this.getBarGraph(
+          'Simulators',
           'Simulations', null, 'linear',
           this.stats['countSimulationsBySimulator']),
     ];
   }
 
-  getBarGraph(xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
+  getBarGraph(title: string, xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
     const xScale: object = null;
     let maxVal = 0;
     for (const datum of data) {
@@ -46,6 +50,7 @@ export class HomeComponent implements OnInit {
     }
 
     return {
+      title,
       spec: {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         width: 'container',
@@ -78,6 +83,7 @@ export class HomeComponent implements OnInit {
             type: 'ordinal',
             axis: {
               title: yAxisLabel,
+              titleFontWeight: 'normal',
               gridOpacity: 0,
               minExtent: 84,
               maxExtent: 84,
@@ -91,12 +97,13 @@ export class HomeComponent implements OnInit {
             },
             axis: {
               title: xAxisLabel,
+              titleFontWeight: 'normal',
               gridOpacity: 0,
               values: (xScaleType === 'log' ? xTicks : undefined)
             },
           },
         },
-        mark: {type: 'bar', color: '#2196f3'},
+        mark: {type: 'bar', color: '#ccc'},
       },
       data: {
         values: data

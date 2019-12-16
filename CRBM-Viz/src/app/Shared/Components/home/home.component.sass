@@ -1,193 +1,122 @@
 @import 'src/theme.scss'
 
 .container
-    height: calc(100vh - 64px)
-    max-height: calc(100vh - 64px)
+    min-height: calc(100vh - 64px)
+    background: #fff
+
+.logo
     background-image: url('src/assets/background/network/grey-3.png')
     background-size: cover
     display: flex
-    justify-content: center
     align-items: center
+    justify-content: center
+    height: 40vh
 
-.container-inner
-    height: 80%
+    .logo-inner
+        text-align: center
+
+    img
+        height: 12vh
+    .title
+        padding-top: 1rem
+        padding-bottom: 1rem
+        font-size: 32px
+        line-height: normal
+        font-weight: bold
+        text-align: center
+    .text
+        font-size: 24px
+        line-height: 150%
+        text-align: center
+
+.partial-width
+    max-width: 1400px
+    margin: 0 auto
+    padding-top: 3rem
+
+.features
+    width: 100%
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: space-between
+
+    .feature
+        .title
+            color: mat-color($theme-primary)
+            font-size: 20px
+            line-height: normal
+            font-weight: bold
+            text-align: center
+
+        .text
+            font-size: 16px
+            line-height: normal
+            padding: 0
+            margin: 0
+            list-style-type: none
+            text-align: center
+
+            li
+                padding-top: 1rem
+
+.partners
+    width: 100%
     display: grid
-    grid-template-columns: auto auto
-    grid-gap: 2rem
-
-.workflow
-    height: 100%
-    display: grid
-    grid-template-rows: 1fr 1fr 1fr
-    grid-gap: 2rem
-
-    .workflow-el
-        width: calc(100% - 2px)
-        height: calc(100% - 2px)
-        display: grid
-        grid-template-columns: 2rem 1fr auto
-        grid-gap: 0
+    grid-template-columns: 1fr 1fr 1fr
+    grid-gap: 6rem
 
     .title
-        width: 2rem
-        height: 100%
-        cursor: pointer
-        .title-text
-            transform: rotate(-90deg)
-    .graphics
-        height: calc(100% - 1rem)
-        padding: 0.5rem
-        cursor: pointer
+        color: mat-color($theme-accent)
+        font-size: 20px
+        line-height: normal
+        font-weight: bold
         text-align: center
-        border-width: 0 1px 0 0
-        border-style: solid
+        margin-bottom: 0.5rem
 
-        .graphics-inner
-            height: calc(((100vh - 64px) * 0.8 - 2 * 2rem) / 3 - 2 * 0.5rem - 2 * 1px)
-            transition: all 0.5s
-
-        .icon-container
-            height: 65%
-        .icon
-            height: 100%
-        .logos
-            margin-top: 0.5rem
-            height: calc(35% - 0.5rem)
-        .logo-row
-            line-height: 0
-            height: calc((100% - 0.25rem) / 2)
-        .logo-row:not(:first-child)
-            margin-top: 0.25rem
-            text-align: center
-        .logo
-            height: 100%
-        .logo:not(:first-child)
-            margin-left: 0.25rem
-
-    .text
-        width: 29.5rem
-        height: 100%
-        padding: 0 0.5rem 0 1rem
-        overflow: hidden
+    .content
         display: flex
-        align-items: center
-        flex-direction: column
-        font-size: 125%
-        line-height: 125%
-        font-weight: 500
+        flex-direction: row
+        justify-content: center
+        flex-wrap: wrap
+        align-items: flex-start
+        align-content: flex-start
+    img
+        height: 3rem
+        width: auto
+        margin-top: 0.5rem
+        margin-left: 0.25rem
+        margin-right: 0.25rem
+        transition: all 0.5s
 
-        .bullet
-            width: 100%
-            display: flex
-            align-items: center
-            flex-grow: 1
-            text-indent: -1rem
-            margin-left: 1rem
-
-    .projects
-        border-color: mat-color($theme-primary)
-        background: #e8f4fd
-        .title
-            background: mat-color($theme-primary)
-        .graphics
-            background: #c7e4fc
-            border-color: #a6d5fa
-
-    .projects:hover
-        border-color: mat-color($theme-primary, darker)
-        background: #d2eafc
-        .title
-            background: mat-color($theme-primary, darker)
-        .graphics
-            background: #b1dafa
-            border-color: #8fcaf9
-
-    .simulations
-        border-color: mat-color($theme-accent)
-        background: #fff4e5
-        .title
-            background: mat-color($theme-accent)
-        .graphics
-            background: #ffe5bf
-            border-color: #ffd599
-
-    .simulations:hover
-        border-color: mat-color($theme-accent, darker)
-        background: #feeacc
-        .title
-            background: mat-color($theme-accent, darker)
-        .graphics
-            background: #ffdaa5
-            border-color: #ffcb7f
-
-    .visualizations
-        border-color: mat-color($theme-warn)
-        background: #fdecea
-        .title
-            background: mat-color($theme-warn)
-        .graphics
-            background: #fcd0cc
-            border-color: #fab3ae
-
-    .visualizations:hover
-        border-color: mat-color($theme-warn, darker)
-        background: #fcd9d6
-        .title
-            background: mat-color($theme-warn, darker)
-        .graphics
-            background: #fbbdb8
-            border-color: #f9a19a
-
-    .workflow-el:hover
-        .graphics-inner
-            transform: scale(1.06)
+    img:hover
+        transform: scale(1.08)
 
 .stats
-    width: 20rem
-    height: calc(100% - 2px)
-    border-color: #999
-    background: #e3e3e3
-    overflow: hidden
+    width: 100%
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-gap: 3rem
+
+    padding-bottom: 3rem
+
     .title
-        height: 2rem
-        background: #999
-    .graphics
-        height: calc(100% - 2rem - 2 * 1rem)
-        padding: 1rem
-        display: grid
-        grid-template-rows: 1.1fr 1.1fr 1.7fr 1.7fr
-        grid-gap: 1rem
-        overflow: visible
+        color: mat-color($theme-warn)
+        font-size: 20px
+        line-height: normal
+        font-weight: bold
+        text-align: center
+        margin-bottom: 1rem
 
-        .graph
-            height: 100%
-            transition: all 0.5s
+    .graph
+        width: 100%
+        height: 10vh
 
-.stats:hover
-    border-color: #898989
-    background: #cccccc
-    .title
-        background: #898989
+.spacer
+    padding-top: 3rem
+    padding-bottom: 3rem
+    hr
+        border-style: solid
+        border-width: 0.5px
+        color: #ccc
 
-.graph:hover
-    transform: scale(1.06)
-
-.box
-    border-radius: 4px
-    border-width: 1px
-    border-style: solid
-.title
-    display: flex
-    align-items: center
-    justify-content: center
-.title-text
-    color: #fff
-    font-size: 2.5vh
-    line-height: normal
-    font-weight: bold
-    margin-right: 0.2rem
-
-.title:focus, .graphics:focus
-    outline: none
-.graphics
-    overflow: hidden
