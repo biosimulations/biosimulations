@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts</code>
+    <code>CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts</code>
 </p>
 
 
@@ -129,6 +129,15 @@
                                 <a href="#accessLevels">accessLevels</a>
                             </li>
                             <li>
+                                <a href="#algorithm">algorithm</a>
+                            </li>
+                            <li>
+                                <a href="#algorithmParameters">algorithmParameters</a>
+                            </li>
+                            <li>
+                                <a href="#algorithms">algorithms</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Readonly</span>
                                 <a href="#chipSeparatorKeyCodes">chipSeparatorKeyCodes</a>
                             </li>
@@ -147,18 +156,33 @@
                                 <a href="#mode">mode</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#simulationId">simulationId</a>
+                                <a href="#model">model</a>
                             </li>
                             <li>
-                                <a href="#simulations">simulations</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#modelId">modelId</a>
+                            </li>
+                            <li>
+                                <a href="#modelInputDisabled">modelInputDisabled</a>
+                            </li>
+                            <li>
+                                <a href="#modelParameters">modelParameters</a>
+                            </li>
+                            <li>
+                                <a href="#models">models</a>
+                            </li>
+                            <li>
+                                <a href="#simulation">simulation</a>
+                            </li>
+                            <li>
+                                <a href="#simulationInputsDisabled">simulationInputsDisabled</a>
+                            </li>
+                            <li>
+                                <a href="#simulators">simulators</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#url">url</a>
-                            </li>
-                            <li>
-                                <a href="#visualization">visualization</a>
                             </li>
                         </ul>
                     </td>
@@ -173,7 +197,16 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#addAlgorithmParameterChangeFormElement">addAlgorithmParameterChangeFormElement</a>
+                            </li>
+                            <li>
                                 <a href="#addAuthorFormElement">addAuthorFormElement</a>
+                            </li>
+                            <li>
+                                <a href="#addIdentifierFormElement">addIdentifierFormElement</a>
+                            </li>
+                            <li>
+                                <a href="#addModelParameterChangeFormElement">addModelParameterChangeFormElement</a>
                             </li>
                             <li>
                                 <a href="#addRefFormElement">addRefFormElement</a>
@@ -188,10 +221,19 @@
                                 <a href="#displayAutocompleteEl">displayAutocompleteEl</a>
                             </li>
                             <li>
+                                <a href="#displayAutocompleteParameter">displayAutocompleteParameter</a>
+                            </li>
+                            <li>
                                 <a href="#drop">drop</a>
                             </li>
                             <li>
+                                <a href="#getAlgorithmParameters">getAlgorithmParameters</a>
+                            </li>
+                            <li>
                                 <a href="#getFormArray">getFormArray</a>
+                            </li>
+                            <li>
+                                <a href="#getModelParameters">getModelParameters</a>
                             </li>
                             <li>
                                 <a href="#ngOnInit">ngOnInit</a>
@@ -204,6 +246,18 @@
                             </li>
                             <li>
                                 <a href="#selectAutocomplete">selectAutocomplete</a>
+                            </li>
+                            <li>
+                                <a href="#selectAutocompleteAlgorithm">selectAutocompleteAlgorithm</a>
+                            </li>
+                            <li>
+                                <a href="#selectAutocompleteAlgorithmParameter">selectAutocompleteAlgorithmParameter</a>
+                            </li>
+                            <li>
+                                <a href="#selectAutocompleteModel">selectAutocompleteModel</a>
+                            </li>
+                            <li>
+                                <a href="#selectAutocompleteModelParameter">selectAutocompleteModelParameter</a>
                             </li>
                             <li>
                                 <a href="#selectFile">selectFile</a>
@@ -232,12 +286,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(formBuilder: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>, dialog: MatDialog, snackBar: MatSnackBar, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, metadataService: <a href="../injectables/MetadataService.html">MetadataService</a>, modelService: <a href="../injectables/ModelService.html">ModelService</a>, simulationService: <a href="../injectables/SimulationService.html">SimulationService</a>, visualizationService: <a href="../injectables/VisualizationService.html">VisualizationService</a>)</code>
+<code>constructor(formBuilder: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, breadCrumbsService: <a href="../injectables/BreadCrumbsService.html">BreadCrumbsService</a>, dialog: MatDialog, snackBar: MatSnackBar, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, metadataService: <a href="../injectables/MetadataService.html">MetadataService</a>, modelService: <a href="../injectables/ModelService.html">ModelService</a>, simulationService: <a href="../injectables/SimulationService.html">SimulationService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:48</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:60</a></div>
                             </td>
                         </tr>
 
@@ -362,18 +416,6 @@
                                                     </td>
                                                     
                                                 </tr>
-                                                <tr>
-                                                        <td>visualizationService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/VisualizationService.html" target="_self" >VisualizationService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -396,6 +438,45 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="addAlgorithmParameterChangeFormElement"></a>
+                    <span class="name">
+                        <b>
+                            addAlgorithmParameterChangeFormElement
+                        </b>
+                        <a href="#addAlgorithmParameterChangeFormElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addAlgorithmParameterChangeFormElement()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="470"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:470</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="addAuthorFormElement"></a>
                     <span class="name">
                         <b>
@@ -414,8 +495,86 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="287"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:287</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="479"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:479</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addIdentifierFormElement"></a>
+                    <span class="name">
+                        <b>
+                            addIdentifierFormElement
+                        </b>
+                        <a href="#addIdentifierFormElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addIdentifierFormElement()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="488"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:488</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addModelParameterChangeFormElement"></a>
+                    <span class="name">
+                        <b>
+                            addModelParameterChangeFormElement
+                        </b>
+                        <a href="#addModelParameterChangeFormElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addModelParameterChangeFormElement()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="460"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:460</a></div>
                 </td>
             </tr>
 
@@ -453,8 +612,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="296"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:296</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="496"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:496</a></div>
                 </td>
             </tr>
 
@@ -492,8 +651,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="265"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:265</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="438"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:438</a></div>
                 </td>
             </tr>
 
@@ -562,8 +721,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="260"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:260</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="433"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:433</a></div>
                 </td>
             </tr>
 
@@ -601,8 +760,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="242"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:242</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="349"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:349</a></div>
                 </td>
             </tr>
 
@@ -653,26 +812,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="drop"></a>
+                    <a name="displayAutocompleteParameter"></a>
                     <span class="name">
                         <b>
-                            drop
+                            displayAutocompleteParameter
                         </b>
-                        <a href="#drop"><span class="icon ion-ios-link"></span></a>
+                        <a href="#displayAutocompleteParameter"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>drop(array: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, event: CdkDragDrop<string[]>)</code>
+<code>displayAutocompleteParameter(parameter: ModelParameter | AlgorithmParameter)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="310"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:310</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="353"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:353</a></div>
                 </td>
             </tr>
 
@@ -692,9 +851,79 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>array</td>
+                                    <td>parameter</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            <code>ModelParameter | AlgorithmParameter</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>string | undefined</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="drop"></a>
+                    <span class="name">
+                        <b>
+                            drop
+                        </b>
+                        <a href="#drop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>drop(formArray: <a href="https://angular.io/api/forms/FormArray" target="_blank">FormArray</a>, event: CdkDragDrop<string[]>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="510"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:510</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formArray</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/forms/FormArray" target="_blank" >FormArray</a></code>
                                     </td>
 
                                     <td>
@@ -707,6 +936,76 @@
                                     <td>event</td>
                                     <td>
                                             <code>CdkDragDrop&lt;string[]&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAlgorithmParameters"></a>
+                    <span class="name">
+                        <b>
+                            getAlgorithmParameters
+                        </b>
+                        <a href="#getAlgorithmParameters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAlgorithmParameters(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="324"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:324</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -753,8 +1052,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="222"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:222</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="329"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:329</a></div>
                 </td>
             </tr>
 
@@ -805,6 +1104,76 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getModelParameters"></a>
+                    <span class="name">
+                        <b>
+                            getModelParameters
+                        </b>
+                        <a href="#getModelParameters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getModelParameters(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="320"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:320</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
                         <b>
@@ -823,8 +1192,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:94</a></div>
                 </td>
             </tr>
 
@@ -862,8 +1231,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="335"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:335</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="535"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:535</a></div>
                 </td>
             </tr>
 
@@ -901,8 +1270,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="282"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:282</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="455"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:455</a></div>
                 </td>
             </tr>
 
@@ -983,8 +1352,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="246"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:246</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="357"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:357</a></div>
                 </td>
             </tr>
 
@@ -1052,6 +1421,286 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="selectAutocompleteAlgorithm"></a>
+                    <span class="name">
+                        <b>
+                            selectAutocompleteAlgorithm
+                        </b>
+                        <a href="#selectAutocompleteAlgorithm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAutocompleteAlgorithm(formControl: <a href="https://angular.io/api/forms/AbstractControl" target="_blank">AbstractControl</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="404"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:404</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formControl</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/forms/AbstractControl" target="_blank" >AbstractControl</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectAutocompleteAlgorithmParameter"></a>
+                    <span class="name">
+                        <b>
+                            selectAutocompleteAlgorithmParameter
+                        </b>
+                        <a href="#selectAutocompleteAlgorithmParameter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAutocompleteAlgorithmParameter(formGroup: <a href="https://angular.io/api/forms/FormGroup" target="_blank">FormGroup</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="417"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:417</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formGroup</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectAutocompleteModel"></a>
+                    <span class="name">
+                        <b>
+                            selectAutocompleteModel
+                        </b>
+                        <a href="#selectAutocompleteModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAutocompleteModel(formControl: <a href="https://angular.io/api/forms/AbstractControl" target="_blank">AbstractControl</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="371"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:371</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formControl</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/forms/AbstractControl" target="_blank" >AbstractControl</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectAutocompleteModelParameter"></a>
+                    <span class="name">
+                        <b>
+                            selectAutocompleteModelParameter
+                        </b>
+                        <a href="#selectAutocompleteModelParameter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAutocompleteModelParameter(formGroup: <a href="https://angular.io/api/forms/FormGroup" target="_blank">FormGroup</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="385"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:385</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formGroup</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="selectFile"></a>
                     <span class="name">
                         <b>
@@ -1070,8 +1719,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="226"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:226</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="333"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:333</a></div>
                 </td>
             </tr>
 
@@ -1163,8 +1812,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="83"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:83</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:122</a></div>
                 </td>
             </tr>
 
@@ -1202,8 +1851,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="317"
-                            class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:317</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="517"
+                            class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:517</a></div>
                 </td>
             </tr>
 
@@ -1244,7 +1893,88 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:39</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="algorithm"></a>
+                        <span class="name">
+                            <b>
+                            algorithm</b>
+                            <a href="#algorithm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Algorithm.html" target="_self" >Algorithm</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:60</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="algorithmParameters"></a>
+                        <span class="name">
+                            <b>
+                            algorithmParameters</b>
+                            <a href="#algorithmParameters"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>AlgorithmParameter[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="algorithms"></a>
+                        <span class="name">
+                            <b>
+                            algorithms</b>
+                            <a href="#algorithms"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Algorithm.html" target="_self" >Observable&lt;Algorithm[]&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:44</a></div>
                             </td>
                         </tr>
 
@@ -1277,7 +2007,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:41</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:49</a></div>
                             </td>
                         </tr>
 
@@ -1304,7 +2034,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:48</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:58</a></div>
                             </td>
                         </tr>
 
@@ -1326,13 +2056,13 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:45</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:55</a></div>
                             </td>
                         </tr>
 
@@ -1358,7 +2088,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:40</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:48</a></div>
                             </td>
                         </tr>
 
@@ -1386,7 +2116,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:51</a></div>
                             </td>
                         </tr>
 
@@ -1397,12 +2127,39 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="simulationId"></a>
+                        <a name="model"></a>
+                        <span class="name">
+                            <b>
+                            model</b>
+                            <a href="#model"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Model.html" target="_self" >Model</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelId"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Private</span>
-                            simulationId</b>
-                            <a href="#simulationId"><span class="icon ion-ios-link"></span></a>
+                            modelId</b>
+                            <a href="#modelId"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -1414,7 +2171,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:46</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:56</a></div>
                             </td>
                         </tr>
 
@@ -1425,23 +2182,158 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="simulations"></a>
+                        <a name="modelInputDisabled"></a>
                         <span class="name">
                             <b>
-                            simulations</b>
-                            <a href="#simulations"><span class="icon ion-ios-link"></span></a>
+                            modelInputDisabled</b>
+                            <a href="#modelInputDisabled"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../classes/Simulation.html" target="_self" >Observable&lt;Simulation[]&gt;</a></code>
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:38</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelParameters"></a>
+                        <span class="name">
+                            <b>
+                            modelParameters</b>
+                            <a href="#modelParameters"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>ModelParameter[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="models"></a>
+                        <span class="name">
+                            <b>
+                            models</b>
+                            <a href="#models"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Model.html" target="_self" >Observable&lt;Model[]&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="simulation"></a>
+                        <span class="name">
+                            <b>
+                            simulation</b>
+                            <a href="#simulation"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Simulation.html" target="_self" >Simulation</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="simulationInputsDisabled"></a>
+                        <span class="name">
+                            <b>
+                            simulationInputsDisabled</b>
+                            <a href="#simulationInputsDisabled"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="simulators"></a>
+                        <span class="name">
+                            <b>
+                            simulators</b>
+                            <a href="#simulators"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Simulator.html" target="_self" >Observable&lt;Simulator[]&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:46</a></div>
                             </td>
                         </tr>
 
@@ -1469,34 +2361,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:44</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="visualization"></a>
-                        <span class="name">
-                            <b>
-                            visualization</b>
-                            <a href="#visualization"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../classes/Visualization.html" target="_self" >Visualization</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">CRBM-Viz/src/app/Modules/visualizations/edit/edit.component.ts:47</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">CRBM-Viz/src/app/Modules/simulations/edit/edit.component.ts:54</a></div>
                             </td>
                         </tr>
 
@@ -1524,17 +2389,21 @@ import { NavItem } from &#x27;src/app/Shared/Models/nav-item&#x27;;
 import { BreadCrumbsService } from &#x27;src/app/Shared/Services/bread-crumbs.service&#x27;;
 import { AccessLevel, accessLevels } from &#x27;src/app/Shared/Enums/access-level&#x27;;
 import { License, licenses } from &#x27;src/app/Shared/Enums/license&#x27;;
+import { Algorithm } from &#x27;src/app/Shared/Models/algorithm&#x27;;
+import { AlgorithmParameter } from &#x27;src/app/Shared/Models/algorithm-parameter&#x27;;
+import { Model } from &#x27;src/app/Shared/Models/model&#x27;;
+import { ModelParameter } from &#x27;src/app/Shared/Models/model-parameter&#x27;;
 import { Simulation } from &#x27;src/app/Shared/Models/simulation&#x27;;
-import { Visualization } from &#x27;src/app/Shared/Models/visualization&#x27;;
+import { Simulator } from &#x27;src/app/Shared/Models/simulator&#x27;;
+import { Taxon } from &#x27;src/app/Shared/Models/taxon&#x27;;
 import { MetadataService } from &#x27;src/app/Shared/Services/metadata.service&#x27;;
 import { ModelService } from &#x27;src/app/Shared/Services/model.service&#x27;;
 import { SimulationService } from &#x27;src/app/Shared/Services/simulation.service&#x27;;
-import { VisualizationService } from &#x27;src/app/Shared/Services/visualization.service&#x27;;
 import { OkCancelDialogComponent, OkCancelDialogData } from &#x27;src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component&#x27;;
 
 enum Mode {
   new &#x3D; &#x27;new&#x27;,
-  newOfSimulation &#x3D; &#x27;newOfSimulation&#x27;,
+  newOfModel &#x3D; &#x27;newOfModel&#x27;,
   fork &#x3D; &#x27;fork&#x27;,
   edit &#x3D; &#x27;edit&#x27;,
 }
@@ -1546,17 +2415,25 @@ enum Mode {
   styleUrls: [&#x27;./edit.component.sass&#x27;],
 })
 export class EditComponent implements OnInit {
-  simulations: Observable&lt;Simulation[]&gt;;
+  models: Observable&lt;Model[]&gt;;
+  modelParameters: ModelParameter[];
+  algorithms: Observable&lt;Algorithm[]&gt;;
+  algorithmParameters: AlgorithmParameter[];
+  simulators: Observable&lt;Simulator[]&gt;;
   accessLevels &#x3D; accessLevels;
   licenses &#x3D; licenses;
   readonly chipSeparatorKeyCodes: number[] &#x3D; [ENTER];
 
   private mode: Mode;
+  modelInputDisabled: boolean;
+  simulationInputsDisabled: boolean;
   private url: UrlSegment[];
-  private id: number;
-  private simulationId: string;
-  visualization: Visualization;
+  private id: string;
+  private modelId: string;
+  simulation: Simulation;
   formGroup: FormGroup;
+  model: Model;
+  algorithm: Algorithm;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -1568,14 +2445,22 @@ export class EditComponent implements OnInit {
     private metadataService: MetadataService,
     private modelService: ModelService,
     private simulationService: SimulationService,
-    private visualizationService: VisualizationService,
     ) {
     this.formGroup &#x3D; this.formBuilder.group({
+      model: [&#x27;&#x27;],
       name: [&#x27;&#x27;],
       image: [&#x27;&#x27;],
       description: [&#x27;&#x27;],
       tags: this.formBuilder.array([]),
+      modelParameterChanges: this.formBuilder.array([]),
+      startTime: [&#x27;&#x27;],
+      endTime: [&#x27;&#x27;],
+      algorithm: [&#x27;&#x27;],
+      algorithmParameterChanges: this.formBuilder.array([]),
+      simulator: [&#x27;&#x27;],
+      numTimePoints: [&#x27;&#x27;],
       authors: this.formBuilder.array([]),
+      identifiers: this.formBuilder.array([]),
       refs: this.formBuilder.array([]),
       access: [&#x27;&#x27;],
       license: [&#x27;&#x27;],
@@ -1583,19 +2468,38 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.models &#x3D; this.formGroup.get(&#x27;model&#x27;).valueChanges
+      .pipe(
+        startWith(&#x27;&#x27;),
+        map(value &#x3D;&gt; value &#x3D;&#x3D;&#x3D; null || typeof value &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? value : value.name),
+        map(value &#x3D;&gt; this.modelService.list(value))
+      );
+    this.algorithms &#x3D; this.formGroup.get(&#x27;algorithm&#x27;).valueChanges
+      .pipe(
+        startWith(&#x27;&#x27;),
+        map(value &#x3D;&gt; value &#x3D;&#x3D;&#x3D; null || typeof value &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? value : value.name),
+        map(value &#x3D;&gt; this.metadataService.getAlgorithms(value))
+      );
+    this.simulators &#x3D; this.formGroup.get(&#x27;simulator&#x27;).valueChanges
+      .pipe(
+        startWith(&#x27;&#x27;),
+        map(value &#x3D;&gt; value &#x3D;&#x3D;&#x3D; null || typeof value &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? value : value.name),
+        map(value &#x3D;&gt; this.metadataService.getSimulators(value))
+      );
+
     this.route.params.subscribe(params &#x3D;&gt; {
       this.url &#x3D; this.route.snapshot.url;
-      this.id &#x3D; parseInt(params.id, 10);
-      this.simulationId &#x3D; params.simulationId;
+      this.id &#x3D; params.id;
+      this.modelId &#x3D; params.modelId;
       this.setUp();
     });
   }
 
   setUp(): void {
     // determine mode: new, new of a model, edit, fork
-    if (this.simulationId) {
-      // new visualization of a simulation
-      this.mode &#x3D; Mode.newOfSimulation;
+    if (this.modelId) {
+      // new simulation of a model
+      this.mode &#x3D; Mode.newOfModel;
     } else if (this.id) {
       if (this.url.length &gt; 1 &amp;&amp; this.url[1].path &#x3D;&#x3D;&#x3D; &#x27;fork&#x27;) {
         this.mode &#x3D; Mode.fork;
@@ -1603,20 +2507,21 @@ export class EditComponent implements OnInit {
         this.mode &#x3D; Mode.edit;
       }
     } else {
-      // new visualization
+      // new simulation
       this.mode &#x3D; Mode.new;
     }
 
     // get data
     if (this.id) {
-      this.visualization &#x3D; this.visualizationService.get(this.id);
+      this.simulation &#x3D; this.simulationService.get(this.id);
     }
-    if (this.simulationId) {
+    if (this.modelId) {
+      this.model &#x3D; this.modelService.get(this.modelId);
     }
 
     // bread crumbs and buttons
     const crumbs: object[] &#x3D; [
-      {label: &#x27;Visualizations&#x27;, route: [&#x27;/visualizations&#x27;]},
+      {label: &#x27;Simulations&#x27;, route: [&#x27;/simulations&#x27;]},
     ];
     switch (this.mode) {
       case Mode.new:
@@ -1624,9 +2529,9 @@ export class EditComponent implements OnInit {
           label: &#x27;New&#x27;,
         });
         break;
-      case Mode.newOfSimulation:
+      case Mode.newOfModel:
         crumbs.push({
-          label: &#x27;Simulation &#x27; + this.simulationId,
+          label: &#x27;Model &#x27; + this.model.id,
         });
         crumbs.push({
           label: &#x27;New&#x27;,
@@ -1634,8 +2539,8 @@ export class EditComponent implements OnInit {
         break;
       case Mode.fork:
         crumbs.push({
-          label: &#x27;Visualization &#x27; + this.id,
-          route: [&#x27;/visualizations&#x27;, this.id],
+          label: &#x27;Simulation &#x27; + this.id,
+          route: [&#x27;/simulations&#x27;, this.id],
         });
         crumbs.push({
           label: &#x27;Fork&#x27;,
@@ -1643,8 +2548,8 @@ export class EditComponent implements OnInit {
         break;
       case Mode.edit:
         crumbs.push({
-          label: &#x27;Visualization &#x27; + this.id,
-          route: [&#x27;/visualizations&#x27;, this.id],
+          label: &#x27;Simulation &#x27; + this.id,
+          route: [&#x27;/simulations&#x27;, this.id],
         });
         crumbs.push({
           label: &#x27;Edit&#x27;,
@@ -1655,7 +2560,7 @@ export class EditComponent implements OnInit {
     const buttons: NavItem[] &#x3D; [
       {
         iconType: &#x27;fas&#x27;,
-        icon: &#x27;chart-area&#x27;,
+        icon: &#x27;paint-brush&#x27;,
         label: &#x27;Visualize&#x27;,
         route: [&#x27;/visualizations&#x27;, this.id],
         display: (this.mode &#x3D;&#x3D;&#x3D; Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
@@ -1664,14 +2569,14 @@ export class EditComponent implements OnInit {
         iconType: &#x27;fas&#x27;,
         icon: &#x27;bars&#x27;,
         label: &#x27;View&#x27;,
-        route: [&#x27;/visualizations&#x27;, this.id],
+        route: [&#x27;/simulations&#x27;, this.id],
         display: (this.mode &#x3D;&#x3D;&#x3D; Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
       },
       {
         iconType: &#x27;fas&#x27;,
         icon: &#x27;code-branch&#x27;,
         label: &#x27;Fork&#x27;,
-        route: [&#x27;/visualizations&#x27;, this.id, &#x27;fork&#x27;],
+        route: [&#x27;/simulations&#x27;, this.id, &#x27;fork&#x27;],
         display: (this.mode &#x3D;&#x3D;&#x3D; Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
       },
       {
@@ -1681,53 +2586,120 @@ export class EditComponent implements OnInit {
         click: () &#x3D;&gt; { this.openDeleteDialog() },
         display: (
           this.mode &#x3D;&#x3D;&#x3D; Mode.edit
-          &amp;&amp; this.visualization
-          &amp;&amp; this.visualization.access &#x3D;&#x3D;&#x3D; AccessLevel.private
+          &amp;&amp; this.simulation
+          &amp;&amp; this.simulation.access &#x3D;&#x3D;&#x3D; AccessLevel.private
           ? NavItemDisplayLevel.user
           : NavItemDisplayLevel.never),
-        displayUser: (!!this.visualization ? this.visualization.owner : null),
+        displayUser: (!!this.simulation ? this.simulation.owner : null),
       },
       {
         iconType: &#x27;fas&#x27;,
         icon: &#x27;plus&#x27;,
         label: &#x27;New&#x27;,
-        route: [&#x27;/visualizations&#x27;, &#x27;new&#x27;],
+        route: [&#x27;/simulations&#x27;, &#x27;new&#x27;],
         display: (this.mode &#x3D;&#x3D;&#x3D; Mode.new ? NavItemDisplayLevel.never : NavItemDisplayLevel.always),
       },
       {
         iconType: &#x27;fas&#x27;,
         icon: &#x27;user&#x27;,
-        label: &#x27;Your visualizations&#x27;,
-        route: [&#x27;/user&#x27;, &#x27;visualizations&#x27;],
+        label: &#x27;Your simulations&#x27;,
+        route: [&#x27;/user&#x27;, &#x27;simulations&#x27;],
         display: NavItemDisplayLevel.loggedIn,
       },
       {
         iconType: &#x27;fas&#x27;,
         icon: &#x27;list&#x27;,
         label: &#x27;Browse&#x27;,
-        route: [&#x27;/visualizations&#x27;],
+        route: [&#x27;/simulations&#x27;],
         display: NavItemDisplayLevel.always,
       },
     ];
 
-    this.breadCrumbsService.set(crumbs, buttons, [&#x27;tabs&#x27;]);
+    this.breadCrumbsService.set(crumbs, buttons);
+
+    // set field enable/disabled
+    this.modelInputDisabled &#x3D; this.mode &#x3D;&#x3D;&#x3D; Mode.edit || this.mode &#x3D;&#x3D;&#x3D; Mode.newOfModel;
+    if (this.modelInputDisabled) {
+      this.formGroup.get(&#x27;model&#x27;).disable();
+    } else {
+      this.formGroup.get(&#x27;model&#x27;).enable();
+    }
+
+    this.simulationInputsDisabled &#x3D; this.mode &#x3D;&#x3D;&#x3D; Mode.edit;
+    if (this.simulationInputsDisabled) {
+      this.formGroup.get(&#x27;modelParameterChanges&#x27;).disable();
+      this.formGroup.get(&#x27;startTime&#x27;).disable();
+      this.formGroup.get(&#x27;endTime&#x27;).disable();
+      this.formGroup.get(&#x27;numTimePoints&#x27;).disable();
+      this.formGroup.get(&#x27;algorithm&#x27;).disable();
+      this.formGroup.get(&#x27;algorithmParameterChanges&#x27;).disable();
+      this.formGroup.get(&#x27;simulator&#x27;).disable();
+    } else {
+      this.formGroup.get(&#x27;modelParameterChanges&#x27;).enable();
+      this.formGroup.get(&#x27;startTime&#x27;).enable();
+      this.formGroup.get(&#x27;endTime&#x27;).enable();
+      this.formGroup.get(&#x27;numTimePoints&#x27;).enable();
+      this.formGroup.get(&#x27;algorithm&#x27;).enable();
+      this.formGroup.get(&#x27;algorithmParameterChanges&#x27;).enable();
+      this.formGroup.get(&#x27;simulator&#x27;).enable();
+    }
 
     // populate form
-    if (this.simulationId) {
+    if (this.modelId) {
+      this.formGroup.patchValue({model: this.model});
     }
 
     if (this.id) {
-      for (const el of this.visualization.tags) { this.addTagFormElement(); }
-      for (const el of this.visualization.authors) { this.addAuthorFormElement(); }
-      for (const el of this.visualization.refs) { this.addRefFormElement(); }
-      this.formGroup.patchValue(this.visualization);
+      this.getFormArray(&#x27;tags&#x27;).clear();
+      this.getFormArray(&#x27;modelParameterChanges&#x27;).clear();
+      this.getFormArray(&#x27;algorithmParameterChanges&#x27;).clear();
+      this.getFormArray(&#x27;authors&#x27;).clear();
+      this.getFormArray(&#x27;identifiers&#x27;).clear();
+      this.getFormArray(&#x27;refs&#x27;).clear();
+      this.getFormArray(&#x27;modelParameterChanges&#x27;)
+
+      for (const el of this.simulation.tags) { this.addTagFormElement(); }
+      for (const el of this.simulation.modelParameterChanges) { this.addModelParameterChangeFormElement(); }
+      for (const el of this.simulation.algorithmParameterChanges) { this.addAlgorithmParameterChangeFormElement(); }
+      for (const el of this.simulation.authors) { this.addAuthorFormElement(); }
+      for (const el of this.simulation.identifiers) { this.addIdentifierFormElement(); }
+      for (const el of this.simulation.refs) { this.addRefFormElement(); }
+      this.model &#x3D; this.simulation.model;
+      this.algorithm &#x3D; this.simulation.algorithm;
+      this.formGroup.patchValue(this.simulation);
+      for (const changeFormGroup of this.getFormArray(&#x27;modelParameterChanges&#x27;).controls) {
+        const parameter &#x3D; changeFormGroup.value.parameter
+        changeFormGroup.patchValue({
+          defaultValue: parameter.value,
+          units: parameter.units,
+        })
+      }
+      for (const changeFormGroup of this.getFormArray(&#x27;algorithmParameterChanges&#x27;).controls) {
+        const parameter &#x3D; changeFormGroup.value.parameter
+        changeFormGroup.patchValue({
+          defaultValue: parameter.value,
+        })
+      }
+
     } else {
       for (let i &#x3D; 0; i &lt; 3; i++) {
         // this.addTagFormElement();
+        // this.addModelParameterChangeFormElement();
+        // this.addAlgorithmParameterChangeFormElement();
         this.addAuthorFormElement();
+        this.addIdentifierFormElement();
         this.addRefFormElement();
       }
     }
+  }
+
+  getModelParameters(value: string): void {
+    this.modelParameters &#x3D; this.modelService.getParameters(this.model, value);
+  }
+
+  getAlgorithmParameters(value: string): void {
+    this.algorithmParameters &#x3D; this.metadataService.getAlgorithmParameters(
+      this.algorithm, value);
   }
 
   getFormArray(array: string): FormArray {
@@ -1754,6 +2726,10 @@ export class EditComponent implements OnInit {
     return el ? el[&#x27;name&#x27;] : undefined;
   }
 
+  displayAutocompleteParameter(parameter: ModelParameter | AlgorithmParameter): string | undefined {
+    return parameter ? parameter.id + &#x27;: &#x27; + parameter.name : undefined;
+  }
+
   selectAutocomplete(formControl: AbstractControl, required &#x3D; false): void {
     const value &#x3D; formControl.value;
     if (required &amp;&amp; (typeof value &#x3D;&#x3D;&#x3D; &#x27;string&#x27; || value &#x3D;&#x3D;&#x3D; null)) {
@@ -1766,6 +2742,68 @@ export class EditComponent implements OnInit {
       }
       formControl.setErrors(null);
     }
+  }
+
+  selectAutocompleteModel(formControl: AbstractControl): void {
+    this.model &#x3D; this.formGroup.value.model;
+    this.selectAutocomplete(formControl, true);
+
+    this.formGroup.patchValue({modelParameterChanges: []});
+
+    const controls &#x3D; this.getFormArray(&#x27;modelParameterChanges&#x27;).controls;
+    controls.splice(0, controls.length);
+
+    this.addModelParameterChangeFormElement();
+    this.addModelParameterChangeFormElement();
+    this.addModelParameterChangeFormElement();
+  }
+
+  selectAutocompleteModelParameter(formGroup: FormGroup): void {
+    const parameterFormControl:FormControl &#x3D; formGroup.get(&#x27;parameter&#x27;) as FormControl;
+    this.selectAutocomplete(parameterFormControl, true);
+
+    const parameter &#x3D; parameterFormControl.value;
+    let defaultValue: number;
+    let units &#x3D; &#x27;&#x27;;
+    if (parameter instanceof ModelParameter) {
+      defaultValue &#x3D; parameter.value;
+      units &#x3D; parameter.units;
+    }
+
+    formGroup.patchValue({
+      defaultValue,
+      value: &#x27;&#x27;,
+      units,
+    });
+  }
+
+  selectAutocompleteAlgorithm(formControl: AbstractControl): void {
+    this.algorithm &#x3D; this.formGroup.value.algorithm;
+    this.selectAutocomplete(formControl, true);
+    this.formGroup.patchValue({algorithmParameterChanges: []});
+
+    const controls &#x3D; this.getFormArray(&#x27;algorithmParameterChanges&#x27;).controls;
+    controls.splice(0, controls.length);
+
+    this.addAlgorithmParameterChangeFormElement();
+    this.addAlgorithmParameterChangeFormElement();
+    this.addAlgorithmParameterChangeFormElement();
+  }
+
+  selectAutocompleteAlgorithmParameter(formGroup: FormGroup): void {
+    const parameterFormControl:FormControl &#x3D; formGroup.get(&#x27;parameter&#x27;) as FormControl;
+    this.selectAutocomplete(parameterFormControl, true);
+
+    const parameter &#x3D; parameterFormControl.value;
+    let defaultValue: number;
+    if (parameter instanceof AlgorithmParameter) {
+      defaultValue &#x3D; parameter.value;
+    }
+
+    formGroup.patchValue({
+      defaultValue,
+      value: &#x27;&#x27;
+    });
   }
 
   addTagFormElement(): void {
@@ -1795,12 +2833,39 @@ export class EditComponent implements OnInit {
     formArray.removeAt(iEl);
   }
 
+  addModelParameterChangeFormElement(): void {
+    const formArray: FormArray &#x3D; this.getFormArray(&#x27;modelParameterChanges&#x27;);
+    formArray.push(this.formBuilder.group({
+      parameter: {value: null, disabled: this.mode &#x3D;&#x3D;&#x3D; Mode.edit},
+      defaultValue: {value: null, disabled: true},
+      value: {value: null, disabled: this.mode &#x3D;&#x3D;&#x3D; Mode.edit},
+      units: {value: null, disabled: true},
+    }));
+  }
+
+  addAlgorithmParameterChangeFormElement(): void {
+    const formArray: FormArray &#x3D; this.getFormArray(&#x27;algorithmParameterChanges&#x27;);
+    formArray.push(this.formBuilder.group({
+      parameter: {value: null, disabled: this.mode &#x3D;&#x3D;&#x3D; Mode.edit},
+      defaultValue: {value: null, disabled: true},
+      value: {value: null, disabled: this.mode &#x3D;&#x3D;&#x3D; Mode.edit},
+    }));
+  }
+
   addAuthorFormElement(): void {
     const formArray: FormArray &#x3D; this.getFormArray(&#x27;authors&#x27;);
     formArray.push(this.formBuilder.group({
       firstName: [&#x27;&#x27;],
       middleName: [&#x27;&#x27;],
       lastName: [&#x27;&#x27;],
+    }));
+  }
+
+  addIdentifierFormElement(): void {
+    const formArray: FormArray &#x3D; this.getFormArray(&#x27;identifiers&#x27;);
+    formArray.push(this.formBuilder.group({
+      namespace: [&#x27;&#x27;],
+      id: [&#x27;&#x27;],
     }));
   }
 
@@ -1818,38 +2883,38 @@ export class EditComponent implements OnInit {
     }));
   }
 
-  drop(array: string, event: CdkDragDrop&lt;string[]&gt;): void {
+  drop(formArray: FormArray, event: CdkDragDrop&lt;string[]&gt;): void {
     moveItemInArray(
-      this.getFormArray(array).controls,
+      formArray.controls,
       event.previousIndex,
       event.currentIndex);
   }
 
   submit() {
-    const data: Visualization &#x3D; this.formGroup.value as Visualization;
+    const data: Simulation &#x3D; this.formGroup.value as Simulation;
     if (this.mode &#x3D;&#x3D;&#x3D; Mode.fork) {
-      data.parent &#x3D; this.visualization;
+      data.parent &#x3D; this.simulation;
     }
-    const visualizationId: number &#x3D; this.visualizationService.set(
+    const simulationId: string &#x3D; this.simulationService.set(
       data, this.mode &#x3D;&#x3D;&#x3D; Mode.edit ? this.id : null);
 
-    this.snackBar.open(&#x27;Visualization saved&#x27;, &#x27;&#x27;, {
+    this.snackBar.open(&#x27;Simulation saved&#x27;, &#x27;&#x27;, {
       panelClass: &#x27;centered-snack-bar&#x27;,
       duration: 3000,
     });
 
     setTimeout(() &#x3D;&gt; {
-      this.router.navigate([&#x27;/visualizations&#x27;, visualizationId]);
+      this.router.navigate([&#x27;/simulations&#x27;, simulationId]);
     }, 2500);
   }
 
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: &#x60;Delete visualization ${ this.id }?&#x60;,
+        title: &#x60;Delete simulation ${ this.id }?&#x60;,
         action: () &#x3D;&gt; {
-          this.visualizationService.delete(this.id);
-          this.router.navigate([&#x27;/visualizations&#x27;]);
+          this.simulationService.delete(this.id);
+          this.router.navigate([&#x27;/simulations&#x27;]);
         },
       },
     });
@@ -1860,353 +2925,669 @@ export class EditComponent implements OnInit {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;form
-  class&#x3D;&quot;page-content full-width form&quot;
+  class&#x3D;&quot;page-content partial-width form&quot;
   [formGroup]&#x3D;&quot;formGroup&quot;
   (ngSubmit)&#x3D;&quot;submit()&quot;&gt;
 
-  &lt;mat-tab-group
-    class&#x3D;&quot;page-content full-width&quot;
-    disableRipple&#x3D;&quot;true&quot;
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Model *&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;input matInput
+        formControlName&#x3D;&quot;model&quot;
+        placeholder&#x3D;&quot;Model&quot;
+        class&#x3D;&quot;form-input&quot;
+        [class.form-input-disabled]&#x3D;&quot;modelInputDisabled&quot;
+        [matAutocomplete]&#x3D;&quot;modelAutoComplete&quot;
+        (blur)&#x3D;&quot;selectAutocompleteModel(formGroup.get(&#x27;model&#x27;))&quot;
+        /&gt;
+
+      &lt;mat-autocomplete
+        #modelAutoComplete
+        [displayWith]&#x3D;&quot;displayAutocompleteEl&quot;
+        disableRipple&#x3D;&quot;true&quot;
+        class&#x3D;&quot;form-select-input-panel&quot;
+      &gt;
+        &lt;mat-option *ngFor&#x3D;&quot;let item of models | async&quot;
+          [value]&#x3D;&quot;item&quot;
+        &gt;
+          {{ item.name }}
+        &lt;/mat-option&gt;
+      &lt;/mat-autocomplete&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Name *&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;input matInput
+        formControlName&#x3D;&quot;name&quot;
+        placeholder&#x3D;&quot;Brief name&quot;
+        required
+        class&#x3D;&quot;form-input&quot;
+        /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Image&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;input
+        id&#x3D;&quot;image&quot;
+        type&#x3D;&quot;file&quot;
+        accept&#x3D;&quot;.gif,.jpeg,.jpg,.png,image/gif,image/jpeg,image/png&quot;
+        (change)&#x3D;&quot;selectFile(&#x27;image&#x27;, $event.target.files, imageFileName)&quot;
+        class&#x3D;&quot;form-file-input&quot;
+        /&gt;
+      &lt;div class&#x3D;&quot;form-input&quot;&gt;
+        &lt;label for&#x3D;&quot;image&quot; class&#x3D;&quot;form-file-input-label&quot; tabindex&#x3D;&quot;0&quot;&gt;Choose an image&lt;/label&gt;
+        &lt;span #imageFileName class&#x3D;&quot;form-file-input-name&quot;&gt;{{ simulation &amp;&amp; simulation.image ? simulation.image.name : &#x27;&#x27; }}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Description&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;textarea matInput
+        formControlName&#x3D;&quot;description&quot;
+        rows&#x3D;&quot;10&quot;
+        placeholder&#x3D;&quot;Description&quot;
+        class&#x3D;&quot;form-input&quot;
+      &gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot; formArrayName&#x3D;&quot;tags&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Tags&lt;/div&gt;
+
+    &lt;mat-chip-list #tagChipList
+      aria-label&#x3D;&quot;Tag list&quot;
+      cdkDropList
+      cdkDropListOrientation&#x3D;&quot;horizontal&quot;
+      (cdkDropListDropped)&#x3D;&quot;drop(getFormArray(&#x27;tags&#x27;), $event)&quot;
+      class&#x3D;&quot;form-chip-input&quot;&gt;
+      &lt;mat-chip *ngFor&#x3D;&quot;let tag of getFormArray(&#x27;tags&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
+        [selectable]&#x3D;&quot;false&quot;
+        [removable]&#x3D;&quot;true&quot;
+        (removed)&#x3D;&quot;removeFormArrayElement(&#x27;tags&#x27;, iFormArrayEl)&quot;
+        cdkDrag
+        class&#x3D;&quot;form-chip&quot;
+        disableRipple&#x3D;&quot;true&quot;&gt;
+        {{ tag.value }}
+        &lt;mat-icon
+          matChipRemove
+          class&#x3D;&quot;form-chip-icon&quot;
+          &gt;cancel&lt;/mat-icon&gt;
+      &lt;/mat-chip&gt;
+      &lt;input
+        [placeholder]&#x3D;&quot;getFormArray(&#x27;tags&#x27;).controls.length &#x3D;&#x3D;&#x3D; 0 ? &#x27;List of tags (e.g., wild-type, knock out, knock up)&#x27; : null&quot;
+        [matChipInputFor]&#x3D;&quot;tagChipList&quot;
+        [matChipInputSeparatorKeyCodes]&#x3D;&quot;chipSeparatorKeyCodes&quot;
+        [matChipInputAddOnBlur]&#x3D;&quot;false&quot;
+        (matChipInputTokenEnd)&#x3D;&quot;addTag($event)&quot;
+        /&gt;
+    &lt;/mat-chip-list&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot; formArrayName&#x3D;&quot;modelParameterChanges&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title float-container&quot;&gt;
+      &lt;div class&#x3D;&quot;form-field-title-text&quot;&gt;Model parameter changes&lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-field-title-buttons&quot;&gt;
+        &lt;a (click)&#x3D;&quot;addModelParameterChangeFormElement()&quot;
+          *ngIf&#x3D;&quot;model&quot;&gt;
+          &lt;fa-icon
+            aria-hidden&#x3D;&quot;true&quot;
+            aria-label&#x3D;&quot;Add icon&quot;
+            [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;plus&#x27;]&quot;
+          &gt;&lt;/fa-icon&gt;
+          Add
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      class&#x3D;&quot;form-field-subtitle form-group model-parameter-changes&quot;
+      *ngIf&#x3D;&quot;getFormArray(&#x27;modelParameterChanges&#x27;).controls.length &gt; 0&quot;&gt;
+      &lt;div&gt;Id/Name *&lt;/div&gt;
+      &lt;div&gt;Default&lt;/div&gt;
+      &lt;div&gt;Value *&lt;/div&gt;
+      &lt;div&gt;Units&lt;/div&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      cdkDropList
+      (cdkDropListDropped)&#x3D;&quot;drop(getFormArray(&#x27;modelParameterChanges&#x27;), $event)&quot;
+      class&#x3D;&quot;form-field-input&quot;
+      &gt;
+
+      &lt;mat-autocomplete
+        #modelParameterAutoComplete
+        [displayWith]&#x3D;&quot;displayAutocompleteParameter&quot;
+        disableRipple&#x3D;&quot;true&quot;
+        class&#x3D;&quot;form-select-input-panel&quot;&gt;
+        &lt;mat-option *ngFor&#x3D;&quot;let item of modelParameters&quot; [value]&#x3D;&quot;item&quot;&gt;{{
+          item.id + &#x27;: &#x27; + item.name
+        }}&lt;/mat-option&gt;
+      &lt;/mat-autocomplete&gt;
+
+      &lt;div
+        *ngFor&#x3D;&quot;let formArrayEl of getFormArray(&#x27;modelParameterChanges&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
+        [formGroupName]&#x3D;&quot;iFormArrayEl&quot;
+        class&#x3D;&quot;draggable form-array-el&quot;
+        [attr.cdkDrag]&#x3D;&quot;!simulationInputsDisabled&quot;
+      &gt;
+        &lt;div class&#x3D;&quot;form-group model-parameter-changes&quot;&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;parameter&quot;
+            placeholder&#x3D;&quot;Parameter id (e.g., kcat)&quot;
+            class&#x3D;&quot;form-input&quot;
+            [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            required
+            [matAutocomplete]&#x3D;&quot;modelParameterAutoComplete&quot;
+            (keyup)&#x3D;&quot;getModelParameters($event.target.value)&quot;
+            (focus)&#x3D;&quot;getModelParameters($event.target.value)&quot;
+            (blur)&#x3D;&quot;selectAutocompleteModelParameter(formArrayEl)&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;defaultValue&quot;
+            class&#x3D;&quot;form-input form-input-disabled&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;value&quot;
+            placeholder&#x3D;&quot;1.0&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;units&quot;
+            class&#x3D;&quot;form-input form-input-disabled&quot;
+            /&gt;
+          &lt;div class&#x3D;&quot;form-group-buttons&quot;&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Drag icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;grip-lines-vertical&#x27;]&quot;
+              class&#x3D;&quot;drag&quot;
+              [class.disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            &gt;&lt;/fa-icon&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Delete icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;trash-alt&#x27;]&quot;
+              (click)&#x3D;&quot;!simulationInputsDisabled &amp;&amp; removeFormArrayElement(&#x27;modelParameterChanges&#x27;, iFormArrayEl)&quot;
+              [class.disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            &gt;&lt;/fa-icon&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Time course *&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input form-group time-course&quot;&gt;
+      &lt;div class&#x3D;&quot;form-field-label&quot;&gt;Start time&lt;/div&gt;
+      &lt;input matInput
+        formControlName&#x3D;&quot;startTime&quot;
+        placeholder&#x3D;&quot;0.0&quot;
+        required
+        class&#x3D;&quot;form-input&quot;
+        [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+        /&gt;
+
+      &lt;div class&#x3D;&quot;form-field-label&quot;&gt;End time&lt;/div&gt;
+      &lt;input matInput
+        formControlName&#x3D;&quot;endTime&quot;
+        placeholder&#x3D;&quot;1.0&quot;
+        required
+        class&#x3D;&quot;form-input&quot;
+        [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+        /&gt;
+
+      &lt;div class&#x3D;&quot;form-field-label&quot;&gt;Time steps&lt;/div&gt;
+      &lt;input matInput
+        formControlName&#x3D;&quot;numTimePoints&quot;
+        placeholder&#x3D;&quot;100&quot;
+        required
+        class&#x3D;&quot;form-input&quot;
+        [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+        /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Algorithm *&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;input matInput
+        formControlName&#x3D;&quot;algorithm&quot;
+        placeholder&#x3D;&quot;Algorithm (e.g., Runge-Kutta based method)&quot;
+        class&#x3D;&quot;form-input&quot;
+        [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+        [matAutocomplete]&#x3D;&quot;algorithmAutoComplete&quot;
+        (blur)&#x3D;&quot;selectAutocompleteAlgorithm(formGroup.get(&#x27;algorithm&#x27;))&quot;
+        /&gt;
+
+      &lt;mat-autocomplete
+        #algorithmAutoComplete
+        [displayWith]&#x3D;&quot;displayAutocompleteEl&quot;
+        disableRipple&#x3D;&quot;true&quot;
+        class&#x3D;&quot;form-select-input-panel&quot;
+      &gt;
+        &lt;mat-option *ngFor&#x3D;&quot;let item of algorithms | async&quot;
+          [value]&#x3D;&quot;item&quot;
+        &gt;
+          {{ item.name | ucfirst }}
+        &lt;/mat-option&gt;
+      &lt;/mat-autocomplete&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot; formArrayName&#x3D;&quot;algorithmParameterChanges&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title float-container&quot;&gt;
+      &lt;div class&#x3D;&quot;form-field-title-text&quot;&gt;Algorithm parameter changes&lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-field-title-buttons&quot;&gt;
+        &lt;a (click)&#x3D;&quot;addAlgorithmParameterChangeFormElement()&quot;
+          *ngIf&#x3D;&quot;algorithm&quot;&gt;
+          &lt;fa-icon
+            aria-hidden&#x3D;&quot;true&quot;
+            aria-label&#x3D;&quot;Add icon&quot;
+            [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;plus&#x27;]&quot;
+          &gt;&lt;/fa-icon&gt;
+          Add
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      class&#x3D;&quot;form-field-subtitle form-group algorithm-parameter-changes&quot;
+      *ngIf&#x3D;&quot;getFormArray(&#x27;algorithmParameterChanges&#x27;).controls.length &gt; 0&quot;&gt;
+      &lt;div&gt;Id/Name *&lt;/div&gt;
+      &lt;div&gt;Default&lt;/div&gt;
+      &lt;div&gt;Value *&lt;/div&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      cdkDropList
+      (cdkDropListDropped)&#x3D;&quot;drop(getFormArray(&#x27;algorithmParameterChanges&#x27;), $event)&quot;
+      class&#x3D;&quot;form-field-input&quot;
+      &gt;
+
+      &lt;mat-autocomplete
+        #algorithmParameterAutoComplete
+        [displayWith]&#x3D;&quot;displayAutocompleteParameter&quot;
+        disableRipple&#x3D;&quot;true&quot;
+        class&#x3D;&quot;form-select-input-panel&quot;&gt;
+        &lt;mat-option *ngFor&#x3D;&quot;let item of algorithmParameters&quot; [value]&#x3D;&quot;item&quot;&gt;{{
+          item.id + &#x27;: &#x27; + item.name
+        }}&lt;/mat-option&gt;
+      &lt;/mat-autocomplete&gt;
+
+      &lt;div
+        *ngFor&#x3D;&quot;let formArrayEl of getFormArray(&#x27;algorithmParameterChanges&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
+        [formGroupName]&#x3D;&quot;iFormArrayEl&quot;
+        class&#x3D;&quot;draggable form-array-el&quot;
+        [attr.cdkDrag]&#x3D;&quot;!simulationInputsDisabled&quot;
+      &gt;
+        &lt;div class&#x3D;&quot;form-group algorithm-parameter-changes&quot;&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;parameter&quot;
+            placeholder&#x3D;&quot;Parameter id (e.g., kcat)&quot;
+            class&#x3D;&quot;form-input&quot;
+            [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            required
+            [matAutocomplete]&#x3D;&quot;algorithmParameterAutoComplete&quot;
+            (keyup)&#x3D;&quot;getAlgorithmParameters($event.target.value)&quot;
+            (focus)&#x3D;&quot;getAlgorithmParameters($event.target.value)&quot;
+            (blur)&#x3D;&quot;selectAutocompleteAlgorithmParameter(formArrayEl)&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;defaultValue&quot;
+            class&#x3D;&quot;form-input form-input-disabled&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;value&quot;
+            placeholder&#x3D;&quot;1.0&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            /&gt;
+          &lt;div class&#x3D;&quot;form-group-buttons&quot;&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Drag icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;grip-lines-vertical&#x27;]&quot;
+              class&#x3D;&quot;drag&quot;
+              [class.disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            &gt;&lt;/fa-icon&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Delete icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;trash-alt&#x27;]&quot;
+              (click)&#x3D;&quot;!simulationInputsDisabled &amp;&amp; removeFormArrayElement(&#x27;algorithmParameterChanges&#x27;, iFormArrayEl)&quot;
+              [class.disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+            &gt;&lt;/fa-icon&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Simulator *&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;input matInput
+        formControlName&#x3D;&quot;simulator&quot;
+        placeholder&#x3D;&quot;Simulator (e.g., VCell)&quot;
+        class&#x3D;&quot;form-input&quot;
+        [class.form-input-disabled]&#x3D;&quot;simulationInputsDisabled&quot;
+        [matAutocomplete]&#x3D;&quot;simulatorAutoComplete&quot;
+        (blur)&#x3D;&quot;selectAutocomplete(formGroup.get(&#x27;simulator&#x27;), true)&quot;
+        /&gt;
+
+      &lt;mat-autocomplete
+        #simulatorAutoComplete
+        [displayWith]&#x3D;&quot;displayAutocompleteEl&quot;
+        disableRipple&#x3D;&quot;true&quot;
+        class&#x3D;&quot;form-select-input-panel&quot;
+      &gt;
+        &lt;mat-option *ngFor&#x3D;&quot;let item of simulators | async&quot;
+          [value]&#x3D;&quot;item&quot;
+        &gt;{{
+          item.name + (item.version ? &#x27; &#x27; + item.version : &#x27;&#x27;)
+        }}&lt;/mat-option&gt;
+      &lt;/mat-autocomplete&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div
+    class&#x3D;&quot;form-field&quot;
+    formArrayName&#x3D;&quot;authors&quot;
     &gt;
-    &lt;mat-tab&gt;
-      &lt;ng-template mat-tab-label&gt;
-        &lt;mat-icon aria-hidden&#x3D;&quot;true&quot; aria-label&#x3D;&quot;Simulation icon&quot;&gt;timeline&lt;/mat-icon&gt; Select simulation(s)
-      &lt;/ng-template&gt;
-      &lt;ng-template matTabContent&gt;
-        &lt;div class&#x3D;&quot;tab full-height simulation&quot;&gt;
-          &lt;app-simulations-grid
-            [inTab]&#x3D;&quot;true&quot;
-          &gt;&lt;/app-simulations-grid&gt;
-        &lt;/div&gt;
-      &lt;/ng-template&gt;
-    &lt;/mat-tab&gt;
-
-    &lt;mat-tab&gt;
-      &lt;ng-template mat-tab-label&gt;
-        &lt;fa-icon aria-hidden&#x3D;&quot;true&quot; aria-label&#x3D;&quot;Visualization icon&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;chart-area&#x27;]&quot;&gt;&lt;/fa-icon&gt; Select visualization
-      &lt;/ng-template&gt;
-      &lt;ng-template matTabContent&gt;
-        &lt;div class&#x3D;&quot;tab full-height visualization&quot;&gt;
-          &lt;app-visualizations-grid
-            [inTab]&#x3D;&quot;true&quot;
-          &gt;&lt;/app-visualizations-grid&gt;
-        &lt;/div&gt;
-      &lt;/ng-template&gt;
-    &lt;/mat-tab&gt;
-
-    &lt;mat-tab&gt;
-      &lt;ng-template mat-tab-label&gt;
-        &lt;fa-icon aria-hidden&#x3D;&quot;true&quot; aria-label&#x3D;&quot;Variable icon&quot; [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;list&#x27;]&quot;&gt;&lt;/fa-icon&gt; Select variables
-      &lt;/ng-template&gt;
-      &lt;ng-template matTabContent&gt;
-        &lt;div class&#x3D;&quot;tab variable&quot;&gt;
-        &lt;/div&gt;
-      &lt;/ng-template&gt;
-    &lt;/mat-tab&gt;
-
-    &lt;mat-tab&gt;
-      &lt;ng-template mat-tab-label&gt;
-        &lt;fa-icon aria-hidden&#x3D;&quot;true&quot; aria-label&#x3D;&quot;Overview icon&quot; [icon]&#x3D;&quot;[&#x27;far&#x27;, &#x27;file-alt&#x27;]&quot;&gt;&lt;/fa-icon&gt; Save
-      &lt;/ng-template&gt;
-      &lt;ng-template matTabContent&gt;
-        &lt;div class&#x3D;&quot;tab overview&quot;&gt;
-
-          &lt;div class&#x3D;&quot;form-field&quot;&gt;
-            &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Name *&lt;/div&gt;
-            &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
-              &lt;input matInput
-                formControlName&#x3D;&quot;name&quot;
-                placeholder&#x3D;&quot;Brief name&quot;
-                required
-                class&#x3D;&quot;form-input&quot;
-                /&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div class&#x3D;&quot;form-field&quot;&gt;
-            &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Image&lt;/div&gt;
-            &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
-              &lt;input
-                id&#x3D;&quot;image&quot;
-                type&#x3D;&quot;file&quot;
-                accept&#x3D;&quot;.gif,.jpeg,.jpg,.png,image/gif,image/jpeg,image/png&quot;
-                (change)&#x3D;&quot;selectFile(&#x27;image&#x27;, $event.target.files, imageFileName)&quot;
-                class&#x3D;&quot;form-file-input&quot;
-                /&gt;
-              &lt;div class&#x3D;&quot;form-input&quot;&gt;
-                &lt;label for&#x3D;&quot;image&quot; class&#x3D;&quot;form-file-input-label&quot; tabindex&#x3D;&quot;0&quot;&gt;Choose an image&lt;/label&gt;
-                &lt;span #imageFileName class&#x3D;&quot;form-file-input-name&quot;&gt;{{ visualization &amp;&amp; visualization.image ? visualization.image.name : &#x27;&#x27; }}&lt;/span&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div class&#x3D;&quot;form-field&quot;&gt;
-            &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Description&lt;/div&gt;
-            &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
-              &lt;textarea matInput
-                formControlName&#x3D;&quot;description&quot;
-                rows&#x3D;&quot;10&quot;
-                placeholder&#x3D;&quot;Description&quot;
-                class&#x3D;&quot;form-input&quot;
-              &gt;&lt;/textarea&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div class&#x3D;&quot;form-field&quot; formArrayName&#x3D;&quot;tags&quot;&gt;
-            &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Tags&lt;/div&gt;
-
-            &lt;mat-chip-list #tagChipList
-              aria-label&#x3D;&quot;Tag list&quot;
-              class&#x3D;&quot;form-chip-input&quot;&gt;
-              &lt;mat-chip *ngFor&#x3D;&quot;let tag of getFormArray(&#x27;tags&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
-                [selectable]&#x3D;&quot;false&quot;
-                [removable]&#x3D;&quot;true&quot;
-                (removed)&#x3D;&quot;removeFormArrayElement(&#x27;tags&#x27;, iFormArrayEl)&quot;
-                class&#x3D;&quot;form-chip&quot;
-                disableRipple&#x3D;&quot;true&quot;&gt;
-                {{ tag.value }}
-                &lt;mat-icon
-                  matChipRemove
-                  class&#x3D;&quot;form-chip-icon&quot;
-                  &gt;cancel&lt;/mat-icon&gt;
-              &lt;/mat-chip&gt;
-              &lt;input
-                [placeholder]&#x3D;&quot;getFormArray(&#x27;tags&#x27;).controls.length &#x3D;&#x3D;&#x3D; 0 ? &#x27;List of tags (e.g., wild-type, knock out, knock up)&#x27; : null&quot;
-                [matChipInputFor]&#x3D;&quot;tagChipList&quot;
-                [matChipInputSeparatorKeyCodes]&#x3D;&quot;chipSeparatorKeyCodes&quot;
-                [matChipInputAddOnBlur]&#x3D;&quot;false&quot;
-                (matChipInputTokenEnd)&#x3D;&quot;addTag($event)&quot;
-                /&gt;
-            &lt;/mat-chip-list&gt;
-          &lt;/div&gt;
-
-          &lt;div
-            class&#x3D;&quot;form-field&quot;
-            formArrayName&#x3D;&quot;authors&quot;
-            &gt;
-            &lt;div class&#x3D;&quot;form-field-title float-container&quot;&gt;
-              &lt;div class&#x3D;&quot;form-field-title-text&quot;&gt;Authors&lt;/div&gt;
-              &lt;div class&#x3D;&quot;form-field-title-buttons&quot;&gt;
-                &lt;a (click)&#x3D;&quot;addAuthorFormElement()&quot;&gt;
-                  &lt;fa-icon
-                    aria-hidden&#x3D;&quot;true&quot;
-                    aria-label&#x3D;&quot;Add icon&quot;
-                    [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;plus&#x27;]&quot;
-                  &gt;&lt;/fa-icon&gt;
-                  Add
-                &lt;/a&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div
-              class&#x3D;&quot;form-field-subtitle form-group authors&quot;
-              *ngIf&#x3D;&quot;getFormArray(&#x27;authors&#x27;).controls.length &gt; 0&quot;&gt;
-              &lt;div&gt;First *&lt;/div&gt;
-              &lt;div&gt;Middle&lt;/div&gt;
-              &lt;div&gt;Last *&lt;/div&gt;
-              &lt;div&gt;&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div
-              cdkDropList
-              (cdkDropListDropped)&#x3D;&quot;drop(&#x27;authors&#x27;, $event)&quot;
-              class&#x3D;&quot;form-field-input&quot;
-              &gt;
-              &lt;div
-                *ngFor&#x3D;&quot;let formArrayEl of getFormArray(&#x27;authors&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
-                [formGroupName]&#x3D;&quot;iFormArrayEl&quot;
-                class&#x3D;&quot;draggable form-array-el&quot;
-                cdkDrag
-              &gt;
-                &lt;div class&#x3D;&quot;form-group authors&quot;&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;firstName&quot;
-                    placeholder&#x3D;&quot;John&quot;
-                    required
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;middleName&quot;
-                    placeholder&#x3D;&quot;C&quot;
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;lastName&quot;
-                    placeholder&#x3D;&quot;Doe&quot;
-                    required
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;div class&#x3D;&quot;form-group-buttons&quot;&gt;
-                    &lt;fa-icon
-                      aria-hidden&#x3D;&quot;true&quot;
-                      aria-label&#x3D;&quot;Drag icon&quot;
-                      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;grip-lines-vertical&#x27;]&quot;
-                      class&#x3D;&quot;drag&quot;
-                    &gt;&lt;/fa-icon&gt;
-                    &lt;fa-icon
-                      aria-hidden&#x3D;&quot;true&quot;
-                      aria-label&#x3D;&quot;Delete icon&quot;
-                      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;trash-alt&#x27;]&quot;
-                      (click)&#x3D;&quot;removeFormArrayElement(&#x27;authors&#x27;, iFormArrayEl)&quot;
-                    &gt;&lt;/fa-icon&gt;
-                  &lt;/div&gt;
-                &lt;/div&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div
-            class&#x3D;&quot;form-field&quot;
-            formArrayName&#x3D;&quot;refs&quot;
-            &gt;
-            &lt;div class&#x3D;&quot;form-field-title float-container&quot;&gt;
-              &lt;div class&#x3D;&quot;form-field-title-text&quot;&gt;References&lt;/div&gt;
-              &lt;div class&#x3D;&quot;form-field-title-buttons&quot;&gt;
-                &lt;a (click)&#x3D;&quot;addRefFormElement()&quot;&gt;
-                  &lt;fa-icon
-                    aria-hidden&#x3D;&quot;true&quot;
-                    aria-label&#x3D;&quot;Add icon&quot;
-                    [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;plus&#x27;]&quot;
-                  &gt;&lt;/fa-icon&gt;
-                  Add
-                &lt;/a&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div
-              class&#x3D;&quot;form-field-subtitle form-group refs&quot;
-              *ngIf&#x3D;&quot;getFormArray(&#x27;refs&#x27;).controls.length &gt; 0&quot;&gt;
-              &lt;div&gt;Authors *&lt;/div&gt;
-              &lt;div&gt;Title *&lt;/div&gt;
-              &lt;div&gt;Journal&lt;/div&gt;
-              &lt;div&gt;Volume&lt;/div&gt;
-              &lt;div&gt;Number&lt;/div&gt;
-              &lt;div&gt;Pages&lt;/div&gt;
-              &lt;div&gt;Year *&lt;/div&gt;
-              &lt;div&gt;DOI&lt;/div&gt;
-              &lt;div&gt;&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div
-              cdkDropList
-              (cdkDropListDropped)&#x3D;&quot;drop(&#x27;refs&#x27;, $event)&quot;
-              class&#x3D;&quot;form-field-input&quot;
-              &gt;
-              &lt;div
-                *ngFor&#x3D;&quot;let formArrayEl of getFormArray(&#x27;refs&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
-                [formGroupName]&#x3D;&quot;iFormArrayEl&quot;
-                class&#x3D;&quot;draggable form-array-el&quot;
-                cdkDrag
-              &gt;
-                &lt;div
-                class&#x3D;&quot;form-group refs&quot;
-                &gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;authors&quot;
-                    placeholder&#x3D;&quot;Doe JC &amp; Doe JD&quot;
-                    required
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;title&quot;
-                    placeholder&#x3D;&quot;Title&quot;
-                    required
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;journal&quot;
-                    placeholder&#x3D;&quot;PLoS Comput Biol&quot;
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;volume&quot;
-                    placeholder&#x3D;&quot;10&quot;
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;num&quot;
-                    placeholder&#x3D;&quot;1&quot;
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;pages&quot;
-                    placeholder&#x3D;&quot;1-10&quot;
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;year&quot;
-                    placeholder&#x3D;&quot;2019&quot;
-                    required
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;input matInput
-                    formControlName&#x3D;&quot;doi&quot;
-                    placeholder&#x3D;&quot;10.1002/0470841559.ch1&quot;
-                    class&#x3D;&quot;form-input&quot;
-                    /&gt;
-                  &lt;div class&#x3D;&quot;form-group-buttons&quot;&gt;
-                    &lt;fa-icon
-                      aria-hidden&#x3D;&quot;true&quot;
-                      aria-label&#x3D;&quot;Drag icon&quot;
-                      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;grip-lines-vertical&#x27;]&quot;
-                      class&#x3D;&quot;drag&quot;
-                    &gt;&lt;/fa-icon&gt;
-                    &lt;fa-icon
-                      aria-hidden&#x3D;&quot;true&quot;
-                      aria-label&#x3D;&quot;Delete icon&quot;
-                      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;trash-alt&#x27;]&quot;
-                      (click)&#x3D;&quot;removeFormArrayElement(&#x27;refs&#x27;, iFormArrayEl)&quot;
-                    &gt;&lt;/fa-icon&gt;
-                  &lt;/div&gt;
-                &lt;/div&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div class&#x3D;&quot;form-field&quot;&gt;
-            &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Access level *&lt;/div&gt;
-            &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
-              &lt;mat-select
-                formControlName&#x3D;&quot;access&quot;
-                required
-                class&#x3D;&quot;form-input&quot;
-                disableRipple&#x3D;&quot;true&quot;
-                panelClass&#x3D;&quot;form-select-input-panel&quot;
-              &gt;
-                &lt;mat-option
-                  *ngFor&#x3D;&quot;let option of accessLevels&quot;
-                  [value]&#x3D;&quot;option.value&quot;
-                &gt;{{ option.name }}&lt;/mat-option&gt;
-              &lt;/mat-select&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div class&#x3D;&quot;form-field&quot;&gt;
-            &lt;div class&#x3D;&quot;form-field-title&quot;&gt;License *&lt;/div&gt;
-            &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
-              &lt;mat-select
-                formControlName&#x3D;&quot;license&quot;
-                required
-                class&#x3D;&quot;form-input&quot;
-                disableRipple&#x3D;&quot;true&quot;
-                panelClass&#x3D;&quot;form-select-input-panel&quot;
-              &gt;
-                &lt;mat-option
-                  *ngFor&#x3D;&quot;let option of licenses&quot;
-                  [value]&#x3D;&quot;option.value&quot;
-                &gt;{{ option.name }}&lt;/mat-option&gt;
-              &lt;/mat-select&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div class&#x3D;&quot;form-field&quot;&gt;
-            &lt;button mat-button
-              type&#x3D;&quot;submit&quot;
-              disableRipple&#x3D;&quot;true&quot;
-              [disabled]&#x3D;&quot;!formGroup.valid&quot;
-              class&#x3D;&quot;form-submit-button&quot;
-            &gt;Save&lt;/button&gt;
+    &lt;div class&#x3D;&quot;form-field-title float-container&quot;&gt;
+      &lt;div class&#x3D;&quot;form-field-title-text&quot;&gt;Authors&lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-field-title-buttons&quot;&gt;
+        &lt;a (click)&#x3D;&quot;addAuthorFormElement()&quot;&gt;
+          &lt;fa-icon
+            aria-hidden&#x3D;&quot;true&quot;
+            aria-label&#x3D;&quot;Add icon&quot;
+            [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;plus&#x27;]&quot;
+          &gt;&lt;/fa-icon&gt;
+          Add
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      class&#x3D;&quot;form-field-subtitle form-group authors&quot;
+      *ngIf&#x3D;&quot;getFormArray(&#x27;authors&#x27;).controls.length &gt; 0&quot;&gt;
+      &lt;div&gt;First *&lt;/div&gt;
+      &lt;div&gt;Middle&lt;/div&gt;
+      &lt;div&gt;Last *&lt;/div&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      cdkDropList
+      (cdkDropListDropped)&#x3D;&quot;drop(getFormArray(&#x27;authors&#x27;), $event)&quot;
+      class&#x3D;&quot;form-field-input&quot;
+      &gt;
+      &lt;div
+        *ngFor&#x3D;&quot;let formArrayEl of getFormArray(&#x27;authors&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
+        [formGroupName]&#x3D;&quot;iFormArrayEl&quot;
+        class&#x3D;&quot;draggable form-array-el&quot;
+        cdkDrag
+      &gt;
+        &lt;div class&#x3D;&quot;form-group authors&quot;&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;firstName&quot;
+            placeholder&#x3D;&quot;John&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;middleName&quot;
+            placeholder&#x3D;&quot;C&quot;
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;lastName&quot;
+            placeholder&#x3D;&quot;Doe&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;div class&#x3D;&quot;form-group-buttons&quot;&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Drag icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;grip-lines-vertical&#x27;]&quot;
+              class&#x3D;&quot;drag&quot;
+            &gt;&lt;/fa-icon&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Delete icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;trash-alt&#x27;]&quot;
+              (click)&#x3D;&quot;removeFormArrayElement(&#x27;authors&#x27;, iFormArrayEl)&quot;
+            &gt;&lt;/fa-icon&gt;
           &lt;/div&gt;
         &lt;/div&gt;
-      &lt;/ng-template&gt;
-    &lt;/mat-tab&gt;
-  &lt;/mat-tab-group&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div
+    class&#x3D;&quot;form-field&quot;
+    formArrayName&#x3D;&quot;identifiers&quot;
+    &gt;
+    &lt;div class&#x3D;&quot;form-field-title float-container&quot;&gt;
+      &lt;div class&#x3D;&quot;form-field-title-text&quot;&gt;Identifiers&lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-field-title-buttons&quot;&gt;
+        &lt;a (click)&#x3D;&quot;addIdentifierFormElement()&quot;&gt;
+          &lt;fa-icon
+            aria-hidden&#x3D;&quot;true&quot;
+            aria-label&#x3D;&quot;Add icon&quot;
+            [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;plus&#x27;]&quot;
+          &gt;&lt;/fa-icon&gt;
+          Add
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      class&#x3D;&quot;form-field-subtitle form-group identifiers&quot;
+      *ngIf&#x3D;&quot;getFormArray(&#x27;identifiers&#x27;).controls.length &gt; 0&quot;&gt;
+      &lt;div&gt;Namespace *&lt;/div&gt;
+      &lt;div&gt;Id *&lt;/div&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      cdkDropList
+      (cdkDropListDropped)&#x3D;&quot;drop(getFormArray(&#x27;identifiers&#x27;), $event)&quot;
+      class&#x3D;&quot;form-field-input&quot;
+      &gt;
+      &lt;div
+        *ngFor&#x3D;&quot;let formArrayEl of getFormArray(&#x27;identifiers&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
+        [formGroupName]&#x3D;&quot;iFormArrayEl&quot;
+        class&#x3D;&quot;draggable form-array-el&quot;
+        cdkDrag
+      &gt;
+        &lt;div class&#x3D;&quot;form-group identifiers&quot;&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;namespace&quot;
+            placeholder&#x3D;&quot;biomodels.db&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;id&quot;
+            placeholder&#x3D;&quot;BIOMD0000000001&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;div class&#x3D;&quot;form-group-buttons&quot;&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Drag icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;grip-lines-vertical&#x27;]&quot;
+              class&#x3D;&quot;drag&quot;
+            &gt;&lt;/fa-icon&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Delete icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;trash-alt&#x27;]&quot;
+              (click)&#x3D;&quot;removeFormArrayElement(&#x27;identifiers&#x27;, iFormArrayEl)&quot;
+            &gt;&lt;/fa-icon&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div
+    class&#x3D;&quot;form-field&quot;
+    formArrayName&#x3D;&quot;refs&quot;
+    &gt;
+    &lt;div class&#x3D;&quot;form-field-title float-container&quot;&gt;
+      &lt;div class&#x3D;&quot;form-field-title-text&quot;&gt;References&lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-field-title-buttons&quot;&gt;
+        &lt;a (click)&#x3D;&quot;addRefFormElement()&quot;&gt;
+          &lt;fa-icon
+            aria-hidden&#x3D;&quot;true&quot;
+            aria-label&#x3D;&quot;Add icon&quot;
+            [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;plus&#x27;]&quot;
+          &gt;&lt;/fa-icon&gt;
+          Add
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      class&#x3D;&quot;form-field-subtitle form-group refs&quot;
+      *ngIf&#x3D;&quot;getFormArray(&#x27;refs&#x27;).controls.length &gt; 0&quot;&gt;
+      &lt;div&gt;Authors *&lt;/div&gt;
+      &lt;div&gt;Title *&lt;/div&gt;
+      &lt;div&gt;Journal&lt;/div&gt;
+      &lt;div&gt;Volume&lt;/div&gt;
+      &lt;div&gt;Number&lt;/div&gt;
+      &lt;div&gt;Pages&lt;/div&gt;
+      &lt;div&gt;Year *&lt;/div&gt;
+      &lt;div&gt;DOI&lt;/div&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div
+      cdkDropList
+      (cdkDropListDropped)&#x3D;&quot;drop(getFormArray(&#x27;refs&#x27;), $event)&quot;
+      class&#x3D;&quot;form-field-input&quot;
+      &gt;
+      &lt;div
+        *ngFor&#x3D;&quot;let formArrayEl of getFormArray(&#x27;refs&#x27;).controls; let iFormArrayEl&#x3D;index&quot;
+        [formGroupName]&#x3D;&quot;iFormArrayEl&quot;
+        class&#x3D;&quot;draggable form-array-el&quot;
+        cdkDrag
+      &gt;
+        &lt;div
+        class&#x3D;&quot;form-group refs&quot;
+        &gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;authors&quot;
+            placeholder&#x3D;&quot;Doe JC &amp; Doe JD&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;title&quot;
+            placeholder&#x3D;&quot;Title&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;journal&quot;
+            placeholder&#x3D;&quot;PLoS Comput Biol&quot;
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;volume&quot;
+            placeholder&#x3D;&quot;10&quot;
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;num&quot;
+            placeholder&#x3D;&quot;1&quot;
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;pages&quot;
+            placeholder&#x3D;&quot;1-10&quot;
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;year&quot;
+            placeholder&#x3D;&quot;2019&quot;
+            required
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;input matInput
+            formControlName&#x3D;&quot;doi&quot;
+            placeholder&#x3D;&quot;10.1002/0470841559.ch1&quot;
+            class&#x3D;&quot;form-input&quot;
+            /&gt;
+          &lt;div class&#x3D;&quot;form-group-buttons&quot;&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Drag icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;grip-lines-vertical&#x27;]&quot;
+              class&#x3D;&quot;drag&quot;
+            &gt;&lt;/fa-icon&gt;
+            &lt;fa-icon
+              aria-hidden&#x3D;&quot;true&quot;
+              aria-label&#x3D;&quot;Delete icon&quot;
+              [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;trash-alt&#x27;]&quot;
+              (click)&#x3D;&quot;removeFormArrayElement(&#x27;refs&#x27;, iFormArrayEl)&quot;
+            &gt;&lt;/fa-icon&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;Access level *&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;mat-select
+        formControlName&#x3D;&quot;access&quot;
+        required
+        class&#x3D;&quot;form-input&quot;
+        disableRipple&#x3D;&quot;true&quot;
+        panelClass&#x3D;&quot;form-select-input-panel&quot;
+      &gt;
+        &lt;mat-option
+          *ngFor&#x3D;&quot;let option of accessLevels&quot;
+          [value]&#x3D;&quot;option.value&quot;
+        &gt;{{ option.name }}&lt;/mat-option&gt;
+      &lt;/mat-select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;div class&#x3D;&quot;form-field-title&quot;&gt;License *&lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-field-input&quot;&gt;
+      &lt;mat-select
+        formControlName&#x3D;&quot;license&quot;
+        required
+        class&#x3D;&quot;form-input&quot;
+        disableRipple&#x3D;&quot;true&quot;
+        panelClass&#x3D;&quot;form-select-input-panel&quot;
+      &gt;
+        &lt;mat-option
+          *ngFor&#x3D;&quot;let option of licenses&quot;
+          [value]&#x3D;&quot;option.value&quot;
+        &gt;{{ option.name }}&lt;/mat-option&gt;
+      &lt;/mat-select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;form-field&quot;&gt;
+    &lt;button mat-button
+      type&#x3D;&quot;submit&quot;
+      disableRipple&#x3D;&quot;true&quot;
+      [disabled]&#x3D;&quot;!formGroup.valid&quot;
+      class&#x3D;&quot;form-submit-button&quot;
+    &gt;Save&lt;/button&gt;
+  &lt;/div&gt;
 &lt;/form&gt;
 </code></pre>
     </div>
@@ -2215,8 +3596,20 @@ export class EditComponent implements OnInit {
                 <p class="comment">
                     <code>./edit.component.sass</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">.form-group.authors
+                <pre class="line-numbers"><code class="language-scss">.form-group.model-parameter-changes
+    grid-template-columns: 1fr 4rem 4rem 8rem 1.453125rem
+
+.form-group.time-course
+    grid-template-columns: auto 1fr
+
+.form-group.algorithm-parameter-changes
+    grid-template-columns: 1fr 4rem 4rem 1.453125rem
+
+.form-group.authors
     grid-template-columns: 1fr 5rem 1fr 1.453125rem
+
+.form-group.identifiers
+    grid-template-columns: 1fr 1fr 1.453125rem
 
 .form-group.refs
     grid-template-columns: 1fr 1fr 1fr 5rem 5rem 5rem 5rem 1fr 1.453125rem
@@ -2248,8 +3641,8 @@ export class EditComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><form  class="page-content full-width form"  [formGroup]="formGroup"  (ngSubmit)="submit()">  <mat-tab-group    class="page-content full-width"    disableRipple="true"    >    <mat-tab>      <ng-template mat-tab-label>        <mat-icon aria-hidden="true" aria-label="Simulation icon">timeline</mat-icon> Select simulation(s)      </ng-template>      <ng-template matTabContent>        <div class="tab full-height simulation">          <app-simulations-grid            [inTab]="true"          ></app-simulations-grid>        </div>      </ng-template>    </mat-tab>    <mat-tab>      <ng-template mat-tab-label>        <fa-icon aria-hidden="true" aria-label="Visualization icon" [icon]="[\'fas\', \'chart-area\']"></fa-icon> Select visualization      </ng-template>      <ng-template matTabContent>        <div class="tab full-height visualization">          <app-visualizations-grid            [inTab]="true"          ></app-visualizations-grid>        </div>      </ng-template>    </mat-tab>    <mat-tab>      <ng-template mat-tab-label>        <fa-icon aria-hidden="true" aria-label="Variable icon" [icon]="[\'fas\', \'list\']"></fa-icon> Select variables      </ng-template>      <ng-template matTabContent>        <div class="tab variable">        </div>      </ng-template>    </mat-tab>    <mat-tab>      <ng-template mat-tab-label>        <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="[\'far\', \'file-alt\']"></fa-icon> Save      </ng-template>      <ng-template matTabContent>        <div class="tab overview">          <div class="form-field">            <div class="form-field-title">Name *</div>            <div class="form-field-input">              <input matInput                formControlName="name"                placeholder="Brief name"                required                class="form-input"                />            </div>          </div>          <div class="form-field">            <div class="form-field-title">Image</div>            <div class="form-field-input">              <input                id="image"                type="file"                accept=".gif,.jpeg,.jpg,.png,image/gif,image/jpeg,image/png"                (change)="selectFile(\'image\', $event.target.files, imageFileName)"                class="form-file-input"                />              <div class="form-input">                <label for="image" class="form-file-input-label" tabindex="0">Choose an image</label>                <span #imageFileName class="form-file-input-name">{{ visualization && visualization.image ? visualization.image.name : \'\' }}</span>              </div>            </div>          </div>          <div class="form-field">            <div class="form-field-title">Description</div>            <div class="form-field-input">              <textarea matInput                formControlName="description"                rows="10"                placeholder="Description"                class="form-input"              ></textarea>            </div>          </div>          <div class="form-field" formArrayName="tags">            <div class="form-field-title">Tags</div>            <mat-chip-list #tagChipList              aria-label="Tag list"              class="form-chip-input">              <mat-chip *ngFor="let tag of getFormArray(\'tags\').controls; let iFormArrayEl=index"                [selectable]="false"                [removable]="true"                (removed)="removeFormArrayElement(\'tags\', iFormArrayEl)"                class="form-chip"                disableRipple="true">                {{ tag.value }}                <mat-icon                  matChipRemove                  class="form-chip-icon"                  >cancel</mat-icon>              </mat-chip>              <input                [placeholder]="getFormArray(\'tags\').controls.length === 0 ? \'List of tags (e.g., wild-type, knock out, knock up)\' : null"                [matChipInputFor]="tagChipList"                [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"                [matChipInputAddOnBlur]="false"                (matChipInputTokenEnd)="addTag($event)"                />            </mat-chip-list>          </div>          <div            class="form-field"            formArrayName="authors"            >            <div class="form-field-title float-container">              <div class="form-field-title-text">Authors</div>              <div class="form-field-title-buttons">                <a (click)="addAuthorFormElement()">                  <fa-icon                    aria-hidden="true"                    aria-label="Add icon"                    [icon]="[\'fas\', \'plus\']"                  ></fa-icon>                  Add                </a>              </div>            </div>            <div              class="form-field-subtitle form-group authors"              *ngIf="getFormArray(\'authors\').controls.length > 0">              <div>First *</div>              <div>Middle</div>              <div>Last *</div>              <div></div>            </div>            <div              cdkDropList              (cdkDropListDropped)="drop(\'authors\', $event)"              class="form-field-input"              >              <div                *ngFor="let formArrayEl of getFormArray(\'authors\').controls; let iFormArrayEl=index"                [formGroupName]="iFormArrayEl"                class="draggable form-array-el"                cdkDrag              >                <div class="form-group authors">                  <input matInput                    formControlName="firstName"                    placeholder="John"                    required                    class="form-input"                    />                  <input matInput                    formControlName="middleName"                    placeholder="C"                    class="form-input"                    />                  <input matInput                    formControlName="lastName"                    placeholder="Doe"                    required                    class="form-input"                    />                  <div class="form-group-buttons">                    <fa-icon                      aria-hidden="true"                      aria-label="Drag icon"                      [icon]="[\'fas\', \'grip-lines-vertical\']"                      class="drag"                    ></fa-icon>                    <fa-icon                      aria-hidden="true"                      aria-label="Delete icon"                      [icon]="[\'fas\', \'trash-alt\']"                      (click)="removeFormArrayElement(\'authors\', iFormArrayEl)"                    ></fa-icon>                  </div>                </div>              </div>            </div>          </div>          <div            class="form-field"            formArrayName="refs"            >            <div class="form-field-title float-container">              <div class="form-field-title-text">References</div>              <div class="form-field-title-buttons">                <a (click)="addRefFormElement()">                  <fa-icon                    aria-hidden="true"                    aria-label="Add icon"                    [icon]="[\'fas\', \'plus\']"                  ></fa-icon>                  Add                </a>              </div>            </div>            <div              class="form-field-subtitle form-group refs"              *ngIf="getFormArray(\'refs\').controls.length > 0">              <div>Authors *</div>              <div>Title *</div>              <div>Journal</div>              <div>Volume</div>              <div>Number</div>              <div>Pages</div>              <div>Year *</div>              <div>DOI</div>              <div></div>            </div>            <div              cdkDropList              (cdkDropListDropped)="drop(\'refs\', $event)"              class="form-field-input"              >              <div                *ngFor="let formArrayEl of getFormArray(\'refs\').controls; let iFormArrayEl=index"                [formGroupName]="iFormArrayEl"                class="draggable form-array-el"                cdkDrag              >                <div                class="form-group refs"                >                  <input matInput                    formControlName="authors"                    placeholder="Doe JC & Doe JD"                    required                    class="form-input"                    />                  <input matInput                    formControlName="title"                    placeholder="Title"                    required                    class="form-input"                    />                  <input matInput                    formControlName="journal"                    placeholder="PLoS Comput Biol"                    class="form-input"                    />                  <input matInput                    formControlName="volume"                    placeholder="10"                    class="form-input"                    />                  <input matInput                    formControlName="num"                    placeholder="1"                    class="form-input"                    />                  <input matInput                    formControlName="pages"                    placeholder="1-10"                    class="form-input"                    />                  <input matInput                    formControlName="year"                    placeholder="2019"                    required                    class="form-input"                    />                  <input matInput                    formControlName="doi"                    placeholder="10.1002/0470841559.ch1"                    class="form-input"                    />                  <div class="form-group-buttons">                    <fa-icon                      aria-hidden="true"                      aria-label="Drag icon"                      [icon]="[\'fas\', \'grip-lines-vertical\']"                      class="drag"                    ></fa-icon>                    <fa-icon                      aria-hidden="true"                      aria-label="Delete icon"                      [icon]="[\'fas\', \'trash-alt\']"                      (click)="removeFormArrayElement(\'refs\', iFormArrayEl)"                    ></fa-icon>                  </div>                </div>              </div>            </div>          </div>          <div class="form-field">            <div class="form-field-title">Access level *</div>            <div class="form-field-input">              <mat-select                formControlName="access"                required                class="form-input"                disableRipple="true"                panelClass="form-select-input-panel"              >                <mat-option                  *ngFor="let option of accessLevels"                  [value]="option.value"                >{{ option.name }}</mat-option>              </mat-select>            </div>          </div>          <div class="form-field">            <div class="form-field-title">License *</div>            <div class="form-field-input">              <mat-select                formControlName="license"                required                class="form-input"                disableRipple="true"                panelClass="form-select-input-panel"              >                <mat-option                  *ngFor="let option of licenses"                  [value]="option.value"                >{{ option.name }}</mat-option>              </mat-select>            </div>          </div>          <div class="form-field">            <button mat-button              type="submit"              disableRipple="true"              [disabled]="!formGroup.valid"              class="form-submit-button"            >Save</button>          </div>        </div>      </ng-template>    </mat-tab>  </mat-tab-group></form></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
+        var COMPONENT_TEMPLATE = '<div><form  class="page-content partial-width form"  [formGroup]="formGroup"  (ngSubmit)="submit()">  <div class="form-field">    <div class="form-field-title">Model *</div>    <div class="form-field-input">      <input matInput        formControlName="model"        placeholder="Model"        class="form-input"        [class.form-input-disabled]="modelInputDisabled"        [matAutocomplete]="modelAutoComplete"        (blur)="selectAutocompleteModel(formGroup.get(\'model\'))"        />      <mat-autocomplete        #modelAutoComplete        [displayWith]="displayAutocompleteEl"        disableRipple="true"        class="form-select-input-panel"      >        <mat-option *ngFor="let item of models | async"          [value]="item"        >          {{ item.name }}        </mat-option>      </mat-autocomplete>    </div>  </div>  <div class="form-field">    <div class="form-field-title">Name *</div>    <div class="form-field-input">      <input matInput        formControlName="name"        placeholder="Brief name"        required        class="form-input"        />    </div>  </div>  <div class="form-field">    <div class="form-field-title">Image</div>    <div class="form-field-input">      <input        id="image"        type="file"        accept=".gif,.jpeg,.jpg,.png,image/gif,image/jpeg,image/png"        (change)="selectFile(\'image\', $event.target.files, imageFileName)"        class="form-file-input"        />      <div class="form-input">        <label for="image" class="form-file-input-label" tabindex="0">Choose an image</label>        <span #imageFileName class="form-file-input-name">{{ simulation && simulation.image ? simulation.image.name : \'\' }}</span>      </div>    </div>  </div>  <div class="form-field">    <div class="form-field-title">Description</div>    <div class="form-field-input">      <textarea matInput        formControlName="description"        rows="10"        placeholder="Description"        class="form-input"      ></textarea>    </div>  </div>  <div class="form-field" formArrayName="tags">    <div class="form-field-title">Tags</div>    <mat-chip-list #tagChipList      aria-label="Tag list"      cdkDropList      cdkDropListOrientation="horizontal"      (cdkDropListDropped)="drop(getFormArray(\'tags\'), $event)"      class="form-chip-input">      <mat-chip *ngFor="let tag of getFormArray(\'tags\').controls; let iFormArrayEl=index"        [selectable]="false"        [removable]="true"        (removed)="removeFormArrayElement(\'tags\', iFormArrayEl)"        cdkDrag        class="form-chip"        disableRipple="true">        {{ tag.value }}        <mat-icon          matChipRemove          class="form-chip-icon"          >cancel</mat-icon>      </mat-chip>      <input        [placeholder]="getFormArray(\'tags\').controls.length === 0 ? \'List of tags (e.g., wild-type, knock out, knock up)\' : null"        [matChipInputFor]="tagChipList"        [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"        [matChipInputAddOnBlur]="false"        (matChipInputTokenEnd)="addTag($event)"        />    </mat-chip-list>  </div>  <div class="form-field" formArrayName="modelParameterChanges">    <div class="form-field-title float-container">      <div class="form-field-title-text">Model parameter changes</div>      <div class="form-field-title-buttons">        <a (click)="addModelParameterChangeFormElement()"          *ngIf="model">          <fa-icon            aria-hidden="true"            aria-label="Add icon"            [icon]="[\'fas\', \'plus\']"          ></fa-icon>          Add        </a>      </div>    </div>    <div      class="form-field-subtitle form-group model-parameter-changes"      *ngIf="getFormArray(\'modelParameterChanges\').controls.length > 0">      <div>Id/Name *</div>      <div>Default</div>      <div>Value *</div>      <div>Units</div>      <div></div>    </div>    <div      cdkDropList      (cdkDropListDropped)="drop(getFormArray(\'modelParameterChanges\'), $event)"      class="form-field-input"      >      <mat-autocomplete        #modelParameterAutoComplete        [displayWith]="displayAutocompleteParameter"        disableRipple="true"        class="form-select-input-panel">        <mat-option *ngFor="let item of modelParameters" [value]="item">{{          item.id + \': \' + item.name        }}</mat-option>      </mat-autocomplete>      <div        *ngFor="let formArrayEl of getFormArray(\'modelParameterChanges\').controls; let iFormArrayEl=index"        [formGroupName]="iFormArrayEl"        class="draggable form-array-el"        [attr.cdkDrag]="!simulationInputsDisabled"      >        <div class="form-group model-parameter-changes">          <input matInput            formControlName="parameter"            placeholder="Parameter id (e.g., kcat)"            class="form-input"            [class.form-input-disabled]="simulationInputsDisabled"            required            [matAutocomplete]="modelParameterAutoComplete"            (keyup)="getModelParameters($event.target.value)"            (focus)="getModelParameters($event.target.value)"            (blur)="selectAutocompleteModelParameter(formArrayEl)"            />          <input matInput            formControlName="defaultValue"            class="form-input form-input-disabled"            />          <input matInput            formControlName="value"            placeholder="1.0"            required            class="form-input"            [class.form-input-disabled]="simulationInputsDisabled"            />          <input matInput            formControlName="units"            class="form-input form-input-disabled"            />          <div class="form-group-buttons">            <fa-icon              aria-hidden="true"              aria-label="Drag icon"              [icon]="[\'fas\', \'grip-lines-vertical\']"              class="drag"              [class.disabled]="simulationInputsDisabled"            ></fa-icon>            <fa-icon              aria-hidden="true"              aria-label="Delete icon"              [icon]="[\'fas\', \'trash-alt\']"              (click)="!simulationInputsDisabled && removeFormArrayElement(\'modelParameterChanges\', iFormArrayEl)"              [class.disabled]="simulationInputsDisabled"            ></fa-icon>          </div>        </div>      </div>    </div>  </div>  <div class="form-field">    <div class="form-field-title">Time course *</div>    <div class="form-field-input form-group time-course">      <div class="form-field-label">Start time</div>      <input matInput        formControlName="startTime"        placeholder="0.0"        required        class="form-input"        [class.form-input-disabled]="simulationInputsDisabled"        />      <div class="form-field-label">End time</div>      <input matInput        formControlName="endTime"        placeholder="1.0"        required        class="form-input"        [class.form-input-disabled]="simulationInputsDisabled"        />      <div class="form-field-label">Time steps</div>      <input matInput        formControlName="numTimePoints"        placeholder="100"        required        class="form-input"        [class.form-input-disabled]="simulationInputsDisabled"        />    </div>  </div>  <div class="form-field">    <div class="form-field-title">Algorithm *</div>    <div class="form-field-input">      <input matInput        formControlName="algorithm"        placeholder="Algorithm (e.g., Runge-Kutta based method)"        class="form-input"        [class.form-input-disabled]="simulationInputsDisabled"        [matAutocomplete]="algorithmAutoComplete"        (blur)="selectAutocompleteAlgorithm(formGroup.get(\'algorithm\'))"        />      <mat-autocomplete        #algorithmAutoComplete        [displayWith]="displayAutocompleteEl"        disableRipple="true"        class="form-select-input-panel"      >        <mat-option *ngFor="let item of algorithms | async"          [value]="item"        >          {{ item.name | ucfirst }}        </mat-option>      </mat-autocomplete>    </div>  </div>  <div class="form-field" formArrayName="algorithmParameterChanges">    <div class="form-field-title float-container">      <div class="form-field-title-text">Algorithm parameter changes</div>      <div class="form-field-title-buttons">        <a (click)="addAlgorithmParameterChangeFormElement()"          *ngIf="algorithm">          <fa-icon            aria-hidden="true"            aria-label="Add icon"            [icon]="[\'fas\', \'plus\']"          ></fa-icon>          Add        </a>      </div>    </div>    <div      class="form-field-subtitle form-group algorithm-parameter-changes"      *ngIf="getFormArray(\'algorithmParameterChanges\').controls.length > 0">      <div>Id/Name *</div>      <div>Default</div>      <div>Value *</div>      <div></div>    </div>    <div      cdkDropList      (cdkDropListDropped)="drop(getFormArray(\'algorithmParameterChanges\'), $event)"      class="form-field-input"      >      <mat-autocomplete        #algorithmParameterAutoComplete        [displayWith]="displayAutocompleteParameter"        disableRipple="true"        class="form-select-input-panel">        <mat-option *ngFor="let item of algorithmParameters" [value]="item">{{          item.id + \': \' + item.name        }}</mat-option>      </mat-autocomplete>      <div        *ngFor="let formArrayEl of getFormArray(\'algorithmParameterChanges\').controls; let iFormArrayEl=index"        [formGroupName]="iFormArrayEl"        class="draggable form-array-el"        [attr.cdkDrag]="!simulationInputsDisabled"      >        <div class="form-group algorithm-parameter-changes">          <input matInput            formControlName="parameter"            placeholder="Parameter id (e.g., kcat)"            class="form-input"            [class.form-input-disabled]="simulationInputsDisabled"            required            [matAutocomplete]="algorithmParameterAutoComplete"            (keyup)="getAlgorithmParameters($event.target.value)"            (focus)="getAlgorithmParameters($event.target.value)"            (blur)="selectAutocompleteAlgorithmParameter(formArrayEl)"            />          <input matInput            formControlName="defaultValue"            class="form-input form-input-disabled"            />          <input matInput            formControlName="value"            placeholder="1.0"            required            class="form-input"            [class.form-input-disabled]="simulationInputsDisabled"            />          <div class="form-group-buttons">            <fa-icon              aria-hidden="true"              aria-label="Drag icon"              [icon]="[\'fas\', \'grip-lines-vertical\']"              class="drag"              [class.disabled]="simulationInputsDisabled"            ></fa-icon>            <fa-icon              aria-hidden="true"              aria-label="Delete icon"              [icon]="[\'fas\', \'trash-alt\']"              (click)="!simulationInputsDisabled && removeFormArrayElement(\'algorithmParameterChanges\', iFormArrayEl)"              [class.disabled]="simulationInputsDisabled"            ></fa-icon>          </div>        </div>      </div>    </div>  </div>  <div class="form-field">    <div class="form-field-title">Simulator *</div>    <div class="form-field-input">      <input matInput        formControlName="simulator"        placeholder="Simulator (e.g., VCell)"        class="form-input"        [class.form-input-disabled]="simulationInputsDisabled"        [matAutocomplete]="simulatorAutoComplete"        (blur)="selectAutocomplete(formGroup.get(\'simulator\'), true)"        />      <mat-autocomplete        #simulatorAutoComplete        [displayWith]="displayAutocompleteEl"        disableRipple="true"        class="form-select-input-panel"      >        <mat-option *ngFor="let item of simulators | async"          [value]="item"        >{{          item.name + (item.version ? \' \' + item.version : \'\')        }}</mat-option>      </mat-autocomplete>    </div>  </div>  <div    class="form-field"    formArrayName="authors"    >    <div class="form-field-title float-container">      <div class="form-field-title-text">Authors</div>      <div class="form-field-title-buttons">        <a (click)="addAuthorFormElement()">          <fa-icon            aria-hidden="true"            aria-label="Add icon"            [icon]="[\'fas\', \'plus\']"          ></fa-icon>          Add        </a>      </div>    </div>    <div      class="form-field-subtitle form-group authors"      *ngIf="getFormArray(\'authors\').controls.length > 0">      <div>First *</div>      <div>Middle</div>      <div>Last *</div>      <div></div>    </div>    <div      cdkDropList      (cdkDropListDropped)="drop(getFormArray(\'authors\'), $event)"      class="form-field-input"      >      <div        *ngFor="let formArrayEl of getFormArray(\'authors\').controls; let iFormArrayEl=index"        [formGroupName]="iFormArrayEl"        class="draggable form-array-el"        cdkDrag      >        <div class="form-group authors">          <input matInput            formControlName="firstName"            placeholder="John"            required            class="form-input"            />          <input matInput            formControlName="middleName"            placeholder="C"            class="form-input"            />          <input matInput            formControlName="lastName"            placeholder="Doe"            required            class="form-input"            />          <div class="form-group-buttons">            <fa-icon              aria-hidden="true"              aria-label="Drag icon"              [icon]="[\'fas\', \'grip-lines-vertical\']"              class="drag"            ></fa-icon>            <fa-icon              aria-hidden="true"              aria-label="Delete icon"              [icon]="[\'fas\', \'trash-alt\']"              (click)="removeFormArrayElement(\'authors\', iFormArrayEl)"            ></fa-icon>          </div>        </div>      </div>    </div>  </div>  <div    class="form-field"    formArrayName="identifiers"    >    <div class="form-field-title float-container">      <div class="form-field-title-text">Identifiers</div>      <div class="form-field-title-buttons">        <a (click)="addIdentifierFormElement()">          <fa-icon            aria-hidden="true"            aria-label="Add icon"            [icon]="[\'fas\', \'plus\']"          ></fa-icon>          Add        </a>      </div>    </div>    <div      class="form-field-subtitle form-group identifiers"      *ngIf="getFormArray(\'identifiers\').controls.length > 0">      <div>Namespace *</div>      <div>Id *</div>      <div></div>    </div>    <div      cdkDropList      (cdkDropListDropped)="drop(getFormArray(\'identifiers\'), $event)"      class="form-field-input"      >      <div        *ngFor="let formArrayEl of getFormArray(\'identifiers\').controls; let iFormArrayEl=index"        [formGroupName]="iFormArrayEl"        class="draggable form-array-el"        cdkDrag      >        <div class="form-group identifiers">          <input matInput            formControlName="namespace"            placeholder="biomodels.db"            required            class="form-input"            />          <input matInput            formControlName="id"            placeholder="BIOMD0000000001"            required            class="form-input"            />          <div class="form-group-buttons">            <fa-icon              aria-hidden="true"              aria-label="Drag icon"              [icon]="[\'fas\', \'grip-lines-vertical\']"              class="drag"            ></fa-icon>            <fa-icon              aria-hidden="true"              aria-label="Delete icon"              [icon]="[\'fas\', \'trash-alt\']"              (click)="removeFormArrayElement(\'identifiers\', iFormArrayEl)"            ></fa-icon>          </div>        </div>      </div>    </div>  </div>  <div    class="form-field"    formArrayName="refs"    >    <div class="form-field-title float-container">      <div class="form-field-title-text">References</div>      <div class="form-field-title-buttons">        <a (click)="addRefFormElement()">          <fa-icon            aria-hidden="true"            aria-label="Add icon"            [icon]="[\'fas\', \'plus\']"          ></fa-icon>          Add        </a>      </div>    </div>    <div      class="form-field-subtitle form-group refs"      *ngIf="getFormArray(\'refs\').controls.length > 0">      <div>Authors *</div>      <div>Title *</div>      <div>Journal</div>      <div>Volume</div>      <div>Number</div>      <div>Pages</div>      <div>Year *</div>      <div>DOI</div>      <div></div>    </div>    <div      cdkDropList      (cdkDropListDropped)="drop(getFormArray(\'refs\'), $event)"      class="form-field-input"      >      <div        *ngFor="let formArrayEl of getFormArray(\'refs\').controls; let iFormArrayEl=index"        [formGroupName]="iFormArrayEl"        class="draggable form-array-el"        cdkDrag      >        <div        class="form-group refs"        >          <input matInput            formControlName="authors"            placeholder="Doe JC & Doe JD"            required            class="form-input"            />          <input matInput            formControlName="title"            placeholder="Title"            required            class="form-input"            />          <input matInput            formControlName="journal"            placeholder="PLoS Comput Biol"            class="form-input"            />          <input matInput            formControlName="volume"            placeholder="10"            class="form-input"            />          <input matInput            formControlName="num"            placeholder="1"            class="form-input"            />          <input matInput            formControlName="pages"            placeholder="1-10"            class="form-input"            />          <input matInput            formControlName="year"            placeholder="2019"            required            class="form-input"            />          <input matInput            formControlName="doi"            placeholder="10.1002/0470841559.ch1"            class="form-input"            />          <div class="form-group-buttons">            <fa-icon              aria-hidden="true"              aria-label="Drag icon"              [icon]="[\'fas\', \'grip-lines-vertical\']"              class="drag"            ></fa-icon>            <fa-icon              aria-hidden="true"              aria-label="Delete icon"              [icon]="[\'fas\', \'trash-alt\']"              (click)="removeFormArrayElement(\'refs\', iFormArrayEl)"            ></fa-icon>          </div>        </div>      </div>    </div>  </div>  <div class="form-field">    <div class="form-field-title">Access level *</div>    <div class="form-field-input">      <mat-select        formControlName="access"        required        class="form-input"        disableRipple="true"        panelClass="form-select-input-panel"      >        <mat-option          *ngFor="let option of accessLevels"          [value]="option.value"        >{{ option.name }}</mat-option>      </mat-select>    </div>  </div>  <div class="form-field">    <div class="form-field-title">License *</div>    <div class="form-field-input">      <mat-select        formControlName="license"        required        class="form-input"        disableRipple="true"        panelClass="form-select-input-panel"      >        <mat-option          *ngFor="let option of licenses"          [value]="option.value"        >{{ option.name }}</mat-option>      </mat-select>    </div>  </div>  <div class="form-field">    <button mat-button      type="submit"      disableRipple="true"      [disabled]="!formGroup.valid"      class="form-submit-button"    >Save</button>  </div></form></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'Auth0CallbackComponent', 'selector': 'app-callback'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'ChartTypeCardsComponent', 'selector': 'app-chart-type-cards'},{'name': 'ChartTypesComponent', 'selector': ''},{'name': 'ChartTypesGridComponent', 'selector': 'app-chart-types-grid'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'Error404Component', 'selector': 'app-four'},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'GridCardComponent', 'selector': 'app-grid-card'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperLinkComponent', 'selector': 'app-hyper-link'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'IdRouteRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'RouterLinkComponent', 'selector': 'app-router-link'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'SortToolPanelGridComponent', 'selector': ''},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'EditComponent-3'};
 </script>

@@ -357,6 +357,23 @@ export class NavIconsComponent implements OnInit {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;icons&quot;&gt;
+  &lt;!-- Projects --&gt;
+  &lt;button
+    mat-icon-button
+    [routerLink]&#x3D;&quot;[&#x27;/projects&#x27;]&quot;
+    disableRipple&#x3D;&quot;true&quot;
+    class&#x3D;&quot;main&quot;
+  &gt;
+    &lt;fa-icon
+      class&#x3D;&quot;icon&quot;
+      aria-hidden&#x3D;&quot;false&quot;
+      aria-label&#x3D;&quot;Projects icon&quot;
+      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;folder-open&#x27;]&quot;
+      size&#x3D;&quot;2x&quot;
+    &gt;&lt;/fa-icon&gt;
+    &lt;span class&#x3D;&quot;label&quot;&gt;Projects&lt;/span&gt;
+  &lt;/button&gt;
+
   &lt;!-- Models --&gt;
   &lt;button
     mat-icon-button
@@ -387,6 +404,23 @@ export class NavIconsComponent implements OnInit {
     &lt;span class&#x3D;&quot;label&quot;&gt;Simulations&lt;/span&gt;
   &lt;/button&gt;
 
+  &lt;!-- Chart types --&gt;
+  &lt;button
+    mat-icon-button
+    [routerLink]&#x3D;&quot;[&#x27;/chart-types&#x27;]&quot;
+    disableRipple&#x3D;&quot;true&quot;
+    class&#x3D;&quot;main&quot;
+  &gt;
+    &lt;fa-icon
+      class&#x3D;&quot;icon&quot;
+      aria-hidden&#x3D;&quot;false&quot;
+      aria-label&#x3D;&quot;Chart types icon&quot;
+      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;chart-area&#x27;]&quot;
+      size&#x3D;&quot;2x&quot;
+    &gt;&lt;/fa-icon&gt;
+    &lt;span class&#x3D;&quot;label&quot;&gt;Chart types&lt;/span&gt;
+  &lt;/button&gt;
+
   &lt;!-- Visualizations --&gt;
   &lt;button
     mat-icon-button
@@ -397,8 +431,8 @@ export class NavIconsComponent implements OnInit {
     &lt;fa-icon
       class&#x3D;&quot;icon&quot;
       aria-hidden&#x3D;&quot;false&quot;
-      aria-label&#x3D;&quot;Visualizaions icon&quot;
-      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;chart-area&#x27;]&quot;
+      aria-label&#x3D;&quot;Visualizations icon&quot;
+      [icon]&#x3D;&quot;[&#x27;fas&#x27;, &#x27;paint-brush&#x27;]&quot;
       size&#x3D;&quot;2x&quot;
     &gt;&lt;/fa-icon&gt;
     &lt;span class&#x3D;&quot;label&quot;&gt;Visualizations&lt;/span&gt;
@@ -434,20 +468,22 @@ button:focus
 button:hover
     color: mat-color($theme-accent)
 button.main
-    margin-right: 2rem
+    margin-right: 1rem
     .label
-        margin-left: 0.5rem
-        @include mat-typography-level-to-styles($fontConfig, title)
+        margin-left: 0.25rem
+        font-size: 18px
+        line-height: normal
 
 mat-icon
     font-size: 2.25rem
-    width: 36px
-    height: 36px
+    width: auto
+    height: auto
 .icons
     .mat-icon-button
+        font-sze: 10px
         width: auto
         .mat-icon
-            line-height: 36px
+            line-height: 25px
 fa-icon
     position: relative
     top: 6px
@@ -485,8 +521,8 @@ a:hover
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="icons">  <!-- Models -->  <button    mat-icon-button    [routerLink]="[\'/models\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Models icon"      [icon]="[\'fas\', \'project-diagram\']"      size="2x"    ></fa-icon>    <span class="label">Models</span>  </button>  <!-- Simulations -->  <button    mat-icon-button    [routerLink]="[\'/simulations\']"    disableRipple="true"    class="main"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"      >timeline</mat-icon    >    <span class="label">Simulations</span>  </button>  <!-- Visualizations -->  <button    mat-icon-button    [routerLink]="[\'/visualizations\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Visualizaions icon"      [icon]="[\'fas\', \'chart-area\']"      size="2x"    ></fa-icon>    <span class="label">Visualizations</span>  </button>  <!-- User account and help -->  <button    mat-icon-button    [matMenuTriggerFor]="userMenu?.profileMenu"    disableRipple="true"    class="meta"  >    <mat-icon class="icon" aria-hidden="false" aria-label="User icon"      >account_circle</mat-icon    >  </button>  <app-user-menu></app-user-menu></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'FourComponent', 'selector': 'app-four'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperlinkComponent', 'selector': 'app-hyperlink'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'SearchBarComponent', 'selector': 'app-search-bar'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
+        var COMPONENT_TEMPLATE = '<div><div class="icons">  <!-- Projects -->  <button    mat-icon-button    [routerLink]="[\'/projects\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Projects icon"      [icon]="[\'fas\', \'folder-open\']"      size="2x"    ></fa-icon>    <span class="label">Projects</span>  </button>  <!-- Models -->  <button    mat-icon-button    [routerLink]="[\'/models\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Models icon"      [icon]="[\'fas\', \'project-diagram\']"      size="2x"    ></fa-icon>    <span class="label">Models</span>  </button>  <!-- Simulations -->  <button    mat-icon-button    [routerLink]="[\'/simulations\']"    disableRipple="true"    class="main"  >    <mat-icon class="icon" aria-hidden="false" aria-label="Simulations icon"      >timeline</mat-icon    >    <span class="label">Simulations</span>  </button>  <!-- Chart types -->  <button    mat-icon-button    [routerLink]="[\'/chart-types\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Chart types icon"      [icon]="[\'fas\', \'chart-area\']"      size="2x"    ></fa-icon>    <span class="label">Chart types</span>  </button>  <!-- Visualizations -->  <button    mat-icon-button    [routerLink]="[\'/visualizations\']"    disableRipple="true"    class="main"  >    <fa-icon      class="icon"      aria-hidden="false"      aria-label="Visualizations icon"      [icon]="[\'fas\', \'paint-brush\']"      size="2x"    ></fa-icon>    <span class="label">Visualizations</span>  </button>  <!-- User account and help -->  <button    mat-icon-button    [matMenuTriggerFor]="userMenu?.profileMenu"    disableRipple="true"    class="meta"  >    <mat-icon class="icon" aria-hidden="false" aria-label="User icon"      >account_circle</mat-icon    >  </button>  <app-user-menu></app-user-menu></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'Auth0CallbackComponent', 'selector': 'app-callback'},{'name': 'AuthorsComponent', 'selector': 'app-authors'},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'BrowseComponent', 'selector': ''},{'name': 'ChartTypeCardsComponent', 'selector': 'app-chart-type-cards'},{'name': 'ChartTypesComponent', 'selector': ''},{'name': 'ChartTypesGridComponent', 'selector': 'app-chart-types-grid'},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'EditComponent', 'selector': ''},{'name': 'Error404Component', 'selector': 'app-four'},{'name': 'FeedbackComponent', 'selector': 'app-feedback'},{'name': 'GridCardComponent', 'selector': 'app-grid-card'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HyperLinkComponent', 'selector': 'app-hyper-link'},{'name': 'IdRendererGridComponent', 'selector': ''},{'name': 'IdRouteRendererGridComponent', 'selector': ''},{'name': 'LogoComponent', 'selector': 'app-logo'},{'name': 'ModelCardsComponent', 'selector': 'app-model-cards'},{'name': 'ModelsComponent', 'selector': ''},{'name': 'ModelsGridComponent', 'selector': 'app-models-grid'},{'name': 'NavIconsComponent', 'selector': 'app-nav-icons'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'OkCancelDialogComponent', 'selector': 'app-ok-cancel-dialog'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileEditComponent', 'selector': 'app-profile-edit'},{'name': 'ProjectCardsComponent', 'selector': 'app-project-cards'},{'name': 'ProjectsComponent', 'selector': ''},{'name': 'ProjectsGridComponent', 'selector': 'app-projects-grid'},{'name': 'RouteRendererGridComponent', 'selector': ''},{'name': 'RouterLinkComponent', 'selector': 'app-router-link'},{'name': 'SearchToolPanelGridComponent', 'selector': ''},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SimulationCardsComponent', 'selector': 'app-simulation-cards'},{'name': 'SimulationsComponent', 'selector': ''},{'name': 'SimulationsGridComponent', 'selector': 'app-simulations-grid'},{'name': 'SortToolPanelGridComponent', 'selector': ''},{'name': 'TreeComponent', 'selector': 'app-tree'},{'name': 'UnderConstructionComponent', 'selector': 'app-under-construction'},{'name': 'UserMenuComponent', 'selector': 'app-user-menu'},{'name': 'VegaViewerComponent', 'selector': 'app-vega-viewer'},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'ViewComponent', 'selector': ''},{'name': 'VisualizationCardsComponent', 'selector': 'app-visualization-cards'},{'name': 'VisualizationsComponent', 'selector': ''},{'name': 'VisualizationsGridComponent', 'selector': 'app-visualizations-grid'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'NavIconsComponent'};
 </script>
