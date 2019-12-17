@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit {
     ];
   }
 
+  // tslint:disable:max-line-length
   getBarGraph(icon: string[], title: string, subtitle: string, xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
     const xScale: object = null;
     let maxVal = 0;
