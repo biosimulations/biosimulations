@@ -19,6 +19,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import {
   faFileAlt,
+  faFileCode,
   faCircle,
   faCalendarAlt,
   faClock,
@@ -81,6 +82,8 @@ import {
   faTools,
   faMap,
   faPaintBrush,
+  faTasks,
+  faDatabase,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -260,6 +263,7 @@ export class SharedModule {
     // Add an icon to the library for convenient access in other components
     library.addIcons(
       faFileAlt,
+      faFileCode,
       faCircle,
       faCalendarAlt,
       faClock,
@@ -320,6 +324,8 @@ export class SharedModule {
       faTools,
       faMap,
       faPaintBrush,
+      faTasks,
+      faDatabase,
       faDocker,
       faGithub,
       faGoogle,

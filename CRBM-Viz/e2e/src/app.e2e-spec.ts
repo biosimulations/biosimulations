@@ -11,7 +11,7 @@ describe('workspace-project App', () => {
   it('should display home page', async () => {
     await page.navigateTo();
 
-    expect(await page.getProjectsTitle()).toContain('Share projects');
+    expect(await page.getProjectsTitle()).toContain('BioSimulations');
   });
 
   afterEach(async () => {
