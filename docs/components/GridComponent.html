@@ -499,8 +499,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="262"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:262</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="263"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:263</a></div>
                 </td>
             </tr>
 
@@ -635,8 +635,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="232"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:232</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="233"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:233</a></div>
                 </td>
             </tr>
 
@@ -849,8 +849,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="242"
-                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:242</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="243"
+                            class="link-to-prism">CRBM-Viz/src/app/Shared/Components/grid/grid.component.ts:243</a></div>
                 </td>
             </tr>
 
@@ -1870,13 +1870,14 @@ export class GridComponent {
   }
 
   setRowSelection(rowDatum: object, selection: boolean): void {
-    rowDatum[&#x27;_selected&#x27;] &#x3D; selection;
+    const row &#x3D; this.gridApi.getRowNode(rowDatum[&#x27;id&#x27;]);
+    row.data[&#x27;_selected&#x27;] &#x3D; selection;
     if (selection) {
-      this.selected.add(rowDatum);
+      this.selected.add(row.data);
     } else {
-      this.selected.delete(rowDatum);
+      this.selected.delete(row.data);
     }
-    this.gridApi.getRowNode(rowDatum[&#x27;id&#x27;]).setSelected(selection, false);
+    row.setSelected(selection, false);
   }
 
   rowSelected(event): void {
