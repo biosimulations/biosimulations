@@ -71,7 +71,7 @@ To deploy a new version into production:
 
 ## Documentation
 
-* [User guide](https://crbm-viz.herokuapp.com/help)
+* [User guide](https://crbm-viz.herokuapp.com/about/help)
 * [Code documentation](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/)
 * REST API documentation
 
