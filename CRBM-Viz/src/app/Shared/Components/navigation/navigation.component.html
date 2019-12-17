@@ -26,8 +26,8 @@
       <app-sidebar></app-sidebar>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content class="full-content">
-    <div [ngClass]="['toolbar-container'].concat(moduleClasses).join(' ')">
+  <mat-sidenav-content [ngClass]="['full-content'].concat(moduleClasses).join(' ')">
+    <div class="topbar-container">
       <mat-toolbar class="topbar" color="primary">
         <button
           class="menubutton"
