@@ -8,14 +8,34 @@
   border-right: 1px solid #999
   background: #bcdffb
 
-.toolbar-container
+.topbar-container
   position: sticky
   top: 0
   z-index: 1
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25)
 
-.toolbar-container.tabs
+.tabs .topbar-container
   box-shadow: none
+
+.fluid-topbar
+  .topbar-container
+    position: unset
+    box-shadow: none
+
+    .topbar.mat-toolbar.mat-primary
+      position: unset
+
+    .topbar.mat-toolbar
+      background: none
+      color: #666
+      .logo
+        display: none
+      .mat-icon-button
+        color: #666
+  .content
+    position: relative
+    z-index: -1
+    margin-top: -64px
 
 .mat-toolbar
   background: #666
