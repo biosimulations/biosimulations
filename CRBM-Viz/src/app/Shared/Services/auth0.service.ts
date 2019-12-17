@@ -172,7 +172,7 @@ export class AuthService {
     if (userProfile.email) {
       user.email = userProfile.email;
     }
-    user.username =
+    user.userName =
       userProfile['https://www.biosimulations.org:app_metadata']['username'];
     user.firstName = userProfile.given_name;
     user.lastName = userProfile.given_name;
