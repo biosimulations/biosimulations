@@ -6,7 +6,7 @@ import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-
+import md5 from 'md5';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
    * The object representing the user displayed in the profile
    */
   user: User;
+  gravatarId: string;
   private loggedInUsername: string;
 
   constructor(
@@ -42,8 +43,10 @@ export class ProfileComponent implements OnInit {
         } else {
           username = this.loggedInUsername;
         }
-        this.userService.get$(username).subscribe(user => {
+        this.userService.getUser$(username).subscribe(user => {
+          console.warn(user);
           this.user = user;
+          this.gravatarId = md5(user.gravatarEmail.trim().toLowerCase());
         });
 
         this.setCrumbs(username === this.loggedInUsername);

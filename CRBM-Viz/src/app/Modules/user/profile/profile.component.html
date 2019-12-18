@@ -1,12 +1,24 @@
 <div class="page-content partial-width">
   <div *ngIf="user">
     <div class="profile">
-      <img class="photo" src="{{ user.getGravatarImgUrl() }}" />
-      <div class="name mat-title">{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</div>
-      <div class="username light">{{ user.username }}</div>
-      <div class="description" *ngIf="user.description">{{
-        user.description
-      }}</div>
+      <img
+        *ngIf="user.gravatarEmail"
+        class="photo"
+        src="https://www.gravatar.com/avatar/{{ gravatarId }}?size=320"
+      />
+      <img
+        *ngIf="!user.gravatarEmail"
+        class="photo"
+        src="assets/defaultSilhouette.svg"
+      />
+
+      <div class="name mat-title">
+        {{ user.firstName }} {{ user.middleName }} {{ user.lastName }}
+      </div>
+      <div class="username light">{{ user.userName }}</div>
+      <div class="description" *ngIf="user.description">
+        {{ user.description }}
+      </div>
 
       <table class="details">
         <tr *ngIf="user.organization">
@@ -23,14 +35,14 @@
             <mat-icon aria-hidden="false" aria-label="Website">link</mat-icon>
           </th>
           <td>
-            <a href="{{ user.website }}">{{
-              user.website
-            }}</a>
+            <a href="{{ user.website }}">{{ user.website }}</a>
           </td>
         </tr>
 
         <tr *ngIf="user.email && user.emailPublic" class="email">
-          <th><mat-icon aria-hidden="false" aria-label="Email">email</mat-icon></th>
+          <th>
+            <mat-icon aria-hidden="false" aria-label="Email">email</mat-icon>
+          </th>
           <td>
             <a href="mailto:{{ user.email }}">{{ user.email }}</a>
           </td>
@@ -81,16 +93,14 @@
             ></fa-icon>
           </th>
           <td>
-            <a href="https://orcid.org/{{ user.orcId }}">{{
-              user.orcId
-            }}</a>
+            <a href="https://orcid.org/{{ user.orcId }}">{{ user.orcId }}</a>
           </td>
         </tr>
       </table>
     </div>
 
     <div class="resources-container">
-      <ng-container *ngIf="user.getProjects() as projects">
+      <ng-container *ngIf="false as projects">
         <div class="resources" *ngIf="projects.length > 0">
           <div class="resources-title float-container">
             <h2>Projects ({{ projects.length }})</h2>
@@ -103,20 +113,17 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="user.getModels() as models">
+      <ng-container *ngIf="false as models">
         <div class="resources" *ngIf="models.length > 0">
           <div class="resources-title float-container">
             <h2>Models ({{ models.length }})</h2>
             <a [routerLink]="['models']">View all</a>
           </div>
-          <app-model-cards
-            [models]="models"
-            [maxModels]="10"
-          ></app-model-cards>
+          <app-model-cards [models]="models" [maxModels]="10"></app-model-cards>
         </div>
       </ng-container>
 
-      <ng-container *ngIf="user.getSimulations() as simulations">
+      <ng-container *ngIf="false as simulations">
         <div class="resources" *ngIf="simulations.length > 0">
           <div class="resources-title float-container">
             <h2>Simulations ({{ simulations.length }})</h2>
@@ -129,7 +136,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="user.getChartTypes() as chartTypes">
+      <ng-container *ngIf="false as chartTypes">
         <div class="resources" *ngIf="chartTypes.length > 0">
           <div class="resources-title float-container">
             <h2>Chart types ({{ chartTypes.length }})</h2>
@@ -142,7 +149,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="user.getVisualizations() as visualizations">
+      <ng-container *ngIf="false as visualizations">
         <div class="resources" *ngIf="visualizations.length > 0">
           <div class="resources-title float-container">
             <h2>Visualizations ({{ visualizations.length }})</h2>
