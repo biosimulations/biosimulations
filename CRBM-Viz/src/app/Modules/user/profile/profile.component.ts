@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
         } else {
           username = this.loggedInUsername;
         }
-        this.userService.get$(username).subscribe(user => {
+        this.userService.getUser$(username).subscribe(user => {
           this.user = user;
         });
 
