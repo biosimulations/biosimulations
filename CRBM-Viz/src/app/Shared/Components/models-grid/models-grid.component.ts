@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -48,17 +56,14 @@ export class ModelsGridComponent implements OnInit {
 
   @ViewChild('grid', { static: true }) grid;
 
-  constructor(
-    private modelService: ModelService
-    ) {
-  }
+  constructor(private modelService: ModelService) {}
 
   ngOnInit() {
     this.columnDefs = [
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: (this._selectable ? 'idRenderer' : 'idRouteRenderer'),
+        cellRenderer: this._selectable ? 'idRenderer' : 'idRouteRenderer',
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -169,7 +174,7 @@ export class ModelsGridComponent implements OnInit {
   }
 
   onSelectRow(event) {
-    this.selectRow.emit(event)
+    this.selectRow.emit(event);
   }
 }
 
@@ -182,17 +187,17 @@ function tagsGetter(params): string[] {
 }
 
 function ownerGetter(params): string {
-  const owner:User = params.data.owner;
-  return owner.getFullName();
+  const owner: User = params.data.owner;
+  return 'test';
 }
 
 function formatGetter(params): string {
-  const format:Format = params.data.format;
+  const format: Format = params.data.format;
   return format.getFullName();
 }
 
 function capitalizeFormatter(params): string {
-  const value:string = params.value;
+  const value: string = params.value;
   if (value) {
     return value.substring(0, 1).toUpperCase() + value.substring(1);
   } else {
@@ -210,8 +215,12 @@ function authorFormatter(params) {
 }
 
 function dateFormatter(params): string {
-  const date:Date = params.value;
-  return (date.getFullYear()
-     + '-' + String(date.getMonth() + 1).padStart(2, '0')
-     + '-' + String(date.getDate()).padStart(2, '0'));
+  const date: Date = params.value;
+  return (
+    date.getFullYear() +
+    '-' +
+    String(date.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    String(date.getDate()).padStart(2, '0')
+  );
 }
