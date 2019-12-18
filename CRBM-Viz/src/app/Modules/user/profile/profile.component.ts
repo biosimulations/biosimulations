@@ -33,8 +33,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.auth.getUsername$().subscribe(name => {
       this.loggedInUsername = name;
-      console.log(name);
-
       this.route.params.subscribe(routeParams => {
         let username;
         if (routeParams.username) {
@@ -42,7 +40,7 @@ export class ProfileComponent implements OnInit {
         } else {
           username = this.loggedInUsername;
         }
-        this.userService.getUser$(username).subscribe(user => {
+        this.userService.get$(username).subscribe(user => {
           this.user = user;
         });
 

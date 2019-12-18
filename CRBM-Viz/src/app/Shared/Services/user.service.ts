@@ -137,8 +137,8 @@ export class UserService {
     }
     return user;
   }
-  // TODO get the current logged in user if no username is provided
-  getUser$(username?: string): Observable<User> {
+
+  get$(username?: string): Observable<User> {
     let user: Observable<User>;
     user = this.http
       .get<User>(this.endpoint + '/users/' + username)
@@ -149,10 +149,6 @@ export class UserService {
 
   get(username?: string): User {
     return UserService._get(username, true);
-  }
-  // TODO Remove this method
-  get$(username?: string): Observable<User> {
-    return of(this.get(username));
   }
 
   list(): User[] {
