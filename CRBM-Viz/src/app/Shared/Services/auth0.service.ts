@@ -153,8 +153,9 @@ export class AuthService {
     // Response will be an array of user and login status
     authComplete$.subscribe(([user, loggedIn]) => {
       // Call a method in the user serivce to ensure that the user exists in the database
-
-      this.confirmExists(user);
+      if (loggedIn) {
+        this.confirmExists(user);
+      }
 
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
