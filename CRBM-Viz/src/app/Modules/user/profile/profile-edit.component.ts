@@ -7,7 +7,8 @@ import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 import { ProvidedFilter } from 'ag-grid-community';
 
 @Component({
@@ -15,7 +16,6 @@ import { ProvidedFilter } from 'ag-grid-community';
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.sass'],
 })
-
 export class ProfileEditComponent implements OnInit {
   formGroup: FormGroup;
 
@@ -24,9 +24,10 @@ export class ProfileEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     public auth: AuthService,
-    private userService: UserService) {
+    private userService: UserService
+  ) {
     this.formGroup = this.formBuilder.group({
-      username: [''],
+      userName: [''],
       firstName: [''],
       middleName: [''],
       lastName: [''],
@@ -48,25 +49,42 @@ export class ProfileEditComponent implements OnInit {
       { label: 'Edit your profile' },
     ];
     const buttons: NavItem[] = [
-      { iconType: 'fas', icon: 'user', label: 'View', route: ['/user'], display: NavItemDisplayLevel.loggedIn },
+      {
+        iconType: 'fas',
+        icon: 'user',
+        label: 'View',
+        route: ['/user'],
+        display: NavItemDisplayLevel.loggedIn,
+      },
     ];
     this.breadCrumbsService.set(crumbs, buttons);
-    let user: User
-    if (this.auth && this.auth.token && this.auth.token.sub) {
-      this.auth.userProfile$.subscribe(profile =>
-        this.userService.get$(profile.nickname).subscribe(getUser =>
-          user = user
-        )
-      )
-      this.formGroup.patchValue(user);
-      // this.users.get().subscribe(res => (this.user = res));
-    }
+    let user: User;
+    this.auth.getUsername$().subscribe(username => {
+      this.userService.get$(username).subscribe(loggedInUser => {
+        user = loggedInUser;
+        this.formGroup.patchValue(user);
+      });
+    });
+
+    // this.users.get().subscribe(res => (this.user = res));
   }
 
   submit(): void {
+    const username = this.auth.getUsername$();
+    const userId = this.auth.getUser$().pipe();
+    const userInfo = merge(username, userId, 2);
     const data: User = this.formGroup.value as User;
-    this.userService.set(data);
-
+    this.auth.getUsername$().subscribe(name => {
+      this.auth
+        .getUser$()
+        .pipe(pluck('sub'))
+        .subscribe(id => {
+          console.log(data);
+          console.log(name);
+          console.log(id);
+          this.userService.set(data, name, id);
+        });
+    });
     this.snackBar.open('Profile saved', '', {
       panelClass: 'centered-snack-bar',
       duration: 3000,

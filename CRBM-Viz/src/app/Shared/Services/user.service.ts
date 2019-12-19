@@ -1,33 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../Models/user';
-import { ProjectService } from './project.service';
-import { ModelService } from './model.service';
-import { SimulationService } from './simulation.service';
-import { VisualizationService } from './visualization.service';
+import { User, UserSerializer } from '../Models/user';
 import { environment } from 'src/environments/environment';
-
-// tslint:disable:max-line-length
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(
-    private http: HttpClient,
-  ) { }
-  private endpoint = environment.crbm.CRBMAPI_URL
+  constructor(private http: HttpClient) {}
 
+  private endpoint = environment.crbm.CRBMAPI_URL;
+  private serializer = new UserSerializer();
+
+  // TODO Remove this method
   static _get(username?: string, includeRelatedObjects = false): User {
     let user: User;
     switch (username) {
       default:
       case 'jonrkarr':
         user = new User();
-        user.auth0Id = 'github|2848297';
-        user.id = 1;
-        user.username = username;
+        user.userId = 1;
+        user.userName = username;
         user.firstName = 'Jonathan';
         user.middleName = 'R';
         user.lastName = 'Karr';
@@ -40,7 +35,8 @@ export class UserService {
         user.gitHubId = 'jonrkarr';
         user.googleScholarId = 'Yb5nVLAAAAAJ';
         user.orcId = '0000-0002-2605-5080';
-        user.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
+        user.description =
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla risus ac aliquam commodo. Ut pellentesque, ' +
           'ligula sit amet condimentum lacinia, sapien tortor malesuada justo, et finibus nulla tellus vel velit. Aliquam erat volutpat. ' +
           'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras a scelerisque urna. ' +
           'Sed sodales ex vel sapien condimentum, at rhoncus nisi mollis. Sed blandit lobortis sagittis. Ut pretium quam odio, ' +
@@ -48,8 +44,8 @@ export class UserService {
         break;
       case 'y.skaf':
         user = new User();
-        user.id = 2;
-        user.username = 'y.skaf';
+        user.userId = 2;
+        user.userName = 'y.skaf';
         user.firstName = 'Yara';
         user.lastName = 'Skaf';
         user.organization = 'University of Connecticut Health Center';
@@ -59,10 +55,10 @@ export class UserService {
         user.gravatarEmail = 'skaf@uchc.edu';
         user.description = 'Description';
         break;
-      case 'bill2507733':
+      case 'bilalshaikh42':
         user = new User();
-        user.id = 3;
-        user.username = 'bill2507733';
+        user.userId = 3;
+        user.userName = 'bill2507733';
         user.firstName = 'Bilal';
         user.lastName = 'Shaikh';
         user.organization = 'Icahn School of Medicine at Mount Sinai';
@@ -75,44 +71,40 @@ export class UserService {
         break;
       case 's.edelstein':
         user = new User();
-        user.id = 4;
-        user.username = 's.edelstein';
+        user.userId = 4;
+        user.userName = 's.edelstein';
         user.firstName = 'S';
         user.lastName = 'Edelstein';
         break;
       case 'a.goldbeter':
         user = new User();
-        user.id = 5;
-        user.username = 'a.goldbeter';
+        user.userId = 5;
+        user.userName = 'a.goldbeter';
         user.firstName = 'A';
         user.lastName = 'Goldbeter';
         break;
       case 'j.tyson':
         user = new User();
-        user.id = 6;
-        user.username = 'j.tyson';
+        user.userId = 6;
+        user.userName = 'j.tyson';
         user.firstName = 'J';
         user.lastName = 'Tyson';
         break;
     }
     return user;
   }
-  // TODO get the current logged in user if no username is provided
-  getUser$(username?: string): Observable<User> {
-    let user: Observable<User>
-    user = this.http.get<User>(this.endpoint + '/user/' + username);
 
+  get$(username?: string): Observable<User> {
+    let user: Observable<User>;
+    user = this.http
+      .get<User>(this.endpoint + '/users/' + username)
+      .pipe(map(data => this.serializer.fromJson(data)));
     return user;
-
   }
 
   get(username?: string): User {
     return UserService._get(username, true);
   }
-  get$(username?: string): Observable<User> {
-    return of(this.get(username))
-  }
-
 
   list(): User[] {
     return [
@@ -125,7 +117,14 @@ export class UserService {
     ];
   }
 
-  set(user: User): void {
-
+  set(user: User, userName: string, id: string): void {
+    user.userId = id;
+    this.http
+      .put<User>(
+        this.endpoint + '/users/' + userName,
+        this.serializer.toJson(user)
+      )
+      .pipe(map(data => this.serializer.fromJson(data)))
+      .subscribe(res => console.log(res));
   }
 }

@@ -12,10 +12,50 @@ import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
 import * as md5 from 'md5';
 
+export class UserSerializer {
+  fromJson(json: any): User {
+    const user = new User();
+    user.userId = json._id;
+    user.userName = json.userName;
+    user.firstName = json.firstName;
+    user.middleName = json.middleName;
+    user.lastName = json.lastName;
+    user.organization = json.organization;
+    user.website = json.website;
+    user.email = json.email;
+    user.emailVerified = json.emailVerified || false;
+    user.emailPublic = json.emailPublic || false;
+    user.gravatarEmail = json.gravatarEmail;
+    user.gitHubId = json.gitHubId;
+    user.googleScholarId = json.googleScholarId;
+    user.orcId = json.orcId;
+    user.description = json.description;
+
+    return user;
+  }
+  toJson(user: User): any {
+    return {
+      _id: user.userId,
+      userName: user.userName,
+      firstName: user.firstName,
+      middleName: user.middleName,
+      lastName: user.lastName,
+      organization: user.organization,
+      website: user.website,
+      email: user.email,
+      emailVerified: user.emailVerified || false,
+      emailPublic: user.emailPublic || false,
+      gravatarEmail: user.gravatarEmail,
+      gitHubId: user.gitHubId,
+      googleScholarId: user.googleScholarId,
+      orcId: user.orcId,
+      description: user.description,
+    };
+  }
+}
 export class User implements PersonInterface {
-  auth0Id?: string;
-  id?: number;
-  username?: string;
+  userId?: string | number;
+  userName?: string;
   firstName?: string;
   middleName?: string;
   lastName?: string;
@@ -31,7 +71,7 @@ export class User implements PersonInterface {
   description?: string;
 
   getRoute(): (string | number)[] {
-    return ['/user', this.username];
+    return ['/user', this.userName];
   }
 
   getFullName(): string {
@@ -40,7 +80,11 @@ export class User implements PersonInterface {
 
   getGravatarImgUrl(): string {
     if (this.gravatarEmail) {
-      return 'https://www.gravatar.com/avatar/' + md5(this.gravatarEmail.trim().toLowerCase()) + '?size=320';
+      return (
+        'https://www.gravatar.com/avatar/' +
+        md5(this.gravatarEmail.trim().toLowerCase()) +
+        '?size=320'
+      );
     } else {
       return 'assets/defaultSilhouette.svg';
     }
