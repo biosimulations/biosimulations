@@ -21,7 +21,7 @@ import {
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../Models/user';
+import { User, UserSerializer } from '../Models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -167,6 +167,7 @@ export class AuthService {
    *
    */
   confirmExists(userProfile: any) {
+    const serializer = new UserSerializer();
     const user = new User();
     user.userId = userProfile.sub;
     if (userProfile.email) {
@@ -177,7 +178,7 @@ export class AuthService {
     user.firstName = userProfile.given_name;
     user.lastName = userProfile.given_name;
     this.http
-      .post(environment.crbm.CRBMAPI_URL + '/users', user)
+      .post(environment.crbm.CRBMAPI_URL + '/users', serializer.toJson(user))
       .subscribe(res => {
         if (!environment.production) {
           console.log(userProfile);
