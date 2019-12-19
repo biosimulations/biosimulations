@@ -1,51 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../Models/user';
+import { User, UserSerializer } from '../Models/user';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
-export class UserSerializer {
-  fromJson(json: any): User {
-    const user = new User();
-    user.userId = json._id;
-    user.userName = json.userName;
-    user.firstName = json.firstName;
-    user.middleName = json.middleName;
-    user.lastName = json.lastName;
-    user.organization = json.organization;
-    user.website = json.website;
-    user.email = json.email;
-    user.emailVerified = json.emailVerified || false;
-    user.emailPublic = json.emailPublic || false;
-    user.gravatarEmail = json.gravatarEmail;
-    user.gitHubId = json.gitHubId;
-    user.googleScholarId = json.googleScholarId;
-    user.orcId = json.orcId;
-    user.description = json.description;
-
-    return user;
-  }
-  toJson(user: User): any {
-    return {
-      _id: user.userId,
-      userName: user.userName,
-      firstName: user.firstName,
-      middleName: user.middleName,
-      lastName: user.lastName,
-      organization: user.organization,
-      website: user.website,
-      email: user.email,
-      emailVerified: user.emailVerified || false,
-      emailPublic: user.emailPublic || false,
-      gravatarEmail: user.gravatarEmail,
-      gitHubId: user.gitHubId,
-      googleScholarId: user.googleScholarId,
-      orcId: user.orcId,
-      description: user.description,
-    };
-  }
-}
 @Injectable({
   providedIn: 'root',
 })
