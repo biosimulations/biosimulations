@@ -161,7 +161,10 @@ export class UserService {
   set(user: User, userName: string, id: string): void {
     user.userId = id;
     this.http
-      .put<User>(this.endpoint + '/users/' + userName, user)
+      .put<User>(
+        this.endpoint + '/users/' + userName,
+        this.serializer.toJson(user)
+      )
       .pipe(map(data => this.serializer.fromJson(data)))
       .subscribe(res => console.log(res));
   }
