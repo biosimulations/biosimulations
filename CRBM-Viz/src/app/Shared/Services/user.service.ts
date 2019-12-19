@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../Models/user';
-import { ProjectService } from './project.service';
-import { ModelService } from './model.service';
-import { SimulationService } from './simulation.service';
-import { VisualizationService } from './visualization.service';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -20,8 +16,8 @@ export class UserSerializer {
     user.organization = json.organization;
     user.website = json.website;
     user.email = json.email;
-    user.emailVerified = json.emailVerified;
-    user.emailPublic = json.emailPublic;
+    user.emailVerified = json.emailVerified || false;
+    user.emailPublic = json.emailPublic || false;
     user.gravatarEmail = json.gravatarEmail;
     user.gitHubId = json.gitHubId;
     user.googleScholarId = json.googleScholarId;
@@ -40,8 +36,8 @@ export class UserSerializer {
       organization: user.organization,
       website: user.website,
       email: user.email,
-      emailVerified: user.emailVerified,
-      emailPublic: user.emailPublic,
+      emailVerified: user.emailVerified || false,
+      emailPublic: user.emailPublic || false,
       gravatarEmail: user.gravatarEmail,
       gitHubId: user.gitHubId,
       googleScholarId: user.googleScholarId,
@@ -55,6 +51,7 @@ export class UserSerializer {
 })
 export class UserService {
   constructor(private http: HttpClient) {}
+
   private endpoint = environment.crbm.CRBMAPI_URL;
   private serializer = new UserSerializer();
 
@@ -143,7 +140,6 @@ export class UserService {
     user = this.http
       .get<User>(this.endpoint + '/users/' + username)
       .pipe(map(data => this.serializer.fromJson(data)));
-
     return user;
   }
 
@@ -162,9 +158,11 @@ export class UserService {
     ];
   }
 
-  set(user: User, userName: string): void {
+  set(user: User, userName: string, id: string): void {
+    user.userId = id;
     this.http
-      .put(this.endpoint + '/users/' + userName, user)
+      .put<User>(this.endpoint + '/users/' + userName, user)
+      .pipe(map(data => this.serializer.fromJson(data)))
       .subscribe(res => console.log(res));
   }
 }

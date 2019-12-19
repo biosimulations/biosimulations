@@ -13,7 +13,7 @@ import { VisualizationService } from '../Services/visualization.service';
 import * as md5 from 'md5';
 
 export class User implements PersonInterface {
-  userId?: number;
+  userId?: string | number;
   userName?: string;
   firstName?: string;
   middleName?: string;
