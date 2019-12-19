@@ -1,7 +1,9 @@
 <div class="page-content partial-width">
   <div *ngIf="user">
     <div class="profile">
-      <img class="photo" src="{{ user.getGravatarImgUrl() }}" />
+      <div class="photo-container">
+        <img class="photo" src="{{ user.getGravatarImgUrl() }}" />
+      </div>
       <div class="name mat-title">{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</div>
       <div class="username light">{{ user.userName }}</div>
       <div class="description" *ngIf="user.description">{{
