@@ -1,71 +1,84 @@
 <form
   class="page-content partial-width form"
   [formGroup]="formGroup"
-  (ngSubmit)="submit()">
-
+  (ngSubmit)="submit()"
+>
   <div class="form-field">
     <div class="form-field-title">Username *</div>
     <div class="form-field-input">
-      <input matInput
-        formControlName="username"
+      <input
+        matInput
+        [readonly]="true"
+        formControlName="userName"
         placeholder="username"
         required
-        disabled
         class="form-input"
-        />
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">Name *</div>
     <div class="form-field-input form-group name">
-      <input matInput
+      <input
+        matInput
         formControlName="firstName"
         required
         placeholder="John"
-        class="form-input"/>
-      <input matInput
+        class="form-input"
+      />
+      <input
+        matInput
         formControlName="middleName"
         placeholder="C"
-        class="form-input"/>
-      <input matInput
+        class="form-input"
+      />
+      <input
+        matInput
         formControlName="lastName"
         required
         placeholder="Doe"
-        class="form-input"/>
+        class="form-input"
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">Organization</div>
     <div class="form-field-input">
-      <input matInput
+      <input
+        matInput
         formControlName="organization"
         placeholder="XXX University"
-        class="form-input"/>
+        class="form-input"
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">Organization</div>
     <div class="form-field-input">
-      <input matInput
+      <input
+        matInput
         formControlName="website"
         type="url"
         placeholder="https://www.mywebsite.org"
-        class="form-input"/>
+        class="form-input"
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">Email</div>
     <div class="form-field-input form-group email">
-      <input matInput
+      <input
+        matInput
         formControlName="email"
         type="email"
         required
         placeholder="user@organization.org"
-        class="form-input"/>
+        class="form-input"
+      />
 
       <mat-select
         formControlName="emailPublic"
@@ -83,62 +96,74 @@
   <div class="form-field">
     <div class="form-field-title">Gravatar email (for photo)</div>
     <div class="form-field-input">
-      <input matInput
+      <input
+        matInput
         formControlName="gravatarEmail"
         type="email"
         placeholder="user@organization.edu"
-        class="form-input"/>
+        class="form-input"
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">GitHub username</div>
     <div class="form-field-input">
-      <input matInput
+      <input
+        matInput
         formControlName="gitHubId"
         placeholder="username"
-        class="form-input"/>
+        class="form-input"
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">Google Scholar id</div>
     <div class="form-field-input">
-      <input matInput
+      <input
+        matInput
         formControlName="googleScholarId"
         placeholder="XXXXXXXXXXXXX"
-        class="form-input"/>
+        class="form-input"
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">ORCID</div>
     <div class="form-field-input">
-      <input matInput
+      <input
+        matInput
         formControlName="orcId"
         placeholder="xxxx-xxxx-xxxx-xxxx"
-        class="form-input"/>
+        class="form-input"
+      />
     </div>
   </div>
 
   <div class="form-field">
     <div class="form-field-title">Description</div>
     <div class="form-field-input">
-      <textarea matInput
+      <textarea
+        matInput
         formControlName="description"
         placeholder="Description of professional interests and experience."
         class="form-input"
         rows="10"
-        ></textarea>
+      ></textarea>
     </div>
   </div>
 
   <div class="form-field">
-    <button mat-button
+    <button
+      mat-button
       type="submit"
       disableRipple="true"
       [disabled]="!formGroup.valid"
       class="form-submit-button"
-    >Save</button>
+    >
+      Save
+    </button>
   </div>
 </form>
