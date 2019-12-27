@@ -1,5 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  AbstractControl,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -17,7 +24,10 @@ import { Model } from 'src/app/Shared/Models/model';
 import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './edit.component.html',
@@ -42,7 +52,7 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     private metadataService: MetadataService,
     private modelService: ModelService
-    ) {
+  ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
       file: [''],
@@ -59,24 +69,23 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.taxa = this.formGroup.get('taxon').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value === null || typeof value === 'string' ? value : value.name),
-        map(value => this.metadataService.getTaxa(value))
-      );
+    this.taxa = this.formGroup.get('taxon').valueChanges.pipe(
+      startWith(''),
+      map(value =>
+        value === null || typeof value === 'string' ? value : value.name
+      ),
+      map(value => this.metadataService.getTaxa(value))
+    );
 
     this.route.params.subscribe(params => {
       this.id = params.id;
 
       if (this.id) {
-        this.model = this.modelService.get(this.id);
+        this.modelService.get(this.id).subscribe(model => (this.model = model));
       }
 
       // setup bread crumbs and buttons
-      const crumbs: object[] = [
-        {label: 'Models', route: ['/models']},
-      ];
+      const crumbs: object[] = [{ label: 'Models', route: ['/models'] }];
       if (this.id) {
         crumbs.push({
           label: 'Model ' + this.id,
@@ -97,34 +106,40 @@ export class EditComponent implements OnInit {
           icon: 'timeline',
           label: 'Simulate',
           route: ['/simulations', 'new', this.id],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+          display: this.id
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
         },
         {
           iconType: 'fas',
           icon: 'bars',
           label: 'View',
           route: ['/models', this.id],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+          display: this.id
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
         },
         {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          click: () => { this.openDeleteDialog() },
-          display: (
-            this.id
-            && this.model
-            && this.model.access === AccessLevel.public
-            ? NavItemDisplayLevel.never
-            : NavItemDisplayLevel.user),
-          displayUser: (!!this.model ? this.model.owner : null),
+          click: () => {
+            this.openDeleteDialog();
+          },
+          display:
+            this.id && this.model && this.model.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.model ? this.model.owner : null,
         },
         {
           iconType: 'fas',
           icon: 'plus',
           label: 'New',
           route: ['/models', 'new'],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+          display: this.id
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
         },
         {
           iconType: 'fas',
@@ -152,10 +167,18 @@ export class EditComponent implements OnInit {
         this.getFormArray('refs').clear();
 
         this.formGroup.get('file').validator = null;
-        for (const tag of this.model.tags) { this.addTagFormElement(); }
-        for (const author of this.model.authors) { this.addAuthorFormElement(); }
-        for (const identifiers of this.model.identifiers) { this.addIdentifierFormElement(); }
-        for (const ref of this.model.refs) { this.addRefFormElement(); }
+        for (const tag of this.model.tags) {
+          this.addTagFormElement();
+        }
+        for (const author of this.model.authors) {
+          this.addAuthorFormElement();
+        }
+        for (const identifiers of this.model.identifiers) {
+          this.addIdentifierFormElement();
+        }
+        for (const ref of this.model.refs) {
+          this.addRefFormElement();
+        }
         this.formGroup.patchValue(this.model);
       } else {
         this.formGroup.get('file').validator = Validators.required;
@@ -196,9 +219,9 @@ export class EditComponent implements OnInit {
   selectAutocomplete(formControl: AbstractControl, required = false): void {
     const value = formControl.value;
     if (required && (typeof value === 'string' || value === null)) {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else if (!required && typeof value === 'string' && value !== '') {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else {
       if (value === '') {
         formControl.patchValue(null);
@@ -236,40 +259,47 @@ export class EditComponent implements OnInit {
 
   addAuthorFormElement(): void {
     const formArray: FormArray = this.getFormArray('authors');
-    formArray.push(this.formBuilder.group({
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        firstName: [''],
+        middleName: [''],
+        lastName: [''],
+      })
+    );
   }
 
   addIdentifierFormElement(): void {
     const formArray: FormArray = this.getFormArray('identifiers');
-    formArray.push(this.formBuilder.group({
-      namespace: [''],
-      id: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        namespace: [''],
+        id: [''],
+      })
+    );
   }
 
   addRefFormElement(): void {
     const formArray: FormArray = this.getFormArray('refs');
-    formArray.push(this.formBuilder.group({
-      authors: [''],
-      title: [''],
-      journal: [''],
-      volume: [''],
-      num: [''],
-      pages: [''],
-      year: [''],
-      doi: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        authors: [''],
+        title: [''],
+        journal: [''],
+        volume: [''],
+        num: [''],
+        pages: [''],
+        year: [''],
+        doi: [''],
+      })
+    );
   }
 
   drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex);
+      event.currentIndex
+    );
   }
 
   submit() {
@@ -289,7 +319,7 @@ export class EditComponent implements OnInit {
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete model ${ this.id }?`,
+        title: `Delete model ${this.id}?`,
         action: () => {
           this.modelService.delete(this.id);
           this.router.navigate(['/models']);

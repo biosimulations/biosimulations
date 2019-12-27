@@ -10,7 +10,10 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './view.component.html',
@@ -37,8 +40,8 @@ export class ViewComponent implements OnInit {
       this.getData();
 
       const crumbs: object[] = [
-        {label: 'Models', route: '/models'},
-        {label: 'Model ' + this.id},
+        { label: 'Models', route: '/models' },
+        { label: 'Model ' + this.id },
       ];
       const buttons: NavItem[] = [
         {
@@ -53,16 +56,24 @@ export class ViewComponent implements OnInit {
           icon: 'pencil-alt',
           label: 'Edit',
           route: ['/models', this.id, 'edit'],
-          display: (this.model && this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: (!!this.model ? this.model.owner : null),
+          display:
+            this.model && this.model.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.model ? this.model.owner : null,
         },
         {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          click: () => { this.openDeleteDialog() },
-          display: (this.model && this.model.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: (!!this.model ? this.model.owner : null),
+          click: () => {
+            this.openDeleteDialog();
+          },
+          display:
+            this.model && this.model.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.model ? this.model.owner : null,
         },
         {
           iconType: 'fas',
@@ -91,13 +102,13 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    this.model = this.modelService.get(this.id);
+    this.modelService.get(this.id).subscribe(model => (this.model = model));
   }
 
   download(): void {
     const url = (this.model.file as RemoteFile).url;
     const link = document.createElement('a');
-    link.download = `model-${ this.id }.xml`;
+    link.download = `model-${this.id}.xml`;
     link.href = url;
     link.click();
   }
@@ -105,7 +116,7 @@ export class ViewComponent implements OnInit {
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete model ${ this.id }?`,
+        title: `Delete model ${this.id}?`,
         action: () => {
           this.modelService.delete(this.id);
           this.router.navigate(['/models']);

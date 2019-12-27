@@ -1,5 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  AbstractControl,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -23,7 +30,10 @@ import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 enum Mode {
   new = 'new',
@@ -68,8 +78,8 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     private metadataService: MetadataService,
     private modelService: ModelService,
-    private simulationService: SimulationService,
-    ) {
+    private simulationService: SimulationService
+  ) {
     this.formGroup = this.formBuilder.group({
       model: [''],
       name: [''],
@@ -92,24 +102,27 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.models = this.formGroup.get('model').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value === null || typeof value === 'string' ? value : value.name),
-        map(value => this.modelService.list(value))
-      );
-    this.algorithms = this.formGroup.get('algorithm').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value === null || typeof value === 'string' ? value : value.name),
-        map(value => this.metadataService.getAlgorithms(value))
-      );
-    this.simulators = this.formGroup.get('simulator').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value === null || typeof value === 'string' ? value : value.name),
-        map(value => this.metadataService.getSimulators(value))
-      );
+    this.models = this.formGroup.get('model').valueChanges.pipe(
+      startWith(''),
+      map(value =>
+        value === null || typeof value === 'string' ? value : value.name
+      ),
+      map(value => this.modelService.list(value))
+    );
+    this.algorithms = this.formGroup.get('algorithm').valueChanges.pipe(
+      startWith(''),
+      map(value =>
+        value === null || typeof value === 'string' ? value : value.name
+      ),
+      map(value => this.metadataService.getAlgorithms(value))
+    );
+    this.simulators = this.formGroup.get('simulator').valueChanges.pipe(
+      startWith(''),
+      map(value =>
+        value === null || typeof value === 'string' ? value : value.name
+      ),
+      map(value => this.metadataService.getSimulators(value))
+    );
 
     this.route.params.subscribe(params => {
       this.url = this.route.snapshot.url;
@@ -140,12 +153,14 @@ export class EditComponent implements OnInit {
       this.simulation = this.simulationService.get(this.id);
     }
     if (this.modelId) {
-      this.model = this.modelService.get(this.modelId);
+      this.modelService
+        .get(this.modelId)
+        .subscribe(model => (this.model = model));
     }
 
     // bread crumbs and buttons
     const crumbs: object[] = [
-      {label: 'Simulations', route: ['/simulations']},
+      { label: 'Simulations', route: ['/simulations'] },
     ];
     switch (this.mode) {
       case Mode.new:
@@ -187,41 +202,55 @@ export class EditComponent implements OnInit {
         icon: 'paint-brush',
         label: 'Visualize',
         route: ['/visualizations', this.id],
-        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        display:
+          this.mode === Mode.edit
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
       },
       {
         iconType: 'fas',
         icon: 'bars',
         label: 'View',
         route: ['/simulations', this.id],
-        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        display:
+          this.mode === Mode.edit
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
       },
       {
         iconType: 'fas',
         icon: 'code-branch',
         label: 'Fork',
         route: ['/simulations', this.id, 'fork'],
-        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        display:
+          this.mode === Mode.edit
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
       },
       {
         iconType: 'fas',
         icon: 'trash-alt',
         label: 'Delete',
-        click: () => { this.openDeleteDialog() },
-        display: (
-          this.mode === Mode.edit
-          && this.simulation
-          && this.simulation.access === AccessLevel.private
-          ? NavItemDisplayLevel.user
-          : NavItemDisplayLevel.never),
-        displayUser: (!!this.simulation ? this.simulation.owner : null),
+        click: () => {
+          this.openDeleteDialog();
+        },
+        display:
+          this.mode === Mode.edit &&
+          this.simulation &&
+          this.simulation.access === AccessLevel.private
+            ? NavItemDisplayLevel.user
+            : NavItemDisplayLevel.never,
+        displayUser: !!this.simulation ? this.simulation.owner : null,
       },
       {
         iconType: 'fas',
         icon: 'plus',
         label: 'New',
         route: ['/simulations', 'new'],
-        display: (this.mode === Mode.new ? NavItemDisplayLevel.never : NavItemDisplayLevel.always),
+        display:
+          this.mode === Mode.new
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.always,
       },
       {
         iconType: 'fas',
@@ -242,7 +271,8 @@ export class EditComponent implements OnInit {
     this.breadCrumbsService.set(crumbs, buttons);
 
     // set field enable/disabled
-    this.modelInputDisabled = this.mode === Mode.edit || this.mode === Mode.newOfModel;
+    this.modelInputDisabled =
+      this.mode === Mode.edit || this.mode === Mode.newOfModel;
     if (this.modelInputDisabled) {
       this.formGroup.get('model').disable();
     } else {
@@ -270,7 +300,7 @@ export class EditComponent implements OnInit {
 
     // populate form
     if (this.modelId) {
-      this.formGroup.patchValue({model: this.model});
+      this.formGroup.patchValue({ model: this.model });
     }
 
     if (this.id) {
@@ -280,31 +310,45 @@ export class EditComponent implements OnInit {
       this.getFormArray('authors').clear();
       this.getFormArray('identifiers').clear();
       this.getFormArray('refs').clear();
-      this.getFormArray('modelParameterChanges')
+      this.getFormArray('modelParameterChanges');
 
-      for (const el of this.simulation.tags) { this.addTagFormElement(); }
-      for (const el of this.simulation.modelParameterChanges) { this.addModelParameterChangeFormElement(); }
-      for (const el of this.simulation.algorithmParameterChanges) { this.addAlgorithmParameterChangeFormElement(); }
-      for (const el of this.simulation.authors) { this.addAuthorFormElement(); }
-      for (const el of this.simulation.identifiers) { this.addIdentifierFormElement(); }
-      for (const el of this.simulation.refs) { this.addRefFormElement(); }
+      for (const el of this.simulation.tags) {
+        this.addTagFormElement();
+      }
+      for (const el of this.simulation.modelParameterChanges) {
+        this.addModelParameterChangeFormElement();
+      }
+      for (const el of this.simulation.algorithmParameterChanges) {
+        this.addAlgorithmParameterChangeFormElement();
+      }
+      for (const el of this.simulation.authors) {
+        this.addAuthorFormElement();
+      }
+      for (const el of this.simulation.identifiers) {
+        this.addIdentifierFormElement();
+      }
+      for (const el of this.simulation.refs) {
+        this.addRefFormElement();
+      }
       this.model = this.simulation.model;
       this.algorithm = this.simulation.algorithm;
       this.formGroup.patchValue(this.simulation);
-      for (const changeFormGroup of this.getFormArray('modelParameterChanges').controls) {
-        const parameter = changeFormGroup.value.parameter
+      for (const changeFormGroup of this.getFormArray('modelParameterChanges')
+        .controls) {
+        const parameter = changeFormGroup.value.parameter;
         changeFormGroup.patchValue({
           defaultValue: parameter.value,
           units: parameter.units,
-        })
+        });
       }
-      for (const changeFormGroup of this.getFormArray('algorithmParameterChanges').controls) {
-        const parameter = changeFormGroup.value.parameter
+      for (const changeFormGroup of this.getFormArray(
+        'algorithmParameterChanges'
+      ).controls) {
+        const parameter = changeFormGroup.value.parameter;
         changeFormGroup.patchValue({
           defaultValue: parameter.value,
-        })
+        });
       }
-
     } else {
       for (let i = 0; i < 3; i++) {
         // this.addTagFormElement();
@@ -323,7 +367,9 @@ export class EditComponent implements OnInit {
 
   getAlgorithmParameters(value: string): void {
     this.algorithmParameters = this.metadataService.getAlgorithmParameters(
-      this.algorithm, value);
+      this.algorithm,
+      value
+    );
   }
 
   getFormArray(array: string): FormArray {
@@ -350,16 +396,18 @@ export class EditComponent implements OnInit {
     return el ? el['name'] : undefined;
   }
 
-  displayAutocompleteParameter(parameter: ModelParameter | AlgorithmParameter): string | undefined {
+  displayAutocompleteParameter(
+    parameter: ModelParameter | AlgorithmParameter
+  ): string | undefined {
     return parameter ? parameter.id + ': ' + parameter.name : undefined;
   }
 
   selectAutocomplete(formControl: AbstractControl, required = false): void {
     const value = formControl.value;
     if (required && (typeof value === 'string' || value === null)) {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else if (!required && typeof value === 'string' && value !== '') {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else {
       if (value === '') {
         formControl.patchValue(null);
@@ -372,7 +420,7 @@ export class EditComponent implements OnInit {
     this.model = this.formGroup.value.model;
     this.selectAutocomplete(formControl, true);
 
-    this.formGroup.patchValue({modelParameterChanges: []});
+    this.formGroup.patchValue({ modelParameterChanges: [] });
 
     const controls = this.getFormArray('modelParameterChanges').controls;
     controls.splice(0, controls.length);
@@ -383,7 +431,9 @@ export class EditComponent implements OnInit {
   }
 
   selectAutocompleteModelParameter(formGroup: FormGroup): void {
-    const parameterFormControl:FormControl = formGroup.get('parameter') as FormControl;
+    const parameterFormControl: FormControl = formGroup.get(
+      'parameter'
+    ) as FormControl;
     this.selectAutocomplete(parameterFormControl, true);
 
     const parameter = parameterFormControl.value;
@@ -404,7 +454,7 @@ export class EditComponent implements OnInit {
   selectAutocompleteAlgorithm(formControl: AbstractControl): void {
     this.algorithm = this.formGroup.value.algorithm;
     this.selectAutocomplete(formControl, true);
-    this.formGroup.patchValue({algorithmParameterChanges: []});
+    this.formGroup.patchValue({ algorithmParameterChanges: [] });
 
     const controls = this.getFormArray('algorithmParameterChanges').controls;
     controls.splice(0, controls.length);
@@ -415,7 +465,9 @@ export class EditComponent implements OnInit {
   }
 
   selectAutocompleteAlgorithmParameter(formGroup: FormGroup): void {
-    const parameterFormControl:FormControl = formGroup.get('parameter') as FormControl;
+    const parameterFormControl: FormControl = formGroup.get(
+      'parameter'
+    ) as FormControl;
     this.selectAutocomplete(parameterFormControl, true);
 
     const parameter = parameterFormControl.value;
@@ -426,7 +478,7 @@ export class EditComponent implements OnInit {
 
     formGroup.patchValue({
       defaultValue,
-      value: ''
+      value: '',
     });
   }
 
@@ -459,59 +511,70 @@ export class EditComponent implements OnInit {
 
   addModelParameterChangeFormElement(): void {
     const formArray: FormArray = this.getFormArray('modelParameterChanges');
-    formArray.push(this.formBuilder.group({
-      parameter: {value: null, disabled: this.mode === Mode.edit},
-      defaultValue: {value: null, disabled: true},
-      value: {value: null, disabled: this.mode === Mode.edit},
-      units: {value: null, disabled: true},
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        parameter: { value: null, disabled: this.mode === Mode.edit },
+        defaultValue: { value: null, disabled: true },
+        value: { value: null, disabled: this.mode === Mode.edit },
+        units: { value: null, disabled: true },
+      })
+    );
   }
 
   addAlgorithmParameterChangeFormElement(): void {
     const formArray: FormArray = this.getFormArray('algorithmParameterChanges');
-    formArray.push(this.formBuilder.group({
-      parameter: {value: null, disabled: this.mode === Mode.edit},
-      defaultValue: {value: null, disabled: true},
-      value: {value: null, disabled: this.mode === Mode.edit},
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        parameter: { value: null, disabled: this.mode === Mode.edit },
+        defaultValue: { value: null, disabled: true },
+        value: { value: null, disabled: this.mode === Mode.edit },
+      })
+    );
   }
 
   addAuthorFormElement(): void {
     const formArray: FormArray = this.getFormArray('authors');
-    formArray.push(this.formBuilder.group({
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        firstName: [''],
+        middleName: [''],
+        lastName: [''],
+      })
+    );
   }
 
   addIdentifierFormElement(): void {
     const formArray: FormArray = this.getFormArray('identifiers');
-    formArray.push(this.formBuilder.group({
-      namespace: [''],
-      id: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        namespace: [''],
+        id: [''],
+      })
+    );
   }
 
   addRefFormElement(): void {
     const formArray: FormArray = this.getFormArray('refs');
-    formArray.push(this.formBuilder.group({
-      authors: [''],
-      title: [''],
-      journal: [''],
-      volume: [''],
-      num: [''],
-      pages: [''],
-      year: [''],
-      doi: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        authors: [''],
+        title: [''],
+        journal: [''],
+        volume: [''],
+        num: [''],
+        pages: [''],
+        year: [''],
+        doi: [''],
+      })
+    );
   }
 
   drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex);
+      event.currentIndex
+    );
   }
 
   submit() {
@@ -520,7 +583,9 @@ export class EditComponent implements OnInit {
       data.parent = this.simulation;
     }
     const simulationId: string = this.simulationService.set(
-      data, this.mode === Mode.edit ? this.id : null);
+      data,
+      this.mode === Mode.edit ? this.id : null
+    );
 
     this.snackBar.open('Simulation saved', '', {
       panelClass: 'centered-snack-bar',
@@ -535,7 +600,7 @@ export class EditComponent implements OnInit {
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete simulation ${ this.id }?`,
+        title: `Delete simulation ${this.id}?`,
         action: () => {
           this.simulationService.delete(this.id);
           this.router.navigate(['/simulations']);

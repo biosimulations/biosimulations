@@ -49,7 +49,7 @@ export class ModelSerializer {
       json.framework.iri
     );
 
-    //model.summary=json.summary
+    // model.summary=json.summary
     return model;
   }
   toJson(model: Model): any {}

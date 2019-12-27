@@ -1,13 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AccessLevel } from '../Enums/access-level';
 import { License } from '../Enums/license';
 import { Format } from '../Models/format';
 import { Identifier } from '../Models/identifier';
-import { JournalReference } from '../Models/journal-reference'
+import { JournalReference } from '../Models/journal-reference';
 import { Model } from '../Models/model';
 import { ModelParameter } from '../Models/model-parameter';
 import { ModelVariable } from '../Models/model-variable';
@@ -32,7 +32,8 @@ export class ModelService {
     private http: HttpClient,
     private alertService: AlertService,
     private router: Router,
-    private injector: Injector) {}
+    private injector: Injector
+  ) {}
 
   static _get(id: string, includeRelatedObjects = false): Model {
     let model: Model;
@@ -42,17 +43,32 @@ export class ModelService {
       case '001':
         model = new Model();
         model.id = id;
-        model.name ='EPSP ACh event';
-        model.description = 'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+        model.name = 'EPSP ACh event';
+        model.description =
+          'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
         model.taxon = new Taxon(7787, 'Tetronarce californica');
         model.tags = ['neurotransmission', 'signaling'];
         model.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
-        model.identifiers = [
-          new Identifier('biomodels.db', 'BIOMD0000000001'),
-        ];
+        model.identifiers = [new Identifier('biomodels.db', 'BIOMD0000000001')];
         model.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         model.owner = UserService._get('jonrkarr');
         model.access = AccessLevel.public;
@@ -63,22 +79,37 @@ export class ModelService {
       case '002':
         model = new Model();
         model.id = id;
-        model.name ='EPSP ACh event';
-        model.image = new RemoteFile()
+        model.name = 'EPSP ACh event';
+        model.image = new RemoteFile();
         model.image.name = 'model.png';
         model.image.type = 'image/png';
         model.image.size = 3986;
         model.image.url = 'assets/examples/model-image.png';
-        model.description = 'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+        model.description =
+          'Model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
         model.taxon = new Taxon(7787, 'Tetronarce californica');
         model.tags = ['neurotransmission', 'signaling'];
         model.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
-        model.identifiers = [
-          new Identifier('biomodels.db', 'BIOMD0000000001'),
-        ];
+        model.identifiers = [new Identifier('biomodels.db', 'BIOMD0000000001')];
         model.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         model.owner = UserService._get('jonrkarr');
         model.access = AccessLevel.private;
@@ -90,16 +121,31 @@ export class ModelService {
         model = new Model();
         model.id = '003';
         model.name = 'Min Mit Oscil';
-        model.description = 'Minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.';
+        model.description =
+          'Minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.';
         model.taxon = new Taxon(8292, 'Xenopus laevis');
         model.tags = ['cell cycle', 'mitosis'];
         model.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
-        model.identifiers = [
-          new Identifier('biomodels.db', 'BIOMD0000000003'),
-        ];
+        model.identifiers = [new Identifier('biomodels.db', 'BIOMD0000000003')];
         model.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         model.owner = UserService._get('a.goldbeter');
         model.access = AccessLevel.public;
@@ -111,16 +157,31 @@ export class ModelService {
         model = new Model();
         model.id = '006';
         model.name = 'Cell Cycle 6 var';
-        model.description = 'Mathematical model of the interactions of cdc2 and cyclin.';
+        model.description =
+          'Mathematical model of the interactions of cdc2 and cyclin.';
         model.taxon = new Taxon(33154, 'Homo sapiens');
         model.tags = ['cell cycle'];
         model.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
-        model.identifiers = [
-          new Identifier('biomodels.db', 'BIOMD0000000006'),
-        ];
+        model.identifiers = [new Identifier('biomodels.db', 'BIOMD0000000006')];
         model.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         model.owner = UserService._get('j.tyson');
         model.access = AccessLevel.public;
@@ -128,7 +189,7 @@ export class ModelService {
         model.updated = new Date(Date.parse('1991-08-15 00:00:00'));
         break;
     }
-    model.file = new RemoteFile()
+    model.file = new RemoteFile();
     model.file.name = 'model.xml';
     model.file.type = 'application/sbml+xml';
     model.file.size = 1749;
@@ -140,11 +201,17 @@ export class ModelService {
       new ModelParameter('Vmax', 'Maximum rate', 3.1, 'catal'),
     ];
 
-    model.framework = new OntologyTerm('SBO', '0000062', 'continuous framework', null, 'http://biomodels.net/SBO/SBO_0000293');
+    model.framework = new OntologyTerm(
+      'SBO',
+      '0000062',
+      'continuous framework',
+      null,
+      'http://biomodels.net/SBO/SBO_0000293'
+    );
     model.authors = [
-          new Person('Jimmie', 'D', 'Doe'),
-          new Person('Jane', 'E', 'Doe'),
-        ];
+      new Person('Jimmie', 'D', 'Doe'),
+      new Person('Jane', 'E', 'Doe'),
+    ];
     model.license = License.cc0;
     return model;
   }
@@ -155,17 +222,17 @@ export class ModelService {
     }
   }
 
-  get(id: string): Model {
+  get(id: string): Observable<Model> {
     this.getServices();
-    return ModelService._get(id, true);
+    return of(ModelService._get(id, true));
   }
 
   getVariables(model: Model): ModelVariable[] {
     const variables: ModelVariable[] = [];
     for (let iVariable = 0; iVariable < 3; iVariable++) {
       const variable = new ModelVariable();
-      variable.id = `var-${ iVariable + 1 }`;
-      variable.name = `Variable ${ iVariable + 1 }`;
+      variable.id = `var-${iVariable + 1}`;
+      variable.name = `Variable ${iVariable + 1}`;
       variables.push(variable);
     }
     return variables;
@@ -178,10 +245,10 @@ export class ModelService {
   list(name?: string, owner?: string): Model[] {
     // TODO: filter on name, owner attributes
     const data: Model[] = [
-      this.get('001'),
-      this.get('002'),
-      this.get('003'),
-      this.get('006'),
+      ModelService._get('001'),
+      ModelService._get('002'),
+      ModelService._get('003'),
+      ModelService._get('006'),
     ];
     return this.filter(data, undefined, name) as Model[];
   }
@@ -197,9 +264,10 @@ export class ModelService {
     }
 
     if (id || name) {
-      return list.filter(item =>
-        (id && item['id'].toLowerCase().includes(lowCaseId)) ||
-        (name && item['name'].toLowerCase().includes(lowCaseName))
+      return list.filter(
+        item =>
+          (id && item['id'].toLowerCase().includes(lowCaseId)) ||
+          (name && item['name'].toLowerCase().includes(lowCaseName))
       );
     } else {
       return list;
@@ -223,7 +291,6 @@ export class ModelService {
   }
 
   delete(id?: string): void {}
-
 
   /////////////////////////////
   // Methods from FileService
