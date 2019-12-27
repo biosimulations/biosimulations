@@ -19,16 +19,53 @@ import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
 import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
+import { matFormFieldAnimations } from '@angular/material';
 
+export class ModelSerializer {
+  fromJson(json: any): Model {
+    const model = new Model();
+    // Simple, one to one corresponding feilds
+    model.id = json._id;
+    model.name = json.name;
+    model.description = json.description;
+    model.tags = json.tags;
+    model.created = new Date(json.created);
+    model.updated = new Date(json.updated);
+    model.license = License[json.licence as string];
+    model.taxon = new Taxon(json.taxon.id, json.taxon.name);
+
+    // Nested fields
+    model.format = new Format(
+      json.format.name,
+      json.format.version,
+      json.format.edamID,
+      json.format.url
+    );
+    model.framework = new OntologyTerm(
+      json.framework.ontonlogy,
+      json.framework.id,
+      json.framework.string,
+      json.framework.description,
+      json.framework.iri
+    );
+
+    //model.summary=json.summary
+    return model;
+  }
+  toJson(model: Model): any {}
+}
 export class Model implements TopLevelResource {
   id?: string;
   name?: string;
-  file?: File | RemoteFile;
-  parameters: ModelParameter[] = [];
-  image?: File | RemoteFile;
   description?: string;
   taxon?: Taxon;
   tags?: string[] = [];
+  created?: Date;
+  updated?: Date;
+  license?: License;
+  parameters: ModelParameter[] = [];
+  file?: File | RemoteFile;
+  image?: File | RemoteFile;
   framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
   identifiers?: Identifier[] = [];
@@ -37,12 +74,9 @@ export class Model implements TopLevelResource {
   owner?: User;
   access?: AccessLevel;
   accessToken?: string = UtilsService.genAccessToken();
-  license?: License;
-  created?: Date;
-  updated?: Date;
 
   getIcon() {
-    return {type: 'fas', icon: 'project-diagram'};
+    return { type: 'fas', icon: 'project-diagram' };
   }
 
   getRoute(): (string | number)[] {
@@ -82,7 +116,7 @@ export class Model implements TopLevelResource {
     ];
   }
 
- getChartTypes(): ChartType[] {
+  getChartTypes(): ChartType[] {
     return [
       ChartTypeService._get('001'),
       ChartTypeService._get('002'),
