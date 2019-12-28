@@ -20,24 +20,39 @@ import { UtilsService } from '../Services/utils.service';
 import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
 import { matFormFieldAnimations } from '@angular/material';
+import { UserService } from '../Services/user.service';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BioModelService } from '../Services/bio-model.service';
+import { map } from 'rxjs/operators';
 
 export class ModelSerializer {
-  fromJson(json: any): Model {
+  static fromJson(json: any): Model {
     const model = new Model();
     // Simple, one to one corresponding feilds
     model.id = json.id;
+    model.accessToken = json.accessToken;
+    model.image = json.image;
     model.name = json.name;
     model.description = json.description;
     model.tags = json.tags;
-    model.created = new Date(json.created);
-    model.updated = new Date(json.updated);
-    model.license = License[json.licence as string];
-    model.identifiers = json.identifiers || [];
+    model.created = new Date(Date.parse(json.created));
+    model.updated = new Date(Date.parse(json.updated));
+    model.license = License[json.license as string];
+    model.authors = json.authors;
+    model.identifiers = [];
+    model.owner = UserService._get(json.owner);
+    // Boolean
+    if (json.private) {
+      model.access = AccessLevel.public;
+    } else {
+      model.access = AccessLevel.private;
+    }
+    // Nested fields
     if (json.taxon) {
       model.taxon = new Taxon(json.taxon.id, json.taxon.name);
     }
 
-    // Nested fields
     if (json.format) {
       model.format = new Format(
         json.format.name,
@@ -56,9 +71,10 @@ export class ModelSerializer {
       );
     }
     // model.summary=json.summary
+    console.log(model);
     return model;
   }
-  toJson(model: Model): any {}
+  static toJson(model: Model): any {}
 }
 export class Model implements TopLevelResource {
   id?: string;

@@ -36,7 +36,6 @@ export class ModelService {
     private injector: Injector
   ) {}
   private endpoint = environment.crbm.CRBMAPI_URL;
-  private serializer = new ModelSerializer();
 
   static _get(id: string, includeRelatedObjects = false): Model {
     let model: Model;
@@ -225,13 +224,12 @@ export class ModelService {
     }
   }
 
-  get(id: string): Observable<Model> {
+  get(id: string): Observable<any> {
     this.getServices();
     let model: Observable<Model>;
     model = this.http.get<Model>(this.endpoint + '/models/' + id).pipe(
       map(data => {
-        console.log(data);
-        return this.serializer.fromJson(data);
+        return ModelSerializer.fromJson(data);
       })
     );
     console.log(model);

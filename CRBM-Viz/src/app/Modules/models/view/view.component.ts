@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
-import { Model } from 'src/app/Shared/Models/model';
+import { Model, ModelSerializer } from 'src/app/Shared/Models/model';
 import { RemoteFile } from 'src/app/Shared/Models/remote-file';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
@@ -14,6 +14,9 @@ import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { BioModelService } from 'src/app/Shared/Services/bio-model.service';
+import { UserSerializer } from 'src/app/Shared/Models/user';
+import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: './view.component.html',
@@ -30,14 +33,15 @@ export class ViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    private modelService: ModelService
+    private modelService: ModelService,
+    private bioModelService: BioModelService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
 
-      this.getData();
+      this.getData().subscribe(model => (this.model = model));
 
       const crumbs: object[] = [
         { label: 'Models', route: '/models' },
@@ -102,7 +106,12 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    this.modelService.get(this.id).subscribe(model => (this.model = model));
+    const model = this.bioModelService.get(this.id).pipe(
+      map(data => {
+        return ModelSerializer.fromJson(data);
+      })
+    );
+    return model;
   }
 
   download(): void {
