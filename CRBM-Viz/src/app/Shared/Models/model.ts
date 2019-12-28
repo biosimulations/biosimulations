@@ -25,30 +25,35 @@ export class ModelSerializer {
   fromJson(json: any): Model {
     const model = new Model();
     // Simple, one to one corresponding feilds
-    model.id = json._id;
+    model.id = json.id;
     model.name = json.name;
     model.description = json.description;
     model.tags = json.tags;
     model.created = new Date(json.created);
     model.updated = new Date(json.updated);
     model.license = License[json.licence as string];
-    model.taxon = new Taxon(json.taxon.id, json.taxon.name);
+    if (json.taxon) {
+      model.taxon = new Taxon(json.taxon.id, json.taxon.name);
+    }
 
     // Nested fields
-    model.format = new Format(
-      json.format.name,
-      json.format.version,
-      json.format.edamID,
-      json.format.url
-    );
-    model.framework = new OntologyTerm(
-      json.framework.ontonlogy,
-      json.framework.id,
-      json.framework.string,
-      json.framework.description,
-      json.framework.iri
-    );
-
+    if (json.format) {
+      model.format = new Format(
+        json.format.name,
+        json.format.version,
+        json.format.edamID,
+        json.format.url
+      );
+    }
+    if (json.framework) {
+      model.framework = new OntologyTerm(
+        json.framework.ontonlogy,
+        json.framework.id,
+        json.framework.string,
+        json.framework.description,
+        json.framework.iri
+      );
+    }
     // model.summary=json.summary
     return model;
   }
