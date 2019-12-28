@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
    * The init method subscribes to the user profile and the route. If a url parameter is provided, it pulls the username from
    * the user service. If not, it assumes the logged in profile's username. It then calls a method to create the view's breadcrumbs
    */
+  // TODO rewrite this using proper rxjs
   ngOnInit() {
     this.auth.getUsername$().subscribe(name => {
       this.loggedInUsername = name;
