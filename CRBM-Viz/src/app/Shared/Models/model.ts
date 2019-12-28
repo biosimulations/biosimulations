@@ -32,7 +32,8 @@ export class ModelSerializer {
     // Simple, one to one corresponding feilds
     model.id = json.id;
     model.accessToken = json.accessToken;
-    model.image = json.image;
+    model.image = new RemoteFile('Model Picture', json.image, 'png', null);
+    model.image.url = json.image;
     model.name = json.name;
     model.description = json.description;
     model.tags = json.tags;
@@ -60,12 +61,13 @@ export class ModelSerializer {
         json.format.edamID,
         json.format.url
       );
+      console.log(model.format);
     }
     if (json.framework) {
       model.framework = new OntologyTerm(
         json.framework.ontonlogy,
         json.framework.id,
-        json.framework.string,
+        json.framework.name,
         json.framework.description,
         json.framework.iri
       );
