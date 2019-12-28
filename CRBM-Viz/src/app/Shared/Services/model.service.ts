@@ -8,7 +8,7 @@ import { License } from '../Enums/license';
 import { Format } from '../Models/format';
 import { Identifier } from '../Models/identifier';
 import { JournalReference } from '../Models/journal-reference';
-import { Model } from '../Models/model';
+import { Model, ModelSerializer } from '../Models/model';
 import { ModelParameter } from '../Models/model-parameter';
 import { ModelVariable } from '../Models/model-variable';
 import { OntologyTerm } from '../Models/ontology-term';
@@ -18,6 +18,7 @@ import { Taxon } from '../Models/taxon';
 import { User } from '../Models/user';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,8 @@ export class ModelService {
     private router: Router,
     private injector: Injector
   ) {}
+  private endpoint = environment.crbm.CRBMAPI_URL;
+  private serializer = new ModelSerializer();
 
   static _get(id: string, includeRelatedObjects = false): Model {
     let model: Model;
@@ -224,7 +227,16 @@ export class ModelService {
 
   get(id: string): Observable<Model> {
     this.getServices();
-    return of(ModelService._get(id, true));
+    let model: Observable<Model>;
+    model = this.http.get<Model>(this.endpoint + '/models/' + id).pipe(
+      map(data => {
+        console.log(data);
+        return this.serializer.fromJson(data);
+      })
+    );
+    console.log(model);
+    return model;
+    // return of(ModelService._get(id, true));
   }
 
   getVariables(model: Model): ModelVariable[] {
