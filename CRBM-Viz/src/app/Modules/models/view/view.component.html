@@ -75,7 +75,7 @@
                   <app-hyper-link
                     *ngIf="model.format"
                     [href]="model.format.url"
-                    >{{ model.format.name }}</app-hyper-link
+                    >{{ model.format.getFullName() }}</app-hyper-link
                   >
                 </li>
               </ul>
