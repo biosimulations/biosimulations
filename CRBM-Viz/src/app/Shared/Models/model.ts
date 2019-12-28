@@ -32,6 +32,7 @@ export class ModelSerializer {
     model.created = new Date(json.created);
     model.updated = new Date(json.updated);
     model.license = License[json.licence as string];
+    model.identifiers = json.identifiers || [];
     if (json.taxon) {
       model.taxon = new Taxon(json.taxon.id, json.taxon.name);
     }
