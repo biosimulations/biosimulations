@@ -71,6 +71,23 @@ export class ModelSerializer {
         json.framework.iri
       );
     }
+    if (json.references) {
+      model.refs = [];
+      for (const refrence of json.references) {
+        model.refs.push(
+          new JournalReference(
+            refrence.authors,
+            refrence.title,
+            refrence.journal,
+            refrence.volume,
+            refrence.number,
+            refrence.pages,
+            refrence.year,
+            refrence.doi
+          )
+        );
+      }
+    }
     // model.summary=json.summary
     console.log(model);
     return model;
