@@ -225,18 +225,10 @@ export class ModelService {
   }
 
   get(id: string): Observable<any> {
-    this.getServices();
-    let model: Observable<Model>;
-    model = this.http.get<Model>(this.endpoint + '/models/' + id).pipe(
-      map(data => {
-        return ModelSerializer.fromJson(data);
-      })
-    );
-    console.log(model);
-    return model;
+    console.log('biomodels get');
+    return this.http.get<any>(this.endpoint + '/models/' + id);
     // return of(ModelService._get(id, true));
   }
-
   getVariables(model: Model): ModelVariable[] {
     const variables: ModelVariable[] = [];
     for (let iVariable = 0; iVariable < 3; iVariable++) {

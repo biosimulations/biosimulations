@@ -19,12 +19,8 @@ import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
 import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
-import { matFormFieldAnimations } from '@angular/material';
 import { UserService } from '../Services/user.service';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { BioModelService } from '../Services/bio-model.service';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 export class ModelSerializer {
   static fromJson(json: any): Model {
@@ -33,6 +29,7 @@ export class ModelSerializer {
     model.id = json.id;
     model.accessToken = json.accessToken;
     model.image = new RemoteFile('Model Picture', 'png', json.image, null);
+    model.file = new RemoteFile('Model XML', 'xml', json.file, null);
     model.name = json.name;
     model.description = json.description;
     model.tags = json.tags;
@@ -41,7 +38,7 @@ export class ModelSerializer {
     model.license = License[json.license as string];
     model.authors = json.authors;
     model.identifiers = [];
-    model.owner = UserService._get(json.owner);
+    model.OWNER = json.owner;
     // Boolean
     if (json.private) {
       model.access = AccessLevel.public;
@@ -112,9 +109,24 @@ export class Model implements TopLevelResource {
   refs?: JournalReference[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
+  OWNER?: string;
   access?: AccessLevel;
   accessToken?: string = UtilsService.genAccessToken();
 
+  public userservice: UserService;
+  getOwner(): Observable<User> {
+    if (this.userservice) {
+      if (this.owner) {
+        return of(this.owner);
+      } else {
+        const user = this.userservice.get$(this.OWNER);
+        user.subscribe(owner => (this.owner = owner));
+        return user;
+      }
+    } else {
+      throw new Error('No user service');
+    }
+  }
   getIcon() {
     return { type: 'fas', icon: 'project-diagram' };
   }
@@ -136,7 +148,7 @@ export class Model implements TopLevelResource {
     if (this.authors && this.authors.length) {
       return this.authors;
     } else {
-      return [this.owner];
+      this.getOwner().subscribe(owner => owner);
     }
   }
 

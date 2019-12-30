@@ -17,6 +17,8 @@ import {
 import { BioModelService } from 'src/app/Shared/Services/bio-model.service';
 import { UserSerializer } from 'src/app/Shared/Models/user';
 import { map } from 'rxjs/operators';
+import { Person } from 'src/app/Shared/Models/person';
+import { UserService } from 'src/app/Shared/Services/user.service';
 
 @Component({
   templateUrl: './view.component.html',
@@ -27,6 +29,7 @@ export class ViewComponent implements OnInit {
 
   id: string;
   model: Model;
+  owner: Person;
 
   constructor(
     private dialog: MatDialog,
@@ -34,6 +37,7 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private modelService: ModelService,
+    private userService: UserService,
     private bioModelService: BioModelService
   ) {}
 
@@ -41,7 +45,11 @@ export class ViewComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
 
-      this.getData().subscribe(model => (this.model = model));
+      this.getData().subscribe(model => {
+        this.model = model;
+        this.model.userservice = this.userService;
+        this.model.getOwner().subscribe(owner => (this.owner = owner));
+      });
 
       const crumbs: object[] = [
         { label: 'Models', route: '/models' },
@@ -106,7 +114,7 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    const model = this.bioModelService.get(this.id).pipe(
+    const model = this.modelService.get(this.id).pipe(
       map(data => {
         return ModelSerializer.fromJson(data);
       })

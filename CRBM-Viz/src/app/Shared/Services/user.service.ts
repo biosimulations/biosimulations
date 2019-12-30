@@ -58,7 +58,7 @@ export class UserService {
       case 'bilalshaikh42':
         user = new User();
         user.userId = 3;
-        user.userName = 'bill2507733';
+        user.userName = 'bilalshaikh42';
         user.firstName = 'Bilal';
         user.lastName = 'Shaikh';
         user.organization = 'Icahn School of Medicine at Mount Sinai';
