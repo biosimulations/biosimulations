@@ -14,7 +14,6 @@ import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { BioModelService } from 'src/app/Shared/Services/bio-model.service';
 import { UserSerializer } from 'src/app/Shared/Models/user';
 import { map } from 'rxjs/operators';
 import { Person } from 'src/app/Shared/Models/person';
@@ -37,8 +36,7 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private modelService: ModelService,
-    private userService: UserService,
-    private bioModelService: BioModelService
+    private userService: UserService
   ) {}
 
   ngOnInit() {
