@@ -102,12 +102,14 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.models = this.formGroup.get('model').valueChanges.pipe(
+    this.formGroup.get('model').valueChanges.pipe(
       startWith(''),
       map(value =>
         value === null || typeof value === 'string' ? value : value.name
       ),
-      map(value => this.modelService.list(value))
+      map(value => {
+        this.models = this.modelService.list(value);
+      })
     );
     this.algorithms = this.formGroup.get('algorithm').valueChanges.pipe(
       startWith(''),

@@ -1,5 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  AbstractControl,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -14,7 +21,10 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
-import { ProjectProductType, projectProductTypes } from 'src/app/Shared/Enums/project-product-type';
+import {
+  ProjectProductType,
+  projectProductTypes,
+} from 'src/app/Shared/Enums/project-product-type';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';
 import { Project } from 'src/app/Shared/Models/project';
 import { Model } from 'src/app/Shared/Models/model';
@@ -24,7 +34,10 @@ import { ProjectService } from 'src/app/Shared/Services/project.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './edit.component.html',
@@ -55,7 +68,7 @@ export class EditComponent implements OnInit {
     private modelService: ModelService,
     private simulationService: SimulationService,
     private visualizationService: VisualizationService
-    ) {
+  ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
       image: [''],
@@ -79,9 +92,7 @@ export class EditComponent implements OnInit {
       }
 
       // setup bread crumbs and buttons
-      const crumbs: object[] = [
-        {label: 'Projects', route: ['/projects']},
-      ];
+      const crumbs: object[] = [{ label: 'Projects', route: ['/projects'] }];
       if (this.id) {
         crumbs.push({
           label: 'Project ' + this.id,
@@ -102,27 +113,33 @@ export class EditComponent implements OnInit {
           icon: 'bars',
           label: 'View',
           route: ['/projects', this.id],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+          display: this.id
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
         },
         {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          click: () => { this.openDeleteDialog() },
-          display: (
-            this.id
-            && this.project
-            && this.project.access === AccessLevel.public
-            ? NavItemDisplayLevel.never
-            : NavItemDisplayLevel.user),
-          displayUser: (!!this.project ? this.project.owner : null),
+          click: () => {
+            this.openDeleteDialog();
+          },
+          display:
+            this.id &&
+            this.project &&
+            this.project.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.project ? this.project.owner : null,
         },
         {
           iconType: 'fas',
           icon: 'plus',
           label: 'New',
           route: ['/projects', 'new'],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+          display: this.id
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
         },
         {
           iconType: 'fas',
@@ -150,10 +167,18 @@ export class EditComponent implements OnInit {
         this.getFormArray('refs').clear();
         this.getFormArray('products').clear();
 
-        for (const tag of this.project.tags) { this.addTagFormElement(); }
-        for (const author of this.project.authors) { this.addAuthorFormElement(); }
-        for (const identifiers of this.project.identifiers) { this.addIdentifierFormElement(); }
-        for (const ref of this.project.refs) { this.addRefFormElement(); }
+        for (const tag of this.project.tags) {
+          this.addTagFormElement();
+        }
+        for (const author of this.project.authors) {
+          this.addAuthorFormElement();
+        }
+        for (const identifiers of this.project.identifiers) {
+          this.addIdentifierFormElement();
+        }
+        for (const ref of this.project.refs) {
+          this.addRefFormElement();
+        }
         for (const product of this.project.products) {
           const productFormGroup: FormGroup = this.addProductFormElement();
           for (const resource of product.resources) {
@@ -201,11 +226,12 @@ export class EditComponent implements OnInit {
 
     if (value) {
       const lowCaseValue: string = value.toLowerCase();
-      this.refs = allRefs.filter(ref =>
-        ((ref.authors && ref.authors.toLowerCase().includes(lowCaseValue))
-        || (ref.title && ref.title.toLowerCase().includes(lowCaseValue))
-        || (ref.journal && ref.journal.toLowerCase().includes(lowCaseValue))
-        || (ref.doi && ref.doi.toLowerCase().includes(lowCaseValue)))
+      this.refs = allRefs.filter(
+        ref =>
+          (ref.authors && ref.authors.toLowerCase().includes(lowCaseValue)) ||
+          (ref.title && ref.title.toLowerCase().includes(lowCaseValue)) ||
+          (ref.journal && ref.journal.toLowerCase().includes(lowCaseValue)) ||
+          (ref.doi && ref.doi.toLowerCase().includes(lowCaseValue))
       );
     } else {
       this.refs = allRefs.slice();
@@ -224,7 +250,7 @@ export class EditComponent implements OnInit {
   }
 
   getProductResources(value: string): void {
-    this.models = this.modelService.list(value);
+    this.modelService.list(value).subscribe(models => (this.models = models));
     this.simulations = this.simulationService.list(value);
     this.visualizations = this.visualizationService.list(value);
   }
@@ -238,10 +264,10 @@ export class EditComponent implements OnInit {
   }
 
   productTypeDisplayAutocompleteEl(el: any): string | undefined {
-    return (
-      el in ProjectProductType
-      ? ProjectProductType[el][0].toUpperCase() + ProjectProductType[el].substring(1)
-      : undefined);
+    return el in ProjectProductType
+      ? ProjectProductType[el][0].toUpperCase() +
+          ProjectProductType[el].substring(1)
+      : undefined;
   }
 
   productResourceDisplayAutocompleteEl(el: object): string | undefined {
@@ -251,9 +277,9 @@ export class EditComponent implements OnInit {
   selectAutocomplete(formControl: AbstractControl, required = false): void {
     const value = formControl.value;
     if (required && (typeof value === 'string' || value === null)) {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else if (!required && typeof value === 'string' && value !== '') {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else {
       if (value === '') {
         formControl.patchValue(null);
@@ -289,9 +315,17 @@ export class EditComponent implements OnInit {
     input.value = '';
   }
 
-  addProductResource(formGroup: FormGroup, event: MatAutocompleteSelectedEvent, input) {
+  addProductResource(
+    formGroup: FormGroup,
+    event: MatAutocompleteSelectedEvent,
+    input
+  ) {
     const formArray: FormArray = formGroup.get('resources') as FormArray;
-    if (!formGroup.value.resources.map(res => res.id).includes(event.option.value.id)) {
+    if (
+      !formGroup.value.resources
+        .map(res => res.id)
+        .includes(event.option.value.id)
+    ) {
       formArray.push(this.formBuilder.control(event.option.value));
     }
     input.value = '';
@@ -308,33 +342,39 @@ export class EditComponent implements OnInit {
 
   addAuthorFormElement(): void {
     const formArray: FormArray = this.getFormArray('authors');
-    formArray.push(this.formBuilder.group({
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        firstName: [''],
+        middleName: [''],
+        lastName: [''],
+      })
+    );
   }
 
   addIdentifierFormElement(): void {
     const formArray: FormArray = this.getFormArray('identifiers');
-    formArray.push(this.formBuilder.group({
-      namespace: [''],
-      id: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        namespace: [''],
+        id: [''],
+      })
+    );
   }
 
   addRefFormElement(): void {
     const formArray: FormArray = this.getFormArray('refs');
-    formArray.push(this.formBuilder.group({
-      authors: [''],
-      title: [''],
-      journal: [''],
-      volume: [''],
-      num: [''],
-      pages: [''],
-      year: [''],
-      doi: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        authors: [''],
+        title: [''],
+        journal: [''],
+        volume: [''],
+        num: [''],
+        pages: [''],
+        year: [''],
+        doi: [''],
+      })
+    );
   }
 
   addProductFormElement(): FormGroup {
@@ -359,7 +399,8 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex);
+      event.currentIndex
+    );
   }
 
   submit() {
@@ -379,7 +420,7 @@ export class EditComponent implements OnInit {
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete project ${ this.id }?`,
+        title: `Delete project ${this.id}?`,
         action: () => {
           this.projectService.delete(this.id);
           this.router.navigate(['/projects']);

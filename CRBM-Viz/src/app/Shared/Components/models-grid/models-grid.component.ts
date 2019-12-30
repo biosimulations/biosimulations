@@ -1,10 +1,22 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
 import { Format } from 'src/app/Shared/Models/format';
 import { Model } from 'src/app/Shared/Models/model';
 import { User } from 'src/app/Shared/Models/user';
+import { UserService } from '../../Services/user.service';
+import { tap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Person } from '../../Models/person';
 
 @Component({
   selector: 'app-models-grid',
@@ -16,11 +28,13 @@ export class ModelsGridComponent implements OnInit {
   rowData;
 
   private _owner: string;
-
+  private userSer: UserService;
   @Input()
   set owner(value: string) {
     this._owner = value;
-    this.rowData = this.modelService.list(null, value);
+    this.modelService
+      .list(null, value)
+      .subscribe(data => (this.rowData = data));
   }
 
   @Output() ready = new EventEmitter();
@@ -49,8 +63,10 @@ export class ModelsGridComponent implements OnInit {
   @ViewChild('grid', { static: true }) grid;
 
   constructor(
-    private modelService: ModelService
-    ) {
+    private modelService: ModelService,
+    private userService: UserService
+  ) {
+    this.userSer = userService;
   }
 
   ngOnInit() {
@@ -58,7 +74,7 @@ export class ModelsGridComponent implements OnInit {
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: (this._selectable ? 'idRenderer' : 'idRouteRenderer'),
+        cellRenderer: this._selectable ? 'idRenderer' : 'idRouteRenderer',
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -129,7 +145,7 @@ export class ModelsGridComponent implements OnInit {
       },
       {
         headerName: 'License',
-        field: 'license.name',
+        field: 'license',
         filter: 'agSetColumnFilter',
         minWidth: 75,
         hide: true,
@@ -153,7 +169,9 @@ export class ModelsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.modelService.list(null, this._owner);
+    this.modelService
+      .list(null, this._owner)
+      .subscribe(data => (this.rowData = data));
   }
 
   onReady(event): void {
@@ -169,7 +187,7 @@ export class ModelsGridComponent implements OnInit {
   }
 
   onSelectRow(event) {
-    this.selectRow.emit(event)
+    this.selectRow.emit(event);
   }
 }
 
@@ -182,17 +200,17 @@ function tagsGetter(params): string[] {
 }
 
 function ownerGetter(params): string {
-  const owner:User = params.data.owner;
-  return owner.getFullName();
+  let model: Model = params.data;
+  return model.OWNER;
 }
 
 function formatGetter(params): string {
-  const format:Format = params.data.format;
+  const format: Format = params.data.format;
   return format.getFullName();
 }
 
 function capitalizeFormatter(params): string {
-  const value:string = params.value;
+  const value: string = params.value;
   if (value) {
     return value.substring(0, 1).toUpperCase() + value.substring(1);
   } else {
@@ -201,17 +219,22 @@ function capitalizeFormatter(params): string {
 }
 
 function authorGetter(params): string[] {
-  return params.data.getAuthors().map(author => author.getFullName());
+  //return params.data.pipe(map( (model: Model) => model.getAuthors().map(author => author.getFullName());
+  //}
+  return ['test'];
 }
-
 function authorFormatter(params) {
   const value = params.value;
   return UtilsService.joinAuthorNames(value);
 }
 
 function dateFormatter(params): string {
-  const date:Date = params.value;
-  return (date.getFullYear()
-     + '-' + String(date.getMonth() + 1).padStart(2, '0')
-     + '-' + String(date.getDate()).padStart(2, '0'));
+  const date: Date = params.value;
+  return (
+    date.getFullYear() +
+    '-' +
+    String(date.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    String(date.getDate()).padStart(2, '0')
+  );
 }

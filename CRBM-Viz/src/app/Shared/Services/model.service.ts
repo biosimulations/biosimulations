@@ -229,6 +229,19 @@ export class ModelService {
     return this.http.get<any>(this.endpoint + '/models/' + id);
     // return of(ModelService._get(id, true));
   }
+  getAll$(): Observable<Model[]> {
+    return this.http.get<object[]>(this.endpoint + '/models').pipe(
+      map((modelsJson: object[]) => {
+        const models: Model[] = [];
+
+        modelsJson.forEach(modelJson => {
+          const testModel = ModelSerializer.fromJson(modelJson);
+          models.push(testModel);
+        });
+        return models;
+      })
+    );
+  }
   getVariables(model: Model): ModelVariable[] {
     const variables: ModelVariable[] = [];
     for (let iVariable = 0; iVariable < 3; iVariable++) {
@@ -244,15 +257,10 @@ export class ModelService {
     return this.filter(model.parameters, value, value) as ModelParameter[];
   }
 
-  list(name?: string, owner?: string): Model[] {
+  list(name?: string, owner?: string): Observable<Model[]> {
     // TODO: filter on name, owner attributes
-    const data: Model[] = [
-      ModelService._get('001'),
-      ModelService._get('002'),
-      ModelService._get('003'),
-      ModelService._get('006'),
-    ];
-    return this.filter(data, undefined, name) as Model[];
+    const data: Observable<Model[]> = this.getAll$();
+    return data;
   }
 
   private filter(list: object[], id?: string, name?: string): object[] {

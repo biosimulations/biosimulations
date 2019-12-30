@@ -85,6 +85,9 @@ export class ModelSerializer {
         );
       }
     }
+    if (json.taxon) {
+      model.taxon = new Taxon(json.taxon.id, json.taxon.name);
+    }
     // model.summary=json.summary
     console.log(model);
     return model;
