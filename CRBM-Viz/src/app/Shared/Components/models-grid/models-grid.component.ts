@@ -199,8 +199,9 @@ function tagsGetter(params): string[] {
   return params.data.tags;
 }
 
+// TODO Make this async capable
 function ownerGetter(params): string {
-  let model: Model = params.data;
+  const model: Model = params.data;
   return model.OWNER;
 }
 
@@ -217,12 +218,17 @@ function capitalizeFormatter(params): string {
     return '';
   }
 }
-
+// TODO Make this async capable
 function authorGetter(params): string[] {
-  //return params.data.pipe(map( (model: Model) => model.getAuthors().map(author => author.getFullName());
-  //}
-  return ['test'];
+  const model: Model = params.data;
+  console.log(model.getAuthors());
+  const names: string[] = [];
+  model
+    .getAuthors()
+    .forEach((author: Person) => names.push(author.getFullName()));
+  return names;
 }
+
 function authorFormatter(params) {
   const value = params.value;
   return UtilsService.joinAuthorNames(value);

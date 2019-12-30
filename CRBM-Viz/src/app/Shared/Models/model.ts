@@ -21,6 +21,7 @@ import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
 import { UserService } from '../Services/user.service';
 import { Observable, of } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 export class ModelSerializer {
   static fromJson(json: any): Model {
@@ -151,7 +152,7 @@ export class Model implements TopLevelResource {
     if (this.authors && this.authors.length) {
       return this.authors;
     } else {
-      this.getOwner().subscribe(owner => owner);
+      return [new Person(this.OWNER)];
     }
   }
 
