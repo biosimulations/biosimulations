@@ -21,7 +21,6 @@ import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
 import { UserService } from '../Services/user.service';
 import { Observable, of } from 'rxjs';
-import { first } from 'rxjs/operators';
 
 export class ModelSerializer {
   static fromJson(json: any): Model {
@@ -37,7 +36,6 @@ export class ModelSerializer {
     model.created = new Date(Date.parse(json.created));
     model.updated = new Date(Date.parse(json.updated));
     model.license = License[json.license as string];
-    model.authors = json.authors;
     model.identifiers = [];
     model.OWNER = json.owner;
     // Boolean
@@ -58,7 +56,6 @@ export class ModelSerializer {
         json.format.edamID,
         json.format.url
       );
-      console.log(model.format);
     }
     if (json.framework) {
       model.framework = new OntologyTerm(
@@ -68,6 +65,14 @@ export class ModelSerializer {
         json.framework.description,
         json.framework.iri
       );
+    }
+    if (json.authors) {
+      model.authors = [];
+      for (const author of json.authors) {
+        model.authors.push(
+          new Person(author.firstName, author.middleName, author.lastName)
+        );
+      }
     }
     if (json.references) {
       model.refs = [];
@@ -150,7 +155,11 @@ export class Model implements TopLevelResource {
 
   getAuthors(): (User | Person)[] {
     if (this.authors && this.authors.length) {
-      return this.authors;
+      const people: Person[] = [];
+      this.authors.forEach((person: Person) => {
+        people.push(person);
+      });
+      return people;
     } else {
       return [new Person(this.OWNER)];
     }
