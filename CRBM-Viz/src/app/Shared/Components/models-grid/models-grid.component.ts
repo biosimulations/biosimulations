@@ -192,9 +192,13 @@ export class ModelsGridComponent implements OnInit {
 }
 
 function taxonGetter(params): string {
-  return params.data.taxon.getShortName();
+  const model: Model = params.data;
+  if (model.taxon.getShortName) {
+    return params.data.taxon.getShortName();
+  } else {
+    return 'none';
+  }
 }
-
 function tagsGetter(params): string[] {
   return params.data.tags;
 }
