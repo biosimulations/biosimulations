@@ -177,7 +177,7 @@ export class AuthService {
     user.userName =
       userProfile['https://www.biosimulations.org:app_metadata']['username'];
     user.firstName = userProfile.given_name;
-    user.lastName = userProfile.given_name;
+    user.lastName = userProfile.family_name;
     this.http
       .post(environment.crbm.CRBMAPI_URL + '/users', serializer.toJson(user))
       .subscribe(res => {
