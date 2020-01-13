@@ -31,29 +31,31 @@ export const environment = {
   bruitConfig: {
     apiKey: 'e6f43cf7-e04d-4581-9505-dbd7eddd9dbd',
     labels: {
-      title: 'Send us a feedback'
+      title: 'Send us a feedback',
     },
     form: [
+      { label: ' ', type: 'text' },
       {
         label: 'Comments',
-        type: 'text',
-        required: true
+        type: 'textarea',
+        id: 'title',
+        required: true,
       },
       {
         label: 'Your name',
-        type: 'text'
+        type: 'text',
       },
       {
         label: 'Email',
         type: 'text',
-        id: 'title'
       },
       {
         id: 'agreement',
         type: 'checkbox',
-        label: 'I also agree to send a screenshot and technical information about my browser',
-        value: false
-      }
+        label:
+          'I also agree to send a screenshot and technical information about my browser',
+        value: false,
+      },
     ],
     colors: {
       header: '#2196f3',
