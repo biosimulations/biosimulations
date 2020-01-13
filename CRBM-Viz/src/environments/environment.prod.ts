@@ -37,7 +37,7 @@ export const environment = {
     form: [
       {
         label: 'Comments',
-        type: 'textarea',
+        type: 'text',
         required: true
       },
       {
@@ -52,7 +52,7 @@ export const environment = {
       {
         id: 'agreement',
         type: 'checkbox',
-        label: 'I agree to send technical information in addition to my answers',
+        label: 'I also agree to send a screenshot and technical information about my browser',
         value: false
       }
     ],
