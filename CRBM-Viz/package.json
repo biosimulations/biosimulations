@@ -47,7 +47,7 @@
     "ngx-pipes": "^2.6.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "vega": "^5.9.0",
+    "vega": "^5.9.1",
     "vega-embed": "^6.2.1",
     "vega-lite": "^4.0.2",
     "zone.js": "~0.9.1"
@@ -61,7 +61,7 @@
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^13.1.6",
     "codelyzer": "^5.2.1",
-    "husky": "^4.0.7",
+    "husky": "^4.0.9",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.4.1",
