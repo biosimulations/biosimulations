@@ -19,7 +19,7 @@ The front end for the [Center for Reproducible Biomedical Modeling's](https://re
 
 ## Current Build
 
-https://crbm-viz.herokuapp.com/
+https://biosimulations.herokuapp.com/
 
 ## Installation and deployment
 
