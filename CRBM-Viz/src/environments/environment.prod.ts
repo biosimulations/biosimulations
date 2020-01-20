@@ -33,11 +33,13 @@ export const environment = {
     apiKey: 'e6f43cf7-e04d-4581-9505-dbd7eddd9dbd',
     labels: {
       title: 'Send us a feedback',
+      button: 'Send',
     },
     form: [
       {
         label: 'Comments',
         type: 'textarea',
+        id: 'title',
         required: true,
       },
       {
@@ -47,14 +49,14 @@ export const environment = {
       {
         label: 'Email',
         type: 'text',
-        id: 'title',
       },
       {
         id: 'agreement',
         type: 'checkbox',
         label:
-          'I agree to send technical information in addition to my answers',
+          'I agree to send a screenshot and technical information about my browser',
         value: false,
+        required: true,
       },
     ],
     colors: {

@@ -3,23 +3,23 @@
 # BioSimulations
 The front end for the [Center for Reproducible Biomedical Modeling's](https://reproduciblebiomodels.org/) simulation service
 
-[![Tests](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Build,%20Lint,%20Test/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
-[![Docker image](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
-[![Documentation](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Documentation/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
-[![Deploy](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/actions)
+[![Tests](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Build,%20Lint,%20Test/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
+[![Docker image](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
+[![Documentation](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Documentation/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
+[![Deploy](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
 
 
 [![codecov](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz/branch/master/graph/badge.svg)](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz)
-[![CodeFactor](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz/badge)](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/crbm-viz)
-[![GitHub issues](https://img.shields.io/github/issues/reproducible-biomedical-modeling/CRBM-Viz?logo=GitHub)](https://github.com/reproducible-biomedical-modeling/CRBM-Viz/issues)
-[![Documentation Coverage](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/images/coverage-badge-documentation.svg)](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/)
-[![License](https://img.shields.io/github/license/reproducible-biomedical-modeling/CRBM-Viz.svg)](LICENSE)
+[![CodeFactor](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/Biosimulations/badge)](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/Biosimulations)
+[![GitHub issues](https://img.shields.io/github/issues/reproducible-biomedical-modeling/Biosimulations?logo=GitHub)](https://github.com/reproducible-biomedical-modeling/Biosimulations/issues)
+[![Documentation Coverage](https://reproducible-biomedical-modeling.github.io/Biosimulations/images/coverage-badge-documentation.svg)](https://reproducible-biomedical-modeling.github.io/Biosimulations/)
+[![License](https://img.shields.io/github/license/reproducible-biomedical-modeling/Biosimulations.svg)](LICENSE)
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git.svg?type=shield)](https://app.fossa.com/projects/custom%2B12818%2Fgit%40github.com%3Areproducible-biomedical-modeling%2FCRBM-Viz.git?ref=badge_shield)
 ![Analytics](https://ga-beacon.appspot.com/UA-86759801-1/CRBM-Viz/README.md?pixel)
 
 ## Current Build
 
-https://crbm-viz.herokuapp.com/
+https://biosimulations.herokuapp.com/
 
 ## Installation and deployment
 
