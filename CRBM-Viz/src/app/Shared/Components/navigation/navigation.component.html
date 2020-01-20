@@ -26,7 +26,9 @@
       <app-sidebar></app-sidebar>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content [ngClass]="['full-content'].concat(moduleClasses).join(' ')">
+  <mat-sidenav-content
+    [ngClass]="['full-content'].concat(moduleClasses).join(' ')"
+  >
     <div class="topbar-container">
       <mat-toolbar class="topbar" color="primary">
         <button
@@ -46,24 +48,49 @@
           <app-nav-icons></app-nav-icons>
         </div>
       </mat-toolbar>
-      <div class="module-toolbar" *ngIf="moduleCrumbs && moduleButtons && (moduleCrumbs.length > 0 || moduleButtons.length > 0)">
+      <div
+        class="module-toolbar"
+        *ngIf="
+          moduleCrumbs &&
+          moduleButtons &&
+          (moduleCrumbs.length > 0 || moduleButtons.length > 0)
+        "
+      >
         <div class="module-title">
           <span *ngFor="let crumb of moduleCrumbs">
-            <a *ngIf="crumb.route; else plainCrumb" [routerLink]="crumb.route">{{ crumb.label }}</a>
+            <a
+              *ngIf="crumb.route; else plainCrumb"
+              [routerLink]="crumb.route"
+              >{{ crumb.label }}</a
+            >
             <ng-template #plainCrumb>{{ crumb.label }}</ng-template>
           </span>
         </div>
         <div class="module-routes">
           <ng-container *ngFor="let button of moduleButtons">
+            <!-- TODO change this to just get the username from the owner and auth -->
             <a
-              *ngIf="button.display == NavItemDisplayLevel.always || (button.display == NavItemDisplayLevel.loggedIn && authService && authService.loggedIn) || (button.display == NavItemDisplayLevel.loggedOut && (!authService || !authService.loggedIn)) || (button.display == NavItemDisplayLevel.user && authService.token && button.displayUser && authService.token.sub == button.displayUser.auth0Id)"
+              *ngIf="
+                button.display == NavItemDisplayLevel.always ||
+                (button.display == NavItemDisplayLevel.loggedIn &&
+                  authService &&
+                  authService.loggedIn) ||
+                (button.display == NavItemDisplayLevel.loggedOut &&
+                  (!authService || !authService.loggedIn)) ||
+                (button.display == NavItemDisplayLevel.user &&
+                  authService.token &&
+                  button.displayUser &&
+                  authService.token.sub == button.displayUser.userId)
+              "
               [routerLink]="button.route"
               (click)="button.click && button.click()"
-              >
-              <mat-icon *ngIf="button.iconType === 'mat'; else faIcon"
+            >
+              <mat-icon
+                *ngIf="button.iconType === 'mat'; else faIcon"
                 aria-hidden="false"
                 aria-label="Icon"
-              >{{ button.icon }}</mat-icon>
+                >{{ button.icon }}</mat-icon
+              >
               <ng-template #faIcon>
                 <fa-icon
                   [icon]="[button.iconType, button.icon]"
