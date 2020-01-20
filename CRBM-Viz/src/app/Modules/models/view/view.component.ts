@@ -14,7 +14,7 @@ import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { UserSerializer } from 'src/app/Shared/Models/user';
+import { UserSerializer, User } from 'src/app/Shared/Models/user';
 import { map } from 'rxjs/operators';
 import { Person } from 'src/app/Shared/Models/person';
 import { UserService } from 'src/app/Shared/Services/user.service';
@@ -28,7 +28,7 @@ export class ViewComponent implements OnInit {
 
   id: string;
   model: Model;
-  owner: Person;
+  owner: User;
 
   constructor(
     private dialog: MatDialog,
@@ -49,7 +49,6 @@ export class ViewComponent implements OnInit {
         this.model.userservice = this.userService;
         this.model.getOwner().subscribe(owner => {
           this.owner = owner;
-
           const crumbs: object[] = [
             { label: 'Models', route: '/models' },
             { label: 'Model ' + this.id },
@@ -71,7 +70,7 @@ export class ViewComponent implements OnInit {
                 this.model && this.model.access === AccessLevel.public
                   ? NavItemDisplayLevel.never
                   : NavItemDisplayLevel.user,
-              displayUser: !!this.model ? this.model.owner : null,
+              displayUser: !!this.model ? this.owner : null,
             },
             {
               iconType: 'fas',
@@ -84,7 +83,7 @@ export class ViewComponent implements OnInit {
                 this.model && this.model.access === AccessLevel.public
                   ? NavItemDisplayLevel.never
                   : NavItemDisplayLevel.user,
-              displayUser: !!this.model ? this.model.owner : null,
+              displayUser: !!this.model ? this.owner : null,
             },
             {
               iconType: 'fas',

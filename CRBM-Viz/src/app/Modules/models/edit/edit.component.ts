@@ -20,7 +20,7 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
-import { Model } from 'src/app/Shared/Models/model';
+import { Model, ModelSerializer } from 'src/app/Shared/Models/model';
 import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
@@ -28,6 +28,7 @@ import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { UserService } from 'src/app/Shared/Services/user.service';
 
 @Component({
   templateUrl: './edit.component.html',
@@ -51,7 +52,8 @@ export class EditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private metadataService: MetadataService,
-    private modelService: ModelService
+    private modelService: ModelService,
+    private userService: UserService
   ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
@@ -81,113 +83,118 @@ export class EditComponent implements OnInit {
       this.id = params.id;
 
       if (this.id) {
-        this.modelService.get(this.id).subscribe(model => (this.model = model));
-      }
+        this.modelService.get(this.id).subscribe(model => {
+          this.model = ModelSerializer.fromJson(model);
+          this.model.userservice = this.userService;
 
-      // setup bread crumbs and buttons
-      const crumbs: object[] = [{ label: 'Models', route: ['/models'] }];
-      if (this.id) {
-        crumbs.push({
-          label: 'Model ' + this.id,
-          route: ['/models', this.id],
+          // setup bread crumbs and buttons
+          const crumbs: object[] = [{ label: 'Models', route: ['/models'] }];
+          if (this.id) {
+            crumbs.push({
+              label: 'Model ' + this.id,
+              route: ['/models', this.id],
+            });
+            crumbs.push({
+              label: 'Edit',
+            });
+          } else {
+            crumbs.push({
+              label: 'New',
+            });
+          }
+
+          const buttons: NavItem[] = [
+            {
+              iconType: 'mat',
+              icon: 'timeline',
+              label: 'Simulate',
+              route: ['/simulations', 'new', this.id],
+              display: this.id
+                ? NavItemDisplayLevel.always
+                : NavItemDisplayLevel.never,
+            },
+            {
+              iconType: 'fas',
+              icon: 'bars',
+              label: 'View',
+              route: ['/models', this.id],
+              display: this.id
+                ? NavItemDisplayLevel.always
+                : NavItemDisplayLevel.never,
+            },
+            {
+              iconType: 'fas',
+              icon: 'trash-alt',
+              label: 'Delete',
+              click: () => {
+                this.openDeleteDialog();
+              },
+              display:
+                this.id &&
+                this.model &&
+                this.model.access === AccessLevel.public
+                  ? NavItemDisplayLevel.never
+                  : NavItemDisplayLevel.user,
+              displayUser: !!this.model ? this.model.owner : null,
+            },
+            {
+              iconType: 'fas',
+              icon: 'plus',
+              label: 'New',
+              route: ['/models', 'new'],
+              display: this.id
+                ? NavItemDisplayLevel.always
+                : NavItemDisplayLevel.never,
+            },
+            {
+              iconType: 'fas',
+              icon: 'user',
+              label: 'Your models',
+              route: ['/user', 'models'],
+              display: NavItemDisplayLevel.loggedIn,
+            },
+            {
+              iconType: 'fas',
+              icon: 'list',
+              label: 'Browse',
+              route: ['/models'],
+              display: NavItemDisplayLevel.always,
+            },
+          ];
+
+          this.breadCrumbsService.set(crumbs, buttons);
+
+          // setup form
+          if (this.id) {
+            this.getFormArray('tags').clear();
+            this.getFormArray('authors').clear();
+            this.getFormArray('identifiers').clear();
+            this.getFormArray('refs').clear();
+
+            this.formGroup.get('file').validator = null;
+            for (const tag of this.model.tags) {
+              this.addTagFormElement();
+            }
+            for (const author of this.model.authors) {
+              this.addAuthorFormElement();
+            }
+            for (const identifiers of this.model.identifiers) {
+              this.addIdentifierFormElement();
+            }
+            for (const ref of this.model.refs) {
+              this.addRefFormElement();
+            }
+            this.formGroup.patchValue(this.model);
+          } else {
+            this.formGroup.get('file').validator = Validators.required;
+            for (let i = 0; i < 3; i++) {
+              // this.addTagFormElement();
+              this.addAuthorFormElement();
+              this.addIdentifierFormElement();
+              this.addRefFormElement();
+            }
+          }
         });
-        crumbs.push({
-          label: 'Edit',
-        });
-      } else {
-        crumbs.push({
-          label: 'New',
-        });
-      }
-
-      const buttons: NavItem[] = [
-        {
-          iconType: 'mat',
-          icon: 'timeline',
-          label: 'Simulate',
-          route: ['/simulations', 'new', this.id],
-          display: this.id
-            ? NavItemDisplayLevel.always
-            : NavItemDisplayLevel.never,
-        },
-        {
-          iconType: 'fas',
-          icon: 'bars',
-          label: 'View',
-          route: ['/models', this.id],
-          display: this.id
-            ? NavItemDisplayLevel.always
-            : NavItemDisplayLevel.never,
-        },
-        {
-          iconType: 'fas',
-          icon: 'trash-alt',
-          label: 'Delete',
-          click: () => {
-            this.openDeleteDialog();
-          },
-          display:
-            this.id && this.model && this.model.access === AccessLevel.public
-              ? NavItemDisplayLevel.never
-              : NavItemDisplayLevel.user,
-          displayUser: !!this.model ? this.model.owner : null,
-        },
-        {
-          iconType: 'fas',
-          icon: 'plus',
-          label: 'New',
-          route: ['/models', 'new'],
-          display: this.id
-            ? NavItemDisplayLevel.always
-            : NavItemDisplayLevel.never,
-        },
-        {
-          iconType: 'fas',
-          icon: 'user',
-          label: 'Your models',
-          route: ['/user', 'models'],
-          display: NavItemDisplayLevel.loggedIn,
-        },
-        {
-          iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/models'],
-          display: NavItemDisplayLevel.always,
-        },
-      ];
-
-      this.breadCrumbsService.set(crumbs, buttons);
-
-      // setup form
-      if (this.id) {
-        this.getFormArray('tags').clear();
-        this.getFormArray('authors').clear();
-        this.getFormArray('identifiers').clear();
-        this.getFormArray('refs').clear();
-
-        this.formGroup.get('file').validator = null;
-        for (const tag of this.model.tags) {
-          this.addTagFormElement();
-        }
-        for (const author of this.model.authors) {
-          this.addAuthorFormElement();
-        }
-        for (const identifiers of this.model.identifiers) {
-          this.addIdentifierFormElement();
-        }
-        for (const ref of this.model.refs) {
-          this.addRefFormElement();
-        }
-        this.formGroup.patchValue(this.model);
-      } else {
-        this.formGroup.get('file').validator = Validators.required;
-        for (let i = 0; i < 3; i++) {
-          // this.addTagFormElement();
-          this.addAuthorFormElement();
-          this.addIdentifierFormElement();
-          this.addRefFormElement();
-        }
       }
     });
   }
