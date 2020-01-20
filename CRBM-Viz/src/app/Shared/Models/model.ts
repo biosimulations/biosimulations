@@ -35,7 +35,7 @@ export class ModelSerializer {
     model.tags = json.tags;
     model.created = new Date(Date.parse(json.created));
     model.updated = new Date(Date.parse(json.updated));
-    model.license = License[json.license as string];
+    model.license = json.license as License;
     model.identifiers = [];
     model.OWNER = json.owner;
     // Boolean
