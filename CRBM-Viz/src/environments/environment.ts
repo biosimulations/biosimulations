@@ -7,7 +7,7 @@ export const environment = {
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
   },
   crbm: {
-    CRBMAPI_URL: 'https://crbm-api.herokuapp.com',
+    CRBMAPI_URL: 'https://biosimulations-api.herokuapp.com',
     ALLOWED_FILE_EXTENSIONS: [
       'pdf',
       'doc',
@@ -31,29 +31,30 @@ export const environment = {
   bruitConfig: {
     apiKey: 'e6f43cf7-e04d-4581-9505-dbd7eddd9dbd',
     labels: {
-      title: 'Send us a feedback'
+      title: 'Send us a feedback',
     },
     form: [
       {
         label: 'Comments',
         type: 'textarea',
-        required: true
+        required: true,
       },
       {
         label: 'Your name',
-        type: 'text'
+        type: 'text',
       },
       {
         label: 'Email',
         type: 'text',
-        id: 'title'
+        id: 'title',
       },
       {
         id: 'agreement',
         type: 'checkbox',
-        label: 'I agree to send technical information in addition to my answers',
-        value: false
-      }
+        label:
+          'I agree to send technical information in addition to my answers',
+        value: false,
+      },
     ],
     colors: {
       header: '#2196f3',
