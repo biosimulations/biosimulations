@@ -21,6 +21,7 @@ import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
 import { UserService } from '../Services/user.service';
 import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 export class ModelSerializer {
   static fromJson(json: any): Model {
@@ -40,9 +41,9 @@ export class ModelSerializer {
     model.OWNER = json.owner;
     // Boolean
     if (json.private) {
-      model.access = AccessLevel.public;
-    } else {
       model.access = AccessLevel.private;
+    } else {
+      model.access = AccessLevel.public;
     }
     // Nested fields
     if (json.taxon) {
@@ -128,7 +129,7 @@ export class Model implements TopLevelResource {
         return of(this.owner);
       } else {
         const user = this.userservice.get$(this.OWNER);
-        user.subscribe(owner => (this.owner = owner));
+        user.pipe(tap(owner => (this.owner = owner)));
         return user;
       }
     } else {
