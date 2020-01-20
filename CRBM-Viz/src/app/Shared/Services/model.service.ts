@@ -225,7 +225,6 @@ export class ModelService {
   }
 
   get(id: string): Observable<any> {
-    console.log('biomodels get');
     return this.http.get<any>(this.endpoint + '/models/' + id);
     // return of(ModelService._get(id, true));
   }

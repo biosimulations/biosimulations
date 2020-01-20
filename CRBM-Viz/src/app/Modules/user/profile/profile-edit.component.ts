@@ -72,19 +72,16 @@ export class ProfileEditComponent implements OnInit {
   submit(): void {
     const username = this.auth.getUsername$();
     const userId = this.auth.getUser$().pipe();
-    const userInfo = merge(username, userId, 2);
     const data: User = this.formGroup.value as User;
     this.auth.getUsername$().subscribe(name => {
       this.auth
         .getUser$()
         .pipe(pluck('sub'))
         .subscribe(id => {
-          console.log(data);
-          console.log(name);
-          console.log(id);
           this.userService.set(data, name, id);
         });
     });
+    // TODO catch the errors when setting, give different snackbar for errors
     this.snackBar.open('Profile saved', '', {
       panelClass: 'centered-snack-bar',
       duration: 3000,

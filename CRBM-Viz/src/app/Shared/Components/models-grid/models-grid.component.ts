@@ -225,7 +225,6 @@ function capitalizeFormatter(params): string {
 // TODO Make this async capable
 function authorGetter(params): string[] {
   const model: Model = params.data;
-  console.log(model.getAuthors());
   const names: string[] = [];
   model
     .getAuthors()

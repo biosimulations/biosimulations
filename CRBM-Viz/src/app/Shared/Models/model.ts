@@ -95,7 +95,6 @@ export class ModelSerializer {
       model.taxon = new Taxon(json.taxon.id, json.taxon.name);
     }
     // model.summary=json.summary
-    console.log(model);
     return model;
   }
   static toJson(model: Model): any {}
