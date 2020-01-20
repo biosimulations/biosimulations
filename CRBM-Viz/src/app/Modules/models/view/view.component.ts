@@ -40,74 +40,77 @@ export class ViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // TODO handle these observables properly. Nested subscriptions are not ideal
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
 
       this.getData().subscribe(model => {
         this.model = model;
         this.model.userservice = this.userService;
-        this.model.getOwner().subscribe(owner => (this.owner = owner));
-      });
+        this.model.getOwner().subscribe(owner => {
+          this.owner = owner;
 
-      const crumbs: object[] = [
-        { label: 'Models', route: '/models' },
-        { label: 'Model ' + this.id },
-      ];
-      const buttons: NavItem[] = [
-        {
-          iconType: 'mat',
-          icon: 'timeline',
-          label: 'Simulate',
-          route: ['/simulations', 'new', this.id],
-          display: NavItemDisplayLevel.always,
-        },
-        {
-          iconType: 'fas',
-          icon: 'pencil-alt',
-          label: 'Edit',
-          route: ['/models', this.id, 'edit'],
-          display:
-            this.model && this.model.access === AccessLevel.public
-              ? NavItemDisplayLevel.never
-              : NavItemDisplayLevel.user,
-          displayUser: !!this.model ? this.model.owner : null,
-        },
-        {
-          iconType: 'fas',
-          icon: 'trash-alt',
-          label: 'Delete',
-          click: () => {
-            this.openDeleteDialog();
-          },
-          display:
-            this.model && this.model.access === AccessLevel.public
-              ? NavItemDisplayLevel.never
-              : NavItemDisplayLevel.user,
-          displayUser: !!this.model ? this.model.owner : null,
-        },
-        {
-          iconType: 'fas',
-          icon: 'plus',
-          label: 'New',
-          route: ['/models', 'new'],
-          display: NavItemDisplayLevel.always,
-        },
-        {
-          iconType: 'fas',
-          icon: 'user',
-          label: 'Your models',
-          route: ['/user', 'models'],
-          display: NavItemDisplayLevel.loggedIn,
-        },
-        {
-          iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/models'],
-          display: NavItemDisplayLevel.always,
-        },
-      ];
-      this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
+          const crumbs: object[] = [
+            { label: 'Models', route: '/models' },
+            { label: 'Model ' + this.id },
+          ];
+          const buttons: NavItem[] = [
+            {
+              iconType: 'mat',
+              icon: 'timeline',
+              label: 'Simulate',
+              route: ['/simulations', 'new', this.id],
+              display: NavItemDisplayLevel.always,
+            },
+            {
+              iconType: 'fas',
+              icon: 'pencil-alt',
+              label: 'Edit',
+              route: ['/models', this.id, 'edit'],
+              display:
+                this.model && this.model.access === AccessLevel.public
+                  ? NavItemDisplayLevel.never
+                  : NavItemDisplayLevel.user,
+              displayUser: !!this.model ? this.model.owner : null,
+            },
+            {
+              iconType: 'fas',
+              icon: 'trash-alt',
+              label: 'Delete',
+              click: () => {
+                this.openDeleteDialog();
+              },
+              display:
+                this.model && this.model.access === AccessLevel.public
+                  ? NavItemDisplayLevel.never
+                  : NavItemDisplayLevel.user,
+              displayUser: !!this.model ? this.model.owner : null,
+            },
+            {
+              iconType: 'fas',
+              icon: 'plus',
+              label: 'New',
+              route: ['/models', 'new'],
+              display: NavItemDisplayLevel.always,
+            },
+            {
+              iconType: 'fas',
+              icon: 'user',
+              label: 'Your models',
+              route: ['/user', 'models'],
+              display: NavItemDisplayLevel.loggedIn,
+            },
+            {
+              iconType: 'fas',
+              icon: 'list',
+              label: 'Browse',
+              route: ['/models'],
+              display: NavItemDisplayLevel.always,
+            },
+          ];
+          this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
+        });
+      });
     });
   }
 
