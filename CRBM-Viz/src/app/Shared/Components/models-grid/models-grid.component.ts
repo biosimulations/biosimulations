@@ -32,9 +32,7 @@ export class ModelsGridComponent implements OnInit {
   @Input()
   set owner(value: string) {
     this._owner = value;
-    this.modelService
-      .list(null, value)
-      .subscribe(data => (this.rowData = data));
+    this.modelService.list().subscribe(data => (this.rowData = data));
   }
 
   @Output() ready = new EventEmitter();
@@ -169,9 +167,7 @@ export class ModelsGridComponent implements OnInit {
       },
     ];
 
-    this.modelService
-      .list(null, this._owner)
-      .subscribe(data => (this.rowData = data));
+    this.modelService.list().subscribe(data => (this.rowData = data));
   }
 
   onReady(event): void {

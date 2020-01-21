@@ -1,7 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  AbstractControl,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, pluck, tap } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -17,7 +24,10 @@ import { License, licenses } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';
 import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './edit.component.html',
@@ -39,8 +49,8 @@ export class EditComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private chartTypeService: ChartTypeService,
-    ) {
+    private chartTypeService: ChartTypeService
+  ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
       spec: [''],
@@ -60,12 +70,14 @@ export class EditComponent implements OnInit {
       this.id = params.id;
 
       if (this.id) {
-        this.chartType = this.chartTypeService.get(this.id);
+        this.chartTypeService
+          .read(this.id)
+          .subscribe(chart => (this.chartType = chart));
       }
 
       // setup bread crumbs and buttons
       const crumbs: object[] = [
-        {label: 'Chart types', route: ['/chart-types']},
+        { label: 'Chart types', route: ['/chart-types'] },
       ];
       if (this.id) {
         crumbs.push({
@@ -87,27 +99,33 @@ export class EditComponent implements OnInit {
           icon: 'bars',
           label: 'View',
           route: ['/chart-types', this.id],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+          display: this.id
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
         },
         {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          click: () => { this.openDeleteDialog() },
-          display: (
-            this.id
-            && this.chartType
-            && this.chartType.access === AccessLevel.public
-            ? NavItemDisplayLevel.never
-            : NavItemDisplayLevel.user),
-          displayUser: (!!this.chartType ? this.chartType.owner : null),
+          click: () => {
+            this.openDeleteDialog();
+          },
+          display:
+            this.id &&
+            this.chartType &&
+            this.chartType.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.chartType ? this.chartType.owner : null,
         },
         {
           iconType: 'fas',
           icon: 'plus',
           label: 'New',
           route: ['/chart-types', 'new'],
-          display: (this.id ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+          display: this.id
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
         },
         {
           iconType: 'fas',
@@ -134,13 +152,23 @@ export class EditComponent implements OnInit {
         this.getFormArray('identifiers').clear();
         this.getFormArray('refs').clear();
 
-        for (const tag of this.chartType.tags) { this.addTagFormElement(); }
-        for (const author of this.chartType.authors) { this.addAuthorFormElement(); }
-        for (const identifiers of this.chartType.identifiers) { this.addIdentifierFormElement(); }
-        for (const ref of this.chartType.refs) { this.addRefFormElement(); }
+        for (const tag of this.chartType.tags) {
+          this.addTagFormElement();
+        }
+        for (const author of this.chartType.authors) {
+          this.addAuthorFormElement();
+        }
+        for (const identifiers of this.chartType.identifiers) {
+          this.addIdentifierFormElement();
+        }
+        for (const ref of this.chartType.refs) {
+          this.addRefFormElement();
+        }
         this.formGroup.patchValue(this.chartType);
         if (this.chartType.spec) {
-          this.formGroup.patchValue({spec: JSON.stringify(this.chartType.spec, null, 2)})
+          this.formGroup.patchValue({
+            spec: JSON.stringify(this.chartType.spec, null, 2),
+          });
         }
       } else {
         for (let i = 0; i < 3; i++) {
@@ -206,61 +234,72 @@ export class EditComponent implements OnInit {
 
   addAuthorFormElement(): void {
     const formArray: FormArray = this.getFormArray('authors');
-    formArray.push(this.formBuilder.group({
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        firstName: [''],
+        middleName: [''],
+        lastName: [''],
+      })
+    );
   }
 
   addIdentifierFormElement(): void {
     const formArray: FormArray = this.getFormArray('identifiers');
-    formArray.push(this.formBuilder.group({
-      namespace: [''],
-      id: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        namespace: [''],
+        id: [''],
+      })
+    );
   }
 
   addRefFormElement(): void {
     const formArray: FormArray = this.getFormArray('refs');
-    formArray.push(this.formBuilder.group({
-      authors: [''],
-      title: [''],
-      journal: [''],
-      volume: [''],
-      num: [''],
-      pages: [''],
-      year: [''],
-      doi: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        authors: [''],
+        title: [''],
+        journal: [''],
+        volume: [''],
+        num: [''],
+        pages: [''],
+        year: [''],
+        doi: [''],
+      })
+    );
   }
 
   drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex);
+      event.currentIndex
+    );
   }
 
   submit() {
     this.formGroup.value.spec = JSON.parse(this.formGroup.value.spec);
     const data: ChartType = this.formGroup.value as ChartType;
-    const chartTypeId: string = this.chartTypeService.set(data, this.id);
+    const chart: Observable<ChartType> = this.chartTypeService.update(data);
+    chart.pipe(
+      pluck('id'),
+      tap(id => {
+        this.snackBar.open('Chart type saved', '', {
+          panelClass: 'centered-snack-bar',
+          duration: 3000,
+        });
 
-    this.snackBar.open('Chart type saved', '', {
-      panelClass: 'centered-snack-bar',
-      duration: 3000,
-    });
-
-    setTimeout(() => {
-      this.router.navigate(['/chart-types', chartTypeId]);
-    }, 2500);
+        setTimeout(() => {
+          this.router.navigate(['/chart-types', id]);
+        }, 2500);
+      })
+    );
   }
 
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete chart type ${ this.id }?`,
+        title: `Delete chart type ${this.id}?`,
         action: () => {
           this.chartTypeService.delete(this.id);
           this.router.navigate(['/chart-types']);

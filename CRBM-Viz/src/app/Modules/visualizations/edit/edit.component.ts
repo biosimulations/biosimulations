@@ -1,7 +1,20 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators } from '@angular/forms';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  AbstractControl,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, pluck, tap } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -25,7 +38,10 @@ import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { ChartTypesGridComponent } from 'src/app/Shared/Components/chart-types-grid/chart-types-grid.component';
 import { SimulationsGridComponent } from 'src/app/Shared/Components/simulations-grid/simulations-grid.component';
 
@@ -58,8 +74,10 @@ export class EditComponent implements OnInit {
   private simulationsGridReady = false;
   private chartTypesGridReady = false;
 
-  @ViewChild('simulationsGrid', { static: true }) simulationsGrid: SimulationsGridComponent;
-  @ViewChild('chartTypesGrid', { static: true }) chartTypesGrid: ChartTypesGridComponent;
+  @ViewChild('simulationsGrid', { static: true })
+  simulationsGrid: SimulationsGridComponent;
+  @ViewChild('chartTypesGrid', { static: true })
+  chartTypesGrid: ChartTypesGridComponent;
 
   selectedChartTypes = [];
 
@@ -90,22 +108,22 @@ export class EditComponent implements OnInit {
     private metadataService: MetadataService,
     private modelService: ModelService,
     private simulationService: SimulationService,
-    private visualizationService: VisualizationService,
-    ) {
+    private visualizationService: VisualizationService
+  ) {
     const columnsFormControl = this.formBuilder.control(1, [
       Validators.min(1),
       Validators.max(1),
-      ]);
+    ]);
     columnsFormControl.valueChanges.subscribe(val => {
       this.updateLayout();
       this.updatePreview();
-    })
+    });
 
     const layoutFormArray: FormArray = this.formBuilder.array([]);
     layoutFormArray.valueChanges.subscribe(val => {
       this.updateLayout();
       this.updatePreview();
-    })
+    });
 
     this.formGroup = this.formBuilder.group({
       name: [''],
@@ -149,14 +167,16 @@ export class EditComponent implements OnInit {
 
     // get data
     if (this.id) {
-      this.visualization = this.visualizationService.get(this.id);
+      this.visualizationService
+        .read(this.id)
+        .subscribe(visualization => (this.visualization = visualization));
     }
     if (this.simulationId) {
     }
 
     // bread crumbs and buttons
     const crumbs: object[] = [
-      {label: 'Visualizations', route: ['/visualizations']},
+      { label: 'Visualizations', route: ['/visualizations'] },
     ];
     switch (this.mode) {
       case Mode.new:
@@ -198,41 +218,55 @@ export class EditComponent implements OnInit {
         icon: 'paint-brush',
         label: 'Visualize',
         route: ['/visualizations', this.id],
-        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        display:
+          this.mode === Mode.edit
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
       },
       {
         iconType: 'fas',
         icon: 'bars',
         label: 'View',
         route: ['/visualizations', this.id],
-        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        display:
+          this.mode === Mode.edit
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
       },
       {
         iconType: 'fas',
         icon: 'code-branch',
         label: 'Fork',
         route: ['/visualizations', this.id, 'fork'],
-        display: (this.mode === Mode.edit ? NavItemDisplayLevel.always : NavItemDisplayLevel.never),
+        display:
+          this.mode === Mode.edit
+            ? NavItemDisplayLevel.always
+            : NavItemDisplayLevel.never,
       },
       {
         iconType: 'fas',
         icon: 'trash-alt',
         label: 'Delete',
-        click: () => { this.openDeleteDialog() },
-        display: (
-          this.mode === Mode.edit
-          && this.visualization
-          && this.visualization.access === AccessLevel.private
-          ? NavItemDisplayLevel.user
-          : NavItemDisplayLevel.never),
-        displayUser: (!!this.visualization ? this.visualization.owner : null),
+        click: () => {
+          this.openDeleteDialog();
+        },
+        display:
+          this.mode === Mode.edit &&
+          this.visualization &&
+          this.visualization.access === AccessLevel.private
+            ? NavItemDisplayLevel.user
+            : NavItemDisplayLevel.never,
+        displayUser: !!this.visualization ? this.visualization.owner : null,
       },
       {
         iconType: 'fas',
         icon: 'plus',
         label: 'New',
         route: ['/visualizations', 'new'],
-        display: (this.mode === Mode.new ? NavItemDisplayLevel.never : NavItemDisplayLevel.always),
+        display:
+          this.mode === Mode.new
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.always,
       },
       {
         iconType: 'fas',
@@ -264,11 +298,21 @@ export class EditComponent implements OnInit {
       this.getFormArray('identifiers').clear();
       this.getFormArray('refs').clear();
 
-      for (const el of this.visualization.layout) { this.addChartTypeToLayout(el.chartType, el.data); }
-      for (const el of this.visualization.tags) { this.addTagFormElement(); }
-      for (const el of this.visualization.authors) { this.addAuthorFormElement(); }
-      for (const el of this.visualization.identifiers) { this.addIdentifierFormElement(); }
-      for (const el of this.visualization.refs) { this.addRefFormElement(); }
+      for (const el of this.visualization.layout) {
+        this.addChartTypeToLayout(el.chartType, el.data);
+      }
+      for (const el of this.visualization.tags) {
+        this.addTagFormElement();
+      }
+      for (const el of this.visualization.authors) {
+        this.addAuthorFormElement();
+      }
+      for (const el of this.visualization.identifiers) {
+        this.addIdentifierFormElement();
+      }
+      for (const el of this.visualization.refs) {
+        this.addRefFormElement();
+      }
       this.formGroup.patchValue(this.visualization);
       this.columns = this.visualization.columns;
 
@@ -297,7 +341,11 @@ export class EditComponent implements OnInit {
   }
 
   updateSimulationsGrid(): void {
-    if (this.simulationsGrid && this.simulationsGridReady && this.visualization) {
+    if (
+      this.simulationsGrid &&
+      this.simulationsGridReady &&
+      this.visualization
+    ) {
       this.allSimulationResults = [];
       this.simulationsGrid.unselectAllRows();
       for (const layoutEl of this.visualization.layout) {
@@ -328,23 +376,35 @@ export class EditComponent implements OnInit {
       Object.assign(chartTypeCopy, chartType);
       this.selectedChartTypes.push(chartTypeCopy);
       this.selectedChartTypes = this.selectedChartTypes.sort((a, b) =>
-        (a.id > b.id ? 1 : -1));
-
+        a.id > b.id ? 1 : -1
+      );
     } else {
-      for (let iChartType = 0; iChartType < this.selectedChartTypes.length; iChartType++) {
+      for (
+        let iChartType = 0;
+        iChartType < this.selectedChartTypes.length;
+        iChartType++
+      ) {
         if (this.selectedChartTypes[iChartType].id === chartType.id) {
           this.selectedChartTypes.slice(iChartType, 1);
         }
       }
 
       const formArray: FormArray = this.getFormArray('layout');
-      for (let iLayoutEl = 0; iLayoutEl < formArray.controls.length; iLayoutEl++) {
+      for (
+        let iLayoutEl = 0;
+        iLayoutEl < formArray.controls.length;
+        iLayoutEl++
+      ) {
         if (formArray.controls[iLayoutEl].value.chartType.id === chartType.id) {
           formArray.removeAt(iLayoutEl);
         }
       }
 
-      for (let iLayoutEl = this.layout.length - 1; iLayoutEl >= 0; iLayoutEl--) {
+      for (
+        let iLayoutEl = this.layout.length - 1;
+        iLayoutEl >= 0;
+        iLayoutEl--
+      ) {
         if (this.layout[iLayoutEl].chartType.id === chartType.id) {
           this.layout.splice(iLayoutEl, 1);
         }
@@ -352,14 +412,23 @@ export class EditComponent implements OnInit {
     }
   }
 
-  addChartTypeToLayout(chartType: ChartType, vizDataFields: VisualizationDataField[] = []): void {
+  addChartTypeToLayout(
+    chartType: ChartType,
+    vizDataFields: VisualizationDataField[] = []
+  ): void {
     const formArray: FormArray = this.getFormArray('layout');
     const formGroup: FormGroup = this.genLayoutFormGroup(chartType);
 
     const dataFormArray: FormArray = formGroup.get('data') as FormArray;
-    for (let iVizDataField=0; iVizDataField < vizDataFields.length; iVizDataField++) {
+    for (
+      let iVizDataField = 0;
+      iVizDataField < vizDataFields.length;
+      iVizDataField++
+    ) {
       const vizDataField: VisualizationDataField = vizDataFields[iVizDataField];
-      const simResultsFormArray: FormArray = dataFormArray.controls[iVizDataField].get('simulationResults') as FormArray;
+      const simResultsFormArray: FormArray = dataFormArray.controls[
+        iVizDataField
+      ].get('simulationResults') as FormArray;
       for (const simResult of vizDataField.simulationResults) {
         simResultsFormArray.push(this.formBuilder.control(simResult));
       }
@@ -376,14 +445,18 @@ export class EditComponent implements OnInit {
   genLayoutFormGroup(chartType: ChartType): FormGroup {
     const dataFormArray: FormArray = this.formBuilder.array([]);
     for (const dataField of chartType.getDataFields()) {
-      const simResultsFormArray: FormArray = this.formBuilder.array([],
-        (dataField.shape === ChartTypeDataFieldShape.array
+      const simResultsFormArray: FormArray = this.formBuilder.array(
+        [],
+        dataField.shape === ChartTypeDataFieldShape.array
           ? []
-          : [Validators.required, Validators.maxLength(1)]));
-      dataFormArray.push(this.formBuilder.group({
-        dataField: this.formBuilder.control(dataField),
-        simulationResults: simResultsFormArray,
-      }));
+          : [Validators.required, Validators.maxLength(1)]
+      );
+      dataFormArray.push(
+        this.formBuilder.group({
+          dataField: this.formBuilder.control(dataField),
+          simulationResults: simResultsFormArray,
+        })
+      );
     }
     const formGroup: FormGroup = this.formBuilder.group({
       chartType: this.formBuilder.control(chartType),
@@ -395,10 +468,10 @@ export class EditComponent implements OnInit {
   changeColumns(event): void {
     const maxColumns: number = Math.max(1, this.getFormArray('layout').length);
     if (event.target.valueAsNumber < 1) {
-      this.formGroup.patchValue({columns: 1});
+      this.formGroup.patchValue({ columns: 1 });
       this.columns = 1;
     } else if (event.target.valueAsNumber > maxColumns) {
-      this.formGroup.patchValue({columns: maxColumns});
+      this.formGroup.patchValue({ columns: maxColumns });
       this.columns = maxColumns;
     } else {
       this.columns = event.target.valueAsNumber;
@@ -414,13 +487,14 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       this.iDraggingLayoutEl,
-      event.dropIndex);
+      event.dropIndex
+    );
     this.iDraggingLayoutEl = null;
   }
 
   removeLayoutEl() {
     if (this.iDraggingLayoutEl !== null) {
-      const formArray = this.getFormArray('layout')
+      const formArray = this.getFormArray('layout');
       formArray.removeAt(this.iDraggingLayoutEl);
       this.iDraggingLayoutEl = null;
     }
@@ -428,15 +502,22 @@ export class EditComponent implements OnInit {
 
   updateLayout(): void {
     const numLayoutEl: number = this.getFormArray('layout').length;
-    const columnsFormControl: FormControl = this.formGroup.get('columns') as FormControl;
-    columnsFormControl.setValidators([Validators.min(1), Validators.max(numLayoutEl)]);
+    const columnsFormControl: FormControl = this.formGroup.get(
+      'columns'
+    ) as FormControl;
+    columnsFormControl.setValidators([
+      Validators.min(1),
+      Validators.max(numLayoutEl),
+    ]);
 
     if (this.layoutContainer) {
       const columns: number = columnsFormControl.value;
       const rows = Math.max(1, Math.ceil(numLayoutEl / columns));
-      this.layoutContainer.nativeElement.setAttribute('style', (
-        `grid-template-rows: repeat(${ rows }, 10rem);` +
-        `grid-template-columns: repeat(${ columns }, 10rem)`));
+      this.layoutContainer.nativeElement.setAttribute(
+        'style',
+        `grid-template-rows: repeat(${rows}, 10rem);` +
+          `grid-template-columns: repeat(${columns}, 10rem)`
+      );
     }
   }
 
@@ -489,7 +570,9 @@ export class EditComponent implements OnInit {
         const simulationCopy = new Simulation();
         Object.assign(simulationCopy, simulation);
         const simulationResults: SimulationResult[] = [];
-        for (const variable of this.modelService.getVariables(simulationCopy.model)) {
+        for (const variable of this.modelService.getVariables(
+          simulationCopy.model
+        )) {
           const simulationResult = new SimulationResult();
           simulationResult.simulation = simulationCopy;
           simulationResult.variable = variable;
@@ -504,10 +587,15 @@ export class EditComponent implements OnInit {
           return a['simulation'].id > b['simulation'].id ? 1 : -1;
         });
       }
-
     } else {
-      for (let iGroup = 0; iGroup < this.allSimulationResults.length; iGroup++) {
-        if (this.allSimulationResults[iGroup]['simulation'].id === simulation.id) {
+      for (
+        let iGroup = 0;
+        iGroup < this.allSimulationResults.length;
+        iGroup++
+      ) {
+        if (
+          this.allSimulationResults[iGroup]['simulation'].id === simulation.id
+        ) {
           this.allSimulationResults.splice(iGroup, 1);
         }
       }
@@ -520,12 +608,21 @@ export class EditComponent implements OnInit {
 
     const filteredSimulationResults = [];
     for (const group of this.allSimulationResults) {
-      if (group['simulation'].id.toLowerCase().includes(value) || group['simulation'].name.toLowerCase().includes(value)) {
+      if (
+        group['simulation'].id.toLowerCase().includes(value) ||
+        group['simulation'].name.toLowerCase().includes(value)
+      ) {
         filteredSimulationResults.push(group);
       } else {
-        const filteredGroup = {simulation: group['simulation'], simulationResults: []};
+        const filteredGroup = {
+          simulation: group['simulation'],
+          simulationResults: [],
+        };
         for (const simulationResult of group['simulationResults']) {
-          if (simulationResult.variable.id.toLowerCase().includes(value) || simulationResult.variable.name.toLowerCase().includes(value)) {
+          if (
+            simulationResult.variable.id.toLowerCase().includes(value) ||
+            simulationResult.variable.name.toLowerCase().includes(value)
+          ) {
             filteredGroup['simulationResults'].push(simulationResult);
           }
         }
@@ -546,16 +643,18 @@ export class EditComponent implements OnInit {
     return el ? el['name'] : undefined;
   }
 
-  simulationResultsDisplayAutocompleteEl(el: SimulationResult): string | undefined {
+  simulationResultsDisplayAutocompleteEl(
+    el: SimulationResult
+  ): string | undefined {
     return el ? el.simulation.name + ': ' + el.variable.id : undefined;
   }
 
   selectAutocomplete(formControl: AbstractControl, required = false): void {
     const value = formControl.value;
     if (required && (typeof value === 'string' || value === null)) {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else if (!required && typeof value === 'string' && value !== '') {
-      formControl.setErrors({incorrect: true});
+      formControl.setErrors({ incorrect: true });
     } else {
       if (value === '') {
         formControl.patchValue(null);
@@ -567,15 +666,19 @@ export class EditComponent implements OnInit {
   addSimulationResult(event: MatAutocompleteSelectedEvent) {
     let inArray = false;
     for (const simulationResult of this.currSimulationResultsFormArray.value) {
-      if (simulationResult.simulation.id === event.option.value.simulation.id &&
-        simulationResult.variable.id === event.option.value.variable.id) {
+      if (
+        simulationResult.simulation.id === event.option.value.simulation.id &&
+        simulationResult.variable.id === event.option.value.variable.id
+      ) {
         inArray = true;
         break;
       }
     }
 
     if (!inArray) {
-      this.currSimulationResultsFormArray.push(this.formBuilder.control(event.option.value));
+      this.currSimulationResultsFormArray.push(
+        this.formBuilder.control(event.option.value)
+      );
     }
     this.currSimulationResultsInput.value = '';
   }
@@ -608,40 +711,47 @@ export class EditComponent implements OnInit {
 
   addAuthorFormElement(): void {
     const formArray: FormArray = this.getFormArray('authors');
-    formArray.push(this.formBuilder.group({
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        firstName: [''],
+        middleName: [''],
+        lastName: [''],
+      })
+    );
   }
 
   addIdentifierFormElement(): void {
     const formArray: FormArray = this.getFormArray('identifiers');
-    formArray.push(this.formBuilder.group({
-      namespace: [''],
-      id: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        namespace: [''],
+        id: [''],
+      })
+    );
   }
 
   addRefFormElement(): void {
     const formArray: FormArray = this.getFormArray('refs');
-    formArray.push(this.formBuilder.group({
-      authors: [''],
-      title: [''],
-      journal: [''],
-      volume: [''],
-      num: [''],
-      pages: [''],
-      year: [''],
-      doi: [''],
-    }));
+    formArray.push(
+      this.formBuilder.group({
+        authors: [''],
+        title: [''],
+        journal: [''],
+        volume: [''],
+        num: [''],
+        pages: [''],
+        year: [''],
+        doi: [''],
+      })
+    );
   }
 
   drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex);
+      event.currentIndex
+    );
   }
 
   submit() {
@@ -649,23 +759,28 @@ export class EditComponent implements OnInit {
     if (this.mode === Mode.fork) {
       data.parent = this.visualization;
     }
-    const visualizationId: string = this.visualizationService.set(
-      data, this.mode === Mode.edit ? this.id : null);
+    const visualization: Observable<Visualization> = this.visualizationService.update(
+      data
+    );
+    visualization.pipe(
+      pluck('id'),
+      tap(id => {
+        this.snackBar.open('Visualization saved', '', {
+          panelClass: 'centered-snack-bar',
+          duration: 3000,
+        });
 
-    this.snackBar.open('Visualization saved', '', {
-      panelClass: 'centered-snack-bar',
-      duration: 3000,
-    });
-
-    setTimeout(() => {
-      this.router.navigate(['/visualizations', visualizationId]);
-    }, 2500);
+        setTimeout(() => {
+          this.router.navigate(['/visualizations', id]);
+        }, 2500);
+      })
+    );
   }
 
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete visualization ${ this.id }?`,
+        title: `Delete visualization ${this.id}?`,
         action: () => {
           this.visualizationService.delete(this.id);
           this.router.navigate(['/visualizations']);

@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -22,7 +30,7 @@ export class VisualizationsGridComponent implements OnInit {
   @Input()
   set owner(value: string) {
     this._owner = value;
-    this.rowData = this.visualizationService.list(null, value);
+    this.rowData = this.visualizationService.list();
   }
 
   @Output() ready = new EventEmitter();
@@ -50,17 +58,14 @@ export class VisualizationsGridComponent implements OnInit {
 
   @ViewChild('grid', { static: true }) grid;
 
-  constructor(
-    private visualizationService: VisualizationService
-    ) {
-  }
+  constructor(private visualizationService: VisualizationService) {}
 
   ngOnInit() {
     this.columnDefs = [
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: (this._selectable ? 'idRenderer' : 'idRouteRenderer'),
+        cellRenderer: this._selectable ? 'idRenderer' : 'idRouteRenderer',
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -138,7 +143,7 @@ export class VisualizationsGridComponent implements OnInit {
       },
     ];
 
-    this.rowData = this.visualizationService.list(null, this._owner);
+    this.rowData = this.visualizationService.list();
   }
 
   onReady(event): void {
@@ -168,12 +173,12 @@ function setFormatter(params) {
 }
 
 function ownerGetter(params): string {
-  const owner:User = params.data.owner;
+  const owner: User = params.data.owner;
   return owner.getFullName();
 }
 
 function capitalizeFormatter(params): string {
-  const value:string = params.value;
+  const value: string = params.value;
   if (value) {
     return value.substring(0, 1).toUpperCase() + value.substring(1);
   } else {
@@ -191,8 +196,12 @@ function authorFormatter(params) {
 }
 
 function dateFormatter(params): string {
-  const date:Date = params.value;
-  return (date.getFullYear()
-     + '-' + String(date.getMonth() + 1).padStart(2, '0')
-     + '-' + String(date.getDate()).padStart(2, '0'));
+  const date: Date = params.value;
+  return (
+    date.getFullYear() +
+    '-' +
+    String(date.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    String(date.getDate()).padStart(2, '0')
+  );
 }

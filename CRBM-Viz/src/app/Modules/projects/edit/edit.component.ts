@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, pluck, tap } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -88,7 +88,9 @@ export class EditComponent implements OnInit {
       this.id = params.id;
 
       if (this.id) {
-        this.project = this.projectService.get(this.id);
+        this.projectService
+          .read(this.id)
+          .subscribe(project => (this.project = project));
       }
 
       // setup bread crumbs and buttons
@@ -250,9 +252,13 @@ export class EditComponent implements OnInit {
   }
 
   getProductResources(value: string): void {
-    this.modelService.list(value).subscribe(models => (this.models = models));
-    this.simulations = this.simulationService.list(value);
-    this.visualizations = this.visualizationService.list(value);
+    this.modelService.list().subscribe(models => (this.models = models));
+    this.simulationService
+      .list()
+      .subscribe(simulations => (this.simulations = simulations));
+    this.visualizationService
+      .list()
+      .subscribe(visualizations => (this.visualizations = visualizations));
   }
 
   displayAutocompleteEl(el: object): string | undefined {
@@ -405,16 +411,20 @@ export class EditComponent implements OnInit {
 
   submit() {
     const data: Project = this.formGroup.value as Project;
-    const projectId: string = this.projectService.set(data, this.id);
+    const project: Observable<Project> = this.projectService.update(data);
+    project.pipe(
+      pluck('id'),
+      tap(id => {
+        this.snackBar.open('Project saved', '', {
+          panelClass: 'centered-snack-bar',
+          duration: 3000,
+        });
 
-    this.snackBar.open('Project saved', '', {
-      panelClass: 'centered-snack-bar',
-      duration: 3000,
-    });
-
-    setTimeout(() => {
-      this.router.navigate(['/projects', projectId]);
-    }, 2500);
+        setTimeout(() => {
+          this.router.navigate(['/projects', id]);
+        }, 2500);
+      })
+    );
   }
 
   openDeleteDialog(): void {

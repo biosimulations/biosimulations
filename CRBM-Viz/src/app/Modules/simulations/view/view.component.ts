@@ -10,7 +10,10 @@ import { SimulationResultsFormat } from 'src/app/Shared/Enums/simulation-results
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './view.component.html',
@@ -40,8 +43,8 @@ export class ViewComponent implements OnInit {
       }
 
       const crumbs: object[] = [
-        {label: 'Simulations', route: '/simulations'},
-        {label: 'Simulation ' + this.id},
+        { label: 'Simulations', route: '/simulations' },
+        { label: 'Simulation ' + this.id },
       ];
       const buttons: NavItem[] = [
         {
@@ -63,24 +66,24 @@ export class ViewComponent implements OnInit {
           icon: 'pencil-alt',
           label: 'Edit',
           route: ['/simulations', this.id, 'edit'],
-          display: (
-            this.simulation
-            && this.simulation.access === AccessLevel.public
-            ? NavItemDisplayLevel.never
-            : NavItemDisplayLevel.user),
-          displayUser: (!!this.simulation ? this.simulation.owner : null),
+          display:
+            this.simulation && this.simulation.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.simulation ? this.simulation.owner : null,
         },
         {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          click: () => { this.openDeleteDialog() },
-          display: (
-            this.simulation
-            && this.simulation.access === AccessLevel.public
-            ? NavItemDisplayLevel.never
-            : NavItemDisplayLevel.user),
-          displayUser: (!!this.simulation ? this.simulation.owner : null),
+          click: () => {
+            this.openDeleteDialog();
+          },
+          display:
+            this.simulation && this.simulation.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.simulation ? this.simulation.owner : null,
         },
         {
           iconType: 'fas',
@@ -109,14 +112,20 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    this.simulation = this.simulationService.get(this.id);
-    this.historyTreeNodes = this.simulationService.getHistory(this.id, true, true);
+    this.simulationService
+      .read(this.id)
+      .subscribe(simulation => (this.simulation = simulation));
+    this.historyTreeNodes = this.simulationService.getHistory(
+      this.id,
+      true,
+      true
+    );
   }
 
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete simulation ${ this.id }?`,
+        title: `Delete simulation ${this.id}?`,
         action: () => {
           this.simulationService.delete(this.id);
           this.router.navigate(['/simulations']);

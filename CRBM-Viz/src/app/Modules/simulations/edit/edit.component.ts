@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, pluck, tap } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -152,11 +152,13 @@ export class EditComponent implements OnInit {
 
     // get data
     if (this.id) {
-      this.simulation = this.simulationService.get(this.id);
+      this.simulationService
+        .read(this.id)
+        .subscribe(simulation => (this.simulation = simulation));
     }
     if (this.modelId) {
       this.modelService
-        .get(this.modelId)
+        .read(this.modelId)
         .subscribe(model => (this.model = model));
     }
 
@@ -584,19 +586,22 @@ export class EditComponent implements OnInit {
     if (this.mode === Mode.fork) {
       data.parent = this.simulation;
     }
-    const simulationId: string = this.simulationService.set(
-      data,
-      this.mode === Mode.edit ? this.id : null
+    const simulation: Observable<Simulation> = this.simulationService.update(
+      data
     );
+    simulation.pipe(
+      pluck('id'),
+      tap(id => {
+        this.snackBar.open('Simulation saved', '', {
+          panelClass: 'centered-snack-bar',
+          duration: 3000,
+        });
 
-    this.snackBar.open('Simulation saved', '', {
-      panelClass: 'centered-snack-bar',
-      duration: 3000,
-    });
-
-    setTimeout(() => {
-      this.router.navigate(['/simulations', simulationId]);
-    }, 2500);
+        setTimeout(() => {
+          this.router.navigate(['/simulations', id]);
+        }, 2500);
+      })
+    );
   }
 
   openDeleteDialog(): void {

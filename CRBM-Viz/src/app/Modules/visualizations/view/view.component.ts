@@ -135,14 +135,14 @@ export class ViewComponent implements OnInit {
     this.visualizationService
       .getVisualization(this.id)
       .subscribe((res: object[]) => {
-        this.visualization = VisualizationService._get(this.id);
-        this.vegaSpec = this.visualization.getSpec();
-        this.models = this.visualization.getModels();
-
-        // TODO: get data from simulation service
-        this.vegaData = {};
-
-        this.setUp();
+        this.visualizationService.read(this.id).subscribe(vis => {
+          this.visualization = vis;
+          this.vegaSpec = this.visualization.getSpec();
+          this.models = this.visualization.getModels();
+          this.vegaData = {};
+          this.setUp();
+          // TODO: get data from simulation service
+        });
       });
     this.historyTreeNodes = this.visualizationService.getHistory(
       this.id,

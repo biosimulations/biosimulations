@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
-import { Model, ModelSerializer } from 'src/app/Shared/Models/model';
+import { Model } from 'src/app/Shared/Models/model';
 import { RemoteFile } from 'src/app/Shared/Models/remote-file';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
@@ -114,11 +114,7 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    const model = this.modelService.get(this.id).pipe(
-      map(data => {
-        return ModelSerializer.fromJson(data);
-      })
-    );
+    const model = this.modelService.read(this.id);
     return model;
   }
 

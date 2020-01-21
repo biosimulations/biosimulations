@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, pluck, tap } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -20,15 +20,16 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
-import { Model, ModelSerializer } from 'src/app/Shared/Models/model';
+import { Model } from 'src/app/Shared/Models/model';
 import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
-import { ModelService } from 'src/app/Shared/Services/model.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { UserService } from 'src/app/Shared/Services/user.service';
+import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
+import { ModelService } from 'src/app/Shared/Services/model.service';
 
 @Component({
   templateUrl: './edit.component.html',
@@ -83,8 +84,8 @@ export class EditComponent implements OnInit {
       this.id = params.id;
 
       if (this.id) {
-        this.modelService.get(this.id).subscribe(model => {
-          this.model = ModelSerializer.fromJson(model);
+        this.modelService.read(this.id).subscribe(model => {
+          this.model = model;
           this.model.userservice = this.userService;
 
           // setup bread crumbs and buttons
@@ -311,16 +312,21 @@ export class EditComponent implements OnInit {
 
   submit() {
     const data: Model = this.formGroup.value as Model;
-    const modelId: string = this.modelService.set(data, this.id);
+    data.id = this.id;
+    const model: Observable<Model> = this.modelService.update(data);
+    model.pipe(
+      pluck('id'),
+      tap(id => {
+        this.snackBar.open('Model saved', '', {
+          panelClass: 'centered-snack-bar',
+          duration: 3000,
+        });
 
-    this.snackBar.open('Model saved', '', {
-      panelClass: 'centered-snack-bar',
-      duration: 3000,
-    });
-
-    setTimeout(() => {
-      this.router.navigate(['/models', modelId]);
-    }, 2500);
+        setTimeout(() => {
+          this.router.navigate(['/models', id]);
+        }, 2500);
+      })
+    );
   }
 
   openDeleteDialog(): void {

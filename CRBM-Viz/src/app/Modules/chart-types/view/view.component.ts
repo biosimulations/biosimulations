@@ -9,11 +9,17 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './view.component.html',
-  styleUrls: ['../../../Shared/Components/cards/cards.component.sass', './view.component.sass'],
+  styleUrls: [
+    '../../../Shared/Components/cards/cards.component.sass',
+    './view.component.sass',
+  ],
 })
 export class ViewComponent implements OnInit {
   getLicenseInfo = getLicenseInfo;
@@ -36,8 +42,8 @@ export class ViewComponent implements OnInit {
       this.getData();
 
       const crumbs: object[] = [
-        {label: 'Chart types', route: '/chart-types'},
-        {label: 'Chart type ' + this.id},
+        { label: 'Chart types', route: '/chart-types' },
+        { label: 'Chart type ' + this.id },
       ];
       const buttons: NavItem[] = [
         {
@@ -45,16 +51,24 @@ export class ViewComponent implements OnInit {
           icon: 'pencil-alt',
           label: 'Edit',
           route: ['/chart-types', this.id, 'edit'],
-          display: (this.chartType && this.chartType.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: (!!this.chartType ? this.chartType.owner : null),
+          display:
+            this.chartType && this.chartType.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.chartType ? this.chartType.owner : null,
         },
         {
           iconType: 'fas',
           icon: 'trash-alt',
           label: 'Delete',
-          click: () => { this.openDeleteDialog() },
-          display: (this.chartType && this.chartType.access === AccessLevel.public ? NavItemDisplayLevel.never : NavItemDisplayLevel.user),
-          displayUser: (!!this.chartType ? this.chartType.owner : null),
+          click: () => {
+            this.openDeleteDialog();
+          },
+          display:
+            this.chartType && this.chartType.access === AccessLevel.public
+              ? NavItemDisplayLevel.never
+              : NavItemDisplayLevel.user,
+          displayUser: !!this.chartType ? this.chartType.owner : null,
         },
         {
           iconType: 'fas',
@@ -83,15 +97,17 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    this.chartType = this.chartTypeService.get(this.id);
+    this.chartTypeService
+      .read(this.id)
+      .subscribe(chart => (this.chartType = chart));
   }
 
   download(): void {
     const link = document.createElement('a');
-    link.download = `chart-type-${ this.id }.json`;
-    const blob: Blob = new Blob(
-      [JSON.stringify(this.chartType.spec)],
-      {type : 'application/json'});
+    link.download = `chart-type-${this.id}.json`;
+    const blob: Blob = new Blob([JSON.stringify(this.chartType.spec)], {
+      type: 'application/json',
+    });
     link.href = URL.createObjectURL(blob);
     link.click();
   }
@@ -99,7 +115,7 @@ export class ViewComponent implements OnInit {
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete chart type ${ this.id }?`,
+        title: `Delete chart type ${this.id}?`,
         action: () => {
           this.chartTypeService.delete(this.id);
           this.router.navigate(['/chart-types']);

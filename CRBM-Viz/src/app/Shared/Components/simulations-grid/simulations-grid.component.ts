@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
@@ -24,7 +32,7 @@ export class SimulationsGridComponent implements OnInit {
   @Input()
   set owner(value: string) {
     this._owner = value;
-    this.rowData = this.simulationService.list(null, value);
+    this.rowData = this.simulationService.list();
   }
 
   @Output() ready = new EventEmitter();
@@ -52,17 +60,14 @@ export class SimulationsGridComponent implements OnInit {
 
   @ViewChild('grid', { static: true }) grid;
 
-  constructor(
-    private simulationService: SimulationService
-    ) {
-  }
+  constructor(private simulationService: SimulationService) {}
 
   ngOnInit() {
     this.columnDefs = [
       {
         headerName: 'Id',
         field: 'id',
-        cellRenderer: (this._selectable ? 'idRenderer' : 'idRouteRenderer'),
+        cellRenderer: this._selectable ? 'idRenderer' : 'idRouteRenderer',
         minWidth: 52,
         width: 60,
         maxWidth: 70,
@@ -319,7 +324,7 @@ export class SimulationsGridComponent implements OnInit {
       // errLog
     ];
 
-    this.rowData = this.simulationService.list(null, this._owner);
+    this.rowData = this.simulationService.list();
   }
 
   onReady(event): void {
@@ -327,7 +332,7 @@ export class SimulationsGridComponent implements OnInit {
   }
 
   timeFormatter(params): string {
-    const secs:number = params.value;
+    const secs: number = params.value;
     return UtilsService.formatTimeForHumans(secs);
   }
 
@@ -366,32 +371,32 @@ function numModelParameterChangesGetter(params): number {
 }
 
 function ownerGetter(params): string {
-  const owner:User = params.data.owner;
+  const owner: User = params.data.owner;
   return owner.getFullName();
 }
 
 function modelOwnerGetter(params): string {
-  const owner:User = params.data.model.owner;
+  const owner: User = params.data.model.owner;
   return owner.getFullName();
 }
 
 function modelFormatGetter(params): string {
-  const format:Format = params.data.model.format;
+  const format: Format = params.data.model.format;
   return format.getFullName();
 }
 
 function formatGetter(params): string {
-  const format:Format = params.data.format;
+  const format: Format = params.data.format;
   return format.getFullName();
 }
 
 function simulatorGetter(params): string {
-  const simulator:Simulator = params.data.simulator;
+  const simulator: Simulator = params.data.simulator;
   return simulator.getFullName();
 }
 
 function capitalizeFormatter(params): string {
-  const value:string = params.value;
+  const value: string = params.value;
   if (value) {
     return value.substring(0, 1).toUpperCase() + value.substring(1);
   } else {
@@ -413,8 +418,12 @@ function authorFormatter(params) {
 }
 
 function dateFormatter(params): string {
-  const date:Date = params.value;
-  return (date.getFullYear()
-     + '-' + String(date.getMonth() + 1).padStart(2, '0')
-     + '-' + String(date.getDate()).padStart(2, '0'));
+  const date: Date = params.value;
+  return (
+    date.getFullYear() +
+    '-' +
+    String(date.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    String(date.getDate()).padStart(2, '0')
+  );
 }
