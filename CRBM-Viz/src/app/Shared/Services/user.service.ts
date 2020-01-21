@@ -14,7 +14,6 @@ export class UserService {
   private endpoint = environment.crbm.CRBMAPI_URL;
   private serializer = new UserSerializer();
 
-  // TODO Remove this method
   static _get(username?: string, includeRelatedObjects = false): User {
     let user: User;
     switch (username) {
@@ -93,7 +92,6 @@ export class UserService {
     }
     return user;
   }
-
   get$(username?: string): Observable<User> {
     let user: Observable<User>;
     user = this.http
@@ -102,19 +100,18 @@ export class UserService {
     return user;
   }
 
-  get(username?: string): User {
-    return UserService._get(username, true);
-  }
+  list$(): Observable<User[]> {
+    return this.http.get<object[]>(this.endpoint + '/models').pipe(
+      map((modelsJson: object[]) => {
+        const models: User[] = [];
 
-  list(): User[] {
-    return [
-      this.get('jonrkarr'),
-      this.get('y.skaf'),
-      this.get('b.shaikh'),
-      this.get('s.edelstein'),
-      this.get('a.goldbeter'),
-      this.get('j.tyson'),
-    ];
+        modelsJson.forEach(modelJson => {
+          const testModel = this.serializer.fromJson(modelJson);
+          models.push(testModel);
+        });
+        return models;
+      })
+    );
   }
 
   set(user: User, userName: string, id: string): void {

@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment }  from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
@@ -22,10 +22,9 @@ import { Simulation } from '../Models/simulation';
 import { User } from '../Models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SimulationService {
-
   simulationData: object = null;
   fileData: Array<object> = null;
   omexFiles: Array<string> = null;
@@ -38,9 +37,8 @@ export class SimulationService {
   constructor(
     private http: HttpClient,
     private alertService: AlertService,
-    private injector: Injector,
-    ) {
-  }
+    private injector: Injector
+  ) {}
 
   static _get(id: string, includeRelatedObjects = false): Simulation {
     let simulation: Simulation;
@@ -51,16 +49,31 @@ export class SimulationService {
         simulation = new Simulation();
         simulation.id = id;
         simulation.name = 'First simulation';
-        simulation.description = 'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+        simulation.description =
+          'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
         simulation.tags = ['wild type', 'normal'];
 
         simulation.model = ModelService._get('001');
 
-        simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
+        simulation.format = new Format(
+          'SED-ML',
+          'L1V3',
+          3685,
+          'https://sed-ml.org'
+        );
         simulation.modelParameterChanges = [
-          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
-          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
-          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
+          new ParameterChange(
+            new ModelParameter('p1', 'parameter 1', 2, 'g'),
+            1
+          ),
+          new ParameterChange(
+            new ModelParameter('p2', 'parameter 2', 3.5, 's'),
+            0.1
+          ),
+          new ParameterChange(
+            new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'),
+            2.6
+          ),
         ];
 
         simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
@@ -70,8 +83,24 @@ export class SimulationService {
         simulation.parent.name = 'Sim-005';
 
         simulation.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         simulation.owner = UserService._get('y.skaf');
         simulation.access = AccessLevel.public;
@@ -80,7 +109,7 @@ export class SimulationService {
         simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
-        simulation.wallTime = 100.;
+        simulation.wallTime = 100;
         simulation.outLog = 'out\n'.repeat(40);
         simulation.errLog = 'err\n'.repeat(40);
         break;
@@ -88,16 +117,31 @@ export class SimulationService {
         simulation = new Simulation();
         simulation.id = id;
         simulation.name = 'First simulation';
-        simulation.description = 'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+        simulation.description =
+          'Simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
         simulation.tags = ['wild type', 'normal'];
 
         simulation.model = ModelService._get('002');
 
-        simulation.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
+        simulation.format = new Format(
+          'SED-ML',
+          'L1V3',
+          3685,
+          'https://sed-ml.org'
+        );
         simulation.modelParameterChanges = [
-          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
-          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
-          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
+          new ParameterChange(
+            new ModelParameter('p1', 'parameter 1', 2, 'g'),
+            1
+          ),
+          new ParameterChange(
+            new ModelParameter('p2', 'parameter 2', 3.5, 's'),
+            0.1
+          ),
+          new ParameterChange(
+            new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'),
+            2.6
+          ),
         ];
 
         simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
@@ -107,8 +151,24 @@ export class SimulationService {
         simulation.parent.name = 'Sim-005';
 
         simulation.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         simulation.owner = UserService._get('jonrkarr');
         simulation.access = AccessLevel.private;
@@ -117,7 +177,7 @@ export class SimulationService {
         simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
-        simulation.wallTime = 100.;
+        simulation.wallTime = 100;
         simulation.outLog = 'out\n'.repeat(40);
         simulation.errLog = 'err\n'.repeat(40);
         break;
@@ -126,16 +186,31 @@ export class SimulationService {
         simulation = new Simulation();
         simulation.id = '003';
         simulation.name = 'Third simulation';
-        simulation.description = 'Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.';
+        simulation.description =
+          'Simulation of a minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase.';
         simulation.tags = ['disease', 'cancer'];
 
         simulation.model = ModelService._get('003');
 
-        simulation.format = new Format('SED-ML', 'L1V2', 3685, 'https://sed-ml.org');
+        simulation.format = new Format(
+          'SED-ML',
+          'L1V2',
+          3685,
+          'https://sed-ml.org'
+        );
         simulation.modelParameterChanges = [
-          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
-          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
-          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
+          new ParameterChange(
+            new ModelParameter('p1', 'parameter 1', 2, 'g'),
+            1
+          ),
+          new ParameterChange(
+            new ModelParameter('p2', 'parameter 2', 3.5, 's'),
+            0.1
+          ),
+          new ParameterChange(
+            new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'),
+            2.6
+          ),
         ];
 
         simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
@@ -149,7 +224,7 @@ export class SimulationService {
         simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
-        simulation.wallTime = 100.;
+        simulation.wallTime = 100;
         simulation.outLog = 'out\n'.repeat(40);
         simulation.errLog = null;
         break;
@@ -158,16 +233,31 @@ export class SimulationService {
         simulation = new Simulation();
         simulation.id = '006';
         simulation.name = 'Sixth simulation';
-        simulation.description = 'Simulation of a mathematical model of the interactions of cdc2 and cyclin.';
+        simulation.description =
+          'Simulation of a mathematical model of the interactions of cdc2 and cyclin.';
         simulation.tags = ['disease', 'diabetes'];
 
         simulation.model = ModelService._get('006');
 
-        simulation.format = new Format('SED-ML', 'L1V1', 3685, 'https://sed-ml.org');
+        simulation.format = new Format(
+          'SED-ML',
+          'L1V1',
+          3685,
+          'https://sed-ml.org'
+        );
         simulation.modelParameterChanges = [
-          new ParameterChange(new ModelParameter('p1', 'parameter 1', 2., 'g'), 1.),
-          new ParameterChange(new ModelParameter('p2', 'parameter 2', 3.5, 's'), 0.1),
-          new ParameterChange(new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'), 2.6),
+          new ParameterChange(
+            new ModelParameter('p1', 'parameter 1', 2, 'g'),
+            1
+          ),
+          new ParameterChange(
+            new ModelParameter('p2', 'parameter 2', 3.5, 's'),
+            0.1
+          ),
+          new ParameterChange(
+            new ModelParameter('p3', 'parameter 3', 1.7, 'm^s'),
+            2.6
+          ),
         ];
         simulation.simulator = new Simulator('VCell', '7.1', 'crbm/vcell:7.1');
 
@@ -180,14 +270,14 @@ export class SimulationService {
         simulation.updated = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.startDate = new Date(Date.parse('2019-11-06 00:00:00'));
         simulation.endDate = new Date(Date.parse('2019-11-06 00:00:00'));
-        simulation.wallTime = 100.;
+        simulation.wallTime = 100;
         simulation.outLog = 'out\n'.repeat(40);
         simulation.errLog = 'err\n'.repeat(40);
         break;
     }
-    simulation.startTime = 0.;
-    simulation.endTime = 10.;
-    simulation.length = 10.;
+    simulation.startTime = 0;
+    simulation.endTime = 10;
+    simulation.length = 10;
     simulation.numTimePoints = 360;
     simulation.algorithm = new Algorithm('0000064', 'Runge-Kutta based method');
     simulation.algorithm.parameters = [
@@ -196,9 +286,18 @@ export class SimulationService {
       new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209),
     ];
     simulation.algorithmParameterChanges = [
-      new ParameterChange(new AlgorithmParameter('seed', 'random number generator seed', 1, 488), 2),
-      new ParameterChange(new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211), 2e-6),
-      new ParameterChange(new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209), 2e-6),
+      new ParameterChange(
+        new AlgorithmParameter('seed', 'random number generator seed', 1, 488),
+        2
+      ),
+      new ParameterChange(
+        new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211),
+        2e-6
+      ),
+      new ParameterChange(
+        new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209),
+        2e-6
+      ),
     ];
     simulation.license = License.cc0;
     simulation.authors = [
@@ -216,26 +315,24 @@ export class SimulationService {
   }
 
   getSimulationAndJobFilesInfo(): void {
-    this.http.get(`${environment.crbm.CRBMAPI_URL}/simulation`)
-    .subscribe(
+    this.http.get(`${environment.crbm.CRBMAPI_URL}/simulation`).subscribe(
       success => {
         this.simulationData = this.flattenSimulationData(
           success['data']['simulations']
         );
         this.omexFiles = success['data']['omexSolvers']['omex'];
         this.solverFiles = success['data']['omexSolvers']['solver'];
-        const sbatches = []
-          for (const sbatch of success['data']['files']) {
-            sbatches.push(`${sbatch['createdBy']}-${sbatch['filename']}`);
-          }
+        const sbatches = [];
+        for (const sbatch of success['data']['files']) {
+          sbatches.push(`${sbatch['createdBy']}-${sbatch['filename']}`);
+        }
         this.sbatchFiles = sbatches;
-        this.fileData = success['data']['files']
+        this.fileData = success['data']['files'];
         this.simulationDataChangeSubject.next();
       },
       error => {
         this.alertService.openDialog(
-          'Error occured in Simulation service: ' +
-          JSON.stringify(error)
+          'Error occured in Simulation service: ' + JSON.stringify(error)
         );
       }
     );
@@ -245,12 +342,12 @@ export class SimulationService {
     selectedSbatch: string,
     selectedOmex: string,
     selectedSolver: string
-    ) {
+  ) {
     const id = this.getFileId(selectedSbatch);
     return this.http.post(`${environment.crbm.CRBMAPI_URL}/simulation`, {
       omex: selectedOmex,
       solver: selectedSolver,
-      fileId: id
+      fileId: id,
     });
   }
 
@@ -259,8 +356,8 @@ export class SimulationService {
     const user = fileSplitted[0];
     const filename = fileSplitted[1];
     const fileObj = this.fileData.find(
-        file => file['createdBy'] === user && file['filename'] === filename
-      );
+      file => file['createdBy'] === user && file['filename'] === filename
+    );
     return fileObj['fileId'];
   }
 
@@ -298,13 +395,19 @@ export class SimulationService {
   private filter(list: object[], name?: string): object[] {
     if (name) {
       const lowCaseName: string = name.toLowerCase();
-      return list.filter(item => item['name'].toLowerCase().includes(lowCaseName));
+      return list.filter(item =>
+        item['name'].toLowerCase().includes(lowCaseName)
+      );
     } else {
       return list;
     }
   }
 
-  getHistory(id: string, includeParents: boolean = true, includeChildren: boolean = true): object[] {
+  getHistory(
+    id: string,
+    includeParents: boolean = true,
+    includeChildren: boolean = true
+  ): object[] {
     // tslint:disable:max-line-length
     return [
       {
@@ -382,7 +485,7 @@ export class SimulationService {
                     route: ['/simulations', '012'],
                     children: [],
                   },
-                ]
+                ],
               },
             ],
           },
@@ -391,14 +494,14 @@ export class SimulationService {
     ];
   }
 
-  set(data:Simulation, id?: string): string {
+  set(data: Simulation, id?: string): string {
     if (!id) {
       id = '007';
     }
 
     data.id = id;
     data.format = new Format('SED-ML', 'L1V3', 3685, 'https://sed-ml.org');
-    data.owner = this.userService.get();
+    data.owner = this.userService._get();
     data.created = new Date(Date.now());
     data.updated = new Date(Date.now());
 

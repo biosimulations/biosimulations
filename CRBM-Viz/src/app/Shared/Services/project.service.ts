@@ -17,9 +17,7 @@ import { UserService } from './user.service';
 export class ProjectService {
   private userService: UserService;
 
-  constructor(
-    private http: HttpClient,
-    private injector: Injector) {}
+  constructor(private http: HttpClient, private injector: Injector) {}
 
   static _get(id: string, includeRelatedObjects = false): Project {
     let project: Project;
@@ -29,17 +27,33 @@ export class ProjectService {
       case '001':
         project = new Project();
         project.id = id;
-        project.name ='Demo project A';
+        project.name = 'Demo project A';
         project.description = 'Description of demo project A.';
         project.tags = ['topic-1', 'topic-2'];
         project.identifiers = [
           new Identifier('github.repository', 'KarrLab/ProjectA'),
         ];
         project.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
-        project.owner = UserService._get('jonrkarr');
+        project.owner = 'jonrkarr';
         project.access = AccessLevel.public;
         project.created = new Date(Date.parse('1996-11-01 00:00:00'));
         project.updated = new Date(Date.parse('1996-11-01 00:00:00'));
@@ -48,15 +62,31 @@ export class ProjectService {
       case '002':
         project = new Project();
         project.id = id;
-        project.name ='Demo project B';
+        project.name = 'Demo project B';
         project.description = 'Description of demo project B.';
         project.tags = ['topic-1', 'topic-3'];
         project.identifiers = [
           new Identifier('github.repository', 'KarrLab/ProjectB'),
         ];
         project.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         project.owner = UserService._get('jonrkarr');
         project.access = AccessLevel.private;
@@ -67,15 +97,31 @@ export class ProjectService {
       case '003':
         project = new Project();
         project.id = '003';
-        project.name ='Demo project C';
+        project.name = 'Demo project C';
         project.description = 'Description of demo project C.';
         project.tags = ['topic-2', 'topic-4'];
         project.identifiers = [
           new Identifier('github.repository', 'KarrLab/ProjectC'),
         ];
         project.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         project.owner = UserService._get('a.goldbeter');
         project.access = AccessLevel.public;
@@ -86,15 +132,31 @@ export class ProjectService {
       case '006':
         project = new Project();
         project.id = '006';
-        project.name ='Demo project D';
+        project.name = 'Demo project D';
         project.description = 'Description of demo project D.';
         project.tags = ['topic-1', 'topic-5'];
         project.identifiers = [
           new Identifier('github.repository', 'KarrLab/ProjectD'),
         ];
         project.refs = [
-          new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-          new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+          new JournalReference(
+            'Jonathan R Karr & Bilal Shaikh',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
+          new JournalReference(
+            'Yara Skaf & Mike Wilson',
+            'Title',
+            'Journal',
+            101,
+            3,
+            '10-20',
+            2019
+          ),
         ];
         project.owner = UserService._get('j.tyson');
         project.access = AccessLevel.public;
@@ -103,20 +165,28 @@ export class ProjectService {
         break;
     }
     project.authors = [
-          new Person('Jimmie', 'D', 'Doe'),
-          new Person('Jane', 'E', 'Doe'),
-        ];
+      new Person('Jimmie', 'D', 'Doe'),
+      new Person('Jane', 'E', 'Doe'),
+    ];
     project.license = License.cc0;
     if (includeRelatedObjects) {
       project.products = [];
       for (let i = 0; i < 7; i++) {
-        const product:ProjectProduct = new ProjectProduct();
-        product.ref = new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019);
+        const product: ProjectProduct = new ProjectProduct();
+        product.ref = new JournalReference(
+          'Jonathan R Karr & Bilal Shaikh',
+          'Title',
+          'Journal',
+          101,
+          3,
+          '10-20',
+          2019
+        );
         product.type = ProjectProductType.figure;
         product.label = (i + 1).toString();
         product.description = 'Description of product ' + product.label;
         product.resources = [
-          ModelService._get('00' + product.label),
+          ModelService.get('00' + product.label),
           SimulationService._get('00' + product.label),
           VisualizationService._get('00' + (i + 1).toString()),
         ];
@@ -159,9 +229,12 @@ export class ProjectService {
     }
 
     if (id || name) {
-      return list.filter(item =>
-        (id === undefined || item['id'].toLowerCase().includes(lowCaseId)) ||
-        (name === undefined || item['name'].toLowerCase().includes(lowCaseName))
+      return list.filter(
+        item =>
+          id === undefined ||
+          item['id'].toLowerCase().includes(lowCaseId) ||
+          name === undefined ||
+          item['name'].toLowerCase().includes(lowCaseName)
       );
     } else {
       return list;
@@ -176,7 +249,7 @@ export class ProjectService {
     }
 
     data.id = id;
-    data.owner = this.userService.get();
+    data.owner = this.userService._get();
     data.created = new Date(Date.now());
     data.updated = new Date(Date.now());
 
@@ -189,3 +262,4 @@ export class ProjectService {
 import { ModelService } from './model.service';
 import { SimulationService } from './simulation.service';
 import { VisualizationService } from './visualization.service';
+import { async } from '@angular/core/testing';

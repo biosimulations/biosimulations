@@ -25,9 +25,7 @@ import { Observable } from 'rxjs';
 export class VisualizationService {
   private userService: UserService;
 
-  constructor(
-    private http: HttpClient,
-    private injector:Injector) {}
+  constructor(private http: HttpClient, private injector: Injector) {}
 
   private vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';
 
@@ -37,21 +35,38 @@ export class VisualizationService {
     viz.name = 'Viz-' + id;
 
     if (id === '002') {
-      viz.image = new RemoteFile()
+      viz.image = new RemoteFile();
       viz.image.name = 'visualization.png';
       viz.image.type = 'image/png';
       viz.image.size = 3986;
       viz.image.url = 'assets/examples/visualization-image.png';
     }
 
-    viz.description = 'Visualization of a simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
+    viz.description =
+      'Visualization of a simulation of a model of a nicotinic Excitatory Post-Synaptic Potential in a Torpedo electric organ. Acetylcholine is not represented explicitely, but by an event that changes the constants of transition from unliganded to liganded.';
     viz.tags = ['tag-1', 'tag-2'];
     viz.parent = new Visualization();
     viz.parent.id = '005';
     viz.parent.name = 'Viz-005';
     viz.refs = [
-      new JournalReference('Jonathan R Karr & Bilal Shaikh', 'Title', 'Journal', 101, 3, '10-20', 2019),
-      new JournalReference('Yara Skaf & Mike Wilson', 'Title', 'Journal', 101, 3, '10-20', 2019),
+      new JournalReference(
+        'Jonathan R Karr & Bilal Shaikh',
+        'Title',
+        'Journal',
+        101,
+        3,
+        '10-20',
+        2019
+      ),
+      new JournalReference(
+        'Yara Skaf & Mike Wilson',
+        'Title',
+        'Journal',
+        101,
+        3,
+        '10-20',
+        2019
+      ),
     ];
     viz.owner = UserService._get('jonrkarr');
     viz.access = AccessLevel.private;
@@ -59,18 +74,20 @@ export class VisualizationService {
     viz.created = new Date(Date.parse('2019-11-06 00:00:00'));
     viz.updated = new Date(Date.parse('2019-11-06 00:00:00'));
 
-    viz.columns = 2
-    viz.layout = []
+    viz.columns = 2;
+    viz.layout = [];
     for (let iCell = 0; iCell < 2; iCell++) {
       const visLayoutEl = new VisualizationLayoutElement();
       viz.layout.push(visLayoutEl);
-      visLayoutEl.chartType = ChartTypeService._get('00' + (iCell + 1).toString());
+      visLayoutEl.chartType = ChartTypeService._get(
+        '00' + (iCell + 1).toString()
+      );
       visLayoutEl.data = [];
       let iData = 0;
       for (const dataField of visLayoutEl.chartType.getDataFields()) {
         iData++;
         const visDataField = new VisualizationDataField();
-        visLayoutEl.data.push(visDataField)
+        visLayoutEl.data.push(visDataField);
         visDataField.dataField = dataField;
         visDataField.simulationResults = [];
         for (let iSimResult = 0; iSimResult < 3; iSimResult++) {
@@ -78,8 +95,8 @@ export class VisualizationService {
           visDataField.simulationResults.push(simResult);
           simResult.simulation = SimulationService._get('001');
           simResult.variable = new ModelVariable();
-          simResult.variable.id = `species-${ iData }-${ iSimResult + 1}`;
-          simResult.variable.name = `species (${ iData }, ${ iSimResult + 1})`;
+          simResult.variable.id = `species-${iData}-${iSimResult + 1}`;
+          simResult.variable.name = `species (${iData}, ${iSimResult + 1})`;
         }
       }
     }
@@ -98,13 +115,17 @@ export class VisualizationService {
   }
 
   getVisualization(id: string): Observable<any[]> {
-    const vizJson = this.http.get<any[]>(this.vizUrl
-      + '0'.repeat(3 - id.length)
-      + id);
+    const vizJson = this.http.get<any[]>(
+      this.vizUrl + '0'.repeat(3 - id.length) + id
+    );
     return vizJson;
   }
 
-  getHistory(id: string, includeParents: boolean = true, includeChildren: boolean = true): object[] {
+  getHistory(
+    id: string,
+    includeParents: boolean = true,
+    includeChildren: boolean = true
+  ): object[] {
     // tslint:disable:max-line-length
     return [
       {
@@ -182,7 +203,7 @@ export class VisualizationService {
                     route: ['/visualizations', '012'],
                     children: [],
                   },
-                ]
+                ],
               },
             ],
           },
@@ -205,7 +226,9 @@ export class VisualizationService {
   private filter(list: object[], name?: string): object[] {
     if (name) {
       const lowCaseName: string = name.toLowerCase();
-      return list.filter(item => item['name'].toLowerCase().includes(lowCaseName));
+      return list.filter(item =>
+        item['name'].toLowerCase().includes(lowCaseName)
+      );
     } else {
       return list;
     }
@@ -217,7 +240,7 @@ export class VisualizationService {
     }
 
     data.id = id;
-    data.owner = this.userService.get();
+    // data.owner = this.userService.get();
     data.created = new Date(Date.now());
     data.updated = new Date(Date.now());
 
