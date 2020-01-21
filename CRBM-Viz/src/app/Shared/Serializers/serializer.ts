@@ -41,8 +41,8 @@ export class Serializer<T extends TopLevelResource> {
         );
       }
     }
+    topLevelResource.refs = [];
     if (json.references) {
-      topLevelResource.refs = [];
       for (const refrence of json.references) {
         topLevelResource.refs.push(
           new JournalReference(
@@ -58,7 +58,8 @@ export class Serializer<T extends TopLevelResource> {
         );
       }
     }
-    return topLevelResource as T;
+    const resource = topLevelResource as T;
+    return resource;
   }
   toJson(resource: TopLevelResource): any {}
 }
