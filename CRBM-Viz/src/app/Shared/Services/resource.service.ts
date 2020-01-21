@@ -42,7 +42,7 @@ export class ResourceService<T extends TopLevelResource> {
     // TODO: filter on name, owner attributes
     return this.httpClient
       .get(`${this.url}/${this.endpoint}?${queryOptions.toQueryString()}`)
-      .pipe(map((data: any) => this.convertData(data.items)));
+      .pipe(map((data: any) => this.convertData(data)));
   }
 
   delete(id: string) {
