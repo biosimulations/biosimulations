@@ -14,6 +14,11 @@ import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { UserService } from 'src/app/Shared/Services/user.service';
+import { ProjectService } from 'src/app/Shared/Services/project.service';
+import { ModelService } from 'src/app/Shared/Services/model.service';
+import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
 
 @Component({
   templateUrl: './view.component.html',
@@ -32,14 +37,26 @@ export class ViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
+    private userService: UserService,
+    private projectService: ProjectService,
+    private modelService: ModelService,
+    private visualizationService: VisualizationService,
+    private chartTypeService: ChartTypeService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
       if (this.id) {
-        this.getData();
+        this.simulationService.read(this.id).subscribe(simulation => {
+          this.simulation = simulation;
+          this.simulation.userService = this.userService;
+          this.simulation.projectService = this.projectService;
+          this.simulation.modelService = this.modelService;
+          this.simulation.visualizationService = this.visualizationService;
+          this.simulation.chartTypeService = this.chartTypeService;
+        });
       }
 
       const crumbs: object[] = [
@@ -112,9 +129,6 @@ export class ViewComponent implements OnInit {
   }
 
   getData() {
-    this.simulationService
-      .read(this.id)
-      .subscribe(simulation => (this.simulation = simulation));
     this.historyTreeNodes = this.simulationService.getHistory(
       this.id,
       true,
