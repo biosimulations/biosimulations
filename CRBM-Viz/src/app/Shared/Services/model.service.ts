@@ -4,17 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { Subject, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Format } from '../Models/format';
-import { Model, ModelSerializer } from '../Models/model';
+import { Model } from '../Models/model';
 import { ModelParameter } from '../Models/model-parameter';
 import { ModelVariable } from '../Models/model-variable';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import { map } from 'rxjs/operators';
+import { ResourceService } from './resource.service';
+import { ModelSerializer } from '../Serializers/model-serializer';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ModelService {
+export class ModelService extends ResourceService<Model> {
   private userService: UserService;
 
   fileList: Array<object> = null;
@@ -25,33 +27,10 @@ export class ModelService {
     private alertService: AlertService,
     private router: Router,
     private injector: Injector
-  ) {}
-  private url = environment.crbm.CRBMAPI_URL;
-
-  private getServices(): void {
-    if (this.userService == null) {
-      this.userService = this.injector.get(UserService);
-    }
+  ) {
+    super(http, 'models', new ModelSerializer());
   }
 
-  get(id: string): Observable<Model> {
-    return this.http
-      .get<any>(this.url + '/models/' + id)
-      .pipe(map(modelJson => ModelSerializer.fromJson(modelJson)));
-  }
-  getAll$(): Observable<Model[]> {
-    return this.http.get<object[]>(this.url + '/models').pipe(
-      map((modelsJson: object[]) => {
-        const models: Model[] = [];
-
-        modelsJson.forEach(modelJson => {
-          const testModel = ModelSerializer.fromJson(modelJson);
-          models.push(testModel);
-        });
-        return models;
-      })
-    );
-  }
   getVariables(model: Model): ModelVariable[] {
     const variables: ModelVariable[] = [];
     for (let iVariable = 0; iVariable < 3; iVariable++) {
@@ -65,21 +44,6 @@ export class ModelService {
 
   getParameters(model: Model, value?: string): ModelParameter[] {
     return this.filter(model.parameters, value, value) as ModelParameter[];
-  }
-
-  list(name?: string, owner?: string): Observable<Model[]> {
-    // TODO: filter on name, owner attributes
-    return this.http.get<object[]>(this.url + '/models').pipe(
-      map((modelsJson: object[]) => {
-        const models: Model[] = [];
-
-        modelsJson.forEach(modelJson => {
-          const testModel = ModelSerializer.fromJson(modelJson);
-          models.push(testModel);
-        });
-        return models;
-      })
-    );
   }
 
   private filter(list: object[], id?: string, name?: string): object[] {
@@ -102,24 +66,6 @@ export class ModelService {
       return list;
     }
   }
-
-  set(data: Model, id?: string): string {
-    this.getServices();
-
-    if (!id) {
-      id = '007';
-    }
-
-    data.id = id;
-    data.format = new Format('SBML', 'L2V4', 2585, 'http://sbml.org');
-
-    data.created = new Date(Date.now());
-    data.updated = new Date(Date.now());
-
-    return id;
-  }
-
-  delete(id?: string): void {}
 
   /////////////////////////////
   // Methods from FileService

@@ -19,7 +19,7 @@ import { ChartType } from './chart-type';
 import { Visualization } from './visualization';
 import { ModelService } from '../Services/model.service';
 
-export class Project implements TopLevelResource {
+export class Project extends TopLevelResource {
   id?: string;
   name?: string;
   image?: File | RemoteFile;

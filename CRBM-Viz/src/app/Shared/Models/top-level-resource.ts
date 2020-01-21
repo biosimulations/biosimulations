@@ -5,8 +5,9 @@ import { JournalReference } from './journal-reference';
 import { Person } from './person';
 import { RemoteFile } from './remote-file';
 import { User } from './user';
+import { None } from 'vega';
 
-export interface TopLevelResource {
+export class TopLevelResource {
   id?: string;
   name?: string;
   image?: File | RemoteFile;
@@ -16,13 +17,20 @@ export interface TopLevelResource {
   refs?: JournalReference[];
   authors?: (User | Person)[];
   owner?: User;
+  OWNER?: string;
   access?: AccessLevel;
   accessToken?: string;
   license?: License;
   created?: Date;
   updated?: Date;
 
-  getIcon: () => object;
-  getRoute: () => (string | number)[];
-  getAuthors: () => (User | Person)[];
+  getIcon(): object {
+    return {};
+  }
+  getRoute(): (string | number)[] {
+    return ['/'];
+  }
+  getAuthors(): (User | Person)[] {
+    return;
+  }
 }

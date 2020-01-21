@@ -78,35 +78,19 @@ export class Model extends TopLevelResource {
     }
   }
 
-  getProjects(): Project[] {
-    return [
-      ProjectService._get('001'),
-      ProjectService._get('002'),
-      ProjectService._get('003'),
-    ];
+  getProjects(): Observable<Project[]> {
+    return this.projectService.list();
   }
 
-  getSimulations(): Simulation[] {
-    return [
-      SimulationService._get('001'),
-      SimulationService._get('002'),
-      SimulationService._get('003'),
-    ];
+  getSimulations(): Observable<Simulation[]> {
+    return this.simulationService.list();
   }
 
-  getChartTypes(): ChartType[] {
-    return [
-      ChartTypeService._get('001'),
-      ChartTypeService._get('002'),
-      ChartTypeService._get('003'),
-    ];
+  getChartTypes(): Observable<ChartType[]> {
+    return this.chartTypeService.list();
   }
 
-  getVisualizations(): Visualization[] {
-    return [
-      VisualizationService._get('001'),
-      VisualizationService._get('002'),
-      VisualizationService._get('003'),
-    ];
+  getVisualizations(): Observable<Visualization[]> {
+    return this.visualizationService.list();
   }
 }
