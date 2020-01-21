@@ -1,4 +1,10 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
@@ -11,7 +17,11 @@ import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { VegaViewerComponent } from 'src/app/Shared/Components/vega-viewer/vega-viewer.component';
-import { OkCancelDialogComponent, OkCancelDialogData } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import {
+  OkCancelDialogComponent,
+  OkCancelDialogData,
+} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { Model } from 'src/app/Shared/Models/model';
 
 @Component({
   templateUrl: './view.component.html',
@@ -31,13 +41,14 @@ export class ViewComponent implements OnInit {
   @ViewChild('vegaViewer', { static: false }) vegaViewer: VegaViewerComponent;
 
   historyTreeNodes: object[];
+  models: Observable<Model[]>;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    private visualizationService: VisualizationService,
+    private visualizationService: VisualizationService
   ) {}
 
   ngOnInit() {
@@ -53,8 +64,8 @@ export class ViewComponent implements OnInit {
 
   setUp(): void {
     const crumbs: object[] = [
-      {label: 'Visualizations', route: '/visualizations'},
-      {label: 'Visualization ' + this.id},
+      { label: 'Visualizations', route: '/visualizations' },
+      { label: 'Visualization ' + this.id },
     ];
     const buttons: NavItem[] = [
       {
@@ -76,24 +87,24 @@ export class ViewComponent implements OnInit {
         icon: 'pencil-alt',
         label: 'Edit',
         route: ['/visualizations', this.id, 'edit'],
-        display: (
-          this.visualization
-          && this.visualization.access === AccessLevel.public
-          ? NavItemDisplayLevel.never
-          : NavItemDisplayLevel.user),
-        displayUser: (!!this.visualization ? this.visualization.owner : null),
+        display:
+          this.visualization && this.visualization.access === AccessLevel.public
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.user,
+        displayUser: !!this.visualization ? this.visualization.owner : null,
       },
       {
         iconType: 'fas',
         icon: 'trash-alt',
         label: 'Delete',
-        click: () => { this.openDeleteDialog() },
-        display: (
-          this.visualization
-          && this.visualization.access === AccessLevel.public
-          ? NavItemDisplayLevel.never
-          : NavItemDisplayLevel.user),
-        displayUser: (!!this.visualization ? this.visualization.owner : null),
+        click: () => {
+          this.openDeleteDialog();
+        },
+        display:
+          this.visualization && this.visualization.access === AccessLevel.public
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.user,
+        displayUser: !!this.visualization ? this.visualization.owner : null,
       },
       {
         iconType: 'fas',
@@ -126,13 +137,18 @@ export class ViewComponent implements OnInit {
       .subscribe((res: object[]) => {
         this.visualization = VisualizationService._get(this.id);
         this.vegaSpec = this.visualization.getSpec();
+        this.models = this.visualization.getModels();
 
         // TODO: get data from simulation service
         this.vegaData = {};
 
         this.setUp();
       });
-    this.historyTreeNodes = this.visualizationService.getHistory(this.id, true, true);
+    this.historyTreeNodes = this.visualizationService.getHistory(
+      this.id,
+      true,
+      true
+    );
   }
 
   download(format: string): void {
@@ -143,12 +159,12 @@ export class ViewComponent implements OnInit {
         link.href = url;
         link.download = 'visualization-${ this.id }.${ format }';
         link.click();
-      })
+      });
     } else {
       const link = document.createElement('a');
-      const blob: Blob = new Blob(
-        [JSON.stringify(this.vegaSpec)],
-        {type : 'application/json'});
+      const blob: Blob = new Blob([JSON.stringify(this.vegaSpec)], {
+        type: 'application/json',
+      });
       link.href = URL.createObjectURL(blob);
       link.download = 'visualization-${ this.id }.${ format }';
       link.click();
@@ -158,7 +174,7 @@ export class ViewComponent implements OnInit {
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete visualization ${ this.id }?`,
+        title: `Delete visualization ${this.id}?`,
         action: () => {
           this.visualizationService.delete(this.id);
           this.router.navigate(['/visualizations']);

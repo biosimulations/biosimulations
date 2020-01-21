@@ -6,6 +6,17 @@ import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { ModelService } from 'src/app/Shared/Services/model.service';
+import { Model } from 'src/app/Shared/Models/model';
+import { Observable } from 'rxjs';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { Visualization } from 'src/app/Shared/Models/visualization';
+import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { ProjectService } from 'src/app/Shared/Services/project.service';
+import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { Project } from 'src/app/Shared/Models/project';
+import { Simulation } from 'src/app/Shared/Models/simulation';
+import { ChartType } from 'src/app/Shared/Models/chart-type';
 
 @Component({
   selector: 'app-profile',
@@ -18,18 +29,29 @@ export class ProfileComponent implements OnInit {
    */
   user: User;
   private loggedInUsername: string;
+  projects: Observable<Project[]>;
+  simulations: Observable<Simulation[]>;
+  visualizations: Observable<Visualization[]>;
+  chartTypes: Observable<ChartType[]>;
+  models: Observable<Model[]>;
 
   constructor(
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private modelService: ModelService,
+    private simulationService: SimulationService,
+    private visualizationService: VisualizationService,
+    private projectService: ProjectService,
+    private chartTypeService: ChartTypeService
   ) {}
 
   /**
    * The init method subscribes to the user profile and the route. If a url parameter is provided, it pulls the username from
    * the user service. If not, it assumes the logged in profile's username. It then calls a method to create the view's breadcrumbs
    */
+
   // TODO rewrite this using proper rxjs
   ngOnInit() {
     this.auth.getUsername$().subscribe(name => {
@@ -43,6 +65,16 @@ export class ProfileComponent implements OnInit {
         }
         this.userService.get$(username).subscribe(user => {
           this.user = user;
+          this.user.modelService = this.modelService;
+          this.user.simulationService = this.simulationService;
+          this.user.visualizationService = this.visualizationService;
+          this.user.chartTypeService = this.chartTypeService;
+          this.user.projectService = this.projectService;
+          this.models = this.user.getModels();
+          this.projects = this.user.getProjects();
+          this.simulations = this.user.getSimulations();
+          this.visualizations = this.user.getVisualizations();
+          this.chartTypes = this.user.getChartTypes();
         });
 
         this.setCrumbs(username === this.loggedInUsername);
