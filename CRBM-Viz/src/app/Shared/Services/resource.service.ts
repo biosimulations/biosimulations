@@ -14,7 +14,7 @@ export class ResourceService<T extends TopLevelResource> {
   constructor(
     private httpClient: HttpClient,
     private endpoint: string,
-    private serializer: Serializer,
+    private serializer: Serializer<T>,
     private url: string = environment.crbm.CRBMAPI_URL
   ) {}
   public create(item: T): Observable<T> {
@@ -32,7 +32,7 @@ export class ResourceService<T extends TopLevelResource> {
       .pipe(map(data => this.serializer.fromJson(data) as T));
   }
 
-  read(id: number): Observable<T> {
+  read(id: string): Observable<T> {
     return this.httpClient
       .get(`${this.url}/${this.endpoint}/${id}`)
       .pipe(map((data: any) => this.serializer.fromJson(data) as T));
@@ -45,7 +45,7 @@ export class ResourceService<T extends TopLevelResource> {
       .pipe(map((data: any) => this.convertData(data.items)));
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return this.httpClient.delete(`${this.url}/${this.endpoint}/${id}`);
   }
 
