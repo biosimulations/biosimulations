@@ -23,104 +23,13 @@ import { UserService } from '../Services/user.service';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-export class ModelSerializer {
-  static fromJson(json: any): Model {
-    const model = new Model();
-    // Simple, one to one corresponding feilds
-    model.id = json.id;
-    model.accessToken = json.accessToken;
-    model.image = new RemoteFile('Model Picture', 'png', json.image, null);
-    model.file = new RemoteFile('Model XML', 'xml', json.file, null);
-    model.name = json.name;
-    model.description = json.description;
-    model.tags = json.tags;
-    model.created = new Date(Date.parse(json.created));
-    model.updated = new Date(Date.parse(json.updated));
-    model.license = json.license as License;
-    model.identifiers = [];
-    model.OWNER = json.owner;
-    // Boolean
-    if (json.public) {
-      model.access = AccessLevel.public;
-    } else {
-      model.access = AccessLevel.public;
-    }
-    // Nested fields
-    if (json.taxon) {
-      model.taxon = new Taxon(json.taxon.id, json.taxon.name);
-    }
-
-    if (json.format) {
-      model.format = new Format(
-        json.format.name,
-        json.format.version,
-        json.format.edamID,
-        json.format.url
-      );
-    }
-    if (json.framework) {
-      model.framework = new OntologyTerm(
-        json.framework.ontonlogy,
-        json.framework.id,
-        json.framework.name,
-        json.framework.description,
-        json.framework.iri
-      );
-    }
-    if (json.authors) {
-      model.authors = [];
-      for (const author of json.authors) {
-        model.authors.push(
-          new Person(author.firstName, author.middleName, author.lastName)
-        );
-      }
-    }
-    if (json.references) {
-      model.refs = [];
-      for (const refrence of json.references) {
-        model.refs.push(
-          new JournalReference(
-            refrence.authors,
-            refrence.title,
-            refrence.journal,
-            refrence.volume,
-            refrence.number,
-            refrence.pages,
-            refrence.year,
-            refrence.doi
-          )
-        );
-      }
-    }
-    if (json.taxon) {
-      model.taxon = new Taxon(json.taxon.id, json.taxon.name);
-    }
-    // model.summary=json.summary
-    return model;
-  }
-  static toJson(model: Model): any {}
-}
-export class Model implements TopLevelResource {
-  id?: string;
-  name?: string;
-  description?: string;
+export class Model extends TopLevelResource {
   taxon?: Taxon;
-  tags?: string[] = [];
-  created?: Date;
-  updated?: Date;
-  license?: License;
   parameters: ModelParameter[] = [];
   file?: File | RemoteFile;
   image?: File | RemoteFile;
   framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
-  identifiers?: Identifier[] = [];
-  refs?: JournalReference[] = [];
-  authors?: (User | Person)[] = [];
-  owner?: User;
-  OWNER?: string;
-  access?: AccessLevel;
-  accessToken?: string = UtilsService.genAccessToken();
 
   public simulationService: SimulationService;
   public visualizationService: VisualizationService;
