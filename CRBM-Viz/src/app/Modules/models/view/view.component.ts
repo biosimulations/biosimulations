@@ -21,6 +21,12 @@ import { UserService } from 'src/app/Shared/Services/user.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { Observable } from 'rxjs';
+import { Simulation } from 'src/app/Shared/Models/simulation';
+import { Visualization } from 'src/app/Shared/Models/visualization';
+import { ChartType } from 'src/app/Shared/Models/chart-type';
+import { Project } from 'src/app/Shared/Models/project';
+import { ProjectService } from 'src/app/Shared/Services/project.service';
 
 @Component({
   templateUrl: './view.component.html',
@@ -32,6 +38,10 @@ export class ViewComponent implements OnInit {
   id: string;
   model: Model;
   owner: User;
+  simulations: Observable<Simulation[]>;
+  visualizations: Observable<Visualization[]>;
+  chartTypess: Observable<ChartType[]>;
+  projects: Observable<Project[]>;
 
   constructor(
     private dialog: MatDialog,
@@ -42,7 +52,8 @@ export class ViewComponent implements OnInit {
     private userService: UserService,
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
-    private chartTypeService: ChartTypeService
+    private chartTypeService: ChartTypeService,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit() {
@@ -56,6 +67,12 @@ export class ViewComponent implements OnInit {
         this.model.simulationService = this.simulationService;
         this.model.visualizationService = this.visualizationService;
         this.model.chartTypeService = this.chartTypeService;
+        this.model.projectService = this.projectService;
+        this.simulations = this.model.getSimulations();
+        this.visualizations = this.model.getVisualizations();
+        this.chartTypess = this.model.getChartTypes();
+        this.projects = this.model.getProjects();
+
         console.warn(this.model);
         this.model.getOwner().subscribe(owner => {
           this.owner = owner;
