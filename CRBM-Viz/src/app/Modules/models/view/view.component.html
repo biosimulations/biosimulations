@@ -132,7 +132,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="model.getProjects() as projects">
+  <mat-tab *ngIf="this.projects | async as projects">
     <ng-template mat-tab-label>
       <fa-icon
         aria-hidden="true"
@@ -166,7 +166,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="model.getSimulations() as simulations">
+  <mat-tab *ngIf="this.simulations | async as simulations">
     <ng-template mat-tab-label>
       <mat-icon aria-hidden="true" aria-label="Simulations icon"
         >timeline</mat-icon
@@ -198,7 +198,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="model.getChartTypes() as chartTypes">
+  <mat-tab *ngIf="this.chartTypes | async as chartTypes">
     <ng-template mat-tab-label>
       <fa-icon
         aria-hidden="true"
@@ -232,7 +232,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="model.getVisualizations() as visualizations">
+  <mat-tab *ngIf="this.visualizations | async as visualizations">
     <ng-template mat-tab-label>
       <mat-icon aria-hidden="true" aria-label="Visualizations icon"
         >timeline</mat-icon

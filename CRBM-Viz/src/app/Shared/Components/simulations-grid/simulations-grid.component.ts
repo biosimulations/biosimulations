@@ -405,7 +405,7 @@ function capitalizeFormatter(params): string {
 }
 
 function authorGetter(params): string[] {
-  return params.data.getAuthors().map(author => author.getFullName());
+  return params.data.model.getAuthors().map(author => author.getFullName());
 }
 
 function modelAuthorGetter(params): string[] {

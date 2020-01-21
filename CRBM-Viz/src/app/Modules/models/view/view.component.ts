@@ -18,6 +18,9 @@ import { UserSerializer, User } from 'src/app/Shared/Models/user';
 import { map } from 'rxjs/operators';
 import { Person } from 'src/app/Shared/Models/person';
 import { UserService } from 'src/app/Shared/Services/user.service';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
 
 @Component({
   templateUrl: './view.component.html',
@@ -36,7 +39,10 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private modelService: ModelService,
-    private userService: UserService
+    private userService: UserService,
+    private simulationService: SimulationService,
+    private visualizationService: VisualizationService,
+    private chartTypeService: ChartTypeService
   ) {}
 
   ngOnInit() {
@@ -47,6 +53,10 @@ export class ViewComponent implements OnInit {
       this.getData().subscribe(model => {
         this.model = model;
         this.model.userservice = this.userService;
+        this.model.simulationService = this.simulationService;
+        this.model.visualizationService = this.visualizationService;
+        this.model.chartTypeService = this.chartTypeService;
+        console.warn(this.model);
         this.model.getOwner().subscribe(owner => {
           this.owner = owner;
           const crumbs: object[] = [
