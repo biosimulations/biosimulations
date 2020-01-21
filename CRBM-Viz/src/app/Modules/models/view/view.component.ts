@@ -40,7 +40,7 @@ export class ViewComponent implements OnInit {
   owner: User;
   simulations: Observable<Simulation[]>;
   visualizations: Observable<Visualization[]>;
-  chartTypess: Observable<ChartType[]>;
+  chartTypes: Observable<ChartType[]>;
   projects: Observable<Project[]>;
 
   constructor(
@@ -70,7 +70,7 @@ export class ViewComponent implements OnInit {
         this.model.projectService = this.projectService;
         this.simulations = this.model.getSimulations();
         this.visualizations = this.model.getVisualizations();
-        this.chartTypess = this.model.getChartTypes();
+        this.chartTypes = this.model.getChartTypes();
         this.projects = this.model.getProjects();
 
         console.warn(this.model);
