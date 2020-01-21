@@ -23,7 +23,9 @@ import { ProjectService } from '../Services/project.service';
 import { UtilsService } from '../Services/utils.service';
 import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
-
+import { ModelService } from '../Services/model.service';
+import { UserService } from '../Services/user.service';
+import { Observable } from 'rxjs';
 
 export class Simulation implements TopLevelResource {
   id?: string;
@@ -58,8 +60,14 @@ export class Simulation implements TopLevelResource {
   outLog?: string;
   errLog?: string;
 
+  public modelService: ModelService;
+  public visualizationService: VisualizationService;
+  public projectService: ProjectService;
+  public chartTypeService: ChartTypeService;
+  public userService: UserService;
+
   getIcon() {
-    return {type: 'mat', icon: 'timeline'};
+    return { type: 'mat', icon: 'timeline' };
   }
 
   getRoute(): (string | number)[] {
@@ -92,27 +100,19 @@ export class Simulation implements TopLevelResource {
     }
   }
 
-  getProjects(): Project[] {
-    return [
-      ProjectService._get('001'),
-      ProjectService._get('002'),
-      ProjectService._get('003'),
-    ];
+  getProjects(): Observable<Project[]> {
+    return this.projectService.list();
   }
 
-  getChartTypes(): ChartType[] {
-    return [
-      ChartTypeService._get('001'),
-      ChartTypeService._get('002'),
-      ChartTypeService._get('003'),
-    ];
+  getModels(): Observable<Model[]> {
+    return this.modelService.list();
   }
 
-  getVisualizations(): Visualization[] {
-    return [
-      VisualizationService._get('001'),
-      VisualizationService._get('002'),
-      VisualizationService._get('003'),
-    ];
+  getChartTypes(): Observable<ChartType[]> {
+    return this.chartTypeService.list();
+  }
+
+  getVisualizations(): Observable<Visualization[]> {
+    return this.visualizationService.list();
   }
 }

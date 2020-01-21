@@ -40,8 +40,8 @@ export class ModelSerializer {
     model.identifiers = [];
     model.OWNER = json.owner;
     // Boolean
-    if (json.private) {
-      model.access = AccessLevel.private;
+    if (json.public) {
+      model.access = AccessLevel.public;
     } else {
       model.access = AccessLevel.public;
     }
@@ -122,6 +122,10 @@ export class Model implements TopLevelResource {
   access?: AccessLevel;
   accessToken?: string = UtilsService.genAccessToken();
 
+  public simulationService: SimulationService;
+  public visualizationService: VisualizationService;
+  public projectService: ProjectService;
+  public chartTypeService: ChartTypeService;
   public userservice: UserService;
   getOwner(): Observable<User> {
     if (this.userservice) {

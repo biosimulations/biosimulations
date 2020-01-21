@@ -8,6 +8,16 @@ import { RemoteFile } from './remote-file';
 import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { UtilsService } from '../Services/utils.service';
+import { Observable } from 'rxjs';
+import { SimulationService } from '../Services/simulation.service';
+import { VisualizationService } from '../Services/visualization.service';
+import { ChartTypeService } from '../Services/chart-type.service';
+import { UserService } from '../Services/user.service';
+import { Model } from './model';
+import { Simulation } from './simulation';
+import { ChartType } from './chart-type';
+import { Visualization } from './visualization';
+import { ModelService } from '../Services/model.service';
 
 export class Project implements TopLevelResource {
   id?: string;
@@ -26,8 +36,13 @@ export class Project implements TopLevelResource {
   updated?: Date;
   products?: ProjectProduct[] = [];
 
+  public simulationService: SimulationService;
+  public visualizationService: VisualizationService;
+  public chartTypeService: ChartTypeService;
+  public userservice: UserService;
+  public modelService: ModelService;
   getIcon() {
-    return {type: 'fas', icon: 'folder-open'};
+    return { type: 'fas', icon: 'folder-open' };
   }
 
   getRoute(): (string | number)[] {
@@ -40,5 +55,21 @@ export class Project implements TopLevelResource {
     } else {
       return [this.owner];
     }
+  }
+
+  getModels(): Observable<Model[]> {
+    return this.modelService.list();
+  }
+
+  getSimulations(): Observable<Simulation[]> {
+    return this.simulationService.list();
+  }
+
+  getChartTypes(): Observable<ChartType[]> {
+    return this.chartTypeService.list();
+  }
+
+  getVisualizations(): Observable<Visualization[]> {
+    return this.visualizationService.list();
   }
 }

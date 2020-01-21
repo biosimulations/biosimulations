@@ -11,6 +11,7 @@ import { UtilsService } from '../Services/utils.service';
 import { ChartTypeService } from '../Services/chart-type.service';
 import { VisualizationService } from '../Services/visualization.service';
 import * as md5 from 'md5';
+import { Observable, of } from 'rxjs';
 
 export class UserSerializer {
   fromJson(json: any): User {
@@ -70,6 +71,11 @@ export class User implements PersonInterface {
   orcId?: string;
   description?: string;
 
+  public modelService: ModelService;
+  public simulationService: SimulationService;
+  public visualizationService: VisualizationService;
+  public projectService: ProjectService;
+  public chartTypeService: ChartTypeService;
   getRoute(): (string | number)[] {
     return ['/user', this.userName];
   }
@@ -90,43 +96,23 @@ export class User implements PersonInterface {
     }
   }
 
-  getProjects(): Project[] {
-    return [
-      ProjectService._get('001'),
-      ProjectService._get('002'),
-      ProjectService._get('003'),
-    ];
+  getProjects(): Observable<Project[]> {
+    return this.projectService.list();
   }
 
-  getModels(): Model[] {
-    return [
-      ModelService._get('001'),
-      ModelService._get('002'),
-      ModelService._get('003'),
-    ];
+  getModels(): Observable<Model[]> {
+    return this.modelService.list();
   }
 
-  getSimulations(): Simulation[] {
-    return [
-      SimulationService._get('001'),
-      SimulationService._get('002'),
-      SimulationService._get('003'),
-    ];
+  getSimulations(): Observable<Simulation[]> {
+    return this.simulationService.list();
   }
 
-  getChartTypes(): ChartType[] {
-    return [
-      ChartTypeService._get('001'),
-      ChartTypeService._get('002'),
-      ChartTypeService._get('003'),
-    ];
+  getChartTypes(): Observable<ChartType[]> {
+    return this.chartTypeService.list();
   }
 
-  getVisualizations(): Visualization[] {
-    return [
-      VisualizationService._get('001'),
-      VisualizationService._get('002'),
-      VisualizationService._get('003'),
-    ];
+  getVisualizations(): Observable<Visualization[]> {
+    return this.visualizationService.list();
   }
 }

@@ -17,6 +17,8 @@ import { ModelService } from '../Services/model.service';
 import { ProjectService } from '../Services/project.service';
 import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../Services/user.service';
 
 export class Visualization implements TopLevelResource {
   id?: string;
@@ -38,8 +40,13 @@ export class Visualization implements TopLevelResource {
   created?: Date;
   updated?: Date;
 
+  public modelService: ModelService;
+  public simulationService: SimulationService;
+  public projectService: ProjectService;
+  public chartTypeService: ChartTypeService;
+  public userService: UserService;
   getIcon() {
-    return {type: 'fas', icon: 'paint-brush'};
+    return { type: 'fas', icon: 'paint-brush' };
   }
 
   getRoute() {
@@ -54,33 +61,34 @@ export class Visualization implements TopLevelResource {
     }
   }
 
-   getRows(): number {
+  getRows(): number {
     return Math.ceil(this.layout.length / this.columns);
   }
 
   getSpec(): object {
     if (this.layout.length === 0) {
       return null;
-
     } else if (this.layout.length === 1) {
       return this.layout[0].chartType.spec;
-
     } else {
-
       const spec: object = {
         $schema: this.layout[0].chartType.spec['$schema'],
         vconcat: [],
-      }
+      };
       const rows = this.getRows();
       for (let iRow = 0; iRow < rows; iRow++) {
         const maxColumns: number = Math.min(
           this.columns,
-          this.layout.length - iRow * this.columns);
+          this.layout.length - iRow * this.columns
+        );
         const row = [];
-        spec['vconcat'].push({hconcat: row});
+        spec['vconcat'].push({ hconcat: row });
         for (let iCol = 0; iCol < maxColumns; iCol++) {
           const specCopy: object = {};
-          Object.assign(specCopy, this.layout[iRow * this.columns + iCol].chartType.spec);
+          Object.assign(
+            specCopy,
+            this.layout[iRow * this.columns + iCol].chartType.spec
+          );
           for (const prop of ['autosize', 'height', 'width']) {
             if (prop in specCopy) {
               delete specCopy[prop];
@@ -93,35 +101,19 @@ export class Visualization implements TopLevelResource {
     }
   }
 
-  getProjects(): Project[] {
-    return [
-      ProjectService._get('001'),
-      ProjectService._get('002'),
-      ProjectService._get('003'),
-    ];
+  getProjects(): Observable<Project[]> {
+    return this.projectService.list();
   }
 
-  getModels(): Model[] {
-    return [
-      ModelService._get('001'),
-      ModelService._get('002'),
-      ModelService._get('003'),
-    ];
+  getModels(): Observable<Model[]> {
+    return this.modelService.list();
   }
 
-  getSimulations(): Simulation[] {
-    return [
-      SimulationService._get('001'),
-      SimulationService._get('002'),
-      SimulationService._get('003'),
-    ];
+  getSimulations(): Observable<Simulation[]> {
+    return this.simulationService.list();
   }
 
-  getChartTypes(): ChartType[] {
-    return [
-      ChartTypeService._get('001'),
-      ChartTypeService._get('002'),
-      ChartTypeService._get('003'),
-    ];
+  getChartTypes(): Observable<ChartType[]> {
+    return this.chartTypeService.list();
   }
 }
