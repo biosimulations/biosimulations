@@ -15,55 +15,8 @@ export class ModelSerializer extends Serializer<Model> {
   }
   fromJson(json: any): Model {
     const res = super.fromJson(json);
-    const model = new Model();
-    model.id = json.id;
-    // Simple, one to one corresponding feilds
-    model.id = json.id;
-    model.name = json.name;
-    model.image = new RemoteFile('model Picture', 'png', json.image, null);
-    model.description = json.description;
-    model.accessToken = json.accessToken;
-    model.tags = json.tags;
-    model.created = new Date(Date.parse(json.created));
-    model.updated = new Date(Date.parse(json.updated));
-    model.license = json.license as License;
-    model.identifiers = [];
-    model.OWNER = json.owner;
-    // Boolean
-    if (json.private) {
-      model.access = AccessLevel.private;
-    } else {
-      model.access = AccessLevel.public;
-    }
-
-    if (json.authors) {
-      model.authors = [];
-      for (const author of json.authors) {
-        model.authors.push(
-          new Person(author.firstName, author.middleName, author.lastName)
-        );
-      }
-    }
-    model.refs = [];
-    if (json.references) {
-      for (const refrence of json.references) {
-        model.refs.push(
-          new JournalReference(
-            refrence.authors,
-            refrence.title,
-            refrence.journal,
-            refrence.volume,
-            refrence.number,
-            refrence.pages,
-            refrence.year,
-            refrence.doi
-          )
-        );
-      }
-    }
-
-    console.log('From json');
-    console.log(model);
+    const newmodel = new Model();
+    const model = Object.assign(newmodel, res);
     model.file = new RemoteFile('Model XML', 'xml', json.file, null);
     // Nested fields
     if (json.taxon) {
