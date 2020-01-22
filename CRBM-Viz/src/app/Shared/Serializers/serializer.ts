@@ -12,12 +12,16 @@ export class Serializer<T extends TopLevelResource> {
     // Simple, one to one corresponding feilds
     topLevelResource.id = json.id;
     topLevelResource.name = json.name;
-    topLevelResource.image = new RemoteFile(
-      'topLevelResource Picture',
-      'png',
-      json.image,
-      null
-    );
+    const image = json.image;
+    if (image) {
+      topLevelResource.image = new RemoteFile(
+        (json.name as string) + 'Thumbnail',
+        'png',
+        image,
+        null
+      );
+    }
+
     topLevelResource.description = json.description;
     topLevelResource.accessToken = json.accessToken;
     topLevelResource.tags = json.tags;
