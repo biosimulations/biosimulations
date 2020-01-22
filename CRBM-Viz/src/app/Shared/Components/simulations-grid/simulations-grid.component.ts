@@ -324,7 +324,9 @@ export class SimulationsGridComponent implements OnInit {
       // errLog
     ];
 
-    this.rowData = this.simulationService.list();
+    this.simulationService
+      .list()
+      .subscribe(rowData => (this.rowData = rowData));
   }
 
   onReady(event): void {
@@ -370,11 +372,12 @@ function numModelParameterChangesGetter(params): number {
   return params.data.modelParameterChanges.length;
 }
 
+// TODO Make this async capable
 function ownerGetter(params): string {
-  const owner: User = params.data.owner;
-  return owner.getFullName();
+  const owner = params.data.OWNER;
+  return owner;
 }
-
+// TODO Make this async capable
 function modelOwnerGetter(params): string {
   const owner: User = params.data.model.owner;
   return owner.getFullName();
