@@ -21,6 +21,10 @@ import { VisualizationService } from 'src/app/Shared/Services/visualization.serv
 import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
 import { Observable } from 'rxjs';
 import { Model } from 'src/app/Shared/Models/model';
+import { Project } from 'src/app/Shared/Models/project';
+import { Visualization } from 'src/app/Shared/Models/visualization';
+import { User } from 'src/app/Shared/Models/user';
+import { ChartType } from 'src/app/Shared/Models/chart-type';
 
 @Component({
   templateUrl: './view.component.html',
@@ -34,19 +38,11 @@ export class ViewComponent implements OnInit {
   historyTreeNodes: object[];
   SimulationResultsFormat = SimulationResultsFormat;
   models: Observable<Model[]>;
-  projects: Observable<
-    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/project').Project[]
-  >;
-  visualizations: Observable<
-    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/visualization').Visualization[]
-  >;
-  chartTypes: Observable<
-    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/chart-type').ChartType[]
-  >;
+  projects: Observable<Project[]>;
+  visualizations: Observable<Visualization[]>;
+  chartTypes: Observable<ChartType[]>;
   model: Observable<Model>;
-  owner: Observable<
-    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/user').User
-  >;
+  owner: Observable<User>;
 
   constructor(
     private dialog: MatDialog,
