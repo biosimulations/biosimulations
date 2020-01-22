@@ -8,6 +8,7 @@ import { Simulation } from '../Models/simulation';
 
 import { ResourceService } from './resource.service';
 import { Serializer } from '../Serializers/serializer';
+import { SimulationSerializer } from '../Serializers/simulation-serializer';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class SimulationService extends ResourceService<Simulation> {
     private alertService: AlertService,
     private injector: Injector
   ) {
-    super(http, 'simulations', new Serializer<Simulation>());
+    super(http, 'simulations', new SimulationSerializer());
   }
 
   private getServices(): void {

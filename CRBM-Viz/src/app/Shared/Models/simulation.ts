@@ -27,13 +27,9 @@ import { ModelService } from '../Services/model.service';
 import { UserService } from '../Services/user.service';
 import { Observable } from 'rxjs';
 
-export class Simulation implements TopLevelResource {
-  id?: string;
-  name?: string;
-  image?: File | RemoteFile;
-  description?: string;
-  tags?: string[] = [];
+export class Simulation extends TopLevelResource {
   model?: Model;
+  MODEL?: string;
   format?: Format;
   modelParameterChanges?: ParameterChange[] = [];
   startTime?: number; // in seconds
@@ -44,16 +40,8 @@ export class Simulation implements TopLevelResource {
   simulator?: Simulator;
   numTimePoints?: number;
   parent?: Simulation;
-  identifiers?: Identifier[] = [];
-  refs?: JournalReference[] = [];
-  authors?: (User | Person)[] = [];
   owner?: User;
-  access?: AccessLevel;
-  accessToken?: string = UtilsService.genAccessToken();
-  license?: License;
   status?: SimulationStatus;
-  created?: Date; // date/time when simulation was requested
-  updated?: Date; // date/time when simulation was last updated
   startDate?: Date; // date/time when simulation run started
   endDate?: Date; // date/time when simulation run finished
   wallTime?: number; // execution time in seconds
