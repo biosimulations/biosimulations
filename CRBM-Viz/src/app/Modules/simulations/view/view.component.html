@@ -25,7 +25,7 @@
 
             <div class="sub-section light">{{ simulation.description }}</div>
 
-            <div class="sub-section" *ngIf="simulation.model as model">
+            <div class="sub-section" *ngIf="this.model |async as model">
               <ul class="icon-text inline no-wrap">
                 <li>
                   <fa-icon
@@ -43,7 +43,7 @@
               </ul>
             </div>
 
-            <div class="sub-section">
+            <div class="sub-section" *ngIf="this.model |async as model" >
               <ul class="icon-text inline no-wrap">
                 <li>
                   <fa-icon
@@ -51,8 +51,8 @@
                     aria-label="Taxon icon"
                     [icon]="['fas', 'dna']"
                   ></fa-icon>
-                  <app-hyper-link [href]="simulation.model.taxon.getUrl()">{{
-                    simulation.model.taxon.getShortName()
+                  <app-hyper-link [href]="model.taxon.getUrl()">{{
+                    model.taxon.getShortName()
                   }}</app-hyper-link>
                 </li>
 
@@ -81,8 +81,8 @@
               <ul class="icon-text inline no-wrap">
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Model framework icon" [icon]="['fas', 'calculator']"></fa-icon>
-                  <app-hyper-link [href]="simulation.model.framework.getUrl()">{{
-                    simulation.model.framework.name | ucfirst
+                  <app-hyper-link [href]="model.framework.getUrl()">{{
+                    model.framework.name | ucfirst
                   }}</app-hyper-link>
                 </li>
 
@@ -102,8 +102,8 @@
 
                 <li>
                   <fa-icon aria-hidden="true" aria-label="Format icon" [icon]="['far', 'file-alt']"></fa-icon>
-                  <app-hyper-link [href]="simulation.model.format.url">{{
-                    simulation.model.format.name
+                  <app-hyper-link [href]="model.format.url">{{
+                    model.format.name
                   }}</app-hyper-link>
                 </li>
               </ul>
@@ -159,7 +159,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let change of simulation.modelParameterChanges">
+              <tr *ngFor="let change of ParameterChanges">
                 <td>{{ change.parameter.id }}</td>
                 <td>{{ change.parameter.name }}</td>
                 <td>{{ change.value }}</td>
@@ -206,7 +206,7 @@
           </table>
         </div>
 
-        <div class="section">
+        <div class="section" *ngIf="this.model |async as model">
           <h1>Simulation algorithm</h1>
           <table cellpadding="0" cellspacing="0" class="icon-key-vals section-content">
             <tbody>
@@ -216,8 +216,8 @@
                 </th>
                 <th>Framework</th>
                 <td>
-                  <app-hyper-link [href]="simulation.model.framework.getUrl()">{{
-                    simulation.model.framework.name | ucfirst
+                  <app-hyper-link [href]="model.framework.getUrl()">{{
+                    model.framework.name | ucfirst
                   }}</app-hyper-link>
                 </td>
               </tr>
@@ -247,7 +247,7 @@
           </table>
         </div>
 
-        <div class="section">
+        <div class="section" >
           <h1>Algorithm parameter changes</h1>
           <table cellpadding="0" cellspacing="0" class="icon-key-vals section-content">
             <tbody>
@@ -268,7 +268,7 @@
           </table>
         </div>
 
-        <div class="section">
+        <div class="section" *ngIf="this.model |async as model">
           <h1>Format</h1>
           <table cellpadding="0" cellspacing="0" class="icon-key-vals section-content">
             <tbody>
@@ -289,8 +289,8 @@
                 </th>
                 <th>Model</th>
                 <td>
-                  <app-hyper-link [href]="simulation.model.format.url">{{
-                    simulation.model.format.getFullName()
+                  <app-hyper-link [href]="model.format.url">{{
+                    model.format.getFullName()
                   }}</app-hyper-link>
                 </td>
               </tr>
@@ -333,7 +333,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="this.simulations | async as chartTypes">
+  <mat-tab *ngIf="this.chartTypes | async as chartTypes">
     <ng-template mat-tab-label>
       <fa-icon aria-hidden="true" aria-label="Chart types icon" [icon]="['fas', 'folder-open']"></fa-icon> Chart types ({{ chartTypes.length }})
     </ng-template>
@@ -559,9 +559,9 @@
                   <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'user']"></fa-icon>
                 </th>
                 <th>Owner</th>
-                <td>
-                  <a [routerLink]="['/user', simulation.owner.userId]"
-                  >{{ simulation.owner.getFullName() }}</a>
+                <td *ngIf="this.owner | async as owner">
+                  <a [routerLink]="['/user', simulation.OWNER]"
+                  >{{ owner.getFullName() }}</a>
                 </td>
               </tr>
             </tbody>

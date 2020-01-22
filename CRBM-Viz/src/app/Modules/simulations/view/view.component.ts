@@ -19,6 +19,8 @@ import { ProjectService } from 'src/app/Shared/Services/project.service';
 import { ModelService } from 'src/app/Shared/Services/model.service';
 import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { Observable } from 'rxjs';
+import { Model } from 'src/app/Shared/Models/model';
 
 @Component({
   templateUrl: './view.component.html',
@@ -31,6 +33,20 @@ export class ViewComponent implements OnInit {
   simulation: Simulation;
   historyTreeNodes: object[];
   SimulationResultsFormat = SimulationResultsFormat;
+  models: Observable<Model[]>;
+  projects: Observable<
+    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/project').Project[]
+  >;
+  visualizations: Observable<
+    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/visualization').Visualization[]
+  >;
+  chartTypes: Observable<
+    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/chart-type').ChartType[]
+  >;
+  model: Observable<Model>;
+  owner: Observable<
+    import('/home/bilal/Projects/CRBM-Viz/CRBM-Viz/src/app/Shared/Models/user').User
+  >;
 
   constructor(
     private dialog: MatDialog,
@@ -51,11 +67,22 @@ export class ViewComponent implements OnInit {
       if (this.id) {
         this.simulationService.read(this.id).subscribe(simulation => {
           this.simulation = simulation;
+          this.historyTreeNodes = this.simulationService.getHistory(
+            this.id,
+            true,
+            true
+          );
           this.simulation.userService = this.userService;
           this.simulation.projectService = this.projectService;
           this.simulation.modelService = this.modelService;
           this.simulation.visualizationService = this.visualizationService;
           this.simulation.chartTypeService = this.chartTypeService;
+          this.models = simulation.getModels();
+          this.projects = simulation.getProjects();
+          this.visualizations = simulation.getVisualizations();
+          this.chartTypes = simulation.getChartTypes();
+          this.model = this.modelService.read(this.simulation.MODEL);
+          this.owner = this.userService.get$(this.simulation.OWNER);
         });
       }
 
@@ -128,13 +155,7 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  getData() {
-    this.historyTreeNodes = this.simulationService.getHistory(
-      this.id,
-      true,
-      true
-    );
-  }
+  getData() {}
 
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
