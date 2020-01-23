@@ -38,7 +38,7 @@ export class ViewComponent implements OnInit {
   vegaSpec: object;
   vegaData: object;
 
-  @ViewChild('vegaViewer', { static: false }) vegaViewer: VegaViewerComponent;
+  @ViewChild('vegaViewer') vegaViewer: VegaViewerComponent;
 
   historyTreeNodes: object[];
   models: Observable<Model[]>;
