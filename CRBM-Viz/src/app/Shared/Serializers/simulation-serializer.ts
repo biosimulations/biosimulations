@@ -4,6 +4,8 @@ import { Algorithm } from '../Models/algorithm';
 import { AlgorithmParameter } from '../Models/algorithm-parameter';
 import { Format } from '../Models/format';
 import { Simulator } from '../Models/simulator';
+import { ParameterChange } from '../Models/parameter-change';
+import { ModelParameter } from '../Models/model-parameter';
 
 export class SimulationSerializer extends Serializer<Simulation> {
   constructor() {
@@ -31,8 +33,23 @@ export class SimulationSerializer extends Serializer<Simulation> {
       json.simulator.version,
       json.simulator.dockerHubImageId
     );
+    const paramChanges = json.modelParameterChanges;
+    if (paramChanges) {
+      paramChanges.forEach(change => {
+        const parameter = change.parameter;
+        const param = new ModelParameter(
+          parameter.id,
+          parameter.name,
+          parameter.value,
+          parameter.units
+        );
+        const paramChange = new ParameterChange(param, change.value);
+        simulation.modelParameterChanges.push(paramChange);
+      });
+    }
     return simulation;
   }
+
   toJson(obj: any): Simulation {
     return super.toJson(obj);
   }
