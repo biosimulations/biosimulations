@@ -13,6 +13,9 @@ import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { Observable } from 'rxjs';
+import { UserService } from 'src/app/Shared/Services/user.service';
+import { User } from 'src/app/Shared/Models/user';
 
 @Component({
   templateUrl: './view.component.html',
@@ -25,82 +28,84 @@ export class ViewComponent implements OnInit {
   getLicenseInfo = getLicenseInfo;
 
   id: string;
-  project: Project;
+  project$: Observable<Project>;
+  owner: Observable<User>;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
 
-      this.getData();
+      this.project$ = this.projectService.read(this.id);
 
-      const crumbs: object[] = [
-        { label: 'Projects', route: '/projects' },
-        { label: 'Project ' + this.id },
-      ];
-      const buttons: NavItem[] = [
-        {
-          iconType: 'fas',
-          icon: 'pencil-alt',
-          label: 'Edit',
-          route: ['/projects', this.id, 'edit'],
-          display:
-            this.project && this.project.access === AccessLevel.public
-              ? NavItemDisplayLevel.never
-              : NavItemDisplayLevel.user,
-          displayUser: !!this.project ? this.project.owner : null,
-        },
-        {
-          iconType: 'fas',
-          icon: 'trash-alt',
-          label: 'Delete',
-          click: () => {
-            this.openDeleteDialog();
+      this.project$.subscribe(project => {
+        this.owner = this.userService.get$(project.OWNER);
+
+        const crumbs: object[] = [
+          { label: 'Projects', route: '/projects' },
+          { label: 'Project ' + this.id },
+        ];
+        const buttons: NavItem[] = [
+          {
+            iconType: 'fas',
+            icon: 'pencil-alt',
+            label: 'Edit',
+            route: ['/projects', this.id, 'edit'],
+            display:
+              project && project.access === AccessLevel.public
+                ? NavItemDisplayLevel.never
+                : NavItemDisplayLevel.user,
+            displayUser: !!project ? project.owner : null,
           },
-          display:
-            this.project && this.project.access === AccessLevel.public
-              ? NavItemDisplayLevel.never
-              : NavItemDisplayLevel.user,
-          displayUser: !!this.project ? this.project.owner : null,
-        },
-        {
-          iconType: 'fas',
-          icon: 'plus',
-          label: 'New',
-          route: ['/projects', 'new'],
-          display: NavItemDisplayLevel.always,
-        },
-        {
-          iconType: 'fas',
-          icon: 'user',
-          label: 'Your projects',
-          route: ['/user', 'projects'],
-          display: NavItemDisplayLevel.loggedIn,
-        },
-        {
-          iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/projects'],
-          display: NavItemDisplayLevel.always,
-        },
-      ];
-      this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
+          {
+            iconType: 'fas',
+            icon: 'trash-alt',
+            label: 'Delete',
+            click: () => {
+              this.openDeleteDialog();
+            },
+            display:
+              project && project.access === AccessLevel.public
+                ? NavItemDisplayLevel.never
+                : NavItemDisplayLevel.user,
+            displayUser: !!project ? project.owner : null,
+          },
+          {
+            iconType: 'fas',
+            icon: 'plus',
+            label: 'New',
+            route: ['/projects', 'new'],
+            display: NavItemDisplayLevel.always,
+          },
+          {
+            iconType: 'fas',
+            icon: 'user',
+            label: 'Your projects',
+            route: ['/user', 'projects'],
+            display: NavItemDisplayLevel.loggedIn,
+          },
+          {
+            iconType: 'fas',
+            icon: 'list',
+            label: 'Browse',
+            route: ['/projects'],
+            display: NavItemDisplayLevel.always,
+          },
+        ];
+        this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
+      });
     });
   }
 
-  getData() {
-    this.projectService
-      .read(this.id)
-      .subscribe(project => (this.project = project));
-  }
+  getData() {}
 
   openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {

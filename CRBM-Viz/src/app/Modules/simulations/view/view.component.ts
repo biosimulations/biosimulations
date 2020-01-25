@@ -9,7 +9,6 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { SimulationResultsFormat } from 'src/app/Shared/Enums/simulation-results-format';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,
@@ -25,6 +24,7 @@ import { Project } from 'src/app/Shared/Models/project';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { User } from 'src/app/Shared/Models/user';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
+import { ParameterChange } from 'src/app/Shared/Models/parameter-change';
 
 @Component({
   templateUrl: './view.component.html',
@@ -43,12 +43,13 @@ export class ViewComponent implements OnInit {
   chartTypes: Observable<ChartType[]>;
   model: Observable<Model>;
   owner: Observable<User>;
+  parameterChanges: ParameterChange[];
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+    private breadCrumbsService: BreadCrumbsService,
     private simulationService: SimulationService,
     private userService: UserService,
     private projectService: ProjectService,
@@ -79,6 +80,9 @@ export class ViewComponent implements OnInit {
           this.chartTypes = simulation.getChartTypes();
           this.model = this.modelService.read(this.simulation.MODEL);
           this.owner = this.userService.get$(this.simulation.OWNER);
+          this.parameterChanges = this.simulation.modelParameterChanges.concat(
+            this.simulation.algorithmParameterChanges
+          );
         });
       }
 
