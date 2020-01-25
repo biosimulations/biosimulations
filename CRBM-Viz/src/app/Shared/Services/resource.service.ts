@@ -7,9 +7,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { QueryOptions } from '../Models/query-options';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class ResourceService<T extends TopLevelResource> {
   constructor(
     private httpClient: HttpClient,
