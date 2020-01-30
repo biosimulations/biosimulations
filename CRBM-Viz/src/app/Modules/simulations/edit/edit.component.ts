@@ -334,7 +334,9 @@ export class EditComponent implements OnInit {
       for (const el of this.simulation.refs) {
         this.addRefFormElement();
       }
-      this.model = this.simulation.model;
+      this.modelService
+        .read(this.simulation.MODEL)
+        .subscribe(model => (this.model = model));
       this.algorithm = this.simulation.algorithm;
       this.formGroup.patchValue(this.simulation);
       for (const changeFormGroup of this.getFormArray('modelParameterChanges')

@@ -12,7 +12,6 @@ export class SimulationSerializer extends Serializer<Simulation> {
     super();
   }
   fromJson(json: any): Simulation {
-    console.log(json);
     const res = super.fromJson(json);
     let simulation = new Simulation();
     simulation = Object.assign(simulation, res);

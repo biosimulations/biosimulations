@@ -31,7 +31,7 @@ export class ModelService extends ResourceService<Model> {
     super(http, 'models', new ModelSerializer());
   }
 
-  getVariables(model: Model): ModelVariable[] {
+  getVariables(): ModelVariable[] {
     const variables: ModelVariable[] = [];
     for (let iVariable = 0; iVariable < 3; iVariable++) {
       const variable = new ModelVariable();

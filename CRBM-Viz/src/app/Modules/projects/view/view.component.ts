@@ -16,6 +16,11 @@ import {
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { User } from 'src/app/Shared/Models/user';
+import { ModelService } from 'src/app/Shared/Services/model.service';
+import { Model } from 'src/app/Shared/Models/model';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
 
 @Component({
   templateUrl: './view.component.html',
@@ -30,8 +35,14 @@ export class ViewComponent implements OnInit {
   id: string;
   project$: Observable<Project>;
   owner: Observable<User>;
+  project: Project;
+  resources: Observable<Model>[] = [];
 
   constructor(
+    private modelService: ModelService,
+    private simulationService: SimulationService,
+    private chartTypeService: ChartTypeService,
+    private visualizationService: VisualizationService,
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
@@ -47,6 +58,27 @@ export class ViewComponent implements OnInit {
       this.project$ = this.projectService.read(this.id);
 
       this.project$.subscribe(project => {
+        project.products.forEach(product => {
+          product.resourceIds.forEach(resourcePair => {
+            const resourceId = resourcePair.resourceId;
+            const resourceType = resourcePair.resourceType;
+
+            if (resourceType === 'model') {
+              product.resources.push(this.modelService.read(resourceId));
+            } else if (resourceType === 'simulation') {
+              product.resources.push(this.simulationService.read(resourceId));
+            } else if (resourceType === 'chartType') {
+              product.resources.push(this.chartTypeService.read(resourceId));
+            } else if (resourceType === 'visualization') {
+              product.resources.push(
+                this.visualizationService.read(resourceId)
+              );
+            }
+          });
+        });
+
+        this.project = project;
+
         this.owner = this.userService.get$(project.OWNER);
 
         const crumbs: object[] = [

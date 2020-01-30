@@ -1,6 +1,6 @@
 <mat-tab-group
   class="page-content full-width tab-page"
-  *ngIf="this.project$ | async as project"
+  *ngIf="this.project"
   disableRipple="true"
 >
   <mat-tab>
@@ -125,24 +125,26 @@
 
               <ul class="tags icon-text inline no-wrap">
                 <li *ngFor="let resource of product.resources">
-                  <ng-container *ngIf="resource.getIcon() as icon">
-                    <mat-icon
-                      *ngIf="icon.type === 'mat'; else faProductIcon"
-                      aria-hidden="true"
-                      aria-label="Resource icon"
-                      >{{ icon.icon }}</mat-icon
-                    >
-                    <ng-template #faProductIcon>
-                      <fa-icon
+                  <ng-container *ngIf="resource | async as resource">
+                    <ng-container *ngIf="resource.getIcon() as icon">
+                      <mat-icon
+                        *ngIf="icon.type === 'mat'; else faProductIcon"
                         aria-hidden="true"
                         aria-label="Resource icon"
-                        [icon]="[icon.type, icon.icon]"
-                      ></fa-icon>
-                    </ng-template>
+                        >{{ icon.icon }}</mat-icon
+                      >
+                      <ng-template #faProductIcon>
+                        <fa-icon
+                          aria-hidden="true"
+                          aria-label="Resource icon"
+                          [icon]="[icon.type, icon.icon]"
+                        ></fa-icon>
+                      </ng-template>
+                    </ng-container>
+                    <a [routerLink]="resource.getRoute()">{{
+                      resource.id + ': ' + resource.name
+                    }}</a>
                   </ng-container>
-                  <a [routerLink]="resource.getRoute()">{{
-                    resource.id + ': ' + resource.name
-                  }}</a>
                 </li>
               </ul>
             </div>

@@ -570,9 +570,7 @@ export class EditComponent implements OnInit {
         const simulationCopy = new Simulation();
         Object.assign(simulationCopy, simulation);
         const simulationResults: SimulationResult[] = [];
-        for (const variable of this.modelService.getVariables(
-          simulationCopy.model
-        )) {
+        for (const variable of this.modelService.getVariables()) {
           const simulationResult = new SimulationResult();
           simulationResult.simulation = simulationCopy;
           simulationResult.variable = variable;
