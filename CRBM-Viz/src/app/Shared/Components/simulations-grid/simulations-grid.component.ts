@@ -324,9 +324,7 @@ export class SimulationsGridComponent implements OnInit {
       // errLog
     ];
 
-    this.simulationService
-      .list()
-      .subscribe(rowData => (this.rowData = rowData));
+    this.rowData = this.simulationService.list();
   }
 
   onReady(event): void {
