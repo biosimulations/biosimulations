@@ -2,10 +2,15 @@
   class="page-content full-width tab-page"
   *ngIf="chartType"
   disableRipple="true"
-  >
+>
   <mat-tab>
     <ng-template mat-tab-label>
-      <fa-icon aria-hidden="true" aria-label="Overview icon" [icon]="['fas', 'list']"></fa-icon> Overview
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Overview icon"
+        [icon]="['fas', 'list']"
+      ></fa-icon>
+      Overview
     </ng-template>
     <ng-template matTabContent>
       <div class="tab overview" [class.overview-image]="chartType.image">
@@ -19,7 +24,8 @@
               <app-authors
                 class="authors"
                 [authors]="chartType.authors"
-                [owner]="chartType.owner">
+                [owner]="chartType.owner"
+              >
               </app-authors>
             </div>
 
@@ -32,22 +38,35 @@
                     aria-hidden="true"
                     aria-label="Tags icon"
                     [icon]="['fas', 'tags']"
-                  ></fa-icon>{{
-                  chartType.tags.join(', ') | ucfirst
-                }}</li>
+                  ></fa-icon
+                  >{{ chartType.tags.join(', ') | ucfirst }}
+                </li>
               </ul>
 
               <ul class="icon-text inline no-wrap">
                 <li *ngFor="let identifier of chartType.identifiers">
-                  <fa-icon aria-hidden="true" aria-label="Identifier icon" [icon]="['fas', 'star']"></fa-icon>
-                  <app-hyper-link [href]="identifier.getUrl()"
-                  >{{ identifier.getNamespaceName() + ': ' + identifier.id }}</app-hyper-link>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Identifier icon"
+                    [icon]="['fas', 'star']"
+                  ></fa-icon>
+                  <app-hyper-link [href]="identifier.getUrl()">{{
+                    identifier.getNamespaceName() + ': ' + identifier.id
+                  }}</app-hyper-link>
                 </li>
 
                 <li>
-                  <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
-                  <app-hyper-link [href]="getLicenseInfo(chartType.license)['url']"
-                  >{{ getLicenseInfo(chartType.license)['name'] }}</app-hyper-link>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="License icon"
+                    [icon]="['fas', 'certificate']"
+                  ></fa-icon>
+                  <app-hyper-link
+                    [href]="getLicenseInfo(chartType.license)['url']"
+                    >{{
+                      getLicenseInfo(chartType.license)['name']
+                    }}</app-hyper-link
+                  >
                 </li>
               </ul>
             </div>
@@ -55,10 +74,20 @@
             <div class="sub-section" *ngIf="chartType.refs.length > 0">
               <ul class="icon-text">
                 <li *ngFor="let ref of chartType.refs">
-                  <fa-icon aria-hidden="true" aria-label="File icon" [icon]="['far', 'file-alt']">
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="File icon"
+                    [icon]="['far', 'file-alt']"
+                  >
                   </fa-icon>
                   <app-hyper-link [href]="ref.getUrl()"
-                  >{{ ref.getAuthorsStr() }}{{ '. ' }}{{ ref.title }}{{ '. ' }}<i>{{ ref.journal }}</i>{{ ' ' }}<b>{{ ref.volume }}</b>{{ ', ' + ref.pages + ' (' + ref.year + ').' }}</app-hyper-link>
+                    >{{ ref.getAuthorsStr() }}{{ '. ' }}{{ ref.title }}{{ '. '
+                    }}<i>{{ ref.journal }}</i
+                    >{{ ' ' }}<b>{{ ref.volume }}</b
+                    >{{
+                      ', ' + ref.pages + ' (' + ref.year + ').'
+                    }}</app-hyper-link
+                  >
                 </li>
               </ul>
             </div>
@@ -68,25 +97,27 @@
     </ng-template>
   </mat-tab>
 
- <mat-tab *ngIf="chartType.getProjects() as projects">
+  <mat-tab *ngIf="this.projects | async as projects">
     <ng-template mat-tab-label>
-      <fa-icon aria-hidden="true" aria-label="Projects icon" [icon]="['fas', 'folder-open']"></fa-icon> Projects ({{ projects.length }})
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Projects icon"
+        [icon]="['fas', 'folder-open']"
+      ></fa-icon>
+      Projects ({{ projects.length }})
     </ng-template>
     <ng-template matTabContent>
       <div class="tab">
         <div class="section">
           <div class="section-title float-container">
             <h1>Projects</h1>
-            <a
-              class="routes"
-              [routerLink]="['/projects', 'new']"
-              >
+            <a class="routes" [routerLink]="['/projects', 'new']">
               <fa-icon
                 aria-hidden="true"
                 aria-label="New project icon"
                 [icon]="['fas', 'plus']"
               ></fa-icon>
-                New
+              New
             </a>
           </div>
           <div class="section-content">
@@ -100,57 +131,52 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="chartType.getModels() as models">
+  <mat-tab *ngIf="this.models | async as models">
     <ng-template mat-tab-label>
-      <mat-icon aria-hidden="true" aria-label="Models icon">timeline</mat-icon> Models ({{ models.length }})
+      <mat-icon aria-hidden="true" aria-label="Models icon">timeline</mat-icon>
+      Models ({{ models.length }})
     </ng-template>
     <ng-template matTabContent>
       <div class="tab">
         <div class="section">
           <div class="section-title float-container">
             <h1>Models</h1>
-            <a
-              class="routes"
-              [routerLink]="['/models', 'new']"
-              >
+            <a class="routes" [routerLink]="['/models', 'new']">
               <fa-icon
                 aria-hidden="true"
                 aria-label="New model icon"
                 [icon]="['fas', 'plus']"
               ></fa-icon>
-                New
+              New
             </a>
           </div>
           <div class="section-content">
-            <app-model-cards
-              [models]="models"
-              [cols]="4"
-            ></app-model-cards>
+            <app-model-cards [models]="models" [cols]="4"></app-model-cards>
           </div>
         </div>
       </div>
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="chartType.getSimulations() as simulations">
+  <mat-tab *ngIf="this.simulations | async as simulations">
     <ng-template mat-tab-label>
-      <mat-icon aria-hidden="true" aria-label="Simulations icon">timeline</mat-icon> Simulations ({{ simulations.length }})
+      <mat-icon aria-hidden="true" aria-label="Simulations icon"
+        >timeline</mat-icon
+      >
+      Simulations ({{ simulations.length }})
     </ng-template>
     <ng-template matTabContent>
       <div class="tab">
         <div class="section">
           <div class="section-title float-container">
             <h1>Simulations</h1>
-            <a
-              class="routes"
-              [routerLink]="['/simulations', 'new']"
-              >
+            <a class="routes" [routerLink]="['/simulations', 'new']">
               <fa-icon
                 aria-hidden="true"
                 aria-label="New simulation icon"
                 [icon]="['fas', 'plus']"
               ></fa-icon>
-                New
+              New
             </a>
           </div>
           <div class="section-content">
@@ -164,25 +190,25 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="chartType.getVisualizations() as visualizations">
+  <mat-tab *ngIf="this.visualizations | async as visualizations">
     <ng-template mat-tab-label>
-      <mat-icon aria-hidden="true" aria-label="Visualizations icon">timeline</mat-icon> Visualizations ({{ visualizations.length }})
+      <mat-icon aria-hidden="true" aria-label="Visualizations icon"
+        >timeline</mat-icon
+      >
+      Visualizations ({{ visualizations.length }})
     </ng-template>
     <ng-template matTabContent>
       <div class="tab">
         <div class="section">
           <div class="section-title float-container">
             <h1>Visualizations</h1>
-            <a
-              class="routes"
-              [routerLink]="['/visualizations', 'new']"
-              >
+            <a class="routes" [routerLink]="['/visualizations', 'new']">
               <fa-icon
                 aria-hidden="true"
                 aria-label="New visualization icon"
                 [icon]="['fas', 'plus']"
               ></fa-icon>
-                New
+              New
             </a>
           </div>
           <div class="section-content">
@@ -199,33 +225,59 @@
   <mat-tab [disabled]="true">
     <ng-template mat-tab-label>
       <div class="tab-button" (click)="download()">
-        <fa-icon aria-hidden="true" aria-label="Download icon" [icon]="['fas', 'download']"></fa-icon> Download
+        <fa-icon
+          aria-hidden="true"
+          aria-label="Download icon"
+          [icon]="['fas', 'download']"
+        ></fa-icon>
+        Download
       </div>
     </ng-template>
   </mat-tab>
 
   <mat-tab>
     <ng-template mat-tab-label>
-      <fa-icon aria-hidden="true" aria-label="History icon" [icon]="['fas', 'history']"></fa-icon> History
+      <fa-icon
+        aria-hidden="true"
+        aria-label="History icon"
+        [icon]="['fas', 'history']"
+      ></fa-icon>
+      History
     </ng-template>
     <ng-template matTabContent>
       <div class="tab history">
         <div class="section">
-          <table cellpadding="0" cellspacing="0" class="icon-key-vals section-content">
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            class="icon-key-vals section-content"
+          >
             <tbody>
               <tr>
                 <th>
-                  <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Date icon"
+                    [icon]="['far', 'calendar-alt']"
+                  ></fa-icon>
                 </th>
                 <th>Created</th>
-                <td>{{ chartType.created | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+                <td>
+                  {{ chartType.created | date: "yyyy-MM-dd hh-mm-ss aaaaa'm'" }}
+                </td>
               </tr>
               <tr>
                 <th>
-                  <fa-icon aria-hidden="true" aria-label="Date icon" [icon]="['far', 'calendar-alt']"></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Date icon"
+                    [icon]="['far', 'calendar-alt']"
+                  ></fa-icon>
                 </th>
                 <th>Updated</th>
-                <td>{{ chartType.updated | date: 'yyyy-MM-dd hh-mm-ss aaaaa\'m\'' }}</td>
+                <td>
+                  {{ chartType.updated | date: "yyyy-MM-dd hh-mm-ss aaaaa'm'" }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -236,45 +288,75 @@
 
   <mat-tab>
     <ng-template mat-tab-label>
-      <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon> Access
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Access icon"
+        [icon]="['fas', 'unlock-alt']"
+      ></fa-icon>
+      Access
     </ng-template>
     <ng-template matTabContent>
       <div class="tab">
         <div class="section">
-          <table cellpadding="0" cellspacing="0" class="icon-key-vals section-content">
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            class="icon-key-vals section-content"
+          >
             <tbody>
               <tr>
                 <th>
-                  <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'unlock-alt']"></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Access icon"
+                    [icon]="['fas', 'unlock-alt']"
+                  ></fa-icon>
                 </th>
                 <th>Access</th>
                 <td>{{ chartType.access | ucfirst }}</td>
               </tr>
               <tr>
                 <th>
-                  <fa-icon aria-hidden="true" aria-label="Token icon" [icon]="['fas', 'key']"></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Token icon"
+                    [icon]="['fas', 'key']"
+                  ></fa-icon>
                 </th>
                 <th>Access token</th>
                 <td>{{ chartType.accessToken }}</td>
               </tr>
               <tr>
                 <th>
-                  <fa-icon aria-hidden="true" aria-label="License icon" [icon]="['fas', 'certificate']"></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="License icon"
+                    [icon]="['fas', 'certificate']"
+                  ></fa-icon>
                 </th>
                 <th>License</th>
                 <td>
-                  <app-hyper-link [href]="getLicenseInfo(chartType.license)['url']"
-                  >{{ getLicenseInfo(chartType.license)['name'] }}</app-hyper-link>
+                  <app-hyper-link
+                    [href]="getLicenseInfo(chartType.license)['url']"
+                    >{{
+                      getLicenseInfo(chartType.license)['name']
+                    }}</app-hyper-link
+                  >
                 </td>
               </tr>
               <tr>
                 <th>
-                  <fa-icon aria-hidden="true" aria-label="Access icon" [icon]="['fas', 'user']"></fa-icon>
+                  <fa-icon
+                    aria-hidden="true"
+                    aria-label="Access icon"
+                    [icon]="['fas', 'user']"
+                  ></fa-icon>
                 </th>
                 <th>Owner</th>
                 <td>
-                  <a [routerLink]="['/user', chartType.owner.userId]"
-                  >{{ chartType.owner.getFullName() }}</a>
+                  <a [routerLink]="['/user', owner.userName]">{{
+                    owner.getFullName()
+                  }}</a>
                 </td>
               </tr>
             </tbody>

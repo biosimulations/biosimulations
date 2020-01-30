@@ -171,10 +171,10 @@ function setFormatter(params) {
   const value = params.value;
   return value.join(', ');
 }
-
+// TODO Make this async capable
 function ownerGetter(params): string {
-  const owner: User = params.data.owner;
-  return owner.getFullName();
+  const visualization = params.data;
+  return visualization.OWNER;
 }
 
 function capitalizeFormatter(params): string {
@@ -185,7 +185,7 @@ function capitalizeFormatter(params): string {
     return '';
   }
 }
-
+// TODO make this async capable
 function authorGetter(params): string[] {
   return params.data.getAuthors().map(author => author.getFullName());
 }

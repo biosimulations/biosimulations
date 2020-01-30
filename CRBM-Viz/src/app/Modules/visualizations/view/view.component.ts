@@ -22,6 +22,15 @@ import {
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { Model } from 'src/app/Shared/Models/model';
+import { ModelService } from 'src/app/Shared/Services/model.service';
+import { ProjectService } from 'src/app/Shared/Services/project.service';
+import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { UserService } from 'src/app/Shared/Services/user.service';
+import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { shareReplay } from 'rxjs/operators';
+import { Simulation } from 'src/app/Shared/Models/simulation';
+import { Project } from 'src/app/Shared/Models/project';
+import { User } from 'src/app/Shared/Models/user';
 
 @Component({
   templateUrl: './view.component.html',
@@ -35,6 +44,7 @@ export class ViewComponent implements OnInit {
 
   id: string;
   visualization: Visualization;
+  visualization$: Observable<Visualization>;
   vegaSpec: object;
   vegaData: object;
 
@@ -42,23 +52,54 @@ export class ViewComponent implements OnInit {
 
   historyTreeNodes: object[];
   models: Observable<Model[]>;
+  simulations: Observable<Simulation[]>;
+  chartTypes: Observable<ChartType[]>;
+  projects: Observable<Project[]>;
+  owner: User;
+  owner$: Observable<User>;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    private visualizationService: VisualizationService
+    private userService: UserService,
+    private simulationService: SimulationService,
+    private visualizationService: VisualizationService,
+    private chartTypeService: ChartTypeService,
+    private projectService: ProjectService,
+    private modelService: ModelService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.id = routeParams.id;
-      if (this.id) {
-        this.getData();
-      } else {
-        this.setUp();
-      }
+      this.visualization$ = this.visualizationService
+        .read(this.id)
+        .pipe(shareReplay(1));
+      this.visualization$.subscribe(vis => {
+        this.visualization = vis;
+        this.visualization.userService = this.userService;
+        this.visualization.modelService = this.modelService;
+        this.visualization.chartTypeService = this.chartTypeService;
+        this.visualization.simulationService = this.simulationService;
+        this.visualization.projectService = this.projectService;
+        this.simulations = this.visualization.getSimulations();
+        this.projects = this.visualization.getProjects();
+        this.models = this.visualization.getModels();
+        this.chartTypes = this.visualization.getChartTypes();
+        // Todo get the vega spec
+        // this.vegaSpec = this.visualization.getSpec();
+        this.vegaData = {};
+        this.historyTreeNodes = this.visualizationService.getHistory(
+          this.id,
+          true,
+          true
+        );
+        this.visualization.getOwner().subscribe(owner => {
+          this.owner = owner;
+        });
+      });
     });
   }
 
@@ -91,7 +132,7 @@ export class ViewComponent implements OnInit {
           this.visualization && this.visualization.access === AccessLevel.public
             ? NavItemDisplayLevel.never
             : NavItemDisplayLevel.user,
-        displayUser: !!this.visualization ? this.visualization.owner : null,
+        displayUser: !!this.visualization ? this.owner : null,
       },
       {
         iconType: 'fas',
@@ -104,7 +145,7 @@ export class ViewComponent implements OnInit {
           this.visualization && this.visualization.access === AccessLevel.public
             ? NavItemDisplayLevel.never
             : NavItemDisplayLevel.user,
-        displayUser: !!this.visualization ? this.visualization.owner : null,
+        displayUser: !!this.visualization ? this.owner : null,
       },
       {
         iconType: 'fas',
@@ -129,26 +170,6 @@ export class ViewComponent implements OnInit {
       },
     ];
     this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
-  }
-
-  getData(): void {
-    this.visualizationService
-      .getVisualization(this.id)
-      .subscribe((res: object[]) => {
-        this.visualizationService.read(this.id).subscribe(vis => {
-          this.visualization = vis;
-          this.vegaSpec = this.visualization.getSpec();
-          this.models = this.visualization.getModels();
-          this.vegaData = {};
-          this.setUp();
-          // TODO: get data from simulation service
-        });
-      });
-    this.historyTreeNodes = this.visualizationService.getHistory(
-      this.id,
-      true,
-      true
-    );
   }
 
   download(format: string): void {

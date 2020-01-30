@@ -1,6 +1,6 @@
 <mat-tab-group
   class="page-content full-width"
-  *ngIf="visualization"
+  *ngIf="this.visualization"
   disableRipple="true"
 >
   <mat-tab>
@@ -133,7 +133,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="visualization.getProjects() as projects">
+  <mat-tab *ngIf="this.projects | async as projects">
     <ng-template mat-tab-label>
       <fa-icon
         aria-hidden="true"
@@ -194,7 +194,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="visualization.getSimulations() as simulations">
+  <mat-tab *ngIf="this.simulations | async as simulations">
     <ng-template mat-tab-label>
       <mat-icon aria-hidden="true" aria-label="Simulations icon"
         >timeline</mat-icon
@@ -226,7 +226,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngIf="visualization.getChartTypes() as chartTypes">
+  <mat-tab *ngIf="this.chartTypes | async as chartTypes">
     <ng-template mat-tab-label>
       <fa-icon
         aria-hidden="true"
@@ -439,8 +439,8 @@
                 </th>
                 <th>Owner</th>
                 <td>
-                  <a [routerLink]="['/user', visualization.owner.userId]">{{
-                    visualization.owner.getFullName()
+                  <a [routerLink]="['/user', owner.userName]">{{
+                    owner.getFullName()
                   }}</a>
                 </td>
               </tr>
