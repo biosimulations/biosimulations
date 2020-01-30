@@ -20,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceService } from './resource.service';
 import { Serializer } from '../Serializers/serializer';
+import { VisualizationSerializer } from '../Serializers/visualization-serializer';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,7 @@ export class VisualizationService extends ResourceService<Visualization> {
   private userService: UserService;
 
   constructor(private http: HttpClient, private injector: Injector) {
-    super(http, 'visualizations', new Serializer<Visualization>());
+    super(http, 'visualizations', new VisualizationSerializer());
   }
 
   private vizUrl = 'https://crbm-test-api.herokuapp.com/vis/';

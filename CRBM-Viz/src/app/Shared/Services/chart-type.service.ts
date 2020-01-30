@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceService } from './resource.service';
 import { Serializer } from '../Serializers/serializer';
+import { ChartTypeSerializer } from '../Serializers/chart-type-serializer';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class ChartTypeService extends ResourceService<ChartType> {
   private userService: UserService;
 
   constructor(private http: HttpClient, private injector: Injector) {
-    super(http, 'charts', new Serializer<ChartType>());
+    super(http, 'charts', new ChartTypeSerializer());
   }
 
   private filter(list: object[], name?: string): object[] {
