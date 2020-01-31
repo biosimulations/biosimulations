@@ -49,7 +49,7 @@ export class SimulationSerializer extends Serializer<Simulation> {
     return simulation;
   }
 
-  toJson(obj: any): Simulation {
+  toJson(obj: any): any {
     return super.toJson(obj);
   }
 }
