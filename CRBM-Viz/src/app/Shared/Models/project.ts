@@ -49,14 +49,6 @@ export class Project extends TopLevelResource {
     return ['/projects', this.id];
   }
 
-  getAuthors(): (User | Person)[] {
-    if (this.authors && this.authors.length) {
-      return this.authors;
-    } else {
-      return [this.owner];
-    }
-  }
-
   getModels(): Observable<Model[]> {
     return this.modelService.list();
   }

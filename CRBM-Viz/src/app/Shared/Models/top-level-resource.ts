@@ -5,7 +5,10 @@ import { JournalReference } from './journal-reference';
 import { Person } from './person';
 import { RemoteFile } from './remote-file';
 import { User } from './user';
-import { None } from 'vega';
+
+import { Observable, of } from 'rxjs';
+import { tap, shareReplay } from 'rxjs/operators';
+import { UserService } from '../Services/user.service';
 
 export class TopLevelResource {
   id?: string;
@@ -23,6 +26,8 @@ export class TopLevelResource {
   license?: License;
   created?: Date;
   updated?: Date;
+  userService: UserService;
+  owner$: Observable<User>;
 
   getIcon(): object {
     return {};
@@ -31,6 +36,25 @@ export class TopLevelResource {
     return ['/'];
   }
   getAuthors(): (User | Person)[] {
-    return;
+    if (this.authors && this.authors.length) {
+      return this.authors;
+    } else {
+      return [this.owner];
+    }
+  }
+  getOwner(): Observable<User> {
+    if (this.userService) {
+      if (this.owner) {
+        return of(this.owner);
+      } else {
+        this.owner$ = this.userService.get$(this.OWNER).pipe(
+          shareReplay(1),
+          tap(owner => (this.owner = owner))
+        );
+        return this.owner$;
+      }
+    } else {
+      throw new Error('No user service');
+    }
   }
 }

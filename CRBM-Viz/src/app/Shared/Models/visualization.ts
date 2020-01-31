@@ -17,34 +17,24 @@ import { ModelService } from '../Services/model.service';
 import { ProjectService } from '../Services/project.service';
 import { SimulationService } from '../Services/simulation.service';
 import { UtilsService } from '../Services/utils.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { UserService } from '../Services/user.service';
+import { tap } from 'rxjs/operators';
 
-export class Visualization implements TopLevelResource {
-  id?: string;
-  name?: string;
+export class Visualization extends TopLevelResource {
   columns: number;
   layout?: VisualizationLayoutElement[];
-  image?: File | RemoteFile;
-  description?: string;
-  tags?: string[] = [];
   data?: SimulationResult[];
   parent?: Visualization;
-  identifiers?: Identifier[] = [];
-  refs?: JournalReference[] = [];
-  authors?: (User | Person)[] = [];
-  owner?: User;
-  access?: AccessLevel;
-  accessToken?: string = UtilsService.genAccessToken();
-  license?: License;
-  created?: Date;
-  updated?: Date;
+  owner: User;
+  owner$: Observable<User>;
 
   public modelService: ModelService;
   public simulationService: SimulationService;
   public projectService: ProjectService;
   public chartTypeService: ChartTypeService;
   public userService: UserService;
+
   getIcon() {
     return { type: 'fas', icon: 'paint-brush' };
   }
@@ -66,7 +56,7 @@ export class Visualization implements TopLevelResource {
   }
 
   getSpec(): object {
-    if (this.layout.length === 0) {
+    if (this.layout && this.layout.length === 0) {
       return null;
     } else if (this.layout.length === 1) {
       return this.layout[0].chartType.spec;

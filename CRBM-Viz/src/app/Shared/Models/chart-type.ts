@@ -20,7 +20,7 @@ import { UtilsService } from '../Services/utils.service';
 import { VisualizationService } from '../Services/visualization.service';
 import { Observable } from 'rxjs';
 
-export class ChartType implements TopLevelResource {
+export class ChartType extends TopLevelResource {
   id?: string;
   name?: string;
   spec?: object;
@@ -49,15 +49,6 @@ export class ChartType implements TopLevelResource {
   getRoute() {
     return ['/chart-types', this.id];
   }
-
-  getAuthors(): (User | Person)[] {
-    if (this.authors && this.authors.length) {
-      return this.authors;
-    } else {
-      return [this.owner];
-    }
-  }
-
   getDataFields(): ChartTypeDataField[] {
     const fields: ChartTypeDataField[] = [];
 
