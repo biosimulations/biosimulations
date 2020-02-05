@@ -31,8 +31,8 @@ export class Serializer<T extends TopLevelResource> {
     topLevelResource.identifiers = [];
     topLevelResource.OWNER = json.owner;
     // Boolean
-    if (json.public) {
-      topLevelResource.access = AccessLevel.public;
+    if (json.private) {
+      topLevelResource.access = AccessLevel.private;
     } else {
       topLevelResource.access = AccessLevel.public;
     }
