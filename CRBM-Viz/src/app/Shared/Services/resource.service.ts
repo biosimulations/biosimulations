@@ -29,7 +29,10 @@ export class ResourceService<T extends TopLevelResource> {
       .pipe(map(data => this.serializer.fromJson(data) as T));
   }
 
-  read(id: string): Observable<T> {
+  read(
+    id: string,
+    queryOptions: QueryOptions = new QueryOptions()
+  ): Observable<T> {
     return this.httpClient
       .get(`${this.url}/${this.endpoint}/${id}`)
       .pipe(map((data: any) => this.serializer.fromJson(data) as T));
@@ -37,6 +40,7 @@ export class ResourceService<T extends TopLevelResource> {
 
   list(queryOptions: QueryOptions = new QueryOptions()): Observable<T[]> {
     // TODO: filter on name, owner attributes
+    queryOptions.embed.push('owner');
     return this.httpClient
       .get(`${this.url}/${this.endpoint}?${queryOptions.toQueryString()}`)
       .pipe(map((data: any) => this.convertData(data)));

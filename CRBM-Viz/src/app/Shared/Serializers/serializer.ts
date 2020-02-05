@@ -4,8 +4,14 @@ import { AccessLevel } from '../Enums/access-level';
 import { Person } from '../Models/person';
 import { JournalReference } from '../Models/journal-reference';
 import { TopLevelResource } from '../Models/top-level-resource';
+import { UserSerializer } from '../Models/user';
+import { of } from 'rxjs';
 
 export class Serializer<T extends TopLevelResource> {
+  userSerializer: UserSerializer;
+  constructor() {
+    this.userSerializer = new UserSerializer();
+  }
   fromJson(json: any): T {
     const topLevelResource = new TopLevelResource();
     topLevelResource.id = json.id;
@@ -29,9 +35,15 @@ export class Serializer<T extends TopLevelResource> {
     topLevelResource.updated = new Date(Date.parse(json.updated));
     topLevelResource.license = json.license as License;
     topLevelResource.identifiers = [];
-    topLevelResource.OWNER = json.owner;
-    // Boolean
+    // Owner if embedded
+    if (typeof json.owner === 'string') {
+      topLevelResource.OWNER = json.owner;
+    } else if (typeof json.owner === 'object' && json.owner !== null) {
+      topLevelResource.owner = this.userSerializer.fromJson(json.owner);
+      topLevelResource.OWNER = topLevelResource.owner.userName;
+    }
     if (json.private) {
+      // Boolean
       topLevelResource.access = AccessLevel.private;
     } else {
       topLevelResource.access = AccessLevel.public;
