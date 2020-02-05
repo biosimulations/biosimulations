@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import { Simulation } from '../Models/simulation';
@@ -9,6 +9,7 @@ import { Simulation } from '../Models/simulation';
 import { ResourceService } from './resource.service';
 import { Serializer } from '../Serializers/serializer';
 import { SimulationSerializer } from '../Serializers/simulation-serializer';
+import { QueryOptions } from '../Models/query-options';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,14 @@ export class SimulationService extends ResourceService<Simulation> {
       this.userService = this.injector.get(UserService);
     }
   }
+  list(
+    queryOptions: QueryOptions = new QueryOptions()
+  ): Observable<Simulation[]> {
+    const queryParams = new QueryOptions();
+    queryParams.embed = ['model'];
 
+    return super.list(queryParams);
+  }
   getSimulationAndJobFilesInfo(): void {
     this.http.get(`${environment.crbm.CRBMAPI_URL}/simulation`).subscribe(
       success => {

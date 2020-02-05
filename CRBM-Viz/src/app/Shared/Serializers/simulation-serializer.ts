@@ -6,16 +6,26 @@ import { Format } from '../Models/format';
 import { Simulator } from '../Models/simulator';
 import { ParameterChange } from '../Models/parameter-change';
 import { ModelParameter } from '../Models/model-parameter';
+import { ModelSerializer } from './model-serializer';
 
 export class SimulationSerializer extends Serializer<Simulation> {
+  modelSerializer: ModelSerializer;
   constructor() {
     super();
+    this.modelSerializer = new ModelSerializer();
   }
   fromJson(json: any): Simulation {
     const res = super.fromJson(json);
     let simulation = new Simulation();
     simulation = Object.assign(simulation, res);
     simulation.MODEL = json.model;
+    // Model if embedded
+    if (typeof json.model === 'string') {
+      simulation.MODEL = json.model;
+    } else if (typeof json.model === 'object' && json.model !== null) {
+      simulation.model = this.modelSerializer.fromJson(json.model);
+      simulation.MODEL = simulation.model.id;
+    }
     simulation.algorithm = new Algorithm(
       json.algorithm.id,
       json.algorithm.name,
