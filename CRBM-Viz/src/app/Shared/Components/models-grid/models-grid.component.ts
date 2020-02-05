@@ -198,10 +198,9 @@ function tagsGetter(params): string[] {
   return params.data.tags;
 }
 
-// TODO Make this async capable
 function ownerGetter(params): string {
-  const model: Model = params.data;
-  return model.OWNER;
+  const owner = params.data.owner;
+  return owner.getFullName();
 }
 
 function formatGetter(params): string {

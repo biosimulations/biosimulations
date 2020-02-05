@@ -370,12 +370,11 @@ function numModelParameterChangesGetter(params): number {
   return params.data.modelParameterChanges.length;
 }
 
-// TODO Make this async capable
 function ownerGetter(params): string {
-  const owner = params.data.OWNER;
-  return owner;
+  const owner = params.data.owner;
+  return owner.getFullName();
 }
-// TODO Make this async capable
+
 function modelOwnerGetter(params): string {
   const owner: User = params.data.model.owner;
   return owner.getFullName();
