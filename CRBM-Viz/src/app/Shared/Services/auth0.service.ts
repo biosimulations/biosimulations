@@ -63,7 +63,7 @@ export class AuthService {
   token: string = null;
   // Create a local property for login status
   loggedIn: boolean = null;
-
+  userName: string = null;
   constructor(private router: Router, private http: HttpClient) {}
 
   // When calling, options can be passed if desired
@@ -177,6 +177,7 @@ export class AuthService {
     }
     user.userName =
       userProfile['https://www.biosimulations.org:app_metadata']['username'];
+    this.userName = user.userName;
     user.firstName = userProfile.given_name;
     user.lastName = userProfile.family_name;
     this.http
