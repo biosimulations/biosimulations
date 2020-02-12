@@ -119,7 +119,7 @@ export class VisualizationsGridComponent implements OnInit {
       },
       {
         headerName: 'License',
-        field: 'license.name',
+        field: 'license',
         filter: 'agSetColumnFilter',
         minWidth: 75,
         hide: true,
