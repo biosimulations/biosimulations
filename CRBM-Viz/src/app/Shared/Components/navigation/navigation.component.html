@@ -78,7 +78,7 @@
                 (button.display == NavItemDisplayLevel.loggedOut &&
                   (!authService || !authService.loggedIn)) ||
                 (button.display == NavItemDisplayLevel.user &&
-                  authService.token &&
+                  authService.loggedIn &&
                   button.displayUser &&
                   (this.username | async) == button.displayUser.userName)
               "
