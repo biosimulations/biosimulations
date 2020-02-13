@@ -68,6 +68,7 @@
         </div>
         <div class="module-routes">
           <ng-container *ngFor="let button of moduleButtons">
+            <!-- TODO change this to just get the username from the owner and auth -->
             <a
               *ngIf="
                 button.display == NavItemDisplayLevel.always ||
@@ -79,7 +80,7 @@
                 (button.display == NavItemDisplayLevel.user &&
                   authService.token &&
                   button.displayUser &&
-                  authService.userName == button.displayUser.userName)
+                  (this.username | async) == button.displayUser.userName)
               "
               [routerLink]="button.route"
               (click)="button.click && button.click()"

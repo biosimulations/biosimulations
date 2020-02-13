@@ -25,7 +25,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public moduleButtons: NavItem[];
   public moduleClasses: string[] = [];
   public NavItemDisplayLevel = NavItemDisplayLevel;
-
+  public username;
   constructor(
     private breakpointObserver: BreakpointObserver,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -33,13 +33,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.crumbsSubscription = this.breadCrumbsService.data.subscribe(
-      data => {
-        this.moduleCrumbs = data['crumbs'];
-        this.moduleButtons = data['buttons'];
-        this.moduleClasses = data['classes'];
-      }
-    )
+    this.username = this.authService.getUsername$();
+    this.crumbsSubscription = this.breadCrumbsService.data.subscribe(data => {
+      this.moduleCrumbs = data['crumbs'];
+      this.moduleButtons = data['buttons'];
+      this.moduleClasses = data['classes'];
+    });
   }
 
   ngOnDestroy() {
