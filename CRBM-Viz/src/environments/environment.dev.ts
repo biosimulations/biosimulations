@@ -1,3 +1,4 @@
+import { NgxLoggerLevel } from 'ngx-logger';
 export const environment = {
   production: false,
   baseUrl: '/',
@@ -5,6 +6,9 @@ export const environment = {
     domain: 'crbm.auth0.com',
     audience: 'api.biosimulations.org',
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+  },
+  logging: {
+    level: NgxLoggerLevel.DEBUG,
   },
   crbm: {
     CRBMAPI_URL: 'http://localhost:5001',

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './Shared/Services/auth0.service';
+import { NGXLogger } from 'ngx-logger';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,16 +9,8 @@ import { AuthService } from './Shared/Services/auth0.service';
 export class AppComponent implements OnInit {
   title = 'BioSimulations';
 
-  // TODO Test the creation of token
-  constructor(private auth: AuthService) { }
+  constructor(private logger: NGXLogger) {}
   ngOnInit() {
-    this.auth.localAuthSetup();
-    this.auth.userProfile$.subscribe(profile => {
-      this.auth.getToken$().subscribe(token => {
-        if (token) {
-          localStorage.setItem('token', token.__raw);
-        }
-      });
-    });
+    this.logger.debug('App Loaded');
   }
 }

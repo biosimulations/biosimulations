@@ -1,3 +1,4 @@
+import { NgxLoggerLevel } from 'ngx-logger';
 export const environment = {
   production: true,
   baseUrl: '/',
@@ -5,6 +6,9 @@ export const environment = {
     domain: 'crbm.auth0.com',
     audience: 'api.biosimulations.org',
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+  },
+  logging: {
+    level: NgxLoggerLevel.OFF,
   },
   crbm: {
     CRBMAPI_URL: 'https://biosimulations-api.herokuapp.com',
@@ -32,7 +36,7 @@ export const environment = {
   bruitConfig: {
     apiKey: 'e6f43cf7-e04d-4581-9505-dbd7eddd9dbd',
     labels: {
-      title: 'Send us a feedback',
+      title: 'Send us feedback',
       button: 'Send',
     },
     form: [

@@ -6,9 +6,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { NgxDnDModule } from '@swimlane/ngx-dnd';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+// Third party tools
+import { NgxDnDModule } from '@swimlane/ngx-dnd';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 // Defined Modules in Imports
 
 // Defined Modules in app
@@ -21,6 +23,7 @@ import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.s
 
 import { SharedModule } from './Shared/shared.module';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { environment } from 'src/environments/environment';
 
 // Pipes defined in app
 
@@ -43,6 +46,7 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
     HttpClientModule,
     MaterialModule,
     SharedModule,
+    LoggerModule.forRoot({ level: environment.logging.level }),
   ],
   providers: [
     {
