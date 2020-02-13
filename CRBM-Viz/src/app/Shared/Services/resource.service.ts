@@ -33,8 +33,9 @@ export class ResourceService<T extends TopLevelResource> {
     id: string,
     queryOptions: QueryOptions = new QueryOptions()
   ): Observable<T> {
+    queryOptions.embed.push('owner');
     return this.httpClient
-      .get(`${this.url}/${this.endpoint}/${id}`)
+      .get(`${this.url}/${this.endpoint}/${id}?${queryOptions.toQueryString()}`)
       .pipe(map((data: any) => this.serializer.fromJson(data) as T));
   }
 
