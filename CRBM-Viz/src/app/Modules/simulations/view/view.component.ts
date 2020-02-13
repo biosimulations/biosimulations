@@ -25,6 +25,7 @@ import { Visualization } from 'src/app/Shared/Models/visualization';
 import { User } from 'src/app/Shared/Models/user';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { ParameterChange } from 'src/app/Shared/Models/parameter-change';
+import { shareReplay } from 'rxjs/operators';
 
 @Component({
   templateUrl: './view.component.html',
@@ -78,80 +79,84 @@ export class ViewComponent implements OnInit {
           this.projects = simulation.getProjects();
           this.visualizations = simulation.getVisualizations();
           this.chartTypes = simulation.getChartTypes();
-          this.model = this.modelService.read(this.simulation.MODEL);
-          this.owner = this.userService.get$(this.simulation.OWNER);
+          this.model = this.modelService
+            .read(this.simulation.MODEL)
+            .pipe(shareReplay(1));
+          this.owner = this.userService
+            .get$(this.simulation.OWNER)
+            .pipe(shareReplay(1));
           this.parameterChanges = this.simulation.modelParameterChanges.concat(
             this.simulation.algorithmParameterChanges
           );
+
+          const crumbs: object[] = [
+            { label: 'Simulations', route: '/simulations' },
+            { label: 'Simulation ' + this.id },
+          ];
+          const buttons: NavItem[] = [
+            {
+              iconType: 'fas',
+              icon: 'paint-brush',
+              label: 'Visualize',
+              route: ['/visualizations', this.id],
+              display: NavItemDisplayLevel.always,
+            },
+            {
+              iconType: 'fas',
+              icon: 'code-branch',
+              label: 'Fork',
+              route: ['/simulations', this.id, 'fork'],
+              display: NavItemDisplayLevel.always,
+            },
+            {
+              iconType: 'fas',
+              icon: 'pencil-alt',
+              label: 'Edit',
+              route: ['/simulations', this.id, 'edit'],
+              display:
+                this.simulation && this.simulation.access === AccessLevel.public
+                  ? NavItemDisplayLevel.never
+                  : NavItemDisplayLevel.user,
+              displayUser: !!this.simulation ? this.simulation.owner : null,
+            },
+            {
+              iconType: 'fas',
+              icon: 'trash-alt',
+              label: 'Delete',
+              click: () => {
+                this.openDeleteDialog();
+              },
+              display:
+                this.simulation && this.simulation.access === AccessLevel.public
+                  ? NavItemDisplayLevel.never
+                  : NavItemDisplayLevel.user,
+              displayUser: !!this.simulation ? this.simulation.owner : null,
+            },
+            {
+              iconType: 'fas',
+              icon: 'plus',
+              label: 'New',
+              route: ['/simulations', 'new'],
+              display: NavItemDisplayLevel.always,
+            },
+            {
+              iconType: 'fas',
+              icon: 'user',
+              label: 'Your simulations',
+              route: ['/user', 'simulations'],
+              display: NavItemDisplayLevel.loggedIn,
+            },
+            {
+              iconType: 'fas',
+              icon: 'list',
+              label: 'Browse',
+              route: ['/simulations'],
+              display: NavItemDisplayLevel.always,
+            },
+          ];
+          this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
         });
       }
-
-      const crumbs: object[] = [
-        { label: 'Simulations', route: '/simulations' },
-        { label: 'Simulation ' + this.id },
-      ];
-      const buttons: NavItem[] = [
-        {
-          iconType: 'fas',
-          icon: 'paint-brush',
-          label: 'Visualize',
-          route: ['/visualizations', this.id],
-          display: NavItemDisplayLevel.always,
-        },
-        {
-          iconType: 'fas',
-          icon: 'code-branch',
-          label: 'Fork',
-          route: ['/simulations', this.id, 'fork'],
-          display: NavItemDisplayLevel.always,
-        },
-        {
-          iconType: 'fas',
-          icon: 'pencil-alt',
-          label: 'Edit',
-          route: ['/simulations', this.id, 'edit'],
-          display:
-            this.simulation && this.simulation.access === AccessLevel.public
-              ? NavItemDisplayLevel.never
-              : NavItemDisplayLevel.user,
-          displayUser: !!this.simulation ? this.simulation.owner : null,
-        },
-        {
-          iconType: 'fas',
-          icon: 'trash-alt',
-          label: 'Delete',
-          click: () => {
-            this.openDeleteDialog();
-          },
-          display:
-            this.simulation && this.simulation.access === AccessLevel.public
-              ? NavItemDisplayLevel.never
-              : NavItemDisplayLevel.user,
-          displayUser: !!this.simulation ? this.simulation.owner : null,
-        },
-        {
-          iconType: 'fas',
-          icon: 'plus',
-          label: 'New',
-          route: ['/simulations', 'new'],
-          display: NavItemDisplayLevel.always,
-        },
-        {
-          iconType: 'fas',
-          icon: 'user',
-          label: 'Your simulations',
-          route: ['/user', 'simulations'],
-          display: NavItemDisplayLevel.loggedIn,
-        },
-        {
-          iconType: 'fas',
-          icon: 'list',
-          label: 'Browse',
-          route: ['/simulations'],
-          display: NavItemDisplayLevel.always,
-        },
-      ];
-      this.breadCrumbsService.set(crumbs, buttons, ['tabs']);
     });
   }
 
