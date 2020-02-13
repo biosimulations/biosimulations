@@ -42,7 +42,7 @@
     "ag-grid-community": "^22.1.1",
     "ag-grid-enterprise": "^22.1.1",
     "hammerjs": "^2.0.8",
-    "https-proxy-agent": "^4.0.0",
+    "https-proxy-agent": "^5.0.0",
     "md5": "^2.2.1",
     "ngx-pipes": "^2.6.0",
     "rxjs": "~6.5.4",
