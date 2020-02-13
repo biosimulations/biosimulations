@@ -76,10 +76,14 @@ export class AuthService {
   }
 
   getUsername$(): Observable<string> {
-    return this.getUser$().pipe(
-      shareReplay(1),
-      pluck('https://www.biosimulations.org:app_metadata', 'username')
-    );
+    if (this.loggedIn) {
+      return this.getUser$().pipe(
+        shareReplay(1),
+        pluck('https://www.biosimulations.org:app_metadata', 'username')
+      );
+    } else {
+      return of(null);
+    }
   }
 
   getToken$(options?): Observable<any> {

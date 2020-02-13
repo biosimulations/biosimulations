@@ -6,10 +6,15 @@ import { AppComponent } from './app.component';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthService } from './Shared/Services/auth0.service';
+import { NGXLogger, LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
+      ],
       providers: [HttpClientTestingModule, AuthService],
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
