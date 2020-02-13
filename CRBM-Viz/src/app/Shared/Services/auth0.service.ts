@@ -63,7 +63,7 @@ export class AuthService {
   token: string = null;
   // Create a local property for login status
   loggedIn: boolean = null;
-  userName: string = null;
+
   constructor(private router: Router, private http: HttpClient) {}
 
   // When calling, options can be passed if desired
@@ -76,14 +76,12 @@ export class AuthService {
   }
 
   getUsername$(): Observable<string> {
-    if (this.loggedIn) {
-      return this.getUser$().pipe(
-        shareReplay(1),
-        pluck('https://www.biosimulations.org:app_metadata', 'username')
-      );
-    } else {
-      return of(null);
-    }
+    return this.getUser$().pipe(
+      pluck('https://www.biosimulations.org:app_metadata', 'username'),
+      catchError(error => {
+        return of(null);
+      })
+    );
   }
 
   getToken$(options?): Observable<any> {
@@ -118,10 +116,6 @@ export class AuthService {
       // If authenticated, response will be user object
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
-
-      this.getToken$().subscribe(token => {
-        localStorage.setItem('token', token);
-      });
     });
   }
 
@@ -181,7 +175,6 @@ export class AuthService {
     }
     user.userName =
       userProfile['https://www.biosimulations.org:app_metadata']['username'];
-    this.userName = user.userName;
     user.firstName = userProfile.given_name;
     user.lastName = userProfile.family_name;
     this.http
