@@ -9,7 +9,7 @@ import { RouteRendererGridComponent } from '../grid/route-renderer-grid.componen
 import { SearchToolPanelGridComponent } from '../grid/search-tool-panel-grid.component';
 import { SortToolPanelGridComponent } from '../grid/sort-tool-panel-grid.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('ChartTypesGridComponent', () => {

@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 
 import { AlertComponent } from './alert.component';
-import { MatDialogModule, MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogModule, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import {

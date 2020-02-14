@@ -41,7 +41,7 @@
               "src/site.webmanifest",
               "src/browserconfig.xml",
               "src/assets",
-              "src/_redirect"
+              "src/_redirects"
             ],
             "styles": [
               "src/styles.scss"

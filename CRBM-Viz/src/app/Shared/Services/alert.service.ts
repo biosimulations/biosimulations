@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AlertComponent } from '../Components/alert/alert.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
