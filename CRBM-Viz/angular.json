@@ -40,7 +40,8 @@
               "src/safari-pinned-tab.svg",
               "src/site.webmanifest",
               "src/browserconfig.xml",
-              "src/assets"
+              "src/assets",
+              "src/_redirect"
             ],
             "styles": [
               "src/styles.scss"
