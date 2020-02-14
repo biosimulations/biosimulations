@@ -7,7 +7,7 @@ The front end for the [Center for Reproducible Biomedical Modeling's](https://re
 [![Docker image](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
 [![Documentation](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Documentation/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
 [![Deploy](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Publish%20Docker/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a6cd8d41-5a4f-4a9f-aaca-e341554ab22a/deploy-status)](https://app.netlify.com/sites/biosimulations/deploys)
 
 [![codecov](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz/branch/master/graph/badge.svg)](https://codecov.io/gh/reproducible-biomedical-modeling/CRBM-Viz)
 [![CodeFactor](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/Biosimulations/badge)](https://www.codefactor.io/repository/github/reproducible-biomedical-modeling/Biosimulations)
@@ -25,7 +25,7 @@ https://biosimulations.herokuapp.com/
 
 ### Using the public deployment of the latest build
 
-The latest build is automatically publicly deployed [here](https://crbm-viz.herokuapp.com/).
+The latest build is automatically publicly deployed [here](https://biosimulations.netlify.com). [Netlify](www.netlify.com) provides hosting for the project.
 
 ### Deploying the app locally
 
