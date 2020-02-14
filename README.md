@@ -25,7 +25,7 @@ https://biosimulations.herokuapp.com/
 
 ### Using the public deployment of the latest build
 
-The latest build is automatically publicly deployed [here](https://biosimulations.netlify.com). [Netlify](www.netlify.com) provides hosting for the project.
+The latest build is automatically publicly deployed [here](https://biosimulations.netlify.com). [Netlify](https://www.netlify.com) provides hosting for the project.
 
 ### Deploying the app locally
 
