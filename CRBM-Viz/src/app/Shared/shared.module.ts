@@ -90,6 +90,7 @@ import {
   faGithub,
   faGoogle,
   faOrcid,
+  faOsi,
 } from '@fortawesome/free-brands-svg-icons';
 
 // Shared components
@@ -194,7 +195,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
       RouteRendererGridComponent,
       SearchToolPanelGridComponent,
       SortToolPanelGridComponent,
-      ]),
+    ]),
     NgPipesModule,
     FormsModule,
     ReactiveFormsModule,
@@ -250,13 +251,8 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     VisualizationService,
     StatsService,
   ],
-  entryComponents: [
-    AlertComponent,
-    OkCancelDialogComponent,
-    ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-  ],
+  entryComponents: [AlertComponent, OkCancelDialogComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {
@@ -330,6 +326,7 @@ export class SharedModule {
       faGithub,
       faGoogle,
       faOrcid,
+      faOsi
     );
   }
 }
