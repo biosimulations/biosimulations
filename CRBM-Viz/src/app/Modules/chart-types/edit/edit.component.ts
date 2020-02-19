@@ -23,7 +23,7 @@ import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';
-import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,

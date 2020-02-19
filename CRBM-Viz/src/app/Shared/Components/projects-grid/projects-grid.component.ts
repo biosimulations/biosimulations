@@ -8,7 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { ProjectService } from 'src/app/Shared/Services/project.service';
+import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
 import { Format } from 'src/app/Shared/Models/format';
 import { Project } from 'src/app/Shared/Models/project';

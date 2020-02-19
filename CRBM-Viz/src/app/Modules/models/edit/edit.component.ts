@@ -29,7 +29,7 @@ import {
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
-import { ModelService } from 'src/app/Shared/Services/model.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
 
 @Component({
   templateUrl: './edit.component.html',

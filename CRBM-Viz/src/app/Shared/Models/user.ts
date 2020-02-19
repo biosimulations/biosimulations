@@ -4,12 +4,12 @@ import { Model } from './model';
 import { Project } from './project';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
-import { ModelService } from '../Services/model.service';
-import { ProjectService } from '../Services/project.service';
-import { SimulationService } from '../Services/simulation.service';
+import { ModelService } from '../Services/Resources/model.service';
+import { ProjectService } from '../Services/Resources/project.service';
+import { SimulationService } from '../Services/Resources/simulation.service';
 import { UtilsService } from '../Services/utils.service';
-import { ChartTypeService } from '../Services/chart-type.service';
-import { VisualizationService } from '../Services/visualization.service';
+import { ChartTypeService } from '../Services/Resources/chart-type.service';
+import { VisualizationService } from '../Services/Resources/visualization.service';
 import * as md5 from 'md5';
 import { Observable, of } from 'rxjs';
 

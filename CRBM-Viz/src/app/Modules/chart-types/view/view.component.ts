@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
 import {
   OkCancelDialogComponent,
@@ -19,11 +19,11 @@ import { Model } from 'src/app/Shared/Models/model';
 import { Project } from 'src/app/Shared/Models/project';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { shareReplay } from 'rxjs/operators';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { ModelService } from 'src/app/Shared/Services/model.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
-import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
-import { ProjectService } from 'src/app/Shared/Services/project.service';
+import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
+import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
 import { User } from 'src/app/Shared/Models/user';
 
 @Component({

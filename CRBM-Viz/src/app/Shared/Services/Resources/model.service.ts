@@ -3,15 +3,15 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Subject, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Format } from '../Models/format';
-import { Model } from '../Models/model';
-import { ModelParameter } from '../Models/model-parameter';
-import { ModelVariable } from '../Models/model-variable';
-import { AlertService } from './alert.service';
-import { UserService } from './user.service';
+import { Format } from 'src/app/Shared/Models/format';
+import { Model } from 'src/app/Shared/Models/model';
+import { ModelParameter } from 'src/app/Shared/Models/model-parameter';
+import { ModelVariable } from 'src/app/Shared/Models/model-variable';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { UserService } from 'src/app/Shared/Services/user.service';
 import { map } from 'rxjs/operators';
-import { ResourceService } from './resource.service';
-import { ModelSerializer } from '../Serializers/model-serializer';
+import { ResourceService } from 'src/app/Shared/Services/Resources/resource.service';
+import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
 
 @Injectable({
   providedIn: 'root',

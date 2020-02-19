@@ -2,109 +2,29 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Subject, Observable } from 'rxjs';
-import { AlertService } from './alert.service';
-import { UserService } from './user.service';
-import { Simulation } from '../Models/simulation';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { UserService } from 'src/app/Shared/Services/user.service';
+import { Simulation } from 'src/app/Shared/Models/simulation';
 
 import { ResourceService } from './resource.service';
-import { Serializer } from '../Serializers/serializer';
-import { SimulationSerializer } from '../Serializers/simulation-serializer';
-import { QueryOptions } from '../Models/query-options';
+import { Serializer } from 'src/app/Shared/Serializers/serializer';
+import { SimulationSerializer } from 'src/app/Shared/Serializers/simulation-serializer';
+import { QueryOptions } from 'src/app/Shared/Models/query-options';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SimulationService extends ResourceService<Simulation> {
-  simulationData: object = null;
-  fileData: Array<object> = null;
-  omexFiles: Array<string> = null;
-  solverFiles: Array<string> = null;
-  sbatchFiles: Array<string> = null;
-  simulationDataChangeSubject = new Subject<null>();
-
-  private userService: UserService;
-
-  constructor(
-    private http: HttpClient,
-    private alertService: AlertService,
-    private injector: Injector
-  ) {
+  constructor(private http: HttpClient) {
     super(http, 'simulations', new SimulationSerializer());
   }
 
-  private getServices(): void {
-    if (this.userService == null) {
-      this.userService = this.injector.get(UserService);
-    }
-  }
-  list(
-    queryOptions: QueryOptions = new QueryOptions()
+  public list(
+    queryParams: QueryOptions = new QueryOptions()
   ): Observable<Simulation[]> {
-    const queryParams = new QueryOptions();
-    queryParams.embed = ['model'];
+    queryParams.embed.push('model');
 
     return super.list(queryParams);
-  }
-  getSimulationAndJobFilesInfo(): void {
-    this.http.get(`${environment.crbm.CRBMAPI_URL}/simulation`).subscribe(
-      success => {
-        this.simulationData = this.flattenSimulationData(
-          success['data']['simulations']
-        );
-        this.omexFiles = success['data']['omexSolvers']['omex'];
-        this.solverFiles = success['data']['omexSolvers']['solver'];
-        const sbatches = [];
-        for (const sbatch of success['data']['files']) {
-          sbatches.push(`${sbatch['createdBy']}-${sbatch['filename']}`);
-        }
-        this.sbatchFiles = sbatches;
-        this.fileData = success['data']['files'];
-        this.simulationDataChangeSubject.next();
-      },
-      error => {
-        this.alertService.openDialog(
-          'Error occured in Simulation service: ' + JSON.stringify(error)
-        );
-      }
-    );
-  }
-
-  createSimulation(
-    selectedSbatch: string,
-    selectedOmex: string,
-    selectedSolver: string
-  ) {
-    const id = this.getFileId(selectedSbatch);
-    return this.http.post(`${environment.crbm.CRBMAPI_URL}/simulation`, {
-      omex: selectedOmex,
-      solver: selectedSolver,
-      fileId: id,
-    });
-  }
-
-  getFileId(selectedSbatch: string) {
-    const fileSplitted = selectedSbatch.split('-');
-    const user = fileSplitted[0];
-    const filename = fileSplitted[1];
-    const fileObj = this.fileData.find(
-      file => file['createdBy'] === user && file['filename'] === filename
-    );
-    return fileObj['fileId'];
-  }
-
-  flattenSimulationData(simData) {
-    const data = [];
-    for (const sim of simData) {
-      const simObj = { ...sim };
-      const jobInfo = sim['jobInfo'];
-      for (const key in jobInfo) {
-        if (jobInfo.hasOwnProperty(key)) {
-          simObj[key] = jobInfo[key];
-        }
-      }
-      data.push(simObj);
-    }
-    return data;
   }
 
   private filter(list: object[], name?: string): object[] {

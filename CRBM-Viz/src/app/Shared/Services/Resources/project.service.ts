@@ -1,9 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Project } from '../Models/project';
-import { UserService } from './user.service';
+import { Project } from 'src/app/Shared/Models/project';
+import { UserService } from 'src/app/Shared/Services/user.service';
 import { ResourceService } from './resource.service';
-import { ProjectSerializer } from '../Serializers/project-serializer';
+import { ProjectSerializer } from 'src/app/Shared/Serializers/project-serializer';
 @Injectable({
   providedIn: 'root',
 })

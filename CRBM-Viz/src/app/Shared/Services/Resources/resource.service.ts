@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
-import { TopLevelResource } from '../Models/top-level-resource';
+import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { HttpClient } from '@angular/common/http';
-import { Serializer } from '../Serializers/serializer';
+import { Serializer } from 'src/app/Shared/Serializers/serializer';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { QueryOptions } from '../Models/query-options';
+import { QueryOptions } from 'src/app/Shared/Models/query-options';
 
 export class ResourceService<T extends TopLevelResource> {
   constructor(
@@ -29,7 +28,7 @@ export class ResourceService<T extends TopLevelResource> {
       .pipe(map(data => this.serializer.fromJson(data) as T));
   }
 
-  read(
+  public read(
     id: string,
     queryOptions: QueryOptions = new QueryOptions()
   ): Observable<T> {
@@ -39,7 +38,9 @@ export class ResourceService<T extends TopLevelResource> {
       .pipe(map((data: any) => this.serializer.fromJson(data) as T));
   }
 
-  list(queryOptions: QueryOptions = new QueryOptions()): Observable<T[]> {
+  public list(
+    queryOptions: QueryOptions = new QueryOptions()
+  ): Observable<T[]> {
     // TODO: filter on name, owner attributes
     queryOptions.embed.push('owner');
     return this.httpClient
@@ -47,7 +48,7 @@ export class ResourceService<T extends TopLevelResource> {
       .pipe(map((data: any) => this.convertData(data)));
   }
 
-  delete(id: string) {
+  public delete(id: string) {
     return this.httpClient.delete(`${this.url}/${this.endpoint}/${id}`);
   }
 

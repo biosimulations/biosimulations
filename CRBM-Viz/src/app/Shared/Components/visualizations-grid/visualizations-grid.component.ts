@@ -8,7 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
 import { Visualization } from 'src/app/Shared/Models/visualization';
 import { User } from 'src/app/Shared/Models/user';

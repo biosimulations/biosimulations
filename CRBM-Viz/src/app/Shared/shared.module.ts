@@ -96,12 +96,12 @@ import {
 // Shared components
 import { UserService } from './Services/user.service';
 import { MetadataService } from './Services/metadata.service';
-import { ProjectService } from './Services/project.service';
-import { ModelService } from './Services/model.service';
-import { SimulationService } from './Services/simulation.service';
+import { ProjectService } from './Services/Resources/project.service';
+import { ModelService } from './Services/Resources/model.service';
+import { SimulationService } from './Services/Resources/simulation.service';
 import { SimulationResultsService } from './Services/simulation-results.service';
-import { ChartTypeService } from './Services/chart-type.service';
-import { VisualizationService } from './Services/visualization.service';
+import { ChartTypeService } from './Services/Resources/chart-type.service';
+import { VisualizationService } from './Services/Resources/visualization.service';
 import { StatsService } from './Services/stats.service';
 
 import { FilterPipe } from './Pipes/filter.pipe';

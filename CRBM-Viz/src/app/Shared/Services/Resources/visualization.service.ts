@@ -1,8 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
-import { AccessLevel } from '../Enums/access-level';
-import { ChartTypeDataFieldShape } from '../Enums/chart-type-data-field-shape';
-import { ChartTypeDataFieldType } from '../Enums/chart-type-data-field-type';
-import { License } from '../Enums/license';
+import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { ChartTypeDataFieldShape } from 'src/app/Shared/Enums/chart-type-data-field-shape';
+import { ChartTypeDataFieldType } from 'src/app/Shared/Enums/chart-type-data-field-type';
+import { License } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { ChartTypeDataField } from 'src/app/Shared/Models/chart-type-data-field';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';
@@ -14,13 +14,13 @@ import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationDataField } from 'src/app/Shared/Models/visualization-data-field';
 import { VisualizationLayoutElement } from 'src/app/Shared/Models/visualization-layout-element';
 import { UserService } from 'src/app/Shared/Services/user.service';
-import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceService } from './resource.service';
-import { Serializer } from '../Serializers/serializer';
-import { VisualizationSerializer } from '../Serializers/visualization-serializer';
+import { Serializer } from 'src/app/Shared/Serializers/serializer';
+import { VisualizationSerializer } from 'src/app/Shared/Serializers/visualization-serializer';
 
 @Injectable({
   providedIn: 'root',

@@ -13,11 +13,11 @@ import { Simulation } from './simulation';
 import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { Visualization } from './visualization';
-import { ModelService } from '../Services/model.service';
-import { ProjectService } from '../Services/project.service';
-import { SimulationService } from '../Services/simulation.service';
+import { ModelService } from '../Services/Resources/model.service';
+import { ProjectService } from '../Services/Resources/project.service';
+import { SimulationService } from '../Services/Resources/simulation.service';
 import { UtilsService } from '../Services/utils.service';
-import { VisualizationService } from '../Services/visualization.service';
+import { VisualizationService } from '../Services/Resources/visualization.service';
 import { Observable } from 'rxjs';
 
 export class ChartType extends TopLevelResource {

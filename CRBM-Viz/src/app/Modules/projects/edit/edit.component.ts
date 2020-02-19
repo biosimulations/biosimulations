@@ -30,10 +30,10 @@ import { Project } from 'src/app/Shared/Models/project';
 import { Model } from 'src/app/Shared/Models/model';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { Visualization } from 'src/app/Shared/Models/visualization';
-import { ProjectService } from 'src/app/Shared/Services/project.service';
-import { ModelService } from 'src/app/Shared/Services/model.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
+import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,

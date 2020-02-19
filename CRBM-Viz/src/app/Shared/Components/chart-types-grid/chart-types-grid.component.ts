@@ -8,7 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
 import { UtilsService } from 'src/app/Shared/Services/utils.service';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { User } from 'src/app/Shared/Models/user';

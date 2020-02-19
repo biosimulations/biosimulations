@@ -8,16 +8,16 @@ import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { SimulationResultsFormat } from 'src/app/Shared/Enums/simulation-results-format';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { UserService } from 'src/app/Shared/Services/user.service';
-import { ProjectService } from 'src/app/Shared/Services/project.service';
-import { ModelService } from 'src/app/Shared/Services/model.service';
-import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
-import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
+import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
+import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
 import { Observable } from 'rxjs';
 import { Model } from 'src/app/Shared/Models/model';
 import { Project } from 'src/app/Shared/Models/project';

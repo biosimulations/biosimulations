@@ -28,8 +28,8 @@ import { Simulation } from 'src/app/Shared/Models/simulation';
 import { Simulator } from 'src/app/Shared/Models/simulator';
 import { Taxon } from 'src/app/Shared/Models/taxon';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
-import { ModelService } from 'src/app/Shared/Services/model.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,

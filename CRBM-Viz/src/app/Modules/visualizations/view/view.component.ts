@@ -10,7 +10,7 @@ import { AccessLevel } from 'src/app/Shared/Enums/access-level';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { Visualization } from 'src/app/Shared/Models/visualization';
-import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
@@ -22,11 +22,11 @@ import {
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { Model } from 'src/app/Shared/Models/model';
-import { ModelService } from 'src/app/Shared/Services/model.service';
-import { ProjectService } from 'src/app/Shared/Services/project.service';
-import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
+import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
+import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
 import { shareReplay } from 'rxjs/operators';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { Project } from 'src/app/Shared/Models/project';

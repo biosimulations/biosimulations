@@ -35,9 +35,9 @@ import { Visualization } from 'src/app/Shared/Models/visualization';
 import { VisualizationDataField } from 'src/app/Shared/Models/visualization-data-field';
 import { VisualizationLayoutElement } from 'src/app/Shared/Models/visualization-layout-element';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
-import { ModelService } from 'src/app/Shared/Services/model.service';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
+import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,

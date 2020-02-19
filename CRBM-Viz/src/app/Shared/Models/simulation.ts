@@ -19,11 +19,11 @@ import { Taxon } from './taxon';
 import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { User } from './user';
 import { Visualization } from './visualization';
-import { ProjectService } from '../Services/project.service';
+import { ProjectService } from '../Services/Resources/project.service';
 import { UtilsService } from '../Services/utils.service';
-import { ChartTypeService } from '../Services/chart-type.service';
-import { VisualizationService } from '../Services/visualization.service';
-import { ModelService } from '../Services/model.service';
+import { ChartTypeService } from '../Services/Resources/chart-type.service';
+import { VisualizationService } from '../Services/Resources/visualization.service';
+import { ModelService } from '../Services/Resources/model.service';
 import { UserService } from '../Services/user.service';
 import { Observable } from 'rxjs';
 

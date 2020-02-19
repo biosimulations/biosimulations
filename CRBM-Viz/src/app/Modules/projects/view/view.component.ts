@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { ProjectService } from 'src/app/Shared/Services/project.service';
+import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
 import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
 import {
   OkCancelDialogComponent,
@@ -16,11 +16,11 @@ import {
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { User } from 'src/app/Shared/Models/user';
-import { ModelService } from 'src/app/Shared/Services/model.service';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
 import { Model } from 'src/app/Shared/Models/model';
-import { SimulationService } from 'src/app/Shared/Services/simulation.service';
-import { ChartTypeService } from 'src/app/Shared/Services/chart-type.service';
-import { VisualizationService } from 'src/app/Shared/Services/visualization.service';
+import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
+import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
+import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
 
 @Component({
   templateUrl: './view.component.html',
