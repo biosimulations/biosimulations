@@ -20,7 +20,10 @@ export class AuthInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (req.url.startsWith(environment.crbm.CRBMAPI_URL)) {
+    if (
+      req.url.startsWith(environment.crbm.CRBMAPI_URL) &&
+      this.auth.loggedIn
+    ) {
       return this.auth.getTokenSilently$().pipe(
         mergeMap(token => {
           const tokenReq = req.clone({
