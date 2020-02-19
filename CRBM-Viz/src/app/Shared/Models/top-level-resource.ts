@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
 import { UserService } from '../Services/user.service';
 
-export class TopLevelResource {
+export abstract class TopLevelResource {
   id?: string;
   name?: string;
   image?: File | RemoteFile;
@@ -29,12 +29,10 @@ export class TopLevelResource {
   userService: UserService;
   owner$: Observable<User>;
 
-  getIcon(): object {
-    return {};
-  }
-  getRoute(): (string | number)[] {
-    return ['/'];
-  }
+  abstract getIcon(): object;
+
+  abstract getRoute(): (string | number)[];
+  // TODO make this return an observable
   getAuthors(): (User | Person)[] {
     if (this.authors && this.authors.length) {
       return this.authors;

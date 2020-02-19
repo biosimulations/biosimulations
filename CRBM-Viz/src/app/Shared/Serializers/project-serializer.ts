@@ -4,11 +4,10 @@ import { ProjectProduct } from '../Models/project-product';
 
 export class ProjectSerializer extends Serializer<Project> {
   constructor() {
-    super();
+    super(Project);
   }
   fromJson(json: any): Project {
-    const res = super.fromJson(json);
-    const proj = Object.assign(new Project(), res);
+    const proj = super.fromJson(json);
     proj.products = [];
     json.products.forEach(product => {
       const prod = new ProjectProduct();

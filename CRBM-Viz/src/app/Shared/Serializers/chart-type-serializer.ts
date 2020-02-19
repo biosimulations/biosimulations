@@ -3,11 +3,10 @@ import { Serializer } from './serializer';
 
 export class ChartTypeSerializer extends Serializer<ChartType> {
   constructor() {
-    super();
+    super(ChartType);
   }
   fromJson(json: any): ChartType {
-    const res = super.fromJson(json);
-    const chart = Object.assign(new ChartType(), res);
+    const chart = super.fromJson(json);
     return chart;
   }
   toJson(chart: ChartType): any {

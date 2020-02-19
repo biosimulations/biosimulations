@@ -9,11 +9,13 @@ import { of } from 'rxjs';
 
 export class Serializer<T extends TopLevelResource> {
   userSerializer: UserSerializer;
-  constructor() {
+  type: new () => T;
+  constructor(type: new () => T) {
     this.userSerializer = new UserSerializer();
+    this.type = type;
   }
   fromJson(json: any): T {
-    const topLevelResource = new TopLevelResource();
+    const topLevelResource = new this.type();
     topLevelResource.id = json.id;
     // Simple, one to one corresponding feilds
     topLevelResource.id = json.id;

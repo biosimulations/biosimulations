@@ -11,12 +11,10 @@ import { Serializer } from './serializer';
 
 export class ModelSerializer extends Serializer<Model> {
   constructor() {
-    super();
+    super(Model);
   }
   fromJson(json: any): Model {
-    const res = super.fromJson(json);
-    const newmodel = new Model();
-    const model = Object.assign(newmodel, res);
+    const model = super.fromJson(json);
     model.file = new RemoteFile('Model XML', 'xml', json.file, null);
     // Nested fields
     if (json.taxon) {

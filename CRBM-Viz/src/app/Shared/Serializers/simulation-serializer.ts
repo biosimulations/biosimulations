@@ -11,13 +11,11 @@ import { ModelSerializer } from './model-serializer';
 export class SimulationSerializer extends Serializer<Simulation> {
   modelSerializer: ModelSerializer;
   constructor() {
-    super();
+    super(Simulation);
     this.modelSerializer = new ModelSerializer();
   }
   fromJson(json: any): Simulation {
-    const res = super.fromJson(json);
-    let simulation = new Simulation();
-    simulation = Object.assign(simulation, res);
+    const simulation = super.fromJson(json);
     simulation.MODEL = json.model;
     // Model if embedded
     if (typeof json.model === 'string') {
