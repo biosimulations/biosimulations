@@ -36,14 +36,13 @@ export class UserService {
     );
   }
 
-  set(user: User, userName: string, id: string): void {
+  set(user: User, userName: string, id: string): Observable<User> {
     user.userId = id;
-    this.http
+    return this.http
       .put<User>(
         this.endpoint + '/users/' + userName,
         this.serializer.toJson(user)
       )
-      .pipe(map(data => this.serializer.fromJson(data)))
-      .subscribe(res => console.log(res));
+      .pipe(map(data => this.serializer.fromJson(data)));
   }
 }
