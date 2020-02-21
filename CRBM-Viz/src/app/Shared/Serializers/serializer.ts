@@ -5,7 +5,6 @@ import { Person } from '../Models/person';
 import { JournalReference } from '../Models/journal-reference';
 import { TopLevelResource } from '../Models/top-level-resource';
 import { UserSerializer } from '../Models/user';
-import { of } from 'rxjs';
 
 export class Serializer<T extends TopLevelResource> {
   userSerializer: UserSerializer;
@@ -79,5 +78,8 @@ export class Serializer<T extends TopLevelResource> {
     const resource = topLevelResource as T;
     return resource;
   }
-  toJson(resource: TopLevelResource): any {}
+  toJson(resource: TopLevelResource): any {
+    const json = {};
+    return json;
+  }
 }

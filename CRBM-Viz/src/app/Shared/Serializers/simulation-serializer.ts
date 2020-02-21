@@ -56,8 +56,8 @@ export class SimulationSerializer extends Serializer<Simulation> {
     }
     return simulation;
   }
-
-  toJson(obj: any): any {
-    return super.toJson(obj);
+  toJson(simulation: Simulation): any {
+    let json = super.toJson(simulation);
+    return json;
   }
 }

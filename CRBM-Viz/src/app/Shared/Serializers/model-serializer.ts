@@ -1,12 +1,9 @@
 import { Model } from '../Models/model';
 import { RemoteFile } from '../Models/remote-file';
-import { License } from '../Enums/license';
-import { AccessLevel } from '../Enums/access-level';
 import { Taxon } from '../Models/taxon';
 import { Format } from '../Models/format';
 import { OntologyTerm } from '../Models/ontology-term';
-import { Person } from '../Models/person';
-import { JournalReference } from '../Models/journal-reference';
+
 import { Serializer } from './serializer';
 
 export class ModelSerializer extends Serializer<Model> {
@@ -44,5 +41,8 @@ export class ModelSerializer extends Serializer<Model> {
 
     return model;
   }
-  toJson(model: Model): any {}
+  toJson(model: Model): any {
+    let json = super.toJson(model);
+    return json;
+  }
 }

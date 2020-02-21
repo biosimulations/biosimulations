@@ -9,7 +9,8 @@ export class VisualizationSerializer extends Serializer<Visualization> {
     const visualization = super.fromJson(json);
     return visualization;
   }
-  toJson(obj: Visualization): any {
-    return super.toJson(obj);
+  toJson(visualization: Visualization): any {
+    let json = super.toJson(visualization);
+    return json;
   }
 }
