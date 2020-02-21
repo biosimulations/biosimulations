@@ -177,17 +177,30 @@ export class AuthService {
       userProfile['https://www.biosimulations.org:app_metadata']['username'];
     user.firstName = userProfile.given_name;
     user.lastName = userProfile.family_name;
+    // TODO add welcome messages, redirects to profiles
     this.http
       .post(environment.crbm.CRBMAPI_URL + '/users', serializer.toJson(user))
-      .subscribe(res => {
-        if (!environment.production) {
-          console.log(userProfile);
-          console.log(
-            'Called confirmed user exists endpoint for user' + userProfile.sub
-          );
-          console.log('got username' + res);
+      .subscribe(
+        res => {
+          if (!environment.production) {
+            console.log(userProfile);
+            console.log(
+              'Called confirmed user exists endpoint for user' + userProfile.sub
+            );
+            console.log('got username' + res);
+          }
+        },
+        err => {
+          if (!environment.production) {
+            console.log(
+              'Called confirmed user exists endpoint for user' + userProfile.sub
+            );
+            if (err.code === 409) {
+              console.log('got' + err);
+            }
+          }
         }
-      });
+      );
   }
 
   logout() {
