@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -25,13 +25,20 @@ export class AuthInterceptorService implements HttpInterceptor {
       this.auth.loggedIn
     ) {
       return this.auth.getTokenSilently$().pipe(
-        mergeMap(token => {
-          const tokenReq = req.clone({
-            setHeaders: { Authorization: `Bearer ${token}` },
-          });
-          return next.handle(tokenReq);
+        // If there are any errors with authentication, try to proceed unauthenticated
+        catchError(err => {
+          return of(null);
         }),
-        catchError(err => next.handle(req))
+        mergeMap(token => {
+          if (!!token) {
+            const tokenReq = req.clone({
+              setHeaders: { Authorization: `Bearer ${token}` },
+            });
+            return next.handle(tokenReq);
+          } else {
+            return next.handle(req);
+          }
+        })
       );
     } else {
       return next.handle(req);
