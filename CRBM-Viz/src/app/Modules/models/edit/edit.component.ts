@@ -313,6 +313,7 @@ export class EditComponent implements OnInit {
   submit() {
     const data: Model = this.formGroup.value as Model;
     data.id = this.id;
+
     const model: Observable<Model> = this.modelService.update(data);
     model.pipe(
       pluck('id'),
@@ -327,6 +328,7 @@ export class EditComponent implements OnInit {
         }, 2500);
       })
     );
+    model.subscribe();
   }
 
   openDeleteDialog(): void {
