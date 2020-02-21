@@ -42,7 +42,7 @@ export class ModelSerializer extends Serializer<Model> {
     return model;
   }
   toJson(model: Model): any {
-    let json = super.toJson(model);
+    const json = super.toJson(model);
     return json;
   }
 }

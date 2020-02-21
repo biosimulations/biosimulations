@@ -10,7 +10,7 @@ export class VisualizationSerializer extends Serializer<Visualization> {
     return visualization;
   }
   toJson(visualization: Visualization): any {
-    let json = super.toJson(visualization);
+    const json = super.toJson(visualization);
     return json;
   }
 }

@@ -21,7 +21,7 @@ export class ProjectSerializer extends Serializer<Project> {
     return proj;
   }
   toJson(project: Project): any {
-    let json = super.toJson(project);
+    const json = super.toJson(project);
     return json;
   }
 }

@@ -10,7 +10,7 @@ export class ChartTypeSerializer extends Serializer<ChartType> {
     return chart;
   }
   toJson(chart: ChartType): any {
-    let json = super.toJson(chart);
+    const json = super.toJson(chart);
     return json;
   }
 }
