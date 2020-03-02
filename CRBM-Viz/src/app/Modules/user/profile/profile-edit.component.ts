@@ -6,7 +6,7 @@ import {
   SimpleSnackBar,
 } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
-import { User } from 'src/app/Shared/Models/user';
+import { User, UserSerializer } from 'src/app/Shared/Models/user';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileEditComponent implements OnInit {
   formGroup: FormGroup;
+  userSerializer: UserSerializer;
 
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
@@ -32,6 +33,7 @@ export class ProfileEditComponent implements OnInit {
     private userService: UserService,
     private router: Router
   ) {
+    this.userSerializer = new UserSerializer();
     this.formGroup = this.formBuilder.group({
       userName: [''],
       firstName: [''],
@@ -79,7 +81,8 @@ export class ProfileEditComponent implements OnInit {
     const saving = this.saving();
     const username = this.auth.getUsername$();
     const userId = this.auth.getUser$().pipe();
-    const data: User = this.formGroup.value as User;
+    const data: User = this.userSerializer.fromJson(this.formGroup.value);
+    console.log(data);
 
     this.auth.getUsername$().subscribe(name => {
       this.auth
