@@ -15,13 +15,13 @@ export class ResourceService<T extends TopLevelResource> {
   ) {}
   public create(item: T): Observable<T> {
     return this.httpClient
-      .post<T>(`${this.url}/${this.endpoint}`, this.serializer.toJson(item))
+      .post(`${this.url}/${this.endpoint}`, this.serializer.toJson(item))
       .pipe(map(data => this.serializer.fromJson(data) as T));
   }
 
   public update(item: T): Observable<T> {
     return this.httpClient
-      .put<T>(
+      .put(
         `${this.url}/${this.endpoint}/${item.id}`,
         this.serializer.toJson(item)
       )
