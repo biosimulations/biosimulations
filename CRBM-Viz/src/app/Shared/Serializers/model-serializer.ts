@@ -18,7 +18,7 @@ export class ModelSerializer extends Serializer<Model> {
     model.file = new RemoteFile(
       'Model',
       json.file,
-      model.OWNER,
+      model.ownerId,
       model.access === AccessLevel.private,
       'xml',
       environment.crbm.CRBMAPI_URL + '/files/' + json.file + '/download'

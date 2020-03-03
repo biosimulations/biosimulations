@@ -83,7 +83,7 @@ export class ViewComponent implements OnInit {
             .read(this.simulation.MODEL)
             .pipe(shareReplay(1));
           this.owner = this.userService
-            .get$(this.simulation.OWNER)
+            .get$(this.simulation.ownerId)
             .pipe(shareReplay(1));
           this.parameterChanges = this.simulation.modelParameterChanges.concat(
             this.simulation.algorithmParameterChanges

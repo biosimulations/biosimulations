@@ -174,7 +174,7 @@ function setFormatter(params) {
 // TODO Make this async capable
 function ownerGetter(params): string {
   const visualization = params.data;
-  return visualization.OWNER;
+  return visualization.ownerId;
 }
 
 function capitalizeFormatter(params): string {

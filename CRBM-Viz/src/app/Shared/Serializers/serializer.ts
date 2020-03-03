@@ -30,10 +30,10 @@ export class Serializer<T extends TopLevelResource> {
     topLevelResource.identifiers = [];
     // Owner if embedded
     if (typeof json.owner === 'string') {
-      topLevelResource.OWNER = json.owner;
+      topLevelResource.ownerId = json.owner;
     } else if (typeof json.owner === 'object' && json.owner !== null) {
       topLevelResource.owner = this.userSerializer.fromJson(json.owner);
-      topLevelResource.OWNER = topLevelResource.owner.userName;
+      topLevelResource.ownerId = topLevelResource.owner.userName;
     }
     if (json.private) {
       // Boolean
@@ -71,7 +71,7 @@ export class Serializer<T extends TopLevelResource> {
     topLevelResource.image = new RemoteFile(
       (json.name as string) + ' Thumbnail',
       json.image,
-      topLevelResource.OWNER,
+      topLevelResource.ownerId,
       topLevelResource.access === AccessLevel.private,
       'xml',
       environment.crbm.CRBMAPI_URL + '/files/' + json.image + '/download'

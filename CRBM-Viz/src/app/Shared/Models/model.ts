@@ -41,7 +41,7 @@ export class Model extends TopLevelResource {
       if (this.owner) {
         return of(this.owner);
       } else {
-        const user = this.userservice.get$(this.OWNER);
+        const user = this.userservice.get$(this.ownerId);
         user.pipe(tap(owner => (this.owner = owner)));
         return user;
       }
@@ -74,7 +74,7 @@ export class Model extends TopLevelResource {
       });
       return people;
     } else {
-      return [new Person(this.OWNER)];
+      return [new Person(this.ownerId)];
     }
   }
 

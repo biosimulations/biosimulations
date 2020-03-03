@@ -79,7 +79,7 @@ export class ViewComponent implements OnInit {
 
         this.project = project;
 
-        this.owner = this.userService.get$(project.OWNER);
+        this.owner = this.userService.get$(project.ownerId);
 
         const crumbs: object[] = [
           { label: 'Projects', route: '/projects' },

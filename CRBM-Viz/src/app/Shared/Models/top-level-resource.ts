@@ -20,7 +20,7 @@ export abstract class TopLevelResource {
   refs?: JournalReference[];
   authors?: (User | Person)[];
   owner?: User;
-  OWNER?: string;
+  ownerId?: string;
   access?: AccessLevel;
   accessToken?: string;
   license?: License;
@@ -45,7 +45,7 @@ export abstract class TopLevelResource {
       if (this.owner) {
         return of(this.owner);
       } else {
-        this.owner$ = this.userService.get$(this.OWNER).pipe(
+        this.owner$ = this.userService.get$(this.ownerId).pipe(
           shareReplay(1),
           tap(owner => (this.owner = owner))
         );
