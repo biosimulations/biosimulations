@@ -23,10 +23,12 @@ export class MetadataService {
     }
 
     if (id || name) {
-      return list.filter(item =>
-        (id === undefined || item['id'].toLowerCase().includes(lowCaseName)) ||
-        (name === undefined || item['name'].toLowerCase().includes(lowCaseName))
-      ) ;
+      return list.filter(
+        item =>
+          id === undefined ||
+          item['id'].toLowerCase().includes(lowCaseName) ||
+          name === undefined || item['name'].toLowerCase().includes(lowCaseName)
+      );
     } else {
       return list;
     }
@@ -51,8 +53,15 @@ export class MetadataService {
     return this.filter(list, undefined, name) as Algorithm[];
   }
 
-  getAlgorithmParameters(algorithm: Algorithm, value?: string): AlgorithmParameter[] {
-    return this.filter(algorithm.parameters, value, value) as AlgorithmParameter[];
+  getAlgorithmParameters(
+    algorithm: Algorithm,
+    value?: string
+  ): AlgorithmParameter[] {
+    return this.filter(
+      algorithm.parameters,
+      value,
+      value
+    ) as AlgorithmParameter[];
   }
 
   getSimulators(name?: string): Simulator[] {
@@ -70,6 +79,7 @@ export class MetadataService {
       new Taxon(2, 'Bacillus subtilis'),
       new Taxon(1, 'Escherichia coli'),
       new Taxon(9606, 'Homo sapiens'),
+      new Taxon(457483, 'Test Organism'),
     ];
     return this.filter(list, undefined, name) as Taxon[];
   }
