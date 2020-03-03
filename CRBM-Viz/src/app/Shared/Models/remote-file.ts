@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+
 export class RemoteFile {
   constructor(
     name?: string,
@@ -26,4 +28,33 @@ export class RemoteFile {
   url?: string;
   size?: number; // size in bytes
   metadata: any; // other metadata stored in the file
+
+  static fromFile(
+    file: File,
+    id: string,
+    owner: string,
+    isPrivate?: boolean,
+    metadata?: any,
+    baseUrl?: string,
+    postUrl?: string
+  ) {
+    if (baseUrl === null) {
+      baseUrl = environment.crbm.CRBMAPI_URL;
+    }
+    if (postUrl === null) {
+      postUrl = '/download';
+    }
+    const url = baseUrl + '/' + id + postUrl;
+    const remoteFile = new RemoteFile(
+      file.name,
+      id,
+      owner,
+      isPrivate,
+      file.type,
+      url,
+      file.size,
+      metadata
+    );
+    return RemoteFile;
+  }
 }
