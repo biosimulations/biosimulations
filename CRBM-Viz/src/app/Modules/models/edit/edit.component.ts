@@ -60,6 +60,7 @@ export class EditComponent implements OnInit {
       name: [''],
       file: [''],
       image: [''],
+      imageencoded: [''],
       description: [''],
       taxon: [''],
       tags: this.formBuilder.array([]),
@@ -88,116 +89,119 @@ export class EditComponent implements OnInit {
           this.model = model;
           this.model.userservice = this.userService;
 
-          // setup bread crumbs and buttons
-          const crumbs: object[] = [{ label: 'Models', route: ['/models'] }];
-          if (this.id) {
-            crumbs.push({
-              label: 'Model ' + this.id,
-              route: ['/models', this.id],
-            });
-            crumbs.push({
-              label: 'Edit',
-            });
-          } else {
-            crumbs.push({
-              label: 'New',
-            });
-          }
-
-          const buttons: NavItem[] = [
-            {
-              iconType: 'mat',
-              icon: 'timeline',
-              label: 'Simulate',
-              route: ['/simulations', 'new', this.id],
-              display: this.id
-                ? NavItemDisplayLevel.always
-                : NavItemDisplayLevel.never,
-            },
-            {
-              iconType: 'fas',
-              icon: 'bars',
-              label: 'View',
-              route: ['/models', this.id],
-              display: this.id
-                ? NavItemDisplayLevel.always
-                : NavItemDisplayLevel.never,
-            },
-            {
-              iconType: 'fas',
-              icon: 'trash-alt',
-              label: 'Delete',
-              click: () => {
-                this.openDeleteDialog();
-              },
-              display:
-                this.id &&
-                this.model &&
-                this.model.access === AccessLevel.public
-                  ? NavItemDisplayLevel.never
-                  : NavItemDisplayLevel.user,
-              displayUser: !!this.model ? this.model.owner : null,
-            },
-            {
-              iconType: 'fas',
-              icon: 'plus',
-              label: 'New',
-              route: ['/models', 'new'],
-              display: this.id
-                ? NavItemDisplayLevel.always
-                : NavItemDisplayLevel.never,
-            },
-            {
-              iconType: 'fas',
-              icon: 'user',
-              label: 'Your models',
-              route: ['/user', 'models'],
-              display: NavItemDisplayLevel.loggedIn,
-            },
-            {
-              iconType: 'fas',
-              icon: 'list',
-              label: 'Browse',
-              route: ['/models'],
-              display: NavItemDisplayLevel.always,
-            },
-          ];
-
-          this.breadCrumbsService.set(crumbs, buttons);
-
           // setup form
-          if (this.id) {
-            this.getFormArray('tags').clear();
-            this.getFormArray('authors').clear();
-            this.getFormArray('identifiers').clear();
-            this.getFormArray('refs').clear();
-
-            this.formGroup.get('file').validator = null;
-            for (const tag of this.model.tags) {
-              this.addTagFormElement();
-            }
-            for (const author of this.model.authors) {
-              this.addAuthorFormElement();
-            }
-            for (const identifiers of this.model.identifiers) {
-              this.addIdentifierFormElement();
-            }
-            for (const ref of this.model.refs) {
-              this.addRefFormElement();
-            }
-            this.formGroup.patchValue(this.model);
-          } else {
-            this.formGroup.get('file').validator = Validators.required;
-            for (let i = 0; i < 3; i++) {
-              // this.addTagFormElement();
-              this.addAuthorFormElement();
-              this.addIdentifierFormElement();
-              this.addRefFormElement();
-            }
-          }
+          this.setUpBreadCrumbs();
+          this.setupForm();
         });
       }
     });
+  }
+  private setupForm() {
+    if (this.id) {
+      this.getFormArray('tags').clear();
+      this.getFormArray('authors').clear();
+      this.getFormArray('identifiers').clear();
+      this.getFormArray('refs').clear();
+      this.formGroup.get('file').validator = null;
+      for (const tag of this.model.tags) {
+        this.addTagFormElement();
+      }
+      for (const author of this.model.authors) {
+        this.addAuthorFormElement();
+      }
+      for (const identifiers of this.model.identifiers) {
+        this.addIdentifierFormElement();
+      }
+      for (const ref of this.model.refs) {
+        this.addRefFormElement();
+      }
+      this.formGroup.patchValue(this.model);
+    } else {
+      this.formGroup.get('file').validator = Validators.required;
+      for (let i = 0; i < 3; i++) {
+        // this.addTagFormElement();
+        this.addAuthorFormElement();
+        this.addIdentifierFormElement();
+        this.addRefFormElement();
+      }
+    }
+  }
+
+  setUpBreadCrumbs() {
+    // setup bread crumbs and buttons
+    const crumbs: object[] = [{ label: 'Models', route: ['/models'] }];
+    if (this.id) {
+      crumbs.push({
+        label: 'Model ' + this.id,
+        route: ['/models', this.id],
+      });
+      crumbs.push({
+        label: 'Edit',
+      });
+    } else {
+      crumbs.push({
+        label: 'New',
+      });
+    }
+
+    const buttons: NavItem[] = [
+      {
+        iconType: 'mat',
+        icon: 'timeline',
+        label: 'Simulate',
+        route: ['/simulations', 'new', this.id],
+        display: this.id
+          ? NavItemDisplayLevel.always
+          : NavItemDisplayLevel.never,
+      },
+      {
+        iconType: 'fas',
+        icon: 'bars',
+        label: 'View',
+        route: ['/models', this.id],
+        display: this.id
+          ? NavItemDisplayLevel.always
+          : NavItemDisplayLevel.never,
+      },
+      {
+        iconType: 'fas',
+        icon: 'trash-alt',
+        label: 'Delete',
+        click: () => {
+          this.openDeleteDialog();
+        },
+        display:
+          this.id && this.model && this.model.access === AccessLevel.public
+            ? NavItemDisplayLevel.never
+            : NavItemDisplayLevel.user,
+        displayUser: !!this.model ? this.model.owner : null,
+      },
+      {
+        iconType: 'fas',
+        icon: 'plus',
+        label: 'New',
+        route: ['/models', 'new'],
+        display: this.id
+          ? NavItemDisplayLevel.always
+          : NavItemDisplayLevel.never,
+      },
+      {
+        iconType: 'fas',
+        icon: 'user',
+        label: 'Your models',
+        route: ['/user', 'models'],
+        display: NavItemDisplayLevel.loggedIn,
+      },
+      {
+        iconType: 'fas',
+        icon: 'list',
+        label: 'Browse',
+        route: ['/models'],
+        display: NavItemDisplayLevel.always,
+      },
+    ];
+
+    this.breadCrumbsService.set(crumbs, buttons);
   }
 
   getFormArray(array: string): FormArray {
@@ -214,9 +218,11 @@ export class EditComponent implements OnInit {
       file = null;
       fileName = '';
     }
+
     const value: object = {};
     value[controlName] = file;
     this.formGroup.patchValue(value);
+
     fileNameEl.innerHTML = fileName;
   }
 
@@ -311,24 +317,15 @@ export class EditComponent implements OnInit {
   }
 
   submit() {
-    const data: Model = this.formGroup.value as Model;
-    data.id = this.id;
-
-    const model: Observable<Model> = this.modelService.update(data);
-    model.pipe(
-      pluck('id'),
-      tap(id => {
-        this.snackBar.open('Model saved', '', {
-          panelClass: 'centered-snack-bar',
-          duration: 3000,
-        });
-
-        setTimeout(() => {
-          this.router.navigate(['/models', id]);
-        }, 2500);
-      })
-    );
-    model.subscribe();
+    const data = this.formGroup.value;
+    console.log(data);
+    console.log(this.model);
+    this.model = Object.assign(this.model, data);
+    this.model.id = this.id;
+    const modelSerializer = new ModelSerializer();
+    const models = modelSerializer.toJson(this.model);
+    console.log(models);
+    this.modelService.update(models).subscribe();
   }
 
   openDeleteDialog(): void {
