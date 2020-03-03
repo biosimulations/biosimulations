@@ -5,6 +5,8 @@ import { Format } from '../Models/format';
 import { OntologyTerm } from '../Models/ontology-term';
 
 import { Serializer } from './serializer';
+import { environment } from 'src/environments/environment';
+import { AccessLevel } from '../Enums/access-level';
 
 export class ModelSerializer extends Serializer<Model> {
   constructor() {
@@ -12,7 +14,16 @@ export class ModelSerializer extends Serializer<Model> {
   }
   fromJson(json: any): Model {
     const model = super.fromJson(json);
-    model.file = new RemoteFile('Model XML', 'xml', json.file, null);
+
+    model.file = new RemoteFile(
+      'Model',
+      json.file,
+      model.OWNER,
+      model.access === AccessLevel.private,
+      'xml',
+      environment.crbm.CRBMAPI_URL + '/files/' + json.file + '/download'
+    );
+
     // Nested fields
     if (json.taxon) {
       model.taxon = new Taxon(json.taxon.id, json.taxon.name);
@@ -28,7 +39,7 @@ export class ModelSerializer extends Serializer<Model> {
     }
     if (json.framework) {
       model.framework = new OntologyTerm(
-        json.framework.ontonlogy,
+        json.framework.ontology,
         json.framework.id,
         json.framework.name,
         json.framework.description,
@@ -42,7 +53,6 @@ export class ModelSerializer extends Serializer<Model> {
     return model;
   }
   toJson(model: Model): any {
-    const json = super.toJson(model);
-    return json;
+    return {};
   }
 }

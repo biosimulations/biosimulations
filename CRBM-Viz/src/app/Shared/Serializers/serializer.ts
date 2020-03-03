@@ -5,6 +5,7 @@ import { Person } from '../Models/person';
 import { JournalReference } from '../Models/journal-reference';
 import { TopLevelResource } from '../Models/top-level-resource';
 import { UserSerializer } from '../Models/user';
+import { environment } from 'src/environments/environment';
 
 export class Serializer<T extends TopLevelResource> {
   userSerializer: UserSerializer;
@@ -19,15 +20,6 @@ export class Serializer<T extends TopLevelResource> {
     // Simple, one to one corresponding feilds
     topLevelResource.id = json.id;
     topLevelResource.name = json.name;
-    const image = json.image;
-    if (image) {
-      topLevelResource.image = new RemoteFile(
-        (json.name as string) + 'Thumbnail',
-        'png',
-        image,
-        null
-      );
-    }
 
     topLevelResource.description = json.description;
     topLevelResource.accessToken = json.accessToken;
@@ -60,26 +52,35 @@ export class Serializer<T extends TopLevelResource> {
     }
     topLevelResource.refs = [];
     if (json.references) {
-      for (const refrence of json.references) {
+      for (const reference of json.references) {
         topLevelResource.refs.push(
           new JournalReference(
-            refrence.authors,
-            refrence.title,
-            refrence.journal,
-            refrence.volume,
-            refrence.number,
-            refrence.pages,
-            refrence.year,
-            refrence.doi
+            reference.authors,
+            reference.title,
+            reference.journal,
+            reference.volume,
+            reference.number,
+            reference.pages,
+            reference.year,
+            reference.doi
           )
         );
       }
     }
+
+    topLevelResource.image = new RemoteFile(
+      (json.name as string) + ' Thumbnail',
+      json.image,
+      topLevelResource.OWNER,
+      topLevelResource.access === AccessLevel.private,
+      'xml',
+      environment.crbm.CRBMAPI_URL + '/files/' + json.image + '/download'
+    );
+
     const resource = topLevelResource as T;
     return resource;
   }
   toJson(resource: TopLevelResource): any {
-    const json = {};
-    return json;
+    return {};
   }
 }
