@@ -15,6 +15,11 @@ import { Observable, of } from 'rxjs';
 
 export class UserSerializer {
   fromJson(json: any): User {
+    Object.entries(json).forEach(([key, value]) => {
+      if (value === '') {
+        json[key] = null;
+      }
+    });
     const user = new User();
     user.userId = json._id;
     user.userName = json.userName;
@@ -76,6 +81,7 @@ export class User implements PersonInterface {
   public visualizationService: VisualizationService;
   public projectService: ProjectService;
   public chartTypeService: ChartTypeService;
+
   getRoute(): (string | number)[] {
     return ['/user', this.userName];
   }
