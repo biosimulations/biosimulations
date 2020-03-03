@@ -22,7 +22,7 @@ import { ModelService } from '../Services/Resources/model.service';
 export class Project extends TopLevelResource {
   id?: string;
   name?: string;
-  image?: File | RemoteFile;
+
   description?: string;
   tags?: string[] = [];
   identifiers?: Identifier[] = [];

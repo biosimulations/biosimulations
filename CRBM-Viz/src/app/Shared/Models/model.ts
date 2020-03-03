@@ -27,7 +27,7 @@ export class Model extends TopLevelResource {
   taxon?: Taxon;
   parameters: ModelParameter[] = [];
   file?: File | RemoteFile;
-  image?: File | RemoteFile;
+
   framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
 

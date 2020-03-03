@@ -1,52 +1,36 @@
 export class JournalReference {
-  authors?: string;
-  title?: string;
-  journal?: string;
-  volume?: number | string;
-  num?: number;
-  pages?: string;
-  year?: number;
-  doi?: string;
-
   constructor(
-    authors?: string,
-    title?: string,
-    journal?: string,
-    volume?: number | string,
-    num?: number,
-    pages?: string,
-    year?: number,
-    doi?: string
-) {
-    this.authors = authors;
-    this.title = title;
-    this.journal = journal;
-    this.volume = volume;
-    this.num = num;
-    this.pages = pages;
-    this.year = year;
-    this.doi = doi;
-  }
+    public authors?: string,
+    public title?: string,
+    public journal?: string,
+    public volume?: number | string,
+    public num?: number,
+    public pages?: string,
+    public year?: number,
+    public doi?: string
+  ) {}
 
   getAuthors(): object[] {
-    return this.authors.split(/ *(?:,|;|&|and|(?:(?:,|;) *(?:&|and))) */).map(name => {
-      const names: string[] = name.split(/ +/);
-      return {
-        firstName: names[0],
-        middleNames: names.slice(1, -1),
-        lastName: names.slice(-1)[0],
-      };
-    });
+    return this.authors
+      .split(/ *(?:,|;|&|and|(?:(?:,|;) *(?:&|and))) */)
+      .map(name => {
+        const names: string[] = name.split(/ +/);
+        return {
+          firstName: names[0],
+          middleNames: names.slice(1, -1),
+          lastName: names.slice(-1)[0],
+        };
+      });
   }
 
   getAuthorsStr(): string {
     const authorStrs: string[] = this.getAuthors().map(author => {
       return (
-        author['lastName']
-        + ' '
-        + author['firstName'][0]
-        + author['middleNames'].map(name =>name[0]).join('')
-        );
+        author['lastName'] +
+        ' ' +
+        author['firstName'][0] +
+        author['middleNames'].map(name => name[0]).join('')
+      );
     });
 
     switch (authorStrs.length) {
@@ -55,7 +39,9 @@ export class JournalReference {
       case 2:
         return authorStrs.join(' & ');
       default:
-        return authorStrs.slice(0, -1).join(', ') + ' & ' + authorStrs.slice(-1)[0];
+        return (
+          authorStrs.slice(0, -1).join(', ') + ' & ' + authorStrs.slice(-1)[0]
+        );
     }
   }
 
@@ -68,7 +54,8 @@ export class JournalReference {
         authorsStr = authorsArr[0]['lastName'];
         break;
       case 2:
-        authorsStr = authorsArr[0]['lastName'] + ' and ' + authorsArr[1]['lastName'];
+        authorsStr =
+          authorsArr[0]['lastName'] + ' and ' + authorsArr[1]['lastName'];
         break;
       default:
         authorsStr = authorsArr[0]['lastName'] + ' et al.';

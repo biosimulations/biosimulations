@@ -13,7 +13,7 @@ import { UserService } from '../Services/user.service';
 export abstract class TopLevelResource {
   id?: string;
   name?: string;
-  image?: File | RemoteFile;
+  image?: RemoteFile;
   description?: string;
   tags?: string[];
   identifiers?: Identifier[];

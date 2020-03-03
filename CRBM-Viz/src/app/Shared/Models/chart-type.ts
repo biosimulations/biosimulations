@@ -24,7 +24,6 @@ export class ChartType extends TopLevelResource {
   id?: string;
   name?: string;
   spec?: object;
-  image?: File | RemoteFile;
   description?: string;
   tags?: string[] = [];
   identifiers?: Identifier[] = [];
