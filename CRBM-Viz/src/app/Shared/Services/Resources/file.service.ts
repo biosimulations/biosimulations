@@ -12,16 +12,16 @@ export class FileService {
     file: File,
     name?: string,
     type?: string,
-    id?: string,
+    isprivate?: boolean,
     owner?: string,
-    isprivate?: boolean
+    id?: string
   ): Observable<string> {
-    return of('123456');
+    return of('5e5dae15053c527deb65d33f');
   }
   public read(id: string): Observable<RemoteFile> {
     const file = new RemoteFile(
       'model.xml',
-      '12345',
+      '5e5dae15053c527deb65d33f',
       'bilalshaikh42',
       false,
       'xml',
