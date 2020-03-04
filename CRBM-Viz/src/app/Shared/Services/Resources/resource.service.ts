@@ -2,7 +2,7 @@ import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
 import { HttpClient } from '@angular/common/http';
 import { Serializer } from 'src/app/Shared/Serializers/serializer';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { QueryOptions } from 'src/app/Shared/Models/query-options';
 
@@ -32,6 +32,10 @@ export class ResourceService<T extends TopLevelResource> {
     id: string,
     queryOptions: QueryOptions = new QueryOptions()
   ): Observable<T> {
+    // TODO confirm that this is still the best approach
+    if (id === undefined) {
+      return of(this.serializer.fromJson({}) as T);
+    }
     queryOptions.embed.push('owner');
     return this.httpClient
       .get(`${this.url}/${this.endpoint}/${id}?${queryOptions.toQueryString()}`)
