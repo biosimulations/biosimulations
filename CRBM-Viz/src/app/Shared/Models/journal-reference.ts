@@ -1,4 +1,27 @@
+interface JournalReferenceSerialized {
+  authors?: string;
+  title?: string;
+  journal?: string;
+  volume?: number | string;
+  num?: number;
+  pages?: string;
+  year?: number;
+  doi?: string;
+}
 export class JournalReference {
+  serialize(): JournalReferenceSerialized {
+    const json = {
+      authors: this.authors,
+      title: this.title,
+      journal: this.journal,
+      volume: this.volume,
+      num: this.num,
+      pages: this.pages,
+      year: this.year,
+      doi: this.doi,
+    };
+    return json;
+  }
   constructor(
     public authors?: string,
     public title?: string,

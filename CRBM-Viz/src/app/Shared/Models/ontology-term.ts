@@ -1,19 +1,21 @@
 export class OntologyTerm {
-  ontology?: string;
-  id?: string;
-  name?: string;
-  description?: string;
-  iri: string;
-
-  constructor (ontology?: string, id?: string, name?: string, description?: string, iri?: string) {
-    this.ontology = ontology;
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.iri = iri;
+  constructor(
+    public ontology?: string,
+    public id?: string,
+    public name?: string,
+    public description?: string,
+    public iri?: string
+  ) {}
+  serialize() {
+    return {
+      ontology: this.ontology,
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      iri: this.iri,
+    };
   }
-
   getUrl(): string {
-    return `http://purl.bioontology.org/ontology/${ this.ontology }?conceptid=${ this.iri }`;
+    return `http://purl.bioontology.org/ontology/${this.ontology}?conceptid=${this.iri}`;
   }
 }

@@ -12,6 +12,7 @@ import { ChartTypeService } from '../Services/Resources/chart-type.service';
 import { VisualizationService } from '../Services/Resources/visualization.service';
 import * as md5 from 'md5';
 import { Observable, of } from 'rxjs';
+import { Person } from './person';
 
 export class UserSerializer {
   fromJson(json: any): User {
@@ -59,7 +60,7 @@ export class UserSerializer {
     };
   }
 }
-export class User implements PersonInterface {
+export class User extends Person {
   userId?: string | number;
   userName?: string;
   firstName?: string;

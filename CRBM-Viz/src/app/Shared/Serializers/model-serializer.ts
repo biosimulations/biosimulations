@@ -53,6 +53,11 @@ export class ModelSerializer extends Serializer<Model> {
     return model;
   }
   toJson(model: Model): any {
-    return {};
+    const json = super.toJson(model);
+    json['format'] = model?.format?.serialize();
+    json['taxon'] = model?.taxon?.serialize();
+    json['file'] = model.file?.id;
+    json['framework'] = model.framework?.serialize();
+    return json;
   }
 }

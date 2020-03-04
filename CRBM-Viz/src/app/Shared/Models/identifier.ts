@@ -1,14 +1,15 @@
+interface IdentifierSerialized {
+  namespace: string;
+  id: string;
+}
 export class Identifier {
-  namespace?: string;
-  id?: string;
+  constructor(public namespace: string, public id: string) {}
 
-  constructor(namespace?: string, id?: string) {
-    this.namespace = namespace;
-    this.id = id;
+  serialize(): IdentifierSerialized {
+    return { namespace: this.namespace, id: this.id };
   }
-
   getUrl(): string {
-    return `https://identifiers.org/${ this.namespace }:${ this.id }`;
+    return `https://identifiers.org/${this.namespace}:${this.id}`;
   }
 
   getNamespaceName(): string {

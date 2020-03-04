@@ -6,6 +6,7 @@ import { JournalReference } from '../Models/journal-reference';
 import { TopLevelResource } from '../Models/top-level-resource';
 import { UserSerializer } from '../Models/user';
 import { environment } from 'src/environments/environment';
+import { Identifier } from '../Models/identifier';
 
 export class Serializer<T extends TopLevelResource> {
   userSerializer: UserSerializer;
@@ -28,6 +29,11 @@ export class Serializer<T extends TopLevelResource> {
     topLevelResource.updated = new Date(Date.parse(json.updated));
     topLevelResource.license = json.license as License;
     topLevelResource.identifiers = [];
+    for (const identifier of json?.identifiers) {
+      topLevelResource.identifiers.push(
+        new Identifier(identifier.namespace, identifier.id)
+      );
+    }
     // Owner if embedded
     if (typeof json.owner === 'string') {
       topLevelResource.ownerId = json.owner;
@@ -81,6 +87,36 @@ export class Serializer<T extends TopLevelResource> {
     return resource;
   }
   toJson(resource: TopLevelResource): any {
-    return {};
+    const keys = ['id', 'name', 'description', 'tags', 'accessToken'];
+    const json = {};
+    for (const key of keys) {
+      json[key] = resource[key];
+    }
+    json['owner'] = resource['ownerId'];
+    json['image'] = resource['image']?.id;
+    const identifers = [];
+    for (const identifier of resource?.identifiers) {
+      identifers.push(identifier.serialize());
+    }
+    json['identifiers'] = identifers;
+    json['references'] = [];
+    for (const reference of resource.refs) {
+      json['references'].push(reference.serialize());
+    }
+    json['authors'] = [];
+    for (const person of resource.authors) {
+      const cast = person as Person;
+      json['authors'].push(cast);
+    }
+    if (resource?.access === AccessLevel.private) {
+      json['private'] = true;
+    } else {
+      json['private'] = false;
+    }
+    json['license'] = resource?.license;
+    json['created'] = resource?.created.toISOString();
+    json['updated'] = resource?.created.toISOString();
+
+    return json;
   }
 }

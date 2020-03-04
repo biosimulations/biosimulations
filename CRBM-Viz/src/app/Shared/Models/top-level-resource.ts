@@ -12,17 +12,18 @@ import { UserService } from '../Services/user.service';
 
 export abstract class TopLevelResource {
   id?: string;
+  ownerId?: string;
+  imageId?: string;
   name?: string;
-  image?: RemoteFile;
   description?: string;
   tags?: string[];
+  accessToken?: string;
+  image?: RemoteFile;
   identifiers?: Identifier[];
   refs?: JournalReference[];
-  authors?: (User | Person)[];
+  authors?: Person[];
   owner?: User;
-  ownerId?: string;
   access?: AccessLevel;
-  accessToken?: string;
   license?: License;
   created?: Date;
   updated?: Date;

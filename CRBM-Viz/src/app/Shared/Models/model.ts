@@ -26,7 +26,7 @@ import { tap } from 'rxjs/operators';
 export class Model extends TopLevelResource {
   taxon?: Taxon;
   parameters: ModelParameter[] = [];
-  file?: File | RemoteFile;
+  file?: RemoteFile;
 
   framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
