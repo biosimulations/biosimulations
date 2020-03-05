@@ -31,10 +31,10 @@ export class ModelSerializer extends Serializer<Model> {
 
     if (json.format) {
       model.format = new Format(
-        json.format.name,
-        json.format.version,
-        json.format.edamID,
-        json.format.url
+        json?.format?.name,
+        json?.format?.version,
+        json?.format?.edamId,
+        json?.format?.url
       );
     }
     if (json.framework) {

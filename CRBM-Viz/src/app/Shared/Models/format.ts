@@ -1,11 +1,21 @@
+export interface FormatSerialized {
+  name: string;
+  version: string;
+  edamId: number;
+  url: string;
+}
 export class Format {
   constructor(
-    public name?: string,
-    public version?: string,
-    public edamId?: number,
-    public url?: string
-  ) {}
-  serialize(): any {
+    public name: string = null,
+    public version: string = null,
+    public edamId: number = null,
+    public url: string = null
+  ) {
+    if (!url && edamId) {
+      this.url = this.getEdamUrl();
+    }
+  }
+  serialize(): FormatSerialized {
     return {
       name: this.name,
       version: this.version,
