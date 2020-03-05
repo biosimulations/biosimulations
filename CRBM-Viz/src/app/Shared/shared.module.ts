@@ -142,6 +142,7 @@ import { RouterLinkComponent } from './Components/router-link/router-link.compon
 import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
+import { ModelFormatFormComponent } from './Forms/model-format-form/model-format-form.component';
 
 @NgModule({
   declarations: [
@@ -183,6 +184,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     OkCancelDialogComponent,
     FeedbackComponent,
     VegaViewerComponent,
+    ModelFormatFormComponent,
   ],
   imports: [
     CommonModule,
@@ -206,7 +208,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
     FilterPipe,
     FormatTimeForHumansPipe,
     ScientificNotationPipe,
-
+    ModelFormatFormComponent,
     UserMenuComponent,
     LogoComponent,
     NavigationComponent,
