@@ -4,7 +4,7 @@ import { AlgorithmParameter } from 'src/app/Shared/Models/algorithm-parameter';
 import { Simulator } from 'src/app/Shared/Models/simulator';
 import { Taxon } from 'src/app/Shared/Models/taxon';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,8 @@ export class MetadataService {
         item =>
           id === undefined ||
           item['id'].toLowerCase().includes(lowCaseName) ||
-          name === undefined || item['name'].toLowerCase().includes(lowCaseName)
+          name === undefined ||
+          item['name'].toLowerCase().includes(lowCaseName)
       );
     } else {
       return list;
@@ -82,5 +83,19 @@ export class MetadataService {
       new Taxon(457483, 'Test Organism'),
     ];
     return this.filter(list, undefined, name) as Taxon[];
+  }
+  getTaxa$(query?: string): Observable<Taxon[]> {
+    const list: Taxon[] = [
+      new Taxon(2, 'Bacillus subtilis'),
+      new Taxon(1, 'Escherichia coli'),
+      new Taxon(9606, 'Homo sapiens'),
+      new Taxon(457483, 'Test Organism'),
+    ];
+
+    return of(
+      list.filter(value =>
+        value.name.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   }
 }
