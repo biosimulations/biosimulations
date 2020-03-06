@@ -5,6 +5,7 @@ import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
 import { BrowseComponent } from './browse/browse.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
+import { EditModelsComponent } from './edit-models/edit-models.component';
 
 const routes: Routes = [
   {
@@ -13,13 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: EditComponent,
+    component: EditModelsComponent,
     canActivate: [AuthGuard],
   },
   { path: ':id', component: ViewComponent },
   {
     path: ':id/edit',
-    component: EditComponent,
+    component: EditModelsComponent,
     canActivate: [AuthGuard],
   },
 ];

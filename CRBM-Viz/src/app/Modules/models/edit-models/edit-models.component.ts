@@ -1,78 +1,64 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
+import { pluck, map, switchMap, tap, startWith } from 'rxjs/operators';
+import { Observable, of, forkJoin } from 'rxjs';
+import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { OkCancelDialogComponent } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import {
   FormBuilder,
   FormGroup,
   FormArray,
-  FormControl,
   AbstractControl,
   Validators,
 } from '@angular/forms';
-import { Observable, of, forkJoin } from 'rxjs';
-import { map, startWith, pluck, tap } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
-import { License, licenses } from 'src/app/Shared/Enums/license';
-import { Model } from 'src/app/Shared/Models/model';
-import { Taxon } from 'src/app/Shared/Models/taxon';
-import { MetadataService } from 'src/app/Shared/Services/metadata.service';
-import {
-  OkCancelDialogComponent,
-  OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { UserService } from 'src/app/Shared/Services/user.service';
 import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { RemoteFile } from 'src/app/Shared/Models/remote-file';
+import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
 import { FileService } from 'src/app/Shared/Services/Resources/file.service';
-
+import { Taxon } from 'src/app/Shared/Models/taxon';
+import { licenses } from 'src/app/Shared/Enums/license';
+import { ENTER } from '@angular/cdk/keycodes';
+import { MetadataService } from 'src/app/Shared/Services/metadata.service';
+import { ModelFormatFormComponent } from 'src/app/Shared/Forms/model-format-form/model-format-form.component';
 @Component({
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.sass'],
+  selector: 'app-edit-models',
+  templateUrl: './edit-models.component.html',
+  styleUrls: ['./edit-models.component.sass'],
 })
-export class EditComponent implements OnInit {
+export class EditModelsComponent implements OnInit {
+  formGroup: FormGroup;
   taxa: Observable<Taxon[]>;
   accessLevels = accessLevels;
   licenses = licenses;
   readonly chipSeparatorKeyCodes: number[] = [ENTER];
-
-  id: string;
-  model: Model;
-  formGroup: FormGroup;
-
+  data: any;
+  model: any;
+  id: any;
+  fileFormGroup: FormGroup;
   constructor(
-    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    private formBuilder: FormBuilder,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute,
-    private metadataService: MetadataService,
     private modelService: ModelService,
-    private userService: UserService,
-    private fileService: FileService
-  ) {}
-
-  ngOnInit() {
-    this.taxa = this.formGroup.get('taxon').valueChanges.pipe(
-      startWith(''),
-      map(value =>
-        value === null || typeof value === 'string' ? value : value.name
-      ),
-      map(value => this.metadataService.getTaxa(value))
-    );
+    private route: ActivatedRoute,
+    private breadcrumbs: BreadCrumbsService,
+    private dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private fileService: FileService,
+    private metadataService: MetadataService
+  ) {
+    this.fileFormGroup = this.formBuilder.group({
+      modelFile: [''],
+      imageFile: [''],
+    });
     this.formGroup = this.formBuilder.group({
-      name: [''],
-      identifier: [''],
+      id: [''],
+      ownerId: [''],
+      format: [],
       file: [''],
       image: [''],
+      name: [''],
       description: [''],
       taxon: [''],
       tags: this.formBuilder.array([]),
@@ -82,128 +68,61 @@ export class EditComponent implements OnInit {
       access: [''],
       license: [''],
     });
-
-    this.route.params.subscribe(params => {
-      this.id = params.id;
-
-      if (this.id) {
-        this.modelService.read(this.id).subscribe(model => {
-          this.model = model;
-          this.model.userservice = this.userService;
-          this.setUpBreadCrumbs();
-          this.setupForm();
-        });
-      }
-    });
   }
-  private setupForm() {
-    if (this.id) {
+
+  ngOnInit(): void {
+    this.taxa = this.formGroup.get('taxon').valueChanges.pipe(
+      startWith(''),
+      map(value =>
+        value === null || typeof value === 'string' ? value : value.name
+      ),
+      map(value => this.metadataService.getTaxa(value))
+    );
+    this.formGroup.valueChanges.subscribe(val => (this.data = val));
+    this.route.params
+      .pipe(
+        pluck('id'),
+        tap(id => (this.id = id)),
+        switchMap(id => this.modelService.read(id)),
+        tap(model => (this.model = model)),
+        tap(model =>
+          this.breadcrumbs.setEditModel(model, this.openDeleteDialog)
+        )
+      )
+      .subscribe(model => this.setupForm(model));
+  }
+  private setupForm(model) {
+    if (model?.id) {
       this.getFormArray('tags').clear();
       this.getFormArray('authors').clear();
       this.getFormArray('identifiers').clear();
       this.getFormArray('refs').clear();
-      this.formGroup.get('file').validator = null;
-      for (const tag of this.model.tags) {
+
+      for (const tag of model.tags) {
         this.addTagFormElement();
       }
-      for (const author of this.model.authors) {
+      for (const author of model.authors) {
         this.addAuthorFormElement();
       }
-      for (const identifiers of this.model.identifiers) {
+      for (const identifiers of model.identifiers) {
         this.addIdentifierFormElement();
       }
-      for (const ref of this.model.refs) {
+      for (const ref of model.refs) {
         this.addRefFormElement();
       }
-      this.formGroup.patchValue(this.model);
+      console.log(model);
+      // this.formGroup.get('modelFile').patchValue(model.file.name);
+
+      this.formGroup.patchValue(model);
     } else {
-      this.formGroup.get('file').validator = Validators.required;
+      this.formGroup.get('modelFile').validator = Validators.required;
       for (let i = 0; i < 3; i++) {
-        // this.addTagFormElement();
         this.addAuthorFormElement();
         this.addIdentifierFormElement();
         this.addRefFormElement();
       }
     }
   }
-
-  setUpBreadCrumbs() {
-    // setup bread crumbs and buttons
-    const crumbs: object[] = [{ label: 'Models', route: ['/models'] }];
-    if (this.id) {
-      crumbs.push({
-        label: 'Model ' + this.id,
-        route: ['/models', this.id],
-      });
-      crumbs.push({
-        label: 'Edit',
-      });
-    } else {
-      crumbs.push({
-        label: 'New',
-      });
-    }
-
-    const buttons: NavItem[] = [
-      {
-        iconType: 'mat',
-        icon: 'timeline',
-        label: 'Simulate',
-        route: ['/simulations', 'new', this.id],
-        display: this.id
-          ? NavItemDisplayLevel.always
-          : NavItemDisplayLevel.never,
-      },
-      {
-        iconType: 'fas',
-        icon: 'bars',
-        label: 'View',
-        route: ['/models', this.id],
-        display: this.id
-          ? NavItemDisplayLevel.always
-          : NavItemDisplayLevel.never,
-      },
-      {
-        iconType: 'fas',
-        icon: 'trash-alt',
-        label: 'Delete',
-        click: () => {
-          this.openDeleteDialog();
-        },
-        display:
-          this.id && this.model && this.model.access === AccessLevel.public
-            ? NavItemDisplayLevel.never
-            : NavItemDisplayLevel.user,
-        displayUser: !!this.model ? this.model.owner : null,
-      },
-      {
-        iconType: 'fas',
-        icon: 'plus',
-        label: 'New',
-        route: ['/models', 'new'],
-        display: this.id
-          ? NavItemDisplayLevel.always
-          : NavItemDisplayLevel.never,
-      },
-      {
-        iconType: 'fas',
-        icon: 'user',
-        label: 'Your models',
-        route: ['/user', 'models'],
-        display: NavItemDisplayLevel.loggedIn,
-      },
-      {
-        iconType: 'fas',
-        icon: 'list',
-        label: 'Browse',
-        route: ['/models'],
-        display: NavItemDisplayLevel.always,
-      },
-    ];
-
-    this.breadCrumbsService.set(crumbs, buttons);
-  }
-
   getFormArray(array: string): FormArray {
     return this.formGroup.get(array) as FormArray;
   }
@@ -315,7 +234,6 @@ export class EditComponent implements OnInit {
       event.currentIndex
     );
   }
-
   submit() {
     const data = this.formGroup.value;
 
@@ -342,32 +260,35 @@ export class EditComponent implements OnInit {
     fileIds.subscribe(([imageId, modelId]) => {
       data.image = imageId;
       data.file = modelId;
-      this.model = Object.assign(this.model, data);
-      console.log(this.model);
       const modelSerializer = new ModelSerializer();
-      const models = modelSerializer.toJson(this.model);
-      console.log(models);
+      const currentModel = modelSerializer.toJson(this.model);
+      const newModel = Object.assign(currentModel, data);
+      console.log(this.model);
+      console.log(currentModel);
+      console.log(newModel);
+      this.model = modelSerializer.fromJson(newModel);
+      console.log(this.model);
+      this.modelService.update(this.model).subscribe();
     });
 
-    // this.modelService.update(models).subscribe();
+    //
   }
 
   private makeRemoteFileFromFile(file: File): Observable<string> {
     return this.fileService.create(
       file as File,
-      file.name,
-      file.type,
+      file?.name,
+      file?.type,
       this.model.access === AccessLevel.private,
       this.model.ownerId
     );
   }
-
-  openDeleteDialog(): void {
+  private openDeleteDialog(): void {
     this.dialog.open(OkCancelDialogComponent, {
       data: {
-        title: `Delete model ${this.id}?`,
+        title: `Delete model ${this.model.id}?`,
         action: () => {
-          this.modelService.delete(this.id);
+          this.modelService.delete(this.model.id);
           this.router.navigate(['/models']);
         },
       },

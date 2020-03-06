@@ -10,12 +10,14 @@ import { ModelsRoutingModule } from './models-routing.module';
 import { BrowseComponent } from './browse/browse.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
+import { EditModelsComponent } from './edit-models/edit-models.component';
 
 @NgModule({
   declarations: [
     BrowseComponent,
     EditComponent,
     ViewComponent,
+    EditModelsComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,6 @@ import { ViewComponent } from './view/view.component';
     SharedModule,
     ModelsRoutingModule,
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ModelsModule {}
