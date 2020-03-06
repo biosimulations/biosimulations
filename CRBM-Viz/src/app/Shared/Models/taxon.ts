@@ -1,6 +1,10 @@
+export interface TaxonSerialized {
+  id: number;
+  name: string;
+}
 export class Taxon {
   constructor(public id?: number, public name?: string) {}
-  serialize() {
+  serialize(): TaxonSerialized {
     return { id: this.id, name: this.name };
   }
   getShortName(): string {

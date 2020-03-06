@@ -11,6 +11,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from '../Modules/app-material.module';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 // FontAwesome for icons
 import {
@@ -103,11 +104,9 @@ import { SimulationResultsService } from './Services/simulation-results.service'
 import { ChartTypeService } from './Services/Resources/chart-type.service';
 import { VisualizationService } from './Services/Resources/visualization.service';
 import { StatsService } from './Services/stats.service';
-
 import { FilterPipe } from './Pipes/filter.pipe';
 import { FormatTimeForHumansPipe } from './Pipes/format-time-for-humans.pipe';
 import { ScientificNotationPipe } from './Pipes/scientific-notation.pipe';
-
 import { UserMenuComponent } from './Components/user-menu/user-menu.component';
 import { LogoComponent } from './Components/logo/logo.component';
 import { NavigationComponent } from './Components/navigation/navigation.component';
@@ -144,14 +143,13 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 import { ModelFormatFormComponent } from './Forms/model-format-form/model-format-form.component';
 import { FileFormComponent } from './Forms/file-form/file-form.component';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { TaxonFormComponent } from './Forms/taxon-form/taxon-form.component';
 
 @NgModule({
   declarations: [
     FilterPipe,
     FormatTimeForHumansPipe,
     ScientificNotationPipe,
-
     UserMenuComponent,
     LogoComponent,
     NavigationComponent,
@@ -188,6 +186,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     VegaViewerComponent,
     ModelFormatFormComponent,
     FileFormComponent,
+    TaxonFormComponent,
   ],
   imports: [
     CommonModule,
@@ -210,6 +209,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
   ],
   exports: [
     MaterialFileInputModule,
+    TaxonFormComponent,
     FilterPipe,
     FormatTimeForHumansPipe,
     ScientificNotationPipe,
