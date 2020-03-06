@@ -143,6 +143,8 @@ import { OkCancelDialogComponent } from './Components/ok-cancel-dialog/ok-cancel
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.component';
 import { ModelFormatFormComponent } from './Forms/model-format-form/model-format-form.component';
+import { FileFormComponent } from './Forms/file-form/file-form.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [
@@ -185,6 +187,7 @@ import { ModelFormatFormComponent } from './Forms/model-format-form/model-format
     FeedbackComponent,
     VegaViewerComponent,
     ModelFormatFormComponent,
+    FileFormComponent,
   ],
   imports: [
     CommonModule,
@@ -199,12 +202,14 @@ import { ModelFormatFormComponent } from './Forms/model-format-form/model-format
       SortToolPanelGridComponent,
     ]),
     NgPipesModule,
+    MaterialFileInputModule,
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
     NgxDnDModule,
   ],
   exports: [
+    MaterialFileInputModule,
     FilterPipe,
     FormatTimeForHumansPipe,
     ScientificNotationPipe,
@@ -241,6 +246,7 @@ import { ModelFormatFormComponent } from './Forms/model-format-form/model-format
     VegaViewerComponent,
     NgPipesModule,
     NgxDnDModule,
+    FileFormComponent,
   ],
   providers: [
     UserService,

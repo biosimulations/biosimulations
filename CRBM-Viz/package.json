@@ -44,6 +44,7 @@
     "https-proxy-agent": "^4.0.0",
     "md5": "^2.2.1",
     "ngx-logger": "^4.1.2",
+    "ngx-material-file-input": "^2.1.0",
     "ngx-pipes": "^2.6.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
