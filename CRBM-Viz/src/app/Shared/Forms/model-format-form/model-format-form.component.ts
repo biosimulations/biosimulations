@@ -70,8 +70,8 @@ export class ModelFormatFormComponent
     );
   }
 
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
@@ -96,5 +96,5 @@ export class ModelFormatFormComponent
   validate(_: FormControl) {
     return this.form.valid ? null : { model: { valid: false } };
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
