@@ -144,6 +144,7 @@ import { VegaViewerComponent } from './Components/vega-viewer/vega-viewer.compon
 import { ModelFormatFormComponent } from './Forms/model-format-form/model-format-form.component';
 import { FileFormComponent } from './Forms/file-form/file-form.component';
 import { TaxonFormComponent } from './Forms/taxon-form/taxon-form.component';
+import { ResourceFormComponent } from './Forms/resource-form/resource-form.component';
 
 @NgModule({
   declarations: [
@@ -187,6 +188,7 @@ import { TaxonFormComponent } from './Forms/taxon-form/taxon-form.component';
     ModelFormatFormComponent,
     FileFormComponent,
     TaxonFormComponent,
+    ResourceFormComponent,
   ],
   imports: [
     CommonModule,
@@ -247,6 +249,7 @@ import { TaxonFormComponent } from './Forms/taxon-form/taxon-form.component';
     NgPipesModule,
     NgxDnDModule,
     FileFormComponent,
+    ResourceFormComponent
   ],
   providers: [
     UserService,
