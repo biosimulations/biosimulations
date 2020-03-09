@@ -1,29 +1,21 @@
 <mat-form-field class="species">
   <mat-label> Species</mat-label>
-  <input
-    matInput
-    [formControl]="taxon"
-    type="text"
-    placeholder="Homo sapiens"
-    class="form-input"
-    [matAutocomplete]="taxonAutoComplete"
-  />
-</mat-form-field>
-<mat-form-field class="name">
-  <mat-label> Taxon Name</mat-label>
-  <input matInput [formControl]="name" />
-</mat-form-field>
-<mat-form-field class="id">
-  <mat-label> Taxon Id</mat-label>
-  <input matInput [formControl]="id" />
+  <input matInput [formControl]="taxonControl" type="text" placeholder="Homo sapiens" class="form-input"
+    [matAutocomplete]="taxonAutoComplete" />
 </mat-form-field>
 
-<mat-autocomplete
-  #taxonAutoComplete="matAutocomplete"
-  disableRipple="true"
-  [displayWith]="taxonDisplay"
->
+
+<mat-autocomplete #taxonAutoComplete="matAutocomplete" disableRipple="true" [displayWith]="taxonDisplay">
   <mat-option *ngFor="let taxon of taxa | async" [value]="taxon">
     {{ taxon?.name }}
   </mat-option>
 </mat-autocomplete>
+
+<mat-form-field class="name">
+  <mat-label> Taxon Name</mat-label>
+  <input matInput [formControl]="nameControl" />
+</mat-form-field>
+<mat-form-field class="id">
+  <mat-label> Taxon Id</mat-label>
+  <input matInput [formControl]="idControl" />
+</mat-form-field>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
 import { MetadataService } from '../../Services/metadata.service';
 import { startWith, map, debounceTime, switchMap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
@@ -8,28 +8,61 @@ import {
   ControlValueAccessor,
   FormBuilder,
   FormControl,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
 } from '@angular/forms';
 
 @Component({
   selector: 'app-taxon-form',
   templateUrl: './taxon-form.component.html',
   styleUrls: ['./taxon-form.component.sass'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TaxonFormComponent),
+      multi: true,
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => TaxonFormComponent),
+      multi: true,
+    },
+  ],
 })
 export class TaxonFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
-  constructor(private metadataService: MetadataService) {
+  form: FormGroup;
+  taxon: FormGroup;
+  get nameControl() {
+    return this.form.controls.name
+  }
+  get idControl() {
+    return this.form.controls.id
+  }
+  get taxonControl() {
+    return this.taxon.controls.taxon
+  }
+  constructor(private metadataService: MetadataService, private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name: [''],
+      id: ['']
+    })
+    this.taxon = this.formBuilder.group({
+      taxon: [{}]
+    })
+
     this.subscriptions.push(
-      this.taxon.valueChanges.subscribe(value => {
+      this.taxonControl.valueChanges.subscribe(value => {
         if (value === null) {
-          this.name.enable();
-          this.id.enable();
+          this.nameControl.enable();
+          this.idControl.enable();
         } else {
-          this.name.setValue(null);
-          this.id.setValue(null);
-          this.name.setValue(value?.name);
-          this.id.setValue(value?.id);
-          this.name.disable();
-          this.id.disable();
+          this.nameControl.setValue(null);
+          this.idControl.setValue(null);
+          this.nameControl.setValue(value?.name);
+          this.idControl.setValue(value?.id);
+          this.nameControl.disable();
+          this.idControl.disable();
         }
 
         this.onChange(value);
@@ -37,23 +70,18 @@ export class TaxonFormComponent
       })
     );
   }
-  name = new FormControl();
-  id = new FormControl();
-  test = new FormGroup({
-    name: this.name,
-    id: this.id,
-  });
-  taxon = new FormControl();
+
+
   taxa: Observable<Taxon[]>;
 
   get value(): TaxonSerialized {
-    return this.taxon.value;
+    return this.form.value;
   }
 
   set value(value: TaxonSerialized) {
-    this.taxon.setValue(value);
-    this.name.setValue(value?.name);
-    this.id.setValue(value?.id);
+    this.form.setValue(value);
+    this.nameControl.setValue(value?.name);
+    this.idControl.setValue(value?.id);
     this.onChange(value);
     this.onTouched();
   }
@@ -61,13 +89,13 @@ export class TaxonFormComponent
   disabled: boolean;
   subscriptions: Subscription[] = [];
 
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
   taxonDisplay(taxon: TaxonSerialized) {
     return taxon?.name;
   }
   ngOnInit(): void {
-    this.taxa = this.taxon.valueChanges.pipe(
+    this.taxa = this.taxon.controls.taxon.valueChanges.pipe(
       startWith(''),
       map(value =>
         value === null || typeof value === 'string' ? value : value.name
@@ -82,11 +110,12 @@ export class TaxonFormComponent
   writeValue(obj: any): void {
     if (obj) {
       this.value = obj;
+      this.taxonControl.setValue(obj);
     }
     if (obj == null) {
       this.taxon.reset();
-      this.name.reset();
-      this.id.reset();
+      this.nameControl.reset();
+      this.idControl.reset();
     }
 
     this.onChange();
@@ -100,5 +129,8 @@ export class TaxonFormComponent
   }
   setDisabledState?(isDisabled: boolean): void {
     this.taxon.disable();
+  }
+  validate(_: FormControl) {
+    return this.form.valid ? null : { model: { valid: false } };
   }
 }
