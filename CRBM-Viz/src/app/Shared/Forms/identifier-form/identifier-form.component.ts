@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FormControlBase } from 'src/app/Shared/Forms/FormControlBase'
 @Component({
@@ -22,9 +22,9 @@ import { FormControlBase } from 'src/app/Shared/Forms/FormControlBase'
 })
 export class IdentifierFormComponent extends FormControlBase implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     super();
-    this.form = new FormControl('')
+    this.form = new FormControl('', Validators.required)
     this.subscriptions.push(
       this.form.valueChanges.subscribe(
         value => {

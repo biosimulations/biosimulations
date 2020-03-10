@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validators } from '@angular/forms';
 import { FormControlBase } from '../FormControlBase';
 
 @Component({
@@ -23,7 +23,7 @@ export class DescriptionFormComponent extends FormControlBase implements OnInit 
 
   constructor() {
     super();
-    this.form = new FormControl('')
+    this.form = new FormControl('', Validators.required)
     this.form.valueChanges.subscribe(
       value => {
         this.onChange(value)
