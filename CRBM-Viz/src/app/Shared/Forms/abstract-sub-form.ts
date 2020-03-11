@@ -28,6 +28,8 @@ export abstract class AbstractSubForm implements OnDestroy, ControlValueAccessor
 
     abstract set value(value: any)
 
+    abstract get control(): AbstractControl
+
 
     get isDisabled(): boolean {
         return this.isDisabled

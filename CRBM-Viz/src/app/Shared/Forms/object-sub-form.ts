@@ -51,7 +51,7 @@ export abstract class ObjectSubForm extends AbstractSubForm {
 
     }
 
-    InitForm(formGroup: FormGroup) {
+    initForm(formGroup: FormGroup) {
         const formKeys = Object.keys(formGroup.controls)
         formKeys.forEach(key => this.form.addControl(key, formGroup.get(key)))
         this.form.updateValueAndValidity()
