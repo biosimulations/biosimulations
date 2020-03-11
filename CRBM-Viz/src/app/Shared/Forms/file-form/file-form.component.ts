@@ -32,7 +32,9 @@ import { RemoteFile } from '../../Models/remote-file';
 export class FileFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
   @Input()
-  placeholder = 'Select a file';
+  placeholder = 'Select a file...';
+  @Input()
+  disabledPlaceholder = 'Cannot Change File'
   @Input()
   accept = '*';
   @Input()
@@ -52,8 +54,8 @@ export class FileFormComponent
   get fileControl() {
     return this.form.controls.file;
   }
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
   writeValue(obj: any): void {
     if (obj) {
       this.value = obj;
@@ -78,15 +80,11 @@ export class FileFormComponent
     return this.form.valid ? null : { model: { valid: false } };
   }
   constructor(private formBuilder: FormBuilder) {
-    if (this.disabled) {
-      this.form = formBuilder.group({
-        file: [{ value: undefined, disabled: true }],
-      });
-    } else {
-      this.form = formBuilder.group({
-        file: [''],
-      });
-    }
+
+    this.form = formBuilder.group({
+      file: [''],
+    });
+
     this.subscriptions.push(
       // any time the inner form changes update the parent of any change
       this.form.valueChanges.subscribe(value => {
@@ -96,5 +94,12 @@ export class FileFormComponent
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.disabled) {
+      this.form.disable()
+      this.placeholder = this.disabledPlaceholder
+    } else {
+      this.form.enable()
+    }
+  }
 }
