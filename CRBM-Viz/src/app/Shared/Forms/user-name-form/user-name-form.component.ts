@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validators } from '@angular/forms';
-import { FormControlBase } from '../FormControlBase';
+import { ValueSubForm } from '../value-sub-form';
 
 @Component({
   selector: 'app-user-name-form',
@@ -19,7 +19,7 @@ import { FormControlBase } from '../FormControlBase';
     }
   ]
 })
-export class UserNameFormComponent extends FormControlBase implements OnInit {
+export class UserNameFormComponent extends ValueSubForm implements OnInit {
 
   constructor() {
     super()

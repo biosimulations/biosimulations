@@ -1,36 +1,35 @@
 import { OnDestroy } from '@angular/core';
-import { ControlValueAccessor, FormGroup, FormControl } from '@angular/forms';
+import { ControlValueAccessor, FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-export class FormControlBase implements OnDestroy, ControlValueAccessor {
+export abstract class AbstractSubForm implements OnDestroy, ControlValueAccessor {
+    /**
+     * Holds any subscriptions created in the class to allow for unsubscribing
+     * inside onDestroy method
+     *
+     * @type {Subscription[]}
+     * @memberof AbstractSubForm
+     */
     subscriptions: Subscription[] = []
-    form: FormControl
 
-    get control() {
-        return this.form
-    }
 
     /**
-     * The accessor for the value of the form. Override this in 
-     * subclasses to change or manipulate the value returned
-     * @type {string}
-     * @memberof FormControlBase
+     * The form control that will hold the input. The input from
+     * this form should be manipulated into the value property via
+     * the accessor methods in all subclasses
+     * 
+     * @type {FormControl}
+     * @memberof AbstractSubForm
      */
-    get value(): string {
-        return this.form.value
-    }
+    form: AbstractControl
 
-    /**
-     * Used to set the value. By default, takes in string and sets to string
-     * Should be overridden in subclasses with more complex data types
-     * @memberof FormControlBase
-     */
-    set value(id: string) {
-        this.form.setValue(id)
-        this.onChange(id)
-        this.onTouched()
-    }
-    get isDisabled() {
+
+    abstract get value(): any
+
+    abstract set value(value: any)
+
+
+    get isDisabled(): boolean {
         return this.isDisabled
     }
     set isDisabled(isDisabled: boolean) {
@@ -49,6 +48,8 @@ export class FormControlBase implements OnDestroy, ControlValueAccessor {
     onTouched: () => void = () => { }
     writeValue(value: any): void {
         this.value = value
+        this.onChange(value)
+        this.onTouched()
     }
     registerOnChange(fn: (_: any) => {}): void {
         this.onChange = fn

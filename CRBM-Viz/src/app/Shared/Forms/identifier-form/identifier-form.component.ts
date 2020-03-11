@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { FormControlBase } from 'src/app/Shared/Forms/FormControlBase'
+import { ValueSubForm } from 'src/app/Shared/Forms/value-sub-form'
 @Component({
   selector: 'app-identifier-form',
   templateUrl: './identifier-form.component.html',
@@ -20,22 +20,16 @@ import { FormControlBase } from 'src/app/Shared/Forms/FormControlBase'
 
   ]
 })
-export class IdentifierFormComponent extends FormControlBase implements OnInit {
+export class IdentifierFormComponent extends ValueSubForm implements OnInit {
 
   constructor() {
     super();
-    this.form = new FormControl('', Validators.required)
-    this.subscriptions.push(
-      this.form.valueChanges.subscribe(
-        value => {
-          this.onChange(value)
-          this.onTouched()
-        }
-      )
-    )
+
   }
 
   ngOnInit(): void {
+    this.form.setValidators(Validators.required)
+    this.form.updateValueAndValidity()
   }
 
 }

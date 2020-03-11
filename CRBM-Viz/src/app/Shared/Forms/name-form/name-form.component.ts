@@ -1,7 +1,7 @@
 import { Component, OnInit, forwardRef, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { FormControlBase } from '../FormControlBase';
+import { ValueSubForm } from '../value-sub-form';
 
 @Component({
   selector: 'app-name-form',
@@ -21,7 +21,7 @@ import { FormControlBase } from '../FormControlBase';
     }
   ]
 })
-export class NameFormComponent extends FormControlBase implements OnInit {
+export class NameFormComponent extends ValueSubForm implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {
     super()
