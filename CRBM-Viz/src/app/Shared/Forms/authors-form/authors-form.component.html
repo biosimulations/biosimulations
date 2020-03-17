@@ -1,0 +1,20 @@
+<ng-container [formGroup]=control *ngIf="control.controls.length>0">
+  <ng-container *ngFor="let group of control.controls; index as i">
+    <ng-container [formGroupName]=i>
+      <mat-form-field appearance="fill">
+        <mat-label> First Name</mat-label>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Middle Name</mat-label>
+        <input matInput formControlName="middleName">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Last Name</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)=this.removeControl(i)> Remove Author </button>
+    </ng-container>
+  </ng-container>
+</ng-container>
+<button mat-raised-button color="primary" (click)=this.addAuthor()> Add Author </button>

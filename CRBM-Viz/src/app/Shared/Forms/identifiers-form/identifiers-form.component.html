@@ -1,0 +1,20 @@
+<ng-container [formGroup]="control" *ngIf="control.controls.length > 0">
+  <ng-container *ngFor="let group of control.controls; index as i">
+    <ng-container [formGroupName]="i">
+      <mat-form-field appearance="fill">
+        <mat-label> Name Space</mat-label>
+        <input matInput formControlName="namespace" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Identifier</mat-label>
+        <input matInput formControlName="identifier" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="this.removeControl(i)">
+        Remove Identifier
+      </button>
+    </ng-container>
+  </ng-container>
+</ng-container>
+<button mat-raised-button color="primary" (click)="this.addIdentifier()">
+  Add Identifier
+</button>

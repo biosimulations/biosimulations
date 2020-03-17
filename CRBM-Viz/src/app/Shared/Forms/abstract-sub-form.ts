@@ -49,9 +49,14 @@ export abstract class AbstractSubForm implements OnDestroy, ControlValueAccessor
     onChange: (_: any) => void = () => { }
     onTouched: () => void = () => { }
     writeValue(value: any): void {
-        this.value = value
-        this.onChange(value)
-        this.onTouched()
+        if (value === null || value === undefined) {
+            this.form.reset()
+        }
+        else {
+            this.value = value
+            this.onChange(value)
+            this.onTouched()
+        }
     }
     registerOnChange(fn: (_: any) => {}): void {
         this.onChange = fn

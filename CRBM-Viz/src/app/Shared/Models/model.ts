@@ -60,7 +60,7 @@ export class Model extends TopLevelResource {
   getBioModelsId(): string {
     for (const id of this.identifiers) {
       if (id.namespace === 'biomodels.db') {
-        return id.id;
+        return id.identifier;
       }
     }
     return null;
