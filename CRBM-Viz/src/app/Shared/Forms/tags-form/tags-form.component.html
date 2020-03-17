@@ -1,0 +1,32 @@
+<mat-chip-list
+  #tagChipList
+  aria-label="Tag list"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="drop(control, $event)"
+  class="form-chip-input"
+>
+  <mat-chip
+    *ngFor="let tag of control.controls; let iFormArrayEl = index"
+    [selectable]="false"
+    [removable]="true"
+    (removed)="this.removeControl(iFormArrayEl)"
+    cdkDrag
+    class="form-chip"
+    disableRipple="true"
+  >
+    {{ tag.value }}
+    <mat-icon matChipRemove class="form-chip-icon">cancel</mat-icon>
+  </mat-chip>
+  <input
+    [placeholder]="
+      control.controls.length === 0
+        ? 'List of tags (e.g., wild-type, knock out, knock up)'
+        : null
+    "
+    [matChipInputFor]="tagChipList"
+    [matChipInputSeparatorKeyCodes]="chipSeparatorKeyCodes"
+    [matChipInputAddOnBlur]="false"
+    (matChipInputTokenEnd)="addTag($event)"
+  />
+</mat-chip-list>
