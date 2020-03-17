@@ -57,5 +57,13 @@ export class TagsFormComponent extends ArraySubForm implements OnInit {
     }
   }
 
+  set value(input: string[]) {
+    if (input) {
+      this.count = input.length - 1;
+      const formGroup = this.formBuilder.group(this.formBuilderInput);
+      this.initForm(this.count, formGroup);
+      this.form.patchValue(input);
+    }
+  }
   ngOnInit(): void {}
 }
