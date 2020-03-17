@@ -1,4 +1,4 @@
-interface JournalReferenceSerialized {
+export interface JournalReferenceSerialized {
   authors?: string;
   title?: string;
   journal?: string;

@@ -1,0 +1,44 @@
+<ng-container [formGroup]="control" *ngIf="control.controls.length > 0">
+  <ng-container *ngFor="let group of control.controls; index as i">
+    <ng-container [formGroupName]="i">
+      <mat-form-field appearance="fill">
+        <mat-label> Authors</mat-label>
+        <input matInput formControlName="authors" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Journal</mat-label>
+        <input matInput formControlName="journal" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Volume</mat-label>
+        <input matInput formControlName="volume" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Number</mat-label>
+        <input matInput formControlName="number" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Pages</mat-label>
+        <input matInput formControlName="pages" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> Year</mat-label>
+        <input matInput formControlName="year" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label> DOI</mat-label>
+        <input matInput formControlName="doi" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="this.removeControl(i)">
+        Remove Reference
+      </button>
+    </ng-container>
+  </ng-container>
+</ng-container>
+<button mat-raised-button color="primary" (click)="this.addRef()">
+  Add Reference
+</button>
