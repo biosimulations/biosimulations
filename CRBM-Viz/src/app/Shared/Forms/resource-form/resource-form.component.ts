@@ -1,8 +1,15 @@
 import { Component, OnInit, forwardRef, OnDestroy } from '@angular/core';
 import {
-  FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, NG_VALIDATORS
-} from '@angular/forms'
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  FormControl,
+  NG_VALIDATORS,
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ObjectSubForm } from '../object-sub-form';
 
 @Component({
   selector: 'app-resource-form',
@@ -18,64 +25,40 @@ import { Subscription } from 'rxjs';
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ResourceFormComponent),
       multi: true,
-    }]
+    },
+  ],
 })
-export class ResourceFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class ResourceFormComponent extends ObjectSubForm implements OnInit {
+  imageControl: FormControl;
 
   get value(): any {
-    return this.form.value
+    return this.form.value;
   }
   set value(value: any) {
-    this.form.setValue(value)
-    this.onChange(value)
-    this.onTouch()
+    this.form.patchValue(value);
   }
 
   constructor(private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({
-      name: [''],
-      image: [''],
-      description: [''],
-      tags: this.formBuilder.array([]),
-      authors: this.formBuilder.array([]),
-      identifiers: this.formBuilder.array([]),
-      refs: this.formBuilder.array([]),
-      access: [''],
-      license: [''],
-
-    })
-    this.subscriptions.push(this.form.valueChanges.subscribe(value => {
-      this.onChange(value);
-      this.onTouch()
-    }))
-  }
-  subscriptions: Subscription[] = []
-  form: FormGroup;
-  onTouch: any = () => { }
-  onChange: any = () => { }
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe)
-
-  }
-  writeValue(obj: any): void {
-    if (obj === null) {
-      this.form.reset()
-    }
-    else {
-      this.form.setValue(obj)
-    }
-  }
-  registerOnChange(fn: any): void {
-    this.onChange = fn
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouch = fn
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    super();
   }
 
   ngOnInit(): void {
+    const formGroup = this.formBuilder.group({
+      id: [''],
+      name: [''],
+      description: [''],
+      access: [''],
+      accessToken: [''],
+      created: [''],
+      updated: [''],
+      owner: [''],
+      license: [''],
+      tags: [''],
+      authors: [''],
+      identifiers: [''],
+      imageFile: [''],
+      refs: [''],
+    });
+    super.initForm(formGroup);
   }
-
 }

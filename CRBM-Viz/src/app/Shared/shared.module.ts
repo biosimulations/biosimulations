@@ -145,6 +145,16 @@ import { ModelFormatFormComponent } from './Forms/model-format-form/model-format
 import { FileFormComponent } from './Forms/file-form/file-form.component';
 import { TaxonFormComponent } from './Forms/taxon-form/taxon-form.component';
 import { ResourceFormComponent } from './Forms/resource-form/resource-form.component';
+import { UserNameFormComponent } from './Forms/user-name-form/user-name-form.component';
+import { IdentifierFormComponent } from './Forms/identifier-form/identifier-form.component';
+import { DescriptionFormComponent } from './Forms/description-form/description-form.component';
+import { AccessFormComponent } from './Forms/access-form/access-form.component';
+import { LicenseFormComponent } from './Forms/license-form/license-form.component';
+import { TagsFormComponent } from './Forms/tags-form/tags-form.component';
+import { AuthorsFormComponent } from './Forms/authors-form/authors-form.component';
+import { ReferencesFormComponent } from './Forms/references-form/references-form.component';
+import { NameFormComponent } from './Forms/name-form/name-form.component';
+import { IdentifiersFormComponent } from './Forms/identifiers-form/identifiers-form.component';
 
 @NgModule({
   declarations: [
@@ -189,6 +199,16 @@ import { ResourceFormComponent } from './Forms/resource-form/resource-form.compo
     FileFormComponent,
     TaxonFormComponent,
     ResourceFormComponent,
+    UserNameFormComponent,
+    IdentifierFormComponent,
+    DescriptionFormComponent,
+    AccessFormComponent,
+    LicenseFormComponent,
+    TagsFormComponent,
+    AuthorsFormComponent,
+    ReferencesFormComponent,
+    NameFormComponent,
+    IdentifiersFormComponent,
   ],
   imports: [
     CommonModule,
@@ -249,7 +269,17 @@ import { ResourceFormComponent } from './Forms/resource-form/resource-form.compo
     NgPipesModule,
     NgxDnDModule,
     FileFormComponent,
-    ResourceFormComponent
+    ResourceFormComponent,
+    UserNameFormComponent,
+    IdentifierFormComponent,
+    DescriptionFormComponent,
+    AccessFormComponent,
+    LicenseFormComponent,
+    TagsFormComponent,
+    AuthorsFormComponent,
+    ReferencesFormComponent,
+    NameFormComponent,
+    IdentifiersFormComponent,
   ],
   providers: [
     UserService,
