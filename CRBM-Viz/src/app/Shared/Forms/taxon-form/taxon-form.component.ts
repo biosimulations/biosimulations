@@ -11,6 +11,7 @@ import {
   NG_VALUE_ACCESSOR,
   NG_VALIDATORS,
 } from '@angular/forms';
+import { ObjectSubForm } from '../object-sub-form';
 
 @Component({
   selector: 'app-taxon-form',
@@ -29,27 +30,30 @@ import {
     },
   ],
 })
-export class TaxonFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor {
+export class TaxonFormComponent extends ObjectSubForm implements OnInit {
   form: FormGroup;
   taxon: FormGroup;
   get nameControl() {
-    return this.form.controls.name
+    return this.form.controls.name;
   }
   get idControl() {
-    return this.form.controls.id
+    return this.form.controls.id;
   }
   get taxonControl() {
-    return this.taxon.controls.taxon
+    return this.taxon.controls.taxon;
   }
-  constructor(private metadataService: MetadataService, private formBuilder: FormBuilder) {
+  constructor(
+    private metadataService: MetadataService,
+    private formBuilder: FormBuilder
+  ) {
+    super();
     this.form = this.formBuilder.group({
       name: [''],
-      id: ['']
-    })
+      id: [''],
+    });
     this.taxon = this.formBuilder.group({
-      taxon: [{}]
-    })
+      taxon: [{}],
+    });
 
     this.subscriptions.push(
       this.taxonControl.valueChanges.subscribe(value => {
@@ -71,7 +75,6 @@ export class TaxonFormComponent
     );
   }
 
-
   taxa: Observable<Taxon[]>;
 
   get value(): TaxonSerialized {
@@ -89,8 +92,8 @@ export class TaxonFormComponent
   disabled: boolean;
   subscriptions: Subscription[] = [];
 
-  onChange: any = () => { };
-  onTouched: any = () => { };
+  onChange: any = () => {};
+  onTouched: any = () => {};
   taxonDisplay(taxon: TaxonSerialized) {
     return taxon?.name;
   }
@@ -104,9 +107,7 @@ export class TaxonFormComponent
       switchMap(value => value)
     );
   }
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
-  }
+
   writeValue(obj: any): void {
     if (obj) {
       this.value = obj;
