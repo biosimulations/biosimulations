@@ -34,11 +34,13 @@ export class FileFormComponent
   @Input()
   placeholder = 'Select a file...';
   @Input()
-  disabledPlaceholder = 'Cannot Change File'
+  disabledPlaceholder = 'Cannot Change File';
   @Input()
   accept = '*';
   @Input()
   disabled = false;
+  @Input()
+  fileType = null;
 
   form: FormGroup;
   subscriptions: Subscription[] = [];
@@ -54,8 +56,8 @@ export class FileFormComponent
   get fileControl() {
     return this.form.controls.file;
   }
-  onChange: any = () => { };
-  onTouched: any = () => { };
+  onChange: any = () => {};
+  onTouched: any = () => {};
   writeValue(obj: any): void {
     if (obj) {
       this.value = obj;
@@ -80,7 +82,6 @@ export class FileFormComponent
     return this.form.valid ? null : { model: { valid: false } };
   }
   constructor(private formBuilder: FormBuilder) {
-
     this.form = formBuilder.group({
       file: [''],
     });
@@ -95,11 +96,11 @@ export class FileFormComponent
   }
 
   ngOnInit(): void {
-    if (!this.disabled) {
-      this.form.disable()
-      this.placeholder = this.disabledPlaceholder
+    if (this.disabled) {
+      this.form.disable();
+      this.placeholder = this.disabledPlaceholder;
     } else {
-      this.form.enable()
+      this.form.enable();
     }
   }
 }

@@ -1,7 +1,12 @@
 import { AbstractSubForm } from './abstract-sub-form';
 import { FormArray, FormGroup, AbstractControl } from '@angular/forms';
+import { Input } from '@angular/core';
 
 export class ArraySubForm extends AbstractSubForm {
+  @Input()
+  count = 1;
+  formGroup: FormGroup;
+  formBuilderInput: { [key: string]: any };
   form: FormArray;
 
   get value(): any {

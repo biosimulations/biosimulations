@@ -38,11 +38,19 @@ export class ReferencesFormComponent extends ArraySubForm implements OnInit {
     };
   }
 
-  set value(refs: JournalReferenceSerialized[]) {
-    this.form.patchValue(refs);
+  set value(input: JournalReferenceSerialized[]) {
+    if (input) {
+      this.count = input.length - 1;
+      const formGroup = this.fb.group(this.formBuilderInput);
+      this.initForm(this.count, formGroup);
+      this.form.patchValue(input);
+    }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const formGroup = this.fb.group(this.formBuilderInput);
+    this.initForm(this.count, formGroup);
+  }
 
   addRef(): void {
     const formGroup = this.fb.group(this.formBuilderInput);

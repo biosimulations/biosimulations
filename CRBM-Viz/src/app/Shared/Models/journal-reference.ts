@@ -3,7 +3,7 @@ export interface JournalReferenceSerialized {
   title?: string;
   journal?: string;
   volume?: number | string;
-  num?: number;
+  number?: number;
   pages?: string;
   year?: number;
   doi?: string;
@@ -15,7 +15,7 @@ export class JournalReference {
       title: this.title,
       journal: this.journal,
       volume: this.volume,
-      num: this.num,
+      number: this.num,
       pages: this.pages,
       year: this.year,
       doi: this.doi,
