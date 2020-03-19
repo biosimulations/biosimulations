@@ -1,0 +1,10 @@
+<mat-tab-group dynamicHeight="true">
+  <mat-tab label="Edit Form">
+    <ng-content></ng-content>
+  </mat-tab>
+  <mat-tab label="Preview JSON">
+    <div class="page-content partial-width">
+      <pre> {{ this.data | json }}</pre>
+    </div>
+  </mat-tab>
+</mat-tab-group>
