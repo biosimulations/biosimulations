@@ -155,6 +155,8 @@ import { AuthorsFormComponent } from './Forms/authors-form/authors-form.componen
 import { ReferencesFormComponent } from './Forms/references-form/references-form.component';
 import { NameFormComponent } from './Forms/name-form/name-form.component';
 import { IdentifiersFormComponent } from './Forms/identifiers-form/identifiers-form.component';
+import { ModelFormComponent } from './Forms/model-form/model-form.component';
+import { EditPreviewComponent } from './Components/edit-preview/edit-preview.component';
 
 @NgModule({
   declarations: [
@@ -209,6 +211,8 @@ import { IdentifiersFormComponent } from './Forms/identifiers-form/identifiers-f
     ReferencesFormComponent,
     NameFormComponent,
     IdentifiersFormComponent,
+    ModelFormComponent,
+    EditPreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -280,6 +284,8 @@ import { IdentifiersFormComponent } from './Forms/identifiers-form/identifiers-f
     ReferencesFormComponent,
     NameFormComponent,
     IdentifiersFormComponent,
+    ModelFormComponent,
+    EditPreviewComponent,
   ],
   providers: [
     UserService,

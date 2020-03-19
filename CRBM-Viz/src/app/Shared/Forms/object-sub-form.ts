@@ -3,6 +3,10 @@ import { AbstractSubForm } from './abstract-sub-form';
 import { OnInit } from '@angular/core';
 
 export abstract class ObjectSubForm extends AbstractSubForm {
+  /**
+   * Creates an instance of ObjectSubForm.  Creates a root formgroup. Sends form group changes to parent by calling onchange and on touched
+   * @memberof ObjectSubForm
+   */
   constructor() {
     super();
     this.form = new FormGroup({});
@@ -28,8 +32,6 @@ export abstract class ObjectSubForm extends AbstractSubForm {
   /**
    * The accessor for the value of the form. Override this in
    * subclasses to change or manipulate the value returned
-   * @type {string}
-   * @memberof ObjectSubForm
    */
   get value(): object {
     return this.form.value;
@@ -37,15 +39,19 @@ export abstract class ObjectSubForm extends AbstractSubForm {
 
   /**
    * Used to set the value. By default, takes in string and sets to string
-   * Can be overridden in subclasses with other more complex objects
+   * Can be overridden in subclasses with other more complex objects.
    * @memberof ObjectSubForm
    */
   set value(object: object) {
     this.form.setValue(object);
-    this.onChange(object);
-    this.onTouched();
   }
 
+  /**
+   *
+   *
+   * @param {FormGroup} formGroup
+   * @memberof ObjectSubForm
+   */
   initForm(formGroup: FormGroup) {
     const formKeys = Object.keys(formGroup.controls);
     formKeys.forEach(key => this.form.addControl(key, formGroup.get(key)));
