@@ -12,6 +12,7 @@ import {
   FormArray,
   AbstractControl,
   Validators,
+  FormControl,
 } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -22,7 +23,7 @@ import { Taxon } from 'src/app/Shared/Models/taxon';
 import { licenses } from 'src/app/Shared/Enums/license';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
-import { ModelFormatFormComponent } from 'src/app/Shared/Forms/model-format-form/model-format-form.component';
+
 @Component({
   selector: 'app-edit-models',
   templateUrl: './edit-models.component.html',
@@ -38,6 +39,8 @@ export class EditModelsComponent implements OnInit {
   model: any;
   id: any;
   fileFormGroup: FormGroup;
+  metaInfo: FormControl;
+  modelControl: FormControl;
   constructor(
     private router: Router,
     private modelService: ModelService,
@@ -47,38 +50,16 @@ export class EditModelsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private fileService: FileService,
     private metadataService: MetadataService
-  ) {
-    this.fileFormGroup = this.formBuilder.group({
-      modelFile: [''],
-      imageFile: [''],
-    });
-    this.formGroup = this.formBuilder.group({
-      id: [''],
-      ownerId: [''],
-      format: [],
-      file: [''],
-      image: [''],
-      name: [''],
-      description: [''],
-      taxon: [''],
-      tags: this.formBuilder.array([]),
-      authors: this.formBuilder.array([]),
-      identifiers: this.formBuilder.array([]),
-      refs: this.formBuilder.array([]),
-      access: [''],
-      license: [''],
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.taxa = this.formGroup.get('taxon').valueChanges.pipe(
-      startWith(''),
-      map(value =>
-        value === null || typeof value === 'string' ? value : value.name
-      ),
-      map(value => this.metadataService.getTaxa(value))
-    );
-    this.formGroup.valueChanges.subscribe(val => (this.data = val));
+    this.data = {};
+    this.modelControl = new FormControl([{}]);
+    this.modelControl.valueChanges.subscribe(val => {
+      console.log('valuechagned');
+      this.data = Object.assign(this.data, val);
+    });
+
     this.route.params
       .pipe(
         pluck('id'),
@@ -91,149 +72,8 @@ export class EditModelsComponent implements OnInit {
       )
       .subscribe(model => this.setupForm(model));
   }
-  private setupForm(model) {
-    if (model?.id) {
-      this.getFormArray('tags').clear();
-      this.getFormArray('authors').clear();
-      this.getFormArray('identifiers').clear();
-      this.getFormArray('refs').clear();
+  private setupForm(model) {}
 
-      for (const tag of model.tags) {
-        this.addTagFormElement();
-      }
-      for (const author of model.authors) {
-        this.addAuthorFormElement();
-      }
-      for (const identifiers of model.identifiers) {
-        this.addIdentifierFormElement();
-      }
-      for (const ref of model.refs) {
-        this.addRefFormElement();
-      }
-      console.log(model);
-      // this.formGroup.get('modelFile').patchValue(model.file.name);
-
-      this.formGroup.patchValue(model);
-    } else {
-      this.formGroup.get('modelFile').validator = Validators.required;
-      for (let i = 0; i < 3; i++) {
-        this.addAuthorFormElement();
-        this.addIdentifierFormElement();
-        this.addRefFormElement();
-      }
-    }
-  }
-  getFormArray(array: string): FormArray {
-    return this.formGroup.get(array) as FormArray;
-  }
-
-  selectFile(controlName: string, files: File[], fileNameEl): void {
-    let file: File;
-    let fileName: string;
-    if (files.length) {
-      file = files[0];
-      fileName = file.name;
-    } else {
-      file = null;
-      fileName = '';
-    }
-
-    const value: object = {};
-    value[controlName] = file;
-    this.formGroup.patchValue(value);
-
-    fileNameEl.innerHTML = fileName;
-  }
-
-  displayAutocompleteEl(el: object): string | undefined {
-    return el ? el['name'] : undefined;
-  }
-
-  selectAutocomplete(formControl: AbstractControl, required = false): void {
-    const value = formControl.value;
-    if (required && (typeof value === 'string' || value === null)) {
-      formControl.setErrors({ incorrect: true });
-    } else if (!required && typeof value === 'string' && value !== '') {
-      formControl.setErrors({ incorrect: true });
-    } else {
-      if (value === '') {
-        formControl.patchValue(null);
-      }
-      formControl.setErrors(null);
-    }
-  }
-
-  addTagFormElement(): void {
-    const formArray: FormArray = this.getFormArray('tags');
-    formArray.push(this.formBuilder.control(''));
-  }
-
-  addTag(event: MatChipInputEvent): void {
-    const input = event.input;
-    let value: string = event.value;
-
-    // Add tag
-    value = (value || '').trim();
-    if (value && !this.formGroup.value.tags.includes(value)) {
-      const formArray: FormArray = this.getFormArray('tags');
-      formArray.push(this.formBuilder.control(value));
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  removeFormArrayElement(array: string, iEl: number): void {
-    const formArray: FormArray = this.getFormArray(array);
-    formArray.removeAt(iEl);
-  }
-
-  addAuthorFormElement(): void {
-    const formArray: FormArray = this.getFormArray('authors');
-    formArray.push(
-      this.formBuilder.group({
-        firstName: [''],
-        middleName: [''],
-        lastName: [''],
-      })
-    );
-  }
-
-  addIdentifierFormElement(): void {
-    const formArray: FormArray = this.getFormArray('identifiers');
-    formArray.push(
-      this.formBuilder.group({
-        namespace: [''],
-        id: [''],
-      })
-    );
-  }
-
-  addRefFormElement(): void {
-    const formArray: FormArray = this.getFormArray('refs');
-    formArray.push(
-      this.formBuilder.group({
-        authors: [''],
-        title: [''],
-        journal: [''],
-        volume: [''],
-        num: [''],
-        pages: [''],
-        year: [''],
-        doi: [''],
-      })
-    );
-  }
-
-  drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
-    moveItemInArray(
-      formArray.controls,
-      event.previousIndex,
-      event.currentIndex
-    );
-  }
   submit() {
     const data = this.formGroup.value;
 
