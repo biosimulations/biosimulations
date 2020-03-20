@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './Shared/Components/home/home.component';
 
-import { Error404Component } from './Shared/Components/error-404/error-404.component';
-
 import { Auth0CallbackComponent } from './Shared/Components/auth-0-callback/auth-0-callback.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
