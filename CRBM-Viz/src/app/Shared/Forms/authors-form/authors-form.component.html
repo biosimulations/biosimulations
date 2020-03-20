@@ -1,20 +1,49 @@
-<ng-container [formGroup]=control *ngIf="control.controls.length>0">
-  <ng-container *ngFor="let group of control.controls; index as i">
-    <ng-container [formGroupName]=i>
-      <mat-form-field appearance="fill">
+<div>
+  <h3>Authors</h3>
+  <a (click)="this.addAuthor()">
+    <fa-icon
+      aria-hidden="true"
+      aria-label="Add icon"
+      [icon]="['fas', 'plus']"
+    ></fa-icon>
+    Add
+  </a>
+</div>
+<ng-container [formGroup]="control" *ngIf="control.controls.length > 0">
+  <div cdkDropList (cdkDropListDropped)="drop($event)">
+    <div
+      *ngFor="let group of control.controls; index as i"
+      cdkDrag
+      class="form-container"
+      [formGroupName]="i"
+    >
+      <mat-form-field class="authorField" appearance="fill">
         <mat-label> First Name</mat-label>
-        <input matInput formControlName="firstName">
+        <input matInput formControlName="firstName" />
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field class="authorField" appearance="fill">
         <mat-label> Middle Name</mat-label>
-        <input matInput formControlName="middleName">
+        <input matInput formControlName="middleName" />
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field class="authorField" appearance="fill">
         <mat-label> Last Name</mat-label>
-        <input matInput formControlName="lastName">
+        <input matInput formControlName="lastName" />
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)=this.removeControl(i)> Remove Author </button>
-    </ng-container>
-  </ng-container>
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Drag icon"
+        [icon]="['fas', 'grip-lines-vertical']"
+        class="drag"
+      ></fa-icon>
+      <fa-icon
+        aria-hidden="true"
+        aria-label="Delete icon"
+        [icon]="['fas', 'trash-alt']"
+        (click)="this.removeControl(i)"
+      ></fa-icon>
+    </div>
+  </div>
 </ng-container>
-<button mat-raised-button color="primary" (click)=this.addAuthor()> Add Author </button>
+<button mat-raised-button color="primary" (click)="this.addAuthor()">
+  Add Author
+</button>

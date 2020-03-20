@@ -8,6 +8,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { PersonInterface } from '../../Models/person.interface';
+import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-authors-form',
@@ -48,6 +49,9 @@ export class AuthorsFormComponent extends ArraySubForm implements OnInit {
       this.form.setValue(input);
     }
   }
+  get value() {
+    return this.form.value;
+  }
 
   ngOnInit(): void {
     const formGroup = this.fb.group(this.formBuilderInput);
@@ -56,5 +60,14 @@ export class AuthorsFormComponent extends ArraySubForm implements OnInit {
   addAuthor() {
     const formGroup = this.fb.group(this.formBuilderInput);
     this.addControl(formGroup);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.form.controls,
+      event.previousIndex,
+      event.currentIndex
+    );
+    this.form.updateValueAndValidity();
   }
 }

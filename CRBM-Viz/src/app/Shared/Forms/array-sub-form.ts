@@ -9,10 +9,10 @@ export class ArraySubForm extends AbstractSubForm {
   formBuilderInput: { [key: string]: any };
   form: FormArray;
 
-  get value(): any {
+  get value(): any[] {
     return this.form.value;
   }
-  set value(value: any) {
+  set value(value: any[]) {
     this.form.setValue(value);
   }
   get control(): FormArray {
