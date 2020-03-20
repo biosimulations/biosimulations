@@ -24,6 +24,7 @@ import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.s
 import { SharedModule } from './Shared/shared.module';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { environment } from 'src/environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Pipes defined in app
 
@@ -47,6 +48,7 @@ import { environment } from 'src/environments/environment';
     MaterialModule,
     SharedModule,
     LoggerModule.forRoot({ level: environment.logging.level }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     {
