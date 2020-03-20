@@ -1,0 +1,30 @@
+@import 'src/theme.scss'
+
+.centered
+  height: calc(100vh - 64px - 28px - 0.5rem - 4rem)
+  display: flex
+  align-items: center
+
+.inner
+  width: 100%
+
+.icon, .title, .message
+  width: 100%
+  text-align: center
+  line-height: normal
+
+.icon
+  font-size: 64px
+  color: mat-color($theme-primary)
+
+  .ng-fa-icon
+    position: relative
+    top: 6px
+
+.title
+  font-size: 28px
+  margin-top: 1rem
+  margin-bottom: 1rem
+
+.message
+  font-size: 20px
