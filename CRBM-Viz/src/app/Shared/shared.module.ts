@@ -85,6 +85,7 @@ import {
   faPaintBrush,
   faTasks,
   faDatabase,
+  faHardHat,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDocker,
@@ -115,8 +116,6 @@ import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { AlertComponent } from './Components/alert/alert.component';
 import { Auth0CallbackComponent } from './Components/auth-0-callback/auth-0-callback.component';
 import { HomeComponent } from './Components/home/home.component';
-import { Error404Component } from './Components/error-404/error-404.component';
-import { UnderConstructionComponent } from './Components/under-construction/under-construction.component';
 import { GridComponent } from './Components/grid/grid.component';
 import { IdRendererGridComponent } from './Components/grid/id-renderer-grid.component';
 import { IdRouteRendererGridComponent } from './Components/grid/id-route-renderer-grid.component';
@@ -171,8 +170,6 @@ import { EditPreviewComponent } from './Components/edit-preview/edit-preview.com
     AlertComponent,
     Auth0CallbackComponent,
     HomeComponent,
-    Error404Component,
-    UnderConstructionComponent,
     GridComponent,
     IdRendererGridComponent,
     IdRouteRendererGridComponent,
@@ -249,8 +246,6 @@ import { EditPreviewComponent } from './Components/edit-preview/edit-preview.com
     AlertComponent,
     Auth0CallbackComponent,
     HomeComponent,
-    Error404Component,
-    UnderConstructionComponent,
     GridComponent,
     GridCardComponent,
     ProjectsGridComponent,
@@ -373,7 +368,8 @@ export class SharedModule {
       faGithub,
       faGoogle,
       faOrcid,
-      faOsi
+      faOsi,
+      faHardHat
     );
   }
 }
