@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from '../Services/configuration.service';
-import { pluck, tap } from 'rxjs/operators';
+import { pluck, tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,8 @@ export class ConstructionGuard implements CanActivate {
         if (redirect) {
           this.router.navigateByUrl('/errors/underConstruction');
         }
-      })
+      }),
+      map(redirect => !redirect)
     );
   }
 }

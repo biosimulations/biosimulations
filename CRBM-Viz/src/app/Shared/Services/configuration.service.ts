@@ -14,7 +14,7 @@ class Configuration implements ConfigurationSerialized {
   constructor(
     public production = false,
     public dev = false,
-    public showUnderConstructionPage = true,
+    public showUnderConstructionPage = false,
     public logLevel = NgxLoggerLevel.DEBUG
   ) {}
 }
