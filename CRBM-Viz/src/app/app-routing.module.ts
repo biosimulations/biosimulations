@@ -6,6 +6,7 @@ import { HomeComponent } from './Shared/Components/home/home.component';
 import { Error404Component } from './Shared/Components/error-404/error-404.component';
 
 import { Auth0CallbackComponent } from './Shared/Components/auth-0-callback/auth-0-callback.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,17 +23,23 @@ const routes: Routes = [
   {
     path: 'simulations',
     loadChildren: () =>
-      import('./Modules/simulations/simulations.module').then(m => m.SimulationsModule),
+      import('./Modules/simulations/simulations.module').then(
+        m => m.SimulationsModule
+      ),
   },
   {
     path: 'chart-types',
     loadChildren: () =>
-      import('./Modules/chart-types/chart-types.module').then(m => m.ChartTypesModule),
+      import('./Modules/chart-types/chart-types.module').then(
+        m => m.ChartTypesModule
+      ),
   },
   {
     path: 'visualizations',
     loadChildren: () =>
-      import('./Modules/visualizations/visualizations.module').then(m => m.VisualizationsModule),
+      import('./Modules/visualizations/visualizations.module').then(
+        m => m.VisualizationsModule
+      ),
   },
   {
     path: 'user',
@@ -46,8 +53,13 @@ const routes: Routes = [
   },
 
   { path: 'callback', component: Auth0CallbackComponent },
+  {
+    path: 'errors',
+    loadChildren: () =>
+      import('./errors/errors.module').then(m => m.ErrorsModule),
+  },
 
-  { path: '**', component: Error404Component },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
