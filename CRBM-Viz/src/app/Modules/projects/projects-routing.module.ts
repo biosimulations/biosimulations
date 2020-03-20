@@ -5,6 +5,7 @@ import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
 import { BrowseComponent } from './browse/browse.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
+import { ConstructionGuard } from 'src/app/Shared/Gaurds/construction.guard';
 
 const routes: Routes = [
   {
@@ -14,13 +15,13 @@ const routes: Routes = [
   {
     path: 'new',
     component: EditComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, ConstructionGuard],
   },
   { path: ':id', component: ViewComponent },
   {
     path: ':id/edit',
     component: EditComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, ConstructionGuard],
   },
 ];
 
