@@ -9,7 +9,7 @@ export class UnderConstructionComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }
