@@ -1,49 +1,53 @@
-<div>
+<div fxLayout="row" fxLayoutAlign="space-between flex-end">
   <h3>Authors</h3>
-  <a (click)="this.addAuthor()">
+  <button mat-icon-button (click)="this.addAuthor()">
     <fa-icon
       aria-hidden="true"
       aria-label="Add icon"
       [icon]="['fas', 'plus']"
     ></fa-icon>
     Add
-  </a>
+  </button>
 </div>
 <ng-container [formGroup]="control" *ngIf="control.controls.length > 0">
   <div cdkDropList (cdkDropListDropped)="drop($event)">
     <div
       *ngFor="let group of control.controls; index as i"
       cdkDrag
-      class="form-container"
       [formGroupName]="i"
     >
-      <mat-form-field class="authorField" appearance="fill">
-        <mat-label> First Name</mat-label>
-        <input matInput formControlName="firstName" />
-      </mat-form-field>
-      <mat-form-field class="authorField" appearance="fill">
-        <mat-label> Middle Name</mat-label>
-        <input matInput formControlName="middleName" />
-      </mat-form-field>
-      <mat-form-field class="authorField" appearance="fill">
-        <mat-label> Last Name</mat-label>
-        <input matInput formControlName="lastName" />
-      </mat-form-field>
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Drag icon"
-        [icon]="['fas', 'grip-lines-vertical']"
-        class="drag"
-      ></fa-icon>
-      <fa-icon
-        aria-hidden="true"
-        aria-label="Delete icon"
-        [icon]="['fas', 'trash-alt']"
-        (click)="this.removeControl(i)"
-      ></fa-icon>
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <mat-form-field fxFlex="3 1 auto" appearance="fill">
+          <mat-label> First Name</mat-label>
+          <input matInput formControlName="firstName" />
+        </mat-form-field>
+        <div fxFlex="0 0 1em"></div>
+        <mat-form-field fxFlex="1 1 auto" appearance="fill">
+          <mat-label> Middle Name</mat-label>
+          <input matInput placeholder="c" formControlName="middleName" />
+        </mat-form-field>
+        <div fxFlex="0 0 1em"></div>
+        <mat-form-field fxFlex="3 1 auto" appearance="fill">
+          <mat-label> Last Name</mat-label>
+          <input matInput formControlName="lastName" />
+        </mat-form-field>
+        <div fxFlex="0 0 1em"></div>
+        <fa-icon
+          fxFlex="0 0 auto"
+          aria-hidden="true"
+          aria-label="Drag icon"
+          [icon]="['fas', 'grip-lines-vertical']"
+          class="drag"
+        ></fa-icon>
+        <div fxFlex="0 0 0.5em"></div>
+        <fa-icon
+          fxFlex="0 0 auto"
+          aria-hidden="true"
+          aria-label="Delete icon"
+          [icon]="['fas', 'trash-alt']"
+          (click)="this.removeControl(i)"
+        ></fa-icon>
+      </div>
     </div>
   </div>
 </ng-container>
-<button mat-raised-button color="primary" (click)="this.addAuthor()">
-  Add Author
-</button>

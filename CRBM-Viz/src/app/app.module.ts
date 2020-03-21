@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // Third party tools
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+
 // Defined Modules in Imports
 
 // Defined Modules in app
@@ -47,8 +48,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     MaterialModule,
     SharedModule,
+
     LoggerModule.forRoot({ level: environment.logging.level }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [
     {

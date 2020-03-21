@@ -156,6 +156,7 @@ import { NameFormComponent } from './Forms/name-form/name-form.component';
 import { IdentifiersFormComponent } from './Forms/identifiers-form/identifiers-form.component';
 import { ModelFormComponent } from './Forms/model-form/model-form.component';
 import { EditPreviewComponent } from './Components/edit-preview/edit-preview.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -229,6 +230,7 @@ import { EditPreviewComponent } from './Components/edit-preview/edit-preview.com
     ReactiveFormsModule,
     DragDropModule,
     NgxDnDModule,
+    FlexLayoutModule,
   ],
   exports: [
     MaterialFileInputModule,
