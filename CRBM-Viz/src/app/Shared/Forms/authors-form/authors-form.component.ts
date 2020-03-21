@@ -61,13 +61,4 @@ export class AuthorsFormComponent extends ArraySubForm implements OnInit {
     const formGroup = this.fb.group(this.formBuilderInput);
     this.addControl(formGroup);
   }
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.form.controls,
-      event.previousIndex,
-      event.currentIndex
-    );
-    this.form.updateValueAndValidity();
-  }
 }

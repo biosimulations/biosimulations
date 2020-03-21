@@ -1,6 +1,7 @@
 import { AbstractSubForm } from './abstract-sub-form';
 import { FormArray, FormGroup, AbstractControl } from '@angular/forms';
 import { Input } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 export class ArraySubForm extends AbstractSubForm {
   @Input()
@@ -41,5 +42,13 @@ export class ArraySubForm extends AbstractSubForm {
   }
   removeControl(control: number) {
     this.form.removeAt(control);
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.form.controls,
+      event.previousIndex,
+      event.currentIndex
+    );
+    this.form.updateValueAndValidity();
   }
 }

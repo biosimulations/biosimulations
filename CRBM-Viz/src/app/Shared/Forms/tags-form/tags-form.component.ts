@@ -33,13 +33,7 @@ export class TagsFormComponent extends ArraySubForm implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     super();
   }
-  drop(formArray: FormArray, event: CdkDragDrop<string[]>): void {
-    moveItemInArray(
-      formArray.controls,
-      event.previousIndex,
-      event.currentIndex
-    );
-  }
+
   addTag(event: MatChipInputEvent): void {
     const input = event.input;
     let value: string = event.value;
@@ -62,8 +56,12 @@ export class TagsFormComponent extends ArraySubForm implements OnInit {
       this.count = input.length - 1;
       const formGroup = this.formBuilder.group(this.formBuilderInput);
       this.initForm(this.count, formGroup);
-      this.form.patchValue(input);
+      this.form.setValue(input);
     }
   }
+  get value() {
+    return this.form.value;
+  }
+
   ngOnInit(): void {}
 }

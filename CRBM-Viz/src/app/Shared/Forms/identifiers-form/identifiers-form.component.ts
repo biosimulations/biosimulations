@@ -47,6 +47,9 @@ export class IdentifiersFormComponent extends ArraySubForm implements OnInit {
       this.form.setValue(input);
     }
   }
+  get value() {
+    return this.form.value;
+  }
 
   ngOnInit(): void {
     const formGroup = this.fb.group(this.formBuilderInput);
