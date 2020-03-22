@@ -29,6 +29,9 @@ export class ModelFormComponent extends ObjectSubForm implements OnInit {
   get value() {
     return this.form.value;
   }
+  get taxonControl() {
+    return this.form.controls.taxon;
+  }
 
   ngOnInit(): void {
     const formGroup = this.formBuilder.group({
