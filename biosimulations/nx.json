@@ -15,9 +15,10 @@
       "tags": []
     },
     "apimodels": {
-      "tags": [
-        "api"
-      ]
+      "tags": ["api"]
+    },
+    "biosimulations-api": {
+      "tags": ["api"]
     }
   }
 }

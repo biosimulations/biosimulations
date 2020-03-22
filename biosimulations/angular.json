@@ -110,7 +110,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "biosimulations-frontend:build"
+            "browserTarget": "biosimulations-frontend:build",
+            "proxyConfig": "apps/biosimulations-frontend/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -224,7 +225,65 @@
           }
         }
       }
+    },
+    "biosimulations-api": {
+      "root": "apps/biosimulations-api",
+      "sourceRoot": "apps/biosimulations-api/src",
+      "projectType": "application",
+      "prefix": "biosimulations-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/biosimulations-api",
+            "main": "apps/biosimulations-api/src/main.ts",
+            "tsConfig": "apps/biosimulations-api/tsconfig.app.json",
+            "assets": ["apps/biosimulations-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/biosimulations-api/src/environments/environment.ts",
+                  "with": "apps/biosimulations-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "biosimulations-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulations-api/tsconfig.app.json",
+              "apps/biosimulations-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/biosimulations-api/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/biosimulations-api/jest.config.js",
+            "tsConfig": "apps/biosimulations-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
-  "defaultProject": "biosimulations-frontend"
+  "defaultProject": "biosimulations-frontend",
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  }
 }
