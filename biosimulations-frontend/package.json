@@ -6,10 +6,27 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "nx workspace-lint && ng lint",
     "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
-    "debug": "node --inspect-brk node_modules/.bin/protractor ./e2e/protractor.conf.js"
+    "debug": "node --inspect-brk node_modules/.bin/protractor ./e2e/protractor.conf.js",
+    "nx": "nx",
+    "affected:apps": "nx affected:apps",
+    "affected:libs": "nx affected:libs",
+    "affected:build": "nx affected:build",
+    "affected:e2e": "nx affected:e2e",
+    "affected:test": "nx affected:test",
+    "affected:lint": "nx affected:lint",
+    "affected:dep-graph": "nx affected:dep-graph",
+    "affected": "nx affected",
+    "format": "nx format:write",
+    "format:write": "nx format:write",
+    "format:check": "nx format:check",
+    "update": "ng update @nrwl/workspace",
+    "update:check": "ng update",
+    "dep-graph": "nx dep-graph",
+    "workspace-schematic": "nx workspace-schematic",
+    "help": "nx help"
   },
   "husky": {
     "hooks": {
@@ -54,7 +71,8 @@
     "vega-embed": "^6.2.2",
     "vega-lite": "^4.3.0",
     "vega-typings": "^0.12.3",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@nrwl/angular": "9.1.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
@@ -80,6 +98,7 @@
     "ts-node": "~8.6.2",
     "tslint": "~5.20.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "@nrwl/workspace": "9.1.2"
   }
 }
