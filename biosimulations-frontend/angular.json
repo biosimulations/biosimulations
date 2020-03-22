@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CRBM-Viz": {
+    "biosimulations-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/CRBM-Viz",
+            "outputPath": "dist/biosimulations-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -112,21 +112,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "CRBM-Viz:build"
+            "browserTarget": "biosimulations-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "CRBM-Viz:build:production"
+              "browserTarget": "biosimulations-frontend:build:production"
             },
             "dev": {
-              "browserTarget": "CRBM-Viz:build:development"
+              "browserTarget": "biosimulations-frontend:build:development"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CRBM-Viz:build"
+            "browserTarget": "biosimulations-frontend:build"
           }
         },
         "test": {
@@ -177,22 +177,22 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "CRBM-Viz:serve"
+            "devServerTarget": "biosimulations-frontend:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "CRBM-Viz:serve:production"
+              "devServerTarget": "biosimulations-frontend:serve:production"
             }
           }
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "/CRBM-Viz/"
+            "baseHref": "/biosimulations-frontend/"
           }
         }
       }
     }
   },
-  "defaultProject": "CRBM-Viz"
+  "defaultProject": "biosimulations-frontend"
 }

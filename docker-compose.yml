@@ -1,8 +1,8 @@
 version: "3.7"
 
 services:
-  crbm-viz:
-    container_name: crbm-viz
+  biosimulations-frontend:
+    container_name: biosimulations-frontend
     build:
       context: .
       dockerfile: Dockerfile

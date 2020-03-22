@@ -1,0 +1,18 @@
+{
+  "npmScope": "biosimulations-frontend",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "biosimulations-frontend": {
+      "tags": []
+    },
+    "biosimulations-frontend-e2e": {
+      "tags": []
+    }
+  }
+}
