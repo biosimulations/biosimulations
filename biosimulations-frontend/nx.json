@@ -1,5 +1,5 @@
 {
-  "npmScope": "biosimulations-frontend",
+  "npmScope": "biosimulations",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -13,6 +13,11 @@
     },
     "biosimulations-frontend-e2e": {
       "tags": []
+    },
+    "apimodels": {
+      "tags": [
+        "api"
+      ]
     }
   }
 }

@@ -99,6 +99,10 @@
     "tslint": "~5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.7.5",
-    "@nrwl/workspace": "9.1.2"
+    "@nrwl/workspace": "9.1.2",
+    "@nrwl/jest": "9.1.2",
+    "jest": "24.9.0",
+    "@types/jest": "24.9.1",
+    "ts-jest": "24.0.0"
   }
 }

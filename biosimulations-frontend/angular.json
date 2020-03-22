@@ -43,9 +43,7 @@
               "apps/biosimulations-frontend/src/_redirects",
               "apps/biosimulations-frontend/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/biosimulations-frontend/src/styles.scss"
-            ],
+            "styles": ["apps/biosimulations-frontend/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -154,9 +152,7 @@
               "apps/biosimulations-frontend/src/assets",
               "apps/biosimulations-frontend/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/biosimulations-frontend/src/styles.scss"
-            ],
+            "styles": ["apps/biosimulations-frontend/src/styles.scss"],
             "scripts": []
           }
         },
@@ -167,9 +163,7 @@
               "apps/biosimulations-frontend/tsconfig.app.json",
               "apps/biosimulations-frontend/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "deploy": {
@@ -200,9 +194,33 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/biosimulations-frontend-e2e/tsconfig.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "apimodels": {
+      "root": "libs/apimodels",
+      "sourceRoot": "libs/apimodels/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/apimodels/tsconfig.lib.json",
+              "libs/apimodels/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/apimodels/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/apimodels/jest.config.js",
+            "tsConfig": "libs/apimodels/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
