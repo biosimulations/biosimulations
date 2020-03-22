@@ -1,11 +1,29 @@
+<h3>Taxon Information</h3>
+<p>
+  Select a common species. If its not listed, enter the NCBI taxon ID and Name
+</p>
+<ng-container *ngIf="debug">
+  dropdown: {{ this.taxonStatus$ | async }} form:
+  {{ this.formStatus$ | async }} dropdown : {{ this.taxon.valid }} form:
+  {{ this.form.valid }}
+</ng-container>
 <mat-form-field class="species">
   <mat-label> Species</mat-label>
-  <input matInput [formControl]="taxonControl" type="text" placeholder="Homo sapiens" class="form-input"
-    [matAutocomplete]="taxonAutoComplete" />
+  <input
+    matInput
+    [formControl]="taxonControl"
+    type="text"
+    placeholder="Homo sapiens"
+    class="form-input"
+    [matAutocomplete]="taxonAutoComplete"
+  />
 </mat-form-field>
 
-
-<mat-autocomplete #taxonAutoComplete="matAutocomplete" disableRipple="true" [displayWith]="taxonDisplay">
+<mat-autocomplete
+  #taxonAutoComplete="matAutocomplete"
+  disableRipple="true"
+  [displayWith]="taxonDisplay"
+>
   <mat-option *ngFor="let taxon of taxa | async" [value]="taxon">
     {{ taxon?.name }}
   </mat-option>

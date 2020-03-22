@@ -10,6 +10,7 @@ import {
   FormControl,
   NG_VALUE_ACCESSOR,
   NG_VALIDATORS,
+  Validators,
 } from '@angular/forms';
 import { ObjectSubForm } from '../object-sub-form';
 
@@ -32,7 +33,10 @@ import { ObjectSubForm } from '../object-sub-form';
 })
 export class TaxonFormComponent extends ObjectSubForm implements OnInit {
   form: FormGroup;
+  formStatus$: Observable<any>;
   taxon: FormGroup;
+  taxonStatus$: Observable<any>;
+  debug: boolean;
   get nameControl() {
     return this.form.controls.name;
   }
@@ -42,22 +46,32 @@ export class TaxonFormComponent extends ObjectSubForm implements OnInit {
   get taxonControl() {
     return this.taxon.controls.taxon;
   }
+
   constructor(
     private metadataService: MetadataService,
     private formBuilder: FormBuilder
   ) {
     super();
-    this.form = this.formBuilder.group({
-      name: [''],
-      id: [''],
-    });
+    this.debug = true;
+    this.initForm(
+      this.formBuilder.group({
+        name: ['', Validators.required],
+        id: ['', Validators.required],
+      })
+    );
     this.taxon = this.formBuilder.group({
       taxon: [{}],
     });
+    this.formStatus$ = this.form.statusChanges.pipe(
+      startWith(this.form.status)
+    );
+    this.taxonStatus$ = this.taxon.statusChanges.pipe(
+      startWith(this.taxon.status)
+    );
 
     this.subscriptions.push(
       this.taxonControl.valueChanges.subscribe(value => {
-        if (value === null) {
+        if (!value) {
           this.nameControl.enable();
           this.idControl.enable();
         } else {
@@ -132,6 +146,13 @@ export class TaxonFormComponent extends ObjectSubForm implements OnInit {
     this.taxon.disable();
   }
   validate(_: FormControl) {
-    return this.form.valid ? null : { model: { valid: false } };
+    const error = { model: { valid: false } };
+    if (this.form.valid) {
+      return null;
+    }
+    if (this.form.disabled && this.taxon.value) {
+      return null;
+    }
+    return error;
   }
 }
