@@ -26,7 +26,8 @@
     "update:check": "ng update",
     "dep-graph": "nx dep-graph",
     "workspace-schematic": "nx workspace-schematic",
-    "help": "nx help"
+    "help": "nx help",
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "husky": {
     "hooks": {
@@ -76,20 +77,31 @@
     "@nestjs/common": "^6.8.3",
     "@nestjs/core": "^6.8.3",
     "@nestjs/platform-express": "^6.8.3",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "core-js": "^2.5.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
     "@angular/cli": "^9.0.7",
     "@angular/compiler-cli": "^9.0.7",
     "@angular/language-service": "^9.0.7",
+    "@nestjs/schematics": "^6.7.0",
+    "@nestjs/testing": "^6.8.3",
+    "@nrwl/cypress": "^9.1.2",
+    "@nrwl/jest": "9.1.2",
+    "@nrwl/nest": "9.1.2",
+    "@nrwl/node": "9.1.2",
+    "@nrwl/workspace": "^9.1.2",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "^2.0.8",
+    "@types/jest": "24.9.1",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "cypress": "^4.2.0",
     "husky": "^4.0.10",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
+    "jest": "24.9.0",
     "karma": "~4.4.1",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~2.1.1",
@@ -99,18 +111,11 @@
     "prettier": "^1.19.1",
     "protractor": "^5.4.3",
     "puppeteer": "^2.1.0",
+    "ts-jest": "24.0.0",
     "ts-node": "~8.6.2",
     "tslint": "~5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.7.5",
-    "@nrwl/workspace": "9.1.2",
-    "@nrwl/jest": "9.1.2",
-    "jest": "24.9.0",
-    "@types/jest": "24.9.1",
-    "ts-jest": "24.0.0",
-    "@nrwl/node": "9.1.2",
-    "@nestjs/schematics": "^6.7.0",
-    "@nestjs/testing": "^6.8.3",
-    "@nrwl/nest": "9.1.2"
+    "jest-preset-angular": "8.0.0"
   }
 }

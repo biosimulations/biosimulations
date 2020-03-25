@@ -14,11 +14,15 @@
     "biosimulations-frontend-e2e": {
       "tags": []
     },
-    "apimodels": {
-      "tags": ["api"]
+    " datamodel": {
+      "tags": [
+        "api"
+      ]
     },
     "biosimulations-api": {
-      "tags": ["api"]
+      "tags": [
+        "api"
+      ]
     }
   }
 }
