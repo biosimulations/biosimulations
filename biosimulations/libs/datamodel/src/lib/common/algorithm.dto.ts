@@ -1,7 +1,7 @@
-import { AlgorithmParameterDTO } from './algorithm-paramater.dto';
+import { AlgorithmParameterDTO } from './algorithm-parameter.dto';
 
 export class AlgorithmDTO {
-  id?: string; // KISAO id
-  name?: string;
+  id: string; // KISAO id
+  name: string;
   parameters: AlgorithmParameterDTO[] = [];
 }

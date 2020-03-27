@@ -10,7 +10,7 @@ import { Person } from './person';
 import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
-import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
+import { TopLevelResource } from './top-level-resource';
 import { User } from './user';
 import { Visualization } from './visualization';
 import { ModelService } from '../Services/Resources/model.service';
