@@ -221,7 +221,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/datamodel/datmodel-core/tsconfig.lib.json",
+              "libs/datamodel/datamodel-core/tsconfig.lib.json",
               "libs/datamodel/datamodel-core/tsconfig.spec.json"
             ],
             "exclude": [
@@ -233,7 +233,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/datamodel/datmodel-core/jest.config.js",
+            "jestConfig": "libs/datamodel/datamodel-core/jest.config.js",
             "tsConfig": "libs/datamodel/datamodel-core/tsconfig.spec.json",
             "passWithNoTests": true
           }
@@ -295,6 +295,35 @@
           "options": {
             "jestConfig": "apps/biosimulations-api/jest.config.js",
             "tsConfig": "apps/biosimulations-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "datamodel-datamodel-api": {
+      "root": "libs/datamodel/datamodel-api",
+      "sourceRoot": "libs/datamodel/datamodel-api/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/datamodel/datamodel-api/tsconfig.lib.json",
+              "libs/datamodel/datamodel-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/datamodel-api/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/datamodel-api/jest.config.js",
+            "tsConfig": "libs/datamodel/datamodel-api/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

@@ -15,14 +15,13 @@
       "tags": []
     },
     "datamodel-core": {
-      "tags": [
-        "api"
-      ]
+      "tags": ["api"]
     },
     "biosimulations-api": {
-      "tags": [
-        "api"
-      ]
+      "tags": ["api"]
+    },
+    "datamodel-datamodel-api": {
+      "tags": []
     }
   }
 }
