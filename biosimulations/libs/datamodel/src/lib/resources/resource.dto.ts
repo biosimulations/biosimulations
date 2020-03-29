@@ -1,8 +1,10 @@
 import { JournalReferenceDTO } from '../common/journalreference.dto';
 import { AccessLevel } from '../enums/access-level';
 import { License } from '../enums/licence';
+import { ResourceType } from '../enums/resource-type';
 
 export class ResourceDTO {
+  type: ResourceType;
   id: string;
   owner: string;
   image: string;
