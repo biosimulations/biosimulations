@@ -17,12 +17,11 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018", "dom"],
     "paths": {
-      "@biosimulations-frontend/datamodel-core": [
-        "libs/datamodel-core/datamodel-core/src/index.ts"
+      "@biosimulations/datamodel/database": [
+        "libs/datamodel/database/src/index.ts"
       ],
-      "@biosimulations/datamodel/datamodel-api": [
-        "libs/datamodel/datamodel-api/src/index.ts"
-      ]
+      "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
+      "@biosimulations/datamodel/core": ["libs/datamodel/core/src/index.ts"]
     },
     "rootDir": "."
   },

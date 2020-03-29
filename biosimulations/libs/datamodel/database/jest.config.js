@@ -1,10 +1,9 @@
 module.exports = {
-  name: 'datamodel-datamodel-api',
+  name: 'datamodel-database',
   preset: '../../../jest.config.js',
-  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/datamodel/datamodel-api',
+  coverageDirectory: '../../../coverage/libs/datamodel/database',
 };

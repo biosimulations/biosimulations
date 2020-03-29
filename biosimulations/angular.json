@@ -43,9 +43,7 @@
               "apps/biosimulations-frontend/src/_redirects",
               "apps/biosimulations-frontend/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/biosimulations-frontend/src/styles.scss"
-            ],
+            "styles": ["apps/biosimulations-frontend/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -155,9 +153,7 @@
               "apps/biosimulations-frontend/src/assets",
               "apps/biosimulations-frontend/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/biosimulations-frontend/src/styles.scss"
-            ],
+            "styles": ["apps/biosimulations-frontend/src/styles.scss"],
             "scripts": []
           }
         },
@@ -168,9 +164,7 @@
               "apps/biosimulations-frontend/tsconfig.app.json",
               "apps/biosimulations-frontend/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "deploy": {
@@ -203,17 +197,14 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/biosimulations-frontend-e2e/tsconfig.json",
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/test-e2e/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/test-e2e/**"]
           }
         }
       }
     },
     "datamodel-core": {
-      "root": "libs/datamodel/datamodel-core",
-      "sourceRoot": "libs/datamodel/datamodel-core/src",
+      "root": "libs/datamodel/core",
+      "sourceRoot": "libs/datamodel/core/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -221,20 +212,17 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/datamodel/datamodel-core/tsconfig.lib.json",
-              "libs/datamodel/datamodel-core/tsconfig.spec.json"
+              "libs/datamodel/core/tsconfig.lib.json",
+              "libs/datamodel/core/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/datamodel/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/datamodel/core/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/datamodel/datamodel-core/jest.config.js",
-            "tsConfig": "libs/datamodel/datamodel-core/tsconfig.spec.json",
+            "jestConfig": "libs/datamodel/core/jest.config.js",
+            "tsConfig": "libs/datamodel/core/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -253,9 +241,7 @@
             "outputPath": "dist/apps/biosimulations-api",
             "main": "apps/biosimulations-api/src/main.ts",
             "tsConfig": "apps/biosimulations-api/tsconfig.app.json",
-            "assets": [
-              "apps/biosimulations-api/src/assets"
-            ]
+            "assets": ["apps/biosimulations-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -284,10 +270,7 @@
               "apps/biosimulations-api/tsconfig.app.json",
               "apps/biosimulations-api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/biosimulations-api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/biosimulations-api/**"]
           }
         },
         "test": {
@@ -300,9 +283,9 @@
         }
       }
     },
-    "datamodel-datamodel-api": {
-      "root": "libs/datamodel/datamodel-api",
-      "sourceRoot": "libs/datamodel/datamodel-api/src",
+    "datamodel-database": {
+      "root": "libs/datamodel/database",
+      "sourceRoot": "libs/datamodel/database/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -310,20 +293,43 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/datamodel/datamodel-api/tsconfig.lib.json",
-              "libs/datamodel/datamodel-api/tsconfig.spec.json"
+              "libs/datamodel/database/tsconfig.lib.json",
+              "libs/datamodel/database/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/datamodel/datamodel-api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/datamodel/database/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/datamodel/datamodel-api/jest.config.js",
-            "tsConfig": "libs/datamodel/datamodel-api/tsconfig.spec.json",
+            "jestConfig": "libs/datamodel/database/jest.config.js",
+            "tsConfig": "libs/datamodel/database/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "datamodel-api": {
+      "root": "libs/datamodel/api",
+      "sourceRoot": "libs/datamodel/api/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/datamodel/api/tsconfig.lib.json",
+              "libs/datamodel/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/datamodel/api/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/api/jest.config.js",
+            "tsConfig": "libs/datamodel/api/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
