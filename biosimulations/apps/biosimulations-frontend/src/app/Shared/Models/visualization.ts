@@ -9,7 +9,7 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { SimulationResult } from './simulation-result';
-import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
+import { TopLevelResource } from './top-level-resource';
 import { User } from './user';
 import { VisualizationLayoutElement } from './visualization-layout-element';
 import { ChartTypeService } from '../Services/Resources/chart-type.service';
