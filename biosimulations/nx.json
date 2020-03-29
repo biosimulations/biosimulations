@@ -14,7 +14,7 @@
     "biosimulations-frontend-e2e": {
       "tags": []
     },
-    "datamodel": {
+    "datamodel-core": {
       "tags": [
         "api"
       ]

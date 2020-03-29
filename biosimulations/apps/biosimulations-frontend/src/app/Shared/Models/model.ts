@@ -11,7 +11,7 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulation } from './simulation';
 import { Taxon } from './taxon';
-import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
+import { TopLevelResource } from './top-level-resource';
 import { User } from './user';
 import { Visualization } from './visualization';
 import { ProjectService } from '../Services/Resources/project.service';
