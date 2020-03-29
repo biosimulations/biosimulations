@@ -5,7 +5,9 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "baseUrl": "."
+
   },
   "files": [
     "src/test.ts",
