@@ -211,9 +211,9 @@
         }
       }
     },
-    " datamodel": {
-      "root": "libs/ datamodel",
-      "sourceRoot": "libs/ datamodel/src",
+    "datamodel": {
+      "root": "libs/datamodel",
+      "sourceRoot": "libs/datamodel/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -221,20 +221,20 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/ datamodel/tsconfig.lib.json",
-              "libs/ datamodel/tsconfig.spec.json"
+              "libs/datamodel/tsconfig.lib.json",
+              "libs/datamodel/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/ datamodel/**"
+              "!libs/datamodel/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ datamodel/jest.config.js",
-            "tsConfig": "libs/ datamodel/tsconfig.spec.json",
+            "jestConfig": "libs/datamodel/jest.config.js",
+            "tsConfig": "libs/datamodel/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
