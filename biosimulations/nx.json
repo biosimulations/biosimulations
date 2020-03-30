@@ -18,9 +18,7 @@
       "tags": []
     },
     "biosimulations-api": {
-      "tags": [
-        "api"
-      ]
+      "tags": []
     },
     "datamodel-database": {
       "tags": []
