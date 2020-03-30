@@ -1,3 +1,4 @@
+import { PersonDTO } from './person.dto';
 export class UserDTO implements PersonDTO {
   id: string;
   userName: string;

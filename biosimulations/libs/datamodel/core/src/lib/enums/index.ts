@@ -1,15 +1,6 @@
-import { AccessLevel } from './access-level';
-import { ChartTypeDataFieldShape } from './chart-type-data-field-shape';
-import { ChartTypeDataFieldType } from './chart-type-data-field-type';
-import { ChartTypeType } from './chart-type-type';
-import { License } from './licence';
-import { ResourceType } from './resource-type';
-
-exports = [
-  AccessLevel,
-  ChartTypeDataFieldShape,
-  ChartTypeDataFieldType,
-  ChartTypeType,
-  License,
-  ResourceType,
-];
+export { AccessLevel } from './access-level';
+export { ChartTypeDataFieldShape } from './chart-type-data-field-shape';
+export { ChartTypeDataFieldType } from './chart-type-data-field-type';
+export { ChartTypeType } from './chart-type-type';
+export { License } from './licence';
+export { ResourceType } from './resource-type';

@@ -1,13 +1,5 @@
-import { ChartTypeDTO } from './chart-type.dto';
-import { ModelDTO } from './model.dto';
-import { ProjectDTO } from './project.dto';
-import { SimualtionDTO } from './simulation.dto';
-import { VisaualizationDTO } from './visualization.dto';
-
-exports = [
-  ChartTypeDTO,
-  ModelDTO,
-  ProjectDTO,
-  SimualtionDTO,
-  VisaualizationDTO,
-];
+export { ChartTypeDTO } from './chart-type.dto';
+export { ModelDTO } from './model.dto';
+export { ProjectDTO } from './project.dto';
+export { SimualtionDTO } from './simulation.dto';
+export { VisaualizationDTO } from './visualization.dto';

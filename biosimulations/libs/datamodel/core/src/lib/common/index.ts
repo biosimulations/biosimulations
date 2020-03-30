@@ -1,38 +1,16 @@
-import { AlgorithmDTO } from './algorithm.dto';
-import { AlgorithmParameterDTO } from './algorithm-parameter.dto';
-import { FormatDTO } from './format.dto';
-import { JournalReferenceDTO } from './journalreference.dto';
-import { ModelParameterDTO } from './model-parameter.dto';
-import { ModelVariableDTO } from './model-variable.dto';
-import { OntologyTermDTO } from './ontology-term.dto';
-import { ParameterChangeDTO } from './parameter-change.dto';
-import { ProjectProductDTO } from './project-product.dto';
-import { ChartTypeDataFieldDTO } from './chart-type-data-field.dto';
-import { LicenseInfo } from './license-info';
-import { SimulationResultDTO } from './simulation-result-dto';
-import { TimePointDTO } from './time-point.dto';
-import { UserDTO } from './user.dto';
-import { VisualizationDataFieldDTO } from './visualization-data-field.dto';
-import { VisualizationLayoutElementDTO } from './visualization-layout-element.dto';
-
-exports = [
-  AlgorithmParameterDTO,
-  AlgorithmDTO,
-  ChartTypeDataFieldDTO,
-  FormatDTO,
-  IdentifierDTO,
-  JournalReferenceDTO,
-  LicenseInfo,
-  ModelParameterDTO,
-  ModelVariableDTO,
-  OntologyTermDTO,
-  ParameterChangeDTO,
-  PersonDTO,
-  ProjectProductDTO,
-  SimulationResultDTO,
-  TaxonDTO,
-  TimePointDTO,
-  UserDTO,
-  VisualizationDataFieldDTO,
-  VisualizationLayoutElementDTO,
-];
+export { AlgorithmDTO } from './algorithm.dto';
+export { AlgorithmParameterDTO } from './algorithm-parameter.dto';
+export { FormatDTO } from './format.dto';
+export { JournalReferenceDTO } from './journalreference.dto';
+export { ModelParameterDTO } from './model-parameter.dto';
+export { ModelVariableDTO } from './model-variable.dto';
+export { OntologyTermDTO } from './ontology-term.dto';
+export { ParameterChangeDTO } from './parameter-change.dto';
+export { ProjectProductDTO } from './project-product.dto';
+export { ChartTypeDataFieldDTO } from './chart-type-data-field.dto';
+export { LicenseInfo } from './license-info';
+export { SimulationResultDTO } from './simulation-result-dto';
+export { TimePointDTO } from './time-point.dto';
+export { UserDTO } from './user.dto';
+export { VisualizationDataFieldDTO } from './visualization-data-field.dto';
+export { VisualizationLayoutElementDTO } from './visualization-layout-element.dto';
