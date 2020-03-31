@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { License } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { Identifier } from 'src/app/Shared/Models/identifier';
@@ -27,7 +27,7 @@ export class ChartTypeService extends ResourceService<ChartType> {
     if (name) {
       const lowCaseName: string = name.toLowerCase();
       return list.filter(item =>
-        item['name'].toLowerCase().includes(lowCaseName)
+        item['name'].toLowerCase().includes(lowCaseName),
       );
     } else {
       return list;

@@ -3,8 +3,16 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": [],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@biosimulations/datamodel/database": [
+        "libs/datamodel/database/src/index.ts"
+      ],
+      "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
+      "@biosimulations/datamodel/core": ["../../libs/datamodel/core/src/index.ts"]
+    },
   },
+
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.d.ts"],
   "exclude": ["src/test.ts", "src/**/*.spec.ts"]

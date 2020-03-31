@@ -1,6 +1,6 @@
 export { AlgorithmDTO } from './algorithm.dto';
 export { AlgorithmParameterDTO } from './algorithm-parameter.dto';
-export { FormatDTO } from './format.dto';
+export { ModelFormatDTO } from './model-format.dto';
 export { JournalReferenceDTO } from './journalreference.dto';
 export { ModelParameterDTO } from './model-parameter.dto';
 export { ModelVariableDTO } from './model-variable.dto';

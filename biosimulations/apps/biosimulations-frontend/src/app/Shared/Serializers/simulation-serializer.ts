@@ -7,6 +7,7 @@ import { Simulator } from '../Models/simulator';
 import { ParameterChange } from '../Models/parameter-change';
 import { ModelParameter } from '../Models/model-parameter';
 import { ModelSerializer } from './model-serializer';
+import { AlgorithmDTO } from '@biosimulations/datamodel/core';
 
 export class SimulationSerializer extends Serializer<Simulation> {
   modelSerializer: ModelSerializer;
@@ -24,21 +25,18 @@ export class SimulationSerializer extends Serializer<Simulation> {
       simulation.model = this.modelSerializer.fromJson(json.model);
       simulation.MODEL = simulation.model.id;
     }
-    simulation.algorithm = new Algorithm(
-      json.algorithm.id,
-      json.algorithm.name,
-      [new AlgorithmParameter()]
-    );
+    const algortihmDTO = json.algorithm as AlgorithmDTO;
+    simulation.algorithm = new Algorithm(algortihmDTO);
     simulation.format = new Format(
       json.simulatorFormat.name,
       json.simulatorFormat.version,
       json.simulatorFormat.number,
-      json.simulatorFormat.url
+      json.simulatorFormat.url,
     );
     simulation.simulator = new Simulator(
       json.simulator.name,
       json.simulator.version,
-      json.simulator.dockerHubImageId
+      json.simulator.dockerHubImageId,
     );
     const paramChanges = json.modelParameterChanges;
     if (paramChanges) {
@@ -48,7 +46,7 @@ export class SimulationSerializer extends Serializer<Simulation> {
           parameter.id,
           parameter.name,
           parameter.value,
-          parameter.units
+          parameter.units,
         );
         const paramChange = new ParameterChange(param, change.value);
         simulation.modelParameterChanges.push(paramChange);

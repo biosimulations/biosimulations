@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
 import { RemoteFile } from 'src/app/Shared/Models/remote-file';
@@ -53,7 +53,7 @@ export class ViewComponent implements OnInit {
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
     private chartTypeService: ChartTypeService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
   ) {}
 
   ngOnInit() {

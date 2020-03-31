@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { SimulationResultsFormat } from 'src/app/Shared/Enums/simulation-results-format';
@@ -56,7 +56,7 @@ export class ViewComponent implements OnInit {
     private projectService: ProjectService,
     private modelService: ModelService,
     private visualizationService: VisualizationService,
-    private chartTypeService: ChartTypeService
+    private chartTypeService: ChartTypeService,
   ) {}
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class ViewComponent implements OnInit {
           this.historyTreeNodes = this.simulationService.getHistory(
             this.id,
             true,
-            true
+            true,
           );
           this.simulation.userService = this.userService;
           this.simulation.projectService = this.projectService;
@@ -86,7 +86,7 @@ export class ViewComponent implements OnInit {
             .get$(this.simulation.ownerId)
             .pipe(shareReplay(1));
           this.parameterChanges = this.simulation.modelParameterChanges.concat(
-            this.simulation.algorithmParameterChanges
+            this.simulation.algorithmParameterChanges,
           );
 
           const crumbs: object[] = [

@@ -28,7 +28,7 @@ export class MetadataService {
           id === undefined ||
           item['id'].toLowerCase().includes(lowCaseName) ||
           name === undefined ||
-          item['name'].toLowerCase().includes(lowCaseName)
+          item['name'].toLowerCase().includes(lowCaseName),
       );
     } else {
       return list;
@@ -37,17 +37,48 @@ export class MetadataService {
 
   getAlgorithms(name?: string): Algorithm[] {
     const list: Algorithm[] = [
-      new Algorithm('0000499', 'dynamic flux balance analysis'),
-      new Algorithm('0000025', 'Gillespie-like stochastic simulation method'),
-      new Algorithm('0000448', 'logical model simulation method'),
-      new Algorithm('0000064', 'Runge-Kutta based method'),
+      new Algorithm({
+        id: '0000499',
+        name: 'dynamic flux balance analysis',
+        parameters: [],
+      }),
+      new Algorithm({
+        id: '0000025',
+        name: 'Gillespie-like stochastic simulation method',
+        parameters: [],
+      }),
+      new Algorithm({
+        id: '0000448',
+        name: 'logical model simulation method',
+        parameters: [],
+      }),
+      new Algorithm({
+        id: '0000064',
+        name: 'Runge-Kutta based method',
+        parameters: [],
+      }),
     ];
 
     for (const alg of list) {
       alg.parameters = [
-        new AlgorithmParameter('seed', 'random number generator seed', 1, 488),
-        new AlgorithmParameter('atol', 'absolute tolerance', 1e-6, 211),
-        new AlgorithmParameter('rtol', 'relative tolerance', 1e-6, 209),
+        new AlgorithmParameter({
+          id: 'seed',
+          name: 'random number generator seed',
+          value: 1,
+          kisaoId: 488,
+        }),
+        new AlgorithmParameter({
+          id: 'atol',
+          name: 'absolute tolerance',
+          value: 1e-6,
+          kisaoId: 211,
+        }),
+        new AlgorithmParameter({
+          id: 'rtol',
+          name: 'relative tolerance',
+          value: 1e-6,
+          kisaoId: 209,
+        }),
       ];
     }
 
@@ -56,12 +87,12 @@ export class MetadataService {
 
   getAlgorithmParameters(
     algorithm: Algorithm,
-    value?: string
+    value?: string,
   ): AlgorithmParameter[] {
     return this.filter(
       algorithm.parameters,
       value,
-      value
+      value,
     ) as AlgorithmParameter[];
   }
 
@@ -94,8 +125,8 @@ export class MetadataService {
 
     return of(
       list.filter(value =>
-        value.name.toLowerCase().includes(query.toLowerCase())
-      )
+        value.name.toLowerCase().includes(query.toLowerCase()),
+      ),
     );
   }
 }

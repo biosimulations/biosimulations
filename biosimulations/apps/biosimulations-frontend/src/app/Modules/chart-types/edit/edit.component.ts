@@ -12,22 +12,22 @@ import { map, startWith, pluck, tap } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
-import { License, licenses } from 'src/app/Shared/Enums/license';
+import { accessLevels } from 'src/app/Shared/Enums/access-level';
+import { licenses } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
-import { JournalReference } from 'src/app/Shared/Models/journal-reference';
+
 import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,
 } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 
 @Component({
   templateUrl: './edit.component.html',
@@ -49,7 +49,7 @@ export class EditComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private chartTypeService: ChartTypeService
+    private chartTypeService: ChartTypeService,
   ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
@@ -239,7 +239,7 @@ export class EditComponent implements OnInit {
         firstName: [''],
         middleName: [''],
         lastName: [''],
-      })
+      }),
     );
   }
 
@@ -249,7 +249,7 @@ export class EditComponent implements OnInit {
       this.formBuilder.group({
         namespace: [''],
         id: [''],
-      })
+      }),
     );
   }
 
@@ -265,7 +265,7 @@ export class EditComponent implements OnInit {
         pages: [''],
         year: [''],
         doi: [''],
-      })
+      }),
     );
   }
 
@@ -273,7 +273,7 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -292,7 +292,7 @@ export class EditComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/chart-types', id]);
         }, 2500);
-      })
+      }),
     );
   }
 

@@ -1,10 +1,10 @@
 import { Injectable, Injector } from '@angular/core';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { ChartTypeDataFieldShape } from 'src/app/Shared/Enums/chart-type-data-field-shape';
 import { ChartTypeDataFieldType } from 'src/app/Shared/Enums/chart-type-data-field-type';
 import { License } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
-import { ChartTypeDataField } from 'src/app/Shared/Models/chart-type-data-field';
+import { ChartTypeDataFieldDTO } from '@biosimulations/datamodel/core';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';
 import { ModelVariable } from 'src/app/Shared/Models/model-variable';
 import { RemoteFile } from 'src/app/Shared/Models/remote-file';
@@ -36,7 +36,7 @@ export class VisualizationService extends ResourceService<Visualization> {
 
   getVisualization(id: string): Observable<any[]> {
     const vizJson = this.http.get<any[]>(
-      this.vizUrl + '0'.repeat(3 - id.length) + id
+      this.vizUrl + '0'.repeat(3 - id.length) + id,
     );
     return vizJson;
   }
@@ -44,7 +44,7 @@ export class VisualizationService extends ResourceService<Visualization> {
   getHistory(
     id: string,
     includeParents: boolean = true,
-    includeChildren: boolean = true
+    includeChildren: boolean = true,
   ): object[] {
     // tslint:disable:max-line-length
     return [
@@ -136,7 +136,7 @@ export class VisualizationService extends ResourceService<Visualization> {
     if (name) {
       const lowCaseName: string = name.toLowerCase();
       return list.filter(item =>
-        item['name'].toLowerCase().includes(lowCaseName)
+        item['name'].toLowerCase().includes(lowCaseName),
       );
     } else {
       return list;

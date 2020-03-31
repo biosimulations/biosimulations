@@ -6,7 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { Visualization } from 'src/app/Shared/Models/visualization';
@@ -68,7 +68,7 @@ export class ViewComponent implements OnInit {
     private visualizationService: VisualizationService,
     private chartTypeService: ChartTypeService,
     private projectService: ProjectService,
-    private modelService: ModelService
+    private modelService: ModelService,
   ) {}
 
   ngOnInit() {
@@ -94,7 +94,7 @@ export class ViewComponent implements OnInit {
         this.historyTreeNodes = this.visualizationService.getHistory(
           this.id,
           true,
-          true
+          true,
         );
         this.visualization.getOwner().subscribe(owner => {
           this.owner = owner;

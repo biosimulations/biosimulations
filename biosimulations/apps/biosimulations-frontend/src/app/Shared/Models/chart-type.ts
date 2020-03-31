@@ -1,5 +1,8 @@
 import { AccessLevel } from '../Enums/access-level';
-import { ChartTypeDataFieldShape } from '../Enums/chart-type-data-field-shape';
+import {
+  ChartTypeDataFieldShape,
+  ChartTypeDataFieldDTO,
+} from '@biosimulations/datamodel/core';
 import { ChartTypeDataFieldType } from '../Enums/chart-type-data-field-type';
 import { License } from '../Enums/license';
 import { ChartTypeDataField } from './chart-type-data-field';
@@ -82,7 +85,7 @@ export class ChartType extends TopLevelResource {
   }
 
   genDataField(spec: object): ChartTypeDataField {
-    const dataField = new ChartTypeDataField();
+    const dataField = new ChartTypeDataFieldDTO();
     dataField.name = spec['data']['name'];
     if ('shape' in spec['data']) {
       dataField.shape =
@@ -91,7 +94,7 @@ export class ChartType extends TopLevelResource {
       dataField.shape = ChartTypeDataFieldShape.array;
     }
     dataField.type = ChartTypeDataFieldType.dynamicSimulationResult;
-    return dataField;
+    return new ChartTypeDataField(dataField);
   }
 
   getProjects(): Observable<Project[]> {

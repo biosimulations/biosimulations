@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AccessLevel } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { getLicenseInfo } from 'src/app/Shared/Enums/license';
 import { Project } from 'src/app/Shared/Models/project';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -48,7 +48,7 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     private projectService: ProjectService,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -71,7 +71,7 @@ export class ViewComponent implements OnInit {
               product.resources.push(this.chartTypeService.read(resourceId));
             } else if (resourceType === 'visualization') {
               product.resources.push(
-                this.visualizationService.read(resourceId)
+                this.visualizationService.read(resourceId),
               );
             }
           });

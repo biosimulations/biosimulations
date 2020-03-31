@@ -23,7 +23,7 @@ import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './Shared/Interceptors/auth-interceptor.service';
 
 import { SharedModule } from './Shared/shared.module';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { BreadCrumbsService } from './Shared/Services/bread-crumbs.service';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
