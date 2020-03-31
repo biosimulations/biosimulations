@@ -334,6 +334,32 @@
           }
         }
       }
+    },
+    "datamodel-utils": {
+      "root": "libs/datamodel/utils",
+      "sourceRoot": "libs/datamodel/utils/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/datamodel/utils/tsconfig.lib.json",
+              "libs/datamodel/utils/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/datamodel/utils/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/utils/jest.config.js",
+            "tsConfig": "libs/datamodel/utils/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-frontend",

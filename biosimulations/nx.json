@@ -25,6 +25,9 @@
     },
     "datamodel-api": {
       "tags": []
+    },
+    "datamodel-utils": {
+      "tags": []
     }
   }
 }
