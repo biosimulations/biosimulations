@@ -5,7 +5,7 @@ sans-serif;
 
 @import '~ag-grid-community/src/styles/ag-grid.scss';
 @import '~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss';
-@import 'src/theme.scss';
+@import './theme.scss';
 
 $primary: mat-palette($theme-primary);
 $accent: mat-palette($theme-accent);

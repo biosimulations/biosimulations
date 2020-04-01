@@ -1,39 +1,39 @@
-@import 'src/theme.scss'
+@import '../../../../theme.scss'
 
 .card-grid
-    display: grid
-    grid-gap: 0.5rem
+  display: grid
+  grid-gap: 0.5rem
 
 .card
-    padding: 0.5rem
-    border: 1px solid #ccc
-    border-radius: 4px
-    width: calc(100% - 1rem - 2px)
+  padding: 0.5rem
+  border: 1px solid #ccc
+  border-radius: 4px
+  width: calc(100% - 1rem - 2px)
 
-    .title, .title a
-        color: mat-color($theme-accent)
-        text-decoration: none
+  .title, .title a
+    color: mat-color($theme-accent)
+    text-decoration: none
 
-        .icon
-            margin-right: 2px
+    .icon
+      margin-right: 2px
 
-        .mat-icon
-            position: relative
-            top: 7px
-            margin-top: -9px
+    .mat-icon
+      position: relative
+      top: 7px
+      margin-top: -9px
 
     .description
-        margin-top: 0.25rem
-        margin-bottom: 0.25rem
-        height: 1.5rem
-        overflow: hidden
-        @include mat-typography-level-to-styles($fontConfig, caption)
-        line-height: 100%
-        color: #666
+      margin-top: 0.25rem
+      margin-bottom: 0.25rem
+      height: 1.5rem
+      overflow: hidden
+      line-height: 100%
+      color: #666
+      @include mat-typography-level-to-styles($fontConfig, caption)
 
     .tags
-        height: 1.25rem
-        overflow: hidden
+      height: 1.25rem
+      overflow: hidden
 
-        li
-            @include mat-typography-level-to-styles($fontConfig, caption)
+      li
+        @include mat-typography-level-to-styles($fontConfig, caption)
