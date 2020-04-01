@@ -1,2 +1,2 @@
 export * from './types';
-export { isOfType } from './guard';
+export * from './guard';

@@ -1,5 +1,6 @@
 export { PersonDTO } from './person.dto';
 export { isAlgorithmParameterDTO } from './algorithm-parameter.dto';
+export { isModelParameterDTO } from './model-parameter.dto';
 export { IdentifierDTO } from './identifier.dto';
 export { AlgorithmDTO } from './algorithm.dto';
 export { AlgorithmParameterDTO } from './algorithm-parameter.dto';
