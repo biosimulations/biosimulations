@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Enums/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
 
 @Component({
   templateUrl: './browse.component.html',

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
 import { MaterialModule } from '../app-material.module';
-import { SharedModule } from 'src/app/Shared/shared.module';
+import { SharedModule } from '../../Shared/shared.module';
 
 import { VisualizationsRoutingModule } from './visualizations-routing.module';
 
@@ -13,11 +13,7 @@ import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
 
 @NgModule({
-  declarations: [
-    BrowseComponent,
-    EditComponent,
-    ViewComponent,
-  ],
+  declarations: [BrowseComponent, EditComponent, ViewComponent],
   imports: [
     CommonModule,
     FormsModule,

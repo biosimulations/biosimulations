@@ -5,12 +5,12 @@ import {
   MatSnackBarRef,
   SimpleSnackBar,
 } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
-import { User, UserSerializer } from 'src/app/Shared/Models/user';
-import { UserService } from 'src/app/Shared/Services/user.service';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { AuthService } from '../../../Shared/Services/auth0.service';
+import { User, UserSerializer } from '../../../Shared/Models/user';
+import { UserService } from '../../../Shared/Services/user.service';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
 
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
 import { Observable, merge } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { ProvidedFilter } from 'ag-grid-community';

@@ -3,13 +3,15 @@ import { ModelParameter } from './model-parameter';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import {
   ParameterChangeDTO,
-  instanceOfAlgorithmParameterDTO,
+  isAlgorithmParameterDTO,
   AlgorithmParameterDTO,
   ModelParameterDTO,
 } from '@biosimulations/datamodel/core';
 
 export class ParameterChange implements JsonSerializable<ParameterChangeDTO> {
   parameter: ModelParameter | AlgorithmParameter;
+  modelParam: ModelParameter;
+  algParam: AlgorithmParameter;
   value: number;
   serialize(): ParameterChangeDTO {
     return {
@@ -18,10 +20,9 @@ export class ParameterChange implements JsonSerializable<ParameterChangeDTO> {
     };
   }
   constructor(data: ParameterChangeDTO) {
-    if (instanceOfAlgorithmParameterDTO(data.parameter)) {
-      this.parameter = new AlgorithmParameter(
-        data.parameter as AlgorithmParameterDTO,
-      );
+    const param = data.parameter;
+    if (isAlgorithmParameterDTO(param)) {
+      this.algParam = new AlgorithmParameter(param as AlgorithmParameterDTO);
     } else {
       this.parameter = new ModelParameter(data.parameter as ModelParameterDTO);
     }

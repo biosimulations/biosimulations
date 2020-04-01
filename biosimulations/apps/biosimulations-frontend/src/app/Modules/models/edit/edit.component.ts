@@ -15,23 +15,23 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Enums/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
-import { License, licenses } from 'src/app/Shared/Models/license';
-import { Model } from 'src/app/Shared/Models/model';
-import { Taxon } from 'src/app/Shared/Models/taxon';
-import { MetadataService } from 'src/app/Shared/Services/metadata.service';
+import { License, licenses } from '../../../Shared/Models/license';
+import { Model } from '../../../Shared/Models/model';
+import { Taxon } from '../../../Shared/Models/taxon';
+import { MetadataService } from '../../../Shared/Services/metadata.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { UserService } from 'src/app/Shared/Services/user.service';
-import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { RemoteFile } from 'src/app/Shared/Models/remote-file';
-import { FileService } from 'src/app/Shared/Services/Resources/file.service';
+} from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { UserService } from '../../../Shared/Services/user.service';
+import { ModelSerializer } from '../../../Shared/Serializers/model-serializer';
+import { ModelService } from '../../../Shared/Services/Resources/model.service';
+import { RemoteFile } from '../../../Shared/Models/remote-file';
+import { FileService } from '../../../Shared/Services/Resources/file.service';
 
 @Component({
   templateUrl: './edit.component.html',

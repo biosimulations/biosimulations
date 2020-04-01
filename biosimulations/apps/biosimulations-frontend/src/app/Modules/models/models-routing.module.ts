@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
+import { AuthGuard } from '../../Shared/Gaurds/auth.guard';
 
 import { BrowseComponent } from './browse/browse.component';
 import { EditComponent } from './edit/edit.component';

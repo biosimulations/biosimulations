@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { VisualizationsComponent } from './visualizations.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from 'src/app/Shared/shared.module';
+import { SharedModule } from '../../../Shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('VisualizationsComponent', () => {

@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
+import { ModelService } from '../../../Shared/Services/Resources/model.service';
 import { pluck, map, switchMap, tap, startWith } from 'rxjs/operators';
 import { Observable, of, forkJoin } from 'rxjs';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { OkCancelDialogComponent } from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
+import { OkCancelDialogComponent } from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import {
   FormBuilder,
@@ -16,14 +16,14 @@ import {
 } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
+import { ModelSerializer } from '../../../Shared/Serializers/model-serializer';
 
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
-import { FileService } from 'src/app/Shared/Services/Resources/file.service';
-import { Taxon } from 'src/app/Shared/Models/taxon';
-import { licenses } from 'src/app/Shared/Models/license';
+import { FileService } from '../../../Shared/Services/Resources/file.service';
+import { Taxon } from '../../../Shared/Models/taxon';
+import { licenses } from '../../../Shared/Models/license';
 import { ENTER } from '@angular/cdk/keycodes';
-import { MetadataService } from 'src/app/Shared/Services/metadata.service';
+import { MetadataService } from '../../../Shared/Services/metadata.service';
 
 @Component({
   selector: 'app-edit-models',

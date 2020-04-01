@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProfileComponent } from './profile.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from 'src/app/Modules/app-material.module';
-import { SharedModule } from 'src/app/Shared/shared.module';
+import { MaterialModule } from '../../../Modules/app-material.module';
+import { SharedModule } from '../../../Shared/shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ProfileComponent', () => {

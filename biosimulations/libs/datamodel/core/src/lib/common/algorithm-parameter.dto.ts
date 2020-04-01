@@ -1,9 +1,4 @@
-import {
-  JsonSerializable,
-  JsonCompatible,
-  Complete,
-  DTO,
-} from '@biosimulations/datamodel/utils';
+import { DTO } from '@biosimulations/datamodel/utils';
 import { AlgorithmDTO } from './algorithm.dto';
 
 export interface AlgorithmParameterCore {
@@ -12,9 +7,7 @@ export interface AlgorithmParameterCore {
   value?: number;
   kisaoId?: number;
 }
-export function instanceOfAlgorithmParameterDTO(
-  object: any,
-): object is AlgorithmDTO {
-  return 'kisaoId' in object;
-}
+export const isAlgorithmParameterDTO = (param: any): param is AlgorithmDTO =>
+  'kisaoId' in param;
+
 export type AlgorithmParameterDTO = DTO<AlgorithmParameterCore>;

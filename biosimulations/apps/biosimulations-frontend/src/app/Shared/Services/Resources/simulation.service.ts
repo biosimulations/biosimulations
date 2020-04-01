@@ -9,7 +9,7 @@ import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ResourceService } from './resource.service';
 import { Serializer } from 'src/app/Shared/Serializers/serializer';
 import { SimulationSerializer } from 'src/app/Shared/Serializers/simulation-serializer';
-import { QueryOptions } from 'src/app/Shared/Models/query-options';
+import { QueryOptions } from '../../Enums/query-options';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class SimulationService extends ResourceService<Simulation> {
   }
 
   public list(
-    queryParams: QueryOptions = new QueryOptions()
+    queryParams: QueryOptions = new QueryOptions(),
   ): Observable<Simulation[]> {
     queryParams.embed.push('model');
 
@@ -31,7 +31,7 @@ export class SimulationService extends ResourceService<Simulation> {
     if (name) {
       const lowCaseName: string = name.toLowerCase();
       return list.filter(item =>
-        item['name'].toLowerCase().includes(lowCaseName)
+        item['name'].toLowerCase().includes(lowCaseName),
       );
     } else {
       return list;
@@ -41,7 +41,7 @@ export class SimulationService extends ResourceService<Simulation> {
   getHistory(
     id: string,
     includeParents: boolean = true,
-    includeChildren: boolean = true
+    includeChildren: boolean = true,
   ): object[] {
     // tslint:disable:max-line-length
     return [

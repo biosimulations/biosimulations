@@ -10,7 +10,7 @@ import { ModelsComponent } from './models/models.component';
 import { SimulationsComponent } from './simulations/simulations.component';
 import { ChartTypesComponent } from './chart-types/chart-types.component';
 import { VisualizationsComponent } from './visualizations/visualizations.component';
-import { SharedModule } from 'src/app/Shared/shared.module';
+import { SharedModule } from '../../Shared/shared.module';
 import { MaterialModule } from '../app-material.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -23,7 +23,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     SimulationsComponent,
     ChartTypesComponent,
     VisualizationsComponent,
-    ],
+  ],
 
   imports: [
     CommonModule,

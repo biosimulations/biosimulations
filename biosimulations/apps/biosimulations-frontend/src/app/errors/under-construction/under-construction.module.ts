@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UnderConstructionRoutingModule } from './under-construction-routing.module';
 import { UnderConstructionComponent } from './under-construction.component';
-import { SharedModule } from 'src/app/Shared/shared.module';
+import { SharedModule } from '../../Shared/shared.module';
 
 @NgModule({
   declarations: [UnderConstructionComponent],

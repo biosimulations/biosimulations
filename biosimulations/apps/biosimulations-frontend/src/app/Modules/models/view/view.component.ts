@@ -1,32 +1,32 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from '@biosimulations/datamodel/core';
-import { getLicenseInfo } from 'src/app/Shared/Models/license';
-import { Model } from 'src/app/Shared/Models/model';
-import { RemoteFile } from 'src/app/Shared/Models/remote-file';
+import { getLicenseInfo } from '../../../Shared/Models/license';
+import { Model } from '../../../Shared/Models/model';
+import { RemoteFile } from '../../../Shared/Models/remote-file';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Enums/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { FormatTimeForHumansPipe } from 'src/app/Shared/Pipes/format-time-for-humans.pipe';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
+import { ModelService } from '../../../Shared/Services/Resources/model.service';
+import { FormatTimeForHumansPipe } from '../../../Shared/Pipes/format-time-for-humans.pipe';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { UserSerializer, User } from 'src/app/Shared/Models/user';
+} from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { UserSerializer, User } from '../../../Shared/Models/user';
 import { map } from 'rxjs/operators';
-import { Person } from 'src/app/Shared/Models/person';
-import { UserService } from 'src/app/Shared/Services/user.service';
-import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
-import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
-import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
+import { Person } from '../../../Shared/Models/person';
+import { UserService } from '../../../Shared/Services/user.service';
+import { SimulationService } from '../../../Shared/Services/Resources/simulation.service';
+import { VisualizationService } from '../../../Shared/Services/Resources/visualization.service';
+import { ChartTypeService } from '../../../Shared/Services/Resources/chart-type.service';
 import { Observable } from 'rxjs';
-import { Simulation } from 'src/app/Shared/Models/simulation';
-import { Visualization } from 'src/app/Shared/Models/visualization';
-import { ChartType } from 'src/app/Shared/Models/chart-type';
-import { Project } from 'src/app/Shared/Models/project';
-import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
+import { Simulation } from '../../../Shared/Models/simulation';
+import { Visualization } from '../../../Shared/Models/visualization';
+import { ChartType } from '../../../Shared/Models/chart-type';
+import { Project } from '../../../Shared/Models/project';
+import { ProjectService } from '../../../Shared/Services/Resources/project.service';
 
 @Component({
   templateUrl: './view.component.html',

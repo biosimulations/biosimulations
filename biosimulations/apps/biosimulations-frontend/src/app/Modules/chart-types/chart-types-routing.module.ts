@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'src/app/Shared/Gaurds/auth.guard';
 
 import { BrowseComponent } from './browse/browse.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
-import { ConstructionGuard } from 'src/app/Shared/Gaurds/construction.guard';
+import { AuthGuard } from '../../Shared/Gaurds/auth.guard';
+import { ConstructionGuard } from '../../Shared/Gaurds/construction.guard';
 
 const routes: Routes = [
   {

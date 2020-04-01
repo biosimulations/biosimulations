@@ -16,28 +16,28 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Enums/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
-import { License, licenses } from 'src/app/Shared/Models/license';
+import { License, licenses } from '../../../Shared/Models/license';
 import {
   ProjectProductType,
   projectProductTypes,
-} from 'src/app/Shared/Enums/project-product-type';
-import { JournalReference } from 'src/app/Shared/Models/journal-reference';
-import { Project } from 'src/app/Shared/Models/project';
-import { Model } from 'src/app/Shared/Models/model';
-import { Simulation } from 'src/app/Shared/Models/simulation';
-import { Visualization } from 'src/app/Shared/Models/visualization';
-import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
-import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
+} from '../../../Shared/Enums/project-product-type';
+import { JournalReference } from '../../../Shared/Models/journal-reference';
+import { Project } from '../../../Shared/Models/project';
+import { Model } from '../../../Shared/Models/model';
+import { Simulation } from '../../../Shared/Models/simulation';
+import { Visualization } from '../../../Shared/Models/visualization';
+import { ProjectService } from '../../../Shared/Services/Resources/project.service';
+import { ModelService } from '../../../Shared/Services/Resources/model.service';
+import { SimulationService } from '../../../Shared/Services/Resources/simulation.service';
+import { VisualizationService } from '../../../Shared/Services/Resources/visualization.service';
 import {
   OkCancelDialogComponent,
   OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+} from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './edit.component.html',

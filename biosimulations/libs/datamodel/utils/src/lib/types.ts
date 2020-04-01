@@ -44,6 +44,6 @@ interface JsonSerializableConstructor<T extends DTO<T>> {
   (data: T);
 }
 
-type DTO<T> = JsonCompatible<Complete<T>>;
+type DTO<T> = JsonCompatible<T>;
 
 export { Json, JsonCompatible, JsonSerializable, Complete, DTO };

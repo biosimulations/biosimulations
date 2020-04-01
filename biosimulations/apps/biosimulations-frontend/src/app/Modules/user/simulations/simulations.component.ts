@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
 
-import { User } from 'src/app/Shared/Models/user';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
-import { UserService } from 'src/app/Shared/Services/user.service';
+import { User } from '../../../Shared/Models/user';
+import { AuthService } from '../../../Shared/Services/auth0.service';
+import { UserService } from '../../../Shared/Services/user.service';
 import { NavItem } from '../../../Shared/Enums/nav-item';
 import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
 

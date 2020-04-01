@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/Modules/app-material.module';
+import { MaterialModule } from '../../../Modules/app-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from 'src/app/Shared/shared.module';
+import { SharedModule } from '../../../Shared/shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { EditComponent } from './edit.component';
 
@@ -23,7 +23,7 @@ describe('EditComponent', () => {
         BrowserAnimationsModule,
         ReactiveFormsModule,
         SharedModule,
-        ],
+      ],
       providers: [
         HttpClientTestingModule,
         { provide: RouterTestingModule, useValue: RouterTestingModule },

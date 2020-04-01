@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { navItems, NavItem } from '../../../Shared/Enums/nav-item';
 import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
 
 @Component({
   selector: 'app-help',
