@@ -15,26 +15,21 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { accessLevels } from '@biosimulations/datamodel/core';
-import { AccessLevel } from '@biosimulations/datamodel/core';
-import { License, licenses } from 'src/app/Shared/Enums/license';
-import { Algorithm } from 'src/app/Shared/Models/algorithm';
-import { AlgorithmParameter } from 'src/app/Shared/Models/algorithm-parameter';
-import { Model } from 'src/app/Shared/Models/model';
-import { ModelParameter } from 'src/app/Shared/Models/model-parameter';
-import { Simulation } from 'src/app/Shared/Models/simulation';
-import { Simulator } from 'src/app/Shared/Models/simulator';
-import { Taxon } from 'src/app/Shared/Models/taxon';
-import { MetadataService } from 'src/app/Shared/Services/metadata.service';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
-import {
-  OkCancelDialogComponent,
-  OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { Model } from '../../../Shared/Models/model';
+import { ModelParameter } from '../../../Shared/Models/model-parameter';
+import { AlgorithmParameter } from '../../../Shared/Models/algorithm-parameter';
+import { Simulator } from '../../../Shared/Models/simulator';
+import { accessLevels, AccessLevel } from '@biosimulations/datamodel/core';
+import { licenses } from '../../../Shared/Models/license';
+import { Simulation } from '../../../Shared/Models/simulation';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
+import { MetadataService } from '../../../Shared/Services/metadata.service';
+import { ModelService } from '../../../Shared/Services/Resources/model.service';
+import { SimulationService } from '../../../Shared/Services/Resources/simulation.service';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { OkCancelDialogComponent } from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { Algorithm } from '../../../Shared/Models/algorithm';
 
 enum Mode {
   new = 'new',
@@ -373,6 +368,11 @@ export class EditComponent implements OnInit {
   }
 
   getAlgorithmParameters(value: string): void {
+    this.algorithm = new Algorithm({
+      name: null,
+      id: null,
+      parameters: [null],
+    });
     this.algorithmParameters = this.metadataService.getAlgorithmParameters(
       this.algorithm,
       value,

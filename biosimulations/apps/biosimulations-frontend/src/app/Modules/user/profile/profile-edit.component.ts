@@ -9,12 +9,13 @@ import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { User, UserSerializer } from 'src/app/Shared/Models/user';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
+
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { Observable, merge } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { ProvidedFilter } from 'ag-grid-community';
 import { Router } from '@angular/router';
+import { NavItem } from '../../../Shared/Enums/nav-item';
 
 @Component({
   selector: 'app-profile-edit',
@@ -31,7 +32,7 @@ export class ProfileEditComponent implements OnInit {
     private snackBar: MatSnackBar,
     public auth: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {
     this.userSerializer = new UserSerializer();
     this.formGroup = this.formBuilder.group({
@@ -98,7 +99,7 @@ export class ProfileEditComponent implements OnInit {
             err => {
               saving.dismiss();
               this.error(err);
-            }
+            },
           );
         });
     });

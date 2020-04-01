@@ -22,29 +22,26 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
 import { ChartTypeDataFieldShape } from '@biosimulations/datamodel/core';
-import { License, licenses } from 'src/app/Shared/Enums/license';
-import { ChartType } from 'src/app/Shared/Models/chart-type';
-import { Simulation } from 'src/app/Shared/Models/simulation';
-import { SimulationResult } from 'src/app/Shared/Models/simulation-result';
-import { Visualization } from 'src/app/Shared/Models/visualization';
-import { VisualizationDataField } from 'src/app/Shared/Models/visualization-data-field';
-import { VisualizationLayoutElement } from 'src/app/Shared/Models/visualization-layout-element';
-import { MetadataService } from 'src/app/Shared/Services/metadata.service';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
-import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
-import {
-  OkCancelDialogComponent,
-  OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { ChartTypesGridComponent } from 'src/app/Shared/Components/chart-types-grid/chart-types-grid.component';
-import { SimulationsGridComponent } from 'src/app/Shared/Components/simulations-grid/simulations-grid.component';
+import { Simulation } from '../../../Shared/Models/simulation';
+import { licenses } from '../../../Shared/Models/license';
+import { Visualization } from '../../../Shared/Models/visualization';
+import { SimulationsGridComponent } from '../../../Shared/Components/simulations-grid/simulations-grid.component';
+import { ChartTypesGridComponent } from '../../../Shared/Components/chart-types-grid/chart-types-grid.component';
+import { VisualizationLayoutElement } from '../../../Shared/Models/visualization-layout-element';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
+import { MetadataService } from '../../../Shared/Services/metadata.service';
+import { ModelService } from '../../../Shared/Services/Resources/model.service';
+import { SimulationService } from '../../../Shared/Services/Resources/simulation.service';
+import { VisualizationService } from '../../../Shared/Services/Resources/visualization.service';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { ChartType } from '../../../Shared/Models/chart-type';
+import { VisualizationDataField } from '../../../Shared/Models/visualization-data-field';
+import { SimulationResult } from '../../../Shared/Models/simulation-result';
+import { OkCancelDialogComponent } from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 enum Mode {
   new = 'new',

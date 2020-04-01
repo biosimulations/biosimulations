@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
+
 import { User } from 'src/app/Shared/Models/user';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
 
 @Component({
   templateUrl: './simulations.component.html',
@@ -19,7 +20,8 @@ export class SimulationsComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
-    private userService: UserService) { }
+    private userService: UserService,
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
@@ -47,7 +49,7 @@ export class SimulationsComponent implements OnInit {
           icon: 'plus',
           label: 'New',
           route: ['/simulations', 'new'],
-          display: NavItemDisplayLevel.always
+          display: NavItemDisplayLevel.always,
         });
         buttons.push({
           iconType: 'fas',

@@ -2,10 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { User } from 'src/app/Shared/Models/user';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { UserService } from 'src/app/Shared/Services/user.service';
+import { NavItem } from '../../../Shared/Enums/nav-item';
 
 @Component({
   templateUrl: './models.component.html',
@@ -18,7 +17,7 @@ export class ModelsComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
     public auth: AuthService,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   ngOnInit() {

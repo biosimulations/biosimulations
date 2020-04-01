@@ -1,5 +1,5 @@
 import { RemoteFile } from '../Models/remote-file';
-import { License } from '../Enums/license';
+import { License } from '../Models/license';
 
 import { AccessLevel } from '@biosimulations/datamodel/core';
 import { Person } from '../Models/person';

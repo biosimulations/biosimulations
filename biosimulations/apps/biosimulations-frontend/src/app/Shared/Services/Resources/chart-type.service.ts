@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { AccessLevel } from '@biosimulations/datamodel/core';
-import { License } from 'src/app/Shared/Enums/license';
+import { License } from 'src/app/Shared/Models/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { Identifier } from 'src/app/Shared/Models/identifier';
 import { JournalReference } from 'src/app/Shared/Models/journal-reference';

@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { ValueSubForm } from '../value-sub-form';
-import { licenses } from 'src/app/Shared/Enums/license';
+import { licenses } from 'src/app/Shared/Models/license';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 @Component({
   selector: 'app-license-form',

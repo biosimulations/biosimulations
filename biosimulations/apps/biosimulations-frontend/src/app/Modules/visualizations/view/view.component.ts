@@ -7,30 +7,30 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccessLevel } from '@biosimulations/datamodel/core';
-import { getLicenseInfo } from 'src/app/Shared/Enums/license';
-import { ChartType } from 'src/app/Shared/Models/chart-type';
-import { Visualization } from 'src/app/Shared/Models/visualization';
-import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
+
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { VegaViewerComponent } from 'src/app/Shared/Components/vega-viewer/vega-viewer.component';
-import {
-  OkCancelDialogComponent,
-  OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { Model } from 'src/app/Shared/Models/model';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
-import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
-import { UserService } from 'src/app/Shared/Services/user.service';
-import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
+
 import { shareReplay } from 'rxjs/operators';
-import { Simulation } from 'src/app/Shared/Models/simulation';
-import { Project } from 'src/app/Shared/Models/project';
-import { User } from 'src/app/Shared/Models/user';
+import { getLicenseInfo } from '../../../Shared/Models/license';
+import { Visualization } from '../../../Shared/Models/visualization';
+import { VegaViewerComponent } from '../../../Shared/Components/vega-viewer/vega-viewer.component';
+
+import { Simulation } from '../../../Shared/Models/simulation';
+import { ChartType } from '../../../Shared/Models/chart-type';
+import { Project } from '../../../Shared/Models/project';
+import { User } from '../../../Shared/Models/user';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
+import { UserService } from '../../../Shared/Services/user.service';
+import { SimulationService } from '../../../Shared/Services/Resources/simulation.service';
+import { VisualizationService } from '../../../Shared/Services/Resources/visualization.service';
+import { ChartTypeService } from '../../../Shared/Services/Resources/chart-type.service';
+import { ProjectService } from '../../../Shared/Services/Resources/project.service';
+import { ModelService } from '../../../Shared/Services/Resources/model.service';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { OkCancelDialogComponent } from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
+import { Model } from '../../../Shared/Models/model';
 
 @Component({
   templateUrl: './view.component.html',

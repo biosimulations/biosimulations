@@ -1,7 +1,7 @@
 import { AccessLevel } from '@biosimulations/datamodel/core';
-import { License } from '../Enums/license';
+import { License } from './license';
 import { SimulationResultsFormat } from '../Enums/simulation-results-format';
-import { SimulationStatus } from '../Enums/simulation-status';
+import { SimulationStatus } from './simulation-status';
 import { ParameterChange } from './parameter-change';
 import { Algorithm } from './algorithm';
 import { AlgorithmParameter } from './algorithm-parameter';

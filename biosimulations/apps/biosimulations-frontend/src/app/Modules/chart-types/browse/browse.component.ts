@@ -1,19 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
 
 @Component({
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.sass'],
 })
 export class BrowseComponent implements OnInit {
-  constructor(@Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService) {}
+  constructor(
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+  ) {}
 
   ngOnInit() {
-    const crumbs: object[] = [
-      {label: 'Chart types'},
-    ];
+    const crumbs: object[] = [{ label: 'Chart types' }];
     const buttons: NavItem[] = [
       {
         iconType: 'fas',

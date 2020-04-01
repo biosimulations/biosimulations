@@ -1,5 +1,5 @@
 import { AccessLevel } from '@biosimulations/datamodel/core';
-import { License } from '../Enums/license';
+import { License } from './license';
 import { ChartType } from './chart-type';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';

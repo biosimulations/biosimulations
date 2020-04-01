@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { User } from 'src/app/Shared/Models/user';
 import { UserService } from 'src/app/Shared/Services/user.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
+
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
 import { Model } from 'src/app/Shared/Models/model';
@@ -17,6 +17,7 @@ import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.s
 import { Project } from 'src/app/Shared/Models/project';
 import { Simulation } from 'src/app/Shared/Models/simulation';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
+import { NavItem } from '../../../Shared/Enums/nav-item';
 
 @Component({
   selector: 'app-profile',
@@ -44,7 +45,7 @@ export class ProfileComponent implements OnInit {
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
     private projectService: ProjectService,
-    private chartTypeService: ChartTypeService
+    private chartTypeService: ChartTypeService,
   ) {}
 
   /**

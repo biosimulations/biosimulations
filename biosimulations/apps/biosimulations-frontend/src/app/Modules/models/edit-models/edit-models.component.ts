@@ -21,7 +21,7 @@ import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
 import { FileService } from 'src/app/Shared/Services/Resources/file.service';
 import { Taxon } from 'src/app/Shared/Models/taxon';
-import { licenses } from 'src/app/Shared/Enums/license';
+import { licenses } from 'src/app/Shared/Models/license';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MetadataService } from 'src/app/Shared/Services/metadata.service';
 

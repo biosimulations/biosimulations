@@ -15,20 +15,14 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { accessLevels } from '@biosimulations/datamodel/core';
-
-import { licenses } from 'src/app/Shared/Enums/license';
-import { ChartType } from 'src/app/Shared/Models/chart-type';
-
-import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
-import {
-  OkCancelDialogComponent,
-  OkCancelDialogData,
-} from 'src/app/Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
-import { AccessLevel } from '@biosimulations/datamodel/core';
+import { accessLevels, AccessLevel } from '@biosimulations/datamodel/core';
+import { licenses } from '../../../Shared/Models/license';
+import { ChartType } from '../../../Shared/Models/chart-type';
+import { BreadCrumbsService } from '../../../Shared/Services/bread-crumbs.service';
+import { ChartTypeService } from '../../../Shared/Services/Resources/chart-type.service';
+import { NavItem } from '../../../Shared/Enums/nav-item';
+import { NavItemDisplayLevel } from '../../../Shared/Enums/nav-item-display-level';
+import { OkCancelDialogComponent } from '../../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 
 @Component({
   templateUrl: './edit.component.html',

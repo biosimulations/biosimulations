@@ -1,4 +1,4 @@
-import { NavItemDisplayLevel } from '../Enums/nav-item-display-level';
+import { NavItemDisplayLevel } from './nav-item-display-level';
 import { User } from '../Models/user';
 
 export interface NavItem {
@@ -22,11 +22,7 @@ export const navItems: NavItem[] = [
     label: 'Projects',
     icon: 'folder-open',
     iconType: 'fas',
-    children: [
-      'Projects-Browse',
-      'Projects-New',
-      'Projects-Yours',
-    ],
+    children: ['Projects-Browse', 'Projects-New', 'Projects-Yours'],
     display: NavItemDisplayLevel.always,
   },
   {
@@ -34,11 +30,7 @@ export const navItems: NavItem[] = [
     label: 'Models',
     icon: 'project-diagram',
     iconType: 'fas',
-    children: [
-      'Models-Browse',
-      'Models-New',
-      'Models-Yours',
-    ],
+    children: ['Models-Browse', 'Models-New', 'Models-Yours'],
     display: NavItemDisplayLevel.always,
   },
   {
@@ -46,11 +38,7 @@ export const navItems: NavItem[] = [
     label: 'Simulations',
     icon: 'timeline',
     iconType: 'mat',
-    children: [
-      'Simulations-Browse',
-      'Simulations-New',
-      'Simulations-Yours',
-    ],
+    children: ['Simulations-Browse', 'Simulations-New', 'Simulations-Yours'],
     display: NavItemDisplayLevel.always,
   },
   {
@@ -58,11 +46,7 @@ export const navItems: NavItem[] = [
     label: 'Chart types',
     icon: 'chart-area',
     iconType: 'fas',
-    children: [
-      'ChartTypes-Browse',
-      'ChartTypes-New',
-      'ChartTypes-Yours',
-      ],
+    children: ['ChartTypes-Browse', 'ChartTypes-New', 'ChartTypes-Yours'],
     display: NavItemDisplayLevel.always,
   },
   {
@@ -74,7 +58,7 @@ export const navItems: NavItem[] = [
       'Visualizations-Browse',
       'Visualizations-New',
       'Visualizations-Yours',
-      ],
+    ],
     display: NavItemDisplayLevel.always,
   },
   {
@@ -90,12 +74,7 @@ export const navItems: NavItem[] = [
     label: 'Account',
     icon: 'user-circle',
     iconType: 'fas',
-    children: [
-      'User-Profile',
-      'User-Sign-In',
-      'User-Sign-Up',
-      'User-Sign-Out',
-    ],
+    children: ['User-Profile', 'User-Sign-In', 'User-Sign-Up', 'User-Sign-Out'],
     display: NavItemDisplayLevel.always,
   },
 

@@ -17,10 +17,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
+import { NavItem } from 'src/app/Shared/Enums/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
-import { License, licenses } from 'src/app/Shared/Enums/license';
+import { License, licenses } from 'src/app/Shared/Models/license';
 import {
   ProjectProductType,
   projectProductTypes,

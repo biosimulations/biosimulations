@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
+import { NavItem } from 'src/app/Shared/Enums/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
 
 @Component({
@@ -11,15 +11,14 @@ import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service
 })
 export class Auth0CallbackComponent implements OnInit {
   constructor(
-      private auth: AuthService,
-      @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService) { }
+    private auth: AuthService,
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
+  ) {}
 
   ngOnInit() {
     this.auth.handleAuthCallback();
 
-    const crumbs: object[] = [
-      {label: 'Logging in'},
-    ];
+    const crumbs: object[] = [{ label: 'Logging in' }];
     const buttons: NavItem[] = [];
     this.breadCrumbsService.set(crumbs, buttons);
   }

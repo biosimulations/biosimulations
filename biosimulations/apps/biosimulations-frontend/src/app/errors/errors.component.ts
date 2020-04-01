@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { BreadCrumbsService } from '../Shared/Services/bread-crumbs.service';
-import { NavItem } from '../Shared/Models/nav-item';
+import { NavItem } from '../Shared/Enums/nav-item';
 
 @Component({
   selector: 'app-errors',
@@ -9,7 +9,7 @@ import { NavItem } from '../Shared/Models/nav-item';
 })
 export class ErrorsComponent implements OnInit {
   constructor(
-    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
   ) {}
 
   ngOnInit() {

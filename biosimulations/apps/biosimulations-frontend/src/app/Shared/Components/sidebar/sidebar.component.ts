@@ -1,8 +1,7 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { AuthService } from 'src/app/Shared/Services/auth0.service';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Models/nav-item';
-import { navItems } from 'src/app/Shared/Models/nav-item';
+import { navItems, NavItem } from '../../Enums/nav-item';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,9 +27,9 @@ export class SidebarComponent implements OnInit {
   getClick(navItem: NavItem) {
     if (navItem.clickData === 'toggleLogin') {
       if (this.auth.loggedIn) {
-        this.auth.logout()
+        this.auth.logout();
       } else {
-        this.auth.login()
+        this.auth.login();
       }
     }
   }
