@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, UserSerializer } from '../Models/user';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class UserService {
           models.push(testModel);
         });
         return models;
-      })
+      }),
     );
   }
 
@@ -41,7 +41,7 @@ export class UserService {
     return this.http
       .put<User>(
         this.endpoint + '/users/' + userName,
-        this.serializer.toJson(user)
+        this.serializer.toJson(user),
       )
       .pipe(map(data => this.serializer.fromJson(data)));
   }

@@ -1,9 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Project } from 'src/app/Shared/Models/project';
-import { UserService } from 'src/app/Shared/Services/user.service';
 import { ResourceService } from './resource.service';
-import { ProjectSerializer } from 'src/app/Shared/Serializers/project-serializer';
+import { Project } from '../../Models/project';
+import { UserService } from '../user.service';
+import { ProjectSerializer } from '../../Serializers/project-serializer';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,7 +30,7 @@ export class ProjectService extends ResourceService<Project> {
           id === undefined ||
           item['id'].toLowerCase().includes(lowCaseId) ||
           name === undefined ||
-          item['name'].toLowerCase().includes(lowCaseName)
+          item['name'].toLowerCase().includes(lowCaseName),
       );
     } else {
       return list;

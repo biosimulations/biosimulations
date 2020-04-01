@@ -1,15 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Subject, Observable } from 'rxjs';
-import { AlertService } from 'src/app/Shared/Services/alert.service';
-import { UserService } from 'src/app/Shared/Services/user.service';
-import { Simulation } from 'src/app/Shared/Models/simulation';
+
+import { Observable } from 'rxjs';
 
 import { ResourceService } from './resource.service';
-import { Serializer } from 'src/app/Shared/Serializers/serializer';
-import { SimulationSerializer } from 'src/app/Shared/Serializers/simulation-serializer';
+
 import { QueryOptions } from '../../Enums/query-options';
+import { Simulation } from '../../Models/simulation';
+import { SimulationSerializer } from '../../Serializers/simulation-serializer';
 
 @Injectable({
   providedIn: 'root',

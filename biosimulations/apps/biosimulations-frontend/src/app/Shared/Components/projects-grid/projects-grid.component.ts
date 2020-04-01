@@ -8,11 +8,11 @@ import {
   ElementRef,
 } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { ProjectService } from 'src/app/Shared/Services/Resources/project.service';
-import { UtilsService } from 'src/app/Shared/Services/utils.service';
-import { Format } from 'src/app/Shared/Models/format';
-import { Project } from 'src/app/Shared/Models/project';
-import { User } from 'src/app/Shared/Models/user';
+import { ProjectService } from '../../Services/Resources/project.service';
+import { UtilsService } from '../../Services/utils.service';
+import { Format } from '../../Models/format';
+import { Project } from '../../Models/project';
+import { User } from '../../Models/user';
 
 @Component({
   selector: 'app-projects-grid',

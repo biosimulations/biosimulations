@@ -1,9 +1,14 @@
-import { async, ComponentFixture, TestBed, inject} from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  inject,
+} from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FeedbackComponent } from './feedback.component';
-import { MaterialModule } from 'src/app/Modules/app-material.module';
+import { MaterialModule } from '../../../Modules/app-material.module';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,13 +20,23 @@ describe('FeedbackComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FeedbackComponent],
-      imports: [ HttpClientTestingModule, RouterTestingModule, MaterialModule, MatDialogModule, BrowserAnimationsModule ],
-      providers: [ HttpClientTestingModule, RouterTestingModule, MatDialogModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MaterialModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+      ],
+      providers: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatDialogModule,
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ FeedbackComponent ],
+        entryComponents: [FeedbackComponent],
       },
     });
 
@@ -33,7 +48,7 @@ describe('FeedbackComponent', () => {
     (d: MatDialog, oc: OverlayContainer) => {
       dialog = d;
       overlayContainer = oc;
-    }
+    },
   ));
 
   afterEach(() => {

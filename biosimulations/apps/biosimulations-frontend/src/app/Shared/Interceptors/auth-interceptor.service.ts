@@ -5,10 +5,11 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
+
 import { Observable, throwError, of } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../Services/auth0.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     if (
       req.url.startsWith(environment.crbm.CRBMAPI_URL) &&
@@ -38,7 +39,7 @@ export class AuthInterceptorService implements HttpInterceptor {
           } else {
             return next.handle(req);
           }
-        })
+        }),
       );
     } else {
       return next.handle(req);

@@ -5,7 +5,7 @@ import { Format } from '../Models/format';
 import { OntologyTerm } from '../Models/ontology-term';
 
 import { Serializer } from './serializer';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { AccessLevel } from '@biosimulations/datamodel/core';
 
 export class ModelSerializer extends Serializer<Model> {

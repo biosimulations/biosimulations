@@ -8,11 +8,11 @@ import {
   ElementRef,
 } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { ModelService } from 'src/app/Shared/Services/Resources/model.service';
-import { UtilsService } from 'src/app/Shared/Services/utils.service';
-import { Format } from 'src/app/Shared/Models/format';
-import { Model } from 'src/app/Shared/Models/model';
-import { User } from 'src/app/Shared/Models/user';
+import { ModelService } from '../../Services/Resources/model.service';
+import { UtilsService } from '../../Services/utils.service';
+import { Format } from '../../Models/format';
+import { Model } from '../../Models/model';
+import { User } from '../../Models/user';
 import { UserService } from '../../Services/user.service';
 import { tap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -62,7 +62,7 @@ export class ModelsGridComponent implements OnInit {
 
   constructor(
     private modelService: ModelService,
-    private userService: UserService
+    private userService: UserService,
   ) {
     this.userSer = userService;
   }

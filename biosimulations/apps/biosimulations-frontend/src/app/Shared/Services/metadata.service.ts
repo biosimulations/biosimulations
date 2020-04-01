@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Algorithm } from 'src/app/Shared/Models/algorithm';
-import { AlgorithmParameter } from 'src/app/Shared/Models/algorithm-parameter';
-import { Simulator } from 'src/app/Shared/Models/simulator';
-import { Taxon } from 'src/app/Shared/Models/taxon';
+
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { Algorithm } from '../Models/algorithm';
+import { AlgorithmParameter } from '../Models/algorithm-parameter';
+import { Simulator } from '../Models/simulator';
+import { Taxon } from '../Models/taxon';
 
 @Injectable({
   providedIn: 'root',

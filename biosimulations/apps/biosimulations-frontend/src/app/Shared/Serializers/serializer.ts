@@ -6,7 +6,7 @@ import { Person } from '../Models/person';
 import { JournalReference } from '../Models/journal-reference';
 import { TopLevelResource } from '../Models/top-level-resource';
 import { UserSerializer } from '../Models/user';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { Identifier } from '../Models/identifier';
 
 export class Serializer<T extends TopLevelResource> {

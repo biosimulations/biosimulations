@@ -1,17 +1,17 @@
 import { Injectable, Injector } from '@angular/core';
-import { environment } from 'src/environments/environment';
+
 import { HttpClient } from '@angular/common/http';
 import { Subject, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Format } from 'src/app/Shared/Models/format';
-import { Model } from 'src/app/Shared/Models/model';
-import { ModelParameter } from 'src/app/Shared/Models/model-parameter';
-import { ModelVariable } from 'src/app/Shared/Models/model-variable';
-import { AlertService } from 'src/app/Shared/Services/alert.service';
-import { UserService } from 'src/app/Shared/Services/user.service';
 import { map } from 'rxjs/operators';
-import { ResourceService } from 'src/app/Shared/Services/Resources/resource.service';
-import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
+import { ResourceService } from './resource.service';
+import { UserService } from '../user.service';
+import { AlertService } from '../alert.service';
+import { ModelSerializer } from '../../Serializers/model-serializer';
+import { ModelVariable } from '../../Models/model-variable';
+import { ModelParameter } from '../../Models/model-parameter';
+import { environment } from '../../../../environments/environment.prod';
+import { Model } from '../../Models/model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class ModelService extends ResourceService<Model> {
     private http: HttpClient,
     private alertService: AlertService,
     private router: Router,
-    private injector: Injector
+    private injector: Injector,
   ) {
     super(http, 'models', new ModelSerializer());
   }
@@ -61,7 +61,7 @@ export class ModelService extends ResourceService<Model> {
       return list.filter(
         item =>
           (id && item['id'].toLowerCase().includes(lowCaseId)) ||
-          (name && item['name'].toLowerCase().includes(lowCaseName))
+          (name && item['name'].toLowerCase().includes(lowCaseName)),
       );
     } else {
       return list;
@@ -78,15 +78,15 @@ export class ModelService extends ResourceService<Model> {
     this.http.post(url, formData).subscribe(
       success => {
         this.alertService.openDialog(
-          'File upload was successful: ' + JSON.stringify(success)
+          'File upload was successful: ' + JSON.stringify(success),
         );
         this.getFileData();
       },
       error => {
         this.alertService.openDialog(
-          'File upload failed: ' + JSON.stringify(error)
+          'File upload failed: ' + JSON.stringify(error),
         );
-      }
+      },
     );
   }
 
@@ -96,7 +96,7 @@ export class ModelService extends ResourceService<Model> {
         this.fileList = success['data'];
         this.fileChangeSubject.next();
       },
-      error => {}
+      error => {},
     );
   }
 
@@ -106,16 +106,17 @@ export class ModelService extends ResourceService<Model> {
       .subscribe(
         success => {
           this.alertService.openDialog(
-            'File deleted successfully' + JSON.stringify(success)
+            'File deleted successfully' + JSON.stringify(success),
           );
           this.getFileData();
           this.fileChangeSubject.next();
         },
         error => {
           this.alertService.openDialog(
-            'There was an error while deleting the file' + JSON.stringify(error)
+            'There was an error while deleting the file' +
+              JSON.stringify(error),
           );
-        }
+        },
       );
   }
 
@@ -137,7 +138,7 @@ export class ModelService extends ResourceService<Model> {
         error => {
           console.log('File update failed', error);
           this.alertService.openDialog('File update failed');
-        }
+        },
       );
   }
 }

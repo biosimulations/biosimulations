@@ -8,10 +8,10 @@ import {
   ElementRef,
 } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { VisualizationService } from 'src/app/Shared/Services/Resources/visualization.service';
-import { UtilsService } from 'src/app/Shared/Services/utils.service';
-import { Visualization } from 'src/app/Shared/Models/visualization';
-import { User } from 'src/app/Shared/Models/user';
+import { VisualizationService } from '../../Services/Resources/visualization.service';
+import { UtilsService } from '../../Services/utils.service';
+import { Visualization } from '../../Models/visualization';
+import { User } from '../../Models/user';
 
 @Component({
   selector: 'app-visualizations-grid',

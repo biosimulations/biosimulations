@@ -1,6 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
+import { AuthService } from '../../Services/auth0.service';
+import { NavItemDisplayLevel } from '../../Enums/nav-item-display-level';
 import { navItems, NavItem } from '../../Enums/nav-item';
 
 @Component({

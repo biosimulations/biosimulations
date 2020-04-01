@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { StatsService } from 'src/app/Shared/Services/stats.service';
+import { BreadCrumbsService } from '../../Services/bread-crumbs.service';
+import { StatsService } from '../../Services/stats.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
   private stats: object;
@@ -16,10 +16,11 @@ export class HomeComponent implements OnInit {
 
   constructor(
     @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
-    @Inject(StatsService) private statsService: StatsService) { }
+    @Inject(StatsService) private statsService: StatsService,
+  ) {}
 
   ngOnInit() {
-    this.breadCrumbsService.set([], [], ['fluid-topbar'])
+    this.breadCrumbsService.set([], [], ['fluid-topbar']);
 
     this.stats = this.statsService.get();
 
@@ -29,20 +30,29 @@ export class HomeComponent implements OnInit {
           ['fas', 'database'],
           'Content',
           'BioSimulations contains hundreds of modeling projects',
-          'Count', null, 'log',
-          this.stats['countObjectsByType']),
+          'Count',
+          null,
+          'log',
+          this.stats['countObjectsByType'],
+        ),
         this.getBarGraph(
           ['far', 'file-code'],
           'Modeling frameworks',
           'BioSimulations supports several modeling frameworks',
-          'Models', null, 'linear',
-          this.stats['countModelsByFramework']),
+          'Models',
+          null,
+          'linear',
+          this.stats['countModelsByFramework'],
+        ),
         this.getBarGraph(
           ['far', 'file-alt'],
           'Model formats',
           'BioSimulations supports several model formats',
-          'Models', null, 'linear',
-          this.stats['countModelsByFormat']),
+          'Models',
+          null,
+          'linear',
+          this.stats['countModelsByFormat'],
+        ),
       ],
       [
         null,
@@ -50,15 +60,26 @@ export class HomeComponent implements OnInit {
           ['fas', 'cogs'],
           'Simulators',
           'BioSimulations incorporates several simulators',
-          'Simulations', null, 'linear',
-          this.stats['countSimulationsBySimulator']),
+          'Simulations',
+          null,
+          'linear',
+          this.stats['countSimulationsBySimulator'],
+        ),
         null,
       ],
     ];
   }
 
   // tslint:disable:max-line-length
-  getBarGraph(icon: string[], title: string, subtitle: string, xAxisLabel: string, yAxisLabel: string, xScaleType: string, data: object[]): object {
+  getBarGraph(
+    icon: string[],
+    title: string,
+    subtitle: string,
+    xAxisLabel: string,
+    yAxisLabel: string,
+    xScaleType: string,
+    data: object[],
+  ): object {
     const xScale: object = null;
     let maxVal = 0;
     for (const datum of data) {
@@ -97,7 +118,7 @@ export class HomeComponent implements OnInit {
           values: [],
         },
         data: {
-          name: 'values'
+          name: 'values',
         },
         encoding: {
           y: {
@@ -121,15 +142,15 @@ export class HomeComponent implements OnInit {
               title: xAxisLabel,
               titleFontWeight: 'normal',
               gridOpacity: 0,
-              values: (xScaleType === 'log' ? xTicks : undefined)
+              values: xScaleType === 'log' ? xTicks : undefined,
             },
           },
         },
-        mark: {type: 'bar', color: '#999'},
+        mark: { type: 'bar', color: '#999' },
       },
       data: {
-        values: data
-      }
-    }
+        values: data,
+      },
+    };
   }
 }

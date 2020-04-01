@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../Services/auth0.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 import { BrtData, BrtError } from '@bruit/component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -24,7 +24,10 @@ export class FeedbackComponent implements OnInit {
     },
   ];
 
-  constructor(private authService: AuthService, private snackBar: MatSnackBar) {}
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit() {
     this.authService.localAuthSetup();

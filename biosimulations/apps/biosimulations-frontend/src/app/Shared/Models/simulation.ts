@@ -16,7 +16,7 @@ import { Project } from './project';
 import { RemoteFile } from './remote-file';
 import { Simulator } from './simulator';
 import { Taxon } from './taxon';
-import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
+
 import { User } from './user';
 import { Visualization } from './visualization';
 import { ProjectService } from '../Services/Resources/project.service';
@@ -26,6 +26,7 @@ import { VisualizationService } from '../Services/Resources/visualization.servic
 import { ModelService } from '../Services/Resources/model.service';
 import { UserService } from '../Services/user.service';
 import { Observable } from 'rxjs';
+import { TopLevelResource } from './top-level-resource';
 
 export class Simulation extends TopLevelResource {
   model?: Model;

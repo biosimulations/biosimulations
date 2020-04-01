@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { UtilsService } from 'src/app/Shared/Services/utils.service';
+import { UtilsService } from '../Services/utils.service';
 
-@Pipe({name: 'formatTimeForHumans'})
+@Pipe({ name: 'formatTimeForHumans' })
 export class FormatTimeForHumansPipe implements PipeTransform {
-  constructor() { }
+  constructor() {}
 
   transform(value: number): string {
     return UtilsService.formatTimeForHumans(value);

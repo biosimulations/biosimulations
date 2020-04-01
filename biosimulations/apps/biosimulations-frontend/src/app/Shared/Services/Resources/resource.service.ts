@@ -1,7 +1,7 @@
-import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
+import { TopLevelResource } from '../../../Shared/Models/top-level-resource';
 import { HttpClient } from '@angular/common/http';
-import { Serializer } from 'src/app/Shared/Serializers/serializer';
-import { environment } from 'src/environments/environment';
+import { Serializer } from '../../../Shared/Serializers/serializer';
+import { environment } from '../../../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { QueryOptions } from '../../Enums/query-options';

@@ -5,7 +5,7 @@ import { JournalReference } from './journal-reference';
 import { Person } from './person';
 import { ProjectProduct } from './project-product';
 import { RemoteFile } from './remote-file';
-import { TopLevelResource } from 'src/app/Shared/Models/top-level-resource';
+
 import { User } from './user';
 import { UtilsService } from '../Services/utils.service';
 import { Observable } from 'rxjs';
@@ -18,6 +18,7 @@ import { Simulation } from './simulation';
 import { ChartType } from './chart-type';
 import { Visualization } from './visualization';
 import { ModelService } from '../Services/Resources/model.service';
+import { TopLevelResource } from './top-level-resource';
 
 export class Project extends TopLevelResource {
   id?: string;

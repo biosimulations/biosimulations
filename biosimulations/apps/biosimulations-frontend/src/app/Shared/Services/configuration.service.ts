@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { shareReplay, pluck } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { NgxLoggerLevel } from 'ngx-logger';
 
 export interface ConfigurationSerialized {
@@ -15,7 +15,7 @@ class Configuration implements ConfigurationSerialized {
     public production = false,
     public dev = false,
     public showUnderConstructionPage = false,
-    public logLevel = NgxLoggerLevel.DEBUG
+    public logLevel = NgxLoggerLevel.DEBUG,
   ) {}
 }
 @Injectable({

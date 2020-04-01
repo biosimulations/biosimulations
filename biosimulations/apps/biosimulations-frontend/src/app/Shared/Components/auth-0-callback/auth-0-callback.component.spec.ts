@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Auth0CallbackComponent } from './auth-0-callback.component';
 
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
+import { AuthService } from '../../Services/auth0.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from 'src/app/Modules/app-material.module';
+import { MaterialModule } from '../../../Modules/app-material.module';
 import { ActivatedRoute } from '@angular/router';
 
 describe('Auth0CallbackComponent', () => {
@@ -33,7 +33,7 @@ describe('Auth0CallbackComponent', () => {
     const authService = debugelement.injector.get(AuthService);
     const authSpy = spyOn(
       authService,
-      'handleAuthCallback'
+      'handleAuthCallback',
     ).and.callFake(() => {});
     component.ngOnInit();
     expect(authSpy).toHaveBeenCalled();

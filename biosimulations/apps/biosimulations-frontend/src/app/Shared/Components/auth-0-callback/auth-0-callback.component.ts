@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AuthService } from 'src/app/Shared/Services/auth0.service';
-import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
-import { NavItem } from 'src/app/Shared/Enums/nav-item';
-import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
+import { AuthService } from '../../Services/auth0.service';
+import { NavItemDisplayLevel } from '../../Enums/nav-item-display-level';
+import { NavItem } from '../../Enums/nav-item';
+import { BreadCrumbsService } from '../../Services/bread-crumbs.service';
 
 @Component({
   selector: 'app-callback',

@@ -1,17 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
-import { AccessLevel } from '@biosimulations/datamodel/core';
-import { License } from 'src/app/Shared/Models/license';
-import { ChartType } from 'src/app/Shared/Models/chart-type';
-import { Identifier } from 'src/app/Shared/Models/identifier';
-import { JournalReference } from 'src/app/Shared/Models/journal-reference';
-import { Person } from 'src/app/Shared/Models/person';
-import { RemoteFile } from 'src/app/Shared/Models/remote-file';
-import { UserService } from 'src/app/Shared/Services/user.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { ResourceService } from './resource.service';
-import { Serializer } from 'src/app/Shared/Serializers/serializer';
-import { ChartTypeSerializer } from 'src/app/Shared/Serializers/chart-type-serializer';
+import { ChartType } from '../../Models/chart-type';
+import { UserService } from '../user.service';
+import { ChartTypeSerializer } from '../../Serializers/chart-type-serializer';
 
 @Injectable({
   providedIn: 'root',

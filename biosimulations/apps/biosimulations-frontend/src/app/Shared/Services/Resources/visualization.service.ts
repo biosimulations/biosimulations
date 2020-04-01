@@ -1,14 +1,14 @@
 import { Injectable, Injector } from '@angular/core';
 
-import { Visualization } from 'src/app/Shared/Models/visualization';
+import { Visualization } from '../../Models/visualization';
 
-import { UserService } from 'src/app/Shared/Services/user.service';
+import { UserService } from '../../Services/user.service';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceService } from './resource.service';
 
-import { VisualizationSerializer } from 'src/app/Shared/Serializers/visualization-serializer';
+import { VisualizationSerializer } from '../../Serializers/visualization-serializer';
 
 @Injectable({
   providedIn: 'root',

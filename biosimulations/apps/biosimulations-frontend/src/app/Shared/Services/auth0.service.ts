@@ -19,7 +19,7 @@ import {
   pluck,
 } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User, UserSerializer } from '../Models/user';
 
@@ -39,10 +39,10 @@ export class AuthService {
       response_type: 'token id_token',
       scope: 'update:current_user_metadata read:current_user read:models',
       audience: environment.auth0.audience,
-    })
+    }),
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
-    catchError(err => throwError(err))
+    catchError(err => throwError(err)),
   );
   // Define observables for SDK methods that return promises by default
   // For each Auth0 SDK method, first ensure the client instance is ready
@@ -50,10 +50,10 @@ export class AuthService {
   // from: Convert that resulting promise into an observable
   isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-    tap(res => (this.loggedIn = res))
+    tap(res => (this.loggedIn = res)),
   );
   handleRedirectCallback$ = this.auth0Client$.pipe(
-    concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
+    concatMap((client: Auth0Client) => from(client.handleRedirectCallback())),
   );
   // Create subject and public observable of user profile data
   private userProfileSubject$ = new BehaviorSubject<any>(null);
@@ -71,7 +71,7 @@ export class AuthService {
   getUser$(options?): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
-      tap(user => this.userProfileSubject$.next(user))
+      tap(user => this.userProfileSubject$.next(user)),
     );
   }
 
@@ -80,21 +80,23 @@ export class AuthService {
       pluck('https://www.biosimulations.org:app_metadata', 'username'),
       catchError(error => {
         return of(null);
-      })
+      }),
     );
   }
 
   getToken$(options?): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) =>
-        from(client.getIdTokenClaims(options))
+        from(client.getIdTokenClaims(options)),
       ),
-      tap(token => (this.token = token))
+      tap(token => (this.token = token)),
     );
   }
   getTokenSilently$(options?): Observable<string> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
+      concatMap((client: Auth0Client) =>
+        from(client.getTokenSilently(options)),
+      ),
     );
   }
 
@@ -110,7 +112,7 @@ export class AuthService {
         }
         // If not authenticated, return stream that emits 'false'
         return of(loggedIn);
-      })
+      }),
     );
     checkAuth$.subscribe((response: { [key: string]: any } | boolean) => {
       // If authenticated, response will be user object
@@ -146,7 +148,7 @@ export class AuthService {
       concatMap(() => {
         // Redirect callback complete; get user and login status
         return combineLatest([this.getUser$(), this.isAuthenticated$]);
-      })
+      }),
     );
     // Subscribe to authentication completion observable
     // Response will be an array of user and login status
@@ -185,7 +187,8 @@ export class AuthService {
           if (!environment.production) {
             console.log(userProfile);
             console.log(
-              'Called confirmed user exists endpoint for user' + userProfile.sub
+              'Called confirmed user exists endpoint for user' +
+                userProfile.sub,
             );
             console.log('got username' + res);
           }
@@ -193,13 +196,14 @@ export class AuthService {
         err => {
           if (!environment.production) {
             console.log(
-              'Called confirmed user exists endpoint for user' + userProfile.sub
+              'Called confirmed user exists endpoint for user' +
+                userProfile.sub,
             );
             if (err.code === 409) {
               console.log('got' + err);
             }
           }
-        }
+        },
       );
   }
 

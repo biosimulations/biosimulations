@@ -1,7 +1,15 @@
 import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ValueSubForm } from 'src/app/Shared/Forms/value-sub-form'
+import { ValueSubForm } from '../../Forms/value-sub-form';
 @Component({
   selector: 'app-identifier-form',
   templateUrl: './identifier-form.component.html',
@@ -16,20 +24,16 @@ import { ValueSubForm } from 'src/app/Shared/Forms/value-sub-form'
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => IdentifierFormComponent),
       multi: true,
-    }
-
-  ]
+    },
+  ],
 })
 export class IdentifierFormComponent extends ValueSubForm implements OnInit {
-
   constructor() {
     super();
-
   }
 
   ngOnInit(): void {
-    this.form.setValidators(Validators.required)
-    this.form.updateValueAndValidity()
+    this.form.setValidators(Validators.required);
+    this.form.updateValueAndValidity();
   }
-
 }

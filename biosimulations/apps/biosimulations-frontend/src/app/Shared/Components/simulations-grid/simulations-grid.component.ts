@@ -8,12 +8,12 @@ import {
   ElementRef,
 } from '@angular/core';
 import { GridComponent } from '../grid/grid.component';
-import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
-import { UtilsService } from 'src/app/Shared/Services/utils.service';
-import { Format } from 'src/app/Shared/Models/format';
-import { Simulator } from 'src/app/Shared/Models/simulator';
-import { Simulation } from 'src/app/Shared/Models/simulation';
-import { User } from 'src/app/Shared/Models/user';
+import { SimulationService } from '../../Services/Resources/simulation.service';
+import { UtilsService } from '../../Services/utils.service';
+import { Format } from '../../Models/format';
+import { Simulator } from '../../Models/simulator';
+import { Simulation } from '../../Models/simulation';
+import { User } from '../../Models/user';
 
 @Component({
   selector: 'app-simulations-grid',

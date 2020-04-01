@@ -1,4 +1,4 @@
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 export class RemoteFile {
   constructor(
@@ -9,7 +9,7 @@ export class RemoteFile {
     type?: string,
     url?: string,
     size?: number,
-    metadata?: any
+    metadata?: any,
   ) {
     this.name = name;
     this.id = id;
@@ -36,7 +36,7 @@ export class RemoteFile {
     isPrivate?: boolean,
     metadata?: any,
     baseUrl?: string,
-    postUrl?: string
+    postUrl?: string,
   ) {
     if (baseUrl === null) {
       baseUrl = environment.crbm.CRBMAPI_URL;
@@ -53,7 +53,7 @@ export class RemoteFile {
       file.type,
       url,
       file.size,
-      metadata
+      metadata,
     );
     return RemoteFile;
   }

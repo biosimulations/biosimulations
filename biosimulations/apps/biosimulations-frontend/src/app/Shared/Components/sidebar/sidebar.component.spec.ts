@@ -4,7 +4,7 @@ import { SidebarComponent } from './sidebar.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FilterPipe } from 'src/app/Shared/Pipes/filter.pipe';
+import { FilterPipe } from '../../Pipes/filter.pipe';
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
