@@ -1,3 +1,6 @@
+import { JournalReferenceDTO } from '@biosimulations/datamodel/core';
+import { JsonSerializable } from '@biosimulations/datamodel/utils';
+
 export interface JournalReferenceSerialized {
   authors?: string;
   title?: string;
@@ -8,8 +11,16 @@ export interface JournalReferenceSerialized {
   year?: number;
   doi?: string;
 }
-export class JournalReference {
-  serialize(): JournalReferenceSerialized {
+export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
+  public authors?: string;
+  public title?: string;
+  public journal?: string;
+  public volume?: number | string;
+  public num?: number;
+  public pages?: string;
+  public year?: number;
+  public doi?: string;
+  serialize(): JournalReferenceDTO {
     const json = {
       authors: this.authors,
       title: this.title,
@@ -22,16 +33,9 @@ export class JournalReference {
     };
     return json;
   }
-  constructor(
-    public authors?: string,
-    public title?: string,
-    public journal?: string,
-    public volume?: number | string,
-    public num?: number,
-    public pages?: string,
-    public year?: number,
-    public doi?: string
-  ) {}
+  constructor(data: JournalReferenceDTO) {
+    Object.assign(this, data);
+  }
 
   getAuthors(): object[] {
     return this.authors

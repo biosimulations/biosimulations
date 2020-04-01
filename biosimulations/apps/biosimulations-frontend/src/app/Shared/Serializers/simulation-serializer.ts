@@ -27,12 +27,12 @@ export class SimulationSerializer extends Serializer<Simulation> {
     }
     const algortihmDTO = json.algorithm as AlgorithmDTO;
     simulation.algorithm = new Algorithm(algortihmDTO);
-    simulation.format = new Format(
-      json.simulatorFormat.name,
-      json.simulatorFormat.version,
-      json.simulatorFormat.number,
-      json.simulatorFormat.url,
-    );
+    simulation.format = new Format({
+      name: json.simulatorFormat.name,
+      version: json.simulatorFormat.version,
+      edamId: json.simulatorFormat.edamId,
+      url: json.simulatorFormat.url,
+    });
     simulation.simulator = new Simulator(
       json.simulator.name,
       json.simulator.version,
@@ -42,13 +42,11 @@ export class SimulationSerializer extends Serializer<Simulation> {
     if (paramChanges) {
       paramChanges.forEach(change => {
         const parameter = change.parameter;
-        const param = new ModelParameter(
-          parameter.id,
-          parameter.name,
-          parameter.value,
-          parameter.units,
-        );
-        const paramChange = new ParameterChange(param, change.value);
+        const param = new ModelParameter(parameter).serialize();
+        const paramChange = new ParameterChange({
+          parameter: param,
+          value: change.value,
+        });
         simulation.modelParameterChanges.push(paramChange);
       });
     }

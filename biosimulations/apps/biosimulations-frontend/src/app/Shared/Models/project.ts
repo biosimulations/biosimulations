@@ -1,4 +1,4 @@
-import { AccessLevel } from '../Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { License } from '../Enums/license';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';

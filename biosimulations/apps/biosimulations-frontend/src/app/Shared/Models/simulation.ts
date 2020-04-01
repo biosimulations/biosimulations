@@ -1,4 +1,4 @@
-import { AccessLevel } from '../Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { License } from '../Enums/license';
 import { SimulationResultsFormat } from '../Enums/simulation-results-format';
 import { SimulationStatus } from '../Enums/simulation-status';

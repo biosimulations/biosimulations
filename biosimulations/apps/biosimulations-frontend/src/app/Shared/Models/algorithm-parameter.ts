@@ -1,8 +1,13 @@
 import { AlgorithmParameterDTO } from '@biosimulations/datamodel/core';
+import { JsonSerializable } from '@biosimulations/datamodel/utils';
 
-export class AlgorithmParameter extends AlgorithmParameterDTO {
+export class AlgorithmParameter
+  implements JsonSerializable<AlgorithmParameterDTO> {
+  name: string;
+  id: string;
+  value: number;
+  kisaoId: number;
   constructor(data: AlgorithmParameterDTO) {
-    super();
     Object.assign(this, data);
   }
   serialize(): AlgorithmParameterDTO {

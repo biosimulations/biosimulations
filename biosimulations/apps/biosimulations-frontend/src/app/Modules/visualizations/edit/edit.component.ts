@@ -25,8 +25,9 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
-import { ChartTypeDataFieldShape } from 'src/app/Shared/Enums/chart-type-data-field-shape';
+
+import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
+import { ChartTypeDataFieldShape } from '@biosimulations/datamodel/core';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 import { Simulation } from 'src/app/Shared/Models/simulation';
@@ -108,7 +109,7 @@ export class EditComponent implements OnInit {
     private metadataService: MetadataService,
     private modelService: ModelService,
     private simulationService: SimulationService,
-    private visualizationService: VisualizationService
+    private visualizationService: VisualizationService,
   ) {
     const columnsFormControl = this.formBuilder.control(1, [
       Validators.min(1),
@@ -376,7 +377,7 @@ export class EditComponent implements OnInit {
       Object.assign(chartTypeCopy, chartType);
       this.selectedChartTypes.push(chartTypeCopy);
       this.selectedChartTypes = this.selectedChartTypes.sort((a, b) =>
-        a.id > b.id ? 1 : -1
+        a.id > b.id ? 1 : -1,
       );
     } else {
       for (
@@ -414,7 +415,7 @@ export class EditComponent implements OnInit {
 
   addChartTypeToLayout(
     chartType: ChartType,
-    vizDataFields: VisualizationDataField[] = []
+    vizDataFields: VisualizationDataField[] = [],
   ): void {
     const formArray: FormArray = this.getFormArray('layout');
     const formGroup: FormGroup = this.genLayoutFormGroup(chartType);
@@ -449,13 +450,13 @@ export class EditComponent implements OnInit {
         [],
         dataField.shape === ChartTypeDataFieldShape.array
           ? []
-          : [Validators.required, Validators.maxLength(1)]
+          : [Validators.required, Validators.maxLength(1)],
       );
       dataFormArray.push(
         this.formBuilder.group({
           dataField: this.formBuilder.control(dataField),
           simulationResults: simResultsFormArray,
-        })
+        }),
       );
     }
     const formGroup: FormGroup = this.formBuilder.group({
@@ -487,7 +488,7 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       this.iDraggingLayoutEl,
-      event.dropIndex
+      event.dropIndex,
     );
     this.iDraggingLayoutEl = null;
   }
@@ -503,7 +504,7 @@ export class EditComponent implements OnInit {
   updateLayout(): void {
     const numLayoutEl: number = this.getFormArray('layout').length;
     const columnsFormControl: FormControl = this.formGroup.get(
-      'columns'
+      'columns',
     ) as FormControl;
     columnsFormControl.setValidators([
       Validators.min(1),
@@ -516,7 +517,7 @@ export class EditComponent implements OnInit {
       this.layoutContainer.nativeElement.setAttribute(
         'style',
         `grid-template-rows: repeat(${rows}, 10rem);` +
-          `grid-template-columns: repeat(${columns}, 10rem)`
+          `grid-template-columns: repeat(${columns}, 10rem)`,
       );
     }
   }
@@ -642,7 +643,7 @@ export class EditComponent implements OnInit {
   }
 
   simulationResultsDisplayAutocompleteEl(
-    el: SimulationResult
+    el: SimulationResult,
   ): string | undefined {
     return el ? el.simulation.name + ': ' + el.variable.id : undefined;
   }
@@ -675,7 +676,7 @@ export class EditComponent implements OnInit {
 
     if (!inArray) {
       this.currSimulationResultsFormArray.push(
-        this.formBuilder.control(event.option.value)
+        this.formBuilder.control(event.option.value),
       );
     }
     this.currSimulationResultsInput.value = '';
@@ -714,7 +715,7 @@ export class EditComponent implements OnInit {
         firstName: [''],
         middleName: [''],
         lastName: [''],
-      })
+      }),
     );
   }
 
@@ -724,7 +725,7 @@ export class EditComponent implements OnInit {
       this.formBuilder.group({
         namespace: [''],
         id: [''],
-      })
+      }),
     );
   }
 
@@ -740,7 +741,7 @@ export class EditComponent implements OnInit {
         pages: [''],
         year: [''],
         doi: [''],
-      })
+      }),
     );
   }
 
@@ -748,7 +749,7 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -758,7 +759,7 @@ export class EditComponent implements OnInit {
       data.parent = this.visualization;
     }
     const visualization: Observable<Visualization> = this.visualizationService.update(
-      data
+      data,
     );
     visualization.pipe(
       pluck('id'),
@@ -771,7 +772,7 @@ export class EditComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/visualizations', id]);
         }, 2500);
-      })
+      }),
     );
   }
 

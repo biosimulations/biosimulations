@@ -6,7 +6,7 @@ import { OntologyTerm } from '../Models/ontology-term';
 
 import { Serializer } from './serializer';
 import { environment } from 'src/environments/environment';
-import { AccessLevel } from '../Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 
 export class ModelSerializer extends Serializer<Model> {
   constructor() {
@@ -21,7 +21,7 @@ export class ModelSerializer extends Serializer<Model> {
       model.ownerId,
       model.access === AccessLevel.private,
       'xml',
-      environment.crbm.CRBMAPI_URL + '/files/' + json.file + '/download'
+      environment.crbm.CRBMAPI_URL + '/files/' + json.file + '/download',
     );
 
     // Nested fields
@@ -30,21 +30,15 @@ export class ModelSerializer extends Serializer<Model> {
     }
 
     if (json.format) {
-      model.format = new Format(
-        json?.format?.name,
-        json?.format?.version,
-        json?.format?.edamId,
-        json?.format?.url
-      );
+      model.format = new Format({
+        name: json?.format?.name,
+        version: json?.format?.version,
+        edamId: json?.format?.edamId,
+        url: json?.format?.url,
+      });
     }
     if (json.framework) {
-      model.framework = new OntologyTerm(
-        json.framework.ontology,
-        json.framework.id,
-        json.framework.name,
-        json.framework.description,
-        json.framework.iri
-      );
+      model.framework = new OntologyTerm(json.framework);
     }
     if (json.taxon) {
       model.taxon = new Taxon(json.taxon.id, json.taxon.name);

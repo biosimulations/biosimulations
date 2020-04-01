@@ -1,6 +1,7 @@
 import { RemoteFile } from '../Models/remote-file';
 import { License } from '../Enums/license';
-import { AccessLevel } from '../Enums/access-level';
+
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { Person } from '../Models/person';
 import { JournalReference } from '../Models/journal-reference';
 import { TopLevelResource } from '../Models/top-level-resource';
@@ -30,9 +31,7 @@ export class Serializer<T extends TopLevelResource> {
     topLevelResource.license = json.license as License;
     topLevelResource.identifiers = [];
     for (const identifier of json?.identifiers) {
-      topLevelResource.identifiers.push(
-        new Identifier(identifier.namespace, identifier.id)
-      );
+      topLevelResource.identifiers.push(new Identifier(identifier));
     }
     // Owner if embedded
     if (typeof json.owner === 'string') {
@@ -52,25 +51,14 @@ export class Serializer<T extends TopLevelResource> {
       topLevelResource.authors = [];
       for (const author of json.authors) {
         topLevelResource.authors.push(
-          new Person(author.firstName, author.middleName, author.lastName)
+          new Person(author.firstName, author.middleName, author.lastName),
         );
       }
     }
     topLevelResource.refs = [];
     if (json.references) {
       for (const reference of json.references) {
-        topLevelResource.refs.push(
-          new JournalReference(
-            reference.authors,
-            reference.title,
-            reference.journal,
-            reference.volume,
-            reference.number,
-            reference.pages,
-            reference.year,
-            reference.doi
-          )
-        );
+        topLevelResource.refs.push(new JournalReference(reference));
       }
     }
 
@@ -80,7 +68,7 @@ export class Serializer<T extends TopLevelResource> {
       topLevelResource.ownerId,
       topLevelResource.access === AccessLevel.private,
       'xml',
-      environment.crbm.CRBMAPI_URL + '/files/' + json.image + '/download'
+      environment.crbm.CRBMAPI_URL + '/files/' + json.image + '/download',
     );
 
     const resource = topLevelResource as T;

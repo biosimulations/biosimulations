@@ -3,8 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { NavItem } from '../Models/nav-item';
 import { NavItemDisplayLevel } from '../Enums/nav-item-display-level';
-import { AccessLevel } from '../Enums/access-level';
-
+import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
 @Injectable({
   providedIn: 'root',
 })

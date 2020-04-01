@@ -1,3 +1,6 @@
+export { PersonDTO } from './person.dto';
+export { instanceOfAlgorithmParameterDTO } from './algorithm-parameter.dto';
+export { IdentifierDTO } from './identifier.dto';
 export { AlgorithmDTO } from './algorithm.dto';
 export { AlgorithmParameterDTO } from './algorithm-parameter.dto';
 export { ModelFormatDTO } from './model-format.dto';

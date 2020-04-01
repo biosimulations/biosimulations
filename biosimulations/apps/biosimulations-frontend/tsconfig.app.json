@@ -6,10 +6,11 @@
     "baseUrl": ".",
     "paths": {
       "@biosimulations/datamodel/database": [
-        "libs/datamodel/database/src/index.ts"
+        "../../libs/datamodel/database/src/index.ts"
       ],
-      "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
-      "@biosimulations/datamodel/core": ["../../libs/datamodel/core/src/index.ts"]
+      "@biosimulations/datamodel/api": ["../../libs/datamodel/api/src/index.ts"],
+      "@biosimulations/datamodel/core": ["../../libs/datamodel/core/src/index.ts"],
+      "@biosimulations/datamodel/utils": ["../../libs/datamodel/utils/src/index.ts"]
     },
   },
 

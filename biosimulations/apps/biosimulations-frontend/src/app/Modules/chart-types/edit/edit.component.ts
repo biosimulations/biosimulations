@@ -18,7 +18,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { accessLevels } from 'src/app/Shared/Enums/access-level';
+import { accessLevels } from '@biosimulations/datamodel/core';
+
 import { licenses } from 'src/app/Shared/Enums/license';
 import { ChartType } from 'src/app/Shared/Models/chart-type';
 

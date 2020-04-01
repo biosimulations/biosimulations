@@ -17,7 +17,8 @@ import {
 import { MatChipInputEvent } from '@angular/material/chips';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ModelSerializer } from 'src/app/Shared/Serializers/model-serializer';
-import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
+
+import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
 import { FileService } from 'src/app/Shared/Services/Resources/file.service';
 import { Taxon } from 'src/app/Shared/Models/taxon';
 import { licenses } from 'src/app/Shared/Enums/license';
@@ -49,7 +50,7 @@ export class EditModelsComponent implements OnInit {
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private fileService: FileService,
-    private metadataService: MetadataService
+    private metadataService: MetadataService,
   ) {}
 
   ngOnInit(): void {
@@ -67,8 +68,8 @@ export class EditModelsComponent implements OnInit {
         switchMap(id => this.modelService.read(id)),
         tap(model => (this.model = model)),
         tap(model =>
-          this.breadcrumbs.setEditModel(model, this.openDeleteDialog)
-        )
+          this.breadcrumbs.setEditModel(model, this.openDeleteDialog),
+        ),
       )
       .subscribe(model => this.setupForm(model));
   }
@@ -120,7 +121,7 @@ export class EditModelsComponent implements OnInit {
       file?.name,
       file?.type,
       this.model.access === AccessLevel.private,
-      this.model.ownerId
+      this.model.ownerId,
     );
   }
   private openDeleteDialog(): void {

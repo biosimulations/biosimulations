@@ -19,7 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import {
   ProjectProductType,
@@ -67,7 +67,7 @@ export class EditComponent implements OnInit {
     private projectService: ProjectService,
     private modelService: ModelService,
     private simulationService: SimulationService,
-    private visualizationService: VisualizationService
+    private visualizationService: VisualizationService,
   ) {
     this.formGroup = this.formBuilder.group({
       name: [''],
@@ -222,8 +222,8 @@ export class EditComponent implements OnInit {
 
   getRefs(value: string): void {
     const allRefs: JournalReference[] = this.formGroup.value.refs.map(data => {
-      const ref = new JournalReference();
-      return Object.assign(ref, data);
+      const ref = new JournalReference(data);
+      return ref;
     });
 
     if (value) {
@@ -233,7 +233,7 @@ export class EditComponent implements OnInit {
           (ref.authors && ref.authors.toLowerCase().includes(lowCaseValue)) ||
           (ref.title && ref.title.toLowerCase().includes(lowCaseValue)) ||
           (ref.journal && ref.journal.toLowerCase().includes(lowCaseValue)) ||
-          (ref.doi && ref.doi.toLowerCase().includes(lowCaseValue))
+          (ref.doi && ref.doi.toLowerCase().includes(lowCaseValue)),
       );
     } else {
       this.refs = allRefs.slice();
@@ -244,7 +244,7 @@ export class EditComponent implements OnInit {
     if (value) {
       const lowCaseValue: string = value.toLowerCase();
       this.productTypes = projectProductTypes.filter(el =>
-        el['name'].toLowerCase().includes(lowCaseValue)
+        el['name'].toLowerCase().includes(lowCaseValue),
       );
     } else {
       this.productTypes = projectProductTypes;
@@ -324,7 +324,7 @@ export class EditComponent implements OnInit {
   addProductResource(
     formGroup: FormGroup,
     event: MatAutocompleteSelectedEvent,
-    input
+    input,
   ) {
     const formArray: FormArray = formGroup.get('resources') as FormArray;
     if (
@@ -353,7 +353,7 @@ export class EditComponent implements OnInit {
         firstName: [''],
         middleName: [''],
         lastName: [''],
-      })
+      }),
     );
   }
 
@@ -363,7 +363,7 @@ export class EditComponent implements OnInit {
       this.formBuilder.group({
         namespace: [''],
         id: [''],
-      })
+      }),
     );
   }
 
@@ -379,7 +379,7 @@ export class EditComponent implements OnInit {
         pages: [''],
         year: [''],
         doi: [''],
-      })
+      }),
     );
   }
 
@@ -405,7 +405,7 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -423,7 +423,7 @@ export class EditComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/projects', id]);
         }, 2500);
-      })
+      }),
     );
   }
 

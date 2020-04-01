@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
+import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Model } from 'src/app/Shared/Models/model';
 import { Taxon } from 'src/app/Shared/Models/taxon';
@@ -57,16 +57,16 @@ export class EditComponent implements OnInit {
     private metadataService: MetadataService,
     private modelService: ModelService,
     private userService: UserService,
-    private fileService: FileService
+    private fileService: FileService,
   ) {}
 
   ngOnInit() {
     this.taxa = this.formGroup.get('taxon').valueChanges.pipe(
       startWith(''),
       map(value =>
-        value === null || typeof value === 'string' ? value : value.name
+        value === null || typeof value === 'string' ? value : value.name,
       ),
-      map(value => this.metadataService.getTaxa(value))
+      map(value => this.metadataService.getTaxa(value)),
     );
     this.formGroup = this.formBuilder.group({
       name: [''],
@@ -278,7 +278,7 @@ export class EditComponent implements OnInit {
         firstName: [''],
         middleName: [''],
         lastName: [''],
-      })
+      }),
     );
   }
 
@@ -288,7 +288,7 @@ export class EditComponent implements OnInit {
       this.formBuilder.group({
         namespace: [''],
         id: [''],
-      })
+      }),
     );
   }
 
@@ -304,7 +304,7 @@ export class EditComponent implements OnInit {
         pages: [''],
         year: [''],
         doi: [''],
-      })
+      }),
     );
   }
 
@@ -312,7 +312,7 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -358,7 +358,7 @@ export class EditComponent implements OnInit {
       file.name,
       file.type,
       this.model.access === AccessLevel.private,
-      this.model.ownerId
+      this.model.ownerId,
     );
   }
 

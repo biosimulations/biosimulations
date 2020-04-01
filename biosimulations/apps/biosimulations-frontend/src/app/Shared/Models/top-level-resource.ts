@@ -1,4 +1,4 @@
-import { AccessLevel } from '../Enums/access-level';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { License } from '../Enums/license';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
@@ -48,7 +48,7 @@ export abstract class TopLevelResource {
       } else {
         this.owner$ = this.userService.get$(this.ownerId).pipe(
           shareReplay(1),
-          tap(owner => (this.owner = owner))
+          tap(owner => (this.owner = owner)),
         );
         return this.owner$;
       }

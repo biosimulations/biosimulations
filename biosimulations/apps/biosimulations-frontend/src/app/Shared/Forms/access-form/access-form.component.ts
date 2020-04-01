@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { ValueSubForm } from '../value-sub-form';
-import { accessLevels, AccessLevel } from '../../Enums/access-level';
+import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({

@@ -9,8 +9,10 @@ import {
   NG_VALIDATORS,
   NG_ASYNC_VALIDATORS,
 } from '@angular/forms';
-import { FormatSerialized } from '../../Models/format';
+
 import { Subscription } from 'rxjs';
+import { ModelFormatDTO } from '@biosimulations/datamodel/core';
+
 @Component({
   selector: 'app-model-format-form',
   templateUrl: './model-format-form.component.html',
@@ -33,10 +35,10 @@ export class ModelFormatFormComponent
   form: FormGroup;
   subscriptions: Subscription[] = [];
 
-  get value(): FormatSerialized {
+  get value(): ModelFormatDTO {
     return this.form.value;
   }
-  set value(value: FormatSerialized) {
+  set value(value: ModelFormatDTO) {
     this.form.setValue(value);
     this.onChange(value);
     this.onTouched();
@@ -66,12 +68,12 @@ export class ModelFormatFormComponent
       this.form.valueChanges.subscribe(value => {
         this.onChange(value);
         this.onTouched();
-      })
+      }),
     );
   }
 
-  onChange: any = () => { };
-  onTouched: any = () => { };
+  onChange: any = () => {};
+  onTouched: any = () => {};
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
@@ -96,5 +98,5 @@ export class ModelFormatFormComponent
   validate(_: FormControl) {
     return this.form.valid ? null : { model: { valid: false } };
   }
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

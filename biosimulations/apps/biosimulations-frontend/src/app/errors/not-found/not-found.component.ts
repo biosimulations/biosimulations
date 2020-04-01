@@ -9,7 +9,7 @@ import { NavItem } from 'src/app/Shared/Models/nav-item';
 })
 export class NotFoundComponent implements OnInit {
   constructor(
-    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService
+    @Inject(BreadCrumbsService) private breadCrumbsService: BreadCrumbsService,
   ) {}
 
   ngOnInit() {

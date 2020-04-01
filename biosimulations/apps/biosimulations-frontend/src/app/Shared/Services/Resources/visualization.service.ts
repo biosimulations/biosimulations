@@ -1,25 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
-import { AccessLevel } from '@biosimulations/datamodel/core';
-import { ChartTypeDataFieldShape } from 'src/app/Shared/Enums/chart-type-data-field-shape';
-import { ChartTypeDataFieldType } from 'src/app/Shared/Enums/chart-type-data-field-type';
-import { License } from 'src/app/Shared/Enums/license';
-import { ChartType } from 'src/app/Shared/Models/chart-type';
-import { ChartTypeDataFieldDTO } from '@biosimulations/datamodel/core';
-import { JournalReference } from 'src/app/Shared/Models/journal-reference';
-import { ModelVariable } from 'src/app/Shared/Models/model-variable';
-import { RemoteFile } from 'src/app/Shared/Models/remote-file';
-import { SimulationResult } from 'src/app/Shared/Models/simulation-result';
-import { TimePoint } from 'src/app/Shared/Models/time-point';
+
 import { Visualization } from 'src/app/Shared/Models/visualization';
-import { VisualizationDataField } from 'src/app/Shared/Models/visualization-data-field';
-import { VisualizationLayoutElement } from 'src/app/Shared/Models/visualization-layout-element';
+
 import { UserService } from 'src/app/Shared/Services/user.service';
-import { ChartTypeService } from 'src/app/Shared/Services/Resources/chart-type.service';
-import { SimulationService } from 'src/app/Shared/Services/Resources/simulation.service';
+
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceService } from './resource.service';
-import { Serializer } from 'src/app/Shared/Serializers/serializer';
+
 import { VisualizationSerializer } from 'src/app/Shared/Serializers/visualization-serializer';
 
 @Injectable({

@@ -6,7 +6,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { ArraySubForm } from '../array-sub-form';
-import { IdentifierSerialized } from '../../Models/identifier';
+import { IdentifierDTO } from '@biosimulations/datamodel/core';
 
 @Component({
   selector: 'app-identifiers-form',
@@ -38,7 +38,7 @@ export class IdentifiersFormComponent extends ArraySubForm implements OnInit {
     };
   }
 
-  set value(input: IdentifierSerialized[]) {
+  set value(input: IdentifierDTO[]) {
     //  TODO Abstract this common logic
     if (input) {
       this.count = input.length - 1;

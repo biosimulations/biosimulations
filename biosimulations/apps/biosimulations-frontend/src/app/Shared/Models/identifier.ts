@@ -1,11 +1,14 @@
-export interface IdentifierSerialized {
+import { IdentifierDTO } from '@biosimulations/datamodel/core';
+import { JsonSerializable } from '@biosimulations/datamodel/utils';
+
+export class Identifier implements JsonSerializable<IdentifierDTO> {
   namespace: string;
   identifier: string;
-}
-export class Identifier {
-  constructor(public namespace: string, public identifier: string) {}
+  constructor(data: IdentifierDTO) {
+    Object.assign(this, data);
+  }
 
-  serialize(): IdentifierSerialized {
+  serialize(): IdentifierDTO {
     return { namespace: this.namespace, identifier: this.identifier };
   }
   getUrl(): string {

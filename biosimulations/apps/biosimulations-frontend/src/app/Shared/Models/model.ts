@@ -1,9 +1,7 @@
-import { AccessLevel } from '../Enums/access-level';
-import { License } from '../Enums/license';
 import { ChartType } from './chart-type';
 import { Format } from './format';
 import { Identifier } from './identifier';
-import { JournalReference } from './journal-reference';
+
 import { ModelParameter } from './model-parameter';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';

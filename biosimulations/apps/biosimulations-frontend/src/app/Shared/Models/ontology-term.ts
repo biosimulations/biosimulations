@@ -1,12 +1,16 @@
-export class OntologyTerm {
-  constructor(
-    public ontology?: string,
-    public id?: string,
-    public name?: string,
-    public description?: string,
-    public iri?: string
-  ) {}
-  serialize() {
+import { OntologyTermDTO } from '@biosimulations/datamodel/core';
+import { JsonSerializable } from '@biosimulations/datamodel/utils';
+
+export class OntologyTerm implements JsonSerializable<OntologyTermDTO> {
+  public ontology?: string;
+  public id?: string;
+  public name?: string;
+  public description?: string;
+  public iri?: string;
+  constructor(data: OntologyTermDTO) {
+    Object.assign(this, data);
+  }
+  serialize(): OntologyTermDTO {
     return {
       ontology: this.ontology,
       id: this.id,

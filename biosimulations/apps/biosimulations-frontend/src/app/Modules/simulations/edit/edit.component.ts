@@ -18,7 +18,8 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NavItemDisplayLevel } from 'src/app/Shared/Enums/nav-item-display-level';
 import { NavItem } from 'src/app/Shared/Models/nav-item';
 import { BreadCrumbsService } from 'src/app/Shared/Services/bread-crumbs.service';
-import { AccessLevel, accessLevels } from 'src/app/Shared/Enums/access-level';
+import { accessLevels } from '@biosimulations/datamodel/core';
+import { AccessLevel } from '@biosimulations/datamodel/core';
 import { License, licenses } from 'src/app/Shared/Enums/license';
 import { Algorithm } from 'src/app/Shared/Models/algorithm';
 import { AlgorithmParameter } from 'src/app/Shared/Models/algorithm-parameter';
@@ -78,7 +79,7 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     private metadataService: MetadataService,
     private modelService: ModelService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
   ) {
     this.formGroup = this.formBuilder.group({
       model: [''],
@@ -105,25 +106,25 @@ export class EditComponent implements OnInit {
     this.formGroup.get('model').valueChanges.pipe(
       startWith(''),
       map(value =>
-        value === null || typeof value === 'string' ? value : value.name
+        value === null || typeof value === 'string' ? value : value.name,
       ),
       map(value => {
         this.models = this.modelService.list(value);
-      })
+      }),
     );
     this.algorithms = this.formGroup.get('algorithm').valueChanges.pipe(
       startWith(''),
       map(value =>
-        value === null || typeof value === 'string' ? value : value.name
+        value === null || typeof value === 'string' ? value : value.name,
       ),
-      map(value => this.metadataService.getAlgorithms(value))
+      map(value => this.metadataService.getAlgorithms(value)),
     );
     this.simulators = this.formGroup.get('simulator').valueChanges.pipe(
       startWith(''),
       map(value =>
-        value === null || typeof value === 'string' ? value : value.name
+        value === null || typeof value === 'string' ? value : value.name,
       ),
-      map(value => this.metadataService.getSimulators(value))
+      map(value => this.metadataService.getSimulators(value)),
     );
 
     this.route.params.subscribe(params => {
@@ -348,7 +349,7 @@ export class EditComponent implements OnInit {
         });
       }
       for (const changeFormGroup of this.getFormArray(
-        'algorithmParameterChanges'
+        'algorithmParameterChanges',
       ).controls) {
         const parameter = changeFormGroup.value.parameter;
         changeFormGroup.patchValue({
@@ -374,7 +375,7 @@ export class EditComponent implements OnInit {
   getAlgorithmParameters(value: string): void {
     this.algorithmParameters = this.metadataService.getAlgorithmParameters(
       this.algorithm,
-      value
+      value,
     );
   }
 
@@ -403,7 +404,7 @@ export class EditComponent implements OnInit {
   }
 
   displayAutocompleteParameter(
-    parameter: ModelParameter | AlgorithmParameter
+    parameter: ModelParameter | AlgorithmParameter,
   ): string | undefined {
     return parameter ? parameter.id + ': ' + parameter.name : undefined;
   }
@@ -438,7 +439,7 @@ export class EditComponent implements OnInit {
 
   selectAutocompleteModelParameter(formGroup: FormGroup): void {
     const parameterFormControl: FormControl = formGroup.get(
-      'parameter'
+      'parameter',
     ) as FormControl;
     this.selectAutocomplete(parameterFormControl, true);
 
@@ -472,7 +473,7 @@ export class EditComponent implements OnInit {
 
   selectAutocompleteAlgorithmParameter(formGroup: FormGroup): void {
     const parameterFormControl: FormControl = formGroup.get(
-      'parameter'
+      'parameter',
     ) as FormControl;
     this.selectAutocomplete(parameterFormControl, true);
 
@@ -523,7 +524,7 @@ export class EditComponent implements OnInit {
         defaultValue: { value: null, disabled: true },
         value: { value: null, disabled: this.mode === Mode.edit },
         units: { value: null, disabled: true },
-      })
+      }),
     );
   }
 
@@ -534,7 +535,7 @@ export class EditComponent implements OnInit {
         parameter: { value: null, disabled: this.mode === Mode.edit },
         defaultValue: { value: null, disabled: true },
         value: { value: null, disabled: this.mode === Mode.edit },
-      })
+      }),
     );
   }
 
@@ -545,7 +546,7 @@ export class EditComponent implements OnInit {
         firstName: [''],
         middleName: [''],
         lastName: [''],
-      })
+      }),
     );
   }
 
@@ -555,7 +556,7 @@ export class EditComponent implements OnInit {
       this.formBuilder.group({
         namespace: [''],
         id: [''],
-      })
+      }),
     );
   }
 
@@ -571,7 +572,7 @@ export class EditComponent implements OnInit {
         pages: [''],
         year: [''],
         doi: [''],
-      })
+      }),
     );
   }
 
@@ -579,7 +580,7 @@ export class EditComponent implements OnInit {
     moveItemInArray(
       formArray.controls,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -589,7 +590,7 @@ export class EditComponent implements OnInit {
       data.parent = this.simulation;
     }
     const simulation: Observable<Simulation> = this.simulationService.update(
-      data
+      data,
     );
     simulation.pipe(
       pluck('id'),
@@ -602,7 +603,7 @@ export class EditComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/simulations', id]);
         }, 2500);
-      })
+      }),
     );
   }
 

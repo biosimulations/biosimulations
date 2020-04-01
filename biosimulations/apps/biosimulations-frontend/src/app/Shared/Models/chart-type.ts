@@ -1,9 +1,9 @@
-import { AccessLevel } from '../Enums/access-level';
 import {
   ChartTypeDataFieldShape,
   ChartTypeDataFieldDTO,
+  ChartTypeDataFieldType,
+  AccessLevel,
 } from '@biosimulations/datamodel/core';
-import { ChartTypeDataFieldType } from '../Enums/chart-type-data-field-type';
 import { License } from '../Enums/license';
 import { ChartTypeDataField } from './chart-type-data-field';
 import { Identifier } from './identifier';

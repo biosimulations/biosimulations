@@ -3,3 +3,8 @@ export enum AccessLevel {
   public = 'public',
   shared = 'shared',
 }
+export const accessLevels = [
+  { value: AccessLevel.private, name: 'private' },
+  { value: AccessLevel.public, name: 'public' },
+  { value: AccessLevel.shared, name: 'shared' },
+];

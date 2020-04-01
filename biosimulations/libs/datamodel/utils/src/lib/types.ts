@@ -37,9 +37,13 @@ type Complete<T> = {
  * An object that can be created from a JSON representation and has a serialize method to return its JSON representation
  *
  */
-interface JsonSerializable<T> {
-  new (data: JsonCompatible<T>);
-  serialize(): JsonCompatible<T>;
+interface JsonSerializable<T extends DTO<T>> {
+  serialize(): T;
+}
+interface JsonSerializableConstructor<T extends DTO<T>> {
+  (data: T);
 }
 
-export { Json, JsonCompatible, JsonSerializable, Complete };
+type DTO<T> = JsonCompatible<Complete<T>>;
+
+export { Json, JsonCompatible, JsonSerializable, Complete, DTO };
