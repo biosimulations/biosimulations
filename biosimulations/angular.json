@@ -79,7 +79,7 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "apps/biosimulations-fronted/ngsw-config.json"
+              "ngswConfigPath": "apps/biosimulations-frontend/ngsw-config.json"
             },
             "development": {
               "fileReplacements": [
