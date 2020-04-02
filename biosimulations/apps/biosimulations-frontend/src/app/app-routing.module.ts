@@ -11,43 +11,37 @@ const routes: Routes = [
   {
     path: 'projects',
     loadChildren: () =>
-      import('./Modules/projects/projects.module').then(m => m.ProjectsModule),
+      import('./projects/projects.module').then(m => m.ProjectsModule),
   },
   {
     path: 'models',
     loadChildren: () =>
-      import('./Modules/models/models.module').then(m => m.ModelsModule),
+      import('./models/models.module').then(m => m.ModelsModule),
   },
   {
     path: 'simulations',
     loadChildren: () =>
-      import('./Modules/simulations/simulations.module').then(
-        m => m.SimulationsModule
-      ),
+      import('./simulations/simulations.module').then(m => m.SimulationsModule),
   },
   {
     path: 'chart-types',
     loadChildren: () =>
-      import('./Modules/chart-types/chart-types.module').then(
-        m => m.ChartTypesModule
-      ),
+      import('./chart-types/chart-types.module').then(m => m.ChartTypesModule),
   },
   {
     path: 'visualizations',
     loadChildren: () =>
-      import('./Modules/visualizations/visualizations.module').then(
-        m => m.VisualizationsModule
+      import('./visualizations/visualizations.module').then(
+        m => m.VisualizationsModule,
       ),
   },
   {
     path: 'user',
-    loadChildren: () =>
-      import('./Modules/user/user.module').then(m => m.UserModule),
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
   },
   {
     path: 'about',
-    loadChildren: () =>
-      import('./Modules/about/about.module').then(m => m.AboutModule),
+    loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
   },
 
   { path: 'callback', component: Auth0CallbackComponent },

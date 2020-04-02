@@ -16,7 +16,7 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 // Defined Modules in app
 import { AppRoutingModule } from './app-routing.module';
-import { MaterialModule } from './Modules/app-material.module';
+import { MaterialModule } from './app-material.module';
 
 // Defined components
 import { AppComponent } from './app.component';

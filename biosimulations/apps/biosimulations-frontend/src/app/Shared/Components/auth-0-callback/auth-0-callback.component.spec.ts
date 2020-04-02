@@ -4,7 +4,7 @@ import { Auth0CallbackComponent } from './auth-0-callback.component';
 
 import { AuthService } from '../../Services/auth0.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '../../../Modules/app-material.module';
+import { MaterialModule } from '../../../app-material.module';
 import { ActivatedRoute } from '@angular/router';
 
 describe('Auth0CallbackComponent', () => {

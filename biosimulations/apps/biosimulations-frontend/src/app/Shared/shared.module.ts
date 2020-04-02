@@ -8,7 +8,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // Third pary modules
 import { AgGridModule } from 'ag-grid-angular';
-import { MaterialModule } from '../Modules/app-material.module';
+import { MaterialModule } from '../app-material.module';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
@@ -371,7 +371,7 @@ export class SharedModule {
       faGoogle,
       faOrcid,
       faOsi,
-      faHardHat
+      faHardHat,
     );
   }
 }

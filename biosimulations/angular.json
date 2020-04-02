@@ -44,6 +44,8 @@
               "apps/biosimulations-frontend/src/manifest.webmanifest"
             ],
             "styles": [
+              "apps/biosimulations-frontend/src/theme.scss",
+              "apps/biosimulations-frontend/src/theme_colors.scss",
               "apps/biosimulations-frontend/src/styles.scss"
             ],
             "scripts": []

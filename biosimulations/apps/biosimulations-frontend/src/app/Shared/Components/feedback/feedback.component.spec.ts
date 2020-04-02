@@ -8,7 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FeedbackComponent } from './feedback.component';
-import { MaterialModule } from '../../../Modules/app-material.module';
+import { MaterialModule } from '../../../app-material.module';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

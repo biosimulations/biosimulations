@@ -7,13 +7,13 @@ import { NavigationComponent } from './navigation.component';
 import { NavIconsComponent } from '../nav-icons/nav-icons.component';
 import { LogoComponent } from '../logo/logo.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '../../../Modules/app-material.module';
+import { MaterialModule } from '../../../app-material.module';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { FilterPipe } from '../../Pipes/filter.pipe';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 // TODO Sample content is needed and component compiled with it as input for <ng-content>
-import { HelpComponent } from '../../../Modules/about/help/help.component';
-import { AboutComponent } from '../../../Modules/about/about/about.component';
+import { HelpComponent } from '../../../about/help/help.component';
+import { AboutComponent } from '../../../about/about/about.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadCrumbsService } from '../../Services/bread-crumbs.service';
 
