@@ -27,7 +27,8 @@
     "dep-graph": "nx dep-graph",
     "workspace-schematic": "nx workspace-schematic",
     "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "stats": "webpack-bundle-analyzer dist/apps/biosimulations-frontend/stats-es2015.json"
   },
   "husky": {
     "hooks": {
@@ -126,6 +127,7 @@
     "ts-node": "~8.6.2",
     "tslint": "~5.20.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "webpack-bundle-analyzer": "^3.6.1"
   }
 }

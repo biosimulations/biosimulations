@@ -58,13 +58,15 @@
                   "with": "apps/biosimulations-frontend/src/environments/environment.prod.ts"
                 }
               ],
+              "aot": true,
+              "commonChunk": true,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
