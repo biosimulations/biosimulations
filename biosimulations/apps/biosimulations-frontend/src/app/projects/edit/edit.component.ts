@@ -24,7 +24,7 @@ import { License, licenses } from '../../Shared/Models/license';
 import {
   ProjectProductType,
   projectProductTypes,
-} from '../../Shared/Enums/project-product-type';
+} from '@biosimulations/datamodel/core';
 import { JournalReference } from '../../Shared/Models/journal-reference';
 import { Project } from '../../Shared/Models/project';
 import { Model } from '../../Shared/Models/model';

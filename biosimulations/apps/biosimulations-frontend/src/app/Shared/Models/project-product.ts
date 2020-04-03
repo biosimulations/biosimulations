@@ -1,4 +1,4 @@
-import { ProjectProductType } from '../Enums/project-product-type';
+import { ProjectProductType } from '@biosimulations/datamodel/core';
 import { JournalReference } from './journal-reference';
 import { Model } from './model';
 import { Simulation } from './simulation';

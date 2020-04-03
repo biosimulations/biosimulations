@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { getLicenseInfo } from '../../Shared/Models/license';
 import { Simulation } from '../../Shared/Models/simulation';
-import { SimulationResultsFormat } from '../../Shared/Enums/simulation-results-format';
+import { SimulationResultsFormat } from '@biosimulations/datamodel/core';
 import { Observable } from 'rxjs';
 
 import { Project } from '../../Shared/Models/project';
