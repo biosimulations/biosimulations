@@ -1,0 +1,11 @@
+<mat-select
+  [formControl]="control"
+  required
+  class="form-input"
+  disableRipple="true"
+  panelClass="form-select-input-panel"
+>
+  <mat-option *ngFor="let option of licenses" [value]="option.value">{{
+    option.name
+  }}</mat-option>
+</mat-select>

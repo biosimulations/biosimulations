@@ -1,0 +1,16 @@
+<form [formGroup]="form">
+  <app-identifier-form formControlName="id"></app-identifier-form>
+  <app-name-form formControlName="name"></app-name-form>
+  <app-user-name-form formControlName="owner"></app-user-name-form>
+  <app-description-form
+    class="description"
+    formControlName="description"
+  ></app-description-form>
+  <app-authors-form formControlName="authors"></app-authors-form>
+  <app-identifiers-form formControlName="identifiers"></app-identifiers-form>
+  <app-access-form formControlName="access"></app-access-form>
+  <app-license-form formControlName="license"></app-license-form>
+  <app-file-form formControlName="imageFile" accept=".jpeg"> </app-file-form>
+  <app-references-form formControlName="refs"></app-references-form>
+  <app-tags-form formControlName="tags"></app-tags-form>
+</form>

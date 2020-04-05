@@ -1,6 +1,7 @@
 ![Logo](https://raw.githubusercontent.com/reproducible-biomedical-modeling/CRBM-Viz/master/CRBM-Viz/src/assets/logo/logo-white.svg?sanitize=true)
 
 # BioSimulations
+
 The front end for the [Center for Reproducible Biomedical Modeling's](https://reproduciblebiomodels.org/) simulation service
 
 [![Tests](https://github.com/reproducible-biomedical-modeling/Biosimulations/workflows/Build,%20Lint,%20Test/badge.svg)](https://github.com/reproducible-biomedical-modeling/Biosimulations/actions)
@@ -71,15 +72,17 @@ To deploy a new version into production:
 
 ## Documentation
 
-* [User guide](https://crbm-viz.herokuapp.com/about/help)
-* [Code documentation](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/)
-* REST API documentation
+- [User guide](https://biosimulations.herokuapp.com/about/help)
+- [Code documentation](https://reproducible-biomedical-modeling.github.io/CRBM-Viz/)
 
 ## License
 
 This package is released under the [MIT license](LICENSE).
+
 ## Dependencies
+
 This package uses dependencies distributed under various licences. Please see the [dependencies report](https://app.fossa.com/attribution/ba821b8e-9edf-481b-a00a-eea0eb10bf63) for more information
+
 ## Development team
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at the University of Connecticut Health Center as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).

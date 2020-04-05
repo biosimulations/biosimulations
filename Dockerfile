@@ -12,14 +12,14 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-COPY CRBM-Viz/package.json /app/package.json
-COPY CRBM-Viz/package-lock.json /app/package-lock.json
+COPY biosimulations-frontend/package.json /app/package.json
+COPY biosimulations-frontend/package-lock.json /app/package-lock.json
 
 RUN npm install
 RUN npm install -g @angular/cli
 
 # add app
-COPY ./CRBM-Viz /app
+COPY ./biosimulations-frontend /app
 
 # generate build
 RUN ng build --output-path=dist --prod --build-optimizer

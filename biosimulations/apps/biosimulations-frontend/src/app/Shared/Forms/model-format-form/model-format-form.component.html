@@ -1,0 +1,19 @@
+<form [formGroup]="form" class="format-group">
+  <mat-form-field appearance="standard" class="format-field">
+    <mat-label> Format Name</mat-label>
+    <input matInput formControlName="name" placeholder="SBML" />
+  </mat-form-field>
+  <mat-form-field appearance="standard" class="format-field">
+    <mat-label> Format Version</mat-label>
+    <input matInput formControlName="version" placeholder="L2V4" />
+  </mat-form-field>
+  <mat-form-field appearance="standard" class="format-field">
+    <mat-label> EDAM ID</mat-label>
+    <input matInput formControlName="edamId" placeholder="2585" />
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" class="format-field">
+    <mat-label> Website </mat-label>
+    <input matInput formControlName="url" placeholder="SBML" />
+  </mat-form-field>
+</form>

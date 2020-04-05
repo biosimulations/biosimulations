@@ -1,0 +1,11 @@
+<ng-container [formGroup]="form">
+  <h3>Model File</h3>
+  <app-file-form formControlName="modelFile" accept=".xml"> </app-file-form>
+
+  <app-model-format-form formControlName="format"></app-model-format-form>
+
+  <app-taxon-form formControlName="taxon"></app-taxon-form>
+
+  <div class="form-field-title">Meta Data</div>
+  <app-resource-form formControlName="meta"></app-resource-form>
+</ng-container>

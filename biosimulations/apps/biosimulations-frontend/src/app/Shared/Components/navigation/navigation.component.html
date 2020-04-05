@@ -1,0 +1,108 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- [ngClass]="{ hidden: (isHandset | async) === false }" -->
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>
+      <a class="home" [routerLink]="['']" disableRipple="true">
+        <span class="bio">Bio</span><span class="simulations">Simulations</span>
+      </a>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="drawer.opened"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-nav-list>
+      <app-sidebar></app-sidebar>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content
+    [ngClass]="['full-content'].concat(moduleClasses).join(' ')"
+  >
+    <div class="topbar-container">
+      <mat-toolbar class="topbar" color="primary">
+        <button
+          class="menubutton"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="!drawer.opened"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <div class="logo">
+          <app-logo></app-logo>
+        </div>
+        <div class="icons" *ngIf="(isHandset$ | async) === false">
+          <app-nav-icons></app-nav-icons>
+        </div>
+      </mat-toolbar>
+      <div
+        class="module-toolbar"
+        *ngIf="
+          moduleCrumbs &&
+          moduleButtons &&
+          (moduleCrumbs.length > 0 || moduleButtons.length > 0)
+        "
+      >
+        <div class="module-title">
+          <span *ngFor="let crumb of moduleCrumbs">
+            <a
+              *ngIf="crumb.route; else plainCrumb"
+              [routerLink]="crumb.route"
+              >{{ crumb.label }}</a
+            >
+            <ng-template #plainCrumb>{{ crumb.label }}</ng-template>
+          </span>
+        </div>
+        <div class="module-routes">
+          <ng-container *ngFor="let button of moduleButtons">
+            <a
+              *ngIf="
+                button.display == NavItemDisplayLevel.always ||
+                (button.display == NavItemDisplayLevel.loggedIn &&
+                  authService &&
+                  authService.loggedIn) ||
+                (button.display == NavItemDisplayLevel.loggedOut &&
+                  (!authService || !authService.loggedIn)) ||
+                (button.display == NavItemDisplayLevel.user &&
+                  authService.loggedIn &&
+                  button.displayUser &&
+                  (this.username | async) == button.displayUser.userName)
+              "
+              [routerLink]="button.route"
+              (click)="button.click && button.click()"
+            >
+              <mat-icon
+                *ngIf="button.iconType === 'mat'; else faIcon"
+                aria-hidden="false"
+                aria-label="Icon"
+                >{{ button.icon }}</mat-icon
+              >
+              <ng-template #faIcon>
+                <fa-icon
+                  [icon]="[button.iconType, button.icon]"
+                  aria-hidden="false"
+                  aria-label="Icon"
+                ></fa-icon>
+              </ng-template>
+              {{ button.label }}
+            </a>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="content"><ng-content></ng-content></div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

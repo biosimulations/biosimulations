@@ -1,0 +1,48 @@
+<div fxLayout="row" fxLayoutAlign="space-between flex-end">
+  <h3>Identifiers</h3>
+  <button mat-icon-button color="primary" (click)="this.addIdentifier()">
+    <fa-icon
+      aria-hidden="true"
+      aria-label="Add icon"
+      [icon]="['fas', 'plus']"
+    ></fa-icon>
+  </button>
+</div>
+
+<ng-container [formGroup]="control" *ngIf="control.controls.length > 0">
+  <div cdkDropList (cdkDropListDropped)="drop($event)">
+    <div
+      *ngFor="let group of control.controls; index as i"
+      cdkDrag
+      [formGroupName]="i"
+    >
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <mat-form-field fxFlex="1 1 auto" appearance="fill">
+          <mat-label> Name Space</mat-label>
+          <input matInput formControlName="namespace" />
+        </mat-form-field>
+        <div fxFlex="0 0 1em"></div>
+        <mat-form-field fxFlex="1 1 auto" appearance="fill">
+          <mat-label> Identifier</mat-label>
+          <input matInput formControlName="identifier" />
+        </mat-form-field>
+        <div fxFlex="0 0 1em"></div>
+        <fa-icon
+          fxFlex="0 0 auto"
+          aria-hidden="true"
+          aria-label="Drag icon"
+          [icon]="['fas', 'grip-lines-vertical']"
+          class="drag"
+        ></fa-icon>
+        <div fxFlex="0 0 0.5em"></div>
+        <fa-icon
+          fxFlex="0 0 auto"
+          aria-hidden="true"
+          aria-label="Delete icon"
+          [icon]="['fas', 'trash-alt']"
+          (click)="this.removeControl(i)"
+        ></fa-icon>
+      </div>
+    </div>
+  </div>
+</ng-container>
