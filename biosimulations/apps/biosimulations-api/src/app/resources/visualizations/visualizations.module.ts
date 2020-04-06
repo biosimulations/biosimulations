@@ -4,6 +4,7 @@ import { VisualizationsService } from './visualizations.service';
 
 @Module({
   controllers: [VisualizationsController],
-  providers: [VisualizationsService]
+  providers: [VisualizationsService],
+  exports: [VisualizationsService],
 })
 export class VisualizationsModule {}

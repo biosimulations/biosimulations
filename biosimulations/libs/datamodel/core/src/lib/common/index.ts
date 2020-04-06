@@ -1,3 +1,4 @@
+export { TaxonDTO } from './taxon.dto';
 export { PersonDTO } from './person.dto';
 export { isAlgorithmParameterDTO } from './algorithm-parameter.dto';
 export { isModelParameterDTO } from './model-parameter.dto';

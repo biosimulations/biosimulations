@@ -2,13 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["node"],
-    "plugins": [{
-      "name": "@nestjs/swagger/plugin",
-      "options": {
-        "classValidatorShim": false
-      }
-    }]
+    "types": ["node"]
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]

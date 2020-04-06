@@ -2,7 +2,7 @@ import { VisualizationLayoutElementDTO } from '../common/visualization-layout-el
 import { ResourceDTO } from './resource.dto';
 import { ResourceType } from '../enums/resource-type';
 
-export class VisaualizationDTO extends ResourceDTO {
+export class VisualizationDTO extends ResourceDTO {
   type = ResourceType.visualization;
   columns: number;
   layout: VisualizationLayoutElementDTO;
