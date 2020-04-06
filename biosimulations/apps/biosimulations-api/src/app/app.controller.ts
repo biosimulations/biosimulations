@@ -12,6 +12,8 @@ export class AppController {
 
   @Get()
   getData() {
-    return this.configService.get('database');
+    return {
+      message: 'Welcome to biosimulations-api!',
+    };
   }
 }
