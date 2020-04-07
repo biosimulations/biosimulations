@@ -81,7 +81,7 @@
     "ngx-material-file-input": "^2.1.0",
     "ngx-pipes": "^2.6.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "~6.5.4",
+    "rxjs": "~6.5.5",
     "swagger-ui-express": "^4.1.4",
     "tslib": "^1.10.0",
     "vega": "^5.9.1",
