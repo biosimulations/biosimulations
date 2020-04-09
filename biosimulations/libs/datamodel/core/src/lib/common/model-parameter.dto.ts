@@ -1,6 +1,6 @@
 import { DTO } from '@biosimulations/datamodel/utils';
 
-export class ModelParameterCore {
+export interface ModelParameterCore {
   id: string;
   name: string;
   value: number;

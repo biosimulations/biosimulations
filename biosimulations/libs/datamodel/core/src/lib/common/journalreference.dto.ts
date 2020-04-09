@@ -1,4 +1,6 @@
-export class JournalReferenceDTO {
+import { DTO } from '@biosimulations/datamodel/utils';
+
+export interface JournalReferenceCore {
   authors: string;
   title: string;
   journal: string;
@@ -8,3 +10,4 @@ export class JournalReferenceDTO {
   year: number;
   doi: string;
 }
+export type JournalReferenceDTO = DTO<JournalReferenceCore>;

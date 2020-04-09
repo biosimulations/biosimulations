@@ -1,10 +1,11 @@
-import { ChartTypeDataFieldShape } from '../enums/chart-type-data-field-shape';
-import { ChartTypeDataFieldType } from '../enums/chart-type-data-field-type';
+import { ChartDataFieldShape } from '../enums/chart-type-data-field-shape';
+import { ChartDataFieldType } from '../enums/chart-type-data-field-type';
+import { DTO } from '@biosimulations/datamodel/utils';
 
-export class ChartTypeDataFieldDTO {
-  constructor(
-    public name = null,
-    public shape: ChartTypeDataFieldShape = null,
-    public type: ChartTypeDataFieldType = null,
-  ) {}
+export interface ChartDataFieldCore {
+  name?: string;
+  shape?: ChartDataFieldShape;
+  type?: ChartDataFieldType;
 }
+
+export type ChartDataFieldDTO = DTO<ChartDataFieldCore>;

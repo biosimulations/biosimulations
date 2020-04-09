@@ -4,4 +4,6 @@ export enum ResourceType {
   simulation = 'simulations',
   chart = 'chart',
   visualization = 'visualization',
+  file = 'file',
+  user = 'user',
 }

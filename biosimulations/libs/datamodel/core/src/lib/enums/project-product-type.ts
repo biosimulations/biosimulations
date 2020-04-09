@@ -2,7 +2,7 @@ export enum ProjectProductType {
   figure = 'figure',
   table = 'table',
   box = 'box',
-  // algorithm = 'algorithm',
+  algorithm = 'algorithm',
   supplement = 'supplement',
   other = 'other',
 }
@@ -12,5 +12,6 @@ export const projectProductTypes = [
   { value: ProjectProductType.figure, name: 'figure' },
   { value: ProjectProductType.table, name: 'table' },
   { value: ProjectProductType.supplement, name: 'supplement' },
+  { value: ProjectProductType.algorithm, name: 'algorithm' },
   { value: ProjectProductType.other, name: 'other' },
 ];
