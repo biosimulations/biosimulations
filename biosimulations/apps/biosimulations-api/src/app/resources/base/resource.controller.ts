@@ -27,10 +27,11 @@ export abstract class ResourceController<T> {
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    this.service.deleteOne(id);
+    return this.service.deleteOne(id);
   }
   @Put(':id')
   replace(id: string, body: any) {}
+
   @Patch(':id')
   update(id: string, body: any) {}
 }

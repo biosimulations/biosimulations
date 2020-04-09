@@ -2,25 +2,33 @@ import { Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import config from '../config/config';
-import { ModelsController } from './resources/models/models.controller';
-import { SimulationsController } from './resources/simulations/simulations.controller';
-import { VisualizationsController } from './resources/visualizations/visualizations.controller';
-import { ChartsController } from './resources/charts/charts.controller';
-import { ProjectsController } from './resources/projects/projects.controller';
 import { ModelsModule } from './resources/models/models.module';
-import { ModelsService } from './resources/models/models.service';
 import { ProjectsModule } from './resources/projects/projects.module';
 import { SimulationsModule } from './resources/simulations/simulations.module';
 import { VisualizationsModule } from './resources/visualizations/visualizations.module';
 import { ChartsModule } from './resources/charts/charts.module';
+
+import { TypegooseModule } from 'nestjs-typegoose';
+import { ResourceRepository } from './resources/base/resource.repository';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [config],
       isGlobal: true,
       envFilePath: './config.env',
+    }),
+    TypegooseModule.forRootAsync({
+      // This line is not needed since config module is global. will be needed if used in another app after abstraction
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get('database.uri'),
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
     }),
     ModelsModule,
     ProjectsModule,
@@ -29,6 +37,6 @@ import { ChartsModule } from './resources/charts/charts.module';
     VisualizationsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ResourceRepository],
 })
 export class AppModule {}
