@@ -1,11 +1,11 @@
-import { DTO, isOfType } from '@biosimulations/datamodel/utils';
-import { AlgorithmDTO } from './algorithm.dto';
+import { DTO } from '@biosimulations/datamodel/utils';
+import { KisaoId } from '../aliases/identity';
 
-class AlgorithmParameterCore {
-  id?: string;
-  name?: string;
-  value?: number;
-  kisaoId?: number;
+export interface AlgorithmParameterCore {
+  id: string;
+  name: string;
+  value: number;
+  kisaoId: KisaoId;
 }
 
 export type AlgorithmParameterDTO = DTO<AlgorithmParameterCore>;
@@ -16,5 +16,7 @@ export type AlgorithmParameterDTO = DTO<AlgorithmParameterCore>;
  * would then use reflect to check all parameters?
  */
 
-export const isAlgorithmParameterDTO = (param: any): param is AlgorithmDTO =>
+export const isAlgorithmParameterDTO = (
+  param: any,
+): param is AlgorithmParameterDTO =>
   'kisaoId' in param && 'id' in param && 'name' in param && 'value' in param;

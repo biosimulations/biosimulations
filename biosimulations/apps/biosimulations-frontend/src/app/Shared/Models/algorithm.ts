@@ -7,7 +7,7 @@ import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { JsonCompatible } from '@biosimulations/datamodel/utils';
 
 export class Algorithm implements JsonSerializable<AlgorithmDTO> {
-  id?: string; // KISAO id
+  id?: string;
   name?: string;
   parameters: AlgorithmParameter[] = [];
 

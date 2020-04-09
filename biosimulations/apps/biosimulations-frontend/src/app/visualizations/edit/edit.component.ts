@@ -24,7 +24,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
-import { ChartTypeDataFieldShape } from '@biosimulations/datamodel/core';
+import { ChartDataFieldShape } from '@biosimulations/datamodel/core';
 import { Simulation } from '../../Shared/Models/simulation';
 import { licenses } from '../../Shared/Models/license';
 import { Visualization } from '../../Shared/Models/visualization';
@@ -445,7 +445,7 @@ export class EditComponent implements OnInit {
     for (const dataField of chartType.getDataFields()) {
       const simResultsFormArray: FormArray = this.formBuilder.array(
         [],
-        dataField.shape === ChartTypeDataFieldShape.array
+        dataField.shape === ChartDataFieldShape.array
           ? []
           : [Validators.required, Validators.maxLength(1)],
       );

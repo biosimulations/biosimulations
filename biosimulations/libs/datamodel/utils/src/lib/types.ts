@@ -14,7 +14,7 @@ type Json =
 /**
  * Extends a generic type to ensure that it is JSON serializable.
  * Checks that each key of an object is either valid JSON or is null.
- * Optional propeties of T become required, and can be set to null
+ * Cannot include aditional properties, and required properties may be null
  */
 type JsonCompatible<T> = {
   [P in keyof T]: T[P] extends Json
@@ -43,6 +43,6 @@ interface JsonSerializableConstructor<T extends DTO<T>> {
   (data: T);
 }
 
-type DTO<T> = JsonCompatible<T>;
+type DTO<T> = Complete<JsonCompatible<T>>;
 
 export { Json, JsonCompatible, JsonSerializable, Complete, DTO };

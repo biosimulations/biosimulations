@@ -11,7 +11,7 @@ export { ModelVariableDTO } from './model-variable.dto';
 export { OntologyTermDTO } from './ontology-term.dto';
 export { ParameterChangeDTO } from './parameter-change.dto';
 export { ProjectProductDTO } from './project-product.dto';
-export { ChartTypeDataFieldDTO } from './chart-type-data-field.dto';
+export { ChartDataFieldDTO } from './chart-type-data-field.dto';
 export { LicenseInfo } from './license-info';
 export { SimulationResultDTO } from './simulation-result-dto';
 export { TimePointDTO } from './time-point.dto';

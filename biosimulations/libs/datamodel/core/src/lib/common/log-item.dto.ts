@@ -1,5 +1,7 @@
+import { DateString } from '../aliases/formats';
+
 export class LogItemDTO {
-  time: Date;
+  time: DateString;
   type: string;
   message: string;
 }

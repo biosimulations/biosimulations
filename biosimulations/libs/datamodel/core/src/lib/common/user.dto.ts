@@ -1,18 +1,31 @@
 import { PersonDTO } from './person.dto';
-export class UserDTO implements PersonDTO {
-  id: string;
+export enum ExternalSite {
+  orcId = 'ORCiD',
+  gitHub = 'Github',
+  googleScholar = 'Google Scholar',
+}
+export interface ExternalProfile {
+  site: ExternalSite;
+  userId: string;
+}
+export interface ProfileDTO {
   userName: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
   organization: string;
   website: string;
-  email: string;
-  emailVerified: boolean;
-  emailPublic: boolean;
   gravatarEmail: string;
-  gitHubId: string;
-  orcId: string;
   description: string;
   summary: string;
+  externalProfiles: ExternalProfile[];
+}
+export interface EmailInfoDTO {
+  primaryEmail: string;
+  emailVerified: boolean;
+  emailPublic: boolean;
+  emails: string[];
+}
+
+export interface UserDTO extends PersonDTO {
+  userID: string;
+  profile: ProfileDTO;
+  emails: EmailInfoDTO;
 }

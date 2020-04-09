@@ -1,6 +1,6 @@
 import { License } from '../enums/licence';
 
-export class LicenseInfo {
+export interface LicenseInfo {
   value: License;
   name: string;
   version: string;

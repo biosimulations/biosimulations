@@ -1,4 +1,4 @@
-export enum ChartTypeDataFieldType {
+export enum ChartDataFieldType {
   dynamicSimulationResult = 'dynamicSimulationResult',
   static = 'static',
 }
