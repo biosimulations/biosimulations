@@ -28,6 +28,8 @@ export class SimulationSerializer extends Serializer<Simulation> {
     const algortihmDTO = json.algorithm as AlgorithmDTO;
     simulation.algorithm = new Algorithm(algortihmDTO);
     simulation.format = new Format({
+      id: json.simulatorFormat?.id,
+      specUrl: json.simulatorFormat?.specUrl,
       name: json.simulatorFormat.name,
       version: json.simulatorFormat.version,
       edamId: json.simulatorFormat.edamId,

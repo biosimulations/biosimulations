@@ -6,7 +6,7 @@ export class AlgorithmParameter
   name: string;
   id: string;
   value: number;
-  kisaoId: number;
+  kisaoId: string;
   constructor(data: AlgorithmParameterDTO) {
     Object.assign(this, data);
   }

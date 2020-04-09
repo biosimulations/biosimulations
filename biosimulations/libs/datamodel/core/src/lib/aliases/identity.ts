@@ -1,4 +1,4 @@
 export type BiosimulationsId = string;
-export type KisaoId = number;
-export type EdamId = number;
+export type KisaoId = string;
+export type EdamId = string;
 export type DOI = string;

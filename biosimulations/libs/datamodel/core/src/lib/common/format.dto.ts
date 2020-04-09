@@ -1,10 +1,12 @@
 import { EdamId } from '../aliases/identity';
 import { DTO } from '@biosimulations/datamodel/utils';
 
-export interface ModelFormatCore {
+export interface FormatCore {
+  id: string;
   name: string;
+  specUrl?: string;
   version: string;
   edamId: EdamId;
-  url: string;
+  url?: string;
 }
-export type ModelFormatDTO = DTO<ModelFormatCore>;
+export type FormatDTO = DTO<FormatCore>;

@@ -39,22 +39,22 @@ export class MetadataService {
   getAlgorithms(name?: string): Algorithm[] {
     const list: Algorithm[] = [
       new Algorithm({
-        id: '0000499',
+        id: '499',
         name: 'dynamic flux balance analysis',
         parameters: [],
       }),
       new Algorithm({
-        id: '0000025',
+        id: '25',
         name: 'Gillespie-like stochastic simulation method',
         parameters: [],
       }),
       new Algorithm({
-        id: '0000448',
+        id: '448',
         name: 'logical model simulation method',
         parameters: [],
       }),
       new Algorithm({
-        id: '0000064',
+        id: '64',
         name: 'Runge-Kutta based method',
         parameters: [],
       }),
@@ -66,19 +66,19 @@ export class MetadataService {
           id: 'seed',
           name: 'random number generator seed',
           value: 1,
-          kisaoId: 488,
+          kisaoId: '488',
         }),
         new AlgorithmParameter({
           id: 'atol',
           name: 'absolute tolerance',
           value: 1e-6,
-          kisaoId: 211,
+          kisaoId: '211',
         }),
         new AlgorithmParameter({
           id: 'rtol',
           name: 'relative tolerance',
           value: 1e-6,
-          kisaoId: 209,
+          kisaoId: '209',
         }),
       ];
     }
