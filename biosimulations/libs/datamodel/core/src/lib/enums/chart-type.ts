@@ -1,4 +1,4 @@
-export enum ChartTypeType {
+export enum ChartType {
   basic = 'basic',
   advanced = 'advanced',
 }

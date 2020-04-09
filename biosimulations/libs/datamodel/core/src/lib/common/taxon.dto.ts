@@ -1,7 +1,7 @@
 import { DTO } from '@biosimulations/datamodel/utils';
 
 export interface TaxonCore {
-  id: string;
+  id: number;
   name: string;
 }
 

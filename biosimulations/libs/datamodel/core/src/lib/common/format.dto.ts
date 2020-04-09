@@ -3,10 +3,10 @@ import { DTO } from '@biosimulations/datamodel/utils';
 
 export interface FormatCore {
   id: string;
-  name: string;
-  specUrl?: string;
+  name: string;  
   version: string;
   edamId: EdamId;
   url?: string;
+  specUrl?: string;
 }
 export type FormatDTO = DTO<FormatCore>;

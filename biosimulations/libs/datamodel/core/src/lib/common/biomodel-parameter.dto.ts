@@ -1,13 +1,20 @@
 import { DTO } from '@biosimulations/datamodel/utils';
+import { Type } from '../enums/type';
 
-export interface ModelParameterCore {
+export interface BiomodelParameterCore {
+  target: string;
+  group: string;
   id: string;
   name: string;
-  value: number;
+  description: string;
+  identifiers: IdentifierDTO[]; 
+  type: Type;
+  value: boolean | number | string;
+  recommendedRange: (boolean | number | string)[]
   units: string;
 }
 
-export type ModelParameterDTO = DTO<ModelParameterCore>;
+export type BiomodelParameterDTO = DTO<BiomodelParameterCore>;
 
-export const isModelParameterDTO = (param: any): param is ModelParameterDTO =>
+export const isBiomodelParameterDTO = (param: any): param is BiomodelParameterDTO =>
   'units' in param && 'id' in param && 'name' in param && 'value' in param;

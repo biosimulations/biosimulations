@@ -1,4 +1,4 @@
-import { JournalReferenceDTO } from './journalreference.dto';
+import { JournalReferenceDTO } from './journal-reference.dto';
 import { ProjectProductType } from '../enums/project-product-type';
 import { BiosimulationsId } from '../aliases/identity';
 import { DTO } from '@biosimulations/datamodel/utils';

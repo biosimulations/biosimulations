@@ -1,10 +1,13 @@
 import { DTO } from '@biosimulations/datamodel/utils';
 import { KisaoId } from '../aliases/identity';
+import { Type } from '../enums/type';
 
 export interface AlgorithmParameterCore {
   id: string;
   name: string;
-  value: number;
+  type: Type;
+  value: boolean | number | string;
+  recommendedRange: (boolean | number | string)[];
   kisaoId: KisaoId;
 }
 
