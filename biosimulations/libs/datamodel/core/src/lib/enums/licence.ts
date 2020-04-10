@@ -5,5 +5,8 @@ export enum License {
   cc_by_nc = 'CC BY-NC',
   cc_by_nc_sa = 'CC BY-NC-SA',
   mit = 'MIT',
+  apache_1 = 'Apache 1.0',
+  apache_1_1 = 'Apache 1.1',
+  apache_2 = 'Apache 2.0',
   other = 'Other',
 }

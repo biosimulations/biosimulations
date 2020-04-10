@@ -1,0 +1,11 @@
+import { ResourceDTO } from './resource.dto';
+import { ResourceType } from '../enums/resource-type';
+
+export class ChartDTO extends ResourceDTO {
+  // TODO decide on the name for this. Chart or chart-type. Should be same name as cache key
+  type = ResourceType.simulator;
+  version: string;
+  url: string;
+  dockerHubImageId: string;
+  algorithms: Algorithm[];
+}
