@@ -7,6 +7,9 @@ export interface FormatCore {
   version: string;
   edamId: EdamId;
   url?: string;
-  specUrl?: string;
+  specUrl?: string;  
+  mimetype?: string;
+  extension?: string;
+  sedUrn?: string;
 }
 export type FormatDTO = DTO<FormatCore>;
