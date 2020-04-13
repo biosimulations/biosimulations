@@ -1,5 +1,5 @@
-import { EdamId } from '../aliases/identity';
 import { DTO } from '@biosimulations/datamodel/utils';
+import { EdamId } from './alias';
 
 export interface FormatCore {
   id: string;
