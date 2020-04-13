@@ -35,9 +35,15 @@ export class ModelService extends ResourceService<Model> {
   getVariables(): ModelVariable[] {
     const variables: ModelVariable[] = [];
     for (let iVariable = 0; iVariable < 3; iVariable++) {
-      const variable = new ModelVariable();
-      variable.id = `var-${iVariable + 1}`;
-      variable.name = `Variable ${iVariable + 1}`;
+      const variable = new ModelVariable({
+        id: `var-${iVariable + 1}`,
+        target: null,
+        group: null,
+        type: null,
+        units: null,
+        name: `Variable ${iVariable + 1}`,
+        description: null,
+      });
       variables.push(variable);
     }
     return variables;

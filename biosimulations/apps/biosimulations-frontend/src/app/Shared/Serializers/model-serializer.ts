@@ -30,14 +30,7 @@ export class ModelSerializer extends Serializer<Model> {
     }
 
     if (json.format) {
-      model.format = new Format({
-        id: json?.format?.id,
-        specUrl: json?.format?.specUrl,
-        name: json?.format?.name,
-        version: json?.format?.version,
-        edamId: json?.format?.edamId,
-        url: json?.format?.url,
-      });
+      model.format = new Format(json.format);
     }
     if (json.framework) {
       model.framework = new OntologyTerm(json.framework);

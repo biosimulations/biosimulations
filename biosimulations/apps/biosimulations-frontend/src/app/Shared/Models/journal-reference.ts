@@ -16,7 +16,7 @@ export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
   public title?: string;
   public journal?: string;
   public volume?: number | string;
-  public num?: number;
+  public num?: number | string;
   public pages?: string;
   public year?: number;
   public doi?: string;
@@ -26,7 +26,7 @@ export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
       title: this.title,
       journal: this.journal,
       volume: this.volume,
-      number: this.num,
+      issue: this.num,
       pages: this.pages,
       year: this.year,
       doi: this.doi,
