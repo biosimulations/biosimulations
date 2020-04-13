@@ -8,6 +8,9 @@ export class Format implements JsonSerializable<FormatDTO> {
   version: string;
   edamId: string;
   url: string;
+  mimetype?: string;
+  extension?: string;
+  sedUrn?: string;
 
   constructor(data: FormatDTO) {
     Object.assign(this, data);
@@ -24,6 +27,9 @@ export class Format implements JsonSerializable<FormatDTO> {
       version: this.version,
       edamId: this.edamId,
       url: this.url,
+      mimetype: this.mimetype,
+      extension: this.extension,
+      sedUrn: this.sedUrn,
     };
   }
 

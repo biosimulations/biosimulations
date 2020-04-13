@@ -1,7 +1,7 @@
-import { ChartDTO } from '../resources/chart-type.dto';
+import { ChartDTO } from '../resources/chart.dto';
 import { VisualizationDataFieldDTO } from './visualization-data-field.dto';
 
 export class VisualizationLayoutElementDTO {
-  chartType: ChartDTO;
+  chart: ChartDTO;
   data: VisualizationDataFieldDTO[];
 }

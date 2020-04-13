@@ -1,10 +1,14 @@
 import { DTO } from '@biosimulations/datamodel/utils';
 import { KisaoId } from '../aliases/identity';
+import { PrimitiveType } from '../enums/primitive-type';
 
 export interface AlgorithmParameterCore {
   id: string;
   name: string;
-  value: number;
+  type: PrimitiveType;
+  value: boolean | number | string;
+  // Todo make this a conditional type based on value
+  recomendedRange?: (boolean | number | string)[];
   kisaoId: KisaoId;
 }
 

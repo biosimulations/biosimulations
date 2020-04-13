@@ -4,7 +4,7 @@ import {
   AccessLevel,
 } from '@biosimulations/datamodel/core';
 import { License } from './license';
-import { ChartTypeDataField } from './chart-type-data-field';
+import { ChartTypeDataField } from './chart-data-field';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
 import { Model } from './model';

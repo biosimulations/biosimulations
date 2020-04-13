@@ -5,7 +5,7 @@ export interface JournalReferenceCore {
   title: string;
   journal: string;
   volume: string | number;
-  number: number;
+  issue: string | number;
   pages: string;
   year: number;
   doi: string;
