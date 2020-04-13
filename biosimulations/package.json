@@ -107,7 +107,7 @@
     "@types/jest": "24.9.1",
     "@types/mongoose": "^5.7.8",
     "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
+    "codelyzer": "^5.2.2",
     "cypress": "^4.2.0",
     "husky": "^4.0.10",
     "jasmine-core": "~3.5.0",
