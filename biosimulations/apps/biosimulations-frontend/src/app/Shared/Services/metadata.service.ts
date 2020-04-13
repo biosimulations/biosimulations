@@ -46,6 +46,9 @@ export class MetadataService {
         modelingFrameworks: [],
         modelFormats: [],
         parameters: [],
+        simulationFormats: [],
+        archiveFormats: [],
+        references: [],
       }),
       new Algorithm({
         id: '25',
@@ -55,6 +58,9 @@ export class MetadataService {
         modelingFrameworks: [],
         modelFormats: [],
         parameters: [],
+        simulationFormats: [],
+        archiveFormats: [],
+        references: [],
       }),
       new Algorithm({
         id: '448',
@@ -64,6 +70,9 @@ export class MetadataService {
         modelingFrameworks: [],
         modelFormats: [],
         parameters: [],
+        simulationFormats: [],
+        archiveFormats: [],
+        references: [],
       }),
       new Algorithm({
         id: '64',
@@ -73,6 +82,9 @@ export class MetadataService {
         modelingFrameworks: [],
         modelFormats: [],
         parameters: [],
+        simulationFormats: [],
+        archiveFormats: [],
+        references: [],
       }),
     ];
 

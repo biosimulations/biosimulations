@@ -3,11 +3,14 @@ import {
   AlgorithmParameterDTO,
   AlgorithmDTO,
   OntologyTermDTO,
+  JournalReferenceDTO,
+  FormatDTO,
 } from '@biosimulations/datamodel/core';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { JsonCompatible } from '@biosimulations/datamodel/utils';
 import { OntologyTerm } from './ontology-term';
 import { Format } from './format';
+import { JournalReference } from './journal-reference';
 
 export class Algorithm implements JsonSerializable<AlgorithmDTO> {
   id?: string;
@@ -20,6 +23,9 @@ export class Algorithm implements JsonSerializable<AlgorithmDTO> {
   mimetype?: string;
   extension?: string;
   sedUrn?: string;
+  simulationFormats: Format[];
+  archiveFormats: Format[];
+  references: JournalReference[];
 
   constructor(data: AlgorithmDTO) {
     Object.assign(this, data);
@@ -41,6 +47,15 @@ export class Algorithm implements JsonSerializable<AlgorithmDTO> {
       modelFormats: this.modelFormats.map((value: Format) => value.serialize()),
 
       parameters: this.parameters.map((value: AlgorithmParameter) =>
+        value.serialize(),
+      ),
+      simulationFormats: this.simulationFormats.map((value: Format) =>
+        value.serialize(),
+      ),
+      archiveFormats: this.archiveFormats.map((value: Format) =>
+        value.serialize(),
+      ),
+      references: this.references.map((value: JournalReference) =>
         value.serialize(),
       ),
     };

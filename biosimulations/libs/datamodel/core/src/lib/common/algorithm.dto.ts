@@ -1,7 +1,7 @@
 import { AlgorithmParameterDTO } from './algorithm-parameter.dto';
 import { DTO } from '@biosimulations/datamodel/utils';
 import { KisaoId } from '../aliases/identity';
-import { OntologyTermDTO, FormatDTO } from '.';
+import { OntologyTermDTO, FormatDTO, JournalReferenceDTO } from '.';
 
 export interface AlgorithmCore {
   id: string;
@@ -11,5 +11,8 @@ export interface AlgorithmCore {
   modelingFrameworks: OntologyTermDTO[];
   modelFormats: FormatDTO[];
   parameters: AlgorithmParameterDTO[];
+  simulationFormats: FormatDTO[];
+  archiveFormats: FormatDTO[];
+  references: JournalReferenceDTO[];
 }
 export type AlgorithmDTO = DTO<AlgorithmCore>;

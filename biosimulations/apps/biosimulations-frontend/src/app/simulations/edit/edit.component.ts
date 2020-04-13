@@ -376,6 +376,9 @@ export class EditComponent implements OnInit {
       modelingFrameworks: [],
       modelFormats: [],
       parameters: [null],
+      simulationFormats: [],
+      archiveFormats: [],
+      references: [],
     });
     this.algorithmParameters = this.metadataService.getAlgorithmParameters(
       this.algorithm,
