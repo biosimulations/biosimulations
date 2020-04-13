@@ -70,7 +70,7 @@
     "@types/dragula": "^2.1.34",
     "ag-grid-angular": "^22.1.1",
     "ag-grid-community": "^22.1.1",
-    "ag-grid-enterprise": "^22.1.1",
+    "ag-grid-enterprise": "^23.0.2",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.0-rc.0",
     "core-js": "^2.5.4",
