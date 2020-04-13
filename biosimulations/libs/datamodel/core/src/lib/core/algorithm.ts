@@ -1,6 +1,8 @@
 import { DTO } from '@biosimulations/datamodel/utils';
-import { KisaoId } from '../aliases/identity';
-import { PrimitiveType } from '../enums/primitive-type';
+
+import { PrimitiveType } from '../common/primitive-type';
+import { OntologyTermDTO, FormatDTO, JournalReferenceDTO } from '../..';
+import { KisaoId } from '../common/alias';
 
 export interface AlgorithmParameterCore {
   id: string;
@@ -11,6 +13,20 @@ export interface AlgorithmParameterCore {
   recomendedRange?: (boolean | number | string)[];
   kisaoId: KisaoId;
 }
+
+export interface AlgorithmCore {
+  id: string;
+  name: string;
+  kisaoId: KisaoId;
+  ontologyTerms: OntologyTermDTO[];
+  modelingFrameworks: OntologyTermDTO[];
+  modelFormats: FormatDTO[];
+  parameters: AlgorithmParameterDTO[];
+  simulationFormats: FormatDTO[];
+  archiveFormats: FormatDTO[];
+  references: JournalReferenceDTO[];
+}
+export type AlgorithmDTO = DTO<AlgorithmCore>;
 
 export type AlgorithmParameterDTO = DTO<AlgorithmParameterCore>;
 

@@ -1,5 +1,5 @@
 import { DTO } from '@biosimulations/datamodel/utils';
-import { KisaoId } from '../aliases/identity';
+import { KisaoId } from './alias';
 
 enum Ontologies {
   KISAO = 'KISAO',
@@ -22,4 +22,12 @@ export interface KISAOTermCore extends OntologyTermCore {
   description: string;
   iri: string;
 }
+
+// Identifiers.org identifier
+export interface IdentifierCore {
+  namespace: string;
+  identifier: string;
+}
+export type IdentifierDTO = DTO<IdentifierCore>;
+
 export type OntologyTermDTO = DTO<OntologyTermCore>;
