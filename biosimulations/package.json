@@ -77,7 +77,7 @@
     "https-proxy-agent": "^4.0.0",
     "md5": "^2.2.1",
     "mongoose": "^5.9.6",
-    "ngx-logger": "^4.1.2",
+    "ngx-logger": "^4.1.4",
     "ngx-material-file-input": "^2.1.0",
     "ngx-pipes": "^2.6.0",
     "reflect-metadata": "^0.1.13",
