@@ -27,17 +27,20 @@ export interface LogItemDTO {
   message: string;
 }
 
-export interface SimulationRun {
-  startTime: number;
-  endTime: number;
-  length: number;
+export interface SimulationRunAttributes {
+  simulation: BiosimulationsId;
+  simulator: BiosimulationsId;
+  inputFile: BiosimulationsId;
+  outputFile: BiosimulationsId;
   submitDate: DateString;
   runDate: DateString;
   endDate: DateString;
   wallTime: number;
   outlog: LogItemDTO[];
   errlog: LogItemDTO[];
+  status: SimulationStatus;
 }
+export type SimulationStatus = 'done' | 'submitted' | 'failed';
 
 export type TimePointDTO = DTO<TimePointCore>;
 

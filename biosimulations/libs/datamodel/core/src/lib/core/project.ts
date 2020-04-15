@@ -28,3 +28,7 @@ export class ProjectProductCore {
   resources: BiosimulationsId[];
 }
 export type ProjectProductDTO = DTO<ProjectProductCore>;
+
+export interface ProjectAttributes {
+  products: ProjectProductDTO[];
+}

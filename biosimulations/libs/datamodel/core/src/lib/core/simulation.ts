@@ -1,7 +1,7 @@
 import {
   BiomodelParameterDTO,
   AlgorithmParameterDTO,
-  SimulationRun,
+  SimulationRunAttributes,
   AlgorithmDTO,
 } from '.';
 
@@ -13,11 +13,15 @@ export interface ParameterChangeDTO {
   value: number;
 }
 
-export class Simualtion {
+export class SimulationAttributes {
   model: BiosimulationsId;
   format: FormatDTO;
   modelParameterChanges: ParameterChangeDTO[];
-  algorithParameterChanges: ParameterChangeDTO[];
+  algorithmParameterChanges: ParameterChangeDTO[];
   algorithm: AlgorithmDTO;
-  run: SimulationRun;
+  runs: BiosimulationsId[];
+  numTimepoints: number;
+  outputStartTime: number;
+  startTime: number;
+  endTime: number;
 }
