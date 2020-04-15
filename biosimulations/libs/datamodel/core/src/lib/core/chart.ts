@@ -3,7 +3,7 @@ import { DTO } from '@biosimulations/datamodel/utils';
 
 type VegaSpecification = any;
 
-export interface Chart {
+export interface ChartAttributes {
   spec: VegaSpecification;
 }
 

@@ -21,7 +21,7 @@ export interface BiomodelParameterCore {
 }
 
 export type BiomodelParameterDTO = DTO<BiomodelParameterCore>;
-
+// See isAlogrithmParameterDTO method also. Used to differentiate between alg paramter
 export const isBiomodelParameterDTO = (
   param: any,
 ): param is BiomodelParameterDTO =>
@@ -38,7 +38,7 @@ export class BiomodelVariableCore {
 }
 export type BiomodelVariableDTO = DTO<BiomodelVariableCore>;
 
-export class Biomodel {
+export class BiomodelAttributes {
   taxon: TaxonDTO;
   parameters: BiomodelParameterDTO[];
   variables: BiomodelVariableDTO[];

@@ -23,7 +23,7 @@ export interface VisualizationLayoutElementCore {
 
 export type VisualizationLayoutElementDTO = DTO<VisualizationLayoutElementCore>;
 
-export interface VisualizationCore {
+export interface VisualizationAttributes {
   format: FormatDTO;
   columns: number;
   layout: VisualizationLayoutElementDTO;
