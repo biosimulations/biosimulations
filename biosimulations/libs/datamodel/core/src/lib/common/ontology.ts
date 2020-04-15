@@ -11,6 +11,8 @@ interface OntologyIdDTO {
   id: string;
 }
 interface OntologyTermCore extends OntologyIdDTO {
+  ontology: string;
+  id: string;
   name: string;
   description: string;
   iri: string;
@@ -27,6 +29,7 @@ export interface KISAOTermCore extends OntologyTermCore {
 export interface IdentifierCore {
   namespace: string;
   identifier: string;
+  url?: string;
 }
 export type IdentifierDTO = DTO<IdentifierCore>;
 
