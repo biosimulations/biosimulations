@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditPreviewComponent } from './edit-preview.component';
+import { BiosimulationsFrontendTestingModule } from '../../../testing/testing.module';
 
 describe('EditPreviewComponent', () => {
   let component: EditPreviewComponent;
@@ -8,9 +9,9 @@ describe('EditPreviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditPreviewComponent ]
-    })
-    .compileComponents();
+      declarations: [EditPreviewComponent],
+      imports: [BiosimulationsFrontendTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
