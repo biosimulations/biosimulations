@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaxonFormComponent } from './taxon-form.component';
+import { BiosimulationsFrontendTestingModule } from '../../../testing/testing.module';
 
 describe('TaxonFormComponent', () => {
   let component: TaxonFormComponent;
@@ -8,9 +9,9 @@ describe('TaxonFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaxonFormComponent ]
-    })
-    .compileComponents();
+      declarations: [TaxonFormComponent],
+      imports: [BiosimulationsFrontendTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
