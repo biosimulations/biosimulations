@@ -9,12 +9,16 @@ describe('SimulationService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
-      providers: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
-    })
+      providers: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatDialogModule,
+      ],
+    }),
   );
 
   it('should be created', () => {
-    const service: SimulationService = TestBed.get(SimulationService);
+    const service: SimulationService = TestBed.inject(SimulationService);
     expect(service).toBeTruthy();
   });
 });
