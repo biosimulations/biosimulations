@@ -1,4 +1,4 @@
-name: Build, Lint, Test All
+name: CI
 
 on: [push]
 
@@ -18,22 +18,22 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         working-directory: ./biosimulations
-        run: npm install
+        run: npm ci && npm install -g @nrwl/cli
       - name: Lint
         working-directory: ./biosimulations
         run: nx lint
       - name: Build
         working-directory: ./biosimulations
-        run: nx build -- --prod
+        run: nx build --prod
       - name: Test
         working-directory: ./biosimulations
-        run: nx test -- --watch=false --code-coverage
+        run: nx test --code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-          flags: unittests
-          file: ./biosimulations-frontend/coverage/biosimulations-frontend/lcov.info
+          flags: frontEnd
+          file: ./biosimulations/coverage/apps/biosimulations-frontend/lcov.info
       - name: E2E
         working-directory: ./biosimulations-frontend
-        run: npm run e2e --
+        run: nx e2e
