@@ -1,15 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ConstructionGuard } from './construction.guard';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing/testing';
+import { BiosimulationsFrontendTestingModule } from '../../testing/testing.module';
 
 describe('ConstructionGuard', () => {
   let guard: ConstructionGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
+      imports: [BiosimulationsFrontendTestingModule],
     });
     guard = TestBed.inject(ConstructionGuard);
   });

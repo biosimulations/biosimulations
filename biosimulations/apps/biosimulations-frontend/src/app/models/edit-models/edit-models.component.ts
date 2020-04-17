@@ -6,16 +6,8 @@ import { Observable, of, forkJoin } from 'rxjs';
 import { BreadCrumbsService } from '../../Shared/Services/bread-crumbs.service';
 import { OkCancelDialogComponent } from '../../Shared/Components/ok-cancel-dialog/ok-cancel-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  AbstractControl,
-  Validators,
-  FormControl,
-} from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
 import { ModelSerializer } from '../../Shared/Serializers/model-serializer';
 
 import { AccessLevel, accessLevels } from '@biosimulations/datamodel/core';
