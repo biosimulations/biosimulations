@@ -9,6 +9,7 @@ describe('AppController', () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
+      imports: [ConfigModule],
       controllers: [AppController],
       providers: [AppService],
       imports: [ConfigModule],

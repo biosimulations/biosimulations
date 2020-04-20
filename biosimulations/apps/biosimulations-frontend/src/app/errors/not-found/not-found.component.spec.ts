@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotFoundComponent } from './not-found.component';
+import { BiosimulationsFrontendTestingModule } from '../../testing/testing.module';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -8,9 +9,9 @@ describe('NotFoundComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotFoundComponent ]
-    })
-    .compileComponents();
+      declarations: [NotFoundComponent],
+      imports: [BiosimulationsFrontendTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

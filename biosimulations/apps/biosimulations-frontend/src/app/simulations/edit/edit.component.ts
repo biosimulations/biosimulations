@@ -371,7 +371,14 @@ export class EditComponent implements OnInit {
     this.algorithm = new Algorithm({
       name: null,
       id: null,
+      kisaoId: '0000000',
+      ontologyTerms: [],
+      modelingFrameworks: [],
+      modelFormats: [],
       parameters: [null],
+      simulationFormats: [],
+      archiveFormats: [],
+      references: [],
     });
     this.algorithmParameters = this.metadataService.getAlgorithmParameters(
       this.algorithm,
@@ -444,7 +451,7 @@ export class EditComponent implements OnInit {
     this.selectAutocomplete(parameterFormControl, true);
 
     const parameter = parameterFormControl.value;
-    let defaultValue: number;
+    let defaultValue: number | string | boolean;
     let units = '';
     if (parameter instanceof ModelParameter) {
       defaultValue = parameter.value;
@@ -478,7 +485,7 @@ export class EditComponent implements OnInit {
     this.selectAutocomplete(parameterFormControl, true);
 
     const parameter = parameterFormControl.value;
-    let defaultValue: number;
+    let defaultValue: number | boolean | string;
     if (parameter instanceof AlgorithmParameter) {
       defaultValue = parameter.value;
     }

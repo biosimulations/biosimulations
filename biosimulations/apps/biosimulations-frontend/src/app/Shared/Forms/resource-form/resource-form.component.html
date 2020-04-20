@@ -1,16 +1,36 @@
 <form [formGroup]="form">
-  <app-identifier-form formControlName="id"></app-identifier-form>
-  <app-name-form formControlName="name"></app-name-form>
-  <app-user-name-form formControlName="owner"></app-user-name-form>
+  <app-identifier-form
+    ngDefaultControl
+    formControlName="id"
+  ></app-identifier-form>
+  <app-name-form ngDefaultControl formControlName="name"></app-name-form>
+  <app-user-name-form
+    ngDefaultControl
+    formControlName="owner"
+  ></app-user-name-form>
   <app-description-form
+    ngDefaultControl
     class="description"
     formControlName="description"
   ></app-description-form>
-  <app-authors-form formControlName="authors"></app-authors-form>
-  <app-identifiers-form formControlName="identifiers"></app-identifiers-form>
-  <app-access-form formControlName="access"></app-access-form>
-  <app-license-form formControlName="license"></app-license-form>
-  <app-file-form formControlName="imageFile" accept=".jpeg"> </app-file-form>
-  <app-references-form formControlName="refs"></app-references-form>
-  <app-tags-form formControlName="tags"></app-tags-form>
+  <app-authors-form
+    ngDefaultControl
+    formControlName="authors"
+  ></app-authors-form>
+  <app-identifiers-form
+    ngDefaultControl
+    formControlName="identifiers"
+  ></app-identifiers-form>
+  <app-access-form ngDefaultControl formControlName="access"></app-access-form>
+  <app-license-form
+    ngDefaultControl
+    formControlName="license"
+  ></app-license-form>
+  <app-file-form ngDefaultControl formControlName="imageFile" accept=".jpeg">
+  </app-file-form>
+  <app-references-form
+    ngDefaultControl
+    formControlName="refs"
+  ></app-references-form>
+  <app-tags-form ngDefaultControl formControlName="tags"></app-tags-form>
 </form>

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IdentifiersFormComponent } from './identifiers-form.component';
+import { BiosimulationsFrontendTestingModule } from '../../../testing/testing.module';
 
 describe('IdentifiersFormComponent', () => {
   let component: IdentifiersFormComponent;
@@ -8,9 +9,9 @@ describe('IdentifiersFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IdentifiersFormComponent ]
-    })
-    .compileComponents();
+      declarations: [IdentifiersFormComponent],
+      imports: [BiosimulationsFrontendTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

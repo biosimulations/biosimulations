@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthorsFormComponent } from './authors-form.component';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '../../../app-material.module';
+import { SharedModule } from '../../shared.module';
+import { BiosimulationsFrontendTestingModule } from '../../../testing/testing.module';
 
 describe('AuthorsFormComponent', () => {
   let component: AuthorsFormComponent;
@@ -8,9 +12,9 @@ describe('AuthorsFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthorsFormComponent ]
-    })
-    .compileComponents();
+      declarations: [AuthorsFormComponent],
+      imports: [BiosimulationsFrontendTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

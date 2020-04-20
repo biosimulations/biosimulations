@@ -1,6 +1,9 @@
 <div class="page-content partial-width">
   <app-edit-preview [data]="data">
-    <app-model-form [formControl]="modelControl"></app-model-form>
+    <app-model-form
+      ngDefaultControl
+      [formControl]="modelControl"
+    ></app-model-form>
   </app-edit-preview>
   <button
     mat-button

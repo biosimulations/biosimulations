@@ -8,3 +8,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+  biosimulations-api:
+    container_name: biosimulations-api
+    build:
+      context: .
+      dockerfile: Dockerfile

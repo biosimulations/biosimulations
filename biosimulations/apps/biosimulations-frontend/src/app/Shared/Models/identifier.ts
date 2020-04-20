@@ -4,15 +4,22 @@ import { JsonSerializable } from '@biosimulations/datamodel/utils';
 export class Identifier implements JsonSerializable<IdentifierDTO> {
   namespace: string;
   identifier: string;
+  url: string;
   constructor(data: IdentifierDTO) {
     Object.assign(this, data);
   }
 
   serialize(): IdentifierDTO {
-    return { namespace: this.namespace, identifier: this.identifier };
+    return {
+      namespace: this.namespace,
+      identifier: this.identifier,
+      url: this.getUrl(),
+    };
   }
   getUrl(): string {
-    return `https://identifiers.org/${this.namespace}:${this.identifier}`;
+    return (
+      this.url || `https://identifiers.org/${this.namespace}:${this.identifier}`
+    );
   }
 
   getNamespaceName(): string {

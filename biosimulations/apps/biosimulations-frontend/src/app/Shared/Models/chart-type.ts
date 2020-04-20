@@ -1,11 +1,10 @@
 import {
-  ChartTypeDataFieldShape,
-  ChartTypeDataFieldDTO,
-  ChartTypeDataFieldType,
+  ChartDataFieldShape,
+  ChartDataFieldType,
   AccessLevel,
 } from '@biosimulations/datamodel/core';
 import { License } from './license';
-import { ChartTypeDataField } from './chart-type-data-field';
+import { ChartTypeDataField } from './chart-data-field';
 import { Identifier } from './identifier';
 import { JournalReference } from './journal-reference';
 import { Model } from './model';
@@ -85,16 +84,16 @@ export class ChartType extends TopLevelResource {
   }
 
   genDataField(spec: object): ChartTypeDataField {
-    const dataField = new ChartTypeDataFieldDTO();
-    dataField.name = spec['data']['name'];
+    const name = spec['data']['name'];
+    let shape;
     if ('shape' in spec['data']) {
-      dataField.shape =
-        ChartTypeDataFieldShape[spec['data']['shape'] as string];
+      shape = ChartDataFieldShape[spec['data']['shape'] as string];
     } else {
-      dataField.shape = ChartTypeDataFieldShape.array;
+      shape = ChartDataFieldShape.array;
     }
-    dataField.type = ChartTypeDataFieldType.dynamicSimulationResult;
-    return new ChartTypeDataField(dataField);
+    const type = ChartDataFieldType.dynamicSimulationResult;
+
+    return new ChartTypeDataField({ name, shape, type });
   }
 
   getProjects(): Observable<Project[]> {

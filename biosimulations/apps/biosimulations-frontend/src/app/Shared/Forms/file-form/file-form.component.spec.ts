@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileFormComponent } from './file-form.component';
+import { FormsModule } from '@angular/forms';
+import { BiosimulationsFrontendTestingModule } from '../../../testing/testing.module';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 describe('FileFormComponent', () => {
   let component: FileFormComponent;
@@ -8,9 +11,9 @@ describe('FileFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileFormComponent ]
-    })
-    .compileComponents();
+      declarations: [FileFormComponent],
+      imports: [BiosimulationsFrontendTestingModule, MaterialFileInputModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

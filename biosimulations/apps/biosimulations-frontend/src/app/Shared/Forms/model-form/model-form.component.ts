@@ -34,12 +34,12 @@ export class ModelFormComponent extends ObjectSubForm implements OnInit {
   }
 
   ngOnInit(): void {
-    const formGroup = this.formBuilder.group({
+    const customformGroup = this.formBuilder.group({
       format: [''],
       taxon: [''],
       modelFile: [''],
       meta: [''],
     });
-    this.initForm(formGroup);
+    this.initForm(customformGroup);
   }
 }

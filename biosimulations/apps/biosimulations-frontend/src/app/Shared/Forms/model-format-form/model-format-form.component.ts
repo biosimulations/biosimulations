@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
-import { ModelFormatDTO } from '@biosimulations/datamodel/core';
+import { FormatDTO } from '@biosimulations/datamodel/core';
 
 @Component({
   selector: 'app-model-format-form',
@@ -35,10 +35,10 @@ export class ModelFormatFormComponent
   form: FormGroup;
   subscriptions: Subscription[] = [];
 
-  get value(): ModelFormatDTO {
+  get value(): FormatDTO {
     return this.form.value;
   }
-  set value(value: ModelFormatDTO) {
+  set value(value: FormatDTO) {
     this.form.setValue(value);
     this.onChange(value);
     this.onTouched();

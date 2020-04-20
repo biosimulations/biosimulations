@@ -1,7 +1,5 @@
 node_modules/
 docs/
-dist
-e2e
 .editorconfig
 .prettierrc
 .git
