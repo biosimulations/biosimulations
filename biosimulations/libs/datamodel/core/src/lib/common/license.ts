@@ -8,6 +8,8 @@ export enum License {
   apache_1 = 'Apache 1.0',
   apache_1_1 = 'Apache 1.1',
   apache_2 = 'Apache 2.0',
+  artistic_1 = 'Artistic 1.0',
+  artistic_2 = 'Artistic 2.0',
   other = 'Other',
 }
 
