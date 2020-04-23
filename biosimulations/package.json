@@ -110,7 +110,7 @@
     "codelyzer": "^5.1.2",
     "cypress": "^4.4.0",
     "husky": "^4.0.10",
-    "jest": "25.2.4",
+    "jest": "25.4.0",
     "jest-preset-angular": "8.0.0",
     "prettier": "^1.19.1",
     "protractor": "^5.4.3",
