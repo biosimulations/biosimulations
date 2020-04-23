@@ -21,7 +21,7 @@ jobs:
         run: npm ci && npm install -g @nrwl/cli
       - name: Lint
         working-directory: ./biosimulations
-        run: nx lint
+        run: nx affected:lint
       - name: Build
         working-directory: ./biosimulations
         run: nx affected:build --prod
