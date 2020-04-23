@@ -108,7 +108,7 @@
     "@types/mongoose": "^5.7.8",
     "@types/node": "^13.13.2",
     "codelyzer": "^5.1.2",
-    "cypress": "^4.4.0",
+    "cypress": "^4.4.1",
     "husky": "^4.0.10",
     "jest": "25.2.4",
     "jest-preset-angular": "8.0.0",
