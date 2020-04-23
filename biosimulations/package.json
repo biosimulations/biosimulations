@@ -65,7 +65,7 @@
     "@nestjsx/crud": "^4.4.2",
     "@swimlane/dragula": "^3.8.0",
     "@swimlane/ngx-dnd": "^8.1.0",
-    "@typegoose/typegoose": "^6.4.0",
+    "@typegoose/typegoose": "^6.5.0",
     "ag-grid-angular": "^22.1.1",
     "ag-grid-community": "^22.1.1",
     "ag-grid-enterprise": "^22.1.1",
