@@ -18,9 +18,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
-      - name: Install dependencies
-        working-directory: ./biosimulations
-        run: npm ci && npm install -g @nrwl/cli
+      - name: Install NX
+        run: npm install -g @nrwl/cli
+
       - name: Set Environment Variables
         run: |
           if [[ $GITHUB_BASE_REF ]]
@@ -29,9 +29,15 @@ jobs:
           else
             export NX_BASE=$(git rev-parse HEAD~1)
           fi
+          echo NX_BASE
       - name: Lint
         working-directory: ./biosimulations
         run: nx affected:lint --base=$NX_BASE
+
+      - name: Install dependencies
+        working-directory: ./biosimulations
+        run: npm ci
+
       - name: Build
         working-directory: ./biosimulations
         run: nx affected:build --base=$NX_BASE --prod
