@@ -24,10 +24,10 @@ jobs:
         run: nx lint
       - name: Build
         working-directory: ./biosimulations
-        run: nx build --prod
+        run: nx affected:build --prod
       - name: Test
         working-directory: ./biosimulations
-        run: nx test --code-coverage
+        run: nx affected:test --code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
