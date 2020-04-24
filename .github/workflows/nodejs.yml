@@ -35,7 +35,7 @@ jobs:
           echo $NX_BASE
       - name: Lint
         working-directory: ./biosimulations
-        run: nx affected:lint --base=$NX_BASE
+        run: nx affected:lint --base=origin/master
 
       - name: Build
         working-directory: ./biosimulations
