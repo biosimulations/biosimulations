@@ -24,25 +24,16 @@ jobs:
         working-directory: ./biosimulations
         run: npm ci && npm install -g @nrwl/cli
 
-      - name: Set Environment Variables
-        run: |
-          if [[ $GITHUB_BASE_REF ]]
-          then
-            export NX_BASE=remotes/origin/$GITHUB_BASE_REF
-          else
-            export NX_BASE=$(git rev-parse HEAD~1)
-          fi
-          echo $NX_BASE
       - name: Lint
         working-directory: ./biosimulations
         run: nx affected:lint --base=origin/master
 
       - name: Build
         working-directory: ./biosimulations
-        run: nx affected:build --base=$NX_BASE --prod
+        run: nx affected:build --base=origin/master --prod
       - name: Test
         working-directory: ./biosimulations
-        run: nx affected:test --base=$NX_BASE --code-coverage
+        run: nx affected:test --base=origin/master --code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
