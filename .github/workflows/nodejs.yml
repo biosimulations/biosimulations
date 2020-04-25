@@ -1,33 +1,39 @@
 name: CI
 
-on: [push]
+on:
+  push:
+  pull_request:
+    branches: [master, stage, dev]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x, 13.x]
-
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - run: |
+          git fetch --no-tags --prune --depth=5 origin master
+      - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "13.x"
       - name: Install dependencies
         working-directory: ./biosimulations
         run: npm ci && npm install -g @nrwl/cli
+
       - name: Lint
         working-directory: ./biosimulations
-        run: nx lint
+        run: nx affected:lint --base=origin/master
+
       - name: Build
         working-directory: ./biosimulations
-        run: nx build --prod
+        run: nx affected:build --base=origin/master --prod
       - name: Test
         working-directory: ./biosimulations
-        run: nx test --code-coverage
+        run: nx affected:test --base=origin/master --code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
