@@ -62,7 +62,7 @@
               "commonChunk": true,
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
               "extractLicenses": true,
