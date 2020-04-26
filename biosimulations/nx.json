@@ -28,6 +28,13 @@
     },
     "datamodel-utils": {
       "tags": []
+    },
+    "login-frontend": {
+      "tags": []
+    },
+    "login-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["login-frontend"]
     }
   },
   "tasksRunnerOptions": {
