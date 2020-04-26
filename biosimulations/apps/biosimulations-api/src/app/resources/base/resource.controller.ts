@@ -7,16 +7,20 @@ import {
   Post,
   Delete,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { ResourceService } from './resource.service';
+import { ApiQuery } from '@nestjs/swagger';
 export abstract class ResourceController<T> {
   constructor(
     private readonly service: ResourceService<T>,
     private resourceName: string,
   ) {}
+
+  @ApiQuery({ name: 'test', required: false })
   @Get()
-  search() {
-    return this.service.getAll();
+  search(@Query('test') param?: string) {
+    return param;
   }
   @Get(':id')
   get(@Param('id') id: string) {

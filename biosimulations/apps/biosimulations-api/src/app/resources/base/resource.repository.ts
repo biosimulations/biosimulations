@@ -15,4 +15,13 @@ export class ResourceRepository {
   delete(id: string) {
     this.resources = this.resources.filter(value => value.id !== id);
   }
+  update(id: string, body: any) {
+    this.resources = this.resources.map(value => {
+      if (value.id === id) {
+        return body;
+      } else {
+        return value;
+      }
+    });
+  }
 }

@@ -12,7 +12,6 @@ describe('AppController', () => {
       imports: [ConfigModule],
       controllers: [AppController],
       providers: [AppService],
-      imports: [ConfigModule],
     }).compile();
   });
 

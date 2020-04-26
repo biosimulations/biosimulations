@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ResourceService } from '../base/resource.service';
-import { ChartTypeDTO } from '@biosimulations/datamodel/core';
 
+type chart = any;
 @Injectable()
-export class ChartsService extends ResourceService<ChartTypeDTO> {}
+export class ChartsService extends ResourceService<any> {}
