@@ -30,11 +30,6 @@
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "stats": "webpack-bundle-analyzer dist/apps/biosimulations-frontend/stats-es2015.json"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "nx affected:lint"
-    }
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^9.1.1",
