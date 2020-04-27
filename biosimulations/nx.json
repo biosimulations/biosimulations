@@ -35,6 +35,9 @@
     "login-frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["login-frontend"]
+    },
+    "ui-material": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

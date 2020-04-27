@@ -484,6 +484,38 @@
           }
         }
       }
+    },
+    "ui-material": {
+      "projectType": "library",
+      "root": "libs/ui/material",
+      "sourceRoot": "libs/ui/material/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui/material/tsconfig.lib.json",
+              "libs/ui/material/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/material/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/material/jest.config.js",
+            "tsConfig": "libs/ui/material/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui/material/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-frontend",
