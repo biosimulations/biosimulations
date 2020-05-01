@@ -43,12 +43,11 @@
               "apps/biosimulations-frontend/src/_redirects",
               "apps/biosimulations-frontend/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/biosimulations-frontend/src/theme.scss",
-              "apps/biosimulations-frontend/src/theme_colors.scss",
-              "apps/biosimulations-frontend/src/styles.scss"
-            ],
-            "scripts": []
+            "styles": ["apps/biosimulations-frontend/src/styles.scss"],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/ui/material/src/lib"]
+            }
           },
           "configurations": {
             "production": {
@@ -387,7 +386,10 @@
               "apps/login-frontend/src/assets"
             ],
             "styles": ["apps/login-frontend/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/ui/material/src/lib"]
+            }
           },
           "configurations": {
             "production": {
