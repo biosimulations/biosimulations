@@ -1,3 +1,6 @@
 The page to handle auth0 redirect
-<button mat-raised-button color="primary">Test</button>
-<router-outlet></router-outlet>
+<p>state: {{ this.state | async }}</p>
+<p>Token: {{ this.token | async }}</p>
+<button mat-raised-button color="primary" (click)="this.continueLogin()">
+  Continue Login
+</button>
