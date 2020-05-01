@@ -25,23 +25,25 @@
             "tsConfig": "apps/biosimulations-frontend/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/biosimulations-frontend/src/favicon-16x16.png",
-              "apps/biosimulations-frontend/src/favicon-32x32.png",
-              "apps/biosimulations-frontend/src/favicon.png",
-              "apps/biosimulations-frontend/src/favicon.ico",
-              "apps/biosimulations-frontend/src/android-chrome-192x192.png",
-              "apps/biosimulations-frontend/src/android-chrome-512x512.png",
-              "apps/biosimulations-frontend/src/apple-touch-icon.png",
-              "apps/biosimulations-frontend/src/mstile-70x70.png",
-              "apps/biosimulations-frontend/src/mstile-144x144.png",
-              "apps/biosimulations-frontend/src/mstile-150x150.png",
-              "apps/biosimulations-frontend/src/mstile-310x150.png",
-              "apps/biosimulations-frontend/src/mstile-310x310.png",
-              "apps/biosimulations-frontend/src/safari-pinned-tab.svg",
               "apps/biosimulations-frontend/src/browserconfig.xml",
               "apps/biosimulations-frontend/src/assets",
               "apps/biosimulations-frontend/src/_redirects",
-              "apps/biosimulations-frontend/src/manifest.webmanifest"
+              "apps/biosimulations-frontend/src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "./libs/ui/assets",
+                "output": "./assets"
+              },
+              {
+                "glob": "favicon.*",
+                "input": "./libs/ui/assets",
+                "output": "/"
+              },
+              {
+                "glob": "_redirects",
+                "input": "./libs/ui/assets",
+                "output": "/"
+              }
             ],
             "styles": ["apps/biosimulations-frontend/src/styles.scss"],
             "scripts": [],
@@ -383,7 +385,8 @@
             "aot": true,
             "assets": [
               "apps/login-frontend/src/favicon.ico",
-              "apps/login-frontend/src/assets"
+              "apps/login-frontend/src/assets",
+              "apps/login-frontend/src/manifest.webmanifest"
             ],
             "styles": ["apps/login-frontend/src/styles.scss"],
             "scripts": [],
@@ -418,7 +421,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/login-frontend/ngsw-config.json"
             }
           }
         },
