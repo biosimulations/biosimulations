@@ -83,7 +83,7 @@
     "swagger-ui-express": "^4.1.4",
     "tslib": "^1.10.0",
     "vega": "^5.9.1",
-    "vega-embed": "^6.7.0",
+    "vega-embed": "^6.7.1",
     "vega-lite": "^4.3.0",
     "vega-typings": "^0.16.0",
     "zone.js": "~0.10.3"
