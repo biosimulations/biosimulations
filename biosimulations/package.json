@@ -93,7 +93,7 @@
     "@angular/cli": "^9.1.4",
     "@angular/compiler-cli": "^9.1.1",
     "@angular/language-service": "^9.1.4",
-    "@nestjs/cli": "^7.1.4",
+    "@nestjs/cli": "^7.1.5",
     "@nestjs/schematics": "^6.7.0",
     "@nestjs/testing": "^7.0.9",
     "@nrwl/angular": "^9.2.2",
