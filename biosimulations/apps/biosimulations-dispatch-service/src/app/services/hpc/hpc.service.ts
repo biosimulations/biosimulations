@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import * as SSH from 'ssh2';
 
 @Injectable()
 export class HpcService {
