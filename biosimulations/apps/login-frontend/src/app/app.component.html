@@ -57,7 +57,9 @@ Thank you for creating an account. Just a few more steps:
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-raised-button color="primary" (click)="this.continueLogin()">
+        Continue Login
+      </button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
