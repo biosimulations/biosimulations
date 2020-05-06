@@ -28,6 +28,9 @@
     },
     "datamodel-utils": {
       "tags": []
+    },
+    "biosimulations-dispatch-service": {
+      "tags": ["backend"]
     }
   },
   "tasksRunnerOptions": {
