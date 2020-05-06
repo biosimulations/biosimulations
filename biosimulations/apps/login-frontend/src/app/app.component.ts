@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
   state: Observable<string>;
   token: Observable<string>;
   termsAndConditionsFormValue;
+  // TODO use a common config library for these
+  ccUrl =
+    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
+  aboutUrl = 'mailTo: info@biosimulations.org';
   constructor(
     private route: ActivatedRoute,
     private router: Router,

@@ -389,7 +389,7 @@
               "apps/login-frontend/src/manifest.webmanifest"
             ],
             "styles": ["apps/login-frontend/src/styles.scss"],
-            "scripts": [],
+            "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
               "includePaths": ["libs/ui/material/src/lib"]
             }

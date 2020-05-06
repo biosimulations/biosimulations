@@ -74,6 +74,7 @@
     "mongoose": "^5.9.10",
     "nestjs-typegoose": "^7.1.14",
     "ngx-logger": "^4.1.9",
+    "ngx-markdown": "^9.0.0",
     "ngx-material-file-input": "^2.1.0",
     "ngx-pipes": "^2.6.0",
     "reflect-metadata": "^0.1.13",

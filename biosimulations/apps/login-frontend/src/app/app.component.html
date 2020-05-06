@@ -6,12 +6,13 @@ Thank you for creating an account. Just a few more steps:
       To create a Biosimulations account, you must agree to the Terms of
       Service, Code of Conduct, and Privacy Policy
     </p>
-    <p>
-      Please <a href="https://Biosimulations.dev/about"> contact us</a> if you
-      have any questions
-    </p>
+    <p>Please <a [href]="aboutUrl"> contact us</a> if you have any questions</p>
     <form [formGroup]="termsAndConditionsForm">
       <h3>Code of Conduct</h3>
+      <div class="md-container">
+        <markdown [src]="ccUrl"></markdown>
+      </div>
+
       <mat-checkbox formControlName="tos"
         >I agree to abide by the code of conduct</mat-checkbox
       >

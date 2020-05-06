@@ -12,6 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DebugComponent } from './debug/debug.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, DebugComponent],
@@ -22,6 +24,8 @@ import { DebugComponent } from './debug/debug.component';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    HttpClientModule,
+    MarkdownModule.forRoot({ loader: HttpClient }),
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatStepperModule,
