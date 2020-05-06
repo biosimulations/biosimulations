@@ -17,9 +17,13 @@ export class HpcService {
         // Frequent logging at every step
     }
 
-    getOutput(simId) {
+    getOutputFiles(simId) {
         // pack all files (zip)
         // Get them on local
         // Unpack them and save to mongo
+    }
+
+    getRealtimeOutput(simId) {
+        // Create a socket via SSH and stream the output file
     }
 }
