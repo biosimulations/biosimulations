@@ -62,7 +62,7 @@
     "@nestjs/microservices": "^7.0.9",
     "@nestjs/platform-express": "^7.0.9",
     "@nestjs/swagger": "^4.5.5",
-    "@nestjsx/crud": "^4.5.0",
+    "@nestjsx/crud": "^4.6.0",
     "@swimlane/dragula": "^3.8.0",
     "@swimlane/ngx-dnd": "^8.1.0",
     "@typegoose/typegoose": "^7.0.0",
