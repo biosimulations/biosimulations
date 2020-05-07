@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as SSH from 'ssh2';
+import { Client } from 'ssh2';
 
 @Injectable()
 export class HpcService {
@@ -27,4 +27,5 @@ export class HpcService {
     getRealtimeOutput(simId) {
         // Create a socket via SSH and stream the output file
     }
+
 }
