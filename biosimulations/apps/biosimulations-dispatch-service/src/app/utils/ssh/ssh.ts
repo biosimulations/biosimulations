@@ -1,23 +1,27 @@
 import { Logger } from '@nestjs/common';
-import { Client } from 'ssh2';
+import { Client as SSHClient } from 'ssh2';
+import * as fs from 'fs';
+
+export interface SSHConnectionConfig {
+    host: string,
+    port: number,
+    username: string,
+    password: string
+}
 
 export class Ssh {
     private logger = new Logger(Ssh.name);
-    private host = null;
-    private port = null;
-    private username = null;
-    private password = null;
+    private sshConfig = null;
+    private sftpConfig = null
 
-    constructor(host: string, port: number, username: string, password: string) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
+    constructor(sshConfig: SSHConnectionConfig, sftpConfig?: SSHConnectionConfig) {
+        this.sshConfig = sshConfig;
+        this.sftpConfig = sftpConfig;
     }
 
-    stringCommand(cmd: string): Promise<{ stdout: string; stderr: string; }> {
+    execStringCommand(cmd: string): Promise<{ stdout: string; stderr: string; }> {
         return new Promise<{ stdout: string; stderr: string; }>((resolve, reject) => {
-            const conn = new Client();
+            const conn = new SSHClient();
             conn.on('ready', () => {
               this.logger.log('Connection ready');
               let stdout = '';
@@ -37,7 +41,106 @@ export class Ssh {
                 });
               });
         
-            }).connect({ host: this.host, port: this.port, username: this.username, password: this.password });
+            }).connect(this.sshConfig);
           });
     }
+
+    getFile(localFilePath: string, remoteFilePath: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            const conn = new SSHClient();
+            conn.on('ready', () => {
+              this.logger.log('Connection ready');
+              conn.sftp((err, sftp) => {
+                if(err){
+                    this.logger.error('Unable to open SFTP connection', JSON.stringify(err));
+                    reject(err);  
+                } 
+
+                sftp.fastGet(remoteFilePath, localFilePath, {}, (downloadError) => {
+                    if(downloadError) {
+                        this.logger.error('Error occured while downloading file', JSON.stringify(downloadError));
+                        reject(downloadError);
+                    }
+                    this.logger.log('File download successful');
+                    resolve(true);
+                });
+                
+              });
+        
+            }).connect(this.sftpConfig);
+          });
+    }
+
+    putFile(localFilePath: string, remoteFilePath: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            const conn = new SSHClient();
+            conn.on('ready', () => {
+              this.logger.log('Connection ready');
+              conn.sftp((err, sftp) => {
+                if(err){
+                    this.logger.error('Unable to open SFTP connection', JSON.stringify(err));
+                    reject(err);  
+                } 
+                
+                const readStream = fs.createReadStream(localFilePath);
+                const writeStream = sftp.createWriteStream(remoteFilePath);
+
+                writeStream.on('close', () => {
+                    this.logger.log('File transferred successfully');
+                });
+        
+                writeStream.on('end', () => {
+                    this.logger.log('SFTP connection closed');
+                    conn.close();
+                    resolve(true);
+                });
+        
+                // initiate transfer of file
+                readStream.pipe( writeStream );
+                
+              });
+        
+            }).connect(this.sftpConfig);
+          });
+    }
+
+    listFiles(remoteDirPath: string): Promise<string[]> {
+        return new Promise<string[]>((resolve, reject) => {
+            const conn = new SSHClient();
+            conn.on('ready', () => {
+              this.logger.log('Connection ready');
+              conn.sftp((err, sftp) => {
+                if(err){
+                    this.logger.error('Unable to open SFTP connection', JSON.stringify(err));
+                    reject(err);  
+                } 
+
+                sftp.readdir(remoteDirPath, (readErr, list) => {
+                    if (readErr) {
+                        this.logger.error('Cannot read remote directory', JSON.stringify(readErr));
+                        reject(readErr);
+                    }
+                    resolve(list);
+                    conn.end();
+                    this.logger.log('SFTP connection closed successfully')
+                 });
+                
+              });
+        
+            }).connect(this.sftpConfig);
+          });
+    }
+
+    // TODO: Complete 'deleteFile' method
+    // @body: https://ourcodeworld.com/articles/read/133/how-to-create-a-sftp-client-with-node-js-ssh2-in-electron-framework
+    // deleteFile(remoteFilePath: string): Promise<boolean> {
+        
+    // }
+
+    // TODO: Complete 'changeFilePermissions' method
+    // @body: https://ourcodeworld.com/articles/read/133/how-to-create-a-sftp-client-with-node-js-ssh2-in-electron-framework
+    // changeFilePermissions(remoteFilePath: string): Promise<boolean> {
+
+    // }
+
 }
