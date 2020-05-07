@@ -23,21 +23,21 @@ export class Ssh {
         return new Promise<{ stdout: string; stderr: string; }>((resolve, reject) => {
             const conn = new SSHClient();
             conn.on('ready', () => {
-              this.logger.log('Connection ready');
-              let stdout = '';
-              let stderr = '';
-              conn.exec(cmd, (err, stream) => {
+                this.logger.log('Connection ready');
+                let stdout = '';
+                let stderr = '';
+                conn.exec(cmd, (err, stream) => {
                 if(err){
                     reject(err);  
                 } 
                 stream.on('close', (code, signal) => {
-                  resolve({ stdout, stderr });
-                  conn.end();
-                  this.logger.log('Connection closed')
+                    resolve({ stdout, stderr });
+                    conn.end();
+                    this.logger.log('Connection closed')
                 }).on('data', (data) => {
-                  stdout += data.toString('utf8');
+                    stdout += data.toString('utf8');
                 }).stderr.on('data', (data) => {
-                  stderr += data.toString('utf8');
+                    stderr += data.toString('utf8');
                 });
               });
         
