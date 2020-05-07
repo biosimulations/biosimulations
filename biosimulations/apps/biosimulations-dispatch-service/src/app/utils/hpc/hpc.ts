@@ -1,5 +1,13 @@
+import { Injectable, Scope, Inject } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
 export class Hpc {
-    constructor(username,password, server, sftp_server) {
+    constructor(
+        username,
+        password, 
+        server, 
+        sftp_server, 
+        ) {
         // Setup class variables in params
         // Establish SSH and SFTP connection with HPC
     }
