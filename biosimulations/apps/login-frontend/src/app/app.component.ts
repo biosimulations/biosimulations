@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, pluck, tap } from 'rxjs/operators';
+import { filter, pluck, tap, map, shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'biosimulations-root',
   templateUrl: './app.component.html',
@@ -19,10 +20,17 @@ export class AppComponent implements OnInit {
   ccUrl =
     'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
   aboutUrl = 'mailTo: info@biosimulations.org';
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay(),
+    );
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
+    private breakpointObserver: BreakpointObserver,
   ) {}
   ngOnInit(): void {
     this.state = this.route.queryParams.pipe(pluck('state'));

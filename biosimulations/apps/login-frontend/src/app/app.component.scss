@@ -1,8 +1,16 @@
 .md-container {
+
   overflow: auto;
-  max-height: 200px;
-  padding: 10%;
-  padding-top: 0%;
-  border: 1px;
-  border-style: solid;
+  max-height: 60vh;
+
+}
+
+.header {
+  margin: auto;
+  text-align: center;
+}
+
+.content {
+  max-width: 80vw;
+  margin: auto;
 }
