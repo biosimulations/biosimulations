@@ -72,6 +72,7 @@
     "https-proxy-agent": "^4.0.0",
     "md5": "^2.2.1",
     "mongoose": "^5.9.12",
+    "nestjs-typegoose": "^7.1.22",
     "ngx-logger": "^4.1.9",
     "ngx-markdown": "^9.0.0",
     "ngx-material-file-input": "^2.1.0",
