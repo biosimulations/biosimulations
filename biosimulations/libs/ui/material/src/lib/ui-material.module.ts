@@ -7,14 +7,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { TopbarComponent } from './topbar/topbar.component';
 const materialImports = [
   FlexLayoutModule,
   MatInputModule,
   MatCardModule,
   MatButtonModule,
+  MatToolbarModule,
 ];
+const exports = [TopbarComponent];
 @NgModule({
   imports: [CommonModule, ...materialImports],
-  exports: [...materialImports],
+  exports: [...materialImports, ...exports],
+  declarations: [TopbarComponent],
 })
 export class UiMaterialModule {}
