@@ -3,7 +3,7 @@ export const environment = {
   production: false,
   baseUrl: '/',
   auth0: {
-    domain: 'crbm.auth0.com',
+    domain: 'auth.biosimulations.dev',
     audience: 'api.biosimulations.org',
     clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
   },
