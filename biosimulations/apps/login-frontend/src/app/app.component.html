@@ -4,7 +4,7 @@
     Thank you for creating an account. Just a few more steps:
   </h1>
 
-  <mat-horizontal-stepper linear="true" #stepper>
+  <mat-horizontal-stepper linear="true" labelPosition="bottom" #stepper>
     <mat-step [stepControl]="termsAndConditionsForm">
       <ng-template matStepLabel>Terms of Service</ng-template>
       <p>
@@ -14,42 +14,30 @@
       <p>
         Please <a [href]="aboutUrl"> contact us</a> if you have any questions
       </p>
-      <form [formGroup]="termsAndConditionsForm">
-        <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="2%">
-          <div>
-            <mat-card class="md-container">
-              <markdown [src]="ccUrl"></markdown>
-            </mat-card>
-            <mat-checkbox formControlName="tos"
-              >I agree to abide by the code of conduct</mat-checkbox
-            >
-          </div>
-          <div>
-            <mat-card class="md-container">
-              <markdown [src]="ccUrl"></markdown>
-            </mat-card>
-            <mat-checkbox formControlName="coc"
-              >I agree to abide to the terms of service
-            </mat-checkbox>
-          </div>
-          <div>
-            <mat-card class="md-container">
-              <markdown [src]="ccUrl"></markdown>
-            </mat-card>
-            <mat-checkbox formControlName="ppo"
-              >I accept the privacy policy</mat-checkbox
-            >
-          </div>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <button mat-raised-button color="primary" matStepperPrevious>
-            Back
-          </button>
-          <button mat-raised-button color="primary" matStepperNext>Next</button>
-        </div>
+      <form
+        class="terms"
+        fxLayout="row"
+        fxLayout.lt-lg="column"
+        fxLayoutGap="2%"
+        [formGroup]="termsAndConditionsForm"
+        #termsForm
+      >
+        <biosimulations-login-agreement
+          formControlName="tos"
+        ></biosimulations-login-agreement>
+        <biosimulations-login-agreement
+          formControlName="ppo"
+        ></biosimulations-login-agreement>
+        <biosimulations-login-agreement
+          formControlName="coc"
+        ></biosimulations-login-agreement>
       </form>
+      <biosimulations-stepper-buttons
+        [showPrevious]="false"
+        [enableNext]="this.termsAndConditionsForm.valid"
+      ></biosimulations-stepper-buttons>
     </mat-step>
+
     <mat-step [stepControl]="userNameForm">
       <form [formGroup]="userNameForm">
         <ng-template matStepLabel>Choose a Username</ng-template>
@@ -62,12 +50,7 @@
             required
           />
         </mat-form-field>
-        <div>
-          <button mat-raised-button color="primary" matStepperPrevious>
-            Back
-          </button>
-          <button mat-raised-button color="primary" matStepperNext>Next</button>
-        </div>
+        <biosimulations-stepper-buttons></biosimulations-stepper-buttons>
       </form>
     </mat-step>
 
@@ -91,6 +74,6 @@
   <p>state: {{ this.state | async }}</p>
   <p>Token: {{ this.token | async }}</p>
   <pre>
-<p>form: {{ this.termsAndConditionsForm.valueChanges | async | json}}</p>
+<p>form: {{ this.termsAndConditionsForm.valueChanges | async |json}}</p>
 </pre>
 </biosimulations-debug>

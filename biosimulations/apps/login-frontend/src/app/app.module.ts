@@ -14,9 +14,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DebugComponent } from './debug/debug.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AgreementComponent } from './components/agreement/agreement.component';
+import { StepperButtonsComponent } from './components/next-previous-buttons/next-previous-buttons.component';
 
 @NgModule({
-  declarations: [AppComponent, DebugComponent],
+  declarations: [
+    AppComponent,
+    DebugComponent,
+    AgreementComponent,
+    StepperButtonsComponent,
+  ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([], { initialNavigation: 'enabled' }),

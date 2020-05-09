@@ -13,9 +13,11 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class AppComponent implements OnInit {
   userNameForm: FormGroup;
   termsAndConditionsForm: FormGroup;
+  termsAndConditionsForma: FormGroup;
   state: Observable<string>;
   token: Observable<string>;
   termsAndConditionsFormValue;
+
   // TODO use a common config library for these
   ccUrl =
     'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
