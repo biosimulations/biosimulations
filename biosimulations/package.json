@@ -92,7 +92,7 @@
     "@angular-devkit/build-angular": "~0.901.5",
     "@angular/cli": "^9.1.5",
     "@angular/compiler-cli": "^9.1.1",
-    "@angular/language-service": "^9.1.6",
+    "@angular/language-service": "^9.1.7",
     "@nestjs/cli": "^7.1.5",
     "@nestjs/schematics": "^6.7.0",
     "@nestjs/testing": "^7.0.11",
