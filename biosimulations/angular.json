@@ -523,6 +523,50 @@
           "style": "scss"
         }
       }
+    },
+    "ui-debug": {
+      "projectType": "library",
+      "root": "libs/ui/debug",
+      "sourceRoot": "libs/ui/debug/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/ui/debug/tsconfig.lib.json",
+            "project": "libs/ui/debug/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ui/debug/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui/debug/tsconfig.lib.json",
+              "libs/ui/debug/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/debug/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/debug/jest.config.js",
+            "tsConfig": "libs/ui/debug/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui/debug/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-frontend",

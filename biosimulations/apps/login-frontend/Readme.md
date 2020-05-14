@@ -12,4 +12,14 @@ This is a login page to handle auth0 redirects.
 
 ## Development
 
-This app depends on the [ngx-markdown](https://github.com/jfcere/ngx-markdown) library which requires some custom configuration in the angular.json file
+### Setup
+
+Follow the instructions in the main [README](README.md) to clone and setup the repository
+
+This app depends on the [ngx-markdown](https://github.com/jfcere/ngx-markdown) library which requires some custom configuration in the [angular.json](biosimultions/angular.json) file
+
+### Running
+
+To run, use the command
+
+`nx serve login-frontend`

@@ -23,7 +23,8 @@
       "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
       "@biosimulations/datamodel/core": ["libs/datamodel/core/src/index.ts"],
       "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
-      "@biosimulations/ui/material": ["libs/ui/material/src/index.ts"]
+      "@biosimulations/ui/material": ["libs/ui/material/src/index.ts"],
+      "@biosimulations/ui/debug": ["libs/ui/debug/src/index.ts"]
     },
     "rootDir": "."
   },

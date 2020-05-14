@@ -38,6 +38,9 @@
     },
     "ui-material": {
       "tags": []
+    },
+    "ui-debug": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

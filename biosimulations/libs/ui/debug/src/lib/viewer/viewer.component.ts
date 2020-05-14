@@ -3,13 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-// TODO move this component to a shared library
 @Component({
-  selector: 'biosimulations-debug',
-  templateUrl: './debug.component.html',
-  styleUrls: ['./debug.component.scss'],
+  selector: 'biosimulations-debug-viewer',
+  templateUrl: './viewer.component.html',
+  styleUrls: ['./viewer.component.scss'],
 })
-export class DebugComponent implements OnInit {
+export class DebugViewerComponent implements OnInit {
   showDebug = of(false);
   constructor(private route: ActivatedRoute) {}
 

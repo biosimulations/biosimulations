@@ -1,10 +1,9 @@
-@import 'biosimulations-colors';
+@import 'biosimulations-theme';
 
 .bio {
-  color: mat-color($theme-accent)
+  color: mat-color($theme-accent);
 }
 
 .simulations {
-
-  color: #fff
+  color: #fff;
 }
