@@ -105,7 +105,7 @@
     "@nrwl/workspace": "^9.3.0",
     "@types/dragula": "^3.7.0",
     "@types/jest": "25.2.2",
-    "@types/mongoose": "^5.7.19",
+    "@types/mongoose": "^5.7.20",
     "@types/node": "^14.0.1",
     "codelyzer": "^5.1.2",
     "cypress": "^4.5.0",
