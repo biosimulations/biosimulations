@@ -95,7 +95,7 @@
     "@angular/language-service": "^9.1.7",
     "@nestjs/cli": "^7.1.5",
     "@nestjs/schematics": "^6.7.0",
-    "@nestjs/testing": "^7.0.11",
+    "@nestjs/testing": "^7.0.13",
     "@nrwl/angular": "^9.2.2",
     "@nrwl/cli": "^9999.0.0",
     "@nrwl/cypress": "^9.2.2",
