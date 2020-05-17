@@ -100,7 +100,7 @@
     "@nrwl/cli": "^9999.0.0",
     "@nrwl/cypress": "^9.3.0",
     "@nrwl/jest": "9.2.2",
-    "@nrwl/nest": "9.2.2",
+    "@nrwl/nest": "9.3.0",
     "@nrwl/node": "9.2.2",
     "@nrwl/workspace": "^9.3.0",
     "@types/dragula": "^3.7.0",
