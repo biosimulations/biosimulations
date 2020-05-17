@@ -96,7 +96,7 @@
     "@nestjs/cli": "^7.1.5",
     "@nestjs/schematics": "^6.7.0",
     "@nestjs/testing": "^7.0.13",
-    "@nrwl/angular": "^9.2.2",
+    "@nrwl/angular": "^9.3.0",
     "@nrwl/cli": "^9999.0.0",
     "@nrwl/cypress": "^9.3.0",
     "@nrwl/jest": "9.2.2",
