@@ -9,7 +9,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'biosimulations-login-agreement',
+  selector: 'biosimulations-login-agreement[agreementUrl]',
   templateUrl: './agreement.component.html',
   styleUrls: ['./agreement.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,15 +23,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class AgreementComponent implements OnInit, ControlValueAccessor {
   @Input()
-  agreementUrl =
-    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
+  agreementUrl = '';
 
+  @Input()
+  checkboxMessage = 'I agree';
   agreed = false;
-
-  isDisabled: boolean;
+  isDisabled = false;
   private onChange: (_: any) => void = _ => {};
 
   constructor(private cd: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    if (this.agreementUrl === '') {
+      throw TypeError('Need to provide a URL');
+    }
+  }
+
   onTouched: () => void = () => {};
   get value(): boolean {
     return true;
@@ -57,8 +64,7 @@ export class AgreementComponent implements OnInit, ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  toggleAgreed(event) {
+  toggleAgreed(event: any) {
     this.writeValue(event.checked);
   }
-  ngOnInit(): void {}
 }

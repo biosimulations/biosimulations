@@ -12,13 +12,16 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class RegistrationComponent implements OnInit {
   userNameForm: FormGroup;
   termsAndConditionsForm: FormGroup;
-  termsAndConditionsForma: FormGroup;
-  state: Observable<string>;
-  token: Observable<string>;
-  termsAndConditionsFormValue;
+  state: Observable<string> | null = null;
+  token: Observable<string> | null = null;
+  termsAndConditionsFormValue: Observable<string>;
 
   // TODO use a common config library for these
   ccUrl =
+    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
+  tosUrl =
+    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
+  ppoUrl =
     'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
   aboutUrl = 'mailTo: info@biosimulations.org';
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -32,11 +35,7 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
-  ) {}
-  ngOnInit(): void {
-    this.state = this.route.queryParams.pipe(pluck('state'));
-    this.token = this.route.queryParams.pipe(pluck('token'));
-
+  ) {
     this.userNameForm = this.formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
@@ -45,12 +44,21 @@ export class RegistrationComponent implements OnInit {
       coc: ['', Validators.requiredTrue],
       ppo: ['', Validators.requiredTrue],
     });
+    this.termsAndConditionsFormValue = this.termsAndConditionsForm.valueChanges;
+  }
+  ngOnInit(): void {
+    this.state = this.route.queryParams.pipe(pluck('state'));
+    this.token = this.route.queryParams.pipe(pluck('token'));
   }
   continueLogin() {
-    this.state.subscribe(
-      state =>
-        (window.location.href =
-          'https://auth.biosimulations.dev/continue?state=' + state),
-    );
+    if (this.state) {
+      this.state.subscribe(
+        state =>
+          (window.location.href =
+            'https://auth.biosimulations.dev/continue?state=' + state),
+      );
+    } else {
+      alert('There was an error');
+    }
   }
 }

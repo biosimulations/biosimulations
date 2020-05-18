@@ -14,6 +14,7 @@
         Please <a [href]="aboutUrl"> contact us</a> if you have any questions
       </p>
       <form
+        form
         class="terms"
         fxLayout="row"
         fxLayout.lt-lg="column"
@@ -22,14 +23,25 @@
         #termsForm
       >
         <biosimulations-login-agreement
+          [agreementUrl]="tosUrl"
+          checkboxMessage=" I agree to the terms"
           formControlName="tos"
-        ></biosimulations-login-agreement>
+        >
+        </biosimulations-login-agreement>
+
         <biosimulations-login-agreement
+          [agreementUrl]="ppoUrl"
+          checkboxMessage=" I agree to the terms"
           formControlName="ppo"
-        ></biosimulations-login-agreement>
+        >
+        </biosimulations-login-agreement>
+
         <biosimulations-login-agreement
+          [agreementUrl]="ccUrl"
+          checkboxMessage=" I agree to the terms"
           formControlName="coc"
-        ></biosimulations-login-agreement>
+        >
+        </biosimulations-login-agreement>
       </form>
       <biosimulations-stepper-buttons
         [showPrevious]="false"
@@ -41,10 +53,11 @@
       <form [formGroup]="userNameForm">
         <ng-template matStepLabel>Choose a Username</ng-template>
         <mat-form-field>
-          <mat-label>Username</mat-label>
+          <mat-label id="usernameLabel">Username</mat-label>
           <input
+            aria-labelledby="usernameLabel"
             matInput
-            placeholder="username"
+            placeholder="Choose a username..."
             formControlName="firstCtrl"
             required
           />
