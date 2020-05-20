@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
+
 const routes: Routes = [{ path: '', component: RegistrationComponent }];
 
 @NgModule({

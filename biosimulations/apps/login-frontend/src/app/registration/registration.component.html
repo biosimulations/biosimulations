@@ -24,21 +24,21 @@
       >
         <biosimulations-login-agreement
           [agreementUrl]="tosUrl"
-          checkboxMessage=" I agree to the terms"
+          checkboxMessage=" I accept the Terms of Service"
           formControlName="tos"
         >
         </biosimulations-login-agreement>
 
         <biosimulations-login-agreement
           [agreementUrl]="ppoUrl"
-          checkboxMessage=" I agree to the terms"
+          checkboxMessage=" I accept the Privacy Policy"
           formControlName="ppo"
         >
         </biosimulations-login-agreement>
 
         <biosimulations-login-agreement
           [agreementUrl]="ccUrl"
-          checkboxMessage=" I agree to the terms"
+          checkboxMessage=" I agree to abide by the Code of Conduct"
           formControlName="coc"
         >
         </biosimulations-login-agreement>
@@ -50,20 +50,21 @@
     </mat-step>
 
     <mat-step [stepControl]="userNameForm">
-      <form [formGroup]="userNameForm">
-        <ng-template matStepLabel>Choose a Username</ng-template>
-        <mat-form-field>
-          <mat-label id="usernameLabel">Username</mat-label>
-          <input
-            aria-labelledby="usernameLabel"
-            matInput
-            placeholder="Choose a username..."
-            formControlName="firstCtrl"
-            required
-          />
-        </mat-form-field>
-        <biosimulations-stepper-buttons></biosimulations-stepper-buttons>
-      </form>
+      <ng-template matStepLabel>Choose a Username</ng-template>
+      <mat-form-field>
+        <mat-label id="usernameLabel">Username</mat-label>
+        <input
+          aria-labelledby="usernameLabel"
+          matInput
+          placeholder="Choose a username..."
+          [formControl]="userNameForm"
+          required
+        />
+        <mat-error *ngIf="userNameForm.invalid">
+          {{ getErrorMessage() }}</mat-error
+        >
+      </mat-form-field>
+      <biosimulations-stepper-buttons></biosimulations-stepper-buttons>
     </mat-step>
 
     <mat-step>
@@ -85,6 +86,7 @@
 <biosimulations-debug-viewer>
   <p>state: {{ this.state | async }}</p>
   <p>Token: {{ this.token | async }}</p>
+  <p>Decoded Token {{ this.decodedToken | async | json }}</p>
   <pre>
 <p>form: {{ this.termsAndConditionsForm.valueChanges | async |json}}</p>
 </pre>
