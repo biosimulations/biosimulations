@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'ui-debug',
+  name: 'shared-debug',
   preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/libs/ui/debug',
+  coverageDirectory: '../../../coverage/libs/shared/debug',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

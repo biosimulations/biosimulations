@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StepperButtonsComponent } from './next-previous-buttons.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 describe('StepperButtonsComponent', () => {
   let component: StepperButtonsComponent;
@@ -9,6 +10,7 @@ describe('StepperButtonsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [StepperButtonsComponent],
+      imports: [FlexLayoutModule],
     }).compileComponents();
   }));
 
