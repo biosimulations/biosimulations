@@ -14,11 +14,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgreementComponent } from '../components/agreement/agreement.component';
 import { MatCardModule } from '@angular/material/card';
 import { MarkdownModule } from 'ngx-markdown';
-import { UiDebugModule } from '@biosimulations/ui/debug';
+import { DebugModule } from '@biosimulations/shared/debug';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Routes = [{ path: '', component: RegistrationComponent }];
 
@@ -35,9 +36,10 @@ const routes: Routes = [{ path: '', component: RegistrationComponent }];
     MatCardModule,
     FlexLayoutModule,
     MarkdownModule.forChild(),
-    UiDebugModule,
+    DebugModule,
     MatInputModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [RegistrationComponent, AgreementComponent],
 })

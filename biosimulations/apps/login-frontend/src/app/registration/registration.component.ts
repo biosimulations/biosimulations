@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, pluck, tap, map, shareReplay } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { pluck, map, tap, switchMap, catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormControl,
 } from '@angular/forms';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 import { RegistrationService } from './registration.service';
 import { AuthService } from '../shared/auth.service';
+import { MatStep } from '@angular/material/stepper';
+import { CdkStep } from '@angular/cdk/stepper';
 
-import { HttpClient } from '@angular/common/http';
-import { uniqueUsernameAsyncValidatorFactory } from './unique-username.directive';
 @Component({
   selector: 'biosimulations-registration',
   templateUrl: './registration.component.html',
@@ -22,9 +22,10 @@ import { uniqueUsernameAsyncValidatorFactory } from './unique-username.directive
 export class RegistrationComponent implements OnInit {
   userNameForm: FormControl;
   termsAndConditionsForm: FormGroup;
-  state: Observable<string>;
-  token: Observable<string> | null;
-  decodedToken: Observable<any>;
+
+  state: string | null;
+  token: string | null;
+
   termsAndConditionsFormValue: Observable<string>;
 
   // TODO use a common config library for these
@@ -35,21 +36,23 @@ export class RegistrationComponent implements OnInit {
   ppoUrl =
     'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/PRIVACY_POLICY.md';
 
-  aboutUrl = 'mailTo: info@biosimulations.org';
+  aboutUrl = 'mailTo:info@biosimulations.org';
 
   loginUrl = 'https://auth.biosimulations.dev/continue?state=';
 
+  submitted = new BehaviorSubject(false);
+  accepted = new BehaviorSubject(false);
+
+  user: any;
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private registrationService: RegistrationService,
-    private auth: AuthService,
-    public http: HttpClient,
   ) {
     this.userNameForm = new FormControl(
       '',
       Validators.required,
-      uniqueUsernameAsyncValidatorFactory(this.http),
+      this.registrationService.uniqueUsernameAsyncValidator,
     );
 
     this.termsAndConditionsForm = this.formBuilder.group({
@@ -59,9 +62,8 @@ export class RegistrationComponent implements OnInit {
     });
     this.termsAndConditionsFormValue = this.termsAndConditionsForm.valueChanges;
 
-    this.state = this.route.queryParams.pipe(pluck('state'));
-    this.token = this.auth.getTokenFromParams();
-    this.decodedToken = this.auth.getDecodedToken();
+    this.state = this.route.snapshot.queryParamMap.get('state');
+    this.token = this.route.snapshot.queryParamMap.get('token');
   }
   ngOnInit(): void {}
 
@@ -76,17 +78,19 @@ export class RegistrationComponent implements OnInit {
       return 'This username is not valid';
     }
   }
-  continueLogin() {
-    this.registrationService.register('test');
-    this.state.subscribe(state => this.redirect(state));
+  register() {
+    const username = this.userNameForm.value;
+    this.submitted.next(true);
+    this.user = this.registrationService
+      .register(username, this.token)
+      .pipe(tap(_ => this.accepted.next(true)))
+      .subscribe(_ => this.redirect(this.state));
   }
-  redirect(state: string) {
+
+  redirect(state: string | null) {
     if (!state) {
-      alert(
-        'This is not a valid login session. If you feel that you received this message in error, contact us',
-      );
-    } else {
-      window.location.href = this.loginUrl + state;
+      state = '';
     }
+    window.location.href = this.loginUrl + state;
   }
 }
