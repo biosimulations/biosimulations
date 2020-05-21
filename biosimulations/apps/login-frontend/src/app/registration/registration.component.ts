@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { pluck, map, tap, switchMap, catchError } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import {
   FormBuilder,
@@ -10,9 +10,6 @@ import {
 } from '@angular/forms';
 
 import { RegistrationService } from './registration.service';
-import { AuthService } from '../shared/auth.service';
-import { MatStep } from '@angular/material/stepper';
-import { CdkStep } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'biosimulations-registration',
