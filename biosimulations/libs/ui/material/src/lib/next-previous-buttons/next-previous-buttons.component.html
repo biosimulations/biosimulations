@@ -4,7 +4,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!this.enablePrevious"
-      matStepperPrevious
+      (click)="this.previous.emit($event)"
     >
       {{ this.previousLabel }}
     </button>
@@ -15,7 +15,7 @@
     color="primary"
     [disabled]="!this.enableNext"
     [fxHide]="!this.showNext"
-    matStepperNext
+    (click)="this.next.emit($event)"
   >
     {{ this.nextLabel }}
   </button>

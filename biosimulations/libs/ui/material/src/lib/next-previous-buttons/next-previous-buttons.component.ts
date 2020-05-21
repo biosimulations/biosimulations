@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-stepper-buttons',
@@ -18,7 +19,12 @@ export class StepperButtonsComponent implements OnInit {
   nextLabel = 'Next';
   @Input()
   previousLabel = 'Back';
-  constructor() {}
 
+  @Output()
+  next = new EventEmitter();
+  @Output()
+  previous = new EventEmitter();
+
+  constructor() {}
   ngOnInit(): void {}
 }
