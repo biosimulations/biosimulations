@@ -39,7 +39,7 @@
     "ui-material": {
       "tags": []
     },
-    "ui-debug": {
+    "shared-debug": {
       "tags": []
     }
   },

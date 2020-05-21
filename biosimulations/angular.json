@@ -524,41 +524,29 @@
         }
       }
     },
-    "ui-debug": {
+    "shared-debug": {
       "projectType": "library",
-      "root": "libs/ui/debug",
-      "sourceRoot": "libs/ui/debug/src",
+      "root": "libs/shared/debug",
+      "sourceRoot": "libs/shared/debug/src",
       "prefix": "biosimulations",
       "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/ui/debug/tsconfig.lib.json",
-            "project": "libs/ui/debug/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/ui/debug/tsconfig.lib.prod.json"
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/ui/debug/tsconfig.lib.json",
-              "libs/ui/debug/tsconfig.spec.json"
+              "libs/shared/debug/tsconfig.lib.json",
+              "libs/shared/debug/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/debug/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/debug/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ui/debug/jest.config.js",
-            "tsConfig": "libs/ui/debug/tsconfig.spec.json",
+            "jestConfig": "libs/shared/debug/jest.config.js",
+            "tsConfig": "libs/shared/debug/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/ui/debug/src/test-setup.ts"
+            "setupFile": "libs/shared/debug/src/test-setup.ts"
           }
         }
       },
