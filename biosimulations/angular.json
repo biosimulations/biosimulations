@@ -430,7 +430,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "login-frontend:build"
+            "browserTarget": "login-frontend:build",
+            "proxyConfig": "apps/login-frontend/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -553,6 +554,61 @@
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "account-api": {
+      "root": "apps/account-api",
+      "sourceRoot": "apps/account-api/src",
+      "projectType": "application",
+      "prefix": "account-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/account-api",
+            "main": "apps/account-api/src/main.ts",
+            "tsConfig": "apps/account-api/tsconfig.app.json",
+            "assets": ["apps/account-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/account-api/src/environments/environment.ts",
+                  "with": "apps/account-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "account-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/account-api/tsconfig.app.json",
+              "apps/account-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/account-api/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/account-api/jest.config.js",
+            "tsConfig": "apps/account-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
         }
       }
     }

@@ -41,6 +41,9 @@
     },
     "shared-debug": {
       "tags": []
+    },
+    "account-api": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {
