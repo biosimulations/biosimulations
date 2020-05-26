@@ -611,6 +611,64 @@
           }
         }
       }
+    },
+    "shared-biosimulations-auth": {
+      "root": "libs/shared/biosimulations-auth",
+      "sourceRoot": "libs/shared/biosimulations-auth/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/biosimulations-auth/tsconfig.lib.json",
+              "libs/shared/biosimulations-auth/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/biosimulations-auth/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/biosimulations-auth/jest.config.js",
+            "tsConfig": "libs/shared/biosimulations-auth/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-biosimulations-secrets": {
+      "root": "libs/shared/biosimulations-secrets",
+      "sourceRoot": "libs/shared/biosimulations-secrets/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/biosimulations-secrets/tsconfig.lib.json",
+              "libs/shared/biosimulations-secrets/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/biosimulations-secrets/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/biosimulations-secrets/jest.config.js",
+            "tsConfig": "libs/shared/biosimulations-secrets/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-frontend",

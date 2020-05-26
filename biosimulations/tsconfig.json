@@ -25,7 +25,13 @@
       "@biosimulations/datamodel/core": ["libs/datamodel/core/src/index.ts"],
       "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
       "@biosimulations/ui/material": ["libs/ui/material/src/index.ts"],
-      "@biosimulations/shared/debug": ["libs/shared/debug/src/index.ts"]
+      "@biosimulations/shared/debug": ["libs/shared/debug/src/index.ts"],
+      "@biosimulations/shared/biosimulations-auth": [
+        "libs/shared/biosimulations-auth/src/index.ts"
+      ],
+      "@biosimulations/shared/biosimulations-secrets": [
+        "libs/shared/biosimulations-secrets/src/index.ts"
+      ]
     },
     "rootDir": "."
   },

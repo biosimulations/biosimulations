@@ -44,6 +44,12 @@
     },
     "account-api": {
       "tags": []
+    },
+    "shared-biosimulations-auth": {
+      "tags": ["scope:shared", "type:util", "platform:server"]
+    },
+    "shared-biosimulations-secrets": {
+      "tags": ["scope:shared", "type:util", "platform:server"]
     }
   },
   "tasksRunnerOptions": {
