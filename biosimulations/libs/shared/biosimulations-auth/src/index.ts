@@ -1,1 +1,4 @@
-export * from './lib/biosimulations-auth.module';
+export { JwtStrategy } from "./lib/jwt.strategy";
+
+
+

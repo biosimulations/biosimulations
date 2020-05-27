@@ -57,6 +57,7 @@
     "@nestjs/core": "^7.0.9",
     "@nestjs/microservices": "^7.0.9",
     "@nestjs/mongoose": "^6.4.0",
+    "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^7.0.9",
     "@nestjs/swagger": "^4.5.5",
     "@nestjsx/crud": "^4.6.1",
@@ -70,6 +71,7 @@
     "class-validator": "^0.12.2",
     "core-js": "^2.5.4",
     "https-proxy-agent": "^4.0.0",
+    "jwks-rsa": "^1.8.0",
     "md5": "^2.2.1",
     "mongoose": "^5.9.12",
     "nestjs-typegoose": "^7.1.22",
@@ -77,6 +79,8 @@
     "ngx-markdown": "^9.0.0",
     "ngx-material-file-input": "^2.1.0",
     "ngx-pipes": "^2.6.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
     "swagger-ui-express": "^4.1.4",
@@ -88,7 +92,7 @@
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.901.4",
+    "@angular-devkit/build-angular": "^0.901.7",
     "@angular-devkit/build-ng-packagr": "~0.901.1",
     "@angular/cli": "^9.1.4",
     "@angular/compiler-cli": "^9.1.1",
