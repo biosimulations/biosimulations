@@ -82,7 +82,7 @@
     "rxjs": "~6.5.5",
     "swagger-ui-express": "^4.1.4",
     "tslib": "^1.13.0",
-    "vega": "^5.9.1",
+    "vega": "^5.12.3",
     "vega-embed": "^6.8.0",
     "vega-lite": "^4.3.0",
     "vega-typings": "^0.17.2",
