@@ -15,22 +15,37 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "paths": {
       "@biosimulations/datamodel/database": [
         "libs/datamodel/database/src/index.ts"
       ],
-      "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
-      "@biosimulations/datamodel/core": ["libs/datamodel/core/src/index.ts"],
-      "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
-      "@biosimulations/ui/material": ["libs/ui/material/src/index.ts"],
-      "@biosimulations/shared/debug": ["libs/shared/debug/src/index.ts"],
+      "@biosimulations/datamodel/api": [
+        "libs/datamodel/api/src/index.ts"
+      ],
+      "@biosimulations/datamodel/core": [
+        "libs/datamodel/core/src/index.ts"
+      ],
+      "@biosimulations/datamodel/utils": [
+        "libs/datamodel/utils/src/index.ts"
+      ],
+      "@biosimulations/ui/material": [
+        "libs/ui/material/src/index.ts"
+      ],
+      "@biosimulations/shared/debug": [
+        "libs/shared/debug/src/index.ts"
+      ],
       "@biosimulations/shared/biosimulations-auth": [
         "libs/shared/biosimulations-auth/src/index.ts"
       ],
-      "@biosimulations/shared/biosimulations-secrets": [
-        "libs/shared/biosimulations-secrets/src/index.ts"
+      "@biosimulations/shared/biosimulations-config": [
+        "libs/shared/biosimulations-config/src/index.ts"
       ]
     },
     "rootDir": "."
