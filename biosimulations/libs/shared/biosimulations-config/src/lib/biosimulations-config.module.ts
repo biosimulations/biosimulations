@@ -8,6 +8,7 @@ import { nestConfig } from './biosimulations-secrets';
         envFilePath: './config.env',
     }),],
     providers: [ConfigService],
-    exports: [ConfigService, ConfigModule],
+    exports: [ConfigService],
 })
 export class BiosimulationsConfigModule { }
+
