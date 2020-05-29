@@ -11,8 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DebugModule } from '@biosimulations/shared/debug';
 
 describe('AgreementComponent', () => {
-  let component: AgreementComponent;
-  let fixture: ComponentFixture<AgreementComponent>;
+
   let testHostComponent: TestHostComponent;
   let testHostFixture: ComponentFixture<TestHostComponent>;
 
@@ -57,5 +56,5 @@ describe('AgreementComponent', () => {
       ></biosimulations-login-agreement>
     `,
   })
-  class TestHostComponent {}
+  class TestHostComponent { }
 });

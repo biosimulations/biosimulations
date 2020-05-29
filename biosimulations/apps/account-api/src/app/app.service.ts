@@ -13,7 +13,9 @@ export class AppService {
         return await this.accountModel.findOne({ _id: userId }).exec()
     }
     async find(username: string): Promise<Account> {
-        return await this.accountModel.findOne('{username}').exec()
+
+        // tslint:disable-next-line
+        return await this.accountModel.findOne({ username: username }).exec()
     }
 
 
