@@ -71,6 +71,7 @@
     "class-validator": "^0.12.2",
     "core-js": "^2.5.4",
     "https-proxy-agent": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.8.0",
     "md5": "^2.2.1",
     "mongoose": "^5.9.12",
