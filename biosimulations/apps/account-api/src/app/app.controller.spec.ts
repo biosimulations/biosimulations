@@ -23,9 +23,9 @@ describe('AppController', () => {
   });
 
   describe('createUser', () => {
-    it("should return username of created user", () => {
+    it('should return username of created user', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.createAccount("bilalShaikh42", "testToken")).toEqual("bilalShaikh42")
+      expect(appController.createAccount('bilalShaikh42', 'testToken')).toEqual('bilalShaikh42')
     })
   })
 });

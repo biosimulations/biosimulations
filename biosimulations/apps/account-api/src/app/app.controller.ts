@@ -7,7 +7,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { getUserId } from '@biosimulations/shared/biosimulations-auth'
 
 
-class creatAccountDTO {
+class CreateAccountDTO {
   @ApiProperty()
   username: string
   @ApiProperty()
@@ -59,7 +59,7 @@ export class AppController {
   }
   @UseGuards(AuthGuard('secret'))
   @Post()
-  createAccount(@Body() body: creatAccountDTO) {
+  createAccount(@Body() body: CreateAccountDTO) {
     const token = body.token
     const userId = getUserId(token)
 

@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config'
 
 
 @Injectable()
-export class secretStrategy extends PassportStrategy(Strategy, 'secret') {
+export class SecretStrategy extends PassportStrategy(Strategy, 'secret') {
     constructor(config: ConfigService) {
         super({
             secretOrKey: config.get('auth.client_secret'),

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
-import { secretStrategy } from './secret.strategy';
+import { SecretStrategy } from './secret.strategy';
 
 @Module({
   imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-  providers: [JwtStrategy, secretStrategy],
+  providers: [JwtStrategy, SecretStrategy],
   exports: [PassportModule],
 })
 export class BiosimulationsAuthModule { }

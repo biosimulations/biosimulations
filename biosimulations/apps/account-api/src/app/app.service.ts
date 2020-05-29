@@ -13,7 +13,7 @@ export class AppService {
         return await this.accountModel.findOne({ _id: userId }).exec()
     }
     async find(username: string): Promise<Account> {
-        return await this.accountModel.findOne({ username: username }).exec()
+        return await this.accountModel.findOne('{username}').exec()
     }
 
 
