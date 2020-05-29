@@ -1,4 +1,4 @@
-var jwt = require('jsonwebtoken');
+let jwt = require('jsonwebtoken');
 
 
 export function decodeToken(token: string) {

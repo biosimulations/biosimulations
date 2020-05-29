@@ -1,5 +1,5 @@
-import { prop } from "@typegoose/typegoose";
-import { IsString, IsBoolean, IsJSON } from "class-validator";
+import { prop } from '@typegoose/typegoose';
+import { IsString, IsBoolean, IsJSON } from 'class-validator';
 import { ProfileDTO } from '@biosimulations/datamodel/core'
 import { DTO } from '@biosimulations/datamodel/utils'
 

@@ -20,17 +20,17 @@ class creatAccountDTO {
 @Controller()
 export class AppController {
   constructor(private accountService: AppService) { }
-  @Get("list")
+  @Get('list')
   async getAll() {
     return this.accountService.findAll()
   }
 
-  @Get("exists/:userId")
+  @Get('exists/:userId')
   async doesExist(@Param('userId') userId: string) {
     return this.accountService.findById(userId)
   }
 
-  @Get("valid/:username")
+  @Get('valid/:username')
   async checkUsername(@Param('username') username: string) {
 
     username = username.toLowerCase().trim()
@@ -40,11 +40,11 @@ export class AppController {
     let message = `${username} is available`
 
     // TODO make this common somewhere to also use in other resources
-    const regEx = new RegExp("^[a-z_][a-z0-9_]{2,15}$")
+    const regEx = new RegExp('^[a-z_][a-z0-9_]{2,15}$')
 
     if (!regEx.test(username)) {
       valid = false
-      message = "Usernames must consist of numbers, letters and underscores '_'  only"
+      message = 'Usernames must consist of numbers, letters and underscores \'_\'  only'
     } else {
       const taken = await this.accountService.find(username)
 
@@ -57,7 +57,7 @@ export class AppController {
     return { valid, message }
 
   }
-  @UseGuards(AuthGuard("secret"))
+  @UseGuards(AuthGuard('secret'))
   @Post()
   createAccount(@Body() body: creatAccountDTO) {
     const token = body.token

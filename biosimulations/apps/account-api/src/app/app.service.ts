@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Account, } from "./account.model"
+import { Account, } from './account.model'
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
 
@@ -10,10 +10,10 @@ export class AppService {
     ) { }
 
     async findById(userId: string): Promise<Account> {
-        return await this.accountModel.findOne({ "_id": userId }).exec()
+        return await this.accountModel.findOne({ _id: userId }).exec()
     }
     async find(username: string): Promise<Account> {
-        return await this.accountModel.findOne({ "username": username }).exec()
+        return await this.accountModel.findOne({ username: username }).exec()
     }
 
 
