@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -9,7 +9,7 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+
     }).compile();
   });
 
@@ -21,4 +21,11 @@ describe('AppController', () => {
       });
     });
   });
+
+  describe('createUser', () => {
+    it("should return username of created user", () => {
+      const appController = app.get<AppController>(AppController);
+      expect(appController.createAccount("bilalShaikh42", "testToken")).toEqual("bilalShaikh42")
+    })
+  })
 });
