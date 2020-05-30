@@ -38,12 +38,12 @@
         resources you upload or create. Other users can also view your profile,
         if you choose to make it public.
       </p>
-      <mat-form-field>
-        <mat-label id="usernameLabel">Username</mat-label>
+      <mat-form-field [class.error]="userNameForm.invalid && userNameForm.touched">
+        <mat-label id=" usernameLabel">Username</mat-label>
         <input aria-labelledby="usernameLabel" matInput placeholder="Choose a username..." [formControl]="userNameForm"
           required />
         <mat-error *ngIf="userNameForm.invalid">
-          {{ getErrorMessage() }}</mat-error>
+          {{ getErrorMessage() }} </mat-error>
       </mat-form-field>
       <biosimulations-stepper-buttons [enableNext]="userNameForm.valid" (next)="register()"
         (previous)="stepper.previous()"></biosimulations-stepper-buttons>
