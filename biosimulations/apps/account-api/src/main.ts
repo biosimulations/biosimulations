@@ -11,7 +11,7 @@ import { INestApplication } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
   setupOpenApi(app);
 
   const port = process.env.port || 3333;
