@@ -62,14 +62,15 @@ export class RegistrationComponent implements OnInit {
     this.state = this.route.snapshot.queryParamMap.get('state');
     this.token = this.route.snapshot.queryParamMap.get('token');
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   getErrorMessage() {
+
     if (this.userNameForm.hasError('required')) {
       return 'A username is required';
     }
-    if (this.userNameForm.hasError('used')) {
-      return 'This username is taken';
+    if (this.userNameForm.hasError('server')) {
+      return this.userNameForm.getError("server")
     }
     if (this.userNameForm.hasError('invalid')) {
       return 'This username is not valid';

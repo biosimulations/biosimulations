@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AsyncValidatorFn, AbstractControl } from '@angular/forms';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { of, timer, ObservableInput, Observable, throwError } from 'rxjs';
-
+import { environment } from '../../environments/environment'
 @Injectable({
   providedIn: 'root',
 })
 export class RegistrationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  register(username: string, token: string | null) {
-    this.http
-      .post('/api/users', { username, token })
+  register(username: string, token: string | null, profile?: any) {
+    return this.http
+      .post(environment.api, { username, token, profile })
       .pipe(catchError(this.handleError));
-    // TODO Return the actual network call
-    return timer(5000).pipe(switchMap(_ => of(username)));
+
+
   }
 
   // TODO make sure this handles the error properly
@@ -36,12 +36,13 @@ export class RegistrationService {
     return timer(500).pipe(
       switchMap(_ =>
         this.http.get<any>(
-          'https://api.biosimulations.dev/users/' + control.value,
+          environment.api + 'valid/' + control.value,
         ),
       ),
-      map(res => (res?.userName === value ? { used: true } : res)),
+      map(res => res.valid == true ? (null) : { "server": res.message }),
+      tap(_ => control.markAsTouched()),
       catchError((err, caught) =>
-        err.status === 404 ? of(null) : of({ 'Network Error': err }),
+        of({ 'Network Error': err }),
       ),
     );
   };
