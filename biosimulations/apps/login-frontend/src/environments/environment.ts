@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api: "https://account.biosimulations.dev/"
-  //api: "/api/"
+  api: 'https://account.biosimulations.dev/'
+  // api: "/api/"
 };
 
 /*

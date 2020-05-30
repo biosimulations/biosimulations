@@ -39,7 +39,7 @@ export class RegistrationService {
           environment.api + 'valid/' + control.value,
         ),
       ),
-      map(res => res.valid == true ? (null) : { "server": res.message }),
+      map(res => res.valid == true ? (null) : { server: res.message }),
       tap(_ => control.markAsTouched()),
       catchError((err, caught) =>
         of({ 'Network Error': err }),

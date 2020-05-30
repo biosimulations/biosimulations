@@ -70,7 +70,7 @@ export class RegistrationComponent implements OnInit {
       return 'A username is required';
     }
     if (this.userNameForm.hasError('server')) {
-      return this.userNameForm.getError("server")
+      return this.userNameForm.getError('server')
     }
     if (this.userNameForm.hasError('invalid')) {
       return 'This username is not valid';
