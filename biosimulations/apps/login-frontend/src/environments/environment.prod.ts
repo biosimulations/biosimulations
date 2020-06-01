@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://account.biosimulations.org/'
+  api: 'http://account.biosimulations.dev/',
 };
