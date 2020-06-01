@@ -23,6 +23,8 @@ module.exports = {
 };
 
 function projectChanged(currentProject, fromHash, toHash) {
+  //TODO dont skip the check
+  return true;
   const execSync = require('child_process').execSync;
   const getAffected = `npm run --silent nx print-affected --base=${fromHash} --head=${toHash}`;
   const output = execSync(getAffected).toString();
