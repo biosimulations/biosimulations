@@ -1,7 +1,9 @@
-import { Controller, Get, Logger, Post, Body } from '@nestjs/common';
+import { Controller, Get, Logger, Post, Body, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { Hpc } from './utils/hpc/hpc'
 import { ConfigService } from '@nestjs/config';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { throws } from 'assert';
 
 @Controller()
 export class AppController {
@@ -17,4 +19,20 @@ export class AppController {
     // Call HPC manager
     // Log at each step
   }
+
+  @Post('dispatch')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile() file, @Body() body) {
+    console.log(file);
+    console.log(body);
+    const simSpec = body;
+    const hpc = new Hpc(
+      this.configService.get('HPC_USER'),
+      this.configService.get('HPC_PASS'),
+      this.configService.get('HPC_HOST'),
+      this.configService.get('HPC_SFTP_HOST')
+    )
+  }
+  
+  hpc.start
 }

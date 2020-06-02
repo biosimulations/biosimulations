@@ -8,14 +8,13 @@ import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    {
-      transport: Transport.TCP,
-    },
-  );
-
-  app.listen(() => console.log('Microservice is listening'));
+  const app = await NestFactory.create(AppModule);
+  const globalPrefix = 'dispatch';
+  app.setGlobalPrefix(globalPrefix);
+  const port = process.env.port || 4444;
+  await app.listen(port, () => {
+    console.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+  });
 }
 
 bootstrap();
