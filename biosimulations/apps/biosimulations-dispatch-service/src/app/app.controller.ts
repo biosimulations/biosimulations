@@ -9,6 +9,8 @@ import { throws } from 'assert';
 export class AppController {
   constructor( private readonly configService: ConfigService) {}
   private logger = new Logger(AppController.name);
+  
+  hpc.start
   @MessagePattern('dispatch')
   // @Post('/dispatch')
   dispatch() {
@@ -33,6 +35,4 @@ export class AppController {
       this.configService.get('HPC_SFTP_HOST')
     )
   }
-  
-  hpc.start
 }
