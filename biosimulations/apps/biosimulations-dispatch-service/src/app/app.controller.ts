@@ -30,11 +30,11 @@ export class AppController {
     console.log(files);
     console.log(body);
 
-    let omexPath = '';
-    let sbatchPath = '';
+    const omexPath = '';
+    const sbatchPath = '';
 
     // Get tempDir synchronously
-    let tempDir = this.makeTempDir;
+    const tempDir = this.makeTempDir;
 
     console.log('Tempdir:', tempDir);
     
