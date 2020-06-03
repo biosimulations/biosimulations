@@ -8,7 +8,7 @@ export class Hpc {
         // Establish SSH and SFTP connection with HPC
     }
 
-    dispatchJob(simSpec, omexPath) {
+    dispatchJob(simSpec, omexPath, sbatchPath) {
         // get remote InDir and OutDir from config (ideally indir name should be simId)
         
         // Expect omex as file
