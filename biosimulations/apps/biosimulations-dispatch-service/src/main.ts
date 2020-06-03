@@ -9,11 +9,12 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'dispatch';
+  const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.port || 4444;
+  const port = process.env.PORT || 4444;
+  const host = process.env.HOST || 'localhost';
   await app.listen(port, () => {
-    console.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+    console.log(`Listening at http://${host}:${port}/${globalPrefix}`);
   });
 }
 

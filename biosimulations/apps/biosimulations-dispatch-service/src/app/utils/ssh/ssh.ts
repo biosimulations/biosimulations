@@ -2,11 +2,11 @@ import { Logger } from '@nestjs/common';
 import { Client as SSHClient } from 'ssh2';
 import * as fs from 'fs';
 
-export interface SSHConnectionConfig {
-    host: string,
-    port: number,
-    username: string,
-    password: string
+export class SSHConnectionConfig {
+    host: string;
+    port: number;
+    username: string;
+    password: string;
 }
 
 export class Ssh {

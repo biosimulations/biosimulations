@@ -1,19 +1,16 @@
 import { Injectable, Scope, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { SSHConnectionConfig } from '../ssh/ssh';
 
 export class Hpc {
-    constructor(
-        username,
-        password, 
-        server, 
-        sftp_server, 
-        ) {
+    constructor(sshConfig: SSHConnectionConfig, sftpConfig: SSHConnectionConfig) {
         // Setup class variables in params
         // Establish SSH and SFTP connection with HPC
     }
 
-    dispatchJob(simSpec, omex) {
+    dispatchJob(simSpec, omexPath) {
         // get remote InDir and OutDir from config (ideally indir name should be simId)
+        
         // Expect omex as file
         // Save omex file locally (so that it can be transferred over SSH session)
         // Call SBATCH generator by passing sim spec
