@@ -21,7 +21,7 @@ export class RegistrationService {
     err: any,
     caught: Observable<object>,
   ): ObservableInput<any> {
-    return throwError('Not yet implemented');
+    return throwError('Registration Failed');
   }
 
   // Todo Abstract this
@@ -29,14 +29,12 @@ export class RegistrationService {
     control: AbstractControl,
   ) => {
     const value = control.value;
-    // The validation calls the User api for the given username. if you get a 404, then the username is available
-    // Browser will display console error for every bad call.Maybe include an actual endpoint to test this ?
     return timer(500).pipe(
-      switchMap(_ =>
+      switchMap((_) =>
         this.http.get<any>(environment.api + 'valid/' + control.value),
       ),
-      map(res => (res.valid === true ? null : { server: res.message })),
-      tap(_ => control.markAsTouched()),
+      map((res) => (res.valid === true ? null : { server: res.message })),
+      tap((_) => control.markAsTouched()),
       catchError((err, caught) => of({ 'Network Error': err })),
     );
   };

@@ -12,7 +12,7 @@ export class AppController {
   ) {}
 
   @ApiTags('Utility')
-  @Get()
+  @Get('ping')
   getData() {
     return {
       message: 'Welcome to biosimulations-api!',

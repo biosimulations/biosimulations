@@ -23,13 +23,13 @@ function setupOpenApi(app) {
     .setTitle('Biosimulations Resource API')
     .setDescription('The API to interact with the Biosimulations Database')
     .setVersion('0.1')
-    .addTag('Projects')
     .addTag('Models')
+    .addTag('Projects')
     .addTag('Simulations')
     .addTag('Charts')
     .addTag('Visualizations')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('', app, document);
 }
 bootstrap();
