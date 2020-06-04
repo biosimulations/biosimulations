@@ -4,7 +4,7 @@ import { ProfileDTO, ExternalProfile } from '@biosimulations/datamodel/core';
 import { DTO } from '@biosimulations/datamodel/utils';
 
 // TODO abstract this to the datamodel library
-
+// TODO Include open api definitions
 export class Profile implements ProfileDTO {
   @IsString()
   userName: string;
@@ -31,8 +31,6 @@ export class Account {
   @IsString()
   @prop({ required: true, unique: true })
   username: string;
-
-  // TODO get this to work with validation and openapi
 
   @prop({ required: false })
   profile?: Profile;

@@ -8,6 +8,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
+import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,10 +21,28 @@ async function bootstrap() {
   });
 }
 function setupOpenApi(app: INestApplication) {
+  const oauthSchema: SecuritySchemeObject = {
+    type: 'oauth2',
+    flows: {
+      implicit: {
+        authorizationUrl:
+          'https://crbm.auth0.com/authorize?audience=account.biosimulations.org',
+        scopes: [],
+      },
+    },
+  };
+
+  const openIDSchema: SecuritySchemeObject = {
+    type: 'openIdConnect',
+    openIdConnectUrl:
+      'https://auth.biosimulations.dev/.well-known/openid-configuration',
+  };
   const options = new DocumentBuilder()
     .setTitle('Biosimulations Accounts API')
     .setDescription('The API to manage user accounts')
     .setVersion('0.1')
+    .addSecurity('OpenIdc', openIDSchema)
+    .addOAuth2(oauthSchema)
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('', app, document);

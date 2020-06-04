@@ -1,10 +1,29 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
+import { Request } from 'express';
 import { AppService } from './app.service';
 import { Account } from './account.model';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiPropertyOptional,
+  ApiSecurity,
+  ApiOAuth2,
+} from '@nestjs/swagger';
 import { ProfileDTO } from '@biosimulations/datamodel/core';
 import { AuthGuard } from '@nestjs/passport';
-import { getUserId } from '@biosimulations/shared/biosimulations-auth';
+import {
+  getUserId,
+  permissions,
+  JwtGuard,
+  PermissionsGuard,
+} from '@biosimulations/shared/biosimulations-auth';
 
 class CreateAccountDTO {
   @ApiProperty()
@@ -18,6 +37,10 @@ class CreateAccountDTO {
 @Controller()
 export class AppController {
   constructor(private accountService: AppService) {}
+
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('read:accounts')
+  @ApiOAuth2([])
   @Get('list')
   async getAll() {
     return (await this.accountService.findAll()).map(
