@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken');
 
-
 export function decodeToken(token: string) {
-    const decoded = jwt.decode(token)
-    return decoded
+  const decoded = jwt.decode(token);
+  return decoded;
 }
 
 export function getUserId(token: string) {
-    return decodeToken(token).user_id
+  return decodeToken(token).user_id;
 }
+
+function isAdmin() {}
+function getUsername() {}

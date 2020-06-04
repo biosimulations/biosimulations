@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthzService {
-  authzClient;
+  authzClient: ManagementClient;
   constructor(private configService: ConfigService) {
     this.authzClient = new ManagementClient({
       domain: configService.get('auth.management_domain'),
@@ -12,6 +12,10 @@ export class AuthzService {
       clientSecret: configService.get('auth.management_secret'),
       scope: 'read:users update:users',
     });
+  }
+
+  getUser(id: string) {
+    this.authzClient.getUser({ id });
   }
 
   updateAppMetadata(id: string, metadata: any) {
