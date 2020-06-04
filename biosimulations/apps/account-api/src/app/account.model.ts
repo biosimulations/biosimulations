@@ -1,30 +1,48 @@
 import { prop } from '@typegoose/typegoose';
-import { IsString, IsBoolean, IsJSON } from 'class-validator';
-import { ProfileDTO } from '@biosimulations/datamodel/core'
-import { DTO } from '@biosimulations/datamodel/utils'
+import { IsString, IsBoolean, IsJSON, IsUrl, IsEmail } from 'class-validator';
+import { ProfileDTO, ExternalProfile } from '@biosimulations/datamodel/core';
+import { DTO } from '@biosimulations/datamodel/utils';
 
-// TODO abstract this to the datamodel library 
-export class Account {
-    @IsString()
-    @prop({ required: true })
-    _id: string
+// TODO abstract this to the datamodel library
 
-    @IsString()
-    @prop({ required: true, unique: true, })
-    username: string
+export class Profile implements ProfileDTO {
+  @IsString()
+  userName: string;
+  @IsString()
+  organization: string;
+  @IsUrl()
+  website: string;
+  @IsEmail()
+  gravatarEmail: string;
+  @IsString()
+  description: string;
+  @IsString()
+  summary: string;
 
-    // TODO get this to work with validation and openapi
-    @IsJSON()
-    @prop({ required: false })
-    profile?: ProfileDTO
-
-    // The date that the terms were accepted in seconds from epoch
-    @IsString()
-    @prop({ required: true })
-    termsAccepted: number
-
-    @IsBoolean()
-    @prop({ required: true })
-    admin: boolean
+  externalProfiles: ExternalProfile[];
+  @IsString()
+  emails: string;
 }
+export class Account {
+  @IsString()
+  @prop({ required: true })
+  _id: string;
 
+  @IsString()
+  @prop({ required: true, unique: true })
+  username: string;
+
+  // TODO get this to work with validation and openapi
+
+  @prop({ required: false })
+  profile?: Profile;
+
+  // The date that the terms were accepted in seconds from epoch
+  @IsString()
+  @prop({ required: true })
+  termsAccepted: number;
+
+  @IsBoolean()
+  @prop({ required: true })
+  admin: boolean;
+}

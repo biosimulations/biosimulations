@@ -2,12 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { BiosimulationsConfigModule, } from '@biosimulations/shared/biosimulations-config'
-import { BiosimulationsAuthModule } from '@biosimulations/shared/biosimulations-auth'
+import { BiosimulationsConfigModule } from '@biosimulations/shared/biosimulations-config';
+import { BiosimulationsAuthModule } from '@biosimulations/shared/biosimulations-auth';
 import { AppService } from './app.service';
 import { Account } from './account.model';
 @Module({
-  imports: [BiosimulationsConfigModule,
+  imports: [
+    BiosimulationsConfigModule,
     BiosimulationsAuthModule,
     TypegooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
@@ -19,11 +20,9 @@ import { Account } from './account.model';
 
       inject: [ConfigService],
     }),
-    TypegooseModule.forFeature([Account])],
+    TypegooseModule.forFeature([Account]),
+  ],
   controllers: [AppController],
   providers: [AppService],
-
-
-
 })
-export class AppModule { }
+export class AppModule {}
