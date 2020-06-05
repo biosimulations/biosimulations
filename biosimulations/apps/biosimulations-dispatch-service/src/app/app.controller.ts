@@ -26,15 +26,15 @@ export class AppController {
   @Post('dispatch')
   @UseInterceptors(FileInterceptor('file'))
   // Make multiple files work
-  uploadFile(@UploadedFiles() files: Array<any>, @Body() body) {
-    console.log(files);
+  uploadFile(@UploadedFile() file, @Body() body) {
+    console.log(file);
     console.log(body);
 
-    const omexPath = '';
-    const sbatchPath = '';
+    const tempDir = fs.mkdtempSync('/tmp/dispatch-');
+    fs.accessSync(tempDir, fs.constants.W_OK);
 
-    // Get tempDir synchronously
-    const tempDir = this.makeTempDir;
+    const omexPath = `${tempDir}/${file.originalname}`;
+    const sbatchPath = `${tempDir}/run.sbatch`;
 
     console.log('Tempdir:', tempDir);
     
@@ -43,32 +43,34 @@ export class AppController {
     const sshConf = hpcConfig.ssh as SSHConnectionConfig;
     const sftpConf = hpcConfig.sftp as SSHConnectionConfig;
 
-    
-    
-    files.forEach( item => {
-      fs.writeFileSync(`${tempDir}/${item.originalname}`, item.buffer);
-    });
-
-
+    fs.writeFileSync(omexPath, file.buffer);
 
     const hpc = new Hpc(sshConf, sftpConf);
     hpc.dispatchJob(body, omexPath, sbatchPath)
 
-    // Add code to delete tempDir
+    this.removeNonEmptyDir(tempDir);
 
   }
 
-  async makeTempDir(prefix: string) {
-    let tempDir = '';
-    await fs.mkdtemp('/tmp/dispatch.', (err, folder) => {
-      if (err) {
-        console.log('Error while creating temp dir: ', err);
+  removeNonEmptyDir(path) {
+    if (fs.existsSync(path)) {
+      const files = fs.readdirSync(path)
+   
+      if (files.length > 0) {
+        files.forEach(filename => {
+          if (fs.statSync(path + '/' + filename).isDirectory()) {
+            this.removeNonEmptyDir(path + '/' + filename)
+          } else {
+            fs.unlinkSync(path + '/' + filename)
+          }
+        })
+        fs.rmdirSync(path)
       } else {
-        console.log('Temp dir created: ', folder);
-        tempDir = folder;
+        fs.rmdirSync(path)
       }
-    });
-    return tempDir;
+    } else {
+      console.log('Directory path not found.')
+    }
   }
   
 }
