@@ -7,7 +7,7 @@ export class AuthzService {
   authzClient: ManagementClient;
   constructor(private configService: ConfigService) {
     this.authzClient = new ManagementClient({
-      domain: configService.get('auth.management_domain'),
+      domain: configService.get('auth.management_domain') as string,
       clientId: configService.get('auth.management_id'),
       clientSecret: configService.get('auth.management_secret'),
       scope: 'read:users update:users',

@@ -15,6 +15,6 @@ import { JwtGuard } from './jwt.guard';
     PermissionsGuard,
     JwtGuard,
   ],
-  exports: [PassportModule, AuthzService, PermissionsGuard, JwtGuard],
+  exports: [AuthzService, PermissionsGuard, JwtGuard],
 })
 export class BiosimulationsAuthModule {}
