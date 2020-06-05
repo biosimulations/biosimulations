@@ -2,7 +2,7 @@ import { DTO } from '@biosimulations/datamodel/utils';
 import { BiomodelVariableDTO } from '.';
 import { BiosimulationsId, DateString } from '../common/alias';
 
-export class SimulationResultVariableCore {
+export interface SimulationResultVariableCore {
   simulation: BiosimulationsId;
   variable: BiomodelVariableDTO;
 }

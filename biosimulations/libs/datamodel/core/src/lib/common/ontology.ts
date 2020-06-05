@@ -29,7 +29,7 @@ export interface KISAOTermCore extends OntologyTermCore {
 export interface IdentifierCore {
   namespace: string;
   identifier: string;
-  url?: string;
+  url: string | undefined;
 }
 export type IdentifierDTO = DTO<IdentifierCore>;
 

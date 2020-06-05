@@ -27,7 +27,7 @@ export const isBiomodelParameterDTO = (
 ): param is BiomodelParameterDTO =>
   'units' in param && 'id' in param && 'name' in param && 'value' in param;
 
-export class BiomodelVariableCore {
+export interface BiomodelVariableCore {
   target: string;
   group: string;
   id: string;
@@ -38,7 +38,7 @@ export class BiomodelVariableCore {
 }
 export type BiomodelVariableDTO = DTO<BiomodelVariableCore>;
 
-export class BiomodelAttributes {
+export interface BiomodelAttributes {
   taxon: TaxonDTO;
   parameters: BiomodelParameterDTO[];
   variables: BiomodelVariableDTO[];

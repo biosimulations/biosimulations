@@ -39,9 +39,6 @@ type Complete<T> = {
 interface JsonSerializable<T extends DTO<T>> {
   serialize(): T;
 }
-interface JsonSerializableConstructor<T extends DTO<T>> {
-  (data: T);
-}
 
 type DTO<T> = Complete<JsonCompatible<T>>;
 

@@ -13,7 +13,7 @@ export interface ParameterChangeDTO {
   value: number;
 }
 
-export class SimulationAttributes {
+export interface SimulationAttributes {
   model: BiosimulationsId;
   format: FormatDTO;
   modelParameterChanges: ParameterChangeDTO[];

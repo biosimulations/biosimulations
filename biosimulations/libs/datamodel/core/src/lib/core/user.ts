@@ -12,15 +12,15 @@ export interface ExternalProfile {
 }
 export interface ProfileDTO {
   userName: string;
-  organization: string;
-  website: string;
+  organization: string | null;
+  website: string | null;
   // Todo change this to hashed url string to prevent sharing email
-  gravatarEmail: string;
-  description: string;
-  summary: string;
-  externalProfiles: ExternalProfile[];
+  gravatarEmail: string | null;
+  description: string | null;
+  summary: string | null;
+  externalProfiles: ExternalProfile[] | null;
   // Will depend on if emails are set to private
-  emails: Email;
+  emails: Email | null;
 }
 export interface EmailInfoDTO {
   primaryEmail: string;

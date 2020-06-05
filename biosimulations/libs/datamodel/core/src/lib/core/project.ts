@@ -20,7 +20,7 @@ export const projectProductTypes = [
   { value: ProjectProductType.other, name: 'other' },
 ];
 
-export class ProjectProductCore {
+export interface ProjectProductCore {
   reference: JournalReferenceDTO;
   type: ProjectProductType;
   label: string;

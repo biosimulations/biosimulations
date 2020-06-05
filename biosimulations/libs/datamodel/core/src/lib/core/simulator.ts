@@ -1,6 +1,6 @@
 import { AlgorithmDTO } from './algorithm';
 
-export class SimulatorAttributes {
+export interface SimulatorAttributes {
   name: string;
   version: string;
   url: string;
