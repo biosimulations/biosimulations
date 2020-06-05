@@ -27,9 +27,9 @@ import {
 
 class CreateAccountDTO {
   @ApiProperty()
-  username: string;
+  username!: string;
   @ApiProperty()
-  token: string;
+  token!: string;
   @ApiPropertyOptional()
   profile?: ProfileDTO;
 }
@@ -43,9 +43,7 @@ export class AppController {
   @ApiOAuth2([])
   @Get('list')
   async getAll() {
-    return (await this.accountService.findAll()).map(
-      (account) => account.username,
-    );
+    return await this.accountService.findAll();
   }
 
   @Get('exists/:userId')
@@ -85,14 +83,24 @@ export class AppController {
   createAccount(@Body() body: CreateAccountDTO) {
     const token = body.token;
     const userId = getUserId(token);
+    const profile: ProfileDTO = body.profile || {
+      userName: body.username,
+      organization: null,
+      website: null,
+      gravatarEmail: null,
+      description: null,
+      externalProfiles: [],
+      emails: null,
+      summary: null,
+    };
 
-    const account: Account = {
+    const account: Account = new Account({
       username: body.username,
       _id: userId,
       termsAccepted: Date.now(),
-      profile: body.profile,
+      profile,
       admin: false,
-    };
+    });
 
     return this.accountService.create(account);
   }

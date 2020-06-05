@@ -7,21 +7,35 @@ import { DTO } from '@biosimulations/datamodel/utils';
 // TODO Include open api definitions
 export class Profile implements ProfileDTO {
   @IsString()
-  userName: string;
+  userName!: string;
   @IsString()
-  organization: string;
+  organization: string | null = null;
   @IsUrl()
-  website: string;
+  website: string | null = null;
   @IsEmail()
-  gravatarEmail: string;
+  gravatarEmail: string | null = null;
   @IsString()
-  description: string;
+  description: string | null = null;
   @IsString()
-  summary: string;
+  summary: string | null = null;
 
-  externalProfiles: ExternalProfile[];
+  externalProfiles: ExternalProfile[] = [];
   @IsString()
-  emails: string;
+  emails: string | null = null;
+
+  constructor(profile: ProfileDTO) {
+    Object.assign(this, profile);
+    if (!this.externalProfiles) {
+      this.externalProfiles = [];
+    }
+  }
+}
+export interface AccountDTO {
+  _id: string;
+  username: string;
+  admin: boolean;
+  termsAccepted: number;
+  profile: ProfileDTO | null;
 }
 export class Account {
   @IsString()
@@ -43,4 +57,14 @@ export class Account {
   @IsBoolean()
   @prop({ required: true })
   admin: boolean;
+
+  constructor(account: AccountDTO) {
+    this._id = account._id;
+    this.admin = account.admin;
+    this.termsAccepted = account.termsAccepted;
+    this.username = account.username;
+    if (account.profile) {
+      this.profile = new Profile(account.profile);
+    }
+  }
 }

@@ -12,10 +12,10 @@ export class AppService {
     private authz: AuthzService,
   ) {}
 
-  async findById(userId: string): Promise<Account> {
+  async findById(userId: string): Promise<Account | null> {
     return await this.accountModel.findOne({ _id: userId }).exec();
   }
-  async find(username: string): Promise<Account> {
+  async find(username: string): Promise<Account | null> {
     // tslint:disable-next-line
     return await this.accountModel.findOne({ username: username }).exec();
   }
