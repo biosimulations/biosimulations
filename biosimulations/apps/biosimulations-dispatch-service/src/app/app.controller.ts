@@ -6,6 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { throws } from 'assert';
 import { SSHConnectionConfig } from './utils/ssh/ssh';
 import * as fs from 'fs';
+import { Sbatch } from './utils/sbatch/sbatch';
 
 @Controller()
 export class AppController {
@@ -45,8 +46,13 @@ export class AppController {
 
     fs.writeFileSync(omexPath, file.buffer);
 
+    // Generate SBATCH script
+    const hpcTempDirPath = `${this.configService.get('hpcSimDirBase')}/${tempDir.split('-')[1]}`;
+    const sbatchString = Sbatch.generate(hpcTempDirPath, body.simulator);
+    fs.writeFileSync(sbatchPath, sbatchString);
+
     const hpc = new Hpc(sshConf, sftpConf);
-    hpc.dispatchJob(body, omexPath, sbatchPath)
+    hpc.dispatchJob(hpcTempDirPath, omexPath, sbatchPath)
 
     this.removeNonEmptyDir(tempDir);
 

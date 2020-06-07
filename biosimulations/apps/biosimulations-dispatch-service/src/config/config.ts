@@ -14,6 +14,7 @@ export default () => ({
         username: process.env.HPC_SFTP_USERNAME,
         password: process.env.HPC_SFTP_PASSWORD
       }
-    }
+    },
+    hpcSimDirBase: '/home/CAM/crbmapi'
   });
   

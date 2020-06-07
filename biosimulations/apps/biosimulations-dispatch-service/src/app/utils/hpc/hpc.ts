@@ -1,22 +1,58 @@
 import { Injectable, Scope, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { SSHConnectionConfig } from '../ssh/ssh';
+import { SSHConnectionConfig, Ssh } from '../ssh/ssh';
 
 export class Hpc {
-    constructor(sshConfig: SSHConnectionConfig, sftpConfig: SSHConnectionConfig) {
-        // Setup class variables in params
-        // Establish SSH and SFTP connection with HPC
+
+    sshClient: Ssh = null;
+    constructor(public sshConfig: SSHConnectionConfig, public sftpConfig: SSHConnectionConfig) {
+        this.sshClient = new Ssh(sshConfig, sftpConfig);
     }
 
-    dispatchJob(simSpec, omexPath, sbatchPath) {
-        // get remote InDir and OutDir from config (ideally indir name should be simId)
+    dispatchJob(simDirBase: string, omexPath: string, sbatchPath: string) {
+
+        const sbatchName = sbatchPath.split('/')[-1];
+        const omexName = omexPath.split('/')[-1];
         
-        // Expect omex as file
-        // Save omex file locally (so that it can be transferred over SSH session)
-        // Call SBATCH generator by passing sim spec
-        // Transfer omex and sbatch to inDir on HPC via SFTP session
-        // execute SBATCH via SSH session
-        // Frequent logging at every step
+        // get remote InDir and OutDir from config (ideally indir name should be simId)
+        this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/in`).then(
+            value => {
+
+                this.sshClient.putFile(omexPath, `${simDirBase}/in/${omexName}`).then(
+                    val => {
+                        this.sshClient.putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`).then(
+                            res => {
+
+                                this.sshClient.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
+
+                                }).catch(error => {
+
+                                });
+                
+                            }
+                        ).catch(err => {
+                
+                        });
+        
+                    }
+                ).catch(err => {
+        
+                });
+        
+                
+
+            }).catch(err => {
+
+        });
+
+        this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/out`).then(
+            value => {
+
+            }).catch(err => {
+
+        });
+
+    
     }
 
     getOutputFiles(simId) {
