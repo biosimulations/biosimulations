@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { throws } from 'assert';
 import { SSHConnectionConfig } from './utils/ssh/ssh';
-import * as fs from 'fs';
+import * as fs from 'file-system';
 import { Sbatch } from './utils/sbatch/sbatch';
 
 @Controller()

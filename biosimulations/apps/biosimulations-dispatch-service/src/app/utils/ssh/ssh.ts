@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { Client as SSHClient } from 'ssh2';
-import * as fs from 'fs';
+import * as fs from 'file-system';
 
 export class SSHConnectionConfig {
     host: string;
