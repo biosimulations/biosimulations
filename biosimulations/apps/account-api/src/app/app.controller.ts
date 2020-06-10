@@ -16,7 +16,7 @@ import {
   ApiSecurity,
   ApiOAuth2,
 } from '@nestjs/swagger';
-import { ProfileDTO } from '@biosimulations/datamodel/core';
+import { Profile } from '@biosimulations/datamodel/core';
 import { AuthGuard } from '@nestjs/passport';
 import {
   getUserId,
@@ -31,7 +31,7 @@ class CreateAccountDTO {
   @ApiProperty()
   token!: string;
   @ApiPropertyOptional()
-  profile?: ProfileDTO;
+  profile?: Profile;
 }
 
 @Controller()
@@ -83,11 +83,14 @@ export class AppController {
   createAccount(@Body() body: CreateAccountDTO) {
     const token = body.token;
     const userId = getUserId(token);
-    const profile: ProfileDTO = body.profile || {
+    const profile: Profile = body.profile || {
       userName: body.username,
+      firstName: null,
+      lastName: null,
+      middleName: null,
+      image: '',
       organization: null,
       website: null,
-      gravatarEmail: null,
       description: null,
       externalProfiles: [],
       emails: null,

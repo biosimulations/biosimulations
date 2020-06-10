@@ -1,15 +1,13 @@
 import { Controller, Get, Put, Body, Param, Post, Query } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { ModelsService } from './models.service';
-import { ResourceController } from '../base/resource.controller';
+import { CreateBiomodelDTO } from './biomodel.dto';
+
 @ApiTags('Models')
 @Controller('models')
-export class ModelsController extends ResourceController<any> {
-  constructor(service: ModelsService) {
-    super(service, 'Models');
-  }
-  @Get()
-  search(@Query('test333') param?: string) {
-    return param;
-  }
+export class ModelsController {
+  constructor(public service: ModelsService) {}
+
+  @Post()
+  create(@Body() body: CreateBiomodelDTO) {}
 }

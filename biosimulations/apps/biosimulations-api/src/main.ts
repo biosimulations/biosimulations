@@ -6,9 +6,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { INestApplication } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app: INestApplication = await NestFactory.create(AppModule);
 
   setupOpenApi(app);
 
@@ -18,7 +19,7 @@ async function bootstrap() {
   });
 }
 
-function setupOpenApi(app) {
+function setupOpenApi(app: INestApplication) {
   const options = new DocumentBuilder()
     .setTitle('Biosimulations Resource API')
     .setDescription('The API to interact with the Biosimulations Database')
