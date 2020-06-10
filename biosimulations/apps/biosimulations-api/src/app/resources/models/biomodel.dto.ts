@@ -1,6 +1,5 @@
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
-import * as JSONAPI from 'jsonapi-typescript';
-import * as JSON from 'json-typescript';
+
 import { ResourceType } from '@biosimulations/datamodel/core';
 import {
   BiomodelAttributesDTO,
