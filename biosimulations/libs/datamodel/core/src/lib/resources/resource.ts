@@ -1,16 +1,15 @@
-import { JournalReferenceDTO } from '../common/journalreference';
+import { JournalReference } from '../common/journalreference';
 
-import { PersonDTO } from '../common/person';
+import { Person } from '../common/person';
 
-import { License, IdentifierDTO } from '../..';
+import { License, Identifier } from '../..';
 import { UserId, BiosimulationsId, DOI, DateString } from '../common/alias';
-import { DTO } from '@biosimulations/datamodel/utils';
 
 export enum ResourceType {
   project = 'project',
   model = 'model',
   simulation = 'simulation',
-  simulationRun = 'Simulaton Run',
+  simulationRun = 'SimulatonRun',
   chart = 'chart',
   visualization = 'visualization',
   simulator = 'simulator',
@@ -21,6 +20,7 @@ export enum ResourceType {
 export enum AccessLevel {
   private = 'private',
   public = 'public',
+  shared = 'shared',
   protected = 'Password Protected',
 }
 export const accessLevels = [
@@ -29,35 +29,29 @@ export const accessLevels = [
   { value: AccessLevel.protected, name: 'Password Protected' },
 ];
 
-export interface AccessInfoDTO {
+export interface AccessInfo {
   accessLevel: AccessLevel;
-  accessToken?: string;
-  editors?: UserId[];
-  viewers?: UserId[];
+  accessToken: string | null;
 }
 
-export interface ExternalReferencesDTO {
-  identifiers: IdentifierDTO[];
-  references: JournalReferenceDTO[];
-  DOI: DOI;
+export interface ExternalReferences {
+  identifiers: Identifier[];
+  references: JournalReference[];
+  DOI: DOI | null;
 }
 
 export interface Described {
-  image: BiosimulationsId;
   name: string;
   summary: string;
   description: string;
   tags: string[];
 }
 
-export type DescriptionDTO = DTO<Described>;
-
 export interface Provenanced {
   version: number;
   parent: BiosimulationsId;
   children: BiosimulationsId[];
 }
-export type ProvenanceDTO = DTO<Provenanced>;
 
 interface Identifiable {
   type: ResourceType;
@@ -69,41 +63,48 @@ interface Owned {
 }
 interface AccessControlled extends Owned {
   owner: UserId;
-  access: AccessInfoDTO;
+  access: AccessInfo;
 }
 interface Licensed {
   license: License;
 }
 interface Authored {
-  authors: PersonDTO[];
+  authors: Person[];
 }
 interface CrossReferenced {
-  references: ExternalReferencesDTO;
+  references: ExternalReferences;
 }
 interface Timestamped {
   createdDate: DateString;
   updatedDate: DateString;
+  version: number;
 }
-export type DateDTO = DTO<Timestamped>;
+export type DateDTO = Timestamped;
 
-export interface ResourceDTO extends Identifiable {
+export interface Resource extends Identifiable {
   type: ResourceType;
   id: BiosimulationsId;
-  attributes: DTO<any>;
-  meta: DTO<any>;
-}
-
-export interface PrimaryResourceDTO extends ResourceDTO {
-  meta: DTO<PrimaryResourceMetaData>;
-}
-export interface SecondaryResourceDTO extends ResourceDTO {
-  meta: DTO<SecondaryResourceMetaData>;
+  attributes: any;
+  meta: any;
 }
 
 // Todo Find better names for these
+
+export interface PrimaryResource {
+  type: ResourceType;
+  id: BiosimulationsId;
+  attributes: PrimaryResourceMetaData;
+  relationships: PrimaryResourceRelationships;
+}
+
+export interface PrimaryResourceRelationships {
+  owner: UserId;
+  editors: UserId[];
+  viewers: UserId[];
+}
+
 export interface PrimaryResourceMetaData
-  extends Owned,
-    Licensed,
+  extends Licensed,
     Authored,
     CrossReferenced,
     Described,

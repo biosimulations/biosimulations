@@ -1,1 +1,6 @@
-export type PrimitiveType = 'boolean' | 'integer' | 'float' | 'string';
+export enum PrimitiveType {
+  boolean = 'boolean',
+  integer = ' interger',
+  float = 'float',
+  string = 'string',
+}

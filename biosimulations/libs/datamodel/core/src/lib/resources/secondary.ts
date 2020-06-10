@@ -1,7 +1,9 @@
-import { SecondaryResourceDTO, ResourceType } from '.';
+import { ResourceType } from '.';
 import { SimulatorAttributes } from '../core/simulator';
+import { BiosimulationsId } from '../common';
 
-export interface SimulatorResourceDTO extends SecondaryResourceDTO {
+export interface SimulatorResource {
   type: ResourceType.simulationRun;
+  id: BiosimulationsId;
   attributes: SimulatorAttributes;
 }

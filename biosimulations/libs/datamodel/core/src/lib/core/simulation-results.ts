@@ -1,10 +1,10 @@
-import { DTO } from '@biosimulations/datamodel/utils';
-import { BiomodelVariableDTO } from '.';
+import { BiomodelVariable } from '.';
 import { BiosimulationsId, DateString } from '../common/alias';
+import { PrimaryResourceMetaData } from '../..';
 
-export interface SimulationResultVariableCore {
+export interface SimulationResultVariable {
   simulation: BiosimulationsId;
-  variable: BiomodelVariableDTO;
+  variable: BiomodelVariable;
 }
 
 export enum SimulationResultsFormat {
@@ -16,12 +16,12 @@ export enum SimulationResultsFormat {
   zarr = 'zarr',
 }
 
-export interface TimePointCore {
+export interface TimePoint {
   time: number;
   value: number;
 }
 
-export interface LogItemDTO {
+export interface LogItem {
   time: DateString;
   type: string;
   message: string;
@@ -36,12 +36,9 @@ export interface SimulationRunAttributes {
   runDate: DateString;
   endDate: DateString;
   wallTime: number;
-  outlog: LogItemDTO[];
-  errlog: LogItemDTO[];
+  outlog: LogItem[];
+  errlog: LogItem[];
   status: SimulationStatus;
+  metadata: PrimaryResourceMetaData;
 }
 export type SimulationStatus = 'done' | 'submitted' | 'failed';
-
-export type TimePointDTO = DTO<TimePointCore>;
-
-export type SimulationResultVariableDTO = DTO<SimulationResultVariableCore>;

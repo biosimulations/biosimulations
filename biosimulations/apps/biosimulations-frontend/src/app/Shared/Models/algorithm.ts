@@ -1,6 +1,6 @@
 import { AlgorithmParameter } from './algorithm-parameter';
 import {
-  AlgorithmParameterDTO,
+  isAlgorithmParameter,
   AlgorithmDTO,
   OntologyTermDTO,
   JournalReferenceDTO,
@@ -12,7 +12,7 @@ import { OntologyTerm } from './ontology-term';
 import { Format } from './format';
 import { JournalReference } from './journal-reference';
 
-export class Algorithm implements JsonSerializable<AlgorithmDTO> {
+export class Algorithm {
   id?: string;
   name?: string;
   kisaoId: string;

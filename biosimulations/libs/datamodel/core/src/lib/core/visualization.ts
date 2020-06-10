@@ -1,30 +1,26 @@
-import { FormatDTO } from '../common';
-
-import { DTO } from '@biosimulations/datamodel/utils';
-import { ChartDataFieldDTO, BiomodelVariableDTO } from '.';
+import { Format } from '../common';
+import { ChartDataField, BiomodelVariable } from '.';
 import { SimulationId, ChartId } from '../common/alias';
+import { PrimaryResourceMetaData } from '../..';
 
 export interface SimulationResult {
   simulation: SimulationId;
-  variable: BiomodelVariableDTO;
+  variable: BiomodelVariable;
 }
 
-export interface VisualizationDataFieldCore {
-  dataField: ChartDataFieldDTO;
+export interface VisualizationDataField {
+  dataField: ChartDataField;
   simulationResults: SimulationResult[];
 }
 
-export type VisualizationDataFieldDTO = DTO<VisualizationDataFieldCore>;
-
-export interface VisualizationLayoutElementCore {
+export interface VisualizationLayoutElement {
   chartType: ChartId;
-  data: VisualizationDataFieldDTO[];
+  data: VisualizationDataField[];
 }
 
-export type VisualizationLayoutElementDTO = DTO<VisualizationLayoutElementCore>;
-
 export interface VisualizationAttributes {
-  format: FormatDTO;
+  format: Format;
   columns: number;
-  layout: VisualizationLayoutElementDTO;
+  layout: VisualizationLayoutElement;
+  meta: PrimaryResourceMetaData;
 }

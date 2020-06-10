@@ -1,23 +1,22 @@
-import { DTO } from '@biosimulations/datamodel/utils';
 import { KisaoId } from './alias';
 
-enum Ontologies {
+export enum Ontologies {
   KISAO = 'KISAO',
   SBO = 'SBO',
   EDAM = 'EDAM',
 }
-interface OntologyIdDTO {
+export interface OntologyId {
   ontology: string;
   id: string;
 }
-interface OntologyTermCore extends OntologyIdDTO {
+export interface OntologyTerm extends OntologyId {
   ontology: string;
   id: string;
   name: string;
-  description: string;
-  iri: string;
+  description: string | null;
+  iri: string | null;
 }
-export interface KISAOTermCore extends OntologyTermCore {
+export interface KISAOTerm extends OntologyTerm {
   ontology: 'KISAO';
   id: KisaoId;
   name: string;
@@ -26,11 +25,8 @@ export interface KISAOTermCore extends OntologyTermCore {
 }
 
 // Identifiers.org identifier
-export interface IdentifierCore {
+export interface Identifier {
   namespace: string;
   identifier: string;
-  url: string | undefined;
+  url: string | null;
 }
-export type IdentifierDTO = DTO<IdentifierCore>;
-
-export type OntologyTermDTO = DTO<OntologyTermCore>;

@@ -1,7 +1,6 @@
-import { DTO } from '@biosimulations/datamodel/utils';
 import { EdamId } from './alias';
 
-export interface FormatCore {
+export interface Format {
   id: string;
   name: string;
   version: string;
@@ -12,4 +11,3 @@ export interface FormatCore {
   extension: string | null;
   sedUrn: string | null;
 }
-export type FormatDTO = DTO<FormatCore>;
