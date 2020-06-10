@@ -30,7 +30,9 @@
       "tags": []
     },
     "biosimulations-dispatch-service": {
-      "tags": ["backend"]
+      "tags": ["scope:hpc",
+        "type:backend",
+        "platform:server"]
     }
   },
   "tasksRunnerOptions": {
