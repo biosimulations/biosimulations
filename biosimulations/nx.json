@@ -28,6 +28,11 @@
     },
     "datamodel-utils": {
       "tags": []
+    },
+    "biosimulations-dispatch-service": {
+      "tags": ["scope:hpc",
+        "type:backend",
+        "platform:server"]
     }
   },
   "tasksRunnerOptions": {

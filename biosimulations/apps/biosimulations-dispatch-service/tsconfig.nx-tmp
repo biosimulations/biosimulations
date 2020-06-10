@@ -1,0 +1,29 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@biosimulations/datamodel/database": [
+        "libs/datamodel/database/src/index.ts"
+      ],
+      "@biosimulations/datamodel/api": [
+        "libs/datamodel/api/src/index.ts"
+      ],
+      "@biosimulations/datamodel/core": [
+        "libs/datamodel/core/src/index.ts"
+      ],
+      "@biosimulations/datamodel/utils": [
+        "libs/datamodel/utils/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "**/*.ts"
+  ]
+}
