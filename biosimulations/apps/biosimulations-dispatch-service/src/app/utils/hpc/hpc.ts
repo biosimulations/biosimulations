@@ -11,45 +11,54 @@ export class Hpc {
 
     dispatchJob(simDirBase: string, omexPath: string, sbatchPath: string) {
 
-        const sbatchName = sbatchPath.split('/')[-1];
-        const omexName = omexPath.split('/')[-1];
+        const sbatchPathSplit = sbatchPath.split('/');
+        const omexPathSplit = omexPath.split('/');
+        const sbatchName = sbatchPathSplit[sbatchPathSplit.length - 1];
+        const omexName = omexPathSplit[omexPathSplit.length - 1];
+
+        console.log('Omex name: ', omexName)
         
         // get remote InDir and OutDir from config (ideally indir name should be simId)
-        this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/in`).then(
-            value => {
+        this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/in`).then(value => {
+                console.log('Simdirectory created on HPC: ', value);
 
-                this.sshClient.putFile(omexPath, `${simDirBase}/in/${omexName}`).then(
-                    val => {
+
+                this.sshClient.putFile(omexPath, `${simDirBase}/in/${omexName}`).then(val => {
+                        
+                        console.log('Omex copying to HPC successful: ', val);
                         this.sshClient.putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`).then(
                             res => {
-
+                                console.log('SBATCH copying to HPC successful: ', res);
                                 this.sshClient.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
-
+                                console.log('Execution of sbatch was successful');
                                 }).catch(error => {
-
+                                console.log('Could not execute SBATCH: ', error);
                                 });
                 
                             }
                         ).catch(err => {
-                
+
+                            console.log('Could not copy SBATCH to HPC: ', err);
                         });
         
                     }
-                ).catch(err => {
-        
+                ).catch(omexErr => {
+                    console.log('Could not copy omex to HPC: ', omexErr);
                 });
         
                 
 
             }).catch(err => {
+                console.log('Error occured while creating simdirectory: ', err);
 
         });
 
         this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/out`).then(
             value => {
+                console.log('Output directory for simulation created: ', value);
 
             }).catch(err => {
-
+                console.log('Could not create output directory for simulation: ',err);
         });
 
     

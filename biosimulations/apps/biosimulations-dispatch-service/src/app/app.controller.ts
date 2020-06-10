@@ -54,7 +54,7 @@ export class AppController {
     const hpc = new Hpc(sshConf, sftpConf);
     hpc.dispatchJob(hpcTempDirPath, omexPath, sbatchPath)
 
-    this.removeNonEmptyDir(tempDir);
+    // this.removeNonEmptyDir(tempDir);
 
   }
 
