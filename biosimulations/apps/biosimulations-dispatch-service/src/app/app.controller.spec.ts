@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigService } from '@nestjs/config';
+
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -9,15 +9,15 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [ConfigService],
     }).compile();
   });
 
   describe('getData', () => {
-    it('should return "Welcome to biosimulations-dispatch-service!"', () => {
+    it('should return "No file provided!"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({
-        message: 'Welcome to biosimulations-dispatch-service!',
+      expect(appController.uploadFile(null,{simulator: 'copasi'})).toEqual({
+        message: 'No file provided!'
       });
     });
   });

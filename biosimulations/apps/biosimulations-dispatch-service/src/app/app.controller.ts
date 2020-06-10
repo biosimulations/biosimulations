@@ -31,6 +31,10 @@ export class AppController {
     console.log(file);
     console.log(body);
 
+    if (file === null) {
+      return {message: "No file provided!"};
+    }
+
     const tempDir = fs.mkdtempSync('/tmp/dispatch-');
     fs.accessSync(tempDir, fs.constants.W_OK);
 
@@ -54,7 +58,9 @@ export class AppController {
     const hpc = new Hpc(sshConf, sftpConf);
     hpc.dispatchJob(hpcTempDirPath, omexPath, sbatchPath)
 
+    // TODO: Remove the directory when files are copied to HPC
     // this.removeNonEmptyDir(tempDir);
+    return { message: 'Simulation dispatched successfully'};
 
   }
 
