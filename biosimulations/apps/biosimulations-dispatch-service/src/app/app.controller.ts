@@ -32,7 +32,7 @@ export class AppController {
     console.log(body);
 
     if (file === null) {
-      return {message: "No file provided!"};
+      return {message: 'No file provided!'};
     }
 
     const tempDir = fs.mkdtempSync('/tmp/dispatch-');
