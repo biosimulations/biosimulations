@@ -26,24 +26,35 @@ export class Hpc {
                 this.sshClient.putFile(omexPath, `${simDirBase}/in/${omexName}`).then(val => {
                         
                         console.log('Omex copying to HPC successful: ', val);
-                        this.sshClient.putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`).then(
-                            res => {
-                                console.log('SBATCH copying to HPC successful: ', res);
-                                this.sshClient.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
-                                console.log('Execution of sbatch was successful');
-                                }).catch(error => {
-                                console.log('Could not execute SBATCH: ', error);
-                                });
-                
-                            }
-                        ).catch(err => {
-
-                            console.log('Could not copy SBATCH to HPC: ', err);
-                        });
+                        
         
                     }
                 ).catch(omexErr => {
                     console.log('Could not copy omex to HPC: ', omexErr);
+                });
+
+                this.sshClient.putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`).then(
+                    res => {
+                        console.log('SBATCH copying to HPC successful: ', res);
+                        this.sshClient.execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`).then(resp => {
+                            console.log('Sbatch made executable: ', resp);
+
+                            this.sshClient.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
+                                console.log('Execution of sbatch was successful: ', result);
+                                }).catch(error => {
+                                console.log('Could not execute SBATCH: ', error);
+                                });
+
+
+                        }).catch(err => {
+                            console.log('Error occured whiled changing permission: ', err);
+                        });
+                        
+        
+                    }
+                ).catch(err => {
+
+                    console.log('Could not copy SBATCH to HPC: ', err);
                 });
         
                 

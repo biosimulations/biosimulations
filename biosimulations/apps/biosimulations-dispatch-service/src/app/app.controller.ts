@@ -48,7 +48,7 @@ export class AppController {
 
     // Generate SBATCH script
     const hpcTempDirPath = `${this.configService.get('hpcSimDirBase')}/${tempDir.split('-')[1]}`;
-    const sbatchString = Sbatch.generate(hpcTempDirPath, body.simulator);
+    const sbatchString = Sbatch.generate(hpcTempDirPath, body.simulator, file.originalname);
     fs.writeFileSync(sbatchPath, sbatchString);
 
     const hpc = new Hpc(sshConf, sftpConf);

@@ -87,12 +87,13 @@ export class Ssh {
 
                 writeStream.on('close', () => {
                     this.logger.log('File transferred successfully');
+                    resolve(true);
                 });
         
                 writeStream.on('end', () => {
                     this.logger.log('SFTP connection closed');
                     conn.close();
-                    resolve(true);
+                    
                 });
         
                 // initiate transfer of file
