@@ -66,7 +66,7 @@ export class AppController {
     if (!regEx.test(username)) {
       valid = false;
       message =
-        "Usernames must consist of numbers, letters and underscores '_'  only";
+        'Usernames must consist of numbers, letters and underscores \'_\'  only';
     } else {
       const taken = await this.accountService.find(username);
 
@@ -78,7 +78,7 @@ export class AppController {
 
     return { valid, message };
   }
-  //@UseGuards(AuthGuard('secret'))
+  // @UseGuards(AuthGuard('secret'))
   @Post()
   createAccount(@Body() body: CreateAccountDTO) {
     const token = body.token;
