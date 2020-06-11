@@ -1,0 +1,4 @@
+secretGenerator:
+  - name: biosimulations-secrets
+    files:
+      - config.env
