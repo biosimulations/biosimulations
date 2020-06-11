@@ -39,8 +39,6 @@ export class Sbatch {
     echo ENVIRONMENT
     env
     
-    localSingularityImage="/home/CAM/crbmapi/copasi_latest.img"
-    
     command="singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/CAM/crbmapi/${simulator}.img -i /root/in/${omexName} -o /root/out"
     echo $command
     
