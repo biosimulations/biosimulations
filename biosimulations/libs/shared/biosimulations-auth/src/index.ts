@@ -5,4 +5,6 @@ export { AuthzService } from './lib/authz/authz.service';
 export { BiosimulationsAuthModule } from './lib/biosimulations-auth.module';
 export { permissions } from './lib/permissions.decorator';
 export { PermissionsGuard } from './lib/permissions.guard';
+export { AdminGuard } from './lib/admin.guard';
 export * from './lib/token.utils';
+export { AuthToken } from './lib/authToken';

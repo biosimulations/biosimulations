@@ -3,15 +3,19 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { passportJwtSecret } from 'jwks-rsa';
 import { ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './jwt.strategy';
+import { AuthToken } from './authToken';
 import { AuthConfigService } from './auth0/strategy.config';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class AdminStrategy extends PassportStrategy(Strategy, 'admin') {
   constructor(config: ConfigService, authConfig: AuthConfigService) {
     super(authConfig.getConfig());
   }
 
-  validate(payload: any) {
-    return payload;
+  validate(payload: AuthToken) {
+    if (payload['https://biosimulations.org/app_metadata'].admin) {
+      return payload;
+    }
   }
 }

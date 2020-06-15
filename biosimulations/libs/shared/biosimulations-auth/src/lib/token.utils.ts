@@ -8,6 +8,3 @@ export function decodeToken(token: string) {
 export function getUserId(token: string) {
   return decodeToken(token).user_id;
 }
-
-function isAdmin() {}
-function getUsername() {}

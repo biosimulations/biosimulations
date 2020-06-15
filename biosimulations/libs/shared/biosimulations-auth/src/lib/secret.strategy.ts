@@ -6,9 +6,6 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class SecretStrategy extends PassportStrategy(Strategy, 'secret') {
   constructor(config: ConfigService) {
-    console.log(config.get('auth.management_secret'));
-    console.log(config.get('auth.auth0_domain'));
-    console.log(config.get('auth.management_id'));
     super({
       secretOrKey: config.get('auth.client_secret'),
       jwtFromRequest: (req: any) => req?.body?.token,
@@ -19,8 +16,6 @@ export class SecretStrategy extends PassportStrategy(Strategy, 'secret') {
     });
   }
   validate(payload: any) {
-    console.log('called');
-    console.log(payload);
     return payload;
   }
 }

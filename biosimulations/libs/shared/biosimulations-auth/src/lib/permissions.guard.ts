@@ -1,5 +1,5 @@
 /**
- * copied from https://auth0.com/blog/developing-a-secure-api-with-nestjs-adding-role-based-access-control/#Implement-Role-Based-Access-Control-in-NestJS
+ * copied from https://auth0.com/blog/developing-a-secure-api-with-nestjs-adding-role-based-access-control
  */
 
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
