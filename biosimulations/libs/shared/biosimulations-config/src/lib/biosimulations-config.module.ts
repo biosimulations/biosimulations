@@ -6,7 +6,14 @@ import { nestConfig } from './biosimulations-secrets';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [nestConfig],
-      envFilePath: ['./config/config.env', './config.env'],
+      envFilePath: [
+        './config/config.env',
+        './secret/secret.env',
+        './config/config.dev.env',
+        './secret/secret.dev.env',
+        './config.env',
+        './secret.env',
+      ],
     }),
   ],
   providers: [ConfigService],

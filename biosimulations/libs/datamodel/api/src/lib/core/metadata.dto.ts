@@ -13,7 +13,7 @@ import { PersonDTO, ExternalReferencesDTO } from '../..';
 export class MetadataDTO {
   @ApiProperty({ enum: License })
   license!: License;
-  @ApiProperty()
+  @ApiProperty({ type: () => [PersonDTO] })
   authors!: PersonDTO[];
   @ApiProperty()
   references!: ExternalReferencesDTO;

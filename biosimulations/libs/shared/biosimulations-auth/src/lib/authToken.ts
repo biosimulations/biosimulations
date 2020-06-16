@@ -13,10 +13,11 @@ export interface AuthToken {
 }
 
 export interface UserMetadata {
-  username: boolean;
+  username: string;
 }
 
 export interface AppMetadata {
   admin: boolean;
   registered: boolean;
+  termsAcceptedOn: number | null;
 }

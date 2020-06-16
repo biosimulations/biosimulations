@@ -68,10 +68,23 @@ export class BiomodelAttributesDTO implements BiomodelAttributes {
   @ApiProperty()
   metadata!: MetadataDTO;
 }
-
-export class CreateBiomodelAttributesDTO extends IntersectionType(
-  OmitType(BiomodelAttributesDTO, ['metadata']),
-  class _ {
-    metadata!: CreateMetaDataDTO;
-  },
-) {}
+export class CreateBiomodelAttributesDTO implements BiomodelAttributes {
+  @ApiProperty()
+  taxon!: TaxonDTO;
+  @ApiProperty({ type: () => [BiomodelParameterDTO] })
+  parameters!: BiomodelParameterDTO[];
+  @ApiProperty({ type: [BiomodelVariableDTO] })
+  variables!: BiomodelVariable[];
+  @ApiProperty()
+  framework!: OntologyTermDTO;
+  @ApiProperty()
+  format!: FormatDTO;
+  @ApiProperty({ type: () => CreateMetaDataDTO })
+  metadata!: CreateMetaDataDTO;
+}
+@ApiExtraModels(CreateMetaDataDTO)
+class CreateMetaField {
+  @ApiProperty()
+  metadata!: CreateMetaDataDTO;
+}
+class createNoMeta extends OmitType(BiomodelAttributesDTO, ['metadata']) {}
