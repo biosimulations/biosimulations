@@ -26,8 +26,7 @@ spec:
               readOnly: true
           ports:
             - containerPort: 3333
-
       volumes:
         - name: config
           secret:
-            secretName: biosimulations-secrets-6fcm989gbf
+            secretName: biosimulations-api-secrets-6m5kb2m2d6
