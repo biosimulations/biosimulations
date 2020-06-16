@@ -3,6 +3,10 @@ import { Account } from './account.model';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
 import { AuthzService } from '@biosimulations/shared/biosimulations-auth';
+import {
+  UserMetadata,
+  AppMetadata,
+} from '@biosimulations/shared/biosimulations-auth';
 
 @Injectable()
 export class AppService {
@@ -20,12 +24,24 @@ export class AppService {
     return await this.accountModel.findOne({ username: username }).exec();
   }
 
+  async deleteAll() {
+    return await this.accountModel.deleteMany({});
+  }
+
   async create(createAccountDto: Account): Promise<Account> {
     const createdAccount = await new this.accountModel(createAccountDto).save();
-    this.authz.updateUserMetadata(createdAccount._id, {
+    const userMetadata: UserMetadata = {
       username: createdAccount.username,
-    });
-    this.authz.updateAppMetadata(createdAccount._id, { registered: true });
+    };
+
+    // TODO Determine admin status dynamically
+    const appMetadata: AppMetadata = {
+      registered: true,
+      termsAcceptedOn: createdAccount.termsAcceptedOn,
+      admin: false,
+    };
+    this.authz.updateUserMetadata(createdAccount._id, userMetadata);
+    this.authz.updateAppMetadata(createdAccount._id, appMetadata);
     return createdAccount;
   }
 

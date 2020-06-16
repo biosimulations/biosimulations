@@ -6,18 +6,18 @@ import {
   Param,
   UseGuards,
   Req,
+  Delete,
 } from '@nestjs/common';
-import { Request } from 'express';
+
 import { AppService } from './app.service';
-import { Account } from './account.model';
+import { Account, Profile } from './account.model';
 import {
   ApiProperty,
   ApiPropertyOptional,
   ApiSecurity,
   ApiOAuth2,
 } from '@nestjs/swagger';
-import { Profile } from '@biosimulations/datamodel/core';
-import { AuthGuard } from '@nestjs/passport';
+
 import {
   getUserId,
   permissions,
@@ -30,7 +30,7 @@ class CreateAccountDTO {
   username!: string;
   @ApiProperty()
   token!: string;
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: () => Profile })
   profile?: Profile;
 }
 
@@ -46,6 +46,20 @@ export class AppController {
     return await this.accountService.findAll();
   }
 
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('delete:accounts')
+  @ApiOAuth2([])
+  @Delete()
+  async deleteAll() {
+    this.accountService.deleteAll();
+  }
+
+  @Get(':userName')
+  @ApiOAuth2([])
+  @UseGuards(JwtGuard)
+  async getOne(@Param('userName') userName: string) {
+    return this.accountService.find(userName);
+  }
   @Get('exists/:userId')
   async doesExist(@Param('userId') userId: string) {
     const account = await this.accountService.findById(userId);
@@ -66,7 +80,7 @@ export class AppController {
     if (!regEx.test(username)) {
       valid = false;
       message =
-        'Usernames must consist of numbers, letters and underscores \'_\'  only';
+        "Usernames must consist of numbers, letters and underscores '_'  only";
     } else {
       const taken = await this.accountService.find(username);
 
@@ -88,7 +102,7 @@ export class AppController {
       firstName: null,
       lastName: null,
       middleName: null,
-      image: '',
+      image: null,
       organization: null,
       website: null,
       description: null,
@@ -105,6 +119,12 @@ export class AppController {
       admin: false,
     });
 
-    return this.accountService.create(account);
+    return this.accountService.create({
+      username: body.username,
+      _id: userId,
+      termsAcceptedOn: Date.now(),
+      profile,
+      admin: false,
+    });
   }
 }

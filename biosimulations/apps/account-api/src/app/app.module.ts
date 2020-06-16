@@ -13,7 +13,7 @@ import { Account } from './account.model';
     TypegooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('database.uri'),
+        uri: configService.get('database.uri') || '',
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }),
