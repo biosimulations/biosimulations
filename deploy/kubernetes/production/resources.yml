@@ -19,14 +19,13 @@ spec:
         - name: biosimulations-api
           image: crbm/biosimulations-api:latest
           imagePullPolicy: "Always"
-
           volumeMounts:
-            - mountPath: "/app/config"
-              name: config
+            - mountPath: "/app/secret"
+              name: secret
               readOnly: true
           ports:
             - containerPort: 3333
       volumes:
-        - name: config
+        - name: secret
           secret:
-            secretName: biosimulations-api-secrets-6m5kb2m2d6
+            secretName: biosimulations-api-secrets-k6b5ck6kf2

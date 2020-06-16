@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: account-api
-
   replicas: 3
   template:
     metadata:
@@ -20,14 +19,13 @@ spec:
         - name: account-api
           image: crbm/account-api:latest
           imagePullPolicy: "Always"
-
           volumeMounts:
-            - mountPath: "/app/config"
-              name: config
+            - mountPath: "/app/secret"
+              name: secret
               readOnly: true
           ports:
             - containerPort: 3333
       volumes:
-        - name: config
+        - name: secret
           secret:
-            secretName: account-api-secrets-dk256d96kt
+            secretName: account-api-secrets-278ckmmkdg
