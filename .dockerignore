@@ -7,3 +7,4 @@ docs/
 .git/
 .gitignore
 karma.conf.js
+makefile
