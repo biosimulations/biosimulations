@@ -22,9 +22,10 @@ export class AuthzService {
     this.authzClient.updateAppMetadata({ id }, metadata, (err, user) => {
       // TODO handle error
       if (err) {
-        console.log(err);
+        console.error(err);
       } else {
-        console.log(user);
+        console.log('Updated User' + user.user_id);
+        console.log('Added App MetaData' + user.app_metadata);
       }
     });
   }
@@ -33,9 +34,10 @@ export class AuthzService {
     this.authzClient.updateUserMetadata({ id }, metadata, (err, user) => {
       // TODO handle error
       if (err) {
-        console.log(err);
+        console.error(err);
       } else {
-        console.log(user);
+        console.log('Updated User' + user.user_id);
+        console.log('Added UserMetadata' + user.user_metadata);
       }
     });
   }
