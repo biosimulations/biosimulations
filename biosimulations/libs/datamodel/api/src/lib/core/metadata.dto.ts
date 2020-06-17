@@ -15,7 +15,7 @@ export class MetadataDTO {
   license!: License;
   @ApiProperty({ type: () => [PersonDTO] })
   authors!: PersonDTO[];
-  @ApiProperty()
+  @ApiProperty({ type: () => ExternalReferencesDTO })
   references!: ExternalReferencesDTO;
   @ApiProperty()
   summary!: string;
@@ -32,15 +32,10 @@ export class MetadataDTO {
   @ApiProperty()
   version!: number;
   @ApiProperty()
-  parent!: string;
-  @ApiProperty()
-  children!: string[];
-  @ApiProperty()
   name!: string;
 }
 export class CreateMetaDataDTO extends OmitType(MetadataDTO, [
   'createdDate',
   'updatedDate',
   'version',
-  'children',
 ] as const) {}

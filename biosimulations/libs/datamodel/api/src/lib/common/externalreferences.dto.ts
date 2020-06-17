@@ -7,7 +7,7 @@ export class ExternalReferencesDTO implements ExternalReferences {
   @ApiProperty({ type: [IdentifierDTO] })
   identifiers!: IdentifierDTO[];
   @ApiProperty({ type: [JournalReferenceDTO] })
-  references!: JournalReferenceDTO[];
+  citations!: JournalReferenceDTO[];
   @ApiProperty({ type: String, nullable: true })
-  DOI!: string | null;
+  doi!: string | null;
 }

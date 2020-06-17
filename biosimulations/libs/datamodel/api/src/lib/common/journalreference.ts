@@ -23,8 +23,8 @@ export class JournalReferenceDTO implements JournalReference {
     nullable: true,
   })
   pages!: string | null;
-  @ApiProperty()
+  @ApiProperty({ example: 2020 })
   year!: number;
-  @ApiProperty()
+  @ApiProperty({ type: String, nullable: true })
   doi!: string | null;
 }

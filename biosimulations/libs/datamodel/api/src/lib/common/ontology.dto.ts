@@ -22,7 +22,7 @@ export class IdentifierDTO implements Identifier {
   @ApiProperty()
   namespace!: string;
   @ApiProperty()
-  identifier!: string;
+  id!: string;
   @ApiProperty({ type: String, nullable: true })
   url!: string | null;
 }

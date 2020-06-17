@@ -27,6 +27,6 @@ export interface KISAOTerm extends OntologyTerm {
 // Identifiers.org identifier
 export interface Identifier {
   namespace: string;
-  identifier: string;
+  id: string;
   url: string | null;
 }
