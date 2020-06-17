@@ -29,3 +29,19 @@ spec:
         - name: secret
           secret:
             secretName: biosimulations-api-secrets-k6b5ck6kf2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: biosimulations-api-service
+  namespace: default
+  labels:
+    app: biosimulations-api
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3333
+  selector:
+    app: biosimulations-api
+  type: NodePort
