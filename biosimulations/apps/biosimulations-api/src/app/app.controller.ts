@@ -1,8 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
-
+import { Controller, Get, UseGuards, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiOAuth2 } from '@nestjs/swagger';
+import {
+  JwtGuard,
+  PermissionsGuard,
+  permissions,
+  AdminGuard,
+  AuthToken,
+} from '@biosimulations/shared/biosimulations-auth';
 
 @Controller()
 export class AppController {
@@ -11,11 +18,28 @@ export class AppController {
     private readonly configService: ConfigService,
   ) {}
 
+  //TODO move these utlity functions to seperate module/library for use in other apps
   @ApiTags('Utility')
   @Get('ping')
   getData() {
-    return {
-      message: 'Welcome to biosimulations-api!',
-    };
+    return 'pong';
+  }
+
+  @UseGuards(JwtGuard)
+  @ApiOAuth2([])
+  @ApiTags('Utility')
+  @Get('hello')
+  getUser(@Req() req: Request) {
+    const user: AuthToken = req.user as any;
+    return `Welcome ${user['https://biosimulations.org/user_metadata'].username}`;
+  }
+
+  @UseGuards(AdminGuard)
+  @ApiOAuth2([])
+  @ApiTags('Utility')
+  @Get('helloAdmin')
+  adminOnly(@Req() req: Request) {
+    const user: AuthToken = req.user as any;
+    return `Welcome ${user['https://biosimulations.org/user_metadata'].username}`;
   }
 }

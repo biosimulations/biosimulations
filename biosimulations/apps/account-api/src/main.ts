@@ -21,12 +21,13 @@ async function bootstrap() {
   });
 }
 function setupOpenApi(app: INestApplication) {
+  // TODO abstract this to shared library
   const oauthSchema: SecuritySchemeObject = {
     type: 'oauth2',
     flows: {
       implicit: {
         authorizationUrl:
-          'https://crbm.auth0.com/authorize?audience=account.biosimulations.org',
+          'https://auth.biosimulations.dev/authorize?audience=account.biosimulations.org',
         scopes: [],
       },
     },
