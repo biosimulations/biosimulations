@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: biosimulations-api
-          image: crbm/biosimulations-api:latest
+          image: crbm/biosimulations-api:dev
           imagePullPolicy: "Always"
           volumeMounts:
             - mountPath: "/app/secret"
