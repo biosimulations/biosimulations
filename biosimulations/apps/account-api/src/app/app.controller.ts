@@ -80,7 +80,7 @@ export class AppController {
     if (!regEx.test(username)) {
       valid = false;
       message =
-        "Usernames must consist of numbers, letters and underscores '_'  only";
+        'Usernames must consist of numbers, letters and underscores \'_\'  only';
     } else {
       const taken = await this.accountService.find(username);
 
