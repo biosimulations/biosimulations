@@ -60,7 +60,7 @@ export class AppController {
 
     // TODO: Remove the directory when files are copied to HPC
     // this.removeNonEmptyDir(tempDir);
-    return { message: 'Simulation dispatched successfully'};
+    return { message: 'Simulation dispatch started.'};
 
   }
 

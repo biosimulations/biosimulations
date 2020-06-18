@@ -16,7 +16,7 @@ describe('AppController', () => {
   describe('getData', () => {
     it('should return "No file provided!"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.uploadFile(null,{simulator: 'copasi'})).toEqual({
+      expect(appController.uploadFile(null,{simulator: 'COPASI'})).toEqual({
         message: 'No file provided!'
       });
     });
