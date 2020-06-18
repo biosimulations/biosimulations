@@ -28,8 +28,8 @@ export class AppController {
   @UseInterceptors(FileInterceptor('file'))
   // Make multiple files work
   uploadFile(@UploadedFile() file, @Body() body) {
-    console.log(file);
-    console.log(body);
+    this.logger.log(file);
+    this.logger.log(body);
 
     if (file === null) {
       return {message: 'No file provided!'};
@@ -41,7 +41,7 @@ export class AppController {
     const omexPath = `${tempDir}/${file.originalname}`;
     const sbatchPath = `${tempDir}/run.sbatch`;
 
-    console.log('Tempdir:', tempDir);
+    this.logger.log('Tempdir:', tempDir);
     
     const hpcConfig = this.configService.get('hpc');
 
@@ -60,7 +60,7 @@ export class AppController {
 
     // TODO: Remove the directory when files are copied to HPC
     // this.removeNonEmptyDir(tempDir);
-    return { message: 'Simulation dispatched successfully'};
+    return { message: 'Simulation dispatch started.'};
 
   }
 
@@ -81,7 +81,7 @@ export class AppController {
         fs.rmdirSync(path)
       }
     } else {
-      console.log('Directory path not found.')
+      this.logger.log('Directory path not found.')
     }
   }
   
