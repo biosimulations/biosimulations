@@ -1,9 +1,9 @@
-import { Injectable, Scope, Inject } from '@nestjs/common';
+import { Injectable, Scope, Inject, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SSHConnectionConfig, Ssh } from '../ssh/ssh';
 
 export class Hpc {
-
+    private logger = new Logger(Hpc.name);
     sshClient: Ssh = null;
     constructor(public sshConfig: SSHConnectionConfig, public sftpConfig: SSHConnectionConfig) {
         this.sshClient = new Ssh(sshConfig, sftpConfig);
@@ -16,60 +16,60 @@ export class Hpc {
         const sbatchName = sbatchPathSplit[sbatchPathSplit.length - 1];
         const omexName = omexPathSplit[omexPathSplit.length - 1];
 
-        console.log('Omex name: ', omexName)
+        this.logger.log('Omex name: ' + JSON.stringify(omexName));
         
         // get remote InDir and OutDir from config (ideally indir name should be simId)
         this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/in`).then(value => {
-                console.log('Simdirectory created on HPC: ', value);
+                this.logger.log('Simdirectory created on HPC: ' + JSON.stringify(value));
 
 
                 this.sshClient.putFile(omexPath, `${simDirBase}/in/${omexName}`).then(val => {
                         
-                        console.log('Omex copying to HPC successful: ', val);
+                        this.logger.log('Omex copying to HPC successful: ' + JSON.stringify(val));
                         
         
                     }
                 ).catch(omexErr => {
-                    console.log('Could not copy omex to HPC: ', omexErr);
+                    this.logger.log('Could not copy omex to HPC: ' + JSON.stringify(omexErr));
                 });
 
                 this.sshClient.putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`).then(
                     res => {
-                        console.log('SBATCH copying to HPC successful: ', res);
+                        this.logger.log('SBATCH copying to HPC successful: ' + JSON.stringify(res));
                         this.sshClient.execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`).then(resp => {
-                            console.log('Sbatch made executable: ', resp);
+                            this.logger.log('Sbatch made executable: ' + JSON.stringify(resp));
 
                             this.sshClient.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
-                                console.log('Execution of sbatch was successful: ', result);
+                                this.logger.log('Execution of sbatch was successful: ' + JSON.stringify(result));
                                 }).catch(error => {
-                                console.log('Could not execute SBATCH: ', error);
+                                this.logger.log('Could not execute SBATCH: ' + JSON.stringify(error));
                                 });
 
 
                         }).catch(err => {
-                            console.log('Error occured whiled changing permission: ', err);
+                            this.logger.log('Error occured whiled changing permission: ' + JSON.stringify(err));
                         });
                         
         
                     }
                 ).catch(err => {
 
-                    console.log('Could not copy SBATCH to HPC: ', err);
+                    this.logger.log('Could not copy SBATCH to HPC: ' + JSON.stringify(err));
                 });
         
                 
 
             }).catch(err => {
-                console.log('Error occured while creating simdirectory: ', err);
+                this.logger.log('Error occured while creating simdirectory: ' + JSON.stringify(err));
 
         });
 
         this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/out`).then(
             value => {
-                console.log('Output directory for simulation created: ', value);
+                this.logger.log('Output directory for simulation created: ' + JSON.stringify(value));
 
             }).catch(err => {
-                console.log('Could not create output directory for simulation: ',err);
+                this.logger.log('Could not create output directory for simulation: ' + JSON.stringify(err));
         });
 
     
