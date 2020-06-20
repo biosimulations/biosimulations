@@ -1,12 +1,16 @@
-import { Injectable, Scope, Inject, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { SSHConnectionConfig, Ssh } from '../ssh/ssh';
+import { Injectable, Logger } from '@nestjs/common';
+import { SshService } from '../ssh/ssh.service';
 
-export class Hpc {
-    private logger = new Logger(Hpc.name);
-    sshClient: Ssh = null;
-    constructor(public sshConfig: SSHConnectionConfig, public sftpConfig: SSHConnectionConfig) {
-        this.sshClient = new Ssh(sshConfig, sftpConfig);
+@Injectable()
+export class HpcService {
+
+    private logger = new Logger(HpcService.name);
+
+    constructor( 
+        // private readonly configService: ConfigService,
+        private sshService: SshService
+        ) {
+
     }
 
     dispatchJob(simDirBase: string, omexPath: string, sbatchPath: string) {
@@ -19,11 +23,11 @@ export class Hpc {
         this.logger.log('Omex name: ' + JSON.stringify(omexName));
         
         // get remote InDir and OutDir from config (ideally indir name should be simId)
-        this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/in`).then(value => {
+        this.sshService.execStringCommand(`mkdir -p ${simDirBase}/in`).then(value => {
                 this.logger.log('Simdirectory created on HPC: ' + JSON.stringify(value));
 
 
-                this.sshClient.putFile(omexPath, `${simDirBase}/in/${omexName}`).then(val => {
+                this.sshService.putFile(omexPath, `${simDirBase}/in/${omexName}`).then(val => {
                         
                         this.logger.log('Omex copying to HPC successful: ' + JSON.stringify(val));
                         
@@ -33,13 +37,13 @@ export class Hpc {
                     this.logger.log('Could not copy omex to HPC: ' + JSON.stringify(omexErr));
                 });
 
-                this.sshClient.putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`).then(
+                this.sshService.putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`).then(
                     res => {
                         this.logger.log('SBATCH copying to HPC successful: ' + JSON.stringify(res));
-                        this.sshClient.execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`).then(resp => {
+                        this.sshService.execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`).then(resp => {
                             this.logger.log('Sbatch made executable: ' + JSON.stringify(resp));
 
-                            this.sshClient.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
+                            this.sshService.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
                                 this.logger.log('Execution of sbatch was successful: ' + JSON.stringify(result));
                                 }).catch(error => {
                                 this.logger.log('Could not execute SBATCH: ' + JSON.stringify(error));
@@ -64,7 +68,7 @@ export class Hpc {
 
         });
 
-        this.sshClient.execStringCommand(`mkdir -p ${simDirBase}/out`).then(
+        this.sshService.execStringCommand(`mkdir -p ${simDirBase}/out`).then(
             value => {
                 this.logger.log('Output directory for simulation created: ' + JSON.stringify(value));
 
@@ -86,3 +90,4 @@ export class Hpc {
     }
 
 }
+

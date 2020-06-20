@@ -1,23 +1,30 @@
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Client as SSHClient } from 'ssh2';
 import * as fs from 'file-system';
+import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-connection-config';
 
-export class SSHConnectionConfig {
-    host: string;
-    port: number;
-    username: string;
-    password: string;
-}
 
-export class Ssh {
-    private logger = new Logger(Ssh.name);
+@Injectable()
+export class SshService {
+    private hpcConfig = null;
+    private sftpConfig = null;
     private sshConfig = null;
-    private sftpConfig = null
+    
 
-    constructor(sshConfig: SSHConnectionConfig, sftpConfig?: SSHConnectionConfig) {
-        this.sshConfig = sshConfig;
-        this.sftpConfig = sftpConfig;
-    }
+    private logger = new Logger(SshService.name);
+
+    constructor(
+        private configService: ConfigService
+        
+    ){
+        this.hpcConfig = this.configService.get('hpc');
+        if (this.hpcConfig !== undefined) {
+            this.sshConfig = this.hpcConfig.ssh as SshConnectionConfig;
+            this.sftpConfig = this.hpcConfig.sftp as SshConnectionConfig;
+        }
+        
+     }
 
     execStringCommand(cmd: string): Promise<{ stdout: string; stderr: string; }> {
         return new Promise<{ stdout: string; stderr: string; }>((resolve, reject) => {
@@ -143,5 +150,4 @@ export class Ssh {
     // changeFilePermissions(remoteFilePath: string): Promise<boolean> {
 
     // }
-
 }

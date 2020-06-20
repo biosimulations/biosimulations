@@ -1,16 +1,18 @@
 import { Controller, Get, Logger, Post, Body, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { Hpc } from './utils/hpc/hpc'
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { throws } from 'assert';
-import { SSHConnectionConfig } from './utils/ssh/ssh';
 import * as fs from 'file-system';
-import { Sbatch } from './utils/sbatch/sbatch';
+import { HpcService } from './services/hpc/hpc.service';
+import { SbatchService } from './services/sbatch/sbatch.service';
 
 @Controller()
 export class AppController {
-  constructor( private readonly configService: ConfigService) {}
+  constructor( 
+    private readonly configService: ConfigService,
+    private hpcService: HpcService,
+    private sbatchService: SbatchService
+    ) {}
   private logger = new Logger(AppController.name);
   
   @MessagePattern('dispatch')
@@ -43,20 +45,20 @@ export class AppController {
 
     this.logger.log('Tempdir:', tempDir);
     
-    const hpcConfig = this.configService.get('hpc');
+    // const hpcConfig = this.configService.get('hpc');
 
-    const sshConf = hpcConfig.ssh as SSHConnectionConfig;
-    const sftpConf = hpcConfig.sftp as SSHConnectionConfig;
+    // const sshConf = hpcConfig.ssh as SSHConnectionConfig;
+    // const sftpConf = hpcConfig.sftp as SSHConnectionConfig;
 
     fs.writeFileSync(omexPath, file.buffer);
 
     // Generate SBATCH script
     const hpcTempDirPath = `${this.configService.get('hpcSimDirBase')}/${tempDir.split('-')[1]}`;
-    const sbatchString = Sbatch.generate(hpcTempDirPath, body.simulator, file.originalname);
+    const sbatchString = this.sbatchService.generateSbatch(hpcTempDirPath, body.simulator, file.originalname);
     fs.writeFileSync(sbatchPath, sbatchString);
 
-    const hpc = new Hpc(sshConf, sftpConf);
-    hpc.dispatchJob(hpcTempDirPath, omexPath, sbatchPath)
+    // const hpc = new Hpc(sshConf, sftpConf);
+    this.hpcService.dispatchJob(hpcTempDirPath, omexPath, sbatchPath)
 
     // TODO: Remove the directory when files are copied to HPC
     // this.removeNonEmptyDir(tempDir);
