@@ -7,17 +7,24 @@ import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-conne
 
 @Injectable()
 export class SshService {
-
-    private hpcConfig = this.configService.get('hpc');
-
-    private sshConfig = this.hpcConfig.ssh as SshConnectionConfig;
-    private sftpConfig = this.hpcConfig.sftp as SshConnectionConfig;
+    private hpcConfig = null;
+    private sftpConfig = null;
+    private sshConfig = null;
+    
 
     private logger = new Logger(SshService.name);
 
     constructor(
         private configService: ConfigService
-    ){ }
+        
+    ){
+        this.hpcConfig = this.configService.get('hpc');
+        if (this.hpcConfig !== undefined) {
+            this.sshConfig = this.hpcConfig.ssh as SshConnectionConfig;
+            this.sftpConfig = this.hpcConfig.sftp as SshConnectionConfig;
+        }
+        
+     }
 
     execStringCommand(cmd: string): Promise<{ stdout: string; stderr: string; }> {
         return new Promise<{ stdout: string; stderr: string; }>((resolve, reject) => {

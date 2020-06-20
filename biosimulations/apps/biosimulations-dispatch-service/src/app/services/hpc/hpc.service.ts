@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { SshService } from '../ssh/ssh.service';
 
 @Injectable()
@@ -8,7 +7,7 @@ export class HpcService {
     private logger = new Logger(HpcService.name);
 
     constructor( 
-        private readonly configService: ConfigService,
+        // private readonly configService: ConfigService,
         private sshService: SshService
         ) {
 

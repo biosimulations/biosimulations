@@ -1,6 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { ConfigService } from '@nestjs/config';
+import { HpcService } from './services/hpc/hpc.service';
+import { SshService } from './services/ssh/ssh.service';
+import { SbatchService } from './services/sbatch/sbatch.service';
 
 
 describe('AppController', () => {
@@ -9,7 +12,7 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [ConfigService],
+      providers: [ConfigService, HpcService, SshService, SbatchService],
     }).compile();
   });
 
