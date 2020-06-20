@@ -1,6 +1,5 @@
 import { Controller, Get, Logger, Post, Body, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { Hpc } from './utils/hpc/hpc'
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'file-system';
