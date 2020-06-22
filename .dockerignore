@@ -8,3 +8,5 @@ docs/
 .gitignore
 karma.conf.js
 makefile
+biosimulations/config/
+biosimulations/secrets/
