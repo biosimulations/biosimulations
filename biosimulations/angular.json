@@ -722,11 +722,72 @@
           }
         }
       }
+    },
+    "biosimulations-dispatch-service": {
+      "root": "apps/biosimulations-dispatch-service",
+      "sourceRoot": "apps/biosimulations-dispatch-service/src",
+      "projectType": "application",
+      "prefix": "biosimulations-dispatch-service",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/biosimulations-dispatch-service",
+            "main": "apps/biosimulations-dispatch-service/src/main.ts",
+            "tsConfig": "apps/biosimulations-dispatch-service/tsconfig.app.json",
+            "assets": [
+              "apps/biosimulations-dispatch-service/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/biosimulations-dispatch-service/src/environments/environment.ts",
+                  "with": "apps/biosimulations-dispatch-service/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "biosimulations-dispatch-service:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulations-dispatch-service/tsconfig.app.json",
+              "apps/biosimulations-dispatch-service/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/biosimulations-dispatch-service/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/biosimulations-dispatch-service/jest.config.js",
+            "tsConfig": "apps/biosimulations-dispatch-service/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-frontend",
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "a88a265a-606a-4397-9b67-9c44b40e7f51"
   },
   "schematics": {
     "@nrwl/angular:application": {

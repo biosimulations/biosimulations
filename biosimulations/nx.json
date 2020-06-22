@@ -60,13 +60,20 @@
         "type:util",
         "platform:server"
       ]
+    },
+    "biosimulations-dispatch-service": {
+      "tags": [
+        "scope:hpc",
+        "type:backend",
+        "platform:server"
+      ]
     }
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "accessToken": "NjhhOTBiMTUtNTE4OS00NTIyLThiNDUtYTVhMmY1ZTNiYzIyfHJlYWQtd3JpdGU=",
+        "accessToken": "ZTJmNzdiMjAtOTVmOC00YjdiLWI3ODMtNjA0MGI2OTRiZTIxfHJlYWQ=",
         "cacheableOperations": [
           "build",
           "test",
