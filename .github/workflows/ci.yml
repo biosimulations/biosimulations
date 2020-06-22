@@ -1,13 +1,11 @@
 name: CI
 
 on:
-  push:
-    branches: [master, stage, dev]
-  pull_request:
-    branches: [master, stage, dev]
+  - push
+  - pull_request
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,15 +13,14 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+
       - run: |
           if [[ $GITHUB_BASE_REF ]]
             then
-              export NX_BASE=origin/$GITHUB_BASE_REF
+              echo '::set-env name=NX_BASE::origin/'$GITHUB_BASE_REF
            else
-            export NX_BASE=origin/master
+            echo '::set-env name=NX_BASE::'$(git rev-parse HEAD~1)
           fi
-          echo $NX_BASE
-          echo '::set-env name=NX_BASE::$NX_BASE'
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
