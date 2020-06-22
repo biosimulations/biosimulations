@@ -16,7 +16,7 @@ import { CreateMetaDataDTO, MetadataDTO } from './index';
 
 export class BiomodelParameterDTO implements BiomodelParameter {
   @ApiProperty({
-    example: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='N'",
+    example: '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'N\'',
   })
   target!: string;
   @ApiProperty({ example: 'Species amounts/concentrations' })
