@@ -2,20 +2,19 @@ name: CI
 
 on:
   push:
-    branches: [dev]
+    branches: [master, stage, dev]
   pull_request:
-    branches: [dev]
+    branches: [master, stage, dev]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-      - run: git fetch --no-tags --prune --depth=5 origin master dev
       - run: |
           if [[ $GITHUB_BASE_REF ]]
             then
@@ -24,6 +23,7 @@ jobs:
             export NX_BASE=origin/master
           fi
           echo $NX_BASE
+          echo '::set-env name=NX_BASE::$NX_BASE'
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
