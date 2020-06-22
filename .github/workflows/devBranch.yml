@@ -19,9 +19,9 @@ jobs:
       - run: |
           if [[ $GITHUB_BASE_REF ]]
             then
-              echo '::set-env name=NX_BASE::'$GITHUB_BASE_REF
+              echo '::set-env name=NX_BASE::origin/'$GITHUB_BASE_REF
            else
-            echo '::set-env name=NX_BASE::'origin/master
+            echo '::set-env name=NX_BASE::'$(git rev-parse HEAD~1)
           fi
       - name: Use Node.js
         uses: actions/setup-node@v1
