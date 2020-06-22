@@ -18,11 +18,11 @@ deploy:
 .PHONY: deploy
 
 biosimulations-api:
-					$(MAKE) push APP=biosimulations-api
+					$(MAKE) push APP=biosimulations-api TAG=$(TAG)
 .PHONY: biosimulations-api
 
 account-api: 
-			$(MAKE) push APP=account-api
+			$(MAKE) push APP=account-api TAG=$(TAG)
 .PHONY: account-api
 
 
