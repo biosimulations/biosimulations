@@ -51,7 +51,11 @@ export class Serializer<T extends TopLevelResource> {
       topLevelResource.authors = [];
       for (const author of json.authors) {
         topLevelResource.authors.push(
-          new Person(author.firstName, author.middleName, author.lastName),
+          new Person({
+            firstName: author.firstName,
+            middleName: author.middleName,
+            lastName: author.lastName,
+          }),
         );
       }
     }

@@ -29,17 +29,59 @@
     "datamodel-utils": {
       "tags": []
     },
+    "login-frontend": {
+      "tags": []
+    },
+    "login-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "login-frontend"
+      ]
+    },
+    "ui-material": {
+      "tags": []
+    },
+    "shared-debug": {
+      "tags": []
+    },
+    "account-api": {
+      "tags": []
+    },
+    "shared-biosimulations-auth": {
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:server"
+      ]
+    },
+    "shared-biosimulations-config": {
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:server"
+      ]
+    },
     "biosimulations-dispatch-service": {
-      "tags": ["scope:hpc",
+      "tags": [
+        "scope:hpc",
         "type:backend",
-        "platform:server"]
+        "platform:server"
+      ]
     }
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "accessToken": "ZTJmNzdiMjAtOTVmOC00YjdiLWI3ODMtNjA0MGI2OTRiZTIxfHJlYWQ=",
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   }

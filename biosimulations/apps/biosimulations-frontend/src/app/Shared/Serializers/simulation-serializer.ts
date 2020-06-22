@@ -7,7 +7,7 @@ import { Simulator } from '../Models/simulator';
 import { ParameterChange } from '../Models/parameter-change';
 import { ModelParameter } from '../Models/model-parameter';
 import { ModelSerializer } from './model-serializer';
-import { AlgorithmDTO } from '@biosimulations/datamodel/core';
+import { Algorithm as AlgorithmDTO } from '@biosimulations/datamodel/core';
 
 export class SimulationSerializer extends Serializer<Simulation> {
   modelSerializer: ModelSerializer;
@@ -35,7 +35,7 @@ export class SimulationSerializer extends Serializer<Simulation> {
     );
     const paramChanges = json.modelParameterChanges;
     if (paramChanges) {
-      paramChanges.forEach(change => {
+      paramChanges.forEach((change) => {
         const parameter = change.parameter;
         const param = new ModelParameter(parameter).serialize();
         const paramChange = new ParameterChange({

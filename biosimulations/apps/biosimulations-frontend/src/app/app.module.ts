@@ -48,7 +48,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     MaterialModule,
     SharedModule,
-
     LoggerModule.forRoot({ level: environment.logging.level }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

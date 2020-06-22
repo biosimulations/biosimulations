@@ -1,0 +1,23 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "biosimulations",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "biosimulations",
+      "kebab-case"
+    ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "!**/*",
+      "**/*.spec.ts"
+    ]
+  }
+}

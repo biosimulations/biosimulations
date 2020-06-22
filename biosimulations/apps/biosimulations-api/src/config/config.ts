@@ -4,6 +4,8 @@ export default () => ({
     username: process.env.MONGO_USERNAME,
     password: process.env.MONGO_PASSWORD,
     port: process.env.MONGO_PORT || 27017,
+    // Todo construct the uri from above
+    uri: process.env.MONGODB_URI,
   },
   auth: {
     auth0_domain: process.env.AUTH0_DOMAIN,

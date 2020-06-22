@@ -1,0 +1,22 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <div *ngIf="showPrevious; else blankButton">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!this.enablePrevious"
+      (click)="this.previous.emit($event)"
+    >
+      {{ this.previousLabel }}
+    </button>
+  </div>
+  <ng-template #blankButton> <div></div> </ng-template>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!this.enableNext"
+    [fxHide]="!this.showNext"
+    (click)="this.next.emit($event)"
+  >
+    {{ this.nextLabel }}
+  </button>
+</div>

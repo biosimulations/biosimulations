@@ -1,0 +1,69 @@
+<div class="content mat-typography" [hidden]="(submitted | async) || (accepted | async)">
+  <h1 class="header">
+    Thank you for creating an account. Just a few more steps:
+  </h1>
+
+  <mat-horizontal-stepper linear="true" labelPosition="bottom" #stepper>
+    <mat-step [stepControl]="termsAndConditionsForm" [editable]="(submitted | async) === false" #step>
+      <ng-template matStepLabel>Terms of Service</ng-template>
+      <p>
+        To create a Biosimulations account, you must agree to the Terms of
+        Service, Code of Conduct, and Privacy Policy
+      </p>
+      <p>
+        Please <a [href]="aboutUrl"> contact us</a> if you have any questions
+      </p>
+      <form form class="terms" fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="2%"
+        [formGroup]="termsAndConditionsForm" #termsForm>
+        <biosimulations-login-agreement [agreementUrl]="tosUrl" checkboxMessage=" I accept the Terms of Service"
+          formControlName="tos">
+        </biosimulations-login-agreement>
+
+        <biosimulations-login-agreement [agreementUrl]="ppoUrl" checkboxMessage=" I accept the Privacy Policy"
+          formControlName="ppo">
+        </biosimulations-login-agreement>
+
+        <biosimulations-login-agreement [agreementUrl]="ccUrl"
+          checkboxMessage=" I agree to abide by the Code of Conduct" formControlName="coc">
+        </biosimulations-login-agreement>
+      </form>
+      <biosimulations-stepper-buttons [showPrevious]="false" [enableNext]="this.termsAndConditionsForm.valid"
+        (next)="stepper.next()"></biosimulations-stepper-buttons>
+    </mat-step>
+
+    <mat-step [editable]="(submitted | async) === false" [stepControl]="userNameForm" #step>
+      <ng-template matStepLabel>Choose a Username</ng-template>
+      <p>
+        Please choose a username. This username will be associated with all
+        resources you upload or create. Other users can also view your profile,
+        if you choose to make it public.
+      </p>
+      <mat-form-field [class.error]="userNameForm.invalid && userNameForm.touched">
+        <mat-label id=" usernameLabel">Username</mat-label>
+        <input aria-labelledby="usernameLabel" matInput placeholder="Choose a username..." [formControl]="userNameForm"
+          required />
+        <mat-error *ngIf="userNameForm.invalid">
+          {{ getErrorMessage() }} </mat-error>
+      </mat-form-field>
+      <biosimulations-stepper-buttons [enableNext]="userNameForm.valid" (next)="register()"
+        (previous)="stepper.previous()"></biosimulations-stepper-buttons>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<div [hidden]="(submitted | async) === (false) || (accepted | async)">
+  <mat-spinner> </mat-spinner>
+  <p>Finishing Setup....</p>
+</div>
+
+<biosimulations-debug-viewer>
+  <p>state: {{ this.state }}</p>
+  <p>Token: {{ this.token }}</p>
+  <p>Submitted: {{ this.submitted | async }}</p>
+  <p>Accepted: {{ this.accepted | async }}</p>
+  <p>User: {{ this.user | async }}</p>
+  <p>
+    Terms form: {{ this.termsAndConditionsForm.valueChanges | async | json }}
+  </p>
+  <p>username form: {{ this.userNameForm.valueChanges | async | json }}</p>
+</biosimulations-debug-viewer>

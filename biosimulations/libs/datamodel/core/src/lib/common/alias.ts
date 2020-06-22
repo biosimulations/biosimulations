@@ -9,7 +9,9 @@ export type DOI = string;
 // Todo perhaps use class validator or see if type can be limited using regex
 
 // Strings with some sort of constraint
-export type DateString = string;
+
+// Seconds from epoch
+export type DateString = number;
 export type Email = string;
 
 // Refers to a string that is a valid id in the Biosimulations database

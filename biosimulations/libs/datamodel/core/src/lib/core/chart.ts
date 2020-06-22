@@ -1,6 +1,3 @@
-import { DTO } from '@biosimulations/datamodel/utils';
-// See if json-schema can somehow be made into a type
-
 type VegaSpecification = any;
 
 export interface ChartAttributes {
@@ -22,10 +19,8 @@ export enum ChartType {
   advanced = 'advanced',
 }
 
-export interface ChartDataFieldCore {
+export interface ChartDataField {
   name: string;
   shape: ChartDataFieldShape;
   type: ChartDataFieldType;
 }
-
-export type ChartDataFieldDTO = DTO<ChartDataFieldCore>;

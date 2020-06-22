@@ -13,36 +13,17 @@ import { VisualizationService } from '../Services/Resources/visualization.servic
 import * as md5 from 'md5';
 import { Observable, of } from 'rxjs';
 import { Person } from './person';
+import { Profile } from '@biosimulations/datamodel/core';
+import { JsonPipe } from '@angular/common';
+import { isNull } from 'util';
 
 export class UserSerializer {
-  fromJson(json: any): User {
-    Object.entries(json).forEach(([key, value]) => {
-      if (value === '') {
-        json[key] = null;
-      }
-    });
-    const user = new User();
-    user.userId = json._id;
-    user.userName = json.userName;
-    user.firstName = json.firstName;
-    user.middleName = json.middleName;
-    user.lastName = json.lastName;
-    user.organization = json.organization;
-    user.website = json.website;
-    user.email = json.email;
-    user.emailVerified = json.emailVerified || false;
-    user.emailPublic = json.emailPublic || false;
-    user.gravatarEmail = json.gravatarEmail;
-    user.gitHubId = json.gitHubId;
-    user.googleScholarId = json.googleScholarId;
-    user.orcId = json.orcId;
-    user.description = json.description;
-
+  fromJson(json: Profile): User {
+    const user = new User(json);
     return user;
   }
   toJson(user: User): any {
     return {
-      _id: user.userId,
       userName: user.userName,
       firstName: user.firstName,
       middleName: user.middleName,
@@ -61,29 +42,46 @@ export class UserSerializer {
   }
 }
 export class User extends Person {
-  userId?: string | number;
-  userName?: string;
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
-  organization?: string;
-  website?: string;
-  email?: string;
+  userName: string;
+  firstName: string;
+  middleName: string | null;
+  lastName: string;
+  organization: string | null;
+  website: string | null;
+  email: string | null;
+  image: string | null;
   emailVerified = false;
   emailPublic = false;
   gravatarEmail?: string;
   gitHubId?: string;
   googleScholarId?: string;
   orcId?: string;
-  description?: string;
+  description: string | null;
 
-  public modelService: ModelService;
-  public simulationService: SimulationService;
-  public visualizationService: VisualizationService;
-  public projectService: ProjectService;
-  public chartTypeService: ChartTypeService;
+  constructor(json: Profile) {
+    // TODO make this definite
+    super({
+      firstName: json.firstName || '',
+      middleName: json.middleName,
+      lastName: json.lastName || '',
+    });
+    this.firstName = json.firstName || '';
+    this.lastName = json.lastName || '';
+    this.userName = json.userName;
+    this.middleName = json.middleName;
+    this.organization = json.organization;
+    this.website = json.website;
+    this.email = json.emails ? json.emails[0] : null;
+    this.image = json.image;
+    this.description = json.description;
+  }
+  public modelService?: ModelService;
+  public simulationService?: SimulationService;
+  public visualizationService?: VisualizationService;
+  public projectService?: ProjectService;
+  public chartTypeService?: ChartTypeService;
 
-  getRoute(): (string | number)[] {
+  getRoute(): string[] {
     return ['/user', this.userName];
   }
 
@@ -92,6 +90,9 @@ export class User extends Person {
   }
 
   getGravatarImgUrl(): string {
+    if (this.image) {
+      return this.image;
+    }
     if (this.gravatarEmail) {
       return (
         'https://www.gravatar.com/avatar/' +
@@ -103,23 +104,25 @@ export class User extends Person {
     }
   }
 
-  getProjects(): Observable<Project[]> {
-    return this.projectService.list();
+  getProjects(): Observable<Project[] | null> {
+    return this.projectService ? this.projectService.list() : of(null);
   }
 
-  getModels(): Observable<Model[]> {
-    return this.modelService.list();
+  getModels(): Observable<Model[] | null> {
+    return this.modelService ? this.modelService.list() : of(null);
   }
 
-  getSimulations(): Observable<Simulation[]> {
-    return this.simulationService.list();
+  getSimulations(): Observable<Simulation[] | null> {
+    return this.simulationService ? this.simulationService.list() : of(null);
   }
 
-  getChartTypes(): Observable<ChartType[]> {
-    return this.chartTypeService.list();
+  getChartTypes(): Observable<ChartType[] | null> {
+    return this.chartTypeService ? this.chartTypeService.list() : of(null);
   }
 
-  getVisualizations(): Observable<Visualization[]> {
-    return this.visualizationService.list();
+  getVisualizations(): Observable<Visualization[] | null> {
+    return this.visualizationService
+      ? this.visualizationService.list()
+      : of(null);
   }
 }

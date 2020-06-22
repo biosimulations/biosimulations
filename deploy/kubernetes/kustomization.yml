@@ -1,0 +1,10 @@
+secretGenerator:
+  - name: biosimulations-api-secrets
+    namespace: default
+    files:
+      - config/biosimulations-api/secret.env
+
+  - name: account-api-secrets
+    namespace: default
+    files:
+      - config/account-api/secret.env

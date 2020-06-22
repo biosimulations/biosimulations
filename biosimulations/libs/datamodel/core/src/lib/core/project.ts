@@ -1,5 +1,4 @@
-import { DTO } from '@biosimulations/datamodel/utils';
-import { JournalReferenceDTO } from '../common';
+import { JournalReference } from '../common';
 import { BiosimulationsId } from '../common/alias';
 
 export enum ProjectProductType {
@@ -20,15 +19,14 @@ export const projectProductTypes = [
   { value: ProjectProductType.other, name: 'other' },
 ];
 
-export class ProjectProductCore {
-  reference: JournalReferenceDTO;
+export interface ProjectProduct {
+  reference: JournalReference;
   type: ProjectProductType;
   label: string;
   description: string;
   resources: BiosimulationsId[];
 }
-export type ProjectProductDTO = DTO<ProjectProductCore>;
 
 export interface ProjectAttributes {
-  products: ProjectProductDTO[];
+  products: ProjectProduct[];
 }

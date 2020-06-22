@@ -1,9 +1,5 @@
-import { DTO } from '@biosimulations/datamodel/utils';
-
-export interface PersonCore {
+export interface Person {
   firstName: string;
-  middleName: string;
+  middleName: string | null;
   lastName: string;
 }
-
-export type PersonDTO = DTO<PersonCore>;

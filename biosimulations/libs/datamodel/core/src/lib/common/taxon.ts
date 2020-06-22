@@ -1,8 +1,4 @@
-import { DTO } from '@biosimulations/datamodel/utils';
-
-export interface TaxonCore {
-  id: string;
+export interface Taxon {
+  id: number;
   name: string;
 }
-
-export type TaxonDTO = DTO<TaxonCore>;

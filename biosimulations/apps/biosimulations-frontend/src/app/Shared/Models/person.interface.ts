@@ -1,7 +1,7 @@
 export interface PersonInterface {
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
+  firstName: string;
+  middleName: string | null;
+  lastName: string;
 
   getRoute(): (string | number)[];
   getFullName(): string;

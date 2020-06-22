@@ -1,7 +1,5 @@
-import { DTO } from '@biosimulations/datamodel/utils';
-
 import { PrimitiveType } from '../common/primitive-type';
-import { OntologyTermDTO, FormatDTO, JournalReferenceDTO } from '../..';
+import { OntologyTerm, Format, JournalReference } from '../..';
 import { KisaoId } from '../common/alias';
 
 /**
@@ -10,32 +8,28 @@ import { KisaoId } from '../common/alias';
  * type is an enum string to determine what the underling type of the parameter's value is
  * recomendedRange is a sensible value from the original that the parameter can be changed to
  */
-export interface AlgorithmParameterCore {
+export interface AlgorithmParameter {
   id: string;
   name: string;
   type: PrimitiveType;
   value: boolean | number | string;
   // Todo make this a conditional type based on value
-  recomendedRange?: (boolean | number | string)[];
-  kisaoId: KisaoId;
+  recomendedRange: (boolean | number | string)[] | null;
+  kisaoId: KisaoId | null;
 }
 
-export interface AlgorithmCore {
+export interface Algorithm {
   id: string;
   name: string;
   kisaoId: KisaoId;
-  ontologyTerms: OntologyTermDTO[];
-  modelingFrameworks: OntologyTermDTO[];
-  modelFormats: FormatDTO[];
-  parameters: AlgorithmParameterDTO[];
-  simulationFormats: FormatDTO[];
-  archiveFormats: FormatDTO[];
-  references: JournalReferenceDTO[];
+  ontologyTerms: OntologyTerm[];
+  modelingFrameworks: OntologyTerm[];
+  modelFormats: Format[];
+  parameters: AlgorithmParameter[];
+  simulationFormats: Format[];
+  archiveFormats: Format[];
+  references: JournalReference[];
 }
-
-export type AlgorithmDTO = DTO<AlgorithmCore>;
-
-export type AlgorithmParameterDTO = DTO<AlgorithmParameterCore>;
 
 /*
  * // can this be made generic?
@@ -43,7 +37,5 @@ export type AlgorithmParameterDTO = DTO<AlgorithmParameterCore>;
  * would then use reflect to check all parameters? only use case currently is diff between algorithm and model param
  */
 
-export const isAlgorithmParameterDTO = (
-  param: any,
-): param is AlgorithmParameterDTO =>
+export const isAlgorithmParameter = (param: any): param is AlgorithmParameter =>
   'kisaoId' in param && 'id' in param && 'name' in param && 'value' in param;

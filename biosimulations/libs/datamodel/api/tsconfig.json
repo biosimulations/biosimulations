@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"]

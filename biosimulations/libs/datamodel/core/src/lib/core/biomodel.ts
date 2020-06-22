@@ -1,33 +1,26 @@
-import {
-  IdentifierDTO,
-  PrimitiveType,
-  OntologyTermDTO,
-  FormatDTO,
-} from '../..';
-import { DTO } from '@biosimulations/datamodel/utils';
-import { TaxonDTO } from '../common/taxon';
+import { Identifier, PrimitiveType, OntologyTerm, Format } from '../..';
+import { Taxon } from '../common/taxon';
+import { PrimaryResourceMetaData } from '../resources';
+import { BiosimulationsId, UserId } from '../common';
 
-export interface BiomodelParameterCore {
+export interface BiomodelParameter {
   target: string;
   group: string;
   id: string;
   name: string;
-  description?: string;
-  identifiers: IdentifierDTO[];
+  description: string | null;
+  identifiers: Identifier[];
   type: PrimitiveType;
   value: number | string | boolean;
   recomendedRange: (boolean | string | number)[];
   units: string;
 }
 
-export type BiomodelParameterDTO = DTO<BiomodelParameterCore>;
-// See isAlogrithmParameterDTO method also. Used to differentiate between alg paramter
-export const isBiomodelParameterDTO = (
-  param: any,
-): param is BiomodelParameterDTO =>
+// See isAlogrithmParameter method also. Used to differentiate between alg paramter
+export const isBiomodelParameter = (param: any): param is BiomodelParameter =>
   'units' in param && 'id' in param && 'name' in param && 'value' in param;
 
-export class BiomodelVariableCore {
+export interface BiomodelVariable {
   target: string;
   group: string;
   id: string;
@@ -36,13 +29,16 @@ export class BiomodelVariableCore {
   type: PrimitiveType;
   units: string;
 }
-export type BiomodelVariableDTO = DTO<BiomodelVariableCore>;
 
-export class BiomodelAttributes {
-  taxon: TaxonDTO;
-  parameters: BiomodelParameterDTO[];
-  variables: BiomodelVariableDTO[];
-  file: string;
-  framework: OntologyTermDTO;
-  format: FormatDTO;
+export interface BiomodelAttributes {
+  taxon: Taxon;
+  parameters: BiomodelParameter[];
+  variables: BiomodelVariable[];
+  framework: OntologyTerm;
+  format: Format;
+}
+
+export interface BiomodelRelationships {
+  file: BiosimulationsId;
+  owner: UserId;
 }

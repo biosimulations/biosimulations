@@ -25,30 +25,35 @@
             "tsConfig": "apps/biosimulations-frontend/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/biosimulations-frontend/src/favicon-16x16.png",
-              "apps/biosimulations-frontend/src/favicon-32x32.png",
-              "apps/biosimulations-frontend/src/favicon.png",
-              "apps/biosimulations-frontend/src/favicon.ico",
-              "apps/biosimulations-frontend/src/android-chrome-192x192.png",
-              "apps/biosimulations-frontend/src/android-chrome-512x512.png",
-              "apps/biosimulations-frontend/src/apple-touch-icon.png",
-              "apps/biosimulations-frontend/src/mstile-70x70.png",
-              "apps/biosimulations-frontend/src/mstile-144x144.png",
-              "apps/biosimulations-frontend/src/mstile-150x150.png",
-              "apps/biosimulations-frontend/src/mstile-310x150.png",
-              "apps/biosimulations-frontend/src/mstile-310x310.png",
-              "apps/biosimulations-frontend/src/safari-pinned-tab.svg",
               "apps/biosimulations-frontend/src/browserconfig.xml",
               "apps/biosimulations-frontend/src/assets",
               "apps/biosimulations-frontend/src/_redirects",
-              "apps/biosimulations-frontend/src/manifest.webmanifest"
+              "apps/biosimulations-frontend/src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "./libs/ui/assets",
+                "output": "./assets"
+              },
+              {
+                "glob": "favicon.*",
+                "input": "./libs/ui/assets",
+                "output": "/"
+              },
+              {
+                "glob": "_redirects",
+                "input": "./libs/ui/assets",
+                "output": "/"
+              }
             ],
             "styles": [
-              "apps/biosimulations-frontend/src/theme.scss",
-              "apps/biosimulations-frontend/src/theme_colors.scss",
               "apps/biosimulations-frontend/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/ui/material/src/lib"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -62,7 +67,7 @@
               "commonChunk": true,
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
               "extractLicenses": true,
@@ -386,6 +391,338 @@
         }
       }
     },
+    "login-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/login-frontend",
+      "sourceRoot": "apps/login-frontend/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/login-frontend",
+            "index": "apps/login-frontend/src/index.html",
+            "main": "apps/login-frontend/src/main.ts",
+            "polyfills": "apps/login-frontend/src/polyfills.ts",
+            "tsConfig": "apps/login-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/login-frontend/src/favicon.ico",
+              "apps/login-frontend/src/assets",
+              "apps/login-frontend/src/manifest.webmanifest"
+            ],
+            "styles": [
+              "apps/login-frontend/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/ui/material/src/lib"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/login-frontend/src/environments/environment.ts",
+                  "with": "apps/login-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/login-frontend/ngsw-config.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "login-frontend:build",
+            "proxyConfig": "apps/login-frontend/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "login-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "login-frontend:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/login-frontend/tsconfig.app.json",
+              "apps/login-frontend/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/login-frontend/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/login-frontend/jest.config.js",
+            "tsConfig": "apps/login-frontend/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/login-frontend/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "login-frontend-e2e": {
+      "root": "apps/login-frontend-e2e",
+      "sourceRoot": "apps/login-frontend-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/login-frontend-e2e/cypress.json",
+            "tsConfig": "apps/login-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "login-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "login-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/login-frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/login-frontend-e2e/**"
+            ]
+          }
+        }
+      }
+    },
+    "ui-material": {
+      "projectType": "library",
+      "root": "libs/ui/material",
+      "sourceRoot": "libs/ui/material/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui/material/tsconfig.lib.json",
+              "libs/ui/material/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/material/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/material/jest.config.js",
+            "tsConfig": "libs/ui/material/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui/material/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-debug": {
+      "projectType": "library",
+      "root": "libs/shared/debug",
+      "sourceRoot": "libs/shared/debug/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/debug/tsconfig.lib.json",
+              "libs/shared/debug/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/debug/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/debug/jest.config.js",
+            "tsConfig": "libs/shared/debug/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/debug/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "account-api": {
+      "root": "apps/account-api",
+      "sourceRoot": "apps/account-api/src",
+      "projectType": "application",
+      "prefix": "account-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/account-api",
+            "main": "apps/account-api/src/main.ts",
+            "tsConfig": "apps/account-api/tsconfig.app.json",
+            "assets": [
+              "apps/account-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/account-api/src/environments/environment.ts",
+                  "with": "apps/account-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "account-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/account-api/tsconfig.app.json",
+              "apps/account-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/account-api/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/account-api/jest.config.js",
+            "tsConfig": "apps/account-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-biosimulations-auth": {
+      "root": "libs/shared/biosimulations-auth",
+      "sourceRoot": "libs/shared/biosimulations-auth/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/biosimulations-auth/tsconfig.lib.json",
+              "libs/shared/biosimulations-auth/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/biosimulations-auth/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/biosimulations-auth/jest.config.js",
+            "tsConfig": "libs/shared/biosimulations-auth/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-biosimulations-config": {
+      "root": "libs/shared/biosimulations-config",
+      "sourceRoot": "libs/shared/biosimulations-config/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/biosimulations-config/tsconfig.lib.json",
+              "libs/shared/biosimulations-config/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/biosimulations-config/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/biosimulations-config/jest.config.js",
+            "tsConfig": "libs/shared/biosimulations-config/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "biosimulations-dispatch-service": {
       "root": "apps/biosimulations-dispatch-service",
       "sourceRoot": "apps/biosimulations-dispatch-service/src",
@@ -432,7 +769,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!apps/biosimulations-dispatch-service/**"
+              "!apps/biosimulations-dispatch-service/**/*"
             ]
           }
         },

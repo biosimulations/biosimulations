@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1beta2
+kind: ManagedCertificate
+metadata:
+  name: biosimulations-certificate
+spec:
+  domains:
+    - api.biosimulations.dev
+    - account.biosimulations.dev

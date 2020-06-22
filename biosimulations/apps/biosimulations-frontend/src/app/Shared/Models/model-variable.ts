@@ -1,5 +1,5 @@
 import {
-  BiomodelVariableDTO,
+  BiomodelVariable as BiomodelVariableDTO,
   PrimitiveType,
 } from '@biosimulations/datamodel/core';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';

@@ -6,6 +6,7 @@ import { Algorithm } from '../Models/algorithm';
 import { AlgorithmParameter } from '../Models/algorithm-parameter';
 import { Simulator } from '../Models/simulator';
 import { Taxon } from '../Models/taxon';
+import { PrimitiveType } from '@biosimulations/datamodel/core';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class MetadataService {
 
     if (id || name) {
       return list.filter(
-        item =>
+        (item) =>
           id === undefined ||
           item['id'].toLowerCase().includes(lowCaseName) ||
           name === undefined ||
@@ -93,7 +94,7 @@ export class MetadataService {
         new AlgorithmParameter({
           id: 'seed',
           name: 'random number generator seed',
-          type: 'integer',
+          type: PrimitiveType.integer,
           value: 1,
           recomendedRange: [],
           kisaoId: '488',
@@ -101,7 +102,7 @@ export class MetadataService {
         new AlgorithmParameter({
           id: 'atol',
           name: 'absolute tolerance',
-          type: 'float',
+          type: PrimitiveType.float,
           value: 1e-6,
           recomendedRange: [],
           kisaoId: '211',
@@ -109,7 +110,7 @@ export class MetadataService {
         new AlgorithmParameter({
           id: 'rtol',
           name: 'relative tolerance',
-          type: 'float',
+          type: PrimitiveType.float,
           recomendedRange: [],
           value: 1e-6,
           kisaoId: '209',
@@ -159,7 +160,7 @@ export class MetadataService {
     ];
 
     return of(
-      list.filter(value =>
+      list.filter((value) =>
         value.name.toLowerCase().includes(query.toLowerCase()),
       ),
     );

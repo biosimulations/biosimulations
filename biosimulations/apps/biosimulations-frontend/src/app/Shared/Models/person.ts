@@ -1,16 +1,16 @@
 import { PersonInterface } from './person.interface';
 import { UtilsService } from '../Services/utils.service';
-import { PersonDTO } from '@biosimulations/datamodel/core';
+import { Person as PersonDTO } from '@biosimulations/datamodel/core';
 
 export class Person implements PersonInterface {
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
+  firstName: string;
+  middleName: string | null;
+  lastName: string;
 
-  constructor(firstName?: string, middleName?: string, lastName?: string) {
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
+  constructor(person: PersonDTO) {
+    this.firstName = person.firstName;
+    this.middleName = person.middleName;
+    this.lastName = person.lastName;
   }
   serialize(): PersonDTO {
     return {

@@ -1,36 +1,57 @@
 import { AlgorithmParameter } from './algorithm-parameter';
 import {
-  AlgorithmParameterDTO,
-  AlgorithmDTO,
-  OntologyTermDTO,
-  JournalReferenceDTO,
-  FormatDTO,
+  Algorithm as AlgorithmDTO,
+  OntologyTerm as OntologyTermDTO,
+  JournalReference as JournalReferenceDTO,
+  Format as FormatDTO,
+  AlgorithmParameter as AlgorithmParameterDTO,
 } from '@biosimulations/datamodel/core';
-import { JsonSerializable } from '@biosimulations/datamodel/utils';
-import { JsonCompatible } from '@biosimulations/datamodel/utils';
+
 import { OntologyTerm } from './ontology-term';
 import { Format } from './format';
 import { JournalReference } from './journal-reference';
 
-export class Algorithm implements JsonSerializable<AlgorithmDTO> {
-  id?: string;
-  name?: string;
+export class Algorithm {
+  id: string;
+  name: string;
   kisaoId: string;
   ontologyTerms: OntologyTerm[];
   modelingFrameworks: OntologyTerm[];
   modelFormats: Format[];
   parameters: AlgorithmParameter[] = [];
-  mimetype?: string;
-  extension?: string;
-  sedUrn?: string;
   simulationFormats: Format[];
   archiveFormats: Format[];
   references: JournalReference[];
 
+  // TODO Either remove from class or add to interface
+  mimetype?: string;
+  extension?: string;
+  sedUrn?: string;
+
   constructor(data: AlgorithmDTO) {
-    Object.assign(this, data);
+    this.id = data.id;
+    this.name = data.name;
+    this.kisaoId = data.kisaoId;
+    this.simulationFormats = data.simulationFormats.map(
+      (value: FormatDTO) => new Format(value),
+    );
+    this.modelFormats = data.modelFormats.map(
+      (value: FormatDTO) => new Format(value),
+    );
     this.parameters = data.parameters.map(
       (value: AlgorithmParameterDTO) => new AlgorithmParameter(value),
+    );
+    this.archiveFormats = data.archiveFormats.map(
+      (value: FormatDTO) => new Format(value),
+    );
+    this.references = data.references.map(
+      (value: JournalReferenceDTO) => new JournalReference(value),
+    );
+    this.ontologyTerms = data.ontologyTerms.map(
+      (value: OntologyTermDTO) => new OntologyTerm(value),
+    );
+    this.modelingFrameworks = data.modelingFrameworks.map(
+      (value: OntologyTermDTO) => new OntologyTerm(value),
     );
   }
   serialize(): AlgorithmDTO {

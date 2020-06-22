@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: account-api
+  name: account-api
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: account-api
+      namespace: dev
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account-api
+    spec:
+      containers:
+        - name: account-api
+          image: crbm/account-api:latest
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          volumeMounts:
+            - mountPath: "/app/config"
+              name: config
+              readOnly: true
+          ports:
+            - containerPort: 3333
+      volumes:
+        - name: config
+          secret:
+            secretName: account-api-secrets-dk256d96kt

@@ -1,9 +1,11 @@
-import { AlgorithmDTO } from './algorithm';
+import { Algorithm } from './algorithm';
+import { SecondaryResourceMetaData } from '../resources';
 
-export class SimulatorAttributes {
+export interface SimulatorAttributes {
   name: string;
   version: string;
   url: string;
   dockerHubImageId: string;
-  algorithms: AlgorithmDTO[];
+  algorithms: Algorithm[];
+  metadata: SecondaryResourceMetaData;
 }

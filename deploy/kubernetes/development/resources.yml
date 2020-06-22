@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: biosimulations-api
+  name: biosimulations-api
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: biosimulations-api
+      namespace: dev
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: biosimulations-api
+    spec:
+      containers:
+        - name: biosimulations-api
+          image: crbm/biosimulations-api:latest
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          volumeMounts:
+            - mountPath: "/app/config"
+              name: config
+              readOnly: true
+            - mountPath: "/app/secret"
+              name: secret
+              readOnly: true
+          ports:
+            - containerPort: 3333
+      volumes:
+        - name: config
+          secret:
+            secretName: biosimulations-secrets-6fcm989gbf

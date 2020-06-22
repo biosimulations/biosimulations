@@ -1,27 +1,28 @@
 import {
-  BiomodelParameterDTO,
-  AlgorithmParameterDTO,
+  BiomodelParameter,
+  AlgorithmParameter,
   SimulationRunAttributes,
-  AlgorithmDTO,
+  Algorithm,
 } from '.';
 
-import { FormatDTO } from '../..';
+import { Format, PrimaryResourceMetaData } from '../..';
 import { BiosimulationsId } from '../common/alias';
 
-export interface ParameterChangeDTO {
-  parameter: BiomodelParameterDTO | AlgorithmParameterDTO;
+export interface ParameterChange {
+  parameter: BiomodelParameter | AlgorithmParameter;
   value: number;
 }
 
-export class SimulationAttributes {
+export interface SimulationAttributes {
   model: BiosimulationsId;
-  format: FormatDTO;
-  modelParameterChanges: ParameterChangeDTO[];
-  algorithmParameterChanges: ParameterChangeDTO[];
-  algorithm: AlgorithmDTO;
+  format: Format;
+  modelParameterChanges: ParameterChange[];
+  algorithmParameterChanges: ParameterChange[];
+  algorithm: Algorithm;
   runs: BiosimulationsId[];
   numTimepoints: number;
   outputStartTime: number;
   startTime: number;
   endTime: number;
+  meta: PrimaryResourceMetaData;
 }

@@ -1,4 +1,4 @@
-import { PrimaryResourceDTO, ResourceType } from './resource';
+import { ResourceType } from './resource';
 import {
   ChartAttributes,
   ProjectAttributes,
@@ -6,32 +6,35 @@ import {
   SimulationAttributes,
   VisualizationAttributes,
   SimulationRunAttributes,
+  BiomodelRelationships,
 } from '../core';
-import { VisualizationId } from '../common';
+import { BiosimulationsId } from '../common';
 
-export interface ChartResourceDTO extends PrimaryResourceDTO {
+export interface ChartResource {
   type: ResourceType.chart;
   attributes: ChartAttributes;
 }
-export interface ProjectResourceDTO extends PrimaryResourceDTO {
+export interface ProjectResource {
   type: ResourceType.project;
   attributes: ProjectAttributes;
 }
 
-export interface BiomodelResourceDTO extends PrimaryResourceDTO {
+export interface BiomodelResource {
   type: ResourceType.model;
+  id: BiosimulationsId;
   attributes: BiomodelAttributes;
+  relationships: BiomodelRelationships;
 }
-export interface SimulationResourceDTO extends PrimaryResourceDTO {
+export interface SimulationResource {
   type: ResourceType.simulation;
   attributes: SimulationAttributes;
 }
-export interface VisualizationResourceDTO extends PrimaryResourceDTO {
+export interface VisualizationResource {
   type: ResourceType.visualization;
   attributes: VisualizationAttributes;
 }
 
-export interface SimulationRunResourceDTO extends PrimaryResourceDTO {
+export interface SimulationRunResource {
   type: ResourceType.simulationRun;
   attributes: SimulationRunAttributes;
 }
