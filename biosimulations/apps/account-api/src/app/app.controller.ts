@@ -75,7 +75,7 @@ export class AppController {
     let message = `${username} is available`;
 
     // TODO make this common somewhere to also use in other resources
-    const regEx = new RegExp('^[a-z_][a-z0-9_]{2,15}$');
+    const regEx = new RegExp('^[a-z_][a-z0-9_]{2,32}$');
 
     if (!regEx.test(username)) {
       valid = false;
