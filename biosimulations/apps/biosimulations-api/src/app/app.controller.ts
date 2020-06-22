@@ -18,7 +18,7 @@ export class AppController {
     private readonly configService: ConfigService,
   ) {}
 
-  //TODO move these utlity functions to seperate module/library for use in other apps
+  // TODO move these utlity functions to seperate module/library for use in other apps
   @ApiTags('Utility')
   @Get('ping')
   getData() {
