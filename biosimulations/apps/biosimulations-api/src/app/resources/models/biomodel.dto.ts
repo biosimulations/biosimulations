@@ -6,21 +6,47 @@ import {
   CreateBiomodelAttributesDTO,
 } from '@biosimulations/datamodel/api';
 
-class JsonAPIIdentifier {
-  @ApiProperty()
-  type!: string;
+class UserAPIIdentifier {
+  @ApiProperty({ enum: ['user'] })
+  type!: 'user';
   @ApiProperty()
   id!: string;
 }
-class dataWithIdentifier {
+
+class FileAPIIdentifier {
+  @ApiProperty({ enum: ['file'] })
+  type!: 'file';
   @ApiProperty()
-  data!: JsonAPIIdentifier;
+  id!: string;
+}
+class ModelAPIIdentifier {
+  @ApiProperty({ enum: ['model'] })
+  type!: 'model';
+  @ApiProperty()
+  id!: string;
+}
+class DataWithUserIdentifier {
+  @ApiProperty()
+  data!: UserAPIIdentifier;
+}
+class DataWithFileIdentifier {
+  @ApiProperty()
+  data!: FileAPIIdentifier;
+}
+
+class DataWithModelIdentifier {
+  @ApiProperty()
+  data!: ModelAPIIdentifier;
 }
 export class CreateBiomodelRelationship {
   @ApiProperty()
-  owner!: dataWithIdentifier;
+  owner!: DataWithUserIdentifier;
   @ApiProperty()
-  file!: dataWithIdentifier;
+  file!: DataWithFileIdentifier;
+  @ApiProperty()
+  image!: DataWithFileIdentifier;
+  @ApiProperty()
+  parent!: DataWithModelIdentifier;
 }
 
 export class CreateBiomodelResource {
