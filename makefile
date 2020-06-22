@@ -1,12 +1,19 @@
+DOCKER_BUILD_CONTEXT=.
+DOCKER_BACKEND_PATH=./deploy/docker/backend.dockerfile
+DOCKER_FRONTEND_PATH=./deploy/docker/frontend.dockerfile
+DOCKER_REGISTRY=docker.io
+DOCKER_USER=crbm
 APP=biosimulations-api
-TAG=dev
+DOCKER_IMAGE=$(DOCKER_HOST)/$(DOCKER_USER)/$(APP)
+COMMIT=$(shell git rev-parse HEAD)
+TAG=$(COMMIT)
 ENV=production
 
 all: biosimulations-api account-api
 .PHONY: all
 
 build: 
-	docker  build -f ./deploy/docker/backend.dockerfile -t crbm/$(APP):$(TAG) --build-arg app=$(APP) .
+	docker  build -f $(DOCKER_BACKEND_PATH) -t crbm/$(APP):$(TAG) --build-arg app=$(APP) $(DOCKER_BUILD_CONTEXT)
 .PHONY: build
 
 push: build 
@@ -23,6 +30,10 @@ biosimulations-api:
 
 account-api: 
 			$(MAKE) push APP=account-api TAG=$(TAG)
+
 .PHONY: account-api
+
+biosimulations-dispatch-service:
+			$(MAKE) push APP=biosimulations-dispatch-service TAG=$(TAG)
 
 
