@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+      - run: git fetch --no-tags --prune --depth=5 origin master dev
       - run: |
           if [[ $GITHUB_BASE_REF ]]
             then
