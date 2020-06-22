@@ -24,7 +24,7 @@ jobs:
            else
             export NX_BASE=origin/master
           fi
-
+          echo $NX_BASE
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
