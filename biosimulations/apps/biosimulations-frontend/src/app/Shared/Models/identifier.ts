@@ -1,12 +1,14 @@
-import { IdentifierDTO } from '@biosimulations/datamodel/core';
+import { Identifier as IdentifierDTO } from '@biosimulations/datamodel/core';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 
 export class Identifier implements JsonSerializable<IdentifierDTO> {
   namespace: string;
   identifier: string;
-  url: string;
+  url: string | null;
   constructor(data: IdentifierDTO) {
-    Object.assign(this, data);
+    this.namespace = data.namespace;
+    this.identifier = data.identifier;
+    this.url = data.url;
   }
 
   serialize(): IdentifierDTO {

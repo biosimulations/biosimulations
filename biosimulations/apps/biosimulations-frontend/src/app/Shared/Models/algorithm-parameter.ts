@@ -1,4 +1,4 @@
-import { AlgorithmParameterDTO } from '@biosimulations/datamodel/core';
+import { AlgorithmParameter as AlgorithmParameterDTO } from '@biosimulations/datamodel/core';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { PrimitiveType } from '@biosimulations/datamodel/core';
 
@@ -7,11 +7,16 @@ export class AlgorithmParameter
   name: string;
   id: string;
   value: number | boolean | string;
-  kisaoId: string;
+  kisaoId: string | null;
   type: PrimitiveType;
-  recomendedRange: (boolean | string | number)[];
+  recomendedRange: (boolean | string | number)[] | null;
   constructor(data: AlgorithmParameterDTO) {
-    Object.assign(this, data);
+    this.name = data.name;
+    this.id = data.id;
+    this.value = data.value;
+    this.type = data.type;
+    this.kisaoId = data.kisaoId;
+    this.recomendedRange = data.recomendedRange;
   }
   serialize(): AlgorithmParameterDTO {
     return {
@@ -24,10 +29,13 @@ export class AlgorithmParameter
     };
   }
 
-  getUrl(): string {
-    const ontology = 'KISAO';
-    const id: string = this.kisaoId;
-    const iri = `http://www.biomodels.net/kisao/KISAO#KISAO_${id}`;
-    return `http://purl.bioontology.org/ontology/${ontology}?conceptid=${iri}`;
+  getUrl(): string | null {
+    if (this.kisaoId) {
+      const ontology = 'KISAO';
+      const id: string = this.kisaoId;
+      const iri = `http://www.biomodels.net/kisao/KISAO#KISAO_${id}`;
+      return `http://purl.bioontology.org/ontology/${ontology}?conceptid=${iri}`;
+    }
+    return null;
   }
 }

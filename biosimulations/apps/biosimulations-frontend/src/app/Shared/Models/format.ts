@@ -1,20 +1,27 @@
-import { FormatDTO } from '@biosimulations/datamodel/core';
+import { Format as FormatDTO } from '@biosimulations/datamodel/core';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 
 export class Format implements JsonSerializable<FormatDTO> {
   id: string;
-  specUrl: string;
-  name: string;
   version: string;
-  edamId: string;
-  url: string;
-  mimetype?: string;
-  extension?: string;
-  sedUrn?: string;
+  name: string;
+  specUrl: string | null;
+  edamId: string | null;
+  url: string | null;
+  mimetype: string | null;
+  extension: string | null;
+  sedUrn: string | null;
 
   constructor(data: FormatDTO) {
-    Object.assign(this, data);
-
+    this.id = data.id;
+    this.specUrl = data.specUrl;
+    this.name = data.name;
+    this.version = data.version;
+    this.edamId = data.edamId;
+    this.url = data.url;
+    this.mimetype = data.mimetype;
+    this.extension = data.extension;
+    this.sedUrn = data.sedUrn;
     if (!this.url && this.edamId) {
       this.url = this.getEdamUrl();
     }

@@ -1,14 +1,14 @@
 import {
   ChartDataFieldShape,
-  ChartDataFieldDTO,
+  ChartDataField,
   ChartDataFieldType,
 } from '@biosimulations/datamodel/core';
 
-export class ChartTypeDataField implements ChartDataFieldDTO {
+export class ChartTypeDataField implements ChartDataField {
   name: string;
   shape: ChartDataFieldShape;
   type: ChartDataFieldType;
-  constructor(data: ChartDataFieldDTO) {
+  constructor(data: ChartDataField) {
     Object.assign(this, data);
   }
 }

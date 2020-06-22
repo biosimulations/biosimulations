@@ -1,6 +1,4 @@
-import { JournalReferenceDTO } from '@biosimulations/datamodel/core';
-import { JsonSerializable } from '@biosimulations/datamodel/utils';
-
+import { JournalReference as JournalReferenceDTO } from '@biosimulations/datamodel/core';
 export interface JournalReferenceSerialized {
   authors?: string;
   title?: string;
@@ -11,15 +9,20 @@ export interface JournalReferenceSerialized {
   year?: number;
   doi?: string;
 }
-export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
-  public authors?: string;
-  public title?: string;
-  public journal?: string;
-  public volume?: number | string;
-  public num?: number | string;
-  public pages?: string;
-  public year?: number;
-  public doi?: string;
+interface Names {
+  firstName: string;
+  middleNames: string[];
+  lastName: string;
+}
+export class JournalReference {
+  public authors: string;
+  public title: string;
+  public journal: string;
+  public volume: number | string | null;
+  public num: number | string | null;
+  public pages: string | null;
+  public year: number;
+  public doi: string | null;
   serialize(): JournalReferenceDTO {
     const json = {
       authors: this.authors,
@@ -33,14 +36,22 @@ export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
     };
     return json;
   }
+
   constructor(data: JournalReferenceDTO) {
-    Object.assign(this, data);
+    this.authors = data.authors;
+    this.title = data.title;
+    this.journal = data.journal;
+    this.volume = data.volume;
+    this.num = data.issue;
+    this.pages = data.pages;
+    this.year = data.year;
+    this.doi = data.doi;
   }
 
-  getAuthors(): object[] {
+  getAuthors(): Names[] {
     return this.authors
       .split(/ *(?:,|;|&|and|(?:(?:,|;) *(?:&|and))) */)
-      .map(name => {
+      .map((name) => {
         const names: string[] = name.split(/ +/);
         return {
           firstName: names[0],
@@ -51,12 +62,12 @@ export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
   }
 
   getAuthorsStr(): string {
-    const authorStrs: string[] = this.getAuthors().map(author => {
+    const authorStrs: string[] = this.getAuthors().map((author) => {
       return (
         author['lastName'] +
         ' ' +
         author['firstName'][0] +
-        author['middleNames'].map(name => name[0]).join('')
+        author['middleNames'].map((name) => name[0]).join('')
       );
     });
 
@@ -73,7 +84,7 @@ export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
   }
 
   getShortName(): string {
-    const authorsArr: object[] = this.getAuthors();
+    const authorsArr: Names[] = this.getAuthors();
 
     let authorsStr: string;
     switch (authorsArr.length) {
@@ -96,7 +107,7 @@ export class JournalReference implements JsonSerializable<JournalReferenceDTO> {
     return authorsStr;
   }
 
-  getUrl(): string {
+  getUrl(): string | null {
     if (this.doi) {
       return 'https://doi.org/' + this.doi;
     } else {

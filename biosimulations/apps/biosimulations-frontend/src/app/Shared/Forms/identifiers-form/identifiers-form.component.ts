@@ -6,7 +6,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { ArraySubForm } from '../array-sub-form';
-import { IdentifierDTO } from '@biosimulations/datamodel/core';
+import { Identifier as IdentifierDTO } from '@biosimulations/datamodel/core';
 
 @Component({
   selector: 'app-identifiers-form',

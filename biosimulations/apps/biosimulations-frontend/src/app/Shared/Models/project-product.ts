@@ -5,7 +5,7 @@ import { Simulation } from './simulation';
 import { Visualization } from './visualization';
 import { ChartType } from './chart-type';
 import { Observable } from 'rxjs';
-import { ProjectProductDTO } from '@biosimulations/datamodel/core';
+import { ProjectProduct as ProjectProductDTO } from '@biosimulations/datamodel/core';
 
 /* The product of a project, such as a figure, table, box, or supplementary item, and the resources that were used to create it.
 

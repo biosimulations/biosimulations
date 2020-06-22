@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
-import { FormatDTO } from '@biosimulations/datamodel/core';
+import { Format as FormatDTO } from '@biosimulations/datamodel/core';
 
 @Component({
   selector: 'app-model-format-form',
@@ -65,7 +65,7 @@ export class ModelFormatFormComponent
     });
     this.subscriptions.push(
       // any time the inner form changes update the parent of any change
-      this.form.valueChanges.subscribe(value => {
+      this.form.valueChanges.subscribe((value) => {
         this.onChange(value);
         this.onTouched();
       }),
@@ -75,7 +75,7 @@ export class ModelFormatFormComponent
   onChange: any = () => {};
   onTouched: any = () => {};
   ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
   registerOnChange(fn) {
     this.onChange = fn;
