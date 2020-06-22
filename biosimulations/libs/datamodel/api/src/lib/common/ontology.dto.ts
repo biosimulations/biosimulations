@@ -25,4 +25,8 @@ export class IdentifierDTO implements Identifier {
   id!: string;
   @ApiProperty({ type: String, nullable: true })
   url!: string | null;
+
+  serialize(): Identifier {
+    return { namespace: this.namespace, id: this.id, url: this.url };
+  }
 }

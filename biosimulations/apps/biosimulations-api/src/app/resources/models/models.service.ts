@@ -14,9 +14,9 @@ export class ModelsService {
 
   async createNewBiomodel(model: CreateBiomodelResource) {
     console.log(model);
-    const createdBiomodel = await new this.biomodel(new BiomodelDB(model));
-
-    return createdBiomodel.save();
+    const createdBiomodel = await new this.biomodel(
+      new BiomodelDB(model),
+    ).save();
   }
 
   async search(): Promise<BiomodelDB[] | null> {

@@ -49,6 +49,17 @@ export class CreateBiomodelRelationship {
   parent!: DataWithModelIdentifier;
 }
 
+export class BiomodelRelationship {
+  @ApiProperty()
+  owner!: DataWithUserIdentifier;
+  @ApiProperty()
+  file!: DataWithFileIdentifier;
+  @ApiProperty()
+  image!: DataWithFileIdentifier;
+  @ApiProperty()
+  parent!: DataWithModelIdentifier;
+}
+
 export class CreateBiomodelResource {
   @ApiProperty({ enum: ['model'] })
   type!: ResourceType.model;
@@ -58,6 +69,27 @@ export class CreateBiomodelResource {
   attributes!: CreateBiomodelAttributesDTO;
   @ApiProperty()
   relationships!: CreateBiomodelRelationship;
+}
+
+export class ModelResource {
+  @ApiProperty({ enum: ['model'] })
+  type: ResourceType.model;
+  @ApiProperty()
+  id: string;
+  @ApiProperty()
+  attributes!: BiomodelAttributesDTO;
+  @ApiProperty()
+  relationships!: BiomodelRelationship;
+
+  constructor(id: string, attributes: any, relationships: any) {
+    this.type = ResourceType.model;
+    this.id = id;
+    this.attributes = attributes;
+  }
+}
+
+export class Model {
+  data!: ModelResource;
 }
 
 export class CreateBiomodelDTO {
