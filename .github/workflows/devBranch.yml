@@ -15,12 +15,13 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+
       - run: |
           if [[ $GITHUB_BASE_REF ]]
             then
-              echo '::set-env name=NX_BASE::'$NX_BASE
+              echo '::set-env name=NX_BASE::'$GITHUB_BASE_REF
            else
-            echo '::set-env name=NX_BASE::'$NX_BASE
+            echo '::set-env name=NX_BASE::'origin/master
           fi
       - name: Use Node.js
         uses: actions/setup-node@v1
