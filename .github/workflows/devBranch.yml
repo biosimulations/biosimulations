@@ -2,8 +2,9 @@ name: CI
 
 on:
   push:
+    branches: [dev]
   pull_request:
-    branches: [master, stage, dev]
+    branches: [dev]
 
 jobs:
   build:
@@ -15,7 +16,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
       - run: |
-          git fetch --no-tags --prune --depth=5 origin master
+          git fetch --no-tags --prune --depth=5 origin dev
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -26,14 +27,14 @@ jobs:
 
       - name: Lint
         working-directory: ./biosimulations
-        run: nx affected:lint --base=origin/master
+        run: nx affected:lint --base=origin/dev
 
       - name: Build
         working-directory: ./biosimulations
-        run: nx affected:build --base=origin/master --prod
+        run: nx affected:build --base=origin/dev --prod
       - name: Test
         working-directory: ./biosimulations
-        run: nx affected:test --base=origin/master --code-coverage
+        run: nx affected:test --base=origin/dev --code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
