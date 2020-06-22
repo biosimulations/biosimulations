@@ -11,12 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
       - run: |
-          git fetch --no-tags --prune --depth=5 origin dev
+          git fetch --no-tags --prune --depth=5 origin dev master
+      - run: |
+          if [[ $GITHUB_BASE_REF ]]
+            then
+              export NX_BASE=origin/$GITHUB_BASE_REF
+           else
+            export NX_BASE=origin/master
+          fi
+
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -27,14 +35,14 @@ jobs:
 
       - name: Lint
         working-directory: ./biosimulations
-        run: nx affected:lint --base=origin/dev
+        run: nx affected:lint --base=$NX_BASE
 
       - name: Build
         working-directory: ./biosimulations
-        run: nx affected:build --base=origin/dev --prod
+        run: nx affected:build --base=$NX_BASE --prod
       - name: Test
         working-directory: ./biosimulations
-        run: nx affected:test --base=origin/dev --code-coverage
+        run: nx affected:test --base=$NX_BASE --code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
