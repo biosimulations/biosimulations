@@ -16,7 +16,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
       - run: |
-          git fetch --no-tags --prune --depth=5 origin dev master
+          git fetch --unshallow --tags
       - run: |
           if [[ $GITHUB_BASE_REF ]]
             then
