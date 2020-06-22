@@ -18,12 +18,10 @@ jobs:
       - run: |
           if [[ $GITHUB_BASE_REF ]]
             then
-              export NX_BASE=origin/$GITHUB_BASE_REF
+              echo '::set-env name=NX_BASE::'$NX_BASE
            else
-            export NX_BASE=origin/master
+            echo '::set-env name=NX_BASE::'$NX_BASE
           fi
-          echo $NX_BASE
-          echo '::set-env name=NX_BASE::$NX_BASE'
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
