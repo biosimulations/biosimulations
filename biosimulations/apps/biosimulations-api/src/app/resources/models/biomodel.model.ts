@@ -42,7 +42,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
   framework: OntologyTerm;
   @prop({ required: true })
   format: Format;
-  @prop({ required: true })
+  @prop({ required: true, _id: false })
   metadata: ResourceMetadata;
 
   constructor(
