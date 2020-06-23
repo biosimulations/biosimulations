@@ -15,9 +15,16 @@ import {
   ApiOAuth2,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiGoneResponse,
 } from '@nestjs/swagger';
 import { ModelsService } from './models.service';
-import { CreateModelDTO, Model, ModelResource, Models } from './biomodel.dto';
+
+import {
+  ModelResource,
+  ModelsDocument,
+  ModelDocument,
+  CreateModelDocument,
+} from '@biosimulations/datamodel/api';
 import {
   JwtGuard,
   AdminGuard,
@@ -26,7 +33,12 @@ import {
 import { BiomodelDB } from './biomodel.model';
 
 const dbToApi = (dbModel: BiomodelDB): ModelResource => {
-  const returnModel = new ModelResource(dbModel.id, dbModel.attributes, 'test');
+  const returnModel = new ModelResource(dbModel.id, dbModel.attributes, {
+    owner: dbModel.owner,
+    file: dbModel.file,
+    image: dbModel.image,
+    parent: dbModel.parent,
+  });
 
   return returnModel;
 };
@@ -35,8 +47,8 @@ const dbToApi = (dbModel: BiomodelDB): ModelResource => {
 export class ModelsController {
   constructor(public service: ModelsService) {}
   @ApiOkResponse({
-    description: 'The record has been successfully created.',
-    type: Models,
+    description: 'Found models.',
+    type: ModelsDocument,
   })
   @Get()
   async getAll(): Promise<ModelResource[] | undefined> {
@@ -45,8 +57,12 @@ export class ModelsController {
     return models?.map(dbToApi);
   }
 
+  @ApiOkResponse({
+    description: 'Found model.',
+    type: ModelDocument,
+  })
   @Get(':id')
-  async getOne(@Param('id') id: string): Promise<Model | undefined> {
+  async getOne(@Param('id') id: string): Promise<ModelDocument | undefined> {
     const dbModel = await this.service.get(id);
 
     if (dbModel) {
@@ -65,7 +81,7 @@ export class ModelsController {
     type: ModelResource,
   })
   @Post()
-  async create(@Body() body: CreateModelDTO) {
+  async create(@Body() body: CreateModelDocument) {
     return this.service.createNewBiomodel(body.data);
   }
 

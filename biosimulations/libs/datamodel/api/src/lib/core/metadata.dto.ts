@@ -1,22 +1,16 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 
-import {
-  License,
-  ExternalReferences,
-  AccessInfo,
-  PrimaryResourceMetaData,
-  AccessLevel,
-} from '@biosimulations/datamodel/core';
+import { License, AccessLevel } from '@biosimulations/datamodel/core';
 
-import { PersonDTO, ExternalReferencesDTO } from '../common/index';
+import { Person, ExternalReferences } from '../common/index';
 
-export class MetadataDTO {
+export class ResourceMetadata {
   @ApiProperty({ enum: () => License })
   license!: License;
-  @ApiProperty({ type: () => [PersonDTO] })
-  authors!: PersonDTO[];
-  @ApiProperty({ type: () => ExternalReferencesDTO })
-  references!: ExternalReferencesDTO;
+  @ApiProperty({ type: () => [Person] })
+  authors!: Person[];
+  @ApiProperty({ type: () => ExternalReferences })
+  references!: ExternalReferences;
   @ApiProperty()
   summary!: string;
   @ApiProperty()
@@ -35,7 +29,7 @@ export class MetadataDTO {
   name!: string;
 }
 
-export class CreateMetaDataDTO extends OmitType(MetadataDTO, [
+export class CreateResourceMetaData extends OmitType(ResourceMetadata, [
   'createdDate',
   'updatedDate',
   'version',

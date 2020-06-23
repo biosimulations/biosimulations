@@ -3,7 +3,6 @@ import {
   PrimitiveType,
   BiomodelVariable,
   BiomodelAttributes,
-  OntologyTerm,
 } from '@biosimulations/datamodel/core';
 import {
   ApiProperty,
@@ -11,10 +10,10 @@ import {
   OmitType,
   IntersectionType,
 } from '@nestjs/swagger';
-import { IdentifierDTO, TaxonDTO, FormatDTO, OntologyTermDTO } from '../common';
-import { CreateMetaDataDTO, MetadataDTO } from './metadata.dto';
+import { Identifier, Taxon, Format, OntologyTerm } from '../common';
+import { CreateResourceMetaData, ResourceMetadata } from './metadata.dto';
 
-export class BiomodelParameterDTO implements BiomodelParameter {
+export class ModelParameter implements BiomodelParameter {
   @ApiProperty({
     // tslint:disable-next-line: quotemark
     example: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='N' ",
@@ -28,8 +27,8 @@ export class BiomodelParameterDTO implements BiomodelParameter {
   name!: string;
   @ApiProperty({ type: String, example: 'Initial concentration of Nitrogen' })
   description!: string | null;
-  @ApiProperty({ type: [IdentifierDTO] })
-  identifiers!: IdentifierDTO[];
+  @ApiProperty({ type: [Identifier] })
+  identifiers!: Identifier[];
   @ApiProperty({
     enum: ['string', 'boolean', 'integer', 'float'],
     enumName: 'PrimitiveType',
@@ -49,7 +48,7 @@ export class BiomodelParameterDTO implements BiomodelParameter {
   units!: string;
 }
 
-export class BiomodelVariableDTO implements BiomodelVariable {
+export class ModelVariable implements BiomodelVariable {
   @ApiProperty()
   target!: string;
   @ApiProperty()
@@ -69,28 +68,28 @@ export class BiomodelVariableDTO implements BiomodelVariable {
   units!: string;
 }
 
-export class BiomodelAttributesDTO implements BiomodelAttributes {
+export class ModelAttributes implements BiomodelAttributes {
   @ApiProperty()
-  taxon!: TaxonDTO;
-  @ApiProperty({ type: [BiomodelParameterDTO] })
-  parameters!: BiomodelParameterDTO[];
-  @ApiProperty({ type: [BiomodelVariableDTO] })
-  variables!: BiomodelVariableDTO[];
+  taxon!: Taxon;
+  @ApiProperty({ type: [ModelParameter] })
+  parameters!: ModelParameter[];
+  @ApiProperty({ type: [ModelVariable] })
+  variables!: ModelVariable[];
   @ApiProperty()
-  framework!: OntologyTermDTO;
+  framework!: OntologyTerm;
   @ApiProperty()
-  format!: FormatDTO;
+  format!: Format;
   @ApiProperty()
-  metadata!: MetadataDTO;
+  metadata!: ResourceMetadata;
 }
 
 class CreateMetaField {
   @ApiProperty()
-  metadata!: CreateMetaDataDTO;
+  metadata!: CreateResourceMetaData;
 }
 
 @ApiExtraModels()
-export class CreateBiomodelAttributesDTO extends IntersectionType(
-  OmitType(BiomodelAttributesDTO, ['metadata'] as const),
+export class CreateModelAttributes extends IntersectionType(
+  OmitType(ModelAttributes, ['metadata'] as const),
   CreateMetaField,
 ) {}

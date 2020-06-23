@@ -23,11 +23,12 @@ import {
   Format,
   BiomodelRelationships,
 } from '@biosimulations/datamodel/core';
-import { CreateModelResource } from './biomodel.dto';
+
 import {
-  MetadataDTO,
-  BiomodelVariableDTO,
-  CreateMetaDataDTO,
+  ResourceMetadata,
+  ModelVariable,
+  CreateResourceMetaData,
+  CreateModelResource,
 } from '@biosimulations/datamodel/api';
 
 export class BiomodelAttributesDB implements BiomodelAttributes {
@@ -42,15 +43,15 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: true })
   format: Format;
   @prop({ required: true })
-  metaData: MetadataDTO;
+  metadata: ResourceMetadata;
 
   constructor(
     taxon: Taxon,
     parameters: BiomodelParameter[],
     framework: OntologyTerm,
     format: Format,
-    metaData: MetadataDTO | CreateMetaDataDTO,
-    variables: BiomodelVariableDTO[],
+    metaData: ResourceMetadata | CreateResourceMetaData,
+    variables: ModelVariable[],
   ) {
     this.taxon = taxon;
     this.parameters = parameters;
@@ -59,14 +60,14 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     this.format = format;
     let createdDate = Date.now();
     let version = 1;
-    if ((metaData as MetadataDTO).createdDate) {
-      createdDate = (metaData as MetadataDTO).createdDate;
+    if ((metaData as ResourceMetadata).createdDate) {
+      createdDate = (metaData as ResourceMetadata).createdDate;
     }
-    if ((metaData as MetadataDTO).version) {
+    if ((metaData as ResourceMetadata).version) {
       version = version + 1;
     }
 
-    const md: MetadataDTO = {
+    const md: ResourceMetadata = {
       createdDate,
       version,
       updatedDate: Date.now(),
@@ -79,7 +80,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
       name: metaData.name,
       accessLevel: metaData.accessLevel,
     };
-    this.metaData = md;
+    this.metadata = md;
   }
 }
 export class BiomodelDB {
@@ -120,13 +121,13 @@ export class BiomodelDB {
       model.attributes.variables,
     );
 
-    const fileId = model.relationships.file.data.id;
-    const userId = model.relationships.owner.data.id;
-    const imageId = model.relationships.image.data.id;
+    const fileId = model.relationships?.file?.data?.id;
+    const userId = model.relationships?.owner.data.id;
+    const imageId = model.relationships?.image?.data?.id;
     const parentId = model.relationships?.parent?.data?.id;
     this.parent = parentId || null;
     this.owner = userId;
     this.file = fileId;
-    this.image = imageId;
+    this.image = imageId || null;
   }
 }

@@ -1,34 +1,32 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ResourceIdentifier } from './jsonApi';
+import { ResourceType } from '@biosimulations/datamodel/core';
 
-export class UserAPIIdentifier {
+export class UserIdentifier implements ResourceIdentifier {
   @ApiProperty({ enum: ['user'] })
-  type!: 'user';
+  type: ResourceType.user = ResourceType.user;
   @ApiProperty()
-  id!: string;
+  id: string;
+  constructor(id: string) {
+    this.id = id;
+  }
 }
-
-export class FileAPIIdentifier {
+export class FileIdentifier implements ResourceIdentifier {
   @ApiProperty({ enum: ['file'] })
-  type!: 'file';
+  type: ResourceType.file = ResourceType.file;
   @ApiProperty()
-  id!: string;
-}
-export class ModelAPIIdentifier {
-  @ApiProperty({ enum: ['model'] })
-  type!: 'model';
-  @ApiProperty()
-  id!: string;
-}
-export class DataWithUserIdentifier {
-  @ApiProperty()
-  data!: UserAPIIdentifier;
-}
-export class DataWithFileIdentifier {
-  @ApiProperty()
-  data!: FileAPIIdentifier;
+  id: string;
+  constructor(id: string) {
+    this.id = id;
+  }
 }
 
-export class DataWithModelIdentifier {
+export class ModelIdentifier implements ResourceIdentifier {
+  @ApiProperty({ enum: ['model'] })
+  type: ResourceType.model = ResourceType.model;
   @ApiProperty()
-  data!: ModelAPIIdentifier;
+  id: string;
+  constructor(id: string) {
+    this.id = id;
+  }
 }

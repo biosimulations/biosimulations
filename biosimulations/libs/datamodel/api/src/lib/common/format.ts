@@ -1,7 +1,7 @@
-import { Format } from '@biosimulations/datamodel/core';
+import { Format as IFormat } from '@biosimulations/datamodel/core';
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
 
-export class FormatDTO implements Format {
+export class Format implements IFormat {
   @ApiProperty()
   id!: string;
   @ApiProperty()

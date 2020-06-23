@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateModelResource } from './biomodel.dto';
+
 import { BiomodelDB } from './biomodel.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
 import { timeStamp } from 'console';
+import { CreateModelResource } from '@biosimulations/datamodel/api';
 
 /**
  * Model Service

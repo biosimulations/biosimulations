@@ -1,6 +1,6 @@
-import { Taxon } from '@biosimulations/datamodel/core';
+import { Taxon as ITaxon } from '@biosimulations/datamodel/core';
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
-export class TaxonDTO implements Taxon {
+export class Taxon implements ITaxon {
   @ApiProperty({ example: 9606 })
   id!: number;
   @ApiProperty({ example: 'Homo sapiens' })

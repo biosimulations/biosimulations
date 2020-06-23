@@ -1,13 +1,13 @@
-import { ExternalReferences } from '@biosimulations/datamodel/core';
-import { IdentifierDTO } from './ontology.dto';
-import { JournalReferenceDTO } from './journalreference';
+import { ExternalReferences as IExternalReferences } from '@biosimulations/datamodel/core';
+import { Identifier } from './ontology.dto';
+import { JournalReference } from './journalreference';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ExternalReferencesDTO implements ExternalReferences {
-  @ApiProperty({ type: [IdentifierDTO] })
-  identifiers!: IdentifierDTO[];
-  @ApiProperty({ type: [JournalReferenceDTO] })
-  citations!: JournalReferenceDTO[];
+export class ExternalReferences implements IExternalReferences {
+  @ApiProperty({ type: [Identifier] })
+  identifiers!: Identifier[];
+  @ApiProperty({ type: [JournalReference] })
+  citations!: JournalReference[];
   @ApiProperty({ type: String, nullable: true })
   doi!: string | null;
 }
