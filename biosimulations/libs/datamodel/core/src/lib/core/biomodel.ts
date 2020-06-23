@@ -30,6 +30,7 @@ export interface BiomodelVariable {
   units: string;
 }
 
+// TODO include metadata
 export interface BiomodelAttributes {
   taxon: Taxon;
   parameters: BiomodelParameter[];

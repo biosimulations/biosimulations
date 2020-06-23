@@ -9,9 +9,15 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiTags, ApiOAuth2 } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiTags,
+  ApiOAuth2,
+  ApiCreatedResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { ModelsService } from './models.service';
-import { CreateBiomodelDTO, Model, ModelResource } from './biomodel.dto';
+import { CreateModelDTO, Model, ModelResource, Models } from './biomodel.dto';
 import {
   JwtGuard,
   AdminGuard,
@@ -28,6 +34,10 @@ const dbToApi = (dbModel: BiomodelDB): ModelResource => {
 @Controller('models')
 export class ModelsController {
   constructor(public service: ModelsService) {}
+  @ApiOkResponse({
+    description: 'The record has been successfully created.',
+    type: Models,
+  })
   @Get()
   async getAll(): Promise<ModelResource[] | undefined> {
     const models = await this.service.search();
@@ -50,8 +60,12 @@ export class ModelsController {
 
   @UseGuards(JwtGuard)
   @ApiOAuth2([])
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+    type: ModelResource,
+  })
   @Post()
-  async create(@Body() body: CreateBiomodelDTO) {
+  async create(@Body() body: CreateModelDTO) {
     return this.service.createNewBiomodel(body.data);
   }
 

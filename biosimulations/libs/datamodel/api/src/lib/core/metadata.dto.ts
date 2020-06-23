@@ -8,10 +8,10 @@ import {
   AccessLevel,
 } from '@biosimulations/datamodel/core';
 
-import { PersonDTO, ExternalReferencesDTO } from '../..';
+import { PersonDTO, ExternalReferencesDTO } from '../common/index';
 
 export class MetadataDTO {
-  @ApiProperty({ enum: License })
+  @ApiProperty({ enum: () => License })
   license!: License;
   @ApiProperty({ type: () => [PersonDTO] })
   authors!: PersonDTO[];
@@ -23,7 +23,7 @@ export class MetadataDTO {
   description!: string;
   @ApiProperty()
   tags!: string[];
-  @ApiProperty({ enum: AccessLevel })
+  @ApiProperty({ enum: () => AccessLevel })
   accessLevel!: AccessLevel;
   @ApiProperty()
   createdDate!: number;
@@ -34,6 +34,7 @@ export class MetadataDTO {
   @ApiProperty()
   name!: string;
 }
+
 export class CreateMetaDataDTO extends OmitType(MetadataDTO, [
   'createdDate',
   'updatedDate',

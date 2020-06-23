@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBiomodelResource } from './biomodel.dto';
+import { CreateModelResource } from './biomodel.dto';
 import { BiomodelDB } from './biomodel.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
 import { timeStamp } from 'console';
 
+/**
+ * Model Service
+ * Accesses the database to create/save/delete models.
+ */
 @Injectable()
 export class ModelsService {
   constructor(
@@ -12,13 +16,12 @@ export class ModelsService {
     private readonly biomodel: ReturnModelType<typeof BiomodelDB>,
   ) {}
 
-  async createNewBiomodel(model: CreateBiomodelResource) {
-    console.log(model);
+  async createNewBiomodel(model: CreateModelResource) {
     const createdBiomodel = await new this.biomodel(
       new BiomodelDB(model),
     ).save();
+    return createdBiomodel;
   }
-
   async search(): Promise<BiomodelDB[] | null> {
     return await this.biomodel.find();
   }

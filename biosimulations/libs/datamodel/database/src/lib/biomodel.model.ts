@@ -1,5 +1,6 @@
 import { prop } from '@typegoose/typegoose';
-
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import {
   IsString,
   IsBoolean,
@@ -14,23 +15,35 @@ import * as mongoose from 'mongoose';
 import {
   BiomodelResource,
   ResourceType,
-  BiomodelAttributes,
+  BiomodelAttributes as IAttributes,
   PrimaryResourceMetaData,
-  Taxon,
+  Taxon as ITaxon,
   BiomodelParameter,
   BiomodelVariable,
   OntologyTerm,
   Format,
   BiomodelRelationships,
 } from '@biosimulations/datamodel/core';
-import { CreateModelResource } from './biomodel.dto';
+
 import {
   MetadataDTO,
   BiomodelVariableDTO,
   CreateMetaDataDTO,
+  CreateBiomodelResource,
 } from '@biosimulations/datamodel/api';
 
-export class BiomodelAttributesDB implements BiomodelAttributes {
+export class Taxon implements ITaxon {
+  @prop({ required: true })
+  id: number;
+  @prop({ required: true })
+  name: string;
+
+  constructor(taxon: ITaxon) {
+    this.id = taxon.id;
+    this.name = taxon.name;
+  }
+}
+export class BiomodelAttributes implements IAttributes {
   @prop({ required: true })
   taxon: Taxon;
   @prop({ required: true })
@@ -52,7 +65,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     metaData: MetadataDTO | CreateMetaDataDTO,
     variables: BiomodelVariableDTO[],
   ) {
-    this.taxon = taxon;
+    this.taxon = new Taxon(taxon);
     this.parameters = parameters;
     this.variables = variables;
     this.framework = framework;
@@ -81,6 +94,17 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     };
     this.metaData = md;
   }
+
+  serialize(): IAttributes {
+    const data: IAttributes = {
+      taxon: this.taxon,
+      parameters: this.parameters,
+      variables: this.variables,
+      framework: this.framework,
+      format: this.format,
+    };
+    return data;
+  }
 }
 export class BiomodelDB {
   @IsMongoId()
@@ -107,7 +131,7 @@ export class BiomodelDB {
   @prop({ required: true })
   image: string | null = null;
 
-  constructor(model: CreateModelResource) {
+  constructor(model: CreateBiomodelResource) {
     this._id = new mongoose.mongo.ObjectId();
     this.id = model.id || this._id.toHexString();
     const metadata = model.attributes.metadata;
