@@ -75,7 +75,7 @@
         "jwks-rsa": "^1.8.0",
         "md5": "^2.2.1",
         "nestjs-typegoose": "^7.1.22",
-        "mongoose": "^5.9.19",
+        "mongoose": "^5.9.20",
         "ngx-logger": "^4.1.9",
         "ngx-markdown": "^9.0.0",
         "ngx-material-file-input": "^2.1.0",
