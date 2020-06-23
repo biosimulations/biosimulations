@@ -51,7 +51,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.13.1",
         "@nestjs/common": "^7.2.0",
         "@nestjs/config": "^0.5.0",
-        "@nestjs/mongoose": "^6.4.0",
+        "@nestjs/mongoose": "^7.0.1",
         "@nestjs/passport": "^7.0.0",
         "@nrwl/nx-cloud": "^9.3.5",
         "@nestjs/core": "^7.2.0",
