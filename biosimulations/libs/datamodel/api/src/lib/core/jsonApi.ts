@@ -104,14 +104,16 @@ export type PrimaryData =
  *  id
  *  type
  *
- * Exception: The id member is not required when the resource object originates at the client and represents a new resource to be created on the server.
+ * Exception: The id member is not required when the resource object originates at the client
+ * and represents a new resource to be created on the server.
  *
  * In addition, a resource object MAY contain any of these top-level members:
  *
  *  attributes: an attributes object representing some of the resource’s data.
  *  relationships: a relationships object describing relationships between the resource and other JSON:API resources.
  *  links: a links object containing links related to the resource.
- *  meta: a meta object containing non-standard meta-information about a resource that can not be represented as an attribute or relationship.
+ *  meta: a meta object containing non-standard meta-information
+ *  about a resource that can not be represented as an attribute or relationship.
  */
 
 export interface NewResourceObject {
@@ -120,7 +122,8 @@ export interface NewResourceObject {
 
     Every resource object MUST contain an id member and a type member. The values of the id and type members MUST be strings.
 
-    Within a given API, each resource object’s type and id pair MUST identify a single, unique resource. (The set of URIs controlled by a server, or multiple servers acting as one, constitute an API.)
+    Within a given API, each resource object’s type and id pair MUST identify a single, unique resource. 
+    (The set of URIs controlled by a server, or multiple servers acting as one, constitute an API.)
 
     The type member is used to describe resource objects that share common attributes and relationships.
 
@@ -130,30 +133,34 @@ export interface NewResourceObject {
   type: string;
 
   /*
-  Fields
+   * Fields
+   * A resource object’s attributes and its relationships are collectively called its “fields”.
+   * Fields for a resource object MUST share a common namespace with each other
+   * and with type and id. In other words, a resource can not have an attribute and relationship with the same name,
+   * nor can it have an attribute or relationship named type or id.
+   */
 
-  A resource object’s attributes and its relationships are collectively called its “fields”.
-
-  Fields for a resource object MUST share a common namespace with each other and with type and id. In other words, a resource can not have an attribute and relationship with the same name, nor can it have an attribute or relationship named type or id.
-  */
-
-  /*
-  Attributes
-
-    The value of the attributes key MUST be an object (an “attributes object”). Members of the attributes object (“attributes”) represent information about the resource object in which it’s defined.
-
-    Attributes may contain any valid JSON value.
-
-    Complex data structures involving JSON objects and arrays are allowed as attribute values. However, any object that constitutes or is contained in an attribute MUST NOT contain a relationships or links member, as those members are reserved by this specification for future use.
-
-    Although has-one foreign keys (e.g. author_id) are often stored internally alongside other information to be represented in a resource object, these keys SHOULD NOT appear as attributes.
-  */
+  /* Attributes
+   *
+   * The value of the attributes key MUST be an object (an “attributes object”).
+   *  Members of the attributes object (“attributes”) represent information about the resource object in which it’s defined.
+   *
+   * Attributes may contain any valid JSON value.
+   *
+   * Complex data structures involving JSON objects and arrays are allowed as attribute values.
+   * However, any object that constitutes or is contained in an attribute MUST NOT contain a relationships or links member,
+   *  as those members are reserved by this specification for future use.
+   *
+   * Although has-one foreign keys (e.g. author_id) are often stored internally alongside other information
+   * to be represented in a resource object, these keys SHOULD NOT appear as attributes.
+   */
   attributes?: any;
 
   /*
-    Relationships
-
-The value of the relationships key MUST be an object (a “relationships object”). Members of the relationships object (“relationships”) represent references from the resource object in which it’s defined to other resource objects.
+   Relationships
+    The value of the relationships key MUST be an object (a “relationships object”). 
+    Members of the relationships object (“relationships”) represent references
+    From the resource object in which it’s defined to other resource objects.
   */
   relationships?: Relationships;
   links?: any;
@@ -164,15 +171,20 @@ export interface ResourceObject extends NewResourceObject {
 }
 
 /*
-    A “relationship object” MUST contain at least one of the following:
+  A “relationship object” MUST contain at least one of the following:
 
-    links: a links object containing at least one of the following:
-        self: a link for the relationship itself (a “relationship link”). This link allows the client to directly manipulate the relationship. For example, removing an author through an article’s relationship URL would disconnect the person from the article without deleting the people resource itself. When fetched successfully, this link returns the linkage for the related resources as its primary data. (See Fetching Relationships.)
+  links: a links object containing at least one of the following:
+      self: a link for the relationship itself (a “relationship link”).
+      This link allows the client to directly manipulate the relationship. 
+  For example, removing an author through an article’s relationship URL would disconnect the person from the article,
+  without deleting the people resource itself. 
+  When fetched successfully, this link returns the linkage for the related resources as its primary data. (See Fetching Relationships.)
         related: a related resource link
     data: resource linkage
     meta: a meta object that contains non-standard meta-information about the relationship.
 
-    A relationship object that represents a to-many relationship MAY also contain pagination links under the links member, as described below. Any pagination links in a relationship object MUST paginate the relationship data, not the related resources.
+  A relationship object that represents a to-many relationship MAY also contain pagination links under the links member, as described below.
+  Any pagination links in a relationship object MUST paginate the relationship data, not the related resources.
 */
 export interface Relationships {
   [key: string]: RelationshipObject;
@@ -186,7 +198,8 @@ export interface RelationshipObject {
 /*
  Resource Linkage
 
-Resource linkage in a compound document allows a client to link together all of the included resource objects without having to GET any URLs via links.
+ Resource linkage in a compound document allows a client to 
+ link together all of the included resource objects without having to GET any URLs via links.
 
 Resource linkage MUST be represented as one of the following:
  
@@ -238,10 +251,11 @@ export interface LinkObject {
 
 type Link = string | LinkObject | null;
 
-/**
- *  Error Objects
+/*
+ Error Objects
 
-Error objects provide additional information about problems encountered while performing an operation. Error objects MUST be returned as an array keyed by errors in the top level of a JSON:API document.
+Error objects provide additional information about problems encountered while performing an operation.
+ Error objects MUST be returned as an array keyed by errors in the top level of a JSON:API document.
 
 An error object MAY have the following members:
 
@@ -250,10 +264,12 @@ An error object MAY have the following members:
         about: a link that leads to further details about this particular occurrence of the problem.
     status: the HTTP status code applicable to this problem, expressed as a string value.
     code: an application-specific error code, expressed as a string value.
-    title: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+    title: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem,
+     except for purposes of localization.
     detail: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
     source: an object containing references to the source of the error, optionally including any of the following members:
-        pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
+        pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, 
+        or "/data/attributes/title" for a specific attribute].
         parameter: a string indicating which URI query parameter caused the error.
     meta: a meta object containing non-standard meta-information about the error.
 
