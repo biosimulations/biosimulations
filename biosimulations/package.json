@@ -87,7 +87,7 @@
         "ssh2": "^0.8.9",
         "swagger-ui-express": "^4.1.4",
         "tslib": "^1.13.0",
-        "uuid": "^8.1.0",
+        "uuid": "^8.2.0",
         "vega": "^5.9.1",
         "vega-embed": "^6.8.0",
         "vega-lite": "^4.3.0",
