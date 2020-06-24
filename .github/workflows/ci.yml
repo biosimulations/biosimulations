@@ -43,5 +43,3 @@ jobs:
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-          flags: frontEnd
-          file: ./biosimulations/coverage/apps/biosimulations-frontend/lcov.info
