@@ -32,6 +32,9 @@
       ],
       "@biosimulations/shared/biosimulations-config": [
         "libs/shared/biosimulations-config/src/index.ts"
+      ],
+      "@biosimulations/shared/biosimulations-error-filters": [
+        "libs/shared/biosimulations-error-filters/src/index.ts"
       ]
     },
     "rootDir": "."

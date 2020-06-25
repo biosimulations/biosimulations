@@ -34,9 +34,7 @@
     },
     "login-frontend-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "login-frontend"
-      ]
+      "implicitDependencies": ["login-frontend"]
     },
     "ui-material": {
       "tags": []
@@ -48,25 +46,16 @@
       "tags": []
     },
     "shared-biosimulations-auth": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "shared-biosimulations-config": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "biosimulations-dispatch-service": {
-      "tags": [
-        "scope:hpc",
-        "type:backend",
-        "platform:server"
-      ]
+      "tags": ["scope:hpc", "type:backend", "platform:server"]
+    },
+    "shared-biosimulations-error-filters": {
+      "tags": ["platform:server", "scope:shared", "type:util"]
     }
   },
   "tasksRunnerOptions": {
@@ -74,12 +63,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "ZTJmNzdiMjAtOTVmOC00YjdiLWI3ODMtNjA0MGI2OTRiZTIxfHJlYWQ=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
