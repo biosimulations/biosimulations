@@ -4,7 +4,7 @@ import { License, AccessLevel } from '@biosimulations/datamodel/core';
 
 import { Person, ExternalReferences } from '../common/index';
 
-export class ResourceMetadata {
+export class AttributesMetadata {
   @ApiProperty({ enum: () => License })
   license!: License;
   @ApiProperty({ type: () => [Person] })
@@ -20,17 +20,13 @@ export class ResourceMetadata {
   @ApiProperty({ enum: () => AccessLevel })
   accessLevel!: AccessLevel;
   @ApiProperty()
-  createdDate!: number;
-  @ApiProperty()
-  updatedDate!: number;
-  @ApiProperty()
-  version!: number;
-  @ApiProperty()
   name!: string;
 }
-
-export class CreateResourceMetaData extends OmitType(ResourceMetadata, [
-  'createdDate',
-  'updatedDate',
-  'version',
-] as const) {}
+export class ResourceMetadata {
+  @ApiProperty()
+  created!: number;
+  @ApiProperty()
+  updated!: number;
+  @ApiProperty()
+  version!: number;
+}

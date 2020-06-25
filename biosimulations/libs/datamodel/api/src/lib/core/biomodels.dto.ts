@@ -11,7 +11,7 @@ import {
   IntersectionType,
 } from '@nestjs/swagger';
 import { Identifier, Taxon, Format, OntologyTerm } from '../common';
-import { CreateResourceMetaData, ResourceMetadata } from './metadata.dto';
+import { AttributesMetadata, ResourceMetadata } from './metadata.dto';
 
 export class ModelParameter implements BiomodelParameter {
   @ApiProperty({
@@ -80,16 +80,5 @@ export class ModelAttributes implements BiomodelAttributes {
   @ApiProperty()
   format!: Format;
   @ApiProperty()
-  metadata!: ResourceMetadata;
+  metadata!: AttributesMetadata;
 }
-
-class CreateMetaField {
-  @ApiProperty()
-  metadata!: CreateResourceMetaData;
-}
-
-@ApiExtraModels()
-export class CreateModelAttributes extends IntersectionType(
-  OmitType(ModelAttributes, ['metadata'] as const),
-  CreateMetaField,
-) {}

@@ -25,9 +25,8 @@ import {
 } from '@biosimulations/datamodel/core';
 
 import {
-  ResourceMetadata,
+  AttributesMetadata,
   ModelVariable,
-  CreateResourceMetaData,
   CreateModelResource,
 } from '@biosimulations/datamodel/api';
 
@@ -43,14 +42,14 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: true })
   format: Format;
   @prop({ required: true, _id: false })
-  metadata: ResourceMetadata;
+  metadata: AttributesMetadata;
 
   constructor(
     taxon: Taxon,
     parameters: BiomodelParameter[],
     framework: OntologyTerm,
     format: Format,
-    metaData: ResourceMetadata | CreateResourceMetaData,
+    metaData: AttributesMetadata,
     variables: ModelVariable[],
   ) {
     this.taxon = taxon;
@@ -58,19 +57,10 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     this.variables = variables;
     this.framework = framework;
     this.format = format;
-    let createdDate = Date.now();
+    let created = Date.now();
+    let updated = Date.now();
     let version = 1;
-    if ((metaData as ResourceMetadata).createdDate) {
-      createdDate = (metaData as ResourceMetadata).createdDate;
-    }
-    if ((metaData as ResourceMetadata).version) {
-      version = version + 1;
-    }
-
-    const md: ResourceMetadata = {
-      createdDate,
-      version,
-      updatedDate: Date.now(),
+    const md: AttributesMetadata = {
       license: metaData.license,
       authors: metaData.authors,
       references: metaData.references,
@@ -102,11 +92,20 @@ export class BiomodelDB {
   @prop({ required: true })
   file: string;
 
-  @prop({ required: true })
+  @prop({ required: false })
   parent: string | null = null;
 
-  @prop({ required: true })
+  @prop({ required: false })
   image: string | null = null;
+
+  @prop({ required: true })
+  created: number;
+
+  @prop({ required: true })
+  updated: number;
+
+  @prop({ required: true })
+  version: number;
 
   constructor(model: CreateModelResource) {
     this._id = new mongoose.mongo.ObjectId();
@@ -120,7 +119,9 @@ export class BiomodelDB {
       model.attributes.metadata,
       model.attributes.variables,
     );
-
+    this.created = Date.now();
+    this.updated = Date.now();
+    this.version = 1;
     const fileId = model.relationships?.file?.data?.id;
     const userId = model.relationships?.owner.data.id;
     const imageId = model.relationships?.image?.data?.id;

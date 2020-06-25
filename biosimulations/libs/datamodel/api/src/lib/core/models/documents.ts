@@ -23,8 +23,8 @@ import {
   IntersectionType,
   ApiExtraModels,
 } from '@nestjs/swagger';
-import { ModelAttributes, CreateModelAttributes } from '../biomodels.dto';
-import { CreateResourceMetaData } from '../metadata.dto';
+import { ModelAttributes } from '../biomodels.dto';
+import { ResourceMetadata } from '../metadata.dto';
 
 export class ModelRelationships implements Relationships {
   [key: string]: RelationshipObject;
@@ -62,22 +62,23 @@ export class ModelResource implements ResourceObject {
   @ApiProperty()
   id: string;
 
-  @ApiProperty({ type: ['model'] })
+  @ApiProperty({ enum: ['model'] })
   type: ResourceType.model = ResourceType.model;
 
   @ApiProperty()
   attributes: ModelAttributes;
   @ApiProperty()
   relationships: ModelRelationships;
-  @ApiPropertyOptional()
+  @ApiProperty()
   links?: any;
-  @ApiPropertyOptional()
-  meta?: any;
+  @ApiProperty()
+  meta: ResourceMetadata;
 
   constructor(
     id: string,
     attributes: ModelAttributes,
     relationships: ModelRelationshipIds,
+    metadata: ResourceMetadata,
   ) {
     this.id = id;
     this.attributes = attributes;
@@ -87,16 +88,11 @@ export class ModelResource implements ResourceObject {
       relationships.image,
       relationships.parent,
     );
+    this.meta = metadata;
   }
 }
-class CreateAttributesField {
-  @ApiProperty()
-  attributes!: CreateModelAttributes;
-}
-export class CreateModelResource extends IntersectionType(
-  OmitType(ModelResource, ['attributes']),
-  CreateAttributesField,
-) {}
+
+export class CreateModelResource extends OmitType(ModelResource, ['meta']) {}
 export class ModelsDocument implements DataDocument {
   @ApiProperty({ type: [ModelResource] })
   data!: ModelResource[];

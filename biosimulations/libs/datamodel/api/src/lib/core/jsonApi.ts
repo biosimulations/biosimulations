@@ -23,6 +23,7 @@ export interface DataDocument {
   meta?: any;
   links?: TopLevelLinks;
   jsonapi?: any;
+  error?: never;
 }
 
 export interface CompoundDocument extends DataDocument {
@@ -33,6 +34,7 @@ export interface ErrorDocument {
   meta?: any;
   links?: TopLevelLinks;
   jsonapi?: any;
+  data?: never;
 }
 
 export interface MetaDataDocument {

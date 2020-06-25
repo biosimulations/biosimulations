@@ -15,7 +15,7 @@ export class UserRelationshipObject implements RelationshipObject {
 }
 
 export class NullableFileRelationshipObject implements RelationshipObject {
-  @ApiProperty()
+  @ApiProperty({ type: FileIdentifier, nullable: true })
   data!: FileIdentifier | null;
   constructor(id: string | null) {
     if (id) {
@@ -34,7 +34,7 @@ export class FileRelationshipObject implements RelationshipObject {
 }
 
 export class ModelRelationshipObject implements RelationshipObject {
-  @ApiProperty()
+  @ApiProperty({ type: ModelIdentifier, nullable: true })
   data!: ModelIdentifier | null;
   constructor(id: string | null) {
     if (id) {

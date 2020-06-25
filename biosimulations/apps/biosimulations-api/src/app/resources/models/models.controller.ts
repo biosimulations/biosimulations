@@ -33,12 +33,21 @@ import {
 import { BiomodelDB } from './biomodel.model';
 
 const dbToApi = (dbModel: BiomodelDB): ModelResource => {
-  const returnModel = new ModelResource(dbModel.id, dbModel.attributes, {
-    owner: dbModel.owner,
-    file: dbModel.file,
-    image: dbModel.image,
-    parent: dbModel.parent,
-  });
+  const returnModel = new ModelResource(
+    dbModel.id,
+    dbModel.attributes,
+    {
+      owner: dbModel.owner,
+      file: dbModel.file,
+      image: dbModel.image,
+      parent: dbModel.parent,
+    },
+    {
+      created: dbModel.created,
+      updated: dbModel.updated,
+      version: dbModel.version,
+    },
+  );
 
   return returnModel;
 };
