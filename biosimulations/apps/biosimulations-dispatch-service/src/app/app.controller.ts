@@ -5,6 +5,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
+import { OmexFile } from './types/omex-file/omex-file'
+import { SimulationSpec } from './types/simulation-spec/simulation-spec'
 
 @Controller()
 export class AppController {
@@ -29,7 +31,7 @@ export class AppController {
   @Post('dispatch')
   @UseInterceptors(FileInterceptor('file'))
   // Make multiple files work
-  uploadFile(@UploadedFile() file, @Body() body) {
+  uploadFile(@UploadedFile() file: OmexFile, @Body() body: SimulationSpec) {
     this.logger.log(file);
     this.logger.log(body);
 
@@ -66,7 +68,7 @@ export class AppController {
 
   }
 
-  removeNonEmptyDir(path) {
+  removeNonEmptyDir(path: string) {
     if (fs.existsSync(path)) {
       const files = fs.readdirSync(path)
    

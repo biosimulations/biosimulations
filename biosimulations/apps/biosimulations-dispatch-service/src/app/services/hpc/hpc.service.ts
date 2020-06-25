@@ -79,13 +79,13 @@ export class HpcService {
     
     }
 
-    getOutputFiles(simId) {
+    getOutputFiles(simId: string) {
         // pack all files (zip)
         // Get them on local
         // Unpack them and save to mongo
     }
 
-    getRealtimeOutput(simId) {
+    getRealtimeOutput(simId: string) {
         // Create a socket via SSH and stream the output file
     }
 
