@@ -113,7 +113,7 @@
         "@types/auth0": "^2.20.5",
         "@types/dragula": "^3.7.0",
         "@types/jest": "26.0.0",
-        "@types/mongoose": "^5.7.27",
+        "@types/mongoose": "^5.7.28",
         "@types/node": "^14.0.13",
         "@types/passport-jwt": "^3.0.3",
         "codelyzer": "^5.1.2",
