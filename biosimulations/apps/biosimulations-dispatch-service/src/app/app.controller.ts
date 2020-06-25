@@ -53,7 +53,7 @@ export class AppController {
     fs.writeFileSync(omexPath, file.buffer);
 
     // Generate SBATCH script
-    const hpcTempDirPath = `${this.configService.get('hpc').hpcSimDirBase}/${tempDir.split('-')[1]}`;
+    const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${tempDir.split('-')[1]}`;
     const sbatchString = this.sbatchService.generateSbatch(hpcTempDirPath, body.simulator, file.originalname);
     fs.writeFileSync(sbatchPath, sbatchString);
 
