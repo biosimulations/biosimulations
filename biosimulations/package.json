@@ -112,7 +112,7 @@
         "@nrwl/workspace": "^9.4.5",
         "@types/auth0": "^2.20.5",
         "@types/dragula": "^3.7.0",
-        "@types/jest": "26.0.0",
+        "@types/jest": "26.0.3",
         "@types/mongoose": "^5.7.27",
         "@types/node": "^14.0.13",
         "@types/passport-jwt": "^3.0.3",
