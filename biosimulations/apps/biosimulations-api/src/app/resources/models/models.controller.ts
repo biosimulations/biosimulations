@@ -60,10 +60,13 @@ export class ModelsController {
     type: ModelsDocument,
   })
   @Get()
-  async getAll(): Promise<ModelResource[] | undefined> {
+  async getAll(): Promise<ModelsDocument> {
     const models = await this.service.search();
-
-    return models?.map(dbToApi);
+    if (models) {
+      return { data: models.map(dbToApi) };
+    } else {
+      return { data: [] };
+    }
   }
 
   @ApiOkResponse({
