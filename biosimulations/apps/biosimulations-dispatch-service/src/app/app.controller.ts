@@ -2,7 +2,7 @@ import { Controller, Get, Logger, Post, Body, UseInterceptors, UploadedFile, Upl
 import { MessagePattern } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
-import * as fs from 'file-system';
+import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
 
@@ -53,7 +53,7 @@ export class AppController {
     fs.writeFileSync(omexPath, file.buffer);
 
     // Generate SBATCH script
-    const hpcTempDirPath = `${this.configService.get('hpcSimDirBase')}/${tempDir.split('-')[1]}`;
+    const hpcTempDirPath = `${this.configService.get('hpc').hpcSimDirBase}/${tempDir.split('-')[1]}`;
     const sbatchString = this.sbatchService.generateSbatch(hpcTempDirPath, body.simulator, file.originalname);
     fs.writeFileSync(sbatchPath, sbatchString);
 

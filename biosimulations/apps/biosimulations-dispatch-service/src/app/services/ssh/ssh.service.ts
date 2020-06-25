@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client as SSHClient } from 'ssh2';
-import * as fs from 'file-system';
+import * as fs from 'fs';
 import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-connection-config';
 
 

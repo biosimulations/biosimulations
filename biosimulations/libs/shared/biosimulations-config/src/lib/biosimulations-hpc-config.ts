@@ -7,7 +7,6 @@ export default registerAs('hpc', () => {
       port: process.env.HPC_SSH_PORT,
       username: process.env.HPC_SSH_USERNAME,
       password: process.env.HPC_SSH_PASSWORD,
-      simDirBase: '/home/CAM/crbmapi/simulations',
     },
     // Follows format from SSHConnectionConfig
     sftp: {
@@ -16,6 +15,7 @@ export default registerAs('hpc', () => {
       username: process.env.HPC_SFTP_USERNAME,
       password: process.env.HPC_SFTP_PASSWORD,
     },
+    simDirBase: '/home/CAM/crbmapi/simulations',
   };
 
   return config;
