@@ -9,7 +9,7 @@ import {
   IsObject,
   IsMongoId,
 } from 'class-validator';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 import {
   BiomodelResource,
@@ -25,6 +25,8 @@ import {
   License,
   AccessLevel,
   Person,
+  PrimitiveType,
+  Identifier,
 } from '@biosimulations/datamodel/core';
 
 import {
@@ -34,7 +36,7 @@ import {
   ExternalReferences,
 } from '@biosimulations/datamodel/api';
 
-// TODO expand definitions, add prop decorators, validation. Abstract to library
+// TODO expand definitions, add prop decorators, validation. Abstract to library. Include nested fields
 export interface Attributes extends AttributesMetadata {
   license: License;
   authors: Person[];
@@ -45,12 +47,58 @@ export interface Attributes extends AttributesMetadata {
   accessLevel: AccessLevel;
   name: string;
 }
+export class BiomodelVariableDB implements BiomodelVariable {
+  @prop()
+  target!: string;
+  @prop()
+  group!: string;
+  @prop()
+  id!: string;
+  @prop()
+  name!: string;
+  @prop({ text: true })
+  description!: string;
+  @prop()
+  type!: PrimitiveType;
+  @prop()
+  units!: string;
+}
+class IdentiferDB implements Identifier {
+  @prop()
+  namespace!: string;
+  @prop()
+  id!: string;
+  @prop()
+  url!: string | null;
+}
+class BiomodelParameterDB implements BiomodelParameter {
+  @prop()
+  target!: string;
+  @prop()
+  group!: string;
+  @prop()
+  id!: string;
+  @prop()
+  name!: string;
+  @prop()
+  description!: string | null;
+  @prop({ items: IdentiferDB })
+  identifiers!: Identifier[];
+  @prop()
+  type!: PrimitiveType;
+  @prop()
+  value!: string | number | boolean;
+  @prop()
+  recomendedRange!: (string | number | boolean)[];
+  @prop()
+  units!: string;
+}
 export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: true })
   taxon: Taxon;
-  @prop({ required: true })
+  @prop({ required: true, items: BiomodelParameterDB })
   parameters: BiomodelParameter[];
-  @prop({ required: true })
+  @prop({ required: true, items: BiomodelVariableDB })
   variables!: BiomodelVariable[];
   @prop({ required: true })
   framework: OntologyTerm;
@@ -113,7 +161,7 @@ export class BiomodelDB {
   @prop({ required: false })
   image: string | null = null;
 
-  @prop({ required: true })
+  @prop({ required: true, immutable: true })
   created: number;
 
   @prop({ required: true })
