@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: secret
           secret:
-            secretName: biosimulations-api-secrets-k6b5ck6kf2
+            secretName: biosimulations-api-secrets-9g65g6bm8k
 ---
 apiVersion: v1
 kind: Service
