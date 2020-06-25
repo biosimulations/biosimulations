@@ -1,3 +1,4 @@
+// TODO register these as seperate namespaces
 export const nestConfig = () => ({
   database: {
     uri: process.env.MONGODB_URI,
@@ -12,4 +13,5 @@ export const nestConfig = () => ({
     management_secret: process.env.MANAGEMENT_SECRET,
   },
   port: process.env.PORT || 3333,
+  host: process.env.HOST || 'http://localhost/',
 });
