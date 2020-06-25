@@ -22,14 +22,29 @@ import {
   OntologyTerm,
   Format,
   BiomodelRelationships,
+  License,
+  AccessLevel,
+  Person,
 } from '@biosimulations/datamodel/core';
 
 import {
   AttributesMetadata,
   ModelVariable,
   CreateModelResource,
+  ExternalReferences,
 } from '@biosimulations/datamodel/api';
 
+// TODO expand definitions, add prop decorators, validation. Abstract to library
+export interface Attributes extends AttributesMetadata {
+  license: License;
+  authors: Person[];
+  references: ExternalReferences;
+  summary: string;
+  description: string;
+  tags: string[];
+  accessLevel: AccessLevel;
+  name: string;
+}
 export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: true })
   taxon: Taxon;
@@ -42,7 +57,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: true })
   format: Format;
   @prop({ required: true, _id: false })
-  metadata: AttributesMetadata;
+  metadata: Attributes;
 
   constructor(
     taxon: Taxon,
