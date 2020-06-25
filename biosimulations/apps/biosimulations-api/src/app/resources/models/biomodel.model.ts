@@ -57,9 +57,9 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     this.variables = variables;
     this.framework = framework;
     this.format = format;
-    let created = Date.now();
-    let updated = Date.now();
-    let version = 1;
+    const created = Date.now();
+    const updated = Date.now();
+    const version = 1;
     const md: AttributesMetadata = {
       license: metaData.license,
       authors: metaData.authors,
