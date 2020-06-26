@@ -37,6 +37,7 @@ import {
 } from '@biosimulations/datamodel/api';
 
 // TODO expand definitions, add prop decorators, validation. Abstract to library. Include nested fields
+
 export interface Attributes extends AttributesMetadata {
   license: License;
   authors: Person[];
@@ -94,8 +95,8 @@ class BiomodelParameterDB implements BiomodelParameter {
   units!: string;
 }
 export class BiomodelAttributesDB implements BiomodelAttributes {
-  @prop({ required: true })
-  taxon: Taxon;
+  @prop({ required: false })
+  taxon: Taxon | null;
   @prop({ required: true, items: BiomodelParameterDB })
   parameters: BiomodelParameter[];
   @prop({ required: true, items: BiomodelVariableDB })
@@ -108,7 +109,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
   metadata: Attributes;
 
   constructor(
-    taxon: Taxon,
+    taxon: Taxon | null,
     parameters: BiomodelParameter[],
     framework: OntologyTerm,
     format: Format,
