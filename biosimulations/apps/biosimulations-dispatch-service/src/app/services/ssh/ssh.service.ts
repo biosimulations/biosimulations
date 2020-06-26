@@ -8,9 +8,10 @@ import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-conne
 @Injectable()
 export class SshService {
     // private hpcConfig = null;
-    private sftpConfig: SshConnectionConfig;
-    private sshConfig: SshConnectionConfig;
-    
+    // private sftpConfig: SshConnectionConfig;
+    // private sshConfig: SshConnectionConfig;
+    private sshConfig = this.configService.get('hpc').ssh as SshConnectionConfig;
+    private sftpConfig = this.configService.get('hpc').sftp as SshConnectionConfig;
 
     private logger = new Logger(SshService.name);
 
@@ -19,8 +20,7 @@ export class SshService {
         
     ){
 
-        this.sshConfig = this.configService.get('hpc').ssh as SshConnectionConfig;
-        this.sftpConfig = this.configService.get('hpc').sftp as SshConnectionConfig;
+        
         // this.hpcConfig = this.configService.get('hpc');
         // if (this.hpcConfig !== undefined) {
         //     this.sshConfig = this.hpcConfig.ssh as SshConnectionConfig;
