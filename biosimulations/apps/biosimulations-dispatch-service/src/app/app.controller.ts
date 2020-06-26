@@ -45,7 +45,7 @@ export class AppController {
     const omexPath = `${tempDir}/${file.originalname}`;
     const sbatchPath = `${tempDir}/run.sbatch`;
 
-    this.logger.log('Tempdir:', tempDir);
+    this.logger.log('Tempdir: ' + tempDir);
     
     // const hpcConfig = this.configService.get('hpc');
 
