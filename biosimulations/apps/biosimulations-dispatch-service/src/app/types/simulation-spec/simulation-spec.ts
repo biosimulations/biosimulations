@@ -1,3 +1,5 @@
 export class SimulationSpec {
-    simulator: string;
-}
+    constructor(public simulator: string) {
+        
+    }
+} 

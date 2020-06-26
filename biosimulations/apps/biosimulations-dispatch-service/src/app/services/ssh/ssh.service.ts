@@ -7,9 +7,9 @@ import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-conne
 
 @Injectable()
 export class SshService {
-    private hpcConfig = null;
-    private sftpConfig = null;
-    private sshConfig = null;
+    // private hpcConfig = null;
+    private sftpConfig: SshConnectionConfig;
+    private sshConfig: SshConnectionConfig;
     
 
     private logger = new Logger(SshService.name);
@@ -18,11 +18,14 @@ export class SshService {
         private configService: ConfigService
         
     ){
-        this.hpcConfig = this.configService.get('hpc');
-        if (this.hpcConfig !== undefined) {
-            this.sshConfig = this.hpcConfig.ssh as SshConnectionConfig;
-            this.sftpConfig = this.hpcConfig.sftp as SshConnectionConfig;
-        }
+
+        this.sshConfig = this.configService.get('hpc').ssh as SshConnectionConfig;
+        this.sftpConfig = this.configService.get('hpc').sftp as SshConnectionConfig;
+        // this.hpcConfig = this.configService.get('hpc');
+        // if (this.hpcConfig !== undefined) {
+        //     this.sshConfig = this.hpcConfig.ssh as SshConnectionConfig;
+        //     this.sftpConfig = this.hpcConfig.sftp as SshConnectionConfig;
+        // }
         
      }
 
@@ -37,11 +40,11 @@ export class SshService {
                 if(err){
                     reject(err);  
                 } 
-                stream.on('close', (code, signal) => {
+                stream.on('close', (code: any, signal: any) => {
                     resolve({ stdout, stderr });
                     conn.end();
                     this.logger.log('Connection closed')
-                }).on('data', (data) => {
+                }).on('data', (data: any) => {
                     stdout += data.toString('utf8');
                 }).stderr.on('data', (data) => {
                     stderr += data.toString('utf8');
@@ -99,7 +102,7 @@ export class SshService {
         
                 writeStream.on('end', () => {
                     this.logger.log('SFTP connection closed');
-                    conn.close();
+                    conn.destroy();
                     
                 });
         
@@ -123,7 +126,7 @@ export class SshService {
                     reject(err);  
                 } 
 
-                sftp.readdir(remoteDirPath, (readErr, list) => {
+                sftp.readdir(remoteDirPath, (readErr: any, list: any[]) => {
                     if (readErr) {
                         this.logger.error('Cannot read remote directory', JSON.stringify(readErr));
                         reject(readErr);

@@ -1,4 +1,5 @@
 export class OmexFile {
-    originalname: string;
-    buffer: Buffer;
+    constructor(public originalname: string, public buffer: Buffer) {
+
+    }
 }

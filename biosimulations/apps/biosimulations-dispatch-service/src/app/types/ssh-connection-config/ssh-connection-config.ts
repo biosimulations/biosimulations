@@ -1,7 +1,11 @@
 export class SshConnectionConfig {
-    host: string;
-    port: number;
-    username: string;
-    password: string;
+    constructor(
+        public host: string,
+        public port: number,
+        public username: string,
+        public password: string
+    ) {
+
+    }
 }
 
