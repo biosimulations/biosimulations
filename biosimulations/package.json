@@ -60,6 +60,7 @@
     "@nestjsx/crud": "^4.6.2",
     "@nrwl/nx-cloud": "^9.3.5",
     "@typegoose/typegoose": "^7.2.0",
+    "@types/ssh2": "^0.5.43",
     "ag-grid-angular": "^22.1.1",
     "ag-grid-community": "^22.1.1",
     "ag-grid-enterprise": "^22.1.1",

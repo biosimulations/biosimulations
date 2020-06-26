@@ -2,9 +2,11 @@ import { Controller, Get, Logger, Post, Body, UseInterceptors, UploadedFile, Upl
 import { MessagePattern } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
-import * as fs from 'file-system';
+import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
+import { OmexFile } from './types/omex-file/omex-file'
+import { SimulationSpec } from './types/simulation-spec/simulation-spec'
 
 @Controller()
 export class AppController {
@@ -29,11 +31,11 @@ export class AppController {
   @Post('dispatch')
   @UseInterceptors(FileInterceptor('file'))
   // Make multiple files work
-  uploadFile(@UploadedFile() file, @Body() body) {
+  uploadFile(@UploadedFile() file: OmexFile, @Body() body: SimulationSpec) {
     this.logger.log(file);
     this.logger.log(body);
 
-    if (file === null) {
+    if (file.originalname === '') {
       return {message: 'No file provided!'};
     }
 
@@ -43,7 +45,7 @@ export class AppController {
     const omexPath = `${tempDir}/${file.originalname}`;
     const sbatchPath = `${tempDir}/run.sbatch`;
 
-    this.logger.log('Tempdir:', tempDir);
+    this.logger.log('Tempdir: ' + tempDir);
     
     // const hpcConfig = this.configService.get('hpc');
 
@@ -53,9 +55,11 @@ export class AppController {
     fs.writeFileSync(omexPath, file.buffer);
 
     // Generate SBATCH script
-    const hpcTempDirPath = `${this.configService.get('hpcSimDirBase')}/${tempDir.split('-')[1]}`;
+    const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${tempDir.split('-')[1]}`;
     const sbatchString = this.sbatchService.generateSbatch(hpcTempDirPath, body.simulator, file.originalname);
     fs.writeFileSync(sbatchPath, sbatchString);
+
+    this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
 
     // const hpc = new Hpc(sshConf, sftpConf);
     this.hpcService.dispatchJob(hpcTempDirPath, omexPath, sbatchPath)
@@ -66,7 +70,7 @@ export class AppController {
 
   }
 
-  removeNonEmptyDir(path) {
+  removeNonEmptyDir(path: string) {
     if (fs.existsSync(path)) {
       const files = fs.readdirSync(path)
    
