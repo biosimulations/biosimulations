@@ -15,12 +15,10 @@ describe('AppController', () => {
     }).compile();
   });
 
-  describe('getData', () => {
-    it('should return "Welcome to biosimulations-api!"', () => {
+  describe('ping', () => {
+    it('should return "pong', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({
-        message: 'Welcome to biosimulations-api!',
-      });
+      expect(appController.getData()).toEqual('pong');
     });
   });
 });

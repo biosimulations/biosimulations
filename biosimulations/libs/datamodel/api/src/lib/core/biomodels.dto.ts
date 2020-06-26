@@ -69,8 +69,8 @@ export class ModelVariable implements BiomodelVariable {
 }
 
 export class ModelAttributes implements BiomodelAttributes {
-  @ApiProperty()
-  taxon!: Taxon;
+  @ApiProperty({ type: () => Taxon, nullable: true })
+  taxon!: Taxon | null;
   @ApiProperty({ type: [ModelParameter] })
   parameters!: ModelParameter[];
   @ApiProperty({ type: [ModelVariable] })

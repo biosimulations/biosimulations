@@ -10,7 +10,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from '../app-material.module';
 import { NgPipesModule } from 'ngx-pipes';
-import { NgxDnDModule } from '@swimlane/ngx-dnd';
+import { NgxModule } from '@swimlane/ngx-';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 // FontAwesome for icons
@@ -229,7 +229,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    NgxDnDModule,
     FlexLayoutModule,
   ],
   exports: [
@@ -268,7 +267,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FeedbackComponent,
     VegaViewerComponent,
     NgPipesModule,
-    NgxDnDModule,
+    NgxModule,
     FileFormComponent,
     ResourceFormComponent,
     UserNameFormComponent,

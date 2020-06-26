@@ -98,6 +98,7 @@ export class ModelsController {
   }
 
   @UseGuards(AdminGuard)
+  @ApiOAuth2([])
   @Delete()
   async deleteAll() {
     this.service.deleteAll();

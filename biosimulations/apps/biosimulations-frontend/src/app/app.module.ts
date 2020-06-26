@@ -9,7 +9,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Third party tools
-import { NgxDnDModule } from '@swimlane/ngx-dnd';
+
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 // Defined Modules in Imports
@@ -44,7 +44,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    NgxDnDModule,
+
     HttpClientModule,
     MaterialModule,
     SharedModule,

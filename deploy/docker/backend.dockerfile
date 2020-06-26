@@ -44,6 +44,6 @@ RUN npm ci --only=production
 
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
-COPY --from=build /app/dist/apps/${APP}/ .
+COPY --from=build /app/dist/main.js main.js
 
 CMD node main.js
