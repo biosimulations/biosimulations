@@ -10,8 +10,8 @@ export class SshService {
     // private hpcConfig = null;
     // private sftpConfig: SshConnectionConfig;
     // private sshConfig: SshConnectionConfig;
-    private sshConfig = this.configService.get('hpc').ssh as SshConnectionConfig;
-    private sftpConfig = this.configService.get('hpc').sftp as SshConnectionConfig;
+    private sshConfig: SshConnectionConfig = this.configService.get('hpc.ssh', new SshConnectionConfig('',0,'',''));
+    private sftpConfig: SshConnectionConfig = this.configService.get('hpc.sftp', new SshConnectionConfig('',0,'',''));
 
     private logger = new Logger(SshService.name);
 

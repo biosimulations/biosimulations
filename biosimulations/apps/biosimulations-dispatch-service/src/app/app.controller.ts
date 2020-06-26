@@ -35,7 +35,7 @@ export class AppController {
     this.logger.log(file);
     this.logger.log(body);
 
-    if (file === null) {
+    if (file.originalname === '') {
       return {message: 'No file provided!'};
     }
 
