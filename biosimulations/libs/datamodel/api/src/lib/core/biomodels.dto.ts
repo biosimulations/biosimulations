@@ -43,7 +43,7 @@ export class ModelParameter implements BiomodelParameter {
     minItems: 2,
     example: [22.7, 2270],
   })
-  recomendedRange!: (string | number | boolean)[];
+  recommendedRange!: (string | number | boolean)[];
   @ApiProperty({ example: 'mole / liter' })
   units!: string;
 }

@@ -35,6 +35,7 @@ import {
   CreateModelResource,
   ExternalReferences,
 } from '@biosimulations/datamodel/api';
+import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
 
 // TODO expand definitions, add prop decorators, validation. Abstract to library. Include nested fields
 
@@ -72,6 +73,7 @@ class IdentiferDB implements Identifier {
   @prop()
   url!: string | null;
 }
+
 class BiomodelParameterDB implements BiomodelParameter {
   @prop()
   target!: string;
@@ -83,28 +85,31 @@ class BiomodelParameterDB implements BiomodelParameter {
   name!: string;
   @prop()
   description!: string | null;
-  @prop({ items: IdentiferDB })
+  @prop({ items: IdentiferDB, _id: false })
   identifiers!: Identifier[];
-  @prop()
+  @prop({ type: String })
   type!: PrimitiveType;
-  @prop()
+  @prop({ type: Object })
   value!: string | number | boolean;
-  @prop()
-  recomendedRange!: (string | number | boolean)[];
+  @prop({ items: Object })
+  recommendedRange!: (string | number | boolean)[];
   @prop()
   units!: string;
 }
+
 export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: false })
   taxon: Taxon | null;
-  @prop({ required: true, items: BiomodelParameterDB })
+  @prop({ required: true, items: BiomodelParameterDB, _id: false })
   parameters: BiomodelParameter[];
-  @prop({ required: true, items: BiomodelVariableDB })
-  variables!: BiomodelVariable[];
+  @prop({ required: true, items: BiomodelVariableDB, _id: false })
+  variables!: BiomodelVariableDB[];
   @prop({ required: true })
   framework: OntologyTerm;
   @prop({ required: true })
   format: Format;
+
+  //TODO see if type can be set to object to avoid need for second interface
   @prop({ required: true, _id: false })
   metadata: Attributes;
 
@@ -143,7 +148,7 @@ export class BiomodelDB {
   _id: mongoose.Types.ObjectId;
 
   @IsString()
-  @prop({ required: true, unique: true })
+  @prop({ required: true, lowercase: true, trim: true, unique: true })
   id: string;
 
   @IsObject()

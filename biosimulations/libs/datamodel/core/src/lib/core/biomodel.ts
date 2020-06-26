@@ -12,7 +12,7 @@ export interface BiomodelParameter {
   identifiers: Identifier[];
   type: PrimitiveType;
   value: number | string | boolean;
-  recomendedRange: (boolean | string | number)[];
+  recommendedRange: (boolean | string | number)[];
   units: string;
 }
 
