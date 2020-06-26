@@ -19,6 +19,8 @@ export class SshService {
         private configService: ConfigService
         
     ){
+        this.logger.log('SSH config host: '+ this.sshConfig.host);
+        this.logger.log('SFTP config host: '+ this.sftpConfig.host);
 
         
         // this.hpcConfig = this.configService.get('hpc');
@@ -32,8 +34,6 @@ export class SshService {
      }
 
     execStringCommand(cmd: string): Promise<{ stdout: string; stderr: string; }> {
-        this.logger.log('SSH config host: '+ this.sshConfig.host);
-        this.logger.log('SFTP config host: '+ this.sftpConfig.host);
         return new Promise<{ stdout: string; stderr: string; }>((resolve, reject) => {
             const conn = new SSHClient();
             conn.on('ready', () => {
