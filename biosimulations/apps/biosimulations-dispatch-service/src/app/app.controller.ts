@@ -59,6 +59,8 @@ export class AppController {
     const sbatchString = this.sbatchService.generateSbatch(hpcTempDirPath, body.simulator, file.originalname);
     fs.writeFileSync(sbatchPath, sbatchString);
 
+    this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
+
     // const hpc = new Hpc(sshConf, sftpConf);
     this.hpcService.dispatchJob(hpcTempDirPath, omexPath, sbatchPath)
 
