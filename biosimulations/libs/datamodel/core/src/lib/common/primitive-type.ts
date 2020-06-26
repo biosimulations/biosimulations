@@ -1,6 +1,6 @@
 export enum PrimitiveType {
   boolean = 'boolean',
-  integer = ' interger',
+  integer = ' integer',
   float = 'float',
   string = 'string',
 }

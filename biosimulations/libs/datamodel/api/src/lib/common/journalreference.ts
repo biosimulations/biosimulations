@@ -1,7 +1,7 @@
-import { JournalReference } from '@biosimulations/datamodel/core';
+import { JournalReference as IJournalReference } from '@biosimulations/datamodel/core';
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
 
-export class JournalReferenceDTO implements JournalReference {
+export class JournalReference implements IJournalReference {
   @ApiProperty()
   authors!: string;
   @ApiProperty()

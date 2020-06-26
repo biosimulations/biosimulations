@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { nestConfig } from './biosimulations-secrets';
+
+import serverConfig from './biosimulations-server-config';
+import databaseConfig from './biosimulations-database-config';
+import authConfig from './biosimulations-auth-config';
+import hpcConfig from './biosimulations-hpc-config';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [nestConfig],
+      load: [databaseConfig, authConfig, serverConfig, hpcConfig],
       envFilePath: [
         './config/config.env',
         './secret/secret.env',

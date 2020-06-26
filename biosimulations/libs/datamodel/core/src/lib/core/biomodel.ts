@@ -30,8 +30,9 @@ export interface BiomodelVariable {
   units: string;
 }
 
+// TODO include metadata
 export interface BiomodelAttributes {
-  taxon: Taxon;
+  taxon: Taxon | null;
   parameters: BiomodelParameter[];
   variables: BiomodelVariable[];
   framework: OntologyTerm;

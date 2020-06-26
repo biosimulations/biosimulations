@@ -1,7 +1,7 @@
-import { Person } from '@biosimulations/datamodel/core';
+import { Person as IPerson } from '@biosimulations/datamodel/core';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class PersonDTO implements Person {
+export class Person implements IPerson {
   @ApiProperty()
   firstName!: string;
   @ApiProperty({ type: String, nullable: true })

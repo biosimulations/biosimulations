@@ -1,22 +1,27 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import {
+  SwaggerModule,
+  DocumentBuilder,
+  SwaggerCustomOptions,
+} from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
-
+import { json } from 'body-parser';
+import { ConfigService } from '@nestjs/config';
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);
 
+  const configService = app.get(ConfigService);
+  const port = configService.get('server.port');
+  const host = configService.get('server.host');
+  const limit = configService.get('server.limit');
+
+  app.use(json({ limit }));
   setupOpenApi(app);
 
-  const port = process.env.port || 3333;
   await app.listen(port, () => {
-    console.log('Listening at http://localhost:' + port + '/');
+    console.log('Listening at ' + host);
   });
 }
 
@@ -50,6 +55,20 @@ function setupOpenApi(app: INestApplication) {
     .addOAuth2(oauthSchema)
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('', app, document);
+
+  const uiOptions = {
+    oauth: {
+      clientId: 'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT',
+    },
+  };
+  const customOptions: SwaggerCustomOptions = {
+    customSiteTitle: 'Biosimulations API Documentation',
+
+    swaggerOptions: uiOptions,
+    customCss: ' .swagger-ui .topbar { display: none }',
+  };
+  SwaggerModule.setup('', app, document, customOptions);
+  const httpAdapter = app.getHttpAdapter();
+  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
 }
 bootstrap();

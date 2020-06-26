@@ -3,7 +3,6 @@ import {
   PrimitiveType,
   BiomodelVariable,
   BiomodelAttributes,
-  OntologyTerm,
 } from '@biosimulations/datamodel/core';
 import {
   ApiProperty,
@@ -11,33 +10,45 @@ import {
   OmitType,
   IntersectionType,
 } from '@nestjs/swagger';
-import { IdentifierDTO, TaxonDTO, FormatDTO, OntologyTermDTO } from '../common';
-import { CreateMetaDataDTO, MetadataDTO } from './index';
+import { Identifier, Taxon, Format, OntologyTerm } from '../common';
+import { AttributesMetadata, ResourceMetadata } from './metadata.dto';
 
-export class BiomodelParameterDTO implements BiomodelParameter {
-  @ApiProperty()
+export class ModelParameter implements BiomodelParameter {
+  @ApiProperty({
+    // tslint:disable-next-line: quotemark
+    example: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='N' ",
+  })
   target!: string;
-  @ApiProperty()
+  @ApiProperty({ example: 'Species amounts/concentrations' })
   group!: string;
-  @ApiProperty()
+  @ApiProperty({ example: 'N' })
   id!: string;
-  @ApiProperty()
+  @ApiProperty({ example: 'Nitrogen' })
   name!: string;
-  @ApiProperty({ type: String })
+  @ApiProperty({ type: String, example: 'Initial concentration of Nitrogen' })
   description!: string | null;
-  @ApiProperty({ type: [IdentifierDTO] })
-  identifiers!: IdentifierDTO[];
-  @ApiProperty({ enum: ['string', 'boolean', 'integer', 'float'] })
+  @ApiProperty({ type: [Identifier] })
+  identifiers!: Identifier[];
+  @ApiProperty({
+    enum: ['string', 'boolean', 'integer', 'float'],
+    enumName: 'PrimitiveType',
+    example: 'float',
+  })
   type!: PrimitiveType;
-  @ApiProperty({ type: String })
+  @ApiProperty({ type: String, example: 227 })
   value!: string | number | boolean;
-  @ApiProperty({ type: [Number, String, Boolean], maxItems: 2, minItems: 2 })
+  @ApiProperty({
+    type: [Number, String, Boolean],
+    maxItems: 2,
+    minItems: 2,
+    example: [22.7, 2270],
+  })
   recomendedRange!: (string | number | boolean)[];
-  @ApiProperty()
+  @ApiProperty({ example: 'mole / liter' })
   units!: string;
 }
 
-export class BiomodelVariableDTO implements BiomodelVariable {
+export class ModelVariable implements BiomodelVariable {
   @ApiProperty()
   target!: string;
   @ApiProperty()
@@ -48,43 +59,26 @@ export class BiomodelVariableDTO implements BiomodelVariable {
   name!: string;
   @ApiProperty()
   description!: string;
-  @ApiProperty({ enum: PrimitiveType })
+  @ApiProperty({
+    enum: ['string', 'boolean', 'integer', 'float'],
+    example: 'float',
+  })
   type!: PrimitiveType;
   @ApiProperty()
   units!: string;
 }
 
-export class BiomodelAttributesDTO implements BiomodelAttributes {
+export class ModelAttributes implements BiomodelAttributes {
+  @ApiProperty({ type: () => Taxon, nullable: true })
+  taxon!: Taxon | null;
+  @ApiProperty({ type: [ModelParameter] })
+  parameters!: ModelParameter[];
+  @ApiProperty({ type: [ModelVariable] })
+  variables!: ModelVariable[];
   @ApiProperty()
-  taxon!: TaxonDTO;
-  @ApiProperty({ type: [BiomodelParameterDTO] })
-  parameters!: BiomodelParameterDTO[];
-  @ApiProperty({ type: [BiomodelVariableDTO] })
-  variables!: BiomodelVariable[];
+  framework!: OntologyTerm;
   @ApiProperty()
-  framework!: OntologyTermDTO;
+  format!: Format;
   @ApiProperty()
-  format!: FormatDTO;
-  @ApiProperty()
-  metadata!: MetadataDTO;
+  metadata!: AttributesMetadata;
 }
-export class CreateBiomodelAttributesDTO implements BiomodelAttributes {
-  @ApiProperty()
-  taxon!: TaxonDTO;
-  @ApiProperty({ type: () => [BiomodelParameterDTO] })
-  parameters!: BiomodelParameterDTO[];
-  @ApiProperty({ type: [BiomodelVariableDTO] })
-  variables!: BiomodelVariable[];
-  @ApiProperty()
-  framework!: OntologyTermDTO;
-  @ApiProperty()
-  format!: FormatDTO;
-  @ApiProperty({ type: () => CreateMetaDataDTO })
-  metadata!: CreateMetaDataDTO;
-}
-@ApiExtraModels(CreateMetaDataDTO)
-class CreateMetaField {
-  @ApiProperty()
-  metadata!: CreateMetaDataDTO;
-}
-class createNoMeta extends OmitType(BiomodelAttributesDTO, ['metadata']) {}
