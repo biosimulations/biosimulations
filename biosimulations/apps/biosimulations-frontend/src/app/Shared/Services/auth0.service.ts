@@ -42,7 +42,7 @@ export class AuthService {
     }),
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
-    catchError(err => throwError(err)),
+    catchError((err) => throwError(err)),
   );
   // Define observables for SDK methods that return promises by default
   // For each Auth0 SDK method, first ensure the client instance is ready
@@ -50,7 +50,7 @@ export class AuthService {
   // from: Convert that resulting promise into an observable
   isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-    tap(res => (this.loggedIn = res)),
+    tap((res) => (this.loggedIn = res)),
   );
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback())),
@@ -71,14 +71,14 @@ export class AuthService {
   getUser$(options?): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
-      tap(user => this.userProfileSubject$.next(user)),
+      tap((user) => this.userProfileSubject$.next(user)),
     );
   }
 
   getUsername$(): Observable<string> {
     return this.getUser$().pipe(
       pluck('https://www.biosimulations.org:app_metadata', 'username'),
-      catchError(error => {
+      catchError((error) => {
         return of(null);
       }),
     );
@@ -89,7 +89,7 @@ export class AuthService {
       concatMap((client: Auth0Client) =>
         from(client.getIdTokenClaims(options)),
       ),
-      tap(token => (this.token = token)),
+      tap((token) => (this.token = token)),
     );
   }
   getTokenSilently$(options?): Observable<string> {
@@ -140,7 +140,7 @@ export class AuthService {
     let targetRoute: string; // Path to redirect to after login processsed
     const authComplete$ = this.handleRedirectCallback$.pipe(
       // Have client, now call method to handle auth callback redirect
-      tap(cbRes => {
+      tap((cbRes) => {
         // Get and set target redirect route from callback results
         targetRoute =
           cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
@@ -170,7 +170,7 @@ export class AuthService {
    */
   confirmExists(userProfile: any) {
     const serializer = new UserSerializer();
-    const user = new User();
+    const user = new User({});
     user.userId = userProfile.sub;
     if (userProfile.email) {
       user.email = userProfile.email;
@@ -183,7 +183,7 @@ export class AuthService {
     this.http
       .post(environment.crbm.CRBMAPI_URL + '/users', serializer.toJson(user))
       .subscribe(
-        res => {
+        (res) => {
           if (!environment.production) {
             console.log(userProfile);
             console.log(
@@ -193,7 +193,7 @@ export class AuthService {
             console.log('got username' + res);
           }
         },
-        err => {
+        (err) => {
           if (!environment.production) {
             console.log(
               'Called confirmed user exists endpoint for user' +

@@ -7,14 +7,14 @@ export class Identifier implements JsonSerializable<IdentifierDTO> {
   url: string | null;
   constructor(data: IdentifierDTO) {
     this.namespace = data.namespace;
-    this.identifier = data.identifier;
+    this.identifier = data.id;
     this.url = data.url;
   }
 
   serialize(): IdentifierDTO {
     return {
       namespace: this.namespace,
-      identifier: this.identifier,
+      id: this.identifier,
       url: this.getUrl(),
     };
   }
