@@ -105,7 +105,7 @@
     "@nestjs/schematics": "^7.0.1",
     "@nestjs/testing": "^7.2.0",
     "@nrwl/angular": "^9.3.0",
-    "@nrwl/cli": "^9.3.0",
+    "@nrwl/cli": "^9.5.0",
     "@nrwl/cypress": "^9.3.0",
     "@nrwl/jest": "9.4.5",
     "@nrwl/nest": "9.4.5",
