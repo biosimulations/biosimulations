@@ -25,7 +25,8 @@
     "update:check": "ng update",
     "dep-graph": "nx dep-graph",
     "workspace-schematic": "nx workspace-schematic",
-    "help": "nx help"
+    "help": "nx help",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
