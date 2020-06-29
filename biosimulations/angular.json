@@ -556,6 +556,225 @@
           }
         }
       }
+    },
+    "biosimulations-dispatch-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/biosimulations-dispatch-frontend",
+      "sourceRoot": "apps/biosimulations-dispatch-frontend/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/biosimulations-dispatch-frontend",
+            "index": "apps/biosimulations-dispatch-frontend/src/index.html",
+            "main": "apps/biosimulations-dispatch-frontend/src/main.ts",
+            "polyfills": "apps/biosimulations-dispatch-frontend/src/polyfills.ts",
+            "tsConfig": "apps/biosimulations-dispatch-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/biosimulations-dispatch-frontend/src/favicon.ico",
+              "apps/biosimulations-dispatch-frontend/src/assets"
+            ],
+            "styles": ["apps/biosimulations-dispatch-frontend/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/biosimulations-dispatch-frontend/src/environments/environment.ts",
+                  "with": "apps/biosimulations-dispatch-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "biosimulations-dispatch-frontend:build",
+            "proxyConfig": "apps/biosimulations-dispatch-frontend/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "biosimulations-dispatch-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "biosimulations-dispatch-frontend:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulations-dispatch-frontend/tsconfig.app.json",
+              "apps/biosimulations-dispatch-frontend/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/biosimulations-dispatch-frontend/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/biosimulations-dispatch-frontend/jest.config.js",
+            "tsConfig": "apps/biosimulations-dispatch-frontend/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/biosimulations-dispatch-frontend/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "biosimulations-dispatch-frontend-e2e": {
+      "root": "apps/biosimulations-dispatch-frontend-e2e",
+      "sourceRoot": "apps/biosimulations-dispatch-frontend-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/biosimulations-dispatch-frontend-e2e/cypress.json",
+            "tsConfig": "apps/biosimulations-dispatch-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "biosimulations-dispatch-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "biosimulations-dispatch-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulations-dispatch-frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/biosimulations-dispatch-frontend-e2e/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "biosimulations-dispatch-api": {
+      "root": "apps/biosimulations-dispatch-api",
+      "sourceRoot": "apps/biosimulations-dispatch-api/src",
+      "projectType": "application",
+      "prefix": "biosimulations-dispatch-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/biosimulations-dispatch-api",
+            "main": "apps/biosimulations-dispatch-api/src/main.ts",
+            "tsConfig": "apps/biosimulations-dispatch-api/tsconfig.app.json",
+            "assets": ["apps/biosimulations-dispatch-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/biosimulations-dispatch-api/src/environments/environment.ts",
+                  "with": "apps/biosimulations-dispatch-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "biosimulations-dispatch-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulations-dispatch-api/tsconfig.app.json",
+              "apps/biosimulations-dispatch-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/biosimulations-dispatch-api/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/biosimulations-dispatch-api/jest.config.js",
+            "tsConfig": "apps/biosimulations-dispatch-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-datamodel-messaging": {
+      "root": "libs/shared/datamodel/messaging",
+      "sourceRoot": "libs/shared/datamodel/messaging/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/datamodel/messaging/tsconfig.lib.json",
+              "libs/shared/datamodel/messaging/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/datamodel/messaging/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/datamodel/messaging/jest.config.js",
+            "tsConfig": "libs/shared/datamodel/messaging/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-frontend",
