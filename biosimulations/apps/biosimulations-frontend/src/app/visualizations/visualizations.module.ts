@@ -11,6 +11,7 @@ import { BrowseComponent } from './browse/browse.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
 
+import { NgxDnDModule } from '@swimlane/ngx-dnd';
 @NgModule({
   declarations: [BrowseComponent, EditComponent, ViewComponent],
   imports: [
@@ -21,6 +22,7 @@ import { ViewComponent } from './view/view.component';
     MaterialModule,
     SharedModule,
     VisualizationsRoutingModule,
+    NgxDnDModule.forRoot(),
   ],
   exports: [],
 })

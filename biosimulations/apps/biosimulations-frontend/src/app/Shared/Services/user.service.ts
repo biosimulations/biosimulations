@@ -28,9 +28,9 @@ export class UserService {
     return this.http.get<object[]>(this.endpoint + '/models').pipe(
       map((modelsJson: object[]) => {
         const models: User[] = [];
-
+        // TODO fix cast
         modelsJson.forEach((modelJson) => {
-          const testModel = this.serializer.fromJson(modelJson);
+          const testModel = this.serializer.fromJson(modelJson as Profile);
           models.push(testModel);
         });
         return models;
@@ -39,9 +39,8 @@ export class UserService {
   }
 
   set(user: User, userName: string, id: string): Observable<User> {
-    user.userId = id;
     return this.http
-      .put<User>(
+      .put<Profile>(
         this.endpoint + '/users/' + userName,
         this.serializer.toJson(user),
       )

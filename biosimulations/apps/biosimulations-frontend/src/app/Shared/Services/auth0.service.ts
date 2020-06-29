@@ -154,57 +154,10 @@ export class AuthService {
     // Response will be an array of user and login status
     authComplete$.subscribe(([user, loggedIn]) => {
       // Call a method in the user serivce to ensure that the user exists in the database
-      if (loggedIn) {
-        this.confirmExists(user);
-      }
 
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
     });
-  }
-  /**
-   * This method takes in a user profile and calls an api endpoint to ensure that the user is in the database
-   * The user might not be in the database if they are using a new account.
-   * @param  user The user profile object that is returned by the authentication service
-   *
-   */
-  confirmExists(userProfile: any) {
-    const serializer = new UserSerializer();
-    const user = new User({});
-    user.userId = userProfile.sub;
-    if (userProfile.email) {
-      user.email = userProfile.email;
-    }
-    user.userName =
-      userProfile['https://www.biosimulations.org:app_metadata']['username'];
-    user.firstName = userProfile.given_name;
-    user.lastName = userProfile.family_name;
-    // TODO add welcome messages, redirects to profiles
-    this.http
-      .post(environment.crbm.CRBMAPI_URL + '/users', serializer.toJson(user))
-      .subscribe(
-        (res) => {
-          if (!environment.production) {
-            console.log(userProfile);
-            console.log(
-              'Called confirmed user exists endpoint for user' +
-                userProfile.sub,
-            );
-            console.log('got username' + res);
-          }
-        },
-        (err) => {
-          if (!environment.production) {
-            console.log(
-              'Called confirmed user exists endpoint for user' +
-                userProfile.sub,
-            );
-            if (err.code === 409) {
-              console.log('got' + err);
-            }
-          }
-        },
-      );
   }
 
   logout() {

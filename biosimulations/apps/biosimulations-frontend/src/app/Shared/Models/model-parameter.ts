@@ -17,7 +17,7 @@ export class ModelParameter implements BiomodelParameterDTO {
   description: string | null;
   identifiers: Identifier[];
   type: PrimitiveType;
-  recomendedRange: (string | number | boolean)[];
+  recommendedRange: (string | number | boolean)[];
 
   constructor(data: BiomodelParameterDTO) {
     this.id = data.id;
@@ -33,7 +33,7 @@ export class ModelParameter implements BiomodelParameterDTO {
     );
 
     this.type = data.type;
-    this.recomendedRange = data.recomendedRange;
+    this.recommendedRange = data.recommendedRange;
   }
   serialize(): BiomodelParameterDTO {
     const json = {
@@ -46,7 +46,7 @@ export class ModelParameter implements BiomodelParameterDTO {
       description: this.description,
       identifiers: new Array(),
       type: this.type,
-      recomendedRange: this.recomendedRange,
+      recommendedRange: this.recommendedRange,
     };
     this.identifiers.map((value: Identifier) => {
       json.identifiers.push(value.serialize());

@@ -51,7 +51,7 @@ enum Mode {
 }
 
 // tslint:disable:max-line-length
-
+// TODO see if ngx-dnd can be replaced with material
 @Component({
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.sass'],
@@ -112,13 +112,13 @@ export class EditComponent implements OnInit {
       Validators.min(1),
       Validators.max(1),
     ]);
-    columnsFormControl.valueChanges.subscribe(val => {
+    columnsFormControl.valueChanges.subscribe((val) => {
       this.updateLayout();
       this.updatePreview();
     });
 
     const layoutFormArray: FormArray = this.formBuilder.array([]);
-    layoutFormArray.valueChanges.subscribe(val => {
+    layoutFormArray.valueChanges.subscribe((val) => {
       this.updateLayout();
       this.updatePreview();
     });
@@ -139,7 +139,7 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.url = this.route.snapshot.url;
       this.id = params.id;
       this.simulationId = params.simulationId;
@@ -167,7 +167,7 @@ export class EditComponent implements OnInit {
     if (this.id) {
       this.visualizationService
         .read(this.id)
-        .subscribe(visualization => (this.visualization = visualization));
+        .subscribe((visualization) => (this.visualization = visualization));
     }
     if (this.simulationId) {
     }
@@ -760,7 +760,7 @@ export class EditComponent implements OnInit {
     );
     visualization.pipe(
       pluck('id'),
-      tap(id => {
+      tap((id) => {
         this.snackBar.open('Visualization saved', '', {
           panelClass: 'centered-snack-bar',
           duration: 3000,

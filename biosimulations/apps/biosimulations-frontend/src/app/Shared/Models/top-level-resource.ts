@@ -10,8 +10,9 @@ import { Observable, of } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
 import { UserService } from '../Services/user.service';
 
+// TODO remove definite property assignment
 export abstract class TopLevelResource {
-  id?: string;
+  id!: string;
   ownerId?: string;
   imageId?: string;
   name?: string;
@@ -27,8 +28,8 @@ export abstract class TopLevelResource {
   license?: License;
   created?: Date;
   updated?: Date;
-  userService: UserService;
-  owner$: Observable<User>;
+  userService!: UserService;
+  owner$!: Observable<User>;
 
   abstract getIcon(): object;
 
@@ -48,7 +49,7 @@ export abstract class TopLevelResource {
       } else {
         this.owner$ = this.userService.get$(this.ownerId).pipe(
           shareReplay(1),
-          tap(owner => (this.owner = owner)),
+          tap((owner) => (this.owner = owner)),
         );
         return this.owner$;
       }

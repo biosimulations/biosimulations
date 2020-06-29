@@ -23,7 +23,6 @@ import { VisualizationService } from '../Services/Resources/visualization.servic
 import { Observable } from 'rxjs';
 
 export class ChartType extends TopLevelResource {
-  id?: string;
   name?: string;
   spec?: object;
   description?: string;

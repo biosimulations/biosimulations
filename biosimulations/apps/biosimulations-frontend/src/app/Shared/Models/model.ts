@@ -40,7 +40,7 @@ export class Model extends TopLevelResource {
         return of(this.owner);
       } else {
         const user = this.userservice.get$(this.ownerId);
-        user.pipe(tap(owner => (this.owner = owner)));
+        user.pipe(tap((owner) => (this.owner = owner)));
         return user;
       }
     } else {
@@ -55,10 +55,10 @@ export class Model extends TopLevelResource {
     return ['/models', this.id];
   }
 
-  getBioModelsId(): string {
-    for (const id of this.identifiers) {
+  getBioModelsId(): string | null {
+    for (const id of this.identifiers || []) {
       if (id.namespace === 'biomodels.db') {
-        return id.identifier;
+        return id.id;
       }
     }
     return null;
@@ -72,7 +72,13 @@ export class Model extends TopLevelResource {
       });
       return people;
     } else {
-      return [new Person(this.ownerId)];
+      return [
+        new Person({
+          firstName: this.ownerId || '',
+          middleName: null,
+          lastName: '',
+        }),
+      ];
     }
   }
 

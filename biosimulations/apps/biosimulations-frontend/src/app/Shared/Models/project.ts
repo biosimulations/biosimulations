@@ -21,7 +21,6 @@ import { ModelService } from '../Services/Resources/model.service';
 import { TopLevelResource } from './top-level-resource';
 
 export class Project extends TopLevelResource {
-  id?: string;
   name?: string;
 
   description?: string;
