@@ -112,7 +112,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: true })
   format: Format;
 
-  //TODO see if type can be set to object to avoid need for second interface
+  // TODO see if type can be set to object to avoid need for second interface
   @prop({ required: true, _id: false })
   metadata: Attributes;
 
