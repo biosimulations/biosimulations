@@ -30,9 +30,9 @@ import {
   AdminGuard,
 } from '@biosimulations/shared/biosimulations-auth';
 
-import { BiomodelDB } from './biomodel.model';
+import { Model } from './biomodel.model';
 
-const dbToApi = (dbModel: BiomodelDB): ModelResource => {
+const dbToApi = (dbModel: Model): ModelResource => {
   const returnModel = new ModelResource(
     dbModel.id,
     dbModel.attributes,

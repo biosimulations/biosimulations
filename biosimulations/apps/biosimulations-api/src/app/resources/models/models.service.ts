@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { BiomodelDB } from './biomodel.model';
+import { Model as BiomodelDB } from './biomodel.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
 import { timeStamp } from 'console';

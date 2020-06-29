@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { ModelsService } from './models.service';
 import { ModelsController } from './models.controller';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { BiomodelDB } from './biomodel.model';
+import { Model } from './biomodel.model';
 @Module({
-  imports: [TypegooseModule.forFeature([BiomodelDB])],
+  // TODO setup typegoose module to use specific collection
+  imports: [TypegooseModule.forFeature([Model])],
   providers: [ModelsService],
   controllers: [ModelsController],
   exports: [ModelsService],

@@ -12,6 +12,7 @@ import { ModelVariable } from '../../Models/model-variable';
 import { ModelParameter } from '../../Models/model-parameter';
 import { environment } from '../../../../environments/environment.prod';
 import { Model } from '../../Models/model';
+import { PrimitiveType } from '@biosimulations/datamodel/core';
 
 @Injectable({
   providedIn: 'root',
@@ -37,12 +38,13 @@ export class ModelService extends ResourceService<Model> {
     for (let iVariable = 0; iVariable < 3; iVariable++) {
       const variable = new ModelVariable({
         id: `var-${iVariable + 1}`,
-        target: null,
-        group: null,
-        type: null,
-        units: null,
+        target: 'null',
+        group: 'null',
+        type: PrimitiveType.string,
+        units: 'null',
         name: `Variable ${iVariable + 1}`,
-        description: null,
+        description: 'null',
+        identifiers: [],
       });
       variables.push(variable);
     }
@@ -65,7 +67,7 @@ export class ModelService extends ResourceService<Model> {
 
     if (id || name) {
       return list.filter(
-        item =>
+        (item) =>
           (id && item['id'].toLowerCase().includes(lowCaseId)) ||
           (name && item['name'].toLowerCase().includes(lowCaseName)),
       );
@@ -82,13 +84,13 @@ export class ModelService extends ResourceService<Model> {
     formData.append('file', file, file.name);
     formData.append('accessType', accessType);
     this.http.post(url, formData).subscribe(
-      success => {
+      (success) => {
         this.alertService.openDialog(
           'File upload was successful: ' + JSON.stringify(success),
         );
         this.getFileData();
       },
-      error => {
+      (error) => {
         this.alertService.openDialog(
           'File upload failed: ' + JSON.stringify(error),
         );
@@ -98,11 +100,11 @@ export class ModelService extends ResourceService<Model> {
 
   getFileData(): void {
     this.http.get(`${environment.crbm.CRBMAPI_URL}/file`).subscribe(
-      success => {
+      (success) => {
         this.fileList = success['data'];
         this.fileChangeSubject.next();
       },
-      error => {},
+      (error) => {},
     );
   }
 
@@ -110,14 +112,14 @@ export class ModelService extends ResourceService<Model> {
     this.http
       .delete(`${environment.crbm.CRBMAPI_URL}/file/${fileId}`)
       .subscribe(
-        success => {
+        (success) => {
           this.alertService.openDialog(
             'File deleted successfully' + JSON.stringify(success),
           );
           this.getFileData();
           this.fileChangeSubject.next();
         },
-        error => {
+        (error) => {
           this.alertService.openDialog(
             'There was an error while deleting the file' +
               JSON.stringify(error),
@@ -136,12 +138,12 @@ export class ModelService extends ResourceService<Model> {
         accessType: selectedValue,
       })
       .subscribe(
-        success => {
+        (success) => {
           console.log('File update successfull', success);
           this.alertService.openDialog('File update successful');
           this.router.navigate(['/models']);
         },
-        error => {
+        (error) => {
           console.log('File update failed', error);
           this.alertService.openDialog('File update failed');
         },

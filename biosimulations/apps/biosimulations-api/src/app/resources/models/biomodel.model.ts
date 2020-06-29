@@ -49,7 +49,19 @@ export interface Attributes extends AttributesMetadata {
   accessLevel: AccessLevel;
   name: string;
 }
+
+class IdentiferDB implements Identifier {
+  @prop()
+  namespace!: string;
+  @prop()
+  id!: string;
+  @prop()
+  url!: string | null;
+}
+
 export class BiomodelVariableDB implements BiomodelVariable {
+  @prop({ items: IdentiferDB, _id: false })
+  identifiers!: Identifier[];
   @prop()
   target!: string;
   @prop()
@@ -65,15 +77,6 @@ export class BiomodelVariableDB implements BiomodelVariable {
   @prop()
   units!: string;
 }
-class IdentiferDB implements Identifier {
-  @prop()
-  namespace!: string;
-  @prop()
-  id!: string;
-  @prop()
-  url!: string | null;
-}
-
 class BiomodelParameterDB implements BiomodelParameter {
   @prop()
   target!: string;
@@ -142,7 +145,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     this.metadata = md;
   }
 }
-export class BiomodelDB {
+export class Model {
   @IsMongoId()
   @prop({ required: true })
   _id: mongoose.Types.ObjectId;

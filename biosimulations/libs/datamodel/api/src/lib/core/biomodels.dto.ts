@@ -66,6 +66,9 @@ export class ModelVariable implements BiomodelVariable {
   type!: PrimitiveType;
   @ApiProperty()
   units!: string;
+
+  @ApiProperty({ type: [Identifier] })
+  identifiers!: Identifier[];
 }
 
 export class ModelAttributes implements BiomodelAttributes {

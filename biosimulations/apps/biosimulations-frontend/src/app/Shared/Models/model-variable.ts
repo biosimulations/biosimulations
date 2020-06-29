@@ -3,17 +3,26 @@ import {
   PrimitiveType,
 } from '@biosimulations/datamodel/core';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
+import { Identifier } from '@biosimulations/datamodel/api';
 
-export class ModelVariable implements JsonSerializable<BiomodelVariableDTO> {
+export class ModelVariable implements BiomodelVariableDTO {
   target: string;
   group: string;
   description: string;
   type: PrimitiveType;
   units: string;
-  id?: string;
-  name?: string;
+  id: string;
+  name: string;
+  identifiers: Identifier[];
   constructor(data: BiomodelVariableDTO) {
-    Object.assign(this, data);
+    this.target = data.target;
+    this.group = data.group;
+    this.description = data.description;
+    this.type = data.type;
+    this.units = data.units;
+    this.id = data.id;
+    this.name = data.name;
+    this.identifiers = data.identifiers;
   }
   serialize(): BiomodelVariableDTO {
     return {
@@ -24,6 +33,7 @@ export class ModelVariable implements JsonSerializable<BiomodelVariableDTO> {
       units: this.units,
       id: this.id,
       name: this.name,
+      identifiers: this.identifiers,
     };
   }
 }

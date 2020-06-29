@@ -28,6 +28,7 @@ export interface BiomodelVariable {
   description: string;
   type: PrimitiveType;
   units: string;
+  identifiers: Identifier[];
 }
 
 // TODO include metadata
