@@ -32,7 +32,7 @@ function setupOpenApi(app: INestApplication) {
     flows: {
       implicit: {
         authorizationUrl:
-          'https://auth.biosimulations.dev/authorize?audience=api.biosimulations.org',
+          'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org',
         scopes: [],
       },
     },
@@ -40,7 +40,7 @@ function setupOpenApi(app: INestApplication) {
   const openIDSchema: SecuritySchemeObject = {
     type: 'openIdConnect',
     openIdConnectUrl:
-      'https://auth.biosimulations.dev/.well-known/openid-configuration',
+      'https://auth.biosimulations.org/.well-known/openid-configuration',
   };
   const options = new DocumentBuilder()
     .setTitle('Biosimulations Resource API')

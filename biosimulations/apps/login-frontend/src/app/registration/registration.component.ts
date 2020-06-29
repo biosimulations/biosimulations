@@ -35,7 +35,7 @@ export class RegistrationComponent implements OnInit {
 
   aboutUrl = 'mailTo:info@biosimulations.org';
 
-  loginUrl = 'https://auth.biosimulations.dev/continue?state=';
+  loginUrl = 'https://auth.biosimulations.org/continue?state=';
 
   submitted = new BehaviorSubject(false);
   accepted = new BehaviorSubject(false);
@@ -62,15 +62,14 @@ export class RegistrationComponent implements OnInit {
     this.state = this.route.snapshot.queryParamMap.get('state');
     this.token = this.route.snapshot.queryParamMap.get('token');
   }
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   getErrorMessage() {
-
     if (this.userNameForm.hasError('required')) {
       return 'A username is required';
     }
     if (this.userNameForm.hasError('server')) {
-      return this.userNameForm.getError('server')
+      return this.userNameForm.getError('server');
     }
     if (this.userNameForm.hasError('invalid')) {
       return 'This username is not valid';
@@ -81,8 +80,8 @@ export class RegistrationComponent implements OnInit {
     this.submitted.next(true);
     this.user = this.registrationService
       .register(username, this.token)
-      .pipe(tap(_ => this.accepted.next(true)))
-      .subscribe(_ => this.redirect(this.state));
+      .pipe(tap((_) => this.accepted.next(true)))
+      .subscribe((_) => this.redirect(this.state));
   }
 
   redirect(state: string | null) {
