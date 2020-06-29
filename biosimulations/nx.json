@@ -56,6 +56,19 @@
     },
     "shared-biosimulations-error-filters": {
       "tags": ["platform:server", "scope:shared", "type:util"]
+    },
+    "biosimulations-dispatch-frontend": {
+      "tags": ["scope:dispatch", "platform:web", ""]
+    },
+    "biosimulations-dispatch-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["biosimulations-dispatch-frontend"]
+    },
+    "biosimulations-dispatch-api": {
+      "tags": ["scope:dispatch", "platform:server"]
+    },
+    "shared-datamodel-messaging": {
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
     }
   },
   "tasksRunnerOptions": {
