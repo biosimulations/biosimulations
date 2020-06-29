@@ -68,6 +68,3 @@ typings/
 **/config.json
 
 #env files
-
-# Local Netlify folder
-.netlify

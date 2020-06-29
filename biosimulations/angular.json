@@ -8,7 +8,7 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "sass",
-          "style": "scss"
+          "styleext": "scss"
         }
       },
       "root": "apps/biosimulations-frontend",

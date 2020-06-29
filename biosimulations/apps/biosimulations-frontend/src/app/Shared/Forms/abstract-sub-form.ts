@@ -2,7 +2,6 @@ import { OnDestroy } from '@angular/core';
 import { ControlValueAccessor, FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-// TODO: Add Angular decorator.
 export abstract class AbstractSubForm implements OnDestroy, ControlValueAccessor {
     /**
      * Holds any subscriptions created in the class to allow for unsubscribing
