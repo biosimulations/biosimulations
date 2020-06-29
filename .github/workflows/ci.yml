@@ -25,9 +25,19 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
         working-directory: ./biosimulations
-        run: npm ci && npm install -g @nrwl/cli
+        run: npm ci
 
       - name: Lint
         working-directory: ./biosimulations
@@ -36,6 +46,7 @@ jobs:
       - name: Build
         working-directory: ./biosimulations
         run: nx affected:build --base=$NX_BASE --prod
+
       - name: Test
         working-directory: ./biosimulations
         run: nx affected:test --base=$NX_BASE --code-coverage
