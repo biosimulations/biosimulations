@@ -1,0 +1,46 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "baseUrl": ".",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@biosimulations/datamodel/database": [
+        "libs/datamodel/database/src/index.ts"
+      ],
+      "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
+      "@biosimulations/datamodel/core": ["libs/datamodel/core/src/index.ts"],
+      "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
+      "@biosimulations/ui/material": ["libs/ui/material/src/index.ts"],
+      "@biosimulations/shared/debug": ["libs/shared/debug/src/index.ts"],
+      "@biosimulations/shared/biosimulations-auth": [
+        "libs/shared/biosimulations-auth/src/index.ts"
+      ],
+      "@biosimulations/shared/biosimulations-config": [
+        "libs/shared/biosimulations-config/src/index.ts"
+      ],
+      "@biosimulations/shared/biosimulations-error-filters": [
+        "libs/shared/biosimulations-error-filters/src/index.ts"
+      ]
+    },
+    "rootDir": "."
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

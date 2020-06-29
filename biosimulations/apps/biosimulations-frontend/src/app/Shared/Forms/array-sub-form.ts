@@ -1,8 +1,9 @@
 import { AbstractSubForm } from './abstract-sub-form';
 import { FormArray, FormGroup, AbstractControl } from '@angular/forms';
-import { Input } from '@angular/core';
+import { Input, Directive } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
+@Directive()
 export class ArraySubForm extends AbstractSubForm {
   @Input()
   count = 1;
