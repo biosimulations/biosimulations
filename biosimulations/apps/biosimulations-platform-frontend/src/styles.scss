@@ -10,3 +10,26 @@ body {
   margin: 0;
   height: 100%;
 }
+
+/* Page content */
+.partial-width {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  overflow: auto;
+}
+
+.full-width {
+  height: calc(100vh - 64px - 28px - 0.5rem);
+  box-sizing: border-box;
+
+  ag-grid-angular {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.page-content.padded {
+  padding: 2rem;
+}
