@@ -50,6 +50,13 @@
     },
     "shared-biosimulations-error-filters": {
       "tags": ["platform:server", "scope:shared", "type:util"]
+    },
+    "biosimulations-platform-frontend": {
+      "tags": ["platform:web", "public:true", ""]
+    },
+    "biosimulations-platform-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["biosimulations-platform-frontend"]
     }
   },
   "tasksRunnerOptions": {
