@@ -20,12 +20,13 @@ import { VisualizationService } from '../Services/Resources/visualization.servic
 import { UserService } from '../Services/user.service';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ModelVariable } from '@biosimulations/datamodel/api';
 
 export class Model extends TopLevelResource {
   taxon?: Taxon;
   parameters: ModelParameter[] = [];
   file?: RemoteFile;
-
+  variables: ModelVariable[] = [];
   framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
 
