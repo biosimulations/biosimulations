@@ -12,6 +12,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSortModule } from '@angular/material/sort';
+import { ModelService } from './services/model.service';
+import { ModelHttpService } from './services/model-http.service';
+import { ModelDataService } from './services/model-data.service';
+
 const routes: Routes = [{ path: '', component: ModelsComponent }];
 
 @NgModule({
@@ -31,5 +35,6 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     ModelsRoutingModule,
     RouterModule.forChild(routes),
   ],
+  providers: [ModelService, ModelHttpService, ModelDataService],
 })
 export class ModelsModule {}
