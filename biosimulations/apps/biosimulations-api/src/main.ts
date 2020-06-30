@@ -9,6 +9,7 @@ import { INestApplication } from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { json } from 'body-parser';
 import { ConfigService } from '@nestjs/config';
+import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);
 
@@ -17,6 +18,25 @@ async function bootstrap() {
   const host = configService.get('server.host');
   const limit = configService.get('server.limit');
 
+  // TODO intelligently allow origin based on production mode, abstract this
+  const allowOrigin: CustomOrigin = (
+    requestOrigin: string,
+    callback: (err: Error | null, allow?: boolean | undefined) => void,
+  ) => {
+    const allowedOrigins = [
+      'http://127.0.0.1:4200',
+      'https://biosimulations.dev',
+      'https://biosimulations.org',
+    ];
+    console.log(requestOrigin);
+    const allow = allowedOrigins.includes(requestOrigin);
+    let error = null;
+    if (!allow) {
+      error = new Error(requestOrigin + 'is not allowed');
+    }
+    callback(error, allow);
+  };
+  app.enableCors({ origin: allowOrigin });
   app.use(json({ limit }));
   setupOpenApi(app);
 
