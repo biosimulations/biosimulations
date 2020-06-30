@@ -15,7 +15,7 @@
     <ng-template matTabContent>
       <div class="tab overview" [class.overview-image]="model.image">
         <div class="image" *ngIf="model.image">
-          <img [src]="model.image['url']" />
+          <img alt="Model Thumbnail" [src]="model.image['url']" />
         </div>
         <div class="section">
           <h1>{{ model.name }}</h1>

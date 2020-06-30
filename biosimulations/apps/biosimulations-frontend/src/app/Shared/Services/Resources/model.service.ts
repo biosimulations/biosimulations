@@ -17,19 +17,13 @@ import { PrimitiveType } from '@biosimulations/datamodel/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ModelService extends ResourceService<Model> {
-  private userService: UserService;
-
-  fileList: Array<object> = null;
-  fileChangeSubject = new Subject<null>();
-
-  constructor(
-    private http: HttpClient,
-    private alertService: AlertService,
-    private router: Router,
-    private injector: Injector,
-  ) {
-    super(http, 'models', new ModelSerializer());
+export class ModelService {
+  constructor(private http: HttpClient, alertService: AlertService) {}
+  read(id: string): Observable<Model> {
+    return of(new Model());
+  }
+  list(): Observable<Model[]> {
+    return of([new Model(), new Model()]);
   }
 
   // TODO extract actual variables from model
