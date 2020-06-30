@@ -8,6 +8,7 @@ import {
   Query,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -28,8 +29,9 @@ import {
 import {
   JwtGuard,
   AdminGuard,
+  AuthToken,
 } from '@biosimulations/shared/biosimulations-auth';
-
+import { Request } from 'express';
 import { Model } from './biomodel.model';
 
 const dbToApi = (dbModel: Model): ModelResource => {
@@ -93,8 +95,16 @@ export class ModelsController {
     type: ModelResource,
   })
   @Post()
-  async create(@Body() body: CreateModelDocument) {
-    return this.service.createNewBiomodel(body.data);
+  async create(
+    @Req() req: Request,
+    @Body() body: CreateModelDocument,
+  ): Promise<ModelDocument> {
+    const user: AuthToken = req.user as any;
+    const data = body.data;
+    data.relationships.owner.data.id =
+      user['https://biosimulations.org/user_metadata'].username;
+    const model = await this.service.createNewBiomodel(data);
+    return { data: dbToApi(model.toObject()) };
   }
 
   @UseGuards(AdminGuard)
