@@ -7,6 +7,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UiMaterialModule } from '@biosimulations/ui/material';
+import { ModelService } from './models/services/model.service';
+import { ModelHttpService } from './models/services/model-http.service';
+import { ModelDataService } from './models/services/model-data.service';
 const routes: Routes = [
   {
     path: '',
@@ -29,7 +32,7 @@ const routes: Routes = [
       enabled: environment.production,
     }),
   ],
-  providers: [],
+  providers: [ModelService, ModelHttpService, ModelDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
