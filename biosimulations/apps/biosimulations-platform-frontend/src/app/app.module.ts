@@ -10,6 +10,7 @@ import { UiMaterialModule } from '@biosimulations/ui/material';
 import { ModelService } from './models/services/model.service';
 import { ModelHttpService } from './models/services/model-http.service';
 import { ModelDataService } from './models/services/model-data.service';
+import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +26,7 @@ const routes: Routes = [
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     UiMaterialModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
@@ -32,7 +34,7 @@ const routes: Routes = [
       enabled: environment.production,
     }),
   ],
-  providers: [ModelService, ModelHttpService, ModelDataService],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

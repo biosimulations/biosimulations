@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ModelData } from './models-datasource';
+import { ModelHttpService } from '../services/model-http.service';
 
 @Component({
   selector: 'biosimulations-browse-models',
@@ -9,7 +10,7 @@ import { ModelData } from './models-datasource';
 })
 export class BrowseModelsComponent implements OnInit {
   data: ModelData[] = [];
-
+  data$: any;
   displayedColumns = [
     'id',
     'name',
@@ -24,7 +25,9 @@ export class BrowseModelsComponent implements OnInit {
     'updated',
   ];
   columnsToDisplay = this.displayedColumns.slice();
-  constructor() {}
+  constructor(private modelHttpService: ModelHttpService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.data$ = this.modelHttpService.getAll();
+  }
 }
