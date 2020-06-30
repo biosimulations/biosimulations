@@ -2,13 +2,32 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UiMaterialModule } from '@biosimulations/ui/material';
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'models',
+    loadChildren: () =>
+      import('./models/models.module').then((m) => m.ModelsModule),
+  },
+];
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    BrowserAnimationsModule,
+    UiMaterialModule,
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <biosimulations-topbar color="#666">
+      <button
+        id="rightButton"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="drawer.opened"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </biosimulations-topbar>
+    <ng-content select="mat-nav-list"></ng-content>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <biosimulations-topbar [(showLogo)]="!drawer.opened">
+      <button
+        id="leftButton"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="!drawer.opened"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </biosimulations-topbar>
+    <ng-content select="router-outlet"> </ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
