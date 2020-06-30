@@ -1,5 +1,8 @@
-<mat-toolbar color="primary" class="topbar">
-  <a class="home" disableRipple="true">
+<mat-toolbar [ngStyle]="{ background: color }" [color]="color" class="topbar">
+  <ng-content select="#leftButton"></ng-content>
+  <ng-content select="#logoImage"> </ng-content>
+  <a href="/" class="home" disableRipple="true" *ngIf="showLogo">
     <span class="bio">Bio</span><span class="simulations">Simulations</span>
   </a>
+  <ng-content select="#rightButton"></ng-content>
 </mat-toolbar>

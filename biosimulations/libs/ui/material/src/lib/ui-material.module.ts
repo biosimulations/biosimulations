@@ -8,18 +8,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TopbarComponent } from './topbar/topbar.component';
 import { StepperButtonsComponent } from './next-previous-buttons/next-previous-buttons.component';
-const materialImports = [
-  FlexLayoutModule,
-  MatInputModule,
-  MatCardModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatStepperModule,
+import { BiosimulationsNavigationComponent } from './biosimulations-navigation/biosimulations-navigation.component';
+import { MaterialWrapperModule } from './material-wrapper.module';
+import { MatNavList } from '@angular/material/list';
+
+const declarations = [
+  TopbarComponent,
+  StepperButtonsComponent,
+  BiosimulationsNavigationComponent,
 ];
-const declarations = [TopbarComponent, StepperButtonsComponent];
 @NgModule({
-  imports: [CommonModule, ...materialImports],
-  exports: [...declarations],
+  imports: [CommonModule, MaterialWrapperModule],
+  exports: [...declarations, MaterialWrapperModule],
   declarations: [...declarations],
 })
 export class UiMaterialModule {}
