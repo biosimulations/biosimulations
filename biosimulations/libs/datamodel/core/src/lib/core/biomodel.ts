@@ -43,4 +43,5 @@ export interface BiomodelAttributes {
 export interface BiomodelRelationships {
   file: BiosimulationsId;
   owner: UserId;
+  image: BiosimulationsId;
 }
