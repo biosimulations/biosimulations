@@ -50,7 +50,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.1",
     "@fortawesome/free-regular-svg-icons": "^5.13.1",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
-    "@nestjs/common": "^7.2.0",
+    "@nestjs/common": "^7.3.0",
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.2.0",
     "@nestjs/microservices": "^7.2.0",
