@@ -53,7 +53,7 @@
     "@nestjs/common": "^7.2.0",
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.2.0",
-    "@nestjs/microservices": "^7.2.0",
+    "@nestjs/microservices": "^7.3.0",
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^7.2.0",
