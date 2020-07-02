@@ -34,16 +34,17 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        working-directory: ./biosimulations
-        run: npm ci
+        
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
+      - name: Install dependencies
+        working-directory: ./biosimulations
+        run: npm ci
+      
       - name: Lint
         working-directory: ./biosimulations
         run: nx affected:lint --base=$NX_BASE
