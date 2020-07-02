@@ -28,6 +28,6 @@ export class BrowseModelsComponent implements OnInit {
   constructor(private modelHttpService: ModelHttpService) {}
 
   ngOnInit(): void {
-    this.data$ = this.modelHttpService.getAll();
+    this.data$ = this.modelHttpService.loadAll();
   }
 }

@@ -15,6 +15,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { ModelService } from './services/model.service';
 import { ModelHttpService } from './services/model-http.service';
 import { ModelDataService } from './services/model-data.service';
+import { UiMaterialModule } from '@biosimulations/ui/material';
 
 const routes: Routes = [{ path: '', component: ModelsComponent }];
 
@@ -33,6 +34,7 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     MatStepperModule,
     MatSortModule,
     ModelsRoutingModule,
+    UiMaterialModule,
     RouterModule.forChild(routes),
   ],
   providers: [ModelService, ModelHttpService, ModelDataService],

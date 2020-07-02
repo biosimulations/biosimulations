@@ -18,14 +18,7 @@ export class ModelHttpService {
   // TODO make this a behavior subject that updates as needed
   models: Map<string, ModelResource> = new Map();
   loadAll() {
-    return this.http.get<ModelsDocument>(this.url).pipe(
-      pluck('data'),
-      map((value: ModelResource[]) => {
-        value.map((resource: ModelResource) => {
-          this.models.set(resource.id, resource);
-        });
-      }),
-    );
+    return this.http.get<ModelsDocument>(this.url).pipe(pluck('data'));
   }
 
   load(id: string) {
