@@ -8,8 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatNavList, MatListModule } from '@angular/material/list';
-
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
 const materialImports = [
   FlexLayoutModule,
   MatInputModule,
@@ -20,6 +20,7 @@ const materialImports = [
   MatIconModule,
   MatSidenavModule,
   MatListModule,
+  MatTabsModule,
 ];
 
 @NgModule({
