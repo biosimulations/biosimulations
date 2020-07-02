@@ -57,6 +57,9 @@
     "biosimulations-platform-frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["biosimulations-platform-frontend"]
+    },
+    "shared-biosimulations-ng-utils": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

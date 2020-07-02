@@ -628,7 +628,9 @@
             "styles": [
               "apps/biosimulations-platform-frontend/src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/ui/material/src/lib"
@@ -739,6 +741,41 @@
               "!apps/biosimulations-platform-frontend-e2e/**/*"
             ]
           }
+        }
+      }
+    },
+    "shared-biosimulations-ng-utils": {
+      "projectType": "library",
+      "root": "libs/shared/biosimulations-ng-utils",
+      "sourceRoot": "libs/shared/biosimulations-ng-utils/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/biosimulations-ng-utils/tsconfig.lib.json",
+              "libs/shared/biosimulations-ng-utils/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/biosimulations-ng-utils/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/biosimulations-ng-utils/jest.config.js",
+            "tsConfig": "libs/shared/biosimulations-ng-utils/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/biosimulations-ng-utils/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }

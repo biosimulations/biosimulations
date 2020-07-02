@@ -11,6 +11,7 @@ import { ModelService } from './models/services/model.service';
 import { ModelHttpService } from './models/services/model-http.service';
 import { ModelDataService } from './models/services/model-data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 const routes: Routes = [
   {
     path: '',
@@ -26,8 +27,7 @@ const routes: Routes = [
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
+    BiosimulationsAppModule,
     UiMaterialModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     ServiceWorkerModule.register('ngsw-worker.js', {
