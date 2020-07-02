@@ -4,6 +4,7 @@ import {
   ClientProxy,
   Transport,
   ClientProxyFactory,
+  NatsOptions
 } from '@nestjs/microservices';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -12,12 +13,6 @@ import { BiosimulationsConfigModule } from '@biosimulations/shared/biosimulation
 @Module({
   imports: [
     BiosimulationsConfigModule,
-    ClientsModule.register([
-      {
-        name: 'DISPATCH_MQ',
-        transport: Transport.NATS,
-      },
-    ]),
   ],
   controllers: [AppController],
   providers: [
@@ -25,7 +20,10 @@ import { BiosimulationsConfigModule } from '@biosimulations/shared/biosimulation
     {
       provide: 'DISPATCH_MQ',
       useFactory: (configService: ConfigService) => {
-        const natsOptions = configService.get('nats');
+        const natsServerConfig = configService.get('nats');
+        const natsOptions: NatsOptions = {};
+        natsOptions.transport = Transport.NATS;
+        natsOptions.options = natsServerConfig;
         return ClientProxyFactory.create(natsOptions);
       },
       inject: [ConfigService],
