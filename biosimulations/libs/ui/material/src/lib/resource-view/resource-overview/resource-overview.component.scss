@@ -1,0 +1,15 @@
+@import 'biosimulations-typography';
+@import 'biosimulations-colors';
+.image {
+  border: 1px solid #ccc;
+  overflow: hidden;
+  line-height: 0;
+  width: max-content;
+  img {
+    width: 100%;
+    transition: all 0.5s;
+  }
+  img:hover {
+    transform: scale(1.08);
+  }
+}
