@@ -23,17 +23,20 @@ async function bootstrap() {
     requestOrigin: string,
     callback: (err: Error | null, allow?: boolean | undefined) => void,
   ) => {
+    if (!requestOrigin) {
+      callback(null, true);
+      return;
+    }
     const allowedOrigins = [
       'http://127.0.0.1:4200',
       'https://biosimulations.dev',
       'https://biosimulations.org',
+      'https://api.biosimulations.dev',
+      'https://api.biosimulations.org',
     ];
     console.log(requestOrigin);
     const allow = allowedOrigins.includes(requestOrigin);
-    let error = null;
-    if (!allow) {
-      error = new Error(requestOrigin + 'is not allowed');
-    }
+    const error = null;
     callback(error, allow);
   };
   app.enableCors({ origin: allowOrigin });
