@@ -29,7 +29,9 @@ export class Model extends TopLevelResource {
   variables: ModelVariable[] = [];
   framework?: OntologyTerm; // SBO modeling framework
   format?: Format;
-
+  constructor() {
+    super();
+  }
   public simulationService: SimulationService;
   public visualizationService: VisualizationService;
   public projectService: ProjectService;

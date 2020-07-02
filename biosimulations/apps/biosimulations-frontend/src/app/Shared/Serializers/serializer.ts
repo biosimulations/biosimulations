@@ -18,48 +18,36 @@ export class Serializer<T extends TopLevelResource> {
   }
   fromJson(json: any): T {
     const topLevelResource = new this.type();
-    topLevelResource.id = json.id;
+    topLevelResource.id = '001';
     // Simple, one to one corresponding feilds
-    topLevelResource.id = json.id;
-    topLevelResource.name = json.name;
+    topLevelResource.id = '001';
+    topLevelResource.name = 'testModel';
 
-    topLevelResource.description = json.description;
-    topLevelResource.accessToken = json.accessToken;
-    topLevelResource.tags = json.tags;
-    topLevelResource.created = new Date(Date.parse(json.created));
-    topLevelResource.updated = new Date(Date.parse(json.updated));
-    topLevelResource.license = json.license as License;
+    topLevelResource.description = topLevelResource.accessToken = 'password';
+    topLevelResource.tags = ['tag', 'tag'];
+    topLevelResource.created = new Date();
+    topLevelResource.updated = new Date();
+    topLevelResource.license = License.cc0;
     topLevelResource.identifiers = [];
-    for (const identifier of json?.identifiers) {
-      topLevelResource.identifiers.push(new Identifier(identifier));
-    }
-    // Owner if embedded
-    if (typeof json.owner === 'string') {
-      topLevelResource.ownerId = json.owner;
-    } else if (typeof json.owner === 'object' && json.owner !== null) {
-      topLevelResource.owner = this.userSerializer.fromJson(json.owner);
-      topLevelResource.ownerId = topLevelResource.owner.userName;
-    }
-    if (json.private) {
-      // Boolean
-      topLevelResource.access = AccessLevel.private;
-    } else {
-      topLevelResource.access = AccessLevel.public;
-    }
+    topLevelResource.identifiers.push(
+      new Identifier({ namespace: 'test', id: 'test', url: 'test' }),
+    );
+    topLevelResource.ownerId = 'bilal';
 
-    if (json.authors) {
-      topLevelResource.authors = [];
-      for (const author of json.authors) {
-        topLevelResource.authors.push(
-          new Person({
-            firstName: author.firstName,
-            middleName: author.middleName,
-            lastName: author.lastName,
-          }),
-        );
-      }
-    }
-    topLevelResource.refs = [];
+    topLevelResource.access = AccessLevel.public;
+    topLevelResource.authors = [];
+    topLevelResource.refs = [
+      new JournalReference({
+        authors: 'test test',
+        title: 'test',
+        doi: 'test',
+        journal: 'test',
+        year: 1002,
+        volume: 3,
+        issue: 'all of them ',
+        pages: '102',
+      }),
+    ];
     if (json.references) {
       for (const reference of json.references) {
         topLevelResource.refs.push(new JournalReference(reference));
@@ -68,9 +56,9 @@ export class Serializer<T extends TopLevelResource> {
 
     topLevelResource.image = new RemoteFile(
       (json.name as string) + ' Thumbnail',
-      json.image,
+      'www.google.com',
       topLevelResource.ownerId,
-      topLevelResource.access === AccessLevel.private,
+      true,
       'xml',
       environment.crbm.CRBMAPI_URL + '/files/' + json.image + '/download',
     );

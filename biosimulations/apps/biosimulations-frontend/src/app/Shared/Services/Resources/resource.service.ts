@@ -13,9 +13,7 @@ export class ResourceService<T extends TopLevelResource> {
     private url: string = environment.crbm.CRBMAPI_URL,
   ) {}
   public create(item: T): Observable<T> {
-    return this.httpClient
-      .post(`${this.url}/${this.endpoint}`, this.serializer.toJson(item))
-      .pipe(map(data => this.serializer.fromJson(data) as T));
+    return of(this.serializer.fromJson({}) as T);
   }
 
   public update(item: T): Observable<T> {
@@ -24,7 +22,7 @@ export class ResourceService<T extends TopLevelResource> {
         `${this.url}/${this.endpoint}/${item.id}`,
         this.serializer.toJson(item),
       )
-      .pipe(map(data => this.serializer.fromJson(data) as T));
+      .pipe(map((data) => this.serializer.fromJson(data) as T));
   }
 
   public read(
@@ -32,23 +30,16 @@ export class ResourceService<T extends TopLevelResource> {
     queryOptions: QueryOptions = new QueryOptions(),
   ): Observable<T> {
     // TODO confirm that this is still the best approach
-    if (id === undefined) {
-      return of(this.serializer.fromJson({}) as T);
-    }
-    queryOptions.embed.push('owner');
-    return this.httpClient
-      .get(`${this.url}/${this.endpoint}/${id}?${queryOptions.toQueryString()}`)
-      .pipe(map((data: any) => this.serializer.fromJson(data) as T));
+
+    return of(this.serializer.fromJson({}) as T);
   }
 
   public list(
     queryOptions: QueryOptions = new QueryOptions(),
   ): Observable<T[]> {
     // TODO: filter on name, owner attributes
-    queryOptions.embed.push('owner');
-    return this.httpClient
-      .get(`${this.url}/${this.endpoint}?${queryOptions.toQueryString()}`)
-      .pipe(map((data: any) => this.convertData(data)));
+
+    return of([]);
   }
 
   public delete(id: string) {
@@ -56,6 +47,6 @@ export class ResourceService<T extends TopLevelResource> {
   }
 
   private convertData(data: any): T[] {
-    return data.map(item => this.serializer.fromJson(item));
+    return data.map((item) => this.serializer.fromJson(item));
   }
 }
