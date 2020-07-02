@@ -24,22 +24,23 @@ export class Model {
 
   //Metadata
   id: string;
-  name: string;
-  summary: string;
-  description: string;
-  tags: string[];
-  identifiers: Identifier[];
-  refs: JournalReference[];
-  authors: Person[];
-  license: License;
-  created: Date;
-  updated: Date;
-  access: AccessLevel;
+  name!: string;
+  summary!: string;
+  description!: string;
+  tags!: string[];
+  identifiers!: Identifier[];
+  refs!: JournalReference[];
+  authors!: Person[];
+  license!: License;
+  created!: Date;
+  updated!: Date;
+  access!: AccessLevel;
 
   // Relationships
-  fileId: string;
-  ownerId: string;
-  imageId: string;
+  // Relationships
+  fileId!: string;
+  ownerId!: string;
+  imageId!: string;
 
   constructor(
     id: string,
