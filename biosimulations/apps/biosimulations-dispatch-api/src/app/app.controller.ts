@@ -1,9 +1,8 @@
-import { Controller, Get, Inject, OnApplicationBootstrap, Post, UseInterceptors, UploadedFile, Body, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Controller, Inject, OnApplicationBootstrap, Post, UseInterceptors, UploadedFile, Body, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { OmexFile } from './types/omex-file/omex-file';
-import { SimulationSpec } from './types/simulation-spec/simulation-spec';
+import { SimulationDispatchSpec, OmexDispatchFile } from '@biosimulations/datamodel/core';
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
@@ -18,7 +17,7 @@ export class AppController implements OnApplicationBootstrap {
 
     @Post('dispatch')
     @UseInterceptors(FileInterceptor('file'))
-    uploadFile(@UploadedFile() file: OmexFile, @Body() simSpec: SimulationSpec) {
+    uploadFile(@UploadedFile() file: OmexDispatchFile, @Body() simSpec: SimulationDispatchSpec) {
     // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
     const fileStorage = process.env.FILE_STORAGE;
     const omexStorage = `${fileStorage}/OMEX/ID`;

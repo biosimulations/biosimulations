@@ -6,3 +6,4 @@ export * from './project';
 export * from './algorithm';
 export * from './simulation';
 export * from './user';
+export * from './combine-archive';
