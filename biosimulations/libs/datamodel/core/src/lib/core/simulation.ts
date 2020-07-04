@@ -26,3 +26,10 @@ export interface SimulationAttributes {
   endTime: number;
   meta: PrimaryResourceMetaData;
 }
+
+export interface SimulationDispatchSpec {
+  simulator: string
+  filename: string
+  uniqueFilename: string
+  filepathOnDataStore: string
+}

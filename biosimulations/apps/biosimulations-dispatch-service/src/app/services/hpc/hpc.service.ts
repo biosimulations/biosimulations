@@ -15,10 +15,7 @@ export class HpcService {
 
     dispatchJob(simDirBase: string, sbatchPath: string, omexPath: string, omexName: string) {
 
-        // const sbatchPathSplit = sbatchPath.split('/');
-        // const omexPathSplit = omexPath.split('/');
         const sbatchName = 'run.sbatch';
-        // const omexName = omexPathSplit[omexPathSplit.length - 1];
 
         this.logger.log('Omex name: ' + JSON.stringify(omexName));
         
