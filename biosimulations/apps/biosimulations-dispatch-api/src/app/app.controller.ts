@@ -1,15 +1,16 @@
-import { Controller, Get, Inject, OnApplicationBootstrap, Post, UseInterceptors, UploadedFile, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Inject, OnApplicationBootstrap, Post, UseInterceptors, UploadedFile, Body, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { OmexFile } from './types/omex-file/omex-file';
 import { SimulationSpec } from './types/simulation-spec/simulation-spec';
-import { v1 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
+  private logger = new Logger(AppController.name);
   constructor(
     private readonly appService: AppService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
@@ -31,11 +32,19 @@ export class AppController implements OnApplicationBootstrap {
     // Fill out info from file that will be lost after saving in central storage
     simSpec.filename = file.originalname;
     simSpec.uniqueFilename = uniqueFilename;
+    simSpec.filepathOnDataStore = omexSavePath;
 
     // Save the file
     fs.writeFileSync(omexSavePath, file.buffer);
 
-    this.messageClient.emit('dispatch', simSpec);
+    this.messageClient.send('dispatch', simSpec).subscribe(
+      res => {
+        this.logger.log(JSON.stringify(res));
+      },
+      err => {
+        this.logger.log('Error occured in dispatch service: ' + JSON.stringify(err));
+      }
+    );
     
     return {
       message: 'File uploaded successfuly',
