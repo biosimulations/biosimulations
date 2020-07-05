@@ -25,8 +25,8 @@ export class AppController {
     const fileStorage = process.env.FILE_STORAGE;
     const sbatchStorage = `${fileStorage}/SBATCH/ID`;
 
-    if (data.filename === '') {
-      return {message: 'No filename was provided!'};
+    if ((data.simulator !== 'COPASI') && (data.simulator !== 'VCell')) {
+      return {message: 'Unsupported simulator was provided!'};
     }
 
     const omexPath = data.filepathOnDataStore;
