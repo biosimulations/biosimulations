@@ -9,7 +9,7 @@ export class HpcService {
 
     constructor( 
         // private readonly configService: ConfigService,
-        private sshService: SshService
+        private sshService: SshService,
         @Inject('DISPATCH_MQ') private messageClient: ClientProxy
         ) {
 
@@ -44,6 +44,8 @@ export class HpcService {
 
                             this.sshService.execStringCommand(`sbatch ${simDirBase}/in/${sbatchName}`).then(result =>{
                                 this.logger.log('Execution of sbatch was successful: ' + JSON.stringify(result));
+                                // TODO: Make config file for message patterns instead of hardcoding them
+                                // TODO: Subscribe the below message in the required service
                                 this.messageClient.emit('dispatch_log', 'Execution of sbatch was successful: ' + JSON.stringify(result))
                                 }).catch(error => {
                                 this.logger.log('Could not execute SBATCH: ' + JSON.stringify(error));
