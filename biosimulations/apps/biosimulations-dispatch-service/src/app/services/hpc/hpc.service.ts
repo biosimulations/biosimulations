@@ -1,5 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class HpcService {
@@ -9,6 +10,7 @@ export class HpcService {
     constructor( 
         // private readonly configService: ConfigService,
         private sshService: SshService
+        @Inject('DISPATCH_MQ') private messageClient: ClientProxy
         ) {
 
     }
@@ -40,8 +42,9 @@ export class HpcService {
                         this.sshService.execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`).then(resp => {
                             this.logger.log('Sbatch made executable: ' + JSON.stringify(resp));
 
-                            this.sshService.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
+                            this.sshService.execStringCommand(`sbatch ${simDirBase}/in/${sbatchName}`).then(result =>{
                                 this.logger.log('Execution of sbatch was successful: ' + JSON.stringify(result));
+                                this.messageClient.emit('dispatch_log', 'Execution of sbatch was successful: ' + JSON.stringify(result))
                                 }).catch(error => {
                                 this.logger.log('Could not execute SBATCH: ' + JSON.stringify(error));
                                 });
