@@ -22,6 +22,10 @@ export class AppController implements OnApplicationBootstrap {
     const fileStorage = process.env.FILE_STORAGE;
     const omexStorage = `${fileStorage}/OMEX/ID`;
 
+    if (simSpec.simulator === '') {
+      return {message: 'No Simulator was provided'};
+    }
+
     // Get existing filetype
     // Generate a unique filename
     const uniqueFilename = `${uuid()}.omex`;

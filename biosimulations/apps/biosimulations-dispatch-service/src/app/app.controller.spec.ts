@@ -4,8 +4,6 @@ import { ConfigService } from '@nestjs/config';
 import { HpcService } from './services/hpc/hpc.service';
 import { SshService } from './services/ssh/ssh.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import { OmexFile } from './types/omex-file/omex-file';
-import { SimulationSpec } from './types/simulation-spec/simulation-spec';
 
 
 describe('AppController', () => {
@@ -18,12 +16,16 @@ describe('AppController', () => {
     }).compile();
   });
 
-  describe('getData', () => {
-    it('should return "No file provided!"', () => {
+  describe('uploadFile', () => {
+    it('should return "Unsupported simulator was provided!"', () => {
       const appController = app.get<AppController>(AppController);
       // tslint:disable-next-line: deprecation
-      expect(appController.uploadFile(new SimulationSpec('COPASI', '' ,'' ,''))).toEqual({
-        message: 'No filename provided!'
+      expect(appController.uploadFile({
+          simulator: 'BIONETGEN',
+          filename: '' , 
+          uniqueFilename: '',
+          filepathOnDataStore: ''})).toEqual({
+        message: 'Unsupported simulator was provided!'
       });
     });
   });
