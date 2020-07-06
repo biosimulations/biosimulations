@@ -8,9 +8,6 @@
     "nx.json": "*"
   },
   "projects": {
-    "biosimulations-frontend": {
-      "tags": []
-    },
     "datamodel-core": {
       "tags": []
     },
