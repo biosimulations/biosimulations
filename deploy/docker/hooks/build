@@ -1,4 +1,4 @@
 #!/bin/bash
 echo $DOCKERFILE_PATH
-
-docker build --build-arg app=$APP -f Dockerfile -t $IMAGE_NAME /
+pwd
+docker build --build-arg app=$APP -f Dockerfile -t $IMAGE_NAME .
