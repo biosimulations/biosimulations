@@ -67,7 +67,7 @@
     "ag-grid-angular": "^22.1.1",
     "ag-grid-community": "^22.1.1",
     "ag-grid-enterprise": "^22.1.1",
-    "auth0": "^2.25.1",
+    "auth0": "^2.27.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "core-js": "^2.5.4",
