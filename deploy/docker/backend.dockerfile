@@ -44,7 +44,7 @@ RUN nx build ${APP} --prod
 
 # base image
 FROM base as prod
-
+WORKDIR /app
 # install the app and include only dependencies needed to run
 RUN npm ci --only=production
 
