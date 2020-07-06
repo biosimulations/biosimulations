@@ -2,11 +2,20 @@ import { Controller, Inject, OnApplicationBootstrap, Post, UseInterceptors, Uplo
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiProperty, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SimulationDispatchSpec, OmexDispatchFile } from '@biosimulations/datamodel/core';
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
+import { IsString } from 'class-validator';
 
+export class SimulationDispatchSpecDTO {
+  @ApiProperty({example: 'COPASI', description: 'Name of the simulator', type: String})
+  @IsString()
+  simulator!: string;
+}
+
+// @ApiTags()
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
@@ -16,13 +25,21 @@ export class AppController implements OnApplicationBootstrap {
     ) {}
 
     @Post('dispatch')
+    @ApiOperation({summary: 'Dispatch a simulation job'})
+    @ApiResponse({
+      status: 200,
+      description: 'Dispatch status',
+      type: Object
+    })
     @UseInterceptors(FileInterceptor('file'))
-    uploadFile(@UploadedFile() file: OmexDispatchFile, @Body() simSpec: SimulationDispatchSpec) {
+    uploadFile(@UploadedFile() file: OmexDispatchFile, @Body() bodyData: SimulationDispatchSpecDTO) {
     // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
     const fileStorage = process.env.FILE_STORAGE;
     const omexStorage = `${fileStorage}/OMEX/ID`;
 
-    if (simSpec.simulator === '') {
+    
+
+    if (bodyData.simulator === '') {
       return {message: 'No Simulator was provided'};
     }
 
@@ -33,9 +50,12 @@ export class AppController implements OnApplicationBootstrap {
     
 
     // Fill out info from file that will be lost after saving in central storage
-    simSpec.filename = file.originalname;
-    simSpec.uniqueFilename = uniqueFilename;
-    simSpec.filepathOnDataStore = omexSavePath;
+    const simSpec: SimulationDispatchSpec = {
+      simulator: bodyData.simulator,
+      filename: file.originalname,
+      uniqueFilename,
+      filepathOnDataStore: omexSavePath
+    };
 
     // Save the file
     fs.writeFileSync(omexSavePath, file.buffer);
