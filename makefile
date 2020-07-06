@@ -1,5 +1,5 @@
 DOCKER_BUILD_CONTEXT=.
-DOCKER_BACKEND_PATH=./deploy/docker/backend.dockerfile
+DOCKER_BACKEND_PATH=./Dockerfile
 DOCKER_FRONTEND_PATH=./deploy/docker/frontend.dockerfile
 DOCKER_PATH=$(DOCKER_BACKEND_PATH)
 DOCKER_REGISTRY=docker.io
