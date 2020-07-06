@@ -3,9 +3,20 @@
 #############
 FROM node:12-alpine as base
 
-#The name of the app to build, if not provided, build the main API
-ARG app=biosimulations-api
+#The name of the app to build
+ARG app
 ENV APP=$app 
+RUN echo building ${APP}
+
+# Copy over dependency list
+COPY biosimulations/tsconfig.json /app/tsconfig.json
+COPY biosimulations/package.json /app/package.json
+COPY biosimulations/package-lock.json /app/package-lock.json
+#############
+### build ###
+#############
+from base as build
+
 # set working directory
 WORKDIR /app
 
@@ -15,19 +26,14 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install nrwl cli 
 RUN npm install -g @nrwl/cli
 
-# install and cache app dependencies
-COPY biosimulations/package.json /app/package.json
-COPY biosimulations/package-lock.json /app/package-lock.json
+# copy source
+Copy biosimulations/nx.json  /app/nx.json
+Copy biosimulations/angular.json /app/angular.json
+Copy biosimulations/libs /app/libs
+Copy biosimulations/apps /app/apps
 
-#############
-### build ###
-#############
-from base as build
 # install the app, including the dev dependencies
 RUN npm ci
-
-# add directory 
-COPY ./biosimulations /app
 
 # generate build
 RUN nx build ${APP} --prod
