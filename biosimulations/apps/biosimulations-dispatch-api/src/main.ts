@@ -18,7 +18,7 @@ async function bootstrap() {
   // Swagger doc
   const options = new DocumentBuilder()
     .setTitle('Simulation dispatch example')
-    .setDescription('Dispatch API allows dispatching of simulation jobs to UCONN HPC')
+    .setDescription('Dispatch API allows dispatching of simulation jobs to UConn HPC')
     .setVersion('1.0')
     .addTag('dispatch')
     // .addBearerAuth()

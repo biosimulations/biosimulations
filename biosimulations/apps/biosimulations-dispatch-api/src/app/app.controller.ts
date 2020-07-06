@@ -30,7 +30,7 @@ export class AppController implements OnApplicationBootstrap {
     @ApiConsumes('multipart/form-data')
     @ApiOperation({summary: 'Dispatch a simulation job'})
     @ApiResponse({
-      status: 200,
+      status: 201,
       description: 'Dispatch status',
       type: Object
     })
