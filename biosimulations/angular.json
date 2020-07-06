@@ -3,6 +3,187 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
+    "biosimulations-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass",
+          "styleext": "scss"
+        }
+      },
+      "root": "apps/biosimulations-frontend",
+      "sourceRoot": "apps/biosimulations-frontend/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/biosimulations-frontend",
+            "index": "apps/biosimulations-frontend/src/index.html",
+            "main": "apps/biosimulations-frontend/src/main.ts",
+            "polyfills": "apps/biosimulations-frontend/src/polyfills.ts",
+            "tsConfig": "apps/biosimulations-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/biosimulations-frontend/src/browserconfig.xml",
+              "apps/biosimulations-frontend/src/assets",
+              "apps/biosimulations-frontend/src/_redirects",
+              "apps/biosimulations-frontend/src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "./libs/ui/assets",
+                "output": "./assets"
+              },
+              {
+                "glob": "favicon.*",
+                "input": "./libs/ui/assets",
+                "output": "/"
+              },
+              {
+                "glob": "_redirects",
+                "input": "./libs/ui/assets",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "apps/biosimulations-frontend/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/ui/material/src/lib"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/biosimulations-frontend/src/environments/environment.ts",
+                  "with": "apps/biosimulations-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "aot": true,
+              "commonChunk": true,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "6mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/biosimulations-frontend/ngsw-config.json"
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/biosimulations-frontend/src/environments/environment.ts",
+                  "with": "apps/biosimulations-frontend/src/environments/environment.dev.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": false,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "6mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "biosimulations-frontend:build",
+            "proxyConfig": "apps/biosimulations-frontend/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "biosimulations-frontend:build:production"
+            },
+            "dev": {
+              "browserTarget": "biosimulations-frontend:build:development"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "biosimulations-frontend:build"
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/biosimulations-frontend/jest.config.js",
+            "tsConfig": "apps/biosimulations-frontend/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/biosimulations-frontend/src/test-setup.ts",
+            "assets": [
+              "apps/biosimulations-frontend/src/favicon-16x16.png",
+              "apps/biosimulations-frontend/src/favicon-32x32.png",
+              "apps/biosimulations-frontend/src/favicon.png",
+              "apps/biosimulations-frontend/src/favicon.ico",
+              "apps/biosimulations-frontend/src/android-chrome-192x192.png",
+              "apps/biosimulations-frontend/src/android-chrome-512x512.png",
+              "apps/biosimulations-frontend/src/apple-touch-icon.png",
+              "apps/biosimulations-frontend/src/mstile-70x70.png",
+              "apps/biosimulations-frontend/src/mstile-144x144.png",
+              "apps/biosimulations-frontend/src/mstile-150x150.png",
+              "apps/biosimulations-frontend/src/mstile-310x150.png",
+              "apps/biosimulations-frontend/src/mstile-310x310.png",
+              "apps/biosimulations-frontend/src/safari-pinned-tab.svg",
+              "apps/biosimulations-frontend/src/browserconfig.xml",
+              "apps/biosimulations-frontend/src/assets",
+              "apps/biosimulations-frontend/src/manifest.webmanifest"
+            ],
+            "styles": [
+              "apps/biosimulations-frontend/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulations-frontend/tsconfig.app.json",
+              "apps/biosimulations-frontend/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "datamodel-core": {
       "root": "libs/datamodel/core",
       "sourceRoot": "libs/datamodel/core/src",
