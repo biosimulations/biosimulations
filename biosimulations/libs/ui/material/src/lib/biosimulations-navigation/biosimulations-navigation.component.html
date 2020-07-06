@@ -34,6 +34,8 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </biosimulations-topbar>
-    <ng-content select="router-outlet"> </ng-content>
+    <div class="content">
+      <ng-content select="router-outlet"> </ng-content>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
