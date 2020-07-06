@@ -2,12 +2,14 @@ import { Controller, Inject, OnApplicationBootstrap, Post, UseInterceptors, Uplo
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiProperty, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiProperty, ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { SimulationDispatchSpec, OmexDispatchFile } from '@biosimulations/datamodel/core';
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
 import { IsString } from 'class-validator';
+
+
 
 export class SimulationDispatchSpecDTO {
   @ApiProperty({example: 'COPASI', description: 'Name of the simulator', type: String})
@@ -25,11 +27,27 @@ export class AppController implements OnApplicationBootstrap {
     ) {}
 
     @Post('dispatch')
+    @ApiConsumes('multipart/form-data')
     @ApiOperation({summary: 'Dispatch a simulation job'})
     @ApiResponse({
       status: 200,
       description: 'Dispatch status',
       type: Object
+    })
+    // TODO: Create a custom decorator for this and move to shared libs
+    @ApiBody({
+      schema: {
+        type: 'object',
+        properties: {
+          file: {
+            type: 'string',
+            format: 'binary',
+          },
+          simulator: {
+            type: 'string'
+          }
+        },
+      },
     })
     @UseInterceptors(FileInterceptor('file'))
     uploadFile(@UploadedFile() file: OmexDispatchFile, @Body() bodyData: SimulationDispatchSpecDTO) {
