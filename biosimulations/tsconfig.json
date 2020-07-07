@@ -1,49 +1,77 @@
+/*
+  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
+  It is not intended to be used to perform a compilation.
+
+  To learn more about this file see: https://angular.io/config/solution-tsconfig.
+*/
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "baseUrl": ".",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
-    "paths": {
-      "@biosimulations/datamodel/database": [
-        "libs/datamodel/database/src/index.ts"
-      ],
-      "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
-      "@biosimulations/datamodel/core": ["libs/datamodel/core/src/index.ts"],
-      "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
-      "@biosimulations/ui/material": ["libs/ui/material/src/index.ts"],
-      "@biosimulations/shared/debug": ["libs/shared/debug/src/index.ts"],
-      "@biosimulations/shared/biosimulations-auth": [
-        "libs/shared/biosimulations-auth/src/index.ts"
-      ],
-      "@biosimulations/shared/biosimulations-config": [
-        "libs/shared/biosimulations-config/src/index.ts"
-      ],
-      "@biosimulations/shared/biosimulations-error-filters": [
-        "libs/shared/biosimulations-error-filters/src/index.ts"
-      ],
-      "@biosimulations/shared/biosimulations-ng-utils": [
-        "libs/shared/biosimulations-ng-utils/src/index.ts"
-      ]
+  "files": [],
+  "references": [
+    {
+      "path": "./libs/datamodel/core/tsconfig.spec.json"
     },
-    "rootDir": "."
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
+    {
+      "path": "./apps/biosimulations-api/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/biosimulations-api/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/datamodel/database/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/datamodel/api/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/datamodel/utils/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/login-frontend/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/login-frontend/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/login-frontend-e2e/tsconfig.e2e.json"
+    },
+    {
+      "path": "./libs/ui/material/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/shared/debug/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/account-api/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/account-api/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/shared/biosimulations-auth/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/shared/biosimulations-config/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/biosimulations-dispatch-service/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/biosimulations-dispatch-service/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/shared/biosimulations-error-filters/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/biosimulations-platform-frontend/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/biosimulations-platform-frontend/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/biosimulations-platform-frontend-e2e/tsconfig.e2e.json"
+    },
+    {
+      "path": "./libs/shared/biosimulations-ng-utils/tsconfig.spec.json"
+    }
+  ]
 }
