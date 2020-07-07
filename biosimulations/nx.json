@@ -63,6 +63,9 @@
     },
     "ui-icons": {
       "tags": ["scope: ui", "platform: web"]
+    },
+    "auth-frontend": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

@@ -760,6 +760,38 @@
           "style": "scss"
         }
       }
+    },
+    "auth-frontend": {
+      "projectType": "library",
+      "root": "libs/auth/frontend",
+      "sourceRoot": "libs/auth/frontend/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/auth/frontend/tsconfig.lib.json",
+              "libs/auth/frontend/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/auth/frontend/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/auth/frontend/jest.config.js",
+            "tsConfig": "libs/auth/frontend/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/auth/frontend/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-platform-frontend",
