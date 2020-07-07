@@ -12,6 +12,7 @@ import { ModelHttpService } from './models/services/model-http.service';
 import { ModelDataService } from './models/services/model-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
+import { SharedModule } from './shared/shared.module';
 const routes: Routes = [
   {
     path: '',
@@ -34,6 +35,7 @@ const routes: Routes = [
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    SharedModule,
   ],
 
   bootstrap: [AppComponent],
