@@ -28,9 +28,7 @@
     },
     "login-frontend-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "login-frontend"
-      ]
+      "implicitDependencies": ["login-frontend"]
     },
     "ui-material": {
       "tags": []
@@ -42,47 +40,29 @@
       "tags": []
     },
     "shared-biosimulations-auth": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "shared-biosimulations-config": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "biosimulations-dispatch-service": {
-      "tags": [
-        "scope:hpc",
-        "type:backend",
-        "platform:server"
-      ]
+      "tags": ["scope:hpc", "type:backend", "platform:server"]
     },
     "shared-biosimulations-error-filters": {
-      "tags": [
-        "platform:server",
-        "scope:shared",
-        "type:util"
-      ]
+      "tags": ["platform:server", "scope:shared", "type:util"]
     },
     "biosimulations-platform-frontend": {
-      "tags": [
-        "platform:web",
-        "public:true"
-      ]
+      "tags": ["platform:web", "public:true"]
     },
     "biosimulations-platform-frontend-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "biosimulations-platform-frontend"
-      ]
+      "implicitDependencies": ["biosimulations-platform-frontend"]
     },
     "shared-biosimulations-ng-utils": {
       "tags": []
+    },
+    "ui-icons": {
+      "tags": ["scope: ui", "platform: web"]
     }
   },
   "tasksRunnerOptions": {
@@ -90,12 +70,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "ZTJmNzdiMjAtOTVmOC00YjdiLWI3ODMtNjA0MGI2OTRiZTIxfHJlYWQ=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }

@@ -1,0 +1,6 @@
+<ng-container *ngIf="iconInfo.type === 'mat'; else faIcon">
+  <mat-icon> {{ iconInfo.name }}</mat-icon>
+</ng-container>
+<ng-template #faIcon>
+  <fa-icon [icon]="[iconInfo.type, iconInfo.name]" [size]="size"></fa-icon>
+</ng-template>
