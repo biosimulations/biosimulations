@@ -780,7 +780,7 @@
       }
     }
   },
-  "defaultProject": "biosimulations-frontend",
+  "defaultProject": "biosimulations-platform-frontend",
   "cli": {
     "defaultCollection": "@nrwl/angular",
     "analytics": "a88a265a-606a-4397-9b67-9c44b40e7f51"

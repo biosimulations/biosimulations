@@ -72,8 +72,7 @@
     "biosimulations-platform-frontend": {
       "tags": [
         "platform:web",
-        "public:true",
-        ""
+        "public:true"
       ]
     },
     "biosimulations-platform-frontend-e2e": {
