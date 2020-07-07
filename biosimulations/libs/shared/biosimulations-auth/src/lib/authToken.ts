@@ -11,7 +11,10 @@ export interface AuthToken {
   scope: string[];
   permissions?: string[];
 }
-
+export interface IdToken {
+  'https://biosimulations.org/app_metadata': AppMetadata;
+  'https://biosimulations.org/user_metadata': UserMetadata;
+}
 export interface UserMetadata {
   username: string;
 }
