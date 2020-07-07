@@ -20,6 +20,7 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018", "dom"],
     "paths": {
+      "@biosimulations/ui/icons": ["libs/ui/icons/src/index.ts"],
       "@biosimulations/datamodel/database": [
         "libs/datamodel/database/src/index.ts"
       ],

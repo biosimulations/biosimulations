@@ -1,10 +1,8 @@
-/*
-  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
-  It is not intended to be used to perform a compilation.
-
-  To learn more about this file see: https://angular.io/config/solution-tsconfig.
-*/
 {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "."
+  },
   "files": [],
   "references": [
     {
@@ -72,6 +70,12 @@
     },
     {
       "path": "./libs/shared/biosimulations-ng-utils/tsconfig.spec.json"
+    },
+    {
+      "path": "./ui-icons/tsconfig.lib.json"
+    },
+    {
+      "path": "./ui-icons/tsconfig.spec.json"
     }
   ]
 }
