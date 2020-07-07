@@ -1,6 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ModelData } from './models-datasource';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  AfterViewInit,
+  ViewChild,
+} from '@angular/core';
+import { ModelData, ModelDataSource } from './models-datasource';
 import { ModelHttpService } from '../services/model-http.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'biosimulations-browse-models',
@@ -8,7 +17,12 @@ import { ModelHttpService } from '../services/model-http.service';
   styleUrls: ['./browse-models.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrowseModelsComponent implements OnInit {
+export class BrowseModelsComponent implements AfterViewInit, OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) table!: MatTable<ModelData>;
+  dataSource!: ModelDataSource;
+
   data: ModelData[] = [];
   data$: any;
   displayedColumns = [
@@ -25,9 +39,14 @@ export class BrowseModelsComponent implements OnInit {
     'updated',
   ];
   columnsToDisplay = this.displayedColumns.slice();
-  constructor(private modelHttpService: ModelHttpService) {}
+  constructor(private modelHttp: ModelHttpService) {}
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+  }
 
   ngOnInit(): void {
-    this.data$ = this.modelHttpService.loadAll();
+    this.dataSource = new ModelDataSource(this.modelHttp);
   }
 }

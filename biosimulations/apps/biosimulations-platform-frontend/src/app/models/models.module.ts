@@ -16,6 +16,7 @@ import { ModelService } from './services/model.service';
 import { ModelHttpService } from './services/model-http.service';
 import { ModelDataService } from './services/model-data.service';
 import { UiMaterialModule } from '@biosimulations/ui/material';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [{ path: '', component: ModelsComponent }];
 
@@ -36,6 +37,7 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     ModelsRoutingModule,
     UiMaterialModule,
     RouterModule.forChild(routes),
+    MatPaginatorModule,
   ],
   providers: [ModelService, ModelHttpService, ModelDataService],
 })
