@@ -76,6 +76,12 @@
     },
     {
       "path": "./ui-icons/tsconfig.spec.json"
+    },
+    {
+      "path": "./auth-frontend/tsconfig.lib.json"
+    },
+    {
+      "path": "./auth-frontend/tsconfig.spec.json"
     }
   ]
 }
