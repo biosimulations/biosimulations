@@ -2,20 +2,12 @@ import { Controller, Inject, OnApplicationBootstrap, Post, UseInterceptors, Uplo
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiProperty, ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { SimulationDispatchSpec, OmexDispatchFile } from '@biosimulations/datamodel/core';
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
-import { IsString } from 'class-validator';
 
-
-
-export class SimulationDispatchSpecDTO {
-  @ApiProperty({example: 'COPASI', description: 'Name of the simulator', type: String})
-  @IsString()
-  simulator!: string;
-}
 
 // @ApiTags()
 @Controller()
@@ -41,16 +33,18 @@ export class AppController implements OnApplicationBootstrap {
         properties: {
           file: {
             type: 'string',
+            description: 'Omex file to upload',
             format: 'binary',
           },
           simulator: {
-            type: 'string'
+            type: 'string',
+            description: 'Simulator to use like COPASI/VCELL, etc'
           }
         },
       },
     })
     @UseInterceptors(FileInterceptor('file'))
-    uploadFile(@UploadedFile() file: OmexDispatchFile, @Body() bodyData: SimulationDispatchSpecDTO) {
+    uploadFile(@UploadedFile() file: OmexDispatchFile, @Body() bodyData: SimulationDispatchSpec) {
     // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
     const fileStorage = process.env.FILE_STORAGE;
     const omexStorage = `${fileStorage}/OMEX/ID`;
