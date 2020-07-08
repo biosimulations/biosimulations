@@ -9,7 +9,6 @@ import * as fs from 'fs';
 import path from 'path';
 
 
-// @ApiTags()
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
