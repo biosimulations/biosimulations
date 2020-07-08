@@ -55,7 +55,7 @@
     "@nestjs/microservices": "^7.2.0",
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/passport": "^7.0.0",
-    "@nestjs/platform-express": "^7.2.0",
+    "@nestjs/platform-express": "^7.3.2",
     "@nestjs/swagger": "^4.5.10",
     "@nestjsx/crud": "^4.6.2",
     "@nrwl/nx-cloud": "^9.3.5",
