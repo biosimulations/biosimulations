@@ -1,7 +1,11 @@
+import { Injectable } from '@angular/core';
+@Injectable()
 export class AuthEnvironment {
-  domain!: string;
+  authDomain = 'auth.biosimulations.org';
+  apiDomain = 'api.biosimulations.org';
+  redirectUri = `${window.location.origin}`;
+  logoutUri = `${window.location.origin}`;
+  scope = '';
   clientId!: string;
-  redirectUri!: string;
   audience!: string;
-  scope!: string;
 }

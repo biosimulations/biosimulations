@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthEnvironment } from './auth.environment';
 import createAuth0Client, {
   Auth0Client,
   GetUserOptions,
+  GetTokenSilentlyOptions,
 } from '@auth0/auth0-spa-js';
 import {
   from,
@@ -20,14 +21,15 @@ import { IdToken } from '@biosimulations/shared/biosimulations-auth';
   providedIn: 'root',
 })
 export class AuthService {
-  redirectUri: string | undefined;
-  loggedIn = false;
-  token: string | null = null;
+  private redirectUri: string | undefined;
+  private loggedIn = false;
+  private token: string | null = null;
   // Create an observable of Auth0 instance of client
-
+  // TODO allow for multiple api audiences per app
   constructor(
     private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     private environment: AuthEnvironment,
   ) {
     // On initial load, check authentication state with authorization server
@@ -36,9 +38,9 @@ export class AuthService {
     // Handle redirect from Auth0 login
     this.handleAuthCallback();
   }
-  auth0Client$ = (from(
+  private auth0Client$ = (from(
     createAuth0Client({
-      domain: this.environment.domain,
+      domain: this.environment.authDomain,
       client_id: this.environment.clientId,
       redirect_uri: this.redirectUri,
       response_type: 'token id_token',
@@ -54,22 +56,27 @@ export class AuthService {
   // For each Auth0 SDK method, first ensure the client instance is ready
   // concatMap: Using the client instance, call SDK method; SDK returns a promise
   // from: Convert that resulting promise into an observable
-  isAuthenticated$ = this.auth0Client$.pipe(
+  readonly isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
     tap((res) => (this.loggedIn = res)),
   );
-  handleRedirectCallback$ = this.auth0Client$.pipe(
+
+  private handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback())),
   );
   // Create subject and public observable of user profile data
   private userProfileSubject$ = new BehaviorSubject<any>(null);
-  userProfile$ = this.userProfileSubject$.asObservable();
+  readonly userProfile$ = this.userProfileSubject$.asObservable();
 
-  getUser$(options?: GetUserOptions): Observable<any> {
+  private getUser$(options?: GetUserOptions): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap((user) => this.userProfileSubject$.next(user)),
     );
+  }
+  // Returns the value of loggedIn. Keeping logging in private is useful for testing with test bed
+  isAuthenticated() {
+    return !!this.loggedIn;
   }
   private localAuthSetup() {
     // This should only be called on app initialization
@@ -88,7 +95,7 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 
-  login(redirectPath: string = '/') {
+  public login(redirectPath: string = '/') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
@@ -101,6 +108,7 @@ export class AuthService {
     });
   }
 
+  // TODO replace window with activated route params
   private handleAuthCallback() {
     // Call when app reloads after user logs in with Auth0
     const params = window.location.search;
@@ -129,14 +137,24 @@ export class AuthService {
     }
   }
 
-  logout() {
+  public logout() {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
         client_id: this.environment.clientId,
-        returnTo: `${window.location.origin}`,
+        returnTo: this.environment.logoutUri,
       });
     });
+  }
+
+  public getTokenSilently$(
+    options?: GetTokenSilentlyOptions,
+  ): Observable<string> {
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) =>
+        from(client.getTokenSilently(options)),
+      ),
+    );
   }
 }
