@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DispatchComponent implements OnInit {
 
+  simulators = ['COPASI', 'VCell'];
+
   constructor() { }
 
   ngOnInit(): void {
