@@ -13,8 +13,7 @@ import { ModelDataService } from './models/services/model-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 import { SharedModule } from './shared/shared.module';
-import { AuthModule } from '@biosimulations/auth/frontend';
-import { AuthEnvironment } from 'libs/auth/frontend/src/lib/auth.environment';
+import { AuthEnvironment } from '@biosimulations/auth/frontend';
 
 const env = {
   authDomain: 'auth.biosimulations.org',

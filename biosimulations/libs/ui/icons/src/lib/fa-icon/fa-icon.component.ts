@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'lib-fa-icon',
+  selector: 'biosimulations-fa-icon',
   templateUrl: './fa-icon.component.html',
   styleUrls: ['./fa-icon.component.sass'],
 })

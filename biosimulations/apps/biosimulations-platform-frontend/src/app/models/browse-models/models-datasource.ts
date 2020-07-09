@@ -42,10 +42,10 @@ export interface ModelData {
 }
 
 const initData: ModelData[] = initDataFunc();
-function initDataFunc(number = 100) {
+function initDataFunc(count = 100) {
   const items = [];
 
-  for (let i = 0; i <= number; i++) {
+  for (let i = 0; i <= count; i++) {
     const item = {
       id: i + '',
       name: 'model' + i,
