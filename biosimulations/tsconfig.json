@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "paths": {
+      "@biosimulations/shared/assets": ["libs/shared/assets/src/index.ts"],
+      "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"]
+    }
   },
   "files": [],
   "references": [
@@ -82,6 +86,18 @@
     },
     {
       "path": "./auth-frontend/tsconfig.spec.json"
+    },
+    {
+      "path": "./shared-assets/tsconfig.lib.json"
+    },
+    {
+      "path": "./shared-assets/tsconfig.spec.json"
+    },
+    {
+      "path": "./shared-styles/tsconfig.lib.json"
+    },
+    {
+      "path": "./shared-styles/tsconfig.spec.json"
     }
   ]
 }

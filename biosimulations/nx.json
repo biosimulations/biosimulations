@@ -66,6 +66,12 @@
     },
     "auth-frontend": {
       "tags": []
+    },
+    "shared-assets": {
+      "tags": ["scope:shared", "type:assets"]
+    },
+    "shared-styles": {
+      "tags": ["scope:shared", "type:styles"]
     }
   },
   "tasksRunnerOptions": {

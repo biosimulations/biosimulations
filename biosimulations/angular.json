@@ -16,7 +16,10 @@
               "libs/datamodel/core/tsconfig.lib.json",
               "libs/datamodel/core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/core/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/core/**"
+            ]
           }
         },
         "test": {
@@ -42,7 +45,9 @@
             "outputPath": "dist/apps/biosimulations-api",
             "main": "apps/biosimulations-api/src/main.ts",
             "tsConfig": "apps/biosimulations-api/tsconfig.app.json",
-            "assets": ["apps/biosimulations-api/src/assets"],
+            "assets": [
+              "apps/biosimulations-api/src/assets"
+            ],
             "buildLibsFromSource": true
           },
           "configurations": {
@@ -72,7 +77,10 @@
               "apps/biosimulations-api/tsconfig.app.json",
               "apps/biosimulations-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/biosimulations-api/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/biosimulations-api/**"
+            ]
           }
         },
         "test": {
@@ -98,7 +106,10 @@
               "libs/datamodel/database/tsconfig.lib.json",
               "libs/datamodel/database/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/database/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/database/**"
+            ]
           }
         },
         "test": {
@@ -124,7 +135,10 @@
               "libs/datamodel/api/tsconfig.lib.json",
               "libs/datamodel/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/api/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/api/**"
+            ]
           }
         },
         "test": {
@@ -150,7 +164,10 @@
               "libs/datamodel/utils/tsconfig.lib.json",
               "libs/datamodel/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/utils/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/utils/**"
+            ]
           }
         },
         "test": {
@@ -184,14 +201,29 @@
             "tsConfig": "apps/login-frontend/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/login-frontend/src/favicon.ico",
+              {
+                "glob": "favicon.ico",
+                "input": "libs/shared/assets/src",
+                "output": "./"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets/src/assets",
+                "output": "assets"
+              },
               "apps/login-frontend/src/assets",
               "apps/login-frontend/src/manifest.webmanifest"
             ],
-            "styles": ["apps/login-frontend/src/styles.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ui/material/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
             }
           },
           "configurations": {
@@ -252,7 +284,10 @@
               "apps/login-frontend/tsconfig.app.json",
               "apps/login-frontend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/login-frontend/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/login-frontend/**"
+            ]
           }
         },
         "test": {
@@ -287,8 +322,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/login-frontend-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/login-frontend-e2e/**"]
+            "tsConfig": [
+              "apps/login-frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/login-frontend-e2e/**"
+            ]
           }
         }
       }
@@ -306,7 +346,10 @@
               "libs/ui/material/tsconfig.lib.json",
               "libs/ui/material/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/material/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/material/**"
+            ]
           }
         },
         "test": {
@@ -338,7 +381,10 @@
               "libs/shared/debug/tsconfig.lib.json",
               "libs/shared/debug/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/debug/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/debug/**"
+            ]
           }
         },
         "test": {
@@ -370,7 +416,9 @@
             "outputPath": "dist/apps/account-api",
             "main": "apps/account-api/src/main.ts",
             "tsConfig": "apps/account-api/tsconfig.app.json",
-            "assets": ["apps/account-api/src/assets"]
+            "assets": [
+              "apps/account-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -399,7 +447,10 @@
               "apps/account-api/tsconfig.app.json",
               "apps/account-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/account-api/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/account-api/**"
+            ]
           }
         },
         "test": {
@@ -483,7 +534,9 @@
             "outputPath": "dist/apps/biosimulations-dispatch-service",
             "main": "apps/biosimulations-dispatch-service/src/main.ts",
             "tsConfig": "apps/biosimulations-dispatch-service/tsconfig.app.json",
-            "assets": ["apps/biosimulations-dispatch-service/src/assets"]
+            "assets": [
+              "apps/biosimulations-dispatch-service/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -581,10 +634,16 @@
               "apps/biosimulations-platform-frontend/src/favicon.ico",
               "apps/biosimulations-platform-frontend/src/assets"
             ],
-            "styles": ["apps/biosimulations-platform-frontend/src/styles.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ui/material/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
             }
           },
           "configurations": {
@@ -742,7 +801,10 @@
               "libs/ui/icons/tsconfig.lib.json",
               "libs/ui/icons/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/icons/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/icons/**/*"
+            ]
           }
         },
         "test": {
@@ -774,7 +836,10 @@
               "libs/auth/frontend/tsconfig.lib.json",
               "libs/auth/frontend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/auth/frontend/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/auth/frontend/**/*"
+            ]
           }
         },
         "test": {
@@ -787,6 +852,30 @@
           }
         }
       },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-assets": {
+      "projectType": "library",
+      "root": "libs/shared/assets",
+      "sourceRoot": "libs/shared/assets/src",
+      "prefix": "biosimulations",
+      "architect": {},
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-styles": {
+      "projectType": "library",
+      "root": "libs/shared/styles",
+      "sourceRoot": "libs/shared/styles/src",
+      "prefix": "biosimulations",
+      "architect": {},
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
