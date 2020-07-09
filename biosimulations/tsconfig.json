@@ -7,7 +7,8 @@
       "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"],
       "@biosimulations/shared/environments": [
         "libs/shared/environments/src/index.ts"
-      ]
+      ],
+      "@biosimulations/shared/messaging": ["libs/shared/messaging/src/index.ts"]
     }
   },
   "files": [],

@@ -75,6 +75,9 @@
     },
     "shared-environments": {
       "tags": ["scope:shared", "type:environments"]
+    },
+    "shared-messaging": {
+      "tags": ["scope: shared", "type: util", "platform: backend"]
     }
   },
   "tasksRunnerOptions": {
