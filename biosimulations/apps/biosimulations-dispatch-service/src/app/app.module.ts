@@ -6,17 +6,26 @@ import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
 import { SshService } from './services/ssh/ssh.service';
 import { BiosimulationsConfigModule } from '@biosimulations/shared/biosimulations-config';
+import { ClientProxyFactory, Transport, NatsOptions } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     BiosimulationsConfigModule,
-    // ConfigModule.forRoot({
-    //   load: [config],
-    //   isGlobal: true,
-    //   envFilePath: './config.env',
-    // }),
   ],
   controllers: [AppController],
-  providers: [HpcService, SbatchService, SshService],
+  providers: [HpcService, SbatchService, SshService,
+    {
+      provide: 'DISPATCH_MQ',
+      useFactory: (configService: ConfigService) => {
+        const natsServerConfig = configService.get('nats');
+        const natsOptions: NatsOptions = {};
+        natsOptions.transport = Transport.NATS;
+        natsOptions.options = natsServerConfig;
+        return ClientProxyFactory.create(natsOptions);
+      },
+      inject: [ConfigService],
+    },
+  ],
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class HpcService {
@@ -8,17 +9,15 @@ export class HpcService {
 
     constructor( 
         // private readonly configService: ConfigService,
-        private sshService: SshService
+        private sshService: SshService,
+        @Inject('DISPATCH_MQ') private messageClient: ClientProxy
         ) {
 
     }
 
-    dispatchJob(simDirBase: string, omexPath: string, sbatchPath: string) {
+    dispatchJob(simDirBase: string, sbatchPath: string, omexPath: string, omexName: string) {
 
-        const sbatchPathSplit = sbatchPath.split('/');
-        const omexPathSplit = omexPath.split('/');
-        const sbatchName = sbatchPathSplit[sbatchPathSplit.length - 1];
-        const omexName = omexPathSplit[omexPathSplit.length - 1];
+        const sbatchName = 'run.sbatch';
 
         this.logger.log('Omex name: ' + JSON.stringify(omexName));
         
@@ -43,8 +42,11 @@ export class HpcService {
                         this.sshService.execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`).then(resp => {
                             this.logger.log('Sbatch made executable: ' + JSON.stringify(resp));
 
-                            this.sshService.execStringCommand(`${simDirBase}/in/${sbatchName}`).then(result =>{
+                            this.sshService.execStringCommand(`sbatch ${simDirBase}/in/${sbatchName}`).then(result =>{
                                 this.logger.log('Execution of sbatch was successful: ' + JSON.stringify(result));
+                                // TODO: Make config file for message patterns instead of hardcoding them
+                                // TODO: Subscribe the below message in the required service
+                                this.messageClient.emit('dispatch_log', 'Execution of sbatch was successful: ' + JSON.stringify(result))
                                 }).catch(error => {
                                 this.logger.log('Could not execute SBATCH: ' + JSON.stringify(error));
                                 });
