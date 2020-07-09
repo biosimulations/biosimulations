@@ -90,7 +90,7 @@
     "tslib": "^2.0.0",
     "uuid": "^8.1.0",
     "vega": "^5.9.1",
-    "vega-embed": "^6.8.0",
+    "vega-embed": "^6.9.2",
     "vega-lite": "^4.3.0",
     "vega-typings": "^0.18.0",
     "zone.js": "~0.10.3"
