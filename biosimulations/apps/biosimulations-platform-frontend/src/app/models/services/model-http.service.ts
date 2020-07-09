@@ -12,7 +12,7 @@ import { Model } from '../model';
   providedIn: 'root',
 })
 export class ModelHttpService {
-  //url = 'https://api.biosimulations.dev/models';
+  // url = 'https://api.biosimulations.dev/models';
   url = 'http://localhost:3333/models';
   constructor(private http: HttpClient) {}
   // TODO make this a behavior subject that updates as needed

@@ -22,7 +22,7 @@ export class Model {
   parameters: BiomodelParameter[];
   variables: BiomodelVariable[];
 
-  //Metadata
+  // Metadata
   id: string;
   name!: string;
   summary!: string;

@@ -13,13 +13,13 @@ export class ResourceOverviewComponent implements OnInit {
   name = 'Model 001';
 
   @Input()
-  authors: string = 'Bilal Shaikh and Jonathan Karr';
+  authors = 'Bilal Shaikh and Jonathan Karr';
 
   @Input()
-  owner: string = 'User';
+  owner = 'User';
 
   @Input()
-  summary: string = 'A <b>model</b> that does something';
+  summary = 'A <b>model</b> that does something';
 
   @Input()
   tags: string[] = ['Cancer', 'SBML'];
