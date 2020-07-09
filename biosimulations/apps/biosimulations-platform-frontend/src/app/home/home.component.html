@@ -1,1 +1,6 @@
 <p>Welcome to the Home page</p>
+{{ loggedIn | async }}
+<button (click)="refresh()">Click to check</button>
+<ng-container *ngIf="asyncLoggedIn">
+  Yes!
+</ng-container>

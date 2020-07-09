@@ -13,6 +13,18 @@ import { ModelDataService } from './models/services/model-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 import { SharedModule } from './shared/shared.module';
+import { AuthModule } from '@biosimulations/auth/frontend';
+import { AuthEnvironment } from 'libs/auth/frontend/src/lib/auth.environment';
+
+const env = {
+  authDomain: 'auth.biosimulations.org',
+  apiDomain: 'https://api.biosimulations.dev',
+  clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
+  redirectUri: 'http://localhost:4200',
+  logoutUri: 'http://localhost:4200',
+  audience: 'api.biosimulations.org',
+  scope: '',
+};
 const routes: Routes = [
   {
     path: '',
@@ -23,7 +35,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./models/models.module').then((m) => m.ModelsModule),
   },
-  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./about/about.module').then((m) => m.AboutModule),
+  },
 ];
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +53,7 @@ const routes: Routes = [
     }),
     SharedModule,
   ],
+  providers: [{ provide: AuthEnvironment, useValue: env }],
 
   bootstrap: [AppComponent],
 })

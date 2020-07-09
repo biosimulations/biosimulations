@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@biosimulations/auth/frontend';
 
 @Component({
   selector: 'biosimulations-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'biosimulations-platform-frontend';
+  constructor(private auth: AuthService) {}
+  login() {
+    this.auth.login();
+  }
+  logout() {
+    this.auth.logout();
+  }
+  isAuthenticated() {
+    return this.auth.isAuthenticated$;
+  }
 }
