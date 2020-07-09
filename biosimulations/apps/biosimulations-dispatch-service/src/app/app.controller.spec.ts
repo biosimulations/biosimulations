@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { HpcService } from './services/hpc/hpc.service';
 import { SshService } from './services/ssh/ssh.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
+import { ClientProxyFactory, Transport, NatsOptions } from '@nestjs/microservices';
 
 
 describe('AppController', () => {
@@ -12,7 +13,23 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [ConfigService, HpcService, SshService, SbatchService],
+      providers: [
+        ConfigService,
+        HpcService,
+        SshService,
+        SbatchService,
+        {
+          provide: 'DISPATCH_MQ',
+          useFactory: (configService: ConfigService) => {
+            const natsServerConfig = configService.get('nats');
+            const natsOptions: NatsOptions = {};
+            natsOptions.transport = Transport.NATS;
+            natsOptions.options = natsServerConfig;
+            return ClientProxyFactory.create(natsOptions);
+          },
+          inject: [ConfigService],
+        }
+      ],
     }).compile();
   });
 
