@@ -25,8 +25,7 @@
     "update:check": "ng update",
     "dep-graph": "nx dep-graph",
     "workspace-schematic": "nx workspace-schematic",
-    "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "help": "nx help"
   },
   "private": true,
   "dependencies": {
@@ -77,6 +76,7 @@
     "jwks-rsa": "^1.8.0",
     "md5": "^2.2.1",
     "mongoose": "^5.9.20",
+    "nats": "^1.4.9",
     "nestjs-typegoose": "^7.1.22",
     "ngx-logger": "^4.1.9",
     "ngx-markdown": "^9.0.0",
@@ -110,7 +110,7 @@
     "@nrwl/cypress": "^9.5.1",
     "@nrwl/jest": "9.5.1",
     "@nrwl/nest": "9.5.1",
-    "@nrwl/node": "9.3.0",
+    "@nrwl/node": "9.5.1",
     "@nrwl/workspace": "^10.0.0-beta.0",
     "@types/auth0": "^2.20.5",
     "@types/jest": "^26.0.0",
