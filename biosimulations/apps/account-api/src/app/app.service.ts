@@ -29,7 +29,9 @@ export class AppService {
   }
 
   async create(createAccountDto: Account): Promise<Account> {
-    const createdAccount = await new this.accountModel(createAccountDto).save();
+    const createdAccount = await (
+      await new this.accountModel(createAccountDto).save()
+    ).toObject();
     const userMetadata: UserMetadata = {
       username: createdAccount.username,
     };
