@@ -202,7 +202,7 @@
             "aot": true,
             "assets": [
               {
-                "glob": "favicon.ico",
+                "glob": "favicon.svg",
                 "input": "libs/shared/assets/src",
                 "output": "./"
               },
@@ -632,7 +632,7 @@
             "aot": true,
             "assets": [
               {
-                "glob": "favicon.ico",
+                "glob": "favicon.svg",
                 "input": "libs/shared/assets/src",
                 "output": "./"
               },
@@ -1037,7 +1037,7 @@
             "aot": true,
             "assets": [
               {
-                "glob": "favicon.ico",
+                "glob": "favicon.svg",
                 "input": "libs/shared/assets/src",
                 "output": "./"
               },
