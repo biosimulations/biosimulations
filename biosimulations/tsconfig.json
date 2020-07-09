@@ -4,7 +4,10 @@
     "rootDir": ".",
     "paths": {
       "@biosimulations/shared/assets": ["libs/shared/assets/src/index.ts"],
-      "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"]
+      "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@biosimulations/shared/environments": [
+        "libs/shared/environments/src/index.ts"
+      ]
     }
   },
   "files": [],
@@ -98,6 +101,12 @@
     },
     {
       "path": "./shared-styles/tsconfig.spec.json"
+    },
+    {
+      "path": "./shared-environments/tsconfig.lib.json"
+    },
+    {
+      "path": "./shared-environments/tsconfig.spec.json"
     }
   ]
 }
