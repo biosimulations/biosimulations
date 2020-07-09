@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FaIconComponent } from './fa-icon.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BiosimulationsIconsModule } from '../ui-icons.module';
 
 describe('FaIconComponent', () => {
   let component: FaIconComponent;
@@ -8,14 +11,15 @@ describe('FaIconComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FaIconComponent ]
-    })
-    .compileComponents();
+      imports: [MatIconModule, FontAwesomeModule, BiosimulationsIconsModule],
+      declarations: [],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FaIconComponent);
     component = fixture.componentInstance;
+    component.icon = 'question';
     fixture.detectChanges();
   });
 

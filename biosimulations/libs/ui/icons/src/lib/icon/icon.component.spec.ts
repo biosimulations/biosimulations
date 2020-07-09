@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IconComponent } from './icon.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BiosimulationsIconsModule } from '../ui-icons.module';
 
 describe('IconComponent', () => {
   let component: IconComponent;
@@ -8,9 +11,9 @@ describe('IconComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IconComponent ]
-    })
-    .compileComponents();
+      imports: [BiosimulationsIconsModule, MatIconModule, FontAwesomeModule],
+      declarations: [],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
