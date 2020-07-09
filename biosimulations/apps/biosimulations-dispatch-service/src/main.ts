@@ -10,13 +10,22 @@ import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const logger = new Logger('Main');
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 4444;
-  const host = process.env.HOST || 'localhost';
-  await app.listen(port, () => {
-    logger.log(`Listening at http://${host}:${port}/${globalPrefix}`);
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.NATS,
+      // TODO: Find a way to fetch this variables from config service
+      options: {
+        url: process.env.NATS_HOST + ':' + process.env.NATS_CLIENT_PORT,
+        user: process.env.NATS_USERNAME,
+        pass: process.env.NATS_PASSWORD
+      }
+    },
+  );
+  // const port = app.get('ConfigService').get('dispatchService.port') || 4444;
+  // const host = app.get('ConfigService').get('dispatchService.host') || 'localhost';
+  await app.listen(() => {
+    logger.log('Dispatch service listening for *dispatch* messages');
   });
 }
 

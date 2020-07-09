@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SbatchService {
+    // Note: Don't indent the template lines starting with "#SBATCH", otherwise SLURM configuration doesn't work
     generateSbatch(tempSimDir: string, simulator: string, omexName: string): string {
         const template = `#!/bin/bash
-        #SBATCH --job-name=test
-        #SBATCH --output=${tempSimDir}/out/job.output
-        #SBATCH --ntasks=1
-        #SBATCH --time=10:00
-        #SBATCH --mem-per-cpu=1000
+#SBATCH --job-name=test
+#SBATCH --output=${tempSimDir}/out/job.output
+#SBATCH --ntasks=1
+#SBATCH --time=10:00
+#SBATCH --mem-per-cpu=1000
         
         echo "Job ID: $SLURM_JOB_ID running on"
         echo "Job Owner: $SLURM_JOB_UID "

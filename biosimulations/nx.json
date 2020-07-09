@@ -75,6 +75,19 @@
     },
     "shared-environments": {
       "tags": ["scope:shared", "type:environments"]
+    },
+    "shared-messaging": {
+      "tags": ["scope: shared", "type: util", "platform: backend"]
+    },
+    "biosimulations-dispatch-api": {
+      "tags": []
+    },
+    "biosimulations-dispatch-frontend": {
+      "tags": []
+    },
+    "biosimulations-dispatch-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["biosimulations-dispatch-frontend"]
     }
   },
   "tasksRunnerOptions": {
