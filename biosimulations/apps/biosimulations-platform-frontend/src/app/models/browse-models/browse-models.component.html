@@ -1,27 +1,74 @@
-<div class="partial-width">
-  <mat-table matSort [dataSource]="data" class="mat-elevation-z8">
-    <ng-container
-      [matColumnDef]="column"
-      *ngFor="let column of displayedColumns"
+<div class="full-width" fxLayout="row">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Fields
+        </mat-panel-title>
+        <mat-panel-description>
+          Select the fields to display
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <ng-container
+            *ngFor="let column of displayedColumns"
+            #checkboxContainer
+          >
+            <mat-list-item>
+              <mat-checkbox
+                #checkbox
+                [checked]="displayedColumns.includes(column)"
+                (change)="handleChange(checkbox.checked, column)"
+              >
+                {{ column | titlecase }}
+              </mat-checkbox>
+            </mat-list-item>
+          </ng-container>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header> Filter</mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header> Search</mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div>
+    <mat-table
+      matSort
+      [dataSource]="data"
+      class="mat-elevation-z8"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
     >
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ column | titlecase }}
-      </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element[column] }}</mat-cell>
-    </ng-container>
+      <ng-container
+        [matColumnDef]="column"
+        *ngFor="let column of displayedColumns"
+      >
+        <mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>
+          {{ column | titlecase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element[column] }}</mat-cell>
+      </ng-container>
 
-    <mat-header-row
-      *matHeaderRowDef="columnsToDisplay; sticky: true"
-    ></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
-  </mat-table>
-  <mat-paginator
-    #paginator
-    [length]="dataSource?.data.length"
-    [pageIndex]="0"
-    [pageSize]="50"
-    [pageSizeOptions]="[25, 50, 100, 250]"
-  >
-  </mat-paginator>
-  {{ data$ | async | json }}
+      <mat-header-row
+        *matHeaderRowDef="columnsToDisplay; sticky: true"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+    </mat-table>
+    <mat-paginator
+      #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="50"
+      [pageSizeOptions]="[25, 50, 100, 250]"
+    >
+    </mat-paginator>
+  </div>
+  <biosimulations-debug-viewer>
+    {{ data$ | async | json }}
+  </biosimulations-debug-viewer>
 </div>

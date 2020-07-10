@@ -10,7 +10,7 @@ import { ModelHttpService } from '../services/model-http.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'biosimulations-browse-models',
   templateUrl: './browse-models.component.html',
@@ -21,6 +21,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<ModelData>;
+
   dataSource!: ModelDataSource;
 
   data: ModelData[] = [];
@@ -48,5 +49,24 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.dataSource = new ModelDataSource(this.modelHttp);
+  }
+  handleChange(checked: boolean, column: string) {
+    if (checked) {
+      this.columnsToDisplay.splice(
+        this.displayedColumns.indexOf(column),
+        0,
+        column,
+      );
+    }
+    if (!checked) {
+      this.columnsToDisplay.splice(this.columnsToDisplay.indexOf(column), 1);
+    }
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.columnsToDisplay,
+      event.previousIndex,
+      event.currentIndex,
+    );
   }
 }
