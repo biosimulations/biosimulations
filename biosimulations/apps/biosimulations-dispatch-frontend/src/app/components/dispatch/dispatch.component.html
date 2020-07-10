@@ -10,7 +10,10 @@
                 <div class="card-body">
                     <div class="form-group">
                         <!-- <label for="exampleFormControlFile1">OMEX</label> -->
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <input type="file" 
+                                id="file" 
+                                class="form-control-file"
+                                (change)="handleFileInput($event.target.files)">
                     </div>
                 </div>
               </div>
@@ -23,8 +26,8 @@
             <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
                 <div class="card-header">Select simulator</div>
                 <div class="card-body">
-                    <select class="form-control">
-                        <option *ngFor="let simulator of simulators">{{simulator}}</option>
+                    <select [(ngModel)]="selectedSimulator" [ngModelOptions]="{standalone: true}" class="form-control">
+                        <option *ngFor="let simulator of simulators" [value]="simulator">{{simulator}}</option>
                     </select>
                 </div>
               </div>
@@ -34,7 +37,7 @@
     <div class="row">
         <div class="col"></div>
         <div class="col-6" style="text-align: center;">
-            <button class="btn btn-dark">Submit</button>
+            <button class="btn btn-dark" type="button" (click)="onClickSubmit()">Submit</button>
         </div>
         <div class="col"></div>
     </div>
