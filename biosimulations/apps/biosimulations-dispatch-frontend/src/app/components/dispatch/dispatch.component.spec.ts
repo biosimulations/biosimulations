@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DispatchComponent } from './dispatch.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('DispatchComponent', () => {
   let component: DispatchComponent;
@@ -8,7 +10,9 @@ describe('DispatchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DispatchComponent ]
+      imports: [FormsModule],
+      declarations: [ DispatchComponent ],
+      providers: [HttpClient, HttpHandler]
     })
     .compileComponents();
   }));
