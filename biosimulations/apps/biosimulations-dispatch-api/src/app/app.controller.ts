@@ -79,6 +79,7 @@ export class AppController implements OnApplicationBootstrap {
         this.logger.log('Error occured in dispatch service: ' + JSON.stringify(err));
       }
     );
+    this.logger.log('Dispatch message was sent successfully' + JSON.stringify(simSpec));
     
     return {
       message: 'File uploaded successfuly',

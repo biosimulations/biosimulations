@@ -29,6 +29,7 @@ export class DispatchComponent implements OnInit {
       subscribe(
       (data: object) => {
         console.log('Response from server: ', data);
+        alert('Job was submitted successfully!')
       },
       (error: object) => {
         console.log('Error occured while submitting simulation job: ', error)
