@@ -1,12 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DispatchComponent } from './components/dispatch/dispatch.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent],
+      imports: [RouterTestingModule, FormsModule],
+      declarations: [AppComponent, NavbarComponent, DispatchComponent, FooterComponent],
     }).compileComponents();
   }));
 
@@ -22,12 +26,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('biosimulations-dispatch-frontend');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to biosimulations-dispatch-frontend!',
-    );
-  });
 });
