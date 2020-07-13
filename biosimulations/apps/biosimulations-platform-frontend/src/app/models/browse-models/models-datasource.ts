@@ -13,6 +13,8 @@ import { MatSort } from '@angular/material/sort';
 
 import { map } from 'rxjs/operators';
 import { ModelHttpService } from '../services/model-http.service';
+import { Injectable } from '@angular/core';
+import { ModelResource } from '@biosimulations/datamodel/api';
 
 class Author {
   constructor(
@@ -82,15 +84,43 @@ function initDataFunc(count = 100) {
   }
   return items;
 }
+
+@Injectable()
 export class ModelDataSource extends MatTableDataSource<ModelData> {
-  data: ModelData[] = initData;
   paginator!: MatPaginator;
   sort!: MatSort;
   subscription?: Subscription;
   constructor(modelHttp: ModelHttpService) {
-    super(initData);
+    super([]);
+    let newData = modelHttp
+      .loadAll()
+      .pipe(
+        map((value: ModelResource[]) =>
+          value.map((model: ModelResource) => {
+            return ModelDataSource.toDataModel(model);
+          }),
+        ),
+      )
+      .subscribe((value: ModelData[]) => (this.data = value));
   }
-
+  static toDataModel(model: ModelResource): ModelData {
+    let modelData: ModelData = {
+      id: model.id,
+      name: model.attributes.metadata.name,
+      tags: model.attributes.metadata.tags,
+      framework: model.attributes.framework,
+      format: model.attributes.format,
+      authors: model.attributes.metadata.authors.map((person: Person) => {
+        return new Author(person.firstName, person.lastName, person.middleName);
+      }),
+      owner: model.relationships.owner.data.id,
+      created: new Date(model.meta.created),
+      updated: new Date(model.meta.updated),
+      taxon: model.attributes.taxon,
+      license: model.attributes.metadata.license,
+    };
+    return modelData;
+  }
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.

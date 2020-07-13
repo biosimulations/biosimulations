@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatIconComponent } from './mat-icon.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('MatIconComponent', () => {
   let component: MatIconComponent;
@@ -8,9 +10,9 @@ describe('MatIconComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatIconComponent ]
-    })
-    .compileComponents();
+      imports: [MatIconModule, FontAwesomeModule],
+      declarations: [MatIconComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

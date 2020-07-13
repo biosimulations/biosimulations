@@ -17,7 +17,11 @@ import { ModelHttpService } from './services/model-http.service';
 import { ModelDataService } from './services/model-data.service';
 import { UiMaterialModule } from '@biosimulations/ui/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { DebugModule } from '@biosimulations/shared/debug';
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 const routes: Routes = [{ path: '', component: ModelsComponent }];
 
 @NgModule({
@@ -38,6 +42,10 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     UiMaterialModule,
     RouterModule.forChild(routes),
     MatPaginatorModule,
+    MatExpansionModule,
+    DebugModule,
+    MatCheckboxModule,
+    DragDropModule,
   ],
   providers: [ModelService, ModelHttpService, ModelDataService],
 })

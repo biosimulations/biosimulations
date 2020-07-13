@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM node:12-alpine as base
+FROM node:14-alpine as base
 
 #The name of the app to build
 ARG app
@@ -9,7 +9,7 @@ ENV APP=$app
 RUN echo building ${APP}
 
 # Copy over dependency list
-COPY biosimulations/tsconfig.json /app/tsconfig.json
+COPY biosimulations/tsconfig.base.json /app/tsconfig.base.json
 COPY biosimulations/package.json /app/package.json
 COPY biosimulations/package-lock.json /app/package-lock.json
 #############
