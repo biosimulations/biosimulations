@@ -37,7 +37,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
   constructor(modelHttp: ModelHttpService) {
     super();
 
-    let newData = modelHttp
+    const newData = modelHttp
       .loadAll()
       .pipe(
         shareReplay(1),
@@ -56,7 +56,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
   isLoading = new BehaviorSubject(true);
   static toDataModel(model: ModelResource): ModelData {
     const format = model.attributes.format;
-    let modelData: ModelData = {
+    const modelData: ModelData = {
       id: model.id,
       name: model.attributes.metadata.name.replace('_', ' ').replace('-', ' '),
       tags: model.attributes.metadata.tags,

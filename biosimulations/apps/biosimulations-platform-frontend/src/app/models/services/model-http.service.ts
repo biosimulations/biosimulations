@@ -14,7 +14,7 @@ import { Model } from '../model';
 export class ModelHttpService {
   name = 'model';
   url = 'https://api.biosimulations.dev/models';
-  //url = 'http://localhost:3333/models';
+  // url = 'http://localhost:3333/models';
   constructor(private http: HttpClient) {}
   // TODO make this a behavior subject that updates as needed
   models: Map<string, ModelResource> = new Map();
