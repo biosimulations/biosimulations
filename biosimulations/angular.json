@@ -641,7 +641,8 @@
                 "input": "libs/shared/assets/src/assets",
                 "output": "assets"
               },
-              "apps/biosimulations-platform-frontend/src/assets"
+              "apps/biosimulations-platform-frontend/src/assets",
+              "apps/biosimulations-platform-frontend/src/manifest.webmanifest"
             ],
             "styles": [
               "libs/shared/styles/src/index.scss"
@@ -665,11 +666,11 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
