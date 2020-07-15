@@ -80,7 +80,9 @@
           <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
         </table>
       </div>
-
+      <div class="loading-shade" *ngIf="isLoading | async">
+        <biosimulations-spinner></biosimulations-spinner>
+      </div>
       <mat-paginator
         fxFlex="nogrow"
         #paginator
