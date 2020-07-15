@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biosimulations-nats
+spec:
+    selector:
+        matchLabels:
+          run: biosimulations-nats
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          run: biosimulations-nats
+      spec:
+        containers:
+        - name: biosimulations-nats
+          image: nats:latest
+          ports:
+            - containerPort: 4222
+            - containerPort: 8222
+            - containerPort: 6222
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: biosimulations-nats
+    labels:
+      run: biosimulations-nats
+  
+  spec:
+    type: NodePort
+    ports:
+    - port: 4222
+      targetPort: 4222
+      # nodePort: 4223
+      # protocol: TCP
+      name: nats-client
+    - port: 6222
+      targetPort: 6222
+      # nodePort: 6223
+      # protocol: TCP
+      name: nats-request
+    - port: 8222
+      targetPort: 8222
+      # nodePort: 8223
+      # protocol: TCP
+      name: nats-management
+    selector:
+      run: biosimulations-nats      
+
