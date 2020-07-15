@@ -9,13 +9,14 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 import { ModelHttpService } from '../services/model-http.service';
 import { Injectable } from '@angular/core';
 import { ModelResource } from '@biosimulations/datamodel/api';
 import { Author } from '../../shared/viewmodels/author';
 import { Taxon } from '../../shared/viewmodels/taxon';
 import { Format } from '../../shared/viewmodels/format';
+import { Framework } from '../../shared/viewmodels/framework';
 
 export interface ModelData {
   id: string;
@@ -33,9 +34,6 @@ export interface ModelData {
 
 @Injectable()
 export class ModelDataSource extends MatTableDataSource<ModelData> {
-  paginator!: MatPaginator;
-  sort!: MatSort;
-  subscription?: Subscription;
   constructor(modelHttp: ModelHttpService) {
     super();
 
@@ -43,6 +41,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
       .loadAll()
       .pipe(
         shareReplay(1),
+        tap((_) => this.isLoading.next(false)),
         map((value: ModelResource[]) =>
           value.map((model: ModelResource) => {
             return ModelDataSource.toDataModel(model);
@@ -51,13 +50,17 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
       )
       .subscribe((value: ModelData[]) => (this.data = value));
   }
+  paginator!: MatPaginator;
+  sort!: MatSort;
+  subscription?: Subscription;
+  isLoading = new BehaviorSubject(true);
   static toDataModel(model: ModelResource): ModelData {
     const format = model.attributes.format;
     let modelData: ModelData = {
       id: model.id,
       name: model.attributes.metadata.name.replace('_', ' ').replace('-', ' '),
       tags: model.attributes.metadata.tags,
-      framework: model.attributes.framework,
+      framework: new Framework(model.attributes.framework),
       format: new Format(
         format.id,
         format.name,
@@ -81,6 +84,10 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
       license: model.attributes.metadata.license,
     };
     return modelData;
+  }
+
+  isLoading$() {
+    return this.isLoading.asObservable();
   }
   /**
    * Connect this data source to the table. The table will only update when
