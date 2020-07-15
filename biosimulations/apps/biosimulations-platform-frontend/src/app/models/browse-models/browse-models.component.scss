@@ -1,6 +1,16 @@
-:host {
-  display: block;
+.table-container {
+  overflow: auto;
 }
-table {
+.page-container {
+  overflow: auto;
+}
+.fx {
+  height: 100%;
   width: 100%;
+}
+mat-paginator {
+  width: 100%;
+}
+.mat-cell {
+  padding-right: 0.5rem;
 }
