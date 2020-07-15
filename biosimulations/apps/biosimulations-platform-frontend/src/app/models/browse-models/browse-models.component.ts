@@ -15,14 +15,13 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   selector: 'biosimulations-browse-models',
   templateUrl: './browse-models.component.html',
   styleUrls: ['./browse-models.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ModelDataSource],
 })
 export class BrowseModelsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<ModelData>;
-
-  dataSource!: ModelDataSource;
+  showMenu = true;
 
   data: ModelData[] = [];
   data$: any;
@@ -40,15 +39,16 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
     'updated',
   ];
   columnsToDisplay = this.displayedColumns.slice();
-  constructor(private modelHttp: ModelHttpService) {}
+  constructor(public dataSource: ModelDataSource) {}
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
 
-  ngOnInit(): void {
-    this.dataSource = new ModelDataSource(this.modelHttp);
+  ngOnInit(): void {}
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
   }
   handleChange(checked: boolean, column: string) {
     if (checked) {
