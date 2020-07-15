@@ -7,10 +7,26 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import { FaIconComponent } from './fa-icon/fa-icon.component';
-import { fas, faFilm } from '@fortawesome/free-solid-svg-icons';
+import {
+  fas,
+  faFilm,
+  faUsers,
+  faDna,
+  faBezierCurve,
+  faHome,
+} from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far, faFile } from '@fortawesome/free-regular-svg-icons';
+import { far, faFile, faUser } from '@fortawesome/free-regular-svg-icons';
 import { MatIconComponent } from './mat-icon/mat-icon.component';
+
+export type biosimulationsIcon =
+  | 'home'
+  | 'file'
+  | 'question'
+  | 'authors'
+  | 'author'
+  | 'model'
+  | 'taxon';
 
 @NgModule({
   imports: [CommonModule, MatIconModule, FontAwesomeModule],
@@ -22,6 +38,14 @@ export class BiosimulationsIconsModule {
     library.addIconPacks(far);
     library.addIconPacks(fas);
     library.addIconPacks(fab);
-    library.addIcons(faFilm);
+    library.addIcons(
+      faFilm,
+      faUsers,
+      faDna,
+      faBezierCurve,
+      faFile,
+      faUser,
+      faHome,
+    );
   }
 }
