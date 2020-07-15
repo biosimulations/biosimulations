@@ -101,7 +101,7 @@
     "@angular-devkit/build-ng-packagr": "~0.1000.1",
     "@angular/cli": "^10.0.1",
     "@angular/compiler-cli": "^10.0.3",
-    "@angular/language-service": "^10.0.3",
+    "@angular/language-service": "^10.0.4",
     "@nestjs/cli": "^7.4.0",
     "@nestjs/schematics": "^7.0.1",
     "@nestjs/testing": "^7.2.0",
