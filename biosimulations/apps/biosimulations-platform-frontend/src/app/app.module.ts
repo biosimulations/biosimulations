@@ -5,16 +5,11 @@ import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UiMaterialModule } from '@biosimulations/ui/material';
-import { ModelService } from './models/services/model.service';
-import { ModelHttpService } from './models/services/model-http.service';
-import { ModelDataService } from './models/services/model-data.service';
-import { HttpClientModule } from '@angular/common/http';
+
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment } from '@biosimulations/auth/frontend';
-
 const env = {
   authDomain: 'auth.biosimulations.org',
   apiDomain: 'https://api.biosimulations.dev',
