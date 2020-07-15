@@ -6,6 +6,7 @@ import { BiosimulationsNavigationComponent } from './biosimulations-navigation/b
 import { MaterialWrapperModule } from './material-wrapper.module';
 
 import { ResourceViewModule } from './resource-view/resource-view.module';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 const declarations = [
   TopbarComponent,
@@ -14,7 +15,7 @@ const declarations = [
 ];
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, ResourceViewModule],
-  exports: [...declarations, MaterialWrapperModule, ResourceViewModule],
-  declarations: [...declarations],
+  exports: [...declarations, MaterialWrapperModule, ResourceViewModule, SpinnerComponent],
+  declarations: [...declarations, SpinnerComponent],
 })
 export class UiMaterialModule {}
