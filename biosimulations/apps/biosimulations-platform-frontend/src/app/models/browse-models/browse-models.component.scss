@@ -14,3 +14,16 @@ mat-paginator {
 .mat-cell {
   padding-right: 0.5rem;
 }
+.mat-table {
+  width: 100%;
+  overflow: hidden;
+}
+.loading-shade {
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84%;
+  width: 100%;
+}
