@@ -9,6 +9,8 @@ import {
   Delete,
   UseGuards,
   Req,
+  CacheInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -53,6 +55,7 @@ const dbToApi = (dbModel: Model): ModelResource => {
 
   return returnModel;
 };
+@UseInterceptors(CacheInterceptor)
 @ApiTags('Models')
 @Controller('models')
 export class ModelsController {
