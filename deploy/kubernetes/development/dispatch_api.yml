@@ -2,34 +2,58 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: biosimulations-dispatch-api
+  labels:
+    app: biosimulations-nats
+  namespace: default
 spec:
     selector:
         matchLabels:
-          run: biosimulations-dispatch-api
+          app: biosimulations-dispatch-api
     replicas: 1
     template:
       metadata:
         labels:
-          run: biosimulations-dispatch-api
+          app: biosimulations-dispatch-api
       spec:
         containers:
         - name: biosimulations-dispatch-api
           image: crbm/biosimulations-dispatch-api:dev
           ports:
             - containerPort: 3333
+          env:
+            - name: "FILE_STORAGE"
+              value: "/sharedFiles"
+            - name: "NATS_HOST"
+              value: "nats://10.99.224.14"
+            - name: "NATS_CLIENT_PORT"
+              value: "4222"
+            - name: "NATS_USERNAME"
+              value: "ruser"
+            - name: "NATS_PASSWORD"
+              value: "T0pS3cr3t"
+          volumeMounts:
+            - mountPath: "/app/config"
+              name: config
+              readOnly: true
+        volumes:
+          - name: config
+            secret:
+              secretName: dispatch-api-secrets-5mt286hh7f
 ---
   apiVersion: v1
   kind: Service
   metadata:
     name: biosimulations-dispatch-api
     labels:
-      run: biosimulations-dispatch-api
-  
+      app: biosimulations-dispatch-api
+    namespace: default
   spec:
     type: NodePort
     ports:
     - port: 3333
-      targetPort: 4222
+      targetPort: 3333
+      protocol: TCP
+      nodePort: 30333
       name: dispatch-api
     selector:
-      run: biosimulations-dispatch-api
+      app: biosimulations-dispatch-api

@@ -8,3 +8,8 @@ secretGenerator:
     namespace: default
     files:
       - config/account-api/secret.env
+
+  - name: dispatch-api-secrets
+    namespace: default
+    files:
+      - config/dispatch-api/secret.env
