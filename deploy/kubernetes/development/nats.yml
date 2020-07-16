@@ -4,12 +4,12 @@ metadata:
   name: biosimulations-nats
   labels:
     app: biosimulations-nats
-  namespace: dev
+  namespace: default
 spec:
     selector:
         matchLabels:
           app: biosimulations-nats
-    replicas: 1
+    replicas: 1 
     template:
       metadata:
         labels:
@@ -29,24 +29,24 @@ spec:
     name: biosimulations-nats
     labels:
       app: biosimulations-nats
-  
+    namespace: default
   spec:
     type: NodePort
     ports:
-    - port: 4222
-      # targetPort: 4222
-      # nodePort: 4223
-      # protocol: TCP
+    - nodePort: 30444
+      port: 4222
+      protocol: TCP
+      targetPort: 4222
       name: nats-client
-    - port: 6222
-      # targetPort: 6222
-      # nodePort: 6223
-      # protocol: TCP
+    - nodePort: 30666
+      port: 6222
+      protocol: TCP
+      targetPort: 6222
       name: nats-request
-    - port: 8222
-      # targetPort: 8222
-      # nodePort: 8223
-      # protocol: TCP
+    - nodePort: 30888
+      port: 8222
+      protocol: TCP
+      targetPort: 8222
       name: nats-management
     selector:
       app: biosimulations-nats      
