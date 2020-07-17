@@ -13,10 +13,10 @@ import { map, shareReplay, tap } from 'rxjs/operators';
 import { ModelHttpService } from '../services/model-http.service';
 import { Injectable } from '@angular/core';
 import { ModelResource } from '@biosimulations/datamodel/api';
-import { Author } from '../../shared/viewmodels/author';
-import { Taxon } from '../../shared/viewmodels/taxon';
-import { Format } from '../../shared/viewmodels/format';
-import { Framework } from '../../shared/viewmodels/framework';
+import { Author } from '../../shared/views/author';
+import { Taxon } from '../../shared/views/taxon';
+import { Format } from '../../shared/views/format';
+import { Framework } from '../../shared/views/framework';
 
 export interface ModelData {
   id: string;
