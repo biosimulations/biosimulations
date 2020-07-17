@@ -38,10 +38,8 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
     super();
 
     const newData = modelHttp
-      .loadAll()
+      .getAll()
       .pipe(
-        shareReplay(1),
-        tap((_) => this.isLoading.next(false)),
         map((value: ModelResource[]) =>
           value.map((model: ModelResource) => {
             return ModelDataSource.toDataModel(model);
@@ -49,6 +47,9 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         ),
       )
       .subscribe((value: ModelData[]) => (this.data = value));
+    modelHttp
+      .isLoading$()
+      .subscribe((isLoading: boolean) => this.isLoading.next(isLoading));
   }
   paginator!: MatPaginator;
   sort!: MatSort;

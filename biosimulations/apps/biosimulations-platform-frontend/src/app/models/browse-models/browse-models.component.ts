@@ -11,7 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 @Component({
   selector: 'biosimulations-browse-models',
   templateUrl: './browse-models.component.html',
@@ -23,7 +23,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<ModelData>;
   showMenu = true;
-  isLoading = of(true);
+  isLoading!: Observable<boolean>;
 
   data: ModelData[] = [];
   data$: any;
@@ -46,10 +46,11 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-    this.isLoading = this.dataSource.isLoading$();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isLoading = this.dataSource.isLoading$();
+  }
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }
