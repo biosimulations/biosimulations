@@ -6,11 +6,13 @@ import { BiosimulationsNavigationComponent } from './biosimulations-navigation/b
 import { MaterialWrapperModule } from './material-wrapper.module';
 
 import { SpinnerComponent } from './spinner/spinner.component';
+import { HyperLinkComponent } from './hyper-link/hyper-link.component';
 
 const declarations = [
   TopbarComponent,
   StepperButtonsComponent,
   BiosimulationsNavigationComponent,
+  HyperLinkComponent,
 ];
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule],

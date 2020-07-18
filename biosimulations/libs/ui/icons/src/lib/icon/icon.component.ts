@@ -25,6 +25,8 @@ export class IconComponent implements OnInit {
     question: { type: 'fas', name: 'question' },
     model: { type: 'fas', name: 'bezier-curve' },
     taxon: { type: 'fas', name: 'dna' },
+    framework: { type: 'fas', name: 'calculator' },
+    format: { type: 'far', name: 'file-alt' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

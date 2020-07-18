@@ -10,7 +10,8 @@ export class Taxon implements ViewModel {
   }
   link(): string {
     return (
-      'https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=' + this.id
+      'https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=info&id=' +
+      this.id
     );
   }
   match(predicate: any): boolean {

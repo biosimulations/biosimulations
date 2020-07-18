@@ -16,16 +16,8 @@ export class Framework implements ViewModel, IFramework {
   toString(): string {
     return this.name;
   }
-  icon():
-    | 'taxon'
-    | 'authors'
-    | 'home'
-    | 'file'
-    | 'question'
-    | 'author'
-    | 'model'
-    | null {
-    throw new Error('Method not implemented.');
+  icon(): 'framework' {
+    return 'framework';
   }
   link(): string | null {
     return this.iri;

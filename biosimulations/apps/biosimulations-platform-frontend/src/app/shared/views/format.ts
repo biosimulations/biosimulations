@@ -31,16 +31,8 @@ export class Format implements ViewModel, IFormat {
   toString(): string {
     return this.name + ' ' + this.version;
   }
-  icon():
-    | 'taxon'
-    | 'authors'
-    | 'home'
-    | 'file'
-    | 'question'
-    | 'author'
-    | 'model'
-    | null {
-    throw new Error('Method not implemented.');
+  icon(): 'format' {
+    return 'format';
   }
   link(): string | null {
     return this.url

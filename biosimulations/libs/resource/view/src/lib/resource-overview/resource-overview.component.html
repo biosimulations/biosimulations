@@ -1,15 +1,22 @@
 <div fxLayout="column" fxLayoutGap="15px">
-  <div fxLayout="row wrap" fxLayoutGap="15px">
+  <div fxLayout="row " fxLayoutGap="15px">
     <div class="image">
       <img alt="Resource Thumbnail" [src]="imageUrl" />
     </div>
     <div class="metadata">
-      <h1>{{ name }}</h1>
-      <h2>{{ summary }}</h2>
-      <h3>{{ authors }}</h3>
-      <h3>{{ owner }}</h3>
+      <mat-card>
+        <h1>{{ name }}</h1>
+        <h2>{{ summary }}</h2>
+        <h3>{{ authors }}</h3>
+        <h3>{{ owner }}</h3>
+      </mat-card>
     </div>
-    <div class="attributes"></div>
+
+    <div class="attributes">
+      <biosimulations-resource-attributes
+        [list]="attributes"
+      ></biosimulations-resource-attributes>
+    </div>
   </div>
   <div>
     <mat-card> <markdown [data]="description"></markdown> </mat-card>

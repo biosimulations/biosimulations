@@ -26,7 +26,9 @@ export type biosimulationsIcon =
   | 'authors'
   | 'author'
   | 'model'
-  | 'taxon';
+  | 'taxon'
+  | 'framework'
+  | 'format';
 
 @NgModule({
   imports: [CommonModule, MatIconModule, FontAwesomeModule],
