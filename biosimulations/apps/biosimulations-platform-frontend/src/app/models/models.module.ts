@@ -14,7 +14,6 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSortModule } from '@angular/material/sort';
 import { ModelService } from './services/model.service';
 import { ModelHttpService } from './services/model-http.service';
-import { ModelDataService } from './services/model-data.service';
 import { UiMaterialModule } from '@biosimulations/ui/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -47,6 +46,6 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     MatCheckboxModule,
     DragDropModule,
   ],
-  providers: [ModelService, ModelHttpService, ModelDataService],
+  providers: [],
 })
 export class ModelsModule {}

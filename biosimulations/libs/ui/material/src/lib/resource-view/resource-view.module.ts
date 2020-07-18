@@ -7,6 +7,6 @@ import { MarkdownModule } from 'ngx-markdown';
 @NgModule({
   declarations: [ResourceViewComponent, ResourceOverviewComponent],
   imports: [CommonModule, MaterialWrapperModule, MarkdownModule.forChild()],
-  exports: [ResourceViewComponent],
+  exports: [ResourceViewComponent, ResourceOverviewComponent],
 })
 export class ResourceViewModule {}

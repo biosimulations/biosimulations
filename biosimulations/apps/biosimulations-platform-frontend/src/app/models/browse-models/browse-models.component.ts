@@ -12,11 +12,13 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { of, Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'biosimulations-browse-models',
   templateUrl: './browse-models.component.html',
   styleUrls: ['./browse-models.component.scss'],
   providers: [ModelDataSource],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseModelsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,7 +43,11 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
     'updated',
   ];
   columnsToDisplay = this.displayedColumns.slice();
-  constructor(public dataSource: ModelDataSource) {}
+  constructor(
+    public dataSource: ModelDataSource,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -72,5 +78,14 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
       event.previousIndex,
       event.currentIndex,
     );
+  }
+
+  navigate(el: ModelData) {
+    const id = el.id;
+    this.router.navigate(['../' + id], { relativeTo: this.route });
+  }
+
+  refresh() {
+    this.dataSource.refresh();
   }
 }

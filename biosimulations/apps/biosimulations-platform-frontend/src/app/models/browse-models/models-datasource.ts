@@ -34,7 +34,7 @@ export interface ModelData {
 
 @Injectable()
 export class ModelDataSource extends MatTableDataSource<ModelData> {
-  constructor(modelHttp: ModelHttpService) {
+  constructor(private modelHttp: ModelHttpService) {
     super();
 
     const newData = modelHttp
@@ -89,6 +89,9 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
 
   isLoading$() {
     return this.isLoading.asObservable();
+  }
+  refresh() {
+    this.modelHttp.refresh();
   }
   /**
    * Connect this data source to the table. The table will only update when

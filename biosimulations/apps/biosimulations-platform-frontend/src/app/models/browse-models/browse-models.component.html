@@ -4,6 +4,9 @@
       <button mat-icon-button (click)="toggleMenu()">
         <mat-icon>read_more</mat-icon>
       </button>
+      <button mat-icon-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
       <mat-accordion *ngIf="showMenu">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -53,7 +56,11 @@
       </mat-accordion>
     </div>
     <div fxFlex fxLayout="column" class="page-container">
-      <div fxFlex class="table-container">
+      <div
+        fxFlex
+        class="table-container"
+        [ngClass]="{ 'hide-overflow': isLoading | async }"
+      >
         <mat-table
           matSort
           [dataSource]="data"
@@ -75,7 +82,11 @@
           <mat-header-row
             *matHeaderRowDef="columnsToDisplay; sticky: true"
           ></mat-header-row>
-          <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+          <mat-row
+            ngClass="click"
+            (click)="navigate(row)"
+            *matRowDef="let row; columns: columnsToDisplay"
+          ></mat-row>
         </mat-table>
       </div>
       <div class="loading-shade" *ngIf="isLoading | async">
