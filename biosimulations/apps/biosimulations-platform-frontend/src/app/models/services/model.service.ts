@@ -1,22 +1,39 @@
 import { Injectable } from '@angular/core';
 import { ModelResource } from '@biosimulations/datamodel/api';
-import { ModelData } from '../browse-models/models-datasource';
 import { Framework } from '../../shared/views/framework';
 import { Author } from '../../shared/views/author';
 import { Taxon } from '../../shared/views/taxon';
 import { Format } from '../../shared/views/format';
-import { Person } from '@biosimulations/datamodel/core';
+import { Person, OntologyTerm, UserId } from '@biosimulations/datamodel/core';
 import { ModelHttpService } from './model-http.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
+export interface Model {
+  id: string;
+  name: string;
+  tags: string[];
+  framework: OntologyTerm;
+  format: Format;
+  authors: Author[];
+  owner: UserId;
+  created: Date;
+  updated: Date;
+  taxon: Taxon | null;
+  license: string;
+  description: string;
+  imageUrl: string;
+  summary: string;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
-  constructor(modelHttp: ModelHttpService) {}
+  constructor(private modelHttp: ModelHttpService) {}
 
-  static toDataModel(model: ModelResource): ModelData {
+  static toDataModel(model: ModelResource): Model {
     const format = model.attributes.format;
-    const modelData: ModelData = {
+    const modelData: Model = {
       id: model.id,
       name: model.attributes.metadata.name.replace('_', ' ').replace('-', ' '),
       tags: model.attributes.metadata.tags,
@@ -42,7 +59,24 @@ export class ModelService {
         ? new Taxon(model.attributes.taxon?.id, model.attributes.taxon?.name)
         : null,
       license: model.attributes.metadata.license,
+      description: model.attributes.metadata.description,
+      summary: model.attributes.metadata.summary,
+      imageUrl: '/assets/images/model-v1.svg',
     };
     return modelData;
+  }
+  refresh(id: string) {
+    this.modelHttp.refresh(id);
+  }
+  get(id: string): Observable<Model | undefined> {
+    return this.modelHttp.get(id).pipe(
+      map((val: ModelResource | undefined) => {
+        if (val !== undefined) {
+          return ModelService.toDataModel(val);
+        } else {
+          return undefined;
+        }
+      }),
+    );
   }
 }

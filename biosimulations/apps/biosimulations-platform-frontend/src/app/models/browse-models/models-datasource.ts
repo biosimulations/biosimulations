@@ -34,14 +34,12 @@ export interface ModelData {
 
 @Injectable()
 export class ModelDataSource extends MatTableDataSource<ModelData> {
-  constructor(modelHttp: ModelHttpService) {
+  constructor(private modelHttp: ModelHttpService) {
     super();
 
     const newData = modelHttp
-      .loadAll()
+      .getAll()
       .pipe(
-        shareReplay(1),
-        tap((_) => this.isLoading.next(false)),
         map((value: ModelResource[]) =>
           value.map((model: ModelResource) => {
             return ModelDataSource.toDataModel(model);
@@ -49,6 +47,9 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         ),
       )
       .subscribe((value: ModelData[]) => (this.data = value));
+    modelHttp
+      .isLoading$()
+      .subscribe((isLoading: boolean) => this.isLoading.next(isLoading));
   }
   paginator!: MatPaginator;
   sort!: MatSort;
@@ -88,6 +89,9 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
 
   isLoading$() {
     return this.isLoading.asObservable();
+  }
+  refresh() {
+    this.modelHttp.refresh();
   }
   /**
    * Connect this data source to the table. The table will only update when
