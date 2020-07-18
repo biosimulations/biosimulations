@@ -8,6 +8,7 @@ import {
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, pluck, tap } from 'rxjs/operators';
 import { Model } from '../model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,6 +27,8 @@ export class ModelHttpService {
 
   // has the data been loaded at least once?
   private firstLoad = false;
+
+  // Loading timings, probably not needed
   private initialLoadStarted$ = new BehaviorSubject(false);
   private initialLoadFinished$ = new BehaviorSubject(false);
 
@@ -33,7 +36,16 @@ export class ModelHttpService {
   private loading$ = new BehaviorSubject(false);
 
   // Refresh the mapping. Maybe call this at app init?
-  private refreshAll() {
+  public refresh(id?: string) {
+    if (id) {
+      this.load(id).subscribe();
+    } else {
+      this.loadAll().subscribe();
+    }
+  }
+
+  // Load all the models from api, save to map
+  private loadAll() {
     this.firstLoad = true;
     this.loading$.next(true);
     return this.http.get<ModelsDocument>(this.url).pipe(
@@ -48,15 +60,24 @@ export class ModelHttpService {
     );
   }
   private load(id: string) {
-    this.http
-      .get<ModelDocument>(this.url + '/' + id)
-      .pipe(pluck('data'))
-      .subscribe((model: ModelResource) => this.models.set(model.id, model));
+    this.loading$.next(true);
+    return this.http.get<ModelDocument>(this.url + '/' + id).pipe(
+      pluck('data'),
+      tap((model: ModelResource) => {
+        this.set(id, model);
+        this.loading$.next(false);
+      }),
+    );
   }
 
-  getAll(): Observable<ModelResource[]> {
+  private set(id: string, model: ModelResource) {
+    this.models.set(model.id, model);
+    this.models$.next(this.models);
+  }
+
+  public getAll(): Observable<ModelResource[]> {
     if (!this.firstLoad) {
-      this.refreshAll().subscribe();
+      this.loadAll().subscribe();
     }
     return this.models$
       .asObservable()
@@ -67,10 +88,17 @@ export class ModelHttpService {
       );
   }
 
-  get(id: string) {
-    return this.models$.pipe(
-      map((modelMap: Map<string, ModelResource>) => modelMap.get(id)),
-    );
+  public get(id: string): Observable<ModelResource | undefined> {
+    if (this.models.get(id)) {
+      return this.models$
+        .asObservable()
+        .pipe(map((modelMap: Map<string, ModelResource>) => modelMap.get(id)));
+    } else {
+      this.load(id).subscribe();
+      return this.models$
+        .asObservable()
+        .pipe(map((value: Map<string, ModelResource>) => value.get(id)));
+    }
   }
 
   /**
