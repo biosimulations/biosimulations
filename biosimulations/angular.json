@@ -637,6 +637,11 @@
                 "output": "./"
               },
               {
+                "glob": "_redirects",
+                "input": "libs/shared/assets/src",
+                "output": "./"
+              },
+              {
                 "glob": "**/*",
                 "input": "libs/shared/assets/src/assets",
                 "output": "assets"
