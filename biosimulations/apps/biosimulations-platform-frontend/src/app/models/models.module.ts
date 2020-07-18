@@ -18,7 +18,7 @@ import { UiMaterialModule } from '@biosimulations/ui/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DebugModule } from '@biosimulations/shared/debug';
-
+import { ResourceViewModule } from '@biosimulations/resource/view';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 const routes: Routes = [{ path: '', component: ModelsComponent }];
@@ -45,6 +45,7 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     DebugModule,
     MatCheckboxModule,
     DragDropModule,
+    ResourceViewModule,
   ],
   providers: [],
 })

@@ -5,7 +5,6 @@ import { StepperButtonsComponent } from './next-previous-buttons/next-previous-b
 import { BiosimulationsNavigationComponent } from './biosimulations-navigation/biosimulations-navigation.component';
 import { MaterialWrapperModule } from './material-wrapper.module';
 
-import { ResourceViewModule } from './resource-view/resource-view.module';
 import { SpinnerComponent } from './spinner/spinner.component';
 
 const declarations = [
@@ -14,8 +13,8 @@ const declarations = [
   BiosimulationsNavigationComponent,
 ];
 @NgModule({
-  imports: [CommonModule, MaterialWrapperModule, ResourceViewModule],
-  exports: [...declarations, MaterialWrapperModule, ResourceViewModule, SpinnerComponent],
+  imports: [CommonModule, MaterialWrapperModule],
+  exports: [...declarations, MaterialWrapperModule, SpinnerComponent],
   declarations: [...declarations, SpinnerComponent],
 })
 export class UiMaterialModule {}

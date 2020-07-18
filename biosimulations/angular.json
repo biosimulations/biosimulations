@@ -1163,6 +1163,41 @@
           }
         }
       }
+    },
+    "resource-view": {
+      "projectType": "library",
+      "root": "libs/resource/view",
+      "sourceRoot": "libs/resource/view/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/resource/view/tsconfig.lib.json",
+              "libs/resource/view/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/resource/view/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/resource/view/jest.config.js",
+            "tsConfig": "libs/resource/view/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/resource/view/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "defaultProject": "biosimulations-platform-frontend",

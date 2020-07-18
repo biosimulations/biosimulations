@@ -88,6 +88,9 @@
     "biosimulations-dispatch-frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["biosimulations-dispatch-frontend"]
+    },
+    "resource-view": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {
