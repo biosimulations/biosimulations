@@ -20,25 +20,18 @@ spec:
           image: crbm/biosimulations-dispatch-api:dev
           ports:
             - containerPort: 3333
+# TODO: Move this ENV to config file          
           env:
             - name: "FILE_STORAGE"
               value: "/sharedFiles"
-            - name: "NATS_HOST"
-              value: "nats://10.99.224.14"
-            - name: "NATS_CLIENT_PORT"
-              value: "4222"
-            - name: "NATS_USERNAME"
-              value: "ruser"
-            - name: "NATS_PASSWORD"
-              value: "T0pS3cr3t"
           volumeMounts:
-            - mountPath: "/app/config"
-              name: config
+            - mountPath: "/app/secret"
+              name: secret
               readOnly: true
         volumes:
-          - name: config
+          - name: secret
             secret:
-              secretName: dispatch-api-secrets-5mt286hh7f
+              secretName: dispatch-api-secrets-h894ddfb62
 ---
   apiVersion: v1
   kind: Service
