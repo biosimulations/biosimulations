@@ -55,13 +55,14 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
   sort!: MatSort;
   subscription?: Subscription;
   isLoading = new BehaviorSubject(true);
+  // TODO consolidate with model serivce
   static toDataModel(model: ModelResource): ModelData {
     const format = model.attributes.format;
     const modelData: ModelData = {
       id: model.id,
       name: model.attributes.metadata.name.replace('_', ' ').replace('-', ' '),
       tags: model.attributes.metadata.tags,
-      framework: new Framework(model.attributes.framework),
+      framework: Framework.fromDTO(model.attributes.framework),
       format: new Format(
         format.id,
         format.name,

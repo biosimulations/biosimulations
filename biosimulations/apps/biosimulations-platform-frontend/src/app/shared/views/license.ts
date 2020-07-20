@@ -1,26 +1,39 @@
 import { ViewModel } from './view';
 import { License, LicenseInfo } from '@biosimulations/datamodel/core';
-export class LicenseModel implements ViewModel {
-  constructor(private license: License) {}
+import { switchAll } from 'rxjs/operators';
+export class LicenseModel extends ViewModel {
+  getTooltip(): string {
+    return 'License';
+  }
+  constructor(private license: License) {
+    super();
+    this.init();
+  }
   toString(): string {
     return this.getLicenseInfo(this.license).name;
   }
-  icon():
-    | 'home'
-    | 'file'
-    | 'question'
-    | 'authors'
-    | 'author'
-    | 'model'
-    | 'taxon'
-    | null {
-    throw new Error('Method not implemented.');
-  }
-  link(): string | null {
+  getLink(): string | null {
     return this.getLicenseInfo(this.license).url;
   }
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');
+  }
+
+  getIcon() {
+    switch (this.license) {
+      case License.cc0:
+        return 'cc0';
+      case License.cc_by:
+        return 'ccBy';
+      case License.cc_by_nc:
+        return 'ccByNc';
+      case License.cc_by_nc_sa:
+        return 'ccByNcSa';
+      case License.cc_by_sa:
+        return 'ccBySa';
+      default:
+        return 'license';
+    }
   }
 
   getLicenseInfo(license: License): LicenseInfo {

@@ -5,48 +5,51 @@ import {
   PrimitiveType,
   Identifier,
 } from '@biosimulations/datamodel/core';
-export class BiomodelParameter implements ViewModel, IParam {
-  target: string;
-  group: string;
-  id: string;
-  name: string;
-  description: string | null;
-  identifiers: Identifier[];
-  type: PrimitiveType;
-  value: string | number | boolean;
-  recommendedRange: (string | number | boolean)[];
-  units: string;
+export class BiomodelParameter extends ViewModel {
+  constructor(
+    public target: string,
+    public group: string,
+    public id: string,
+    public name: string,
+    public identifiers: Identifier[],
+    public type: PrimitiveType,
+    public value: string | number | boolean,
+    public recommendedRange: (string | number | boolean)[],
+    public units: string,
+    public descrption: string | null,
+  ) {
+    super();
+    this.init();
+  }
 
-  constructor(param: IParam) {
-    this.target = param.target;
-    this.group = param.group;
-    this.id = param.id;
-    this.name = param.name;
-    this.description = param.description;
-    this.identifiers = param.identifiers;
-    this.type = param.type;
-    this.value = param.value;
-    this.recommendedRange = param.recommendedRange;
-    this.units = param.units;
+  static fromDto(param: IParam) {
+    return new BiomodelParameter(
+      param.target,
+      param.group,
+      param.id,
+      param.name,
+      param.identifiers,
+      param.type,
+      param.value,
+      param.recommendedRange,
+      param.units,
+      param.description,
+    );
+  }
+
+  getIcon(): null {
+    return null;
+  }
+  getLink(): string | null {
+    throw new Error('Method not implemented.');
+  }
+  getTooltip(): string | null {
+    throw new Error('Method not implemented.');
   }
   toString(): string {
     return this.name;
   }
-  icon():
-    | 'home'
-    | 'file'
-    | 'question'
-    | 'authors'
-    | 'author'
-    | 'model'
-    | 'taxon'
-    | null {
-    throw new Error('Method not implemented.');
-  }
-  link(): string | null {
-    // TODO produce a link based on any existing identifiers
-    throw new Error('Method not implemented.');
-  }
+
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');
   }

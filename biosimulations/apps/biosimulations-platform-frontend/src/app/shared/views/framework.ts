@@ -1,25 +1,37 @@
 import { ViewModel } from './view';
 import { OntologyTerm as IFramework } from '@biosimulations/datamodel/core';
-export class Framework implements ViewModel, IFramework {
-  constructor(framework: IFramework) {
-    this.ontology = framework.ontology;
-    this.id = framework.id;
-    this.name = framework.name;
-    this.description = framework.description;
-    this.iri = framework.iri;
+export class Framework extends ViewModel implements IFramework {
+  constructor(
+    public ontology: string,
+    public id: string,
+    public name: string,
+    public description: string | null,
+    public iri: string | null,
+  ) {
+    super();
+    this.init();
   }
-  ontology: string;
-  id: string;
-  name: string;
-  description: string | null;
-  iri: string | null;
+
+  static fromDTO(framework: IFramework) {
+    return new Framework(
+      framework.ontology,
+      framework.id,
+      framework.name,
+      framework.description,
+      framework.iri,
+    );
+  }
+  getTooltip(): string {
+    return 'Framework';
+  }
+
   toString(): string {
     return this.name;
   }
-  icon(): 'framework' {
+  getIcon(): 'framework' {
     return 'framework';
   }
-  link(): string | null {
+  getLink(): string | null {
     return this.iri;
   }
   match(predicate: any): boolean {

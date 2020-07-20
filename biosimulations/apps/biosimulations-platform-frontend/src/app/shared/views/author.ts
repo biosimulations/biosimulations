@@ -1,15 +1,20 @@
 import { ViewModel } from './view';
 
-export class Author implements ViewModel {
+export class Author extends ViewModel {
   constructor(
     private firstName: string,
     private lastName: string,
     private middleName: string | null,
-  ) {}
-  icon(): 'authors' {
+  ) {
+    super();
+  }
+  getTooltip(): string {
+    return 'Authors';
+  }
+  getIcon(): 'authors' {
     return 'authors';
   }
-  link(): string | null {
+  getLink(): string | null {
     return null;
   }
   match(predicate: any): boolean {
@@ -17,8 +22,10 @@ export class Author implements ViewModel {
   }
   toString() {
     if (!this.middleName) {
-      this.middleName = '';
+      this.middleName = ' ';
+    } else {
+      this.middleName = ' ' + this.middleName + ' ';
     }
-    return this.firstName + ' ' + this.middleName + ' ' + this.lastName;
+    return ' ' + this.firstName + this.middleName + this.lastName;
   }
 }

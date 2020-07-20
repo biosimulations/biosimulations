@@ -1,40 +1,43 @@
 import { ViewModel } from './view';
 import { Format as IFormat } from '@biosimulations/datamodel/core';
-export class Format implements ViewModel, IFormat {
-  edamId: string | null;
-  specUrl: string | null;
-  url: string | null;
-  mimetype: string | null;
-  extension: string | null;
-  sedUrn: string | null;
+export class Format extends ViewModel {
   constructor(
     public id: string,
     public name: string,
     public version: string,
-    edamId?: string | null,
-    specUrl?: string | null,
-    url?: string | null,
-    mimeType?: string | null,
-    extension?: string | null,
-    sedUrn?: string | null,
+    public edamId?: string | null,
+    public specUrl?: string | null,
+    public url?: string | null,
+    public mimeType?: string | null,
+    public extension?: string | null,
+    public sedUrn?: string | null,
   ) {
-    this.id = id;
-    this.name = name;
-    this.version = version;
-    this.edamId = edamId ? edamId : null;
-    this.specUrl = specUrl ? specUrl : null;
-    this.url = url ? url : null;
-    this.mimetype = mimeType ? mimeType : null;
-    this.extension = extension ? extension : null;
-    this.sedUrn = sedUrn ? sedUrn : null;
+    super();
+    this.init();
+  }
+  static fromDTO(format: IFormat): Format {
+    return new Format(
+      format.id,
+      format.name,
+      format.version,
+      format.edamId,
+      format.specUrl,
+      format.url,
+      format.mimetype,
+      format.extension,
+      format.sedUrn,
+    );
+  }
+  getTooltip(): string {
+    return 'Format';
   }
   toString(): string {
     return this.name + ' ' + this.version;
   }
-  icon(): 'format' {
+  getIcon(): 'format' {
     return 'format';
   }
-  link(): string | null {
+  getLink(): string | null {
     return this.url
       ? this.url
       : this.specUrl
@@ -50,18 +53,4 @@ export class Format implements ViewModel, IFormat {
     }
     return null;
   }
-}
-
-function fromDTO(format: IFormat): Format {
-  return new Format(
-    format.id,
-    format.name,
-    format.version,
-    format.edamId,
-    format.specUrl,
-    format.url,
-    format.mimetype,
-    format.extension,
-    format.sedUrn,
-  );
 }
