@@ -9,7 +9,6 @@ export class SshService {
   // private hpcConfig = null;
   // private sftpConfig: SshConnectionConfig;
   // private sshConfig: SshConnectionConfig;
-  // TODO: Use SSH keys instead of username and password
   private sshConfig: SshConnectionConfig = this.configService.get('hpc.ssh', new SshConnectionConfig('', 0, '', ''), );
   private sftpConfig: SshConnectionConfig = this.configService.get('hpc.sftp', new SshConnectionConfig('', 0, '', ''), );
 
