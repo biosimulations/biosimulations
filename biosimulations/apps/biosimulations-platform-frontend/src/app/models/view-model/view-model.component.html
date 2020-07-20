@@ -7,20 +7,18 @@
     [description]="model.description"
     [summary]="model.summary"
     [imageUrl]="model.imageUrl"
-    [attributes]="[model.taxon, model.framework, model.format]"
+    [attributes]="[model.taxon, model.framework, model.format, model.license]"
   >
   </biosimulations-resource-overview>
 </ng-container>
 
 <ng-template #notPresent>
-  <ng-container *ngIf="isLoading; else notFound">
+  <ng-container *ngIf="!error; else errorTemplate">
     <biosimulations-spinner></biosimulations-spinner>
   </ng-container>
-  <ng-template #notFound>
-    The model with id {{ id$ | async }} was not found
-  </ng-template>
-  <biosimulations-debug-viewer>
-    {{ id$ | async }}
-    {{ model$ | async | json }}
-  </biosimulations-debug-viewer>
 </ng-template>
+<ng-template #errorTemplate> </ng-template>
+<biosimulations-debug-viewer>
+  {{ id$ | async }}
+  {{ model$ | async | json }}
+</biosimulations-debug-viewer>

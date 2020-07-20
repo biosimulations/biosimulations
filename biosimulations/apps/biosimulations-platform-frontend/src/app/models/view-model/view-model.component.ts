@@ -19,6 +19,8 @@ export class ViewModelComponent implements OnInit {
   id$!: Observable<string>;
   model$!: Observable<Model | undefined>;
   isLoading = true;
+  // TODO handler errors from model service
+  error = false;
   ngOnInit(): void {
     this.id$ = this.route.params.pipe(pluck('id'));
     this.model$ = this.id$.pipe(
