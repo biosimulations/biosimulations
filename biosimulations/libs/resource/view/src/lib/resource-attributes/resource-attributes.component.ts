@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { biosimulationsIcon } from '@biosimulations/ui/icons';
 
-interface view {
-  toString(): string;
-  icon(): string | null;
-  link(): string | null;
+interface View {
+  display: string;
+  icon: biosimulationsIcon | null;
+  link: string | null;
+  tooltip: string | null;
 }
 @Component({
   selector: 'biosimulations-resource-attributes',
@@ -12,7 +14,7 @@ interface view {
 })
 export class ResourceAttributesComponent implements OnInit {
   @Input()
-  list!: view[];
+  list!: View[];
 
   constructor() {}
 

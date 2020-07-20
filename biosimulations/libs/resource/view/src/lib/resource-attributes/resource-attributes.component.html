@@ -1,8 +1,12 @@
 <mat-card>
   <div *ngFor="let item of list">
-    <biosimulations-icon [icon]="item.icon()"> </biosimulations-icon>
-    <biosimulations-hyper-link [href]="item.link()">{{
-      item.toString() | titlecase
-    }}</biosimulations-hyper-link>
+    <biosimulations-hyper-link
+      [matTooltip]="item.tooltip"
+      matTooltipPosition="left"
+      [href]="item.link"
+    >
+      <biosimulations-icon [icon]="item.icon"> </biosimulations-icon>
+      {{ item.display }}</biosimulations-hyper-link
+    >
   </div>
 </mat-card>
