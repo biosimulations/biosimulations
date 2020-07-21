@@ -41,10 +41,10 @@ export class BiomodelParameter extends ViewModel {
     return null;
   }
   getLink(): string | null {
-    throw new Error('Method not implemented.');
+    return null;
   }
   getTooltip(): string | null {
-    throw new Error('Method not implemented.');
+    return null;
   }
   toString(): string {
     return this.name;

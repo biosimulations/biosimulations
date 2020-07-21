@@ -36,15 +36,15 @@ export class BiomodelVariable extends ViewModel implements IBP {
     return name;
   }
   getIcon(): null {
-    throw new Error('Method not implemented.');
+    return null;
   }
   getLink(): string | null {
-    throw new Error('Method not implemented.');
+    return null;
   }
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');
   }
   getTooltip(): string | null {
-    throw new Error('Method not implemented.');
+    return null;
   }
 }
