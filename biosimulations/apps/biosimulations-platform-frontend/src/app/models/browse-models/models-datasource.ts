@@ -22,12 +22,12 @@ export interface ModelData {
   id: string;
   name: string;
   tags: string[];
-  framework: OntologyTerm;
+  framework: string;
   format: Format;
   authors: Author[];
   owner: UserId;
-  created: Date;
-  updated: Date;
+  created: string;
+  updated: string;
   taxon: Taxon | null;
   license: string;
 }
@@ -58,11 +58,14 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
   // TODO consolidate with model serivce
   static toDataModel(model: ModelResource): ModelData {
     const format = model.attributes.format;
+    const created = new Date(model.meta.created);
+    const updated = new Date(model.meta.updated);
+
     const modelData: ModelData = {
       id: model.id,
       name: model.attributes.metadata.name.replace('_', ' ').replace('-', ' '),
       tags: model.attributes.metadata.tags,
-      framework: Framework.fromDTO(model.attributes.framework),
+      framework: Framework.fromDTO(model.attributes.framework).name.replace(' framework', ''),
       format: new Format(
         format.id,
         format.name,
@@ -78,8 +81,8 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         return new Author(person.firstName, person.lastName, person.middleName);
       }),
       owner: model.relationships.owner.data.id,
-      created: new Date(model.meta.created),
-      updated: new Date(model.meta.updated),
+      created: created.getFullYear().toString() + '-0' + created.getMonth().toString(),
+      updated: updated.getFullYear().toString() + '-0' + updated.getMonth().toString(),
       taxon: model.attributes.taxon
         ? new Taxon(model.attributes.taxon?.id, model.attributes.taxon?.name)
         : null,
