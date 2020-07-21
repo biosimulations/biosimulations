@@ -9,7 +9,12 @@ import { DispatchService } from '../../services/dispatch/dispatch.service';
 export class DispatchComponent implements OnInit {
 
 
-  simulators = ['COPASI', 'VCell'];
+  simulators = [
+    'COPASI latest', 'COPASI 4.27.214', 
+    'VCell latest', 'VCell 7.2', 
+    'BioNetGen latest', 'BioNetGen 2.5.0',
+    'Tellurium latest', 'Tellurium 2.4.1'
+  ];
   selectedSimulator = this.simulators[0];
   // TODO: Fix this default assignment to file
   fileToUpload: File = new File([],'');
