@@ -8,7 +8,7 @@ import { DispatchService } from '../../services/dispatch/dispatch.service';
 })
 export class DispatchComponent implements OnInit {
 
-
+  // TODO: Fetch the simualtor and their versions dynamically from docker API
   simulators = [
     'COPASI latest', 'COPASI 4.27.214', 
     'VCell latest', 'VCell 7.2', 
