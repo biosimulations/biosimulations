@@ -1,6 +1,6 @@
 import { ViewModel } from './view';
 import {
-  BiomodelParameter as IBP,
+  BiomodelVariable as IBP,
   PrimitiveType,
   Identifier,
 } from '@biosimulations/datamodel/core';
@@ -15,8 +15,6 @@ export class BiomodelVariable extends ViewModel implements IBP {
       dto.description,
       dto.identifiers,
       dto.type,
-      dto.value,
-      dto.recommendedRange,
       dto.units,
     );
   }
@@ -25,11 +23,10 @@ export class BiomodelVariable extends ViewModel implements IBP {
     public group: string,
     public id: string,
     public name: string,
-    public description: string | null,
+    public description: string,
     public identifiers: Identifier[],
     public type: PrimitiveType,
-    public value: string | number | boolean,
-    public recommendedRange: (string | number | boolean)[],
+
     public units: string,
   ) {
     super();
