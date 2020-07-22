@@ -110,7 +110,7 @@
     "@nrwl/cli": "^9.3.0",
     "@nrwl/cypress": "^9.5.1",
     "@nrwl/jest": "9.5.1",
-    "@nrwl/nest": "9.5.1",
+    "@nrwl/nest": "10.0.2",
     "@nrwl/node": "9.5.1",
     "@nrwl/workspace": "^10.0.0-rc.0",
     "@types/auth0": "^2.20.5",
