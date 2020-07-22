@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: biosimulations-dispatch-api
   labels:
-    app: biosimulations-nats
+    app: biosimulations-dispatch-api
   namespace: default
 spec:
     selector:
@@ -31,7 +31,7 @@ spec:
         volumes:
           - name: secret
             secret:
-              secretName: dispatch-api-secrets-h894ddfb62
+              secretName: dispatch-api-secrets-c2kkkd57dh
 ---
   apiVersion: v1
   kind: Service
