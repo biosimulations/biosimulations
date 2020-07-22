@@ -13,3 +13,8 @@ secretGenerator:
     namespace: default
     files:
       - config/dispatch-api/secret.env
+  
+  - name: dispatch-service-secrets
+    namespace: default
+    files:
+      - config/dispatch-service/secret.env
