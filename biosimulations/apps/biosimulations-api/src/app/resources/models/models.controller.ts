@@ -66,9 +66,14 @@ export class ModelsController {
   })
   @Get()
   async getAll(): Promise<ModelsDocument> {
+    console.log('searching...');
     const models = await this.service.search();
     if (models) {
-      return { data: models.map(dbToApi) };
+      console.log('found');
+      console.log('converting...');
+      const response = models.map(dbToApi);
+      console.log('returning...');
+      return { data: response };
     } else {
       return { data: [] };
     }
