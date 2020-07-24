@@ -203,7 +203,7 @@
             "assets": [
               {
                 "glob": "favicon.svg",
-                "input": "libs/shared/assets/src",
+                "input": "libs/shared/assets/src/assets/icons",
                 "output": "./"
               },
               {
@@ -633,7 +633,17 @@
             "assets": [
               {
                 "glob": "favicon.svg",
-                "input": "libs/shared/assets/src",
+                "input": "libs/shared/assets/src/assets",
+                "output": "./"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "libs/shared/assets/src/assets",
+                "output": "./"
+              },
+              {
+                "glob": "safari-pinned-tab.svg",
+                "input": "libs/shared/assets/src/assets",
                 "output": "./"
               },
               {
@@ -647,7 +657,8 @@
                 "output": "assets"
               },
               "apps/biosimulations-platform-frontend/src/assets",
-              "apps/biosimulations-platform-frontend/src/manifest.webmanifest"
+              "apps/biosimulations-platform-frontend/src/manifest.webmanifest",
+              "apps/biosimulations-platform-frontend/src/browserconfig.xml"
             ],
             "styles": [
               "libs/shared/styles/src/index.scss"
@@ -1044,7 +1055,7 @@
             "assets": [
               {
                 "glob": "favicon.svg",
-                "input": "libs/shared/assets/src",
+                "input": "libs/shared/assets/src/assets/icons",
                 "output": "./"
               },
               {
