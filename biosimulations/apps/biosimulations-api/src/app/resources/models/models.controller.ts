@@ -12,6 +12,8 @@ import {
   CacheInterceptor,
   UseInterceptors,
   CacheTTL,
+  BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -20,6 +22,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiGoneResponse,
+  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import { ModelsService } from './models.service';
 
@@ -85,11 +88,15 @@ export class ModelsController {
     description: 'Found model.',
     type: ModelDocument,
   })
+  @ApiNotFoundResponse({
+    description: 'Could not find model with the given id',
+  })
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<ModelDocument | undefined> {
-    console.log('searching...');
     const dbModel = await this.service.get(id);
-
+    if (!!!dbModel) {
+      throw new NotFoundException('Model with id ' + id + ' not found');
+    }
     if (dbModel) {
       const returnModel = dbToApi(dbModel);
       const response = {
