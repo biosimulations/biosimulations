@@ -1,0 +1,34 @@
+<div fxLayout="column" fxLayoutGap="15px">
+  <h1>{{ name }}</h1>
+  <h2>{{ summary }}</h2>
+  <div fxLayout="row" fxLayoutGap="1rem">
+    <div class="image" fxFlex="1 0 15%">
+      <mat-card>
+        <img mat-card-image alt="Resource Thumbnail" [src]="imageUrl" />
+      </mat-card>
+    </div>
+    <div class="metadata" fxFlex="1 1 50%">
+      <mat-card>
+        <div>
+          <biosimulations-icon icon="authors"> </biosimulations-icon
+          >{{ authors }}
+        </div>
+        <div>
+          <biosimulations-icon icon="user"></biosimulations-icon> {{ owner }}
+        </div>
+      </mat-card>
+    </div>
+    <div class="attributes" fxFlex="2 1 auto">
+      <biosimulations-resource-attributes
+        [list]="attributes"
+      ></biosimulations-resource-attributes>
+    </div>
+  </div>
+  <div>
+    <mat-card>
+      <mat-card-title> Description</mat-card-title>
+      <mat-divider></mat-divider>
+      <markdown [data]="description"></markdown>
+    </mat-card>
+  </div>
+</div>

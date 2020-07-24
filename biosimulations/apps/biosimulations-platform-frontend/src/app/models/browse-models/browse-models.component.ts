@@ -11,58 +11,70 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'biosimulations-browse-models',
   templateUrl: './browse-models.component.html',
   styleUrls: ['./browse-models.component.scss'],
   providers: [ModelDataSource],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseModelsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<ModelData>;
   showMenu = true;
-  isLoading = of(true);
+  isLoading!: Observable<boolean>;
 
   data: ModelData[] = [];
   data$: any;
-  displayedColumns = [
-    'id',
-    'name',
-    'taxon',
-    'tags',
-    'framework',
-    'format',
-    'authors',
-    'owner',
-    'license',
-    'created',
-    'updated',
+  displayedColumns:any[] = [
+    {id: 'id', show: true, minWidth: 130, maxWidth: null, nowrap: true},
+    {id: 'name', show: true, minWidth: null, maxWidth: null, nowrap: false},
+    {id: 'taxon', show: true, minWidth: 75, maxWidth: null, nowrap: false},
+    {id: 'tags', show: true, minWidth: null, maxWidth: null, nowrap: false},
+    {id: 'framework', show: true, minWidth: 77, maxWidth: null, nowrap: false},
+    {id: 'format', show: false, minWidth: null, maxWidth: null, nowrap: false},
+    {id: 'authors', show: true, minWidth: null, maxWidth: null, nowrap: false},
+    {id: 'owner', show: false, minWidth: null, maxWidth: null, nowrap: false},
+    {id: 'license', width: 1, minWidth: 96, maxWidth: null, nowrap: false},
+    {id: 'created', show: false, minWidth: 60, maxWidth: null, nowrap: false},
+    {id: 'updated', show: true, minWidth: 60, maxWidth: null, nowrap: false},
   ];
-  columnsToDisplay = this.displayedColumns.slice();
-  constructor(public dataSource: ModelDataSource) {}
+  columnsToDisplay:string[] = this.displayedColumns.filter(col => col.show).map(col => col.id);
+  constructor(
+    public dataSource: ModelDataSource,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-    this.isLoading = this.dataSource.isLoading$();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isLoading = this.dataSource.isLoading$();
+  }
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }
-  handleChange(checked: boolean, column: string) {
+  handleChange(checked: boolean, columnId: string) {
     if (checked) {
-      this.columnsToDisplay.splice(
-        this.displayedColumns.indexOf(column),
-        0,
-        column,
-      );
+      for(var iColumn = 0; iColumn < this.displayedColumns.length; iColumn++) {
+        if (this.displayedColumns[iColumn].id == columnId) {
+          this.columnsToDisplay.splice(
+            iColumn,
+            0,
+            columnId,
+          );
+          break;
+        }
+      }
     }
     if (!checked) {
-      this.columnsToDisplay.splice(this.columnsToDisplay.indexOf(column), 1);
+      this.columnsToDisplay.splice(this.columnsToDisplay.indexOf(columnId), 1);
     }
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -71,5 +83,14 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
       event.previousIndex,
       event.currentIndex,
     );
+  }
+
+  navigate(el: ModelData) {
+    const id = el.id;
+    this.router.navigate(['../' + id], { relativeTo: this.route });
+  }
+
+  refresh() {
+    this.dataSource.refresh();
   }
 }

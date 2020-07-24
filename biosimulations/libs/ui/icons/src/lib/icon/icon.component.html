@@ -1,6 +1,15 @@
-<ng-container *ngIf="iconInfo.type === 'mat'; else faIcon">
-  <mat-icon> {{ iconInfo.name }}</mat-icon>
+<ng-container [ngSwitch]="iconInfo.type">
+  <mat-icon *ngSwitchCase="'mat'" aria-hidden="true" [aria-label]="iconLabel">
+    {{ iconInfo.name }}</mat-icon
+  >
+  <biosimulations-cc-icon
+    *ngSwitchCase="'cc'"
+    [icon]="iconInfo.name"
+  ></biosimulations-cc-icon>
+  <biosimulations-fa-icon
+    *ngSwitchDefault
+    [icon]="[iconInfo.type, iconInfo.name]"
+    aria-hidden="true"
+    [aria-label]="iconLabel"
+  ></biosimulations-fa-icon>
 </ng-container>
-<ng-template #faIcon>
-  <fa-icon [icon]="[iconInfo.type, iconInfo.name]" [size]="size"></fa-icon>
-</ng-template>

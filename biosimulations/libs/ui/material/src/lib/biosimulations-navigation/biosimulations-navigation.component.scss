@@ -1,3 +1,5 @@
+@import 'biosimulations-colors';
+
 .sidenav-container {
   height: 100%;
   width: 100%;
@@ -18,6 +20,25 @@
   z-index: 1;
 }
 .content {
-  padding-left: 1rem;
-  padding-top: 1rem;
+  padding: 1rem;
+}
+
+.logo-text {
+    .bio {
+      color: mat-color($theme-accent);
+    }
+
+    .simulations {
+      color: ($light-primary-text);
+    }
+}
+
+.logo-img {
+    height: calc(100% - 2 * 0.25rem);
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.rightButton {
+    color: $light-primary-text;
 }

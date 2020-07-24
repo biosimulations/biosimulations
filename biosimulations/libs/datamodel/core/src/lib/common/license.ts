@@ -16,7 +16,7 @@ export enum License {
 export interface LicenseInfo {
   value: License;
   name: string;
-  version: string;
-  swoId: number;
-  url: string;
+  version: string | null;
+  swoId: number | null;
+  url: string | null;
 }
