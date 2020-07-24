@@ -29,20 +29,40 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
 
   data: ModelData[] = [];
   data$: any;
-  displayedColumns:any[] = [
-    {id: 'id', show: true, minWidth: 130, maxWidth: null, nowrap: true},
-    {id: 'name', show: true, minWidth: null, maxWidth: null, nowrap: false},
-    {id: 'taxon', show: true, minWidth: 75, maxWidth: null, nowrap: false},
-    {id: 'tags', show: true, minWidth: null, maxWidth: null, nowrap: false},
-    {id: 'framework', show: true, minWidth: 77, maxWidth: null, nowrap: false},
-    {id: 'format', show: false, minWidth: null, maxWidth: null, nowrap: false},
-    {id: 'authors', show: true, minWidth: null, maxWidth: null, nowrap: false},
-    {id: 'owner', show: false, minWidth: null, maxWidth: null, nowrap: false},
-    {id: 'license', width: 1, minWidth: 96, maxWidth: null, nowrap: false},
-    {id: 'created', show: false, minWidth: 60, maxWidth: null, nowrap: false},
-    {id: 'updated', show: true, minWidth: 60, maxWidth: null, nowrap: false},
+  displayedColumns: any[] = [
+    { id: 'id', show: true, minWidth: 130, maxWidth: null, nowrap: true },
+    { id: 'name', show: true, minWidth: null, maxWidth: null, nowrap: false },
+    { id: 'taxon', show: true, minWidth: 75, maxWidth: null, nowrap: false },
+    { id: 'tags', show: true, minWidth: null, maxWidth: null, nowrap: false },
+    {
+      id: 'framework',
+      show: true,
+      minWidth: 77,
+      maxWidth: null,
+      nowrap: false,
+    },
+    {
+      id: 'format',
+      show: false,
+      minWidth: null,
+      maxWidth: null,
+      nowrap: false,
+    },
+    {
+      id: 'authors',
+      show: true,
+      minWidth: null,
+      maxWidth: null,
+      nowrap: false,
+    },
+    { id: 'owner', show: false, minWidth: null, maxWidth: null, nowrap: false },
+    { id: 'license', width: 1, minWidth: 96, maxWidth: null, nowrap: false },
+    { id: 'created', show: false, minWidth: 60, maxWidth: null, nowrap: false },
+    { id: 'updated', show: true, minWidth: 60, maxWidth: null, nowrap: false },
   ];
-  columnsToDisplay:string[] = this.displayedColumns.filter(col => col.show).map(col => col.id);
+  columnsToDisplay: string[] = this.displayedColumns
+    .filter((col) => col.show)
+    .map((col) => col.id);
   constructor(
     public dataSource: ModelDataSource,
     private router: Router,
@@ -62,13 +82,9 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
   }
   handleChange(checked: boolean, columnId: string) {
     if (checked) {
-      for(var iColumn = 0; iColumn < this.displayedColumns.length; iColumn++) {
-        if (this.displayedColumns[iColumn].id == columnId) {
-          this.columnsToDisplay.splice(
-            iColumn,
-            0,
-            columnId,
-          );
+      for (let iColumn = 0; iColumn < this.displayedColumns.length; iColumn++) {
+        if (this.displayedColumns[iColumn].id === columnId) {
+          this.columnsToDisplay.splice(iColumn, 0, columnId);
           break;
         }
       }
