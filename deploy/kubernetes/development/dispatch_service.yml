@@ -25,7 +25,7 @@ spec:
       containers:
         - name: biosimulations-dispatch-service
           image: 'crbm/biosimulations-dispatch-service:dev'
-          # TODO: Move this ENV to config file 
+          # TODO: Move this ENV to config file
           env:
             - name: FILE_STORAGE
               value: /sharedFiles
