@@ -5,9 +5,10 @@ import {
   ModelDocument,
   ModelResource,
 } from '@biosimulations/datamodel/api';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map, pluck, tap } from 'rxjs/operators';
 import { Model } from '../model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,32 +16,98 @@ export class ModelHttpService {
   name = 'model';
   url = 'https://api.biosimulations.dev/models';
   // url = 'http://localhost:3333/models';
+
   constructor(private http: HttpClient) {}
-  // TODO make this a behavior subject that updates as needed
-  models: Map<string, ModelResource> = new Map();
-  loadAll() {
+
+  // A map of id to http response for each model
+  private models: Map<string, ModelResource> = new Map();
+
+  // Behavior subject from the initial loading of the models. Blank at creation
+  private models$ = new BehaviorSubject(this.models);
+
+  // has the data been loaded at least once?
+  private firstLoad = false;
+
+  // Loading timings, probably not needed
+  private initialLoadStarted$ = new BehaviorSubject(false);
+  private initialLoadFinished$ = new BehaviorSubject(false);
+
+  // Is there an active http request?
+  private loading$ = new BehaviorSubject(false);
+
+  // Refresh the mapping. Maybe call this at app init?
+  public refresh(id?: string) {
+    if (id) {
+      this.load(id).subscribe();
+    } else {
+      this.loadAll().subscribe();
+    }
+  }
+
+  // Load all the models from api, save to map
+  private loadAll() {
+    this.firstLoad = true;
+    this.loading$.next(true);
     return this.http.get<ModelsDocument>(this.url).pipe(
       pluck('data'),
-      tap((data) => this.cacheAll(data)),
+      map((value: ModelResource[]) => {
+        value.forEach((model: ModelResource) => {
+          this.models.set(model.id, model);
+        });
+        this.models$.next(this.models);
+      }),
+      tap((_) => this.loading$.next(false)),
     );
   }
-  loadAllCache() {
-    for (let i = 0; i++; localStorage.key(i) !== null) {}
+  private load(id: string) {
+    this.loading$.next(true);
+    return this.http.get<ModelDocument>(this.url + '/' + id).pipe(
+      pluck('data'),
+      tap((model: ModelResource) => {
+        this.set(id, model);
+        this.loading$.next(false);
+      }),
+    );
   }
 
-  cacheAll(data: ModelResource[]) {
-    data.forEach((element: ModelResource, index: number) => {
-      try {
-        localStorage.setItem(this.name + index, JSON.stringify(data[index]));
-      } catch (err) {
-        console.log(err);
-      }
-    });
-  }
-  load(id: string) {
-    this.http.get<ModelDocument>(this.url + '/' + id);
+  private set(id: string, model: ModelResource) {
+    this.models.set(model.id, model);
+    this.models$.next(this.models);
   }
 
+  public getAll(): Observable<ModelResource[]> {
+    if (!this.firstLoad) {
+      this.loadAll().subscribe();
+    }
+    return this.models$
+      .asObservable()
+      .pipe(
+        map((value: Map<string, ModelResource>) =>
+          Array.from(value).map((mapVal) => mapVal[1]),
+        ),
+      );
+  }
+
+  public get(id: string): Observable<ModelResource | undefined> {
+    if (this.models.get(id)) {
+      return this.models$
+        .asObservable()
+        .pipe(map((modelMap: Map<string, ModelResource>) => modelMap.get(id)));
+    } else {
+      this.load(id).subscribe();
+      return this.models$
+        .asObservable()
+        .pipe(map((value: Map<string, ModelResource>) => value.get(id)));
+    }
+  }
+
+  /**
+   * Returns an observable of the current request status
+   *
+   */
+  public isLoading$() {
+    return this.loading$.asObservable();
+  }
   post() {
     this.http.post<ModelDocument>(this.url, {});
   }

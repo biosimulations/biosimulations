@@ -1,1 +1,24 @@
-<biosimulations-resource-view> </biosimulations-resource-view>
+<ng-container *ngIf="model$ | async as model; else notPresent">
+  <biosimulations-resource-overview
+    [name]="model.name"
+    [authors]="model.authors"
+    [owner]="model.owner"
+    [tags]="model.tags"
+    [description]="model.description"
+    [summary]="model.summary"
+    [imageUrl]="model.imageUrl"
+    [attributes]="[model.taxon, model.framework, model.format, model.license]"
+  >
+  </biosimulations-resource-overview>
+</ng-container>
+
+<ng-template #notPresent>
+  <ng-container *ngIf="!error; else errorTemplate">
+    <biosimulations-spinner></biosimulations-spinner>
+  </ng-container>
+</ng-template>
+<ng-template #errorTemplate> </ng-template>
+<biosimulations-debug-viewer>
+  {{ id$ | async }}
+  {{ model$ | async | json }}
+</biosimulations-debug-viewer>

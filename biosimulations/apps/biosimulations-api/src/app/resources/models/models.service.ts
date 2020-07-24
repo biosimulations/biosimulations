@@ -18,19 +18,17 @@ export class ModelsService {
   ) {}
 
   async createNewBiomodel(model: CreateModelResource) {
-    const createdBiomodel = await new this.biomodel(
-      new BiomodelDB(model),
-    ).save();
+    const createdBiomodel = new this.biomodel(new BiomodelDB(model)).save();
     return createdBiomodel;
   }
   async search(): Promise<BiomodelDB[] | null> {
-    return await this.biomodel.find();
+    return this.biomodel.find();
   }
 
   async get(id: string): Promise<BiomodelDB | null> {
     return this.biomodel.findOne({ id });
   }
   async deleteAll() {
-    return await this.biomodel.deleteMany({});
+    return this.biomodel.deleteMany({});
   }
 }

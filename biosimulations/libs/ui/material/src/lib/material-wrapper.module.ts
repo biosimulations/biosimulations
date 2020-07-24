@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 const materialImports = [
   FlexLayoutModule,
   MatInputModule,
@@ -23,6 +24,7 @@ const materialImports = [
   MatListModule,
   MatTabsModule,
   MatProgressSpinnerModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

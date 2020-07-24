@@ -9,6 +9,9 @@ import {
   Delete,
   UseGuards,
   Req,
+  CacheInterceptor,
+  UseInterceptors,
+  CacheTTL,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -53,6 +56,7 @@ const dbToApi = (dbModel: Model): ModelResource => {
 
   return returnModel;
 };
+@UseInterceptors(CacheInterceptor)
 @ApiTags('Models')
 @Controller('models')
 export class ModelsController {
@@ -61,11 +65,17 @@ export class ModelsController {
     description: 'Found models.',
     type: ModelsDocument,
   })
+  @CacheTTL(3600)
   @Get()
   async getAll(): Promise<ModelsDocument> {
+    console.log('searching...');
     const models = await this.service.search();
     if (models) {
-      return { data: models.map(dbToApi) };
+      console.log('found');
+      console.log('converting...');
+      const response = models.map(dbToApi);
+      console.log('returning...');
+      return { data: response };
     } else {
       return { data: [] };
     }
@@ -77,6 +87,7 @@ export class ModelsController {
   })
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<ModelDocument | undefined> {
+    console.log('searching...');
     const dbModel = await this.service.get(id);
 
     if (dbModel) {

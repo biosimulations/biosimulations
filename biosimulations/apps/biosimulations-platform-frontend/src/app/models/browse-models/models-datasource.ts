@@ -13,35 +13,33 @@ import { map, shareReplay, tap } from 'rxjs/operators';
 import { ModelHttpService } from '../services/model-http.service';
 import { Injectable } from '@angular/core';
 import { ModelResource } from '@biosimulations/datamodel/api';
-import { Author } from '../../shared/viewmodels/author';
-import { Taxon } from '../../shared/viewmodels/taxon';
-import { Format } from '../../shared/viewmodels/format';
-import { Framework } from '../../shared/viewmodels/framework';
+import { Author } from '../../shared/views/author';
+import { Taxon } from '../../shared/views/taxon';
+import { Format } from '../../shared/views/format';
+import { Framework } from '../../shared/views/framework';
 
 export interface ModelData {
   id: string;
   name: string;
   tags: string[];
-  framework: OntologyTerm;
+  framework: string;
   format: Format;
   authors: Author[];
   owner: UserId;
-  created: Date;
-  updated: Date;
+  created: string;
+  updated: string;
   taxon: Taxon | null;
   license: string;
 }
 
 @Injectable()
 export class ModelDataSource extends MatTableDataSource<ModelData> {
-  constructor(modelHttp: ModelHttpService) {
+  constructor(private modelHttp: ModelHttpService) {
     super();
 
     const newData = modelHttp
-      .loadAll()
+      .getAll()
       .pipe(
-        shareReplay(1),
-        tap((_) => this.isLoading.next(false)),
         map((value: ModelResource[]) =>
           value.map((model: ModelResource) => {
             return ModelDataSource.toDataModel(model);
@@ -49,18 +47,25 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         ),
       )
       .subscribe((value: ModelData[]) => (this.data = value));
+    modelHttp
+      .isLoading$()
+      .subscribe((isLoading: boolean) => this.isLoading.next(isLoading));
   }
   paginator!: MatPaginator;
   sort!: MatSort;
   subscription?: Subscription;
   isLoading = new BehaviorSubject(true);
+  // TODO consolidate with model serivce
   static toDataModel(model: ModelResource): ModelData {
     const format = model.attributes.format;
+    const created = new Date(model.meta.created);
+    const updated = new Date(model.meta.updated);
+
     const modelData: ModelData = {
       id: model.id,
       name: model.attributes.metadata.name.replace('_', ' ').replace('-', ' '),
       tags: model.attributes.metadata.tags,
-      framework: new Framework(model.attributes.framework),
+      framework: Framework.fromDTO(model.attributes.framework).name.replace(' framework', ''),
       format: new Format(
         format.id,
         format.name,
@@ -76,8 +81,8 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         return new Author(person.firstName, person.lastName, person.middleName);
       }),
       owner: model.relationships.owner.data.id,
-      created: new Date(model.meta.created),
-      updated: new Date(model.meta.updated),
+      created: created.getFullYear().toString() + '-0' + created.getMonth().toString(),
+      updated: updated.getFullYear().toString() + '-0' + updated.getMonth().toString(),
       taxon: model.attributes.taxon
         ? new Taxon(model.attributes.taxon?.id, model.attributes.taxon?.name)
         : null,
@@ -88,6 +93,9 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
 
   isLoading$() {
     return this.isLoading.asObservable();
+  }
+  refresh() {
+    this.modelHttp.refresh();
   }
   /**
    * Connect this data source to the table. The table will only update when

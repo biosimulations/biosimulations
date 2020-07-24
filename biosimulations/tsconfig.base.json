@@ -16,6 +16,8 @@
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true,
     "target": "es2015",
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018", "dom"],
@@ -41,7 +43,16 @@
       ],
       "@biosimulations/shared/biosimulations-ng-utils": [
         "libs/shared/biosimulations-ng-utils/src/index.ts"
-      ]
+      ],
+      "@biosimulations/shared/assets": ["libs/shared/assets/src/index.ts"],
+      "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@biosimulations/shared/environments": [
+        "libs/shared/environments/src/index.ts"
+      ],
+      "@biosimulations/shared/messaging": [
+        "libs/shared/messaging/src/index.ts"
+      ],
+      "@biosimulations/resource/view": ["libs/resource/view/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

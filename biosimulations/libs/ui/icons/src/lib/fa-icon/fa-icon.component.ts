@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FaIconComponent implements OnInit {
   @Input()
-  icon!: string;
+  icon!: string[];
   constructor() {}
 
   ngOnInit(): void {}

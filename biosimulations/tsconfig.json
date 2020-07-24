@@ -2,15 +2,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
-    "paths": {
-      "@biosimulations/shared/assets": ["libs/shared/assets/src/index.ts"],
-      "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"],
-      "@biosimulations/shared/environments": [
-        "libs/shared/environments/src/index.ts"
-      ],
-      "@biosimulations/shared/messaging": ["libs/shared/messaging/src/index.ts"]
-    }
-  },
   "files": [],
   "references": [
     {
@@ -80,34 +71,40 @@
       "path": "./libs/shared/biosimulations-ng-utils/tsconfig.spec.json"
     },
     {
-      "path": "./ui-icons/tsconfig.lib.json"
+      "path": "./libs/ui/icons/tsconfig.lib.json"
     },
     {
-      "path": "./ui-icons/tsconfig.spec.json"
+      "path": "./libs/ui/icons/tsconfig.spec.json"
     },
     {
-      "path": "./auth-frontend/tsconfig.lib.json"
+      "path": "./libs/auth/frontend/tsconfig.lib.json"
     },
     {
-      "path": "./auth-frontend/tsconfig.spec.json"
+      "path": "./libs/auth/frontend/tsconfig.spec.json"
     },
     {
-      "path": "./shared-assets/tsconfig.lib.json"
+      "path": "./lib/shared/assets/tsconfig.lib.json"
     },
     {
-      "path": "./shared-assets/tsconfig.spec.json"
+      "path": "./shared/assets/tsconfig.spec.json"
     },
     {
-      "path": "./shared-styles/tsconfig.lib.json"
+      "path": "./shared/styles/tsconfig.lib.json"
     },
     {
-      "path": "./shared-styles/tsconfig.spec.json"
+      "path": "./shared/styles/tsconfig.spec.json"
     },
     {
-      "path": "./shared-environments/tsconfig.lib.json"
+      "path": "./shared/environments/tsconfig.lib.json"
     },
     {
-      "path": "./shared-environments/tsconfig.spec.json"
+      "path": "./shared/environments/tsconfig.spec.json"
+    },
+    {
+      "path": "./resource/view/tsconfig.lib.json"
+    },
+    {
+      "path": "./resource/view/tsconfig.spec.json"
     }
   ]
 }

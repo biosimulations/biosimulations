@@ -5,17 +5,18 @@ import { StepperButtonsComponent } from './next-previous-buttons/next-previous-b
 import { BiosimulationsNavigationComponent } from './biosimulations-navigation/biosimulations-navigation.component';
 import { MaterialWrapperModule } from './material-wrapper.module';
 
-import { ResourceViewModule } from './resource-view/resource-view.module';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { HyperLinkComponent } from './hyper-link/hyper-link.component';
 
 const declarations = [
   TopbarComponent,
   StepperButtonsComponent,
   BiosimulationsNavigationComponent,
+  HyperLinkComponent,
 ];
 @NgModule({
-  imports: [CommonModule, MaterialWrapperModule, ResourceViewModule],
-  exports: [...declarations, MaterialWrapperModule, ResourceViewModule, SpinnerComponent],
+  imports: [CommonModule, MaterialWrapperModule],
+  exports: [...declarations, MaterialWrapperModule, SpinnerComponent],
   declarations: [...declarations, SpinnerComponent],
 })
 export class UiMaterialModule {}

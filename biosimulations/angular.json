@@ -203,7 +203,7 @@
             "assets": [
               {
                 "glob": "favicon.svg",
-                "input": "libs/shared/assets/src",
+                "input": "libs/shared/assets/src/assets/icons",
                 "output": "./"
               },
               {
@@ -633,6 +633,21 @@
             "assets": [
               {
                 "glob": "favicon.svg",
+                "input": "libs/shared/assets/src/assets",
+                "output": "./"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "libs/shared/assets/src/assets",
+                "output": "./"
+              },
+              {
+                "glob": "safari-pinned-tab.svg",
+                "input": "libs/shared/assets/src/assets",
+                "output": "./"
+              },
+              {
+                "glob": "_redirects",
                 "input": "libs/shared/assets/src",
                 "output": "./"
               },
@@ -642,7 +657,8 @@
                 "output": "assets"
               },
               "apps/biosimulations-platform-frontend/src/assets",
-              "apps/biosimulations-platform-frontend/src/manifest.webmanifest"
+              "apps/biosimulations-platform-frontend/src/manifest.webmanifest",
+              "apps/biosimulations-platform-frontend/src/browserconfig.xml"
             ],
             "styles": [
               "libs/shared/styles/src/index.scss"
@@ -1039,7 +1055,7 @@
             "assets": [
               {
                 "glob": "favicon.svg",
-                "input": "libs/shared/assets/src",
+                "input": "libs/shared/assets/src/assets/icons",
                 "output": "./"
               },
               {
@@ -1156,6 +1172,41 @@
               "!apps/biosimulations-dispatch-frontend-e2e/**"
             ]
           }
+        }
+      }
+    },
+    "resource-view": {
+      "projectType": "library",
+      "root": "libs/resource/view",
+      "sourceRoot": "libs/resource/view/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/resource/view/tsconfig.lib.json",
+              "libs/resource/view/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/resource/view/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/resource/view/jest.config.js",
+            "tsConfig": "libs/resource/view/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/resource/view/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }
