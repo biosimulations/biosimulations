@@ -1,3 +1,13 @@
 <div *ngIf="showDebug | async">
-  <ng-content> </ng-content>
+  <div class="container">
+    <div *ngIf="showInfo">
+      <p class="header">Debug Info:</p>
+      <p>Route: {{ route }}</p>
+      <p>Params: {{ params | json }}</p>
+      <p>User: {{ user$ | async | json }}</p>
+      <p>Logged in: {{ loggedIn$ | async }}</p>
+    </div>
+
+    <pre> <ng-content> </ng-content> </pre>
+  </div>
 </div>
