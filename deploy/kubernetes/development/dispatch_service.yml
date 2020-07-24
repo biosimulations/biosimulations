@@ -6,33 +6,32 @@ metadata:
     app: biosimulations-dispatch-service
   namespace: default
 spec:
-    selector:
-        matchLabels:
-          app: biosimulations-dispatch-service
-    replicas: 1
-    template:
-      metadata:
-        labels:
-          app: biosimulations-dispatch-service
-      spec:
-        volumes:
-            - name: secret
-              secret:
-                secretName: dispatch-service-secrets-6mtgbc4855
-            - name: task-pv-storage
-              persistentVolumeClaim:
-                claimName: task-pv-claim
-        containers:
+  selector:
+    matchLabels:
+      app: biosimulations-dispatch-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: biosimulations-dispatch-service
+    spec:
+      volumes:
+        - name: secret
+          secret:
+            secretName: dispatch-service-secrets-6mtgbc4855
+        - name: task-pv-storage
+          persistentVolumeClaim:
+            claimName: task-pv-claim
+      containers:
         - name: biosimulations-dispatch-service
-          image: crbm/biosimulations-dispatch-service:dev
-# TODO: Move this ENV to config file          
+          image: 'crbm/biosimulations-dispatch-service:dev'
+          # TODO: Move this ENV to config file 
           env:
-            - name: "FILE_STORAGE"
-              value: "/sharedFiles"
+            - name: FILE_STORAGE
+              value: /sharedFiles
           volumeMounts:
-            - mountPath: "/app/secret"
+            - mountPath: /app/secret
               name: secret
               readOnly: true
-            - mountPath: "/sharedFiles"
+            - mountPath: /sharedFiles
               name: task-pv-storage
-        
