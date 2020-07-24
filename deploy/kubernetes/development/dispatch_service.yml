@@ -15,6 +15,13 @@ spec:
         labels:
           app: biosimulations-dispatch-service
       spec:
+        volumes:
+            - name: secret
+              secret:
+                secretName: dispatch-service-secrets-6mtgbc4855
+            - name: task-pv-storage
+              persistentVolumeClaim:
+                claimName: task-pv-claim
         containers:
         - name: biosimulations-dispatch-service
           image: crbm/biosimulations-dispatch-service:dev
@@ -26,7 +33,6 @@ spec:
             - mountPath: "/app/secret"
               name: secret
               readOnly: true
-        volumes:
-          - name: secret
-            secret:
-              secretName: dispatch-service-secrets-6mtgbc4855
+            - mountPath: "/sharedFiles"
+              name: task-pv-storage
+        
