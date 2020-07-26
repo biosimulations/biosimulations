@@ -1,6 +1,6 @@
 import { ViewModel } from './view';
 
-export class User extends ViewModel {
+export class Owner extends ViewModel {
   constructor(private username: string) {
     super();
     this.init();
@@ -12,7 +12,7 @@ export class User extends ViewModel {
     return 'user';
   }
   getLink(): string | null {
-    return null;
+    return "/users/" + this.username;
   }
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');
