@@ -633,17 +633,17 @@
             "assets": [
               {
                 "glob": "favicon.svg",
-                "input": "libs/shared/assets/src/assets",
+                "input": "libs/shared/assets/src/assets/icons",
                 "output": "./"
               },
               {
                 "glob": "favicon.ico",
-                "input": "libs/shared/assets/src/assets",
+                "input": "libs/shared/assets/src/assets/icons",
                 "output": "./"
               },
               {
                 "glob": "safari-pinned-tab.svg",
-                "input": "libs/shared/assets/src/assets",
+                "input": "libs/shared/assets/src/assets/icons",
                 "output": "./"
               },
               {
