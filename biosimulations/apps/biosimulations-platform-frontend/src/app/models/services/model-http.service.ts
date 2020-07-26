@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   ModelsDocument,
   ModelDocument,
   ModelResource,
 } from '@biosimulations/datamodel/api';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map, pluck, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
+import { map, pluck, tap, catchError } from 'rxjs/operators';
 import { Model } from '../model';
 
 @Injectable({
@@ -62,6 +62,12 @@ export class ModelHttpService {
   private load(id: string) {
     this.loading$.next(true);
     return this.http.get<ModelDocument>(this.url + '/' + id).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.loading$.next(false);
+        return throwError(
+          error.error.message || error.statusText || error.message,
+        );
+      }),
       pluck('data'),
       tap((model: ModelResource) => {
         this.set(id, model);
@@ -94,10 +100,7 @@ export class ModelHttpService {
         .asObservable()
         .pipe(map((modelMap: Map<string, ModelResource>) => modelMap.get(id)));
     } else {
-      this.load(id).subscribe();
-      return this.models$
-        .asObservable()
-        .pipe(map((value: Map<string, ModelResource>) => value.get(id)));
+      return this.load(id);
     }
   }
 

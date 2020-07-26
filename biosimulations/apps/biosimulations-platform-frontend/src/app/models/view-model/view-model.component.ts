@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { pluck, map, mergeAll, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { pluck, map, mergeAll, tap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { ModelService, Model } from '../services/model.service';
 
 @Component({
@@ -27,6 +27,9 @@ export class ViewModelComponent implements OnInit {
       map((id: string) => this.modelService.get(id)),
       mergeAll(),
       tap((_) => (this.isLoading = false)),
+      catchError((err: any) =>
+        of(undefined).pipe(tap((_) => (this.error = err))),
+      ),
     );
   }
 }

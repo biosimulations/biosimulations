@@ -7,7 +7,7 @@ import { Format } from '../../shared/views/format';
 import { Person, OntologyTerm, UserId } from '@biosimulations/datamodel/core';
 import { ModelHttpService } from './model-http.service';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, throwError, never } from 'rxjs';
 import { LicenseModel } from '../../shared/views/license';
 import { BiomodelVariable } from '../../shared/views/biomodelVariable';
 import { BiomodelParameter } from '../../shared/views/biomodelParameter';
@@ -74,10 +74,10 @@ export class ModelService {
   get(id: string): Observable<Model | undefined> {
     return this.modelHttp.get(id).pipe(
       map((val: ModelResource | undefined) => {
-        if (val !== undefined) {
-          return ModelService.toDataModel(val);
+        if (val === undefined) {
+          throwError('not found');
         } else {
-          return undefined;
+          return ModelService.toDataModel(val);
         }
       }),
     );
