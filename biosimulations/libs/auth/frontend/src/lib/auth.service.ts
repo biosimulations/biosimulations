@@ -17,9 +17,7 @@ import {
 } from 'rxjs';
 import { catchError, shareReplay, concatMap, tap } from 'rxjs/operators';
 import { IdToken } from '@biosimulations/shared/biosimulations-auth';
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
   private redirectUri: string | undefined;
   private loggedIn = false;

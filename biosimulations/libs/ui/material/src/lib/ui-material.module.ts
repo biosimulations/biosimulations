@@ -12,15 +12,18 @@ import { LogoTextComponent } from './logo-text/logo-text.component';
 import { LogoImageComponent } from './logo-image/logo-image.component';
 import { RouterModule } from '@angular/router';
 
-const declarations = [
-  TopbarComponent,
-  StepperButtonsComponent,
-  BiosimulationsNavigationComponent,
-  HyperLinkComponent,
-];
+
+
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, RouterModule],
-  exports: [...declarations, MaterialWrapperModule, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
-  declarations: [...declarations, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
+  exports: [MaterialWrapperModule, TopbarComponent,
+    StepperButtonsComponent,
+    BiosimulationsNavigationComponent,
+    HyperLinkComponent, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
+  declarations: [TopbarComponent,
+    StepperButtonsComponent,
+    BiosimulationsNavigationComponent,
+    HyperLinkComponent,
+    SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
 })
 export class UiMaterialModule { }
