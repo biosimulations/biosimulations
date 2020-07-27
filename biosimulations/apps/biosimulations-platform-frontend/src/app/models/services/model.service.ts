@@ -4,6 +4,7 @@ import { Framework } from '../../shared/views/framework';
 import { Author } from '../../shared/views/author';
 import { Taxon } from '../../shared/views/taxon';
 import { Format } from '../../shared/views/format';
+import { Owner } from '../../shared/views/owner'
 import { Person, OntologyTerm, UserId } from '@biosimulations/datamodel/core';
 import { ModelHttpService } from './model-http.service';
 import { map } from 'rxjs/operators';
@@ -23,7 +24,7 @@ export interface Model {
   framework: OntologyTerm;
   format: Format;
   authors: Author[];
-  owner: UserId;
+  owner: Owner;
   created: Date;
   updated: Date;
   taxon: Taxon | null;
@@ -35,7 +36,7 @@ export interface Model {
   providedIn: 'root',
 })
 export class ModelService {
-  constructor(private modelHttp: ModelHttpService) {}
+  constructor(private modelHttp: ModelHttpService) { }
 
   static toDataModel(model: ModelResource): Model {
     const format = model.attributes.format;
@@ -55,7 +56,7 @@ export class ModelService {
       authors: model.attributes.metadata.authors.map((person: Person) => {
         return new Author(person.firstName, person.lastName, person.middleName);
       }),
-      owner: model.relationships.owner.data.id,
+      owner: new Owner(model.relationships.owner.data.id),
       created: new Date(model.meta.created),
       updated: new Date(model.meta.updated),
       taxon: model.attributes.taxon
