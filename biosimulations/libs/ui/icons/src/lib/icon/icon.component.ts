@@ -10,6 +10,10 @@ export type biosimulationsIcon =
   | 'file'
   | 'question'
   | 'authors'
+  | 'reviewer'
+  | 'oss'
+  | 'simulator'
+  | 'repository'
   | 'user'
   | 'model'
   | 'taxon'
@@ -43,14 +47,17 @@ export class IconComponent implements OnInit {
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     file: { type: 'fas', name: 'file' },
-    authors: { type: 'fas', name: 'users' },
+    authors: { type: 'fas', name: 'pencil-alt' },
     user: { type: 'fas', name: 'user' },
     question: { type: 'fas', name: 'question' },
     model: { type: 'fas', name: 'bezier-curve' },
     taxon: { type: 'fas', name: 'dna' },
+    oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
     format: { type: 'far', name: 'file-alt' },
     license: { type: 'fas', name: 'certificate' },
+    simulator: { type: 'fas', name: 'cogs' },
+    repository: { type: 'fas', name: 'database' },
     tag: { type: 'fas', name: 'tag' },
     tags: { type: 'fas', name: 'tags' },
     cc: { type: 'fab', name: 'creative-commons' },
@@ -59,6 +66,7 @@ export class IconComponent implements OnInit {
     ccNc: { type: 'fab', name: 'creative-commons-nc' },
     ccSa: { type: 'fab', name: 'creative-commons-sa' },
     ccS: { type: 'fab', name: 'creative-commons-s' },
+    reviewer: { type: 'fas', name: 'tasks' },
     ccByNc: { type: 'cc', name: 'creative-commons-by_creative-commons-nc' },
     ccByNcSa: {
       type: 'cc',
