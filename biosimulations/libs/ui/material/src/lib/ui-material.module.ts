@@ -7,6 +7,10 @@ import { MaterialWrapperModule } from './material-wrapper.module';
 
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HyperLinkComponent } from './hyper-link/hyper-link.component';
+import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
+import { LogoTextComponent } from './logo-text/logo-text.component';
+import { LogoImageComponent } from './logo-image/logo-image.component';
+import { RouterModule } from '@angular/router';
 
 const declarations = [
   TopbarComponent,
@@ -15,8 +19,8 @@ const declarations = [
   HyperLinkComponent,
 ];
 @NgModule({
-  imports: [CommonModule, MaterialWrapperModule],
-  exports: [...declarations, MaterialWrapperModule, SpinnerComponent],
-  declarations: [...declarations, SpinnerComponent],
+  imports: [CommonModule, MaterialWrapperModule, RouterModule],
+  exports: [...declarations, MaterialWrapperModule, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
+  declarations: [...declarations, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
 })
-export class UiMaterialModule {}
+export class UiMaterialModule { }

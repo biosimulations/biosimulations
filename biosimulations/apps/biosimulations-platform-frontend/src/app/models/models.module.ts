@@ -39,7 +39,7 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     MatSortModule,
     ModelsRoutingModule,
     UiMaterialModule,
-    RouterModule.forChild(routes),
+
     MatPaginatorModule,
     MatExpansionModule,
     DebugModule,
@@ -49,4 +49,4 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
   ],
   providers: [],
 })
-export class ModelsModule {}
+export class ModelsModule { }
