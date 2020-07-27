@@ -8,22 +8,38 @@ import { ViewModelComponent } from './view-model/view-model.component';
 import { EditModelComponent } from './edit-model/edit-model.component';
 
 const routes: Routes = [
-  { path: '', component: ModelsComponent },
+  {
+    path: '', component: ModelsComponent, data: {
+      breadcrumb: 'Models'
+    }
+  },
   {
     path: 'browse',
     component: BrowseModelsComponent,
+    data: {
+      breadcrumb: "Browse"
+    }
   },
   {
     path: 'new',
     component: NewModelComponent,
+    data: {
+      breadcrumb: "New"
+    }
   },
   {
     path: ':id',
     component: ViewModelComponent,
+    data: {
+      breadcrumb: "View"
+    }
   },
   {
-    path: ':id/edit',
+    path: 'edit/:id',
     component: EditModelComponent,
+    data: {
+      breadcrumb: "Edit"
+    }
   },
 ];
 
@@ -31,4 +47,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ModelsRoutingModule {}
+export class ModelsRoutingModule { }

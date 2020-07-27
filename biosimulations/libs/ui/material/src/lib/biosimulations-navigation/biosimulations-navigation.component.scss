@@ -13,14 +13,14 @@
   background: inherit;
 }
 
-.mat-toolbar.mat-primary {
+.topbar {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 200;
 }
 .content {
-  padding: 1rem;
+  padding: 0;
 }
 
 .logo-text {

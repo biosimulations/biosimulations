@@ -23,16 +23,25 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    data: {
+      breadcrumb: "Home"
+    }
   },
   {
     path: 'models',
     loadChildren: () =>
       import('./models/models.module').then((m) => m.ModelsModule),
+    data: {
+      breadcrumb: "Models"
+    }
   },
   {
     path: 'about',
     loadChildren: () =>
       import('./about/about.module').then((m) => m.AboutModule),
+    data: {
+      breadcrumb: "About"
+    }
   },
 ];
 @NgModule({
@@ -51,4 +60,4 @@ const routes: Routes = [
 
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
