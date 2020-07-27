@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-resource-view',
@@ -6,7 +6,44 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./resource-view.component.scss'],
 })
 export class ResourceViewComponent implements OnInit {
-  constructor() {}
+  @Input()
+  imageUrl = 'assets/images/model-v1.svg';
 
-  ngOnInit(): void {}
+  @Input()
+  name: string | undefined
+
+  @Input()
+  authors = 'Bilal Shaikh and Jonathan Karr';
+
+  @Input()
+  owner = 'User';
+
+  @Input()
+  summary = 'A <b>model</b> that does something';
+
+  @Input()
+  tags: string[] | undefined;
+
+  @Input()
+  description!: string;
+
+  @Input()
+  attributes!: any[]
+
+  @Input()
+  parameters: any
+
+  @Input()
+  references: any
+
+  @Input()
+  variables: any
+
+
+
+  constructor() {
+
+  }
+
+  ngOnInit(): void { }
 }
