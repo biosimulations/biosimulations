@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biosimulations-dispatch-api
+  labels:
+    app: biosimulations-dispatch-api
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: biosimulations-dispatch-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: biosimulations-dispatch-api
+    spec:
+      volumes:
+        - name: secret
+          secret:
+            secretName: dispatch-api-secrets-c2kkkd57dh
+        - name: task-pv-storage
+          persistentVolumeClaim:
+            claimName: task-pv-claim
+      containers:
+        - name: biosimulations-dispatch-api
+          image: 'crbm/biosimulations-dispatch-api:dev'
+          ports:
+            - containerPort: 3333
+          env:
+            - name: FILE_STORAGE
+              value: /sharedFiles
+          volumeMounts:
+            - mountPath: /app/secret
+              name: secret
+              readOnly: true
+            - mountPath: /sharedFiles
+              name: task-pv-storage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: biosimulations-dispatch-api
+  labels:
+    app: biosimulations-dispatch-api
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 3333
+      protocol: TCP
+      name: dispatch-api
+  selector:
+    app: biosimulations-dispatch-api

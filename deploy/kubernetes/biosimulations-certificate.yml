@@ -6,3 +6,4 @@ spec:
   domains:
     - api.biosimulations.dev
     - account.biosimulations.dev
+    - dispatch-api.biosimulations.dev
