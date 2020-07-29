@@ -9,7 +9,7 @@ import { UiMaterialModule } from '@biosimulations/ui/material';
 
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 import { SharedModule } from './shared/shared.module';
-import { AuthEnvironment } from '@biosimulations/auth/frontend';
+import { AuthEnvironment, AuthService } from '@biosimulations/auth/frontend';
 const env = {
   authDomain: 'auth.biosimulations.org',
   apiDomain: 'https://api.biosimulations.dev',
@@ -56,7 +56,7 @@ const routes: Routes = [
     }),
     SharedModule,
   ],
-  providers: [{ provide: AuthEnvironment, useValue: env }],
+  providers: [AuthService, { provide: AuthEnvironment, useValue: env }],
 
   bootstrap: [AppComponent],
 })
