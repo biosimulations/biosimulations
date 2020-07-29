@@ -1,16 +1,10 @@
 <biosimulations-navigation class="mat-typography">
   <mat-nav-list>
     <a mat-list-item [routerLink]="['/']"> Home</a>
+    <a mat-list-item [routerLink]="['/about']"> About</a>
     <a mat-list-item [routerLink]="['/models']">Models</a>
-    <a
-      mat-list-item
-      (click)="login()"
-      *ngIf="(isAuthenticated() | async) !== true"
-      >Login</a
-    >
-    <a mat-list-item (click)="logout()" *ngIf="isAuthenticated() | async"
-      >Logout</a
-    >
+    <a mat-list-item (click)="login()" *ngIf="(isAuthenticated() | async) !== true">Login</a>
+    <a mat-list-item (click)="logout()" *ngIf="isAuthenticated() | async">Logout</a>
   </mat-nav-list>
 
   <router-outlet></router-outlet>

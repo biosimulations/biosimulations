@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AboutRoutingModule } from './about-routing.module';
 import { AboutComponent } from './about.component';
+import { BiosimulationsIconsModule } from '@biosimulations/ui/icons';
 
 const routes: Routes = [
   { path: '', component: AboutComponent }
@@ -14,7 +15,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     AboutRoutingModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    BiosimulationsIconsModule,
   ]
 })
 export class AboutModule { }
