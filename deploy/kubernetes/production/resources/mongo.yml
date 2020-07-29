@@ -1,0 +1,32 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: biosimulations-resource-db
+  namespace: mongodb
+spec:
+  members: 3
+  version: 4.2.8-ent
+  type: ReplicaSet
+  opsManager:
+    configMapRef:
+      name: biosimulations-dev-gcp
+  credentials: mongo-credentials
+  persistent: true
+  # optional. Allows to pass custom MongoDB process configuration
+  additionalMongodConfig:
+    systemLog:
+      logAppend: true
+      verbosity: 4
+    operationProfiling:
+      mode: slowOp
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: biosimulations-dev-gcp
+  namespace: mongodb
+data:  
+  orgId: 5f20a8441bf0dd05c708e79a # this is an optional parameter
+  baseUrl: https://cloud.mongodb.com
+
+  
