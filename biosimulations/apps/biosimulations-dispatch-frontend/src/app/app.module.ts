@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
     NavbarComponent,
     FooterComponent,
     HomeComponent,
-    DispatchComponent
+    DispatchComponent,
+    ViewVisualisationComponent
   ],
   imports: [
     BrowserModule,
