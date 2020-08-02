@@ -1,4 +1,16 @@
-import { Controller, Inject, OnApplicationBootstrap, Post, UseInterceptors, UploadedFile, Body, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { 
+  Controller, 
+  Inject, 
+  OnApplicationBootstrap, 
+  Post, UseInterceptors, 
+  UploadedFile, 
+  Body, 
+  HttpException, 
+  HttpStatus, 
+  Logger, 
+  Get, 
+  Param
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
@@ -7,6 +19,14 @@ import { SimulationDispatchSpec, OmexDispatchFile } from '@biosimulations/datamo
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
+import * as csv2Json from 'csv2json';
+
+
+interface Dic {
+  [key: string]: {
+    [key: string]: Object[]
+  }
+}
 
 
 @Controller()
@@ -90,6 +110,57 @@ export class AppController implements OnApplicationBootstrap {
     }
   }
 
+  @Get('result/:uuid')
+  @ApiResponse({
+    status: 200,
+    description: 'Get Simulation Results',
+    type: Object
+  })
+  getVisualizationData(@Param('uuid') uId: string) {
+    const jsonResults: Dic = {};
+    let fileStorage = process.env.FILE_STORAGE||'';
+    
+    const csvFilePath = path.join(fileStorage, 'RESULTS', 'ID', uId );
+
+    const directoryList = fs.readdirSync(csvFilePath);
+
+    directoryList.forEach((directoryName: string) => {
+      const fileList = fs.readdirSync(path.join(csvFilePath, directoryName));
+
+      fileList.forEach(async (filename: string) => {
+        if (filename.endsWith('csv')) {
+          const taskName = filename.split('.csv')[0];
+          const filePath = path.join(csvFilePath, directoryName, filename);
+          this.logger.log('Reading file: ' + filePath);
+          
+          if (jsonResults[directoryName] === undefined) {
+            jsonResults[directoryName] = {};
+          }
+
+          const jsonPath = filePath.split('.csv')[0] + '.json';
+
+          let jsonResult:Object[] = [];
+          setTimeout(() => {
+            fs.createReadStream(filePath).pipe(
+              csv2Json.default({
+                separator: ','
+              })
+            ).pipe(fs.createWriteStream(jsonPath));
+          }, 0);
+
+          const fileContent = fs.readFileSync(jsonPath)
+          jsonResults[directoryName][taskName] = JSON.parse(fileContent.toString());
+        }
+      });
+
+    });
+    return {
+      message: 'Data fetched successfully',
+      data: jsonResults
+    };
+    
+  }
+  
   async onApplicationBootstrap() {
     await this.messageClient.connect();
   }

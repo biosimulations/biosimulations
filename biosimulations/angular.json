@@ -1006,7 +1006,9 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "biosimulations-dispatch-api:build"
+            "buildTarget": "biosimulations-dispatch-api:build",
+            "inspect": true,
+            "port": 7777
           }
         },
         "lint": {
