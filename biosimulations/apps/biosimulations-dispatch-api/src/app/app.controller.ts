@@ -118,7 +118,7 @@ export class AppController implements OnApplicationBootstrap {
   })
   getVisualizationData(@Param('uuid') uId: string) {
     const jsonResults: Dic = {};
-    let fileStorage = process.env.FILE_STORAGE||'';
+    const fileStorage = process.env.FILE_STORAGE||'';
     
     const csvFilePath = path.join(fileStorage, 'RESULTS', 'ID', uId );
 
@@ -139,7 +139,7 @@ export class AppController implements OnApplicationBootstrap {
 
           const jsonPath = filePath.split('.csv')[0] + '.json';
 
-          let jsonResult:Object[] = [];
+          const jsonResult:Object[] = [];
           setTimeout(() => {
             fs.createReadStream(filePath).pipe(
               csv2Json.default({
