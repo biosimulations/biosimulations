@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
 import { NavPageComponent } from './components/nav-page/nav-page.component';
 import { UiMaterialModule } from '@biosimulations/ui/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 const routes: Routes = [
@@ -36,6 +38,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     UiMaterialModule,
+    BrowserAnimationsModule,
     FormsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
   ],
