@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -9,6 +9,8 @@ import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
+import { NavPageComponent } from './components/nav-page/nav-page.component';
+import { UiMaterialModule } from '@biosimulations/ui/material';
 
 
 const routes: Routes = [
@@ -27,15 +29,18 @@ const routes: Routes = [
     FooterComponent,
     HomeComponent,
     DispatchComponent,
-    ViewVisualisationComponent
+    ViewVisualisationComponent,
+    NavPageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    UiMaterialModule,
     FormsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
   ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
