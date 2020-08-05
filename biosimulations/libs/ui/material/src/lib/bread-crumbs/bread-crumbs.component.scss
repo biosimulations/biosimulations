@@ -1,8 +1,13 @@
 @import "biosimulations-colors";
+mat-toolbar{
+  max-height: 50px;
+
+}
 .breadcrumb {
     background: none;
     font-size: 0.8em;
-    margin: 0;
+    margin: 0;    
+    
     a,
     span {
       color: mat-color($theme-primary);
@@ -15,16 +20,19 @@
     li {
       list-style: none;
       float: left;
+      margin-right: 0.4em;
+      
      
     }
     li:last-child {
       margin-right: 20px;
     }
-    li::after {
-      content: ">>";
-      color: darkgrey;
+    .next{
+      color: mat-color($theme-primary);
+      
     }
-    li:last-child::after {
-      content: "";
-    }
+
   }
+.noPad{
+  padding-left: 0;
+}

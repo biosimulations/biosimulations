@@ -22,23 +22,45 @@ export class BreadCrumbsComponent implements OnInit {
 
   @Input()
   color = '#bcdffb'
+
+  @Input()
+  pad = true
   buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadCrumb[] = []): IBreadCrumb[] {
-    console.log(route)
+    console.log(route.snapshot)
     let label =
       route.routeConfig && route.routeConfig.data
-        ? route.routeConfig.data.breadcrumb
-        : "";
+        ? route.routeConfig.data.breadcrumb : null
     let path =
       route.routeConfig && route.routeConfig.data && route.routeConfig.path ? route.routeConfig.path : "";
 
-    // TODO handle dynamic routes within routes, not just ending
+
     const lastRoutePart = path.split("/").pop() || "";
-    const isDynamicRoute = lastRoutePart.startsWith(":");
-    if (isDynamicRoute && !!route.snapshot) {
-      const paramName = lastRoutePart.split(":")[1];
-      path = path.replace(lastRoutePart, route.snapshot.params[paramName]);
-      label = route.snapshot.params[paramName];
+    const firstRoutePart = path.split("/")[0]
+    console.log(path)
+    console.log(firstRoutePart)
+    console.log(lastRoutePart)
+
+
+    const setRoute = (paramName: string, part: string,) => {
+      if (!!route.snapshot) {
+        path = path.replace(part, route.snapshot.params[paramName]);
+        label = label ? label + " " + route.snapshot.params[paramName] : route.snapshot.params[paramName];
+        console.log(label)
+      }
     }
+
+    if (lastRoutePart.startsWith(":")) {
+      setRoute(lastRoutePart.split(":")[1], lastRoutePart)
+    }
+
+    else if (firstRoutePart?.startsWith(":")) {
+
+      setRoute(firstRoutePart.split(":")[1], firstRoutePart)
+
+    }
+
+
+
 
     const nextUrl = path ? `${url}/${path}` : url;
 
