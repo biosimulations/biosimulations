@@ -12,6 +12,7 @@ import { LogoTextComponent } from './logo-text/logo-text.component';
 import { LogoImageComponent } from './logo-image/logo-image.component';
 import { RouterModule } from '@angular/router'
 import { BiosimulationsIconsModule } from '@biosimulations/ui/icons'
+import { RouterLinkComponent } from './router-link/router-link.component';
 
 
 @NgModule({
@@ -19,11 +20,11 @@ import { BiosimulationsIconsModule } from '@biosimulations/ui/icons'
   exports: [MaterialWrapperModule, TopbarComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
-    HyperLinkComponent, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
+    HyperLinkComponent, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent],
   declarations: [TopbarComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     HyperLinkComponent,
-    SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
+    SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent],
 })
 export class UiMaterialModule { }
