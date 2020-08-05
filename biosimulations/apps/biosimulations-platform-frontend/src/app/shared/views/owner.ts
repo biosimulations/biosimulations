@@ -12,7 +12,7 @@ export class Owner extends ViewModel {
     return 'user';
   }
   getLink(): string | null {
-    return "/users/" + this.username;
+    return '/users/' + this.username;
   }
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');

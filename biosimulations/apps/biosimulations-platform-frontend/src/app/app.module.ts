@@ -24,7 +24,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
     data: {
-      breadcrumb: "Home"
+      breadcrumb: 'Home'
     }
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./models/models.module').then((m) => m.ModelsModule),
     data: {
-      breadcrumb: "Models"
+      breadcrumb: 'Models'
     }
   },
   {
@@ -40,7 +40,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./about/about.module').then((m) => m.AboutModule),
     data: {
-      breadcrumb: "About"
+      breadcrumb: 'About'
     }
   },
 ];

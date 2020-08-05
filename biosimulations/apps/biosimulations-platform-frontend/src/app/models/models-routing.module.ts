@@ -10,37 +10,38 @@ import { EditModelComponent } from './edit-model/edit-model.component';
 const routes: Routes = [
   {
     path: '', component: ModelsComponent, data: {
-      breadcrumb: 'Models'
+      breadcrumb: 'Overview'
     }
   },
   {
     path: 'browse',
     component: BrowseModelsComponent,
     data: {
-      breadcrumb: "Browse"
+      breadcrumb: 'Browse'
     }
   },
   {
     path: 'new',
     component: NewModelComponent,
     data: {
-      breadcrumb: "New"
+      breadcrumb: 'New'
     }
   },
   {
     path: ':id',
     component: ViewModelComponent,
     data: {
-      breadcrumb: "View"
+      breadcrumb: 'View'
     }
   },
   {
-    path: 'edit/:id',
+    path: ':id/edit',
     component: EditModelComponent,
     data: {
-      breadcrumb: "Edit"
+      breadcrumb: 'Edit'
     }
   },
+
 ];
 
 @NgModule({

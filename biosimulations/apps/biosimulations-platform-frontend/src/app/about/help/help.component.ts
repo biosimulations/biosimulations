@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-help',
+  selector: 'biosimulations-help',
   templateUrl: './help.component.html',
   styleUrls: ['../about.component.sass', './help.component.sass'],
 })
