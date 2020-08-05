@@ -29,18 +29,28 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: ViewModelComponent,
     data: {
-      breadcrumb: 'View'
-    }
+      breadcrumb: 'Model'
+    },
+    children: [
+      {
+        path: '',
+        component: ViewModelComponent,
+        data: {
+
+        }
+      },
+      {
+        path: 'edit',
+        component: EditModelComponent,
+        data: {
+          breadcrumb: 'Edit'
+        }
+      },],
+
+
   },
-  {
-    path: ':id/edit',
-    component: EditModelComponent,
-    data: {
-      breadcrumb: 'Edit'
-    }
-  },
+
 
 ];
 

@@ -26,38 +26,34 @@ export class BreadCrumbsComponent implements OnInit {
   @Input()
   pad = true
   buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadCrumb[] = []): IBreadCrumb[] {
-    console.log(route.snapshot)
+
     let label =
       route.routeConfig && route.routeConfig.data
         ? route.routeConfig.data.breadcrumb : null
     let path =
-      route.routeConfig && route.routeConfig.data && route.routeConfig.path ? route.routeConfig.path : "";
+      route.routeConfig && route.routeConfig.path ? route.routeConfig.path : '';
 
 
-    const lastRoutePart = path.split("/").pop() || "";
-    const firstRoutePart = path.split("/")[0]
-    console.log(path)
-    console.log(firstRoutePart)
-    console.log(lastRoutePart)
+    const lastRoutePart = path.split('/').pop() || path;
+
+
 
 
     const setRoute = (paramName: string, part: string,) => {
+
       if (!!route.snapshot) {
         path = path.replace(part, route.snapshot.params[paramName]);
-        label = label ? label + " " + route.snapshot.params[paramName] : route.snapshot.params[paramName];
+        label = label ? label + ' ' + route.snapshot.params[paramName] : route.snapshot.params[paramName];
         console.log(label)
       }
     }
 
-    if (lastRoutePart.startsWith(":")) {
-      setRoute(lastRoutePart.split(":")[1], lastRoutePart)
-    }
-
-    else if (firstRoutePart?.startsWith(":")) {
-
-      setRoute(firstRoutePart.split(":")[1], firstRoutePart)
+    if (lastRoutePart.startsWith(':')) {
+      setRoute(lastRoutePart.split(':')[1], lastRoutePart)
 
     }
+
+
 
 
 
