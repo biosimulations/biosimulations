@@ -16,23 +16,7 @@ interface NavItem {
 export class BreadCrumbButtonsComponent implements OnInit {
 
   @Input()
-  buttons: NavItem[] = [{
-    icon: 'model',
-    route: '/models',
-    label: 'Models'
-  },
-
-  {
-    icon: 'model',
-    route: '/models',
-    label: 'Models'
-  },
-
-  {
-    icon: 'model',
-    route: '/models',
-    label: 'Models'
-  }]
+  buttons: NavItem[] = []
   constructor() { }
 
   ngOnInit(): void {
