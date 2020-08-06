@@ -125,7 +125,7 @@
     "cypress": "^4.12.1",
     "husky": "^4.0.10",
     "jest": "25.5.4",
-    "jest-preset-angular": "8.2.0",
+    "jest-preset-angular": "^8.2.0",
     "ng-packagr": "^10.0.3",
     "prettier": "^2.0.5",
     "protractor": "~7.0.0",
