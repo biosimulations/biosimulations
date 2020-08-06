@@ -10,7 +10,7 @@ export class VariablesViewComponent implements OnInit {
 
   @Input()
   list: any
-  displayedColumns = ["id", "name", "type", "units", "description"]
+  displayedColumns = ['id', 'name', 'type', 'units', 'description']
   constructor() { }
 
   ngOnInit(): void {

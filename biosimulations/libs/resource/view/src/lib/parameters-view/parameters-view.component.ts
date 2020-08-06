@@ -10,7 +10,7 @@ export class ParametersViewComponent implements OnInit {
 
   @Input()
   list: any
-  displayedColumns = ["id", "name", "group", "type", "value", "range", "units", "description"]
+  displayedColumns = ['id', 'name', 'group', 'type', 'value', 'range', 'units', 'description']
   constructor() { }
 
   ngOnInit(): void {
