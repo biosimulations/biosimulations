@@ -1,10 +1,23 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <biosimulations-topbar color="#666">
-      <span id="logo" class="logo-text"><span class="bio">Bio</span><span class="simulations">Simulations</span></span>
-      <button id="rightButton" class="rightButton" type="button" aria-label="Toggle sidenav" mat-icon-button
-        (click)="drawer.toggle()" *ngIf="drawer.opened">
+      <biosimulations-logo-text id="logo"></biosimulations-logo-text>
+      <button
+        id="rightButton"
+        class="rightButton"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="drawer.opened"
+      >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </biosimulations-topbar>
@@ -13,14 +26,27 @@
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
       <biosimulations-topbar [(showLogo)]="!drawer.opened">
-        <img id="logo" class="logo-img" src="/assets/images/logo.svg" />
-        <button id="leftButton" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-          *ngIf="!drawer.opened">
+        <biosimulations-logo-image
+          class="logo-img"
+          id="logo"
+        ></biosimulations-logo-image>
+        <button
+          id="leftButton"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="!drawer.opened"
+        >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <span id="logoImage">X</span>
       </biosimulations-topbar>
-      <biosimulations-bread-crumbs></biosimulations-bread-crumbs>
+    </div>
+    <div class="breadCrumbs">
+      <biosimulations-bread-crumbs
+        [pad]="!drawer.opened"
+      ></biosimulations-bread-crumbs>
     </div>
     <div class="content">
       <ng-content select="router-outlet"> </ng-content>

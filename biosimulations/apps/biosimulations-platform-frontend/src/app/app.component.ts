@@ -8,7 +8,7 @@ import { AuthService } from '@biosimulations/auth/frontend';
 })
 export class AppComponent {
   title = 'biosimulations-platform-frontend';
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
   login() {
     this.auth.login();
   }

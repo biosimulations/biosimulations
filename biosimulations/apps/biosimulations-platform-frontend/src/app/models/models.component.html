@@ -1,8 +1,12 @@
-<a [routerLink]="['browse']" routerLinkActive="router-link-active">
-  <button mat-raised-button>Browse All</button>
-</a>
-<a [routerLink]="['biomd0000000001']" routerLinkActive="router-link-active">
-  <button mat-raised-button>View One</button>
-</a>
-<button mat-raised-button>Create</button>
-<button mat-raised-button [routerLink]="['edit','biomd0000000001']">Edit</button>
+<div class="full-width">
+  <a [routerLink]="['browse']" routerLinkActive="router-link-active">
+    <button mat-raised-button>Browse All</button>
+  </a>
+  <a [routerLink]="['biomd0000000001']" routerLinkActive="router-link-active">
+    <button mat-raised-button>View One</button>
+  </a>
+  <button mat-raised-button>Create</button>
+  <button mat-raised-button [routerLink]="['biomd0000000001', 'edit']">
+    Edit
+  </button>
+</div>

@@ -30,7 +30,12 @@ export type biosimulationsIcon =
   | 'cc'
   | 'ccByNc'
   | 'ccBySa'
-  | 'ccByNcSa';
+  | 'ccByNcSa'
+  | 'link'
+  | 'email'
+  | 'github'
+  | 'toTop'
+  | 'breadcrumbNext';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -46,11 +51,16 @@ export class IconComponent implements OnInit {
   iconInfo!: IconInfo;
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
+    link: { type: 'fas', name: 'link' },
+    toTop: { type: 'mat', name: 'arrow_upward' },
+    email: { type: 'fas', name: 'envelope' },
+    github: { type: 'fab', name: 'github' },
     file: { type: 'fas', name: 'file' },
     authors: { type: 'fas', name: 'pencil-alt' },
     user: { type: 'fas', name: 'user' },
     question: { type: 'fas', name: 'question' },
     model: { type: 'fas', name: 'bezier-curve' },
+    breadcrumbNext: { type: 'mat', name: 'double_arrow' },
     taxon: { type: 'fas', name: 'dna' },
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },

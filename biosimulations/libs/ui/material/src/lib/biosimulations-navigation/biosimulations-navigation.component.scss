@@ -24,21 +24,24 @@
 }
 
 .logo-text {
-    .bio {
-      color: mat-color($theme-accent);
-    }
+  .bio {
+    color: mat-color($theme-accent);
+  }
 
-    .simulations {
-      color: ($light-primary-text);
-    }
+  .simulations {
+    color: ($light-primary-text);
+  }
 }
 
 .logo-img {
-    height: calc(100% - 2 * 0.25rem);
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+  height: calc(100% - 2 * 0.25rem);
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .rightButton {
-    color: $light-primary-text;
+  color: $light-primary-text;
+}
+.breadCrumbs {
+  height: 50px;
 }

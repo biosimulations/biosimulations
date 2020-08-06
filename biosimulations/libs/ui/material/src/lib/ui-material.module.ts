@@ -14,16 +14,21 @@ import { RouterModule } from '@angular/router';
 
 
 
+import { BiosimulationsIconsModule } from '@biosimulations/ui/icons'
+import { RouterLinkComponent } from './router-link/router-link.component';
+import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
+
+
 @NgModule({
-  imports: [CommonModule, MaterialWrapperModule, RouterModule],
+  imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, BreadCrumbsModule],
   exports: [MaterialWrapperModule, TopbarComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
-    HyperLinkComponent, SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
+    HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent],
   declarations: [TopbarComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     HyperLinkComponent,
-    SpinnerComponent, BreadCrumbsComponent, LogoTextComponent, LogoImageComponent],
+    SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent],
 })
 export class UiMaterialModule { }
