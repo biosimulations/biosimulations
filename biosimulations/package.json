@@ -112,7 +112,7 @@
     "@nrwl/jest": "10.0.6",
     "@nrwl/nest": "9.5.1",
     "@nrwl/node": "10.0.6",
-    "@nrwl/workspace": "^10.0.0-rc.0",
+    "@nrwl/workspace": "^10.0.8",
     "@types/auth0": "^2.20.5",
     "@types/jest": "^26.0.7",
     "@types/mongoose": "^5.7.28",
