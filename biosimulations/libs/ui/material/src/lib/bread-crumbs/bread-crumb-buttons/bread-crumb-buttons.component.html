@@ -1,0 +1,9 @@
+<div fxLayout="row" fxLayoutAlign="end center" class="buttons">
+  <ng-container *ngFor="let button of buttons">
+    <biosimulations-bread-crumbs-button
+      [icon]="button.icon"
+      [label]="button.label"
+      [route]="button.route"
+    ></biosimulations-bread-crumbs-button>
+  </ng-container>
+</div>

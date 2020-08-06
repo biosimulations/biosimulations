@@ -1,7 +1,22 @@
 <ng-container [ngSwitch]="iconInfo.type">
-  <mat-icon *ngSwitchCase="'mat'" aria-hidden="true" [aria-label]="iconLabel">
-    {{ iconInfo.name }}</mat-icon>
-  <biosimulations-cc-icon *ngSwitchCase="'cc'" [icon]="iconInfo.name"></biosimulations-cc-icon>
-  <biosimulations-fa-icon *ngSwitchDefault [icon]="[iconInfo.type, iconInfo.name]" aria-hidden="true"
-    [aria-label]="iconLabel"></biosimulations-fa-icon>
+  <mat-icon
+    class="icon"
+    *ngSwitchCase="'mat'"
+    aria-hidden="true"
+    [aria-label]="iconLabel"
+  >
+    {{ iconInfo.name }}</mat-icon
+  >
+  <biosimulations-cc-icon
+    class="icon"
+    *ngSwitchCase="'cc'"
+    [icon]="iconInfo.name"
+  ></biosimulations-cc-icon>
+  <biosimulations-fa-icon
+    class="icon"
+    *ngSwitchDefault
+    [icon]="[iconInfo.type, iconInfo.name]"
+    aria-hidden="true"
+    [aria-label]="iconLabel"
+  ></biosimulations-fa-icon>
 </ng-container>

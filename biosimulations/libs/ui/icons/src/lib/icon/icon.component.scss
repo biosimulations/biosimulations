@@ -1,3 +1,10 @@
 .mat-icon {
-    vertical-align: middle;
- }
+  vertical-align: middle;
+}
+:host {
+  display: inline;
+}
+.icon {
+  height: 100%;
+  padding-bottom: 0;
+}

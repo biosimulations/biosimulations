@@ -1,15 +1,25 @@
-<mat-toolbar [ngStyle]="{ background: color }" [color]="color" class="topbar">
-    <ol class="breadcrumb" [ngClass]="{noPad: !this.pad}">
-        <ng-container *ngFor="let breadcrumb of breadcrumbs; last as isLast">
-
-            <li>
-                <span [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">
-                    {{ breadcrumb.label }}
-
-                </span>
-                <biosimulations-icon class="next" icon="breadcrumbNext" *ngIf="!isLast"> </biosimulations-icon>
-            </li>
-
-        </ng-container>
-    </ol>
+<mat-toolbar
+  [ngStyle]="{ background: color }"
+  [color]="color"
+  class="topbar"
+  fxLayout="row nowrap"
+  fxLayoutAlign="space-between center"
+>
+  <ol class="breadcrumb" [ngClass]="{ noPad: !this.pad }" fxFlex>
+    <ng-container *ngFor="let breadcrumb of breadcrumbs; last as isLast">
+      <li>
+        <a [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">
+          <span>
+            {{ breadcrumb.label }}
+          </span>
+        </a>
+        <biosimulations-icon class="next" icon="breadcrumbNext" *ngIf="!isLast">
+        </biosimulations-icon>
+      </li>
+    </ng-container>
+  </ol>
+  <biosimulations-bread-crumb-buttons
+    class="buttons"
+    fxFlex
+  ></biosimulations-bread-crumb-buttons>
 </mat-toolbar>
