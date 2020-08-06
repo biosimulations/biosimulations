@@ -12,7 +12,7 @@ import { ViewVisualisationComponent } from './components/view-visualisation/view
 import { NavPageComponent } from './components/nav-page/nav-page.component';
 import { UiMaterialModule } from '@biosimulations/ui/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 
 
 const routes: Routes = [
@@ -32,13 +32,15 @@ const routes: Routes = [
     HomeComponent,
     DispatchComponent,
     ViewVisualisationComponent,
-    NavPageComponent
+    NavPageComponent,
+
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     UiMaterialModule,
     BrowserAnimationsModule,
+    BiosimulationsAppModule,
     FormsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
   ],
