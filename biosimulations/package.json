@@ -58,7 +58,7 @@
     "@nestjs/platform-express": "^7.4.2",
     "@nestjs/swagger": "^4.5.10",
     "@nestjsx/crud": "^4.6.2",
-    "@nrwl/nx-cloud": "^9.3.5",
+    "@nrwl/nx-cloud": "^10.0.0",
     "@swimlane/dragula": "^3.8.0",
     "@swimlane/ngx-dnd": "^8.1.2",
     "@typegoose/typegoose": "^7.3.1",
