@@ -113,7 +113,7 @@
     "@nrwl/cypress": "^9.5.1",
     "@nrwl/jest": "10.0.6",
     "@nrwl/nest": "9.5.1",
-    "@nrwl/node": "10.0.6",
+    "@nrwl/node": "10.0.8",
     "@nrwl/workspace": "^10.0.8",
     "@types/auth0": "^2.20.5",
     "@types/jest": "^26.0.7",
