@@ -13,10 +13,11 @@ import { NavPageComponent } from './components/nav-page/nav-page.component';
 import { UiMaterialModule } from '@biosimulations/ui/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
-import * as PlotlyJS from 'plotly.js/dist/plotly.js';
-import { PlotlyModule } from 'angular-plotly.js';
+// import * as PlotlyJS from 'plotly.js';
+import { PlotlyViaCDNModule } from 'angular-plotly.js';
 
-PlotlyModule.plotlyjs = PlotlyJS;
+PlotlyViaCDNModule.plotlyVersion = '1.49.4'; 
+PlotlyViaCDNModule.plotlyBundle = 'basic'; 
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    PlotlyModule,
+    PlotlyViaCDNModule,
     UiMaterialModule,
     BrowserAnimationsModule,
     BiosimulationsAppModule,

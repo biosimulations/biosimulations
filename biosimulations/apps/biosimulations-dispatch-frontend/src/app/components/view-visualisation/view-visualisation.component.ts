@@ -11,10 +11,12 @@ export class ViewVisualisationComponent implements OnInit {
 
   public graph = {
     data: [
-        { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter', mode: 'lines+points', marker: {color: 'red'} },
-        { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
+        { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter', mode: 'lines+points'},
+        { x: [1, 2, 3], y: [12, 16, 13], type: 'scatter', mode: 'lines+points'},
+        { x: [1, 2, 3], y: [21, 61, 31], type: 'scatter', mode: 'lines+points'},
+        // { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
     ],
-    layout: {width: 320, height: 240, title: 'A Fancy Plot'}
+    layout: {width: 600, height: 400, title: 'A Fancy Plot'}
   };
 
   constructor() {
