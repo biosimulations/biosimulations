@@ -25,13 +25,17 @@ export class BreadCrumbsComponent implements OnInit {
 
   @Input()
   pad = true
-  buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadCrumb[] = []): IBreadCrumb[] {
+  buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadCrumb[] = [{label: 'Home', url: ''}]): IBreadCrumb[] {
 
     let label =
       route.routeConfig && route.routeConfig.data
         ? route.routeConfig.data.breadcrumb : null
     let path =
       route.routeConfig && route.routeConfig.path ? route.routeConfig.path : '';
+
+    if (label == 'Home') {
+      return [] as IBreadCrumb[];
+    }
 
 
     const lastRoutePart = path.split('/').pop() || path;

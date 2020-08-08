@@ -1,141 +1,138 @@
 @import 'biosimulations-colors';
 
-.container{
-  min-height: 100vh;
-  background: #fff;
-  padding-bottom: 3rem;
-}
-.logo{
+.logo {
   background-image: url('/assets/images/backgrounds/grey-3.png');
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40vh;
-  padding-top: 32px;
-  border-bottom: 1px solid #e9e9e9;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 
-  .logo-inner{
-    text-align: center;}
+  .logo-inner {
+    text-align: center;
+  }
 
-  img{
-    height: 12vh;}
-  .title{
+  img {
+    height: 12vh;
+  }
+
+  .title {
     padding-top: 1rem;
     padding-bottom: 1rem;
     font-size: 28px;
     line-height: normal;
     font-weight: bold;
-    text-align: center;}
-  .text{
-    font-size: 24px;
+    text-align: center;
+  }
+
+  .text {
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 18px;
     line-height: 150%;
-    text-align: center;}}
+    text-align: center;
+  }
+}
 
 .partial-width{
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-top: 3rem;
+  padding-top: 0;
+  padding-bottom: 0;
 
-.section{
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2rem;
+  .section{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 
-  .title{
-    color: mat-color($theme-primary);
-    font-size: 32px;
-    line-height: normal;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;}
-
-  .subtitle{
-    font-size: 20px;
-    line-height: 125%;
-    font-weight: 500;
-    text-align: center;}}}
-
-.feature{
-  .title{
-    color: mat-color($theme-primary);}
-
-  .text{
-    font-size: 16px;
-    line-height: normal;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    text-align: center;
-
-    li{
-      padding-top: 1rem;}}}
-.sponsors{
-  text-align: center;
-  .title{
-    color: mat-color($theme-primary);
-    font-size: 32px;
-    line-height: normal;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;}
-
-  .subtitle{
-    font-size: 20px;
-    line-height: 125%;
-    font-weight: 500;
-    text-align: center;}
-  .text{
-    font-size: 16px;
-    line-height: normal;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    text-align: center;}
-
-    img{
-        max-height: 52px;
-    
+    &:not(:last-child) {
+      border-bottom: 1px solid #e9e9e9;
     }
 
-    li{
-      padding-top: 1rem;}
+    > .title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .title-separator {
+      border-bottom: 2px solid mat-color($theme-primary);
+      height: 0;
+      width: 4rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .subsections {
+      margin-top: 2rem;
+      p {
+        text-align: center;
+        font-size: 16px;
+        line-height: normal;
+        margin-bottom: 0;
+        &:not(:last-child) {
+          margin-bottom: 0.5rem;
+        }
+
+        biosimulations-icon {
+          font-size: 80%;
+        }
+      }
+    }
+
+    .subsection {
+      text-align: center;
+
+      biosimulations-icon {
+        color: mat-color($theme-accent);
+        font-size: 48px;
+        text-align: center;
+      }
+
+      .title {
+        color: mat-color($theme-primary);
+        font-size: 24px;
+        line-height: normal;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .subtitle-large {
+        font-size: 20px;
+        line-height: 110%;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      .subtitle-small {
+        font-size: 16px;
+        line-height: normal;
+        text-align: center;
+      }
+
+      .subsection-content {
+        font-size: 16px;
+        line-height: normal;
+        padding: 0;
+        margin: 0;
+        margin-top: 1rem;
+        list-style-type: none;
+        text-align: center;
+
+        li:not(:first-child) {
+          padding-top: 0.5rem;
+        }
+
+        img {
+          height: 2.5rem;
+          width: auto;
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
+        }
+      }
+    }
+  }
 }
-.partner-group{
-  .title{
-    color: mat-color($theme-accent);}
-
-  .content .row{
-    text-align: center;
-  img{
-    height: 3rem;
-    width: auto;
-    margin-top: 1rem;
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-    transition: all 0.5s;}
-
-  img:hover{
-    transform: scale(1.08);}
-}}
-.stats{
-  .section:not(:first-child){
-    padding-top: 2rem;}
-
-  .title{
-    color: mat-color($theme-primary);}
-
-  .graph{
-    width: 100%;
-    height: 10vh;
-    margin-top: 1rem;}}
-
-.spacer{
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  hr{
-    border-style: solid;
-    border-width: 0.5px;
-    color: #ccc;
-}}

@@ -5,7 +5,7 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
+    [opened]="false"
   >
     <biosimulations-topbar color="#666">
       <biosimulations-logo-text id="logo"></biosimulations-logo-text>

@@ -21,6 +21,8 @@
 }
 .content {
   padding: 0;
+  background: #fff;
+  min-height: calc(100vh - 64px - 32px);
 }
 
 .logo-text {
@@ -41,7 +43,4 @@
 
 .rightButton {
   color: $light-primary-text;
-}
-.breadCrumbs {
-  height: 50px;
 }
