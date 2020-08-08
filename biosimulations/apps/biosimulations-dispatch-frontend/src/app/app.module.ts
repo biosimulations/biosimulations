@@ -16,6 +16,7 @@ import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-n
 // import * as PlotlyJS from 'plotly.js';
 import { PlotlyViaCDNModule } from 'angular-plotly.js';
 import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
+import { ResultsPageComponent } from './components/results-page/results-page.component';
 
 PlotlyViaCDNModule.plotlyVersion = '1.49.4'; 
 PlotlyViaCDNModule.plotlyBundle = 'basic'; 
@@ -26,6 +27,9 @@ const routes: Routes = [
   },
   {
     path: 'dispatch', component: DispatchComponent
+  },
+  {
+    path: 'result/:uuid', component: ResultsPageComponent
   }
 ];
 
@@ -39,6 +43,7 @@ const routes: Routes = [
     ViewVisualisationComponent,
     NavPageComponent,
     VisualisationContainerComponent,
+    ResultsPageComponent,
 
   ],
   imports: [

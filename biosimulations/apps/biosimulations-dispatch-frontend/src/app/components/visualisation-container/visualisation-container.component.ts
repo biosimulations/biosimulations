@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { VisualisationService } from '../../services/visualisation/visualisation.service';
+import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'biosimulations-visualisation-container',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VisualisationContainerComponent implements OnInit {
 
-  constructor() { }
+  plots!: object;
+
+  constructor(
+    private visualisationService: VisualisationService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.visualisationService.getVisualisation(this.route.snapshot.params['uuid']).subscribe(
+      (data: any) => {
+        console.log(Object.keys(data['data']))
+      },
+      (error) => {
+        console.log('Error occured while fetching chart data:', error)
+      }
+    );
   }
 
 }

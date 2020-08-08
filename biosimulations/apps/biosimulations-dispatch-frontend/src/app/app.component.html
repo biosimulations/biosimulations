@@ -5,6 +5,7 @@
     <mat-nav-list>
         <a mat-list-item [routerLink]="['/']"> Home</a>
         <a mat-list-item [routerLink]="['/dispatch']">Dispatch</a>
+        <a mat-list-item *ngFor="let uuid of uuids" [routerLink]="['/result',uuid]">{{uuid}}</a>
         <!-- <a
           mat-list-item
           (click)="login()"
