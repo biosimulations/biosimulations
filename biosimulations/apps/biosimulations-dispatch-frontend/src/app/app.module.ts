@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 // import * as PlotlyJS from 'plotly.js';
 import { PlotlyViaCDNModule } from 'angular-plotly.js';
+import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
 
 PlotlyViaCDNModule.plotlyVersion = '1.49.4'; 
 PlotlyViaCDNModule.plotlyBundle = 'basic'; 
@@ -37,6 +38,7 @@ const routes: Routes = [
     DispatchComponent,
     ViewVisualisationComponent,
     NavPageComponent,
+    VisualisationContainerComponent,
 
   ],
   imports: [
