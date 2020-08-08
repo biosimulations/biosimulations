@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Input, ChangeDetectorRef } from '@angular/core';
 import * as vega from 'vega';
 import vegaEmbed from 'vega-embed';
+import { VisualisationService } from '../../services/visualisation/visualisation.service';
 
 @Component({
   selector: 'biosimulations-view-visualisation',
@@ -9,21 +10,26 @@ import vegaEmbed from 'vega-embed';
 })
 export class ViewVisualisationComponent implements OnInit {
 
-  public graph = {
-    data: [
-        { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter', mode: 'lines+points'},
-        { x: [1, 2, 3], y: [12, 16, 13], type: 'scatter', mode: 'lines+points'},
-        { x: [1, 2, 3], y: [21, 61, 31], type: 'scatter', mode: 'lines+points'},
-        // { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
-    ],
-    layout: {width: 600, height: 400, title: 'A Fancy Plot'}
-  };
+  @Input()
+  graphData!: Array<object>;
+  @Input()
+  layoutTitle!: string;
+  @Input()
+  layoutWidth!: number;
+  @Input()
+  layoutHeight!: number;
+
+  graph!: object;
+  
 
   constructor() {
 
   }
 
   ngOnInit() {
-
+    this.graph = {
+      data: this.graphData,
+      layout: {width: this.layoutWidth, height: this.layoutHeight, title: this.layoutTitle}
+    };
   }
 }
