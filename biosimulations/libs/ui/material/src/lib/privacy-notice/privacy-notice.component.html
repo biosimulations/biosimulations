@@ -1,0 +1,16 @@
+<div class="privacy-notice" *ngIf="open">
+  <div class="message">
+    BioSimulations collects limited personal data to credit authors and improve the platform. By using this site, you agree to this <a href="/about/privacy">policy</a>.
+  </div>
+  <div class="close">
+    <button
+        type="button"
+        aria-label="Close privacy notice"
+        mat-icon-button
+        (click)="close()"
+        disableRipple="true"
+    >
+      <mat-icon aria-label="Close icon">close</mat-icon>
+    </button>
+  </div>
+</div>

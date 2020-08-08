@@ -1,0 +1,32 @@
+@import 'biosimulations-colors';
+
+.privacy-notice {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #ccccccee;
+}
+
+.message {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+
+    .mat-icon-button {
+        width: auto;
+        height: auto;
+        line-height: unset;
+        margin-right: 14px;
+        color: $dark-accent-text;
+
+        .mat-icon {
+            font-size: 14px;
+        }
+    }
+}

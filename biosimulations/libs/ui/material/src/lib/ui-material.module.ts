@@ -10,6 +10,7 @@ import { HyperLinkComponent } from './hyper-link/hyper-link.component';
 import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 import { LogoTextComponent } from './logo-text/logo-text.component';
 import { LogoImageComponent } from './logo-image/logo-image.component';
+import { PrivacyNoticeComponent } from './privacy-notice/privacy-notice.component';
 import { RouterModule } from '@angular/router';
 
 
@@ -24,11 +25,11 @@ import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
   exports: [MaterialWrapperModule, TopbarComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
-    HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent],
+    HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, PrivacyNoticeComponent, RouterLinkComponent],
   declarations: [TopbarComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     HyperLinkComponent,
-    SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent],
+    SpinnerComponent, LogoTextComponent, LogoImageComponent, PrivacyNoticeComponent, RouterLinkComponent],
 })
 export class UiMaterialModule { }
