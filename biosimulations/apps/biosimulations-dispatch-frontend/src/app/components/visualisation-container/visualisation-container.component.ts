@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { VisualisationService } from '../../services/visualisation/visualisation.service';
 import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 
@@ -10,6 +10,8 @@ import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 export class VisualisationContainerComponent implements OnInit {
 
   plots!: object;
+  @Input()
+  sedml!: string;
 
   constructor(
     private visualisationService: VisualisationService,

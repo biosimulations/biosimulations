@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { VisualisationService } from '../../services/visualisation/visualisation.service';
 
 @Component({
   selector: 'biosimulations-results-page',
@@ -9,11 +10,23 @@ import { ActivatedRouteSnapshot } from '@angular/router';
 export class ResultsPageComponent implements OnInit {
 
   uuid!: string;
-  constructor() { }
+  tasksPerSedml!: any;
+  constructor(private route: ActivatedRoute, private visualisationService: VisualisationService) { }
 
   ngOnInit(): void {
     this.uuid = '213123123';
+    this.uuid = this.route.snapshot.params['uuid'];
     // this.uuid = this.route.params['uuid'];
+
+    this.visualisationService.uuidUpdateEvent.subscribe(
+      (data) => {
+        this.tasksPerSedml = this.visualisationService.tasksPerSedml;
+      },
+      (error => {
+
+      })
+    );
   }
+
 
 }
