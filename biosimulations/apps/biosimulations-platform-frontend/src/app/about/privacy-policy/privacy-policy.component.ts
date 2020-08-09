@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
-  templateUrl: './help.component.html',
-  styleUrls: ['../about.module.sass', './help.component.sass'],
+  templateUrl: './privacy-policy.component.html',
+  styleUrls: ['../about.module.sass', './privacy-policy.component.sass'],
 })
-export class HelpComponent implements OnInit {
+export class PrivacyPolicyComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
