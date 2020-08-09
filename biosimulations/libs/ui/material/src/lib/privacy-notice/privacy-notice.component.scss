@@ -4,7 +4,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: #ccccccee;
+    background: mat-color($theme-primary, lighter);
 }
 
 .message {
