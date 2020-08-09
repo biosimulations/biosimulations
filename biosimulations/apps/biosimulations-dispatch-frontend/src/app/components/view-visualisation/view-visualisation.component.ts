@@ -19,7 +19,7 @@ export class ViewVisualisationComponent implements OnInit {
   @Input()
   layoutHeight!: number;
 
-  graph!: object;
+  graph: {data: any, layout: any} = {data: {}, layout: {}};
   
 
   constructor() {

@@ -9,9 +9,12 @@ import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 })
 export class VisualisationContainerComponent implements OnInit {
 
-  plots!: object;
   @Input()
-  sedml!: string;
+  graphData!: any;
+
+  plots!: {task: string, data: any};
+  
+
 
   constructor(
     private visualisationService: VisualisationService,
@@ -19,14 +22,11 @@ export class VisualisationContainerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.visualisationService.getVisualisation(this.route.snapshot.params['uuid']).subscribe(
-      (data: any) => {
-        console.log(Object.keys(data['data']))
-      },
-      (error) => {
-        console.log('Error occured while fetching chart data:', error)
-      }
-    );
+    // TODO: Decide view-vis layout per chart/task and inject into plots
+    this.plots = {
+      data: this.graphData, //test
+      task: 'task1'
+    };
   }
 
 }

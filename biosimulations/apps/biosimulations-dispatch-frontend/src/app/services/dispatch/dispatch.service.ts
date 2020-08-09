@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DispatchService {
+
+  uuidUpdateEvent = new Subject<string>();
+  uuidsDispatched: Array<string> = [];
+
+  
   submitJob(fileToUpload: File, selectedSimulator: string) {
     const endpoint = `${environment.crbm.DISPATCH_API_URL}/dispatch`;
 

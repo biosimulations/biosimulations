@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DispatchService } from '../../services/dispatch/dispatch.service';
+import { VisualisationService } from '../../services/visualisation/visualisation.service';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -19,7 +20,9 @@ export class DispatchComponent implements OnInit {
   // TODO: Fix this default assignment to file
   fileToUpload: File = new File([],'');
 
-  constructor(private dispatchService: DispatchService) { }
+  constructor(
+    private dispatchService: DispatchService,
+    ) { }
 
   ngOnInit(): void {
   }
@@ -32,8 +35,12 @@ export class DispatchComponent implements OnInit {
     // const selectedSimulator = '';
     this.dispatchService.submitJob(this.fileToUpload, this.selectedSimulator).
       subscribe(
-      (data: object) => {
+      (data: any) => {
         console.log('Response from server: ', data);
+        // TODO: Return id-> uuid from dispatch API on successful simulation
+        const uuid = data['id'];
+        this.dispatchService.uuidsDispatched.push(uuid);
+        this.dispatchService.uuidUpdateEvent.next(uuid);
         alert('Job was submitted successfully!')
       },
       (error: object) => {

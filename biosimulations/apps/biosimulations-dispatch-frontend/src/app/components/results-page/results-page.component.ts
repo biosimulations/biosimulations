@@ -9,23 +9,36 @@ import { VisualisationService } from '../../services/visualisation/visualisation
 })
 export class ResultsPageComponent implements OnInit {
 
-  uuid!: string;
+  uuid: string = '';
   tasksPerSedml!: any;
+  graphData!: any;
+
+  // TODO: Add dropdown for all sedmls
+  sedmlSelected!: string;
   constructor(private route: ActivatedRoute, private visualisationService: VisualisationService) { }
 
   ngOnInit(): void {
-    this.uuid = '213123123';
-    this.uuid = this.route.snapshot.params['uuid'];
+    this.uuid = 'abcd123';
+    // this.uuid = this.route.snapshot.params['uuid'];
     // this.uuid = this.route.params['uuid'];
 
-    this.visualisationService.uuidUpdateEvent.subscribe(
-      (data) => {
-        this.tasksPerSedml = this.visualisationService.tasksPerSedml;
-      },
-      (error => {
+    if(this.graphData === undefined) {
+      this.visualisationService.getVisualisation(this.uuid).subscribe(
+        (data: any) => {
+          console.log(data)
+          // TODO: Remove this after testing
+          this.sedmlSelected = Object.keys(data['data'])[0]; // TEST
+          this.graphData = data['data'][this.sedmlSelected]['task1']['IR']; //test
+          
+          console.log(this.graphData);
+          // TODO: Save data somewhere, bind to the vis-container only the selected data
+          // this.graphData = data['data'];
+          
 
-      })
-    );
+        }
+      )
+    }
+
   }
 
 

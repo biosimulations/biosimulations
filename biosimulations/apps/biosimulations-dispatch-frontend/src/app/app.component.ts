@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VisualisationService } from './services/visualisation/visualisation.service';
+import { DispatchService } from './services/dispatch/dispatch.service';
 
 @Component({
   selector: 'biosimulations-root',
@@ -7,17 +8,17 @@ import { VisualisationService } from './services/visualisation/visualisation.ser
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  uuids!: Array<string>;
+  // uuids: Array<string> = [];
+  uuids: Array<string> = ['abcd123'];
   title = 'biosimulations-dispatch-frontend';
 
-  constructor(private visualisationService: VisualisationService) {
+  constructor(private dispatchService: DispatchService) {
   }
 
   ngOnInit() {
-    this.uuids = ['sadasda'];
-    this.visualisationService.uuidUpdateEvent.subscribe(
-      (data: Array<string>) => {
-        this.uuids = data;
+    this.dispatchService.uuidUpdateEvent.subscribe(
+      (uuid: string) => {
+        this.uuids.push(uuid);
       },
       (error) => {
         console.log('Error occured while fetching UUIds: ', error);

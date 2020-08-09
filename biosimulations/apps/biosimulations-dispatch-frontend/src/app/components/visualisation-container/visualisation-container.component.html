@@ -1,14 +1,14 @@
 <div class="container">
     <div class="row">
         <div col-md-12>
-            <div *ngFor="let plot of plots">
+            <!-- <div *ngFor="let plot of plots"> -->
                 <biosimulations-view-visualisation 
-                    layoutWidh=600 
-                    layoutHeight=400
-                    graphData="plot.data"
-                    layoutTitle="plot.task"
+                    [layoutWidth]=600 
+                    [layoutHeight]=400
+                    [graphData]="plots.data"
+                    [layoutTitle]="plots.task"
                 ></biosimulations-view-visualisation>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 </div>
