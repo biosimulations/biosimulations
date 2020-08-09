@@ -1,75 +1,83 @@
-<div class="page-content partial-width">
+<div class="page-content partial-width grid grid-2">
   <div class="toc">
-    <div class="section">
-      <h2>Contents</h2>
-      <div class="section-content">
-        <ol>
-          <li>
-            <a (click)="scrollToElement(readers)">Guide for users</a>
-          </li>
-          <li>
-            <a (click)="scrollToElement(authors)">Guide for authors</a>
-          </li>
-          <li>
-            <a (click)="scrollToElement(reviewers)">Guide for reviewers and editors</a>
-          </li>
-          <li>
-            <a (click)="scrollToElement(developers)">Guide for simulation software developers</a>
-          </li>
-          <li>
-            <a (click)="scrollToElement(accounts)">User accounts</a>
-          </li>
-
-          <li>
-            <a (click)="scrollToElement(faq)">Frequently asked questions</a>
-          </li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Related resources</h2>
-      <div class="section-content">
-        <div>
-          <a href="https://reproducible-biomedical-modeling.github.io/biosimulations/" target="_blank">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-
-            API documentation
-          </a>
-        </div>
-        <div>
-          <a href="https://app.swaggerhub.com/" target="_blank">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-
-            REST API documentation
-          </a>
+    <div class="toc-inner">
+      <div class="section">
+        <h2>Contents</h2>
+        <div class="section-content">
+          <ul>
+            <li>
+              <a (click)="scrollToElement(readers)">Guide for users</a>
+            </li>
+            <li>
+              <a (click)="scrollToElement(authors)">Guide for authors</a>
+            </li>
+            <li>
+              <a (click)="scrollToElement(reviewers)">Guide for reviewers and editors</a>
+            </li>
+            <li>
+              <a (click)="scrollToElement(developers)">Guide for simulator developers</a>
+            </li>
+            <li>
+              <a (click)="scrollToElement(accounts)">User accounts</a>
+            </li>
+            <li>
+              <a (click)="scrollToElement(faq)">Frequently asked questions</a>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
 
-    <div class="section">
-      <h2>Need help?</h2>
-      <div class="section-content">
-        <div>
-          <a href="mailto:info@biosimulations.org">
-            <biosimulations-icon icon="email"></biosimulations-icon>
-            Contact us
-          </a>
+      <div class="section">
+        <h2>Related resources</h2>
+        <div class="section-content">
+          <div>
+            <a href="https://reproducible-biomedical-modeling.github.io/biosimulations/" target="_blank">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+              API documentation
+            </a>
+          </div>
+          <div>
+            <a href="https://app.swaggerhub.com/" target="_blank">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+              REST API documentation
+            </a>
+          </div>
         </div>
-        <div>
-          <a href="https://github.com/reproducible-biomedical-modeling/biosimulations" target="_blank">
-            <biosimulations-icon icon="github"></biosimulations-icon>
-            Submit an issue
-          </a>
+      </div>
+
+      <div class="section">
+        <h2>Citing BioSimulations</h2>
+        <div class="section-content">
+          <p>
+            We aim to submit a publication in late 2020. Please check back later this year for a pre-print.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Need help?</h2>
+        <div class="section-content">
+          <div>
+            <a href="mailto:info@biosimulations.org">
+              <biosimulations-icon icon="email"></biosimulations-icon>
+              Contact us
+            </a>
+          </div>
+          <div>
+            <a href="https://github.com/reproducible-biomedical-modeling/biosimulations" target="_blank">
+              <biosimulations-icon icon="github"></biosimulations-icon>
+              Submit an issue
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div #top class="text">
+  <div #top>
     <div class="section">
       <h2 #readers>
-        1. Guide for users: Simulating and visualizing published models
+        Guide for users: Finding, simulating, and visualizing published models
         <a class="back-to-top" (click)="scrollToTop(top)">
           <biosimulations-icon icon="toTop"></biosimulations-icon>
         </a>
@@ -78,7 +86,7 @@
         <ul>
           <li>Finding models</li>
           <li>Finding simulation experiment</li>
-          <li>Simulating variants of models</li>
+          <li>Creating variants of simulations</li>
           <li>Finding visualizations</li>
           <li>Configuring visualizations</li>
         </ul>
@@ -87,66 +95,45 @@
 
     <div class="section">
       <h2 #authors>
-        2. Guide for authors: Publishing models, simulations, and visualizations
+        Guide for authors: Publishing models, simulations, and visualizations
         <a class="back-to-top" (click)="scrollToTop(top)">
           <biosimulations-icon icon="toTop"></biosimulations-icon>
         </a>
       </h2>
       <div class="section-content">
         <ul>
-          <li>
-            Uploading models
-            <ul>
-              <li>CellML</li>
-              <li>SBML</li>
-            </ul>
-          </li>
-          <li>
-            Uploading simulation experiments
-            <ul>
-              <li>SED-ML</li>
-            </ul>
-          </li>
-          <li>
-            Uploading visualizations
-            <ul>
-              <li>Vega</li>
-            </ul>
-          </li>
-          <li>Sharing resources with collaborators</li>
-          <li>Anonymously sharing resources reviewers and editors</li>
+          <li>Uploading models</li>
+          <li>Uploading simulation experiments</li>
+          <li>Uploading visualizations</li>
+          <li>Sharing resources reviewers and editors</li>
         </ul>
       </div>
     </div>
 
     <div class="section">
       <h2 #reviewers>
-        3. Guide for reviewers and editors: Reviewing private resources
+        Guide for reviewers and editors: Evaluating models, simulations, and visualizations
         <a class="back-to-top" (click)="scrollToTop(top)">
           <biosimulations-icon icon="toTop"></biosimulations-icon>
-
         </a>
       </h2>
       <div class="section-content">
         <ul>
-          <li>Accessing private resources</li>
+          <li>Accessing resources</li>
         </ul>
       </div>
     </div>
 
     <div class="section">
       <h2 #developers>
-        4. Guide for simulation software developers: Incorporating an additional
+        Guide for simulation software developers: Contributing an additional
         simulator
         <a class="back-to-top" (click)="scrollToTop(top)">
           <biosimulations-icon icon="toTop"></biosimulations-icon>
         </a>
-
       </h2>
       <div class="section-content">
         <ul>
-          <li>Supported model formats</li>
-          <li>Supported simulation experiment formats</li>
           <li>Containerizing a simulator</li>
           <li>Submitting a simulator</li>
         </ul>
@@ -155,10 +142,9 @@
 
     <div class="section">
       <h2 #accounts>
-        5. User accounts
+        User accounts
         <a class="back-to-top" (click)="scrollToTop(top)">
           <biosimulations-icon icon="toTop"></biosimulations-icon>
-
         </a>
       </h2>
       <div class="section-content">
@@ -170,98 +156,75 @@
       </div>
     </div>
 
-    <div class="section q-and-a">
+    <div class="section">
       <h2 #faq>
-        6. Frequently asked questions
+        Frequently asked questions
         <a class="back-to-top" (click)="scrollToTop(top)">
           <biosimulations-icon icon="toTop"></biosimulations-icon>
-
         </a>
       </h2>
       <div class="section-content">
         <div class="subsection">
           <h3>Models</h3>
-          <ul>
-            <li>
+          <div class="qs-and-as">
+            <div class="q-and-a">
               <div class="q">Which model formats are supported?</div>
               <div class="a">
-                Currently, simulations can only be uploaded in SBML format.
+                Models can be uploaded in any format. However, BioSimulations currently can only simulate BNGL and SBML-formatted models.
               </div>
-            </li>
+            </div>
 
-            <li>
-              <div class="q">Which SBML features are supported?</div>
-              <div class="a">TBA.</div>
-            </li>
-          </ul>
+            <div class="q-and-a">
+              <div class="q">Which SBML packages are supported?</div>
+              <div class="a">Currently, BioSimulations can only simulate models that use SBML core and the Flux Balance Constraints (FBC) package.</div>
+            </div>
+          </div>
         </div>
 
         <div class="subsection">
           <h3>Simulations</h3>
-          <ul>
-            <li>
+          <div class="qs-and-as">
+            <div class="q-and-a">
               <div class="q">Which simulation formats are supported?</div>
               <div class="a">
-                Currently, simulations can only be uploaded in SED-ML format.
+                BioSimulations provides a form for describing simulations. Internally, BioSimulations represents simulations using its own format which is similar to SED-ML. BioSimulations can export simulations to SED-ML.
               </div>
-            </li>
-            <li>
-              <div class="q">Which SED-ML features are supported?</div>
-              <div class="a">TBA.</div>
-            </li>
-            <li>
+            </div>
+            <div class="q-and-a">
               <div class="q">Can simulation results be uploaded?</div>
               <div class="a">
                 To ensure the provenance of simulation results, simulation
-                results can only be generated by <i>BioSimulations</i>.
+                results can only be generated by BioSimulations.
               </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
 
         <div class="subsection">
           <h3>Visualizations</h3>
-          <ul>
-            <li>
+          <div class="qs-and-as">
+            <div class="q-and-a">
               <div class="q">Which visualization formats are supported?</div>
               <div class="a">
-                Currently, simulations can only be uploaded in Vega format.
+                Currently, simulations can only be uploaded in Vega and Vega-Lite formats.
               </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
 
         <div class="subsection">
           <h3>General</h3>
-          <ul>
-            <li>
+          <div class="qs-and-as">
+            <div class="q-and-a">
               <div class="q">
-                How can I edit a published model, simulation, or visualization?
+                What licenses can I use to publish models, simulations, and visualizations?
               </div>
               <div class="a">
-                Please contact us via email
-                <a href="mailto:info@biosimulations.org" target="_blank">
-                  <biosimulations-icon icon="email"></biosimulations-icon>
-
-                </a>
-                to request edits to published a model, simulation, or
-                visualization.
+                Currently, BioSimulations supports the Creative Commons licenses.
               </div>
-            </li>
+            </div>
 
-            <li>
-              <div class="q">
-                How can I delete a published model, simulation, or
-                visualization?
-              </div>
-              <div class="a">
-                To ensure the community has permanent access to published
-                resources, published models, simulations, and visualizations
-                cannot be deleted.
-              </div>
-            </li>
-
-            <li>
+            <div class="q-and-a">
               <div class="q">
                 How can I publish a model/simulation/visualization under another
                 license?
@@ -273,8 +236,34 @@
                 </a>
                 to request support for another license.
               </div>
-            </li>
-          </ul>
+            </div>
+
+            <div class="q-and-a">
+              <div class="q">
+                How can I edit a published model, simulation, or visualization?
+              </div>
+              <div class="a">
+                Please contact us via email
+                <a href="mailto:info@biosimulations.org" target="_blank">
+                  <biosimulations-icon icon="email"></biosimulations-icon>
+                </a>
+                to request edits to published a model, simulation, or
+                visualization.
+              </div>
+            </div>
+
+            <div class="q-and-a">
+              <div class="q">
+                How can I delete a published model, simulation, or
+                visualization?
+              </div>
+              <div class="a">
+                To ensure the community has permanent access to published
+                resources, published models, simulations, and visualizations
+                cannot be deleted.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -42,6 +42,16 @@
     p:last-child, ol:last-child, ul:last-child
       margin-block-end: 0
 
+  .subsection
+    &:not(:first-child)
+      margin-top: 1rem
+
+    h3
+      width: fit-content
+      margin-bottom: 0.5rem
+      border-bottom: 1px dotted $dark-primary-text
+
+
 .toc .section
   h2
     color: mat-color($theme-primary)
