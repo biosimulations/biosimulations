@@ -159,9 +159,49 @@ export class AppController implements OnApplicationBootstrap {
     });
     return {
       message: 'Data fetched successfully',
-      data: jsonResults
+      data: this.convertJsonDataToChartData(jsonResults) 
     };
     
+  }
+
+  convertJsonDataToChartData(data: any) {
+    const finalRes = JSON.parse(JSON.stringify(data));
+    const sedmls = Object.keys(data);
+    let tasks: Array<string> = [];
+    // sedmls.forEach(sedml => {
+    //   finalRes.set(sedml, {});
+    // })
+    
+    sedmls.forEach(sedml => {
+      tasks = Object.keys(data[sedml]);
+      tasks.forEach(task => {
+        finalRes[sedml][task] = {};
+      });
+    });
+
+    for(const sedml of sedmls) {
+      for(const task of tasks) {
+
+        const taskKeys = Object.keys(data[sedml][task][0]);
+        taskKeys.splice(taskKeys.indexOf('time'),1);
+
+        for(const taskKey of taskKeys) {
+          finalRes[sedml][task][taskKey] = {};
+          finalRes[sedml][task][taskKey]['x'] = [];
+          finalRes[sedml][task][taskKey]['y'] = [];
+          finalRes[sedml][task][taskKey]['type'] = 'scatter';
+        }
+        
+        for(const dataObj of data[sedml][task]) {
+          for(const taskKey of taskKeys) {
+            finalRes[sedml][task][taskKey]['x'].push(dataObj['time']);
+            finalRes[sedml][task][taskKey]['y'].push(dataObj[taskKey]);
+          }
+        }
+      }
+    }
+
+    return finalRes;
   }
 
   async onApplicationBootstrap() {
