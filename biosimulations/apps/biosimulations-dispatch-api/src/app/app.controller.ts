@@ -9,7 +9,8 @@ import {
   HttpStatus, 
   Logger, 
   Get, 
-  Param
+  Param,
+  Query
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
@@ -116,7 +117,7 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Get Simulation Results',
     type: Object
   })
-  getVisualizationData(@Param('uuid') uId: string) {
+  getVisualizationData(@Param('uuid') uId: string, @Query('chart') chart: boolean) {
     const jsonResults: Dic = {};
     const fileStorage = process.env.FILE_STORAGE||'';
     
@@ -159,7 +160,7 @@ export class AppController implements OnApplicationBootstrap {
     });
     return {
       message: 'Data fetched successfully',
-      data: this.convertJsonDataToChartData(jsonResults) 
+      data: chart? this.convertJsonDataToChartData(jsonResults): jsonResults
     };
     
   }
@@ -183,7 +184,7 @@ export class AppController implements OnApplicationBootstrap {
       for(const task of tasks) {
 
         const taskKeys = Object.keys(data[sedml][task][0]);
-        taskKeys.splice(taskKeys.indexOf('time'),1);
+        taskKeys.splice(taskKeys.indexOf('time'), 1);
 
         for(const taskKey of taskKeys) {
           finalRes[sedml][task][taskKey] = {};
