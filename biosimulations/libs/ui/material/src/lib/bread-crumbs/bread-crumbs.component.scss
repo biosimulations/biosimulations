@@ -1,37 +1,32 @@
 @import 'biosimulations-colors';
+
 mat-toolbar {
-  height: 100%;
+  height: auto;
 }
+
 .breadcrumb {
-  background: none;
   font-size: 0.8em;
   margin: 0;
-  min-width: fit-content;
 
-  a,
-  span {
-    color: mat-color($theme-primary);
-    text-decoration: unset;
-  }
-  a:hover,
-  span:hover {
-    color: mat-color($theme-accent);
-    text-decoration: unset;
-  }
   li {
     list-style: none;
     float: left;
-    margin-right: 0.4em;
   }
-  li:last-child {
-    margin-right: 20px;
-  }
-  .next {
+  li:not(:last-child)::after {
+    content: "»";
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
     color: mat-color($theme-primary);
   }
+
+  a {
+    color: mat-color($theme-primary);
+  }
+  a:hover {
+    color: mat-color($theme-accent);
+  }
 }
+
 .noPad {
   padding-left: 0;
-}
-.buttons {
 }

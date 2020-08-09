@@ -34,8 +34,7 @@ export type biosimulationsIcon =
   | 'link'
   | 'email'
   | 'github'
-  | 'toTop'
-  | 'breadcrumbNext';
+  | 'toTop';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -60,7 +59,6 @@ export class IconComponent implements OnInit {
     user: { type: 'fas', name: 'user' },
     question: { type: 'fas', name: 'question' },
     model: { type: 'fas', name: 'bezier-curve' },
-    breadcrumbNext: { type: 'mat', name: 'double_arrow' },
     taxon: { type: 'fas', name: 'dna' },
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },

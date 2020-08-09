@@ -19,6 +19,14 @@
   top: 0;
   z-index: 200;
 }
+
+.breadCrumbs {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 64px;
+  z-index: 200;
+}
+
 .content {
   padding: 0;
   background: #fff;

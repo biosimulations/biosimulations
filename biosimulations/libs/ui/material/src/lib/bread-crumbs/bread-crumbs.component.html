@@ -8,13 +8,9 @@
   <ol class="breadcrumb" [ngClass]="{ noPad: !this.pad }" fxFlex>
     <ng-container *ngFor="let breadcrumb of breadcrumbs; last as isLast">
       <li>
-        <a [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">
-          <span>
-            {{ breadcrumb.label }}
-          </span>
-        </a>
-        <biosimulations-icon class="next" icon="breadcrumbNext" *ngIf="!isLast">
-        </biosimulations-icon>
+        <a [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">{{
+          breadcrumb.label
+        }}</a>
       </li>
     </ng-container>
   </ol>
