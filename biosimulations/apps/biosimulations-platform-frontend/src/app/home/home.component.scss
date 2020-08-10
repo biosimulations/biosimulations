@@ -85,6 +85,12 @@
         color: mat-color($theme-accent);
         font-size: 48px;
         text-align: center;
+
+        ::ng-deep mat-icon {
+          line-height: 0.1;
+          position: relative;
+          top: 18px;
+        }
       }
 
       .title {

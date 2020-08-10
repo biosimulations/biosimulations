@@ -22,7 +22,16 @@
 
 .topmenu {
   width: 100%;
-  text-align: right;
+  padding-left: 2rem;
+  display: flex;
+  justify-content: flex-end;
+
+  .topmenu-inner{
+    width: 100%;
+    max-width: 56rem;
+    display: flex;
+    justify-content: space-between;
+  }
 
   .mat-flat-button {
     font-size: 18px;
@@ -31,20 +40,43 @@
     background: transparent;
     padding: 0;
 
-    &:not(:first-child) {
-      padding-left: 2rem;
-    }
-
     &:hover {
       color: mat-color($theme-accent);
     }
-  }  
+
+    .button-content {
+      display: flex;
+      align-items: center;
+    }
+
+    biosimulations-icon {
+      margin-right: 0.25rem;
+    }
+
+    ::ng-deep mat-icon {
+      line-height: 2;
+    }
+  }
 }
 
 .mat-menu-item {
   line-height: 32px;
   height: 32px;
   padding: 0 0.5rem;
+
+  ::ng-deep biosimulations-fa-icon {
+    font-size: 100%;
+    margin-right: 0.25rem;
+
+    .svg-inline--fa.fa-w-16 {
+      margin-left: 2.5px;
+      margin-right: 2.5px;
+    }
+    .svg-inline--fa.fa-w-14 {
+      margin-left: 3.5px;
+      margin-right: 3.5px;
+    }
+  }
 }
 
 .breadCrumbs {

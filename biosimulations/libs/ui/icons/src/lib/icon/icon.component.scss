@@ -1,10 +1,12 @@
 .mat-icon {
-  vertical-align: middle;
+  font-size: 150%;
+  height: auto;
+  line-height: unset;
+  width: auto;
+  padding: 0;
+  margin: 0 !important;
+  color: inherit;
 }
 :host {
   display: inline;
-}
-.icon {
-  height: 100%;
-  padding-bottom: 0;
 }

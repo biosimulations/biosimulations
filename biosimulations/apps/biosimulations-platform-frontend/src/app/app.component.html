@@ -1,16 +1,40 @@
 <biosimulations-navigation class="mat-typography">
-  <mat-nav-list>
-    <a mat-list-item>Projects</a>
-    <a mat-list-item [routerLink]="['/models']">Models</a>
-    <a mat-list-item>Simulations</a>
-    <a mat-list-item>Charts</a>
-    <a mat-list-item>Visualizations</a>
+  <mat-accordion multi>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Projects
+        </mat-panel-title>
+        <mat-panel-description>
+          This is a summary of the content
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a mat-list-item>Browse</a>
+        <a mat-list-item>Submit</a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Models
+        </mat-panel-title>
+        <mat-panel-description>
+          This is a summary of the content
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a mat-list-item>Browse</a>
+        <a mat-list-item>Submit</a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+
     <mat-divider></mat-divider>
     <a mat-list-item [routerLink]="['/help']">Help</a>
     <mat-divider></mat-divider>
     <a mat-list-item (click)="login()" *ngIf="(isAuthenticated() | async) !== true">Login</a>
-    <a mat-list-item (click)="logout()" *ngIf="isAuthenticated() | async">Logout</a>    
-  </mat-nav-list>
-
+    <a mat-list-item (click)="logout()" *ngIf="isAuthenticated() | async">Logout</a>
+  </mat-accordion>
   <router-outlet></router-outlet>
 </biosimulations-navigation>
