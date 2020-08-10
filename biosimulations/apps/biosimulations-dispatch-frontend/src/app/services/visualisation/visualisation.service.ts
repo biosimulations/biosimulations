@@ -11,6 +11,7 @@ export class VisualisationService {
 
   
   tasksPerSedml: any;
+  updateDataEvent = new Subject<any>();
 
   private resultsEndpoint = `${environment.crbm.DISPATCH_API_URL}/result`;
   constructor(private http: HttpClient) { }

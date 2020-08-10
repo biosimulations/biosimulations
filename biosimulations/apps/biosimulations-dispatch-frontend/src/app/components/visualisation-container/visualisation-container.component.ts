@@ -23,10 +23,25 @@ export class VisualisationContainerComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO: Decide view-vis layout per chart/task and inject into plots
-    this.plots = {
-      data: this.graphData, // test
-      task: 'task1'
-    };
+    // this.plots = {
+    //   data: this.graphData, // test
+    //   task: 'task1'
+    // };
+  
+    this.visualisationService.updateDataEvent.subscribe(
+      (graphData: any) => {
+        this.plots = {
+          data: [graphData], // test
+          task: 'task1'
+        };
+
+        console.log('Data from vis-container: ', graphData);
+      },
+      (error) => {
+
+      }
+    );
+
   }
 
 }

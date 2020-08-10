@@ -34,7 +34,7 @@ export class ResultsPageComponent implements OnInit {
           // TODO: Save data somewhere, bind to the vis-container only the selected data
           // this.graphData = data['data'];
           
-
+          this.visualisationService.updateDataEvent.next(this.graphData);
         }
       )
     }
