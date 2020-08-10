@@ -24,7 +24,7 @@ export class VisualisationContainerComponent implements OnInit {
   ngOnInit(): void {
     // TODO: Decide view-vis layout per chart/task and inject into plots
     this.plots = {
-      data: this.graphData, //test
+      data: this.graphData, // test
       task: 'task1'
     };
   }
