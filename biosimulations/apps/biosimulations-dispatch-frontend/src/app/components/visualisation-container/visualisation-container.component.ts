@@ -30,8 +30,13 @@ export class VisualisationContainerComponent implements OnInit {
   
     this.visualisationService.updateDataEvent.subscribe(
       (graphData: any) => {
+        const res:any  = [];
+        const keys = Object.keys(graphData);
+        keys.forEach(element => {
+          res.push({...graphData[element], name: element});
+        });
         this.plots = {
-          data: [graphData], // test
+          data: res, // test
           task: 'task1'
         };
 

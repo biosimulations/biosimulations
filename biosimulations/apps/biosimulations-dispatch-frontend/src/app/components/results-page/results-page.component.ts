@@ -28,7 +28,7 @@ export class ResultsPageComponent implements OnInit {
           console.log(data)
           // TODO: Remove this after testing
           this.sedmlSelected = Object.keys(data['data'])[0]; // TEST
-          this.graphData = data['data'][this.sedmlSelected]['task1']['IR']; // test
+          this.graphData = data['data'][this.sedmlSelected]['task1']; // test
           
           console.log(this.graphData);
           // TODO: Save data somewhere, bind to the vis-container only the selected data
