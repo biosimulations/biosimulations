@@ -18,7 +18,11 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding: 2rem;
-  overflow: auto;
+  overflow: auto;  
+}
+
+.mat-typography .partial-width h1 {
+  margin: 0 0 2rem;
 }
 
 .full-width {
@@ -33,10 +37,8 @@ body {
 h1,
 .h1 {
   // @include mat-typography-level-to-styles($fontConfig, headline);
-  line-height: 1.6rem;
-  margin-top: 0;
   color: mat-color($theme-primary);
-  border-bottom: 1px solid mat-color($theme-primary);
+  border-bottom: 1px solid mat-color($theme-primary, lighter);
 
   a {
     color: mat-color($theme-primary);
@@ -49,7 +51,6 @@ h2,
   //@include mat-typography-level-to-styles($fontConfig, title);
   color: mat-color($theme-primary);
 }
-
 
 .grid{
   display: grid;

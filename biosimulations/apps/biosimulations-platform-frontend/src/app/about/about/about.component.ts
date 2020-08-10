@@ -9,6 +9,7 @@ export class AboutComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void { }
+  
   scrollToElement($element: Element): void {
     $element.scrollIntoView({
       behavior: 'smooth',
