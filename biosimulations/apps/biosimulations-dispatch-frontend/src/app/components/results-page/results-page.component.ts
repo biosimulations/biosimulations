@@ -12,8 +12,10 @@ export class ResultsPageComponent implements OnInit {
   uuid = '';
   tasksPerSedml!: any;
   graphData!: any;
-
+  sedmls!: Array<string>;
+  tasks!: Array<string>;
   // TODO: Add dropdown for all sedmls
+  taskSelected!: string;
   sedmlSelected!: string;
   constructor(private route: ActivatedRoute, private visualisationService: VisualisationService) { }
 
@@ -26,15 +28,20 @@ export class ResultsPageComponent implements OnInit {
       this.visualisationService.getVisualisation(this.uuid).subscribe(
         (data: any) => {
           console.log(data)
+          this.graphData = data['data']
           // TODO: Remove this after testing
-          this.sedmlSelected = Object.keys(data['data'])[0]; // TEST
-          this.graphData = data['data'][this.sedmlSelected]['task1']; // test
+          this.sedmls = Object.keys(data['data']);
+          this.sedmlSelected = this.sedmls[0]; 
+          this.tasks = Object.keys(this.graphData[this.sedmlSelected]);
+          this.taskSelected = this.tasks[0]
           
-          console.log(this.graphData);
+          const plotData = this.graphData[this.sedmlSelected][this.taskSelected];
+          
+          // console.log(this.graphData);
           // TODO: Save data somewhere, bind to the vis-container only the selected data
           // this.graphData = data['data'];
           
-          this.visualisationService.updateDataEvent.next(this.graphData);
+          this.visualisationService.updateDataEvent.next(plotData);
         }
       )
     }

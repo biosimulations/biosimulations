@@ -17,6 +17,8 @@ import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-n
 import { PlotlyViaCDNModule } from 'angular-plotly.js';
 import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
+import {MatSelectModule} from '@angular/material/select';
+
 
 PlotlyViaCDNModule.plotlyVersion = '1.49.4'; 
 PlotlyViaCDNModule.plotlyBundle = 'basic'; 
@@ -50,6 +52,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     PlotlyViaCDNModule,
+    MatSelectModule,
     UiMaterialModule,
     BrowserAnimationsModule,
     BiosimulationsAppModule,
