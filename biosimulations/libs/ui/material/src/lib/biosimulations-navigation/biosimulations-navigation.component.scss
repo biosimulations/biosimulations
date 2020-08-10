@@ -20,6 +20,33 @@
   z-index: 200;
 }
 
+.topmenu {
+  width: 100%;
+  text-align: right;
+
+  .mat-flat-button {
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    background: transparent;
+    padding: 0;
+
+    &:not(:first-child) {
+      padding-left: 2rem;
+    }
+
+    &:hover {
+      color: mat-color($theme-accent);
+    }
+  }  
+}
+
+.mat-menu-item {
+  line-height: 32px;
+  height: 32px;
+  padding: 0 0.5rem;
+}
+
 .breadCrumbs {
   position: -webkit-sticky;
   position: sticky;
@@ -49,6 +76,11 @@
   margin-bottom: 0.25rem;
 }
 
-.rightButton {
+.rightContent {
   color: $light-primary-text;
+
+  &.mat-icon-button {
+    width: 32px;
+    padding-left: 0.25rem;
+  }
 }

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './privacy-policy.component.html',
-  styleUrls: ['../about.module.sass', './privacy-policy.component.sass'],
+  styleUrls: ['../help.module.sass', './privacy-policy.component.sass'],
 })
 export class PrivacyPolicyComponent implements OnInit {
   constructor() {}

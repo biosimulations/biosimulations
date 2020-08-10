@@ -10,8 +10,8 @@
     <biosimulations-topbar color="#666">
       <biosimulations-logo-text id="logo"></biosimulations-logo-text>
       <button
-        id="rightButton"
-        class="rightButton"
+        id="rightContent"
+        class="rightContent"
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
@@ -26,12 +26,8 @@
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
       <biosimulations-topbar [(showLogo)]="!drawer.opened">
-        <biosimulations-logo-image
-          class="logo-img"
-          id="logo"
-        ></biosimulations-logo-image>
         <button
-          id="leftButton"
+          id="leftContent"
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
@@ -40,7 +36,62 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span id="logoImage">X</span>
+        <biosimulations-logo-image          
+          id="logo"
+          class="logo-img"
+        ></biosimulations-logo-image>
+        <div id="rightContent" class="topmenu">
+          <button mat-flat-button [matMenuTriggerFor]="projectsMenu" disableRipple>Projects</button>
+          <mat-menu #projectsMenu="matMenu" yPosition="below">
+            <button mat-menu-item disableRipple>Browse</button>
+            <button mat-menu-item disableRipple>Submit</button>
+          </mat-menu>
+
+          <button mat-flat-button [matMenuTriggerFor]="modelsMenu" disableRipple>Models</button>
+          <mat-menu #modelsMenu="matMenu" yPosition="below">
+            <button mat-menu-item disableRipple [routerLink]="['/models', 'browse']">Browse</button>
+            <button mat-menu-item disableRipple>Submit</button>
+          </mat-menu>
+
+          <button mat-flat-button [matMenuTriggerFor]="simulationsMenu" disableRipple>Simulations</button>
+          <mat-menu #simulationsMenu="matMenu" yPosition="below">
+            <button mat-menu-item disableRipple>Browse</button>
+            <button mat-menu-item disableRipple>Submit</button>
+          </mat-menu>
+
+          <button mat-flat-button [matMenuTriggerFor]="chartsMenu" disableRipple>Charts</button>
+          <mat-menu #chartsMenu="matMenu" yPosition="below">
+            <button mat-menu-item disableRipple>Browse</button>
+            <button mat-menu-item disableRipple>Submit</button>
+          </mat-menu>
+
+          <button mat-flat-button [matMenuTriggerFor]="vizMenu" disableRipple>Visualizations</button>
+          <mat-menu #vizMenu="matMenu" yPosition="below">
+            <button mat-menu-item disableRipple>Browse</button>
+            <button mat-menu-item disableRipple>Submit</button>
+          </mat-menu>
+
+          <button mat-flat-button [matMenuTriggerFor]="helpMenu" disableRipple>Help</button>
+          <mat-menu #helpMenu="matMenu" yPosition="below">
+            <button mat-menu-item disableRipple [routerLink]="['/help']">Help</button>
+            <button mat-menu-item disableRipple [routerLink]="['/help', 'about']">About</button>
+            <button mat-menu-item disableRipple [routerLink]="['/help', 'privacy']">Privacy policy</button>
+          </mat-menu>
+
+          <button mat-flat-button disableRipple>Login</button>
+
+          <button mat-flat-button [matMenuTriggerFor]="accountMenu" disableRipple>Account</button>
+          <mat-menu #accountMenu="matMenu" yPosition="below">
+            <button mat-menu-item disableRipple>Projects</button>
+            <button mat-menu-item disableRipple>Models</button>
+            <button mat-menu-item disableRipple>Simulations</button>
+            <button mat-menu-item disableRipple>Charts</button>
+            <button mat-menu-item disableRipple>Visualizations</button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item disableRipple>Profile</button>
+            <button mat-menu-item disableRipple>Logout</button>
+          </mat-menu>
+        </div>
       </biosimulations-topbar>
     </div>
     <div class="breadCrumbs">

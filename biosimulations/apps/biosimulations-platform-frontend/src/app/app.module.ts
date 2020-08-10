@@ -36,11 +36,11 @@ const routes: Routes = [
     }
   },
   {
-    path: 'about',
+    path: 'help',
     loadChildren: () =>
-      import('./about/about.module').then((m) => m.AboutModule),
+      import('./help/help.module').then((m) => m.HelpModule),
     data: {
-      breadcrumb: 'About'
+      breadcrumb: 'Help'
     }
   },
 ];

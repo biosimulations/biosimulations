@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './help.component.html',
-  styleUrls: ['../about.module.sass', './help.component.sass'],
+  styleUrls: ['../help.module.sass', './help.component.sass'],
 })
 export class HelpComponent implements OnInit {
   constructor() {}

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'biosimulations-about',
   templateUrl: './about.component.html',
-  styleUrls: ['../about.module.sass', './about.component.sass'],
+  styleUrls: ['../help.module.sass', './about.component.sass'],
 })
 export class AboutComponent implements OnInit {
   constructor() { }

@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { BiosimulationsNavigationComponent } from './biosimulations-navigation.component';
 
@@ -24,6 +25,7 @@ describe('BiosimulationsNavigationComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
+        MatMenuModule,
       ]
     }).compileComponents();
   }));
