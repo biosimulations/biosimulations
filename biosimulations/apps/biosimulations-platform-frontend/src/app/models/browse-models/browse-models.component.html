@@ -73,22 +73,22 @@
             [matColumnDef]="column.id"
             *ngFor="let column of displayedColumns"
           >
-            <mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header 
+            <mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header
               [ngStyle]="{
-                'min-width.em': column.minWidth != null ? column.minWidth / 12 : null, 
-                'max-width.em': column.maxWidth != null ? column.maxWidth / 12 : null, 
+                'min-width.em': column.minWidth != null ? column.minWidth / 12 : null,
+                'max-width.em': column.maxWidth != null ? column.maxWidth / 12 : null,
                 'flex-grow': column.minWidth != null ? 0 : 1
-              }"              
+              }"
             >
               {{ column.id | titlecase }}
             </mat-header-cell>
-            <mat-cell *matCellDef="let element" 
+            <mat-cell *matCellDef="let element"
               [ngStyle]="{
-                'min-width.em': column.minWidth != null ? column.minWidth / 14 : null, 
-                'max-width.em': column.maxWidth != null ? column.maxWidth / 14 : null, 
+                'min-width.em': column.minWidth != null ? column.minWidth / 14 : null,
+                'max-width.em': column.maxWidth != null ? column.maxWidth / 14 : null,
                 'flex-grow': column.minWidth != null ? 0 : 1,
                 'white-space': column.nowrap
-              }" 
+              }"
             >
               <div class="cell">
                 {{ element[column.id] }}

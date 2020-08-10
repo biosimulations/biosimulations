@@ -21,7 +21,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </biosimulations-topbar>
-    <ng-content select="mat-nav-list"></ng-content>
+    <ng-content select="#mat-nav-list"></ng-content>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
@@ -90,8 +90,12 @@
             </button>
             <mat-menu #helpMenu="matMenu" yPosition="below">
               <button mat-menu-item disableRipple [routerLink]="['/help']">
+                <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                Tutorial
+              </button>
+              <button mat-menu-item disableRipple [routerLink]="['/help', 'faq']">
                 <biosimulations-icon icon="help"></biosimulations-icon>
-                Help
+                FAQ
               </button>
               <button mat-menu-item disableRipple [routerLink]="['/help', 'about']">
                 <biosimulations-icon icon="info"></biosimulations-icon>

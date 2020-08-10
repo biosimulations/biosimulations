@@ -8,13 +8,13 @@
     <div class="metadata" fxFlex="1 1 50%">
       <mat-card>
         <div>
-          <biosimulations-icon icon="authors"> </biosimulations-icon>{{ authors }}
+          <biosimulations-icon icon="author"> </biosimulations-icon>{{ authors }}
         </div>
         <div>
           <biosimulations-icon icon="user"></biosimulations-icon> {{ owner }}
         </div>
         <div *ngIf="tags.length>0">
-          <biosimulations-icon icon="tags"></biosimulations-icon> {{ tags.join(", ") }}
+          <biosimulations-icon icon="tag"></biosimulations-icon> {{ tags.join(", ") }}
         </div>
 
       </mat-card>

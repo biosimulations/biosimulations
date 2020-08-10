@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { UiMaterialModule } from '@biosimulations/ui/material';
+import { BiosimulationsIconsModule } from '@biosimulations/ui/icons';
 
 import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-ng-utils';
 import { SharedModule } from './shared/shared.module';
@@ -50,6 +51,7 @@ const routes: Routes = [
     BrowserModule,
     BiosimulationsAppModule,
     UiMaterialModule,
+    BiosimulationsIconsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

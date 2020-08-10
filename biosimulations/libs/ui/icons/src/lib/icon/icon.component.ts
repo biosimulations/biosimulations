@@ -8,14 +8,28 @@ interface IconInfo {
 export type biosimulationsIcon =
   | 'home'
   | 'file'
-  | 'question'
-  | 'authors'
+  | 'help'
+  | 'tutorial'
+  | 'info'
+  | 'policy'
+  | 'comment'
+  | 'bug'
+  | 'error'
+  | 'author'
   | 'reviewer'
   | 'oss'
   | 'simulator'
   | 'repository'
   | 'user'
+  | 'login'
+  | 'logout'
+  | 'project'
   | 'model'
+  | 'simulation'
+  | 'chart'
+  | 'visualization'
+  | 'browse'
+  | 'new'
   | 'taxon'
   | 'framework'
   | 'format'
@@ -55,14 +69,15 @@ export class IconComponent implements OnInit {
     email: { type: 'fas', name: 'envelope' },
     github: { type: 'fab', name: 'github' },
     file: { type: 'fas', name: 'file' },
-    authors: { type: 'fas', name: 'pencil-alt' },
+    author: { type: 'fas', name: 'pencil-alt' },
     user: { type: 'fas', name: 'user' },
     login: { type: 'fas', name: 'sign-in-alt' },
     logout: { type: 'fas', name: 'sign-out-alt' },
     help: { type: 'fas', name: 'question-circle' },
+    tutorial: { type: 'fas', name: 'book-open' },
     info: { type: 'fas', name: 'info-circle' },
-    comment: { type: 'fas', name: 'comment-dots' },
     policy: { type: 'fas', name: 'shield-alt' },
+    comment: { type: 'fas', name: 'comment-dots' },
     bug: { type: 'fas', name: 'bug' },
     error: { type: 'fas', name: 'exclamation' },
     project: { type: 'fas', name: 'folder-open' },
@@ -102,7 +117,7 @@ export class IconComponent implements OnInit {
   ngOnInit(): void {
     this.iconInfo = this.iconMap[this.icon];
     if (!this.iconInfo) {
-      this.iconInfo = this.iconMap['question'];
+      this.iconInfo = this.iconMap['help'];
     }
     this.iconLabel = this.icon + '-icon';
   }

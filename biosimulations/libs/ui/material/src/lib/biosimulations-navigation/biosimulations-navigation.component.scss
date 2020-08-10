@@ -7,10 +7,14 @@
 
 .sidenav {
   width: 200px;
-}
 
-.sidenav .mat-toolbar {
-  background: inherit;
+  ::ng-deep .mat-drawer-inner-container {
+    overflow-x: hidden;
+  }
+
+  .mat-toolbar {
+    background: inherit;
+  }
 }
 
 .topbar {

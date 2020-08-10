@@ -11,8 +11,8 @@ export class Author extends ViewModel {
   getTooltip(): string {
     return 'Authors';
   }
-  getIcon(): 'authors' {
-    return 'authors';
+  getIcon(): 'author' {
+    return 'author';
   }
   getLink(): string | null {
     return null;
