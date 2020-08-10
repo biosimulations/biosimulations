@@ -9,7 +9,7 @@
         <div class="col-md-6" style="text-align: right;">
             <mat-form-field appearance="fill">
                 <mat-label>Sedml to display</mat-label>
-                <mat-select [(ngModel)]="sedmlSelected" name="SEDML">
+                <mat-select [(ngModel)]="sedmlSelected" name="SEDML" (selectionChange)="onSedmlChange($event)">
                   <mat-option *ngFor="let sedml of sedmls" [value]="sedml">
                     {{sedml}}
                   </mat-option>

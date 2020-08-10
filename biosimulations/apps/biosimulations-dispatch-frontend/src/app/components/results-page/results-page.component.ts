@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VisualisationService } from '../../services/visualisation/visualisation.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'biosimulations-results-page',
@@ -46,6 +47,19 @@ export class ResultsPageComponent implements OnInit {
       )
     }
 
+  }
+
+  onSedmlChange($event: MatSelectChange) {
+    this.tasks = Object.keys(this.graphData[$event.value]);
+    this.taskSelected = this.tasks[0];
+
+    const plotData = this.graphData[this.sedmlSelected][this.taskSelected];
+          
+          // console.log(this.graphData);
+          // TODO: Save data somewhere, bind to the vis-container only the selected data
+          // this.graphData = data['data'];
+          
+    this.visualisationService.updateDataEvent.next(plotData);
   }
 
 
