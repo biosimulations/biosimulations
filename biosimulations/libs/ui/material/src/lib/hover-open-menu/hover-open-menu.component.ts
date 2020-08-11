@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {MatMenuTrigger} from '@angular/material/menu';
+
 
 @Component({
   selector: 'biosimulations-hover-open-menu',
@@ -10,14 +12,14 @@ export class HoverOpenMenuComponent {
 
   constructor() { }
 
-  openMenu(trigger: any) {
+  openMenu(trigger: MatMenuTrigger): void {
     if (this.timedOutCloser) {
       clearTimeout(this.timedOutCloser);
     }
     trigger.openMenu();
   }
 
-  closeMenu(trigger: any) {
+  closeMenu(trigger: MatMenuTrigger): void {
     this.timedOutCloser = window.setTimeout(() => {
       trigger.closeMenu();
     }, 50);
