@@ -6,9 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../help.module.sass', './about.component.sass'],
 })
 export class AboutComponent implements OnInit {
-  constructor() { }
+  tocFixed: boolean = false;
+
+  constructor() { 
+    window.addEventListener('scroll', this.scroll, true);
+  }
 
   ngOnInit(): void { }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
+
+  scroll = (event: any): void => {
+    this.tocFixed = event.srcElement.scrollTop > 64;
+  };
   
   scrollToElement($element: Element): void {
     $element.scrollIntoView({
