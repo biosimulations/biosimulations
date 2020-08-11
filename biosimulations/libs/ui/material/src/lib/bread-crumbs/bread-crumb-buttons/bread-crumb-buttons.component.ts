@@ -1,12 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { IContextButton } from '../bread-crumbs.interface';
 
-
-interface NavItem {
-  icon: string
-  route: string
-  label: string
-
-}
 @Component({
   selector: 'biosimulations-bread-crumb-buttons',
   templateUrl: './bread-crumb-buttons.component.html',
@@ -16,7 +10,7 @@ interface NavItem {
 export class BreadCrumbButtonsComponent implements OnInit {
 
   @Input()
-  buttons: NavItem[] = []
+  buttons: IContextButton[] = []
   constructor() { }
 
   ngOnInit(): void {

@@ -1,11 +1,7 @@
-<div class="button">
-  <a
-    [routerLink]="route ? route : null"
-    fxLayout="column"
-    fxLayoutAlign="center center"
-    fxLayoutGap="0"
-  >
-    <biosimulations-icon class="icon" [icon]="icon"></biosimulations-icon>
-    <div class="label">{{ label }}</div>
-  </a>
-</div>
+<a
+  class="button"
+  [routerLink]="route ? route : null"
+>
+  <biosimulations-icon class="icon" [icon]="icon"></biosimulations-icon>
+  <span class="label">{{ label }}</span>
+</a>

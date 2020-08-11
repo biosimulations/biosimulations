@@ -1,5 +1,5 @@
 <biosimulations-navigation class="mat-typography">
-  <mat-accordion id="mat-nav-list" displayMode="flat" multi>
+  <mat-accordion id="sidenav-menu" displayMode="flat" multi>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header
         [collapsedHeight]="'48px'"
@@ -12,15 +12,15 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
           <mat-nav-list>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="home"></biosimulations-icon>
                Home
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="browse"></biosimulations-icon>
                Browse
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="new"></biosimulations-icon>
                Submit
             </mat-list-item>
@@ -40,15 +40,15 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
           <mat-nav-list>
-            <mat-list-item [routerLink]="['/models']">
+            <mat-list-item disableRipple [routerLink]="['/models']">
                <biosimulations-icon icon="home"></biosimulations-icon>
                Home
             </mat-list-item>
-            <mat-list-item [routerLink]="['/models', 'browse']">
+            <mat-list-item disableRipple [routerLink]="['/models', 'browse']">
                <biosimulations-icon icon="browse"></biosimulations-icon>
                Browse
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="new"></biosimulations-icon>
                Submit
             </mat-list-item>
@@ -68,15 +68,15 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
           <mat-nav-list>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="home"></biosimulations-icon>
                Home
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="browse"></biosimulations-icon>
                Browse
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="new"></biosimulations-icon>
                Submit
             </mat-list-item>
@@ -96,15 +96,15 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
           <mat-nav-list>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="home"></biosimulations-icon>
                Home
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="browse"></biosimulations-icon>
                Browse
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="new"></biosimulations-icon>
                Submit
             </mat-list-item>
@@ -124,15 +124,15 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
           <mat-nav-list>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="home"></biosimulations-icon>
                Home
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="browse"></biosimulations-icon>
                Browse
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="new"></biosimulations-icon>
                Submit
             </mat-list-item>
@@ -152,19 +152,19 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
           <mat-nav-list>
-            <mat-list-item [routerLink]="['/help']">
+            <mat-list-item disableRipple [routerLink]="['/help']">
                <biosimulations-icon icon="tutorial"></biosimulations-icon>
                Tutorial
             </mat-list-item>
-            <mat-list-item [routerLink]="['/help', 'faq']">
+            <mat-list-item disableRipple [routerLink]="['/help', 'faq']">
                <biosimulations-icon icon="help"></biosimulations-icon>
                FAQ
             </mat-list-item>
-            <mat-list-item [routerLink]="['/help', 'about']">
+            <mat-list-item disableRipple [routerLink]="['/help', 'about']">
                <biosimulations-icon icon="info"></biosimulations-icon>
                About
             </mat-list-item>
-            <mat-list-item [routerLink]="['/help', 'privacy']">
+            <mat-list-item disableRipple [routerLink]="['/help', 'privacy']">
                <biosimulations-icon icon="policy"></biosimulations-icon>
                Privacy policy
             </mat-list-item>
@@ -196,32 +196,32 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
           <mat-nav-list>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="project"></biosimulations-icon>
                Projects
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="model"></biosimulations-icon>
                Models
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="simulation"></biosimulations-icon>
                Simulations
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="chart"></biosimulations-icon>
                Charts
             </mat-list-item>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="visualization"></biosimulations-icon>
                Visualizations
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item disabled>
+            <mat-list-item disableRipple disabled>
                <biosimulations-icon icon="about"></biosimulations-icon>
                Profile
             </mat-list-item>
-            <mat-list-item (click)="logout()">
+            <mat-list-item disableRipple (click)="logout()">
                <biosimulations-icon icon="logout"></biosimulations-icon>
                Logout
             </mat-list-item>

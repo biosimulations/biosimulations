@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { IBreadCrumb } from './bread-crumbs.interface';
+import { IBreadCrumb, IContextButton } from './bread-crumbs.interface';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'biosimulations-bread-crumbs',
@@ -15,16 +15,18 @@ export class BreadCrumbsComponent implements OnInit {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
-
+    this.contextButtons = this.buildContextButtons(this.activatedRoute.root);
   }
 
   public breadcrumbs: IBreadCrumb[] = []
+  public contextButtons: IContextButton[] = []
 
   @Input()
   color = '#bcdffb'
 
   @Input()
   pad = true
+
   buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadCrumb[] = [{label: 'Home', url: ''}]): IBreadCrumb[] {
 
     let label =
@@ -57,11 +59,6 @@ export class BreadCrumbsComponent implements OnInit {
 
     }
 
-
-
-
-
-
     const nextUrl = path ? `${url}/${path}` : url;
 
     const breadcrumb: IBreadCrumb = {
@@ -79,6 +76,18 @@ export class BreadCrumbsComponent implements OnInit {
     return newBreadcrumbs;
   }
 
+  buildContextButtons(route: ActivatedRoute): IContextButton[] {
+    while (route.firstChild) {
+      route = route.firstChild
+    }
+    
+    if (route.routeConfig && route.routeConfig.data && route.routeConfig.data.contextButtons) {
+      return route.routeConfig.data.contextButtons as IContextButton[];
+    } else {
+      return [] as IContextButton[];
+    }
+  }
+
   ngOnInit(): void {
 
     this.router.events.pipe(
@@ -86,6 +95,7 @@ export class BreadCrumbsComponent implements OnInit {
       distinctUntilChanged(),
     ).subscribe(() => {
       this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
+      this.contextButtons = this.buildContextButtons(this.activatedRoute.root);
     })
 
   }

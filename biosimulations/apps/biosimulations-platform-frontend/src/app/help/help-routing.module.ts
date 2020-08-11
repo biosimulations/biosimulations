@@ -7,10 +7,53 @@ import { FaqComponent } from './faq/faq.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
-    { path: '', component: HelpComponent },
-    { path: 'about', component: AboutComponent, data: { breadcrumb: 'About' } },
-    { path: 'faq', component: FaqComponent, data: { breadcrumb: 'FAQ' } },
-    { path: 'privacy', component: PrivacyPolicyComponent, data: { breadcrumb: 'Privacy policy' } },
+    {
+        path: '',
+        component: HelpComponent,
+        data: {
+            contextButtons: [
+                {route: ['/help', 'about'], icon: 'info', label: 'About'},
+                {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
+                {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
+            ]
+        }
+    },
+    {
+        path: 'about',
+        component: AboutComponent,
+        data: {
+            breadcrumb: 'About',
+            contextButtons: [
+                {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
+                {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
+                {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
+            ]
+        }
+    },
+    {
+        path: 'faq',
+        component: FaqComponent,
+        data: {
+            breadcrumb: 'FAQ',
+            contextButtons: [
+                {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
+                {route: ['/help', 'about'], icon: 'info', label: 'About'},
+                {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
+            ]
+        }
+    },
+    {
+        path: 'privacy',
+        component: PrivacyPolicyComponent,
+        data: {
+            breadcrumb: 'Privacy policy',
+            contextButtons: [
+                {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
+                {route: ['/help', 'about'], icon: 'info', label: 'About'},
+                {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
+            ]
+        }
+    },
 ];
 
 @NgModule({

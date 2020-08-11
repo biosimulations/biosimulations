@@ -11,28 +11,31 @@
       <biosimulations-logo-text id="logo"></biosimulations-logo-text>
       <button
         id="rightContent"
-        class="rightContent"
+        class="drawer-toggle"
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="drawer.opened"
+        disableRipple
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </biosimulations-topbar>
-    <ng-content select="#mat-nav-list"></ng-content>
+    <ng-content select="#sidenav-menu"></ng-content>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
       <biosimulations-topbar [(showLogo)]="!drawer.opened">
         <button
           id="leftContent"
+          class="drawer-toggle"
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
           (click)="drawer.toggle()"
           *ngIf="!drawer.opened"
+          disableRipple
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
@@ -48,7 +51,6 @@
                 Projects
               </div>
             </button>
-            <div class="menu-placeholder"></div>
 
             <button mat-flat-button disableRipple [routerLink]="['/models']">
               <div class="button-content">
@@ -56,7 +58,6 @@
                 Models
               </div>
             </button>
-            <div class="menu-placeholder"></div>
 
             <button mat-flat-button disableRipple>
               <div class="button-content">
@@ -64,7 +65,6 @@
                 Simulations
               </div>
             </button>
-            <div class="menu-placeholder"></div>
 
             <button mat-flat-button disableRipple>
               <div class="button-content">
@@ -72,7 +72,6 @@
                 Charts
               </div>
             </button>
-            <div class="menu-placeholder"></div>
 
             <button mat-flat-button disableRipple>
               <div class="button-content">
@@ -80,78 +79,80 @@
                 Visualizations
               </div>
             </button>
-            <div class="menu-placeholder"></div>
 
-            <button mat-flat-button [matMenuTriggerFor]="helpMenu" disableRipple>
-              <div class="button-content">
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                Help
-              </div>
-            </button>
-            <mat-menu #helpMenu="matMenu" yPosition="below">
-              <button mat-menu-item disableRipple [routerLink]="['/help']">
-                <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                Tutorial
+            <div class="button-container">
+              <button mat-flat-button [matMenuTriggerFor]="helpMenu" disableRipple>
+                <div class="button-content">
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  Help
+                </div>
               </button>
-              <button mat-menu-item disableRipple [routerLink]="['/help', 'faq']">
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                FAQ
-              </button>
-              <button mat-menu-item disableRipple [routerLink]="['/help', 'about']">
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                About
-              </button>
-              <button mat-menu-item disableRipple [routerLink]="['/help', 'privacy']">
-                <biosimulations-icon icon="policy"></biosimulations-icon>
-                Privacy policy
-              </button>
-            </mat-menu>
+              <mat-menu #helpMenu="matMenu" yPosition="below">
+                <button mat-menu-item disableRipple [routerLink]="['/help']">
+                  <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                  Tutorial
+                </button>
+                <button mat-menu-item disableRipple [routerLink]="['/help', 'faq']">
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  FAQ
+                </button>
+                <button mat-menu-item disableRipple [routerLink]="['/help', 'about']">
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  About
+                </button>
+                <button mat-menu-item disableRipple [routerLink]="['/help', 'privacy']">
+                  <biosimulations-icon icon="policy"></biosimulations-icon>
+                  Privacy policy
+                </button>
+              </mat-menu>
+            </div>
 
             <button mat-flat-button disableRipple>
               <div class="button-content">
                 <biosimulations-icon icon="login"></biosimulations-icon>
                 Login
               </div>
-            </button>
-            <div class="menu-placeholder"></div>
+            </button>        
 
-            <button mat-flat-button [matMenuTriggerFor]="accountMenu" disableRipple>
-              <div class="button-content">
-                <biosimulations-icon icon="user"></biosimulations-icon>
-                Account
-              </div>
-            </button>
-            <mat-menu #accountMenu="matMenu" yPosition="below">
-              <button mat-menu-item disableRipple>
-                <biosimulations-icon icon="project"></biosimulations-icon>
-                Projects
+            <div class="button-container">
+              <button mat-flat-button [matMenuTriggerFor]="accountMenu" disableRipple>
+                <div class="button-content">
+                  <biosimulations-icon icon="user"></biosimulations-icon>
+                  Account
+                </div>
               </button>
-              <button mat-menu-item disableRipple>
-                <biosimulations-icon icon="model"></biosimulations-icon>
-                Models
-              </button>
-              <button mat-menu-item disableRipple>
-                <biosimulations-icon icon="simulation"></biosimulations-icon>
-                Simulations
-              </button>
-              <button mat-menu-item disableRipple>
-                <biosimulations-icon icon="chart"></biosimulations-icon>
-                Charts
-              </button>
-              <button mat-menu-item disableRipple>
-                <biosimulations-icon icon="visualization"></biosimulations-icon>
-                Visualizations
-              </button>
-              <mat-divider></mat-divider>
-              <button mat-menu-item disableRipple>
-                <biosimulations-icon icon="user"></biosimulations-icon>
-                Profile
-              </button>
-              <button mat-menu-item disableRipple>
-                <biosimulations-icon icon="logout"></biosimulations-icon>
-                Logout
-              </button>
-            </mat-menu>
+              <mat-menu #accountMenu="matMenu" yPosition="below">
+                <button mat-menu-item disableRipple>
+                  <biosimulations-icon icon="project"></biosimulations-icon>
+                  Projects
+                </button>
+                <button mat-menu-item disableRipple>
+                  <biosimulations-icon icon="model"></biosimulations-icon>
+                  Models
+                </button>
+                <button mat-menu-item disableRipple>
+                  <biosimulations-icon icon="simulation"></biosimulations-icon>
+                  Simulations
+                </button>
+                <button mat-menu-item disableRipple>
+                  <biosimulations-icon icon="chart"></biosimulations-icon>
+                  Charts
+                </button>
+                <button mat-menu-item disableRipple>
+                  <biosimulations-icon icon="visualization"></biosimulations-icon>
+                  Visualizations
+                </button>
+                <mat-divider></mat-divider>
+                <button mat-menu-item disableRipple>
+                  <biosimulations-icon icon="user"></biosimulations-icon>
+                  Profile
+                </button>
+                <button mat-menu-item disableRipple>
+                  <biosimulations-icon icon="logout"></biosimulations-icon>
+                  Logout
+                </button>
+              </mat-menu>
+            </div>
           </div>
         </div>
       </biosimulations-topbar>

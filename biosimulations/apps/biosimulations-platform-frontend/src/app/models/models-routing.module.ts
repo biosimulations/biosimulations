@@ -9,22 +9,34 @@ import { EditModelComponent } from './edit-model/edit-model.component';
 
 const routes: Routes = [
   {
-    path: '', component: ModelsComponent, data: {
-      breadcrumb: 'Overview'
+    path: '', 
+    component: ModelsComponent,
+    data: {
+      breadcrumb: 'Overview',
+      contextButtons: [
+        {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
+        {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+      ]
     }
   },
   {
     path: 'browse',
     component: BrowseModelsComponent,
     data: {
-      breadcrumb: 'Browse'
+      breadcrumb: 'Browse',
+      contextButtons: [
+        {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+      ]
     }
   },
   {
     path: 'new',
     component: NewModelComponent,
     data: {
-      breadcrumb: 'New'
+      breadcrumb: 'New',
+      contextButtons: [
+        {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
+      ]
     }
   },
   {
@@ -37,21 +49,26 @@ const routes: Routes = [
         path: '',
         component: ViewModelComponent,
         data: {
-
+          contextButtons: [
+            {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
+            {route: ['/models', ':id', 'edit'], icon: 'author', label: 'Edit'},
+            {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+          ]
         }
       },
       {
         path: 'edit',
         component: EditModelComponent,
         data: {
-          breadcrumb: 'Edit'
+          breadcrumb: 'Edit',
+          contextButtons: [
+            {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
+            {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+          ]
         }
-      },],
-
-
+      },
+    ],
   },
-
-
 ];
 
 @NgModule({
