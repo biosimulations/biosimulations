@@ -1,7 +1,7 @@
 @import 'biosimulations-colors';
 
 .privacy-notice {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100%;
     background: mat-color($theme-primary, lighter);
@@ -22,7 +22,6 @@
         width: auto;
         height: auto;
         line-height: unset;
-        margin-right: 14px;
         color: $dark-accent-text;
 
         .mat-icon {
