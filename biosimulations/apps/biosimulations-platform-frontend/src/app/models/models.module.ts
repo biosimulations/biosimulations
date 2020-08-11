@@ -19,8 +19,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DebugModule } from '@biosimulations/shared/debug';
 import { ResourceViewModule } from '@biosimulations/resource/view';
+import { BiosimulationsIconsModule } from '@biosimulations/ui/icons';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
+
 const routes: Routes = [{ path: '', component: ModelsComponent }];
 
 @NgModule({
@@ -46,6 +49,7 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
     MatCheckboxModule,
     DragDropModule,
     ResourceViewModule,
+    BiosimulationsIconsModule,
   ],
   providers: [],
 })
