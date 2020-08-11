@@ -65,7 +65,7 @@ export class ModelService {
       license: new LicenseModel(model.attributes.metadata.license),
       description: model.attributes.metadata.description,
       summary: model.attributes.metadata.summary,
-      imageUrl: '/assets/images/model-v1.svg',
+      imageUrl: '/assets/images/default-resource-images/model.svg',
     };
     return modelData;
   }
