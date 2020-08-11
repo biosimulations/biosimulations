@@ -7,19 +7,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ResourceHomeComponent implements OnInit {
   @Input()
-  name: string = '';
+  name = '';
 
   @Input()
-  pluralName: string = '';
+  pluralName = '';
 
   @Input()
-  shortName: string = '';
+  shortName = '';
 
   @Input()
-  pluralShortName: string = '';
+  pluralShortName = '';
 
   @Input()
-  imageUrl: string = '';
+  imageUrl = '';
 
   constructor() {}
 

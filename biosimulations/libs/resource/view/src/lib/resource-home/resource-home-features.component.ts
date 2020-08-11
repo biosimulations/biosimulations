@@ -7,10 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ResourceHomeFeaturesComponent implements OnInit {
   @Input()
-  title: string = '';
+  title = '';
 
   @Input()
-  cols: number = 2;
+  cols = 2;
 
   constructor() {}
 

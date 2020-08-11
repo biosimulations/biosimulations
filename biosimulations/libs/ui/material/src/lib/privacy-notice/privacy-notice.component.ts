@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./privacy-notice.component.scss'],
 })
 export class PrivacyNoticeComponent {
-  open: boolean = true;
+  open = true;
 
   constructor() {}
 

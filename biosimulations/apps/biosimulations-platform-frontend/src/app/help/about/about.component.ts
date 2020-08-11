@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../help.module.sass', './about.component.sass'],
 })
 export class AboutComponent implements OnInit {
-  tocFixed: boolean = false;
+  tocFixed = false;
 
   constructor() { 
     window.addEventListener('scroll', this.scroll, true);
