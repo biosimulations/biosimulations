@@ -12,10 +12,9 @@ const routes: Routes = [
     path: '', 
     component: ModelsComponent,
     data: {
-      breadcrumb: 'Overview',
       contextButtons: [
         {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
-        {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+        {route: ['/models', 'submit'], icon: 'new', label: 'Submit'},
       ]
     }
   },
@@ -25,15 +24,15 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Browse',
       contextButtons: [
-        {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+        {route: ['/models', 'submit'], icon: 'new', label: 'Submit'},
       ]
     }
   },
   {
-    path: 'new',
+    path: 'submit',
     component: NewModelComponent,
     data: {
-      breadcrumb: 'New',
+      breadcrumb: 'submit',
       contextButtons: [
         {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
       ]
@@ -52,7 +51,7 @@ const routes: Routes = [
           contextButtons: [
             {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
             {route: ['/models', ':id', 'edit'], icon: 'author', label: 'Edit'},
-            {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+            {route: ['/models', 'submit'], icon: 'new', label: 'Submit'},
           ]
         }
       },
@@ -63,7 +62,7 @@ const routes: Routes = [
           breadcrumb: 'Edit',
           contextButtons: [
             {route: ['/models', 'browse'], icon: 'browse', label: 'Browse'},
-            {route: ['/models', 'new'], icon: 'new', label: 'Submit'},
+            {route: ['/models', 'submit'], icon: 'new', label: 'Submit'},
           ]
         }
       },
