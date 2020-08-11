@@ -1,4 +1,4 @@
-<div class="top-menu-inner">
+<div class="container">
   <button mat-flat-button disableRipple>
     <div class="button-content">
       <biosimulations-icon icon="project"></biosimulations-icon>
@@ -61,14 +61,14 @@
     </mat-menu>
   </div>
 
-  <button mat-flat-button disableRipple>
-    <div class="button-content">
+  <button mat-flat-button disableRipple *ngIf="(isAuthenticated() | async) !== true">
+    <div class="button-content" (click)="login()">
       <biosimulations-icon icon="login"></biosimulations-icon>
       Login
     </div>
   </button>
 
-  <div class="button-container">
+  <div class="button-container" *ngIf="(isAuthenticated() | async) === true">
     <button mat-flat-button [matMenuTriggerFor]="accountMenu" disableRipple>
       <div class="button-content">
         <biosimulations-icon icon="user"></biosimulations-icon>
@@ -101,7 +101,7 @@
         <biosimulations-icon icon="user"></biosimulations-icon>
         Profile
       </button>
-      <button mat-menu-item disableRipple>
+      <button mat-menu-item disableRipple (click)="logout()">
         <biosimulations-icon icon="logout"></biosimulations-icon>
         Logout
       </button>
