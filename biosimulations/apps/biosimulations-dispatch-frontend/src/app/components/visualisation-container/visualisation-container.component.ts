@@ -12,7 +12,7 @@ export class VisualisationContainerComponent implements OnInit {
   @Input()
   graphData!: any;
 
-  plots!: {task: string, data: any};
+  plots!: {data: any, layout: any};
   
 
 
@@ -31,16 +31,18 @@ export class VisualisationContainerComponent implements OnInit {
     this.visualisationService.updateDataEvent.subscribe(
       (graphData: any) => {
         const res:any  = [];
-        const keys = Object.keys(graphData);
+        const keys = Object.keys(graphData['data']);
         keys.forEach(element => {
-          res.push({...graphData[element], name: element});
+          res.push({...graphData['data'][element], name: element});
         });
         this.plots = {
-          data: res, // test
-          task: 'task1'
+            data: res,
+            layout: {width: 1000, height: 800, title:graphData['task'] }
         };
 
-        console.log('Data from vis-container: ', graphData);
+        
+
+        console.log('Data from vis-container: ', graphData['data']);
       },
       (error) => {
 

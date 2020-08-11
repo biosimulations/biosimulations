@@ -42,7 +42,7 @@ export class ResultsPageComponent implements OnInit {
           // TODO: Save data somewhere, bind to the vis-container only the selected data
           // this.graphData = data['data'];
           
-          this.visualisationService.updateDataEvent.next(plotData);
+          this.visualisationService.updateDataEvent.next({task: this.taskSelected, data: plotData});
         }
       )
     }
@@ -59,7 +59,7 @@ export class ResultsPageComponent implements OnInit {
           // TODO: Save data somewhere, bind to the vis-container only the selected data
           // this.graphData = data['data'];
           
-    this.visualisationService.updateDataEvent.next(plotData);
+    this.visualisationService.updateDataEvent.next({task: this.taskSelected, data: plotData});
   }
 
 

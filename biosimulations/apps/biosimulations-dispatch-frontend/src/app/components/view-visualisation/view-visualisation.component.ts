@@ -10,8 +10,10 @@ import { VisualisationService } from '../../services/visualisation/visualisation
 })
 export class ViewVisualisationComponent implements OnInit {
 
+  // @Input()
+  // graphData!: Array<object>;
   @Input()
-  graphData!: Array<object>;
+  graphData: {data: any, layout: any} = {data: {}, layout: {}};
   @Input()
   layoutTitle!: string;
   @Input()
@@ -27,9 +29,9 @@ export class ViewVisualisationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.graph = {
-      data: this.graphData,
-      layout: {width: this.layoutWidth, height: this.layoutHeight, title: this.layoutTitle}
-    };
+    // this.graph = {
+    //   data: this.graphData,
+    //   layout: {width: this.layoutWidth, height: this.layoutHeight, title: this.layoutTitle}
+    // };
   }
 }
