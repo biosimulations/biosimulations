@@ -52,7 +52,10 @@ const routes: Routes = [
     BiosimulationsAppModule,
     UiMaterialModule,
     BiosimulationsIconsModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    RouterModule.forRoot(routes, { 
+      initialNavigation: 'enabled',
+      scrollPositionRestoration: 'enabled'
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

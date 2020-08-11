@@ -34,7 +34,10 @@ import { CommonModule } from '@angular/common';
         },
         { path: '', redirectTo: 'register', pathMatch: 'full' },
       ],
-      { initialNavigation: 'enabled' },
+      { 
+        initialNavigation: 'enabled',
+        scrollPositionRestoration: 'enabled'
+      },
     ),
     UiMaterialModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
