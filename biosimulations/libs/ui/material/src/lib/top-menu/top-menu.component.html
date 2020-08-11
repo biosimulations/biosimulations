@@ -34,14 +34,15 @@
     </div>
   </button>
 
-  <div class="button-container">
-    <button mat-flat-button [matMenuTriggerFor]="helpMenu" disableRipple>
+  <biosimulations-hover-open-menu>
+    <button mat-flat-button id="trigger">
       <div class="button-content">
         <biosimulations-icon icon="help"></biosimulations-icon>
         Help
       </div>
     </button>
-    <mat-menu #helpMenu="matMenu" yPosition="below">
+
+    <ng-container id="menu">
       <button mat-menu-item disableRipple [routerLink]="['/help']">
         <biosimulations-icon icon="tutorial"></biosimulations-icon>
         Tutorial
@@ -58,8 +59,8 @@
         <biosimulations-icon icon="policy"></biosimulations-icon>
         Privacy policy
       </button>
-    </mat-menu>
-  </div>
+    </ng-container>
+  </biosimulations-hover-open-menu>
 
   <button mat-flat-button disableRipple *ngIf="(isAuthenticated() | async) !== true">
     <div class="button-content" (click)="login()">
@@ -68,14 +69,14 @@
     </div>
   </button>
 
-  <div class="button-container" *ngIf="(isAuthenticated() | async) === true">
-    <button mat-flat-button [matMenuTriggerFor]="accountMenu" disableRipple>
+  <biosimulations-hover-open-menu>
+    <button mat-flat-button id="trigger">
       <div class="button-content">
         <biosimulations-icon icon="user"></biosimulations-icon>
         Account
       </div>
     </button>
-    <mat-menu #accountMenu="matMenu" yPosition="below">
+    <ng-container id="menu">
       <button mat-menu-item disableRipple>
         <biosimulations-icon icon="project"></biosimulations-icon>
         Projects
@@ -105,6 +106,6 @@
         <biosimulations-icon icon="logout"></biosimulations-icon>
         Logout
       </button>
-    </mat-menu>
-  </div>
+    </ng-container>
+  </biosimulations-hover-open-menu>
 </div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './topbar/topbar.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
+import { HoverOpenMenuComponent } from './hover-open-menu/hover-open-menu.component';
 import { StepperButtonsComponent } from './next-previous-buttons/next-previous-buttons.component';
 import { BiosimulationsNavigationComponent } from './biosimulations-navigation/biosimulations-navigation.component';
 import { MaterialWrapperModule } from './material-wrapper.module';
@@ -27,12 +28,14 @@ import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
   MaterialWrapperModule,
     TopbarComponent,
     TopMenuComponent,
+    HoverOpenMenuComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, PrivacyNoticeComponent, RouterLinkComponent],
   declarations: [
     TopbarComponent,
     TopMenuComponent,
+    HoverOpenMenuComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     HyperLinkComponent,
