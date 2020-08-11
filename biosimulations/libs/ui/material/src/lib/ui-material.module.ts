@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './topbar/topbar.component';
+import { TopMenuComponent } from './top-menu/top-menu.component';
 import { StepperButtonsComponent } from './next-previous-buttons/next-previous-buttons.component';
 import { BiosimulationsNavigationComponent } from './biosimulations-navigation/biosimulations-navigation.component';
 import { MaterialWrapperModule } from './material-wrapper.module';
@@ -22,11 +23,16 @@ import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
 
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, BreadCrumbsModule],
-  exports: [MaterialWrapperModule, TopbarComponent,
+  exports: [
+  MaterialWrapperModule,
+    TopbarComponent,
+    TopMenuComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, PrivacyNoticeComponent, RouterLinkComponent],
-  declarations: [TopbarComponent,
+  declarations: [
+    TopbarComponent,
+    TopMenuComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     HyperLinkComponent,
