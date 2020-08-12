@@ -34,7 +34,7 @@ export class BreadCrumbsComponent implements OnInit {
         ? route.routeConfig.data.breadcrumb : null
     let path =
       route.routeConfig && route.routeConfig.path ? route.routeConfig.path : '';
-
+    // TODO check this 
     if (label == 'Home') {
       return [] as IBreadCrumb[];
     }
