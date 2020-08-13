@@ -36,7 +36,7 @@ export class SbatchService {
         echo ENVIRONMENT
         env
         
-        command="singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/k8sdata/singularity_images/${simulator}.img -i /root/in/${omexName} -o /root/out"
+        command="singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/${simulator}.img -i /root/in/${omexName} -o /root/out"
         echo $command
         
         eval $command;`

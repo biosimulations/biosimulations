@@ -7,6 +7,13 @@ import { SimulationDispatchSpec, OmexDispatchFile } from '@biosimulations/datamo
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
+import * as request from 'sync-request';
+
+interface DicArray {
+  [key: string]: string[]
+}
+
+
 
 
 @Controller()
@@ -64,6 +71,7 @@ export class AppController implements OnApplicationBootstrap {
     // Fill out info from file that will be lost after saving in central storage
     const simSpec: SimulationDispatchSpec = {
       simulator: bodyData.simulator,
+      simulatorVersion: bodyData.simulatorVersion,
       filename: file.originalname,
       uniqueFilename,
       filepathOnDataStore: omexSavePath
@@ -90,7 +98,27 @@ export class AppController implements OnApplicationBootstrap {
     }
   }
 
+  getAllSimulatorVersion() {
+    // NOTE: Add more simulators once they are supported
+    const allSimulators = ['COPASI', 'VCell', 'Tellurium', 'BioNetGen', 'CobraPy'];
+    const simulatorAndVersions: DicArray = {};
+    allSimulators.forEach((simulator: string) => {
+      const simulatorName = `biosimulations_${simulator.toLowerCase()}`;
+      const res = request.default('GET', `https://registry.hub.docker.com/v1/repositories/crbm/${simulatorName}/tags`);
+      const stringResponse:any = res.getBody().toString('utf8');
+      const versions: Array<string> = [];
+      JSON.parse(stringResponse).forEach((element: any) => {
+        versions.push(element['name'])
+      });
+      simulatorAndVersions[simulator] = versions;
+    });
+    return simulatorAndVersions;
+  }
+
   async onApplicationBootstrap() {
     await this.messageClient.connect();
+    // console.log(this.getAllSimulatorVersion())
   }
+
+  
 }
