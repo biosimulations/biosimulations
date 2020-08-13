@@ -1,4 +1,4 @@
-import { Controller, Inject, OnApplicationBootstrap, Post, UseInterceptors, UploadedFile, Body, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Controller, Inject, OnApplicationBootstrap, Post, UseInterceptors, UploadedFile, Body, HttpException, HttpStatus, Logger, Get } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
@@ -98,6 +98,12 @@ export class AppController implements OnApplicationBootstrap {
     }
   }
 
+  @Get('simulators')
+  @ApiResponse({
+    status: 200,
+    description: 'Get all simulators and their versions',
+    type: Object
+  })
   getAllSimulatorVersion() {
     // NOTE: Add more simulators once they are supported
     const allSimulators = ['COPASI', 'VCell', 'Tellurium', 'BioNetGen', 'CobraPy'];
