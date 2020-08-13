@@ -1,6 +1,7 @@
 // Todo Determine best location for these
 export interface SimulationDispatchSpec {
   simulator: string;
+  simulatorVersion: string;
   filename: string;
   uniqueFilename: string;
   filepathOnDataStore: string;

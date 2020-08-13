@@ -91,6 +91,7 @@
     "rxjs": "^6.6.2",
     "ssh2": "^0.8.9",
     "swagger-ui-express": "^4.1.4",
+    "sync-request": "^6.1.0",
     "tslib": "^2.0.0",
     "uuid": "^8.3.0",
     "vega": "^5.9.1",
