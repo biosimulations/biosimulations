@@ -45,6 +45,10 @@ export class AppController implements OnApplicationBootstrap {
           simulator: {
             type: 'string',
             description: 'Simulator to use like COPASI/VCELL, etc'
+          },
+          simulatorVersion: {
+            type: 'string',
+            description: 'Version of the selected simulator like 4.27.214/latest, etc'
           }
         },
       },
