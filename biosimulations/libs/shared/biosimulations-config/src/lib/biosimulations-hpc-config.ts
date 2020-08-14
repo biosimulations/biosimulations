@@ -19,7 +19,7 @@ export default registerAs('hpc', () => {
       privateKey: process.env.HPC_SFTP_PRIVATE_KEY,
     },
     // TODO: Move Simdir base to config file
-    simDirBase: '/home/FCAM/crbmapi/simulations',
+    simDirBase: '/home/FCAM/crbmapi/nfs/biosimulations/simulations',
   };
 
   return config;
