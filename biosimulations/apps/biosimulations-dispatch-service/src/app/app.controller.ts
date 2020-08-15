@@ -25,7 +25,12 @@ export class AppController {
     const fileStorage = process.env.FILE_STORAGE;
     const sbatchStorage = `${fileStorage}/SBATCH/ID`;
 
-    if ((data.simulator !== 'COPASI') && (data.simulator !== 'VCell')) {
+    if (
+      (data.simulator !== 'COPASI') && 
+      (data.simulator !== 'VCell') && 
+      (data.simulator !== 'Tellurium') &&
+      (data.simulator !== 'CopraPy') &&
+      (data.simulator !== 'BioNetGen')) {
       return {message: 'Unsupported simulator was provided!'};
     }
 
@@ -36,8 +41,9 @@ export class AppController {
     this.logger.log('SBatch path: ' + sbatchPath);
     
     // Generate SBATCH script
+    const simulatorString = `biosimulations_${data.simulator.toLowerCase()}_${data.simulatorVersion}`;
     const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${data.uniqueFilename.split('.')[0]}`;
-    const sbatchString = this.sbatchService.generateSbatch(hpcTempDirPath, data.simulator, data.filename);
+    const sbatchString = this.sbatchService.generateSbatch(hpcTempDirPath, simulatorString, data.filename);
     fs.writeFileSync(sbatchPath, sbatchString);
 
     this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
