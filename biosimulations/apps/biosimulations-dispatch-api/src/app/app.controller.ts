@@ -237,7 +237,10 @@ export class AppController implements OnApplicationBootstrap {
       });
       simulatorAndVersions[simulator] = versions;
     });
-    return simulatorAndVersions;
+    return {
+      message: 'Simulator information fetched successfully',
+      data: simulatorAndVersions
+    };
   }
 
   async onApplicationBootstrap() {
