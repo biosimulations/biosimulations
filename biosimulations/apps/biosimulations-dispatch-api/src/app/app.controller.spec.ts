@@ -38,6 +38,7 @@ describe('AppController', () => {
       }, {
         filepathOnDataStore: '',
         simulator: '',
+        simulatorVersion: '',
         filename: '',
         uniqueFilename: ''
         
