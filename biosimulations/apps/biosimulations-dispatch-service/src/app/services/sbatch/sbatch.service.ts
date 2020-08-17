@@ -10,8 +10,8 @@ export class SbatchService {
 #SBATCH --ntasks=1
 #SBATCH --time=10:00
 #SBATCH --mem-per-cpu=1000
-#SBATCH --partition=special
-#SBATCH --qos=special
+#SBATCH --partition=general
+#SBATCH --qos=general
         
         echo "Job ID: $SLURM_JOB_ID running on"
         echo "Job Owner: $SLURM_JOB_UID "

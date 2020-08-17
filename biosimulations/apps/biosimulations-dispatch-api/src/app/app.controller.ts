@@ -89,7 +89,8 @@ export class AppController implements OnApplicationBootstrap {
 
     // Get existing filetype
     // Generate a unique filename
-    const uniqueFilename = `${uuid()}.omex`;
+    const fileId = uuid();
+    const uniqueFilename = `${fileId}.omex`;
     const omexSavePath = path.join(omexStorage, uniqueFilename);
     
 
@@ -118,7 +119,8 @@ export class AppController implements OnApplicationBootstrap {
     return {
       message: 'File uploaded successfuly',
       data: {
-        filename: uniqueFilename
+        id: fileId,
+        filename: uniqueFilename,
       }
     }
   }
