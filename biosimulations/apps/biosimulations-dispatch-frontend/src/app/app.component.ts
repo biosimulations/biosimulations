@@ -9,7 +9,7 @@ import { DispatchService } from './services/dispatch/dispatch.service';
 })
 export class AppComponent implements OnInit{
   // uuids: Array<string> = [];
-  uuids: Array<string> = ['abcd123'];
+  uuids: Array<string> = [];
   title = 'biosimulations-dispatch-frontend';
 
   constructor(private dispatchService: DispatchService) {
@@ -18,7 +18,10 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.dispatchService.uuidUpdateEvent.subscribe(
       (uuid: string) => {
-        this.uuids.push(uuid);
+        const splitId = uuid.split('-');
+        const idLast = splitId[splitId.length - 1];
+        const substringId = idLast.substring(idLast.length - 5, idLast.length)
+        this.uuids.push(substringId);
       },
       (error) => {
         console.log('Error occured while fetching UUIds: ', error);

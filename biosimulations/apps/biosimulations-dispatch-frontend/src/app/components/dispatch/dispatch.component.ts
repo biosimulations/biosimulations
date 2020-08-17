@@ -48,7 +48,7 @@ export class DispatchComponent implements OnInit {
       (data: any) => {
         console.log('Response from server: ', data);
         // TODO: Return id-> uuid from dispatch API on successful simulation
-        const uuid = data['id'];
+        const uuid = data['data']['id'];
         this.dispatchService.uuidsDispatched.push(uuid);
         this.dispatchService.uuidUpdateEvent.next(uuid);
         alert('Job was submitted successfully!')
