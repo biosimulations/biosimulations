@@ -1,4 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild, Input, ChangeDetectorRef } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  ElementRef, 
+  ViewChild, 
+  Input, 
+  ChangeDetectorRef 
+} from '@angular/core';
 import * as vega from 'vega';
 import vegaEmbed from 'vega-embed';
 import { VisualisationService } from '../../services/visualisation/visualisation.service';
@@ -12,14 +19,10 @@ export class ViewVisualisationComponent implements OnInit {
 
   // @Input()
   // graphData!: Array<object>;
-  @Input()
-  graphData: {data: any, layout: any} = {data: {}, layout: {}};
-  @Input()
-  layoutTitle!: string;
-  @Input()
-  layoutWidth!: number;
-  @Input()
-  layoutHeight!: number;
+  @Input('graphData') graphData: {data: any, layout: any} = {data: {}, layout: {}};
+  @Input('layoutTitle') layoutTitle!: string;
+  @Input('layoutWidth') layoutWidth!: number;
+  @Input('layoutHeight') layoutHeight!: number;
 
   graph: {data: any, layout: any} = {data: {}, layout: {}};
   

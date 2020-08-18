@@ -6,15 +6,6 @@
         <a mat-list-item [routerLink]="['/']"> Home</a>
         <a mat-list-item [routerLink]="['/dispatch']">Dispatch</a>
         <a mat-list-item *ngFor="let uuid of uuids" [routerLink]="['/result',uuid]">{{uuid}}</a>
-        <!-- <a
-          mat-list-item
-          (click)="login()"
-          *ngIf="(isAuthenticated() | async) !== true"
-          >Login</a
-        >
-        <a mat-list-item (click)="logout()" *ngIf="isAuthenticated() | async"
-          >Logout</a
-        > -->
       </mat-nav-list>
       <router-outlet></router-outlet>
 </biosimulations-navigation>

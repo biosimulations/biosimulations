@@ -8,7 +8,6 @@ import { DispatchService } from './services/dispatch/dispatch.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  // uuids: Array<string> = [];
   uuids: Array<string> = [];
   title = 'biosimulations-dispatch-frontend';
 
