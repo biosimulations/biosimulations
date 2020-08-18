@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'apps/biosimulations-dispatch-frontend/src/environments/environment';
+import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
