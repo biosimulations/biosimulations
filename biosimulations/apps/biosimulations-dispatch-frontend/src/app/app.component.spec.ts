@@ -3,14 +3,20 @@ import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule],
-      declarations: [AppComponent, NavbarComponent, DispatchComponent, FooterComponent],
+      imports: [
+        RouterTestingModule, 
+        FormsModule
+      ],
+      declarations: [
+        AppComponent, 
+        DispatchComponent, 
+        FooterComponent
+      ],
     }).compileComponents();
   }));
 

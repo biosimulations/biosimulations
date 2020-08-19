@@ -1,25 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import { ViewVisualisationComponent } from './view-visualisation.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('ViewVisualisationComponent', () => {
+  let component: ViewVisualisationComponent;
+  let fixture: ComponentFixture<ViewVisualisationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ ViewVisualisationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(ViewVisualisationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  // TODO: Fix this test
   it('should create', () => {
     expect(component).toBeTruthy();
   });

@@ -1006,7 +1006,9 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "biosimulations-dispatch-api:build"
+            "buildTarget": "biosimulations-dispatch-api:build",
+            "inspect": true,
+            "port": 7777
           }
         },
         "lint": {
@@ -1066,8 +1068,14 @@
               "apps/biosimulations-dispatch-frontend/src/assets"
             ],
             "styles": [
+              "libs/shared/styles/src/index.scss",
               "apps/biosimulations-dispatch-frontend/src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

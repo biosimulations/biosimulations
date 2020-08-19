@@ -39,6 +39,7 @@ describe('AppController', () => {
       // tslint:disable-next-line: deprecation
       expect(appController.uploadFile({
           simulator: 'BIONETGEN',
+          simulatorVersion: 'latest',
           filename: '' , 
           uniqueFilename: '',
           filepathOnDataStore: ''})).toEqual({
