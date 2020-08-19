@@ -23,7 +23,7 @@ export class ResultsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.uuid = 'abcd123';
+    // this.uuid = 'abcd123';
     this.uuid = this.route.snapshot.params['uuid'];
     // this.uuid = this.route.params['uuid'];
 
