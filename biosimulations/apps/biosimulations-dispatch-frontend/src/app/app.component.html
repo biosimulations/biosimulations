@@ -2,10 +2,15 @@
 <router-outlet></router-outlet>
 <biosimulations-dispatch-footer></biosimulations-dispatch-footer> -->
 <biosimulations-navigation class="mat-typography">
-    <mat-nav-list>
-        <a mat-list-item [routerLink]="['/']"> Home</a>
-        <a mat-list-item [routerLink]="['/dispatch']">Dispatch</a>
-        <a mat-list-item *ngFor="let uuid of uuids" [routerLink]="['/result',uuid]">{{uuid}}</a>
-      </mat-nav-list>
-      <router-outlet></router-outlet>
+  <mat-nav-list>
+    <a mat-list-item [routerLink]="['/']"> Home</a>
+    <a mat-list-item [routerLink]="['/dispatch']">Dispatch</a>
+    <a
+      mat-list-item
+      *ngFor="let uuid of uuids; let listIndex = index"
+      [routerLink]="['/result', uuidsComplete[listIndex]]"
+      >{{ uuid }}</a
+    >
+  </mat-nav-list>
+  <router-outlet></router-outlet>
 </biosimulations-navigation>
