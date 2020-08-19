@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -15,22 +16,24 @@ import { BiosimulationsAppModule } from '@biosimulations/shared/biosimulations-n
 import { PlotlyViaCDNModule } from 'angular-plotly.js';
 import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
-
-PlotlyViaCDNModule.plotlyVersion = '1.49.4'; 
-PlotlyViaCDNModule.plotlyBundle = 'basic'; 
+PlotlyViaCDNModule.plotlyVersion = '1.49.4';
+PlotlyViaCDNModule.plotlyBundle = 'basic';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent
+    path: '',
+    component: HomeComponent,
   },
   {
-    path: 'dispatch', component: DispatchComponent
+    path: 'dispatch',
+    component: DispatchComponent,
   },
   {
-    path: 'result/:uuid', component: ResultsPageComponent
-  }
+    path: 'result/:uuid',
+    component: ResultsPageComponent,
+  },
 ];
 
 @NgModule({
@@ -42,7 +45,6 @@ const routes: Routes = [
     ViewVisualisationComponent,
     VisualisationContainerComponent,
     ResultsPageComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -53,10 +55,11 @@ const routes: Routes = [
     BrowserAnimationsModule,
     BiosimulationsAppModule,
     FormsModule,
+    MatIconModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
