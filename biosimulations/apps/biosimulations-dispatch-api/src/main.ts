@@ -32,6 +32,7 @@ async function bootstrap() {
       'https://biosimulations.org',
       'https://api.biosimulations.dev',
       'https://api.biosimulations.org',
+      'https://submit.biosimulations.dev',
     ];
     console.log(requestOrigin);
     const allow = allowedOrigins.includes(requestOrigin);
@@ -43,7 +44,9 @@ async function bootstrap() {
   // Swagger doc
   const options = new DocumentBuilder()
     .setTitle('Simulation dispatch example')
-    .setDescription('Dispatch API allows dispatching of simulation jobs to UConn HPC')
+    .setDescription(
+      'Dispatch API allows dispatching of simulation jobs to UConn HPC',
+    )
     .setVersion('1.0')
     .addTag('dispatch')
     // .addBearerAuth()
@@ -51,11 +54,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('', app, document);
 
-
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });
-  
 }
 
 bootstrap();
