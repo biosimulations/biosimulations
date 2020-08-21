@@ -10,13 +10,13 @@ import {
 })
 export class TopMenuItemComponent {
   @Input()
-  title: string = '';
+  title = '';
 
   @Input()
-  icon: string = '';
+  icon = '';
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   constructor() { }
 }

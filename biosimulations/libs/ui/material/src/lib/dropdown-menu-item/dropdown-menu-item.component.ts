@@ -10,13 +10,13 @@ import {
 })
 export class DropdownMenuItemComponent {
   @Input()
-  title: string = '';
+  title = '';
 
   @Input()
-  icon: string = '';
+  icon = '';
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   constructor() { }
 }
