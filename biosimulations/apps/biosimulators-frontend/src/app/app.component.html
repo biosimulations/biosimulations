@@ -2,11 +2,35 @@
   appName="BioSimulators"
   logo="/assets/images/biosimulators-logo/logo.svg"
   >
+  <biosimulations-top-menu>
+    <biosimulations-top-menu-item title="Simulators" icon="simulator" disabled>
+    </biosimulations-top-menu-item>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-top-menu-item title="Help" icon="help" id="trigger">
+      </biosimulations-top-menu-item>
+
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item title="Tutorial" icon="tutorial" [routerLink]="['/help']">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item title="Tutorial" icon="help" [routerLink]="['/help', 'faq']">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item title="About" icon="info" [routerLink]="['/help', 'about']">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item title="Privacy policy" icon="policy" [routerLink]="['/help', 'privacy']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-top-menu>
+
   <biosimulations-logo-text id="sidenav-title" left="Bio" right="Simulators">
   </biosimulations-logo-text>
 
   <ng-container id="sidenav-menu">
-    <biosimulations-navigation-item title="Simulators" icon="simulator" [route]="['/simulators']">
+    <biosimulations-navigation-item title="Simulators" icon="simulator" [route]="['/simulators']" disabled>
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item title="Help" icon="help">

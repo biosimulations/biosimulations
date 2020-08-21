@@ -18,5 +18,8 @@ export class BiosimulationsNavigationItemComponent {
   @Input()
   aboveDivider: boolean = false;
 
+  @Input()
+  disabled: boolean = false;
+
   constructor() {}
 }

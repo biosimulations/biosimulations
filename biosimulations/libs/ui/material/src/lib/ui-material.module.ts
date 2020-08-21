@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './topbar/topbar.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
+import { TopMenuItemComponent } from './top-menu/top-menu-item.component';
 import { HoverOpenMenuComponent } from './hover-open-menu/hover-open-menu.component';
+import { DropdownMenuItemComponent } from './dropdown-menu-item/dropdown-menu-item.component';
 import { StepperButtonsComponent } from './next-previous-buttons/next-previous-buttons.component';
 import { BiosimulationsNavigationComponent } from './biosimulations-navigation/biosimulations-navigation.component';
 import { BiosimulationsNavigationItemComponent } from './biosimulations-navigation/biosimulations-navigation-item.component';
@@ -30,7 +32,9 @@ import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
   MaterialWrapperModule,
     TopbarComponent,
     TopMenuComponent,
+    TopMenuItemComponent,    
     HoverOpenMenuComponent,
+    DropdownMenuItemComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     BiosimulationsNavigationItemComponent,
@@ -39,7 +43,9 @@ import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
   declarations: [
     TopbarComponent,
     TopMenuComponent,
+    TopMenuItemComponent,
     HoverOpenMenuComponent,
+    DropdownMenuItemComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
     BiosimulationsNavigationItemComponent,
