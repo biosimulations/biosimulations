@@ -779,6 +779,175 @@
         }
       }
     },
+    "biosimulators-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/biosimulators-frontend",
+      "sourceRoot": "apps/biosimulators-frontend/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/biosimulators-frontend",
+            "index": "apps/biosimulators-frontend/src/index.html",
+            "main": "apps/biosimulators-frontend/src/main.ts",
+            "polyfills": "apps/biosimulators-frontend/src/polyfills.ts",
+            "tsConfig": "apps/biosimulators-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              {
+                "glob": "favicon.svg",
+                "input": "libs/shared/assets/src/assets/icons",
+                "output": "./"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "libs/shared/assets/src/assets/icons",
+                "output": "./"
+              },
+              {
+                "glob": "safari-pinned-tab.svg",
+                "input": "libs/shared/assets/src/assets/icons",
+                "output": "./"
+              },
+              {
+                "glob": "_redirects",
+                "input": "libs/shared/assets/src",
+                "output": "./"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets/src/assets",
+                "output": "assets"
+              },
+              "apps/biosimulators-frontend/src/assets",
+              "apps/biosimulators-frontend/src/manifest.webmanifest",
+              "apps/biosimulators-frontend/src/browserconfig.xml"
+            ],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/biosimulators-frontend/src/environments/environment.ts",
+                  "with": "apps/biosimulators-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/biosimulators-frontend/ngsw-config.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "biosimulators-frontend:build",
+            "proxyConfig": "apps/biosimulators-frontend/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "biosimulators-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "biosimulators-frontend:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulators-frontend/tsconfig.app.json",
+              "apps/biosimulators-frontend/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/biosimulators-frontend/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/biosimulators-frontend/jest.config.js",
+            "tsConfig": "apps/biosimulators-frontend/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/biosimulators-frontend/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "biosimulators-frontend-e2e": {
+      "root": "apps/biosimulators-frontend-e2e",
+      "sourceRoot": "apps/biosimulators-frontend-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/biosimulators-frontend-e2e/cypress.json",
+            "tsConfig": "apps/biosimulators-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "biosimulators-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "biosimulators-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/biosimulators-frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/biosimulators-frontend-e2e/**/*"
+            ]
+          }
+        }
+      }
+    },
     "shared-biosimulations-ng-utils": {
       "projectType": "library",
       "root": "libs/shared/biosimulations-ng-utils",

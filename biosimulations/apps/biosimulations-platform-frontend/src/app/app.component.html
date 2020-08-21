@@ -1,233 +1,84 @@
 <biosimulations-navigation class="mat-typography">
-  <mat-accordion id="sidenav-menu" displayMode="flat" multi>
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="project"></biosimulations-icon>
-          Projects
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-          <mat-nav-list>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="home"></biosimulations-icon>
-               Home
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="browse"></biosimulations-icon>
-               Browse
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="new"></biosimulations-icon>
-               Submit
-            </mat-list-item>
-          </mat-nav-list>
-      </ng-template>
-    </mat-expansion-panel>
+  <ng-container id="sidenav-menu">
+    <biosimulations-navigation-item title="Projects" icon="project">        
+      <biosimulations-navigation-subitem title="Home" icon="home" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Submit" icon="new" disabled>
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
 
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="model"></biosimulations-icon>
-          Models
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-          <mat-nav-list>
-            <mat-list-item disableRipple [routerLink]="['/models']">
-               <biosimulations-icon icon="home"></biosimulations-icon>
-               Home
-            </mat-list-item>
-            <mat-list-item disableRipple [routerLink]="['/models', 'browse']">
-               <biosimulations-icon icon="browse"></biosimulations-icon>
-               Browse
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="new"></biosimulations-icon>
-               Submit
-            </mat-list-item>
-          </mat-nav-list>
-      </ng-template>
-    </mat-expansion-panel>
+    <biosimulations-navigation-item title="Models" icon="model">        
+      <biosimulations-navigation-subitem title="Home" icon="home" [route]="['/models']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Browse" icon="browse" [route]="['/models', 'browse']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Submit" icon="new" disabled>
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
 
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="simulation"></biosimulations-icon>
-          Simulations
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-          <mat-nav-list>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="home"></biosimulations-icon>
-               Home
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="browse"></biosimulations-icon>
-               Browse
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="new"></biosimulations-icon>
-               Submit
-            </mat-list-item>
-          </mat-nav-list>
-      </ng-template>
-    </mat-expansion-panel>
+    <biosimulations-navigation-item title="Simulations" icon="simulation">        
+      <biosimulations-navigation-subitem title="Home" icon="home" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Submit" icon="new" disabled>
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
 
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="chart"></biosimulations-icon>
-          Charts
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-          <mat-nav-list>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="home"></biosimulations-icon>
-               Home
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="browse"></biosimulations-icon>
-               Browse
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="new"></biosimulations-icon>
-               Submit
-            </mat-list-item>
-          </mat-nav-list>
-      </ng-template>
-    </mat-expansion-panel>
+    <biosimulations-navigation-item title="Charts" icon="chart">        
+      <biosimulations-navigation-subitem title="Home" icon="home" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Submit" icon="new" disabled>
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
 
-    <mat-expansion-panel hideToggle class="above-divider">
-      <mat-expansion-panel-header
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="visualization"></biosimulations-icon>
-          Visualizations
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-          <mat-nav-list>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="home"></biosimulations-icon>
-               Home
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="browse"></biosimulations-icon>
-               Browse
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="new"></biosimulations-icon>
-               Submit
-            </mat-list-item>
-          </mat-nav-list>
-      </ng-template>
-    </mat-expansion-panel>
+    <biosimulations-navigation-item title="Visualizations" icon="visualization" [aboveDivider]="true">
+      <biosimulations-navigation-subitem title="Home" icon="home" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Submit" icon="new" disabled>
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
 
-    <mat-expansion-panel hideToggle class="above-divider">
-      <mat-expansion-panel-header
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="help"></biosimulations-icon>
-          Help
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-          <mat-nav-list>
-            <mat-list-item disableRipple [routerLink]="['/help']">
-               <biosimulations-icon icon="tutorial"></biosimulations-icon>
-               Tutorial
-            </mat-list-item>
-            <mat-list-item disableRipple [routerLink]="['/help', 'faq']">
-               <biosimulations-icon icon="help"></biosimulations-icon>
-               FAQ
-            </mat-list-item>
-            <mat-list-item disableRipple [routerLink]="['/help', 'about']">
-               <biosimulations-icon icon="info"></biosimulations-icon>
-               About
-            </mat-list-item>
-            <mat-list-item disableRipple [routerLink]="['/help', 'privacy']">
-               <biosimulations-icon icon="policy"></biosimulations-icon>
-               Privacy policy
-            </mat-list-item>
-          </mat-nav-list>
-      </ng-template>
-    </mat-expansion-panel>
+    <biosimulations-navigation-item title="Help" icon="help" [aboveDivider]="true">
+      <biosimulations-navigation-subitem title="Tutorial" icon="tutorial" [route]="['/help']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="FAQ" icon="help" [route]="['/help', 'faq']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="About" icon="info" [route]="['/help', 'about']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Privacy policy" icon="policy" [route]="['/help', 'privacy']">
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
 
-    <mat-expansion-panel hideToggle *ngIf="(isAuthenticated() | async) !== true" class="no-content">
-      <mat-expansion-panel-header (click)="login()"
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="login"></biosimulations-icon>
-          Login
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel hideToggle *ngIf="isAuthenticated() | async">
-      <mat-expansion-panel-header
-        [collapsedHeight]="'48px'"
-        [expandedHeight]="'48px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="user"></biosimulations-icon>
-          Account
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-          <mat-nav-list>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="project"></biosimulations-icon>
-               Projects
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="model"></biosimulations-icon>
-               Models
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="simulation"></biosimulations-icon>
-               Simulations
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="chart"></biosimulations-icon>
-               Charts
-            </mat-list-item>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="visualization"></biosimulations-icon>
-               Visualizations
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item disableRipple disabled>
-               <biosimulations-icon icon="about"></biosimulations-icon>
-               Profile
-            </mat-list-item>
-            <mat-list-item disableRipple (click)="logout()">
-               <biosimulations-icon icon="logout"></biosimulations-icon>
-               Logout
-            </mat-list-item>
-          </mat-nav-list>
-      </ng-template>
-    </mat-expansion-panel>
-  </mat-accordion>
+    <biosimulations-navigation-item title="Login" icon="login"
+      *ngIf="(isAuthenticated() | async) !== true"
+      (click)="login()"
+    >
+    </biosimulations-navigation-item>
+ 
+    <biosimulations-navigation-item title="Account" icon="user" *ngIf="isAuthenticated() | async">
+      <biosimulations-navigation-subitem title="Projects" icon="project" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Models" icon="model" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Simulation" icon="simulation" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Charts" icon="chart" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Visualization" icon="visualization" disabled>
+      </biosimulations-navigation-subitem>
+      <mat-divider></mat-divider>
+      <biosimulations-navigation-subitem title="Profile" icon="about" disabled>
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Logout" icon="logout" (click)="logout()">
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
+  </ng-container>
   <router-outlet></router-outlet>
 </biosimulations-navigation>

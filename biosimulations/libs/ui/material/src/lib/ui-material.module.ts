@@ -5,6 +5,8 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
 import { HoverOpenMenuComponent } from './hover-open-menu/hover-open-menu.component';
 import { StepperButtonsComponent } from './next-previous-buttons/next-previous-buttons.component';
 import { BiosimulationsNavigationComponent } from './biosimulations-navigation/biosimulations-navigation.component';
+import { BiosimulationsNavigationItemComponent } from './biosimulations-navigation/biosimulations-navigation-item.component';
+import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navigation/biosimulations-navigation-subitem.component';
 import { MaterialWrapperModule } from './material-wrapper.module';
 
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -31,6 +33,8 @@ import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
     HoverOpenMenuComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
+    BiosimulationsNavigationItemComponent,
+    BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, PrivacyNoticeComponent, RouterLinkComponent],
   declarations: [
     TopbarComponent,
@@ -38,6 +42,8 @@ import { BreadCrumbsModule } from './bread-crumbs/bread-crumbs.module';
     HoverOpenMenuComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent,
+    BiosimulationsNavigationItemComponent,
+    BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent,
     SpinnerComponent, LogoTextComponent, LogoImageComponent, PrivacyNoticeComponent, RouterLinkComponent],
 })

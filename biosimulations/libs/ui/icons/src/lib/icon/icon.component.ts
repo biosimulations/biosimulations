@@ -92,7 +92,7 @@ export class IconComponent implements OnInit {
     framework: { type: 'fas', name: 'calculator' },
     format: { type: 'far', name: 'file-alt' },
     license: { type: 'fas', name: 'certificate' },
-    simulator: { type: 'fas', name: 'cogs' },
+    simulator: { type: 'fas', name: 'cog' },
     repository: { type: 'fas', name: 'database' },
     tag: { type: 'fas', name: 'tag' },
     tags: { type: 'fas', name: 'tags' },

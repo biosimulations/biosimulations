@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class PrivacyNoticeComponent {
   open = true;
+  appName = 'BioSimulations'; // TODO: import name of current app (e.g., BioSimulations or BioSimulators)
 
   constructor() {}
 

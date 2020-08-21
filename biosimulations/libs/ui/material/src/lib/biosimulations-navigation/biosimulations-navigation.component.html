@@ -22,7 +22,11 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </biosimulations-topbar>
-    <ng-content select="#sidenav-menu"></ng-content>
+    <div class="sidenav-menu-container">
+      <mat-accordion class="sidenav-menu" displayMode="flat" multi>
+        <ng-content select="#sidenav-menu"></ng-content>
+      </mat-accordion>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
@@ -52,7 +56,7 @@
       ></biosimulations-bread-crumbs>
     </div>
     <div class="content">
-      <ng-content select="router-outlet"> </ng-content>
+      <ng-content select="router-outlet"></ng-content>
     </div>
     <privacy-notice></privacy-notice>
   </mat-sidenav-content>

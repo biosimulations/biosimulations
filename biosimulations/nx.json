@@ -58,6 +58,13 @@
       "tags": [],
       "implicitDependencies": ["biosimulations-platform-frontend"]
     },
+    "biosimulators-frontend": {
+      "tags": ["platform:web", "public:true"]
+    },
+    "biosimulators-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["biosimulators-frontend"]
+    },
     "shared-biosimulations-ng-utils": {
       "tags": []
     },

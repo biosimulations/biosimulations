@@ -9,7 +9,7 @@
   width: 200px;
 
   ::ng-deep .mat-drawer-inner-container {
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   .mat-toolbar {
@@ -23,6 +23,21 @@
       width: 32px;
       padding-left: 0.25rem;
     }
+  }
+
+  .sidenav-menu-container {
+    height: calc(100% - 64px);
+    overflow-y: auto;
+  }
+
+  .sidenav-menu ::ng-deep .mat-expansion-panel:first-of-type {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+  }
+
+  .sidenav-menu ::ng-deep .mat-expansion-panel:last-of-type {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
   }
 }
 

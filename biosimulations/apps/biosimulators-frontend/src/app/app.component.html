@@ -1,0 +1,18 @@
+<biosimulations-navigation class="mat-typography">
+  <ng-container id="sidenav-menu">
+    <biosimulations-navigation-item title="Simulators" icon="simulator" [route]="['/simulators']">
+    </biosimulations-navigation-item>
+
+    <biosimulations-navigation-item title="Help" icon="help">
+      <biosimulations-navigation-subitem title="Tutorial" icon="tutorial" [route]="['/help']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="FAQ" icon="help" [route]="['/help', 'faq']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="About" icon="info" [route]="['/help', 'about']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Privacy policy" icon="policy" [route]="['/help', 'privacy']">
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
+  </ng-container>
+  <router-outlet></router-outlet>
+</biosimulations-navigation>

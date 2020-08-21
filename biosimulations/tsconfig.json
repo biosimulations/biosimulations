@@ -68,6 +68,15 @@
         "path": "./apps/biosimulations-platform-frontend-e2e/tsconfig.e2e.json"
       },
       {
+        "path": "./apps/biosimulators-frontend/tsconfig.app.json"
+      },
+      {
+        "path": "./apps/biosimulators-frontend/tsconfig.spec.json"
+      },
+      {
+        "path": "./apps/biosimulators-frontend-e2e/tsconfig.e2e.json"
+      },
+      {
         "path": "./libs/shared/biosimulations-ng-utils/tsconfig.spec.json"
       },
       {
