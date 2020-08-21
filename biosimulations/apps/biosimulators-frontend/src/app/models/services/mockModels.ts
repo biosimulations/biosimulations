@@ -9,7 +9,7 @@ const response = {
             recommendedRange: [300, 30000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_0']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_0\']/@value',
             group: 'Other global parameters',
             id: 'kf_0',
             name: 'kf_0',
@@ -22,7 +22,7 @@ const response = {
             recommendedRange: [800, 80000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_0']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_0\']/@value',
             group: 'Other global parameters',
             id: 'kr_0',
             name: 'kr_0',
@@ -35,7 +35,7 @@ const response = {
             recommendedRange: [150, 15000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_1']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_1\']/@value',
             group: 'Other global parameters',
             id: 'kf_1',
             name: 'kf_1',
@@ -48,7 +48,7 @@ const response = {
             recommendedRange: [1600, 160000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_1']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_1\']/@value',
             group: 'Other global parameters',
             id: 'kr_1',
             name: 'kr_1',
@@ -61,7 +61,7 @@ const response = {
             recommendedRange: [3000, 300000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_2']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_2\']/@value',
             group: 'Other global parameters',
             id: 'kf_2',
             name: 'kf_2',
@@ -74,7 +74,7 @@ const response = {
             recommendedRange: [70, 7000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_2']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_2\']/@value',
             group: 'Other global parameters',
             id: 'kr_2',
             name: 'kr_2',
@@ -87,7 +87,7 @@ const response = {
             recommendedRange: [300, 30000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_3']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_3\']/@value',
             group: 'Other global parameters',
             id: 'kf_3',
             name: 'kf_3',
@@ -100,7 +100,7 @@ const response = {
             recommendedRange: [0.8640000000000001, 86.4],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_3']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_3\']/@value',
             group: 'Other global parameters',
             id: 'kr_3',
             name: 'kr_3',
@@ -113,7 +113,7 @@ const response = {
             recommendedRange: [150, 15000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_4']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_4\']/@value',
             group: 'Other global parameters',
             id: 'kf_4',
             name: 'kf_4',
@@ -126,7 +126,7 @@ const response = {
             recommendedRange: [1.7280000000000002, 172.8],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_4']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_4\']/@value',
             group: 'Other global parameters',
             id: 'kr_4',
             name: 'kr_4',
@@ -139,7 +139,7 @@ const response = {
             recommendedRange: [0.054000000000000006, 5.4],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_5']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_5\']/@value',
             group: 'Other global parameters',
             id: 'kf_5',
             name: 'kf_5',
@@ -152,7 +152,7 @@ const response = {
             recommendedRange: [1080, 108000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_5']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_5\']/@value',
             group: 'Other global parameters',
             id: 'kr_5',
             name: 'kr_5',
@@ -165,7 +165,7 @@ const response = {
             recommendedRange: [13, 1300],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_6']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_6\']/@value',
             group: 'Other global parameters',
             id: 'kf_6',
             name: 'kf_6',
@@ -178,7 +178,7 @@ const response = {
             recommendedRange: [274, 27400],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_6']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_6\']/@value',
             group: 'Other global parameters',
             id: 'kr_6',
             name: 'kr_6',
@@ -191,7 +191,7 @@ const response = {
             recommendedRange: [300, 30000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_7']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_7\']/@value',
             group: 'Other global parameters',
             id: 'kf_7',
             name: 'kf_7',
@@ -204,7 +204,7 @@ const response = {
             recommendedRange: [0.4, 40],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_7']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_7\']/@value',
             group: 'Other global parameters',
             id: 'kr_7',
             name: 'kr_7',
@@ -217,7 +217,7 @@ const response = {
             recommendedRange: [150, 15000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_8']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_8\']/@value',
             group: 'Other global parameters',
             id: 'kf_8',
             name: 'kf_8',
@@ -230,7 +230,7 @@ const response = {
             recommendedRange: [0.8, 80],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_8']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_8\']/@value',
             group: 'Other global parameters',
             id: 'kr_8',
             name: 'kr_8',
@@ -243,7 +243,7 @@ const response = {
             recommendedRange: [1.97, 197],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_9']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_9\']/@value',
             group: 'Other global parameters',
             id: 'kf_9',
             name: 'kf_9',
@@ -256,7 +256,7 @@ const response = {
             recommendedRange: [0.37400000000000005, 37.400000000000006],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_9']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_9\']/@value',
             group: 'Other global parameters',
             id: 'kr_9',
             name: 'kr_9',
@@ -269,7 +269,7 @@ const response = {
             recommendedRange: [1.9850000000000003, 198.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_10']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_10\']/@value',
             group: 'Other global parameters',
             id: 'kf_10',
             name: 'kf_10',
@@ -282,7 +282,7 @@ const response = {
             recommendedRange: [0.17400000000000002, 17.4],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_10']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_10\']/@value',
             group: 'Other global parameters',
             id: 'kr_10',
             name: 'kr_10',
@@ -295,7 +295,7 @@ const response = {
             recommendedRange: [2, 200],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_11']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_11\']/@value',
             group: 'Other global parameters',
             id: 'kf_11',
             name: 'kf_11',
@@ -308,7 +308,7 @@ const response = {
             recommendedRange: [0.08100000000000002, 8.100000000000001],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_11']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_11\']/@value',
             group: 'Other global parameters',
             id: 'kr_11',
             name: 'kr_11',
@@ -321,7 +321,7 @@ const response = {
             recommendedRange: [300, 30000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_12']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_12\']/@value',
             group: 'Other global parameters',
             id: 'kf_12',
             name: 'kf_12',
@@ -334,7 +334,7 @@ const response = {
             recommendedRange: [0.4, 40],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_12']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_12\']/@value',
             group: 'Other global parameters',
             id: 'kr_12',
             name: 'kr_12',
@@ -347,7 +347,7 @@ const response = {
             recommendedRange: [150, 15000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_13']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_13\']/@value',
             group: 'Other global parameters',
             id: 'kf_13',
             name: 'kf_13',
@@ -360,7 +360,7 @@ const response = {
             recommendedRange: [0.8, 80],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_13']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_13\']/@value',
             group: 'Other global parameters',
             id: 'kr_13',
             name: 'kr_13',
@@ -373,7 +373,7 @@ const response = {
             recommendedRange: [0.005000000000000001, 0.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_14']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_14\']/@value',
             group: 'Other global parameters',
             id: 'kf_14',
             name: 'kf_14',
@@ -386,7 +386,7 @@ const response = {
             recommendedRange: [0.00011999999999999999, 0.011999999999999999],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_14']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_14\']/@value',
             group: 'Other global parameters',
             id: 'kr_14',
             name: 'kr_14',
@@ -399,7 +399,7 @@ const response = {
             recommendedRange: [0.005000000000000001, 0.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_15']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_15\']/@value',
             group: 'Other global parameters',
             id: 'kf_15',
             name: 'kf_15',
@@ -412,7 +412,7 @@ const response = {
             recommendedRange: [0.00011999999999999999, 0.011999999999999999],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_15']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_15\']/@value',
             group: 'Other global parameters',
             id: 'kr_15',
             name: 'kr_15',
@@ -425,7 +425,7 @@ const response = {
             recommendedRange: [0.005000000000000001, 0.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_16']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_16\']/@value',
             group: 'Other global parameters',
             id: 'kf_16',
             name: 'kf_16',
@@ -438,7 +438,7 @@ const response = {
             recommendedRange: [0.00011999999999999999, 0.011999999999999999],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_16']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_16\']/@value',
             group: 'Other global parameters',
             id: 'kr_16',
             name: 'kr_16',
@@ -451,7 +451,7 @@ const response = {
             recommendedRange: [2, 200],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='t2']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'t2\']/@value',
             group: 'Other global parameters',
             id: 't2',
             name: 't2',
@@ -464,7 +464,7 @@ const response = {
             recommendedRange: [1e-17, 1e-15],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp1']/@size",
+              '/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id=\'comp1\']/@size',
             group: 'Initial compartment sizes',
             id: 'init_size_comp1',
             name: 'Initial size of compartment1',
@@ -477,7 +477,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BLL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BLL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_BLL',
             name: 'Initial amount of BasalACh2',
@@ -490,7 +490,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='IL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'IL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_IL',
             name: 'Initial amount of IntermediateACh',
@@ -503,7 +503,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='AL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'AL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_AL',
             name: 'Initial amount of ActiveACh',
@@ -516,7 +516,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'A\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_A',
             name: 'Initial amount of Active',
@@ -529,7 +529,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_BL',
             name: 'Initial amount of BasalACh',
@@ -542,7 +542,7 @@ const response = {
             recommendedRange: [1.6605778811026202e-22, 1.66057788110262e-20],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='B']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'B\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_B',
             name: 'Initial amount of Basal',
@@ -555,7 +555,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DLL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DLL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_DLL',
             name: 'Initial amount of DesensitisedACh2',
@@ -568,7 +568,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='D']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'D\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_D',
             name: 'Initial amount of Desensitised',
@@ -581,7 +581,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ILL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ILL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_ILL',
             name: 'Initial amount of IntermediateACh2',
@@ -594,7 +594,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_DL',
             name: 'Initial amount of DesensitisedACh',
@@ -607,7 +607,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'I\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_I',
             name: 'Initial amount of Intermediate',
@@ -620,7 +620,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ALL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ALL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_ALL',
             name: 'Initial amount of ActiveACh2',
@@ -634,7 +634,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BLL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BLL\']',
             group: 'Species amounts/concentrations',
             id: 'BLL',
             name: 'BasalACh2',
@@ -645,7 +645,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='IL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'IL\']',
             group: 'Species amounts/concentrations',
             id: 'IL',
             name: 'IntermediateACh',
@@ -656,7 +656,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='AL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'AL\']',
             group: 'Species amounts/concentrations',
             id: 'AL',
             name: 'ActiveACh',
@@ -667,7 +667,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'A\']',
             group: 'Species amounts/concentrations',
             id: 'A',
             name: 'Active',
@@ -678,7 +678,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BL\']',
             group: 'Species amounts/concentrations',
             id: 'BL',
             name: 'BasalACh',
@@ -689,7 +689,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='B']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'B\']',
             group: 'Species amounts/concentrations',
             id: 'B',
             name: 'Basal',
@@ -700,7 +700,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DLL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DLL\']',
             group: 'Species amounts/concentrations',
             id: 'DLL',
             name: 'DesensitisedACh2',
@@ -711,7 +711,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='D']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'D\']',
             group: 'Species amounts/concentrations',
             id: 'D',
             name: 'Desensitised',
@@ -722,7 +722,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ILL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ILL\']',
             group: 'Species amounts/concentrations',
             id: 'ILL',
             name: 'IntermediateACh2',
@@ -733,7 +733,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DL\']',
             group: 'Species amounts/concentrations',
             id: 'DL',
             name: 'DesensitisedACh',
@@ -744,7 +744,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'I\']',
             group: 'Species amounts/concentrations',
             id: 'I',
             name: 'Intermediate',
@@ -755,7 +755,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ALL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ALL\']',
             group: 'Species amounts/concentrations',
             id: 'ALL',
             name: 'ActiveACh2',
@@ -887,7 +887,7 @@ const response = {
             recommendedRange: [30000000, 3000000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_0']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_0\']/@value',
             group: 'Other global parameters',
             id: 'kf_0',
             name: 'kf_0',
@@ -900,7 +900,7 @@ const response = {
             recommendedRange: [800, 80000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_0']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_0\']/@value',
             group: 'Other global parameters',
             id: 'kr_0',
             name: 'kr_0',
@@ -913,7 +913,7 @@ const response = {
             recommendedRange: [15000000, 1500000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_1']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_1\']/@value',
             group: 'Other global parameters',
             id: 'kf_1',
             name: 'kf_1',
@@ -926,7 +926,7 @@ const response = {
             recommendedRange: [1600, 160000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_1']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_1\']/@value',
             group: 'Other global parameters',
             id: 'kr_1',
             name: 'kr_1',
@@ -939,7 +939,7 @@ const response = {
             recommendedRange: [3000, 300000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_2']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_2\']/@value',
             group: 'Other global parameters',
             id: 'kf_2',
             name: 'kf_2',
@@ -952,7 +952,7 @@ const response = {
             recommendedRange: [70, 7000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_2']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_2\']/@value',
             group: 'Other global parameters',
             id: 'kr_2',
             name: 'kr_2',
@@ -965,7 +965,7 @@ const response = {
             recommendedRange: [30000000, 3000000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_3']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_3\']/@value',
             group: 'Other global parameters',
             id: 'kf_3',
             name: 'kf_3',
@@ -978,7 +978,7 @@ const response = {
             recommendedRange: [0.8640000000000001, 86.4],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_3']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_3\']/@value',
             group: 'Other global parameters',
             id: 'kr_3',
             name: 'kr_3',
@@ -991,7 +991,7 @@ const response = {
             recommendedRange: [15000000, 1500000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_4']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_4\']/@value',
             group: 'Other global parameters',
             id: 'kf_4',
             name: 'kf_4',
@@ -1004,7 +1004,7 @@ const response = {
             recommendedRange: [1.7280000000000002, 172.8],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_4']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_4\']/@value',
             group: 'Other global parameters',
             id: 'kr_4',
             name: 'kr_4',
@@ -1017,7 +1017,7 @@ const response = {
             recommendedRange: [0.054000000000000006, 5.4],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_5']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_5\']/@value',
             group: 'Other global parameters',
             id: 'kf_5',
             name: 'kf_5',
@@ -1030,7 +1030,7 @@ const response = {
             recommendedRange: [1080, 108000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_5']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_5\']/@value',
             group: 'Other global parameters',
             id: 'kr_5',
             name: 'kr_5',
@@ -1043,7 +1043,7 @@ const response = {
             recommendedRange: [13, 1300],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_6']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_6\']/@value',
             group: 'Other global parameters',
             id: 'kf_6',
             name: 'kf_6',
@@ -1056,7 +1056,7 @@ const response = {
             recommendedRange: [274, 27400],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_6']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_6\']/@value',
             group: 'Other global parameters',
             id: 'kr_6',
             name: 'kr_6',
@@ -1069,7 +1069,7 @@ const response = {
             recommendedRange: [30000000, 3000000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_7']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_7\']/@value',
             group: 'Other global parameters',
             id: 'kf_7',
             name: 'kf_7',
@@ -1082,7 +1082,7 @@ const response = {
             recommendedRange: [0.4, 40],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_7']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_7\']/@value',
             group: 'Other global parameters',
             id: 'kr_7',
             name: 'kr_7',
@@ -1095,7 +1095,7 @@ const response = {
             recommendedRange: [15000000, 1500000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_8']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_8\']/@value',
             group: 'Other global parameters',
             id: 'kf_8',
             name: 'kf_8',
@@ -1108,7 +1108,7 @@ const response = {
             recommendedRange: [0.8, 80],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_8']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_8\']/@value',
             group: 'Other global parameters',
             id: 'kr_8',
             name: 'kr_8',
@@ -1121,7 +1121,7 @@ const response = {
             recommendedRange: [1.97, 197],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_9']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_9\']/@value',
             group: 'Other global parameters',
             id: 'kf_9',
             name: 'kf_9',
@@ -1134,7 +1134,7 @@ const response = {
             recommendedRange: [0.37400000000000005, 37.400000000000006],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_9']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_9\']/@value',
             group: 'Other global parameters',
             id: 'kr_9',
             name: 'kr_9',
@@ -1147,7 +1147,7 @@ const response = {
             recommendedRange: [1.9850000000000003, 198.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_10']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_10\']/@value',
             group: 'Other global parameters',
             id: 'kf_10',
             name: 'kf_10',
@@ -1160,7 +1160,7 @@ const response = {
             recommendedRange: [0.17400000000000002, 17.4],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_10']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_10\']/@value',
             group: 'Other global parameters',
             id: 'kr_10',
             name: 'kr_10',
@@ -1173,7 +1173,7 @@ const response = {
             recommendedRange: [2, 200],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_11']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_11\']/@value',
             group: 'Other global parameters',
             id: 'kf_11',
             name: 'kf_11',
@@ -1186,7 +1186,7 @@ const response = {
             recommendedRange: [0.08100000000000002, 8.100000000000001],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_11']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_11\']/@value',
             group: 'Other global parameters',
             id: 'kr_11',
             name: 'kr_11',
@@ -1199,7 +1199,7 @@ const response = {
             recommendedRange: [30000000, 3000000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_12']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_12\']/@value',
             group: 'Other global parameters',
             id: 'kf_12',
             name: 'kf_12',
@@ -1212,7 +1212,7 @@ const response = {
             recommendedRange: [0.4, 40],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_12']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_12\']/@value',
             group: 'Other global parameters',
             id: 'kr_12',
             name: 'kr_12',
@@ -1225,7 +1225,7 @@ const response = {
             recommendedRange: [15000000, 1500000000],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_13']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_13\']/@value',
             group: 'Other global parameters',
             id: 'kf_13',
             name: 'kf_13',
@@ -1238,7 +1238,7 @@ const response = {
             recommendedRange: [0.8, 80],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_13']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_13\']/@value',
             group: 'Other global parameters',
             id: 'kr_13',
             name: 'kr_13',
@@ -1251,7 +1251,7 @@ const response = {
             recommendedRange: [0.005000000000000001, 0.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_14']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_14\']/@value',
             group: 'Other global parameters',
             id: 'kf_14',
             name: 'kf_14',
@@ -1264,7 +1264,7 @@ const response = {
             recommendedRange: [0.00011999999999999999, 0.011999999999999999],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_14']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_14\']/@value',
             group: 'Other global parameters',
             id: 'kr_14',
             name: 'kr_14',
@@ -1277,7 +1277,7 @@ const response = {
             recommendedRange: [0.005000000000000001, 0.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_15']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_15\']/@value',
             group: 'Other global parameters',
             id: 'kf_15',
             name: 'kf_15',
@@ -1290,7 +1290,7 @@ const response = {
             recommendedRange: [0.00011999999999999999, 0.011999999999999999],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_15']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_15\']/@value',
             group: 'Other global parameters',
             id: 'kr_15',
             name: 'kr_15',
@@ -1303,7 +1303,7 @@ const response = {
             recommendedRange: [0.005000000000000001, 0.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kf_16']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kf_16\']/@value',
             group: 'Other global parameters',
             id: 'kf_16',
             name: 'kf_16',
@@ -1316,7 +1316,7 @@ const response = {
             recommendedRange: [0.00011999999999999999, 0.011999999999999999],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kr_16']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'kr_16\']/@value',
             group: 'Other global parameters',
             id: 'kr_16',
             name: 'kr_16',
@@ -1329,7 +1329,7 @@ const response = {
             recommendedRange: [1e-17, 1e-15],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp1']/@size",
+              '/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id=\'comp1\']/@size',
             group: 'Initial compartment sizes',
             id: 'init_size_comp1',
             name: 'Initial size of compartment1',
@@ -1342,7 +1342,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BLL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BLL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_BLL',
             name: 'Initial amount of BasalACh2',
@@ -1355,7 +1355,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='IL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'IL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_IL',
             name: 'Initial amount of IntermediateACh',
@@ -1368,7 +1368,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='AL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'AL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_AL',
             name: 'Initial amount of ActiveACh',
@@ -1381,7 +1381,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'A\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_A',
             name: 'Initial amount of Active',
@@ -1394,7 +1394,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_BL',
             name: 'Initial amount of BasalACh',
@@ -1407,7 +1407,7 @@ const response = {
             recommendedRange: [1.0000000000000001e-23, 1.0000000000000001e-21],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='B']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'B\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_B',
             name: 'Initial amount of Basal',
@@ -1420,7 +1420,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DLL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DLL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_DLL',
             name: 'Initial amount of DesensitisedACh2',
@@ -1433,7 +1433,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='D']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'D\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_D',
             name: 'Initial amount of Desensitised',
@@ -1446,7 +1446,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ILL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ILL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_ILL',
             name: 'Initial amount of IntermediateACh2',
@@ -1459,7 +1459,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_DL',
             name: 'Initial amount of DesensitisedACh',
@@ -1472,7 +1472,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'I\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_I',
             name: 'Initial amount of Intermediate',
@@ -1485,7 +1485,7 @@ const response = {
             recommendedRange: [0, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ALL']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ALL\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_ALL',
             name: 'Initial amount of ActiveACh2',
@@ -1498,7 +1498,7 @@ const response = {
             recommendedRange: [9.999999999999999e-23, 1e-20],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='L']/@initialAmount",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'L\']/@initialAmount',
             group: 'Initial species amounts/concentrations',
             id: 'init_amount_L',
             name: 'Initial amount of ACh',
@@ -1512,7 +1512,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BLL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BLL\']',
             group: 'Species amounts/concentrations',
             id: 'BLL',
             name: 'BasalACh2',
@@ -1523,7 +1523,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='IL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'IL\']',
             group: 'Species amounts/concentrations',
             id: 'IL',
             name: 'IntermediateACh',
@@ -1534,7 +1534,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='AL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'AL\']',
             group: 'Species amounts/concentrations',
             id: 'AL',
             name: 'ActiveACh',
@@ -1545,7 +1545,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'A\']',
             group: 'Species amounts/concentrations',
             id: 'A',
             name: 'Active',
@@ -1556,7 +1556,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='BL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'BL\']',
             group: 'Species amounts/concentrations',
             id: 'BL',
             name: 'BasalACh',
@@ -1567,7 +1567,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='B']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'B\']',
             group: 'Species amounts/concentrations',
             id: 'B',
             name: 'Basal',
@@ -1578,7 +1578,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DLL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DLL\']',
             group: 'Species amounts/concentrations',
             id: 'DLL',
             name: 'DesensitisedACh2',
@@ -1589,7 +1589,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='D']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'D\']',
             group: 'Species amounts/concentrations',
             id: 'D',
             name: 'Desensitised',
@@ -1600,7 +1600,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ILL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ILL\']',
             group: 'Species amounts/concentrations',
             id: 'ILL',
             name: 'IntermediateACh2',
@@ -1611,7 +1611,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='DL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'DL\']',
             group: 'Species amounts/concentrations',
             id: 'DL',
             name: 'DesensitisedACh',
@@ -1622,7 +1622,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'I\']',
             group: 'Species amounts/concentrations',
             id: 'I',
             name: 'Intermediate',
@@ -1633,7 +1633,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='ALL']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'ALL\']',
             group: 'Species amounts/concentrations',
             id: 'ALL',
             name: 'ActiveACh2',
@@ -1644,7 +1644,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='L']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'L\']',
             group: 'Species amounts/concentrations',
             id: 'L',
             name: 'ACh',
@@ -1775,7 +1775,7 @@ const response = {
             recommendedRange: [0.30000000000000004, 30],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='VM1']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'VM1\']/@value',
             group: 'Other global parameters',
             id: 'VM1',
             name: 'VM1',
@@ -1788,7 +1788,7 @@ const response = {
             recommendedRange: [0.1, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='VM3']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'VM3\']/@value',
             group: 'Other global parameters',
             id: 'VM3',
             name: 'VM3',
@@ -1801,7 +1801,7 @@ const response = {
             recommendedRange: [0.05, 5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='Kc']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'Kc\']/@value',
             group: 'Other global parameters',
             id: 'Kc',
             name: 'Kc',
@@ -1814,7 +1814,7 @@ const response = {
             recommendedRange: [0.0025000000000000005, 0.25],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction1']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='vi']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction1\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'vi\']/@value',
             group: 'creation of cyclin rate constants',
             id: 'reaction1/vi',
             name: 'creation of cyclin: vi',
@@ -1827,7 +1827,7 @@ const response = {
             recommendedRange: [0.001, 0.1],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction2']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='kd']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction2\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'kd\']/@value',
             group: 'default degradation of cyclin rate constants',
             id: 'reaction2/kd',
             name: 'default degradation of cyclin: kd',
@@ -1840,7 +1840,7 @@ const response = {
             recommendedRange: [0.025, 2.5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction3']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='vd']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction3\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'vd\']/@value',
             group: 'cdc2 kinase triggered degration of cyclin rate constants',
             id: 'reaction3/vd',
             name: 'cdc2 kinase triggered degration of cyclin: vd',
@@ -1853,7 +1853,7 @@ const response = {
             recommendedRange: [0.002, 0.2],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction3']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='Kd']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction3\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'Kd\']/@value',
             group: 'cdc2 kinase triggered degration of cyclin rate constants',
             id: 'reaction3/Kd',
             name: 'cdc2 kinase triggered degration of cyclin: Kd',
@@ -1866,7 +1866,7 @@ const response = {
             recommendedRange: [0.0005, 0.05],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction4']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='K1']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction4\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'K1\']/@value',
             group: 'activation of cdc2 kinase rate constants',
             id: 'reaction4/K1',
             name: 'activation of cdc2 kinase: K1',
@@ -1879,7 +1879,7 @@ const response = {
             recommendedRange: [0.15000000000000002, 15],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction5']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='V2']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction5\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'V2\']/@value',
             group: 'deactivation of cdc2 kinase rate constants',
             id: 'reaction5/V2',
             name: 'deactivation of cdc2 kinase: V2',
@@ -1892,7 +1892,7 @@ const response = {
             recommendedRange: [0.0005, 0.05],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction5']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='K2']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction5\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'K2\']/@value',
             group: 'deactivation of cdc2 kinase rate constants',
             id: 'reaction5/K2',
             name: 'deactivation of cdc2 kinase: K2',
@@ -1905,7 +1905,7 @@ const response = {
             recommendedRange: [0.0005, 0.05],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction6']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='K3']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction6\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'K3\']/@value',
             group: 'activation of cyclin protease rate constants',
             id: 'reaction6/K3',
             name: 'activation of cyclin protease: K3',
@@ -1918,7 +1918,7 @@ const response = {
             recommendedRange: [0.0005, 0.05],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction7']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='K4']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction7\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'K4\']/@value',
             group: 'deactivation of cyclin protease rate constants',
             id: 'reaction7/K4',
             name: 'deactivation of cyclin protease: K4',
@@ -1931,7 +1931,7 @@ const response = {
             recommendedRange: [0.05, 5],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='reaction7']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id='V4']/@value",
+              '/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id=\'reaction7\']/sbml:kineticLaw/sbml:listOfParameters/sbml:parameter[@id=\'V4\']/@value',
             group: 'deactivation of cyclin protease rate constants',
             id: 'reaction7/V4',
             name: 'deactivation of cyclin protease: V4',
@@ -1944,7 +1944,7 @@ const response = {
             recommendedRange: [0.1, 10],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='cell']/@size",
+              '/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id=\'cell\']/@size',
             group: 'Initial compartment sizes',
             id: 'init_size_cell',
             name: 'Initial size of cell',
@@ -1957,7 +1957,7 @@ const response = {
             recommendedRange: [0.001, 0.1],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='C']/@initialConcentration",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'C\']/@initialConcentration',
             group: 'Initial species amounts/concentrations',
             id: 'init_concentration_C',
             name: 'Initial concentration of Cyclin',
@@ -1970,7 +1970,7 @@ const response = {
             recommendedRange: [0.001, 0.1],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M']/@initialConcentration",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'M\']/@initialConcentration',
             group: 'Initial species amounts/concentrations',
             id: 'init_concentration_M',
             name: 'Initial concentration of CDC-2 Kinase',
@@ -1983,7 +1983,7 @@ const response = {
             recommendedRange: [0.001, 0.1],
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='X']/@initialConcentration",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'X\']/@initialConcentration',
             group: 'Initial species amounts/concentrations',
             id: 'init_concentration_X',
             name: 'Initial concentration of Cyclin Protease',
@@ -1997,7 +1997,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='C']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'C\']',
             group: 'Species amounts/concentrations',
             id: 'C',
             name: 'Cyclin',
@@ -2008,7 +2008,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'M\']',
             group: 'Species amounts/concentrations',
             id: 'M',
             name: 'CDC-2 Kinase',
@@ -2019,7 +2019,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='X']",
+              '/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=\'X\']',
             group: 'Species amounts/concentrations',
             id: 'X',
             name: 'Cyclin Protease',
@@ -2030,7 +2030,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='V1']",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'V1\']',
             group: 'Other',
             id: 'V1',
             name: 'V1',
@@ -2041,7 +2041,7 @@ const response = {
           {
             identifiers: [],
             target:
-              "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='V3']",
+              '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id=\'V3\']',
             group: 'Other',
             id: 'V3',
             name: 'V3',
