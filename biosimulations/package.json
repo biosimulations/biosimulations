@@ -127,7 +127,7 @@
     "codelyzer": "^5.1.2",
     "cypress": "^4.12.1",
     "husky": "^4.0.10",
-    "jest": "25.5.4",
+    "jest": "26.4.1",
     "jest-preset-angular": "^8.2.0",
     "ng-packagr": "^10.0.3",
     "prettier": "^2.0.5",
