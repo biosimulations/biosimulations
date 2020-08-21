@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container mat-typography">
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -8,7 +8,8 @@
     [opened]="false"
   >
     <biosimulations-topbar color="#666">
-      <biosimulations-logo-text id="logo"></biosimulations-logo-text>
+      <ng-content id="logo" select="#sidenav-title">
+      </ng-content>
       <button
         id="rightContent"
         class="drawer-toggle"
@@ -46,6 +47,7 @@
         <biosimulations-logo-image
           id="logo"
           class="logo-img"
+          [src]="logo"
         ></biosimulations-logo-image>
         <biosimulations-top-menu id="rightContent"></biosimulations-top-menu>
       </biosimulations-topbar>
@@ -58,6 +60,6 @@
     <div class="content">
       <ng-content select="router-outlet"></ng-content>
     </div>
-    <privacy-notice></privacy-notice>
+    <privacy-notice [appName]="appName"></privacy-notice>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,4 +1,10 @@
-<biosimulations-navigation class="mat-typography">
+<biosimulations-navigation
+  appName="BioSimulators"
+  logo="/assets/images/biosimulators-logo/logo.svg"
+  >
+  <biosimulations-logo-text id="sidenav-title" left="Bio" right="Simulators">
+  </biosimulations-logo-text>
+
   <ng-container id="sidenav-menu">
     <biosimulations-navigation-item title="Simulators" icon="simulator" [route]="['/simulators']">
     </biosimulations-navigation-item>
@@ -14,5 +20,6 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
   </ng-container>
+
   <router-outlet></router-outlet>
 </biosimulations-navigation>

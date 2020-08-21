@@ -42,7 +42,7 @@ const routes: Routes = [
     BiosimulationsAppModule,
     UiMaterialModule,
     BiosimulationsIconsModule,
-    RouterModule.forRoot(routes, { 
+    RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
       scrollPositionRestoration: 'enabled'
     }),

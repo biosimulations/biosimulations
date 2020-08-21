@@ -1,6 +1,12 @@
-<biosimulations-navigation class="mat-typography">
+<biosimulations-navigation 
+  appName="BioSimulations"
+  logo="/assets/images/biosimulations-logo/logo.svg"
+  >
+  <biosimulations-logo-text id="sidenav-title" left="Bio" right="Simulations">
+  </biosimulations-logo-text>
+
   <ng-container id="sidenav-menu">
-    <biosimulations-navigation-item title="Projects" icon="project">        
+    <biosimulations-navigation-item title="Projects" icon="project">
       <biosimulations-navigation-subitem title="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
@@ -9,7 +15,7 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Models" icon="model">        
+    <biosimulations-navigation-item title="Models" icon="model">
       <biosimulations-navigation-subitem title="Home" icon="home" [route]="['/models']">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Browse" icon="browse" [route]="['/models', 'browse']">
@@ -18,7 +24,7 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Simulations" icon="simulation">        
+    <biosimulations-navigation-item title="Simulations" icon="simulation">
       <biosimulations-navigation-subitem title="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
@@ -27,7 +33,7 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Charts" icon="chart">        
+    <biosimulations-navigation-item title="Charts" icon="chart">
       <biosimulations-navigation-subitem title="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
@@ -61,7 +67,7 @@
       (click)="login()"
     >
     </biosimulations-navigation-item>
- 
+
     <biosimulations-navigation-item title="Account" icon="user" *ngIf="isAuthenticated() | async">
       <biosimulations-navigation-subitem title="Projects" icon="project" disabled>
       </biosimulations-navigation-subitem>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'privacy-notice',
@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./privacy-notice.component.scss'],
 })
 export class PrivacyNoticeComponent {
-  open = true;
-  appName = 'BioSimulations'; // TODO: import name of current app (e.g., BioSimulations or BioSimulators)
+  open: boolean = true;
+
+  @Input()
+  appName: string = '';
 
   constructor() {}
 

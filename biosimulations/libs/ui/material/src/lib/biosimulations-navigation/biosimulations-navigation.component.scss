@@ -78,16 +78,6 @@ biosimulations-top-menu {
   min-height: calc(100vh - 64px - 32px);
 }
 
-.logo-text {
-  .bio {
-    color: mat-color($theme-accent);
-  }
-
-  .simulations {
-    color: ($light-primary-text);
-  }
-}
-
 .logo-img {
   height: calc(100% - 2 * 0.25rem);
   margin-top: 0.25rem;

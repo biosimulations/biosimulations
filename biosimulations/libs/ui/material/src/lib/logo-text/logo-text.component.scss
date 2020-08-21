@@ -1,12 +1,9 @@
 @import 'biosimulations-colors';
-.logo-text {
-  .bio {
-    color: mat-color($theme-accent);
-  }
-
-  .simulations {
-    color: ($light-primary-text);
-  }
+.left {
+  color: mat-color($theme-accent);
+}
+.right {
+  color: ($light-primary-text);
 }
 :host {
   display: inline;

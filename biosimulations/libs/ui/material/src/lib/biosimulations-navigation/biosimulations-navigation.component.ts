@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -9,6 +9,12 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./biosimulations-navigation.component.scss'],
 })
 export class BiosimulationsNavigationComponent {
+  @Input()
+  appName: string = '';
+
+  @Input()
+  logo: string = '';
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
