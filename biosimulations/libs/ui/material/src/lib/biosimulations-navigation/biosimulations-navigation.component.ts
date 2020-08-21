@@ -10,10 +10,10 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class BiosimulationsNavigationComponent {
   @Input()
-  appName: string = '';
+  appName = '';
 
   @Input()
-  logo: string = '';
+  logo = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)

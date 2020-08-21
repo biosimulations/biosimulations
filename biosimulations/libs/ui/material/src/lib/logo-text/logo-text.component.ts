@@ -8,10 +8,10 @@ import { Component, Input } from '@angular/core';
 export class LogoTextComponent {
 
   @Input()
-  left: string = '';
+  left = '';
 
   @Input()
-  right: string = '';
+  right = '';
 
   constructor() { }
 }

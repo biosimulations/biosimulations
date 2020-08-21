@@ -7,16 +7,16 @@ import { Component, Input } from '@angular/core';
 })
 export class BiosimulationsNavigationItemComponent {
   @Input()
-  title: string = '';
+  title = '';
 
   @Input()
-  icon: string = '';
+  icon = '';
 
   @Input()
-  route: string = '';
+  route = '';
 
   @Input()
-  aboveDivider: boolean = false;
+  aboveDivider = false;
 
   @Input()
   disabled: boolean = false;
