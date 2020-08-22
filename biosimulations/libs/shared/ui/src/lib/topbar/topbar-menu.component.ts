@@ -1,0 +1,17 @@
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+
+@Component({
+  selector: 'biosimulations-topbar-menu',
+  templateUrl: './topbar-menu.component.html',
+  styleUrls: ['./topbar-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class TopbarMenuComponent implements OnInit {
+  constructor() {}
+
+  ngOnInit(): void {}
+}

@@ -1,16 +1,19 @@
-<!-- <biosimulations-dispatch-navbar></biosimulations-dispatch-navbar>
-<router-outlet></router-outlet>
-<biosimulations-dispatch-footer></biosimulations-dispatch-footer> -->
 <biosimulations-navigation>
-  <mat-nav-list id="sidenav-menu">
-    <a mat-list-item [routerLink]="['/']"> Home</a>
-    <a mat-list-item [routerLink]="['/dispatch']">Dispatch</a>
-    <a
-      mat-list-item
-      *ngFor="let uuid of uuids; let listIndex = index"
-      [routerLink]="['/result', uuidsComplete[listIndex]]"
-      >{{ uuid }}</a
-    >
-  </mat-nav-list>
+  <biosimulations-topbar-menu>
+    <biosimulations-topbar-menu-item title="Dispatch" icon="simulator" [route]="['/dispatch']">
+    </biosimulations-topbar-menu-item>
+  </biosimulations-topbar-menu>
+
+  <ng-container id="sidenav-menu">
+    <biosimulations-navigation-item title="Dispatch" icon="simulator" [route]="['/dispatch']">
+    </biosimulations-navigation-item>
+
+    <biosimulations-navigation-item title="Simulations" icon="simulation">
+      <biosimulations-navigation-subitem *ngFor="let uuid of uuids; let listIndex = index"
+        [title]="uuid" icon="simulation" [route]="['/result', uuidsComplete[listIndex]]">
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
+  </ng-container>
+  
   <router-outlet></router-outlet>
 </biosimulations-navigation>

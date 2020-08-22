@@ -22,7 +22,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </biosimulations-topbar>
-    <div class="sidenav-menu-container">      
+    <div class="sidenav-menu-container">
       <ng-content select="#sidenav-menu"></ng-content>      
     </div>
   </mat-sidenav>
@@ -44,10 +44,8 @@
           class="logo-img"
           id="logo"
         ></biosimulations-logo-image>
-        <div id="rightContent" class="topbar-menu">
-          <ng-content select="#topbar-menu">
-          </ng-content>
-        </div>
+        <ng-content id="rightContent" select="biosimulations-topbar-menu">
+        </ng-content>
       </biosimulations-topbar>
     </div>
     <div class="bread-crumbs">
