@@ -69,7 +69,7 @@ export class IconComponent implements OnInit {
     email: { type: 'fas', name: 'envelope' },
     github: { type: 'fab', name: 'github' },
     file: { type: 'fas', name: 'file' },
-    author: { type: 'fas', name: 'pencil-alt' },
+    author: { type: 'fas', name: 'user-edit' },
     user: { type: 'fas', name: 'user' },
     login: { type: 'fas', name: 'sign-in-alt' },
     logout: { type: 'fas', name: 'sign-out-alt' },
