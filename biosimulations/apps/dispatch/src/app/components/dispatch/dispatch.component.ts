@@ -15,7 +15,6 @@ export class DispatchComponent implements OnInit {
   selectedVersion = '';
   // TODO: Fix this default assignment to file
   fileToUpload: File = new File([],'');
-  simulatorVersionMap: any;
 
   constructor(
     private dispatchService: DispatchService,
@@ -24,12 +23,17 @@ export class DispatchComponent implements OnInit {
   ngOnInit(): void {
     this.dispatchService.getAllSimulatorInfo()
     .subscribe(
-      (data: any) => {
-        this.simulatorVersionMap = data['data'];
-        this.simulators = Object.keys(this.simulatorVersionMap);
+      (data: Array<string>) => {
+        this.simulators = data;
         this.selectedSimulator = this.simulators[0];
-        this.versions = this.simulatorVersionMap[this.selectedSimulator];
-        this.selectedVersion = this.versions[0];
+      
+        this.dispatchService.getAllSimulatorInfo(this.selectedSimulator)
+        .subscribe(
+          (dat: Array<string>) => {
+            this.versions = dat;
+            this.selectedVersion = this.versions[0];
+          }
+        ); 
      },
      (error: any) => {
        console.log('Error while fetching simulators and versions: ', error);
@@ -59,8 +63,13 @@ export class DispatchComponent implements OnInit {
   }
 
   onSimulatorChange($event: any) {
-    this.versions = this.simulatorVersionMap[$event['value']]
-    this.selectedVersion = this.versions[0];
+    this.dispatchService.getAllSimulatorInfo($event['value'])
+        .subscribe(
+          (dat: Array<string>) => {
+            this.versions = dat;
+            this.selectedVersion = this.versions[0];
+          }
+    );
   }
 
 }
