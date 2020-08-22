@@ -5,17 +5,11 @@ import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { MaterialWrapperModule } from '@biosimulations/shared/ui';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FormsModule,
-        SharedUiModule,
-        MaterialWrapperModule,
-      ],
+      imports: [RouterTestingModule, FormsModule, SharedUiModule],
       declarations: [AppComponent, DispatchComponent, FooterComponent],
     }).compileComponents();
   }));
