@@ -12,6 +12,7 @@ import {
   Get,
   Param,
   Query,
+  HttpService,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
@@ -21,6 +22,7 @@ import {
   ApiResponse,
   ApiConsumes,
   ApiBody,
+  ApiQuery,
 } from '@nestjs/swagger';
 import {
   SimulationDispatchSpec,
@@ -31,6 +33,7 @@ import * as fs from 'fs';
 import path from 'path';
 import * as csv2Json from 'csv2json';
 import * as request from 'sync-request';
+import { map } from 'rxjs/operators';
 
 interface Dic {
   [key: string]: {
@@ -47,7 +50,8 @@ export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
   constructor(
     private readonly appService: AppService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
+    private httpService: HttpService
   ) {}
 
   @Post('dispatch')
@@ -239,7 +243,8 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Get all simulators and their versions',
     type: Object,
   })
-  getAllSimulatorVersion() {
+  @ApiQuery({name: 'name', required: false})
+  getAllSimulatorVersion(@Query('name') simulatorName: string) {
     // NOTE: Add more simulators once they are supported
     const allSimulators = [
       'COPASI',
@@ -248,28 +253,27 @@ export class AppController implements OnApplicationBootstrap {
       'BioNetGen',
       'CobraPy',
     ];
-    const simulatorAndVersions: DicArray = {};
-    allSimulators.forEach((simulator: string) => {
-      const simulatorName = `biosimulations_${simulator.toLowerCase()}`;
-      const res = request.default(
-        'GET',
-        `https://registry.hub.docker.com/v1/repositories/crbm/${simulatorName}/tags`
-      );
-      const stringResponse: any = res.getBody().toString('utf8');
-      const versions: Array<string> = [];
-      JSON.parse(stringResponse).forEach((element: any) => {
-        versions.push(element['name']);
-      });
-      simulatorAndVersions[simulator] = versions;
-    });
-    return {
-      message: 'Simulator information fetched successfully',
-      data: simulatorAndVersions,
-    };
+
+    if (simulatorName === undefined) {
+      return allSimulators;
+    }
+
+    const dockerImageName = `biosimulations_${simulatorName.toLowerCase()}`;
+    const simVersionRes = this.httpService.get(`https://registry.hub.docker.com/v1/repositories/crbm/${dockerImageName}/tags`);
+
+    return simVersionRes.pipe(
+      map((response) => {
+         const data = response.data;
+         const simVersions: Array<string> = [];
+         data.forEach((element: {layer: string, name: string}) => {
+           simVersions.push(element.name);
+         });
+         return simVersions;
+      })
+    );
   }
 
   async onApplicationBootstrap() {
     await this.messageClient.connect();
-    // console.log(this.getAllSimulatorVersion())
   }
 }
