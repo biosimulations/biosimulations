@@ -1,0 +1,16 @@
+h1 {
+  margin: 0 0 2rem;
+}
+
+.grid {
+  grid-template-columns: 16rem 1fr;
+}
+
+.side-bar-inner {
+  width: 16rem;
+  top: calc(64px + 32px + 2rem);
+}
+
+.section-container {
+  margin-top: -2rem;
+}

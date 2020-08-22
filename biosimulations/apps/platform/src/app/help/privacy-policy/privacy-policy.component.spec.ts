@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PrivacyPolicyComponent } from './privacy-policy.component';
+import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 describe('PrivacyPolicyComponent', () => {
@@ -11,7 +12,7 @@ describe('PrivacyPolicyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, BiosimulationsIconsModule],
+      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
       providers: [RouterTestingModule],
       declarations: [PrivacyPolicyComponent],
     }).compileComponents();

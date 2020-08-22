@@ -1,8 +1,5 @@
 <biosimulations-navigation>
   <biosimulations-topbar-menu>
-    <biosimulations-topbar-menu-item title="Dispatch" icon="simulator" [route]="['/dispatch']">
-    </biosimulations-topbar-menu-item>
-
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item title="Simulations" icon="simulation" id="trigger">
       </biosimulations-topbar-menu-item>
@@ -14,15 +11,40 @@
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item title="Help" icon="help" id="trigger">
+      </biosimulations-topbar-menu-item>
+
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item title="Tutorial" icon="tutorial" [routerLink]="['/help']">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item title="Tutorial" icon="help" [routerLink]="['/help', 'faq']">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item title="About" icon="info" [routerLink]="['/help', 'about']">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item title="Privacy policy" icon="policy" [routerLink]="['/help', 'privacy']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">
-    <biosimulations-navigation-item title="Dispatch" icon="simulator" [route]="['/dispatch']">
-    </biosimulations-navigation-item>
-
     <biosimulations-navigation-item title="Simulations" icon="simulation">
       <biosimulations-navigation-subitem *ngFor="let uuid of uuids; let listIndex = index"
         [title]="uuid" icon="simulation" [route]="['/result', uuidsComplete[listIndex]]">
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
+
+    <biosimulations-navigation-item title="Help" icon="help">
+      <biosimulations-navigation-subitem title="Tutorial" icon="tutorial" [route]="['/help']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="About" icon="info" [route]="['/help', 'about']">
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem title="Privacy policy" icon="policy" [route]="['/help', 'privacy']">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
   </ng-container>

@@ -1,0 +1,18 @@
+@import 'biosimulations-colors';
+
+biosimulations-text-page-section ::ng-deep h2 {
+  color: mat-color($theme-primary);
+  background: mat-color($theme-primary, lighter);
+
+  .icon-container {
+    color: mat-color($theme-primary);
+  }
+}
+
+biosimulations-text-page-section ::ng-deep a {
+  color: $dark-primary-text;
+
+  &:hover {
+    color: mat-color($theme-primary);
+  }
+}

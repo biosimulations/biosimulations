@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'biosimulations-about',
   templateUrl: './about.component.html',
-  styleUrls: ['../help.module.sass', './about.component.sass'],
+  styleUrls: ['./about.component.sass'],
 })
 export class AboutComponent implements OnInit {
   tocFixed = false;

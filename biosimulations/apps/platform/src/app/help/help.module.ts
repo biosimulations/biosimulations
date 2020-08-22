@@ -8,6 +8,7 @@ import { FaqComponent } from './faq/faq.component';
 import { HelpComponent } from './help/help.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
+import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
   imports: [
     CommonModule,    
     HelpRoutingModule,
+    SharedUiModule,
     BiosimulationsIconsModule,
   ]
 })
