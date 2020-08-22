@@ -51,7 +51,7 @@ const routes: Routes = [
 
     FormsModule,
     MatIconModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
   ],
   providers: [],
   bootstrap: [AppComponent],

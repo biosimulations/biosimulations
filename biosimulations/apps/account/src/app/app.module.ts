@@ -33,7 +33,7 @@ import { CommonModule } from '@angular/common';
         },
         { path: '', redirectTo: 'register', pathMatch: 'full' },
       ],
-      { initialNavigation: 'enabled' },
+      { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' },
     ),
     SharedUiModule,
 
