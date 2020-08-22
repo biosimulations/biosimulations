@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { HoverOpenMenuComponent } from './hover-open-menu.component';
 
@@ -9,7 +10,7 @@ describe('HoverOpenMenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HoverOpenMenuComponent],
-      imports: [],
+      imports: [MatMenuModule],
     }).compileComponents();
   }));
 
