@@ -10,41 +10,44 @@
     <biosimulations-topbar color="#666">
       <biosimulations-logo-text id="logo"></biosimulations-logo-text>
       <button
-        id="rightButton"
-        class="rightButton"
+        id="rightContent"
+        class="sidenav-topbar-right-button"
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
+        disableRipple
         (click)="drawer.toggle()"
         *ngIf="drawer.opened"
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </biosimulations-topbar>
-    <div class="sidenav-menu-container">
-      
-        <ng-content select="#sidenav-menu"></ng-content>
-      
+    <div class="sidenav-menu-container">      
+      <ng-content select="#sidenav-menu"></ng-content>      
     </div>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
-      <biosimulations-topbar [(showLogo)]="!drawer.opened">
-        <biosimulations-logo-image
-          class="logo-img"
-          id="logo"
-        ></biosimulations-logo-image>
+      <biosimulations-topbar [(showLogo)]="!drawer.opened">        
         <button
-          id="leftButton"
+          id="leftContent"
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
+          disableRipple
           (click)="drawer.toggle()"
           *ngIf="!drawer.opened"
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span id="logoImage">X</span>
+        <biosimulations-logo-image
+          class="logo-img"
+          id="logo"
+        ></biosimulations-logo-image>
+        <div id="rightContent" class="topbar-menu">
+          <ng-content select="#topbar-menu">
+          </ng-content>
+        </div>
       </biosimulations-topbar>
     </div>
     <div class="bread-crumbs">
