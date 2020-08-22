@@ -1,0 +1,34 @@
+/**
+* Generated theme by Material Theme Generator
+* https://material-theme-generator.travetto.io
+* https://materialtheme.arcsine.dev/?c=eyJwYWxldHRlIjp7InByaW1hcnkiOnsibWFpbiI6IiMyMTk2ZjMiLCJsaWdodGVyIjoiI2JjZTBmYiIsImRhcmtlciI6IiMxNDc5ZWQifSwiYWNjZW50Ijp7Im1haW4iOiIjZmY5ODAwIiwibGlnaHRlciI6IiNmZmUwYjMiLCJkYXJrZXIiOiIjZmY3YjAwIn0sIndhcm4iOnsibWFpbiI6IiNmNDQzMzYiLCJsaWdodGVyIjoiI2ZjYzdjMyIsImRhcmtlciI6IiNlZjJjMjIifSwibGlnaHRUZXh0IjoiIzAwMDAwMCIsImxpZ2h0QmFja2dyb3VuZCI6IiNmYWZhZmEiLCJkYXJrVGV4dCI6IiNmZmZmZmYiLCJkYXJrQmFja2dyb3VuZCI6IiMyYzJjMmMifSwiZm9udHMiOlt7InRhcmdldCI6ImRpc3BsYXktNCIsImZhbWlseSI6IlJhbGV3YXkifSx7InRhcmdldCI6ImRpc3BsYXktMyIsImZhbWlseSI6IlJhbGV3YXkifSx7InRhcmdldCI6ImRpc3BsYXktMiIsImZhbWlseSI6IlJhbGV3YXkifSx7InRhcmdldCI6ImRpc3BsYXktMSIsImZhbWlseSI6IlJhbGV3YXkifSx7InRhcmdldCI6ImhlYWRsaW5lIiwiZmFtaWx5IjoiUmFsZXdheSJ9LHsidGFyZ2V0IjoidGl0bGUiLCJmYW1pbHkiOiJSYWxld2F5In0seyJ0YXJnZXQiOiJzdWJoZWFkaW5nLTIiLCJmYW1pbHkiOiJSYWxld2F5In0seyJ0YXJnZXQiOiJzdWJoZWFkaW5nLTEiLCJmYW1pbHkiOiJSYWxld2F5In0seyJ0YXJnZXQiOiJib2R5LTIiLCJmYW1pbHkiOiJSYWxld2F5In0seyJ0YXJnZXQiOiJib2R5LTEiLCJmYW1pbHkiOiJSYWxld2F5In0seyJ0YXJnZXQiOiJidXR0b24iLCJmYW1pbHkiOiJSYWxld2F5In0seyJ0YXJnZXQiOiJjYXB0aW9uIiwiZmFtaWx5IjoiUmFsZXdheSJ9LHsidGFyZ2V0IjoiaW5wdXQiLCJmYW1pbHkiOiJSYWxld2F5Iiwic2l6ZSI6bnVsbH1dLCJpY29ucyI6IkZpbGxlZCIsImxpZ2h0bmVzcyI6dHJ1ZX0=
+*/
+
+@import 'biosimulations-colors';
+@import 'biosimulations-typography';
+
+// Compute font config
+@include mat-core($fontConfig);
+// Theme Init
+@include angular-material-theme($theme);
+
+.theme-alternate {
+  @include angular-material-theme($altTheme);
+}
+
+// Specific component overrides, pieces that are not in line with the general theming
+
+// Handle buttons appropriately, with respect to line-height
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button {
+  padding: 0 1.15em;
+  margin: 0 0.65em;
+  min-width: 3em;
+  line-height: 36.4px;
+}
+
+.mat-standard-chip {
+  padding: 0.5em 0.85em;
+  min-height: 2.5em;
+}

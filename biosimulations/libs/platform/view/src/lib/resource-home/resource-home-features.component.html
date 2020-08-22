@@ -1,0 +1,15 @@
+<div class="container">
+    <ng-container *ngIf="title">
+        <h2>{{ title }}</h2>
+        <div class="title-separator"></div>
+    </ng-container>
+    <div class="grid" [ngClass]="{
+        'grid-2': cols === 2,
+        'grid-3': cols === 3,
+        'grid-4': cols === 4,
+        'grid-5': cols === 5
+        }"
+      >
+      <ng-content select="#content"></ng-content>
+    </div>
+</div>

@@ -1,9 +1,21 @@
 #############
+### base ###
+#############
+FROM node:14-alpine as base
+
+#The name of the app to build
+ARG app
+ENV APP=$app 
+RUN echo building ${APP}
+
+# Copy over dependency list
+COPY biosimulations/tsconfig.base.json /app/tsconfig.base.json
+COPY biosimulations/package.json /app/package.json
+COPY biosimulations/package-lock.json /app/package-lock.json
+#############
 ### build ###
 #############
-
-# base image
-FROM node:12-alpine as build
+from base as build
 
 # set working directory
 WORKDIR /app
@@ -11,31 +23,33 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
-# install and cache app dependencies
-COPY biosimulations-frontend/package.json /app/package.json
-COPY biosimulations-frontend/package-lock.json /app/package-lock.json
+# install nrwl cli 
+RUN npm install -g @nrwl/cli
 
-RUN npm install
-RUN npm install -g @angular/cli
+# copy source
+Copy biosimulations/nx.json  /app/nx.json
+Copy biosimulations/angular.json /app/angular.json
+Copy biosimulations/libs /app/libs
+Copy biosimulations/apps /app/apps
 
-# add app
-COPY ./biosimulations-frontend /app
+# install the app, including the dev dependencies
+RUN npm ci
 
 # generate build
-RUN ng build --output-path=dist --prod --build-optimizer
+RUN nx build ${APP} --prod
 
 ############
 ### prod ###
 ############
 
 # base image
-FROM nginx:alpine
-ARG port=80
-#ENV PORT=80
-ENV PORT=$port
+FROM base as prod
+WORKDIR /app
+# install the app and include only dependencies needed to run
+RUN npm ci --only=production
 
 # copy artifact build from the 'build environment'
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx/default.conf /etc/nginx/conf.d/
-#Set port for Heroku and run nginx
-CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+RUN echo app is ${APP}
+COPY --from=build /app/dist/apps/${APP}/ .
+EXPOSE 3333
+CMD node main.js

@@ -1,0 +1,10 @@
+<ng-template [ngIf]="routerLink" [ngIfElse]="nolink">
+  <a [routerLink]="routerLink">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+</ng-template>
+<ng-template #nolink>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</ng-template>
+
+<ng-template #content><ng-content></ng-content></ng-template>
