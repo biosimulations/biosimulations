@@ -55,6 +55,16 @@ jobs:
 
       - name: Test
         working-directory: ./biosimulations
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          AUTH0_ISSUER: ${{ secrets.AUTH0_ISSUER }}
+          API_AUDIENCE: ${{ secrets.API_AUDIENCE }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
+          MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
+          MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
         run: nx affected:test --base=$NX_BASE --code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.3
