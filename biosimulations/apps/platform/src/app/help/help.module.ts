@@ -10,14 +10,16 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { SharedContentModule } from '@biosimulations/shared/content';
 
 @NgModule({
   declarations: [AboutComponent, FaqComponent, HelpComponent, PrivacyPolicyComponent],
   imports: [
     CommonModule,    
     HelpRoutingModule,
-    SharedUiModule,
+    SharedUiModule,    
     BiosimulationsIconsModule,
+    SharedContentModule,
   ]
 })
 export class HelpModule { }

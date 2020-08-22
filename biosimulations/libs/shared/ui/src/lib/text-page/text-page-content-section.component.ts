@@ -15,6 +15,9 @@ export class TextPageContentSectionComponent implements OnInit {
   @Input()
   title = '';
 
+  @Input()
+  shortTitle = '';
+
   constructor() {}
 
   ngOnInit(): void {}
