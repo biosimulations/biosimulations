@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { TopbarMenuItemComponent } from './topbar-menu-item.component';
 
 describe('TopbarMenuItemComponent', () => {
@@ -9,7 +10,7 @@ describe('TopbarMenuItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TopbarMenuItemComponent],
-      imports: [],
+      imports: [RouterTestingModule, BiosimulationsIconsModule],
     }).compileComponents();
   }));
 
