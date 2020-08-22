@@ -11,7 +11,6 @@ describe('AboutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        BiosimulationsIconsModule,
         RouterTestingModule,
         BiosimulationsIconsModule,
       ],
