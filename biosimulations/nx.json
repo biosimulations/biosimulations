@@ -1,7 +1,7 @@
 {
   "npmScope": "biosimulations",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "dev"
   },
   "implicitDependencies": {
     "angular.json": "*",
