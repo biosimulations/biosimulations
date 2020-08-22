@@ -50,10 +50,16 @@
   top: 0;
   z-index: 200;
 }
+
+.bread-crumbs {
+  position: sticky;
+  top: 64px;
+}
+
 .content {
   padding: 0;
   background: #fff;
-min-height: calc(100vh - 64px - 32px);
+  min-height: calc(100vh - 64px - 32px);
 }
 
 .logo-text {
