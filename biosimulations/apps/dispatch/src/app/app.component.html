@@ -3,8 +3,17 @@
     <biosimulations-topbar-menu-item title="Dispatch" icon="simulator" [route]="['/dispatch']">
     </biosimulations-topbar-menu-item>
 
-    <biosimulations-topbar-menu-item title="Simulations" icon="simulation">
-    </biosimulations-topbar-menu-item>
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item title="Simulations" icon="simulation" id="trigger">
+      </biosimulations-topbar-menu-item>
+
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item *ngFor="let uuid of uuids; let listIndex = index"
+          [title]="uuid" icon="simulation" [routerLink]="['/result', uuidsComplete[listIndex]]"
+        >
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">
