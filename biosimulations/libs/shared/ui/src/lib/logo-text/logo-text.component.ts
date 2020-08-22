@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logo-text.component.scss']
 })
 export class LogoTextComponent implements OnInit {
-  left: string = 'Bio';
-  right: string = 'Simulations';
+  left = 'Bio';
+  right = 'Simulations';
 
   constructor() { }
 
