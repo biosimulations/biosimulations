@@ -1,4 +1,31 @@
 <biosimulations-navigation>
+  <biosimulations-topbar-menu>
+    <biosimulations-topbar-menu-item title="Projects" icon="project" disabled>
+    </biosimulations-topbar-menu-item>
+
+    <biosimulations-topbar-menu-item title="Models" icon="model" [route]="['/models']">
+    </biosimulations-topbar-menu-item>
+
+    <biosimulations-topbar-menu-item title="Simulations" icon="simulation" disabled>
+    </biosimulations-topbar-menu-item>
+
+    <biosimulations-topbar-menu-item title="Charts" icon="chart" disabled>
+    </biosimulations-topbar-menu-item>
+
+    <biosimulations-topbar-menu-item title="Visualizations" icon="visualization" disabled>
+    </biosimulations-topbar-menu-item>
+
+    <biosimulations-topbar-menu-item title="Login" icon="login"
+      *ngIf="(isAuthenticated() | async) !== true"
+      (click)="login()"
+    >
+    </biosimulations-topbar-menu-item>
+
+    <biosimulations-topbar-menu-item title="Account" icon="user"
+      *ngIf="(isAuthenticated() | async) === true"
+    >
+    </biosimulations-topbar-menu-item>
+  </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">
     <biosimulations-navigation-item title="Projects" icon="project" disabled>
