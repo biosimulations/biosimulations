@@ -14,7 +14,7 @@ export type DOI = string;
 export type DateString = number;
 export type Email = string;
 
-// Refers to a string that is a valid id in the Biosimulations database
+// Refers to a string that is a valid id in the BioSimulations database
 export type BiosimulationsId = string;
 export type ProjectId = BiosimulationsId;
 export type ModelId = BiosimulationsId;

@@ -9,7 +9,7 @@ export class PrivacyNoticeComponent {
   open = true;
 
   @Input()
-  appName = 'Biosimulations';
+  appName = 'BioSimulations';
 
   constructor() {}
 

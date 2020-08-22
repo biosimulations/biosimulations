@@ -58,7 +58,7 @@ describe('AgreementComponent', () => {
         testHostFixture.nativeElement.querySelector(
           'biosimulations-login-agreement > div > mat-card > markdown > h1',
         ).textContent,
-      ).toEqual('Biosimulations Code of Conduct');
+      ).toEqual('BioSimulations Code of Conduct');
     });
   }));
 

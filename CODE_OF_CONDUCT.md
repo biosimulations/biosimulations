@@ -1,4 +1,4 @@
-# Biosimulations Code of Conduct
+# BioSimulations Code of Conduct
 
 ## Our Pledge
 

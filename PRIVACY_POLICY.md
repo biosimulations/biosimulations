@@ -1,1 +1,1 @@
-# Biosimulations Privacy Policy
+# BioSimulations Privacy Policy

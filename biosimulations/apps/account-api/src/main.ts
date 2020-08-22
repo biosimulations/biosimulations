@@ -39,7 +39,7 @@ function setupOpenApi(app: INestApplication) {
       'https://auth.biosimulations.org/.well-known/openid-configuration',
   };
   const options = new DocumentBuilder()
-    .setTitle('Biosimulations Accounts API')
+    .setTitle('BioSimulations Accounts API')
     .setDescription('The API to manage user accounts')
     .setVersion('0.1')
     .addSecurity('OpenIdc', openIDSchema)
