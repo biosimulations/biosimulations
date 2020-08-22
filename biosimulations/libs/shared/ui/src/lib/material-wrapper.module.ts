@@ -12,7 +12,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 const materialImports = [
   FlexLayoutModule,
@@ -28,6 +29,7 @@ const materialImports = [
   MatProgressSpinnerModule,
   MatTooltipModule,
   MatExpansionModule,
+  MatMenuModule,
 ];
 
 @NgModule({

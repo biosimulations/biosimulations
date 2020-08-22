@@ -1,0 +1,14 @@
+<div class="container">
+  <div [matMenuTriggerFor]="menu" #trigger="matMenuTrigger"
+    (mouseenter)="openMenu(trigger)"
+    (mousemove)="openMenu(trigger)"
+    (mouseleave)="closeMenu(trigger)"
+  >
+    <ng-content select="#trigger"></ng-content>
+  </div>
+  <mat-menu #menu="matMenu" yPosition="below" [hasBackdrop]="false">
+    <div (mouseenter)="openMenu(trigger)" (mouseleave)="closeMenu(trigger)">
+      <ng-content select="#items"></ng-content>
+    </div>
+  </mat-menu>
+</div>

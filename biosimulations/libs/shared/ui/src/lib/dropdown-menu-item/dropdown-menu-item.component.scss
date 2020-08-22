@@ -1,0 +1,23 @@
+.mat-menu-item {
+  line-height: 32px;
+  height: 32px;
+  padding: 0 0.5rem;
+
+  ::ng-deep mat-icon {
+    line-height: 2;
+  }
+
+  ::ng-deep biosimulations-fa-icon {
+    font-size: 100%;
+    margin-right: 0.25rem;
+
+    .svg-inline--fa.fa-w-16 {
+      margin-left: 2.5px;
+      margin-right: 2.5px;
+    }
+    .svg-inline--fa.fa-w-14 {
+      margin-left: 3.5px;
+      margin-right: 3.5px;
+    }
+  }
+}
