@@ -1,31 +1,38 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppController } from './app.controller';
-
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { TypegooseModule } from 'nestjs-typegoose';
+import { ConfigService } from '@nestjs/config';
+import { Account } from './account.model';
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
+import { AppService } from './app.service';
 
 describe('AppController', () => {
   let app: TestingModule;
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
+      imports: [
+        BiosimulationsConfigModule,
+        TypegooseModule.forRootAsync({
+          imports: [BiosimulationsConfigModule],
+          useFactory: async (configService: ConfigService) => ({
+            uri: configService.get('database.uri') as string,
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+          }),
+          inject: [ConfigService],
+        }),
+        TypegooseModule.forFeature([Account]),
+        BiosimulationsAuthModule,
+      ],
+      providers: [AppService],
       controllers: [AppController],
-
     }).compile();
   });
 
-  describe('getData', () => {
-    it('should return "Welcome to account-api!"', () => {
-      const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({
-        message: 'Welcome to account-api!',
-      });
-    });
-  });
-
   describe('createUser', () => {
-    it('should return username of created user', () => {
-      const appController = app.get<AppController>(AppController);
-      expect(appController.createAccount('bilalShaikh42', 'testToken')).toEqual('bilalShaikh42')
-    })
-  })
+    it('should return username of created user', () => {});
+  });
 });

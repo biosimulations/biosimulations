@@ -1,0 +1,24 @@
+<div class="partial-width">
+  <div class="section banner">
+    <img [src]="imageUrl" />
+    <h1>{{ pluralName }}</h1>
+    <div>
+      <ng-content select="#description"></ng-content>
+    </div>
+  </div>
+
+  <div class="section">
+    <ng-content select="#features"></ng-content>
+  </div>
+
+  <div class="section buttons">
+    <button mat-flat-button [routerLink]="['browse']" disableRipple>
+      <div class="title">Users</div>
+      <div>Browse {{ pluralShortName }}</div>
+    </button>
+    <button mat-flat-button [routerLink]="['submit']" disableRipple>
+      <div class="title">Authors</div>
+      <div>Submit a {{ shortName }}</div>
+    </button>
+  </div>
+</div>

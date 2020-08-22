@@ -49,3 +49,65 @@ h2,
   //@include mat-typography-level-to-styles($fontConfig, title);
   color: mat-color($theme-primary);
 }
+
+
+.grid{
+  display: grid;
+  grid-gap: 2rem;
+}
+
+.grid-2{
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-3{
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-4{
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.grid-5{
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.columns {
+  column-gap: 2rem;
+}
+
+.columns-2 {
+  column-count: 2;
+}
+
+.columns-3 {
+  column-count: 3;
+}
+
+.vertically-spaced li:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+a {
+  color: mat-color($theme-primary);
+  text-decoration: none;
+}
+
+.highlight-primary {
+  color: mat-color($theme-primary);
+}
+
+.highlight-accent {
+  color: mat-color($theme-accent);
+}
+
+.zoom {
+  transition: all .5s;
+}
+
+.zoom:hover {
+  transform: scale(1.08);
+} 
+.hidden {
+  display: none;
+}

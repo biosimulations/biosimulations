@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { Account } from './account.model';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
-import { AuthzService } from '@biosimulations/shared/biosimulations-auth';
+import { AuthzService } from '@biosimulations/auth/nest';
 import {
   UserMetadata,
   AppMetadata,
-} from '@biosimulations/shared/biosimulations-auth';
+} from '@biosimulations/auth/common';
 
 @Injectable()
 export class AppService {

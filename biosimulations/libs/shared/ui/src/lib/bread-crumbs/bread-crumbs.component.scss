@@ -1,0 +1,33 @@
+@import 'biosimulations-colors';
+
+mat-toolbar {
+  height: auto;
+  font-size: 16px;
+
+  a {
+    color: mat-color($theme-primary);
+    &:hover {
+      color: mat-color($theme-accent);
+    }
+  }
+}
+
+.breadcrumb {
+  margin: 0;
+  padding-left: calc(20px + 1rem);
+
+  li {
+    list-style: none;
+    float: left;
+  }
+  li:not(:last-child)::after {
+    content: "»";
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    color: mat-color($theme-primary);
+  }
+}
+
+.noPad {
+  padding-left: 0;
+}

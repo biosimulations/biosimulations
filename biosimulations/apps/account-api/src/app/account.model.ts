@@ -7,14 +7,11 @@ import {
   IsEmail,
   IsArray,
 } from 'class-validator';
-import {
-  Profile as ProfileInterface,
-  ExternalProfile as ExternalProfileInterface,
-} from '@biosimulations/datamodel/core';
+
 import { ApiProperty } from '@nestjs/swagger';
 
 // TODO abstract this to the datamodel library
-export class Profile implements ProfileInterface {
+export class Profile {
   @ApiProperty({ type: String, nullable: true })
   @IsString()
   firstName!: string | null;
@@ -52,12 +49,12 @@ export class Profile implements ProfileInterface {
   summary: string | null = null;
 
   @ApiProperty({})
-  externalProfiles: ExternalProfileInterface[] | null = [];
+  externalProfiles: any[] | null = [];
 
   @ApiProperty({ type: [String], nullable: true })
   emails: string[] | null = null;
 
-  constructor(profile: ProfileInterface) {
+  constructor(profile: any) {
     Object.assign(this, profile);
     if (!this.externalProfiles) {
       this.externalProfiles = [];

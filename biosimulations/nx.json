@@ -1,107 +1,135 @@
 {
   "npmScope": "biosimulations",
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": "*",
-    "tsconfig.json": "*",
-    "tslint.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    ".eslintrc": "*",
     "nx.json": "*"
-  },
-  "projects": {
-    "datamodel-core": {
-      "tags": []
-    },
-    "biosimulations-api": {
-      "tags": []
-    },
-    "datamodel-database": {
-      "tags": []
-    },
-    "datamodel-api": {
-      "tags": []
-    },
-    "datamodel-utils": {
-      "tags": []
-    },
-    "login-frontend": {
-      "tags": []
-    },
-    "login-frontend-e2e": {
-      "tags": [],
-      "implicitDependencies": ["login-frontend"]
-    },
-    "ui-material": {
-      "tags": []
-    },
-    "shared-debug": {
-      "tags": []
-    },
-    "account-api": {
-      "tags": []
-    },
-    "shared-biosimulations-auth": {
-      "tags": ["scope:shared", "type:util", "platform:server"]
-    },
-    "shared-biosimulations-config": {
-      "tags": ["scope:shared", "type:util", "platform:server"]
-    },
-    "biosimulations-dispatch-service": {
-      "tags": ["scope:hpc", "type:backend", "platform:server"]
-    },
-    "shared-biosimulations-error-filters": {
-      "tags": ["platform:server", "scope:shared", "type:util"]
-    },
-    "biosimulations-platform-frontend": {
-      "tags": ["platform:web", "public:true"]
-    },
-    "biosimulations-platform-frontend-e2e": {
-      "tags": [],
-      "implicitDependencies": ["biosimulations-platform-frontend"]
-    },
-    "shared-biosimulations-ng-utils": {
-      "tags": []
-    },
-    "ui-icons": {
-      "tags": ["scope: ui", "platform: web"]
-    },
-    "auth-frontend": {
-      "tags": []
-    },
-    "shared-assets": {
-      "tags": ["scope:shared", "type:assets"]
-    },
-    "shared-styles": {
-      "tags": ["scope:shared", "type:styles"]
-    },
-    "shared-environments": {
-      "tags": ["scope:shared", "type:environments"]
-    },
-    "shared-messaging": {
-      "tags": ["scope: shared", "type: util", "platform: backend"]
-    },
-    "biosimulations-dispatch-api": {
-      "tags": []
-    },
-    "biosimulations-dispatch-frontend": {
-      "tags": []
-    },
-    "biosimulations-dispatch-frontend-e2e": {
-      "tags": [],
-      "implicitDependencies": ["biosimulations-dispatch-frontend"]
-    },
-    "resource-view": {
-      "tags": []
-    }
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "accessToken": "ZTJmNzdiMjAtOTVmOC00YjdiLWI3ODMtNjA0MGI2OTRiZTIxfHJlYWQ=",
+        "accessToken": "NzI5NWRhNWYtZWM4OC00YjhjLWFmNzMtZTIyMTc3YjhkZmJkfHJlYWQtd3JpdGU=",
         "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
+    }
+  },
+  "projects": {
+    "account": {
+      "tags": ["scope:account", "platform:web", "type:frontend"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "account-e2e": {
+      "tags": [],
+      "implicitDependencies": ["account"]
+    },
+    "shared-assets": {
+      "tags": ["scope:shared", "type:assets"]
+    },
+    "shared-styles": {
+      "tags": ["scope:shared", "type:styles", "platform:web"]
+    },
+    "shared-ui": {
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "shared-icons": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "shared-debug": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "dispatch": {
+      "tags": ["scope:dispatch", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "dispatch-e2e": {
+      "tags": [],
+      "implicitDependencies": ["dispatch"]
+    },
+    "account-api": {
+      "tags": ["scope:account", "platform:server", "type:api"],
+      "implicitDependencies": []
+    },
+    "auth-common": {
+      "tags": ["scope:auth", "platform:common", "type:datamodel"]
+    },
+    "auth-angular": {
+      "tags": ["scope:auth", "type:util", "platform:web"]
+    },
+    "auth-nest": {
+      "tags": ["scope:auth", "type:util", "platform:server"]
+    },
+    "config-common": {
+      "tags": ["scope:config", "type:datamodel", "platform:any"]
+    },
+    "config-nest": {
+      "tags": ["scope:config", "type:util", "platform:server"]
+    },
+    "config-angular": {
+      "tags": ["scope:config", "type:util", "platform:web"]
+    },
+    "shared-datamodel": {
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
+    },
+    "platform-api": {
+      "tags": ["scope:platform", "type:api", "platform:server"],
+      "implicitDependencies": []
+    },
+    "platform-api-models": {
+      "tags": ["scope:platform", "type:datamodel", "platform:any"]
+    },
+    "platform-database-models": {
+      "tags": ["scope:platform", "type:datamodel", "platform:any"]
+    },
+    "dispatch-service": {
+      "tags": ["scope:dispatch", "type:service", "platform:server"],
+      "implicitDependencies": []
+    },
+    "dispatch-api": {
+      "tags": ["scope:dispatch", "type:api", "platform:server"]
+    },
+    "platform": {
+      "tags": ["scope:platform", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "platform-e2e": {
+      "tags": [],
+      "implicitDependencies": ["platform"]
+    },
+    "platform-view": {
+      "tags": ["scope:platform", "type:ui", "platform:web"]
+    },
+    "simulators": {
+      "tags": ["scope:simulators", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "simulators-e2e": {
+      "tags": [],
+      "implicitDependencies": ["simulators"]
+    },
+    "simulators-api": {
+      "tags": ["scope:simulators", "type:api", "platform:web"],
+      "implicitDependencies": ["shared-environments"]
+    },
+    "simulators-api-models": {
+      "tags": ["scope:simulators", "type:datamodel", "platform:any"]
+    },
+    "shared-environments": {
+      "tags": ["scope:shared", "type:environments", "platform:any"]
+    },
+    "dispatch-datamodel": {
+      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
     }
   }
 }

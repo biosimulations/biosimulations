@@ -1,0 +1,14 @@
+@import 'biosimulations-colors';
+
+.button {
+  color: mat-color($theme-primary);
+
+  &:hover {
+    color: mat-color($theme-accent);
+  }
+
+  .icon {
+    font-size: 1.25em;
+    margin-right: 0.25rem;
+  }
+}

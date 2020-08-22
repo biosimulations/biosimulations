@@ -5,7 +5,7 @@
 // Foreground Elements
 // Light Theme Text
 $dark-text: #000000;
-$dark-primary-text: rgba($dark-text, 0.87);
+$dark-primary-text: rgba($dark-primary-text, 0.80);
 $dark-accent-text: rgba($dark-primary-text, 0.54);
 $dark-disabled-text: rgba($dark-primary-text, 0.38);
 $dark-dividers: rgba($dark-primary-text, 0.12);
@@ -59,7 +59,7 @@ $mat-dark-theme-foreground: (
 
 // Background config
 // Light bg
-$light-background: #fafafa;
+$light-background: #eee;
 $light-bg-darker-5: darken($light-background, 5%);
 $light-bg-darker-10: darken($light-background, 10%);
 $light-bg-darker-20: darken($light-background, 20%);
