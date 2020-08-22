@@ -66,8 +66,8 @@ function setupOpenApi(app: INestApplication) {
       'https://auth.biosimulations.org/.well-known/openid-configuration',
   };
   const options = new DocumentBuilder()
-    .setTitle('Biosimulations Resource API')
-    .setDescription('The API to interact with the Biosimulations Database')
+    .setTitle('BioSimulations Resource API')
+    .setDescription('The API to interact with the BioSimulations Database')
     .setVersion('0.1')
     .addTag('Models')
     .addTag('Projects')
@@ -85,7 +85,7 @@ function setupOpenApi(app: INestApplication) {
     },
   };
   const customOptions: SwaggerCustomOptions = {
-    customSiteTitle: 'Biosimulations API Documentation',
+    customSiteTitle: 'BioSimulations API Documentation',
 
     swaggerOptions: uiOptions,
     customCss: ' .swagger-ui .topbar { display: none }',
