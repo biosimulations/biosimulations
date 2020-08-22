@@ -12,7 +12,6 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        BiosimulationsIconsModule,
         HttpClientTestingModule,
         BiosimulationsIconsModule,
         RouterTestingModule,
