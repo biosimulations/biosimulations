@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logo-image.component.scss']
 })
 export class LogoImageComponent implements OnInit {
-  src: string = '/assets/images/biosimulations-logo/logo.svg';
+  src = '/assets/images/biosimulations-logo/logo.svg';
 
   constructor() { }
 
