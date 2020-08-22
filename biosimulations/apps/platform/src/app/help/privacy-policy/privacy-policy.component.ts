@@ -5,6 +5,9 @@ import { Component, Inject, OnInit } from '@angular/core';
   styleUrls: ['./privacy-policy.component.sass'],
 })
 export class PrivacyPolicyComponent implements OnInit {
+  // TODO: get from app config
+  appName = 'BioSimulations';
+
   tocFixed = false;
 
   constructor() { 

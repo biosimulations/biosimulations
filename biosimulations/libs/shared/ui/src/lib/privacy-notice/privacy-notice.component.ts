@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./privacy-notice.component.scss'],
 })
 export class PrivacyNoticeComponent {
-  open = true;
-
-  @Input()
+  // TODO: get from app config  
   appName = 'BioSimulations';
+
+  open = true;
 
   constructor() {}
 
