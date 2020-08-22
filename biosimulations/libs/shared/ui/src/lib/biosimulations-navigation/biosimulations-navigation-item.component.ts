@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-navigation-item',
   templateUrl: './biosimulations-navigation-item.component.html',
   styleUrls: ['./biosimulations-navigation-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BiosimulationsNavigationItemComponent {
   @Input()
