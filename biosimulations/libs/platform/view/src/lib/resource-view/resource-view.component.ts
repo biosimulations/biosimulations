@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ResourceViewComponent  {
   @Input()
-  imageUrl = 'assets/images/model-v1.svg';
+  imageUrl = 'assets/images/resource-banners/models.svg';
 
   @Input()
   name: string | undefined
