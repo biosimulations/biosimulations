@@ -1,0 +1,141 @@
+@import 'biosimulations-colors';
+
+.logo {
+  background-image: url('/assets/images/backgrounds/grey-3.png');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+  .logo-inner {
+    text-align: center;
+  }
+
+  img {
+    height: 12vh;
+  }
+
+  .title {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 28px;
+    line-height: normal;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .text {
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 150%;
+    text-align: center;
+  }
+}
+
+.partial-width{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .section{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $light-bg-darker-5;
+    }
+
+    > .title {
+      text-align: center;
+      font-size: 28px;
+      line-height: normal;
+      font-weight: bold;
+    }
+
+    .title-separator {
+      border-bottom: 2px solid mat-color($theme-primary);
+      height: 0;
+      width: 4rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .subsections {
+      margin-top: 2rem;
+      p {
+        text-align: center;
+        font-size: 16px;
+        line-height: normal;
+        margin-bottom: 0;
+        &:not(:last-child) {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    .subsection {
+      text-align: center;
+
+      biosimulations-icon {
+        color: mat-color($theme-accent);
+        font-size: 48px;
+        text-align: center;
+
+        ::ng-deep mat-icon {
+          line-height: 0.1;
+          position: relative;
+          top: 18px;
+        }
+      }
+
+      .title {
+        color: mat-color($theme-primary);
+        font-size: 24px;
+        line-height: normal;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .subtitle-large {
+        font-size: 20px;
+        line-height: 110%;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      .subtitle-small {
+        font-size: 16px;
+        line-height: normal;
+        text-align: center;
+      }
+
+      .subsection-content {
+        font-size: 16px;
+        line-height: normal;
+        padding: 0;
+        margin: 0;
+        margin-top: 1rem;
+        list-style-type: none;
+        text-align: center;
+
+        li:not(:first-child) {
+          padding-top: 0.5rem;
+        }
+
+        img {
+          height: 2.5rem;
+          width: auto;
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
+        }
+      }
+    }
+  }
+}

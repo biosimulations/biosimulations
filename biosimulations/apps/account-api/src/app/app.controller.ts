@@ -23,7 +23,7 @@ import {
   permissions,
   JwtGuard,
   PermissionsGuard,
-} from '@biosimulations/shared/biosimulations-auth';
+} from '@biosimulations/auth/nest';
 
 class CreateAccountDTO {
   @ApiProperty()

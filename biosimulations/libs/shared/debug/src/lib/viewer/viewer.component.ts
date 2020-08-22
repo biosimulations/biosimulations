@@ -2,7 +2,7 @@ import { Component, OnInit, Optional } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { AuthService } from '@biosimulations/auth/frontend';
+
 @Component({
   selector: 'biosimulations-debug-viewer',
   templateUrl: './viewer.component.html',
@@ -15,7 +15,7 @@ export class ViewerComponent implements OnInit {
   params!: ParamMap;
   user$: any;
   loggedIn$!: Observable<boolean>;
-  constructor(private router: Router, @Optional() private auth: AuthService) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.showDebug = this.router.routerState.root.queryParamMap.pipe(
@@ -23,9 +23,6 @@ export class ViewerComponent implements OnInit {
       map((params) => params.get('debug') !== null),
     );
     this.route = this.router.routerState;
-    if (this.auth) {
-      this.loggedIn$ = this.auth.isAuthenticated$;
-      this.user$ = this.auth.userProfile$;
-    }
+
   }
 }

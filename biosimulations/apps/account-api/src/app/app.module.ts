@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { BiosimulationsConfigModule } from '@biosimulations/shared/biosimulations-config';
-import { BiosimulationsAuthModule } from '@biosimulations/shared/biosimulations-auth';
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { AppService } from './app.service';
 import { Account } from './account.model';
 @Module({
