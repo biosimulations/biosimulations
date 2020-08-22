@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -34,7 +33,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     HomeComponent,
     DispatchComponent,
     ViewVisualisationComponent,
