@@ -15,12 +15,16 @@ export type biosimulationsIcon =
   | 'comment'
   | 'bug'
   | 'error'
+  | 'user'
   | 'author'
   | 'reviewer'
+  | 'reuser'
+  | 'write'
+  | 'review'
   | 'oss'
   | 'simulator'
+  | 'simulators'
   | 'repository'
-  | 'user'
   | 'login'
   | 'logout'
   | 'project'
@@ -69,8 +73,12 @@ export class IconComponent implements OnInit {
     email: { type: 'fas', name: 'envelope' },
     github: { type: 'fab', name: 'github' },
     file: { type: 'fas', name: 'file' },
-    author: { type: 'fas', name: 'user-edit' },
     user: { type: 'fas', name: 'user' },
+    author: { type: 'fas', name: 'user-edit' },
+    reviewer: { type: 'fas', name: 'user-check' },
+    reuser: { type: 'fas', name: 'user-cog' },
+    write: { type: 'fas', name: 'pencil-alt' },
+    review: { type: 'fas', name: 'tasks' },
     login: { type: 'fas', name: 'sign-in-alt' },
     logout: { type: 'fas', name: 'sign-out-alt' },
     help: { type: 'fas', name: 'question-circle' },
@@ -93,6 +101,7 @@ export class IconComponent implements OnInit {
     format: { type: 'far', name: 'file-alt' },
     license: { type: 'fas', name: 'certificate' },
     simulator: { type: 'fas', name: 'cog' },
+    simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },
     tag: { type: 'fas', name: 'tag' },
     tags: { type: 'fas', name: 'tags' },
@@ -102,7 +111,6 @@ export class IconComponent implements OnInit {
     ccNc: { type: 'fab', name: 'creative-commons-nc' },
     ccSa: { type: 'fab', name: 'creative-commons-sa' },
     ccS: { type: 'fab', name: 'creative-commons-s' },
-    reviewer: { type: 'fas', name: 'tasks' },
     ccByNc: { type: 'cc', name: 'creative-commons-by_creative-commons-nc' },
     ccByNcSa: {
       type: 'cc',
