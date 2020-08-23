@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { MaterialWrapperModule } from './material-wrapper.module';
-// import { RouterModule } from '@angular/router';
-import { SharedUiModule } from '@biosimulations/shared/ui';
-import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { PrivacyPolicyComponent } from './policies/privacy-policy.component';
+import { PoliciesModule } from './policies/policies.module';
+import { TextPageSideBarSectionsModule } from './text-page-side-bar-sections/text-page-side-bar-sections.module';
 @NgModule({
-  imports: [CommonModule, SharedUiModule, BiosimulationsIconsModule],
-  exports: [
-    PrivacyPolicyComponent,
+  imports: [CommonModule, PoliciesModule, TextPageSideBarSectionsModule],
+  exports: [    
+    PoliciesModule,
+    TextPageSideBarSectionsModule,
   ],
   declarations: [
-    PrivacyPolicyComponent,
   ],
 })
 export class SharedContentModule { }
