@@ -33,7 +33,8 @@ export class RegistrationComponent implements OnInit {
   ppoUrl =
     'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/PRIVACY_POLICY.md';
 
-  aboutUrl = 'mailTo:info@biosimulations.org';
+  // TODO: get from app config
+  aboutUrl = 'mailto:' + 'info@biosimulations.org';
 
   loginUrl = 'https://auth.biosimulations.org/continue?state=';
 

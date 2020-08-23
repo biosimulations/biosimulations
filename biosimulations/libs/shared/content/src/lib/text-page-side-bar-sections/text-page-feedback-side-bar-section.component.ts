@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './text-page-feedback-side-bar-section.component.html',
   styleUrls: ['./text-page-feedback-side-bar-section.component.scss'],
 })
-export class TextPageFeedbackSideBarSectionComponent {  
+export class TextPageFeedbackSideBarSectionComponent {
+  // TODO: get from app config
+  emailUrl = 'mailto:' + 'info@biosimulations.org'
+
   constructor() {}
 }

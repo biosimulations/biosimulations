@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './text-page-help-side-bar-section.component.html',
   styleUrls: ['./text-page-help-side-bar-section.component.scss'],
 })
-export class TextPageHelpSideBarSectionComponent {  
+export class TextPageHelpSideBarSectionComponent {
+  // TODO: get from app config
+  emailUrl = 'mailto:' + 'info@biosimulations.org'
+
   constructor() {}
 }
