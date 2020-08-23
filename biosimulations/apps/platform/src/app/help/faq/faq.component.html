@@ -13,15 +13,24 @@
       shortTitle="Models"
     >
       <div class="q-and-a">
-        <div class="q">Which model formats are supported?</div>
+        <div class="q">Which modeling frameworks does BioSimulations support?</div>
         <div class="a">
-          Models can be uploaded in any format. However, BioSimulations currently can only simulate BNGL and SBML-formatted models.
+          BioSimulations supports all modeling frameworks. However, currently BioSimulations can only simulate the logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) frameworks. This includes rule-based models. BioSimulations uses the BioSimulators collection of simulations tools to simulate models. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported modeling frameworks.
         </div>
       </div>
 
       <div class="q-and-a">
-        <div class="q">Which SBML packages are supported?</div>
-        <div class="a">Currently, BioSimulations can only simulate models that use SBML core and the Flux Balance Constraints (FBC) package.</div>
+        <div class="q">Which model formats does BioSimulations support?</div>
+        <div class="a">
+          Models can be shared in any format. However, currently BioSimulations can only simulate models encoded in the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. BioSimulations uses the BioSimulators collection of simulations tools to simulate models. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported model formats.
+        </div>
+      </div>
+
+      <div class="q-and-a">
+        <div class="q">Which SBML packages does BioSimulations support?</div>
+        <div class="a">
+          Currently, BioSimulations can only simulate models that use core and Flux Balance Constraints (fbc) <a href="http://sbml.org/Documents/Specifications" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or Qualitative Models (qual) <a href="http://sbml.org/Documents/Specifications" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> packages.
+        </div>
       </div>
     </biosimulations-text-page-content-section>
 
@@ -30,13 +39,42 @@
       shortTitle="Simulations"
     >
       <div class="q-and-a">
-        <div class="q">Which simulation formats are supported?</div>
+        <div class="q">Which simulation formats does BioSimulations support?</div>
         <div class="a">
-          BioSimulations provides a form for describing simulations. Internally, BioSimulations represents simulations using its own format which is similar to SED-ML. BioSimulations can export simulations to SED-ML.
+          BioSimulations provides a form for describing simulations. Internally, BioSimulations represents simulations using its own format which is similar to SED-ML <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. BioSimulations can export simulations to SED-ML.
         </div>
       </div>
+
       <div class="q-and-a">
-        <div class="q">Can simulation results be uploaded?</div>
+        <div class="q">Which simulation algorithms does BioSimulations support?</div>
+        <div class="a">
+          BioSimulations supports numerous algorithms for simulating logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models. BioSimulations uses the BioSimulators collection of simulations tools to simulate models. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported simulation algorithms.
+        </div>
+      </div>
+
+      <div class="q-and-a">
+        <div class="q">How can I simulate a model that it described in an alternative format?</div>
+        <div class="a">
+          Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another model format.
+        </div>
+      </div>
+
+      <div class="q-and-a">
+        <div class="q">How can I simulate a model that uses an alternative framework?</div>
+        <div class="a">
+          Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another modeling framework.
+        </div>
+      </div>
+
+      <div class="q-and-a">
+        <div class="q">How can I execute an alternative simulation algorithm?</div>
+        <div class="a">
+          Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another algorithm.
+        </div>
+      </div>
+      
+      <div class="q-and-a">
+        <div class="q">Can I upload simulation results?</div>
         <div class="a">
           To ensure the provenance of simulation results, simulation
           results can only be generated by BioSimulations.
@@ -49,9 +87,9 @@
       shortTitle="Visualizations"
     >
       <div class="q-and-a">
-        <div class="q">Which visualization formats are supported?</div>
+        <div class="q">Which visualization formats does BioSimulations support?</div>
         <div class="a">
-          Currently, simulations can only be uploaded in Vega and Vega-Lite formats.
+          Currently, simulations can only be uploaded in Vega <a href="https://vega.github.io/vega" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and Vega-Lite <a href="https://vega.github.io/vega-lite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> formats.
         </div>
       </div>
     </biosimulations-text-page-content-section>
@@ -65,7 +103,7 @@
           What licenses can I use to publish models, simulations, and visualizations?
         </div>
         <div class="a">
-          Currently, BioSimulations supports the Creative Commons licenses.
+          Currently, BioSimulations supports the Creative Commons licenses <a href="https://creativecommons.org/choose/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </div>
       </div>
 
@@ -75,8 +113,8 @@
           license?
         </div>
         <div class="a">
-          Please submit a GitHub issue
-          <a href="https://github.com/reproducible-biomedical-modeling/biosimulations/issues" target="_blank">
+          Please submit an issue
+          <a [href]="issueUrl" target="_blank">
             <biosimulations-icon icon="link"></biosimulations-icon>
           </a>
           to request support for another license.
