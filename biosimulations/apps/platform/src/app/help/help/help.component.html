@@ -8,7 +8,7 @@
         </a>
       </div>
       <div class="hanging-indent">
-        <a href="https://app.swaggerhub.com/" target="_blank">
+        <a [href]="apiUrl" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
           REST API documentation
         </a>
@@ -65,6 +65,13 @@
         <li>Containerizing a simulator</li>
         <li>Submitting a simulator</li>
       </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      title="REST API"
+      shortTitle="Programmatically working with BioSimulations via the REST API"
+    >
+      A comprehensive API is available for submitting and retrieving projects, models, simulations, charts, and visualizations and executing simulations and retrieving their results. Please see the documentation for the REST API <a [href]="apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section

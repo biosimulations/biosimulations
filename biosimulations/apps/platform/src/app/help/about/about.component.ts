@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
   // TODO: get from app config
+  apiUrl = 'https://api.biosimulations.dev/'
   issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
   emailUrl = 'mailto:' + 'info@biosimulations.org'
 
