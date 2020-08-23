@@ -19,7 +19,7 @@ import { RegistrationService } from './registration.service';
 export class RegistrationComponent implements OnInit, OnChanges {
   userNameForm: FormControl;
   termsAndConditionsForm: FormGroup;
-  error?: string 
+  error?: string;
   state: string | null;
   token: string | null;
 
@@ -44,12 +44,12 @@ export class RegistrationComponent implements OnInit, OnChanges {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService,
+    private registrationService: RegistrationService
   ) {
     this.userNameForm = new FormControl(
       '',
       Validators.required,
-      this.registrationService.uniqueUsernameAsyncValidator,
+      this.registrationService.uniqueUsernameAsyncValidator
     );
 
     this.termsAndConditionsForm = this.formBuilder.group({
@@ -63,8 +63,8 @@ export class RegistrationComponent implements OnInit, OnChanges {
     this.token = this.route.snapshot.queryParamMap.get('token');
   }
   ngOnInit(): void {}
-  ngOnChanges(): {
-    this.error= this.getErorMessage()
+  ngOnChanges(): void {
+    this.error = this.getErrorMessage();
   }
   getErrorMessage() {
     if (this.userNameForm.hasError('required')) {
