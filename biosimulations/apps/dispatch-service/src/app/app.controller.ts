@@ -7,8 +7,9 @@ import {
   UseInterceptors,
   UploadedFile,
   UploadedFiles,
+  Inject,
 } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
@@ -23,7 +24,8 @@ export class AppController {
   constructor(
     private readonly configService: ConfigService,
     private hpcService: HpcService,
-    private sbatchService: SbatchService
+    private sbatchService: SbatchService,
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
   ) {}
   private logger = new Logger(AppController.name);
 
@@ -74,5 +76,28 @@ export class AppController {
     );
 
     return { message: 'Simulation dispatch started.' };
+  }
+
+  @MessagePattern('dispatch_log')
+  async dispatchLog(data: any) {
+    console.log('Log message data: ', data);
+
+    // parse JobID from data
+    const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
+    console.log('JobId: ', slurmjobId);
+
+    // Get initial status of jub running
+    const squeueRes: any = await this.hpcService.squeueStatus(slurmjobId);
+    const jobMatch = squeueRes['stdout'].match(/\d+/);
+    let isJobRunning: boolean = jobMatch !== null && jobMatch[0] === slurmjobId;
+
+    // Checking the job running or not
+    while (isJobRunning) {
+      console.log('Job is running');
+      const squeueRes: any = await this.hpcService.squeueStatus(slurmjobId);
+      const jobMatch = squeueRes['stdout'].match(/\d+/);
+      isJobRunning = jobMatch !== null && jobMatch[0] === slurmjobId;
+    }
+    console.log('Job stopped running');
   }
 }
