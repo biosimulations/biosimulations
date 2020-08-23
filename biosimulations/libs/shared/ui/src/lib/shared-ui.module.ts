@@ -24,6 +24,7 @@ import { TextPageSectionComponent } from './text-page/text-page-section.componen
 import { TextPageSideBarSectionComponent } from './text-page/text-page-side-bar-section.component';
 import { TextPageContentSectionComponent } from './text-page/text-page-content-section.component';
 import { TextPageTocItemComponent } from './text-page/text-page-toc-item.component';
+import { QAComponent } from './q-a/q-a.component';
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, BreadCrumbsModule],
   exports: [MaterialWrapperModule, TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
@@ -32,6 +33,7 @@ import { TextPageTocItemComponent } from './text-page/text-page-toc-item.compone
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyNoticeComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
+    QAComponent,
   ],
   declarations: [TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
     HoverOpenMenuComponent, DropdownMenuItemComponent,
@@ -40,6 +42,7 @@ import { TextPageTocItemComponent } from './text-page/text-page-toc-item.compone
     HyperLinkComponent,
     SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyNoticeComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
+    QAComponent,
   ],
 })
 export class SharedUiModule { }
