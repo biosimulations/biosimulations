@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HelpComponent } from './help.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { SharedContentModule } from '@biosimulations/shared/content';
 
 describe('HelpComponent', () => {
   let component: HelpComponent;
@@ -12,7 +13,7 @@ describe('HelpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
+      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule],
       providers: [RouterTestingModule],
       declarations: [HelpComponent],
     }).compileComponents();
