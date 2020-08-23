@@ -16,6 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       useExisting: forwardRef(() => AgreementComponent),
       multi: true,
     },
@@ -29,7 +30,7 @@ export class AgreementComponent implements OnInit, ControlValueAccessor {
   checkboxMessage = 'I agree';
   agreed = false;
   isDisabled = false;
-  private onChange: (_: any) => void = _ => {};
+  private onChange: (_: any) => void = (_) => {};
 
   constructor(private cd: ChangeDetectorRef) {}
 

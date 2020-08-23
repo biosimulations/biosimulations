@@ -80,7 +80,7 @@
           required
         />
         <mat-error *ngIf="userNameForm.invalid">
-          {{ getErrorMessage() }}
+          {{ this.error }}
         </mat-error>
       </mat-form-field>
       <biosimulations-stepper-buttons
