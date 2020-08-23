@@ -1,21 +1,5 @@
 <biosimulations-text-page title="FAQ">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section title="Contents">
-      <ul>
-        <biosimulations-text-page-toc-item title="Models" [scrollTarget]="models">
-        </biosimulations-text-page-toc-item>
-
-        <biosimulations-text-page-toc-item title="Simulations" [scrollTarget]="simulations">
-        </biosimulations-text-page-toc-item>
-
-        <biosimulations-text-page-toc-item title="Visualizations" [scrollTarget]="visualizations">
-        </biosimulations-text-page-toc-item>
-
-        <biosimulations-text-page-toc-item title="General" [scrollTarget]="general">
-        </biosimulations-text-page-toc-item>      
-      </ul>
-    </biosimulations-text-page-side-bar-section>
-
     <biosimulations-text-page-side-bar-section title="Need help?">
       <div>
         <a href="mailto:info@biosimulations.org">
@@ -33,7 +17,10 @@
   </ng-container>
 
   <ng-container id="content">
-    <biosimulations-text-page-content-section #models title="Models">  
+    <biosimulations-text-page-content-section
+      title="Models"
+      shortTitle="Models"
+    >
       <div class="q-and-a">
         <div class="q">Which model formats are supported?</div>
         <div class="a">
@@ -47,7 +34,10 @@
       </div>
     </biosimulations-text-page-content-section>
 
-    <biosimulations-text-page-content-section #simulations title="Simulations">  
+    <biosimulations-text-page-content-section
+      title="Simulations"
+      shortTitle="Simulations"
+    >
       <div class="q-and-a">
         <div class="q">Which simulation formats are supported?</div>
         <div class="a">
@@ -63,7 +53,10 @@
       </div>
     </biosimulations-text-page-content-section>
 
-    <biosimulations-text-page-content-section #visualizations title="Visualizations">  
+    <biosimulations-text-page-content-section
+      title="Visualizations"
+      shortTitle="Visualizations"
+    >
       <div class="q-and-a">
         <div class="q">Which visualization formats are supported?</div>
         <div class="a">
@@ -72,7 +65,10 @@
       </div>
     </biosimulations-text-page-content-section>
 
-    <biosimulations-text-page-content-section #general title="General">        
+    <biosimulations-text-page-content-section
+      title="General"
+      shortTitle="General"
+    >
       <div class="q-and-a">
         <div class="q">
           What licenses can I use to publish models, simulations, and visualizations?

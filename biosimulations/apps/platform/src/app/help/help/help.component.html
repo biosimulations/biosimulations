@@ -1,20 +1,5 @@
 <biosimulations-text-page title="Help">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section title="Contents">
-      <ul>
-        <biosimulations-text-page-toc-item title="Guide for users" [scrollTarget]="users">
-        </biosimulations-text-page-toc-item>
-        <biosimulations-text-page-toc-item title="Guide for authors" [scrollTarget]="authors">
-        </biosimulations-text-page-toc-item>
-        <biosimulations-text-page-toc-item title="Guide for reviewers and editors" [scrollTarget]="reviewers">
-        </biosimulations-text-page-toc-item>
-        <biosimulations-text-page-toc-item title="Guide for simulator developers" [scrollTarget]="developers">
-        </biosimulations-text-page-toc-item>
-        <biosimulations-text-page-toc-item title="User accounts" [scrollTarget]="accounts">
-        </biosimulations-text-page-toc-item>
-      </ul>
-    </biosimulations-text-page-side-bar-section>
-
     <biosimulations-text-page-side-bar-section title="Related resources">
       <div>
         <a href="https://reproducible-biomedical-modeling.github.io/biosimulations/" target="_blank">
@@ -53,7 +38,10 @@
   </ng-container>
 
   <ng-container id="content">
-    <biosimulations-text-page-content-section #users title="Guide for users: Finding, simulating, and visualizing published models">
+    <biosimulations-text-page-content-section
+      title="Guide for users: Finding, simulating, and visualizing published models"
+      shortTitle="Guide for users"
+    >
       <ul>
         <li>Finding models</li>
         <li>Finding simulation experiment</li>
@@ -63,7 +51,10 @@
       </ul>
     </biosimulations-text-page-content-section>
 
-    <biosimulations-text-page-content-section #authors title="Guide for authors: Publishing models, simulations, and visualizations">
+    <biosimulations-text-page-content-section
+      title="Guide for authors: Publishing models, simulations, and visualizations"
+      shortTitle="Guide for authors"
+    >
       <ul>
         <li>Uploading models</li>
         <li>Uploading simulation experiments</li>
@@ -72,20 +63,29 @@
       </ul>
     </biosimulations-text-page-content-section>
 
-    <biosimulations-text-page-content-section #reviewers title="Guide for reviewers and editors: Evaluating models, simulations, and visualizations">
+    <biosimulations-text-page-content-section
+      title="Guide for reviewers and editors: Evaluating models, simulations, and visualizations"
+      shortTitle="Guide for reviewers and editors"
+    >
       <ul>
         <li>Accessing resources</li>
       </ul>
     </biosimulations-text-page-content-section>
 
-    <biosimulations-text-page-content-section #developers title="Guide for simulation software developers: Contributing an additional">
+    <biosimulations-text-page-content-section
+      title="Guide for simulation software developers: Contributing an additional"
+      shortTitle="Guide for developers"
+    >
       <ul>
         <li>Containerizing a simulator</li>
         <li>Submitting a simulator</li>
       </ul>
     </biosimulations-text-page-content-section>
 
-    <biosimulations-text-page-content-section #accounts title="User accounts">
+    <biosimulations-text-page-content-section
+      title="User accounts"
+      shortTitle="User accounts"
+    >
       <ul>
         <li>Signing up</li>
         <li>Signing in</li>

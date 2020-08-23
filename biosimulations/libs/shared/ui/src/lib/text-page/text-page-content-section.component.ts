@@ -23,7 +23,7 @@ export class TextPageContentSectionComponent implements OnInit {
   ngOnInit(): void {}
 
   scrollToTop(): void {
-    // TODO: implement
-    // $element.parentElement.parentElement.parentElement.parentElement.scrollTo(0, 0);
+    const scrollContainer = document.getElementsByTagName('mat-sidenav-content')[0];
+    scrollContainer.scrollTo({top: 64 + 1, behavior: 'smooth'});
   }
 }

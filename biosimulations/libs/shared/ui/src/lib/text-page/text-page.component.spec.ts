@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextPageComponent } from './text-page.component';
+import { TextPageSectionComponent } from './text-page-section.component';
+import { TextPageSideBarSectionComponent } from './text-page-side-bar-section.component';
+import { TextPageTocItemComponent } from './text-page-toc-item.component';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 describe('TextPageComponent', () => {
   let component: TextPageComponent;
@@ -8,8 +12,8 @@ describe('TextPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TextPageComponent],
-      imports: [],
+      declarations: [TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageTocItemComponent],
+      imports: [BiosimulationsIconsModule],
     }).compileComponents();
   }));
 
