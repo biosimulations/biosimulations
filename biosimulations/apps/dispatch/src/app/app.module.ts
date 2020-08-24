@@ -24,10 +24,16 @@ const routes: Routes = [
   {
     path: 'run',
     component: DispatchComponent,
+    data: {
+      breadcrumb: 'Run'
+    }
   },
   {
     path: 'simulation/:uuid',
     component: ResultsPageComponent,
+    data: {
+      breadcrumb: 'Simulation results'
+    }
   },
   {
     path: 'help',
