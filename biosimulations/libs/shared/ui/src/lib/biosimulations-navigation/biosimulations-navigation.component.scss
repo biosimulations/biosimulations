@@ -6,7 +6,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 220px;
 
   ::ng-deep .mat-drawer-inner-container {
     overflow: hidden;
@@ -38,6 +38,10 @@
   .sidenav-menu ::ng-deep .mat-expansion-panel:last-of-type {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
+  }
+
+  ::ng-deep .mat-expansion-panel-header-title {
+    white-space: nowrap;
   }
 }
 
