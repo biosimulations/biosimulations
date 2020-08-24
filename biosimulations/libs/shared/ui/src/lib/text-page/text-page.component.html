@@ -1,5 +1,4 @@
-<div class="partial-width">
-  <h1>{{ title }}</h1>
+<biosimulations-page [title]="title">
   <div class="grid grid-2">
     <div class="side-bar">
       <div class="side-bar-inner sections-container" [ngStyle]="{position: fixed ? 'fixed': null}">
@@ -18,4 +17,4 @@
       <ng-content select="#content"></ng-content>
     </div>
   </div>
-</div>
+</biosimulations-page>

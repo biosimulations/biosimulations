@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { PageComponent } from '../page/page.component';
 import { TextPageComponent } from './text-page.component';
 import { TextPageSectionComponent } from './text-page-section.component';
 import { TextPageSideBarSectionComponent } from './text-page-side-bar-section.component';
@@ -12,7 +13,7 @@ describe('TextPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageTocItemComponent],
+      declarations: [PageComponent, TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageTocItemComponent],
       imports: [BiosimulationsIconsModule],
     }).compileComponents();
   }));
