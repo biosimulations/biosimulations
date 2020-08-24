@@ -24,9 +24,12 @@ export class DispatchService {
     return this.http.post(endpoint, formData);
   }
 
-  getAllSimulatorInfo() {
+  getAllSimulatorInfo(simulatorName?: string) {
     const endpoint = `${environment.crbm.DISPATCH_API_URL}/simulators`;
-    return this.http.get(endpoint);
+    if(simulatorName === undefined) {
+      return this.http.get(endpoint);
+    }
+    return this.http.get(`${endpoint}?name=${simulatorName}`);
   }
 
 

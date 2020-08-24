@@ -48,10 +48,16 @@
                 "output": "assets"
               }
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
             }
           },
           "configurations": {
@@ -110,7 +116,10 @@
               "apps/account/tsconfig.app.json",
               "apps/account/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/account/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/account/**/*"
+            ]
           }
         },
         "test": {
@@ -164,7 +173,9 @@
             "outputPath": "dist/apps/account-api",
             "main": "apps/account-api/src/main.ts",
             "tsConfig": "apps/account-api/tsconfig.app.json",
-            "assets": ["apps/account-api/src/assets"]
+            "assets": [
+              "apps/account-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -193,7 +204,10 @@
               "apps/account-api/tsconfig.app.json",
               "apps/account-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/account-api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/account-api/**/*"
+            ]
           }
         },
         "test": {
@@ -243,7 +257,10 @@
               "libs/shared/ui/tsconfig.lib.json",
               "libs/shared/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/ui/**/*"
+            ]
           }
         },
         "test": {
@@ -275,7 +292,10 @@
               "libs/shared/icons/tsconfig.lib.json",
               "libs/shared/icons/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/icons/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/icons/**/*"
+            ]
           }
         },
         "test": {
@@ -307,7 +327,10 @@
               "libs/shared/debug/tsconfig.lib.json",
               "libs/shared/debug/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/debug/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/debug/**/*"
+            ]
           }
         },
         "test": {
@@ -374,10 +397,16 @@
               },
               "apps/dispatch/src/assets"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/plotly.js/dist/plotly.min.js"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
             }
           },
           "configurations": {
@@ -436,7 +465,10 @@
               "apps/dispatch/tsconfig.app.json",
               "apps/dispatch/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/dispatch/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dispatch/**/*"
+            ]
           }
         },
         "test": {
@@ -490,7 +522,10 @@
               "libs/auth/common/tsconfig.lib.json",
               "libs/auth/common/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/auth/common/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/auth/common/**/*"
+            ]
           }
         },
         "test": {
@@ -516,7 +551,10 @@
               "libs/auth/angular/tsconfig.lib.json",
               "libs/auth/angular/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/auth/angular/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/auth/angular/**/*"
+            ]
           }
         },
         "test": {
@@ -548,7 +586,10 @@
               "libs/auth/nest/tsconfig.lib.json",
               "libs/auth/nest/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/auth/nest/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/auth/nest/**/*"
+            ]
           }
         },
         "test": {
@@ -574,7 +615,10 @@
               "libs/config/common/tsconfig.lib.json",
               "libs/config/common/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/config/common/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/config/common/**/*"
+            ]
           }
         },
         "test": {
@@ -600,7 +644,10 @@
               "libs/config/nest/tsconfig.lib.json",
               "libs/config/nest/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/config/nest/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/config/nest/**/*"
+            ]
           }
         },
         "test": {
@@ -626,7 +673,10 @@
               "libs/config/angular/tsconfig.lib.json",
               "libs/config/angular/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/config/angular/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/config/angular/**/*"
+            ]
           }
         },
         "test": {
@@ -658,7 +708,10 @@
               "libs/shared/datamodel/tsconfig.lib.json",
               "libs/shared/datamodel/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/datamodel/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/datamodel/**/*"
+            ]
           }
         },
         "test": {
@@ -684,7 +737,9 @@
             "outputPath": "dist/apps/platform-api",
             "main": "apps/platform-api/src/main.ts",
             "tsConfig": "apps/platform-api/tsconfig.app.json",
-            "assets": ["apps/platform-api/src/assets"]
+            "assets": [
+              "apps/platform-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -713,7 +768,10 @@
               "apps/platform-api/tsconfig.app.json",
               "apps/platform-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/platform-api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/platform-api/**/*"
+            ]
           }
         },
         "test": {
@@ -739,7 +797,10 @@
               "libs/platform/api-models/tsconfig.lib.json",
               "libs/platform/api-models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/platform/api-models/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/platform/api-models/**/*"
+            ]
           }
         },
         "test": {
@@ -794,7 +855,9 @@
             "outputPath": "dist/apps/dispatch-service",
             "main": "apps/dispatch-service/src/main.ts",
             "tsConfig": "apps/dispatch-service/tsconfig.app.json",
-            "assets": ["apps/dispatch-service/src/assets"]
+            "assets": [
+              "apps/dispatch-service/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -823,7 +886,10 @@
               "apps/dispatch-service/tsconfig.app.json",
               "apps/dispatch-service/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/dispatch-service/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dispatch-service/**/*"
+            ]
           }
         },
         "test": {
@@ -849,7 +915,9 @@
             "outputPath": "dist/apps/dispatch-api",
             "main": "apps/dispatch-api/src/main.ts",
             "tsConfig": "apps/dispatch-api/tsconfig.app.json",
-            "assets": ["apps/dispatch-api/src/assets"]
+            "assets": [
+              "apps/dispatch-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -878,7 +946,10 @@
               "apps/dispatch-api/tsconfig.app.json",
               "apps/dispatch-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/dispatch-api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dispatch-api/**/*"
+            ]
           }
         },
         "test": {
@@ -940,10 +1011,16 @@
               "apps/platform/src/manifest.webmanifest",
               "apps/platform/src/browserconfig.xml"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
             }
           },
           "configurations": {
@@ -1002,7 +1079,10 @@
               "apps/platform/tsconfig.app.json",
               "apps/platform/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/platform/**/*"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/platform/**/*"
+            ],
             "linter": "eslint"
           }
         },
@@ -1057,7 +1137,10 @@
               "libs/platform/view/tsconfig.lib.json",
               "libs/platform/view/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/platform/view/**/*"],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/platform/view/**/*"
+            ],
             "linter": "eslint"
           }
         },
@@ -1124,10 +1207,16 @@
                 "output": "assets"
               }
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib"
+              ]
             }
           },
           "configurations": {
@@ -1186,7 +1275,10 @@
               "apps/simulators/tsconfig.app.json",
               "apps/simulators/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/simulators/**/*"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/simulators/**/*"
+            ],
             "linter": "eslint"
           }
         },
@@ -1241,7 +1333,9 @@
             "outputPath": "dist/apps/simulators-api",
             "main": "apps/simulators-api/src/main.ts",
             "tsConfig": "apps/simulators-api/tsconfig.app.json",
-            "assets": ["apps/simulators-api/src/assets"]
+            "assets": [
+              "apps/simulators-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -1270,7 +1364,10 @@
               "apps/simulators-api/tsconfig.app.json",
               "apps/simulators-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/simulators-api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/simulators-api/**/*"
+            ]
           }
         },
         "test": {
@@ -1325,7 +1422,10 @@
               "libs/shared/environments/tsconfig.lib.json",
               "libs/shared/environments/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/environments/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/environments/**/*"
+            ]
           }
         },
         "test": {
@@ -1357,7 +1457,10 @@
               "libs/dispatch/datamodel/tsconfig.lib.json",
               "libs/dispatch/datamodel/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/dispatch/datamodel/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/dispatch/datamodel/**/*"
+            ]
           }
         },
         "test": {
@@ -1372,7 +1475,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
   },
   "schematics": {
     "@nrwl/workspace": {
