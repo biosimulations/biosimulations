@@ -1,5 +1,5 @@
 biosimulations-topbar-menu {
-  ::ng-deep biosimulations-topbar-menu-item:not(first-child) {
+  ::ng-deep biosimulations-topbar-menu-item:not(:first-child) {
     margin-left: 1rem;
   }
 }
