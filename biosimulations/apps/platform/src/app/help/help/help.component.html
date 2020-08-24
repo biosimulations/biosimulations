@@ -13,6 +13,13 @@
           REST API documentation
         </a>
       </div>
+
+      <div class="hanging-indent">
+        <a [href]="webserviceHelpUrl" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+          Web service documentation
+        </a>
+      </div>
     </biosimulations-text-page-side-bar-section>
 
     <biosimulations-text-page-help-side-bar-section>
@@ -83,6 +90,13 @@
       shortTitle="REST API"
     >
       A comprehensive API is available for submitting and retrieving projects, models, simulations, charts, and visualizations and executing simulations and retrieving their results. Please see the documentation for the REST API <a [href]="apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      title="Executing simulations with the standalone web service"
+      shortTitle="Web service"
+    >
+      In addition to this web application, a simple standalone web service for executing simulations is available at <a [href]="webserviceUrl" target="_blank">{{ webserviceUrl }}</a>. This web service simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. The web service does not require an account.
     </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>
