@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { FormsModule } from '@angular/forms';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +17,8 @@ describe('AppComponent', () => {
         RouterTestingModule,
         FormsModule,
         SharedUiModule,
+        BiosimulationsIconsModule,
+        MatFormFieldModule,
         MatSelectModule,
         HttpClientTestingModule,
         RouterTestingModule,

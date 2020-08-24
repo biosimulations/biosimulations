@@ -1,70 +1,34 @@
-<div class="container">
-<br>
-<br>
-<form>
-    <div class="row mt-5">
-        <div class="col-6">
-            <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
-                <div class="card-header">Upload file</div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <!-- <label for="exampleFormControlFile1">OMEX</label> -->
-                        <input type="file" 
-                                id="file" 
-                                class="form-control-file"
-                                (change)="handleFileInput($event.target.files)">
-                    </div>
-                </div>
-              </div>
-        </div>
-        <div class="col"></div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
-                <div class="card-header">Simulator</div>
-                <div class="card-body" style="background-color:white;">
-                    <!-- <select [(ngModel)]="selectedSimulator" [ngModelOptions]="{standalone: true}" class="form-control">
-                        <option *ngFor="let simulator of simulators" [value]="simulator">{{simulator}}</option>
-                    </select> -->
+<biosimulations-page title="Run a simulation project">
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Select a simulation project</mat-label>
+      <ngx-mat-file-input id="file" [multiple]="false" accept=".omex" placeholder="COMBINE/OMEX file" required></ngx-mat-file-input>
+      <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+      <mat-hint>Select a COMBINE/OMEX archive file which describes one or more simulations (e.g., in SED-ML format) of one or more models (e.g., in SBML format). Numerous examples are available in the BioSimulators test suite <a href="https://github.com/biosimulations/Biosimulations_COMBINE_archive_test_suite"><biosimulations-icon icon="link"></biosimulations-icon></a>. More information is available at the COMBINE/OMEX website <a href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>.</mat-hint>
+    </mat-form-field>
 
-                    <mat-form-field appearance="fill">
-                    <!-- <mat-label>Sedml to display</mat-label> -->
-                    <mat-select [(ngModel)]="selectedSimulator" name="Simulator" (selectionChange)="onSimulatorChange($event)">
-                    <mat-option *ngFor="let simulator of simulators" [value]="simulator">
-                        {{simulator}}
-                    </mat-option>
-                    </mat-select>
-                    </mat-form-field>
-                </div>
-              </div>
-        </div>
-        <div class="col-3">
-            <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
-                <div class="card-header">Simulator version</div>
-                    <div class="card-body" style="background-color:white;">
-                        <!-- <select  class="form-control">
-                            <option *ngFor="let simulator of simulators" [value]="simulator">{{simulator}}</option>
-                        </select> -->
-                        <mat-form-field appearance="fill">
-                            <!-- <mat-label>Sedml to display</mat-label> -->
-                            <mat-select [(ngModel)]="selectedVersion" name="Version">
-                            <mat-option *ngFor="let version of versions" [value]="version">
-                                {{version}}
-                            </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col"></div>
-    <div class="row">
-        <div class="col-6" style="text-align: center;">
-            <button class="btn btn-dark" type="button" (click)="onClickSubmit()">Submit</button>
-        </div>
-        <div class="col"></div>
-    </div>
-</form>
-    
-</div>
+    <mat-form-field appearance="fill">
+      <mat-label>Select a simulation tool</mat-label>
+      <mat-select [(ngModel)]="selectedSimulator" name="Simulator" (selectionChange)="onSimulatorChange($event)" required>
+        <mat-option *ngFor="let simulator of simulators" [value]="simulator">
+          {{simulator}}
+        </mat-option>
+      </mat-select>
+      <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
+      <mat-hint>A guide to choosing a simulation tool which is compatible with your simulation project is available at BioSimulators <a href="https://biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>. The guide describes the modeling frameworks (e.g., logical, FBA, kinetic), simulation algorithms (e.g., ODE, SSA), and modeling formats (e.g., COMBINE/OMEX, SBML, SED-ML) that each simulation tool supports.</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select a version of the simulation tool</mat-label>
+      <mat-select [(ngModel)]="selectedVersion" name="Version" required>
+        <mat-option *ngFor="let version of versions" [value]="version">
+          {{version}}
+        </mat-option>
+      </mat-select>
+      <biosimulations-icon icon="version" matPrefix></biosimulations-icon>
+      <mat-hint>See BioSimulators <a href="https://biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about each version of each simulation tool.</mat-hint>
+    </mat-form-field>
+
+    <button mat-flat-button (click)="onClickSubmit()" disableRipple>Submit</button>
+  </form>
+</biosimulations-page>

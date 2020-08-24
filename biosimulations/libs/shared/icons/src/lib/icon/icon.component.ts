@@ -50,6 +50,7 @@ export type biosimulationsIcon =
   | 'ccByNc'
   | 'ccBySa'
   | 'ccByNcSa'
+  | 'version'
   | 'link'
   | 'email'
   | 'github'
@@ -119,6 +120,7 @@ export class IconComponent implements OnInit {
       name: 'creative-commons-by_creative-commons-nc_creative-commons-sa',
     },
     ccBySa: { type: 'cc', name: 'creative-commons-by_creative-commons-sa' },
+    version: { type: 'fas', name: 'code-branch' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];
