@@ -2,7 +2,6 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,7 +20,7 @@ describe('AppComponent', () => {
         RouterTestingModule,
         NoopAnimationsModule,
       ],
-      declarations: [AppComponent, DispatchComponent, FooterComponent],
+      declarations: [AppComponent, DispatchComponent],
     }).compileComponents();
   }));
 

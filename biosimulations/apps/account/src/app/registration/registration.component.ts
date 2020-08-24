@@ -27,13 +27,14 @@ export class RegistrationComponent implements OnInit, OnChanges {
 
   // TODO use a common config library for these
   ccUrl =
-    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
+    'https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/CODE_OF_CONDUCT.md';
   tosUrl =
-    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/TERMS_OF_SERVICE.md';
+    'https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/TERMS_OF_SERVICE.md';
   ppoUrl =
-    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/PRIVACY_POLICY.md';
+    'https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/PRIVACY_POLICY.md';
 
-  aboutUrl = 'mailTo:info@biosimulations.org';
+  // TODO: get from app config
+  aboutUrl = 'mailto:' + 'info@biosimulations.org';
 
   loginUrl = 'https://auth.biosimulations.org/continue?state=';
 

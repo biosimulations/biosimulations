@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,19 +21,26 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'dispatch',
+    path: 'run',
     component: DispatchComponent,
   },
   {
-    path: 'result/:uuid',
+    path: 'simulation/:uuid',
     component: ResultsPageComponent,
+  },
+  {
+    path: 'help',
+    loadChildren: () =>
+      import('./components/help/help.module').then((m) => m.HelpModule),
+    data: {
+      breadcrumb: 'Help'
+    }
   },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     HomeComponent,
     DispatchComponent,
     ViewVisualisationComponent,

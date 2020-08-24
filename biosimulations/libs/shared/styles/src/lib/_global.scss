@@ -91,6 +91,7 @@ h2,
 a {
   color: mat-color($theme-primary);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .highlight-primary {
@@ -110,4 +111,19 @@ a {
 } 
 .hidden {
   display: none;
+}
+
+.hanging-indent {
+  text-indent: -1.1em;
+  margin-left: 1.1em;
+}
+
+.mat-typography p {
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }

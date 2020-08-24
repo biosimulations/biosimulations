@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./models.component.sass']
 })
 export class ModelsComponent  {
-
-
-
+  // TODO: get from app config
+  issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
 }
