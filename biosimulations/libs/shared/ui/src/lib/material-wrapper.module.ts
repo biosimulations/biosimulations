@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const materialImports = [
   FlexLayoutModule,
@@ -30,6 +31,7 @@ const materialImports = [
   MatTooltipModule,
   MatExpansionModule,
   MatMenuModule,
+  MatFormFieldModule,
 ];
 
 @NgModule({
