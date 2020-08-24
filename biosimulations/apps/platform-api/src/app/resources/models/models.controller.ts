@@ -90,7 +90,7 @@ export class ModelsController {
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<ModelDocument | undefined> {
     const dbModel = await this.service.get(id);
-    if (!!!dbModel) {
+    if (!dbModel) {
       throw new NotFoundException('Model with id ' + id + ' not found');
     }
     if (dbModel) {

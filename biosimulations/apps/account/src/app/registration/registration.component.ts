@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -16,10 +16,10 @@ import { RegistrationService } from './registration.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.sass'],
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnChanges {
   userNameForm: FormControl;
   termsAndConditionsForm: FormGroup;
-
+  error?: string;
   state: string | null;
   token: string | null;
 
@@ -45,12 +45,12 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService,
+    private registrationService: RegistrationService
   ) {
     this.userNameForm = new FormControl(
       '',
       Validators.required,
-      this.registrationService.uniqueUsernameAsyncValidator,
+      this.registrationService.uniqueUsernameAsyncValidator
     );
 
     this.termsAndConditionsForm = this.formBuilder.group({
@@ -64,7 +64,9 @@ export class RegistrationComponent implements OnInit {
     this.token = this.route.snapshot.queryParamMap.get('token');
   }
   ngOnInit(): void {}
-
+  ngOnChanges(): void {
+    this.error = this.getErrorMessage();
+  }
   getErrorMessage() {
     if (this.userNameForm.hasError('required')) {
       return 'A username is required';

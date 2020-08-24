@@ -3,16 +3,28 @@
     <biosimulations-topbar-menu-item title="Projects" icon="project" disabled>
     </biosimulations-topbar-menu-item>
 
-    <biosimulations-topbar-menu-item title="Models" icon="model" [route]="['/models']">
+    <biosimulations-topbar-menu-item
+      title="Models"
+      icon="model"
+      [route]="['/models']"
+    >
     </biosimulations-topbar-menu-item>
 
-    <biosimulations-topbar-menu-item title="Simulations" icon="simulation" disabled>
+    <biosimulations-topbar-menu-item
+      title="Simulations"
+      icon="simulation"
+      disabled
+    >
     </biosimulations-topbar-menu-item>
 
     <biosimulations-topbar-menu-item title="Charts" icon="chart" disabled>
     </biosimulations-topbar-menu-item>
 
-    <biosimulations-topbar-menu-item title="Visualizations" icon="visualization" disabled>
+    <biosimulations-topbar-menu-item
+      title="Visualizations"
+      icon="visualization"
+      disabled
+    >
     </biosimulations-topbar-menu-item>
 
     <biosimulations-hover-open-menu>
@@ -20,44 +32,76 @@
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
-        <biosimulations-dropdown-menu-item title="Tutorial" icon="tutorial" [routerLink]="['/help']">
+        <biosimulations-dropdown-menu-item
+          title="Tutorial"
+          icon="tutorial"
+          [routerLink]="['/help']"
+        >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item title="FAQ" icon="help" [routerLink]="['/help', 'faq']">
+        <biosimulations-dropdown-menu-item
+          title="FAQ"
+          icon="help"
+          [routerLink]="['/help', 'faq']"
+        >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item title="About" icon="info" [routerLink]="['/help', 'about']">
+        <biosimulations-dropdown-menu-item
+          title="About"
+          icon="info"
+          [routerLink]="['/help', 'about']"
+        >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item title="Privacy policy" icon="policy" [routerLink]="['/help', 'privacy']">
+        <biosimulations-dropdown-menu-item
+          title="Privacy policy"
+          icon="policy"
+          [routerLink]="['/help', 'privacy']"
+        >
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-topbar-menu-item title="Login" icon="login"
+    <biosimulations-topbar-menu-item
+      title="Login"
+      icon="login"
       *ngIf="(isAuthenticated() | async) !== true"
       (click)="login()"
     >
     </biosimulations-topbar-menu-item>
 
-    <biosimulations-hover-open-menu *ngIf="(isAuthenticated() | async) === true">
+    <biosimulations-hover-open-menu
+      *ngIf="(isAuthenticated() | async) === true"
+    >
       <biosimulations-topbar-menu-item title="Account" icon="user" id="trigger">
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
-        <biosimulations-dropdown-menu-item title="Projects" icon="project" disabled>
+        <biosimulations-dropdown-menu-item
+          title="Projects"
+          icon="project"
+          disabled
+        >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item title="Models" icon="model" disabled>
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item title="Simulations" icon="simulation" disabled>
+        <biosimulations-dropdown-menu-item
+          title="Simulations"
+          icon="simulation"
+          disabled
+        >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item title="Charts" icon="chart" disabled>
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item title="Visualizations" icon="visualization" disabled>
+        <biosimulations-dropdown-menu-item
+          title="Visualizations"
+          icon="visualization"
+          disabled
+        >
         </biosimulations-dropdown-menu-item>
 
         <mat-divider></mat-divider>
@@ -65,7 +109,11 @@
         <biosimulations-dropdown-menu-item title="Profile" icon="user" disabled>
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item title="Logout" icon="logout" (click)="logout()">
+        <biosimulations-dropdown-menu-item
+          title="Logout"
+          icon="logout"
+          (click)="logout()"
+        >
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
@@ -82,15 +130,27 @@
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item title="Models" icon="model">
-      <biosimulations-navigation-subitem title="Home" icon="home" [route]="['/models']">
+      <biosimulations-navigation-subitem
+        title="Home"
+        icon="home"
+        [route]="['/models']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem title="Browse" icon="browse" [route]="['/models', 'browse']">
+      <biosimulations-navigation-subitem
+        title="Browse"
+        icon="browse"
+        [route]="['/models', 'browse']"
+      >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Submit" icon="new" disabled>
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Simulations" icon="simulation" disabled>
+    <biosimulations-navigation-item
+      title="Simulations"
+      icon="simulation"
+      disabled
+    >
       <biosimulations-navigation-subitem title="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
@@ -108,7 +168,12 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Visualizations" icon="visualization" [aboveDivider]="true" disabled>
+    <biosimulations-navigation-item
+      title="Visualizations"
+      icon="visualization"
+      [aboveDivider]="true"
+      disabled
+    >
       <biosimulations-navigation-subitem title="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Browse" icon="browse" disabled>
@@ -117,38 +182,80 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Help" icon="help" [aboveDivider]="true">
-      <biosimulations-navigation-subitem title="Tutorial" icon="tutorial" [route]="['/help']">
+    <biosimulations-navigation-item
+      title="Help"
+      icon="help"
+      [aboveDivider]="true"
+    >
+      <biosimulations-navigation-subitem
+        title="Tutorial"
+        icon="tutorial"
+        [route]="['/help']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem title="FAQ" icon="help" [route]="['/help', 'faq']">
+      <biosimulations-navigation-subitem
+        title="FAQ"
+        icon="help"
+        [route]="['/help', 'faq']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem title="About" icon="info" [route]="['/help', 'about']">
+      <biosimulations-navigation-subitem
+        title="About"
+        icon="info"
+        [route]="['/help', 'about']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem title="Privacy policy" icon="policy" [route]="['/help', 'privacy']">
+      <biosimulations-navigation-subitem
+        title="Privacy policy"
+        icon="policy"
+        [route]="['/help', 'privacy']"
+      >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Login" icon="login"
+    <biosimulations-navigation-item
+      title="Login"
+      icon="login"
       *ngIf="(isAuthenticated() | async) !== true"
       (click)="login()"
     >
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item title="Account" icon="user" *ngIf="isAuthenticated() | async">
-      <biosimulations-navigation-subitem title="Projects" icon="project" disabled>
+    <biosimulations-navigation-item
+      title="Account"
+      icon="user"
+      *ngIf="isAuthenticated() | async"
+    >
+      <biosimulations-navigation-subitem
+        title="Projects"
+        icon="project"
+        disabled
+      >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Models" icon="model" disabled>
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem title="Simulation" icon="simulation" disabled>
+      <biosimulations-navigation-subitem
+        title="Simulation"
+        icon="simulation"
+        disabled
+      >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem title="Charts" icon="chart" disabled>
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem title="Visualization" icon="visualization" disabled>
+      <biosimulations-navigation-subitem
+        title="Visualization"
+        icon="visualization"
+        disabled
+      >
       </biosimulations-navigation-subitem>
       <mat-divider></mat-divider>
       <biosimulations-navigation-subitem title="Profile" icon="user" disabled>
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem title="Logout" icon="logout" (click)="logout()">
+      <biosimulations-navigation-subitem
+        title="Logout"
+        icon="logout"
+        (click)="logout()"
+      >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
   </ng-container>
