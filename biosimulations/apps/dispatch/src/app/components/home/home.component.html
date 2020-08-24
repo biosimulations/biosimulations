@@ -1,23 +1,389 @@
-<div class="container">
-  <br>
-  <br>
-  <div class="row mt-5">
-    <div class="col"></div>
-    <div class="col-6" style="text-align: center;">
-      <div class="card text-white bg-dark mb-3" style="max-width: 100%; height: 25rem;">
-        <!-- <div class="card-header"><img src="https://biosimulations.org/assets/logo/logo-white.svg" alt=""></div> -->
-        <div class="card-body">
-          <h5 class="card-title">Dispatch page for biomodel simulations</h5>
-          <p class="card-text">
-            Welcome to BioSimulations Dispatch app, here anyone can dispatch simulation to UConn's HPC cluster.
-            You don't need to get yourself registered on UConn servers, you can run your simulations directly as a guest user. 
-            Go to <a routerLink="/run"><b>Dispatch</b></a> tab to get started.
-          </p>
-          <br>
-          <p>- Developed by CRBM team</p>
-        </div>
-      </div>
-    </div>
-    <div class="col"></div>
-  </div>
-</div>
+<biosimulations-home-teaser
+  title="runBioSimulations: Simulating biomodels with ease"
+  banner="assets/images/biosimulations-logo/logo-white.svg"
+>
+  runBioSimulations is a free tool for executing a wide range of simulations. runBioSimulations provides the same simulation capabilities as BioSimulations via a simpler interface that doesn't require an account. runBioSimulations supports a broad range of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), formats (e.g., SBML, SED-ML), and simulation tools (e.g., COBRApy, COPASI).
+</biosimulations-home-teaser>
+
+<biosimulations-home-section
+  [columns]="3"
+>
+  <ng-container id="title">
+    Helping investigators <span class="highlight-primary">execute biomodeling studies</span>
+  </ng-container>
+  
+  <biosimulations-home-subsection
+    id="subsection"
+    title="Simulate studies"
+    subtitle="Simulate a broad range of studies"
+    icon="simulator"
+  >
+    runBioSimulations provides a central place for executing simulations of a broad range of modeling frameworks, simulation algorithms, model formats, and simulation tools.
+  </biosimulations-home-subsection>
+  
+  <biosimulations-home-subsection
+    id="subsection"
+    title="Visualize simulation results"
+    subtitle="Visualize predicted trajectories"
+    icon="chart"          
+  >
+    runBioSimulations provides a simple web interface for interactively plotting the results of simulations as time series charts.
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    title="Reproduce &amp; reuse studies"
+    subtitle="Reproduce &amp; reuse published studies"
+    icon="reuse"
+  >
+    By making it easy to execute simulations, runBioSimulations makes it easy for investigators to reuse published simulations and for peer reviewers to evaluate simulations.
+  </biosimulations-home-subsection>
+</biosimulations-home-section>
+
+<biosimulations-home-section
+  [columns]="4"
+>
+  <ng-container id="title">Central access to <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container>
+  
+  <biosimulations-home-subsection
+    id="subsection"
+    title="Model formats"
+    subtitle="runBioSimulations supports several model formats"
+    subtitleSize="small"
+    icon="model"
+  >
+    <biosimulations-home-logo
+      title="BNGL"
+      src="assets/images/about/partners/bionetgen.png"
+      href="https://www.bionetgen.org"
+    >
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo
+      title="SBML"
+      src="assets/images/about/partners/sbml.svg"
+      href="http://sbml.org"
+    >
+    </biosimulations-home-logo>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    title="Simulation formats"
+    subtitle="runBioSimulations supports the SED-ML simulation format"
+    subtitleSize="small"
+    icon="simulation"
+  >
+    <biosimulations-home-logo
+      title="SED-ML"
+      src="assets/images/about/partners/sed-ml.svg"
+      href="https://sed-ml.org/"
+    >
+    </biosimulations-home-logo>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    title="Project formats"
+    subtitle="runBioSimulations supports the COMBINE/OMEX project format"
+    subtitleSize="small"
+    icon="project"
+  >
+    <biosimulations-home-logo
+      title="COMBINE/OMEX"
+      src="assets/images/about/partners/omex.svg"
+      href="https://combinearchive.org/"
+    >
+    </biosimulations-home-logo>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    title="Algorithms &amp; simulators"
+    subtitle="runBioSimulations supports numerous simulation algorithms and tools"
+    subtitleSize="small"
+    icon="simulator"
+  >
+    <p>
+      <biosimulations-home-logo
+        title="COBRApy"
+        src="assets/images/about/partners/cobrapy.svg"
+        href="https://opencobra.github.io/cobrapy/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="COPASI"
+        src="assets/images/about/partners/copasi.svg"
+        href="http://copasi.org/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="tellurium/libRoadRunner"
+        src="assets/images/about/partners/libroadrunner.svg"
+        href="http://tellurium.analogmachine.org/"
+      >
+      </biosimulations-home-logo>
+    </p>
+    <p>
+      <biosimulations-home-logo
+        title="NFsim"
+        src="assets/images/about/partners/nfsim.svg"
+        href="http://michaelsneddon.net/nfsim/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="VCell"
+        src="assets/images/about/partners/vcell.svg"
+        href="https://vcell.org/"
+      >
+      </biosimulations-home-logo>
+    </p>
+  </biosimulations-home-subsection>
+</biosimulations-home-section>    
+
+<biosimulations-home-section
+  [columns]="1"
+>
+  <ng-container id="title">About <span class="highlight-primary">runBioSimulations</span></ng-container>
+  <ng-container id="subsection">
+    <p>
+      runBioSimulations was developed by the Center for Reproducible Biomedical Modeling <a href="https://reproduciblebiomodels.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, the Karr Lab at the Icahn School of Medicine at Mount Sinai <a href="https://www.karrlab.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and the Moraru Lab at the University of Connecticut Health Center <a href="https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> with support from the National Institutes of Health and the National Science Foundation.
+    </p>        
+    <p>
+      runBioSimulations is implemented using several open-source tools and cloud platforms. The models, simulations, and visualizations are available under the licenses specified for each resource. The code is openly available under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+    </p>        
+    <p>
+      Please see the <a [routerLink]="['/help/about']">About page</a> for more information.
+    </p>
+    <p>
+      <biosimulations-home-logo
+        title="Center for Reproducible Biomedical Modeling"
+        src="assets/images/about/team/crbm.svg"
+        href="https://reproduciblebiomodels.org/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Karr Lab"
+        src="assets/images/about/team/karr-lab.svg"
+        href="https://www.karrlab.org/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Icahn School of Medicine at Mount Sinai"
+        src="assets/images/about/team/sinai.svg"
+        href="https://icahn.mssm.edu/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="University of Connecticut Health Center"
+        src="assets/images/about/team/uconn.svg"
+        href="https://health.uconn.edu/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="University of Washington"
+        src="assets/images/about/team/uw.svg"
+        href="https://www.washington.edu/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="NIBIB"
+        src="assets/images/about/funding/nibib.svg"
+        href="http://nibib.nih.gov/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="NIGMS"
+        src="assets/images/about/funding/nigms.svg"
+        href="http://nigms.nih.gov/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="NIH"
+        src="assets/images/about/funding/nih.svg"
+        href="http://nih.gov/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="NSF"
+        src="assets/images/about/funding/nsf.svg"
+        href="http://nsf.gov/"
+      >
+      </biosimulations-home-logo>
+    </p>
+    <p>
+      <biosimulations-home-logo
+        title="BNGL"
+        src="assets/images/about/partners/bionetgen.png"
+        href="https://www.bionetgen.org"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="SBML"
+        src="assets/images/about/partners/sbml.svg"
+        href="http://sbml.org"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="SED-ML"
+        src="assets/images/about/partners/sed-ml.svg"
+        href="https://sed-ml.org/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="COMBINE/OMEX"
+        src="assets/images/about/partners/omex.svg"
+        href="https://combinearchive.org/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="BioContainers"
+        src="assets/images/about/partners/biocontainers.png"
+        href="https://biocontainers.pro/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="COBRApy"
+        src="assets/images/about/partners/cobrapy.svg"
+        href="https://opencobra.github.io/cobrapy/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="COPASI"
+        src="assets/images/about/partners/copasi.svg"
+        href="http://copasi.org/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="tellurium/libRoadRunner"
+        src="assets/images/about/partners/libroadrunner.svg"
+        href="http://tellurium.analogmachine.org/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="NFsim"
+        src="assets/images/about/partners/nfsim.svg"
+        href="http://michaelsneddon.net/nfsim/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="VCell"
+        src="assets/images/about/partners/vcell.svg"
+        href="https://vcell.org/"
+      >
+      </biosimulations-home-logo>
+    </p>
+    <p>
+      <biosimulations-home-logo
+        title="Angular"
+        src="assets/images/about/tech/angular.svg"
+        href="https://angular.io/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Bruit.io"
+        src="assets/images/about/tech/bruit-io.svg"
+        href="https://www.bruit.io/"
+      >
+      </biosimulations-home-logo>
+      
+      <biosimulations-home-logo
+        title="Docker"
+        src="assets/images/about/tech/docker.svg"
+        href="http://www.docker.com/"
+      >
+      </biosimulations-home-logo>
+      
+      <biosimulations-home-logo
+        title="Favicon Generator"
+        src="assets/images/about/tech/real-favicon-generator.png"
+        href="http://realfavicongenerator.net/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Font Awesome"
+        src="assets/images/about/tech/font-awesome.svg"
+        href="https://fontawesome.com/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="GitHub"
+        src="assets/images/about/tech/github.svg"
+        href="https://github.com/open-source"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Kubernetes"
+        src="assets/images/about/tech/kubernetes.svg"
+        href="https://kubernetes.io/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Material Design"
+        src="assets/images/about/tech/material.svg"
+        href="https://material.io/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Material Theme Generator"
+        src="assets/images/about/tech/material-theme-generator.svg"
+        href="https://materialtheme.arcsine.dev/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="MongoDB"
+        src="assets/images/about/tech/mongodb.svg"
+        href="https://www.mongodb.com/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="NestJS"
+        src="assets/images/about/tech/nestjs.svg"
+        href="https://nestjs.com/"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="Netlify"
+        src="assets/images/about/tech/netlify.svg"
+        href="https://www.netlify.com"
+      >
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="OpenAPI"
+        src="assets/images/about/tech/openapi.svg"
+        href="https://www.openapis.org/"
+      >
+      </biosimulations-home-logo>
+    </p>
+  </ng-container>
+</biosimulations-home-section>
