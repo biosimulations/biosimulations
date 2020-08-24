@@ -113,7 +113,7 @@
     "cypress": "^4.1.0",
     "dotenv": "6.2.0",
     "eslint": "^7.6.0",
-    "eslint-config-prettier": "6.0.0",
+    "eslint-config-prettier": "6.11.0",
     "eslint-plugin-cypress": "^2.10.3",
     "install": "^0.13.0",
     "jest": "25.2.3",
