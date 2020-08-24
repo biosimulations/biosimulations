@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
@@ -53,6 +54,7 @@ const routes: Routes = [
     PlotlyViaWindowModule,
     MatSelectModule,
     SharedUiModule,
+    BiosimulationsIconsModule,
     BrowserAnimationsModule,
 
     FormsModule,
