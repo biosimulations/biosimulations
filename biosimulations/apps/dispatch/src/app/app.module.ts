@@ -21,12 +21,20 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'dispatch',
+    path: 'run',
     component: DispatchComponent,
   },
   {
-    path: 'result/:uuid',
+    path: 'simulation/:uuid',
     component: ResultsPageComponent,
+  },
+  {
+    path: 'help',
+    loadChildren: () =>
+      import('./components/help/help.module').then((m) => m.HelpModule),
+    data: {
+      breadcrumb: 'Help'
+    }
   },
 ];
 
