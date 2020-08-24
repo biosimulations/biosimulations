@@ -15,7 +15,14 @@
       </div>
 
       <div class="hanging-indent">
-        <a [href]="webserviceHelpUrl" target="_blank">
+        <a [href]="submitAppHelpUrl" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+          Documentation for the standalone simulation web app
+        </a>
+      </div>
+
+      <div class="hanging-indent">
+        <a [href]="webserviceUrl" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
           Web service documentation
         </a>
@@ -93,10 +100,17 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
+      title="Executing simulations with the standalone simulation application"
+      shortTitle="Standalone simulation app"
+    >
+      In addition to this full-featured web application, a simpler application for executing simulations is available at <a [href]="submitAppUrl" target="_blank">{{ submitAppUrl }}</a>. This application simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
       title="Executing simulations with the standalone web service"
       shortTitle="Web service"
     >
-      In addition to this web application, a simple standalone web service for executing simulations is available at <a [href]="webserviceUrl" target="_blank">{{ webserviceUrl }}</a>. This web service simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. The web service does not require an account.
+      In addition to this full-featured web application, a simple web service for executing simulations is available at <a [href]="webserviceUrl" target="_blank">{{ webserviceUrl }}</a>. This web service simply enables users to execute COMBINE archives using a variety of simulation tools. The web service does not require an account.
     </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>
