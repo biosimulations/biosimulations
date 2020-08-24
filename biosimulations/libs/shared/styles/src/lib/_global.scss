@@ -117,3 +117,13 @@ a {
   text-indent: -1.1em;
   margin-left: 1.1em;
 }
+
+.mat-typography p {
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
