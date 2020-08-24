@@ -125,19 +125,45 @@ export class AppController {
 
           const jsonPath = filePath.split('.csv')[0] + '.json';
 
-          setTimeout(() => {
-            fs.createReadStream(filePath)
+          fs.createReadStream(filePath)
               .pipe(
                 csv2Json.default({
                   separator: ',',
                 })
               )
               .pipe(fs.createWriteStream(jsonPath));
-          }, 0);
+
+              // Convert CSV to chart JSON
+              const chartJsonPath = jsonPath.split('.json')[0] + '_chart.json';
+              const chartResults = this.convertJsonDataToChartData(jsonResults);
+              fs.writeFileSync(JSON.stringify(chartResults), chartJsonPath);
         }
       });
     });
 
-    // Convert CSV to chart JSON
+  }
+
+  convertJsonDataToChartData(data: any) {
+   
+   const finalRes: any = {};
+
+    const taskKeys = Object.keys(data[0]);
+    taskKeys.splice(taskKeys.indexOf('time'), 1);
+
+    for (const taskKey of taskKeys) {
+      finalRes[taskKey] = {};
+      finalRes[taskKey]['x'] = [];
+      finalRes[taskKey]['y'] = [];
+      finalRes[taskKey]['type'] = 'scatter';
+    }
+
+    for (const dataObj of data) {
+      for (const taskKey of taskKeys) {
+        finalRes[taskKey]['x'].push(dataObj['time']);
+        finalRes[taskKey]['y'].push(dataObj[taskKey]);
+      }
+    }
+
+    return finalRes;
   }
 }
