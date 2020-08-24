@@ -127,3 +127,52 @@ a {
     margin-bottom: 0;
   }
 }
+
+/* forms */
+biosimulations-root {
+  .mat-form-field {
+      display: block;
+      letter-spacing: unset;
+  }
+
+  .mat-form-field-appearance-fill {
+    .mat-form-field-flex  {
+      padding: 0.75em 0.75em 0 0.75em;
+    }
+
+    .mat-form-field-underline {
+      display: none;
+    }
+
+    .mat-form-field-subscript-wrapper {
+      margin-top: 0;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.42);
+      position: unset;
+    }
+  }
+
+  .mat-form-field-prefix biosimulations-icon {
+      font-size: 32px;
+      position: relative;
+      top: -0.125rem;
+      margin-right: 0.5rem;
+      color: rgba(0, 0, 0, 0.7);
+  }
+
+  .ngx-mat-file-input .mat-icon-button.mat-primary {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .mat-form-field:not(.mat-form-field-appearance-legacy) .ngx-mat-file-input .mat-form-field-suffix .mat-icon-button {
+    width: 1.5em;
+    margin-right: 0.2rem;
+  }
+
+  form {
+    .mat-flat-button {
+        padding: 0 .75em;
+        background-color: $light-background;
+    }
+  }
+}

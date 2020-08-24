@@ -1,10 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { DispatchComponent } from './dispatch.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DispatchComponent', () => {
@@ -16,6 +18,8 @@ describe('DispatchComponent', () => {
       imports: [
         FormsModule,
         SharedUiModule,
+        BiosimulationsIconsModule,
+        MatFormFieldModule,
         MatSelectModule,
         NoopAnimationsModule,
       ],
