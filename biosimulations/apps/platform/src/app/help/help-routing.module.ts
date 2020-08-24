@@ -12,8 +12,8 @@ const routes: Routes = [
         component: HelpComponent,
         data: {
             contextButtons: [
-                {route: ['/help', 'about'], icon: 'info', label: 'About'},
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
+                {route: ['/help', 'about'], icon: 'info', label: 'About'},
                 {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
             ]
         }
@@ -49,8 +49,8 @@ const routes: Routes = [
             breadcrumb: 'Privacy policy',
             contextButtons: [
                 {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
-                {route: ['/help', 'about'], icon: 'info', label: 'About'},
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
+                {route: ['/help', 'about'], icon: 'info', label: 'About'},
             ]
         }
     },
