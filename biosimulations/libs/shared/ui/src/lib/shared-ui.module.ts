@@ -25,6 +25,10 @@ import { TextPageSideBarSectionComponent } from './text-page/text-page-side-bar-
 import { TextPageContentSectionComponent } from './text-page/text-page-content-section.component';
 import { TextPageTocItemComponent } from './text-page/text-page-toc-item.component';
 import { QAComponent } from './q-a/q-a.component';
+import { HomeSectionComponent } from './home/home-section.component';
+import { HomeSubsectionComponent } from './home/home-subsection.component';
+import { HomeTeaserComponent } from './home/home-teaser.component';
+import { HomeLogoComponent } from './home/home-logo.component';
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, BreadCrumbsModule],
   exports: [MaterialWrapperModule, TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
@@ -34,6 +38,7 @@ import { QAComponent } from './q-a/q-a.component';
     HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyNoticeComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
+    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
   ],
   declarations: [TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
     HoverOpenMenuComponent, DropdownMenuItemComponent,
@@ -43,6 +48,7 @@ import { QAComponent } from './q-a/q-a.component';
     SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyNoticeComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
+    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
   ],
 })
 export class SharedUiModule { }
