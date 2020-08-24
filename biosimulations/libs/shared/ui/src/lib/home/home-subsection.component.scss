@@ -9,8 +9,8 @@ biosimulations-icon {
   font-size: 48px;
   text-align: center;
 
-  ::ng-deep mat-icon {
-    line-height: 0.1;
+  ::ng-deep .mat-icon {
+    line-height: 0.15;
     position: relative;
     top: 18px;
   }
