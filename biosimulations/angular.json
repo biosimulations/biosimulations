@@ -428,7 +428,8 @@
                 "input": "libs/shared/assets/src/assets",
                 "output": "assets"
               },
-              "apps/dispatch/src/assets"
+              "apps/dispatch/src/manifest.webmanifest",
+              "apps/dispatch/src/browserconfig.xml"
             ],
             "styles": [
               "libs/shared/styles/src/index.scss"
@@ -1240,7 +1241,9 @@
                 "glob": "**/*",
                 "input": "libs/shared/assets/src/assets",
                 "output": "assets"
-              }
+              },
+              "apps/simulators/src/manifest.webmanifest",
+              "apps/simulators/src/browserconfig.xml"
             ],
             "styles": [
               "libs/shared/styles/src/index.scss"
