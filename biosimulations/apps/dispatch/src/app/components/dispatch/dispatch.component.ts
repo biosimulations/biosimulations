@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { DispatchService } from '../../services/dispatch/dispatch.service';
 import { VisualisationService } from '../../services/visualisation/visualisation.service';
 
@@ -17,12 +22,15 @@ export class DispatchComponent implements OnInit {
   simulators: Array<string> = [];
   simulatorVersions: Array<string> = [];
 
-  constructor(private formBuilder: FormBuilder, private dispatchService: DispatchService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private dispatchService: DispatchService
+  ) {
     this.formGroup = formBuilder.group({
-      'projectFile': ['', [Validators.required]],
-      'simulator': ['', [Validators.required]],
-      'simulatorVersion': ['', [Validators.required]],
-      'email': ['', [Validators.email]],
+      projectFile: ['', [Validators.required]],
+      simulator: ['', [Validators.required]],
+      simulatorVersion: ['', [Validators.required]],
+      email: ['', [Validators.email]],
     });
   }
 
@@ -32,16 +40,27 @@ export class DispatchComponent implements OnInit {
         this.simulators = simulators;
       },
       (error: any) => {
-        console.log('Error while fetching simulators and their versions: ', error);
+        console.log(
+          'Error while fetching simulators and their versions: ',
+          error
+        );
       }
     );
   }
 
   onFormSubmit() {
-    this.projectFileError = this.formGroup.controls.projectFile.errors ? this.formGroup.controls.projectFile.errors.required : null;
-    this.simulatorError = this.formGroup.controls.simulator.errors ? this.formGroup.controls.simulator.errors.required : null;
-    this.simulatorVersionError = this.formGroup.controls.simulatorVersion.errors ? this.formGroup.controls.simulatorVersion.errors.required : null;
-    this.emailError = this.formGroup.controls.email.errors ? this.formGroup.controls.email.errors.email : null;
+    this.projectFileError = this.formGroup.controls.projectFile.errors
+      ? this.formGroup.controls.projectFile.errors.required
+      : null;
+    this.simulatorError = this.formGroup.controls.simulator.errors
+      ? this.formGroup.controls.simulator.errors.required
+      : null;
+    this.simulatorVersionError = this.formGroup.controls.simulatorVersion.errors
+      ? this.formGroup.controls.simulatorVersion.errors.required
+      : null;
+    this.emailError = this.formGroup.controls.email.errors
+      ? this.formGroup.controls.email.errors.email
+      : null;
 
     if (!this.formGroup.valid) {
       return;
@@ -53,11 +72,7 @@ export class DispatchComponent implements OnInit {
     const email: string = this.formGroup.value.email;
 
     this.dispatchService
-      .submitJob(
-        projectFile,
-        simulator,
-        simulatorVersion
-      )
+      .submitJob(projectFile, simulator, simulatorVersion)
       .subscribe(
         (data: any) => {
           console.log('Response from server: ', data);
@@ -78,7 +93,9 @@ export class DispatchComponent implements OnInit {
       .getAllSimulatorInfo($event.value)
       .subscribe((simulatorVersions: any) => {
         this.simulatorVersions = simulatorVersions;
-        this.formGroup.controls.simulatorVersion.setValue(this.simulatorVersions[0]);
+        this.formGroup.controls.simulatorVersion.setValue(
+          this.simulatorVersions[0]
+        );
       });
   }
 }
