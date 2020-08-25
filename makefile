@@ -17,7 +17,7 @@ deploy: push-biosimulations-api push-account-api push-dispatch-service
 .PHONY: deploy
 
 build: 
-	docker  build -f $(DOCKER_PATH) -t crbm/$(APP):$(TAG) --build-arg app=$(APP) $(DOCKER_BUILD_CONTEXT)
+	docker  build -f $(DOCKER_PATH) -t $(DOCKER_NAMESPACE)/$(APP):$(TAG) --build-arg app=$(APP) $(DOCKER_BUILD_CONTEXT)
 .PHONY: build
 
 push: build 
