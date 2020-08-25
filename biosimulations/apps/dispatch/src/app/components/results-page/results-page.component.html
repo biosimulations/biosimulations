@@ -1,20 +1,33 @@
-<biosimulations-page [title]="'Results for simulation &#34;' + uuid + '&#34;'" [columns]="2">
+<!--  eslint-disable @angular-eslint/template/cyclomatic-complexity-->
+<!-- TODO Remove the disable, fix complexity-->
+<biosimulations-page
+  [title]="'Results for simulation &#34;' + uuid + '&#34;'"
+  [columns]="2"
+>
   <div class="container spinner" *ngIf="sedmls === undefined">
-    <mat-spinner>
-    </mat-spinner>
+    <mat-spinner> </mat-spinner>
   </div>
 
   <div class="container grid grid-2" *ngIf="sedmls !== undefined">
     <form [formGroup]="formGroup">
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>
-        <mat-select formControlName="sedml" disableOptionCentering disableRipple (selectionChange)="setSedml()" required>
+        <mat-select
+          formControlName="sedml"
+          disableOptionCentering
+          disableRipple
+          (selectionChange)="setSedml()"
+          required
+        >
           <mat-option *ngFor="let sedml of sedmls" [value]="sedml">
             {{ sedml }}
           </mat-option>
         </mat-select>
         <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
-        <mat-hint>Select one of the SED-ML files in the COMBINE/OMEX archive which describes one or more simulation taskse.</mat-hint>
+        <mat-hint
+          >Select one of the SED-ML files in the COMBINE/OMEX archive which
+          describes one or more simulation taskse.</mat-hint
+        >
         <mat-error *ngIf="sedmlError">
           Please select a SED-ML file.
         </mat-error>
@@ -22,19 +35,31 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation task</mat-label>
-        <mat-select formControlName="task" disableOptionCentering disableRipple (selectionChange)="setTask()" required>
+        <mat-select
+          formControlName="task"
+          disableOptionCentering
+          disableRipple
+          (selectionChange)="setTask()"
+          required
+        >
           <mat-option *ngFor="let task of tasks" [value]="task">
             {{ task }}
           </mat-option>
         </mat-select>
         <biosimulations-icon icon="task" matPrefix></biosimulations-icon>
-        <mat-hint>Select a task within the selected SED-ML file which describes one or more simulations (e.g., in SED-ML format) of one or more models (e.g., in SBML format).</mat-hint>
+        <mat-hint
+          >Select a task within the selected SED-ML file which describes one or
+          more simulations (e.g., in SED-ML format) of one or more models (e.g.,
+          in SBML format).</mat-hint
+        >
         <mat-error *ngIf="taskError">
           Please select a simulation task.
         </mat-error>
       </mat-form-field>
     </form>
 
-    <biosimulations-visualisation-container [graphData]="projectResults"></biosimulations-visualisation-container>
+    <biosimulations-visualisation-container
+      [graphData]="projectResults"
+    ></biosimulations-visualisation-container>
   </div>
 </biosimulations-page>
