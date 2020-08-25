@@ -10,6 +10,10 @@ import { VisualisationService } from '../../services/visualisation/visualisation
 })
 export class DispatchComponent implements OnInit {
   formGroup: FormGroup;
+  projectFileError!: string;
+  simulatorError!: string;
+  simulatorVersionError!: string;
+  emailError!: string;
   simulators: Array<string> = [];
   simulatorVersions: Array<string> = [];
 
@@ -34,6 +38,11 @@ export class DispatchComponent implements OnInit {
   }
 
   onFormSubmit() {
+    this.projectFileError = this.formGroup.controls.projectFile.errors ? this.formGroup.controls.projectFile.errors.required : null;
+    this.simulatorError = this.formGroup.controls.simulator.errors ? this.formGroup.controls.simulator.errors.required : null;
+    this.simulatorVersionError = this.formGroup.controls.simulatorVersion.errors ? this.formGroup.controls.simulatorVersion.errors.required : null;
+    this.emailError = this.formGroup.controls.email.errors ? this.formGroup.controls.email.errors.email : null;
+
     if (!this.formGroup.valid) {
       return;
     }
