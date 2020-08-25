@@ -108,7 +108,7 @@ a {
 
 .zoom:hover {
   transform: scale(1.08);
-} 
+}
 .hidden {
   display: none;
 }
@@ -136,8 +136,10 @@ biosimulations-root {
   }
 
   .mat-form-field-appearance-fill {
+
     .mat-form-field-flex  {
       padding: 0.75em 0.75em 0 0.75em;
+      background-color: $light-background;
     }
 
     .mat-form-field-underline {
@@ -149,6 +151,12 @@ biosimulations-root {
       padding-top: 0.5rem;
       border-top: 1px solid rgba(0, 0, 0, 0.42);
       position: unset;
+    }
+
+    &.mat-form-field-disabled {
+      .mat-form-field-flex {
+        background-color: $light-bg-darker-20;
+      }
     }
   }
 
@@ -175,4 +183,13 @@ biosimulations-root {
         background-color: $light-background;
     }
   }
+}
+
+.cdk-overlay-container {
+  @include mat-typography-level-to-styles($fontConfig, body-1);
+}
+
+.mat-select-panel {
+  margin-top: 26px;
+  margin-left: -6px;
 }
