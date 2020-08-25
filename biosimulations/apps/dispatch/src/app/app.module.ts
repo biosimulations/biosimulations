@@ -29,7 +29,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'simulation/:uuid',
+    path: 'simulations/:uuid',
     component: ResultsPageComponent,
     data: {
       breadcrumb: 'Simulation results'

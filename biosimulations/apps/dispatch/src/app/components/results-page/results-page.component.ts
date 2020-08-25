@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VisualisationService } from '../../services/visualisation/visualisation.service';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { VisualisationService } from '../../services/visualisation/visualisation.service';
 
 @Component({
   selector: 'biosimulations-results-page',
@@ -10,64 +11,64 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class ResultsPageComponent implements OnInit {
   uuid = '';
-  tasksPerSedml!: any;
-  graphData!: any;
+
   sedmls!: Array<string>;
   tasks!: Array<string>;
-  // TODO: Add dropdown for all sedmls
-  taskSelected!: string;
-  sedmlSelected!: string;
+
+  formGroup: FormGroup;
+
+  sedmlError!: string;
+  taskError!: string;
+
+  projectResults!: any;
+
   constructor(
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private visualisationService: VisualisationService,
-  ) {}
+  ) {
+    this.formGroup = formBuilder.group({
+      'sedml': ['', [Validators.required]],
+      'task': ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
-    // this.uuid = 'abcd123';
     this.uuid = this.route.snapshot.params['uuid'];
-    // this.uuid = this.route.params['uuid'];
-
-    if (this.graphData === undefined) {
+    if (this.projectResults === undefined) {
       this.visualisationService
         .getVisualisation(this.uuid)
         .subscribe((data: any) => {
-          console.log(data);
-          this.graphData = data['data'];
-          // TODO: Remove this after testing
-          this.sedmls = Object.keys(data['data']);
-          this.sedmlSelected = this.sedmls[0];
-          this.tasks = Object.keys(this.graphData[this.sedmlSelected]);
-          this.taskSelected = this.tasks[0];
-
-          const plotData = this.graphData[this.sedmlSelected][
-            this.taskSelected
-          ];
-
-          // console.log(this.graphData);
-          // TODO: Save data somewhere, bind to the vis-container only the selected data
-          // this.graphData = data['data'];
-
-          this.visualisationService.updateDataEvent.next({
-            task: this.taskSelected,
-            data: plotData,
-          });
+          this.setProjectResults(data['data'])
         });
     }
   }
 
-  onSedmlChange($event: MatSelectChange) {
-    this.tasks = Object.keys(this.graphData[$event.value]);
-    this.taskSelected = this.tasks[0];
+  setProjectResults(projectResults: any): void {
+    this.projectResults = projectResults;
 
-    const plotData = this.graphData[this.sedmlSelected][this.taskSelected];
+    this.sedmls = Object.keys(projectResults);
+    const sedml = this.sedmls[0];
+    this.formGroup.controls.sedml.setValue(sedml);
 
-    // console.log(this.graphData);
-    // TODO: Save data somewhere, bind to the vis-container only the selected data
-    // this.graphData = data['data'];
+    this.setSedml();
+  }
 
+  setSedml(): void {
+    const sedml = this.formGroup.value.sedml;
+    this.tasks = Object.keys(this.projectResults[sedml]);
+    const task = this.tasks[0];
+    this.formGroup.controls.task.setValue(task);
+    this.setTask();
+  }
+
+  setTask(): void {
+    const sedml = this.formGroup.value.sedml;
+    const task = this.formGroup.value.task;
+    const taskResults = this.projectResults[sedml][task];
     this.visualisationService.updateDataEvent.next({
-      task: this.taskSelected,
-      data: plotData,
+      task: task,
+      data: taskResults,
     });
   }
 }

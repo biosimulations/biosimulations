@@ -1,7 +1,5 @@
-<br />
-<div>
-  <plotly-plot
-    [data]="graphData.data"
-    [layout]="graphData.layout"
-  ></plotly-plot>
-</div>
+<plotly-plot
+  [data]="graphData.data"
+  [layout]="graphData.layout"
+  [config]="{responsive: true}"
+></plotly-plot>
