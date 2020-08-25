@@ -13,7 +13,7 @@ ENV=production
 all: platform-api account-api dispatch-service
 .PHONY: all
 
-deploy: push-biosimulations-api push-account-api push-dispatch-service push-dispatch-api
+deploy: push-platform-api push-account-api push-dispatch-service push-dispatch-api
 .PHONY: deploy
 
 build: 
@@ -26,7 +26,7 @@ push: build
 
 platform-api:
 					$(MAKE) build APP=platform-api TAG=$(TAG)
-.PHONY: biosimulations-api
+.PHONY: platform-api
 
 account-api: 
 			$(MAKE) build APP=account-api TAG=$(TAG)
