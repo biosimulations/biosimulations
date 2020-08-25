@@ -64,7 +64,6 @@ export class HpcService {
                         JSON.stringify(result)
                     );
                     // TODO: Make config file for message patterns instead of hardcoding them
-                    // TODO: Subscribe the below message in the required service
                     this.messageClient.emit('dispatch_log', {
                       simDir: simDirBase,
                       hpcOutput: result,
