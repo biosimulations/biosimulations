@@ -13,7 +13,7 @@ ENV=production
 all: platform-api account-api dispatch-service
 .PHONY: all
 
-deploy: push-biosimulations-api push-account-api push-dispatch-service
+deploy: push-biosimulations-api push-account-api push-dispatch-service push-dispatch-api
 .PHONY: deploy
 
 build: 
@@ -23,8 +23,6 @@ build:
 push: build 
 	docker push $(DOCKER_NAMESPACE)/$(APP):$(TAG)
 .PHONY: push
-
-
 
 platform-api:
 					$(MAKE) build APP=platform-api TAG=$(TAG)
@@ -37,15 +35,24 @@ account-api:
 
 dispatch-service:
 			$(MAKE) build APP=dispatch-service TAG=$(TAG)
+.PHONY: dispatch-service
+
+dispatch-api:
+			$(MAKE) build APP=dispatch-api TAG=$(TAG)
+.PHONY: dispatch-api
 
 push-platform-api:
 					$(MAKE) push APP=platform-api TAG=$(TAG)
-.PHONY: biosimulations-api
+.PHONY: push-platform-api
 
 push-account-api: 
 			$(MAKE) push APP=account-api TAG=$(TAG)
-
-.PHONY: account-api
+.PHONY: push-account-api
 
 push-dispatch-service:
 			$(MAKE) push APP=dispatch-service TAG=$(TAG)
+.PHONY: push-dispatch-service
+
+push-dispatch-api:
+			$(MAKE) push APP=dispatch-api TAG=$(TAG)
+.PHONY: push-dispatch-api
