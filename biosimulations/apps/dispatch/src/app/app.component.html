@@ -12,7 +12,7 @@
 
       <ng-container id="items">
         <biosimulations-dropdown-menu-item *ngFor="let uuid of uuids; let listIndex = index"
-          [title]="uuid" icon="simulation" [routerLink]="['/simulation', uuidsComplete[listIndex]]"
+          [title]="uuid" icon="simulation" [routerLink]="['/simulations', uuidsComplete[listIndex]]"
         >
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -44,7 +44,7 @@
 
     <biosimulations-navigation-item [title]="'Your simulations (' + uuids.length + ')'" icon="simulation" [noExpansion]="uuids.length === 0">
         <biosimulations-navigation-subitem *ngFor="let uuid of uuids; let listIndex = index"
-          [title]="uuid" icon="simulation" [route]="['/simulation', uuidsComplete[listIndex]]">
+          [title]="uuid" icon="simulation" [route]="['/simulations', uuidsComplete[listIndex]]">
         </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 

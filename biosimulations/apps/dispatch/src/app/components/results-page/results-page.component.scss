@@ -1,0 +1,18 @@
+biosimulations-page ::ng-deep .partial-width {
+  height: calc(100vh - 64px - 32px - 2 * 2rem);
+}
+
+.container {
+  height: calc(100% - 6rem);
+
+  &.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.grid {
+    grid-template-columns: 16rem 1fr;
+  }
+}
+
