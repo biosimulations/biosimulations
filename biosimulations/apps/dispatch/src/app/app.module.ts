@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
@@ -64,6 +64,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
 
     FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
   ],

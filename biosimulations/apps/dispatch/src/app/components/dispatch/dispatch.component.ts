@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DispatchService } from '../../services/dispatch/dispatch.service';
 import { VisualisationService } from '../../services/visualisation/visualisation.service';
 
@@ -8,45 +9,45 @@ import { VisualisationService } from '../../services/visualisation/visualisation
   styleUrls: ['./dispatch.component.scss'],
 })
 export class DispatchComponent implements OnInit {
+  formGroup: FormGroup;
   simulators: Array<string> = [];
-  selectedSimulator = '';
-  versions: Array<string> = [];
-  selectedVersion = '';
-  // TODO: Fix this default assignment to file
-  fileToUpload: File = new File([], '');
+  simulatorVersions: Array<string> = [];
 
-  constructor(private dispatchService: DispatchService) {}
+  constructor(private formBuilder: FormBuilder, private dispatchService: DispatchService) {
+    this.formGroup = formBuilder.group({
+      'projectFile': ['', [Validators.required]],
+      'simulator': ['', [Validators.required]],
+      'simulatorVersion': ['', [Validators.required]],
+      'email': ['', [Validators.email]],
+    });
+  }
 
   ngOnInit(): void {
     this.dispatchService.getAllSimulatorInfo().subscribe(
-      (data: any) => {
-        this.simulators = data;
-        this.selectedSimulator = this.simulators[0];
-
-        this.dispatchService
-          .getAllSimulatorInfo(this.selectedSimulator)
-          .subscribe((dat: any) => {
-            this.versions = dat;
-            this.selectedVersion = this.versions[0];
-          });
+      (simulators: any) => {
+        this.simulators = simulators;
       },
       (error: any) => {
-        console.log('Error while fetching simulators and versions: ', error);
+        console.log('Error while fetching simulators and their versions: ', error);
       }
     );
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0) as File;
-  }
+  onFormSubmit() {
+    if (!this.formGroup.valid) {
+      return;
+    }
 
-  onClickSubmit() {
-    // const selectedSimulator = '';
+    const projectFile: File = this.formGroup.value.projectFile;
+    const simulator: string = this.formGroup.value.simulator;
+    const simulatorVersion: string = this.formGroup.value.simulatorVersion;
+    const email: string = this.formGroup.value.email;
+
     this.dispatchService
       .submitJob(
-        this.fileToUpload,
-        this.selectedSimulator,
-        this.selectedVersion
+        projectFile,
+        simulator,
+        simulatorVersion
       )
       .subscribe(
         (data: any) => {
@@ -65,10 +66,10 @@ export class DispatchComponent implements OnInit {
 
   onSimulatorChange($event: any) {
     this.dispatchService
-      .getAllSimulatorInfo($event['value'])
-      .subscribe((dat: any) => {
-        this.versions = dat;
-        this.selectedVersion = this.versions[0];
+      .getAllSimulatorInfo($event.value)
+      .subscribe((simulatorVersions: any) => {
+        this.simulatorVersions = simulatorVersions;
+        this.formGroup.controls.simulatorVersion.setValue(this.simulatorVersions[0]);
       });
   }
 }
