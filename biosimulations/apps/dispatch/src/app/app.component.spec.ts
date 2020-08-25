@@ -37,9 +37,9 @@ describe('AppComponent', () => {
     // expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'biosimulations-dispatch-frontend'`, () => {
+  it(`should have as title 'dispatch'`, () => {
     //const fixture = TestBed.createComponent(AppComponent);
     //const app = fixture.componentInstance;
-    //expect(app.title).toEqual('biosimulations-dispatch-frontend');
+    //expect(app.title).toEqual('dispatch');
   });
 });

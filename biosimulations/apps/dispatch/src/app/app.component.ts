@@ -10,7 +10,7 @@ import { DispatchService } from './services/dispatch/dispatch.service';
 export class AppComponent implements OnInit {
   uuids: Array<string> = [];
   uuidsComplete: Array<string> = [];
-  title = 'biosimulations-dispatch-frontend';
+  title = 'dispatch';
 
   constructor(private dispatchService: DispatchService) {}
 

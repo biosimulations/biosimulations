@@ -8,7 +8,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule,SharedUiModule,HttpClientTestingModule,NoopAnimationsModule],
+      imports: [RouterTestingModule, SharedUiModule, HttpClientTestingModule, NoopAnimationsModule],
       providers:[AuthService, AuthEnvironment],
       declarations: [AppComponent],
     }).compileComponents();

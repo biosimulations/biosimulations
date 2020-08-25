@@ -60,7 +60,6 @@ const routes: Routes = [
     SharedModule,
   ],
   providers: [AuthService, { provide: AuthEnvironment, useValue: env }],
-
   bootstrap: [AppComponent],
 })
 export class AppModule { }
