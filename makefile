@@ -3,17 +3,17 @@ DOCKER_BACKEND_PATH=./Dockerfile
 DOCKER_FRONTEND_PATH=./deploy/docker/frontend.dockerfile
 DOCKER_PATH=$(DOCKER_BACKEND_PATH)
 DOCKER_REGISTRY=docker.io
-DOCKER_USER=crbm
-APP=biosimulations-api
-DOCKER_IMAGE=$(DOCKER_HOST)/$(DOCKER_USER)/$(APP)
+DOCKER_NAMESPACE=biosimulations
+APP=platform-api
+DOCKER_IMAGE=$(DOCKER_HOST)/$(DOCKER_NAMESPACE)/$(APP)
 COMMIT=$(shell git rev-parse HEAD)
 TAG=$(COMMIT)
 ENV=production
 
-all: biosimulations-api account-api biosimulations-dispatch-service
+all: platform-api account-api dispatch-service
 .PHONY: all
 
-deploy: push-biosimulations-api push-account-api push-biosimulations-dispatch-service
+deploy: push-biosimulations-api push-account-api push-dispatch-service
 .PHONY: deploy
 
 build: 
@@ -21,13 +21,13 @@ build:
 .PHONY: build
 
 push: build 
-	docker push crbm/$(APP):$(TAG)
+	docker push $(DOCKER_NAMESPACE)/$(APP):$(TAG)
 .PHONY: push
 
 
 
-biosimulations-api:
-					$(MAKE) build APP=biosimulations-api TAG=$(TAG)
+platform-api:
+					$(MAKE) build APP=platform-api TAG=$(TAG)
 .PHONY: biosimulations-api
 
 account-api: 
@@ -35,11 +35,11 @@ account-api:
 
 .PHONY: account-api
 
-biosimulations-dispatch-service:
-			$(MAKE) build APP=biosimulations-dispatch-service TAG=$(TAG)
+dispatch-service:
+			$(MAKE) build APP=dispatch-service TAG=$(TAG)
 
-push-biosimulations-api:
-					$(MAKE) push APP=biosimulations-api TAG=$(TAG)
+push-platform-api:
+					$(MAKE) push APP=platform-api TAG=$(TAG)
 .PHONY: biosimulations-api
 
 push-account-api: 
@@ -47,5 +47,5 @@ push-account-api:
 
 .PHONY: account-api
 
-push-biosimulations-dispatch-service:
-			$(MAKE) push APP=biosimulations-dispatch-service TAG=$(TAG)
+push-dispatch-service:
+			$(MAKE) push APP=dispatch-service TAG=$(TAG)
