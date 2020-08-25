@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { VisualisationService } from '../../services/visualisation/visualisation.service';
 
@@ -25,11 +30,11 @@ export class ResultsPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private visualisationService: VisualisationService,
+    private visualisationService: VisualisationService
   ) {
     this.formGroup = formBuilder.group({
-      'sedml': ['', [Validators.required]],
-      'task': ['', [Validators.required]],
+      sedml: ['', [Validators.required]],
+      task: ['', [Validators.required]],
     });
   }
 
@@ -39,7 +44,7 @@ export class ResultsPageComponent implements OnInit {
       this.visualisationService
         .getVisualisation(this.uuid)
         .subscribe((data: any) => {
-          this.setProjectResults(data['data'])
+          this.setProjectResults(data['data']);
         });
     }
   }
