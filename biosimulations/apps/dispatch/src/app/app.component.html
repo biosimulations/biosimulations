@@ -42,7 +42,7 @@
     <biosimulations-navigation-item title="Run a simulation" icon="simulator" [route]="['/run']">
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item [title]="'Your simulations (' + uuids.length + ')'" icon="simulation" [noExpansion]="uuids.length === 0">
+    <biosimulations-navigation-item [title]="'Your simulations (' + uuids.length + ')'" icon="simulation">
         <biosimulations-navigation-subitem *ngFor="let uuid of uuids; let listIndex = index"
           [title]="uuid" icon="simulation" [route]="['/simulations', uuidsComplete[listIndex]]">
         </biosimulations-navigation-subitem>

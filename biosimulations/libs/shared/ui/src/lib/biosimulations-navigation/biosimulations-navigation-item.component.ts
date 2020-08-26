@@ -1,4 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ContentChildren } from '@angular/core';
+import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navigation-subitem.component';
 
 @Component({
   selector: 'biosimulations-navigation-item',
@@ -19,8 +20,12 @@ export class BiosimulationsNavigationItemComponent {
   @Input()
   aboveDivider = false;
 
-  @Input()
   noExpansion = false;
+
+  @ContentChildren(BiosimulationsNavigationSubitemComponent)
+  set subitems(subitems: QueryList<BiosimulationsNavigationSubitemComponent>) {
+    this.noExpansion = subitems.length === 0;
+  }
 
   @Input()
   disabled = false;
