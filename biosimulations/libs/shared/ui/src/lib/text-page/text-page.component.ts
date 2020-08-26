@@ -26,7 +26,7 @@ export class TextPageComponent implements OnInit {
   @ViewChild('sectionsContainer')
   set sectionsContainer(container: any) {
     this.getTocSections(container.nativeElement);
-  }  
+  }
 
   getTocSections(container: any) {
     for (const section of container.children) {
