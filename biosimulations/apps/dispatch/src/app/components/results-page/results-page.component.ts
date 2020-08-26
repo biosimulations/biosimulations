@@ -15,7 +15,7 @@ import { VisualisationService } from '../../services/visualisation/visualisation
   styleUrls: ['./results-page.component.scss'],
 })
 export class ResultsPageComponent implements OnInit {
-  uuid = '';
+  uuid!: string;
 
   sedmls!: Array<string>;
   tasks!: Array<string>;
@@ -25,7 +25,8 @@ export class ResultsPageComponent implements OnInit {
   sedmlError!: string;
   taskError!: string;
 
-  projectResults!: any;
+  projectStructure!: any;
+  taskResults!: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,28 +41,34 @@ export class ResultsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    if (this.projectResults === undefined) {
+    // if (this.projectResults === undefined) {
+    //   this.visualisationService
+    //     .getVisualisation(this.uuid)
+    //     .subscribe((data: any) => {
+    //       this.setProjectResults(data['data']);
+    //     });
+    // }
+    // TODO: Unsubscribe OnDestroy
+    if (this.projectStructure === undefined) {
       this.visualisationService
-        .getVisualisation(this.uuid)
+        .getResultStructure(this.uuid)
         .subscribe((data: any) => {
-          this.setProjectResults(data['data']);
+          this.setProjectStructure(data['data']);
         });
     }
   }
 
-  setProjectResults(projectResults: any): void {
-    this.projectResults = projectResults;
-
-    this.sedmls = Object.keys(projectResults);
+  setProjectStructure(struct: any): void {
+    this.projectStructure = struct;
+    this.sedmls = Object.keys(struct);
     const sedml = this.sedmls[0];
     this.formGroup.controls.sedml.setValue(sedml);
-
     this.setSedml();
   }
 
   setSedml(): void {
     const sedml = this.formGroup.value.sedml;
-    this.tasks = Object.keys(this.projectResults[sedml]);
+    this.tasks = this.projectStructure[sedml];
     const task = this.tasks[0];
     this.formGroup.controls.task.setValue(task);
     this.setTask();
@@ -70,10 +77,15 @@ export class ResultsPageComponent implements OnInit {
   setTask(): void {
     const sedml = this.formGroup.value.sedml;
     const task = this.formGroup.value.task;
-    const taskResults = this.projectResults[sedml][task];
-    this.visualisationService.updateDataEvent.next({
-      task: task,
-      data: taskResults,
-    });
+    this.visualisationService
+      .getVisualisation(this.uuid, sedml, task)
+      .subscribe((data: any) => {
+        // Getting result for the actual sedml-task combo
+        this.taskResults = data['data'];
+        this.visualisationService.updateDataEvent.next({
+          task: task,
+          data: this.taskResults,
+        });
+      });
   }
 }
