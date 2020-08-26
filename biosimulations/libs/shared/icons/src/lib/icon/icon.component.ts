@@ -35,6 +35,7 @@ export type biosimulationsIcon =
   | 'visualization'
   | 'browse'
   | 'new'
+  | 'compare'
   | 'reuse'
   | 'taxon'
   | 'framework'
@@ -99,6 +100,7 @@ export class IconComponent implements OnInit {
     visualization: { type: 'fas', name: 'paint-brush' },
     browse: { type: 'fas', name: 'list' },
     new: { type: 'fas', name: 'plus-circle' },
+    compare: { type: 'mat', name: 'stacked_line_chart' },
     reuse: { type: 'fas', name: 'sync-alt' },
     taxon: { type: 'fas', name: 'dna' },
     oss: { type: 'fab', name: 'osi' },
