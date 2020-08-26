@@ -1,6 +1,5 @@
 appName=runBioSimulations
-appNameLeft=run
-appNameRight=BioSimulations
+appNameParts=[run, Bio, Simulations]
 appUrl=https://submit.biosimulations.org/
 apiUrl=https://dispatch.biosimulators.org/
 platformAppUrl=https://biosimulations.org/
