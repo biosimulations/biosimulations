@@ -1,6 +1,5 @@
 appName=BioSimulations
-appNameLeft=Bio
-appNameRight=Simulations
+appNameParts=[Bio, Simulations]
 appUrl=https://biosimulations.org/
 apiUrl=https://api.biosimulators.org/
 platformAppUrl=https://biosimulations.org/

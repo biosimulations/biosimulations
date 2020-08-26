@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoTextComponent implements OnInit {
   // TODO: get from app config
-  left = 'Bio';
-  right = 'Simulations';
+  appNameParts: string[] = ['Bio', 'Simulations'];
 
   constructor() { }
 
