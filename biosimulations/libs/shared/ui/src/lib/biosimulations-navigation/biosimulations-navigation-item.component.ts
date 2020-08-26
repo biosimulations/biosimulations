@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, ContentChildren } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ContentChildren, QueryList } from '@angular/core';
 import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navigation-subitem.component';
 
 @Component({
