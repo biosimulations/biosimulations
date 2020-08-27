@@ -138,19 +138,20 @@ export class AppController implements OnApplicationBootstrap {
     const structure: any = {};
 
     const resultPath = path.join(fileStorage, 'simulations', uId, 'out');
-    const sedmls = fs.readdirSync(resultPath);
+
+    const sedmls = await this.readDir(resultPath);
     // Removing log file names 'job.output'
     sedmls.splice(sedmls.indexOf('job.output'), 1);
 
-    sedmls.forEach((sedml) => {
+    for (const sedml of sedmls) {
       structure[sedml] = [];
-      const taskFiles = fs.readdirSync(path.join(resultPath, sedml));
-      taskFiles.forEach((taskFile) => {
+      const taskFiles = await this.readDir(path.join(resultPath, sedml));
+      taskFiles.forEach((taskFile: string) => {
         if (taskFile.endsWith('.csv')) {
           structure[sedml].push(taskFile.split('.csv')[0]);
         }
       });
-    });
+    }
 
     return {
       message: 'OK',
@@ -181,7 +182,8 @@ export class AppController implements OnApplicationBootstrap {
       task
     );
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
-    const fileContent = JSON.parse(fs.readFileSync(filePath).toString());
+    const fileContentBuffer = await this.readFile(filePath);
+    const fileContent = JSON.parse(fileContentBuffer.toString());
 
     return {
       message: 'Data fetched successfully',
@@ -196,7 +198,7 @@ export class AppController implements OnApplicationBootstrap {
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  getAllSimulatorVersion(@Query('name') simulatorName: string) {
+  async getAllSimulatorVersion(@Query('name') simulatorName: string) {
     // NOTE: Add more simulators once they are supported
     const allSimulators = [
       'COPASI',
@@ -225,6 +227,30 @@ export class AppController implements OnApplicationBootstrap {
         return simVersions;
       })
     );
+  }
+
+  readDir(dirPath: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      fs.readdir(dirPath, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  }
+
+  readFile(filePath: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      fs.readFile(filePath, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
   }
 
   async onApplicationBootstrap() {
