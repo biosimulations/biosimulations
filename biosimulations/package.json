@@ -65,7 +65,7 @@
     "class-validator": "^0.12.2",
     "csv2json": "^2.0.2",
     "jwks-rsa": "^1.8.1",
-    "mongoose": "^5.10.0",
+    "mongoose": "^5.10.1",
     "nats": "^1.4.12",
     "nestjs-typegoose": "^7.1.32",
     "ngx-markdown": "^10.1.0",
