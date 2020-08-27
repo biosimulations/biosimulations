@@ -217,16 +217,13 @@ export class AppController implements OnApplicationBootstrap {
       `https://registry.hub.docker.com/v1/repositories/crbm/${dockerImageName}/tags`
     );
 
-    return simVersionRes.pipe(
-      map((response) => {
-        const data = response.data;
-        const simVersions: Array<string> = [];
-        data.forEach((element: { layer: string; name: string }) => {
-          simVersions.push(element.name);
-        });
-        return simVersions;
-      })
-    );
+    const dockerData: any = await simVersionRes.toPromise();
+    const simVersions: Array<string> = [];
+    dockerData.data.forEach((element: { layer: string; name: string }) => {
+      simVersions.push(element.name);
+    });
+
+    return simVersions;
   }
 
   readDir(dirPath: string): Promise<any> {
