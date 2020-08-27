@@ -23,6 +23,9 @@ export class TextPageComponent implements OnInit {
 
   tocSections: TocItem[] = [];
 
+  /* TODO (low priority): switch to monitoring ContentChildren so that the TOC is dynamically updated with the section or their titles change.
+       low priority because none of the instances of TextPageComponent currently need this.
+  */
   @ViewChild('sectionsContainer')
   set sectionsContainer(container: any) {
     this.getTocSections(container.nativeElement);
@@ -30,9 +33,10 @@ export class TextPageComponent implements OnInit {
 
   getTocSections(container: any) {
     for (const section of container.children) {
-      if (section.getAttribute('shortTitle')) {
+      const title = section.getAttribute('shortTitle') || section.getAttribute('title');
+      if (title) {
         this.tocSections.push({
-          title: section.getAttribute('shortTitle'),
+          title: title,
           target: section,
         });
       } else {

@@ -11,6 +11,7 @@ export type biosimulationsIcon =
   | 'help'
   | 'tutorial'
   | 'info'
+  | 'legal'
   | 'policy'
   | 'comment'
   | 'bug'
@@ -88,6 +89,7 @@ export class IconComponent implements OnInit {
     help: { type: 'fas', name: 'question-circle' },
     tutorial: { type: 'fas', name: 'book-open' },
     info: { type: 'fas', name: 'info-circle' },
+    legal: { type: 'fas', name: 'balance-scale' },
     policy: { type: 'fas', name: 'shield-alt' },
     comment: { type: 'fas', name: 'comment-dots' },
     bug: { type: 'fas', name: 'bug' },
