@@ -2,16 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { PlatformPrivacyPolicyComponent } from './plaform-privacy-policy.component';
+import { DispatchPrivacyPolicyComponent } from './dispatch-privacy-policy.component';
 
-describe('PlatformPrivacyPolicyComponent', () => {
-  let component: PlatformPrivacyPolicyComponent;
-  let fixture: ComponentFixture<PlatformPrivacyPolicyComponent>;
+describe('DispatchPrivacyPolicyComponent', () => {
+  let component: DispatchPrivacyPolicyComponent;
+  let fixture: ComponentFixture<DispatchPrivacyPolicyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        PlatformPrivacyPolicyComponent,
+        DispatchPrivacyPolicyComponent,
       ],
       imports: [
         SharedUiModule,
@@ -21,7 +21,7 @@ describe('PlatformPrivacyPolicyComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlatformPrivacyPolicyComponent);
+    fixture = TestBed.createComponent(DispatchPrivacyPolicyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

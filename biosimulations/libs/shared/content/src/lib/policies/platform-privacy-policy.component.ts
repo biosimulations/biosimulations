@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'biosimulations-privacy-policy',
-  templateUrl: './privacy-policy.component.html',
-  styleUrls: ['./privacy-policy.component.scss'],
+  selector: 'biosimulations-platform-privacy-policy',
+  templateUrl: './platform-privacy-policy.component.html',
+  styleUrls: ['./platform-privacy-policy.component.scss'],
 })
-export class PrivacyPolicyComponent {  
+export class PlatformPrivacyPolicyComponent {  
   // TODO: get from app config
   appName = 'BioSimulations';
   emailUrl = 'mailto:' + 'info@biosimulations.org'
