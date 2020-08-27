@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HelpComponent } from './help/help.component';
 import { AboutComponent } from './about/about.component';
 import { FaqComponent } from './faq/faq.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
                 {route: ['/help', 'about'], icon: 'info', label: 'About'},
+                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
                 {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
             ]
         }
@@ -26,6 +28,7 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
+                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
                 {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
             ]
         }
@@ -37,6 +40,20 @@ const routes: Routes = [
             breadcrumb: 'FAQ',
             contextButtons: [
                 {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
+                {route: ['/help', 'about'], icon: 'info', label: 'About'},
+                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
+                {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
+            ]
+        }
+    },
+    {
+        path: 'terms',
+        component: TermsOfServiceComponent,
+        data: {
+            breadcrumb: 'Terms of service',
+            contextButtons: [
+                {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
+                {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
                 {route: ['/help', 'about'], icon: 'info', label: 'About'},
                 {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
             ]
@@ -51,6 +68,7 @@ const routes: Routes = [
                 {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
                 {route: ['/help', 'about'], icon: 'info', label: 'About'},
+                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
             ]
         }
     },

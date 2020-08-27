@@ -1,0 +1,31 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { SharedUiModule } from '@biosimulations/shared/ui';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { SimulatorsTermsOfServiceComponent } from './simulators-terms-of-service.component';
+
+describe('SimulatorsTermsOfServiceComponent', () => {let component: SimulatorsTermsOfServiceComponent;
+  let fixture: ComponentFixture<SimulatorsTermsOfServiceComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        SimulatorsTermsOfServiceComponent,
+      ],
+      imports: [
+        SharedUiModule,
+        BiosimulationsIconsModule,
+      ],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SimulatorsTermsOfServiceComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should compile', () => {
+    expect(component).toBeTruthy();
+  });
+});
