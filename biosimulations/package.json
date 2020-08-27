@@ -58,7 +58,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/swagger": "^4.6.0",
     "@nrwl/angular": "10.0.12",
-    "@typegoose/typegoose": "^7.3.3",
+    "@typegoose/typegoose": "^7.3.4",
     "angular-plotly.js": "^2.0.0",
     "auth0": "^2.27.1",
     "cache-manager": "^3.3.0",
