@@ -30,9 +30,10 @@ export class TextPageComponent implements OnInit {
 
   getTocSections(container: any) {
     for (const section of container.children) {
-      if (section.getAttribute('shortTitle')) {
+      const title = section.getAttribute('shortTitle') || section.getAttribute('title');
+      if (title) {
         this.tocSections.push({
-          title: section.getAttribute('shortTitle'),
+          title: title,
           target: section,
         });
       } else {
