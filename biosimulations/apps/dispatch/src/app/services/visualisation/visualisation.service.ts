@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './../../../environments/environment';
+import { environment } from '@biosimulations/shared/environments';
 import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ export class VisualisationService {
   tasksPerSedml: any;
   updateDataEvent = new Subject<any>();
 
-  private resultsEndpoint = `${environment.crbm.DISPATCH_API_URL}/result`;
+  private resultsEndpoint = `${environment.dispatch.DISPATCH_API_URL}/result`;
   constructor(private http: HttpClient) {}
 
   getVisualisation(uuid: string, sedml: string, task: string) {

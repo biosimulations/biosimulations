@@ -1,4 +1,7 @@
 export const environment = {
   production: true,
-  env: "prod"
+  env: 'prod',
+  dispatch: {
+    DISPATCH_API_URL: 'https://dispatch.biosimulations.dev/api',
+  },
 };
