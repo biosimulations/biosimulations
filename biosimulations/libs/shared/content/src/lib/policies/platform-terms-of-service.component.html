@@ -1,14 +1,14 @@
 <ng-container>
   <biosimulations-text-page-content-section
-    [title]="'Availability of ' + appName"
-    [shortTitle]="'Availability of ' + appName"
+    title="Permitted usage"
+    shortTitle="Permitted usage"
   >
-    {{ appName }} promotes open science by providing the community a central platform for sharing and executing biomodeling studies. The public simulation studies, simulation tools, and simulation results available through {{ appName }} are available under the open-source licenses chosen by their owners. These licenses are noted with each resource. {{ appName }} imposes no additional restrictions on the use of these community-contributed resources beyond those imposed by their owners. These licences describe who can use each resource, for which purposes, and what attributed may be required.
+    {{ appName }} promotes open science by providing the community a central platform for sharing and executing biomodeling studies. The public simulation studies, simulation tools, and simulation results available through {{ appName }} are available under the open-source licenses chosen by their owners. The licenses for the simulation studies and results are noted with each resource. The licenses for the simulation tools are available from BioSimulators <a href="https://biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>. {{ appName }} imposes no additional restrictions on the use of these community-contributed resources beyond those imposed by their owners. These licences describe who can use each resource, for which purposes, and what attribution may be required.
   </biosimulations-text-page-content-section>
 
   <biosimulations-text-page-content-section
-    [title]="'Attributing ' + appName"
-    [shortTitle]="'Attributing ' + appName"
+    title="Attribution"
+    shortTitle="Attribution"
   >
     {{ appName }} expects attribution (e.g., in publications, services, or products) for use of its simulation studies and online services in accordance with good scientific practice. Please use the citation indicated on the help page <a [routerLink]="['/help']"><biosimulations-icon icon="link"></biosimulations-icon></a>.
   </biosimulations-text-page-content-section>
@@ -17,12 +17,12 @@
     title="Privacy policy"
     shortTitle="Privacy policy"
   >
-    {{ appName }} collects limited personal data. Our privacy policy <a [routerLink]="['/help/privacy']"><biosimulations-icon icon="link"></biosimulations-icon></a> describes how we collect, store, and use this data and who has access to this data.
+    {{ appName }} collects limited personal data. Our privacy policy <a [routerLink]="['/help', 'privacy']"><biosimulations-icon icon="link"></biosimulations-icon></a> describes how we collect, store, and use this data and who has access to this data.
   </biosimulations-text-page-content-section>
  
   <biosimulations-text-page-content-section
     title="Disclaimers"
-    subtitle="Disclaimers"
+    shortTitle="Disclaimers"
   >
     <p>The simulation studies, simulation tools, and simulation results available through {{ appName }} are provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the {{ appName }} Team be liable for any claim, damages or other liability whatsoever, whether in an action of contract, tort or otherwise, arising from, out of or in connection with these studies or the use or other dealings in these studies.</p>
 
