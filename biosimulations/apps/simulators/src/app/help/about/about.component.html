@@ -1,4 +1,4 @@
-<biosimulations-text-page title="About BioSimulations">
+<biosimulations-text-page title="About BioSimulators">
   <ng-container id="sideBar">
     <biosimulations-text-page-help-side-bar-section>
     </biosimulations-text-page-help-side-bar-section>
@@ -9,17 +9,14 @@
 
   <ng-container id="content">
     <biosimulations-text-page-content-section
-      title="Motivation and goals of BioSimulations"
+      title="Motivation and goals of BioSimulators"
       shortTitle="Motivation and goals"
     >
       <p>
-        More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. One of the most promising ways to build more comprehensive models is to combine multiple models of individual subsystems. For example, several researchers have are pioneering whole-cell models by combining multiple submodels that representing individual subcellular processes such as metabolism, transcription, and translation.
+        More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as COMBINE/OMEX <a target="_blank" href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a target="_blank" href="http://sbml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and SED-ML <a target="_blank" href="https://www.sed-ml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of incompatible modeling formats and simulation tools.
       </p>
       <p>
-        Building models by composition will likely require the collaborative effort of many computational and experimental biologists. Despite extensive efforts to develop standards such as COMBINE/OMEX <a target="_blank" href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a target="_blank" href="http://sbml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and SED-ML <a target="_blank" href="https://www.sed-ml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a> and repositories such as BioModels, it remains difficult to combine models. One challenge to composing models is the diverse array of incompatible modeling formats and simulation tools. It is also difficult to find models to merge because the existing models are siloed in different repositories for different types of models. Furthermore, these repositories have limited capabilities for sharing associated resources such as training data, simulation experiments, and visualizations.
-      </p>
-      <p>
-        BioSimulations aims to help researchers combine models into more comprehensive models by making it easier for researchers to share and reuse models. First, BioSimulations provides authors a central portal for sharing models, simulations, and visualizations. Importantly, authors can share models in any format, authors can share simulations that require any simulator, and authors can share arbitrarily complex visualizations. Second, BioSimulations provides researchers a central portal for finding models and a simple web interface for reusing any model, simulation, or visualization. This is achieved through a collection of Docker images that abstract the details of multiple modeling frameworks, simulation algorithms, model formats, and simulation tools.
+        BioSimulators helps address this challenge by providing researchers a central guide to choosing a simulation tool for a specific model and a centralized collection of containerized biosimulation tools that provide consistent command-line interfaces. Together, this collection of simulation tools provides researchers access to a wide range of simulation algorithms for a broad range of modeling frameworks and formats.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -28,10 +25,7 @@
       shortTitle="Supported frameworks &amp; formats"
     >
       <p>
-        BioSimulations supports all modeling frameworks and model formats. However, currrently BioSimulations can only simulate logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models that are described in using the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
-      </p>
-      <p>
-        BioSimulations uses the BioSimulators collection of simulations tools to simulate models. Through BioSimulators, BioSimulations supports a numerous algorithms for simulating logical, FBA, and kinetic models. BioSimulators builds upon Docker <a href="https://docker.com" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported modeling frameworks, simulation algorithms, model formats, and simulation software tools.
+        The BioSimulators standards, web application, and database support all modeling frameworks, simulation algorithms, and model formats. Currrently, BioSimulators includes tools for logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) simulation of models that are described in using the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Together, these tools support numerous simulation algorithms.
       </p>
 
       <div class="logos">
@@ -149,61 +143,20 @@
           </a>
         </div>
       </div>
-    </biosimulations-text-page-content-section>
+    </biosimulations-text-page-content-section>  
 
     <biosimulations-text-page-content-section
-      title="Source model repositories"
-      shortTitle="Source model repositories"
-    >
-      <p>
-        In addition to models, simulations, and visualizations contributed by investigators, BioSimulations contains models, simulations, and visualizations imported from BiGG <a href="http://bigg.ucsd.edu/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioModels <a href="http://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and Cell Collective <a href="https://cellcollective.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. BioSimulations provides a central place to find and reuse these models.
-      </p>
-
-      <div class="logos">
-        <div class="logos-row">
-          <a
-            href="http://bigg.ucsd.edu/"
-            target="_blank"
-            title="BiGG"
-          >
-            <img class="zoom" src="assets/images/about/partners/bigg.png" />
-          </a>
-
-          <a
-            href="http://www.ebi.ac.uk/biomodels/"
-            target="_blank"
-            title="BioModels"
-          >
-            <img class="zoom" src="assets/images/about/partners/biomodels.svg" />
-          </a>
-
-          <a
-            href="https://cellcollective.org/"
-            target="_blank"
-            title="Cell Collective"
-          >
-            <img class="zoom" src="assets/images/about/partners/cell-collective.png" />
-          </a>
-        </div>
-      </div>
-    </biosimulations-text-page-content-section>
-
-    <biosimulations-text-page-content-section
-      title="Technological foundation of BioSimulations"
+      title="Technological foundation of BioSimulators"
       shortTitle="Technological foundation"
     >
       <p>
-        BioSimulations is implemented using several open-source tools and cloud platforms.
+        BioSimulators is implemented using several open-source tools and cloud platforms.
       </p>
 
       <div class="logos">
         <div class="logos-row">
           <a href="https://angular.io" target="_blank" title="Angular">
             <img class="zoom" src="assets/images/about/tech/angular.svg" />
-          </a>
-
-          <a href="https://auth0.com/" target="_blank" title="Auth0">
-            <img class="zoom" src="assets/images/about/tech/auth0.svg" />
           </a>
 
           <a href="https://bruit.io/" target="_blank" title="Bruit.io">
@@ -233,10 +186,6 @@
           <a href="https://www.github.com/" target="_blank" title="GitHub">
             <img class="zoom" src="assets/images/about/tech/github.svg" />
           </a>
-
-          <a href="https://gravatar.com/" target="_blank" title="Gravatar">
-            <img class="zoom" src="assets/images/about/tech/gravatar.svg" />
-          </a>
         </div>
 
         <div class="logos-row">
@@ -260,49 +209,41 @@
             <img class="zoom" src="assets/images/about/tech/material-theme-generator.svg" />
           </a>
 
-          <a target="_blank" href="https://nestjs.com/" title="NestJS" >
-            <img class="zoom" src="assets/images/about/tech/nestjs.svg" /></a>
           <a target="_blank" href="https://www.netlify.com" title="Netlify" >
             <img class="zoom" src="assets/images/about/tech/netlify.svg" /></a>
+
           <a target="_blank" href="https://www.openapis.org/" title="OpenAPI" >
             <img class="zoom" src="assets/images/about/tech/openapi.svg" /></a>
         </div>
       </div>
-    </biosimulations-text-page-content-section>
-
-    <biosimulations-text-page-content-section
-      title="Downloading the models, simulations, and visualizations in BioSimulations"
-      shortTitle="Downloading BioSimulations"
-    >
-      <p>
-        The models, simulations, and visualizations in BioSimulations can be programmatically obtained using our REST API <a target="_blank" [href]="apiUrl"><biosimulations-icon icon="link"></biosimulations-icon></a>. Documentation for the API is available at the same URL.
-      </p>
-    </biosimulations-text-page-content-section>
-
+    </biosimulations-text-page-content-section>    
 
     <biosimulations-text-page-content-section
       title="Obtaining the containerized simulation tools"
       shortTitle="Obtaining the simulators"
     >
       <p>
-        The containerized simulation software tools are available from BioSimulators <a target="_blank" href="https://biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        The containerized simulation software tools are available from DockerHub <a target="_blank" href="http://dockerhub.com/u/biosimulators"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      title="Obtaining the BioSimulations source code"
+      title="Obtaining the BioSimulators source code"
       shortTitle="Obtaining the source code"
     >
       <p>
-        The BioSimulations source code is composed of the following open-source packages:
+        The BioSimulators source code is composed of the following open-source packages:
       </p>
       <ul class="vertically-spaced">
-        <li>BioSimulations <a href="https://github.com/biosimulations/Biosimulations/" target="_blank">
-        <biosimulations-icon icon="link"></biosimulations-icon>
-      </a>: Core functionality</li>
-        <li>Biosimulations_utils <a href="https://github.com/biosimulations/Biosimulations_utils/" target="_blank">
-        <biosimulations-icon icon="link"></biosimulations-icon>
-      </a>: Utilities for encoding simulation experiments into SED-ML, encoding simulations studies in COMBINE/OMEX archives, and testing simulator images.</li>
+        <li>
+          BioSimulations <a href="https://github.com/biosimulations/Biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Code for this website, the database of simulation tools, and the REST API for querying this database
+        </li>
+        <li>
+          Biosimulations_COMBINE_archive_test_suite <a href="https://github.com/biosimulations/Biosimulations_COMBINE_archive_test_suite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Tools for verifying the capabilities of simulation tools
+        </li>
+        <li>
+          Biosimulations_utils <a href="https://github.com/biosimulations/Biosimulations_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Utilities for building containerized simulation tools. This provides tools for building command-line interfaces and parsing COMBINE/OMEX and SED-ML files.
+        </li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -310,20 +251,20 @@
       title="License"
       shortTitle="License"
     >
-      <p>The models, simulations, and visualizations in BioSimulations are provided under the license specified for each resource. The containerized simulators are provided under the open-source licenses documented for each image. Please see BioSimulators <a target="_blank" href="https://biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information. The BioSimulations source code is provided under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE" target="_blank">
+      <p>The containerized simulators are provided under the open-source licenses documented for each image. The BioSimulators source code is provided under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
-        </a>. The licenses for BioSimulations's third-party dependencies are summarized here <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE-THIRD-PARTY" target="_blank">
+        </a>. The licenses for BioSimulators' third-party dependencies are summarized here <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE-THIRD-PARTY" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
         </a>.
       </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      title="BioSimulations team"
-      shortTitle="BioSimulations team"
+      title="BioSimulators team"
+      shortTitle="BioSimulators team"
     >
       <p>
-        BioSimulations was developed by the Center for Reproducible Biomedical Modeling <a href="http://reproduciblebiomodels.org/" target="_blank">
+        BioSimulators was developed by the Center for Reproducible Biomedical Modeling <a href="http://reproduciblebiomodels.org/" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
         </a> including Bilal Shaikh
         <a href="https://www.bshaikh.com" target="_blank">
@@ -417,17 +358,16 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      title="Contributing to BioSimulations"
-      shortTitle="Contributing to BioSimulations"
+      title="Contributing to BioSimulators"
+      shortTitle="Contributing to BioSimulators"
     >
       <p>
-        We welcome contributions to BioSimulations!
+        We welcome contributions to BioSimulators!
       </p>
 
       <ul class="vertically-spaced">
-        <li><b>Models, simulations, and visualizations</b> can be contributed through this website or our REST API. Please create an account to get started.</li>
         <li><b>Containerized simulators</b> can be contributed by submitting GitHub issues <a [href]="issueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see the image template <a href="https://github.com/biosimulations/Biosimulations_SimulatorDockerImageTemplate" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about the required format, a guide to building simulator images, and examples.</li>
-        <li><b>BioSimulations software</b>: We welcome contributions by GitHub pull requests <a href="https://github.com/biosimulations/Biosimulations/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see the Guide to Contributing <a href="https://github.com/biosimulations/Biosimulations/blob/master/CONTRIBUTING.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about how to get started. Please also contact the developers <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to coordinate potential contributions.</li>
+        <li><b>BioSimulators software</b>: We welcome contributions by GitHub pull requests <a href="https://github.com/biosimulations/Biosimulations/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see the Guide to Contributing <a href="https://github.com/biosimulations/Biosimulations/blob/master/CONTRIBUTING.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about how to get started. Please also contact the developers <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to coordinate potential contributions.</li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -436,7 +376,7 @@
       shortTitle="Acknowledgements"
     >
       <p>
-        BioSimulations was developed with support from the Center for
+        BioSimulators was developed with support from the Center for
         Reproducible Biomodeling Modeling
         <a href="https://reproduciblebiomodels.org" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>

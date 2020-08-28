@@ -13,16 +13,13 @@
       shortTitle="Motivation and goals"
     >
       <p>
-        More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. One of the most promising ways to build more comprehensive models is to combine multiple models of individual subsystems. For example, several researchers have are pioneering whole-cell models by combining multiple submodels that representing individual subcellular processes such as metabolism, transcription, and translation.
+        More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as COMBINE/OMEX <a target="_blank" href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a target="_blank" href="http://sbml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and SED-ML <a target="_blank" href="https://www.sed-ml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a> and repositories such as BioModels, it is still often difficult to reuse models and simulations. One challenge to sharing and reusing models is the disparate formats and simulation tools for different types of models. The proliferation of numerous similar formats and tools makes it difficult, especially for non-experts, to find an appropriate simulation tool for each model.
       </p>
       <p>
-        Building models by composition will likely require the collaborative effort of many computational and experimental biologists. Despite extensive efforts to develop standards such as COMBINE/OMEX <a target="_blank" href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a target="_blank" href="http://sbml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and SED-ML <a target="_blank" href="https://www.sed-ml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a> and repositories such as BioModels, it remains difficult to combine models. One challenge to composing models is the diverse array of incompatible modeling formats and simulation tools.
+        runBioSimulations addresses this challenge by providing researhcers a simple web interface for reusing any model. This is achieved using BioSimulators, a collection of Docker images that abstract the details of multiple modeling frameworks, simulation algorithms, model formats, and simulation tools.
       </p>
       <p>
-        This application aims to help researchers combine models into more comprehensive models by providing researhcers a simple web interface for reusing any model. This is achieved through a collection of Docker images that abstract the details of multiple modeling frameworks, simulation algorithms, model formats, and simulation tools.
-      </p>
-      <p>
-        This application provides basic capabilities for executing simulations and visualizing their results. In addition to these features, the full-featured BioSimulations web application <a [href]="appUrl" target="_blank" ><biosimulations-icon icon="link"></biosimulations-icon></a> enables authors to publish models, simulations, and visualizations and provides users a central place to find and reuse published models, simulations, and visualizations. This application is ideal for investigators who wish to execute simulations privately during the course of their research. The full-featured application is ideal for investigators who want to publish modeling studies or reuse published studies.
+        runBioSimulations provides basic capabilities for executing simulations and visualizing their results. In addition to these features, the full-featured BioSimulations web application <a [href]="appUrl" target="_blank" ><biosimulations-icon icon="link"></biosimulations-icon></a> enables authors to publish models, simulations, and visualizations and provides users a central place to find and reuse published models, simulations, and visualizations. runBioSimulations is ideal for investigators who wish to execute simulations privately during the course of their research. The full-featured application is ideal for investigators who want to publish modeling studies or reuse published studies.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -31,10 +28,10 @@
       shortTitle="Supported frameworks &amp; formats"
     >
       <p>
-        This application can simulate logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models that are described in using the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        runBioSimulations can simulate logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models that are described in using the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
       <p>
-        This application uses the BioSimulators collection of simulations tools to simulate models. Through BioSimulators, runBioSimulations supports a numerous algorithms for simulating logical, FBA, and kinetic models. BioSimulators builds upon Docker <a href="https://docker.com" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported modeling frameworks, simulation algorithms, model formats, and simulation software tools.
+        runBioSimulations uses the BioSimulators collection of simulations tools to simulate models. Through BioSimulators, runBioSimulations supports a numerous algorithms for simulating logical, FBA, and kinetic models. BioSimulators builds upon Docker <a href="https://docker.com" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported modeling frameworks, simulation algorithms, model formats, and simulation software tools.
       </p>
 
       <div class="logos">
@@ -159,7 +156,7 @@
       shortTitle="Technological foundation"
     >
       <p>
-        This application is implemented using several open-source tools and cloud platforms.
+        runBioSimulations is implemented using several open-source tools and cloud platforms.
       </p>
 
       <div class="logos">
@@ -242,7 +239,7 @@
       shortTitle="Obtaining the source code"
     >
       <p>
-        The source code for this application is available from GitHub <a href="https://github.com/biosimulations/Biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        The source code for runBioSimulations is available from GitHub <a href="https://github.com/biosimulations/Biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
     </biosimulations-text-page-content-section>
 
