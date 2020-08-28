@@ -74,7 +74,7 @@ export class IconComponent implements OnInit {
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     link: { type: 'fas', name: 'link' },
-    toTop: { type: 'mat', name: 'arrow_upward' },
+    toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
     github: { type: 'fab', name: 'github' },
     file: { type: 'fas', name: 'file-alt' },
