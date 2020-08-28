@@ -89,6 +89,21 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Enter a name for your simulation project</mat-label>
+      <input
+        formControlName="name"
+        placeholder="Knockout of gene A"
+      >
+      <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+      <mat-hint>
+        Optionally, provide a name for your simulation project. If you have execute multiple simulation projects, names will help you identify specific projects.
+      </mat-hint>
+      <mat-error *ngIf="nameError">
+        Please select a name.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
       <mat-label>Enter your email address</mat-label>
       <input
         matInput
