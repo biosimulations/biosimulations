@@ -78,7 +78,7 @@ export class DispatchComponent implements OnInit {
     const email: string = this.formGroup.value.email;
 
     this.dispatchService
-      .submitJob(projectFile, simulator, simulatorVersion)
+      .submitJob(projectFile, simulator, simulatorVersion, name, email)
       .subscribe(
         (data: any) => {
           console.log('Response from server: ', data);
