@@ -73,7 +73,7 @@ export class AppController implements OnApplicationBootstrap {
     },
   })
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(
+  async uploadFile(
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
   ) {
@@ -102,7 +102,7 @@ export class AppController implements OnApplicationBootstrap {
     };
 
     // Save the file
-    fs.writeFileSync(omexSavePath, file.buffer);
+    await this.writeFile(omexSavePath, file.buffer);
 
     this.messageClient.send('dispatch', simSpec).subscribe(
       (res) => {
@@ -245,6 +245,18 @@ export class AppController implements OnApplicationBootstrap {
           reject(err);
         } else {
           resolve(data);
+        }
+      });
+    });
+  }
+
+  writeFile(path: string, data: Buffer): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      fs.writeFile(path, data, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
         }
       });
     });
