@@ -7,6 +7,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
+import { CookieService } from 'ngx-cookie-service';
 
 import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
@@ -59,7 +60,7 @@ const routes: Routes = [
     }),
     SharedModule,
   ],
-  providers: [AuthService, { provide: AuthEnvironment, useValue: env }],
+  providers: [AuthService, { provide: AuthEnvironment, useValue: env }, CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

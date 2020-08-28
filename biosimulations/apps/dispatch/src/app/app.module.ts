@@ -15,6 +15,7 @@ import { VisualisationContainerComponent } from './components/visualisation-cont
 import { ResultsPageComponent } from './components/results-page/results-page.component';
 import { MatSelectModule } from '@angular/material/select';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { CookieService } from 'ngx-cookie-service';
 
 const routes: Routes = [
   {
@@ -68,7 +69,7 @@ const routes: Routes = [
     MatIconModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

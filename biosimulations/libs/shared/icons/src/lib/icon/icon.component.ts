@@ -11,6 +11,7 @@ export type biosimulationsIcon =
   | 'help'
   | 'tutorial'
   | 'info'
+  | 'legal'
   | 'policy'
   | 'comment'
   | 'bug'
@@ -73,7 +74,7 @@ export class IconComponent implements OnInit {
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     link: { type: 'fas', name: 'link' },
-    toTop: { type: 'mat', name: 'arrow_upward' },
+    toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
     github: { type: 'fab', name: 'github' },
     file: { type: 'fas', name: 'file-alt' },
@@ -88,6 +89,7 @@ export class IconComponent implements OnInit {
     help: { type: 'fas', name: 'question-circle' },
     tutorial: { type: 'fas', name: 'book-open' },
     info: { type: 'fas', name: 'info-circle' },
+    legal: { type: 'fas', name: 'balance-scale' },
     policy: { type: 'fas', name: 'shield-alt' },
     comment: { type: 'fas', name: 'comment-dots' },
     bug: { type: 'fas', name: 'bug' },

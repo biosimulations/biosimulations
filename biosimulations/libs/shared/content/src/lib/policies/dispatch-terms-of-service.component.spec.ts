@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { PrivacyPolicyComponent } from './privacy-policy.component';
+import { DispatchTermsOfServiceComponent } from './dispatch-terms-of-service.component';
 
-describe('PrivacyPolicyComponent', () => {
-  let component: PrivacyPolicyComponent;
-  let fixture: ComponentFixture<PrivacyPolicyComponent>;
+describe('DispatchTermsOfServiceComponent', () => {let component: DispatchTermsOfServiceComponent;
+  let fixture: ComponentFixture<DispatchTermsOfServiceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        PrivacyPolicyComponent,
+        DispatchTermsOfServiceComponent,
       ],
       imports: [
+        RouterTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
       ],
@@ -21,7 +22,7 @@ describe('PrivacyPolicyComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PrivacyPolicyComponent);
+    fixture = TestBed.createComponent(DispatchTermsOfServiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
