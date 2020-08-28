@@ -68,6 +68,7 @@
     "mongoose": "^5.10.0",
     "nats": "^1.4.12",
     "nestjs-typegoose": "^7.1.32",
+    "ngx-cookie-service": "^10.0.1",
     "ngx-markdown": "^10.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
