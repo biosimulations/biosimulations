@@ -79,33 +79,34 @@ export class AppController {
     return { message: 'Simulation dispatch started.' };
   }
 
-  @MessagePattern('dispatch_log')
+  // TODO: Add API to send required info dispatch_finish pattern to NATS
+  @MessagePattern('dispatch_finish')
   async dispatchLog(data: any) {
     const fileStorage = process.env.FILE_STORAGE || '';
-    const simDirSplit = data['simDir'].split('/');
-    const uuid = simDirSplit[simDirSplit.length - 1];
+    // const simDirSplit = data['simDir'].split('/');
+    const uuid = data['uuid'];
     const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
 
     this.logger.log('Log message data: ' + JSON.stringify(data));
     this.logger.log('Output directory: ' + resDir);
 
-    // parse JobID from data
-    const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
-    this.logger.log('JobId: ' + JSON.stringify(slurmjobId));
+    // // parse JobID from data
+    // const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
+    // this.logger.log('JobId: ' + JSON.stringify(slurmjobId));
 
-    // Get initial status of jub running
-    const squeueRes: any = await this.hpcService.squeueStatus(slurmjobId);
-    const jobMatch = squeueRes['stdout'].match(/\d+/);
-    let isJobRunning: boolean = jobMatch !== null && jobMatch[0] === slurmjobId;
+    // // Get initial status of jub running
+    // const squeueRes: any = await this.hpcService.squeueStatus(slurmjobId);
+    // const jobMatch = squeueRes['stdout'].match(/\d+/);
+    // let isJobRunning: boolean = jobMatch !== null && jobMatch[0] === slurmjobId;
 
-    // Checking the job running or not
-    while (isJobRunning) {
-      this.logger.log('Job is running');
-      const squeueRes: any = await this.hpcService.squeueStatus(slurmjobId);
-      const jobMatch = squeueRes['stdout'].match(/\d+/);
-      isJobRunning = jobMatch !== null && jobMatch[0] === slurmjobId;
-    }
-    this.logger.log('Job stopped running');
+    // // Checking the job running or not
+    // while (isJobRunning) {
+    //   this.logger.log('Job is running');
+    //   const squeueRes: any = await this.hpcService.squeueStatus(slurmjobId);
+    //   const jobMatch = squeueRes['stdout'].match(/\d+/);
+    //   isJobRunning = jobMatch !== null && jobMatch[0] === slurmjobId;
+    // }
+    // this.logger.log('Job stopped running');
 
     // Convert CSV to JSON
 
@@ -121,43 +122,45 @@ export class AppController {
     directoryList.splice(logFileIndex);
 
     for (const directoryName of directoryList) {
-      const fileList = await this.readDir(path.join(resDir, directoryName));
+      this.readDir(path.join(resDir, directoryName)).then((fileList: any) => {
+        for (const filename of fileList) {
+          if (filename.endsWith('csv')) {
+            const filePath = path.join(resDir, directoryName, filename);
+            this.logger.log('Reading file: ' + filePath);
 
-      for (const filename of fileList) {
-        if (filename.endsWith('csv')) {
-          const filePath = path.join(resDir, directoryName, filename);
-          this.logger.log('Reading file: ' + filePath);
+            const jsonPath = filePath.split('.csv')[0] + '.json';
 
-          const jsonPath = filePath.split('.csv')[0] + '.json';
-
-          fs.createReadStream(filePath)
-            .pipe(
-              csv2Json.default({
-                separator: ',',
-              })
-            )
-            .pipe(fs.createWriteStream(jsonPath))
-            .on('close', () => {
-              // Convert CSV to chart JSON
-              const chartJsonPath = jsonPath.split('.json')[0] + '_chart.json';
-              this.readFile(jsonPath).then((jsonData: any) => {
-                const chartResults = this.convertJsonDataToChartData(
-                  JSON.parse(jsonData)
-                );
-                this.writeFile(
-                  chartJsonPath,
-                  JSON.stringify(chartResults)
-                ).then(() => {
-                  // TODO: place all message patterns in a single location
-                  // TODO: Send email here
-                  this.messageClient.emit('dispatch_result', {
-                    uuid: true,
+            fs.createReadStream(filePath)
+              .pipe(
+                csv2Json.default({
+                  separator: ',',
+                })
+              )
+              .pipe(fs.createWriteStream(jsonPath))
+              .on('close', () => {
+                // Convert CSV to chart JSON
+                const chartJsonPath = jsonPath.split('.json')[0] + '_chart.json';
+                this.readFile(jsonPath).then((jsonData: any) => {
+                  const chartResults = this.convertJsonDataToChartData(
+                    JSON.parse(jsonData)
+                  );
+                  this.writeFile(
+                    chartJsonPath,
+                    JSON.stringify(chartResults)
+                  ).then(() => {
+                    // TODO: place all message patterns in a single location
+                    // TODO: Send email here
+                    this.messageClient.emit('dispatch_result', {
+                      uuid: true,
+                    });
                   });
                 });
               });
-            });
+          }
         }
-      }
+      })
+
+      
     }
   }
 
