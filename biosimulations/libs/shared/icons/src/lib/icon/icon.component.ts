@@ -36,6 +36,7 @@ export type biosimulationsIcon =
   | 'visualization'
   | 'browse'
   | 'new'
+  | 'download'
   | 'compare'
   | 'reuse'
   | 'taxon'
@@ -55,6 +56,7 @@ export type biosimulationsIcon =
   | 'ccByNcSa'
   | 'version'
   | 'link'
+  | 'internalLink'
   | 'email'
   | 'github'
   | 'toTop';
@@ -74,6 +76,7 @@ export class IconComponent implements OnInit {
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     link: { type: 'fas', name: 'link' },
+    internalLink: { type: 'fas', name: 'external-link-alt'},
     toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
     github: { type: 'fab', name: 'github' },
@@ -102,6 +105,7 @@ export class IconComponent implements OnInit {
     visualization: { type: 'fas', name: 'paint-brush' },
     browse: { type: 'fas', name: 'list' },
     new: { type: 'fas', name: 'plus-circle' },
+    download: { type: 'fas', name: 'download' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
     reuse: { type: 'fas', name: 'sync-alt' },
     taxon: { type: 'fas', name: 'dna' },
