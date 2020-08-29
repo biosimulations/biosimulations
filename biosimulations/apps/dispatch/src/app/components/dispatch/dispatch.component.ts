@@ -31,7 +31,7 @@ export class DispatchComponent implements OnInit {
       projectFile: ['', [Validators.required]],
       simulator: ['', [Validators.required]],
       simulatorVersion: ['', [Validators.required]],
-      name: [''],
+      name: ['', [Validators.required]],
       email: ['', [Validators.email]],
     });
   }
@@ -60,9 +60,9 @@ export class DispatchComponent implements OnInit {
     this.simulatorVersionError = this.formGroup.controls.simulatorVersion.errors
       ? this.formGroup.controls.simulatorVersion.errors.required
       : null;
-    // this.nameError = this.formGroup.controls.name.errors
-    //   ? this.formGroup.controls.name.errors.name
-    //   : null;
+    this.nameError = this.formGroup.controls.name.errors
+      ? this.formGroup.controls.name.errors.name
+      : null;
     this.emailError = this.formGroup.controls.email.errors
       ? this.formGroup.controls.email.errors.email
       : null;
