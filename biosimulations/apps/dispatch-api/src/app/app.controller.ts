@@ -226,6 +226,19 @@ export class AppController implements OnApplicationBootstrap {
     return simVersions;
   }
 
+  @Get('dispatch-finish/:uuid')
+  @ApiResponse({
+    status: 200,
+    description: 'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
+    type: Object,
+  })
+  async dispatchFinishEvent(@Param('uuid') uuid: string) {
+    this.messageClient.emit('dispatch_finish', {uuid});
+    return {
+      message: 'OK'
+    }
+  }
+
   readDir(dirPath: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       fs.readdir(dirPath, (err, data) => {
