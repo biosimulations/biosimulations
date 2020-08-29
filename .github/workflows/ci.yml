@@ -75,13 +75,16 @@ jobs:
         if: github.ref == 'refs/heads/dev'
         working-directory: ./biosimulations
         run: |
+          git reset --hard @{upstream}
+          git clean -df
           npm run gen-dependency-license-report
-
-          git config --global user.name "biosimulations-daemon"
-          git config --global user.email "biosimulationsdaemon@gmail.com"
-
-          git checkout -B dep-licenses
-          git pull
-          git add ../LICENSE-DEPENDENCIES
-          git commit -m "Updated licenses of dependencies"
-          git push --set-upstream origin dep-licenses
+      - name: Create pull request
+        id: create_pull_request
+        if: github.ref == 'refs/heads/dev'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          branch: dep-licenses
+          commit-message: "Updated licenses of dependencies"
+          committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
