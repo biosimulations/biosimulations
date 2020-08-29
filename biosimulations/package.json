@@ -26,6 +26,7 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
+    "gen-dependency-license-report": "tools/gen-dependency-license-report",
     "help": "nx help"
   },
   "private": true,
@@ -118,6 +119,7 @@
     "eslint-plugin-cypress": "^2.10.3",
     "jest": "25.2.3",
     "jest-preset-angular": "8.1.2",
+    "license-checker": "^25.0.1",
     "prettier": "2.0.4",
     "ts-jest": "25.5.1",
     "ts-node": "~7.0.0",

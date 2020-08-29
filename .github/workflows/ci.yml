@@ -70,3 +70,18 @@ jobs:
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
+
+      - name: Generate a report of the licenses of the dependencies
+        if: github.ref == 'refs/heads/dev'
+        working-directory: ./biosimulations
+        run: |
+          npm run gen-dependency-license-report
+
+          git config --global user.name "biosimulations-daemon"
+          git config --global user.email "biosimulationsdaemon@gmail.com"
+
+          git checkout -B dep-licenses
+          git pull
+          git add ../LICENSE-DEPENDENCIES
+          git commit -m "Updated licenses of dependencies"
+          git push --set-upstream origin dep-licenses
