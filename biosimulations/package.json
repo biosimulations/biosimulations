@@ -67,7 +67,7 @@
     "jwks-rsa": "^1.8.1",
     "mongoose": "^5.10.2",
     "nats": "^1.4.12",
-    "nestjs-typegoose": "^7.1.32",
+    "nestjs-typegoose": "^7.1.34",
     "ngx-cookie-service": "^10.0.1",
     "ngx-markdown": "^10.1.0",
     "passport": "^0.4.1",
