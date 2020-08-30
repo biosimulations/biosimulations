@@ -1,5 +1,6 @@
-import { Component, AfterViewInit, Output, EventEmitter, ViewChild, ViewChildren, ContentChildren, QueryList } from '@angular/core';
+import { Component, AfterViewInit, Output, EventEmitter, ViewChild, ContentChildren, QueryList } from '@angular/core';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { TabPageTabComponent } from './tab-page-tab.component';
 
 @Component({
   selector: 'biosimulations-tab-page',
@@ -11,12 +12,15 @@ export class TabPageComponent implements AfterViewInit {
 
   constructor() {}
 
-  @ViewChild(MatTabGroup) matTabGroup: MatTabGroup;
-  @ViewChildren(MatTab) tabs: QueryList<MatTab>;
-  @ContentChildren(MatTab, {descendants: true}) tabsFromNgContent: QueryList<MatTab>;
+  @ViewChild(MatTabGroup) matTabGroup!: MatTabGroup;
+  @ContentChildren(TabPageTabComponent, {descendants: true}) tabs!: QueryList<TabPageTabComponent>;
 
   ngAfterViewInit(){
-    this.matTabGroup._tabs.reset([...this.tabs.toArray(), ...this.tabsFromNgContent.toArray()]);
+    const baseTabs: MatTab[] = [];
+    for (const tab of this.tabs.toArray()) {
+      baseTabs.push(tab.tab);
+    }
+    this.matTabGroup._tabs.reset(baseTabs);
     this.matTabGroup._tabs.notifyOnChanges();
   }
 }

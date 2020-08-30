@@ -2,12 +2,12 @@
 
 ::ng-deep mat-tab-group {
   .mat-tab-header {
-      background: mat-color($theme-primary, lightest);
-      border-bottom: none;
-      position: sticky;
-      top: calc(64px + 32px);
-      z-index: 5;
-    }
+    background: mat-color($theme-primary, lightest);
+    border-bottom: none;
+    position: sticky;
+    top: calc(64px + 32px);
+    z-index: 5;
+  }
 
   .mat-tab-label-container {
     padding-left: calc(20px + 1rem);

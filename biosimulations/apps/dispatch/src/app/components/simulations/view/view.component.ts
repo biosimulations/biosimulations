@@ -7,7 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
+import { VisualisationComponent } from './visualisation/visualisation.component';
 
 @Component({
   templateUrl: './view.component.html',
@@ -35,6 +37,8 @@ export class ViewComponent implements OnInit {
   reportError!: string;
 
   projectResults!: any;
+
+  @ViewChild('visualization') visualization!: VisualisationComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -84,5 +88,11 @@ export class ViewComponent implements OnInit {
       report: report,
       data: reportResults,
     });
+  }  
+
+  selectedTabChange($event: MatTabChangeEvent): void {
+    if ($event.index == 3) {
+      this.visualization.setLayout();
+    }
   }
 }
