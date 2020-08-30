@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { CookieService } from 'ngx-cookie-service';
+import { IonicStorageModule } from '@ionic/storage';
 import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 
@@ -47,8 +47,11 @@ const routes: Routes = [
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    IonicStorageModule.forRoot({
+      driverOrder: ['indexeddb', 'websql', 'localstorage']
+    }),
   ],
-  providers: [CookieService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
