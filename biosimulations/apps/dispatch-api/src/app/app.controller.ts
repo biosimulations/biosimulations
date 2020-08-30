@@ -198,23 +198,22 @@ export class AppController implements OnApplicationBootstrap {
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(@Query('name') simulatorName?: string) {
-    // NOTE: Add more simulators once they are supported
-    const allSimulators = [
-      'COPASI',
-      'VCell',
-      'Tellurium',
-      'BioNetGen',
-      'CobraPy',
-    ];
+  async getAllSimulatorVersion(@Query('name') simulatorName: string) {
 
     if (simulatorName === undefined) {
+      // Getting info of all available simulators
+      const simulatorsInfo: any = await this.httpService.get('https://hub.docker.com/v2/repositories/biosimulators/?page_size=25&page=1&ordering=last_updated').toPromise();
+      const allSimulators: any = [];
+
+      for(const simulatorInfo of simulatorsInfo['data']['results']) {
+          allSimulators.push(simulatorInfo['name']);
+      }
       return allSimulators;
     }
 
-    const dockerImageName = `biosimulations_${simulatorName.toLowerCase()}`;
+    // TODO: Move this to urls file
     const simVersionRes = this.httpService.get(
-      `https://registry.hub.docker.com/v1/repositories/crbm/${dockerImageName}/tags`
+      `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
     );
 
     const dockerData: any = await simVersionRes.toPromise();
