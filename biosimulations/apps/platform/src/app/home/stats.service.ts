@@ -32,7 +32,7 @@ export class StatsService {
         { category: 'COBRApy', count: 13 },
         { category: 'COPASI', count: 43 },
         { category: 'NFsim', count: 403 },
-        { category: 'libRoadRunner', count: 113 },
+        { category: 'tellurium', count: 113 },
         { category: 'Neuron', count: 64 },
         { category: 'OpenCOR', count: 87 },
         { category: 'VCell', count: 5 },

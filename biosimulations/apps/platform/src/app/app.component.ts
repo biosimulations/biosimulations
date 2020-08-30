@@ -7,7 +7,7 @@ import { AuthService } from '@biosimulations/auth/angular';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'biosimulations-platform-frontend';
+  title = 'platform';
   constructor(private auth: AuthService) { }
   login() {
     this.auth.login();

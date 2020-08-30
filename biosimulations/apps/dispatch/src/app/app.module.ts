@@ -3,18 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { DispatchComponent } from './components/dispatch/dispatch.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
 import { MatSelectModule } from '@angular/material/select';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { CookieService } from 'ngx-cookie-service';
 
 const routes: Routes = [
   {
@@ -22,19 +23,32 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'dispatch',
+    path: 'run',
     component: DispatchComponent,
+    data: {
+      breadcrumb: 'Run'
+    }
   },
   {
-    path: 'result/:uuid',
+    path: 'simulations/:uuid',
     component: ResultsPageComponent,
+    data: {
+      breadcrumb: 'Simulation results'
+    }
+  },
+  {
+    path: 'help',
+    loadChildren: () =>
+      import('./components/help/help.module').then((m) => m.HelpModule),
+    data: {
+      breadcrumb: 'Help'
+    }
   },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     HomeComponent,
     DispatchComponent,
     ViewVisualisationComponent,
@@ -47,13 +61,15 @@ const routes: Routes = [
     PlotlyViaWindowModule,
     MatSelectModule,
     SharedUiModule,
+    BiosimulationsIconsModule,
     BrowserAnimationsModule,
 
     FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

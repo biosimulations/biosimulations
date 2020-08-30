@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { VisualisationService } from '../../services/visualisation/visualisation.service';
-import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'biosimulations-visualisation-container',
@@ -12,13 +11,10 @@ export class VisualisationContainerComponent implements OnInit {
   @Input()
   graphData!: any;
 
-  plots!: {data: any, layout: any};
-  
-
+  plots: {data: any, layout: any} = { data: {}, layout: {} };
 
   constructor(
     private visualisationService: VisualisationService,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -37,10 +33,8 @@ export class VisualisationContainerComponent implements OnInit {
         });
         this.plots = {
             data: res,
-            layout: {width: 1000, height: 800, title:graphData['task'] }
+            layout: {height: 584}
         };
-
-        
 
         console.log('Data from vis-container: ', graphData['data']);
       },

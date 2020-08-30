@@ -1,0 +1,13 @@
+img {
+  height: 2.5rem;
+  width: auto;
+  margin-bottom: 0.125rem;
+}
+
+:host:not(:first-child) a {
+  margin-left: 0.315rem;
+}
+
+:host:not(:last-child) a {
+  margin-right: 0.315rem;
+}

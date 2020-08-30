@@ -1,0 +1,51 @@
+<biosimulations-text-page title="Tutorial">
+  <ng-container id="sideBar">
+    <biosimulations-text-page-side-bar-section title="Related resources">
+      <div class="hanging-indent">
+        <a href="https://biosimulators.org" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+          Documentation about modeling frameworks, simulation algorithms, model formats, and simulation tools
+        </a>
+      </div>
+
+      <div class="hanging-indent">
+        <a [href]="webserviceUrl" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+          REST API documentation
+        </a>
+      </div>
+    </biosimulations-text-page-side-bar-section>
+
+    <biosimulations-text-page-help-side-bar-section>
+    </biosimulations-text-page-help-side-bar-section>
+
+    <biosimulations-text-page-feedback-side-bar-section>
+    </biosimulations-text-page-feedback-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content">
+    <biosimulations-text-page-content-section
+      title="Getting started: executing simulations and visualizing their results"
+      shortTitle="Getting started"
+    >
+      <ol>
+        <li>Create a COMBINE archive</li>
+        <li>Execute the archive by submitting it to this application
+          <ol>
+            <li>Select a simulation software tool. See <a href="https://biosimulators.org" target="_blank">https://biosimulators.org</a> for more information about the modeling frameworks, simulation algoriths, and model formats supported by each tool.</li>
+            <li>Select a version of the simulation tool</li>
+          </ol>
+        </li>
+        <li>Navigate to the results of the simulation</li>
+        <li>Visualize the results of the simulation</li>
+      </ol>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      title="Programmatically executing simulations with the REST API"
+      shortTitle="REST API"
+    >
+      In addition to this web application, a REST API for executing simulations is available at <a [href]="webserviceUrl" target="_blank">{{ webserviceUrl }}</a>. This API supports the same simulation tools as this web application.
+    </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>

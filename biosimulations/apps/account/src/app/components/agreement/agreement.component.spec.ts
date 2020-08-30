@@ -57,8 +57,8 @@ describe('AgreementComponent', () => {
       expect(
         testHostFixture.nativeElement.querySelector(
           'biosimulations-login-agreement > div > mat-card > markdown > h1',
-        ).textContent,
-      ).toEqual('Biosimulations Code of Conduct');
+        ).textContent.toLowerCase(),
+      ).toEqual('BioSimulations Code of Conduct'.toLowerCase());
     });
   }));
 
@@ -67,7 +67,7 @@ describe('AgreementComponent', () => {
     selector: `host-component`,
     template: `
       <biosimulations-login-agreement
-        agreementUrl="https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md"
+        agreementUrl="https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/CODE_OF_CONDUCT.md"
       ></biosimulations-login-agreement>
     `,
   })

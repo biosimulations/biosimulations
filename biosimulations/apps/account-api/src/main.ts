@@ -9,17 +9,6 @@ import { AppModule } from './app/app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  setupOpenApi(app);
-
-  const port = process.env.port || 3333;
-  await app.listen(port, () => {
-    console.log('Listening at http://localhost:' + port + '/');
-  });
-}
 function setupOpenApi(app: INestApplication) {
   // TODO abstract this to shared library
   const oauthSchema: SecuritySchemeObject = {
@@ -39,7 +28,7 @@ function setupOpenApi(app: INestApplication) {
       'https://auth.biosimulations.org/.well-known/openid-configuration',
   };
   const options = new DocumentBuilder()
-    .setTitle('Biosimulations Accounts API')
+    .setTitle('BioSimulations Accounts API')
     .setDescription('The API to manage user accounts')
     .setVersion('0.1')
     .addSecurity('OpenIdc', openIDSchema)
@@ -47,6 +36,17 @@ function setupOpenApi(app: INestApplication) {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('', app, document);
+}
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.enableCors();
+  setupOpenApi(app);
+
+  const port = process.env.port || 3333;
+  await app.listen(port, () => {
+    console.log('Listening at http://localhost:' + port + '/');
+  });
 }
 
 bootstrap();

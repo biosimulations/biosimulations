@@ -6,14 +6,16 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 220px;
 
   ::ng-deep .mat-drawer-inner-container {
     overflow: hidden;
   }  
-  .mat-toolbar {
-    background: inherit;
+  
+  ::ng-deep .mat-toolbar {
+    justify-content: center;
   }
+
   .drawer-toggle {
     color: $light-primary-text;
 
@@ -37,11 +39,18 @@
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
   }
+
+  ::ng-deep .mat-expansion-panel-header-title {
+    white-space: nowrap;
+  }
 }
 
-
-.sidenav .mat-toolbar {
-  background: inherit;
+.sidenav-topbar-right-button {
+  color: $light-primary-text;
+  width: auto;
+  margin-left: -2px;
+  margin-right: -2px;
+  padding-left: 0.5rem;
 }
 
 .topbar {
@@ -50,28 +59,27 @@
   top: 0;
   z-index: 200;
 }
+
+.topbar-left-button {
+  width: auto;
+  margin-left: -2px;
+  margin-right: -2px;
+  padding-right: 1rem;
+}
+
+.bread-crumbs {
+  position: sticky;
+  top: 64px;
+}
+
 .content {
   padding: 0;
   background: #fff;
-min-height: calc(100vh - 64px - 32px);
-}
-
-.logo-text {
-  .bio {
-    color: mat-color($theme-accent);
-  }
-
-  .simulations {
-    color: ($light-primary-text);
-  }
+  min-height: calc(100vh - 64px - 32px); // TODO: substract an additional 52px when the privacy notice is visible
 }
 
 .logo-img {
   height: calc(100% - 2 * 0.25rem);
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
-}
-
-.rightButton {
-  color: $light-primary-text;
 }

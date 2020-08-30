@@ -1,0 +1,20 @@
+<biosimulations-page [title]="title">
+  <div class="grid grid-2">
+    <div class="side-bar">
+      <div class="side-bar-inner sections-container" [ngStyle]="{position: fixed ? 'fixed': null}">
+        <biosimulations-text-page-side-bar-section title="Contents">
+          <ul>
+            <biosimulations-text-page-toc-item *ngFor="let section of tocSections" [title]="section.title" [scrollTarget]="section.target">
+            </biosimulations-text-page-toc-item>
+          </ul>
+        </biosimulations-text-page-side-bar-section>
+
+        <ng-content select="#sideBar"></ng-content>
+      </div>
+    </div>
+
+    <div #sectionsContainer class="sections-container">
+      <ng-content select="#content"></ng-content>
+    </div>
+  </div>
+</biosimulations-page>

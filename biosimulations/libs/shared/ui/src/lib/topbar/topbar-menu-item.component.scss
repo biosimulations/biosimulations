@@ -1,0 +1,29 @@
+@import 'biosimulations-colors';
+
+.mat-flat-button {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  background: transparent;
+  padding: 0;
+  min-width: auto;
+
+  &:hover:not(.mat-button-disabled) {
+    color: mat-color($theme-accent);
+  }
+
+  .button-content {
+    display: flex;
+    align-items: center;
+  }
+
+  biosimulations-icon {
+    margin-right: 0.25rem;
+
+    ::ng-deep mat-icon {
+      line-height: 0;
+      position: relative;
+      top: 0.25em;
+    }
+  }
+}

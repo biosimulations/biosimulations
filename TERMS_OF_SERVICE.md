@@ -1,2 +1,2 @@
-# Biosimulations Terms of Service
+# BioSimulations Terms of Service
 

@@ -1,0 +1,18 @@
+biosimulations-page ::ng-deep .partial-width {
+  height: calc(100vh - 64px - 32px - 2 * 2rem); // TODO: substract an additional 52px when the privacy notice is visible
+}
+
+.container {
+  height: calc(100% - 6rem);
+
+  &.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.grid {
+    grid-template-columns: 16rem 1fr;
+  }
+}
+

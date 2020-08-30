@@ -10,43 +10,27 @@ import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-s
 import { json } from 'body-parser';
 import { ConfigService } from '@nestjs/config';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
-async function bootstrap() {
-  const app: INestApplication = await NestFactory.create(AppModule);
 
-  const configService = app.get(ConfigService);
-  const port = configService.get('server.port');
-  const host = configService.get('server.host');
-  const limit = configService.get('server.limit');
- 
-  // TODO intelligently allow origin based on production mode, abstract this
-  const allowOrigin: CustomOrigin = (
-    requestOrigin: string,
-    callback: (err: Error | null, allow?: boolean | undefined) => void,
-  ) => {
-    if (!requestOrigin) {
-      callback(null, true);
-      return;
-    }
-    const allowedOrigins = [
-      'http://127.0.0.1:4200',
-      'https://biosimulations.dev',
-      'https://biosimulations.org',
-      'https://api.biosimulations.dev',
-      'https://api.biosimulations.org',
-    ];
-    console.log(requestOrigin);
-    const allow = allowedOrigins.includes(requestOrigin);
-    const error = null;
-    callback(error, allow);
-  };
-  app.enableCors({ origin: allowOrigin });
-  app.use(json({ limit }));
-  setupOpenApi(app);
+const allowOrigin: CustomOrigin = (
+  requestOrigin: string,
+  callback: (err: Error | null, allow?: boolean | undefined) => void
+) => {
+  if (!requestOrigin) {
+    callback(null, true);
+    return;
+  }
+  const allowedOrigins = [
+    'http://127.0.0.1:4200',
+    'https://biosimulations.dev',
+    'https://biosimulations.org',
+    'https://api.biosimulations.dev',
+    'https://api.biosimulations.org',
+  ];
 
-  await app.listen(port, () => {
-    console.log('Listening at ' + host);
-  });
-}
+  const allow = allowedOrigins.includes(requestOrigin);
+  const error = null;
+  callback(error, allow);
+};
 
 function setupOpenApi(app: INestApplication) {
   // TODO abstract this to common library, use env variables
@@ -66,8 +50,8 @@ function setupOpenApi(app: INestApplication) {
       'https://auth.biosimulations.org/.well-known/openid-configuration',
   };
   const options = new DocumentBuilder()
-    .setTitle('Biosimulations Resource API')
-    .setDescription('The API to interact with the Biosimulations Database')
+    .setTitle('BioSimulations Resource API')
+    .setDescription('The API to interact with the BioSimulations Database')
     .setVersion('0.1')
     .addTag('Models')
     .addTag('Projects')
@@ -85,7 +69,7 @@ function setupOpenApi(app: INestApplication) {
     },
   };
   const customOptions: SwaggerCustomOptions = {
-    customSiteTitle: 'Biosimulations API Documentation',
+    customSiteTitle: 'BioSimulations API Documentation',
 
     swaggerOptions: uiOptions,
     customCss: ' .swagger-ui .topbar { display: none }',
@@ -94,4 +78,23 @@ function setupOpenApi(app: INestApplication) {
   const httpAdapter = app.getHttpAdapter();
   httpAdapter.get('/openapi.json', (req, res) => res.json(document));
 }
+
+async function bootstrap() {
+  const app: INestApplication = await NestFactory.create(AppModule);
+
+  const configService = app.get(ConfigService);
+  const port = configService.get('server.port');
+  const host = configService.get('server.host');
+  const limit = configService.get('server.limit');
+
+  // TODO intelligently allow origin based on production mode, abstract this
+  app.enableCors({ origin: allowOrigin });
+  app.use(json({ limit }));
+  setupOpenApi(app);
+
+  await app.listen(port, () => {
+    console.log('Listening at ' + host);
+  });
+}
+
 bootstrap();
