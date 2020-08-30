@@ -24,7 +24,7 @@
         <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
         <mat-hint
           >Select one of the SED-ML files in the COMBINE/OMEX archive which
-          describes one or more simulation taskse.</mat-hint
+          describes one or more reports of one or more simulations.</mat-hint
         >
         <mat-error *ngIf="sedmlError">
           Please select a SED-ML file.
@@ -32,26 +32,26 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Select a simulation task</mat-label>
+        <mat-label>Select a report of the results of one or more simulations</mat-label>
         <mat-select
-          formControlName="task"
+          formControlName="report"
           disableOptionCentering
           disableRipple
-          (selectionChange)="setTask()"
+          (selectionChange)="setReport()"
           required
         >
-          <mat-option *ngFor="let task of tasks" [value]="task">
-            {{ task }}
+          <mat-option *ngFor="let report of reports" [value]="report">
+            {{ report }}
           </mat-option>
         </mat-select>
-        <biosimulations-icon icon="task" matPrefix></biosimulations-icon>
+        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
         <mat-hint
-          >Select a task within the selected SED-ML file which describes one or
+          >Select a report within the selected SED-ML file which describes the results of one or
           more simulations (e.g., in SED-ML format) of one or more models (e.g.,
           in SBML format).</mat-hint
         >
-        <mat-error *ngIf="taskError">
-          Please select a simulation task.
+        <mat-error *ngIf="reportError">
+          Please select a report of the results of one or more simulations.
         </mat-error>
       </mat-form-field>
     </form>

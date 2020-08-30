@@ -18,12 +18,12 @@ export class ResultsPageComponent implements OnInit {
   uuid = '';
 
   sedmls!: Array<string>;
-  tasks!: Array<string>;
+  reports!: Array<string>;
 
   formGroup: FormGroup;
 
   sedmlError!: string;
-  taskError!: string;
+  reportError!: string;
 
   projectResults!: any;
 
@@ -34,7 +34,7 @@ export class ResultsPageComponent implements OnInit {
   ) {
     this.formGroup = formBuilder.group({
       sedml: ['', [Validators.required]],
-      task: ['', [Validators.required]],
+      report: ['', [Validators.required]],
     });
   }
 
@@ -61,19 +61,19 @@ export class ResultsPageComponent implements OnInit {
 
   setSedml(): void {
     const sedml = this.formGroup.value.sedml;
-    this.tasks = Object.keys(this.projectResults[sedml]);
-    const task = this.tasks[0];
-    this.formGroup.controls.task.setValue(task);
-    this.setTask();
+    this.reports = Object.keys(this.projectResults[sedml]);
+    const report = this.reports[0];
+    this.formGroup.controls.report.setValue(report);
+    this.setReport();
   }
 
-  setTask(): void {
+  setReport(): void {
     const sedml = this.formGroup.value.sedml;
-    const task = this.formGroup.value.task;
-    const taskResults = this.projectResults[sedml][task];
+    const report = this.formGroup.value.report;
+    const reportResults = this.projectResults[sedml][report];
     this.visualisationService.updateDataEvent.next({
-      task: task,
-      data: taskResults,
+      report: report,
+      data: reportResults,
     });
   }
 }
