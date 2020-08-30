@@ -1,4 +1,4 @@
-<mat-tab-group class="biosimulations-tab-page" disableRipple (selectedTabChange)="$event.index == 3 ? visualization.setLayout() : null">
+<biosimulations-tab-page (selectedTabChange)="$event.index == 3 ? visualization.setLayout() : null">
   <mat-tab>
     <ng-template mat-tab-label>
       <biosimulations-icon icon="overview"></biosimulations-icon>
@@ -99,4 +99,4 @@
     <biosimulations-visualisation #visualization
     ></biosimulations-visualisation>
   </mat-tab>
-</mat-tab-group>
+</biosimulations-tab-page>

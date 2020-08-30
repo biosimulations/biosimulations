@@ -20,6 +20,7 @@ import { RouterLinkComponent } from './router-link/router-link.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons'
 import { PrivacyPolicyNoticeComponent } from './privacy-policy-notice/privacy-policy-notice.component';
 import { PageComponent } from './page/page.component';
+import { TabPageComponent } from './tab-page/tab-page.component';
 import { TextPageComponent } from './text-page/text-page.component';
 import { TextPageSectionComponent } from './text-page/text-page-section.component';
 import { TextPageSideBarSectionComponent } from './text-page/text-page-side-bar-section.component';
@@ -38,6 +39,7 @@ import { HomeLogoComponent } from './home/home-logo.component';
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
     PageComponent,
+    TabPageComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
     HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
@@ -49,6 +51,7 @@ import { HomeLogoComponent } from './home/home-logo.component';
     HyperLinkComponent,
     SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
     PageComponent,
+    TabPageComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
     HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
