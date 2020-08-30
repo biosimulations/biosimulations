@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicStorageModule } from '@ionic/storage';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -14,6 +15,9 @@ describe('AppComponent', () => {
         BiosimulationsIconsModule,
         RouterTestingModule,
         NoopAnimationsModule,
+        IonicStorageModule.forRoot({
+          driverOrder: ['indexeddb', 'websql', 'localstorage']
+        }),
       ],
       declarations: [AppComponent],
     }).compileComponents();
