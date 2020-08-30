@@ -128,4 +128,14 @@ describe('AppController', () => {
       );
     });
   });
+
+  describe('test dispatchLog', () => {
+    it('should return promise', () => {
+      const appController = app.get<AppController>(AppController);
+      const promise = appController.dispatchLog({});
+      expect(promise).toEqual(promise);
+    });
+  });
+
+  
 });
