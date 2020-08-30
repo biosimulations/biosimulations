@@ -198,7 +198,7 @@ export class AppController implements OnApplicationBootstrap {
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(@Query('name') simulatorName: string) {
+  async getAllSimulatorVersion(@Query('name') simulatorName?: string) {
     // NOTE: Add more simulators once they are supported
     const allSimulators = [
       'COPASI',
@@ -232,7 +232,7 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
     type: Object,
   })
-  async dispatchFinishEvent(@Param('uuid') uuid: string) {
+  dispatchFinishEvent(@Param('uuid') uuid: string) {
     this.messageClient.emit('dispatch_finish', {uuid});
     return {
       message: 'OK'

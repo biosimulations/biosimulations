@@ -7,7 +7,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
-import { HttpModule } from '@nestjs/common';
+import { HttpModule, Controller } from '@nestjs/common';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -57,4 +57,23 @@ describe('AppController', () => {
       });
     });
   });
+
+  describe('dispatchFinishEvent', () => {
+    it('should return "OK" after sending message to NATS', () => {
+      const appController = app.get<AppController>(AppController);
+      expect(
+        appController.dispatchFinishEvent('213243421sdfvds')
+      ).toEqual({message: 'OK'})
+    })
+  });
+
+  describe('getVisualizationData', () => {
+    it('should run with given parameters and save generate JSON data', () => {
+      const appController = app.get<AppController>(AppController)
+      expect(appController.getVisualizationData('21312312asad', false, 'VilarBMDB', 'task1'))
+      .toBeDefined();
+    })
+  })
+
+
 });
