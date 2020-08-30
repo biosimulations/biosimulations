@@ -5,8 +5,8 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { DispatchService } from '../../services/dispatch/dispatch.service';
-import { VisualisationService } from '../../services/visualisation/visualisation.service';
+import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 
 @Component({
   selector: 'biosimulations-dispatch',

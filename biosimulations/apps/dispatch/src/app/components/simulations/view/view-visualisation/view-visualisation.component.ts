@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { VisualisationService } from '../../services/visualisation/visualisation.service';
+import { VisualisationService } from '../../../../services/visualisation/visualisation.service';
 
 @Component({
   selector: 'biosimulations-view-visualisation',

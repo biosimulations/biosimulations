@@ -7,14 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
-import { VisualisationService } from '../../services/visualisation/visualisation.service';
+import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 
 @Component({
-  selector: 'biosimulations-results-page',
-  templateUrl: './results-page.component.html',
-  styleUrls: ['./results-page.component.scss'],
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.scss'],
 })
-export class ResultsPageComponent implements OnInit {
+export class ViewComponent implements OnInit {
   uuid = '';
 
   sedmls!: Array<string>;
@@ -40,6 +39,32 @@ export class ResultsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
+    this.setProjectResults({
+      'file-1': {
+        'report-1': {
+          'a': {
+            x: [1, 2, 3],
+            y: [1, 2, 3]
+          },
+          'b': {
+            x: [1, 2, 3],
+            y: [4, 5, 6]
+          },
+        },
+        'report-2': {
+          'c': {
+            x: [1, 2, 3],
+            y: [1, 2, 3]
+          },
+          'd': {
+            x: [1, 2, 3],
+            y: [4, 5, 6]
+          }, 
+        }
+      }
+    });
+    return;
+
     if (this.projectResults === undefined) {
       this.visualisationService
         .getVisualisation(this.uuid)

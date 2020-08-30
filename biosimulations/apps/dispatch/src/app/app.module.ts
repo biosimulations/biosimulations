@@ -1,20 +1,12 @@
-import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { DispatchComponent } from './components/dispatch/dispatch.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
-import { ResultsPageComponent } from './components/results-page/results-page.component';
-import { MatSelectModule } from '@angular/material/select';
-import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
 const routes: Routes = [
@@ -24,16 +16,18 @@ const routes: Routes = [
   },
   {
     path: 'run',
-    component: DispatchComponent,
+    loadChildren: () =>
+      import('./components/run/run.module').then((m) => m.RunModule),
     data: {
       breadcrumb: 'Run'
     }
   },
   {
-    path: 'simulations/:uuid',
-    component: ResultsPageComponent,
+    path: 'simulations',
+    loadChildren: () =>
+      import('./components/simulations/simulations.module').then((m) => m.SimulationsModule),
     data: {
-      breadcrumb: 'Simulation results'
+      breadcrumb: 'Your simulations'
     }
   },
   {
@@ -50,23 +44,14 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    DispatchComponent,
-    ViewVisualisationComponent,
-    VisualisationContainerComponent,
-    ResultsPageComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    PlotlyViaWindowModule,
-    MatSelectModule,
     SharedUiModule,
     BiosimulationsIconsModule,
     BrowserAnimationsModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
+    HttpClientModule,
+    
     RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage']
@@ -74,6 +59,6 @@ const routes: Routes = [
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [],
 })
 export class AppModule {}

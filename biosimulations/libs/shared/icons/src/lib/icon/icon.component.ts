@@ -36,12 +36,13 @@ export type biosimulationsIcon =
   | 'visualization'
   | 'browse'
   | 'new'
+  | 'report'
   | 'download'
   | 'compare'
   | 'reuse'
   | 'taxon'
   | 'framework'
-  | 'format'
+  | 'format'  
   | 'license'
   | 'tag'
   | 'tags'
@@ -105,6 +106,7 @@ export class IconComponent implements OnInit {
     visualization: { type: 'fas', name: 'paint-brush' },
     browse: { type: 'fas', name: 'list' },
     new: { type: 'fas', name: 'plus-circle' },
+    report: { type: 'fas', name: 'table' },
     download: { type: 'fas', name: 'download' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
     reuse: { type: 'fas', name: 'sync-alt' },
