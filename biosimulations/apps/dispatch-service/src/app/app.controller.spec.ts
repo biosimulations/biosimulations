@@ -37,11 +37,11 @@ describe('AppController', () => {
   });
 
   describe('uploadFile', () => {
-    it('should return "Unsupported simulator was provided!"', () => {
+    it('should return "Unsupported simulator was provided!"', async () => {
       const appController = app.get<AppController>(AppController);
       // tslint:disable-next-line: deprecation
       expect(
-        appController.uploadFile({
+        await appController.uploadFile({
           simulator: 'BIONETGEN',
           simulatorVersion: 'latest',
           filename: '',

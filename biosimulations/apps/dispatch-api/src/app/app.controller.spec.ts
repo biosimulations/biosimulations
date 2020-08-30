@@ -35,10 +35,10 @@ describe('AppController', () => {
   });
 
   describe('uploadFile', () => {
-    it('should return "No Simulator was provided"', () => {
+    it('should return "No Simulator was provided"', async () => {
       const appController = app.get<AppController>(AppController);
       expect(
-        appController.uploadFile(
+        await appController.uploadFile(
           {
             // tslint:disable-next-line: deprecation
             buffer: new Buffer(''),
