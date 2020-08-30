@@ -3,11 +3,11 @@ import { VisualisationService } from '../../../../services/visualisation/visuali
 import { PlotlyComponent } from 'angular-plotly.js'
 
 @Component({
-  selector: 'biosimulations-visualisation-container',
-  templateUrl: './visualisation-container.component.html',
-  styleUrls: ['./visualisation-container.component.scss']
+  selector: 'biosimulations-visualisation',
+  templateUrl: './visualisation.component.html',
+  styleUrls: ['./visualisation.component.scss']
 })
-export class VisualisationContainerComponent implements OnInit {
+export class VisualisationComponent implements OnInit {
   data: any;
   layout: any;
 

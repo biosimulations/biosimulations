@@ -1,4 +1,4 @@
-<mat-tab-group class="biosimulations-tab-page" disableRipple (selectedTabChange)="$event.index == 3 ? vizContainer.setLayout() : null">
+<mat-tab-group class="biosimulations-tab-page" disableRipple (selectedTabChange)="$event.index == 3 ? visualization.setLayout() : null">
   <mat-tab>
     <ng-template mat-tab-label>
       <biosimulations-icon icon="overview"></biosimulations-icon>
@@ -90,8 +90,8 @@
       Visualize chart
     </ng-template>
 
-    <biosimulations-visualisation-container #vizContainer
+    <biosimulations-visualisation- #visualization
       [graphData]="projectResults"
-    ></biosimulations-visualisation-container>
+    ></biosimulations-visualisation>
   </mat-tab>
 </mat-tab-group>
