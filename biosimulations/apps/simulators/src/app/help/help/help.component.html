@@ -22,7 +22,7 @@
       shortTitle="Creating modeling projects"
     >
       <p>
-        The containerized biosimulation tools in the BioSimulators registry require modeling projects (one or more simulations of one or more models) to be packaged be described by an OMEX file and packaged into a COMBINE archive. Please follow these steps to create OMEX and COMBINE files. Alternatively, COMBINE/OMEX files which describe modeling projects can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        The containerized biosimulation tools in the BioSimulators registry require modeling projects (one or more simulations of one or more models) to be described by an OMEX file and packaged into a COMBINE archive. Please follow these steps to create OMEX and COMBINE files. Alternatively, COMBINE/OMEX files which describe modeling projects can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
 
       <ol class="vertically-spaced">
@@ -38,21 +38,17 @@
           Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </li>
         <li>
-          <b>Create an OMEX file which describes your model and simulation files:</b>
-          This OMEX file should also be saved to the directory for the modeling project. Several examples are available in the BioSimulators test suite <a href="Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. More information about the OMEX format is available from the OMEX website <a href="http://co.mbine.org/standards/omex" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
-        </li>
-        <li>
-          <b>Combine the model, simulation, and OMEX files into a COMBINE archive file:</b>
-          Combine all of the files in the directory for the modeling project into a zip archive. The contents of the modeling project directory should be directly nested within the archive. Save this file with the extension <code>.omex</code>. Several examples are available in the BioSimulators test suite <a href="Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. More information about the COMBINE format is available from the COMBINE website <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The COMBINE website also lists several software tools for creating COMBINE archives.
+          <b>Create an OMEX file which describes your model and simulation files and package them into a COMBINE archive file:</b>
+          OMEX is a format for describing a collection of modeling files, and a COMBINE archive is a zip file which contains an OMEX file and all of the other files which comprise the modeling project. Several example COMBINE archives are available in the BioSimulators test suite <a href="Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. More information about the OMEX and COMBINE formats is available at the COMBINE website <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The COMBINE website lists several software tools for creating COMBINE archives including COMBINE Archive <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and COMBINE Archive Web <a href="https://cat.bio.informatik.uni-rostock.de/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </li>
       </ol>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      title="Finding simulation tools that are capable of executing simulations"
+      title="Finding a simulation tool that is capable of executing a modeling project"
       shortTitle="Finding simulation tools"
     >
-      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="interal-link"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determing the framework and format of your model and the simulation algorithm which you would like to exceute, use this page to identify a simulation tool which is capable of executing your simulation.
+      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="interal-link"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
