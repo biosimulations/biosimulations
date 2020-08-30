@@ -36,16 +36,22 @@ export type biosimulationsIcon =
   | 'visualization'
   | 'browse'
   | 'new'
+  | 'overview'
   | 'report'
   | 'download'
+  | 'logs'
   | 'compare'
   | 'reuse'
   | 'taxon'
   | 'framework'
-  | 'format'  
+  | 'format'
   | 'license'
+  | 'id'
   | 'tag'
   | 'tags'
+  | 'status'
+  | 'date'
+  | 'duration'
   | 'cc0'
   | 'ccBy'
   | 'ccNc'
@@ -106,8 +112,10 @@ export class IconComponent implements OnInit {
     visualization: { type: 'fas', name: 'paint-brush' },
     browse: { type: 'fas', name: 'list' },
     new: { type: 'fas', name: 'plus-circle' },
+    overview: { type: 'fas', name: 'list' },
     report: { type: 'fas', name: 'table' },
     download: { type: 'fas', name: 'download' },
+    logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
     reuse: { type: 'fas', name: 'sync-alt' },
     taxon: { type: 'fas', name: 'dna' },
@@ -118,8 +126,12 @@ export class IconComponent implements OnInit {
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },
+    id: { type: 'fas', name: 'hashtag' },
     tag: { type: 'fas', name: 'tag' },
     tags: { type: 'fas', name: 'tags' },
+    status: { type: 'fas', name: 'tachometer-alt' },
+    date: { type: 'fas', name: 'calendar-alt' },
+    duration: { type: 'fas', name: 'stopwatch' },
     cc: { type: 'fab', name: 'creative-commons' },
     cc0: { type: 'fab', name: 'creative-commons-zero' },
     ccBy: { type: 'fab', name: 'creative-commons-by' },

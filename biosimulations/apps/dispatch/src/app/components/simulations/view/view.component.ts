@@ -15,9 +15,19 @@ import { VisualisationService } from '../../../services/visualisation/visualisat
 })
 export class ViewComponent implements OnInit {
   uuid = '';
+  name = 'Knockout of gene A';
+  status = 'finished';
+  submitted = '2020-08-39 12:43:00';
+  completed = '2020-08-30 10:05:12';
+  runtime = '1 min';
+  projectUrl = '';
+  projectSize = '300 kb';
+  resultsUrl = '';
+  resultsSize = '5 mb';
 
   sedmls!: Array<string>;
   reports!: Array<string>;
+  log!: string;
 
   formGroup: FormGroup;
 
@@ -39,32 +49,6 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    this.setProjectResults({
-      'file-1': {
-        'report-1': {
-          'a': {
-            x: [1, 2, 3],
-            y: [1, 2, 3]
-          },
-          'b': {
-            x: [1, 2, 3],
-            y: [4, 5, 6]
-          },
-        },
-        'report-2': {
-          'c': {
-            x: [1, 2, 3],
-            y: [1, 2, 3]
-          },
-          'd': {
-            x: [1, 2, 3],
-            y: [4, 5, 6]
-          }, 
-        }
-      }
-    });
-    return;
-
     if (this.projectResults === undefined) {
       this.visualisationService
         .getVisualisation(this.uuid)

@@ -10,9 +10,9 @@ const routes: Routes = [
         component: BrowseComponent,
     },
     {
-        path: ':id',
+        path: ':uuid',
         component: ViewComponent,
-    },    
+    },
 ];
 
 @NgModule({

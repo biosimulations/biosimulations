@@ -12,14 +12,12 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { SimulationsRoutingModule } from './simulations-routing.module';
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
-import { ViewVisualisationComponent } from './view/view-visualisation/view-visualisation.component';
 import { VisualisationContainerComponent } from './view/visualisation-container/visualisation-container.component';
 
 @NgModule({
   declarations: [
     BrowseComponent,
     ViewComponent,
-    ViewVisualisationComponent,
     VisualisationContainerComponent,
   ],
   imports: [

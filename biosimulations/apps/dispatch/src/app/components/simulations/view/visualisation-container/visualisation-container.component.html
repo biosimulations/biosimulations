@@ -1,3 +1,5 @@
-<biosimulations-view-visualisation 
-  [graphData]="plots"
-></biosimulations-view-visualisation>
+<plotly-plot #plot
+  [data]="data"
+  [layout]="layout"
+  [useResizeHandler]="true"
+></plotly-plot>

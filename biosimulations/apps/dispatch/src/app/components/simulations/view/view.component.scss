@@ -1,18 +1,15 @@
-biosimulations-page ::ng-deep .partial-width {
-  height: calc(100vh - 64px - 32px - 2 * 2rem); // TODO: substract an additional 52px when the privacy notice is visible
+.design-visualization {
+  max-width: 600px;
 }
 
-.container {
-  height: calc(100% - 6rem);
-
-  &.spinner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.grid {
-    grid-template-columns: 16rem 1fr;
+::ng-deep #mat-tab-content-0-3 {
+  .mat-tab-body-content {
+    width: calc(100vw - 2 * 2rem);
+    height: calc(100vh - 64px - 32px - 32px - 2 * 2rem);
+    min-width: calc(100vw - 2 * 2rem);
+    min-height: calc(100vh - 64px - 32px - 32px - 2 * 2rem);
+    max-width: calc(100vw - 2 * 2rem);
+    max-height: calc(100vh - 64px - 32px - 32px - 2 * 2rem);
+    overflow: visible;
   }
 }
-

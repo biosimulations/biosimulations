@@ -1,62 +1,97 @@
-<biosimulations-page
-  [title]="'Results for simulation &#34;' + uuid + '&#34;'"
->
-  <div class="container spinner" *ngIf="sedmls === undefined">
-    <mat-spinner> </mat-spinner>
-  </div>
+<mat-tab-group class="biosimulations-tab-page" disableRipple (selectedTabChange)="$event.index == 3 ? vizContainer.setLayout() : null">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <biosimulations-icon icon="overview"></biosimulations-icon>
+      Overview
+    </ng-template>
 
-  <div class="container grid grid-2" *ngIf="sedmls !== undefined">
-    <form [formGroup]="formGroup">
-      <mat-form-field appearance="fill">
-        <mat-label>Select a simulation experiment</mat-label>
-        <mat-select
-          formControlName="sedml"
-          disableOptionCentering
-          disableRipple
-          (selectionChange)="setSedml()"
-          required
-        >
-          <mat-option *ngFor="let sedml of sedmls" [value]="sedml">
-            {{ sedml }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
-        <mat-hint
-          >Select one of the SED-ML files in the COMBINE/OMEX archive which
-          describes one or more reports of one or more simulations.</mat-hint
-        >
-        <mat-error *ngIf="sedmlError">
-          Please select a SED-ML file.
-        </mat-error>
-      </mat-form-field>
+    <ul class="icon-list vertically-spaced">
+      <li><span class="icon-container"><biosimulations-icon icon="id"></biosimulations-icon></span> <b>Id:</b> {{ uuid }}</li>
+      <li><span class="icon-container"><biosimulations-icon icon="tag"></biosimulations-icon></span> <b>Name:</b> {{ name }}</li>
+      <li><span class="icon-container"><biosimulations-icon icon="status"></biosimulations-icon></span> <b>Status:</b> {{ status }}</li>
+      <li><span class="icon-container"><biosimulations-icon icon="date"></biosimulations-icon></span> <b>Submitted</b>: {{ submitted }}</li>
+      <li><span class="icon-container"><biosimulations-icon icon="date"></biosimulations-icon></span> <b>Completed:</b> {{ completed }}</li>
+      <li><span class="icon-container"><biosimulations-icon icon="duration"></biosimulations-icon></span> <b>Runtime:</b> {{ runtime }}</li>
+      <li><span class="icon-container"><biosimulations-icon icon="download"></biosimulations-icon></span> <b>Project:</b>{{ ' ' }}<a [href]="projectUrl">{{ projectSize }}</a></li>
+      <li><span class="icon-container"><biosimulations-icon icon="download"></biosimulations-icon></span> <b>Results:</b>{{ ' ' }}<a [href]="resultsUrl">{{ resultsSize }}</a></li>
+    </ul>
+  </mat-tab>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Select a report of the results of one or more simulations</mat-label>
-        <mat-select
-          formControlName="report"
-          disableOptionCentering
-          disableRipple
-          (selectionChange)="setReport()"
-          required
-        >
-          <mat-option *ngFor="let report of reports" [value]="report">
-            {{ report }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-        <mat-hint
-          >Select a report within the selected SED-ML file which describes the results of one or
-          more simulations (e.g., in SED-ML format) of one or more models (e.g.,
-          in SBML format).</mat-hint
-        >
-        <mat-error *ngIf="reportError">
-          Please select a report of the results of one or more simulations.
-        </mat-error>
-      </mat-form-field>
-    </form>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <biosimulations-icon icon="logs"></biosimulations-icon>
+      Log
+    </ng-template>
 
-    <biosimulations-visualisation-container
+    <pre>{{ log }}</pre>
+  </mat-tab>
+
+  <mat-tab [disabled]="sedmls === undefined">
+    <ng-template mat-tab-label>
+      <biosimulations-icon icon="write"></biosimulations-icon>
+      Design chart
+    </ng-template>
+
+    <ng-container *ngIf="sedmls !== undefined">
+      <form [formGroup]="formGroup" class="design-visualization">
+        <mat-form-field appearance="fill">
+          <mat-label>Select a simulation experiment</mat-label>
+          <mat-select
+            formControlName="sedml"
+            disableOptionCentering
+
+            (selectionChange)="setSedml()"
+            required
+          >
+            <mat-option *ngFor="let sedml of sedmls" [value]="sedml">
+              {{ sedml }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
+          <mat-hint
+            >Select one of the SED-ML files in the COMBINE/OMEX archive which
+            describes one or more reports of one or more simulations.</mat-hint
+          >
+          <mat-error *ngIf="sedmlError">
+            Please select a SED-ML file.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Select a report of the results of one or more simulations</mat-label>
+          <mat-select
+            formControlName="report"
+            disableOptionCentering
+
+            (selectionChange)="setReport()"
+            required
+          >
+            <mat-option *ngFor="let report of reports" [value]="report">
+              {{ report }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+          <mat-hint
+            >Select a report within the selected SED-ML file which describes the results of one or
+            more simulations (e.g., in SED-ML format) of one or more models (e.g.,
+            in SBML format).</mat-hint
+          >
+          <mat-error *ngIf="reportError">
+            Please select a report of the results of one or more simulations.
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </ng-container>
+  </mat-tab>
+
+  <mat-tab [disabled]="sedmls === undefined">
+    <ng-template mat-tab-label>
+      <biosimulations-icon icon="chart"></biosimulations-icon>
+      Visualize chart
+    </ng-template>
+
+    <biosimulations-visualisation-container #vizContainer
       [graphData]="projectResults"
     ></biosimulations-visualisation-container>
-  </div>
-</biosimulations-page>
+  </mat-tab>
+</mat-tab-group>

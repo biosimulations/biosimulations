@@ -84,6 +84,30 @@ h2,
   column-count: 3;
 }
 
+.icon-list {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0.5rem;
+  padding-inline-start: 0;
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+
+  .icon-container {
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    top: -0.0625rem;
+  }
+
+  biosimulations-icon {
+    margin-right: 0.25rem;
+    font-size: 125%;
+  }
+}
+
 .vertically-spaced li:not(:first-child) {
   margin-top: 0.5rem;
 }
@@ -210,4 +234,44 @@ code {
 
 code, pre {
   background: $light-background;
+}
+
+
+.biosimulations-tab-page {
+  .mat-tab-header {
+    background: mat-color($theme-primary, lightest);
+    border-bottom: none;
+    position: sticky;
+    top: calc(64px + 32px);
+    z-index: 5;
+  }
+
+  .mat-tab-label-container {
+    padding-left: calc(20px + 1rem);
+  }
+
+  .mat-tab-label {
+    height: 32px;
+    min-width: unset;
+    padding: 0 1rem;
+    color: mat-color($theme-primary);
+    opacity: 0.9;
+
+    &.mat-tab-label-active {
+      opacity: 0.9;
+    }
+  }
+
+  .mat-tab-label-content {
+    biosimulations-icon {
+      margin-right: 0.25rem;
+      margin-top: -0.125rem;
+      font-size: 125%
+    }
+  }
+
+  .mat-tab-body-wrapper {
+    padding: 2rem;
+    min-height: calc(100vh - 64px - 32px - 32px - 2 * 2rem);
+  }
 }
