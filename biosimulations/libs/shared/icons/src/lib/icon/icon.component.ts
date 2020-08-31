@@ -41,6 +41,8 @@ export type biosimulationsIcon =
   | 'download'
   | 'logs'
   | 'compare'
+  | 'filter'
+  | 'columns'
   | 'reuse'
   | 'taxon'
   | 'framework'
@@ -117,6 +119,8 @@ export class IconComponent implements OnInit {
     download: { type: 'fas', name: 'download' },
     logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
+    filter: { type: 'fas', name: 'filter' },
+    columns: { type: 'fas', name: 'columns' },
     reuse: { type: 'fas', name: 'sync-alt' },
     taxon: { type: 'fas', name: 'dna' },
     oss: { type: 'fab', name: 'osi' },

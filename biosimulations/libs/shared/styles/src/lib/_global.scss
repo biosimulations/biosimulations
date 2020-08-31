@@ -51,24 +51,24 @@ h2,
 }
 
 
-.grid{
+.grid {
   display: grid;
   grid-gap: 2rem;
 }
 
-.grid-2{
+.grid-2 {
   grid-template-columns: 1fr 1fr;
 }
 
-.grid-3{
+.grid-3 {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.grid-4{
+.grid-4 {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.grid-5{
+.grid-5 {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 

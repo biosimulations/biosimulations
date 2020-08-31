@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Sort } from '@angular/material/sort';
 
 @Component({
@@ -18,14 +17,12 @@ export class TableComponent {
   @Input()
   set columns(columns: any[]) {
     this._columns = columns;
-    this.columnsToShow = columns
-      .filter((col) => col.show !== false)
-      .map((col) => col.id);
+    this.setColumnsToShow();
     this.idToColumn = columns.reduce(function(map, obj) {
       map[obj.id] = obj;
       return map;
     }, {});
-    
+
     if (this.table) {
       this.table.renderRows();
     }
@@ -40,7 +37,7 @@ export class TableComponent {
   setData(data: any[]): void {
     data.forEach((datum, iDatum) => {datum._index = iDatum});
     this.table.dataSource = data;
-    
+
     if (this.table) {
       this.table.renderRows();
     }
@@ -74,14 +71,6 @@ export class TableComponent {
     }
   }
 
-  dropColumn(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.columnsToShow,
-      event.previousIndex,
-      event.currentIndex,
-    );
-  }
-
   sortRows(event: Sort) {
     this.data.sort((a, b) => {
       let key;
@@ -99,7 +88,7 @@ export class TableComponent {
       const sign = event.direction !== "desc" ? 1 : -1;
 
       let comparator;
-      if (event.direction === '' || !('comparator' in column)) {        
+      if (event.direction === '' || !('comparator' in column)) {
         comparator = this.comparator;
       } else {
         comparator = column.comparator;
@@ -111,9 +100,20 @@ export class TableComponent {
     this.table.renderRows();
   }
 
-  comparator (aVal:any, bVal:any): number {
+  comparator(aVal:any, bVal:any): number {
     if (aVal > bVal) return 1;
     if (aVal < bVal) return -1;
     return 0;
+  }
+
+  toggleColumn(column: any): void {
+    column.show = column.show === false;
+    this.setColumnsToShow();
+  }
+
+  setColumnsToShow(): void {
+    this.columnsToShow = this.columns
+      .filter((col) => col.show !== false)
+      .map((col) => col.id);
   }
 }
