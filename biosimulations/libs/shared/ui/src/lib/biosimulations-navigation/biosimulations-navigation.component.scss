@@ -45,6 +45,11 @@
   }
 }
 
+.sidenav-content {
+  overflow-x: hidden;
+  overflow-y: auto;  
+}
+
 .sidenav-topbar-right-button {
   color: $light-primary-text;
   width: auto;
