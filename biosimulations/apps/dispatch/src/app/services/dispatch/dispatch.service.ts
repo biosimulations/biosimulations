@@ -13,7 +13,9 @@ export class DispatchService {
   submitJob(
     fileToUpload: File,
     selectedSimulator: string,
-    selectedVersion: string
+    selectedVersion: string,
+    name: string,
+    email: string
   ) {
     // TODO: Take the endpoints from urls.ts shared libs
     const endpoint = `${urls.dispatchApi}/dispatch`;
