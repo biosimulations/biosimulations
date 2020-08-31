@@ -13,9 +13,14 @@ export class TableComponent {
   private _columns!: any[];
   columnsToShow!: string[];
   idToColumn!: any;
+  sortColumn!: string;
+  sortDirection = '';
 
   @Input()
   set columns(columns: any[]) {
+    columns.forEach((column) => {
+      column._filteredValues = [];
+    });
     this._columns = columns;
     this.setColumnsToShow();
     this.idToColumn = columns.reduce(function(map, obj) {
@@ -33,14 +38,12 @@ export class TableComponent {
   }
 
   data!: any[];
+  filteredData!: any[];
 
   setData(data: any[]): void {
     data.forEach((datum, iDatum) => {datum._index = iDatum});
-    this.table.dataSource = data;
-
-    if (this.table) {
-      this.table.renderRows();
-    }
+    this.data = data;
+    this.filterSortData();
   }
 
   constructor() {}
@@ -62,21 +65,73 @@ export class TableComponent {
   }
 
   formatElementValue(element: any, column: any): any {
-    if ('formatter' in column) {
-      return column.formatter(element);
-    } else if ('key' in column) {
-      return element[column.key];
+    if ('key' in column) {
+      if (column.key in element) {
+        const value = element[column.key];
+        if ('formatter' in column) {
+          return column.formatter(value);
+        } else {
+          return value;
+        }
+      } else {
+        return null;
+      }
     } else {
       return null;
     }
   }
 
-  sortRows(event: Sort) {
-    this.data.sort((a, b) => {
-      let key;
-      const column = this.idToColumn[event.active];
+  getColumnValues(column: any): any[] {
+    const values: any[] = [];
+    for (const datum of this.data) {
+      const value = datum[column.key];
+      if (Array.isArray(value)) {
+        for (const v of value) {
+          if (v != null && v !== '') {
+            values.push(v);
+          }
+        }
+      } else if (value != null && value !== '') {
+        values.push(value);
+      }
+    }
 
-      if (event.direction === '') {
+    let comparator;
+    if ('comparator' in column) {
+      comparator = column.comparator;
+    } else {
+      comparator = this.comparator;
+    }
+    values.sort(comparator);
+
+    return values;
+  }
+
+  formatFilterValue(value: any, column: any): any {
+    if ('filterFormatter' in column) {
+      return column.filterFormatter(value);
+    } else if ('formatter' in column) {
+      return column.formatter(value);
+    } else {
+      return value;
+    }
+  }
+
+  sortRows(event: Sort) {
+    this.sortColumn = event.active;
+    this.sortDirection = event.direction;
+    this.sortData();
+  }
+
+  sortData() {
+    this.filteredData.sort((a, b) => {
+      let column;
+      if (this.sortColumn) {
+        column = this.idToColumn[this.sortColumn];
+      }
+
+      let key;
+      if (this.sortDirection === '') {
         key = '_index';
       } else {
         key = column.key;
@@ -85,10 +140,10 @@ export class TableComponent {
       const aVal = a[key];
       const bVal = b[key];
 
-      const sign = event.direction !== "desc" ? 1 : -1;
+      const sign = this.sortDirection !== "desc" ? 1 : -1;
 
       let comparator;
-      if (event.direction === '' || !('comparator' in column)) {
+      if (this.sortDirection === '' || !('comparator' in column)) {
         comparator = this.comparator;
       } else {
         comparator = column.comparator;
@@ -115,5 +170,39 @@ export class TableComponent {
     this.columnsToShow = this.columns
       .filter((col) => col.show !== false)
       .map((col) => col.id);
+  }
+
+  filterSetValue(column: any, value: any, show: boolean): void {
+    if (show) {
+      column._filteredValues.push(value);
+    } else {
+      column._filteredValues.splice(column._filteredValues.indexOf(value), 1);
+    }
+
+    this.filterSortData();
+  }
+
+  filterSortData() {
+    // filter data
+    this.filteredData = [];
+    for (const datum of this.data) {
+      let passesFilters = true;
+      for (const column of this.columns) {
+        if (column.filterable !== false && column._filteredValues.length > 0) {
+          const value = datum[column.key];
+          if (!column._filteredValues.includes(value)) {
+            passesFilters = false;
+            break;
+          }
+        }
+      }
+      if (passesFilters) {
+        this.filteredData.push(datum);
+      }
+    }
+    this.table.dataSource = this.filteredData;
+
+    // sort data
+    this.sortData();
   }
 }

@@ -9,6 +9,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
@@ -66,6 +67,7 @@ const routes: Routes = [
   providers: [
     AuthService, 
     { provide: AuthEnvironment, useValue: env },
+    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
   ],
   bootstrap: [AppComponent],
 })

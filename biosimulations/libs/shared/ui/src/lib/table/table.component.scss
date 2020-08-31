@@ -54,11 +54,11 @@
     }
 
     .mat-expansion-panel-body {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.5rem;
     }
 
     .mat-list-base {
-        padding: 0;
+        padding: 0 0.5rem;
 
         .mat-list-item {
             height: 28px;
@@ -72,6 +72,10 @@
 
     .mat-checkbox-checked.mat-accent .mat-checkbox-background {
         background-color: mat-color($theme-primary);
+    }
+
+    .mat-checkbox .mat-checkbox-ripple {
+        display: none;
     }
 }
 

@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { IonicStorageModule } from '@ionic/storage';
 import { environment } from '@biosimulations/shared/environments';
+import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 
 import { CommonModule } from '@angular/common';
@@ -51,7 +52,9 @@ const routes: Routes = [
       driverOrder: ['indexeddb', 'websql', 'localstorage']
     }),
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

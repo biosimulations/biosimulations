@@ -28,12 +28,11 @@ export class BrowseComponent implements AfterViewInit {
       title: "Status",
       key: 'status',
       container: 'plain',
-      formatter: (element: any) => {
-        const val = element.status;
-        if (val) {
-          return val.substring(0, 1).toUpperCase() + val.substring(1);
+      formatter: (value: string) => {
+        if (value) {
+          return value.substring(0, 1).toUpperCase() + value.substring(1);
         } else {
-          return val;
+          return value;
         }
       },
       comparator: (aVal: any, bVal: any) => {
@@ -57,29 +56,28 @@ export class BrowseComponent implements AfterViewInit {
       id: 'runtime',
       title: "Runtime",
       key: 'runtime',
-      formatter: (element: any) => {
-        const val = element.runtime;
-        if (val == null) {
+      formatter: (value: number) => {
+        if (value == null) {
           return null;
         }
 
-        if (val > 7 * 24 * 60 * 60) {
-          return (val / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
+        if (value > 7 * 24 * 60 * 60) {
+          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
 
-        } else if (val > 24 * 60 * 60) {
-          return (val / (24 * 60 * 60)).toFixed(1) + ' d';
+        } else if (value > 24 * 60 * 60) {
+          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
 
-        } else if (val > 60 * 60) {
-          return (val / (60 * 60)).toFixed(1) + ' h';
+        } else if (value > 60 * 60) {
+          return (value / (60 * 60)).toFixed(1) + ' h';
 
-        } else if (val > 60) {
-          return (val / 60).toFixed(1) + ' m';
+        } else if (value > 60) {
+          return (value / 60).toFixed(1) + ' m';
 
-        } else if (val > 1) {
-          return (val).toFixed(1) + ' s';
+        } else if (value > 1) {
+          return (value).toFixed(1) + ' s';
 
         } else {
-          return (val * 1000).toFixed(1) + ' ms';
+          return (value * 1000).toFixed(1) + ' ms';
         }
       },
       show: false,
@@ -88,17 +86,16 @@ export class BrowseComponent implements AfterViewInit {
       id: 'submitted',
       title: "Submitted",
       key: 'submitted',
-      formatter: (element: any) => {
-        const date = element.submitted;
-        if (date == null) {
+      formatter: (value: Date) => {
+        if (value == null) {
           return null;
         }
-        return date.getFullYear().toString()
-          + '-' + (date.getMonth() + 1).toString().padStart(2, '0')
-          + '-' + date.getDate().toString().padStart(2, '0')
-          + ' ' + date.getHours().toString().padStart(2, '0')
-          + ':' + date.getMinutes().toString().padStart(2, '0')
-          + ':' + date.getSeconds().toString().padStart(2, '0');
+        return value.getFullYear().toString()
+          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
+          + '-' + value.getDate().toString().padStart(2, '0')
+          + ' ' + value.getHours().toString().padStart(2, '0')
+          + ':' + value.getMinutes().toString().padStart(2, '0')
+          + ':' + value.getSeconds().toString().padStart(2, '0');
       },
       minWidth: 140,
     },
@@ -106,17 +103,16 @@ export class BrowseComponent implements AfterViewInit {
       id: 'completed',
       title: "Completed",
       key: 'completed',
-      formatter: (element: any) => {
-        const date = element.completed;
-        if (date == null) {
+      formatter: (value: Date) => {
+        if (value == null) {
           return null;
         }
-        return date.getFullYear().toString()
-          + '-' + (date.getMonth() + 1).toString().padStart(2, '0')
-          + '-' + date.getDate().toString().padStart(2, '0')
-          + ' ' + date.getHours().toString().padStart(2, '0')
-          + ':' + date.getMinutes().toString().padStart(2, '0')
-          + ':' + date.getSeconds().toString().padStart(2, '0');
+        return value.getFullYear().toString()
+          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
+          + '-' + value.getDate().toString().padStart(2, '0')
+          + ' ' + value.getHours().toString().padStart(2, '0')
+          + ':' + value.getMinutes().toString().padStart(2, '0')
+          + ':' + value.getSeconds().toString().padStart(2, '0');
       },
       minWidth: 140,
     },
@@ -134,6 +130,7 @@ export class BrowseComponent implements AfterViewInit {
       },
       icon: 'chart',
       minWidth: 66,
+      filterable: false,
       sortable: false,
     },
     {
@@ -150,6 +147,7 @@ export class BrowseComponent implements AfterViewInit {
       },
       icon: 'download',
       minWidth: 66,
+      filterable: false,
       sortable: false,
     },
     {
@@ -166,6 +164,7 @@ export class BrowseComponent implements AfterViewInit {
       },
       icon: 'logs',
       minWidth: 66,
+      filterable: false,
       sortable: false,
     },
   ];

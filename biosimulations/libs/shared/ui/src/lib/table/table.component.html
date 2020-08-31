@@ -12,21 +12,14 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <mat-list>
-          <ng-container
-            *ngFor="let column of columns"
-            #checkboxContainer
-          >
-            <mat-list-item>
-              <mat-checkbox
-                #checkbox
-                [checked]="column.show !== false"
-                (change)="toggleColumn(column)"
-                disableRupple
-              >
-                {{ column.title }}
-              </mat-checkbox>
-            </mat-list-item>
-          </ng-container>
+          <mat-list-item *ngFor="let column of columns">
+            <mat-checkbox
+              [checked]="column.show !== false"
+              (change)="toggleColumn(column)"
+            >
+              {{ column.title }}
+            </mat-checkbox>
+          </mat-list-item>
         </mat-list>
       </ng-template>
     </mat-expansion-panel>
@@ -42,22 +35,33 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-list>
-          <ng-container
-            *ngFor="let column of columns"
-            #checkboxContainer
-          >
-            <mat-list-item>
-              <mat-checkbox
-                #checkbox
-                [checked]="columnsToShow.includes(column.id)"
-                (change)="handleChange(checkbox.checked, column.id)"
+
+        <mat-accordion class="controls">
+          <ng-template ngFor let-column [ngForOf]="columns">
+            <mat-expansion-panel *ngIf="column.filterable !== false">
+              <mat-expansion-panel-header
+                [collapsedHeight]="'32px'"
+                [expandedHeight]="'32px'"
               >
-                {{ column.title }}
-              </mat-checkbox>
-            </mat-list-item>
-          </ng-container>
-        </mat-list>
+                <mat-panel-title>
+                  {{ column.title }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matExpansionPanelContent>
+                <mat-list *ngIf="column.filterType !== 'numeric'">
+                  <mat-list-item *ngFor="let value of getColumnValues(column)">
+                    <mat-checkbox
+                      #checkbox
+                      (change)="filterSetValue(column, value, checkbox.checked)"
+                    >
+                      {{ formatFilterValue(value, column) }}
+                    </mat-checkbox>
+                  </mat-list-item>
+                </mat-list>
+              </ng-template>
+            </mat-expansion-panel>
+          </ng-template>
+        </mat-accordion>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>

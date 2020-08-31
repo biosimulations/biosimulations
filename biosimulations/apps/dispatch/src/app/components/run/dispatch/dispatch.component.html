@@ -35,7 +35,6 @@
         formControlName="simulator"
         disableOptionCentering
         placeholder="COPASI"
-        disableRipple
         (selectionChange)="onSimulatorChange($event)"
         required
       >
@@ -65,7 +64,6 @@
         formControlName="simulatorVersion"
         disableOptionCentering
         placeholder="latest"
-        disableRipple
         required
         [disabled]="simulatorVersions.length === 0"
       >
@@ -125,6 +123,6 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-flat-button type="submit" disableRipple>Run</button>
+    <button mat-flat-button type="submit">Run</button>
   </form>
 </biosimulations-page>

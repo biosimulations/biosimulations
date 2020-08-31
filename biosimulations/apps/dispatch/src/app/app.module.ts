@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -57,7 +58,9 @@ const routes: Routes = [
       driverOrder: ['indexeddb', 'websql', 'localstorage']
     }),
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
+  ],
   bootstrap: [AppComponent],
   schemas: [],
 })
