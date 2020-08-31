@@ -14,6 +14,7 @@ jobs:
       - name: Generate report
         working-directory: ./biosimulations
         run: |
+          npm install -g license-checker
           npm run gen-dependency-license-report
 
       - name: Create pull request
