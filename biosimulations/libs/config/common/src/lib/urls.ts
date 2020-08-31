@@ -20,17 +20,17 @@ const envUrls: { [key in envs]: urlMap } = {
   dev: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://dispatch.biosimulations.dev/',
+    dispatchApi: '/api',
     simulatorApi: 'https://api.biosimulations.dev/',
   },
   stage: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://dispatch.biosimulations.dev/',
+    dispatchApi: 'https://dispatch.biosimulations.dev/api',
     simulatorApi: 'https://api.biosimulations.dev/',
   },
   local: {
-    platformApi: '/api/',
+    platformApi: '/api/', //proxies to localhost:3333 if using nx
     accountApi: '/api/',
     dispatchApi: '/api/',
     simulatorApi: '/api/',

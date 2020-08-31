@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
 import { Subject } from 'rxjs';
-
+import { urls } from '@biosimulations/config/common';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +16,7 @@ export class DispatchService {
     selectedVersion: string
   ) {
     // TODO: Take the endpoints from urls.ts shared libs
-    const endpoint = `${environment.dispatch.DISPATCH_API_URL}/dispatch`;
+    const endpoint = `${urls.dispatchApi}/dispatch`;
 
     // TODO: Create a datamodel to hold the schema for simulation spec for frontend
     const formData = new FormData();
@@ -30,7 +30,7 @@ export class DispatchService {
   }
 
   getAllSimulatorInfo(simulatorName?: string) {
-    const endpoint = `${environment.dispatch.DISPATCH_API_URL}/simulators`;
+    const endpoint = `${urls.dispatchApi}/simulators`;
     if (simulatorName === undefined) {
       return this.http.get(endpoint);
     }
