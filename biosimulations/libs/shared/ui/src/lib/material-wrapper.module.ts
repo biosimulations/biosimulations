@@ -15,7 +15,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { MatTableModule } from '@angular/material/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSortModule } from '@angular/material/sort';
 
 const materialImports = [
   FlexLayoutModule,
@@ -33,7 +37,11 @@ const materialImports = [
   MatExpansionModule,
   MatMenuModule,
   MatFormFieldModule,
+  MatCheckboxModule,
   NgxMatFileInputModule,
+  MatTableModule,
+  DragDropModule,
+  MatSortModule,
 ];
 
 @NgModule({

@@ -229,14 +229,15 @@ export class AppController implements OnApplicationBootstrap {
   @Get('dispatch-finish/:uuid')
   @ApiResponse({
     status: 200,
-    description: 'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
+    description:
+      'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
     type: Object,
   })
   dispatchFinishEvent(@Param('uuid') uuid: string) {
-    this.messageClient.emit('dispatch_finish', {uuid});
+    this.messageClient.emit('dispatch_finish', { uuid });
     return {
-      message: 'OK'
-    }
+      message: 'OK',
+    };
   }
 
   readDir(dirPath: string): Promise<any> {

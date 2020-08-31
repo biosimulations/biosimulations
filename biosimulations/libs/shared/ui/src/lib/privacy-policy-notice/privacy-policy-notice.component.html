@@ -1,0 +1,15 @@
+<div class="container" *ngIf="open">
+  <div class="message">
+    {{ appName }} collects limited personal data to credit authors and improve the platform. By using this site, you agree to our terms of service <a [routerLink]="['/help', 'terms']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> and privacy policy <a [routerLink]="['/help', 'privacy']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a>.
+  </div>
+  <div class="close">
+    <button
+        type="button"
+        aria-label="Close privacy notice"
+        mat-icon-button
+        (click)="close()"
+    >
+      <mat-icon aria-label="Close icon">close</mat-icon>
+    </button>
+  </div>
+</div>

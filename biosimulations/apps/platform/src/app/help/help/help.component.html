@@ -1,4 +1,4 @@
-<biosimulations-text-page title="Help">
+<biosimulations-text-page title="Tutorial">
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section title="Related resources">
       <div class="hanging-indent">
@@ -11,20 +11,6 @@
         <a [href]="apiUrl" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
           REST API documentation
-        </a>
-      </div>
-
-      <div class="hanging-indent">
-        <a [href]="submitAppHelpUrl" target="_blank">
-          <biosimulations-icon icon="link"></biosimulations-icon>
-          Documentation for the standalone simulation web app
-        </a>
-      </div>
-
-      <div class="hanging-indent">
-        <a [href]="webserviceUrl" target="_blank">
-          <biosimulations-icon icon="link"></biosimulations-icon>
-          Web service documentation
         </a>
       </div>
     </biosimulations-text-page-side-bar-section>
@@ -72,13 +58,10 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      title="Guide for simulation software developers: Contributing an additional"
-      shortTitle="Guide for developers"
+      title="Guide for simulation software developers: Contributing an additional simulation tool"
+      shortTitle="Guide for simulator developers"
     >
-      <ul>
-        <li>Containerizing a simulator</li>
-        <li>Submitting a simulator</li>
-      </ul>
+      BioSimulations uses the BioSimulators collection of simulation tools. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about contributing an additional simulation tool.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -100,17 +83,10 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      title="Executing simulations with the standalone simulation application"
-      shortTitle="Standalone simulation app"
+      title="Executing simulations with the standalone simulation web application and REST API"
+      shortTitle="Standalone simulation web service"
     >
-      In addition to this full-featured web application, a simpler application for executing simulations is available at <a [href]="submitAppUrl" target="_blank">{{ submitAppUrl }}</a>. This application simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
-    </biosimulations-text-page-content-section>
-
-    <biosimulations-text-page-content-section
-      title="Executing simulations with the standalone web service"
-      shortTitle="Web service"
-    >
-      In addition to this full-featured web application, a simple web service for executing simulations is available at <a [href]="webserviceUrl" target="_blank">{{ webserviceUrl }}</a>. This web service simply enables users to execute COMBINE archives using a variety of simulation tools. The web service does not require an account.
+      In addition to this full-featured web application, runBioSimulations <a [href]="submitAppUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
     </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>

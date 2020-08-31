@@ -22,9 +22,6 @@ export class BreadCrumbsComponent implements OnInit {
   public contextButtons: IContextButton[] = [];
 
   @Input()
-  color = '#bcdffb';
-
-  @Input()
   pad = true;
 
   buildBreadCrumb(

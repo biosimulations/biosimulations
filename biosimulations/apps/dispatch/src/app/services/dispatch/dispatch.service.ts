@@ -24,6 +24,8 @@ export class DispatchService {
     formData.append('simulator', selectedSimulator);
     formData.append('simulatorVersion', selectedVersion);
     console.log(formData);
+    // formData.append('name', name);
+    // formData.append('email', email);
     return this.http.post(endpoint, formData);
   }
 

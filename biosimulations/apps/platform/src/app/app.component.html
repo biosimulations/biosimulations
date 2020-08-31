@@ -54,6 +54,13 @@
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
+          title="Terms of service"
+          icon="legal"
+          [routerLink]="['/help', 'terms']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           title="Privacy policy"
           icon="policy"
           [routerLink]="['/help', 'privacy']"
@@ -203,6 +210,12 @@
         title="About"
         icon="info"
         [route]="['/help', 'about']"
+      >
+      </biosimulations-navigation-subitem>
+      <biosimulations-navigation-subitem
+        title="Terms of service"
+        icon="legal"
+        [route]="['/help', 'terms']"
       >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem

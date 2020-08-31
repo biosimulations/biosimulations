@@ -15,7 +15,6 @@
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        disableRipple
         (click)="drawer.toggle()"
         *ngIf="drawer.opened"
       >
@@ -35,7 +34,6 @@
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
-          disableRipple
           (click)="drawer.toggle()"
           *ngIf="!drawer.opened"
         >
@@ -57,6 +55,6 @@
     <div class="content">
       <ng-content select="router-outlet"> </ng-content>
     </div>
-    <biosimulations-privacy-notice></biosimulations-privacy-notice>
+    <biosimulations-privacy-policy-notice></biosimulations-privacy-policy-notice>
   </mat-sidenav-content>
 </mat-sidenav-container>
