@@ -51,24 +51,24 @@ h2,
 }
 
 
-.grid{
+.grid {
   display: grid;
   grid-gap: 2rem;
 }
 
-.grid-2{
+.grid-2 {
   grid-template-columns: 1fr 1fr;
 }
 
-.grid-3{
+.grid-3 {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.grid-4{
+.grid-4 {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.grid-5{
+.grid-5 {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -82,6 +82,34 @@ h2,
 
 .columns-3 {
   column-count: 3;
+}
+
+.icon-list {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0.5rem;
+  padding-inline-start: 0;
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+
+  .icon-container {
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    top: -0.0625rem;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  biosimulations-icon {
+    margin-right: 0.25rem;
+    font-size: 125%;
+  }
 }
 
 .vertically-spaced li:not(:first-child) {

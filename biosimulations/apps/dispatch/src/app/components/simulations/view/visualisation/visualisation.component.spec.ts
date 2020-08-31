@@ -1,20 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VisualisationContainerComponent } from './visualisation-container.component';
-import { ViewVisualisationComponent } from '../view-visualisation/view-visualisation.component';
+import { VisualisationComponent } from './visualisation.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('VisualisationContainerComponent', () => {
-  let component: VisualisationContainerComponent;
-  let fixture: ComponentFixture<VisualisationContainerComponent>;
+describe('VisualisationComponent', () => {
+  let component: VisualisationComponent;
+  let fixture: ComponentFixture<VisualisationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VisualisationContainerComponent,
-        ViewVisualisationComponent,
+        VisualisationComponent,
       ],
       imports: [HttpClientTestingModule, RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
@@ -22,7 +20,7 @@ describe('VisualisationContainerComponent', () => {
   }));
 
   beforeEach(() => {
-    //fixture = TestBed.createComponent(VisualisationContainerComponent);
+    //fixture = TestBed.createComponent(VisualisationComponent);
     // component = fixture.componentInstance;
     // fixture.detectChanges();
   });

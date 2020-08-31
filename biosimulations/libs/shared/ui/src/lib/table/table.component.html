@@ -1,0 +1,123 @@
+<div class="container grid">
+  <mat-accordion class="controls">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header
+        [collapsedHeight]="'32px'"
+        [expandedHeight]="'32px'"
+      >
+        <mat-panel-title>
+          <biosimulations-icon icon="columns"></biosimulations-icon>
+          Columns
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <mat-list-item *ngFor="let column of columns">
+            <mat-checkbox
+              [checked]="column.show !== false"
+              (change)="toggleColumn(column)"
+            >
+              {{ column.title }}
+            </mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header
+        [collapsedHeight]="'32px'"
+        [expandedHeight]="'32px'"
+      >
+        <mat-panel-title>
+          <biosimulations-icon icon="filter"></biosimulations-icon>
+          Filters
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+
+        <mat-accordion class="controls">
+          <ng-template ngFor let-column [ngForOf]="columns">
+            <mat-expansion-panel *ngIf="column.filterable !== false">
+              <mat-expansion-panel-header
+                [collapsedHeight]="'32px'"
+                [expandedHeight]="'32px'"
+              >
+                <mat-panel-title>
+                  {{ column.title }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matExpansionPanelContent>
+                <mat-list *ngIf="column.filterType !== 'numeric'">
+                  <mat-list-item *ngFor="let value of getColumnValues(column)">
+                    <mat-checkbox
+                      #checkbox
+                      (change)="filterSetValue(column, value, checkbox.checked)"
+                    >
+                      {{ formatFilterValue(value, column) }}
+                    </mat-checkbox>
+                  </mat-list-item>
+                </mat-list>
+              </ng-template>
+            </mat-expansion-panel>
+          </ng-template>
+        </mat-accordion>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="table-container">
+    <mat-table
+      matSort
+      (matSortChange)="sortRows($event)"
+    >
+      <ng-container
+        [matColumnDef]="column.id"
+        *ngFor="let column of columns"
+      >
+        <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="column.sortable === false"
+          [ngStyle]="{
+            'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'justify-content': column.center !== undefined ? 'center' : null
+          }"
+        >
+          {{ column.title }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"
+          [ngStyle]="{
+            'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null
+          }"
+        >
+          <div [ngSwitch]="column?.container" class="cell-content-container" [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
+            <ng-template [ngSwitchCase]="'route'">
+              <a *ngIf="getElementRoute(element, column) as route" [routerLink]="route">
+                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+                {{ formatElementValue(element, column) }}
+              </a>
+            </ng-template>
+
+            <ng-template [ngSwitchCase]="'href'">
+              <a *ngIf="getElementHref(element, column) as href" [href]="href">
+                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+                {{ formatElementValue(element, column) }}
+              </a>
+            </ng-template>
+
+            <ng-template ngSwitchDefault>
+              <span>
+                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+                {{ formatElementValue(element, column) }}
+              </span>
+            </ng-template>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row
+        *matHeaderRowDef="columnsToShow; sticky: true"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnsToShow"
+      ></mat-row>
+    </mat-table>
+  </div>
+</div>

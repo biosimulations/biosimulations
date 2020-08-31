@@ -5,8 +5,8 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { DispatchService } from '../../services/dispatch/dispatch.service';
-import { VisualisationService } from '../../services/visualisation/visualisation.service';
+import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -18,6 +18,7 @@ export class DispatchComponent implements OnInit {
   projectFileError!: string;
   simulatorError!: string;
   simulatorVersionError!: string;
+  nameError!: string;
   emailError!: string;
   simulators: Array<string> = [];
   simulatorVersions: Array<string> = [];
@@ -30,6 +31,7 @@ export class DispatchComponent implements OnInit {
       projectFile: ['', [Validators.required]],
       simulator: ['', [Validators.required]],
       simulatorVersion: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.email]],
     });
   }
@@ -58,6 +60,9 @@ export class DispatchComponent implements OnInit {
     this.simulatorVersionError = this.formGroup.controls.simulatorVersion.errors
       ? this.formGroup.controls.simulatorVersion.errors.required
       : null;
+    this.nameError = this.formGroup.controls.name.errors
+      ? this.formGroup.controls.name.errors.name
+      : null;
     this.emailError = this.formGroup.controls.email.errors
       ? this.formGroup.controls.email.errors.email
       : null;
@@ -69,10 +74,11 @@ export class DispatchComponent implements OnInit {
     const projectFile: File = this.formGroup.value.projectFile;
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
+    const name: string = this.formGroup.value.name;
     const email: string = this.formGroup.value.email;
 
     this.dispatchService
-      .submitJob(projectFile, simulator, simulatorVersion)
+      .submitJob(projectFile, simulator, simulatorVersion, name, email)
       .subscribe(
         (data: any) => {
           console.log('Response from server: ', data);

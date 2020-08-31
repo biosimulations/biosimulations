@@ -200,34 +200,34 @@ export class AppController implements OnApplicationBootstrap {
   convertJsonDataToChartData(data: any) {
     const finalRes = JSON.parse(JSON.stringify(data));
     const sedmls = Object.keys(data);
-    let tasks: Array<string> = [];
+    let reports: Array<string> = [];
     // sedmls.forEach(sedml => {
     //   finalRes.set(sedml, {});
     // })
 
     sedmls.forEach((sedml) => {
-      tasks = Object.keys(data[sedml]);
-      tasks.forEach((task) => {
-        finalRes[sedml][task] = {};
+      reports = Object.keys(data[sedml]);
+      reports.forEach((report) => {
+        finalRes[sedml][report] = {};
       });
     });
 
     for (const sedml of sedmls) {
-      for (const task of tasks) {
-        const taskKeys = Object.keys(data[sedml][task][0]);
+      for (const report of reports) {
+        const taskKeys = Object.keys(data[sedml][report][0]);
         taskKeys.splice(taskKeys.indexOf('time'), 1);
 
         for (const taskKey of taskKeys) {
-          finalRes[sedml][task][taskKey] = {};
-          finalRes[sedml][task][taskKey]['x'] = [];
-          finalRes[sedml][task][taskKey]['y'] = [];
-          finalRes[sedml][task][taskKey]['type'] = 'scatter';
+          finalRes[sedml][report][taskKey] = {};
+          finalRes[sedml][report][taskKey]['x'] = [];
+          finalRes[sedml][report][taskKey]['y'] = [];
+          finalRes[sedml][report][taskKey]['type'] = 'scatter';
         }
 
-        for (const dataObj of data[sedml][task]) {
+        for (const dataObj of data[sedml][report]) {
           for (const taskKey of taskKeys) {
-            finalRes[sedml][task][taskKey]['x'].push(dataObj['time']);
-            finalRes[sedml][task][taskKey]['y'].push(dataObj[taskKey]);
+            finalRes[sedml][report][taskKey]['x'].push(dataObj['time']);
+            finalRes[sedml][report][taskKey]['y'].push(dataObj[taskKey]);
           }
         }
       }

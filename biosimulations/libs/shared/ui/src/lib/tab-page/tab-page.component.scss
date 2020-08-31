@@ -1,0 +1,40 @@
+@import 'biosimulations-colors';
+
+::ng-deep mat-tab-group {
+  .mat-tab-header {
+    background: mat-color($theme-primary, lightest);
+    border-bottom: none;
+    position: sticky;
+    top: calc(64px + 32px);
+    z-index: 5;
+  }
+
+  .mat-tab-label-container {
+    padding-left: calc(20px + 1rem);
+  }
+
+  .mat-tab-label {
+    height: 32px;
+    min-width: unset;
+    padding: 0 1rem;
+    color: mat-color($theme-primary);
+    opacity: 0.9;
+
+    &.mat-tab-label-active {
+      opacity: 0.9;
+    }
+  }
+
+  .mat-tab-label-content {
+    biosimulations-icon {
+      margin-right: 0.25rem;
+      margin-top: -0.125rem;
+      font-size: 125%
+    }
+  }
+
+  .mat-tab-body-wrapper {
+    padding: 2rem;
+    min-height: calc(100vh - 64px - 32px - 32px - 2 * 2rem);
+  }
+}

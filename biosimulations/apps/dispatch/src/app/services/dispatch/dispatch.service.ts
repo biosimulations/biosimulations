@@ -12,15 +12,16 @@ export class DispatchService {
   uuidsDispatched: Array<string> = [];
 
   
-  submitJob(fileToUpload: File, selectedSimulator: string, selectedVersion: string) {
+  submitJob(fileToUpload: File, selectedSimulator: string, selectedVersion: string, name: string, email: string) {
     const endpoint = `${environment.crbm.DISPATCH_API_URL}/dispatch`;
 
     // TODO: Create a datamodel to hold the schema for simulation spec for frontend
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulator', selectedSimulator);
-    formData.append('simulatorVersion', selectedVersion)
-    console.log(formData);
+    formData.append('simulatorVersion', selectedVersion);
+    // formData.append('name', name);
+    // formData.append('email', email);
     return this.http.post(endpoint, formData);
   }
 
