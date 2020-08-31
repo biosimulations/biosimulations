@@ -22,6 +22,7 @@ jobs:
         with:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           branch: dep-licenses
+          base: dev
           commit-message: "Updated licenses of dependencies"
           committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
           author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
