@@ -4,7 +4,7 @@ DEP_LICENSES_PATH=../LICENSE-DEPENDENCIES
 license-checker --production --excludePackages biosimulations@0.0.0 --out ${DEP_LICENSES_PATH}
 
 # Remove local paths
-cwd=`pwd`
+cwd=$(pwd)
 sed -i "s|$cwd/node_modules/||g" ${DEP_LICENSES_PATH}
 
 # Remove paths to packages
