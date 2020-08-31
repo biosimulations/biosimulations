@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BrowseComponent } from './browse.component';
 
 describe('BrowseComponent', () => {
@@ -10,7 +12,7 @@ describe('BrowseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule, SharedUiModule],
       declarations: [BrowseComponent],
     }).compileComponents();
   }));

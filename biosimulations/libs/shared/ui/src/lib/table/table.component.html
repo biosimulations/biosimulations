@@ -1,0 +1,57 @@
+<div class="container">
+  <mat-table
+    matSort
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="dropColumn($event)"
+    (matSortChange)="sortRows($event)"
+  >
+    <ng-container
+      [matColumnDef]="column.id"
+      *ngFor="let column of columns"
+    >
+      <mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header [disabled]="column.sortable === false"
+        [ngStyle]="{
+          'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null,
+          'justify-content': column.center !== undefined ? 'center' : null
+        }"              
+      >
+        {{ column.title }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" 
+        [ngStyle]="{
+          'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null
+        }" 
+      >
+        <div [ngSwitch]="column?.container" class="cell-content-container" [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
+          <ng-template [ngSwitchCase]="'route'">
+            <a *ngIf="getElementRoute(element, column) as route" [routerLink]="route">
+              <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+              {{ formatElementValue(element, column) }}              
+            </a>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'href'">
+            <a *ngIf="getElementHref(element, column) as href" [href]="href">
+              <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+              {{ formatElementValue(element, column) }}
+            </a>
+          </ng-template>
+
+          <ng-template ngSwitchDefault>
+            <span>
+              <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+              {{ formatElementValue(element, column) }}
+            </span>
+          </ng-template>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      *matHeaderRowDef="columnsToShow; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToShow"
+    ></mat-row>
+  </mat-table>
+</div>

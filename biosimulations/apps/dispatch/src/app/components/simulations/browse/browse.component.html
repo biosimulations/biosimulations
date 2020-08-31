@@ -1,28 +1,5 @@
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Submitted</th>
-            <th>Status</th>
-            <th>Completed</th>
-            <th>Runtime</th>
-            <th>Visualize</th>
-            <th>Download</th>
-            <th>Logs</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let uuid of uuids; let listIndex = index">
-            <td><a [routerLink]="['/simulations', uuidsComplete[listIndex]]">{{ uuid }}</a></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+<biosimulations-page title="Your simulations">
+  <biosimulations-table #table
+    [columns]="columns"
+  ></biosimulations-table>
+</biosimulations-page>

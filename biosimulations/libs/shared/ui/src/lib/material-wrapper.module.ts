@@ -16,6 +16,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { MatTableModule } from '@angular/material/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSortModule } from '@angular/material/sort';
 
 const materialImports = [
   FlexLayoutModule,
@@ -34,6 +37,9 @@ const materialImports = [
   MatMenuModule,
   MatFormFieldModule,
   NgxMatFileInputModule,
+  MatTableModule,
+  DragDropModule,
+  MatSortModule,
 ];
 
 @NgModule({
