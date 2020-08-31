@@ -1,4 +1,4 @@
-import jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 export function decodeToken(token: string): any {
   const decoded = jwt.decode(token);
