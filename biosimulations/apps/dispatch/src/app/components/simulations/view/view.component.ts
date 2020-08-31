@@ -55,7 +55,7 @@ export class ViewComponent implements OnInit {
     this.uuid = this.route.snapshot.params['uuid'];
     if (this.projectResults === undefined) {
       this.visualisationService
-        .getVisualisation(this.uuid)
+        .getResultStructure(this.uuid)
         .subscribe((data: any) => {
           this.setProjectResults(data['data']);
         });
@@ -88,7 +88,7 @@ export class ViewComponent implements OnInit {
       report: report,
       data: reportResults,
     });
-  }  
+  }
 
   selectedTabChange($event: MatTabChangeEvent): void {
     if ($event.index == 3) {
