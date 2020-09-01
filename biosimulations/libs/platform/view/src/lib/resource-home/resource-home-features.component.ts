@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ResourceHomeFeaturesComponent implements OnInit {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   cols = 2;

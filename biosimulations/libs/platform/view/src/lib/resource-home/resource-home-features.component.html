@@ -1,7 +1,7 @@
 <div class="container">
-    <ng-container *ngIf="title">
-        <h2>{{ title }}</h2>
-        <div class="title-separator"></div>
+    <ng-container *ngIf="heading">
+        <h2>{{ heading }}</h2>
+        <div class="heading-separator"></div>
     </ng-container>
     <div class="grid" [ngClass]="{
         'grid-2': cols === 2,

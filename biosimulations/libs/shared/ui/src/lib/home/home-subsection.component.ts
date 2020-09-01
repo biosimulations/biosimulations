@@ -8,13 +8,13 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class HomeSubsectionComponent {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
-  subtitle = '';
+  subheading = '';
 
   @Input()
-  subtitleSize = 'large';
+  subheadingSize = 'large';
 
   @Input()
   icon = '';

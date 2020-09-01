@@ -10,7 +10,7 @@ import {
 })
 export class PageComponent {
   @Input()
-  title = '';
+  heading = '';
 
   constructor() {}
 }

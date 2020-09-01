@@ -1,11 +1,11 @@
 <div class="container">
   <biosimulations-icon [icon]="icon"></biosimulations-icon>
-  <div class="title">{{ title }}</div>
+  <div class="heading">{{ heading }}</div>
   <div [ngClass]="{
-    'subtitle-small': subtitleSize === 'small',
-    'subtitle-large': subtitleSize === 'large'
+    'subheading-small': subheadingSize === 'small',
+    'subheading-large': subheadingSize === 'large'
   }"
-  >{{ subtitle }}</div>
+  >{{ subheading }}</div>
   <div class="content">
     <ng-content></ng-content>
   </div>

@@ -17,7 +17,7 @@
               [checked]="column.show !== false"
               (change)="toggleColumn(column)"
             >
-              {{ column.title }}
+              {{ column.heading }}
             </mat-checkbox>
           </mat-list-item>
         </mat-list>
@@ -44,7 +44,7 @@
                 [expandedHeight]="'32px'"
               >
                 <mat-panel-title>
-                  {{ column.title }}
+                  {{ column.heading }}
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
@@ -81,7 +81,7 @@
             'justify-content': column.center !== undefined ? 'center' : null
           }"
         >
-          {{ column.title }}
+          {{ column.heading }}
         </mat-header-cell>
         <mat-cell *matCellDef="let element"
           [ngStyle]="{
@@ -91,21 +91,21 @@
           <div [ngSwitch]="column?.container" class="cell-content-container" [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
             <ng-template [ngSwitchCase]="'route'">
               <a *ngIf="getElementRoute(element, column) as route" [routerLink]="route">
-                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
                 {{ formatElementValue(element, column) }}
               </a>
             </ng-template>
 
             <ng-template [ngSwitchCase]="'href'">
               <a *ngIf="getElementHref(element, column) as href" [href]="href">
-                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
                 {{ formatElementValue(element, column) }}
               </a>
             </ng-template>
 
             <ng-template ngSwitchDefault>
               <span>
-                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.title"></biosimulations-icon>
+                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
                 {{ formatElementValue(element, column) }}
               </span>
             </ng-template>
