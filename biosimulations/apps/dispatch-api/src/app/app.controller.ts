@@ -32,6 +32,7 @@ import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
 import { map } from 'rxjs/operators';
+import { urls } from '@biosimulations/config/common';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
@@ -202,7 +203,7 @@ export class AppController implements OnApplicationBootstrap {
 
     if (simulatorName === undefined) {
       // Getting info of all available simulators
-      const simulatorsInfo: any = await this.httpService.get('https://hub.docker.com/v2/repositories/biosimulators/?page_size=25&page=1&ordering=last_updated').toPromise();
+      const simulatorsInfo: any = await this.httpService.get(`${urls.fetchSimulatorsInfo}`).toPromise();
       const allSimulators: any = [];
 
       for(const simulatorInfo of simulatorsInfo['data']['results']) {
