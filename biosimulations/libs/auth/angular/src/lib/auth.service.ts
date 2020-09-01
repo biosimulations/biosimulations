@@ -17,7 +17,7 @@ import {
   combineLatest,
 } from 'rxjs';
 import { catchError, shareReplay, concatMap, tap } from 'rxjs/operators';
-import { IdToken } from '@biosimulations/auth/common';
+
 @Injectable()
 export class AuthService {
   private redirectUri: string | undefined;
