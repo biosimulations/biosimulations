@@ -6,7 +6,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NpnSliderModule } from "npn-slider";
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { TableComponent } from './table.component';
 
@@ -23,7 +27,11 @@ describe('TableComponent', () => {
         MatSortModule,
         MatExpansionModule,
         MatListModule,
+        MatFormFieldModule,
         MatCheckboxModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NpnSliderModule,
         BiosimulationsIconsModule,
       ],
       declarations: [TableComponent],

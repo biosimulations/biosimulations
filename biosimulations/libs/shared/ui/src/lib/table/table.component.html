@@ -35,7 +35,6 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-
         <mat-accordion class="controls">
           <ng-template ngFor let-column [ngForOf]="columns">
             <mat-expansion-panel *ngIf="column.filterable !== false">
@@ -48,16 +47,41 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
-                <mat-list *ngIf="column.filterType !== 'numeric'">
-                  <mat-list-item *ngFor="let value of getColumnValues(column)">
-                    <mat-checkbox
-                      #checkbox
-                      (change)="filterSetValue(column, value, checkbox.checked)"
-                    >
-                      {{ formatFilterValue(value, column) }}
-                    </mat-checkbox>
-                  </mat-list-item>
-                </mat-list>
+                <ng-container [ngSwitch]="column.filterType">
+
+                  <ng-template [ngSwitchCase]="'number'">
+                    <ng-template let-range="range" [ngTemplateOutletContext]="{range: getColumnRange(column)}" [ngTemplateOutlet]="self" #self>
+                      <npn-slider
+                        [min]="range.min"
+                        [max]="range.max"
+                        [step]="range.step"
+                        (onChange)="filterNumberValue(column, range, $event)"
+                      >
+                      </npn-slider>
+                    </ng-template>
+                  </ng-template>
+
+                  <mat-form-field *ngSwitchCase="'date'" appearance="fill">
+                    <mat-label>Enter a range of dates</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input matStartDate placeholder="Start date" (dateChange)="filterStartDateValue(column, $event)">
+                      <input matEndDate placeholder="End date" (dateChange)="filterEndDateValue(column, $event)">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
+
+                  <mat-list *ngSwitchDefault>
+                    <mat-list-item *ngFor="let value of getColumnValues(column)">
+                      <mat-checkbox
+                        #checkbox
+                        (change)="filterSetValue(column, value, checkbox.checked)"
+                      >
+                        {{ formatFilterValue(value, column) }}
+                      </mat-checkbox>
+                    </mat-list-item>
+                  </mat-list>
+                </ng-container>
               </ng-template>
             </mat-expansion-panel>
           </ng-template>

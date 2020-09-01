@@ -239,3 +239,38 @@ code {
 code, pre {
   background: $light-background;
 }
+
+/* range slider */
+npn-slider .slider {
+  .bar {
+    & > span.left-handle, & > span.right-handle {
+      border-color: mat-color($theme-primary) !important;
+      background: mat-color($theme-primary, lighter) !important;
+
+      .handle-tooltip {
+        border-color: mat-color($theme-primary) !important;
+        background: mat-color($theme-primary, lighter) !important;
+        color: mat-color($theme-primary) !important;
+        font-weight: bold;
+      }
+    }
+
+    div.filler {
+      border-color: $light-bg-darker-5 !important;
+
+      & > span {
+        background: mat-color($theme-primary, lighter) !important;
+      }
+    }
+  }
+
+  .values {
+    font-weight: 400 !important;
+    color: $dark-primary-text !important;
+  }
+}
+
+/* buttons */
+.mat-icon-button .mat-button-focus-overlay {
+  display: none;
+}
