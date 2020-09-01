@@ -212,7 +212,6 @@ export class AppController implements OnApplicationBootstrap {
       return allSimulators;
     }
 
-    // TODO: Move this to urls file
     const simVersionRes = this.httpService.get(
       `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
     );
