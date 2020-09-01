@@ -5230,6 +5230,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm-run-path/license
+├─ npn-slider@1.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/npnm/NpnSlider
+│  ├─ publisher: npnm
+│  └─ licenseFile: npn-slider/README.md
 ├─ nuid@1.1.4
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/nats-io/node-nuid
