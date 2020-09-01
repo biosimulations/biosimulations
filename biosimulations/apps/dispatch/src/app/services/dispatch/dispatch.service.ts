@@ -17,7 +17,7 @@ export class DispatchService {
     name: string,
     email: string
   ) {
-    // TODO: Take the endpoints from urls.ts shared libs
+   
     const endpoint = `${urls.dispatchApi}/dispatch`;
 
     // TODO: Create a datamodel to hold the schema for simulation spec for frontend
