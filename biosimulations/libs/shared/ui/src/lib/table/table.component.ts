@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { Sort } from '@angular/material/sort';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'biosimulations-table',
@@ -107,6 +108,51 @@ export class TableComponent {
     return values;
   }
 
+  getColumnRange(column: any): any {
+    if (this.data.length === 0) {
+      return {min: null, max: null, step: null};
+    }
+
+    const range: any = {
+      min: null,
+      max: null,
+      step: null,
+    }
+
+    for (const datum of this.data) {
+      if (!(column.key in datum)) {
+        continue;
+      }
+
+      const value = datum[column.key];
+      if (value == null || value === undefined) {
+        continue;
+      }
+
+      if (range.min == null) {
+        range.min = value;
+        range.max = value;
+      } else {
+        if (value < range.min) {
+          range.min = value;
+        }
+        if (value > range.max) {
+          range.max = value;
+        }
+      }
+    }
+
+    if ('numericFilterStep' in column) {
+      range.step = column.numericFilterStep;
+    } else if (range.max === range.min) {
+      range.step = 0;
+    } else {
+      range.step = Math.pow(10, Math.floor(Math.log10((range.max - range.min) / 1000)));
+    }
+
+    return range;
+  }
+
   formatFilterValue(value: any, column: any): any {
     if ('filterFormatter' in column) {
       return column.filterFormatter(value);
@@ -182,6 +228,54 @@ export class TableComponent {
     this.filterSortData();
   }
 
+  filterNumberValue(column: any, fullRange: any, selectedRange: number[]): void {
+    if (fullRange.min === selectedRange[0] && fullRange.max === selectedRange[1]) {
+      column._filteredValues = [];
+    } else {
+      column._filteredValues = selectedRange;
+    }
+    this.filterSortData();
+  }
+
+  filterStartDateValue(column: any, event: MatDatepickerInputEvent<Date>): void {
+    if (event.value === null) {
+      if (column._filteredValues.length > 0) {
+        if (column._filteredValues[1] == null) {
+          column._filteredValues = [];
+        } else {
+          column._filteredValues[0] = null;
+        }
+      }
+    } else {
+      if (column._filteredValues.length === 0) {
+        column._filteredValues = [event.value, null];
+      } else {
+        column._filteredValues[0] = event.value;
+      }
+    }
+    this.filterSortData();
+  }
+
+  filterEndDateValue(column: any, event: MatDatepickerInputEvent<Date>): void {
+    if (event.value === null) {
+      if (column._filteredValues.length > 0) {
+        if (column._filteredValues[0] == null) {
+          column._filteredValues = [];
+        } else {
+          column._filteredValues[1] = null;
+        }
+      }
+    } else {
+      event.value.setDate(event.value.getDate() + 1);
+      if (column._filteredValues.length === 0) {
+        column._filteredValues = [null, event.value];
+      } else {
+        column._filteredValues[1] = event.value;
+      }
+    }
+    this.filterSortData();
+  }
+
   filterSortData() {
     // filter data
     this.filteredData = [];
@@ -190,9 +284,21 @@ export class TableComponent {
       for (const column of this.columns) {
         if (column.filterable !== false && column._filteredValues.length > 0) {
           const value = datum[column.key];
-          if (!column._filteredValues.includes(value)) {
-            passesFilters = false;
-            break;
+
+          if (column.filterType === 'number' || column.filterType === 'date') {
+            if (value == null
+              || value === undefined
+              || (column._filteredValues[0] != null && value < column._filteredValues[0])
+              || (column._filteredValues[1] != null && value > column._filteredValues[1])
+              ) {
+              passesFilters = false;
+              break;
+            }
+          } else {
+            if (!column._filteredValues.includes(value)) {
+              passesFilters = false;
+              break;
+            }
           }
         }
       }

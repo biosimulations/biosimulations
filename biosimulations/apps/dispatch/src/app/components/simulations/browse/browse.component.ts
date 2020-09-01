@@ -80,6 +80,7 @@ export class BrowseComponent implements AfterViewInit {
           return (value * 1000).toFixed(1) + ' ms';
         }
       },
+      filterType: 'number',
       show: false,
     },
     {
@@ -97,6 +98,7 @@ export class BrowseComponent implements AfterViewInit {
           + ':' + value.getMinutes().toString().padStart(2, '0')
           + ':' + value.getSeconds().toString().padStart(2, '0');
       },
+      filterType: 'date',
       minWidth: 140,
     },
     {
@@ -114,6 +116,7 @@ export class BrowseComponent implements AfterViewInit {
           + ':' + value.getMinutes().toString().padStart(2, '0')
           + ':' + value.getSeconds().toString().padStart(2, '0');
       },
+      filterType: 'date',
       minWidth: 140,
     },
     {
