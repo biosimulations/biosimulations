@@ -8,7 +8,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class HomeTeaserComponent {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   banner = '';

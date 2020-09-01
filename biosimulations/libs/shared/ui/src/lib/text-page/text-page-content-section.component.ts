@@ -13,10 +13,10 @@ import {
 })
 export class TextPageContentSectionComponent implements OnInit {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
-  shortTitle = '';
+  shortHeading = '';
 
   constructor() {}
 

@@ -13,7 +13,7 @@ import {
 })
 export class TextPageSideBarSectionComponent implements OnInit {
   @Input()
-  title = '';
+  heading = '';
 
   constructor() {}
 

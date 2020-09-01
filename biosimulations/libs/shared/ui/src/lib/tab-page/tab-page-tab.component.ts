@@ -8,7 +8,7 @@ import { MatTab } from '@angular/material/tabs';
 })
 export class TabPageTabComponent {
   @Input()
-  title!: string;
+  heading!: string;
 
   @Input()
   icon!: string;

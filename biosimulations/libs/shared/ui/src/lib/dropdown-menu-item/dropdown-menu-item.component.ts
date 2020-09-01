@@ -12,7 +12,7 @@ import {
 })
 export class DropdownMenuItemComponent {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   icon = '';

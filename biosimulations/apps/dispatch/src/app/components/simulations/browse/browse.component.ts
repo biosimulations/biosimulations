@@ -11,21 +11,21 @@ export class BrowseComponent implements AfterViewInit {
   columns: any[] = [
     {
       id: 'id',
-      title: "Id",
+      heading: "Id",
       key: 'id',
       container: 'plain',
       minWidth: 34
     },
     {
       id: 'name',
-      title: "Name",
+      heading: "Name",
       key: 'name',
       container: 'plain',
       minWidth: 34
     },
     {
       id: 'status',
-      title: "Status",
+      heading: "Status",
       key: 'status',
       container: 'plain',
       formatter: (value: string) => {
@@ -54,7 +54,7 @@ export class BrowseComponent implements AfterViewInit {
     },
     {
       id: 'runtime',
-      title: "Runtime",
+      heading: "Runtime",
       key: 'runtime',
       formatter: (value: number) => {
         if (value == null) {
@@ -84,7 +84,7 @@ export class BrowseComponent implements AfterViewInit {
     },
     {
       id: 'submitted',
-      title: "Submitted",
+      heading: "Submitted",
       key: 'submitted',
       formatter: (value: Date) => {
         if (value == null) {
@@ -101,7 +101,7 @@ export class BrowseComponent implements AfterViewInit {
     },
     {
       id: 'completed',
-      title: "Completed",
+      heading: "Completed",
       key: 'completed',
       formatter: (value: Date) => {
         if (value == null) {
@@ -118,7 +118,7 @@ export class BrowseComponent implements AfterViewInit {
     },
     {
       id: 'visualize',
-      title: "Visualize",
+      heading: "Visualize",
       center: true,
       container: 'route',
       route: (element: any) => {
@@ -135,7 +135,7 @@ export class BrowseComponent implements AfterViewInit {
     },
     {
       id: 'download',
-      title: "Download",
+      heading: "Download",
       center: true,
       container: 'href',
       href: (element: any) => {
@@ -152,7 +152,7 @@ export class BrowseComponent implements AfterViewInit {
     },
     {
       id: 'log',
-      title: "Log",
+      heading: "Log",
       center: true,
       container: 'route',
       route: (element: any) => {
