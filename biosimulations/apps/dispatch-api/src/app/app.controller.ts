@@ -32,6 +32,7 @@ import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
 import { map } from 'rxjs/operators';
+import { urls } from '@biosimulations/config/common';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
@@ -198,23 +199,21 @@ export class AppController implements OnApplicationBootstrap {
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(@Query('name') simulatorName?: string) {
-    // NOTE: Add more simulators once they are supported
-    const allSimulators = [
-      'COPASI',
-      'VCell',
-      'Tellurium',
-      'BioNetGen',
-      'CobraPy',
-    ];
+  async getAllSimulatorVersion(@Query('name') simulatorName: string) {
 
     if (simulatorName === undefined) {
+      // Getting info of all available simulators
+      const simulatorsInfo: any = await this.httpService.get(`${urls.fetchSimulatorsInfo}`).toPromise();
+      const allSimulators: any = [];
+
+      for(const simulatorInfo of simulatorsInfo['data']['results']) {
+          allSimulators.push(simulatorInfo['name']);
+      }
       return allSimulators;
     }
 
-    const dockerImageName = `biosimulations_${simulatorName.toLowerCase()}`;
     const simVersionRes = this.httpService.get(
-      `https://registry.hub.docker.com/v1/repositories/crbm/${dockerImageName}/tags`
+      `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
     );
 
     const dockerData: any = await simVersionRes.toPromise();
