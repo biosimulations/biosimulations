@@ -1,7 +1,7 @@
 import { Module, HttpModule } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
 import {
-  ClientsModule,
-  ClientProxy,
   Transport,
   ClientProxyFactory,
   NatsOptions,
@@ -11,7 +11,11 @@ import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 @Module({
-  imports: [BiosimulationsConfigModule, HttpModule],
+  imports: [
+    BiosimulationsConfigModule, 
+    HttpModule,
+    MongooseModule.forRoot('mongodb://localhost/nest')
+  ],
   controllers: [AppController],
   providers: [
     AppService,
