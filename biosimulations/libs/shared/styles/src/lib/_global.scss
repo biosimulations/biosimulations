@@ -51,24 +51,24 @@ h2,
 }
 
 
-.grid{
+.grid {
   display: grid;
   grid-gap: 2rem;
 }
 
-.grid-2{
+.grid-2 {
   grid-template-columns: 1fr 1fr;
 }
 
-.grid-3{
+.grid-3 {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.grid-4{
+.grid-4 {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.grid-5{
+.grid-5 {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -84,6 +84,34 @@ h2,
   column-count: 3;
 }
 
+.icon-list {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0.5rem;
+  padding-inline-start: 0;
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+
+  .icon-container {
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    top: -0.0625rem;
+  }
+
+  .heading {
+    font-weight: bold;
+  }
+
+  biosimulations-icon {
+    margin-right: 0.25rem;
+    font-size: 125%;
+  }
+}
+
 .vertically-spaced li:not(:first-child) {
   margin-top: 0.5rem;
 }
@@ -91,6 +119,7 @@ h2,
 a {
   color: mat-color($theme-primary);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .highlight-primary {
@@ -107,7 +136,141 @@ a {
 
 .zoom:hover {
   transform: scale(1.08);
-} 
+}
 .hidden {
+  display: none;
+}
+
+.hanging-indent {
+  text-indent: -1.1em;
+  margin-left: 1.1em;
+}
+
+.mat-typography p {
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* forms */
+biosimulations-root {
+  .mat-form-field {
+      display: block;
+      letter-spacing: unset;
+  }
+
+  .mat-form-field-appearance-fill {
+
+    .mat-form-field-flex  {
+      padding: 0.75em 0.75em 0;
+      background-color: $light-background;
+    }
+
+    .mat-form-field-underline {
+      display: none;
+    }
+
+    .mat-form-field-subscript-wrapper {
+      margin-top: 0;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.42);
+      position: unset;
+    }
+
+    &.mat-form-field-disabled {
+      .mat-form-field-flex {
+        background-color: $light-bg-darker-20;
+      }
+    }
+  }
+
+  .mat-form-field-prefix biosimulations-icon {
+      font-size: 32px;
+      position: relative;
+      top: -0.125rem;
+      margin-right: 0.5rem;
+      color: rgba(0, 0, 0, 0.7);
+  }
+
+  .ngx-mat-file-input .mat-icon-button.mat-primary {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .mat-form-field:not(.mat-form-field-appearance-legacy) .ngx-mat-file-input .mat-form-field-suffix .mat-icon-button {
+    width: 1.5em;
+    margin-right: 0.2rem;
+  }
+
+  form {
+    .mat-flat-button {
+        padding: 0 .75em;
+        background-color: $light-background;
+    }
+  }
+}
+
+.cdk-overlay-container {
+  @include mat-typography-level-to-styles($fontConfig, body-1);
+}
+
+.mat-select-panel {
+  margin-top: 26px;
+  margin-left: -6px;
+}
+
+pre {
+  padding: 0.5rem;
+  margin: 0;
+  border-radius: 4px;
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+code {
+  padding: 0.25rem;
+}
+
+code, pre {
+  background: $light-background;
+}
+
+/* range slider */
+npn-slider .slider {
+  .bar {
+    & > span.left-handle, & > span.right-handle {
+      border-color: mat-color($theme-primary) !important;
+      background: mat-color($theme-primary, lighter) !important;
+
+      .handle-tooltip {
+        border-color: mat-color($theme-primary) !important;
+        background: mat-color($theme-primary, lighter) !important;
+        color: mat-color($theme-primary) !important;
+        font-weight: bold;
+      }
+    }
+
+    div.filler {
+      border-color: $light-bg-darker-5 !important;
+
+      & > span {
+        background: mat-color($theme-primary, lighter) !important;
+      }
+    }
+  }
+
+  .values {
+    font-weight: 400 !important;
+    color: $dark-primary-text !important;
+  }
+}
+
+/* buttons */
+.mat-icon-button .mat-button-focus-overlay {
   display: none;
 }

@@ -1,0 +1,128 @@
+<biosimulations-page heading="Run a simulation project">
+  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Select a simulation project</mat-label>
+      <ngx-mat-file-input
+        formControlName="projectFile"
+        accept=".omex"
+        [multiple]="false"
+        placeholder="COMBINE/OMEX file"
+        required
+      ></ngx-mat-file-input>
+      <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+      <mat-hint
+        >Select a COMBINE/OMEX archive file which describes one or more
+        simulations (e.g., in SED-ML format) of one or more models (e.g., in
+        SBML format). An example archive is available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/raw/master/Biosimulations_combine_archive_test_suite/BIOMD0000000297.omex"><biosimulations-icon icon="download"></biosimulations-icon></a>. 
+        Additional examples are available in the BioSimulators test
+        suite
+        <a
+          href="https://github.com/biosimulators/Biosimulators_test_suite"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >. More information is available at the COMBINE/OMEX website
+        <a href="https://combinearchive.org/"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.</mat-hint
+      >
+      <mat-error *ngIf="projectFileError">
+        Please select a project file.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select a simulation tool</mat-label>
+      <mat-select
+        formControlName="simulator"
+        disableOptionCentering
+        placeholder="COPASI"
+        (selectionChange)="onSimulatorChange($event)"
+        required
+      >
+        <mat-option *ngFor="let simulator of simulators" [value]="simulator">
+          {{ simulator }}
+        </mat-option>
+      </mat-select>
+      <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
+      <mat-hint
+        >A guide to choosing a simulation tool which is compatible with your
+        simulation project is available at BioSimulators
+        <a href="https://biosimulators.org"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >. The guide describes the modeling frameworks (e.g., logical, FBA,
+        kinetic), simulation algorithms (e.g., ODE, SSA), and modeling formats
+        (e.g., COMBINE/OMEX, SBML, SED-ML) that each simulation tool
+        supports.</mat-hint
+      >
+      <mat-error *ngIf="simulatorError">
+        Please select a simulator.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select a version of the simulation tool</mat-label>
+      <mat-select
+        formControlName="simulatorVersion"
+        disableOptionCentering
+        placeholder="latest"
+        required
+        [disabled]="simulatorVersions.length === 0"
+      >
+        <mat-option
+          *ngFor="let simulatorVersion of simulatorVersions"
+          [value]="simulatorVersion"
+        >
+          {{ simulatorVersion }}
+        </mat-option>
+      </mat-select>
+      <biosimulations-icon icon="version" matPrefix></biosimulations-icon>
+      <mat-hint
+        >See BioSimulators
+        <a href="https://biosimulators.org"
+          ><biosimulations-icon icon="link"></biosimulations-icon
+        ></a>
+        for information about each version of each simulation tool.</mat-hint
+      >
+      <mat-error *ngIf="simulatorVersionError">
+        Please select a version of the selected simulator.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a name for your project</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Knockout of gene A"
+        required
+      >
+      <biosimulations-icon icon="tag" matPrefix></biosimulations-icon>
+      <mat-hint>
+        Provide a name for your simulation project. If you have execute multiple simulation projects, names will help you identify specific projects.
+      </mat-hint>
+      <mat-error *ngIf="nameError">
+        Please select a name.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email address</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        placeholder="investigator@uni.edu"
+      />
+      <biosimulations-icon icon="email" matPrefix></biosimulations-icon>
+      <mat-hint
+        >Optionally, enter your email address to receive notification of the
+        completion of your simulation. After submitting your simulation, you
+        will also receive a URL where you will be able to check the status of
+        your simulation and retrieve its results.</mat-hint
+      >
+      <mat-error *ngIf="emailError">
+        Please enter a valid email address.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button type="submit">Run</button>
+  </form>
+</biosimulations-page>

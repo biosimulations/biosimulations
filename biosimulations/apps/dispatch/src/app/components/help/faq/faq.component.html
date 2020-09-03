@@ -1,0 +1,66 @@
+<biosimulations-text-page heading="FAQ">
+  <ng-container id="sideBar">
+    <biosimulations-text-page-help-side-bar-section>
+    </biosimulations-text-page-help-side-bar-section>
+
+    <biosimulations-text-page-feedback-side-bar-section>
+    </biosimulations-text-page-feedback-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content">
+    <biosimulations-text-page-content-section
+      heading="Models"
+      shortHeading="Models"
+    >
+      <biosimulations-q-a heading="Which modeling frameworks does runBioSimulations support?">
+        This application can simulate the logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) frameworks. This includes rule-based models. runBioSimulations uses the BioSimulators collection of simulations tools to simulate models. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported modeling frameworks.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Which model formats does runBioSimulations support?">
+        This application can simulate models encoded in the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. runBioSimulations uses the BioSimulators collection of simulations tools to simulate models. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported model formats.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Which SBML packages does runBioSimulations support?">
+        This application can simulate models that use core and Flux Balance Constraints (fbc) <a href="http://sbml.org/Documents/Specifications" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or Qualitative Models (qual) <a href="http://sbml.org/Documents/Specifications" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> packages.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I simulate a model that uses an alternative framework?">
+        Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another modeling framework.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I simulate a model that is described in an alternative format?">
+        Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another model format.
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Simulations"
+      shortHeading="Simulations"
+    >
+      <biosimulations-q-a heading="Which simulation algorithms does runBioSimulations support?">
+        runBioSimulations supports numerous algorithms for simulating logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models. runBioSimulations uses the BioSimulators collection of simulations tools to simulate models. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported simulation algorithms.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Which simulation formats does runBioSimulations support?">
+        This application supports simulations encoded into the Simulation Experiment Description Markup Language (SED-ML) <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> that are packaged into COMBINE archives <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. runBioSimulations uses the BioSimulators collection of simulations tools to execute simulations. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported simulation formats.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I execute an alternative simulation algorithm?">
+        Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another algorithm.
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Simulation software tools"
+      shortHeading="Simulation algorithms and tools"
+    >
+      <biosimulations-q-a heading="Which simulation tools does runBioSimulations support?">
+        runBioSimulations uses the BioSimulators collection of containerized simulation software tools. Please see <a href="https://biosimulators.org" target="_blank">https://biosimulators.org</a> for information about the available simulation tools, including the modeling frameworks, simulation algorithms, and model formats supported by each tool.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I execute the same simulators that runBioSimulations uses on my own machine?">
+        runBioSimulations uses the BioSimulators collection of containerized simulation software tools. These containers make it easy to execute simulations by all providing the same command-line interface. The containers are easy to install and run on your own machine. The containers can be used on top of any operating system. Please see  <a href="https://biosimulators.org" target="_blank">https://biosimulators.org</a> for more information about how to install and run these containers.
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>

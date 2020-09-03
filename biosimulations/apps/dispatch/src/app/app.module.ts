@@ -1,20 +1,14 @@
-import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { DispatchComponent } from './components/dispatch/dispatch.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { ViewVisualisationComponent } from './components/view-visualisation/view-visualisation.component';
+import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VisualisationContainerComponent } from './components/visualisation-container/visualisation-container.component';
-import { ResultsPageComponent } from './components/results-page/results-page.component';
-import { MatSelectModule } from '@angular/material/select';
-import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 const routes: Routes = [
   {
@@ -22,39 +16,52 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'dispatch',
-    component: DispatchComponent,
+    path: 'run',
+    loadChildren: () =>
+      import('./components/run/run.module').then((m) => m.RunModule),
+    data: {
+      breadcrumb: 'Run'
+    }
   },
   {
-    path: 'result/:uuid',
-    component: ResultsPageComponent,
+    path: 'simulations',
+    loadChildren: () =>
+      import('./components/simulations/simulations.module').then((m) => m.SimulationsModule),
+    data: {
+      breadcrumb: 'Your simulations'
+    }
+  },
+  {
+    path: 'help',
+    loadChildren: () =>
+      import('./components/help/help.module').then((m) => m.HelpModule),
+    data: {
+      breadcrumb: 'Help'
+    }
   },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     HomeComponent,
-    DispatchComponent,
-    ViewVisualisationComponent,
-    VisualisationContainerComponent,
-    ResultsPageComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    PlotlyViaWindowModule,
-    MatSelectModule,
     SharedUiModule,
+    BiosimulationsIconsModule,
     BrowserAnimationsModule,
-
-    FormsModule,
-    MatIconModule,
+    HttpClientModule,
+    
     RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
+    IonicStorageModule.forRoot({
+      driverOrder: ['indexeddb', 'websql', 'localstorage']
+    }),
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
+  ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [],
 })
 export class AppModule {}

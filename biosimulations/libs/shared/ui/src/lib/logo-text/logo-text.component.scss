@@ -1,13 +1,9 @@
 @import 'biosimulations-colors';
 
-.left {
+.accent {
   color: mat-color($theme-accent);
 }
 
-.right {
+.primary {
   color: ($light-primary-text);
-}
-
-:host {
-  display: inline;
 }

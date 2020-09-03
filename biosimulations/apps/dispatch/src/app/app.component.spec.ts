@@ -1,27 +1,25 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DispatchComponent } from './components/dispatch/dispatch.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { FormsModule } from '@angular/forms';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { MatSelectModule } from '@angular/material/select';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicStorageModule } from '@ionic/storage';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        FormsModule,
         SharedUiModule,
-        MatSelectModule,
-        HttpClientTestingModule,
+        BiosimulationsIconsModule,
         RouterTestingModule,
         NoopAnimationsModule,
+        IonicStorageModule.forRoot({
+          driverOrder: ['indexeddb', 'websql', 'localstorage']
+        }),
       ],
-      declarations: [AppComponent, DispatchComponent, FooterComponent],
+      declarations: [AppComponent],
     }).compileComponents();
   }));
 
@@ -31,9 +29,9 @@ describe('AppComponent', () => {
     // expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'biosimulations-dispatch-frontend'`, () => {
+  it(`should have as title 'dispatch'`, () => {
     //const fixture = TestBed.createComponent(AppComponent);
     //const app = fixture.componentInstance;
-    //expect(app.title).toEqual('biosimulations-dispatch-frontend');
+    //expect(app.title).toEqual('dispatch');
   });
 });

@@ -6,7 +6,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 220px;
 
   ::ng-deep .mat-drawer-inner-container {
     overflow: hidden;
@@ -39,6 +39,15 @@
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
   }
+
+  ::ng-deep .mat-expansion-panel-header-title {
+    white-space: nowrap;
+  }
+}
+
+.sidenav-content {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .sidenav-topbar-right-button {
@@ -66,12 +75,13 @@
 .bread-crumbs {
   position: sticky;
   top: 64px;
+  z-index: 10;
 }
 
 .content {
   padding: 0;
   background: #fff;
-  min-height: calc(100vh - 64px - 32px);
+  min-height: calc(100vh - 64px - 32px); // TODO: substract an additional 52px when the privacy notice is visible
 }
 
 .logo-img {

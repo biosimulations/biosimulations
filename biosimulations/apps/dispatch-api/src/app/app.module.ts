@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
 import {
   ClientsModule,
   ClientProxy,
@@ -11,7 +11,7 @@ import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 @Module({
-  imports: [BiosimulationsConfigModule],
+  imports: [BiosimulationsConfigModule, HttpModule],
   controllers: [AppController],
   providers: [
     AppService,

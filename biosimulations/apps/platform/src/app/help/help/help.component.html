@@ -1,159 +1,92 @@
-<div class="partial-width">
-  <h1>Help</h1>
-  <div class="page-content grid grid-2">
-    <div class="toc">
-      <div class="toc-inner" [ngStyle]="{position: tocFixed ? 'fixed': null}">
-        <div class="section">
-          <h2>Contents</h2>
-          <div class="section-content">
-            <ul>
-              <li>
-                <a (click)="scrollToElement(readers)">Guide for users</a>
-              </li>
-              <li>
-                <a (click)="scrollToElement(authors)">Guide for authors</a>
-              </li>
-              <li>
-                <a (click)="scrollToElement(reviewers)">Guide for reviewers and editors</a>
-              </li>
-              <li>
-                <a (click)="scrollToElement(developers)">Guide for simulator developers</a>
-              </li>
-              <li>
-                <a (click)="scrollToElement(accounts)">User accounts</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>Related resources</h2>
-          <div class="section-content">
-            <div>
-              <a href="https://reproducible-biomedical-modeling.github.io/biosimulations/" target="_blank">
-                <biosimulations-icon icon="link"></biosimulations-icon>
-                API documentation
-              </a>
-            </div>
-            <div>
-              <a href="https://app.swaggerhub.com/" target="_blank">
-                <biosimulations-icon icon="link"></biosimulations-icon>
-                REST API documentation
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>Citing BioSimulations</h2>
-          <div class="section-content">
-            <p>
-              We aim to submit a publication in late 2020. Please check back later this year for a pre-print.
-            </p>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>Need help?</h2>
-          <div class="section-content">
-            <div>
-              <a href="mailto:info@biosimulations.org">
-                <biosimulations-icon icon="email"></biosimulations-icon>
-                Contact us
-              </a>
-            </div>
-            <div>
-              <a href="https://github.com/reproducible-biomedical-modeling/biosimulations" target="_blank">
-                <biosimulations-icon icon="comment"></biosimulations-icon>
-                Submit an issue
-              </a>
-            </div>
-          </div>
-        </div>
+<biosimulations-text-page heading="Tutorial">
+  <ng-container id="sideBar">
+    <biosimulations-text-page-side-bar-section heading="Related resources">
+      <div class="hanging-indent">
+        <a href="https://biosimulators.org" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+          Documentation about modeling frameworks, simulation algorithms, model formats, and simulation tools
+        </a>
       </div>
-    </div>
-
-    <div #top>
-      <div class="section">
-        <h2 #readers>
-          Guide for users: Finding, simulating, and visualizing published models
-          <a class="back-to-top" (click)="scrollToTop(top)">
-            <biosimulations-icon icon="toTop"></biosimulations-icon>
-          </a>
-        </h2>
-        <div class="section-content">
-          <ul>
-            <li>Finding models</li>
-            <li>Finding simulation experiment</li>
-            <li>Creating variants of simulations</li>
-            <li>Finding visualizations</li>
-            <li>Configuring visualizations</li>
-          </ul>
-        </div>
+      <div class="hanging-indent">
+        <a [href]="apiUrl" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+          REST API documentation
+        </a>
       </div>
+    </biosimulations-text-page-side-bar-section>
 
-      <div class="section">
-        <h2 #authors>
-          Guide for authors: Publishing models, simulations, and visualizations
-          <a class="back-to-top" (click)="scrollToTop(top)">
-            <biosimulations-icon icon="toTop"></biosimulations-icon>
-          </a>
-        </h2>
-        <div class="section-content">
-          <ul>
-            <li>Uploading models</li>
-            <li>Uploading simulation experiments</li>
-            <li>Uploading visualizations</li>
-            <li>Sharing resources reviewers and editors</li>
-          </ul>
-        </div>
-      </div>
+    <biosimulations-text-page-help-side-bar-section>
+    </biosimulations-text-page-help-side-bar-section>
 
-      <div class="section">
-        <h2 #reviewers>
-          Guide for reviewers and editors: Evaluating models, simulations, and visualizations
-          <a class="back-to-top" (click)="scrollToTop(top)">
-            <biosimulations-icon icon="toTop"></biosimulations-icon>
-          </a>
-        </h2>
-        <div class="section-content">
-          <ul>
-            <li>Accessing resources</li>
-          </ul>
-        </div>
-      </div>
+    <biosimulations-text-page-feedback-side-bar-section>
+    </biosimulations-text-page-feedback-side-bar-section>
+  </ng-container>
 
-      <div class="section">
-        <h2 #developers>
-          Guide for simulation software developers: Contributing an additional
-          simulator
-          <a class="back-to-top" (click)="scrollToTop(top)">
-            <biosimulations-icon icon="toTop"></biosimulations-icon>
-          </a>
-        </h2>
-        <div class="section-content">
-          <ul>
-            <li>Containerizing a simulator</li>
-            <li>Submitting a simulator</li>
-          </ul>
-        </div>
-      </div>
+  <ng-container id="content">
+    <biosimulations-text-page-content-section
+      heading="Guide for users: Finding, simulating, and visualizing published models"
+      shortHeading="Guide for users"
+    >
+      <ul>
+        <li>Finding models</li>
+        <li>Finding simulation experiment</li>
+        <li>Creating variants of simulations</li>
+        <li>Finding visualizations</li>
+        <li>Configuring visualizations</li>
+      </ul>
+    </biosimulations-text-page-content-section>
 
-      <div class="section">
-        <h2 #accounts>
-          User accounts
-          <a class="back-to-top" (click)="scrollToTop(top)">
-            <biosimulations-icon icon="toTop"></biosimulations-icon>
-          </a>
-        </h2>
-        <div class="section-content">
-          <ul>
-            <li>Signing up</li>
-            <li>Signing in</li>
-            <li>Editing profile</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    <biosimulations-text-page-content-section
+      heading="Guide for authors: Publishing models, simulations, and visualizations"
+      shortHeading="Guide for authors"
+    >
+      <ul>
+        <li>Uploading models</li>
+        <li>Uploading simulation experiments</li>
+        <li>Uploading visualizations</li>
+        <li>Sharing resources reviewers and editors</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Guide for reviewers and editors: Evaluating models, simulations, and visualizations"
+      shortHeading="Guide for reviewers and editors"
+    >
+      <ul>
+        <li>Accessing resources</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Guide for simulation software developers: Contributing an additional simulation tool"
+      shortHeading="Guide for simulator developers"
+    >
+      BioSimulations uses the BioSimulators collection of simulation tools. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about contributing an additional simulation tool.
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="User accounts"
+      shortHeading="User accounts"
+    >
+      <ul>
+        <li>Signing up</li>
+        <li>Signing in</li>
+        <li>Editing profile</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Programmatically working with BioSimulations via the REST API"
+      shortHeading="REST API"
+    >
+      A comprehensive API is available for submitting and retrieving projects, models, simulations, charts, and visualizations and executing simulations and retrieving their results. Please see the documentation for the REST API <a [href]="apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Executing simulations with the standalone simulation web application and REST API"
+      shortHeading="Standalone simulation web service"
+    >
+      In addition to this full-featured web application, runBioSimulations <a [href]="submitAppUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
+    </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>

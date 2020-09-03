@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -16,10 +16,10 @@ import { RegistrationService } from './registration.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.sass'],
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnChanges {
   userNameForm: FormControl;
   termsAndConditionsForm: FormGroup;
-
+  error?: string;
   state: string | null;
   token: string | null;
 
@@ -27,13 +27,14 @@ export class RegistrationComponent implements OnInit {
 
   // TODO use a common config library for these
   ccUrl =
-    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/CODE_OF_CONDUCT.md';
+    'https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/CODE_OF_CONDUCT.md';
   tosUrl =
-    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/TERMS_OF_SERVICE.md';
+    'https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/TERMS_OF_SERVICE.md';
   ppoUrl =
-    'https://raw.githubusercontent.com/reproducible-biomedical-modeling/Biosimulations/dev/PRIVACY_POLICY.md';
+    'https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/PRIVACY_POLICY.md';
 
-  aboutUrl = 'mailTo:info@biosimulations.org';
+  // TODO: get from app config
+  aboutUrl = 'mailto:' + 'info@biosimulations.org';
 
   loginUrl = 'https://auth.biosimulations.org/continue?state=';
 
@@ -44,12 +45,12 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService,
+    private registrationService: RegistrationService
   ) {
     this.userNameForm = new FormControl(
       '',
       Validators.required,
-      this.registrationService.uniqueUsernameAsyncValidator,
+      this.registrationService.uniqueUsernameAsyncValidator
     );
 
     this.termsAndConditionsForm = this.formBuilder.group({
@@ -63,7 +64,9 @@ export class RegistrationComponent implements OnInit {
     this.token = this.route.snapshot.queryParamMap.get('token');
   }
   ngOnInit(): void {}
-
+  ngOnChanges(): void {
+    this.error = this.getErrorMessage();
+  }
   getErrorMessage() {
     if (this.userNameForm.hasError('required')) {
       return 'A username is required';

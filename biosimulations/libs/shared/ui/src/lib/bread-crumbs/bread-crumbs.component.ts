@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+} from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { IBreadCrumb, IContextButton } from './bread-crumbs.interface';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
@@ -6,68 +11,59 @@ import { filter, distinctUntilChanged } from 'rxjs/operators';
   selector: 'biosimulations-bread-crumbs',
   templateUrl: './bread-crumbs.component.html',
   styleUrls: ['./bread-crumbs.component.scss'],
-
 })
-
-
 export class BreadCrumbsComponent implements OnInit {
-
-
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
     this.contextButtons = this.buildContextButtons(this.activatedRoute.root);
   }
 
-  public breadcrumbs: IBreadCrumb[] = []
-  public contextButtons: IContextButton[] = []
+  public breadcrumbs: IBreadCrumb[] = [];
+  public contextButtons: IContextButton[] = [];
 
   @Input()
-  color = '#bcdffb'
+  pad = true;
 
-  @Input()
-  pad = true
-
-  buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadCrumb[] = [{label: 'Home', url: ''}]): IBreadCrumb[] {
-
+  buildBreadCrumb(
+    route: ActivatedRoute,
+    url = '',
+    breadcrumbs: IBreadCrumb[] = [{ label: 'Home', url: '' }]
+  ): IBreadCrumb[] {
     let label =
       route.routeConfig && route.routeConfig.data
-        ? route.routeConfig.data.breadcrumb : null
+        ? route.routeConfig.data.breadcrumb
+        : null;
     let path =
       route.routeConfig && route.routeConfig.path ? route.routeConfig.path : '';
-    // TODO check this 
-
+    // TODO check this
 
     const lastRoutePart = path.split('/').pop() || path;
 
-
-
-
-    const setRoute = (paramName: string, part: string,) => {
-
-      if (!!route.snapshot) {
+    const setRoute = (paramName: string, part: string) => {
+      if (route.snapshot) {
         path = path.replace(part, route.snapshot.params[paramName]);
-        label = label ? label + ' ' + route.snapshot.params[paramName] : route.snapshot.params[paramName];
-        console.log(label)
+        label = label
+          ? label + ' ' + route.snapshot.params[paramName]
+          : route.snapshot.params[paramName];
+        console.log(label);
       }
-    }
+    };
 
     if (lastRoutePart.startsWith(':')) {
-      setRoute(lastRoutePart.split(':')[1], lastRoutePart)
-
+      setRoute(lastRoutePart.split(':')[1], lastRoutePart);
     }
 
     const nextUrl = path ? `${url}/${path}` : url;
 
     const breadcrumb: IBreadCrumb = {
       label,
-      url: nextUrl
+      url: nextUrl,
     };
 
     const newBreadcrumbs = breadcrumb.label
       ? [...breadcrumbs, breadcrumb]
       : [...breadcrumbs];
     if (route.firstChild) {
-
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
     }
     return newBreadcrumbs;
@@ -75,10 +71,14 @@ export class BreadCrumbsComponent implements OnInit {
 
   buildContextButtons(route: ActivatedRoute): IContextButton[] {
     while (route.firstChild) {
-      route = route.firstChild
+      route = route.firstChild;
     }
-    
-    if (route.routeConfig && route.routeConfig.data && route.routeConfig.data.contextButtons) {
+
+    if (
+      route.routeConfig &&
+      route.routeConfig.data &&
+      route.routeConfig.data.contextButtons
+    ) {
       return route.routeConfig.data.contextButtons as IContextButton[];
     } else {
       return [] as IContextButton[];
@@ -86,15 +86,16 @@ export class BreadCrumbsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      distinctUntilChanged(),
-    ).subscribe(() => {
-      this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
-      this.contextButtons = this.buildContextButtons(this.activatedRoute.root);
-    })
-
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        distinctUntilChanged()
+      )
+      .subscribe(() => {
+        this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
+        this.contextButtons = this.buildContextButtons(
+          this.activatedRoute.root
+        );
+      });
   }
-
 }

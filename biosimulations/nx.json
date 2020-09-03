@@ -36,6 +36,10 @@
     "shared-assets": {
       "tags": ["scope:shared", "type:assets"]
     },
+    "shared-content": {
+      "tags": ["scope:shared", "type:content", "platform:web"],
+      "implicitDependencies": ["shared-ui"]
+    },
     "shared-styles": {
       "tags": ["scope:shared", "type:styles", "platform:web"]
     },

@@ -1,0 +1,11 @@
+<div class="container">
+  <h2>
+    {{ heading }}
+    <a class="icon-container" *ngIf="icon" (click)="iconClick()">
+      <biosimulations-icon [icon]="icon"></biosimulations-icon>
+    </a>
+  </h2>
+  <div class="content">
+    <ng-content select="#content"></ng-content>
+  </div>
+</div>

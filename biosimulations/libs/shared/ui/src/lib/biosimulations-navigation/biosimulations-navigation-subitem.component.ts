@@ -8,7 +8,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class BiosimulationsNavigationSubitemComponent {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   icon = '';

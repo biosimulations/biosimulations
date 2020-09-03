@@ -7,7 +7,11 @@
     "project": "./tsconfig.base.json"
   },
   "ignorePatterns": ["**/*"],
-  "plugins": ["@typescript-eslint", "@nrwl/nx"],
+  "plugins": [
+    "@typescript-eslint",
+    "@nrwl/nx",
+    "@angular-eslint/eslint-plugin"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -19,24 +23,38 @@
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-parameter-properties": "off",
-    "@typescript-eslint/no-empty-function":"off",
-    
+    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-inferrable-types": "warn",
+    "@typescript-eslint/interface-name-prefix": "off",
+
     "@nrwl/nx/enforce-module-boundaries": [
       "error",
       {
         "enforceBuildableLibDependency": true,
         "allow": [],
         "depConstraints": [
-          { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
+          {
+            "sourceTag": "platform:web",
+            "onlyDependOnLibsWithTags": ["platform:web", "platform:any"]
+          },
+          {
+            "sourceTag": "*",
+            "onlyDependOnLibsWithTags": ["*"]
+          }
         ]
       }
     ]
   },
   "overrides": [
     {
-      "files": ["*.tsx"],
+      "files": ["**/*.component.html"],
+      "parser": "@angular-eslint/template-parser",
+      "plugins": ["@angular-eslint/template"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
+        "@angular-eslint/template/banana-in-a-box": "error",
+        "@angular-eslint/template/cyclomatic-complexity": "error",
+        "@angular-eslint/template/no-call-expression": "error",
+        "@angular-eslint/template/no-negated-async": "error"
       }
     }
   ]

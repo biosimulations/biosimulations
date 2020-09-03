@@ -11,6 +11,7 @@ export type biosimulationsIcon =
   | 'help'
   | 'tutorial'
   | 'info'
+  | 'legal'
   | 'policy'
   | 'comment'
   | 'bug'
@@ -30,16 +31,29 @@ export type biosimulationsIcon =
   | 'project'
   | 'model'
   | 'simulation'
+  | 'task'
   | 'chart'
   | 'visualization'
   | 'browse'
   | 'new'
+  | 'overview'
+  | 'report'
+  | 'download'
+  | 'logs'
+  | 'compare'
+  | 'filter'
+  | 'columns'
+  | 'reuse'
   | 'taxon'
   | 'framework'
   | 'format'
   | 'license'
+  | 'id'
   | 'tag'
   | 'tags'
+  | 'status'
+  | 'date'
+  | 'duration'
   | 'cc0'
   | 'ccBy'
   | 'ccNc'
@@ -49,7 +63,9 @@ export type biosimulationsIcon =
   | 'ccByNc'
   | 'ccBySa'
   | 'ccByNcSa'
+  | 'version'
   | 'link'
+  | 'internalLink'
   | 'email'
   | 'github'
   | 'toTop';
@@ -69,10 +85,11 @@ export class IconComponent implements OnInit {
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     link: { type: 'fas', name: 'link' },
-    toTop: { type: 'mat', name: 'arrow_upward' },
+    internalLink: { type: 'fas', name: 'external-link-alt'},
+    toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
     github: { type: 'fab', name: 'github' },
-    file: { type: 'fas', name: 'file' },
+    file: { type: 'fas', name: 'file-alt' },
     user: { type: 'fas', name: 'user' },
     author: { type: 'fas', name: 'user-edit' },
     reviewer: { type: 'fas', name: 'user-check' },
@@ -84,6 +101,7 @@ export class IconComponent implements OnInit {
     help: { type: 'fas', name: 'question-circle' },
     tutorial: { type: 'fas', name: 'book-open' },
     info: { type: 'fas', name: 'info-circle' },
+    legal: { type: 'fas', name: 'balance-scale' },
     policy: { type: 'fas', name: 'shield-alt' },
     comment: { type: 'fas', name: 'comment-dots' },
     bug: { type: 'fas', name: 'bug' },
@@ -91,10 +109,19 @@ export class IconComponent implements OnInit {
     project: { type: 'fas', name: 'folder-open' },
     model: { type: 'fas', name: 'project-diagram' },
     simulation: { type: 'mat', name: 'timeline' },
+    task: { type: 'fas', name: 'tasks' },
     chart: { type: 'fas', name: 'chart-bar' },
     visualization: { type: 'fas', name: 'paint-brush' },
     browse: { type: 'fas', name: 'list' },
     new: { type: 'fas', name: 'plus-circle' },
+    overview: { type: 'fas', name: 'list' },
+    report: { type: 'fas', name: 'table' },
+    download: { type: 'fas', name: 'download' },
+    logs: { type: 'fas', name: 'terminal' },
+    compare: { type: 'mat', name: 'stacked_line_chart' },
+    filter: { type: 'fas', name: 'filter' },
+    columns: { type: 'fas', name: 'columns' },
+    reuse: { type: 'fas', name: 'sync-alt' },
     taxon: { type: 'fas', name: 'dna' },
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
@@ -103,8 +130,12 @@ export class IconComponent implements OnInit {
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },
+    id: { type: 'fas', name: 'hashtag' },
     tag: { type: 'fas', name: 'tag' },
     tags: { type: 'fas', name: 'tags' },
+    status: { type: 'fas', name: 'tachometer-alt' },
+    date: { type: 'fas', name: 'calendar-alt' },
+    duration: { type: 'fas', name: 'stopwatch' },
     cc: { type: 'fab', name: 'creative-commons' },
     cc0: { type: 'fab', name: 'creative-commons-zero' },
     ccBy: { type: 'fab', name: 'creative-commons-by' },
@@ -117,6 +148,7 @@ export class IconComponent implements OnInit {
       name: 'creative-commons-by_creative-commons-nc_creative-commons-sa',
     },
     ccBySa: { type: 'cc', name: 'creative-commons-by_creative-commons-sa' },
+    version: { type: 'fas', name: 'code-branch' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

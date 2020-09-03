@@ -1,0 +1,16 @@
+appName=BioSimulations
+appNameParts=[Bio, Simulations]
+appUrl=https://biosimulations.org/
+apiUrl=https://api.biosimulators.org/
+platformAppUrl=https://biosimulations.org/
+platformApiUrl=https://api.biosimulations.org/
+dispatchAppUrl=https://submit.biosimulations.org/
+dispatchApiUrl=https://dispatch.biosimulations.org/
+simulatorsAppUrl=https://biosimulators.org/
+simulatorsApiUrl=https://api.biosimulators.org/
+issueUrl=https://github.com/biosimulations/Biosimulations/issues/new/choose
+pullsUrl=https://github.com/biosimulations/Biosimulations/pulls
+email=info@biosimulations.org
+icon=assets/images/biosimulations-logo/logo.svg
+banner=assets/images/biosimulations-logo/logo-white.svg
+privacyPolicyVersion=1

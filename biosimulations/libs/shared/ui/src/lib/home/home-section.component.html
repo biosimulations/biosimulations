@@ -1,0 +1,13 @@
+<div class="container partial-width">
+  <div class="heading"><ng-content select="#heading"></ng-content></div>
+  <div class="heading-separator"></div>
+  <div class="subsections" [ngClass]="{
+    'grid': columns > 1,
+    'grid-2': columns === 2,
+    'grid-3': columns === 3,
+    'grid-4': columns === 4,
+    'grid-5': columns === 5
+  }">
+    <ng-content select="#subsection"></ng-content>
+  </div>
+</div>

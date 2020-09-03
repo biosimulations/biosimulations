@@ -26,14 +26,17 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install nrwl cli 
 RUN npm install -g @nrwl/cli
 
-# copy source
+# copy dependencies
 Copy biosimulations/nx.json  /app/nx.json
 Copy biosimulations/angular.json /app/angular.json
-Copy biosimulations/libs /app/libs
-Copy biosimulations/apps /app/apps
+
 
 # install the app, including the dev dependencies
 RUN npm ci
+
+#copy source
+Copy biosimulations/libs /app/libs
+Copy biosimulations/apps /app/apps
 
 # generate build
 RUN nx build ${APP} --prod

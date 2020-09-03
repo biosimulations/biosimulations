@@ -1,0 +1,30 @@
+name: Generate a report of the licenses of the dependencies
+on:
+  push:
+    branches: [dev]
+jobs:
+  dependency-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+      - name: Generate report
+        working-directory: ./biosimulations
+        run: |
+          npm install -g license-checker
+          npm ci
+          npm run gen-dependency-license-report
+
+      - name: Create pull request
+        id: create_pull_request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          branch: dep-licenses
+          base: dev
+          commit-message: "Updated licenses of dependencies"
+          committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>

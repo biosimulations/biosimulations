@@ -1,0 +1,12 @@
+.grid {
+  grid-template-columns: 16rem 1fr;
+}
+
+.side-bar-inner {
+  width: 16rem;
+  top: calc(64px + 32px + 2rem);
+}
+
+.sections-container {
+  margin-top: -2rem;
+}
