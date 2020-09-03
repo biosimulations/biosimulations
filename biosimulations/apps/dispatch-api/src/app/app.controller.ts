@@ -1,3 +1,4 @@
+import { CreateModelDocument } from './../../../../libs/platform/api-models/src/lib/core/models/documents';
 import {
   Controller,
   Inject,
@@ -34,6 +35,7 @@ import * as fs from 'fs';
 import path from 'path';
 import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+import { SimulationIdMapService } from './SimulationIdMap/simulation-id-map.service';
 
 class ProjectNameInfo {
   @ApiProperty()
@@ -54,6 +56,7 @@ export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
   constructor(
     private readonly appService: AppService,
+    private simulationIdMapService: SimulationIdMapService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private httpService: HttpService
   ) {}
@@ -152,9 +155,9 @@ export class AppController implements OnApplicationBootstrap {
   })
   
   async projectName(
-    @Body() bodyData:  ProjectNameInfo
+    @Body() bodyData: ProjectNameInfo
   ) {
-    console.log(bodyData);
+    this.simulationIdMapService.create(bodyData);
   }
 
   @Get('result/structure/:uuid')

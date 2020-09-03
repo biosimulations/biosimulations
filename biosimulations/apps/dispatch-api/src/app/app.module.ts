@@ -1,3 +1,4 @@
+import { SimulationIdMapService } from './SimulationIdMap/simulation-id-map.service';
 import { Module, HttpModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -10,11 +11,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { SimulationIdMapModule } from './SimulationIdMap/simulation-id-map.module';
+
 @Module({
   imports: [
-    BiosimulationsConfigModule, 
+    BiosimulationsConfigModule,
+    SimulationIdMapModule,
     HttpModule,
-    MongooseModule.forRoot('mongodb://localhost/nest')
+    MongooseModule.forRoot('mongodb://localhost/runbiosimulations', {
+      connectionName: 'projectname',
+    }),
   ],
   controllers: [AppController],
   providers: [
@@ -28,7 +34,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
         natsOptions.options = natsServerConfig;
         return ClientProxyFactory.create(natsOptions);
       },
-      inject: [ConfigService],
+      inject: [ConfigService, SimulationIdMapService],
     },
   ],
 })
