@@ -124,7 +124,7 @@ export class AppController {
                     JSON.stringify(chartResults)
                   ).then(() => {
                     // TODO: place all message patterns in a single location
-                    // TODO: Send email here
+
                     this.messageClient.emit('dispatch_result', {
                       uuid: true,
                     });
