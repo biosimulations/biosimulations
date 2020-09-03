@@ -23,6 +23,7 @@ import {
   ApiConsumes,
   ApiBody,
   ApiQuery,
+  ApiProperty,
 } from '@nestjs/swagger';
 import {
   SimulationDispatchSpec,
@@ -33,6 +34,20 @@ import * as fs from 'fs';
 import path from 'path';
 import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+
+class ProjectNameInfo {
+  @ApiProperty()
+  uuid: string;
+  
+  @ApiProperty()
+  projectName: string
+  constructor(
+     uuid: string,  projectName: string
+  ) {
+    this.uuid = uuid;
+    this.projectName = projectName;
+  }
+}
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
@@ -128,10 +143,24 @@ export class AppController implements OnApplicationBootstrap {
     };
   }
 
+  @Post('projectname')
+  @ApiOperation({ summary: 'Save UUID and project name into database' })
+  @ApiResponse({
+    status: 201,
+    description: 'Saved successfuly',
+    type: Object,
+  })
+  
+  async projectName(
+    @Body() bodyData:  ProjectNameInfo
+  ) {
+    console.log(bodyData);
+  }
+
   @Get('result/structure/:uuid')
   @ApiResponse({
     status: 200,
-    description: 'Get results structure (SEDMLS and TASKS)',
+    description: 'Get results structure (SED-ML\'S and TASKS)',
     type: Object,
   })
   async getResultStructure(@Param('uuid') uId: string) {
