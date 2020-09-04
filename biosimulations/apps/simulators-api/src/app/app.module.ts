@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 import { SimulatorsService } from '../simulators/simulators.service';
 import { SimulatorsController } from '../simulators/simulators.controller';
+import { SimulatorsModule } from '../simulators/simulators.module';
 @Module({
   imports: [
     BiosimulationsAuthModule,
@@ -21,8 +20,7 @@ import { SimulatorsController } from '../simulators/simulators.controller';
       }),
       inject: [ConfigService],
     }),
+    SimulatorsModule,
   ],
-  controllers: [SimulatorsController],
-  providers: [SimulatorsService],
 })
 export class AppModule {}

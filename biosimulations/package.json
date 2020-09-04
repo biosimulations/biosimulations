@@ -27,7 +27,8 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "gen-dependency-license-report": "tools/gen-dependency-license-report",
-    "help": "nx help"
+    "help": "nx help",
+    "build-docker": "tools/docker-build"
   },
   "private": true,
   "dependencies": {
