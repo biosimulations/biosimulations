@@ -40,12 +40,10 @@ import { SimulationIdMapService } from './SimulationIdMap/simulation-id-map.serv
 class ProjectNameInfo {
   @ApiProperty()
   uuid: string;
-  
+
   @ApiProperty()
-  projectName: string
-  constructor(
-     uuid: string,  projectName: string
-  ) {
+  projectName: string;
+  constructor(uuid: string, projectName: string) {
     this.uuid = uuid;
     this.projectName = projectName;
   }
@@ -153,17 +151,27 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Saved successfuly',
     type: Object,
   })
-  
-  async projectName(
-    @Body() bodyData: ProjectNameInfo
-  ) {
+  async projectName(@Body() bodyData: ProjectNameInfo) {
     this.simulationIdMapService.create(bodyData);
+    return {
+      message: 'Project name and UUID mapping was saved successfully',
+    };
+  }
+
+  @Get('projectname/:uuid')
+  @ApiResponse({
+    status: 200,
+    description: 'Get the project name',
+    type: Object,
+  })
+  async getProjectName(@Param('uuid') uuid: string) {
+    return this.simulationIdMapService.find(uuid);
   }
 
   @Get('result/structure/:uuid')
   @ApiResponse({
     status: 200,
-    description: 'Get results structure (SED-ML\'S and TASKS)',
+    description: "Get results structure (SED-ML'S and TASKS)",
     type: Object,
   })
   async getResultStructure(@Param('uuid') uId: string) {
@@ -232,14 +240,15 @@ export class AppController implements OnApplicationBootstrap {
   })
   @ApiQuery({ name: 'name', required: false })
   async getAllSimulatorVersion(@Query('name') simulatorName: string) {
-
     if (simulatorName === undefined) {
       // Getting info of all available simulators
-      const simulatorsInfo: any = await this.httpService.get(`${urls.fetchSimulatorsInfo}`).toPromise();
+      const simulatorsInfo: any = await this.httpService
+        .get(`${urls.fetchSimulatorsInfo}`)
+        .toPromise();
       const allSimulators: any = [];
 
-      for(const simulatorInfo of simulatorsInfo['data']['results']) {
-          allSimulators.push(simulatorInfo['name']);
+      for (const simulatorInfo of simulatorsInfo['data']['results']) {
+        allSimulators.push(simulatorInfo['name']);
       }
       return allSimulators;
     }

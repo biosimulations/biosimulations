@@ -9,12 +9,12 @@ import {
 
 @Module({
   imports: [
-    MongooseModule.forFeature(
-      [{ name: SimulationIdMap.name, schema: SimulationIdMapSchema }],
-      'projectname'
-    ),
+    MongooseModule.forFeature([
+      { name: SimulationIdMap.name, schema: SimulationIdMapSchema },
+    ]),
   ],
   controllers: [SimulationIdMapController],
   providers: [SimulationIdMapService],
+  exports: [MongooseModule, SimulationIdMapService],
 })
 export class SimulationIdMapModule {}

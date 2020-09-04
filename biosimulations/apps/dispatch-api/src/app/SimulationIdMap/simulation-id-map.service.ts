@@ -18,7 +18,7 @@ export class SimulationIdMapService {
     return createdSimIdMap.save();
   }
 
-  async find(uuid: string): Promise<SimulationIdMap> {
-    return this.simIdMapModel.$where(`this.uuid === ${uuid}`).exec();
+  async find(uuid: string): Promise<SimulationIdMap[]> {
+    return this.simIdMapModel.find({ uuid: uuid }).exec();
   }
 }

@@ -16,11 +16,9 @@ import { SimulationIdMapModule } from './SimulationIdMap/simulation-id-map.modul
 @Module({
   imports: [
     BiosimulationsConfigModule,
-    SimulationIdMapModule,
     HttpModule,
-    MongooseModule.forRoot('mongodb://localhost/runbiosimulations', {
-      connectionName: 'projectname',
-    }),
+    SimulationIdMapModule,
+    MongooseModule.forRoot('mongodb://localhost/runbiosimulations'),
   ],
   controllers: [AppController],
   providers: [
@@ -34,7 +32,7 @@ import { SimulationIdMapModule } from './SimulationIdMap/simulation-id-map.modul
         natsOptions.options = natsServerConfig;
         return ClientProxyFactory.create(natsOptions);
       },
-      inject: [ConfigService, SimulationIdMapService],
+      inject: [ConfigService],
     },
   ],
 })
