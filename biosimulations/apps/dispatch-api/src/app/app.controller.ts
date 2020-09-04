@@ -1,4 +1,3 @@
-import { CreateModelDocument } from './../../../../libs/platform/api-models/src/lib/core/models/documents';
 import {
   Controller,
   Inject,
@@ -35,7 +34,7 @@ import * as fs from 'fs';
 import path from 'path';
 import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
-import { SimulationIdMapService } from './SimulationIdMap/simulation-id-map.service';
+import { SimulationIdMapService } from './SimulationIdMap/service/simulation-id-map.service';
 
 class ProjectNameInfo {
   @ApiProperty()

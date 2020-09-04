@@ -1,4 +1,3 @@
-import { SimulationIdMapService } from './SimulationIdMap/simulation-id-map.service';
 import { Module, HttpModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 

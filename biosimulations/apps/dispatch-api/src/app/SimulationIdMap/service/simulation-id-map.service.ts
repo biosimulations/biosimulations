@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel, InjectConnection } from '@nestjs/mongoose';
-import { SimulationIdMap } from './schemas/simulation-id-map.schema';
+import { SimulationIdMap } from '../schemas/simulation-id-map.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
