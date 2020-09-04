@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule, getModelToken } from '@nestjs/mongoose';
 import { SimulationIdMapController } from './controller/simulation-id-map.controller';
 import { SimulationIdMapService } from './service/simulation-id-map.service';
 import {
