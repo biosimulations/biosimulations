@@ -1232,11 +1232,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Paul Miller
 │  ├─ url: https://paulmillr.com/
 │  └─ licenseFile: async-each/README.md
-├─ async@1.5.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/caolan/async
-│  ├─ publisher: Caolan McMahon
-│  └─ licenseFile: async/LICENSE
 ├─ async@2.6.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/caolan/async
@@ -1246,7 +1241,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/caolan/async
 │  ├─ publisher: Caolan McMahon
-│  └─ licenseFile: getos/node_modules/async/LICENSE
+│  └─ licenseFile: async/LICENSE
 ├─ asynckit@0.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/alexindigo/asynckit
@@ -1602,7 +1597,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: cache-base/LICENSE
-├─ cache-manager@3.3.0
+├─ cache-manager@3.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/BryanDonovan/node-cache-manager
 │  ├─ publisher: Bryan Donovan
@@ -4672,12 +4667,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: lower-case/LICENSE
-├─ lru-cache@4.0.0
-│  ├─ licenses: ISC
-│  ├─ repository: https://github.com/isaacs/node-lru-cache
-│  ├─ publisher: Isaac Z. Schlueter
-│  ├─ email: i@izs.me
-│  └─ licenseFile: cache-manager/node_modules/lru-cache/LICENSE
 ├─ lru-cache@4.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-lru-cache
@@ -4690,6 +4679,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Isaac Z. Schlueter
 │  ├─ email: i@izs.me
 │  └─ licenseFile: proxy-agent/node_modules/lru-cache/LICENSE
+├─ lru-cache@6.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/node-lru-cache
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  └─ licenseFile: cache-manager/node_modules/lru-cache/LICENSE
 ├─ lru-memoizer@2.1.2
 │  ├─ licenses: MIT*
 │  ├─ repository: https://github.com/jfromaniello/lru-memoizer
@@ -7883,6 +7878,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: proxy-agent/node_modules/yallist/LICENSE
+├─ yallist@4.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/yallist
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: cache-manager/node_modules/yallist/LICENSE
 ├─ yargs-parser@10.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/yargs-parser
