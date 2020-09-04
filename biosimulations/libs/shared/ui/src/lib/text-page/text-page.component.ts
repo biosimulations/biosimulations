@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 interface TocItem {
-  title: string;
+  heading: string;
   target: HTMLElement;
 }
 
@@ -17,13 +17,13 @@ interface TocItem {
 })
 export class TextPageComponent implements OnInit {
   @Input()
-  title = '';
+  heading = '';
 
   fixed = false;
 
   tocSections: TocItem[] = [];
 
-  /* TODO (low priority): switch to monitoring ContentChildren so that the TOC is dynamically updated with the section or their titles change.
+  /* TODO (low priority): switch to monitoring ContentChildren so that the TOC is dynamically updated with the section or their headings change.
        low priority because none of the instances of TextPageComponent currently need this.
   */
   @ViewChild('sectionsContainer')
@@ -33,10 +33,10 @@ export class TextPageComponent implements OnInit {
 
   getTocSections(container: any) {
     for (const section of container.children) {
-      const title = section.getAttribute('shortTitle') || section.getAttribute('title');
-      if (title) {
+      const heading = section.getAttribute('shortHeading') || section.getAttribute('heading');
+      if (heading) {
         this.tocSections.push({
-          title: title,
+          heading: heading,
           target: section,
         });
       } else {

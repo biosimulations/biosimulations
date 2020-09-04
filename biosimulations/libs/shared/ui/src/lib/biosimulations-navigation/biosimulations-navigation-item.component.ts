@@ -9,7 +9,7 @@ import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navig
 })
 export class BiosimulationsNavigationItemComponent {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   icon = '';

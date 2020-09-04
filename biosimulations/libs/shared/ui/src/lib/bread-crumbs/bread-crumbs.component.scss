@@ -3,6 +3,7 @@
 mat-toolbar {
   height: auto;
   font-size: 16px;
+  background-color: mat-color($theme-primary, lighter);
 
   a {
     color: mat-color($theme-primary);

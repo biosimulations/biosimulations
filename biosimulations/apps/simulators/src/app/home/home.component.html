@@ -1,5 +1,5 @@
 <biosimulations-home-teaser
-  title="Containerized biosimulation tools with consistent interfaces"
+  heading="Containerized biosimulation tools with consistent interfaces"
   banner="assets/images/biosimulators-logo/logo-white.svg"
 >
   BioSimulators is a free collection of containerized biosimulation tools that provide consistent interfaces and a guide to choosing a simulator. In particular, BioSimulators makes it easier to reuse published simulations. BioSimulators supports a broad range of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and formats (e.g., SBML, SED-ML). BioSimulators is powered by a standard interface, a container structure, and format for describing the capabilities of a simulator and a database of the capabilities of simulators.
@@ -8,14 +8,14 @@
 <biosimulations-home-section
   [columns]="3"
 >
-  <ng-container id="title">
+  <ng-container id="heading">
     Helping investigators <span class="highlight-primary">execute biomodeling studies</span>
   </ng-container>
 
   <biosimulations-home-subsection
     id="subsection"
-    title="Simulate studies"
-    subtitle="Execute many formalisms &amp; algorithms"
+    heading="Simulate studies"
+    subheading="Execute many formalisms &amp; algorithms"
     icon="simulator"
   >
     BioSimulators provides a consistent set of simulation tools for executing simulations of a broad range of modeling frameworks, simulation algorithms, and model formats.
@@ -23,8 +23,8 @@
 
   <biosimulations-home-subsection
     id="subsection"
-    title="Reuse published studies"
-    subtitle="Evaluate new hypotheses"
+    heading="Reuse published studies"
+    subheading="Evaluate new hypotheses"
     icon="reuse"
   >
     By making it easier to execute simulations, BioSimulators makes it easier for investigators to reuse published simulations and for peer reviewers to evaluate simulations.
@@ -32,8 +32,8 @@
 
    <biosimulations-home-subsection
     id="subsection"
-    title="Compare simulation tools"
-    subtitle="Identify strengths and weaknesses"
+    heading="Compare simulation tools"
+    subheading="Identify strengths and weaknesses"
     icon="compare"
   >
     BioSimulators makes it easier for developers to compare simulation tools. This can be used to identify the strengths of different approaches, find bugs, and drive standardization.
@@ -43,13 +43,13 @@
 <biosimulations-home-section
   [columns]="4"
 >
-  <ng-container id="title">Consistent access to <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container>
+  <ng-container id="heading">Consistent access to <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container>
 
   <biosimulations-home-subsection
     id="subsection"
-    title="Model formats"
-    subtitle="BioSimulators supports several model formats"
-    subtitleSize="small"
+    heading="Model formats"
+    subheading="BioSimulators supports several model formats"
+    subheadingSize="small"
     icon="model"
   >
     <biosimulations-home-logo
@@ -69,9 +69,9 @@
 
   <biosimulations-home-subsection
     id="subsection"
-    title="Simulation formats"
-    subtitle="BioSimulators supports the SED-ML simulation format"
-    subtitleSize="small"
+    heading="Simulation formats"
+    subheading="BioSimulators supports the SED-ML simulation format"
+    subheadingSize="small"
     icon="simulation"
   >
     <biosimulations-home-logo
@@ -84,9 +84,9 @@
 
   <biosimulations-home-subsection
     id="subsection"
-    title="Project formats"
-    subtitle="BioSimulators supports the COMBINE/OMEX format"
-    subtitleSize="small"
+    heading="Project formats"
+    subheading="BioSimulators supports the COMBINE/OMEX format"
+    subheadingSize="small"
     icon="project"
   >
     <biosimulations-home-logo
@@ -99,9 +99,9 @@
 
   <biosimulations-home-subsection
     id="subsection"
-    title="Algorithms &amp; simulators"
-    subtitle="BioSimulators supports many simulation algorithms and tools"
-    subtitleSize="small"
+    heading="Algorithms &amp; simulators"
+    subheading="BioSimulators supports many simulation algorithms and tools"
+    subheadingSize="small"
     icon="simulator"
   >
     <p>
@@ -185,7 +185,7 @@
 <biosimulations-home-section
   [columns]="1"
 >
-  <ng-container id="title">About <span class="highlight-primary">BioSimulators</span></ng-container>
+  <ng-container id="heading">About <span class="highlight-primary">BioSimulators</span></ng-container>
   <ng-container id="subsection">
     <p>
       BioSimulators was developed by the Center for Reproducible Biomedical Modeling <a href="https://reproduciblebiomodels.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, the Karr Lab at the Icahn School of Medicine at Mount Sinai <a href="https://www.karrlab.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and the Moraru Lab at the University of Connecticut Health Center <a href="https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> with support from the National Institutes of Health and the National Science Foundation.
@@ -194,7 +194,7 @@
       BioSimulators is implemented using several open-source tools and cloud platforms. The containerized simulators are available under the licenses specified for each container. The BioSimulators code is openly available under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
     </p>
     <p>
-      Please see the <a [routerLink]="['/help/about']">About page</a> for more information.
+      Please see the About page <a [routerLink]="['/help', 'about']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> for more information.
     </p>
     <p>
       <biosimulations-home-logo

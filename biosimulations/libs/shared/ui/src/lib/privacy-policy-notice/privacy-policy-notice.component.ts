@@ -1,25 +1,35 @@
-import { Component, Input } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, OnInit, Input } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'biosimulations-privacy-policy-notice',
   templateUrl: './privacy-policy-notice.component.html',
   styleUrls: ['./privacy-policy-notice.component.scss'],
 })
-export class PrivacyPolicyNoticeComponent {
+export class PrivacyPolicyNoticeComponent implements OnInit {
   // TODO: get from app config  
   appName = 'BioSimulations';
   privacyPolicyVersion = 1;
   open = true;
+  storageKey!: string;
 
-  constructor(private cookieService: CookieService) {
-    if (this.cookieService.check('privacy-policy-notice-' + this.privacyPolicyVersion.toString() + '-dismissed')) {
-      this.open = false;
-    }
+  constructor(private storage: Storage) {
+  }
+
+  public ngOnInit() {
+    this.storageKey = 'privacy-policy-notice-' + this.appName + '-' + this.privacyPolicyVersion.toString() + '-dismissed';
+
+    this.storage.ready().then(() => {
+      this.storage.keys().then((keys) => {
+        if (keys.includes(this.storageKey)) {
+          this.open = false;
+        }
+      });
+    });
   }
 
   close(): void {
     this.open = false;
-    this.cookieService.set('privacy-policy-notice-' + this.privacyPolicyVersion.toString() + '-dismissed', '1');    
+    this.storage.set(this.storageKey, true);
   }
 }

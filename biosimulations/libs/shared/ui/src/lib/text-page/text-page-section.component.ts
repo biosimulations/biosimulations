@@ -13,7 +13,7 @@ import {
 })
 export class TextPageSectionComponent implements OnInit {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   icon = '';

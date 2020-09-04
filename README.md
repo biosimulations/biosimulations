@@ -2,13 +2,26 @@
 
 # BioSimulations
 
+More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as [COMBINE/OMEX](https://combinearchive.org/), [SBML](http://sbml.org), and [SED-ML](https://sed-ml.org), it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of incompatible modeling formats and simulation tools.
+
+This package provides three tools which address this challenge:
+- [BioSimulators](https://biosimulators.org) is a registry of containerized simulation tools that provide consistent interfaces. BioSimulators makes it easier to find and run simulations.
+- [runBioSimulations](https://submit.biosimulations.org) is a simple web application for using the BioSimulators containers to run simulations. This tool makes it easy to run a broad range of simulations without having to install any software.
+- [BioSimulations](https://biosimulations.org) is a platform for sharing and running modeling studies. BioSimulations provides a central place for investigators to exchange studies. BioSimulations also builds on the BioSimulators simulation tools.
+
+This package provides the code for the BioSimulations, runBioSimulations, and BioSimulations websites, as well as the code for the backend services for all three applications. The package is implemented in TypeScript using Angular and NestJS.
+
+## Getting started
+
+### Users
+Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimulators at https://biosimulations.org, https://submit.biosimulations.org, and https://biosimulators.org.
+
+### Developers
+We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [Guide to Contributing](CONTRIBUTING.md) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
+
 ## License
 
-This package is released under the [MIT license](LICENSE).
-
-## Dependencies
-
-This package uses dependencies distributed under various licences. Please see the [dependencies report](https://app.fossa.com/attribution/ba821b8e-9edf-481b-a00a-eea0eb10bf63) for more information
+This package is released under the [MIT license](LICENSE). This package uses a number of open-source third-party packages. Their licenses are summarized in [LICENSE-DEPENDENCIES](LICENSE-DEPENDENCIES).
 
 ## Development team
 
@@ -26,4 +39,4 @@ This package was developed with support from the National Institute for Bioimagi
 
 ## Questions and comments
 
-Please contact [us](mailto:info@biosimulations.org) with any questions or comments.
+Please contact us at [info@biosimulations.org](mailto:info@biosimulations.org) with any questions or comments.

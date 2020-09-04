@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+DEP_LICENSES_PATH=../LICENSE-DEPENDENCIES
+license-checker --production --excludePackages biosimulations@0.0.0 --out ${DEP_LICENSES_PATH}
+
+# Remove local paths
+cwd=$(pwd)
+sed -i "s|$cwd/node_modules/||g" ${DEP_LICENSES_PATH}
+
+# Remove paths to packages
+sed -i -E 's/[│ ]  [├└]─ path: .*$//g' ${DEP_LICENSES_PATH}
+sed -i '/^$/d' ${DEP_LICENSES_PATH}
+
+# Clean up directory tree
+sed -i ':a;N;$!ba;s/\n/\x00/g' ${DEP_LICENSES_PATH}
+sed -i 's/[│ ]  ├─ \([^\x00]*\)\x00├─/│  └─ \1\x00├─/g' ${DEP_LICENSES_PATH}
+sed -i 's/\x00/\
+/g' ${DEP_LICENSES_PATH}
+
+# Add header to top of file
+header="BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using license-checker (https://github.com/davglass/license-checker)."
+printf "${header}\n\n$(cat ${DEP_LICENSES_PATH})" > ${DEP_LICENSES_PATH}

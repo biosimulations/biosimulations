@@ -13,7 +13,7 @@ import {
 })
 export class TextPageTocItemComponent implements OnInit {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   scrollTarget!: HTMLElement;

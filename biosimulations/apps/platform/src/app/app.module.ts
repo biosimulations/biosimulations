@@ -7,8 +7,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
-import { CookieService } from 'ngx-cookie-service';
+import { IonicStorageModule } from '@ionic/storage';
 
+import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
@@ -58,9 +59,16 @@ const routes: Routes = [
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    IonicStorageModule.forRoot({
+      driverOrder: ['indexeddb', 'websql', 'localstorage']
+    }),
     SharedModule,
   ],
-  providers: [AuthService, { provide: AuthEnvironment, useValue: env }, CookieService],
+  providers: [
+    AuthService, 
+    { provide: AuthEnvironment, useValue: env },
+    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

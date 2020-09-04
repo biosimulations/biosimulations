@@ -33,7 +33,14 @@
         "enforceBuildableLibDependency": true,
         "allow": [],
         "depConstraints": [
-          { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
+          {
+            "sourceTag": "platform:web",
+            "onlyDependOnLibsWithTags": ["platform:web", "platform:any"]
+          },
+          {
+            "sourceTag": "*",
+            "onlyDependOnLibsWithTags": ["*"]
+          }
         ]
       }
     ]

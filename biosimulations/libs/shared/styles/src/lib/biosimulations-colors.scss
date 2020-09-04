@@ -118,7 +118,8 @@ $mat-dark-theme-background: (
 
 body {
   --primary-color: #2196f3;
-  --primary-lighter-color: #bce0fb;
+  --primary-lighter-color: #9bcff9;
+  --primary-lightest-color: #d2eafc;
   --primary-darker-color: #1479ed;
   --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
@@ -127,7 +128,8 @@ body {
 
 $mat-primary: (
   main: #2196f3,
-  lighter: #bce0fb,
+  lighter: #9bcff9,
+  lightest: #d2eafc,
   darker: #1479ed,
   200: #2196f3,
   // For slide toggle,
@@ -135,10 +137,11 @@ $mat-primary: (
     (
       main: $light-primary-text,
       lighter: $dark-primary-text,
+      lightest: $dark-primary-text,
       darker: $light-primary-text,
     ),
 );
-$theme-primary: mat-palette($mat-primary, main, lighter, darker);
+$theme-primary: mat-palette($mat-primary, main, lighter, lighest, darker);
 
 body {
   --accent-color: #ff9800;

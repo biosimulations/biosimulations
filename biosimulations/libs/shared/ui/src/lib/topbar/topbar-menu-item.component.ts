@@ -13,7 +13,7 @@ import {
 })
 export class TopbarMenuItemComponent implements OnInit {
   @Input()
-  title = '';
+  heading = '';
 
   @Input()
   icon = '';

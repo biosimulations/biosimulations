@@ -3,11 +3,20 @@ import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicStorageModule } from '@ionic/storage';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, SharedUiModule, HttpClientTestingModule, NoopAnimationsModule],
+      imports: [
+        RouterTestingModule,
+        SharedUiModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        IonicStorageModule.forRoot({
+        driverOrder: ['indexeddb', 'websql', 'localstorage']
+      }),
+      ],
       declarations: [AppComponent],
     }).compileComponents();
   }));
