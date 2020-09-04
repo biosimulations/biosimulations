@@ -465,7 +465,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "Config": [
+            "tsConfig": [
               "apps/dispatch/tsconfig.app.json",
               "apps/dispatch/tsconfig.spec.json"
             ],
