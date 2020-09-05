@@ -102,9 +102,9 @@ export class BrowseComponent implements AfterViewInit {
       minWidth: 140,
     },
     {
-      id: 'completed',
-      heading: "Completed",
-      key: 'completed',
+      id: 'updated',
+      heading: "Last updated",
+      key: 'updated',
       formatter: (value: Date) => {
         if (value == null) {
           return null;
@@ -186,7 +186,7 @@ export class BrowseComponent implements AfterViewInit {
           status: null,
           runtime: null,
           submitted: null,
-          completed: null,
+          updated: null,
         });
         this.table.setData(this.data);
       },
