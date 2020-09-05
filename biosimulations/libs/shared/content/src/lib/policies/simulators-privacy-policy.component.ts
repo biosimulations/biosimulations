@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-simulators-privacy-policy',
@@ -6,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./simulators-privacy-policy.component.scss'],
 })
 export class SimulatorsPrivacyPolicyComponent {  
-  // TODO: get from app config
-  appName = 'BioSimulators';
-  emailUrl = 'mailto:' + 'info@biosimulators.org'
+  emailUrl!: string;
   
-  constructor() {}
+  constructor(public config: ConfigService) {
+    this.emailUrl = 'mailto:' + config.email;
+  }
 }

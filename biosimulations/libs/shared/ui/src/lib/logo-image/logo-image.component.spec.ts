@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ConfigService } from '@biosimulations/shared/services';
 import { LogoImageComponent } from './logo-image.component';
 
 describe('LogoImageComponent', () => {
@@ -8,7 +9,8 @@ describe('LogoImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogoImageComponent ]
+      declarations: [ LogoImageComponent ],
+      providers: [ ConfigService ],
     })
     .compileComponents();
   }));

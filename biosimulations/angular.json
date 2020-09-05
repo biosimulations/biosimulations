@@ -250,6 +250,34 @@
         }
       }
     },
+    "shared-services": {
+      "projectType": "library",
+      "root": "libs/shared/services",
+      "sourceRoot": "libs/shared/services/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/services/tsconfig.lib.json",
+              "libs/shared/services/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/services/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/services/jest.config.js",
+            "tsConfig": "libs/shared/services/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/services/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
     "shared-styles": {
       "projectType": "library",
       "root": "libs/shared/styles",
