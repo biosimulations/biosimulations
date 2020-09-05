@@ -35,7 +35,7 @@
         </li>
         <li>
           <b>Create or more simulations:</b>
-          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the simulation tools support a subset of SED-ML including one step and timecourse simulations (<code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>), individual simulation tasks (<code>sedml:Task</code>), data generators for time and individual variables (<code>sedml:DataGenerator</code>), and report outputs (<code>sedml:Report</code>). Some of the simulation tools support the full SED-ML specification including steady-state simulations (<code>sedml:SteadyState</code>), repeated tasks (<code>sedml:RepeatedTask</code>), data generators for mathematical expressions (<code>sedml:DataGenerator</code>), and plot outputs (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </li>
         <li>
           <b>Create an OMEX file which describes your model and simulation files and package them into a COMBINE archive file:</b>
@@ -97,25 +97,9 @@
       heading="Developing BioSimulators-compliant containerized biosimulation tool"
       shortHeading="Developing simulation tools"
     >
-      <p>We welcome contributions of additional simulation tools!</p>
-
-      <p>All simulation tools submitted to BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.</p>
-      <ul class="vertically-spaced">
-        <li><b>Modeling languages.</b> Containers should support at least a subset of at least one modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
-        <li><b>SED-ML.</b> Currently, containers should support at least the following features of SED-ML:
-          <ul>
-            <li>One step and timecourse simulations: <code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>.</li>
-            <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
-            <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
-            <li>Report outputs: <code>sedml:Report</code>.</li>
-          </ul>
-        <li><b>KiSAO.</b> SED-ML documents interpreted by containers should use KiSAO terms to indicate algorithms and algorithm parameters. As necessary, use the KiSAO issue tracker <a href="https://sourceforge.net/p/kisao/feature-requests/new/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request terms for additional algorithms and algorithm parameters.</li>
-        <li><b>COMBINE/OMEX.</b> Containers should support the full COMBINE/OMEX specification.</li>
-      </ul>
-
-      <p>Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+      <p>We welcome contributions of additional simulation tools! Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
       <ol class="vertically-spaced">
-        <li>          
+        <li>
           <p><b>Implement a BioSimulators-compliant command-line interface to your simulation tool.</b> The interface should accept two keyword arguments:</p>
           <ul>
             <li><code>-i, --archive</code>: A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
