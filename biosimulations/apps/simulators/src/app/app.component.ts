@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-root',
@@ -8,5 +7,5 @@ import { ConfigService } from '@biosimulations/shared/services';
 })
 export class AppComponent {
   title = 'simulators';
-  constructor() {}
+  constructor() { }
 }

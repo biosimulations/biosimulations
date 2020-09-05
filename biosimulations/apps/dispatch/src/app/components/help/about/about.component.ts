@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
-import { ConfigService } from '@biosimulations/shared/services';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.sass'],
 })
-export class AboutComponent {
-  emailUrl!: string;
-  
-  constructor(public config: ConfigService) { 
-    this.emailUrl = 'mailto:' + config.email;
-  }
+export class AboutComponent implements OnInit {
+  // TODO: get from app config
+  appUrl = 'https://biosimulations.org/'
+  apiUrl = 'https://api.biosimulations.org/'
+  issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
+  emailUrl = 'mailto:' + 'info@biosimulations.org'
+
+  constructor() { }
+
+  ngOnInit(): void { }
 }

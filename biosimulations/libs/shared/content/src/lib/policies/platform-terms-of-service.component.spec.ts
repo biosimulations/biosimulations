@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ConfigService } from '@biosimulations/shared/services';
 import { PlatformTermsOfServiceComponent } from './platform-terms-of-service.component';
 
 describe('PlatformTermsOfServiceComponent', () => {let component: PlatformTermsOfServiceComponent;
@@ -18,9 +17,6 @@ describe('PlatformTermsOfServiceComponent', () => {let component: PlatformTermsO
         RouterTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
-      ],
-      providers: [
-        ConfigService,
       ],
     }).compileComponents();
   }));
