@@ -50,7 +50,7 @@
                 <ng-container [ngSwitch]="column.filterType">
 
                   <ng-template [ngSwitchCase]="'number'">
-                    <ng-template let-range="range" [ngTemplateOutletContext]="{range: getColumnRange(column)}" [ngTemplateOutlet]="self" #self>
+                    <ng-template let-range="range" [ngTemplateOutletContext]="{range: getNumericColumnRange(column)}" [ngTemplateOutlet]="self" #self>
                       <npn-slider
                         [min]="range.min"
                         [max]="range.max"
@@ -72,12 +72,12 @@
                   </mat-form-field>
 
                   <mat-list *ngSwitchDefault>
-                    <mat-list-item *ngFor="let value of getColumnValues(column)">
+                    <mat-list-item *ngFor="let value of getTextColumnValues(column)">
                       <mat-checkbox
                         #checkbox
                         (change)="filterSetValue(column, value, checkbox.checked)"
                       >
-                        {{ formatFilterValue(value, column) }}
+                        {{ formatElementFilterValue(value, column) }}
                       </mat-checkbox>
                     </mat-list-item>
                   </mat-list>
@@ -116,21 +116,21 @@
             <ng-template [ngSwitchCase]="'route'">
               <a *ngIf="getElementRoute(element, column) as route" [routerLink]="route">
                 <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
-                {{ formatElementValue(element, column) }}
+                {{ formatElementValue(getElementValue(element, column), column) }}
               </a>
             </ng-template>
 
             <ng-template [ngSwitchCase]="'href'">
               <a *ngIf="getElementHref(element, column) as href" [href]="href">
                 <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
-                {{ formatElementValue(element, column) }}
+                {{ formatElementValue(getElementValue(element, column), column) }}
               </a>
             </ng-template>
 
             <ng-template ngSwitchDefault>
               <span>
                 <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
-                {{ formatElementValue(element, column) }}
+                {{ formatElementValue(getElementValue(element, column), column) }}
               </span>
             </ng-template>
           </div>

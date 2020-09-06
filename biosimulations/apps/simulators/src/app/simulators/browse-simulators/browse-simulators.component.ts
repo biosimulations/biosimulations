@@ -8,6 +8,7 @@ import {
 // import { SimulatorHttpService } from '../services/simulator-http.service';
 import { of, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TableComponent } from '@biosimulations/shared/ui';
 @Component({
   selector: 'biosimulations-browse-simulators',
   templateUrl: './browse-simulators.component.html',
@@ -19,66 +20,105 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
   // data: SimulatorData[] = [];
 
 
-  @ViewChild('table') table!: any;
+  @ViewChild(TableComponent) table!: TableComponent;
 
   columns: any[] = [
     {
       id: 'name',
       heading: "Name",
       key: 'name',
-      container: 'route',
-      route: (element: any) => {
-        return ['/simulators', element.id];
-      },
-      icon: 'simulator',
+      container: 'plain',      
     },
     {
       id: 'frameworks',
       heading: "Modeling frameworks",
       key: 'frameworks',
       container: 'plain',
-      formatter: (frameworks: any[]) => {
+      getter: (element: any): string[] => {
         const value = [];
-        for (const framework of frameworks) {
+        for (const framework of element.frameworks) {
           value.push(framework.name);
         }
-        value.sort((a, b) => {
-          a.localeCompare( b, undefined, { numeric: true } )
+        value.sort((a: string, b: string): number => {
+          return a.localeCompare( b, undefined, { numeric: true } )
         });
-        return value.join(', ');
+        return value;
       },
+      formatter: (names: string[]): string => {
+        return names.join(', ');
+      },
+      filterFormatter: (name: string): string => {
+        return name;
+      },
+      comparator: (aNames: string[], bNames: string[], sign = 1): number => {
+        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+      },
+      filterComparator: TableComponent.comparator,
     },
     {
       id: 'algorithms',
       heading: "Simulation algorithms",
       key: 'algorithms',
       container: 'plain',
-      formatter: (algorithms: any[]) => {
+      getter: (element: any): string[] => {
         const value = [];
-        for (const algorithm of algorithms) {
-          value.push(algorithm.name);
+        for (const framework of element.algorithms) {
+          value.push(framework.name);
         }
-        value.sort((a, b) => {
-          a.localeCompare( b, undefined, { numeric: true } )
+        value.sort((a: string, b: string): number => {
+          return a.localeCompare( b, undefined, { numeric: true } )
         });
-        return value.join(', ');
+        return value;
       },
+      formatter: (names: string[]): string => {
+        return names.join(', ');
+      },
+      filterFormatter: (name: string): string => {
+        return name;
+      },
+      comparator: (aNames: string[], bNames: string[], sign = 1): number => {
+        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+      },
+      filterComparator: TableComponent.comparator,
     },
     {
       id: 'formats',
       heading: "Model formats",
       key: 'formats',
       container: 'plain',
-      formatter: (formats: any[]) => {
+      getter: (element: any): string[] => {
         const value = [];
-        for (const format of formats) {
-          value.push(format.name);
+        for (const framework of element.formats) {
+          value.push(framework.name);
         }
-        value.sort((a, b) => {
-          a.localeCompare( b, undefined, { numeric: true } )
+        value.sort((a: string, b: string): number => {
+          return a.localeCompare( b, undefined, { numeric: true } )
         });
-        return value.join(', ');
+        return value;
       },
+      formatter: (names: string[]): string => {
+        return names.join(', ');
+      },
+      filterFormatter: (name: string): string => {
+        return name;
+      },
+      comparator: (aNames: string[], bNames: string[], sign = 1): number => {
+        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+      },
+      filterComparator: TableComponent.comparator,
+    }, 
+    {
+      id: 'moreInfo',
+      heading: "More info",
+      container: 'route',
+      route: (element: any): string[] => {
+        return ['/simulators', element.id];
+      },
+      icon: 'internalLink',
+      minWidth: 66,
+      center: true,      
+      filterable: false,
+      sortable: false,
     },    
   ];
 
@@ -95,7 +135,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       name: 'VCell',
       frameworks: [{name: 'continuous kinetic'}],
       algorithms: [{name: 'cvode'}],
-      formats: [{name: 'SBML'}],
+      formats: [{name: 'CellML'}],
     },
   ];
 

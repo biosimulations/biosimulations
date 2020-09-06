@@ -1,12 +1,13 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { TableComponent } from '@biosimulations/shared/ui';
 
 @Component({
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
 })
 export class BrowseComponent implements AfterViewInit {
-  @ViewChild('table') table!: any;
+  @ViewChild(TableComponent) table!: TableComponent;
 
   columns: any[] = [
     {
@@ -28,23 +29,25 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Status",
       key: 'status',
       container: 'plain',
-      formatter: (value: string) => {
+      formatter: (value: string): string => {
         if (value) {
           return value.substring(0, 1).toUpperCase() + value.substring(1);
         } else {
           return value;
         }
       },
-      comparator: (aVal: any, bVal: any) => {
+      comparator: (aVal: any, bVal: any, sign: number): number => {
         if (aVal === 'queued') aVal = 0;
-        if (aVal === 'succeeded') aVal = 1;
-        if (aVal === 'failed') aVal = 2;
-        if (aVal == null) aVal = 3;
+        if (aVal === 'started') aVal = 1;
+        if (aVal === 'succeeded') aVal = 2;
+        if (aVal === 'failed') aVal = 3;
+        if (aVal == null) aVal = 4 * sign;
 
         if (bVal === 'queued') bVal = 0;
-        if (bVal === 'succeeded') bVal = 1;
-        if (bVal === 'failed') bVal = 2;
-        if (bVal == null) bVal = 3;
+        if (bVal === 'started') bVal = 1;
+        if (bVal === 'succeeded') bVal = 2;
+        if (bVal === 'failed') bVal = 3;
+        if (bVal == null) bVal = 4 * sign;
 
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
@@ -56,7 +59,7 @@ export class BrowseComponent implements AfterViewInit {
       id: 'runtime',
       heading: "Runtime",
       key: 'runtime',
-      formatter: (value: number) => {
+      formatter: (value: number): string | null => {
         if (value == null) {
           return null;
         }
@@ -87,7 +90,7 @@ export class BrowseComponent implements AfterViewInit {
       id: 'submitted',
       heading: "Submitted",
       key: 'submitted',
-      formatter: (value: Date) => {
+      formatter: (value: Date): string | null => {
         if (value == null) {
           return null;
         }
@@ -105,7 +108,7 @@ export class BrowseComponent implements AfterViewInit {
       id: 'updated',
       heading: "Last updated",
       key: 'updated',
-      formatter: (value: Date) => {
+      formatter: (value: Date): string | null => {
         if (value == null) {
           return null;
         }
@@ -124,7 +127,7 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Visualize",
       center: true,
       container: 'route',
-      route: (element: any) => {
+      route: (element: any): string[] | null => {
         if (element.id) {
           return ['/simulations', element.id];
         } else {
@@ -141,7 +144,7 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Download",
       center: true,
       container: 'href',
-      href: (element: any) => {
+      href: (element: any): string | null => {
         if (element.id) {
           return 'download-results/' + element.id;
         } else {
@@ -158,7 +161,7 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Log",
       center: true,
       container: 'route',
-      route: (element: any) => {
+      route: (element: any): string[] | null => {
         if (element.id) {
           return ['/simulations', element.id];
         } else {
@@ -178,7 +181,7 @@ export class BrowseComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dispatchService.uuidUpdateEvent.subscribe(
-      (uuid: string) => {
+      (uuid: string): void => {
         // TODO: get name, status, runtime, dates from dispatch service
         this.data.push({
           id: uuid,
@@ -190,7 +193,7 @@ export class BrowseComponent implements AfterViewInit {
         });
         this.table.setData(this.data);
       },
-      (error) => {
+      (error): void => {
         console.log('Error occured while fetching UUIds: ', error);
       },
     );
