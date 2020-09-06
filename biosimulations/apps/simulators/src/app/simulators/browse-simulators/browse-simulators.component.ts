@@ -9,6 +9,20 @@ import {
 import { of, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TableComponent } from '@biosimulations/shared/ui';
+
+
+interface ISimulator {
+  id: string,
+  name: string,
+  frameworks: string[],
+  algorithms: string[],
+  formats: string[],
+  latestVersion: string,  
+  license: string,
+  created: Date,
+  updated: Date,
+}
+
 @Component({
   selector: 'biosimulations-browse-simulators',
   templateUrl: './browse-simulators.component.html',
@@ -17,9 +31,6 @@ import { TableComponent } from '@biosimulations/shared/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseSimulatorsComponent implements AfterViewInit {
-  // data: SimulatorData[] = [];
-
-
   @ViewChild(TableComponent) table!: TableComponent;
 
   columns: any[] = [
@@ -27,17 +38,17 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'name',
       heading: "Name",
       key: 'name',
-      container: 'plain',      
+      container: 'plain',
     },
     {
       id: 'frameworks',
-      heading: "Modeling frameworks",
+      heading: "Frameworks",
       key: 'frameworks',
       container: 'plain',
-      getter: (element: any): string[] => {
+      getter: (element: ISimulator): string[] => {
         const value = [];
         for (const framework of element.frameworks) {
-          value.push(framework.name);
+          value.push(framework);
         }
         value.sort((a: string, b: string): number => {
           return a.localeCompare( b, undefined, { numeric: true } )
@@ -57,13 +68,13 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     },
     {
       id: 'algorithms',
-      heading: "Simulation algorithms",
+      heading: "Algorithms",
       key: 'algorithms',
       container: 'plain',
-      getter: (element: any): string[] => {
+      getter: (element: ISimulator): string[] => {
         const value = [];
-        for (const framework of element.algorithms) {
-          value.push(framework.name);
+        for (const algorithm of element.algorithms) {
+          value.push(algorithm);
         }
         value.sort((a: string, b: string): number => {
           return a.localeCompare( b, undefined, { numeric: true } )
@@ -86,10 +97,10 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       heading: "Model formats",
       key: 'formats',
       container: 'plain',
-      getter: (element: any): string[] => {
+      getter: (element: ISimulator): string[] => {
         const value = [];
-        for (const framework of element.formats) {
-          value.push(framework.name);
+        for (const format of element.formats) {
+          value.push(format);
         }
         value.sort((a: string, b: string): number => {
           return a.localeCompare( b, undefined, { numeric: true } )
@@ -108,6 +119,45 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       filterComparator: TableComponent.comparator,
     }, 
     {
+      id: 'latestVersion',
+      heading: "Latest version",
+      key: 'latestVersion',
+      container: 'plain',
+    },
+    {
+      id: 'license',
+      heading: "License",
+      key: 'license',
+      container: 'plain',
+      show: false,
+    },
+    {
+      id: 'created',
+      heading: "Created",
+      key: 'created',
+      formatter: (value: Date): string => {
+        return value.getFullYear().toString()
+          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
+          + '-' + value.getDate().toString().padStart(2, '0');
+      },
+      container: 'plain',
+      filterType: 'date',
+      show: false,
+    },
+    {
+      id: 'updated',
+      heading: "Updated",
+      key: 'updated',
+      formatter: (value: Date): string => {
+        return value.getFullYear().toString()
+          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
+          + '-' + value.getDate().toString().padStart(2, '0');
+      },
+      container: 'plain',
+      filterType: 'date',
+      show: false,
+    },
+    {
       id: 'moreInfo',
       heading: "More info",
       container: 'route',
@@ -122,20 +172,28 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     },    
   ];
 
-  data: any[] = [
+  data: ISimulator[] = [
     {
       id: 'copasi',
       name: 'COPASI',
-      frameworks: [{name: 'continuous kinetic'}],
-      algorithms: [{name: 'cvode'}],
-      formats: [{name: 'SBML'}],
+      frameworks: ['continuous kinetic', 'discrete kinetic'],
+      algorithms: ['cvode'],
+      formats: ['SBML', 'CopasiML'],
+      latestVersion: '4.6',
+      license: 'Artistic 2.0',
+      created: new Date(2020, 8, 1),
+      updated: new Date(2020, 9, 1),
     },
     {
       id: 'vcell',
       name: 'VCell',
-      frameworks: [{name: 'continuous kinetic'}],
-      algorithms: [{name: 'cvode'}],
-      formats: [{name: 'CellML'}],
+      frameworks: ['continuous kinetic', 'discrete kinetic'],
+      algorithms: ['cvode'],
+      formats: ['SBML', 'VCellML'],
+      latestVersion: '2.3',
+      license: 'MIT',
+      created: new Date(2020, 8, 2),
+      updated: new Date(2020, 9, 2),
     },
   ];
 

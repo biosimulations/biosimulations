@@ -148,27 +148,29 @@ export class TableComponent {
   }
 
   getTextColumnValues(column: any): any[] {
-    const values = new Set();
+    const values: any = {};
     for (const datum of this.data) {
-      const value = this.getElementFilterValue(datum, column);      
+      const value: any = this.getElementFilterValue(datum, column);      
     
       if (Array.isArray(value)) {
         for (const v of value) {
           const formattedV = this.formatElementFilterValue(v, column);
           if (formattedV != null && formattedV !== '') {
-            values.add({value: v, formattedValue: formattedV});
+            values[v] = formattedV;
           }
         }
       } else {
         const formattedValue = this.formatElementFilterValue(value, column);
         if (formattedValue != null && formattedValue !== '') {
-          values.add({value: value, formattedValue: formattedValue});
+          values[value] = formattedValue;
         }
       }
     }
 
     const comparator = this.getFilterComparator(column);
-    const arrValues = Array.from(values);
+    const arrValues = Object.keys(values).map((key: any): any => {
+      return {value: key, formattedValue: values[key]};
+    });
     arrValues.sort((a: any, b: any): number => {
       return comparator(a.formattedValue, b.formattedValue);
     });    
