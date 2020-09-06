@@ -14,10 +14,6 @@ import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
-import { ConfigService } from '@biosimulations/shared/services';
-import config from '../assets/config.json';
-
 const env = {
   authDomain: 'auth.biosimulations.org',
   apiDomain: 'https://api.biosimulations.dev',
@@ -72,7 +68,6 @@ const routes: Routes = [
     AuthService, 
     { provide: AuthEnvironment, useValue: env },
     {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
-    {provide: ConfigService, useValue: config },
   ],
   bootstrap: [AppComponent],
 })

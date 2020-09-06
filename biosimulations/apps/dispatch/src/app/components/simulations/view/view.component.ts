@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
   name = 'Knockout of gene A';
   status = 'finished';
   submitted = '2020-08-39 12:43:00';
-  updated = '2020-08-30 10:05:12';
+  completed = '2020-08-30 10:05:12';
   runtime = '1 min';
   projectUrl = '';
   projectSize = '300 kb';

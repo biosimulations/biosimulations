@@ -40,10 +40,6 @@
       "tags": ["scope:shared", "type:content", "platform:web"],
       "implicitDependencies": ["shared-ui"]
     },
-    "shared-services": {
-      "tags": ["scope:shared", "type:service", "platform:any"],
-      "implicitDependencies": []
-    },
     "shared-styles": {
       "tags": ["scope:shared", "type:styles", "platform:web"]
     },

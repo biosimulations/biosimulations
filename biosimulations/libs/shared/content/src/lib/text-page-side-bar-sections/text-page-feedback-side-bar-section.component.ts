@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-text-page-feedback-side-bar-section',
@@ -7,9 +6,9 @@ import { ConfigService } from '@biosimulations/shared/services';
   styleUrls: ['./text-page-feedback-side-bar-section.component.scss'],
 })
 export class TextPageFeedbackSideBarSectionComponent {
-  emailUrl!: string;
-  
-  constructor(public config: ConfigService) {
-    this.emailUrl = 'mailto:' + config.email;
-  }
+  // TODO: get from app config
+  issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
+  emailUrl = 'mailto:' + 'info@biosimulations.org'
+
+  constructor() {}
 }

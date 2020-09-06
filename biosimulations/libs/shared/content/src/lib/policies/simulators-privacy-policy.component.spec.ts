@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ConfigService } from '@biosimulations/shared/services';
 import { SimulatorsPrivacyPolicyComponent } from './simulators-privacy-policy.component';
 
 describe('SimulatorsPrivacyPolicyComponent', () => {
@@ -17,9 +16,6 @@ describe('SimulatorsPrivacyPolicyComponent', () => {
       imports: [
         SharedUiModule,
         BiosimulationsIconsModule,
-      ],
-      providers: [
-        ConfigService,
       ],
     }).compileComponents();
   }));

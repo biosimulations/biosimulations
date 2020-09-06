@@ -16,7 +16,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicStorageModule } from '@ionic/storage';
 import { PrivacyPolicyNoticeComponent } from '../privacy-policy-notice/privacy-policy-notice.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ConfigService } from '@biosimulations/shared/services';
 
 describe('BiosimulationsNavigationComponent', () => {
   let component: BiosimulationsNavigationComponent;
@@ -46,7 +45,6 @@ describe('BiosimulationsNavigationComponent', () => {
         }),
         BiosimulationsIconsModule,
       ],
-      providers: [ConfigService],
     }).compileComponents();
   }));
 

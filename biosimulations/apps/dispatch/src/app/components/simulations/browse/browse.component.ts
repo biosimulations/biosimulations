@@ -189,7 +189,7 @@ export class BrowseComponent implements AfterViewInit {
           status: null,
           runtime: null,
           submitted: null,
-          updated: null,
+          completed: null,
         });
         this.table.setData(this.data);
       },

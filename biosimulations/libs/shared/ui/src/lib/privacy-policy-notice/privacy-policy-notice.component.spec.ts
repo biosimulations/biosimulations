@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicStorageModule } from '@ionic/storage';
 import { MaterialWrapperModule } from '../material-wrapper.module';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ConfigService } from '@biosimulations/shared/services';
 
 describe('PrivacyPolicyNoticeComponent', () => {
   let component: PrivacyPolicyNoticeComponent;
@@ -21,9 +20,6 @@ describe('PrivacyPolicyNoticeComponent', () => {
         }),
         MaterialWrapperModule,
         BiosimulationsIconsModule,
-      ],
-      providers: [
-        ConfigService,
       ],
     }).compileComponents();
   }));

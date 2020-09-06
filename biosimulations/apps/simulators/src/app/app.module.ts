@@ -8,12 +8,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/services';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
-import config from '../assets/config.json';
 
 const routes: Routes = [
   {
@@ -57,7 +54,6 @@ const routes: Routes = [
   ],
   providers: [
     {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
-    {provide: ConfigService, useValue: config },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-privacy-policy-notice',
@@ -8,14 +7,17 @@ import { ConfigService } from '@biosimulations/shared/services';
   styleUrls: ['./privacy-policy-notice.component.scss'],
 })
 export class PrivacyPolicyNoticeComponent implements OnInit {
+  // TODO: get from app config  
+  appName = 'BioSimulations';
+  privacyPolicyVersion = 1;
   open = true;
   storageKey!: string;
 
-  constructor(public config: ConfigService, private storage: Storage) {
+  constructor(private storage: Storage) {
   }
 
   public ngOnInit() {
-    this.storageKey = 'privacy-policy-notice-' + this.config.appName + '-' + this.config.privacyPolicyVersion.toString() + '-dismissed';
+    this.storageKey = 'privacy-policy-notice-' + this.appName + '-' + this.privacyPolicyVersion.toString() + '-dismissed';
 
     this.storage.ready().then(() => {
       this.storage.keys().then((keys) => {

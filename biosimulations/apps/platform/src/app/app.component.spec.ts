@@ -6,7 +6,6 @@ import { AuthService, AuthEnvironment } from '@biosimulations/auth/angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
-import { ConfigService } from '@biosimulations/shared/services';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +18,7 @@ describe('AppComponent', () => {
           driverOrder: ['indexeddb', 'websql', 'localstorage']
         }),
       ],
-      providers:[AuthService, AuthEnvironment, ConfigService],
+      providers:[AuthService, AuthEnvironment],
       declarations: [AppComponent],
     }).compileComponents();
   }));
