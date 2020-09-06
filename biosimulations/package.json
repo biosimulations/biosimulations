@@ -77,7 +77,7 @@
     "passport-jwt": "^4.0.0",
     "plotly.js": "^1.55.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "~6.6.2",
+    "rxjs": "~6.6.3",
     "save": "^2.4.0",
     "ssh2": "^0.8.9",
     "swagger-ui-express": "^4.1.4",
