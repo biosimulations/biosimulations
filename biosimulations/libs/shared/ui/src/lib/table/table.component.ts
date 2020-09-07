@@ -104,11 +104,15 @@ export class TableComponent {
     if (column !== undefined && column.getter !== undefined) {
       return column.getter(element);
     } else if (column !== undefined && column.key != undefined) {
-      if (column.key in element) {
-        return element[column.key];
-      } else {
-        return null;
+      let value = element;
+      for (const key of column.key.split('.')) {
+        if (key in value) {
+          value = value[key];
+        } else {
+          return null;
+        }
       }
+      return value;
     } else if (defaultKey !== undefined) {
       if (defaultKey in element) {
         return element[defaultKey];
@@ -126,11 +130,15 @@ export class TableComponent {
     } else if (column !== undefined && column.getter !== undefined) {
       return column.getter(element);
     } else if (column !== undefined && column.key !== undefined) {
-      if (column.key in element) {
-        return element[column.key];
-      } else {
-        return null;
+      let value = element;
+      for (const key of column.key.split('.')) {
+        if (key in value) {
+          value = value[key];
+        } else {
+          return null;
+        }
       }
+      return value;
     } else if (defaultKey !== undefined) {
       if (defaultKey in element) {
         return element[defaultKey];
