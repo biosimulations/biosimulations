@@ -2,6 +2,22 @@ import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
 
+enum SimulationStatus {
+  queued = 'queued',
+  started = 'started',
+  succeeded = 'succeeded',
+  failed = 'failed',
+}
+
+interface Simulation {
+  id: string;
+  name: string;
+  status: SimulationStatus;
+  runtime?: number;
+  submitted: Date;
+  updated: Date;
+}
+
 @Component({
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
@@ -26,25 +42,25 @@ export class BrowseComponent implements AfterViewInit {
       id: 'status',
       heading: "Status",
       key: 'status',
-      formatter: (value: string): string => {
+      formatter: (value: SimulationStatus): string => {
         if (value) {
           return value.substring(0, 1).toUpperCase() + value.substring(1);
         } else {
           return value;
         }
       },
-      comparator: (aVal: any, bVal: any, sign: number): number => {
-        if (aVal === 'queued') aVal = 0;
-        if (aVal === 'started') aVal = 1;
-        if (aVal === 'succeeded') aVal = 2;
-        if (aVal === 'failed') aVal = 3;
-        if (aVal == null) aVal = 4 * sign;
+      comparator: (a: SimulationStatus, b: SimulationStatus, sign: number): number => {
+        let aVal = 0;
+        if (a === SimulationStatus.queued) aVal = 0;
+        else if (a === SimulationStatus.started) aVal = 1;
+        else if (a === SimulationStatus.succeeded) aVal = 2;
+        else if (a === SimulationStatus.failed) aVal = 3;
 
-        if (bVal === 'queued') bVal = 0;
-        if (bVal === 'started') bVal = 1;
-        if (bVal === 'succeeded') bVal = 2;
-        if (bVal === 'failed') bVal = 3;
-        if (bVal == null) bVal = 4 * sign;
+        let bVal = 0;
+        if (b === SimulationStatus.queued) bVal = 0;
+        else if (b === SimulationStatus.started) bVal = 1;
+        else if (b === SimulationStatus.succeeded) bVal = 2;
+        else if (b === SimulationStatus.failed) bVal = 3;
 
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
@@ -57,7 +73,7 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Runtime",
       key: 'runtime',
       formatter: (value: number): string | null => {
-        if (value == null) {
+        if (value === undefined) {
           return null;
         }
 
@@ -87,10 +103,7 @@ export class BrowseComponent implements AfterViewInit {
       id: 'submitted',
       heading: "Submitted",
       key: 'submitted',
-      formatter: (value: Date): string | null => {
-        if (value == null) {
-          return null;
-        }
+      formatter: (value: Date): string => {
         return value.getFullYear().toString()
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
           + '-' + value.getDate().toString().padStart(2, '0')
@@ -105,10 +118,7 @@ export class BrowseComponent implements AfterViewInit {
       id: 'updated',
       heading: "Last updated",
       key: 'updated',
-      formatter: (value: Date): string | null => {
-        if (value == null) {
-          return null;
-        }
+      formatter: (value: Date): string => {
         return value.getFullYear().toString()
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
           + '-' + value.getDate().toString().padStart(2, '0')
@@ -124,12 +134,8 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Visualize",
       center: true,
       linkType: ColumnLinkType.routerLink,
-      routerLink: (element: any): string[] | null => {
-        if (element.id) {
-          return ['/simulations', element.id];
-        } else {
-          return null;
-        }
+      routerLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id];
       },
       icon: 'chart',
       minWidth: 66,
@@ -141,9 +147,9 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Download",
       center: true,
       linkType: ColumnLinkType.href,
-      href: (element: any): string | null => {
-        if (element.id) {
-          return 'download-results/' + element.id;
+      href: (simulation: Simulation): string | null => {
+        if (simulation.status === SimulationStatus.succeeded) {
+          return 'download-results/' + simulation.id;
         } else {
           return null;
         }
@@ -158,9 +164,9 @@ export class BrowseComponent implements AfterViewInit {
       heading: "Log",
       center: true,
       linkType: ColumnLinkType.routerLink,
-      routerLink: (element: any): string[] | null => {
-        if (element.id) {
-          return ['/simulations', element.id];
+      routerLink: (simulation: Simulation): string[] | null => {
+        if (simulation.status === SimulationStatus.succeeded || simulation.status === SimulationStatus.failed) {
+          return ['/simulations', simulation.id];
         } else {
           return null;
         }
@@ -172,7 +178,7 @@ export class BrowseComponent implements AfterViewInit {
     },
   ];
 
-  data: any[] = [];
+  data: Simulation[] = [];
 
   constructor(private dispatchService: DispatchService) {}
 
@@ -182,11 +188,11 @@ export class BrowseComponent implements AfterViewInit {
         // TODO: get name, status, runtime, dates from dispatch service
         this.data.push({
           id: uuid,
-          name: null,
-          status: null,
-          runtime: null,
-          submitted: null,
-          completed: null,
+          name: '',
+          status: SimulationStatus.queued,
+          runtime: undefined,
+          submitted: new Date(),
+          updated: new Date(),
         });
         this.table.setData(this.data);
       },
