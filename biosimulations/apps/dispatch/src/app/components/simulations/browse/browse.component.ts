@@ -183,6 +183,8 @@ export class BrowseComponent implements AfterViewInit {
   constructor(private dispatchService: DispatchService) {}
 
   ngAfterViewInit() {
+    this.table.defaultSort = {active: 'id', direction: 'asc'};
+
     this.dispatchService.uuidUpdateEvent.subscribe(
       (uuid: string): void => {
         // TODO: get name, status, runtime, dates from dispatch service

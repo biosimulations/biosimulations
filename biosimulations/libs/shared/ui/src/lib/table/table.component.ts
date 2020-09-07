@@ -79,6 +79,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   idToColumn!: { [id: string] : Column };
   isLoading!: Observable<boolean>;
   filter: {[id: string]: any[]} = {};
+  defaultSort?: {active: string, direction: string};
 
   @Input()
   set columns(columns: Column[]) {
@@ -102,8 +103,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setData(data: any[]): void {
-    data.forEach((datum: any, iDatum: number): void => {datum._index = iDatum});
-    this.dataSource.data = data;
+    const sortedData = this.sortData(data, this.defaultSort)
+    sortedData.forEach((datum: any, iDatum: number): void => {datum._index = iDatum});
+    this.dataSource.data = sortedData;
     this.dataSource.isLoading.next(false);
   }
 
@@ -445,7 +447,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     return true;
   }
 
-  sortData(data: any[], sort: MatSort): any[] {
+  sortData(data: any[], sort: any): any[] {
+    if (sort === undefined) {
+      return data;
+    }
+
     const sortColumnId = sort.active;
     const sortDirection = sort.direction;
 

@@ -167,6 +167,8 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
+    this.table.defaultSort = {active: 'name', direction: 'asc'};
+
     setTimeout(() => {
       this.data = [
         {
@@ -174,7 +176,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           name: 'COPASI',
           frameworks: ['continuous kinetic', 'discrete kinetic'],
           algorithms: ['cvode'],
-          formats: ['SBML', 'CopasiML'],
+          formats: ['SBML'],
           latestVersion: '4.6',
           license: 'Artistic 2.0',
           created: new Date(2020, 8, 1),
@@ -185,14 +187,36 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           name: 'VCell',
           frameworks: ['continuous kinetic', 'discrete kinetic'],
           algorithms: ['cvode'],
-          formats: ['SBML', 'VCellML'],
+          formats: ['SBML'],
           latestVersion: '2.3',
           license: 'MIT',
           created: new Date(2020, 8, 2),
           updated: new Date(2020, 9, 2),
         },
-      ];
-      this.table.setData(this.data);
+        {
+          id: 'tellurium',
+          name: 'tellurium',
+          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          algorithms: ['cvode'],
+          formats: ['SBML'],
+          latestVersion: '4.6',
+          license: 'Artistic 2.0',
+          created: new Date(2020, 8, 1),
+          updated: new Date(2020, 9, 1),
+        },
+        {
+          id: 'bionetgen',
+          name: 'BioNetGen',
+          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          algorithms: ['cvode'],
+          formats: ['BGNL'],
+          latestVersion: '4.6',
+          license: 'Artistic 2.0',
+          created: new Date(2020, 8, 1),
+          updated: new Date(2020, 9, 1),
+        },        
+      ];      
+      this.table.setData(this.data);      
     });
   }
 }
