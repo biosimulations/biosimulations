@@ -1,4 +1,8 @@
-<div class="container grid">
+<div class="loading" *ngIf="isLoading | async">
+  <biosimulations-spinner></biosimulations-spinner>
+</div>
+
+<div class="grid" [ngClass]="{hidden: isLoading | async}">
   <mat-accordion class="controls">
     <mat-expansion-panel>
       <mat-expansion-panel-header
@@ -93,7 +97,6 @@
   <div class="table-container">
     <mat-table
       matSort
-      (matSortChange)="sortRows($event)"
     >
       <ng-container
         [matColumnDef]="column.id"

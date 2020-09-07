@@ -4,10 +4,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
 } from '@angular/core';
-// import { SimulatorData, SimulatorDataSource } from './simulators-datasource';
-// import { SimulatorHttpService } from '../services/simulator-http.service';
-import { of, Observable } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
 
 
@@ -27,7 +24,6 @@ interface Simulator {
   selector: 'biosimulations-browse-simulators',
   templateUrl: './browse-simulators.component.html',
   styleUrls: ['./browse-simulators.component.scss'],
-  // providers: [SimulatorDataSource],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseSimulatorsComponent implements AfterViewInit {
@@ -164,38 +160,39 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     },
   ];
 
-  data: Simulator[] = [
-    {
-      id: 'copasi',
-      name: 'COPASI',
-      frameworks: ['continuous kinetic', 'discrete kinetic'],
-      algorithms: ['cvode'],
-      formats: ['SBML', 'CopasiML'],
-      latestVersion: '4.6',
-      license: 'Artistic 2.0',
-      created: new Date(2020, 8, 1),
-      updated: new Date(2020, 9, 1),
-    },
-    {
-      id: 'vcell',
-      name: 'VCell',
-      frameworks: ['continuous kinetic', 'discrete kinetic'],
-      algorithms: ['cvode'],
-      formats: ['SBML', 'VCellML'],
-      latestVersion: '2.3',
-      license: 'MIT',
-      created: new Date(2020, 8, 2),
-      updated: new Date(2020, 9, 2),
-    },
-  ];
+  data: Simulator[] = [];
 
   constructor(
-    // public dataSource: SimulatorDataSource,
     private router: Router,
-    private route: ActivatedRoute,
   ) {}
 
-  ngAfterViewInit() {
-    this.table.setData(this.data);
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.data = [
+        {
+          id: 'copasi',
+          name: 'COPASI',
+          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          algorithms: ['cvode'],
+          formats: ['SBML', 'CopasiML'],
+          latestVersion: '4.6',
+          license: 'Artistic 2.0',
+          created: new Date(2020, 8, 1),
+          updated: new Date(2020, 9, 1),
+        },
+        {
+          id: 'vcell',
+          name: 'VCell',
+          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          algorithms: ['cvode'],
+          formats: ['SBML', 'VCellML'],
+          latestVersion: '2.3',
+          license: 'MIT',
+          created: new Date(2020, 8, 2),
+          updated: new Date(2020, 9, 2),
+        },
+      ];
+      this.table.setData(this.data);
+    });
   }
 }

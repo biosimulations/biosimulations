@@ -1,7 +1,11 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, Injectable } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatTable } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export enum ColumnLinkType {
   routerLink = 'routerLink',
@@ -35,27 +39,51 @@ export interface Column {
   filterType?: ColumnFilterType;
   numericFilterStep?: number;
   show?: boolean;
-  _filteredValues?: any[];
+  _index?: number;
+}
+
+@Injectable()
+export class TableDataSource extends MatTableDataSource<any> {
+  paginator!: MatPaginator;
+  sort!: MatSort;
+  isLoading = new BehaviorSubject(true);
+
+  constructor() {
+    super();
+
+    this.data = [];
+    this.isLoading.next(true);
+  }
+
+  isLoading$(): Observable<boolean> {
+    return this.isLoading.asObservable();
+  }
+
+  refresh(): void {
+  }
 }
 
 @Component({
   selector: 'biosimulations-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  providers: [TableDataSource],
 })
-export class TableComponent {
+export class TableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   private _columns!: Column[];
   columnsToShow!: string[];
   idToColumn!: { [id: string] : Column };
-  sortColumnId!: string;
-  sortDirection = '';
+  isLoading!: Observable<boolean>;
+  filter: {[id: string]: any[]} = {};
 
   @Input()
   set columns(columns: Column[]) {
-    columns.forEach((column: Column): void => {
-      column._filteredValues = [];
+    columns.forEach((column: Column, iColumn: number): void => {
+      column._index = iColumn;
     });
     this._columns = columns;
     this.setColumnsToShow();
@@ -73,16 +101,27 @@ export class TableComponent {
     return this._columns;
   }
 
-  data!: any[];
-  filteredData!: any[];
-
   setData(data: any[]): void {
     data.forEach((datum: any, iDatum: number): void => {datum._index = iDatum});
-    this.data = data;
-    this.filterSortData();
+    this.dataSource.data = data;
+    this.dataSource.isLoading.next(false);
   }
 
-  constructor() {}
+  constructor(public dataSource: TableDataSource) {}
+
+  ngOnInit(): void {
+    this.isLoading = this.dataSource.isLoading$();
+  }
+
+  ngAfterViewInit(): void {
+    this.filter = {};
+    this.dataSource.filter = JSON.stringify(this.filter);
+    this.dataSource.filterPredicate = this.filterData.bind(this);
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortData = this.sortData.bind(this);
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+  }
 
   getElementRouterLink(element: any, column: Column): any {
     if (column.linkType === ColumnLinkType.routerLink && column.routerLink !== undefined) {
@@ -206,7 +245,7 @@ export class TableComponent {
 
   getTextColumnValues(column: Column): any[] {
     const values: any = {};
-    for (const datum of this.data) {
+    for (const datum of this.dataSource.data) {
       const value: any = this.getElementFilterValue(datum, column);
 
       if (Array.isArray(value)) {
@@ -235,7 +274,7 @@ export class TableComponent {
   }
 
   getNumericColumnRange(column: Column): any {
-    if (this.data.length === 0) {
+    if (this.dataSource.data.length === 0) {
       return {min: null, max: null, step: null};
     }
 
@@ -245,7 +284,7 @@ export class TableComponent {
       step: null,
     }
 
-    for (const datum of this.data) {
+    for (const datum of this.dataSource.data) {
       const value = this.getElementFilterValue(datum, column);
       if (value == null || value === undefined) {
         continue;
@@ -285,32 +324,152 @@ export class TableComponent {
     }
   }
 
-  sortRows(event: Sort) {
-    this.sortColumnId = event.active;
-    this.sortDirection = event.direction;
-    this.sortData();
+  filterSetValue(column: Column, value: any, show: boolean): void {
+    if (show) {
+      if (!(column.id in this.filter)) {
+        this.filter[column.id] = [];
+      }
+      this.filter[column.id].push(value);
+    } else {
+      this.filter[column.id].splice(this.filter[column.id].indexOf(value), 1);
+      if (this.filter[column.id].length === 0) {
+        delete this.filter[column.id];
+      }
+    }
+
+    this.dataSource.filter = JSON.stringify(this.filter);
   }
 
-  sortData() {
-    this.filteredData.sort((a: any, b: any): number => {
+  filterNumberValue(column: Column, fullRange: any, selectedRange: number[]): void {
+    if (fullRange.min === selectedRange[0] && fullRange.max === selectedRange[1]) {
+      if (column.id in this.filter) {
+        delete this.filter[column.id];
+      }
+    } else {
+      this.filter[column.id] = selectedRange;
+    }
+
+    this.dataSource.filter = JSON.stringify(this.filter);
+  }
+
+  filterStartDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
+    if (event.value == null) {
+      if (column.id in this.filter) {
+        if (this.filter[column.id][1] == null) {
+          delete this.filter[column.id];
+        } else {
+          this.filter[column.id][0] = null;
+        }
+      }
+    } else {
+      if (column.id in this.filter) {
+        this.filter[column.id][0] = event.value;
+      } else {
+        this.filter[column.id] = [event.value, null];
+      }
+    }
+
+    this.dataSource.filter = JSON.stringify(this.filter);
+  }
+
+  filterEndDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
+    if (event.value == null) {
+      if (column.id in this.filter) {
+        if (this.filter[column.id][0] == null) {
+          delete this.filter[column.id];
+        } else {
+          this.filter[column.id][1] = null;
+        }
+      }
+    } else {
+      if (column.id in this.filter) {
+        this.filter[column.id][1] = event.value;
+      } else {
+        this.filter[column.id] = [null, event.value];
+      }
+    }
+
+    this.dataSource.filter = JSON.stringify(this.filter);
+  }
+
+  filterData(datum: any, filter: string): boolean {
+    for (const columnId in this.filter) {
+      const column = this.idToColumn[columnId];
+
+      const value = this.getElementFilterValue(datum, column);
+
+      if (column.filterType === ColumnFilterType.number) {
+        if (value == null
+          || value === undefined
+          || (this.filter[column.id][0] != null && value < this.filter[column.id][0])
+          || (this.filter[column.id][1] != null && value > this.filter[column.id][1])
+          ) {
+          return false;
+        }
+
+      } else if (column.filterType === ColumnFilterType.date) {
+        const startDate = this.filter[column.id][0];
+        const endDate = this.filter[column.id][1];
+        if (endDate != null) {
+          endDate.setDate(endDate.getDate() + 1);
+        }
+
+        if (value == null
+          || value === undefined
+          || (startDate != null && value < startDate)
+          || (endDate != null && value >= endDate)
+          ) {
+          return false;
+        }
+
+      } else {
+        if (Array.isArray(value)) {
+          let match = false;
+          for (const v of value) {
+            if (this.filter[column.id].includes(v)) {
+              match = true;
+              break;
+            }
+          }
+          if (!match) {
+            return false;
+          }
+        } else {
+          if (!this.filter[column.id].includes(value)) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
+  sortData(data: any[], sort: MatSort): any[] {
+    const sortColumnId = sort.active;
+    const sortDirection = sort.direction;
+
+    const sortedData = [...data];
+
+    sortedData.sort((a: any, b: any): number => {
       let defaultKey: string | undefined = undefined;
       let column: Column | undefined = undefined;
-      if (this.sortDirection === '') {
+      if (sortDirection === '') {
         defaultKey = '_index';
-      } else if (this.sortColumnId) {
-        column = this.idToColumn[this.sortColumnId];
+      } else if (sortColumnId) {
+        column = this.idToColumn[sortColumnId];
       }
 
       const aVal = this.getElementValue(a, column, defaultKey);
       const bVal = this.getElementValue(b, column, defaultKey);
 
-      const sign = this.sortDirection !== "desc" ? 1 : -1;
+      const sign = sortDirection !== "desc" ? 1 : -1;
 
-      const comparator = this.getComparator(column, this.sortDirection === '');
+      const comparator = this.getComparator(column, sortDirection === '');
       return sign * comparator(aVal, bVal, sign);
     });
 
-    this.table.renderRows();
+    return sortedData;
   }
 
   static comparator(a:any, b:any, sign = 1): number {
@@ -344,132 +503,7 @@ export class TableComponent {
       .map((col: Column): string => col.id);
   }
 
-  filterSetValue(column: Column, value: any, show: boolean): void {
-    if (column._filteredValues === undefined) {
-      column._filteredValues = [];
-    }
-
-    if (show) {
-      column._filteredValues.push(value);
-    } else {
-      column._filteredValues.splice(column._filteredValues.indexOf(value), 1);
-    }
-
-    this.filterSortData();
-  }
-
-  filterNumberValue(column: Column, fullRange: any, selectedRange: number[]): void {
-    if (fullRange.min === selectedRange[0] && fullRange.max === selectedRange[1]) {
-      column._filteredValues = [];
-    } else {
-      column._filteredValues = selectedRange;
-    }
-    this.filterSortData();
-  }
-
-  filterStartDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
-    if (event.value === null) {
-      if (column._filteredValues !== undefined && column._filteredValues.length > 0) {
-        if (column._filteredValues[1] == null) {
-          column._filteredValues = [];
-        } else {
-          column._filteredValues[0] = null;
-        }
-      }
-    } else {
-      if (column._filteredValues === undefined || column._filteredValues.length === 0) {
-        column._filteredValues = [event.value, null];
-      } else {
-        column._filteredValues[0] = event.value;
-      }
-    }
-    this.filterSortData();
-  }
-
-  filterEndDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
-    if (event.value === null) {
-      if (column._filteredValues !== undefined && column._filteredValues.length > 0) {
-        if (column._filteredValues[0] == null) {
-          column._filteredValues = [];
-        } else {
-          column._filteredValues[1] = null;
-        }
-      }
-    } else {
-      if (column._filteredValues === undefined || column._filteredValues.length === 0) {
-        column._filteredValues = [null, event.value];
-      } else {
-        column._filteredValues[1] = event.value;
-      }
-    }
-    this.filterSortData();
-  }
-
-  filterSortData() {
-    // filter data
-    this.filteredData = [];
-    for (const datum of this.data) {
-      let passesFilters = true;
-      for (const column of this.columns) {
-        if (column.filterable !== false && column._filteredValues !== undefined && column._filteredValues.length > 0) {
-          const value = this.getElementFilterValue(datum, column);
-
-          if (column.filterType === ColumnFilterType.number) {
-            if (value == null
-              || value === undefined
-              || (column._filteredValues[0] != null && value < column._filteredValues[0])
-              || (column._filteredValues[1] != null && value > column._filteredValues[1])
-              ) {
-              passesFilters = false;
-              break;
-            }
-
-          } else if (column.filterType === ColumnFilterType.date) {
-            const startDate = column._filteredValues[0];
-            const endDate = column._filteredValues[1];
-            if (endDate != null) {
-              endDate.setDate(endDate.getDate() + 1);
-            }
-
-            if (value == null
-              || value === undefined
-              || (startDate != null && value < startDate)
-              || (endDate != null && value >= endDate)
-              ) {
-              passesFilters = false;
-              break;
-            }
-
-          } else {
-            if (Array.isArray(value)) {
-              let match = false;
-              for (const v of value) {
-                if (column._filteredValues.includes(v)) {
-                  match = true;
-                  break;
-                }
-              }
-              if (!match) {
-                passesFilters = false;
-                break;
-              }
-            } else {
-              if (!column._filteredValues.includes(value)) {
-                passesFilters = false;
-                break;
-              }
-            }
-          }
-        }
-      }
-
-      if (passesFilters) {
-        this.filteredData.push(datum);
-      }
-    }
-    this.table.dataSource = this.filteredData;
-
-    // sort data
-    this.sortData();
+  refresh(): void {
+    this.dataSource.refresh();
   }
 }

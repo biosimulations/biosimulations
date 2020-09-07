@@ -1,8 +1,12 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-.container {
-    width: 100%;
+.loading {
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
     grid-template-columns: 16rem 1fr;
 }
 
