@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
 
 
-interface ISimulator {
+interface Simulator {
   id: string,
   name: string,
   frameworks: string[],
@@ -43,7 +43,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'frameworks',
       heading: "Frameworks",
       key: 'frameworks',
-      getter: (element: ISimulator): string[] => {
+      getter: (element: Simulator): string[] => {
         const value = [];
         for (const framework of element.frameworks) {
           value.push(framework);
@@ -68,7 +68,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'algorithms',
       heading: "Algorithms",
       key: 'algorithms',
-      getter: (element: ISimulator): string[] => {
+      getter: (element: Simulator): string[] => {
         const value = [];
         for (const algorithm of element.algorithms) {
           value.push(algorithm);
@@ -93,7 +93,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'formats',
       heading: "Model formats",
       key: 'formats',
-      getter: (element: ISimulator): string[] => {
+      getter: (element: Simulator): string[] => {
         const value = [];
         for (const format of element.formats) {
           value.push(format);
@@ -164,7 +164,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     },
   ];
 
-  data: ISimulator[] = [
+  data: Simulator[] = [
     {
       id: 'copasi',
       name: 'COPASI',
