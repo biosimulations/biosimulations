@@ -78,8 +78,20 @@
         background-color: mat-color($theme-primary);
     }
 
-    .mat-checkbox .mat-checkbox-ripple {
-        display: none;
+    .mat-checkbox {
+        width: 100%;
+        ::ng-deep .mat-checkbox-layout {
+            width: 100%;
+            .mat-checkbox-label {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        .mat-checkbox-ripple {
+            display: none;
+        }
     }
 
     .mat-form-field-type-mat-date-range-input.mat-form-field-appearance-fill {
