@@ -157,6 +157,26 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  &.lines-1 {
+    height: 20px;
+  }
+
+  &.lines-2 {
+    white-space: unset;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    height: 40px;
+  }
+
+  &.lines-3 {
+    white-space: unset;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    height: 60px;
+  }
 }
 
 biosimulations-icon {

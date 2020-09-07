@@ -115,7 +115,13 @@
             'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null
           }"
         >
-          <div [ngSwitch]="column.linkType" class="cell-content-container" [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
+          <div [ngSwitch]="column.linkType" class="cell-content-container"
+            [ngClass]="{
+              'lines-1': linesPerRow === 1,
+              'lines-2': linesPerRow === 2,
+              'lines-3': linesPerRow === 3
+            }"
+            [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
             <ng-template [ngSwitchCase]="'routerLink'">
               <a *ngIf="getElementRouterLink(element, column) as routerLink" [routerLink]="routerLink">
                 <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>

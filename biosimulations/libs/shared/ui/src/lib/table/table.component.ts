@@ -82,6 +82,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   defaultSort?: {active: string, direction: string};
 
   @Input()
+  linesPerRow = 1;
+
+  @Input()
   set columns(columns: Column[]) {
     columns.forEach((column: Column, iColumn: number): void => {
       column._index = iColumn;
