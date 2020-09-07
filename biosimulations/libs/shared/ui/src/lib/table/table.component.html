@@ -112,9 +112,9 @@
             'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null
           }"
         >
-          <div [ngSwitch]="column?.container" class="cell-content-container" [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
-            <ng-template [ngSwitchCase]="'route'">
-              <a *ngIf="getElementRoute(element, column) as route" [routerLink]="route">
+          <div [ngSwitch]="column.linkType" class="cell-content-container" [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
+            <ng-template [ngSwitchCase]="'routerLink'">
+              <a *ngIf="getElementRouterLink(element, column) as routerLink" [routerLink]="routerLink">
                 <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
                 {{ formatElementValue(getElementValue(element, column), column) }}
               </a>

@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import { TableComponent } from '@biosimulations/shared/ui';
+import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -9,26 +9,23 @@ import { TableComponent } from '@biosimulations/shared/ui';
 export class BrowseComponent implements AfterViewInit {
   @ViewChild(TableComponent) table!: TableComponent;
 
-  columns: any[] = [
+  columns: Column[] = [
     {
       id: 'id',
       heading: "Id",
       key: 'id',
-      container: 'plain',
       minWidth: 34
     },
     {
       id: 'name',
       heading: "Name",
       key: 'name',
-      container: 'plain',
       minWidth: 34
     },
     {
       id: 'status',
       heading: "Status",
       key: 'status',
-      container: 'plain',
       formatter: (value: string): string => {
         if (value) {
           return value.substring(0, 1).toUpperCase() + value.substring(1);
@@ -83,7 +80,7 @@ export class BrowseComponent implements AfterViewInit {
           return (value * 1000).toFixed(1) + ' ms';
         }
       },
-      filterType: 'number',
+      filterType: ColumnFilterType.number,
       show: false,
     },
     {
@@ -101,7 +98,7 @@ export class BrowseComponent implements AfterViewInit {
           + ':' + value.getMinutes().toString().padStart(2, '0')
           + ':' + value.getSeconds().toString().padStart(2, '0');
       },
-      filterType: 'date',
+      filterType: ColumnFilterType.date,
       minWidth: 140,
     },
     {
@@ -119,15 +116,15 @@ export class BrowseComponent implements AfterViewInit {
           + ':' + value.getMinutes().toString().padStart(2, '0')
           + ':' + value.getSeconds().toString().padStart(2, '0');
       },
-      filterType: 'date',
+      filterType: ColumnFilterType.date,
       minWidth: 140,
     },
     {
       id: 'visualize',
       heading: "Visualize",
       center: true,
-      container: 'route',
-      route: (element: any): string[] | null => {
+      linkType: ColumnLinkType.routerLink,
+      routerLink: (element: any): string[] | null => {
         if (element.id) {
           return ['/simulations', element.id];
         } else {
@@ -143,7 +140,7 @@ export class BrowseComponent implements AfterViewInit {
       id: 'download',
       heading: "Download",
       center: true,
-      container: 'href',
+      linkType: ColumnLinkType.href,
       href: (element: any): string | null => {
         if (element.id) {
           return 'download-results/' + element.id;
@@ -160,8 +157,8 @@ export class BrowseComponent implements AfterViewInit {
       id: 'log',
       heading: "Log",
       center: true,
-      container: 'route',
-      route: (element: any): string[] | null => {
+      linkType: ColumnLinkType.routerLink,
+      routerLink: (element: any): string[] | null => {
         if (element.id) {
           return ['/simulations', element.id];
         } else {

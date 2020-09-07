@@ -8,7 +8,7 @@ import {
 // import { SimulatorHttpService } from '../services/simulator-http.service';
 import { of, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TableComponent } from '@biosimulations/shared/ui';
+import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
 
 
 interface ISimulator {
@@ -33,18 +33,16 @@ interface ISimulator {
 export class BrowseSimulatorsComponent implements AfterViewInit {
   @ViewChild(TableComponent) table!: TableComponent;
 
-  columns: any[] = [
+  columns: Column[] = [
     {
       id: 'name',
       heading: "Name",
       key: 'name',
-      container: 'plain',
     },
     {
       id: 'frameworks',
       heading: "Frameworks",
       key: 'frameworks',
-      container: 'plain',
       getter: (element: ISimulator): string[] => {
         const value = [];
         for (const framework of element.frameworks) {
@@ -70,7 +68,6 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'algorithms',
       heading: "Algorithms",
       key: 'algorithms',
-      container: 'plain',
       getter: (element: ISimulator): string[] => {
         const value = [];
         for (const algorithm of element.algorithms) {
@@ -96,7 +93,6 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'formats',
       heading: "Model formats",
       key: 'formats',
-      container: 'plain',
       getter: (element: ISimulator): string[] => {
         const value = [];
         for (const format of element.formats) {
@@ -122,13 +118,11 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'latestVersion',
       heading: "Latest version",
       key: 'latestVersion',
-      container: 'plain',
     },
     {
       id: 'license',
       heading: "License",
       key: 'license',
-      container: 'plain',
       show: false,
     },
     {
@@ -140,8 +134,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
           + '-' + value.getDate().toString().padStart(2, '0');
       },
-      container: 'plain',
-      filterType: 'date',
+      filterType: ColumnFilterType.date,
       show: false,
     },
     {
@@ -153,15 +146,14 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
           + '-' + value.getDate().toString().padStart(2, '0');
       },
-      container: 'plain',
-      filterType: 'date',
+      filterType: ColumnFilterType.date,
       show: false,
     },
     {
       id: 'moreInfo',
       heading: "More info",
-      container: 'route',
-      route: (element: any): string[] => {
+      linkType: ColumnLinkType.routerLink,
+      routerLink: (element: any): string[] => {
         return ['/simulators', element.id];
       },
       icon: 'internalLink',
