@@ -17,7 +17,7 @@ export enum ColumnFilterType {
 export interface Column {
   id: string;
   heading: string;
-  key?: string;  
+  key?: string | string[];
   getter?: (rowData: any) => any;
   filterGetter?: (rowData: any) => any;
   formatter?: (cellValue: any) => any;
@@ -104,8 +104,15 @@ export class TableComponent {
     if (column !== undefined && column.getter !== undefined) {
       return column.getter(element);
     } else if (column !== undefined && column.key != undefined) {
+      let keys;
+      if (Array.isArray(column.key)) {
+        keys = column.key;
+      } else {
+        keys = [column.key];
+      }
+
       let value = element;
-      for (const key of column.key.split('.')) {
+      for (const key of keys) {
         if (key in value) {
           value = value[key];
         } else {
@@ -130,8 +137,15 @@ export class TableComponent {
     } else if (column !== undefined && column.getter !== undefined) {
       return column.getter(element);
     } else if (column !== undefined && column.key !== undefined) {
+      let keys;
+      if (Array.isArray(column.key)) {
+        keys = column.key;
+      } else {
+        keys = [column.key];
+      }
+
       let value = element;
-      for (const key of column.key.split('.')) {
+      for (const key of keys) {
         if (key in value) {
           value = value[key];
         } else {
@@ -169,7 +183,7 @@ export class TableComponent {
       return column.comparator;
     } else {
       return TableComponent.comparator;
-    }    
+    }
   }
 
   formatElementValue(value: any, column: Column): any {
@@ -193,8 +207,8 @@ export class TableComponent {
   getTextColumnValues(column: Column): any[] {
     const values: any = {};
     for (const datum of this.data) {
-      const value: any = this.getElementFilterValue(datum, column);      
-    
+      const value: any = this.getElementFilterValue(datum, column);
+
       if (Array.isArray(value)) {
         for (const v of value) {
           const formattedV = this.formatElementFilterValue(v, column);
@@ -216,7 +230,7 @@ export class TableComponent {
     });
     arrValues.sort((a: any, b: any): number => {
       return comparator(a.formattedValue, b.formattedValue);
-    });    
+    });
     return arrValues.map((el: any): any => {return el.value});
   }
 
@@ -381,7 +395,7 @@ export class TableComponent {
           column._filteredValues[1] = null;
         }
       }
-    } else {      
+    } else {
       if (column._filteredValues === undefined || column._filteredValues.length === 0) {
         column._filteredValues = [null, event.value];
       } else {
@@ -398,7 +412,7 @@ export class TableComponent {
       let passesFilters = true;
       for (const column of this.columns) {
         if (column.filterable !== false && column._filteredValues !== undefined && column._filteredValues.length > 0) {
-          const value = this.getElementFilterValue(datum, column);          
+          const value = this.getElementFilterValue(datum, column);
 
           if (column.filterType === ColumnFilterType.number) {
             if (value == null
@@ -425,10 +439,10 @@ export class TableComponent {
               passesFilters = false;
               break;
             }
-          
+
           } else {
             if (Array.isArray(value)) {
-              let match = false;              
+              let match = false;
               for (const v of value) {
                 if (column._filteredValues.includes(v)) {
                   match = true;

@@ -1,8 +1,8 @@
 import {
   Component,
-  AfterViewInit,  
+  AfterViewInit,
   ChangeDetectionStrategy,
-  ViewChild,  
+  ViewChild,
 } from '@angular/core';
 // import { SimulatorData, SimulatorDataSource } from './simulators-datasource';
 // import { SimulatorHttpService } from '../services/simulator-http.service';
@@ -17,7 +17,7 @@ interface ISimulator {
   frameworks: string[],
   algorithms: string[],
   formats: string[],
-  latestVersion: string,  
+  latestVersion: string,
   license: string,
   created: Date,
   updated: Date,
@@ -113,7 +113,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
       },
       filterComparator: TableComponent.comparator,
-    }, 
+    },
     {
       id: 'latestVersion',
       heading: "Latest version",
@@ -158,10 +158,10 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       },
       icon: 'internalLink',
       minWidth: 66,
-      center: true,      
+      center: true,
       filterable: false,
       sortable: false,
-    },    
+    },
   ];
 
   data: ISimulator[] = [
