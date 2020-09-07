@@ -353,7 +353,7 @@ export class TableComponent {
         if (column.filterable !== false && column._filteredValues.length > 0) {
           const value = this.getElementFilterValue(datum, column);          
 
-          if (column.filterType === 'date') {
+          if (column.filterType === 'number') {
             if (value == null
               || value === undefined
               || (column._filteredValues[0] != null && value < column._filteredValues[0])
