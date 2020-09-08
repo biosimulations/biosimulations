@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-models',
@@ -6,6 +7,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./models.component.sass']
 })
 export class ModelsComponent  {
-  // TODO: get from app config
-  issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
+  constructor(public config: ConfigService) {}
 }

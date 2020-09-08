@@ -1,17 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-logo-image',
   templateUrl: './logo-image.component.html',
   styleUrls: ['./logo-image.component.scss']
 })
-export class LogoImageComponent implements OnInit {
-  // TODO: get from app config
-  src = '/assets/images/biosimulations-logo/logo.svg';
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class LogoImageComponent {
+  constructor(public config: ConfigService) { }
 }

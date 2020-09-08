@@ -2,7 +2,7 @@
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources">
       <div class="hanging-indent">
-        <a [href]="apiUrl" target="_blank">
+        <a [href]="config.apiUrl" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
           REST API documentation
         </a>
@@ -48,7 +48,7 @@
       heading="Finding a simulation tool that is capable of executing a modeling project"
       shortHeading="Finding simulation tools"
     >
-      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="interal-link"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
+      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -90,7 +90,7 @@
       heading="Programmatically retrieving information about simulation tools via the REST API"
       shortHeading="REST API"
     >
-      An API is available for retrieving information about the simulation tools in the BioSimulators collection. Please see the documentation for the REST API <a [href]="apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
+      An API is available for retrieving information about the simulation tools in the BioSimulators collection. Please see the documentation for the REST API <a [href]="config.apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -182,10 +182,10 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
           <b>Publish your Docker image to a public repository such as Docker Hub</b> by creating a free Docker Hub account and executing <code>docker push {{ '{' }} user-id {{ '}' }}/{{ '{' }} simulator-id {{ '}' }}</code>.
         </li>
         <li>
-          <b>Submit an issue <a href="https://github.com/biosimulations/Biosimulations/issues/new/choose" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes your tool and the URL for the Docker image for your tool.
+          <b>Submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes your tool and the URL for the Docker image for your tool.
         </li>
         <li>
-          <b>Optionally, also submit your containerized tool to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers containers repository <a href="https://github.com/BioContainers/containers/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
+          <b>Optionally, also submit your containerized tool to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers containers repository <a [href]="config.newPullUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
         </li>
       </ol>
     </biosimulations-text-page-content-section>

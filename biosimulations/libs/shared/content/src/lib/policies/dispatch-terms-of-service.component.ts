@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-dispatch-terms-of-service',
@@ -6,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./dispatch-terms-of-service.component.scss'],
 })
 export class DispatchTermsOfServiceComponent {  
-  // TODO: get from app config
-  appName = 'runBioSimulations';
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
+  emailUrl!: string;
   
-  constructor() {}
+  constructor(public config: ConfigService) {
+    this.emailUrl = 'mailto:' + config.email;
+  }
 }

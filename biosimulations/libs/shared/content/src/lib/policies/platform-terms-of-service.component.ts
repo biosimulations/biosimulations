@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-platform-terms-of-service',
@@ -6,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./platform-terms-of-service.component.scss'],
 })
 export class PlatformTermsOfServiceComponent {  
-  // TODO: get from app config
-  appName = 'BioSimulations';
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
-  
-  constructor() {}
+  emailUrl!: string;
+
+  constructor(public config: ConfigService) {
+    this.emailUrl = 'mailto:' + config.email;
+  }
 }
