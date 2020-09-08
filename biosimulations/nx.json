@@ -37,7 +37,7 @@
       "tags": ["scope:shared", "type:assets"]
     },
     "shared-content": {
-      "tags": ["scope:shared", "type:content", "platform:web"],
+      "tags": ["scope:shared", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-ui"]
     },
     "shared-styles": {
@@ -94,7 +94,7 @@
       "tags": ["scope:platform", "type:datamodel", "platform:any"]
     },
     "platform-database-models": {
-      "tags": ["scope:platform", "type:datamodel", "platform:any"]
+      "tags": ["scope:platform", "type:datamodel", "platform:server"]
     },
     "dispatch-service": {
       "tags": ["scope:dispatch", "type:service", "platform:server"],
@@ -123,8 +123,7 @@
       "implicitDependencies": ["simulators"]
     },
     "simulators-api": {
-      "tags": ["scope:simulators", "type:api", "platform:web"],
-      "implicitDependencies": ["shared-environments"]
+      "tags": ["scope:simulators", "type:api", "platform:server"]
     },
     "simulators-api-models": {
       "tags": ["scope:simulators", "type:datamodel", "platform:any"]
@@ -134,6 +133,9 @@
     },
     "dispatch-datamodel": {
       "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
+    },
+    "shared-datamodel-api": {
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
     }
   }
 }
