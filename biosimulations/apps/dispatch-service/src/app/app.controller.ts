@@ -114,7 +114,8 @@ export class AppController {
               .pipe(fs.createWriteStream(jsonPath))
               .on('close', () => {
                 // Convert CSV to chart JSON
-                const chartJsonPath = jsonPath.split('.json')[0] + '_chart.json';
+                const chartJsonPath =
+                  jsonPath.split('.json')[0] + '_chart.json';
                 this.readFile(jsonPath).then((jsonData: any) => {
                   const chartResults = this.convertJsonDataToChartData(
                     JSON.parse(jsonData)
@@ -133,10 +134,21 @@ export class AppController {
               });
           }
         }
-      })
-
-      
+      });
     }
+  }
+
+  @MessagePattern('job_monitor')
+  async jobMonitor(data: any) {
+    const fileStorage = process.env.FILE_STORAGE || '';
+    const uuid = data['uuid'];
+    const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
+    console.log('FS watch about to start in dir: ', resDir);
+
+    fs.watch(resDir, 'utf8', (event, fileTrigger) => {
+      console.log('Monitor event:', event);
+      console.log('Monitor trigger:', fileTrigger);
+    });
   }
 
   convertJsonDataToChartData(data: any) {

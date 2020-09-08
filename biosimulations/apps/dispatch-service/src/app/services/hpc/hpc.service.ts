@@ -63,11 +63,6 @@ export class HpcService {
                       'Execution of sbatch was successful: ' +
                         JSON.stringify(result)
                     );
-                    // TODO: Make config file for message patterns instead of hardcoding them
-                    this.messageClient.emit('dispatch_log', {
-                      simDir: simDirBase,
-                      hpcOutput: result,
-                    });
                   })
                   .catch((error) => {
                     this.logger.log(
@@ -100,6 +95,10 @@ export class HpcService {
         this.logger.log(
           'Output directory for simulation created: ' + JSON.stringify(value)
         );
+        const simDirSplit = simDirBase.split('/');
+        const uuid = simDirSplit[simDirSplit.length - 1];
+        // TODO: Make config file for message patterns instead of hardcoding them
+        this.messageClient.emit('job_monitor', { uuid });
       })
       .catch((err) => {
         this.logger.log(
