@@ -145,9 +145,9 @@ export class AppController {
     const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
     console.log('FS watch about to start in dir: ', resDir);
 
-    fs.watch(resDir, 'utf8', (event, fileTrigger) => {
+    fs.watch(resDir, 'utf8', (event, trigger) => {
       console.log('Monitor event:', event);
-      console.log('Monitor trigger:', fileTrigger);
+      console.log('Monitor trigger:', trigger);
     });
   }
 
