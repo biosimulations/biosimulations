@@ -1,21 +1,6 @@
 <biosimulations-page heading="Simulators">
-  <table>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td>copasi</td>
-        <td>COPASI</td>
-      </tr>
-      <tr>
-        <td>vcell</td>
-        <td>VCell</td>
-      </tr>
-    </tbody>
-  </table>
+  <biosimulations-table
+    [columns]="columns"
+    [linesPerRow]="3"
+  ></biosimulations-table>
 </biosimulations-page>

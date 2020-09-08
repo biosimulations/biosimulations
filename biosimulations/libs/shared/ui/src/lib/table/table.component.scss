@@ -1,8 +1,12 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-.container {
-    width: 100%;
+.loading {
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
     grid-template-columns: 16rem 1fr;
 }
 
@@ -58,10 +62,12 @@
     }
 
     .mat-list-base {
-        padding: 0 0.5rem;
+        padding: 0;
+        margin-top: -0.25rem;
+        margin-bottom: -0.25rem;
 
         .mat-list-item {
-            height: 28px;
+            height: 24px;
             @include mat-typography-level-to-styles($fontConfig, body-1);
 
             .mat-list-item-content {
@@ -74,8 +80,20 @@
         background-color: mat-color($theme-primary);
     }
 
-    .mat-checkbox .mat-checkbox-ripple {
-        display: none;
+    .mat-checkbox {
+        width: 100%;
+        ::ng-deep .mat-checkbox-layout {
+            width: 100%;
+            .mat-checkbox-label {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        .mat-checkbox-ripple {
+            display: none;
+        }
     }
 
     .mat-form-field-type-mat-date-range-input.mat-form-field-appearance-fill {
@@ -153,6 +171,26 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  &.lines-1 {
+    height: 20px;
+  }
+
+  &.lines-2 {
+    white-space: unset;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    height: 40px;
+  }
+
+  &.lines-3 {
+    white-space: unset;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    height: 60px;
+  }
 }
 
 biosimulations-icon {
