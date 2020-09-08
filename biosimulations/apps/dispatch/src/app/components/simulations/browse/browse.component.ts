@@ -118,7 +118,14 @@ export class BrowseComponent implements AfterViewInit {
       id: 'updated',
       heading: "Last updated",
       key: 'updated',
+<<<<<<< HEAD
       formatter: (value: Date): string => {
+=======
+      formatter: (value: Date) => {
+        if (value == null) {
+          return null;
+        }
+>>>>>>> parent of d9fe18ed... Revert "changing completed to updated"
         return value.getFullYear().toString()
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
           + '-' + value.getDate().toString().padStart(2, '0')
