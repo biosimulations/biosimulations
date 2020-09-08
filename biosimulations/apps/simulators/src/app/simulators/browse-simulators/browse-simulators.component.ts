@@ -7,17 +7,18 @@ import {
 import { Router } from '@angular/router';
 import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
 
-
 interface Simulator {
-  id: string,
-  name: string,
-  frameworks: string[],
-  algorithms: string[],
-  formats: string[],
-  latestVersion: string,
-  license: string,
-  created: Date,
-  updated: Date,
+  id: string;
+  name: string;
+  frameworks: string[];
+  algorithms: string[];
+  algorithmSynonyms: string[];
+  formats: string[];
+  latestVersion: string;
+  url: string;
+  license: string;
+  created: Date;
+  updated: Date;
 }
 
 @Component({
@@ -34,6 +35,14 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'name',
       heading: "Name",
       key: 'name',
+      rightIcon: 'link',
+      iconTitle: (element: Simulator): string => {
+        return element.name;
+      },
+      linkType: ColumnLinkType.href,
+      href: (element: Simulator): string => {
+        return element.url;
+      }
     },
     {
       id: 'frameworks',
@@ -45,20 +54,22 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           value.push(framework);
         }
         value.sort((a: string, b: string): number => {
-          return a.localeCompare( b, undefined, { numeric: true } )
+          return this.trimFramework(a).localeCompare( this.trimFramework(b), undefined, { numeric: true } )
         });
         return value;
       },
       formatter: (names: string[]): string => {
-        return names.join(', ');
+        return names.map(this.trimFramework).join(', ');
       },
       filterFormatter: (name: string): string => {
-        return name;
+        return this.trimFramework(name);
       },
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+        return TableComponent.comparator(aNames.map(this.trimFramework).join(', '), bNames.map(this.trimFramework).join(', '), sign);
       },
-      filterComparator: TableComponent.comparator,
+      filterComparator: (aName: string, bName: string, sign = 1): number => {
+        return TableComponent.comparator(this.trimFramework(aName), this.trimFramework(bName), sign);
+      },
       minWidth: 140,
     },
     {
@@ -83,6 +94,20 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       },
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
         return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+      },
+      passesFilter: (element: Simulator, filterValues: string[]): boolean => {
+        const algorithms = element.algorithms;
+        const algorithmSynonyms = element.algorithmSynonyms;
+        for (const v of filterValues) {
+          if (algorithms.includes(v)) {
+            return true;
+          }
+          if (algorithmSynonyms.includes(v)) {
+            return true;
+          }
+        }
+
+        return false;
       },
       filterComparator: TableComponent.comparator,
       minWidth: 300,
@@ -157,7 +182,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       routerLink: (element: any): string[] => {
         return ['/simulators', element.id];
       },
-      icon: 'internalLink',
+      leftIcon: 'internalLink',
       minWidth: 66,
       center: true,
       filterable: false,
@@ -179,7 +204,10 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         {
           id: 'copasi',
           name: 'COPASI',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          frameworks: [
+            'non-spatial continuous framework',
+            'non-spatial discrete framework',
+          ],
           algorithms: [
             'LSODAR',
             'Radau method',
@@ -191,8 +219,10 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
             'Fehlberg method',
             'Gauss-Legendre Runge-Kutta method',
           ],
+          algorithmSynonyms: [],
           formats: ['SBML'],
           latestVersion: '4.27.214',
+          url: 'http://copasi.org',
           license: 'Artistic 2.0',
           created: new Date(2020, 9, 1),
           updated: new Date(2020, 9, 1),
@@ -200,7 +230,10 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         {
           id: 'vcell',
           name: 'VCell',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          frameworks: [
+            'non-spatial continuous framework',
+            'non-spatial discrete framework',
+          ],
           algorithms: [
             'CVODE',
             'Runge-Kutta based method',
@@ -214,8 +247,10 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
             'finite volume method',
             'Brownian diffusion Smoluchowski method',
           ],
+          algorithmSynonyms: [],
           formats: ['SBML'],
           latestVersion: '7.2',
+          url: 'https://vcell.org/',
           license: 'MIT',
           created: new Date(2020, 9, 1),
           updated: new Date(2020, 9, 1),
@@ -223,15 +258,27 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         {
           id: 'tellurium',
           name: 'tellurium',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          frameworks: [
+            'non-spatial continuous framework',
+            'non-spatial discrete framework',
+          ],
           algorithms: [
             'CVODE',
             'explicit fourth-order Runge-Kutta method',
             'Gillespie direct algorithm',
             'Newton-type method',
-         ],
+          ],
+          algorithmSynonyms: [
+            'ordinary Newton method',
+            'simlified Newton method',
+            'Newton-like method',
+            'inexact Newton method',
+            'exact Newton method',
+            'IDA-like method'
+          ],
           formats: ['SBML'],
           latestVersion: '2.4.1',
+          url: 'http://tellurium.analogmachine.org/',
           license: 'Apache 2.0',
           created: new Date(2020, 9, 1),
           updated: new Date(2020, 9, 1),
@@ -239,14 +286,19 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         {
           id: 'bionetgen',
           name: 'BioNetGen',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
+          frameworks: [
+            'non-spatial continuous framework',
+            'non-spatial discrete framework',
+          ],
           algorithms: [
             'CVODE',
             'Gillespie direct algorithm',
             'NFSim agent-based simulation method',
           ],
+          algorithmSynonyms: [],
           formats: ['BGNL'],
           latestVersion: '2.5.0',
+          url: 'https://bionetgen.org',
           license: 'MIT',
           created: new Date(2020, 9, 1),
           updated: new Date(2020, 9, 1),
@@ -254,5 +306,12 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       ];
       this.table.setData(this.data);
     });
+  }
+
+  trimFramework(name: string): string {    
+    if (name.toLowerCase().endsWith(' framework')) {
+      name = name.substring(0, name.length - 10);
+    }
+    return name;
   }
 }

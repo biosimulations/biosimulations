@@ -24,9 +24,12 @@ export interface Column {
   key?: string | string[];
   getter?: (rowData: any) => any;
   filterGetter?: (rowData: any) => any;
+  passesFilter?: (rowData: any, filterValues: any[]) => boolean;
   formatter?: (cellValue: any) => any;
   filterFormatter?: (cellValue: any) => any;
-  icon?: string;
+  leftIcon?: string;
+  rightIcon?: string;
+  iconTitle?: (rowData: any) => string | null;
   linkType?: ColumnLinkType;
   routerLink?: (rowData: any) => any[] | null;
   href?: (rowData: any) => string | null;
@@ -175,6 +178,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getIconTitle(element: any, column: Column): string | null {
+    if (column.iconTitle === undefined) {
+      return column.heading;
+    } else {
+      return column.iconTitle(element);
+    }
+  }
+
   getElementFilterValue(element: any, column: Column | undefined, defaultKey?: string | undefined): any {
     if (column !== undefined && column.filterGetter !== undefined) {
       return column.filterGetter(element);
@@ -273,7 +284,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       return {value: key, formattedValue: values[key]};
     });
     arrValues.sort((a: any, b: any): number => {
-      return comparator(a.formattedValue, b.formattedValue);
+      return comparator(a.value, b.value);
     });
     return arrValues.map((el: any): any => {return el.value});
   }
@@ -317,16 +328,6 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     return range;
-  }
-
-  formatFilterValue(value: any, column: Column): any {
-    if (column.filterFormatter !== undefined) {
-      return column.filterFormatter(value);
-    } else if (column.formatter !== undefined) {
-      return column.formatter(value);
-    } else {
-      return value;
-    }
   }
 
   filterSetValue(column: Column, value: any, show: boolean): void {
@@ -401,48 +402,65 @@ export class TableComponent implements OnInit, AfterViewInit {
     for (const columnId in this.filter) {
       const column = this.idToColumn[columnId];
 
-      const value = this.getElementFilterValue(datum, column);
-
-      if (column.filterType === ColumnFilterType.number) {
-        if (value == null
-          || value === undefined
-          || (this.filter[column.id][0] != null && value < this.filter[column.id][0])
-          || (this.filter[column.id][1] != null && value > this.filter[column.id][1])
-          ) {
-          return false;
-        }
-
-      } else if (column.filterType === ColumnFilterType.date) {
-        const startDate = this.filter[column.id][0];
-        const endDate = this.filter[column.id][1];
-        if (endDate != null) {
-          endDate.setDate(endDate.getDate() + 1);
-        }
-
-        if (value == null
-          || value === undefined
-          || (startDate != null && value < startDate)
-          || (endDate != null && value >= endDate)
-          ) {
-          return false;
-        }
-
+      let passesFilter;
+      if (column.passesFilter === undefined) {
+        passesFilter = this.passesColumnFilter.bind(this, column);
       } else {
-        if (Array.isArray(value)) {
-          let match = false;
-          for (const v of value) {
-            if (this.filter[column.id].includes(v)) {
-              match = true;
-              break;
-            }
+        passesFilter = column.passesFilter;
+      }
+      
+      const filterValue = this.filter[column.id];
+
+      if (!passesFilter(datum, filterValue)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  passesColumnFilter(column: Column, datum: any, filterValue: any[]): boolean {
+    const value = this.getElementFilterValue(datum, column);
+
+    if (column.filterType === ColumnFilterType.number) {
+      if (value == null
+        || value === undefined
+        || (filterValue[0] != null && value < filterValue[0])
+        || (filterValue[1] != null && value > filterValue[1])
+        ) {
+        return false;
+      }
+
+    } else if (column.filterType === ColumnFilterType.date) {
+      const startDate = filterValue[0];
+      const endDate = filterValue[1];
+      if (endDate != null) {
+        endDate.setDate(endDate.getDate() + 1);
+      }
+
+      if (value == null
+        || value === undefined
+        || (startDate != null && value < startDate)
+        || (endDate != null && value >= endDate)
+        ) {
+        return false;
+      }
+
+    } else {
+      if (Array.isArray(value)) {
+        let match = false;
+        for (const v of value) {
+          if (filterValue.includes(v)) {
+            match = true;
+            break;
           }
-          if (!match) {
-            return false;
-          }
-        } else {
-          if (!this.filter[column.id].includes(value)) {
-            return false;
-          }
+        }
+        if (!match) {
+          return false;
+        }
+      } else {
+        if (!filterValue.includes(value)) {
+          return false;
         }
       }
     }

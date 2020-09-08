@@ -172,24 +172,18 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  &.lines-1 {
+  &.lines-one {
     height: 20px;
   }
 
-  &.lines-2 {
+  &.lines-multiple {
     white-space: unset;
     display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    height: 40px;
+    -webkit-box-orient: vertical;    
   }
 
-  &.lines-3 {
-    white-space: unset;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    height: 60px;
+  &.center {
+    text-align: center;
   }
 }
 
