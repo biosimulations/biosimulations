@@ -9,6 +9,60 @@
 
   <ng-container id="content">
     <biosimulations-text-page-content-section
+      heading="Models"
+      shortHeading="Models"
+    >
+      <biosimulations-q-a heading="Which modeling frameworks does BioSimulators support?">
+        The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> describes the modeling frameworks that the available simulation tools support.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I simulate a model that uses an alternative framework?">
+        Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another modeling framework.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Which modeling languages/formats does BioSimulators support?">
+        The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> describes the model formats that the available simulation tools support.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I simulate a model that is described in an alternative format?">
+        Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another model format.
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Simulation experiments"
+      shortHeading="Simulation experiments"
+    >
+      <biosimulations-q-a heading="Which simulation tools does BioSimulators support?">
+        The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> describes the available simulation tools.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I execute an alternative simulation tool?">
+        Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for an additional tool.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Which simulation algorithms does BioSimulators support?">
+        The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> describes the algorithms that the available simulation tools support.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I execute an alternative simulation algorithm?">
+        Please submit an issue <a [href]="biosimulatorsIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another algorithm.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Which SED-ML features does BioSimulators support?">
+        <p class="no-bottom-margin">All of the simulation tools support the following features:</p>
+        <ul>
+          <li>One step and timecourse simulations: <code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>.</li>
+          <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
+          <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
+          <li>Report outputs: <code>sedml:Report</code>.</li>
+        </ul>
+
+        <p>Some of the simulation tools, such as tellurium, support the full SED-ML specification.</p>
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
       heading="Docker images/containers"
       shortHeading="Docker images/containers"
     >
