@@ -30,7 +30,8 @@ export class BrowseComponent implements AfterViewInit {
       id: 'id',
       heading: "Id",
       key: 'id',
-      minWidth: 34
+      minWidth: 34,
+      filterable: false,
     },
     {
       id: 'name',
