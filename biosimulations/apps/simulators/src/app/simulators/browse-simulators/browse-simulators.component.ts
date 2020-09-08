@@ -42,7 +42,8 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       linkType: ColumnLinkType.href,
       href: (element: Simulator): string => {
         return element.url;
-      }
+      },
+      filterable: false
     },
     {
       id: 'frameworks',
@@ -143,6 +144,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       heading: "Latest version",
       key: 'latestVersion',
       minWidth: 110,
+      filterable: false
     },
     {
       id: 'license',
