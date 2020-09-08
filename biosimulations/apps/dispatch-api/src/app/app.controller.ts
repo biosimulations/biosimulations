@@ -180,8 +180,12 @@ export class AppController implements OnApplicationBootstrap {
     const resultPath = path.join(fileStorage, 'simulations', uId, 'out');
 
     const sedmls = await this.readDir(resultPath);
+    console.log('SEDMLS before removing:', sedmls);
     // Removing log file names 'job.output'
-    sedmls.splice(sedmls.indexOf('job.output'), 1);
+    sedmls.splice(sedmls.indexOf('STARTED'), 1);
+    sedmls.splice(sedmls.indexOf('ERROR'), 1);
+
+    console.log('sedmls after removing:', sedmls);
 
     for (const sedml of sedmls) {
       structure[sedml] = [];
