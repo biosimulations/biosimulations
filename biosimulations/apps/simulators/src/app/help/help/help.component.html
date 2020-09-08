@@ -1,6 +1,6 @@
 <biosimulations-text-page heading="Tutorial">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources">     
+    <biosimulations-text-page-side-bar-section heading="Related resources">
       <div class="hanging-indent">
         <a [href]="apiUrl" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
@@ -56,7 +56,7 @@
       shortHeading="Executing simulations"
     >
       <p>Two web applications are available for using the BioSimulators simulation tools to execute simulations. runBioSimulations <a href="https://submit.biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a simple application that uses BioSimulators to execute modeling studies. BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a platform for publishing modeling studies that also uses BioSimulators to executed published modeling studies.</p>
-        
+
       <p>The BioSimulators simulation tools can also be used to execute simulations on your own machine. Please follow these steps to use a containerized simulation tool to execute a modeling study on your own machine.</p>
 
       <ol class="vertically-spaced">
@@ -81,7 +81,7 @@
     --archive /tmp/project/{{ '{' }} name-of-OMEX-file {{ '}' }} \
     --out-dir /tmp/results</pre>
 
-          <p>Your OMEX file should be located at <code>path-to-directory-of-OMEX-file/name-of-OMEX-file</code>. This will save your results to <code>path-to-save-results</code>.</p>
+          <p>Your OMEX file should be located at <code>path-to-directory-of-OMEX-file/name-of-OMEX-file</code>. This will save your results to <code>path-to-save-results</code>. Reports will be saved in CSV format and plots will be saved in PDF format.</p>
         </li>
       </ol>
     </biosimulations-text-page-content-section>
@@ -115,7 +115,7 @@
 
       <p>Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
       <ol class="vertically-spaced">
-        <li>          
+        <li>
           <p><b>Implement a BioSimulators-compliant command-line interface to your simulation tool.</b> The interface should accept two keyword arguments:</p>
           <ul>
             <li><code>-i, --archive</code>: A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
@@ -162,6 +162,7 @@ LABEL maintainer="Jonathan Karr &lt;karr@mssm.edu&gt;"
         </li>
         <li>
           <p><b>Create a JSON-formatted file which specifies the capabilities of your simulation tool.</b> This file should adhere to the schema described in the BioSimulators API <a href="https://api.biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+          <p>Use SBO, KiSAO, and EDAM to describe the modeling frameworks, simulation algorithms, and modeling formats that your simulation tool supports. As necessary, use the following issue trackers to request additional SBO <a href="https://sourceforge.net/p/sbo/term-request/"><biosimulations-icon icon="link"></biosimulations-icon></a>, KiSAO <a href="https://sourceforge.net/p/kisao/feature-requests/new/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and EDAM <a href="https://github.com/edamontology/edamontology/issues/new?template=new-format.md"><biosimulations-icon icon="link"></biosimulations-icon></a> terms. As necessary, also use the SED-ML issue tracker <a href="https://github.com/SED-ML/sed-ml/issues/new"><biosimulations-icon icon="link"></biosimulations-icon></a> to request URNs for additional modeling languages. Currently, there is no process to request additional model format specification URLs for using COMBINE with additional model formats.</p>
         </li>
         <li>
           <p><b>Use the BioSimulators test suite to validate your image and its specificiations.</b> This will check that the image provides a BioSimulations-compliant Docker structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.</p>
