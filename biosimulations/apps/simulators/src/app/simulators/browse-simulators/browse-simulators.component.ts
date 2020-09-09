@@ -6,18 +6,28 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
+import { SimulatorService } from '../simulator.service';
+import edamJson from '../edam.json';
+import kisaoJson from '../kisao.json';
+import sboJson from '../sbo.json';
+import spdxJson from '../spdx.json';
 
+const edamTerms = edamJson as { [id: string]: {name: string, description: string, url: string}};
+const kisaoTerms = kisaoJson as { [id: string]: {name: string, description: string, url: string}};
+const sboTerms = sboJson as { [id: string]: {name: string, description: string, url: string}};
+const spdxTerms = spdxJson as { [id: string]: {name: string, url: string}};
 
 interface Simulator {
-  id: string,
-  name: string,
-  frameworks: string[],
-  algorithms: string[],
-  formats: string[],
-  latestVersion: string,
-  license: string,
-  created: Date,
-  updated: Date,
+  id: string;
+  name: string;
+  frameworks: string[];
+  algorithms: string[];
+  algorithmSynonyms: string[];
+  formats: string[];
+  latestVersion: string;
+  url: string;
+  license: string;
+  created: Date;
 }
 
 @Component({
@@ -34,6 +44,15 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'name',
       heading: "Name",
       key: 'name',
+      rightIcon: 'link',
+      iconTitle: (element: Simulator): string => {
+        return element.name;
+      },
+      linkType: ColumnLinkType.href,
+      href: (element: Simulator): string => {
+        return element.url;
+      },
+      filterable: false
     },
     {
       id: 'frameworks',
@@ -58,8 +77,10 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
         return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
       },
-      filterComparator: TableComponent.comparator,
-      minWidth: 140,
+      filterComparator: (aName: string, bName: string, sign = 1): number => {
+        return TableComponent.comparator(aName, bName, sign);
+      },
+      minWidth: 200,
     },
     {
       id: 'algorithms',
@@ -83,6 +104,20 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       },
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
         return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+      },
+      passesFilter: (element: Simulator, filterValues: string[]): boolean => {
+        const algorithms = element.algorithms;
+        const algorithmSynonyms = element.algorithmSynonyms;
+        for (const v of filterValues) {
+          if (algorithms.includes(v)) {
+            return true;
+          }
+          if (algorithmSynonyms.includes(v)) {
+            return true;
+          }
+        }
+
+        return false;
       },
       filterComparator: TableComponent.comparator,
       minWidth: 300,
@@ -117,6 +152,8 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'latestVersion',
       heading: "Latest version",
       key: 'latestVersion',
+      filterable: false,
+      show: false,
       minWidth: 110,
     },
     {
@@ -139,25 +176,13 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       show: false,
     },
     {
-      id: 'updated',
-      heading: "Updated",
-      key: 'updated',
-      formatter: (value: Date): string => {
-        return value.getFullYear().toString()
-          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
-          + '-' + value.getDate().toString().padStart(2, '0');
-      },
-      filterType: ColumnFilterType.date,
-      show: false,
-    },
-    {
       id: 'moreInfo',
       heading: "More info",
       linkType: ColumnLinkType.routerLink,
       routerLink: (element: any): string[] => {
         return ['/simulators', element.id];
       },
-      icon: 'internalLink',
+      leftIcon: 'internalLink',
       minWidth: 66,
       center: true,
       filterable: false,
@@ -175,84 +200,51 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     this.table.defaultSort = {active: 'name', direction: 'asc'};
 
     setTimeout(() => {
-      this.data = [
-        {
-          id: 'copasi',
-          name: 'COPASI',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
-          algorithms: [
-            'LSODAR',
-            'Radau method',
-            'Gibson-Bruck next reaction algorithm',
-            'sorting stochastic simulation algorithm',
-            'tau-leaping method',
-            'adaptive explicit-implicit tau-leaping method',
-            'LSODA',
-            'Fehlberg method',
-            'Gauss-Legendre Runge-Kutta method',
-          ],
-          formats: ['SBML'],
-          latestVersion: '4.27.214',
-          license: 'Artistic 2.0',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-        {
-          id: 'vcell',
-          name: 'VCell',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
-          algorithms: [
-            'CVODE',
-            'Runge-Kutta based method',
-            'Euler forward method',
-            'explicit fourth-order Runge-Kutta method',
-            'Fehlberg method',
-            'Adams-Moulton method',
-            'IDA',
-            'Gibson-Bruck next reaction algorithm',
-            'hybrid method',
-            'finite volume method',
-            'Brownian diffusion Smoluchowski method',
-          ],
-          formats: ['SBML'],
-          latestVersion: '7.2',
-          license: 'MIT',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-        {
-          id: 'tellurium',
-          name: 'tellurium',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
-          algorithms: [
-            'CVODE',
-            'explicit fourth-order Runge-Kutta method',
-            'Gillespie direct algorithm',
-            'Newton-type method',
-         ],
-          formats: ['SBML'],
-          latestVersion: '2.4.1',
-          license: 'Apache 2.0',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-        {
-          id: 'bionetgen',
-          name: 'BioNetGen',
-          frameworks: ['continuous kinetic', 'discrete kinetic'],
-          algorithms: [
-            'CVODE',
-            'Gillespie direct algorithm',
-            'NFSim agent-based simulation method',
-          ],
-          formats: ['BGNL'],
-          latestVersion: '2.5.0',
-          license: 'MIT',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-      ];
+      
+
+      this.data = SimulatorService.data.map((simulator: any): Simulator => {
+        const frameworks = new Set();
+        const algorithms = new Set();
+        const algorithmSynonyms = new Set();
+        const formats = new Set();
+        for (const algorithm of simulator.algorithms) {
+          for (const framework of algorithm.modelingFrameworks) {
+            frameworks.add(this.trimFramework(sboTerms[framework.id].name));
+          }
+          algorithms.add(kisaoTerms[algorithm.kisaoId.id].name);
+          for (const synonym of algorithm.kisaoSynonyms) {
+            algorithmSynonyms.add(kisaoTerms[synonym.id].name);
+          }
+          for (const format of algorithm.modelFormats) {
+            formats.add(edamTerms[format.id].name);
+          }
+        }
+
+        return {
+          id: simulator.id,
+          name: simulator.name,
+          frameworks: Array.from(frameworks),
+          algorithms: Array.from(algorithms),
+          algorithmSynonyms: Array.from(algorithmSynonyms),
+          formats: Array.from(formats),
+          latestVersion: simulator.version,
+          url: simulator.url,
+          license: this.shortenLicense(spdxTerms[simulator.license.id].name),
+          created: new Date(simulator.created),
+        } as Simulator;
+      });
       this.table.setData(this.data);
     });
+  }
+
+  trimFramework(name: string): string {
+    if (name.toLowerCase().endsWith(' framework')) {
+      name = name.substring(0, name.length - 10);
+    }
+    return name;
+  }
+
+  shortenLicense(name: string): string {
+    return name.replace(/\bLicense\b/, "").replace("  ", " ").trim();
   }
 }

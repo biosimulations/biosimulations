@@ -37,8 +37,8 @@
       "tags": ["scope:shared", "type:assets"]
     },
     "shared-content": {
-      "tags": ["scope:shared", "type:content", "platform:web"],
-      "implicitDependencies": ["shared-ui"]
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "shared-services": {
       "tags": ["scope:shared", "type:service", "platform:any"],

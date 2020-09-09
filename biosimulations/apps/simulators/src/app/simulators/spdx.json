@@ -1,0 +1,14 @@
+{
+    "Apache-2.0": {
+        "name": "Apache License 2.0",
+        "url": "https://spdx.org/licenses/Apache-2.0.html"
+    },
+    "Artistic-2.0": {
+        "name": "Artistic License 2.0",
+        "url": "https://spdx.org/licenses/Artistic-2.0.html"
+    },
+    "MIT": {
+        "name": "MIT License",
+        "url": "https://spdx.org/licenses/MIT.html"
+    }    
+}
