@@ -1,0 +1,37 @@
+{
+    "format_2585": {
+        "name": "SBML",
+        "description": "Systems Biology Markup Language (SBML), the standard XML format for models of biological processes such as for example metabolism, cell signaling, and gene regulation.",
+        "url": "http://sbml.org"
+    },
+    "format_3972": {
+        "name": "BGNL",
+        "description": "BioNetGen is a format for the specification and simulation of rule-based models of biochemical systems, including signal transduction, metabolic, and genetic regulatory networks.",
+        "url": "https://bionetgen.org/"
+    },
+    "format_3685": {
+        "name": "SED-ML",
+        "description": "Simulation Experiment Description Markup Language (SED-ML) is an XML format for encoding simulation setups, according to the MIASE (Minimum Information About a Simulation Experiment) requirements.",
+        "url": "http://sed-ml.org"
+    },
+    "format_3686": {
+        "name": "COMBINE OMEX",
+        "description": "Open Modeling EXchange format (OMEX) is a ZIPped format for encapsulating all information necessary for a modeling and simulation project in systems biology.",
+        "url": "http://co.mbine.org/documents/archive"
+    },
+    "format_3969": {
+        "name": "Vega",
+        "description": "Vega is a visualization grammar, a declarative language for creating, saving, and sharing interactive visualization designs. With Vega, you can describe the visual appearance and interactive behavior of a visualization in a JSON format, and generate web-based views using Canvas or SVG.",
+        "url": "https://vega.github.io/vega/docs/"
+    },
+    "format_3970": {
+        "name": "Vega-lite",
+        "description": "Vega-Lite is a high-level grammar of interactive graphics. It provides a concise JSON syntax for rapidly generating visualizations to support analysis. Vega-Lite specifications can be compiled to Vega specifications.",
+        "url": "https://vega.github.io/vega-lite/docs/"
+    },
+    "format_3973": {
+        "name": "Docker image format",
+        "description": "A Docker image is a file, comprised of multiple layers, that is used to execute code in a Docker container. An image is essentially built from the instructions for a complete and executable version of an application, which relies on the host OS kernel.",
+        "url": "https://github.com/moby/moby/blob/master/image/spec/v1.2.md"
+    }
+}

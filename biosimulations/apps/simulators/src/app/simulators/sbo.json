@@ -1,0 +1,22 @@
+{
+    "0000293": {
+        "name": "non-spatial continuous framework",
+        "description": "Modelling approach where the quantities of participants are considered continuous, and represented by real values. The associated simulation methods make use of differential equations. The models do not take into account the distribution of the entities and describe only the temporal fluxes.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000293"
+    },
+    "0000295": {
+        "name": "non-spatial discrete framework",
+        "description": "Modelling approach where the quantities of participants are considered discrete, and represented by integer values. The associated simulation methods can be deterministic or stochastic.The models do not take into account the distribution of the entities and describe only the temporal fluxes.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000295"
+    },
+    "0000292": {
+        "name": "spatial continuous framework",
+        "description": "Modelling approach where the quantities of participants are considered continuous, and represented by real values. The associated simulation methods make use of differential equations. The models take into account the distribution of the entities and describe the spatial fluxes.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000292"
+    },
+    "0000294": {
+        "name": "spatial discrete framework",
+        "description": "Modelling approach where the quantities of participants are considered discrete, and represented by integer values. The associated simulation methods can be deterministic or stochastic. The models take into account the distribution of the entities and describe the spatial fluxes.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000294"
+    }
+}

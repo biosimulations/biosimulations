@@ -6,6 +6,16 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
+import { SimulatorService } from '../simulator.service';
+import edamJson from '../edam.json';
+import kisaoJson from '../kisao.json';
+import sboJson from '../sbo.json';
+import spdxJson from '../spdx.json';
+
+const edamTerms = edamJson as { [id: string]: {name: string, description: string, url: string}};
+const kisaoTerms = kisaoJson as { [id: string]: {name: string, description: string, url: string}};
+const sboTerms = sboJson as { [id: string]: {name: string, description: string, url: string}};
+const spdxTerms = spdxJson as { [id: string]: {name: string, url: string}};
 
 interface Simulator {
   id: string;
@@ -17,7 +27,6 @@ interface Simulator {
   latestVersion: string;
   url: string;
   license: string;
-  created: Date;
   updated: Date;
 }
 
@@ -55,23 +64,23 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           value.push(framework);
         }
         value.sort((a: string, b: string): number => {
-          return this.trimFramework(a).localeCompare( this.trimFramework(b), undefined, { numeric: true } )
+          return a.localeCompare( b, undefined, { numeric: true } )
         });
         return value;
       },
       formatter: (names: string[]): string => {
-        return names.map(this.trimFramework).join(', ');
+        return names.join(', ');
       },
       filterFormatter: (name: string): string => {
-        return this.trimFramework(name);
+        return name;
       },
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-        return TableComponent.comparator(aNames.map(this.trimFramework).join(', '), bNames.map(this.trimFramework).join(', '), sign);
+        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
       },
       filterComparator: (aName: string, bName: string, sign = 1): number => {
-        return TableComponent.comparator(this.trimFramework(aName), this.trimFramework(bName), sign);
+        return TableComponent.comparator(aName, bName, sign);
       },
-      minWidth: 140,
+      minWidth: 200,
     },
     {
       id: 'algorithms',
@@ -143,8 +152,9 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       id: 'latestVersion',
       heading: "Latest version",
       key: 'latestVersion',
+      filterable: false,
+      show: false,
       minWidth: 110,
-      filterable: false
     },
     {
       id: 'license',
@@ -152,18 +162,6 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       key: 'license',
       show: false,
       minWidth: 75,
-    },
-    {
-      id: 'created',
-      heading: "Created",
-      key: 'created',
-      formatter: (value: Date): string => {
-        return value.getFullYear().toString()
-          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
-          + '-' + value.getDate().toString().padStart(2, '0');
-      },
-      filterType: ColumnFilterType.date,
-      show: false,
     },
     {
       id: 'updated',
@@ -202,118 +200,51 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     this.table.defaultSort = {active: 'name', direction: 'asc'};
 
     setTimeout(() => {
-      this.data = [
-        {
-          id: 'copasi',
-          name: 'COPASI',
-          frameworks: [
-            'non-spatial continuous framework',
-            'non-spatial discrete framework',
-          ],
-          algorithms: [
-            'LSODAR',
-            'Radau method',
-            'Gibson-Bruck next reaction algorithm',
-            'sorting stochastic simulation algorithm',
-            'tau-leaping method',
-            'adaptive explicit-implicit tau-leaping method',
-            'LSODA',
-            'Fehlberg method',
-            'Gauss-Legendre Runge-Kutta method',
-          ],
-          algorithmSynonyms: [],
-          formats: ['SBML'],
-          latestVersion: '4.27.214',
-          url: 'http://copasi.org',
-          license: 'Artistic 2.0',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-        {
-          id: 'vcell',
-          name: 'VCell',
-          frameworks: [
-            'non-spatial continuous framework',
-            'non-spatial discrete framework',
-          ],
-          algorithms: [
-            'CVODE',
-            'Runge-Kutta based method',
-            'Euler forward method',
-            'explicit fourth-order Runge-Kutta method',
-            'Fehlberg method',
-            'Adams-Moulton method',
-            'IDA',
-            'Gibson-Bruck next reaction algorithm',
-            'hybrid method',
-            'finite volume method',
-            'Brownian diffusion Smoluchowski method',
-          ],
-          algorithmSynonyms: [],
-          formats: ['SBML'],
-          latestVersion: '7.2',
-          url: 'https://vcell.org/',
-          license: 'MIT',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-        {
-          id: 'tellurium',
-          name: 'tellurium',
-          frameworks: [
-            'non-spatial continuous framework',
-            'non-spatial discrete framework',
-          ],
-          algorithms: [
-            'CVODE',
-            'explicit fourth-order Runge-Kutta method',
-            'Gillespie direct algorithm',
-            'Newton-type method',
-          ],
-          algorithmSynonyms: [
-            'ordinary Newton method',
-            'simlified Newton method',
-            'Newton-like method',
-            'inexact Newton method',
-            'exact Newton method',
-            'IDA-like method'
-          ],
-          formats: ['SBML'],
-          latestVersion: '2.4.1',
-          url: 'http://tellurium.analogmachine.org/',
-          license: 'Apache 2.0',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-        {
-          id: 'bionetgen',
-          name: 'BioNetGen',
-          frameworks: [
-            'non-spatial continuous framework',
-            'non-spatial discrete framework',
-          ],
-          algorithms: [
-            'CVODE',
-            'Gillespie direct algorithm',
-            'NFSim agent-based simulation method',
-          ],
-          algorithmSynonyms: [],
-          formats: ['BGNL'],
-          latestVersion: '2.5.0',
-          url: 'https://bionetgen.org',
-          license: 'MIT',
-          created: new Date(2020, 9, 1),
-          updated: new Date(2020, 9, 1),
-        },
-      ];
+      
+
+      this.data = SimulatorService.data.map((simulator: any): Simulator => {
+        const frameworks = new Set();
+        const algorithms = new Set();
+        const algorithmSynonyms = new Set();
+        const formats = new Set();
+        for (const algorithm of simulator.algorithms) {
+          for (const framework of algorithm.modelingFrameworks) {
+            frameworks.add(this.trimFramework(sboTerms[framework].name));
+          }
+          algorithms.add(kisaoTerms[algorithm.kisaoId].name);
+          for (const synonym of algorithm.kisaoSynonyms) {
+            algorithmSynonyms.add(kisaoTerms[synonym].name);
+          }
+          for (const format of algorithm.modelFormats) {
+            formats.add(edamTerms[format].name);
+          }
+        }
+
+        return {
+          id: simulator.id,
+          name: simulator.name,
+          frameworks: Array.from(frameworks),
+          algorithms: Array.from(algorithms),
+          algorithmSynonyms: Array.from(algorithmSynonyms),
+          formats: Array.from(formats),
+          latestVersion: simulator.version,
+          url: simulator.url,
+          license: this.shortenLicense(spdxTerms[simulator.license].name),
+          updated: new Date(simulator.updated),
+        } as Simulator;
+      });
       this.table.setData(this.data);
     });
   }
 
-  trimFramework(name: string): string {    
+  trimFramework(name: string): string {
     if (name.toLowerCase().endsWith(' framework')) {
       name = name.substring(0, name.length - 10);
     }
     return name;
+  }
+
+  shortenLicense(name: string): string {
+    return name.replace(/\bLicense\b/, "").replace("  ", " ").trim();
   }
 }
