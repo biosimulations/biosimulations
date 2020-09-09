@@ -134,11 +134,11 @@ export class BrowseComponent implements AfterViewInit {
       id: 'visualize',
       heading: "Visualize",
       center: true,
-      linkType: ColumnLinkType.routerLink,
-      routerLink: (simulation: Simulation): string[] => {
+      leftIcon: 'chart',
+      leftLinkType: ColumnLinkType.routerLink,
+      leftRouterLink: (simulation: Simulation): string[] => {
         return ['/simulations', simulation.id];
       },
-      leftIcon: 'chart',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -147,15 +147,15 @@ export class BrowseComponent implements AfterViewInit {
       id: 'download',
       heading: "Download",
       center: true,
-      linkType: ColumnLinkType.href,
-      href: (simulation: Simulation): string | null => {
+      leftIcon: 'download',
+      leftLinkType: ColumnLinkType.href,
+      leftHref: (simulation: Simulation): string | null => {
         if (simulation.status === SimulationStatus.succeeded) {
           return 'download-results/' + simulation.id;
         } else {
           return null;
         }
       },
-      leftIcon: 'download',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -164,15 +164,15 @@ export class BrowseComponent implements AfterViewInit {
       id: 'log',
       heading: "Log",
       center: true,
-      linkType: ColumnLinkType.routerLink,
-      routerLink: (simulation: Simulation): string[] | null => {
+      leftIcon: 'logs',
+      leftLinkType: ColumnLinkType.routerLink,
+      leftRouterLink: (simulation: Simulation): string[] | null => {
         if (simulation.status === SimulationStatus.succeeded || simulation.status === SimulationStatus.failed) {
           return ['/simulations', simulation.id];
         } else {
           return null;
         }
       },
-      leftIcon: 'logs',
       minWidth: 66,
       filterable: false,
       sortable: false,

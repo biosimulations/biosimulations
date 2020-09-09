@@ -41,18 +41,18 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
 
   columns: Column[] = [
     {
+      id: 'id',
+      heading: "Id",
+      key: 'id',
+      filterable: false,
+      minWidth: 90,
+    },
+    {
       id: 'name',
       heading: "Name",
       key: 'name',
-      rightIcon: 'link',
-      iconTitle: (element: Simulator): string => {
-        return element.name;
-      },
-      linkType: ColumnLinkType.href,
-      href: (element: Simulator): string => {
-        return element.url;
-      },
-      filterable: false
+      filterable: false,
+      minWidth: 90,
     },
     {
       id: 'frameworks',
@@ -120,7 +120,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         return false;
       },
       filterComparator: TableComponent.comparator,
-      minWidth: 300,
+      minWidth: 250,
     },
     {
       id: 'formats',
@@ -178,11 +178,22 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     {
       id: 'moreInfo',
       heading: "More info",
-      linkType: ColumnLinkType.routerLink,
-      routerLink: (element: any): string[] => {
+      leftIcon: 'link',
+      rightIcon: 'internalLink',
+      leftIconTitle: (element: Simulator): string => {
+        return element.name + ' image';
+      },
+      rightIconTitle: (element: Simulator): string => {
+        return element.name + ' website';
+      },
+      leftLinkType: ColumnLinkType.routerLink,
+      rightLinkType: ColumnLinkType.href,
+      leftRouterLink: (element: any): string[] => {
         return ['/simulators', element.id];
       },
-      leftIcon: 'internalLink',
+      rightHref: (element: Simulator): string => {
+        return element.url;
+      },
       minWidth: 66,
       center: true,
       filterable: false,
@@ -200,7 +211,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     this.table.defaultSort = {active: 'name', direction: 'asc'};
 
     setTimeout(() => {
-      
+
 
       this.data = SimulatorService.data.map((simulator: any): Simulator => {
         const frameworks = new Set();
