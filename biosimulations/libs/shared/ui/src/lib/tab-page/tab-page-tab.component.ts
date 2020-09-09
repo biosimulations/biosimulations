@@ -14,6 +14,9 @@ export class TabPageTabComponent {
   icon!: string;
 
   @Input()
+  partialWidth = false;
+
+  @Input()
   disabled = false;
 
   @ViewChild(MatTab) tab!: MatTab;
