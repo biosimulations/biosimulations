@@ -209,14 +209,14 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         const formats = new Set();
         for (const algorithm of simulator.algorithms) {
           for (const framework of algorithm.modelingFrameworks) {
-            frameworks.add(this.trimFramework(sboTerms[framework].name));
+            frameworks.add(this.trimFramework(sboTerms[framework.id].name));
           }
-          algorithms.add(kisaoTerms[algorithm.kisaoId].name);
+          algorithms.add(kisaoTerms[algorithm.kisaoId.id].name);
           for (const synonym of algorithm.kisaoSynonyms) {
-            algorithmSynonyms.add(kisaoTerms[synonym].name);
+            algorithmSynonyms.add(kisaoTerms[synonym.id].name);
           }
           for (const format of algorithm.modelFormats) {
-            formats.add(edamTerms[format].name);
+            formats.add(edamTerms[format.id].name);
           }
         }
 
@@ -229,7 +229,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           formats: Array.from(formats),
           latestVersion: simulator.version,
           url: simulator.url,
-          license: this.shortenLicense(spdxTerms[simulator.license].name),
+          license: this.shortenLicense(spdxTerms[simulator.license.id].name),
           updated: new Date(simulator.updated),
         } as Simulator;
       });
