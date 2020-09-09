@@ -12,7 +12,7 @@ export class SimulatorsService {
   async findAll() {
     return this.simulator.find().lean();
   }
-  async new(doc: any) {
+  async new(doc: Simulator) {
     const sim = new this.simulator(doc);
     return sim.save();
   }
