@@ -1,8 +1,13 @@
-<biosimulations-page [heading]="heading">
+<biosimulations-page [heading]="heading" [padded]="padded">
   <div class="grid grid-2">
     <div class="side-bar">
-      <div class="side-bar-inner sections-container" [ngStyle]="{position: fixed ? 'fixed': null}">
-        <biosimulations-text-page-side-bar-section heading="Contents">
+      <div class="side-bar-inner sections-container"
+        [ngStyle]="{
+          position: !heading || alwaysFixed != null || fixed ? 'fixed': null,
+          top: alwaysFixed == null ? 'calc(64px + 32px + 2rem)' : alwaysFixed
+        }"
+      >
+        <biosimulations-text-page-side-bar-section [heading]="contentsHeading">
           <ul>
             <biosimulations-text-page-toc-item *ngFor="let section of tocSections" [heading]="section.heading" [scrollTarget]="section.target">
             </biosimulations-text-page-toc-item>

@@ -111,8 +111,8 @@ ul.icon-list {
   }
 
   li {
-    margin-left: calc(20px + 0.25rem);
-    text-indent: calc(-1 * (20px + 0.25rem));
+    margin-left: calc(12px + 0.25rem);
+    text-indent: calc(-1 * (12px + 0.25rem));
   }
 
   a {
@@ -346,6 +346,10 @@ table {
     min-height: 28px;
   }
 
+  .highlight-row {
+    background: mat-color($theme-primary, lightest);
+  }
+
   .mat-cell, .mat-header-cell {
     color: $dark-primary-text;
     @include mat-typography-level-to-styles($fontConfig, body-1);
@@ -400,7 +404,10 @@ table {
 
 /* section */
 .section-content {
-  border: 1px solid $light-bg-darker-5;
-  border-radius: 4px;
   padding: 0.5rem;
+}
+
+.border {
+  border: 1px solid $light-bg-darker-5;
+  border-radius: 4px;  
 }

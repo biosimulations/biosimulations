@@ -1,17 +1,33 @@
+@import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
 ::ng-deep .mat-typography {
     h2, h3 {
         margin: 0;
     }
+
+    h3 {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-radius: 4px;
+        background: $light-background;
+    }
+}
+
+.section:not(:last-child) {
+    margin-bottom: 1rem;
 }
 
 .subsection-heading {
     font-weight: bold;
 }
 
-.overview.grid {
-    grid-template-columns: 1fr 35rem;
+.grid {
+    grid-template-columns: 1fr 25rem;
+}
+
+.grid > *:last-child {
+    padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
 .citations tr:first-child {
@@ -20,21 +36,37 @@
     }
 }
 
-.algorithm:not(:last-child) {
-    margin-bottom: 2rem;
+.algorithm-parameters {
+    .mat-header-cell {
+        white-space: nowrap;
+    }
+
+    .mat-header-cell:nth-child(1),
+    .mat-header-cell:nth-child(3),
+    .mat-header-cell:nth-child(4),
+    .mat-header-cell:nth-child(6),
+    .mat-cell:nth-child(1),
+    .mat-cell:nth-child(3),
+    .mat-cell:nth-child(4),
+    .mat-cell:nth-child(6) {
+        flex: 0.75;
+    }
 }
 
 .versions {
-    max-width: 600px;
-
     .mat-header-cell:nth-child(1),
     .mat-header-cell:nth-child(2),
     .mat-cell:nth-child(1),
     .mat-cell:nth-child(2) {
         flex: 0.3;
     }
+}
 
-    a {
-        margin-left: 0.5rem;
+.icon-list {
+  a {
+    color: $dark-primary-text;
+    &:hover {
+      color: mat-color($theme-primary);
     }
+  }
 }
