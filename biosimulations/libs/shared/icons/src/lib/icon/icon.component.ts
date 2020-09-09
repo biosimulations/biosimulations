@@ -67,7 +67,11 @@ export type biosimulationsIcon =
   | 'link'
   | 'internalLink'
   | 'email'
+  | 'git'
   | 'github'
+  | 'docker'
+  | 'linkedin'
+  | 'orcid'
   | 'toTop';
 @Component({
   selector: 'biosimulations-icon',
@@ -88,7 +92,11 @@ export class IconComponent implements OnInit {
     internalLink: { type: 'fas', name: 'external-link-alt'},
     toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
+    git: { type: 'fab', name: 'git-alt' },
     github: { type: 'fab', name: 'github' },
+    docker: { type: 'fab', name: 'docker' },
+    linkedin: { type: 'fab', name: 'linkedin' },
+    orcid: { type: 'fab', name: 'orcid' },
     file: { type: 'fas', name: 'file-alt' },
     user: { type: 'fas', name: 'user' },
     author: { type: 'fas', name: 'user-edit' },
