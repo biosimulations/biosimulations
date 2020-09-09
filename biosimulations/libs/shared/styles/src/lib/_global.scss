@@ -95,6 +95,12 @@ h2,
   }
 }
 
+.icon-list {
+  .heading {
+    font-weight: bold;
+  }
+}
+
 ul.icon-list {
   list-style-type: none;
   margin-block-start: 0;
@@ -131,10 +137,6 @@ ul.icon-list {
 
   biosimulations-icon {
     margin-right: 0.25rem;
-  }
-
-  .heading {
-    font-weight: bold;
   }
 }
 
