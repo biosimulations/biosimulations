@@ -50,7 +50,10 @@ export class TextPageComponent {
   getTocSections(container: any) {
     for (const section of container.children) {
       if (section.localName === 'biosimulations-text-page-content-section') {
-        const heading = section.getAttribute('shortHeading') || section.getAttribute('ng-reflect-shortHeading') || section.getAttribute('heading') || section.getAttribute('ng-reflect-heading');
+        const heading = section.getAttribute('shortHeading')
+            || section.getAttribute('ng-reflect-short-heading')
+            || section.getAttribute('heading')
+            || section.getAttribute('ng-reflect-heading');
         const tocSection = {
           heading: heading,
           target: section,
@@ -60,7 +63,7 @@ export class TextPageComponent {
         const observer = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
             const heading = section.getAttribute('shortHeading')
-              || section.getAttribute('ng-reflect-shortHeading')
+              || section.getAttribute('ng-reflect-short-heading')
               || section.getAttribute('heading')
               || section.getAttribute('ng-reflect-heading');
             tocSection.heading = heading;
@@ -68,7 +71,7 @@ export class TextPageComponent {
         });
 
         observer.observe(section, {
-          attributeFilter: ['shortHeading', 'ng-reflect-shortHeading', 'heading', 'ng-reflect-heading'],
+          attributeFilter: ['shortHeading', 'ng-reflect-short-heading', 'heading', 'ng-reflect-heading'],
         });
         this.tocSectionObservers.push(observer);
       } else {
