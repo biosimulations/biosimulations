@@ -30,7 +30,8 @@ export class BrowseComponent implements AfterViewInit {
       id: 'id',
       heading: "Id",
       key: 'id',
-      minWidth: 34
+      minWidth: 34,
+      filterable: false,
     },
     {
       id: 'name',
@@ -137,7 +138,7 @@ export class BrowseComponent implements AfterViewInit {
       routerLink: (simulation: Simulation): string[] => {
         return ['/simulations', simulation.id];
       },
-      icon: 'chart',
+      leftIcon: 'chart',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -154,7 +155,7 @@ export class BrowseComponent implements AfterViewInit {
           return null;
         }
       },
-      icon: 'download',
+      leftIcon: 'download',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -171,7 +172,7 @@ export class BrowseComponent implements AfterViewInit {
           return null;
         }
       },
-      icon: 'logs',
+      leftIcon: 'logs',
       minWidth: 66,
       filterable: false,
       sortable: false,

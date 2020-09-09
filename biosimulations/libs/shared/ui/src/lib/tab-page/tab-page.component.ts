@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Output, EventEmitter, ViewChild, ContentChildren, QueryList } from '@angular/core';
+import { Component, AfterViewInit, Input, Output, EventEmitter, ViewChild, ContentChildren, QueryList } from '@angular/core';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { TabPageTabComponent } from './tab-page-tab.component';
 
@@ -8,6 +8,9 @@ import { TabPageTabComponent } from './tab-page-tab.component';
   styleUrls: ['./tab-page.component.scss'],
 })
 export class TabPageComponent implements AfterViewInit {
+  @Input()
+  loading = false;
+
   @Output() selectedTabChange: EventEmitter<any> = new EventEmitter();
 
   constructor() {}

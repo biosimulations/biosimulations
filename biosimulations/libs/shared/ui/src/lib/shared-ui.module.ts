@@ -14,6 +14,7 @@ import { BiosimulationsNavigationItemComponent } from './biosimulations-navigati
 import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navigation/biosimulations-navigation-subitem.component';
 import { HyperLinkComponent } from './hyper-link/hyper-link.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { FullPageSpinnerComponent } from './spinner/full-page-spinner.component';
 import { LogoTextComponent } from './logo-text/logo-text.component';
 import { LogoImageComponent } from './logo-image/logo-image.component';
 import { RouterLinkComponent } from './router-link/router-link.component';
@@ -39,7 +40,7 @@ import { HomeLogoComponent } from './home/home-logo.component';
     HoverOpenMenuComponent, DropdownMenuItemComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
-    HyperLinkComponent, SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
+    HyperLinkComponent, SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
     TableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,
@@ -52,7 +53,7 @@ import { HomeLogoComponent } from './home/home-logo.component';
     StepperButtonsComponent,
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent,
-    SpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
+    SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
     TableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,

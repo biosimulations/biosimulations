@@ -41,6 +41,9 @@ export class BreadCrumbsComponent implements OnInit {
 
     const setRoute = (paramName: string, part: string) => {
       if (route.snapshot) {
+        // TODO: replace `route.snapshot.params[paramName]` (e.g., resource id) with resource name. This will have to be provided from the page
+        // which will typically need to get the name from the API
+
         path = path.replace(part, route.snapshot.params[paramName]);
         label = label
           ? label + ' ' + route.snapshot.params[paramName]

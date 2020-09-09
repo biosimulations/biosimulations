@@ -117,30 +117,51 @@
         >
           <div [ngSwitch]="column.linkType" class="cell-content-container"
             [ngClass]="{
-              'lines-1': linesPerRow === 1,
-              'lines-2': linesPerRow === 2,
-              'lines-3': linesPerRow === 3
+              'lines-one': linesPerRow === 1,
+              'lines-multiple': linesPerRow > 1,
+              'center': column.center === true
             }"
-            [ngStyle]="{'text-align': column.center !== undefined ? 'center' : null }">
+            [ngStyle]="{
+              '-webkit-line-clamp': linesPerRow,
+              'height.px': 20 * linesPerRow
+            }">
+
+            <ng-template #iconTemplate let-icon="icon">
+              <biosimulations-icon *ngIf="icon" [icon]="icon" [title]="getIconTitle(element, column)"></biosimulations-icon>
+            </ng-template>
+
             <ng-template [ngSwitchCase]="'routerLink'">
               <a *ngIf="getElementRouterLink(element, column) as routerLink" [routerLink]="routerLink">
-                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
-                {{ formatElementValue(getElementValue(element, column), column) }}
+                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.leftIcon}"></ng-container>
               </a>
             </ng-template>
 
             <ng-template [ngSwitchCase]="'href'">
-              <a *ngIf="getElementHref(element, column) as href" [href]="href">
-                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
-                {{ formatElementValue(getElementValue(element, column), column) }}
+              <a *ngIf="getElementHref(element, column) as href" [href]="href" target="_blank" >
+                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.leftIcon}"></ng-container>
               </a>
             </ng-template>
 
             <ng-template ngSwitchDefault>
-              <span>
-                <biosimulations-icon *ngIf="column.icon" [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
-                {{ formatElementValue(getElementValue(element, column), column) }}
-              </span>
+              <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.leftIcon}"></ng-container>
+            </ng-template>
+
+            {{ formatElementValue(getElementValue(element, column), column) }}
+
+            <ng-template [ngSwitchCase]="'routerLink'">
+              <a *ngIf="getElementRouterLink(element, column) as routerLink" [routerLink]="routerLink">
+                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.rightIcon}"></ng-container>
+              </a>
+            </ng-template>
+
+            <ng-template [ngSwitchCase]="'href'">
+              <a *ngIf="getElementHref(element, column) as href" [href]="href" target="_blank" >
+                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.rightIcon}"></ng-container>
+              </a>
+            </ng-template>
+
+            <ng-template ngSwitchDefault>
+              <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.rightIcon}"></ng-container>
             </ng-template>
           </div>
         </mat-cell>
