@@ -1,8 +1,8 @@
-<biosimulations-full-page-spinner *ngIf="loading; else tabs">
+<biosimulations-full-page-spinner *ngIf="loading">
 </biosimulations-full-page-spinner>
 
-<ng-template #tabs>
-    <mat-tab-group (selectedTabChange)="this.selectedTabChange.emit($event)">
-      <ng-content></ng-content>
-    </mat-tab-group>
-</ng-template>
+<div [ngClass]="{hidden: loading}">
+  <mat-tab-group (selectedTabChange)="this.selectedTabChange.emit($event)">
+    <ng-content></ng-content>
+  </mat-tab-group>
+</div>
