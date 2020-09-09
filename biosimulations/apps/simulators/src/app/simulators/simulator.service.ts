@@ -87,7 +87,7 @@ export interface Simulator {
   license: LicenseId;
   authors: Person[];
   references: Reference;
-  updated: number;
+  created: number;
 }
 
 export class SimulatorService {
@@ -199,7 +199,7 @@ export class SimulatorService {
         citations: [
         ],
       },
-      updated: new Date(2020, 9, 1).getTime(),
+      created: new Date(2020, 9, 1).getTime(),
     },
     {
       id: 'vcell',
@@ -339,7 +339,7 @@ export class SimulatorService {
         ],
       },
       license: {namespace: 'SPDX', id: 'MIT'},
-      updated: new Date(2020, 9, 1).getTime(),
+      created: new Date(2020, 9, 1).getTime(),
     },
     {
       id: 'tellurium',
@@ -581,7 +581,7 @@ export class SimulatorService {
         ],
       },
       license: {namespace: 'SPDX', id: 'Apache-2.0'},
-      updated: new Date(2020, 9, 1).getTime(),
+      created: new Date(2020, 9, 1).getTime(),
     },
     {
       id: 'bionetgen',
@@ -633,7 +633,7 @@ export class SimulatorService {
         ],
       },
       license: {namespace: 'SPDX', id: 'MIT'},
-      updated: new Date(2020, 9, 1).getTime(),
+      created: new Date(2020, 9, 1).getTime(),
     },
   ];
 }

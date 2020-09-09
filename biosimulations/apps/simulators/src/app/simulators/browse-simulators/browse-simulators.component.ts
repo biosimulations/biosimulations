@@ -27,7 +27,7 @@ interface Simulator {
   latestVersion: string;
   url: string;
   license: string;
-  updated: Date;
+  created: Date;
 }
 
 @Component({
@@ -164,9 +164,9 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
       minWidth: 75,
     },
     {
-      id: 'updated',
-      heading: "Updated",
-      key: 'updated',
+      id: 'created',
+      heading: "Created",
+      key: 'created',
       formatter: (value: Date): string => {
         return value.getFullYear().toString()
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
@@ -230,7 +230,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           latestVersion: simulator.version,
           url: simulator.url,
           license: this.shortenLicense(spdxTerms[simulator.license.id].name),
-          updated: new Date(simulator.updated),
+          created: new Date(simulator.created),
         } as Simulator;
       });
       this.table.setData(this.data);
