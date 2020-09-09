@@ -283,7 +283,12 @@ code {
 }
 
 code, pre {
+  font-size: 90%;  
   background: $light-background;
+}
+
+.code {
+  font-family: monospace;
 }
 
 /* range slider */

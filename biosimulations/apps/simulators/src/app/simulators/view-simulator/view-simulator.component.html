@@ -26,7 +26,7 @@
       <div class="border">
         <div class="section">
           <h3>Docker pull command</h3>
-          <div class="section-content">
+          <div class="section-content code">
             docker pull {{ image }}
           </div>
         </div>
@@ -63,7 +63,7 @@
 
       <ng-container id="content">
         <biosimulations-text-page-content-section *ngFor="let algorithm of algorithms"
-          [heading]="algorithm.name + ' (KISAO:' + algorithm.id + ')'"
+          [heading]="algorithm.heading"
           [shortHeading]="algorithm.name"
         >
           <p class="subsection-heading no-bottom-margin">Description</p>
@@ -208,7 +208,7 @@
       <div class="border">
         <div class="section">
           <h3>Docker pull command</h3>
-          <div class="section-content">
+          <div class="section-content code">
             docker pull {{ '{' }}  image-url {{ '}' }}
           </div>
         </div>

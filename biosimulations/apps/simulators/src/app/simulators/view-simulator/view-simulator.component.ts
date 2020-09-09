@@ -16,6 +16,7 @@ const spdxTerms = spdxJson as { [id: string]: {name: string, url: string}};
 
 interface Algorithm {
   id: string;
+  heading: string;
   name: string;
   description: DescriptionFragment[];
   url: string;
@@ -158,6 +159,7 @@ export class ViewSimulatorComponent implements OnInit {
         this.algorithms = simulator.algorithms.map((algorithm): Algorithm => {
           return {
             id: algorithm.kisaoId.id,
+            heading: kisaoTerms[algorithm.kisaoId.id].name + ' (KISAO:' + algorithm.kisaoId.id + ')',
             name: kisaoTerms[algorithm.kisaoId.id].name,
             description: this.formatKisaoDescription(kisaoTerms[algorithm.kisaoId.id].description),
             url: kisaoTerms[algorithm.kisaoId.id].url,
