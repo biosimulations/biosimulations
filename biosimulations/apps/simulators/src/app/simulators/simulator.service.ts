@@ -81,6 +81,7 @@ export interface Simulator {
   description: string;
   url: string;
   image: string;
+  imageUrl?: string;
   format: OntologyId;
   algorithms: Algorithm[];
   version: string;
@@ -97,6 +98,7 @@ export class SimulatorService {
       name: 'COPASI',
       description: 'COPASI is a C++-based software application for the simulation and analysis of biochemical networks and their dynamics.',
       image: 'docker.io/biosimulators/copasi:4.28.226',
+      imageUrl: 'https://hub.docker.com/r/biosimulators/copasi/tags',
       format: {ontology: 'EDAM', id: 'format_3973'},
       algorithms: [
         {
@@ -206,6 +208,7 @@ export class SimulatorService {
       name: 'VCell',
       description: 'VCell (Virtual Cell) is a comprehensive platform for modeling cell biological systems that is built on a central database and disseminated as a standalone application',
       image: 'docker.io/biosimulators/vcell:7.2',
+      imageUrl: 'https://hub.docker.com/r/biosimulators/vcell/tags',
       format: {ontology: 'EDAM', id: 'format_3973'},
       algorithms: [
         {
@@ -346,6 +349,7 @@ export class SimulatorService {
       name: 'tellurium',
       description: 'tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.',
       image: 'docker.io/biosimulators/tellurium:2.4.1',
+      imageUrl: 'https://hub.docker.com/r/biosimulators/tellurium/tags',
       format: {ontology: 'EDAM', id: 'format_3973'},
       algorithms: [
         {
@@ -441,7 +445,7 @@ export class SimulatorService {
           citations: [
             {
               "title": "CVODE, a stiff/nonstiff ODE solver in C",
-              "authors": "Scott D Cohen, Alan C Hindmarsh & and Paul F Dubois",
+              "authors": "Scott D Cohen, Alan C Hindmarsh & Paul F Dubois",
               "journal": "Computers in Physics",
               "volume": 10,
               "issue": 2,
@@ -588,6 +592,7 @@ export class SimulatorService {
       name: 'BioNetGen',
       description: 'BioNetGen is an open-source software package for rule-based modeling of complex biochemical systems.',
       image: 'docker.io/biosimulators/bionetgen:2.5.0',
+      imageUrl: 'https://hub.docker.com/r/biosimulators/bionetgen/tags',
       format: {ontology: 'EDAM', id: 'format_3973'},
       algorithms: [
         {
