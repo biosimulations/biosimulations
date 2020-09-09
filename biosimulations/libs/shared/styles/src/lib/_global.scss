@@ -150,8 +150,8 @@ table.icon-list {
   }
 
   a {
-    color: $dark-primary-text;    
-  }  
+    color: $dark-primary-text;
+  }
 
   a:hover {
     color: mat-color($theme-primary);
@@ -200,7 +200,7 @@ a {
   &:last-child,
   &.no-bottom-margin {
     margin-bottom: 0;
-  }  
+  }
 }
 
 /* forms */
