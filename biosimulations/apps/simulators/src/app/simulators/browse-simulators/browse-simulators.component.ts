@@ -178,8 +178,8 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     {
       id: 'moreInfo',
       heading: "More info",
-      leftIcon: 'link',
-      rightIcon: 'internalLink',
+      leftIcon: 'internalLink',
+      rightIcon: 'link',
       leftIconTitle: (element: Simulator): string => {
         return element.name + ' image';
       },
