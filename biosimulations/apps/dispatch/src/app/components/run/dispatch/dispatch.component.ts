@@ -8,7 +8,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
-import { environment } from './../../../../environments/environment';
+import { environment } from '@biosimulations/shared/environments';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -39,18 +39,24 @@ export class DispatchComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.dispatchService.getAllSimulatorInfo().subscribe(
       (simulators: any) => {
         this.simulators = simulators;
-        this.simulatorsError = undefined;      
+        this.simulatorsError = undefined;
         this.formGroup.controls.simulator.enable();
       },
       (error: HttpErrorResponse) => {
-        this.simulatorsError = 'Sorry! We were not able to retrieve the available simulators.';
+        this.simulatorsError =
+          'Sorry! We were not able to retrieve the available simulators.';
         this.formGroup.controls.simulator.disable();
         if (!environment.production) {
-          console.error('Error ' + error.status.toString() + ' while fetching simulators: ' + error.message)
+          console.error(
+            'Error ' +
+              error.status.toString() +
+              ' while fetching simulators: ' +
+              error.message
+          );
         }
       }
     );
@@ -85,31 +91,40 @@ export class DispatchComponent implements OnInit {
         (error: HttpErrorResponse) => {
           this.submitError = error.message;
           if (!environment.production) {
-            console.error('Error ' + error.status.toString() + ' while submitting simulation: ' + error.message)
+            console.error(
+              'Error ' +
+                error.status.toString() +
+                ' while submitting simulation: ' +
+                error.message
+            );
           }
         }
       );
   }
 
   onSimulatorChange($event: any) {
-    this.dispatchService
-      .getAllSimulatorInfo($event.value)
-      .subscribe(
-        (simulatorVersions: any) => {
-          this.simulatorVersions = simulatorVersions;
-          this.simulatorVersionsError = undefined;
-          this.formGroup.controls.simulatorVersion.enable();
-          this.formGroup.controls.simulatorVersion.setValue(
-            this.simulatorVersions[0]
+    this.dispatchService.getAllSimulatorInfo($event.value).subscribe(
+      (simulatorVersions: any) => {
+        this.simulatorVersions = simulatorVersions;
+        this.simulatorVersionsError = undefined;
+        this.formGroup.controls.simulatorVersion.enable();
+        this.formGroup.controls.simulatorVersion.setValue(
+          this.simulatorVersions[0]
+        );
+      },
+      (error: HttpErrorResponse) => {
+        this.simulatorVersionsError =
+          'Sorry! We were not able to retrieve the available simulation versions.';
+        this.formGroup.controls.simulatorVersion.disable();
+        if (!environment.production) {
+          console.error(
+            'Error ' +
+              error.status.toString() +
+              ' while fetching simulator versions: ' +
+              error.message
           );
-        },
-        (error: HttpErrorResponse) => {
-          this.simulatorVersionsError = 'Sorry! We were not able to retrieve the available simulation versions.';
-          this.formGroup.controls.simulatorVersion.disable();
-          if (!environment.production) {
-            console.error('Error ' + error.status.toString() + ' while fetching simulator versions: ' + error.message)
-          }
         }
-      );
+      }
+    );
   }
 }
