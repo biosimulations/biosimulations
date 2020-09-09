@@ -12,6 +12,12 @@ const routes: Routes = [
   {
     path: ':id',
     component: ViewSimulatorComponent,
+    children: [
+      {
+        path: ':version',
+        component: ViewSimulatorComponent,
+      },
+    ]
   },
 ];
 
