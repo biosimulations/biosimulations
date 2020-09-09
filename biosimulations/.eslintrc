@@ -38,6 +38,54 @@
             "onlyDependOnLibsWithTags": ["platform:web", "platform:any"]
           },
           {
+            "sourceTag": "platform:server",
+            "onlyDependOnLibsWithTags": ["platform:server", "platform:any"]
+          },
+          {
+            "sourceTag": "scope:shared",
+            "onlyDependOnLibsWithTags": ["scope:shared"]
+          },
+          {
+            "sourceTag": "scope:config",
+            "onlyDependOnLibsWithTags": ["scope:config", "type:environments"]
+          },
+
+          {
+            "sourceTag": "scope:auth",
+            "onlyDependOnLibsWithTags": ["scope:auth", "type:environments"]
+          },
+          {
+            "sourceTag": "scope:simulators",
+            "onlyDependOnLibsWithTags": ["scope:simulators", "scope:shared"]
+          },
+          {
+            "sourceTag": "scope:accounts",
+            "onlyDependOnLibsWithTags": [
+              "scope:accounts",
+              "scope:shared",
+              "type:config",
+              "scope:auth"
+            ]
+          },
+          {
+            "sourceTag": "scope:platform",
+            "onlyDependOnLibsWithTags": [
+              "scope:platform",
+              "scope:shared",
+              "type:config",
+              "scope:auth"
+            ]
+          },
+          {
+            // todo change scope to type
+            "sourceTag": "scope:dispatch",
+            "onlyDependOnLibsWithTags": [
+              "scope:dispatch",
+              "scope:shared",
+              "scope:config"
+            ]
+          },
+          {
             "sourceTag": "*",
             "onlyDependOnLibsWithTags": ["*"]
           }
