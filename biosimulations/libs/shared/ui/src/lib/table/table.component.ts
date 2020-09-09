@@ -18,6 +18,11 @@ export enum ColumnFilterType {
   date = 'date',
 }
 
+export enum Side {
+  left = 'left',
+  right = 'right'
+}
+
 export interface Column {
   id: string;
   heading: string;
@@ -29,10 +34,14 @@ export interface Column {
   filterFormatter?: (cellValue: any) => any;
   leftIcon?: string;
   rightIcon?: string;
-  iconTitle?: (rowData: any) => string | null;
-  linkType?: ColumnLinkType;
-  routerLink?: (rowData: any) => any[] | null;
-  href?: (rowData: any) => string | null;
+  leftIconTitle?: (rowData: any) => string | null;
+  rightIconTitle?: (rowData: any) => string | null;
+  leftLinkType?: ColumnLinkType;
+  rightLinkType?: ColumnLinkType;
+  leftRouterLink?: (rowData: any) => any[] | null;
+  rightRouterLink?: (rowData: any) => any[] | null;
+  leftHref?: (rowData: any) => string | null;
+  rightHref?: (rowData: any) => string | null;
   minWidth?: number;
   center?: boolean;
   filterable?: boolean;
@@ -131,17 +140,21 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
-  getElementRouterLink(element: any, column: Column): any {
-    if (column.linkType === ColumnLinkType.routerLink && column.routerLink !== undefined) {
-      return column.routerLink(element);
+  getElementRouterLink(element: any, column: Column, side: Side): any {
+    if (side == Side.left && column.leftLinkType === ColumnLinkType.routerLink && column.leftRouterLink !== undefined) {
+      return column.leftRouterLink(element);
+    } else if (side == Side.right && column.rightLinkType === ColumnLinkType.routerLink && column.rightRouterLink !== undefined) {
+      return column.rightRouterLink(element);
     } else {
       return null;
     }
   }
 
-  getElementHref(element: any, column: Column): any {
-    if (column.linkType === ColumnLinkType.href && column.href !== undefined) {
-      return column.href(element);
+  getElementHref(element: any, column: Column, side: Side): any {
+    if (side == Side.left && column.leftLinkType === ColumnLinkType.href && column.leftHref !== undefined) {
+      return column.leftHref(element);
+    } else if (side == Side.right && column.rightLinkType === ColumnLinkType.href && column.rightHref !== undefined) {
+      return column.rightHref(element);
     } else {
       return null;
     }
@@ -178,11 +191,13 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getIconTitle(element: any, column: Column): string | null {
-    if (column.iconTitle === undefined) {
-      return column.heading;
+  getIconTitle(element: any, column: Column, side: Side): string | null {
+    if (side == Side.left && column.leftIconTitle !== undefined) {
+      return column.leftIconTitle(element);
+    } else if (side == Side.right && column.rightIconTitle !== undefined) {
+      return column.rightIconTitle(element);
     } else {
-      return column.iconTitle(element);
+      return column.heading;
     }
   }
 
@@ -408,7 +423,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       } else {
         passesFilter = column.passesFilter;
       }
-      
+
       const filterValue = this.filter[column.id];
 
       if (!passesFilter(datum, filterValue)) {
