@@ -10,8 +10,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ScheduleModule } from '@nestjs/schedule';
+
+const dbUri = process.env.MONGO_URI || '';
 @Module({
-  imports: [BiosimulationsConfigModule, HttpModule],
+  imports: [
+    BiosimulationsConfigModule,
+    HttpModule,
+    MongooseModule.forRoot(dbUri),
+    ScheduleModule.forRoot(),
+  ],
   controllers: [AppController],
   providers: [
     AppService,
