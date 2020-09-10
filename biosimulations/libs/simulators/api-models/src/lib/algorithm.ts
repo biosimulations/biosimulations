@@ -16,11 +16,12 @@ import {
   OntologyId,
   KisaoOntologyId,
   SBOOntologyId,
+  EdamOntologyIdSchema,
 } from './ontologyId';
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
-// TODO align with shared datamodel
+// TODO separate api and db schemas?
 @Schema()
 export class Algorithm implements IAlgorithm {
   @Prop()
@@ -39,21 +40,21 @@ export class Algorithm implements IAlgorithm {
   @ApiProperty({ type: [KisaoOntologyId] })
   kisaoSynonyms!: KisaoOntologyId[];
   @Prop()
-  @ApiProperty({ type: [KisaoOntologyId] })
+  @ApiProperty({ type: [OntologyId] })
   characteristics!: OntologyId[];
   @Prop()
   @ApiProperty({ type: [SBOOntologyId] })
   modelingFrameworks!: SBOOntologyId[];
 
   @ApiProperty({ type: [EdamOntologyId] })
-  @Prop({ items: EdamOntologyId, _id: false })
+  @Prop({ items: EdamOntologyIdSchema, _id: false })
   modelFormats!: EdamOntologyId[];
 
   @ApiProperty({ type: [EdamOntologyId] })
-  @Prop({ items: EdamOntologyId, _id: false })
+  @Prop({ items: EdamOntologyIdSchema, _id: false })
   simulationFormats!: EdamOntologyId[];
   @ApiProperty({ type: [EdamOntologyId] })
-  @Prop({ items: EdamOntologyId, _id: false })
+  @Prop({ items: EdamOntologyIdSchema, _id: false })
   archiveFormats!: EdamOntologyId[];
   @ApiProperty({ type: [JournalReference] })
   @Prop({})

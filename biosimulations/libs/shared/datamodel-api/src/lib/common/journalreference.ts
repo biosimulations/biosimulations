@@ -26,6 +26,6 @@ export class JournalReference implements IJournalReference {
   pages!: string | null;
   @ApiProperty({ example: 2020 })
   year!: number;
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: [Identifier], nullable: true })
   identifiers!: Identifier[] | null;
 }

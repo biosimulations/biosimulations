@@ -9,7 +9,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
 export class OntologyId implements IOntologyId {
-  @ApiProperty()
+  @ApiProperty({ enum: Ontologies, enumName: 'Ontologies' })
   @Prop()
   namespace!: Ontologies;
   @ApiProperty()
