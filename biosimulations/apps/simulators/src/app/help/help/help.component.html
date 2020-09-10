@@ -1,6 +1,6 @@
 <biosimulations-text-page heading="Tutorial">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources">     
+    <biosimulations-text-page-side-bar-section heading="Related resources">
       <div class="hanging-indent">
         <a [href]="apiUrl" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
@@ -56,7 +56,7 @@
       shortHeading="Executing simulations"
     >
       <p>Two web applications are available for using the BioSimulators simulation tools to execute simulations. runBioSimulations <a href="https://submit.biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a simple application that uses BioSimulators to execute modeling studies. BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a platform for publishing modeling studies that also uses BioSimulators to executed published modeling studies.</p>
-        
+
       <p>The BioSimulators simulation tools can also be used to execute simulations on your own machine. Please follow these steps to use a containerized simulation tool to execute a modeling study on your own machine.</p>
 
       <ol class="vertically-spaced">
@@ -75,13 +75,13 @@
           <pre>docker run \
   --tty \
   --rm \
-  --mount type=bind,source={{ '{' }} path-to-directory-of-OMEX-file {{ '}' }},target=/tmp/project,readonly \
+  --mount type=bind,source={{ '{' }} path-to-directory-of-COMBINE-archive {{ '}' }},target=/tmp/project,readonly \
   --mount type=bind,source={{ '{' }} path-to-save-results {{ '}' }},target=/tmp/results \
   biosimulators/{{ '{' }} simulator-id {{ '}' }} \
-    --archive /tmp/project/{{ '{' }} name-of-OMEX-file {{ '}' }} \
+    --archive /tmp/project/{{ '{' }} name-of-COMBINE-archive {{ '}' }} \
     --out-dir /tmp/results</pre>
 
-          <p>Your OMEX file should be located at <code>path-to-directory-of-OMEX-file/name-of-OMEX-file</code>. This will save your results to <code>path-to-save-results</code>.</p>
+          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>. This will save your results to <code>path-to-save-results</code>.</p>
         </li>
       </ol>
     </biosimulations-text-page-content-section>
@@ -119,8 +119,22 @@
             <li>Set the <code>ENTRYPOINT</code> directive to the path to your command-line interface.</li>
             <li>Set the <code>CMD</code> directive to <code>[]</code>.</li>
             <li>
-              <p>Use the <code>LABEL</code> directive to describe basic metadata about your simulation tool. This metadata is necessary to also submit your container to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of containers for biological research. Below is an example of the metadata for the BioNetGen container.</p>
+              <p>Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is necessary to also submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
+              <ul>
+                <li><code>version</code>: the version of your image (e.g., <code>1.0.0</code>)</li>
+                <li><code>software</code>: the simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
+                <li><code>software.version</code>: the version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
+                <li><code>about.summary</code>: short description of the simulation tool (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
+                <li><code>about.home</code>: URL for the simulation tool (e.g., <code>https://bionetgen.org/</code>).</li>
+                <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+                <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
+                <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.dev/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
+                <li><code>about.tags</code>: comma-separated list of tags which describe the simulation tool (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Plese include the tag <code>BioSimulators</code>.</li>
+                <li><code>extra.identifiers.biotools</code>: optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
+                <li><code>maintainer</code>: the name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+              </ul>
 
+              <p>Below is an example of metadata for the BioNetGen image.</p>
               <pre>LABEL base_image="ubuntu:18.04"
 LABEL version="1.0.0"
 LABEL software="BioNetGen"
@@ -130,7 +144,7 @@ LABEL about.home="https://bionetgen.org/"
 LABEL about.documentation="https://bionetgen.org/"
 LABEL about.license_file="https://github.com/RuleWorld/bionetgen/blob/master/LICENSE"
 LABEL about.license="SPDX:MIT"
-LABEL about.tags="rule-based modeling,dynamical simulation,systems biology,BNGL"
+LABEL about.tags="rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators"
 LABEL extra.identifiers.biotools="bionetgen"
 LABEL maintainer="Jonathan Karr &lt;karr@mssm.edu&gt;"
 </pre>
@@ -168,7 +182,10 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
           <b>Submit an issue <a href="https://github.com/biosimulations/Biosimulations/issues/new/choose" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes your tool and the URL for the Docker image for your tool.
         </li>
         <li>
-          <b>Optionally, also submit your containerized tool to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers containers repository <a href="https://github.com/BioContainers/containers/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
+          <b>Optionally, also register your tool with bio.tools.</b> Visit bio.tools <a href="https://bio.tools" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to submit your tool to their regsitry of research tools.
+        </li>
+        <li>
+          <b>Optionally, also submit your Dockerfile to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers image registry <a href="https://github.com/BioContainers/containers/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
         </li>
       </ol>
     </biosimulations-text-page-content-section>
