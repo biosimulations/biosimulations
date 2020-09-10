@@ -2,8 +2,8 @@ import {
   Format as IFormat,
   License,
   KISAOTerm,
-  OntologyTerm,
-  Algorithm as IAlgorithm,
+  IOntologyTerm,
+  IAlgorithm,
   JournalReference,
   AlgorithmParameter,
 } from '@biosimulations/shared/datamodel';
@@ -23,12 +23,14 @@ export class Simulator extends Document {
   @ApiProperty({
     example: 'tellurium',
   })
-  @Prop()
+  @Prop({ required: true })
   id!: string;
-  @Prop()
-  @ApiProperty({ example: 'tellurium' })
+
+  @Prop({ required: true })
+  @ApiProperty({ example: 'Tellurium' })
   name!: string;
-  @Prop()
+
+  @Prop({ required: true })
   @ApiProperty({
     example: '2.4.1',
   })
@@ -62,10 +64,12 @@ export class Simulator extends Document {
   @ApiProperty({ enum: License })
   license!: License;
   @ApiProperty({ type: [Algorithm] })
-  @Prop({ items: Algorithm, _id: false })
+  @Prop({ items: AlgorithmSchema, _id: false })
   algorithms!: Algorithm[];
   constructor() {
     super();
+    this.schema.index({ id: 1, version: 1 }, { unique: true });
   }
 }
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
+SimulatorSchema.index({ id: 1, version: 1 }, { unique: true });

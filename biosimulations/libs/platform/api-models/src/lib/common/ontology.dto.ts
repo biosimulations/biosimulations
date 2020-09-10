@@ -1,17 +1,17 @@
 import {
-  OntologyTerm as IOntologyTerm,
+  IOntologyTerm,
   Ontologies,
   Identifier as IIdentifier,
 } from '@biosimulations/shared/datamodel';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class OntologyTerm implements OntologyTerm {
+export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ enum: Ontologies })
-  ontology!: string;
+  namespace!: Ontologies;
   @ApiProperty()
   id!: string;
   @ApiProperty()
-  name!: string;
+  name!: string | null;
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
   @ApiProperty({ type: String, nullable: true })
@@ -24,5 +24,5 @@ export class Identifier implements IIdentifier {
   @ApiProperty()
   id!: string;
   @ApiProperty({ type: String, nullable: true })
-  url!: string | null;
+  url?: string | null;
 }

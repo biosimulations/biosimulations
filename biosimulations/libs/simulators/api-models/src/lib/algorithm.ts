@@ -4,8 +4,8 @@ import {
   ExternalReferences,
   License,
   KISAOTerm,
-  OntologyTerm,
-  Algorithm as IAlgorithm,
+  IOntologyTerm,
+  IAlgorithm,
 } from '@biosimulations/shared/datamodel';
 import { JournalReference } from '@biosimulations/shared/datamodel-api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
@@ -22,7 +22,7 @@ import { AlgorithmParameter } from './algorithmParameter';
 
 // TODO align with shared datamodel
 @Schema()
-export class Algorithm {
+export class Algorithm implements IAlgorithm {
   @Prop()
   @ApiProperty()
   kisaoId!: KisaoOntologyId;
@@ -39,8 +39,11 @@ export class Algorithm {
   @ApiProperty({ type: [KisaoOntologyId] })
   kisaoSynonyms!: KisaoOntologyId[];
   @Prop()
+  @ApiProperty({ type: [KisaoOntologyId] })
+  characteristics!: OntologyId[];
+  @Prop()
   @ApiProperty({ type: [SBOOntologyId] })
-  modelingFrameworks!: OntologyId[];
+  modelingFrameworks!: SBOOntologyId[];
 
   @ApiProperty({ type: [EdamOntologyId] })
   @Prop({ items: EdamOntologyId, _id: false })

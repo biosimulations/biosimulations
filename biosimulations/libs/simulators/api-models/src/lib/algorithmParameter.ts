@@ -1,5 +1,5 @@
 import { PrimitiveType } from '@biosimulations/shared/datamodel';
-import { KisaoOntologyId } from './ontologyId';
+import { KisaoOntologyId, OntologyId } from './ontologyId';
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop } from '@nestjs/mongoose';
 
@@ -7,6 +7,12 @@ export class AlgorithmParameter {
   @Prop()
   @ApiProperty()
   kisaoId!: KisaoOntologyId;
+  @Prop()
+  @ApiProperty()
+  kisaoSynonyms!: KisaoOntologyId[];
+  @Prop()
+  @ApiProperty()
+  characteristics!: OntologyId[];
   @Prop()
   @ApiProperty()
   id!: string;

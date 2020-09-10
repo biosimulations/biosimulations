@@ -1,5 +1,6 @@
 import { JournalReference as IJournalReference } from '@biosimulations/shared/datamodel';
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
+import { Identifier } from './ontology.dto';
 
 export class JournalReference implements IJournalReference {
   @ApiProperty()
@@ -26,5 +27,5 @@ export class JournalReference implements IJournalReference {
   @ApiProperty({ example: 2020 })
   year!: number;
   @ApiProperty({ type: String, nullable: true })
-  doi!: string | null;
+  identifiers!: Identifier[] | null;
 }

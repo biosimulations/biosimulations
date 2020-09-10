@@ -12,6 +12,9 @@ export class SimulatorsService {
   async findAll() {
     return this.simulator.find().lean();
   }
+  async findAllLatest() {
+    const all = this.simulator.find({}).lean();
+  }
   async new(doc: Simulator) {
     const sim = new this.simulator(doc);
     return sim.save();

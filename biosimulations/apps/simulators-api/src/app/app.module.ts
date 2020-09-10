@@ -7,9 +7,11 @@ import { ConfigService } from '@nestjs/config';
 import { SimulatorsService } from '../simulators/simulators.service';
 import { SimulatorsController } from '../simulators/simulators.controller';
 import { SimulatorsModule } from '../simulators/simulators.module';
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 @Module({
   imports: [
     BiosimulationsConfigModule,
+    BiosimulationsAuthModule,
     MongooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({

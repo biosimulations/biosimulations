@@ -8,6 +8,4 @@ export class ExternalReferences implements IExternalReferences {
   identifiers!: Identifier[];
   @ApiProperty({ type: [JournalReference] })
   citations!: JournalReference[];
-  @ApiProperty({ type: String, nullable: true })
-  doi!: string | null;
 }

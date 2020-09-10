@@ -1,4 +1,4 @@
-import { Identifier, PrimitiveType, OntologyTerm, Format } from '../..';
+import { Identifier, PrimitiveType, IOntologyTerm, Format } from '../..';
 import { Taxon } from '../common/taxon';
 import { PrimaryResourceMetaData } from '../resources';
 import { BiosimulationsId, UserId } from '../common';
@@ -36,7 +36,7 @@ export interface BiomodelAttributes {
   taxon: Taxon | null;
   parameters: BiomodelParameter[];
   variables: BiomodelVariable[];
-  framework: OntologyTerm;
+  framework: IOntologyTerm;
   format: Format;
 }
 

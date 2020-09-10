@@ -1,6 +1,13 @@
 import { PrimitiveType } from '../common/primitive-type';
-import { OntologyTerm, Format, JournalReference } from '../..';
+import { IOntologyTerm, Format, JournalReference } from '../..';
 import { KisaoId } from '../common/alias';
+import {
+  ISboOntologyID,
+  IOntologyId,
+  IKisaoOntologyId,
+  IEdamOntologyId,
+  KISAOTerm,
+} from '../common';
 
 /**
  * Represents a parameter in a particlar simulation algorith or method.
@@ -15,20 +22,23 @@ export interface AlgorithmParameter {
   value: boolean | number | string;
   // Todo make this a conditional type based on value
   recomendedRange: (boolean | number | string)[] | null;
-  kisaoId: KisaoId | null;
+  kisaoId: IKisaoOntologyId;
+  kisaoSynonyms: IKisaoOntologyId[];
+  characteristics: IOntologyId[];
 }
 
-export interface Algorithm {
+export interface IAlgorithm {
   id: string;
   name: string;
-  kisaoId: KisaoId;
-  ontologyTerms: OntologyTerm[];
-  modelingFrameworks: OntologyTerm[];
-  modelFormats: Format[];
+  kisaoId: IKisaoOntologyId;
+  kisaoSynonyms: IKisaoOntologyId[];
+  characteristics: IOntologyId[];
+  modelingFrameworks: ISboOntologyID[];
+  modelFormats: IEdamOntologyId[];
   parameters: AlgorithmParameter[];
-  simulationFormats: Format[];
-  archiveFormats: Format[];
-  references: JournalReference[];
+  simulationFormats: IEdamOntologyId[];
+  archiveFormats: IEdamOntologyId[];
+  citations: JournalReference[];
 }
 
 /*

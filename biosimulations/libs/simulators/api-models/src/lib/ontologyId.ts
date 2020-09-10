@@ -1,19 +1,26 @@
-import { OntologyId as IOntology } from '@biosimulations/shared/datamodel';
+import {
+  IOntologyId,
+  Ontologies,
+  IEdamOntologyId,
+  IKisaoOntologyId,
+  ISboOntologyID,
+  ISpdxId,
+} from '@biosimulations/shared/datamodel';
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
-export class OntologyId implements IOntology {
+export class OntologyId implements IOntologyId {
   @ApiProperty()
   @Prop()
-  ontology!: string;
+  namespace!: Ontologies;
   @ApiProperty()
   @Prop()
   id!: string;
 }
 export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
-export class EdamOntologyId extends OntologyId {
+export class EdamOntologyId implements IEdamOntologyId {
   @ApiProperty({ enum: ['EDAM'] })
   @Prop()
-  ontology!: 'EDAM';
+  namespace!: Ontologies.EDAM;
   @ApiProperty({ example: 'format_3973' })
   @Prop({})
   id!: string;
@@ -21,10 +28,10 @@ export class EdamOntologyId extends OntologyId {
 export const EdamOntologyIdSchema = SchemaFactory.createForClass(
   EdamOntologyId
 );
-export class KisaoOntologyId extends OntologyId {
+export class KisaoOntologyId implements IKisaoOntologyId {
   @ApiProperty({ enum: ['KISAO'] })
   @Prop()
-  ontology!: 'KISAO';
+  namespace!: Ontologies.KISAO;
   @ApiProperty({ example: 'KISAO:0000306' })
   @Prop()
   id!: string;
@@ -32,12 +39,21 @@ export class KisaoOntologyId extends OntologyId {
 export const KisaoOntologyIdSchema = SchemaFactory.createForClass(
   KisaoOntologyId
 );
-export class SBOOntologyId extends OntologyId {
+export class SBOOntologyId implements ISboOntologyID {
   @ApiProperty({ enum: ['SBO'] })
   @Prop()
-  ontology!: 'SBO';
-  @ApiProperty({ example: 'SBO:0000004' })
+  namespace!: Ontologies.SBO;
+  @ApiProperty({ example: '0000004' })
   @Prop()
   id!: string;
 }
 export const SBOOntologyIdSchema = SchemaFactory.createForClass(SBOOntologyId);
+
+export class SpdxOntologyId implements ISpdxId {
+  @ApiProperty({ enum: ['SBO'] })
+  @Prop()
+  namespace!: Ontologies.SPDX;
+  @ApiProperty({ example: '0BSD' })
+  @Prop()
+  id!: string;
+}

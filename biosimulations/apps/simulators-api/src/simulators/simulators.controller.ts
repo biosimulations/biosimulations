@@ -1,5 +1,20 @@
-import { Controller, Get, Param, Post, Body, Query } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiQuery, ApiParam } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { AdminGuard } from '@biosimulations/auth/nest';
+import {
+  ApiTags,
+  ApiBody,
+  ApiQuery,
+  ApiParam,
+  ApiOAuth2,
+} from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
 import { version } from 'process';
@@ -26,7 +41,8 @@ export class SimulatorsController {
   getSimulator(@Param('id') id: string, @Query('version') version: string) {
     return null;
   }
-
+  @UseGuards(AdminGuard)
+  @ApiOAuth2([])
   @Post()
   @ApiBody({
     type: Simulator,
