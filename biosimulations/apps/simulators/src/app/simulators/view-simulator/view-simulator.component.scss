@@ -15,19 +15,21 @@
 }
 
 .section:not(:last-child) {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .subsection-heading {
     font-weight: bold;
 }
 
-.grid {
-    grid-template-columns: 1fr 25rem;
+.columns-container > *:last-child {
+    padding: 0.5rem 0.5rem 0;
 }
 
-.grid > *:last-child {
-    padding: 0.5rem 0.5rem 0;
+@media screen and (max-width: 959px) {
+    .columns-container > *:last-child {
+        margin-top: 1rem;
+    }
 }
 
 .citations tr:first-child {
@@ -69,6 +71,15 @@
       color: mat-color($theme-primary);
     }
   }
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+
+    &:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }    
 }
 
 .code {
