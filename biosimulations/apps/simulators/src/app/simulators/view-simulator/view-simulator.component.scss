@@ -2,66 +2,66 @@
 @import 'biosimulations-typography';
 
 ::ng-deep .mat-typography {
-    h2, h3 {
-        margin: 0;
-    }
+  h2, h3 {
+    margin: 0;
+  }
 
-    h3 {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-        border-radius: 4px;
-        background: $light-background;
-    }
+  h3 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 4px;
+    background: $light-background;
+  }
 }
 
 .section:not(:last-child) {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .subsection-heading {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .columns-container > *:last-child {
-    padding: 0.5rem 0.5rem 0;
+  padding: 0.5rem 0.5rem 0;
 }
 
 @media screen and (max-width: 959px) {
-    .columns-container > *:last-child {
-        margin-top: 1rem;
-    }
+  .columns-container > *:last-child {
+    margin-top: 1rem;
+  }
 }
 
 .citations tr:first-child {
-    th, td {
-        padding-top: 0.5rem;
-    }
+  th, td {
+    padding-top: 0.5rem;
+  }
 }
 
 .algorithm-parameters {
-    .mat-header-cell {
-        white-space: nowrap;
-    }
+  .mat-header-cell {
+    white-space: nowrap;
+  }
 
-    .mat-header-cell:nth-child(1),
-    .mat-header-cell:nth-child(3),
-    .mat-header-cell:nth-child(4),
-    .mat-header-cell:nth-child(6),
-    .mat-cell:nth-child(1),
-    .mat-cell:nth-child(3),
-    .mat-cell:nth-child(4),
-    .mat-cell:nth-child(6) {
-        flex: 0.75;
-    }
+  .mat-header-cell:nth-child(1),
+  .mat-header-cell:nth-child(3),
+  .mat-header-cell:nth-child(4),
+  .mat-header-cell:nth-child(6),
+  .mat-cell:nth-child(1),
+  .mat-cell:nth-child(3),
+  .mat-cell:nth-child(4),
+  .mat-cell:nth-child(6) {
+    flex: 0.75;
+  }
 }
 
 .versions {
-    .mat-header-cell:nth-child(1),
-    .mat-header-cell:nth-child(2),
-    .mat-cell:nth-child(1),
-    .mat-cell:nth-child(2) {
-        flex: 0.3;
-    }
+  .mat-header-cell:nth-child(1),
+  .mat-header-cell:nth-child(2),
+  .mat-cell:nth-child(1),
+  .mat-cell:nth-child(2) {
+    flex: 0.3;
+  }
 }
 
 .icon-list {
@@ -74,12 +74,12 @@
 }
 
 .table-container {
-    width: 100%;
-    overflow-x: auto;
+  width: 100%;
+  overflow-x: auto;
 
-    &:not(:last-child) {
-        margin-bottom: 0.5rem;
-    }    
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .code {
