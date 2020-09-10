@@ -11,17 +11,20 @@ import {
   ExternalReferences,
   Person,
 } from '@biosimulations/shared/datamodel-api';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 import { AlgorithmSchema } from './algorithm';
 import { EdamOntologyId, EdamOntologyIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
+
+// TODO Split database and api models?
 @Schema()
 export class Simulator extends Document {
   @ApiProperty({
     example: 'tellurium',
+    name: 'id',
   })
   @Prop({ required: true })
   id!: string;
@@ -66,10 +69,16 @@ export class Simulator extends Document {
   @ApiProperty({ type: [Algorithm] })
   @Prop({ items: AlgorithmSchema, _id: false })
   algorithms!: Algorithm[];
-  constructor() {
-    super();
-    this.schema.index({ id: 1, version: 1 }, { unique: true });
-  }
+
+  @ApiResponseProperty({})
+  created!: Date;
+  @ApiResponseProperty({})
+  updated!: Date;
 }
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 SimulatorSchema.index({ id: 1, version: 1 }, { unique: true });
+SimulatorSchema.set('timestamps', {
+  createdAt: 'created',
+  updatedAt: 'updated',
+});
+//SimulatorSchema.set('id', false);
