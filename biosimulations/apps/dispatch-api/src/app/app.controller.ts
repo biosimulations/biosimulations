@@ -275,7 +275,9 @@ export class AppController implements OnApplicationBootstrap {
     });
   }
 
+
   async onApplicationBootstrap() {
     await this.messageClient.connect();
   }
+  
 }

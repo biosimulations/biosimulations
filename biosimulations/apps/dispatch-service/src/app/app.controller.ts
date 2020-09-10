@@ -19,6 +19,7 @@ import { SimulationDispatchSpec } from '@biosimulations/dispatch/datamodel';
 import { v4 as uuid } from 'uuid';
 import path from 'path';
 import * as csv2Json from 'csv2json';
+import { Cron, CronExpression, Interval, Timeout } from '@nestjs/schedule';
 
 @Controller()
 export class AppController {
@@ -29,6 +30,14 @@ export class AppController {
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
   ) {}
   private logger = new Logger(AppController.name);
+  private readonly taskLogger = new Logger(AppController.name);
+
+  @Cron(CronExpression.EVERY_30_SECONDS)
+  async jobMonitor(jobId: string) {
+    this.hpcService.squeueStatus(jobId);
+    this.taskLogger.log('Job running: ', jobId)
+
+  }
 
   @MessagePattern('dispatch')
   async uploadFile(data: SimulationDispatchSpec) {
@@ -114,7 +123,8 @@ export class AppController {
               .pipe(fs.createWriteStream(jsonPath))
               .on('close', () => {
                 // Convert CSV to chart JSON
-                const chartJsonPath = jsonPath.split('.json')[0] + '_chart.json';
+                const chartJsonPath =
+                  jsonPath.split('.json')[0] + '_chart.json';
                 this.readFile(jsonPath).then((jsonData: any) => {
                   const chartResults = this.convertJsonDataToChartData(
                     JSON.parse(jsonData)
@@ -133,9 +143,7 @@ export class AppController {
               });
           }
         }
-      })
-
-      
+      });
     }
   }
 
