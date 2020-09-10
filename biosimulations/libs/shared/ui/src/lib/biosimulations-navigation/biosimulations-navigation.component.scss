@@ -63,6 +63,12 @@
   position: sticky;
   top: 0;
   z-index: 200;
+
+  @media (max-width: 599px) {
+    ::ng-deep .mat-toolbar-single-row {
+        height: 64px;
+    }
+  }
 }
 
 .topbar-left-button {
