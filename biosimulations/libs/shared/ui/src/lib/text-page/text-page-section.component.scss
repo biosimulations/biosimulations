@@ -2,6 +2,12 @@
   margin-top: 2rem;
 }
 
+@media screen and (max-width: 959px) {
+  .container {
+    margin-top: 1rem;
+  }
+}
+
 h2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;

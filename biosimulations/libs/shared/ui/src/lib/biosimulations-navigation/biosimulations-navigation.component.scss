@@ -63,12 +63,6 @@
   position: sticky;
   top: 0;
   z-index: 200;
-
-  @media (max-width: 599px) {
-    ::ng-deep .mat-toolbar-single-row {
-        height: 64px;
-    }
-  }
 }
 
 .topbar-left-button {
@@ -87,7 +81,13 @@
 .content {
   padding: 0;
   background: #fff;
-  min-height: calc(100vh - 64px - 32px); // TODO: substract an additional 52px when the privacy notice is visible
+  min-height: calc(100vh - 64px - 28px - 0.5rem); // TODO: substract an additional 52px when the privacy notice is visible
+}
+
+@media screen and (max-width: 959px) {
+  .content {
+    min-height: calc(100vh - 56px); // TODO: substract an additional 52px when the privacy notice is visible
+  }
 }
 
 .logo-img {
