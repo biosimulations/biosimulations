@@ -11,6 +11,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { IonicStorageModule } from '@ionic/storage';
 describe('ViewComponent', () => {
   let component: ViewComponent;
   let fixture: ComponentFixture<ViewComponent>;
@@ -28,6 +29,9 @@ describe('ViewComponent', () => {
         MatSelectModule,
         SharedUiModule,
         BiosimulationsIconsModule,
+        IonicStorageModule.forRoot({
+          driverOrder: ['indexeddb', 'websql', 'localstorage']
+        }),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
