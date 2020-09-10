@@ -4,6 +4,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 interface TocItem {
   heading: string;
@@ -29,6 +30,7 @@ export class TextPageComponent {
   alwaysFixed: string | null = null;
 
   fixed = false;
+  smallLayout = false;
 
   tocSections: TocItem[] = [];
   tocSectionObservers: MutationObserver[] = [];
@@ -80,8 +82,14 @@ export class TextPageComponent {
     }
   }
 
-  constructor() {
+  constructor(mediaMatcher: MediaMatcher) {
     window.addEventListener('scroll', this.scroll, true);
+
+    const matcher = mediaMatcher.matchMedia('(max-width: 959px)');
+    this.smallLayout = matcher.matches;
+    matcher.addListener((event) => {
+      this.smallLayout = event.matches;
+    });
   }
 
   ngOnDestroy() {

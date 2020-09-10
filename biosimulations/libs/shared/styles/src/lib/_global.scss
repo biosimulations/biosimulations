@@ -25,8 +25,20 @@ body {
   box-sizing: border-box;
 }
 
+@media screen and (max-width: 959px) {
+  .full-width {
+    height: calc(100vh - 56px);
+  }
+}
+
 .padded {
   padding: 2rem;
+}
+
+@media screen and (max-width: 959px) {
+  .padded {
+    padding: 1rem;
+  }
 }
 
 h1,
