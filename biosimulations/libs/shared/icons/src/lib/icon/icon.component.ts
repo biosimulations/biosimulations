@@ -39,6 +39,7 @@ export type biosimulationsIcon =
   | 'overview'
   | 'report'
   | 'download'
+  | 'upload'
   | 'logs'
   | 'compare'
   | 'filter'
@@ -125,6 +126,7 @@ export class IconComponent implements OnInit {
     overview: { type: 'fas', name: 'list' },
     report: { type: 'fas', name: 'table' },
     download: { type: 'fas', name: 'download' },
+    upload: { type: 'fas', name: 'upload' },
     logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
     filter: { type: 'fas', name: 'filter' },

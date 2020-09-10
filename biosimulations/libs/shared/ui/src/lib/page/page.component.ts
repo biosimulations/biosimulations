@@ -12,5 +12,8 @@ export class PageComponent {
   @Input()
   heading = '';
 
+  @Input()
+  padded = true;
+
   constructor() {}
 }

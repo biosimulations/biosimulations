@@ -388,6 +388,7 @@ export class SimulatorService {
           parameters: [
             {
               kisaoId: {ontology: 'KISAO', id: "0000209"},
+              id: 'rTol',
               name: "Relative tolerance",
               type: AlgorithmParameterType.float,
               value: 0.000001,
@@ -395,48 +396,56 @@ export class SimulatorService {
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000211"},
+              id: 'aTol',
               name: "Absolute tolerance",
               type: AlgorithmParameterType.float,
               value: 1e-12
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000220"},
+              id: 'bdfOrder',
               name: "Maximum Backward Differentiation Formula (BDF) order",
               type: AlgorithmParameterType.integer,
               value: 5
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000219"},
+              id: 'adamsOrder',
               name: "Maximum Adams order",
               type: AlgorithmParameterType.integer,
               value: 12
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000415"},
+              id: 'nSteps',
               name: "Maximum number of steps",
               type: AlgorithmParameterType.integer,
               value: 20000
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000467"},
+              id: 'maxStep',
               name: "Maximum time step",
               type: AlgorithmParameterType.float,
               value: 0
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000485"},
+              id: 'minStep',
               name: "Minimum time step",
               type: AlgorithmParameterType.float,
               value: 0
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000332"},
+              id: 'firstStep',
               name: "Initial time step",
               type: AlgorithmParameterType.float,
               value: 0
             },
             {
               kisaoId: {ontology: 'KISAO', id: "0000107"},
+              id: 'adaptiveSteps',
               name: "Adaptive time steps",
               type: AlgorithmParameterType.boolean,
               value: false

@@ -7,8 +7,9 @@ import {
 } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import { VisualisationService } from '../../../services/visualisation/visualisation.service';
+import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
+import { SimulationStatus } from '../../../datamodel';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -28,7 +29,8 @@ export class DispatchComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dispatchService: DispatchService
+    private dispatchService: DispatchService,
+    private simulationService: SimulationService,
   ) {
     this.formGroup = formBuilder.group({
       projectFile: ['', [Validators.required]],
@@ -87,6 +89,17 @@ export class DispatchComponent implements OnInit {
           this.dispatchService.uuidsDispatched.push(simulationId);
           this.dispatchService.uuidUpdateEvent.next(simulationId);
           this.simulationId = simulationId;
+
+          this.simulationService.storeSimulation({
+            id: simulationId,
+            name: name,
+            email: email,
+            submittedLocally: true,
+            status: SimulationStatus.queued,
+            runtime: undefined,
+            submitted: new Date(),
+            updated: new Date(),
+          });
         },
         (error: HttpErrorResponse) => {
           this.submitError = error.message;

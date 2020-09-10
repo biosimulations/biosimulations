@@ -1,28 +1,13 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { Component, ViewChild } from '@angular/core';
+import { Simulation, SimulationStatus } from '../../../datamodel';
+import { SimulationService } from '../../../services/simulation/simulation.service';
 import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
-
-enum SimulationStatus {
-  queued = 'queued',
-  started = 'started',
-  succeeded = 'succeeded',
-  failed = 'failed',
-}
-
-interface Simulation {
-  id: string;
-  name: string;
-  status: SimulationStatus;
-  runtime?: number;
-  submitted: Date;
-  updated: Date;
-}
 
 @Component({
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
 })
-export class BrowseComponent implements AfterViewInit {
+export class BrowseComponent {
   @ViewChild(TableComponent) table!: TableComponent;
 
   columns: Column[] = [
@@ -131,14 +116,25 @@ export class BrowseComponent implements AfterViewInit {
       minWidth: 140,
     },
     {
+      id: 'submittedLocally',
+      heading: "Submitted locally",
+      key: 'submittedLocally',
+      formatter: (value: boolean): string => {
+        return value ? 'Yes' : 'No';
+      },
+      minWidth: 134,
+      center: true,
+      show: false,
+    },
+    {
       id: 'visualize',
       heading: "Visualize",
       center: true,
-      linkType: ColumnLinkType.routerLink,
-      routerLink: (simulation: Simulation): string[] => {
+      leftIcon: 'chart',
+      leftLinkType: ColumnLinkType.routerLink,
+      leftRouterLink: (simulation: Simulation): string[] => {
         return ['/simulations', simulation.id];
       },
-      leftIcon: 'chart',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -147,15 +143,15 @@ export class BrowseComponent implements AfterViewInit {
       id: 'download',
       heading: "Download",
       center: true,
-      linkType: ColumnLinkType.href,
-      href: (simulation: Simulation): string | null => {
+      leftIcon: 'download',
+      leftLinkType: ColumnLinkType.href,
+      leftHref: (simulation: Simulation): string | null => {
         if (simulation.status === SimulationStatus.succeeded) {
           return 'download-results/' + simulation.id;
         } else {
           return null;
         }
       },
-      leftIcon: 'download',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -164,44 +160,71 @@ export class BrowseComponent implements AfterViewInit {
       id: 'log',
       heading: "Log",
       center: true,
-      linkType: ColumnLinkType.routerLink,
-      routerLink: (simulation: Simulation): string[] | null => {
+      leftIcon: 'logs',
+      leftLinkType: ColumnLinkType.routerLink,
+      leftRouterLink: (simulation: Simulation): string[] | null => {
         if (simulation.status === SimulationStatus.succeeded || simulation.status === SimulationStatus.failed) {
           return ['/simulations', simulation.id];
         } else {
           return null;
         }
       },
-      leftIcon: 'logs',
       minWidth: 66,
       filterable: false,
       sortable: false,
     },
   ];
 
-  data: Simulation[] = [];
-
-  constructor(private dispatchService: DispatchService) {}
+  constructor(private simulationService: SimulationService) {}
 
   ngAfterViewInit() {
     this.table.defaultSort = {active: 'id', direction: 'asc'};
 
-    this.dispatchService.uuidUpdateEvent.subscribe(
-      (uuid: string): void => {
-        // TODO: get name, status, runtime, dates from dispatch service
-        this.data.push({
-          id: uuid,
-          name: '',
-          status: SimulationStatus.queued,
-          runtime: undefined,
-          submitted: new Date(),
-          updated: new Date(),
-        });
-        this.table.setData(this.data);
-      },
-      (error): void => {
-        console.log('Error occured while fetching UUIds: ', error);
-      },
+    this.simulationService.simulations$.subscribe(
+      (simulations: Simulation[]): void => {
+        setTimeout(() => this.table.setData(simulations));
+      }
     );
+  }
+
+  exportSimulations() {
+    const simulations = [...this.simulationService.getSimulations()] as any[];
+    simulations.forEach((simulation: any) => {
+      simulation.submitted = simulation.submitted.getTime();
+      simulation.updated = simulation.updated.getTime();
+    });
+
+    const blob = new Blob([JSON.stringify(simulations, null, 2)], {type: 'application/json'});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = 'simulations.json';
+    a.click();
+  }
+
+  importSimulations() {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.onchange = () => {
+      if (input.files == null || input.files.length === 0) {
+        return;
+      }
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target == null || typeof e.target.result !== 'string') {
+          return;
+        }
+
+        const simulations = JSON.parse(e.target.result);
+        simulations.forEach((simulation: any) => {
+          simulation.submitted = new Date(simulation.submitted);
+          simulation.updated = new Date(simulation.updated);
+          simulation.submittedLocally = false;
+        });
+        this.simulationService.setSimulations(simulations, true);
+      };
+      reader.readAsText(file);      
+    };
+    input.click();
   }
 }
