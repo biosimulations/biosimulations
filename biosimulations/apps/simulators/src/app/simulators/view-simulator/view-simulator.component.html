@@ -1,6 +1,10 @@
 <biosimulations-tab-page [loading]="loading$ | async">
   <biosimulations-tab-page-tab heading="Overview" icon="overview" [partialWidth]="true">
-    <div class="overview grid">
+    <div class="overview columns-container"
+      gdAuto.gt-sm="column"
+      gdColumns.gt-sm="1fr 25rem"
+      gdGap.gt-sm="2rem"
+    >
       <div>
         <h2>{{ name }} ({{ id }} / {{ version }})</h2>
         <p>
@@ -95,60 +99,62 @@
           </ul>
 
           <p class="subsection-heading no-bottom-margin">Parameters</p>
-          <mat-table [dataSource]="algorithm.parameters" class="algorithm-parameters">
-            <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
-              <mat-cell *matCellDef="let parameter">
-                <div class="cell-content-container lines-one">
-                  {{ parameter.id }}
-              </div>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-              <mat-cell *matCellDef="let parameter">
-                <div class="cell-content-container lines-one">
-                  {{ parameter.name }}
-              </div>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="type">
-              <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-              <mat-cell *matCellDef="let parameter">
-                <div class="cell-content-container lines-one">
-                  {{ parameter.type }}
-              </div>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="value">
-              <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
-              <mat-cell *matCellDef="let parameter">
-                <div class="cell-content-container lines-one">
-                  {{ parameter.value }}
-              </div>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="range">
-              <mat-header-cell *matHeaderCellDef>Recommended range</mat-header-cell>
-              <mat-cell *matCellDef="let parameter">
-                <div class="cell-content-container lines-one">
-                  {{ parameter.range }}
-              </div>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="kisaoId">
-              <mat-header-cell *matHeaderCellDef>KiSAO id</mat-header-cell>
-              <mat-cell *matCellDef="let parameter">
-                <div class="cell-content-container lines-one">
-                  {{ parameter.kisaoId }}
-                  <a *ngIf="parameter.kisaoUrl" [href]="parameter.url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
-              </div>
-              </mat-cell>
-            </ng-container>
+          <div class="table-container">
+            <mat-table [dataSource]="algorithm.parameters" class="algorithm-parameters">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.id }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.name }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.type }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.value }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="range">
+                <mat-header-cell *matHeaderCellDef>Recommended range</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.range }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="kisaoId">
+                <mat-header-cell *matHeaderCellDef>KiSAO id</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.kisaoId }}
+                    <a *ngIf="parameter.kisaoUrl" [href]="parameter.url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
+                </div>
+                </mat-cell>
+              </ng-container>
 
-            <mat-header-row *matHeaderRowDef="parameterColumns; sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: parameterColumns"></mat-row>
-          </mat-table>
+              <mat-header-row *matHeaderRowDef="parameterColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: parameterColumns"></mat-row>
+            </mat-table>
+          </div>
 
           <p class="subsection-heading no-bottom-margin">Citations</p>
           <ul class="icon-list">
@@ -171,8 +177,12 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab heading="Versions" icon="version" [partialWidth]="true">
-    <div class="grid">
-      <div>
+    <div class="columns-container"
+      gdAuto.gt-sm="column"
+      gdColumns.gt-sm="1fr 25rem"
+      gdGap.gt-sm="2rem"
+    >
+      <div class="table-container">
         <mat-table [dataSource]="versions" class="versions">
           <ng-container matColumnDef="label">
             <mat-header-cell *matHeaderCellDef>Version</mat-header-cell>

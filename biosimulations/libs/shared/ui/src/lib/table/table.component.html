@@ -2,7 +2,17 @@
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
-<div class="grid" [ngClass]="{hidden: isLoading | async}">
+<div  
+  gdAuto="column"
+  gdColumns.gt-sm="16rem 1fr"
+  gdGap="2rem"
+
+  gdAuto.lt-md="row"
+  gdRows.lt-md="1fr"
+  gdGap.lt-md="1rem"
+
+  [ngClass]="{hidden: isLoading | async}"
+>
   <mat-accordion class="controls">
     <mat-expansion-panel>
       <mat-expansion-panel-header
