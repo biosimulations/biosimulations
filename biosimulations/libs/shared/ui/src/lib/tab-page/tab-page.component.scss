@@ -36,5 +36,6 @@
   .mat-tab-body-wrapper {
     padding: 2rem;
     min-height: calc(100vh - 64px - 32px - 32px - 2 * 2rem);
+    z-index: 0;
   }
 }
