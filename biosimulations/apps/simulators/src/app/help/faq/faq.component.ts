@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 export class FaqComponent implements OnInit {
   // TODO: get from app config
   issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
+  emailUrl = 'mailto:' + 'info@biosimulators.org'
   biosimulatorsIssueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
   submitAppUrl = 'https://submit.biosimulations.org/'
   webserviceUrl = 'https://dispatch.biosimulations.org/'

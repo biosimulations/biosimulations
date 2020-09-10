@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class PlatformPrivacyPolicyComponent {  
   // TODO: get from app config
   appName = 'BioSimulations';
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
+  emailUrl = 'mailto:' + 'info@biosimulators.org'
   
   constructor() {}
 }

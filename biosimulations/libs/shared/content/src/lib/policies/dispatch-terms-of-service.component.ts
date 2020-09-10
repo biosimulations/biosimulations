@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class DispatchTermsOfServiceComponent {  
   // TODO: get from app config
   appName = 'runBioSimulations';
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
+  emailUrl = 'mailto:' + 'info@biosimulators.org'
   
   constructor() {}
 }
