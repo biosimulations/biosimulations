@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import {
   ClientProxyFactory,
   NatsOptions,
@@ -17,7 +16,6 @@ describe('AppController', () => {
       imports: [HttpModule],
       controllers: [AppController],
       providers: [
-        AppService,
         ConfigService,
         {
           provide: 'DISPATCH_MQ',
@@ -58,15 +56,7 @@ describe('AppController', () => {
     });
   });
 
-  describe('dispatchFinishEvent', () => {
-    it('should return "OK" after sending message to NATS', () => {
-      const appController = app.get<AppController>(AppController);
-      expect(
-        appController.dispatchFinishEvent('213243421sdfvds')
-      ).toEqual({message: 'OK'})
-    })
-  });
-
+  
   describe('getVisualizationData', () => {
     it('should run with given parameters and save generate JSON data', () => {
       const appController = app.get<AppController>(AppController)

@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { HpcService } from './services/hpc/hpc.service';
 import { SshService } from './services/ssh/ssh.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
+import { SchedulerRegistry } from '@nestjs/schedule';
 import {
   ClientProxyFactory,
   Transport,
@@ -21,6 +22,7 @@ describe('AppController', () => {
         HpcService,
         SshService,
         SbatchService,
+        SchedulerRegistry,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {

@@ -7,7 +7,6 @@ import {
   NatsOptions,
 } from '@nestjs/microservices';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -23,7 +22,6 @@ const dbUri = process.env.MONGO_URI || '';
   ],
   controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: 'DISPATCH_MQ',
       useFactory: (configService: ConfigService) => {

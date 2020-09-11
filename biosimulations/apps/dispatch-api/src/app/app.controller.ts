@@ -15,7 +15,6 @@ import {
   HttpService,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AppService } from './app.service';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import {
   ApiOperation,
@@ -38,7 +37,6 @@ import { urls } from '@biosimulations/config/common';
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
   constructor(
-    private readonly appService: AppService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private httpService: HttpService
   ) {}
