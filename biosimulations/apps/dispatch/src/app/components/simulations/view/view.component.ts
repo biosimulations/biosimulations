@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { SimulationService } from '../../../services/simulation/simulation.service';
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 import { VisualisationComponent } from './visualisation/visualisation.component';
 
@@ -43,7 +44,8 @@ export class ViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private visualisationService: VisualisationService
+    private simulationService: SimulationService,
+    private visualisationService: VisualisationService,
   ) {
     this.formGroup = formBuilder.group({
       sedml: ['', [Validators.required]],
@@ -57,7 +59,9 @@ export class ViewComponent implements OnInit {
       this.visualisationService
         .getResultStructure(this.uuid)
         .subscribe((data: any) => {
+          data['data'].submittedLocally = false;
           this.setProjectResults(data['data']);
+          this.simulationService.storeSimulation(data['data']);
         });
     }
   }

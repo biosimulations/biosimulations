@@ -2,7 +2,17 @@
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
-<div class="grid" [ngClass]="{hidden: isLoading | async}">
+<div  
+  gdAuto="row"
+
+  gdColumns.gt-sm="16rem 1fr"
+  gdGap="2rem"
+
+  gdRows.lt-md="1fr"
+  gdGap.lt-md="1rem"
+
+  [ngClass]="{hidden: isLoading | async}"
+>
   <mat-accordion class="controls">
     <mat-expansion-panel>
       <mat-expansion-panel-header
@@ -115,7 +125,7 @@
             'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null
           }"
         >
-          <div [ngSwitch]="column.linkType" class="cell-content-container"
+          <div class="cell-content-container"
             [ngClass]="{
               'lines-one': linesPerRow === 1,
               'lines-multiple': linesPerRow > 1,
@@ -126,43 +136,51 @@
               'height.px': 20 * linesPerRow
             }">
 
-            <ng-template #iconTemplate let-icon="icon">
-              <biosimulations-icon *ngIf="icon" [icon]="icon" [title]="getIconTitle(element, column)"></biosimulations-icon>
-            </ng-template>
+            <span [ngSwitch]="column.leftLinkType">
+              <ng-template [ngSwitchCase]="'routerLink'">
+                <a *ngIf="getElementRouterLink(element, column, 'left') as routerLink" [routerLink]="routerLink">
+                  <ng-container *ngTemplateOutlet="leftIconTemplate; context: {icon: column.leftIcon}"></ng-container>
+                </a>
+              </ng-template>
 
-            <ng-template [ngSwitchCase]="'routerLink'">
-              <a *ngIf="getElementRouterLink(element, column) as routerLink" [routerLink]="routerLink">
-                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.leftIcon}"></ng-container>
-              </a>
-            </ng-template>
+              <ng-template [ngSwitchCase]="'href'">
+                <a *ngIf="getElementHref(element, column, 'left') as href" [href]="href" target="_blank" >
+                  <ng-container *ngTemplateOutlet="leftIconTemplate; context: {icon: column.leftIcon}"></ng-container>
+                </a>
+              </ng-template>
 
-            <ng-template [ngSwitchCase]="'href'">
-              <a *ngIf="getElementHref(element, column) as href" [href]="href" target="_blank" >
-                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.leftIcon}"></ng-container>
-              </a>
-            </ng-template>
+              <ng-template ngSwitchDefault>
+                <ng-container *ngTemplateOutlet="leftIconTemplate; context: {icon: column.leftIcon}"></ng-container>
+              </ng-template>
 
-            <ng-template ngSwitchDefault>
-              <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.leftIcon}"></ng-container>
-            </ng-template>
+              <ng-template #leftIconTemplate let-icon="icon">
+                <biosimulations-icon *ngIf="icon" [icon]="icon" [title]="getIconTitle(element, column, 'left')"></biosimulations-icon>
+              </ng-template>
+            </span>
 
             {{ formatElementValue(getElementValue(element, column), column) }}
 
-            <ng-template [ngSwitchCase]="'routerLink'">
-              <a *ngIf="getElementRouterLink(element, column) as routerLink" [routerLink]="routerLink">
-                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.rightIcon}"></ng-container>
-              </a>
-            </ng-template>
+            <span [ngSwitch]="column.rightLinkType">
+              <ng-template [ngSwitchCase]="'routerLink'">
+                <a *ngIf="getElementRouterLink(element, column, 'right') as routerLink" [routerLink]="routerLink">
+                  <ng-container *ngTemplateOutlet="rightIconTemplate; context: {icon: column.rightIcon}"></ng-container>
+                </a>
+              </ng-template>
 
-            <ng-template [ngSwitchCase]="'href'">
-              <a *ngIf="getElementHref(element, column) as href" [href]="href" target="_blank" >
-                <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.rightIcon}"></ng-container>
-              </a>
-            </ng-template>
+              <ng-template [ngSwitchCase]="'href'">
+                <a *ngIf="getElementHref(element, column, 'right') as href" [href]="href" target="_blank" >
+                  <ng-container *ngTemplateOutlet="rightIconTemplate; context: {icon: column.rightIcon}"></ng-container>
+                </a>
+              </ng-template>
 
-            <ng-template ngSwitchDefault>
-              <ng-container *ngTemplateOutlet="iconTemplate; context: {icon: column.rightIcon}"></ng-container>
-            </ng-template>
+              <ng-template ngSwitchDefault>
+                <ng-container *ngTemplateOutlet="rightIconTemplate; context: {icon: column.rightIcon}"></ng-container>
+              </ng-template>
+
+              <ng-template #rightIconTemplate let-icon="icon">
+                <biosimulations-icon *ngIf="icon" [icon]="icon" [title]="getIconTitle(element, column, 'right')"></biosimulations-icon>
+              </ng-template>
+            </span>
           </div>
         </mat-cell>
       </ng-container>

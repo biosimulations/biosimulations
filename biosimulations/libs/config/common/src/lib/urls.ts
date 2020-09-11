@@ -1,12 +1,17 @@
 import { environment } from '@biosimulations/shared/environments';
 
-const fetchSimulatorsURL = 'https://hub.docker.com/v2/repositories/biosimulators/?page_size=25&page=1&ordering=last_updated'
+const fetchSimulatorsURL =
+  'https://hub.docker.com/v2/repositories/biosimulators/?page_size=25&page=1&ordering=last_updated';
 
 export type appName =
   | 'platformApi'
   | 'accountApi'
   | 'dispatchApi'
-  | 'simulatorApi'
+  | 'simulatorsApi'
+  | 'platform'
+  | 'account'
+  | 'dispatch'
+  | 'simulators'
   | 'fetchSimulatorsInfo';
 
 export type envs = 'prod' | 'dev' | 'local' | 'stage';
@@ -18,28 +23,44 @@ const envUrls: { [key in envs]: urlMap } = {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: 'https://dispatch.biosimulations.dev/',
-    simulatorApi: 'https://api.biosimulations.dev/',
+    simulatorsApi: 'https://api.biosimulations.dev/',
+    platform: 'https://biosimulations.dev',
+    account: 'https://login.biosimulations.dev',
+    dispatch: 'https://submit.biosimulations.dev',
+    simulators: 'https://biosimulators.org',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   dev: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: '/api',
-    simulatorApi: 'https://api.biosimulations.dev/',
-    fetchSimulatorsInfo: fetchSimulatorsURL ,
+    simulatorsApi: 'https://api.biosimulations.dev/',
+    platform: 'https://biosimulations.dev',
+    account: 'https://login.biosimulations.dev',
+    dispatch: 'https://submit.biosimulations.dev',
+    simulators: 'https://biosimulators.org',
+    fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   stage: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: 'https://dispatch.biosimulations.dev/api',
-    simulatorApi: 'https://api.biosimulations.dev/',
+    simulatorsApi: 'https://api.biosimulations.dev/',
+    platform: 'https://biosimulations.dev',
+    account: 'https://login.biosimulations.dev',
+    dispatch: 'https://submit.biosimulations.dev',
+    simulators: 'https://biosimulators.org',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   local: {
     platformApi: '/api/', //proxies to localhost:3333 if using nx
     accountApi: '/api/',
     dispatchApi: '/api/',
-    simulatorApi: '/api/',
+    simulatorsApi: '/api/',
+    platform: 'https://biosimulations.dev',
+    account: 'https://login.biosimulations.dev',
+    dispatch: 'https://submit.biosimulations.dev',
+    simulators: 'https://biosimulators.org',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
 };

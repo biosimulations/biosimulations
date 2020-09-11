@@ -17,7 +17,6 @@ body {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding: 2rem;
   overflow: auto;
 }
 
@@ -26,8 +25,20 @@ body {
   box-sizing: border-box;
 }
 
+@media screen and (max-width: 959px) {
+  .full-width {
+    height: calc(100vh - 56px);
+  }
+}
+
 .padded {
   padding: 2rem;
+}
+
+@media screen and (max-width: 959px) {
+  .padded {
+    padding: 1rem;
+  }
 }
 
 h1,
@@ -48,40 +59,6 @@ h2,
 .h2 {
   //@include mat-typography-level-to-styles($fontConfig, title);
   color: mat-color($theme-primary);
-}
-
-
-.grid {
-  display: grid;
-  grid-gap: 2rem;
-}
-
-.grid-2 {
-  grid-template-columns: 1fr 1fr;
-}
-
-.grid-3 {
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.grid-4 {
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.grid-5 {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-.columns {
-  column-gap: 2rem;
-}
-
-.columns-2 {
-  column-count: 2;
-}
-
-.columns-3 {
-  column-count: 3;
 }
 
 .inline-list {
@@ -112,8 +89,8 @@ ul.icon-list {
   }
 
   li {
-    margin-left: calc(20px + 0.25rem);
-    text-indent: calc(-1 * (20px + 0.25rem));
+    margin-left: calc(12px + 0.25rem);
+    text-indent: calc(-1 * (12px + 0.25rem));
   }
 
   a {
@@ -288,7 +265,12 @@ code {
 }
 
 code, pre {
+  font-size: 90%;
   background: $light-background;
+}
+
+.code {
+  font-family: monospace;
 }
 
 /* range slider */
@@ -351,6 +333,10 @@ table {
     min-height: 28px;
   }
 
+  .highlight-row {
+    background: mat-color($theme-primary, lightest);
+  }
+
   .mat-cell, .mat-header-cell {
     color: $dark-primary-text;
     @include mat-typography-level-to-styles($fontConfig, body-1);
@@ -405,7 +391,10 @@ table {
 
 /* section */
 .section-content {
+  padding: 0.5rem;
+}
+
+.border {
   border: 1px solid $light-bg-darker-5;
   border-radius: 4px;
-  padding: 0.5rem;
 }

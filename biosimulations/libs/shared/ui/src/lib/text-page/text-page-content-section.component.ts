@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -11,16 +10,9 @@ import {
   styleUrls: ['./text-page-content-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextPageContentSectionComponent implements OnInit {
+export class TextPageContentSectionComponent {
   @Input()
   heading = '';
-
-  @Input()
-  shortHeading = '';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   scrollToTop(): void {
     const scrollContainer = document.getElementsByTagName('mat-sidenav-content')[0];

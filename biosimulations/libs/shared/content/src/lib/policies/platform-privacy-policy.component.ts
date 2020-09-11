@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
@@ -8,6 +9,12 @@ import { ConfigService } from '@biosimulations/shared/services';
 })
 export class PlatformPrivacyPolicyComponent {
   emailUrl!: string;
+  tocSections!: TocSection[];
+
+  @ViewChild(TocSectionsContainerDirective)
+  set tocSectionsContainer(container: TocSectionsContainerDirective) {
+    setTimeout(() => {this.tocSections = container.sections;});
+  }
     
   constructor(public config: ConfigService) {
     this.emailUrl = 'mailto:' + config.email;
