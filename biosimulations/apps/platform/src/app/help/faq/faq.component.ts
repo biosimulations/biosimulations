@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
 
 @Component({
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.sass'],
 })
-export class FaqComponent implements OnInit {
+export class FaqComponent {
   // TODO: get from app config
   issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
   emailUrl = 'mailto:' + 'info@biosimulations.org'
@@ -12,7 +13,10 @@ export class FaqComponent implements OnInit {
   submitAppUrl = 'https://submit.biosimulations.org/'
   webserviceUrl = 'https://dispatch.biosimulations.org/'
 
-  constructor() { }
+  tocSections!: TocSection[];
 
-  ngOnInit(): void { }
+  @ViewChild(TocSectionsContainerDirective)
+  set tocSectionsContainer(container: TocSectionsContainerDirective) {
+    setTimeout(() => {this.tocSections = container.sections;});
+  }
 }
