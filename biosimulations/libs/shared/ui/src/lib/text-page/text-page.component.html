@@ -12,7 +12,11 @@
       >
         <biosimulations-text-page-side-bar-section [heading]="contentsHeading">
           <ul>
-            <biosimulations-text-page-toc-item *ngFor="let section of tocSections" [heading]="section.heading" [scrollTarget]="section.target">
+            <biosimulations-text-page-toc-item *ngFor="let section of tocSections"
+              [heading]="section.heading"
+              [scrollTarget]="section.target"
+              [scrollOffset]="tocScrollSectionScrollOffset"
+            >
             </biosimulations-text-page-toc-item>
           </ul>
         </biosimulations-text-page-side-bar-section>

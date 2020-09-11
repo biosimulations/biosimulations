@@ -52,7 +52,13 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab heading="Algorithms" icon="simulator" class="algorithms">
-    <biosimulations-text-page contentsHeading="Algorithms" [padded]="false" alwaysFixed="calc(64px + 32px + 32px + 2rem)">
+    <biosimulations-text-page
+      contentsHeading="Algorithms"
+      [padded]="false"
+      alwaysFixed="calc(64px + 32px + 32px + 2rem)" 
+      [tocSections]="tocSections"
+      [tocScrollSectionScrollOffset]="128"
+    >
       <ng-container id="sideBar">
         <biosimulations-text-page-side-bar-section heading="More info" fxShow fxHide.lt-md>
           <div class="hanging-indent">
@@ -64,10 +70,10 @@
         </biosimulations-text-page-side-bar-section>
       </ng-container>
 
-      <ng-container id="content">
+      <ng-container id="content" tocSectionsContainer>
         <biosimulations-text-page-content-section *ngFor="let algorithm of algorithms"
           [heading]="algorithm.heading"
-          [shortHeading]="algorithm.name"
+          [tocSection]="algorithm.name"
         >
           <p class="subsection-heading no-bottom-margin">Description</p>
           <p>
