@@ -10,7 +10,7 @@ export class AboutComponent {
   // TODO: get from app config
   apiUrl = 'https://api.biosimulations.org/'
   issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
+  emailUrl = 'mailto:' + 'info@biosimulators.org'
 
   tocSections!: TocSection[];
 

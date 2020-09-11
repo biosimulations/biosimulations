@@ -9,7 +9,11 @@ import { TocSection, TocSectionsContainerDirective } from '@biosimulations/share
 export class PlatformPrivacyPolicyComponent {
   // TODO: get from app config
   appName = 'BioSimulations';
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
+
+  emailUrl = 'mailto:' + 'info@biosimulators.org'
+  
+  constructor() {}
+
 
   tocSections!: TocSection[];
 
@@ -17,4 +21,5 @@ export class PlatformPrivacyPolicyComponent {
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {this.tocSections = container.sections;});
   }
+
 }

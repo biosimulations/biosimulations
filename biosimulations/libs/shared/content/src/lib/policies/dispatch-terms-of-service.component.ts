@@ -9,7 +9,10 @@ import { TocSection, TocSectionsContainerDirective } from '@biosimulations/share
 export class DispatchTermsOfServiceComponent {
   // TODO: get from app config
   appName = 'runBioSimulations';
-  emailUrl = 'mailto:' + 'info@biosimulations.org'
+
+  constructor() {}
+
+  emailUrl = 'mailto:' + 'info@biosimulators.org'
 
   tocSections!: TocSection[];
 
@@ -17,4 +20,5 @@ export class DispatchTermsOfServiceComponent {
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {this.tocSections = container.sections;});
   }
+
 }
