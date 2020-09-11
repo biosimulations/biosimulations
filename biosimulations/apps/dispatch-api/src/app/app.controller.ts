@@ -143,6 +143,7 @@ export class AppController implements OnApplicationBootstrap {
     const sedmls = await this.readDir(resultPath);
     // Removing log file names 'job.output'
     sedmls.splice(sedmls.indexOf('job.output'), 1);
+    
 
     for (const sedml of sedmls) {
       structure[sedml] = [];
@@ -225,19 +226,19 @@ export class AppController implements OnApplicationBootstrap {
     return simVersions;
   }
 
-  @Get('dispatch-finish/:uuid')
-  @ApiResponse({
-    status: 200,
-    description:
-      'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
-    type: Object,
-  })
-  dispatchFinishEvent(@Param('uuid') uuid: string) {
-    this.messageClient.emit('dispatch_finish', { uuid });
-    return {
-      message: 'OK',
-    };
-  }
+  // @Get('dispatch-finish/:uuid')
+  // @ApiResponse({
+  //   status: 200,
+  //   description:
+  //     'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
+  //   type: Object,
+  // })
+  // dispatchFinishEvent(@Param('uuid') uuid: string) {
+  //   this.messageClient.emit('dispatch_finish', { uuid });
+  //   return {
+  //     message: 'OK',
+  //   };
+  // }
 
   readDir(dirPath: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {

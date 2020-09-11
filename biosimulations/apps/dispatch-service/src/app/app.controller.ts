@@ -19,7 +19,14 @@ import { SimulationDispatchSpec } from '@biosimulations/dispatch/datamodel';
 import { v4 as uuid } from 'uuid';
 import path from 'path';
 import * as csv2Json from 'csv2json';
-import { Cron, CronExpression, Interval, Timeout } from '@nestjs/schedule';
+import {
+  Cron,
+  CronExpression,
+  Interval,
+  SchedulerRegistry,
+  Timeout,
+} from '@nestjs/schedule';
+import { CronJob } from 'cron';
 
 @Controller()
 export class AppController {
@@ -27,17 +34,11 @@ export class AppController {
     private readonly configService: ConfigService,
     private hpcService: HpcService,
     private sbatchService: SbatchService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
+    private schedulerRegistry: SchedulerRegistry
   ) {}
   private logger = new Logger(AppController.name);
   private readonly taskLogger = new Logger(AppController.name);
-
-  @Cron(CronExpression.EVERY_30_SECONDS)
-  async jobMonitor(jobId: string) {
-    this.hpcService.squeueStatus(jobId);
-    this.taskLogger.log('Job running: ', jobId)
-
-  }
 
   @MessagePattern('dispatch')
   async uploadFile(data: SimulationDispatchSpec) {
@@ -90,13 +91,16 @@ export class AppController {
 
   // TODO: Add API to send required info dispatch_finish pattern to NATS
   @MessagePattern('dispatch_finish')
-  async dispatchLog(data: any) {
+  async dispatchFinish(data: { jobId: string; uuid: string }) {
     const fileStorage = process.env.FILE_STORAGE || '';
     // const simDirSplit = data['simDir'].split('/');
-    const uuid = data['uuid'];
+    const uuid = data.uuid;
+    const jobId = data.jobId;
+
+    this.schedulerRegistry.getCronJob(jobId).stop();
     const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
 
-    this.logger.log('Log message data: ' + JSON.stringify(data));
+    // this.logger.log('Log message data: ' + JSON.stringify(data));
     this.logger.log('Output directory: ' + resDir);
 
     const directoryList = await this.readDir(resDir);
@@ -140,11 +144,37 @@ export class AppController {
                     });
                   });
                 });
+              })
+              .on('error', (err) => {
+                console.log('Error occured in file writing', err);
               });
           }
         }
       });
     }
+  }
+
+  @MessagePattern('dispatch_log')
+  async dispatchLog(data: any) {
+    const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
+    const simDirSplit = data['simDir'].split('/');
+    const uuid = simDirSplit[simDirSplit.length - 1];
+    // TODO: research more for better duration
+    this.jobMonitorCronJob(slurmjobId, uuid, 30);
+  }
+
+  async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
+    const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
+      const squeueRes = await this.hpcService.squeueStatus(jobId);
+      const jobMatch = squeueRes.stdout.match(/\d+/);
+      const isJobRunning = jobMatch !== null && jobMatch[0] === jobId;
+      if (!isJobRunning) {
+        this.messageClient.emit('dispatch_finish', { jobId, uuid });
+      }
+    });
+
+    this.schedulerRegistry.addCronJob(jobId, job);
+    job.start();
   }
 
   convertJsonDataToChartData(data: any) {
