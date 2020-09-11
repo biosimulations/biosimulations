@@ -30,6 +30,12 @@
     overflow-y: auto;
   }
 
+  @media screen and (max-width: 959px) {
+    .sidenav-menu-container {
+      height: calc(100% - 56px);
+    }
+  }
+
   .sidenav-menu ::ng-deep .mat-expansion-panel:first-of-type {
       border-top-right-radius: 0;
       border-top-left-radius: 0;
@@ -81,7 +87,17 @@
 .content {
   padding: 0;
   background: #fff;
-  min-height: calc(100vh - 64px - 32px); // TODO: substract an additional 52px when the privacy notice is visible
+  min-height: calc(100vh - 64px - 28px - 0.5rem); // TODO: substract an additional 52px when the privacy notice is visible
+}
+
+@media screen and (max-width: 959px) {
+  .bread-crumbs {
+    top: 56px;
+  }
+
+  .content {
+    min-height: calc(100vh - 56px); // TODO: substract an additional 52px when the privacy notice is visible
+  }
 }
 
 .logo-img {
