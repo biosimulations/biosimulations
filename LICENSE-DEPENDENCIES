@@ -5158,7 +5158,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/electerious/nice-try
 │  └─ licenseFile: nice-try/LICENSE
-├─ node-fetch@2.6.0
+├─ node-fetch@2.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/bitinn/node-fetch
 │  ├─ publisher: David Frank
