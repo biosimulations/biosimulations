@@ -138,7 +138,7 @@
       "tags": ["scope:shared", "type:datamodel", "platform:any"]
     },
     "dispatch-api-models": {
-      "tags": []
+      "tags": ["scope:dispatch", "type:databasemodel", "platform:any"]
     }
   }
 }
