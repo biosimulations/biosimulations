@@ -146,8 +146,9 @@ describe('AppController', () => {
       const jobMonitor = appController.jobMonitorCronJob(
         '356789',
         '5b7de05f-401b-4903-b534-d74bbbc5856c',
-        5);
-      expect(jobMonitor).toEqual(jobMonitor);
-    })
+        5
+      );
+      expect(jobMonitor).toBeDefined();
+    });
   });
 });
