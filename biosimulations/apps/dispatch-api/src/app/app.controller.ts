@@ -32,13 +32,16 @@ import * as fs from 'fs';
 import path from 'path';
 import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+import { DispatchSimulationModelDB } from '../../../../libs/dispatch/api-models/src/lib/common/dispatch-simulation.model';
+import { ModelsService } from './resources/models/models.service';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private modelsService: ModelsService
   ) {}
 
   @Post('dispatch')
@@ -141,7 +144,6 @@ export class AppController implements OnApplicationBootstrap {
     const sedmls = await this.readDir(resultPath);
     // Removing log file names 'job.output'
     sedmls.splice(sedmls.indexOf('job.output'), 1);
-    
 
     for (const sedml of sedmls) {
       structure[sedml] = [];
@@ -199,14 +201,15 @@ export class AppController implements OnApplicationBootstrap {
   })
   @ApiQuery({ name: 'name', required: false })
   async getAllSimulatorVersion(@Query('name') simulatorName: string) {
-
     if (simulatorName === undefined) {
       // Getting info of all available simulators
-      const simulatorsInfo: any = await this.httpService.get(`${urls.fetchSimulatorsInfo}`).toPromise();
+      const simulatorsInfo: any = await this.httpService
+        .get(`${urls.fetchSimulatorsInfo}`)
+        .toPromise();
       const allSimulators: any = [];
 
-      for(const simulatorInfo of simulatorsInfo['data']['results']) {
-          allSimulators.push(simulatorInfo['name']);
+      for (const simulatorInfo of simulatorsInfo['data']['results']) {
+        allSimulators.push(simulatorInfo['name']);
       }
       return allSimulators;
     }
@@ -224,19 +227,19 @@ export class AppController implements OnApplicationBootstrap {
     return simVersions;
   }
 
-  // @Get('dispatch-finish/:uuid')
-  // @ApiResponse({
-  //   status: 200,
-  //   description:
-  //     'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
-  //   type: Object,
-  // })
-  // dispatchFinishEvent(@Param('uuid') uuid: string) {
-  //   this.messageClient.emit('dispatch_finish', { uuid });
-  //   return {
-  //     message: 'OK',
-  //   };
-  // }
+  // Note: Temp route to test DB linkage
+  @Post('db-save')
+  @ApiResponse({
+    status: 200,
+    description: 'Temp route to test DB linkage',
+    type: Object,
+  })
+  dbSave(@Body() model: DispatchSimulationModelDB) {
+    this.modelsService.createNewDispatchSimulationModel(model);
+    return {
+      message: 'OK',
+    };
+  }
 
   readDir(dirPath: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -274,9 +277,7 @@ export class AppController implements OnApplicationBootstrap {
     });
   }
 
-
   async onApplicationBootstrap() {
     await this.messageClient.connect();
   }
-  
 }

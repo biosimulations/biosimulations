@@ -1,4 +1,4 @@
-import { Module, HttpModule } from '@nestjs/common';
+import { Module, HttpModule, CacheModule } from '@nestjs/common';
 import {
   ClientsModule,
   ClientProxy,
@@ -12,6 +12,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ModelsModule } from './resources/models/models.module';
 
 @Module({
   imports: [
@@ -28,7 +29,6 @@ import { ScheduleModule } from '@nestjs/schedule';
       inject: [ConfigService],
     }),
     TypegooseModule.forRootAsync({
-      // This line is not needed since config module is global. will be needed if used in another app after abstraction
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('database.uri') || '',
@@ -37,6 +37,8 @@ import { ScheduleModule } from '@nestjs/schedule';
       }),
       inject: [ConfigService],
     }),
+    CacheModule.register(),
+    ModelsModule,
   ],
 
   controllers: [AppController],
