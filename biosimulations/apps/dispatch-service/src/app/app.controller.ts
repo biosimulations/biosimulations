@@ -38,7 +38,6 @@ export class AppController {
     private schedulerRegistry: SchedulerRegistry
   ) {}
   private logger = new Logger(AppController.name);
-  private readonly taskLogger = new Logger(AppController.name);
 
   @MessagePattern('dispatch')
   async uploadFile(data: SimulationDispatchSpec) {
