@@ -91,13 +91,10 @@ export class AppController {
 
   // TODO: Add API to send required info dispatch_finish pattern to NATS
   @MessagePattern('dispatch_finish')
-  async dispatchFinish(data: { jobId: string; uuid: string }) {
+  async dispatchFinish(uuid: string) {
     const fileStorage = process.env.FILE_STORAGE || '';
     // const simDirSplit = data['simDir'].split('/');
-    const uuid = data.uuid;
-    const jobId = data.jobId;
 
-    this.schedulerRegistry.getCronJob(jobId).stop();
     const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
 
     // this.logger.log('Log message data: ' + JSON.stringify(data));
@@ -169,7 +166,8 @@ export class AppController {
       const jobMatch = squeueRes.stdout.match(/\d+/);
       const isJobRunning = jobMatch !== null && jobMatch[0] === jobId;
       if (!isJobRunning) {
-        this.messageClient.emit('dispatch_finish', { jobId, uuid });
+        this.messageClient.emit('dispatch_finish', uuid);
+        this.schedulerRegistry.getCronJob(jobId).stop();
       }
     });
 
