@@ -12,14 +12,23 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 
-const dbUri = process.env.MONGO_URI || '';
+
 @Module({
   imports: [
     BiosimulationsConfigModule,
     HttpModule,
-    MongooseModule.forRoot(dbUri),
     ScheduleModule.forRoot(),
+    MongooseModule.forRootAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get('database.uri') || '',
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
+    }),
   ],
+
   controllers: [AppController],
   providers: [
     {
