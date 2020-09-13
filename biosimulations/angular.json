@@ -1407,6 +1407,33 @@
         }
       }
     },
+    "dispatch-api-models": {
+      "root": "libs/dispatch/api-models",
+      "sourceRoot": "libs/dispatch/api-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/dispatch/api-models/tsconfig.lib.json",
+              "libs/dispatch/api-models/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/dispatch/api-models/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dispatch/api-models/jest.config.js",
+            "tsConfig": "libs/dispatch/api-models/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-datamodel-api": {
       "root": "libs/shared/datamodel-api",
       "sourceRoot": "libs/shared/datamodel-api/src",

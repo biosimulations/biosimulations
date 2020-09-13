@@ -9,9 +9,9 @@ import {
 import { AppController } from './app.controller';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
-
 
 @Module({
   imports: [
@@ -19,6 +19,16 @@ import { ScheduleModule } from '@nestjs/schedule';
     HttpModule,
     ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get('database.uri') || '',
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
+    }),
+    TypegooseModule.forRootAsync({
+      // This line is not needed since config module is global. will be needed if used in another app after abstraction
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('database.uri') || '',

@@ -136,6 +136,9 @@
     },
     "shared-datamodel-api": {
       "tags": ["scope:shared", "type:datamodel", "platform:any"]
+    },
+    "dispatch-api-models": {
+      "tags": []
     }
   }
 }
