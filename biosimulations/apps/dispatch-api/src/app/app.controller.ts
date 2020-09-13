@@ -32,7 +32,7 @@ import * as fs from 'fs';
 import path from 'path';
 import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
-import { DispatchSimulationModelDB } from '../../../../libs/dispatch/api-models/src/lib/common/dispatch-simulation.model';
+import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 import { ModelsService } from './resources/models/models.service';
 
 @Controller()
