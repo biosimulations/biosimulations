@@ -4,8 +4,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
-import { SimulatorsService } from '../simulators/simulators.service';
-import { SimulatorsController } from '../simulators/simulators.controller';
+
 import { SimulatorsModule } from '../simulators/simulators.module';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 @Module({

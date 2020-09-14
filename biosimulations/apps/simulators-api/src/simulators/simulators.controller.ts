@@ -15,16 +15,14 @@ import {
   ApiQuery,
   ApiParam,
   ApiOAuth2,
-  ApiResponse,
   ApiOkResponse,
   ApiNotFoundResponse,
   ApiOperation,
   ApiCreatedResponse,
-  ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
-import { version } from 'process';
+
 @ApiTags('Simulators')
 @Controller('simulators')
 export class SimulatorsController {
@@ -55,7 +53,7 @@ export class SimulatorsController {
   })
   async getLatestSimulators(@Query('id') id: string): Promise<Simulator[]> {
     const allSims = await this.service.findAll();
-    const latest = new Map<String, Simulator>();
+    const latest = new Map<string, Simulator>();
     console.log(allSims);
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id);
@@ -103,8 +101,9 @@ export class SimulatorsController {
     }
   }
   private async getSimulatorById(id: string) {
-    let res = await this.service.findById(id);
+    const res = await this.service.findById(id);
     if (!res?.length) {
+      throw new NotFoundException();
     }
     return res;
   }
