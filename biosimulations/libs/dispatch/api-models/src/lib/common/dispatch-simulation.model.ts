@@ -7,11 +7,11 @@ export interface DispatchSimulationModel {
   nameOfSimulation: string;
   submittedTime: Date;
   statusModifiedTime: Date;
-  currentStatus: SimulationStatus;
+  currentStatus: DispatchSimulationStatus;
   duration: number;
 }
 
-enum SimulationStatus {
+export enum DispatchSimulationStatus {
   QUEUED = 'QUEUED',
   RUNNING = 'RUNNING',
   SUCCEEDED = 'SUCCEEDED',
@@ -41,7 +41,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
 
   @ApiProperty()
   @prop()
-  currentStatus!: SimulationStatus;
+  currentStatus!: DispatchSimulationStatus;
 
   @ApiProperty()
   @prop()

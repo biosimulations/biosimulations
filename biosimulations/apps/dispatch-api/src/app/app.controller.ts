@@ -31,13 +31,17 @@ import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
 import { urls } from '@biosimulations/config/common';
+import { ModelsService } from './resources/models/models.service';
+import { DispatchSimulationModel } from '@biosimulations/dispatch/api-models';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private modelsService: ModelsService
   ) {}
 
   @Post('dispatch')
@@ -67,6 +71,12 @@ export class AppController implements OnApplicationBootstrap {
           description:
             'Version of the selected simulator like 4.27.214/latest, etc',
         },
+        authorEmail: {
+          type: 'string',
+        },
+        nameOfSimulation: {
+          type: 'string',
+        },
       },
     },
   })
@@ -92,6 +102,8 @@ export class AppController implements OnApplicationBootstrap {
 
     // Fill out info from file that will be lost after saving in central storage
     const simSpec: SimulationDispatchSpec = {
+      authorEmail: bodyData.authorEmail,
+      nameOfSimulation: bodyData.nameOfSimulation,
       simulator: bodyData.simulator,
       simulatorVersion: bodyData.simulatorVersion,
       filename: file.originalname,
@@ -105,6 +117,18 @@ export class AppController implements OnApplicationBootstrap {
     this.messageClient.send('dispatch', simSpec).subscribe(
       (res) => {
         this.logger.log(JSON.stringify(res));
+        const currentDateTime = new Date();
+        const dbModel: DispatchSimulationModel = {
+          uuid: fileId,
+          authorEmail: simSpec.authorEmail,
+          nameOfSimulation: simSpec.nameOfSimulation,
+          submittedTime: currentDateTime,
+          statusModifiedTime: currentDateTime,
+          currentStatus: DispatchSimulationStatus.QUEUED,
+          duration: 0,
+        };
+
+        this.modelsService.createNewDispatchSimulationModel(dbModel);
       },
       (err) => {
         this.logger.log(

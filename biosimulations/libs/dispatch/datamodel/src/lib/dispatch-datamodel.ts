@@ -1,4 +1,6 @@
 export interface SimulationDispatchSpec {
+  nameOfSimulation: string;
+  authorEmail: string;
   simulator: string;
   simulatorVersion: string;
   filename: string;
@@ -7,6 +9,5 @@ export interface SimulationDispatchSpec {
 }
 export interface OmexDispatchFile {
   originalname: string;
-
   buffer: any;
 }

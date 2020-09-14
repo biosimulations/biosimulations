@@ -1,0 +1,14 @@
+import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
+import { Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
+import { ModelsService } from './models.service';
+
+@Controller()
+export class ModelsController {
+  constructor(private modelsService: ModelsService) {}
+
+  @MessagePattern('dispatch_db')
+  async dispatchDB(data: DispatchSimulationModelDB) {
+    this.modelsService.createNewDispatchSimulationModel(data);
+  }
+}
