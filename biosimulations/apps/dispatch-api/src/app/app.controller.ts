@@ -30,18 +30,14 @@ import {
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
-import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
-import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
-import { ModelsService } from './resources/models/models.service';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private httpService: HttpService,
-    private modelsService: ModelsService
+    private httpService: HttpService
   ) {}
 
   @Post('dispatch')
@@ -225,20 +221,6 @@ export class AppController implements OnApplicationBootstrap {
     });
 
     return simVersions;
-  }
-
-  // Note: Temp route to test DB linkage
-  @Post('db-save')
-  @ApiResponse({
-    status: 200,
-    description: 'Temp route to test DB linkage',
-    type: Object,
-  })
-  dbSave(@Body() model: DispatchSimulationModelDB) {
-    this.modelsService.createNewDispatchSimulationModel(model);
-    return {
-      message: 'OK',
-    };
   }
 
   readDir(dirPath: string): Promise<any> {
