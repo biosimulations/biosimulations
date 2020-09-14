@@ -55,6 +55,9 @@
       ],
       "@biosimulations/dispatch/api-models": [
         "libs/dispatch/api-models/src/index.ts"
+      ],
+      "@biosimulations/messages/dispatch": [
+        "libs/messages/dispatch/src/index.ts"
       ]
     }
   },

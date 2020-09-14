@@ -27,6 +27,7 @@ import {
   Timeout,
 } from '@nestjs/schedule';
 import { CronJob } from 'cron';
+import { MQDispatch } from '@biosimulations/messages/dispatch'
 
 @Controller()
 export class AppController {
@@ -39,7 +40,7 @@ export class AppController {
   ) {}
   private logger = new Logger(AppController.name);
 
-  @MessagePattern('dispatch')
+  @MessagePattern(MQDispatch.dispatch)
   async uploadFile(data: SimulationDispatchSpec) {
     this.logger.log('Data received: ' + JSON.stringify(data));
     // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
@@ -89,7 +90,7 @@ export class AppController {
   }
 
   // TODO: Add API to send required info dispatch_finish pattern to NATS
-  @MessagePattern('dispatch_finish')
+  @MessagePattern(MQDispatch.finish)
   async dispatchFinish(uuid: string) {
     const fileStorage = process.env.FILE_STORAGE || '';
     // const simDirSplit = data['simDir'].split('/');
@@ -133,9 +134,8 @@ export class AppController {
                     chartJsonPath,
                     JSON.stringify(chartResults)
                   ).then(() => {
-                    // TODO: place all message patterns in a single location
 
-                    this.messageClient.emit('dispatch_result', {
+                    this.messageClient.emit(MQDispatch.result, {
                       uuid: true,
                     });
                   });
@@ -150,7 +150,7 @@ export class AppController {
     }
   }
 
-  @MessagePattern('dispatch_log')
+  @MessagePattern(MQDispatch.log)
   async dispatchLog(data: any) {
     const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
     const simDirSplit = data['simDir'].split('/');
@@ -165,7 +165,7 @@ export class AppController {
       const jobMatch = squeueRes.stdout.match(/\d+/);
       const isJobRunning = jobMatch !== null && jobMatch[0] === jobId;
       if (!isJobRunning) {
-        this.messageClient.emit('dispatch_finish', uuid);
+        this.messageClient.emit(MQDispatch.finish, uuid);
         this.schedulerRegistry.getCronJob(jobId).stop();
       }
     });

@@ -139,6 +139,9 @@
     },
     "dispatch-api-models": {
       "tags": ["scope:dispatch", "type:databasemodel", "platform:any"]
+    },
+    "messages-dispatch": {
+      "tags": ["scope:messages", "type:messagequeues", "platform:any"]
     }
   }
 }
