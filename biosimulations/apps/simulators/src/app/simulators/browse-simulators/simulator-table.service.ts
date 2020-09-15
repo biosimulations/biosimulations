@@ -24,7 +24,6 @@ export class SimulatorTableService {
   constructor(private service: SimulatorService) {}
   getData(): Observable<TableSimulator[]> {
     return this.service.getLatest().pipe(
-      delay(1000),
       map((simulators: any[]): TableSimulator[] => {
         return simulators.map(
           (simulator: any): TableSimulator => {

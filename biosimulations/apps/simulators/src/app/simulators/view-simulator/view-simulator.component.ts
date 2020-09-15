@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { pluck, map, mergeAll, tap, catchError } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
-import { SimulatorService, Simulator } from '../simulator.service';
+import { SimulatorService } from '../simulator.service';
 import edamJson from '../edam.json';
 import kisaoJson from '../kisao.json';
 import sboJson from '../sbo.json';
@@ -88,7 +88,7 @@ export class ViewSimulatorComponent implements OnInit {
     private route: ActivatedRoute,
     private service: SimulatorService
   ) {}
-  simulator$!: Observable<Simulator | undefined>;
+
   loading$!: Observable<boolean>;
   // TODO handler errors from simulator service
   error = false;
@@ -123,14 +123,11 @@ export class ViewSimulatorComponent implements OnInit {
     );
     */
 
-    const simulatorSubject = new BehaviorSubject<Simulator | undefined>(
-      undefined
-    );
     const loadingSubject = new BehaviorSubject<boolean>(true);
-    this.service.getAll().subscribe((data: Simulator[]) => {
+    // TODO get only correct simulator based on route
+    this.service.getAll().subscribe((data: any[]) => {
       for (const simulator of data) {
         if (simulator.id === this.route.snapshot.params['id']) {
-          simulatorSubject.next(simulator);
           loadingSubject.next(false);
 
           this.id = simulator.id;
@@ -144,16 +141,22 @@ export class ViewSimulatorComponent implements OnInit {
             .replace(/\bLicense\b/, '')
             .replace('  ', ' ');
 
-          const authors = simulator.authors.map((author) => {
-            let name = author.lastName;
-            if (author.middleName) {
-              name = author.middleName + ' ' + name;
+          const authors = simulator.authors.map(
+            (author: {
+              lastName: any;
+              middleName: string;
+              firstName: string;
+            }) => {
+              let name = author.lastName;
+              if (author.middleName) {
+                name = author.middleName + ' ' + name;
+              }
+              if (author.firstName) {
+                name = author.firstName + ' ' + name;
+              }
+              return name;
             }
-            if (author.firstName) {
-              name = author.firstName + ' ' + name;
-            }
-            return name;
-          });
+          );
           switch (authors.length) {
             case 0:
               this.authors = null;
@@ -174,7 +177,13 @@ export class ViewSimulatorComponent implements OnInit {
           );
 
           this.algorithms = simulator.algorithms.map(
-            (algorithm): Algorithm => {
+            (algorithm: {
+              kisaoId: { id: string };
+              modelingFrameworks: any[];
+              modelFormats: any[];
+              parameters: any[];
+              citations: any[] | undefined;
+            }): Algorithm => {
               return {
                 id: algorithm.kisaoId?.id,
                 heading:
@@ -216,7 +225,7 @@ export class ViewSimulatorComponent implements OnInit {
                         parameter.recommendedRange === undefined
                           ? null
                           : parameter.recommendedRange
-                              .map((val) => {
+                              .map((val: { toString: () => any }) => {
                                 return val.toString();
                               })
                               .join(' - '),
@@ -280,7 +289,7 @@ export class ViewSimulatorComponent implements OnInit {
           break;
         }
       }
-      this.simulator$ = simulatorSubject.asObservable();
+
       this.loading$ = loadingSubject.asObservable();
     });
   }
