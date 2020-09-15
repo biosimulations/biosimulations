@@ -5,17 +5,29 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
+import {
+  TableComponent,
+  Column,
+  ColumnLinkType,
+  ColumnFilterType,
+} from '@biosimulations/shared/ui';
 import { SimulatorService } from '../simulator.service';
 import edamJson from '../edam.json';
 import kisaoJson from '../kisao.json';
 import sboJson from '../sbo.json';
 import spdxJson from '../spdx.json';
+import { Subscription } from 'rxjs';
 
-const edamTerms = edamJson as { [id: string]: {name: string, description: string, url: string}};
-const kisaoTerms = kisaoJson as { [id: string]: {name: string, description: string, url: string}};
-const sboTerms = sboJson as { [id: string]: {name: string, description: string, url: string}};
-const spdxTerms = spdxJson as { [id: string]: {name: string, url: string}};
+const edamTerms = edamJson as {
+  [id: string]: { name: string; description: string; url: string };
+};
+const kisaoTerms = kisaoJson as {
+  [id: string]: { name: string; description: string; url: string };
+};
+const sboTerms = sboJson as {
+  [id: string]: { name: string; description: string; url: string };
+};
+const spdxTerms = spdxJson as { [id: string]: { name: string; url: string } };
 
 interface Simulator {
   id: string;
@@ -42,21 +54,21 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
   columns: Column[] = [
     {
       id: 'id',
-      heading: "Id",
+      heading: 'Id',
       key: 'id',
       filterable: false,
       minWidth: 90,
     },
     {
       id: 'name',
-      heading: "Name",
+      heading: 'Name',
       key: 'name',
       filterable: false,
       minWidth: 90,
     },
     {
       id: 'frameworks',
-      heading: "Frameworks",
+      heading: 'Frameworks',
       key: 'frameworks',
       getter: (element: Simulator): string[] => {
         const value = [];
@@ -64,7 +76,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           value.push(framework);
         }
         value.sort((a: string, b: string): number => {
-          return a.localeCompare( b, undefined, { numeric: true } )
+          return a.localeCompare(b, undefined, { numeric: true });
         });
         return value;
       },
@@ -75,7 +87,11 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         return name;
       },
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+        return TableComponent.comparator(
+          aNames.join(', '),
+          bNames.join(', '),
+          sign
+        );
       },
       filterComparator: (aName: string, bName: string, sign = 1): number => {
         return TableComponent.comparator(aName, bName, sign);
@@ -84,7 +100,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     },
     {
       id: 'algorithms',
-      heading: "Algorithms",
+      heading: 'Algorithms',
       key: 'algorithms',
       getter: (element: Simulator): string[] => {
         const value = [];
@@ -92,7 +108,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           value.push(algorithm);
         }
         value.sort((a: string, b: string): number => {
-          return a.localeCompare( b, undefined, { numeric: true } )
+          return a.localeCompare(b, undefined, { numeric: true });
         });
         return value;
       },
@@ -103,7 +119,11 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         return name;
       },
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+        return TableComponent.comparator(
+          aNames.join(', '),
+          bNames.join(', '),
+          sign
+        );
       },
       passesFilter: (element: Simulator, filterValues: string[]): boolean => {
         const algorithms = element.algorithms;
@@ -124,7 +144,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     },
     {
       id: 'formats',
-      heading: "Model formats",
+      heading: 'Model formats',
       key: 'formats',
       getter: (element: Simulator): string[] => {
         const value = [];
@@ -132,7 +152,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
           value.push(format);
         }
         value.sort((a: string, b: string): number => {
-          return a.localeCompare( b, undefined, { numeric: true } )
+          return a.localeCompare(b, undefined, { numeric: true });
         });
         return value;
       },
@@ -143,14 +163,18 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
         return name;
       },
       comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-        return TableComponent.comparator(aNames.join(', '), bNames.join(', '), sign);
+        return TableComponent.comparator(
+          aNames.join(', '),
+          bNames.join(', '),
+          sign
+        );
       },
       filterComparator: TableComponent.comparator,
       minWidth: 114,
     },
     {
       id: 'latestVersion',
-      heading: "Latest version",
+      heading: 'Latest version',
       key: 'latestVersion',
       filterable: false,
       show: false,
@@ -158,26 +182,30 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     },
     {
       id: 'license',
-      heading: "License",
+      heading: 'License',
       key: 'license',
       show: false,
       minWidth: 75,
     },
     {
       id: 'created',
-      heading: "Created",
+      heading: 'Created',
       key: 'created',
       formatter: (value: Date): string => {
-        return value.getFullYear().toString()
-          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
-          + '-' + value.getDate().toString().padStart(2, '0');
+        return (
+          value.getFullYear().toString() +
+          '-' +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
+          '-' +
+          value.getDate().toString().padStart(2, '0')
+        );
       },
       filterType: ColumnFilterType.date,
       show: false,
     },
     {
       id: 'moreInfo',
-      heading: "More info",
+      heading: 'More info',
       leftIcon: 'internalLink',
       rightIcon: 'link',
       leftIconTitle: (element: Simulator): string => {
@@ -202,49 +230,63 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
   ];
 
   data: Simulator[] = [];
+  subscription!: Subscription;
 
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router, private service: SimulatorService) {}
 
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   ngAfterViewInit(): void {
-    this.table.defaultSort = {active: 'name', direction: 'asc'};
+    this.table.defaultSort = { active: 'name', direction: 'asc' };
 
     setTimeout(() => {
+      this.subscription = this.service
+        .getLatest()
+        .subscribe((simulators: any[]) => {
+          console.log(simulators);
+          this.data = simulators.map(
+            (simulator: any): Simulator => {
+              console.log(simulator);
+              const frameworks = new Set();
+              const algorithms = new Set();
+              const algorithmSynonyms = new Set();
+              const formats = new Set();
+              for (const algorithm of simulator.algorithms) {
+                for (const framework of algorithm.modelingFrameworks) {
+                  frameworks.add(
+                    this.trimFramework(sboTerms[framework.id]?.name)
+                  );
+                }
+                algorithms.add(kisaoTerms[algorithm.kisaoId.id]?.name);
+                for (const synonym of algorithm.kisaoSynonyms) {
+                  algorithmSynonyms.add(kisaoTerms[synonym.id]?.name);
+                }
+                for (const format of algorithm.modelFormats) {
+                  formats.add(edamTerms[format.id]?.name);
+                }
+              }
 
-
-      this.data = SimulatorService.data.map((simulator: any): Simulator => {
-        const frameworks = new Set();
-        const algorithms = new Set();
-        const algorithmSynonyms = new Set();
-        const formats = new Set();
-        for (const algorithm of simulator.algorithms) {
-          for (const framework of algorithm.modelingFrameworks) {
-            frameworks.add(this.trimFramework(sboTerms[framework.id].name));
-          }
-          algorithms.add(kisaoTerms[algorithm.kisaoId.id].name);
-          for (const synonym of algorithm.kisaoSynonyms) {
-            algorithmSynonyms.add(kisaoTerms[synonym.id].name);
-          }
-          for (const format of algorithm.modelFormats) {
-            formats.add(edamTerms[format.id].name);
-          }
-        }
-
-        return {
-          id: simulator.id,
-          name: simulator.name,
-          frameworks: Array.from(frameworks),
-          algorithms: Array.from(algorithms),
-          algorithmSynonyms: Array.from(algorithmSynonyms),
-          formats: Array.from(formats),
-          latestVersion: simulator.version,
-          url: simulator.url,
-          license: this.shortenLicense(spdxTerms[simulator.license.id].name),
-          created: new Date(simulator.created),
-        } as Simulator;
-      });
-      this.table.setData(this.data);
+              return {
+                id: simulator.id,
+                name: simulator.name,
+                frameworks: Array.from(frameworks),
+                algorithms: Array.from(algorithms),
+                algorithmSynonyms: Array.from(algorithmSynonyms),
+                formats: Array.from(formats),
+                latestVersion: simulator.version,
+                url: simulator.url,
+                license: this.shortenLicense(
+                  spdxTerms[simulator.license.id]?.name
+                ),
+                created: new Date(simulator.created),
+              } as Simulator;
+            }
+          );
+          this.table.setData(this.data);
+        });
     });
   }
 
@@ -255,7 +297,14 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
     return name;
   }
 
-  shortenLicense(name: string): string {
-    return name.replace(/\bLicense\b/, "").replace("  ", " ").trim();
+  shortenLicense(name: string | undefined): string {
+    if (name) {
+      return name
+        .replace(/\bLicense\b/, '')
+        .replace('  ', ' ')
+        .trim();
+    } else {
+      return '';
+    }
   }
 }
