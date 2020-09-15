@@ -12,7 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 export enum ColumnLinkType {
   routerLink = 'routerLink',
@@ -126,20 +126,30 @@ export class TableComponent implements OnInit, AfterViewInit {
   get columns(): Column[] {
     return this._columns;
   }
+  private subscription?: Subscription;
 
-  setData(data: any[]): void {
-    const sortedData = this.sortData(data, this.defaultSort);
-    sortedData.forEach((datum: any, iDatum: number): void => {
-      datum._index = iDatum;
+  @Input()
+  set data(data: Observable<any[]>) {
+    this.subscription = data.subscribe((data: any) => {
+      this.dataSource.isLoading.next(true);
+      const sortedData = this.sortData(data, this.defaultSort);
+      sortedData.forEach((datum: any, iDatum: number): void => {
+        datum._index = iDatum;
+      });
+      this.dataSource.data = sortedData;
+      this.dataSource.isLoading.next(false);
     });
-    this.dataSource.data = sortedData;
-    this.dataSource.isLoading.next(false);
   }
 
   constructor(public dataSource: TableDataSource) {}
 
   ngOnInit(): void {
     this.isLoading = this.dataSource.isLoading$();
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit(): void {

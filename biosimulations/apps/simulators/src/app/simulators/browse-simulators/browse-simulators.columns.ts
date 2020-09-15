@@ -5,18 +5,7 @@ import {
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 
-export interface TableSimulator {
-  id: string;
-  name: string;
-  frameworks: string[];
-  algorithms: string[];
-  algorithmSynonyms: string[];
-  formats: string[];
-  latestVersion: string;
-  url: string;
-  license: string;
-  created: Date;
-}
+import { TableSimulator } from './tableSimulator.interface';
 
 export const columns: Column[] = [
   {
