@@ -1,7 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
+import {
+  TableComponent,
+  Column,
+  ColumnLinkType,
+  ColumnFilterType,
+} from '@biosimulations/shared/ui';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -13,20 +19,20 @@ export class BrowseComponent {
   columns: Column[] = [
     {
       id: 'id',
-      heading: "Id",
+      heading: 'Id',
       key: 'id',
       minWidth: 34,
       filterable: false,
     },
     {
       id: 'name',
-      heading: "Name",
+      heading: 'Name',
       key: 'name',
-      minWidth: 34
+      minWidth: 34,
     },
     {
       id: 'status',
-      heading: "Status",
+      heading: 'Status',
       key: 'status',
       formatter: (value: SimulationStatus): string => {
         if (value) {
@@ -35,7 +41,11 @@ export class BrowseComponent {
           return value;
         }
       },
-      comparator: (a: SimulationStatus, b: SimulationStatus, sign: number): number => {
+      comparator: (
+        a: SimulationStatus,
+        b: SimulationStatus,
+        sign: number
+      ): number => {
         let aVal = 0;
         if (a === SimulationStatus.queued) aVal = 0;
         else if (a === SimulationStatus.started) aVal = 1;
@@ -56,7 +66,7 @@ export class BrowseComponent {
     },
     {
       id: 'runtime',
-      heading: "Runtime",
+      heading: 'Runtime',
       key: 'runtime',
       formatter: (value: number): string | null => {
         if (value === undefined) {
@@ -65,19 +75,14 @@ export class BrowseComponent {
 
         if (value > 7 * 24 * 60 * 60) {
           return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-
         } else if (value > 24 * 60 * 60) {
           return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-
         } else if (value > 60 * 60) {
           return (value / (60 * 60)).toFixed(1) + ' h';
-
         } else if (value > 60) {
           return (value / 60).toFixed(1) + ' m';
-
         } else if (value > 1) {
-          return (value).toFixed(1) + ' s';
-
+          return value.toFixed(1) + ' s';
         } else {
           return (value * 1000).toFixed(1) + ' ms';
         }
@@ -87,37 +92,51 @@ export class BrowseComponent {
     },
     {
       id: 'submitted',
-      heading: "Submitted",
+      heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
-        return value.getFullYear().toString()
-          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
-          + '-' + value.getDate().toString().padStart(2, '0')
-          + ' ' + value.getHours().toString().padStart(2, '0')
-          + ':' + value.getMinutes().toString().padStart(2, '0')
-          + ':' + value.getSeconds().toString().padStart(2, '0');
+        return (
+          value.getFullYear().toString() +
+          '-' +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
+          '-' +
+          value.getDate().toString().padStart(2, '0') +
+          ' ' +
+          value.getHours().toString().padStart(2, '0') +
+          ':' +
+          value.getMinutes().toString().padStart(2, '0') +
+          ':' +
+          value.getSeconds().toString().padStart(2, '0')
+        );
       },
       filterType: ColumnFilterType.date,
       minWidth: 140,
     },
     {
       id: 'updated',
-      heading: "Last updated",
+      heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
-        return value.getFullYear().toString()
-          + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
-          + '-' + value.getDate().toString().padStart(2, '0')
-          + ' ' + value.getHours().toString().padStart(2, '0')
-          + ':' + value.getMinutes().toString().padStart(2, '0')
-          + ':' + value.getSeconds().toString().padStart(2, '0');
+        return (
+          value.getFullYear().toString() +
+          '-' +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
+          '-' +
+          value.getDate().toString().padStart(2, '0') +
+          ' ' +
+          value.getHours().toString().padStart(2, '0') +
+          ':' +
+          value.getMinutes().toString().padStart(2, '0') +
+          ':' +
+          value.getSeconds().toString().padStart(2, '0')
+        );
       },
       filterType: ColumnFilterType.date,
       minWidth: 140,
     },
     {
       id: 'submittedLocally',
-      heading: "Submitted locally",
+      heading: 'Submitted locally',
       key: 'submittedLocally',
       formatter: (value: boolean): string => {
         return value ? 'Yes' : 'No';
@@ -128,7 +147,7 @@ export class BrowseComponent {
     },
     {
       id: 'visualize',
-      heading: "Visualize",
+      heading: 'Visualize',
       center: true,
       leftIcon: 'chart',
       leftLinkType: ColumnLinkType.routerLink,
@@ -141,7 +160,7 @@ export class BrowseComponent {
     },
     {
       id: 'download',
-      heading: "Download",
+      heading: 'Download',
       center: true,
       leftIcon: 'download',
       leftLinkType: ColumnLinkType.href,
@@ -158,12 +177,15 @@ export class BrowseComponent {
     },
     {
       id: 'log',
-      heading: "Log",
+      heading: 'Log',
       center: true,
       leftIcon: 'logs',
       leftLinkType: ColumnLinkType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (simulation.status === SimulationStatus.succeeded || simulation.status === SimulationStatus.failed) {
+        if (
+          simulation.status === SimulationStatus.succeeded ||
+          simulation.status === SimulationStatus.failed
+        ) {
           return ['/simulations', simulation.id];
         } else {
           return null;
@@ -174,17 +196,13 @@ export class BrowseComponent {
       sortable: false,
     },
   ];
-
+  simulations!: Observable<Simulation[]>;
   constructor(private simulationService: SimulationService) {}
-
+  ngOnInit() {
+    this.simulations = this.simulationService.simulations$;
+  }
   ngAfterViewInit() {
-    this.table.defaultSort = {active: 'id', direction: 'asc'};
-
-    this.simulationService.simulations$.subscribe(
-      (simulations: Simulation[]): void => {
-        setTimeout(() => this.table.setData(simulations));
-      }
-    );
+    this.table.defaultSort = { active: 'id', direction: 'asc' };
   }
 
   exportSimulations() {
@@ -194,8 +212,10 @@ export class BrowseComponent {
       simulation.updated = simulation.updated.getTime();
     });
 
-    const blob = new Blob([JSON.stringify(simulations, null, 2)], {type: 'application/json'});
-    const a = document.createElement("a");
+    const blob = new Blob([JSON.stringify(simulations, null, 2)], {
+      type: 'application/json',
+    });
+    const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'simulations.json';
     a.click();
@@ -223,7 +243,7 @@ export class BrowseComponent {
         });
         this.simulationService.setSimulations(simulations, true);
       };
-      reader.readAsText(file);      
+      reader.readAsText(file);
     };
     input.click();
   }
