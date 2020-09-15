@@ -190,7 +190,7 @@ export class ViewSimulatorComponent implements OnInit {
                 id: algorithm.kisaoId?.id,
                 heading:
                   kisaoTerms[algorithm.kisaoId.id]?.name +
-                  ' (KISAO:' +
+                  ' (' +
                   algorithm.kisaoId.id +
                   ')',
                 name: kisaoTerms[algorithm.kisaoId.id]?.name,
