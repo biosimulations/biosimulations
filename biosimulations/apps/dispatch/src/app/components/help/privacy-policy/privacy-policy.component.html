@@ -1,12 +1,12 @@
-<biosimulations-text-page heading="Privacy policy">
+<biosimulations-text-page heading="Privacy policy" [tocSections]="content.tocSections">
   <ng-container id="sideBar">
-    <biosimulations-text-page-help-side-bar-section>
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-help-side-bar-section>
 
-    <biosimulations-text-page-feedback-side-bar-section>
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-feedback-side-bar-section>
   </ng-container>
 
-  <biosimulations-dispatch-privacy-policy id="content">
+  <biosimulations-dispatch-privacy-policy id="content" #content>
   </biosimulations-dispatch-privacy-policy>
 </biosimulations-text-page>

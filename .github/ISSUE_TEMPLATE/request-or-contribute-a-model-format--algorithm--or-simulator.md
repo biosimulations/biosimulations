@@ -25,8 +25,8 @@ Please describe any specific features that you need (e.g., delays, events, stop 
 
 **To contribute a simulator, please also answer the following questions**
 
-**What is the Git repository for the BioSimulations-compliant interface to this tool?**
-E.g., https://github.com/biosimulations/Biosimulations_COPASI
+**What is the Git repository for the BioSimulators-compliant interface to this tool?**
+E.g., https://github.com/biosimulators/Biosimulators_COPASI
 
-**What is the DockerHub id for the BioSimulations-compliant interface to this tool?**
-E.g., crbm/biosimulations_copasi
+**What is the DockerHub id for the BioSimulators-compliant interface to this tool?**
+E.g., biosimulators/copasi

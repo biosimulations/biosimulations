@@ -18,13 +18,16 @@ export class TextPageTocItemComponent implements OnInit {
   @Input()
   scrollTarget!: HTMLElement;
 
+  @Input()
+  scrollOffset = 0;
+
   constructor() {}
 
   ngOnInit(): void {}
 
   scrollToElement(): void {
     const scrollContainer = document.getElementsByTagName('mat-sidenav-content')[0];
-    const y = this.scrollTarget.getBoundingClientRect().top + scrollContainer.scrollTop - 96;
+    const y = this.scrollTarget.getBoundingClientRect().top + scrollContainer.scrollTop - this.scrollOffset;
     scrollContainer.scrollTo({top: y, behavior: 'smooth'});
   }
 }

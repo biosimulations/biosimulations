@@ -4,11 +4,8 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-
-interface TocItem {
-  heading: string;
-  target: HTMLElement;
-}
+import { MediaMatcher } from '@angular/cdk/layout';
+import { TocSection } from '../toc/toc-section';
 
 @Component({
   selector: 'biosimulations-text-page',
@@ -29,68 +26,25 @@ export class TextPageComponent {
   alwaysFixed: string | null = null;
 
   fixed = false;
+  smallLayout = false;
 
-  tocSections: TocItem[] = [];
-  tocSectionObservers: MutationObserver[] = [];
+  @Input()
+  tocSections!: TocSection[];
 
-  @ViewChild('sectionsContainer', {read: ElementRef})
-  set sectionsContainer(container: ElementRef) {
-    while(this.tocSections.length) {
-      this.tocSections.pop();
-    }
-    while(this.tocSectionObservers.length) {
-      const observer = this.tocSectionObservers.pop();
-      if (observer !== undefined) {
-        observer.disconnect();
-      }
-    }
-    this.getTocSections(container.nativeElement);
-  }
+  @Input()
+  tocScrollSectionScrollOffset = 96;
 
-  getTocSections(container: any) {
-    for (const section of container.children) {
-      if (section.localName === 'biosimulations-text-page-content-section') {
-        const heading = section.getAttribute('shortHeading')
-            || section.getAttribute('ng-reflect-short-heading')
-            || section.getAttribute('heading')
-            || section.getAttribute('ng-reflect-heading');
-        const tocSection = {
-          heading: heading,
-          target: section,
-        };
-        this.tocSections.push(tocSection);
-
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            const heading = section.getAttribute('shortHeading')
-              || section.getAttribute('ng-reflect-short-heading')
-              || section.getAttribute('heading')
-              || section.getAttribute('ng-reflect-heading');
-            tocSection.heading = heading;
-          });
-        });
-
-        observer.observe(section, {
-          attributeFilter: ['shortHeading', 'ng-reflect-short-heading', 'heading', 'ng-reflect-heading'],
-        });
-        this.tocSectionObservers.push(observer);
-      } else {
-        this.getTocSections(section);
-      }
-    }
-  }
-
-  constructor() {
+  constructor(mediaMatcher: MediaMatcher) {
     window.addEventListener('scroll', this.scroll, true);
+
+    const matcher = mediaMatcher.matchMedia('(max-width: 959px)');
+    this.smallLayout = matcher.matches;
+    matcher.addListener((event) => {
+      this.smallLayout = event.matches;
+    });
   }
 
   ngOnDestroy() {
-    while(this.tocSectionObservers.length) {
-      const observer = this.tocSectionObservers.pop();
-      if (observer !== undefined) {
-        observer.disconnect();
-      }
-    }
     window.removeEventListener('scroll', this.scroll, true);
   }
 

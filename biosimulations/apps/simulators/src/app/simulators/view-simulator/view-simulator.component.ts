@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { pluck, map, mergeAll, tap, catchError } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
+import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
 import { SimulatorService } from '../simulator.service';
+
 import edamJson from '../edam.json';
 import kisaoJson from '../kisao.json';
 import sboJson from '../sbo.json';
@@ -345,5 +347,12 @@ export class ViewSimulatorComponent implements OnInit {
       url: citation.identifiers[0].url as string,
       text: text,
     };
+  }
+
+  tocSections!: TocSection[];
+
+  @ViewChild(TocSectionsContainerDirective)
+  set tocSectionsContainer(container: TocSectionsContainerDirective) {
+    setTimeout(() => {this.tocSections = container.sections;});
   }
 }

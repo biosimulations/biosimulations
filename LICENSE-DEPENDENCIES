@@ -4971,7 +4971,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Valeri Karpov
 │  ├─ email: val@karpov.io
 │  └─ licenseFile: mongoose-legacy-pluralize/LICENSE
-├─ mongoose@5.10.3
+├─ mongoose@5.10.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
@@ -5125,7 +5125,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/suguru03/neo-async
 │  └─ licenseFile: neo-async/LICENSE
-├─ nestjs-typegoose@7.1.36
+├─ nestjs-typegoose@7.1.37
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kpfromer/nestjs-typegoose
 │  ├─ publisher: Kyle Pfromer
@@ -5158,7 +5158,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/electerious/nice-try
 │  └─ licenseFile: nice-try/LICENSE
-├─ node-fetch@2.6.0
+├─ node-fetch@2.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/bitinn/node-fetch
 │  ├─ publisher: David Frank
@@ -5755,7 +5755,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/mikolalysenko/planar-graph-to-polyline
 │  ├─ publisher: Mikola Lysenko
 │  └─ licenseFile: planar-graph-to-polyline/LICENSE
-├─ plotly.js@1.55.1
+├─ plotly.js@1.55.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/plotly/plotly.js
 │  ├─ publisher: Plotly, Inc.

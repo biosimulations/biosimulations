@@ -6,10 +6,6 @@
     justify-content: center;
 }
 
-.grid {
-    grid-template-columns: 16rem 1fr;
-}
-
 ::ng-deep .mat-accordion {
     .mat-expansion-panel {
         border-left: 1px solid $light-bg-darker-5;
