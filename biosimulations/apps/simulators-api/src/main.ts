@@ -83,10 +83,9 @@ async function bootstrap() {
     }
     const allowedOrigins = [
       'http://127.0.0.1:4200',
-      'https://biosimulations.dev',
-      'https://biosimulations.org',
-      'https://api.biosimulations.dev',
-      'https://api.biosimulations.org',
+      'http://localhost:4200',
+      'https://biosimulators.org',
+      'https://www.biosimulators.org',
     ];
 
     const allow = allowedOrigins.includes(requestOrigin);
