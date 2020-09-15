@@ -2,7 +2,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription, BehaviorSubject, Observable, merge, of } from 'rxjs';
 import {
   BiomodelAttributes,
-  OntologyTerm,
+  IOntologyTerm,
   UserId,
   Person,
 } from '@biosimulations/shared/datamodel';
@@ -43,8 +43,8 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         map((value: ModelResource[]) =>
           value.map((model: ModelResource) => {
             return ModelDataSource.toDataModel(model);
-          }),
-        ),
+          })
+        )
       )
       .subscribe((value: ModelData[]) => (this.data = value));
     modelHttp
@@ -65,7 +65,11 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
       id: model.id,
       name: model.attributes.metadata.name.replace('_', ' ').replace('-', ' '),
       tags: model.attributes.metadata.tags,
-      framework: Framework.fromDTO(model.attributes.framework).name.replace(' framework', ''),
+      framework:
+        Framework.fromDTO(model.attributes.framework).name?.replace(
+          ' framework',
+          ''
+        ) || '',
       format: new Format(
         format.id,
         format.name,
@@ -75,14 +79,16 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         format.url,
         format.mimetype,
         format.extension,
-        format.sedUrn,
+        format.sedUrn
       ),
       authors: model.attributes.metadata.authors.map((person: Person) => {
         return new Author(person.firstName, person.lastName, person.middleName);
       }),
       owner: model.relationships.owner.data.id,
-      created: created.getFullYear().toString() + '-0' + created.getMonth().toString(),
-      updated: updated.getFullYear().toString() + '-0' + updated.getMonth().toString(),
+      created:
+        created.getFullYear().toString() + '-0' + created.getMonth().toString(),
+      updated:
+        updated.getFullYear().toString() + '-0' + updated.getMonth().toString(),
       taxon: model.attributes.taxon
         ? new Taxon(model.attributes.taxon?.id, model.attributes.taxon?.name)
         : null,

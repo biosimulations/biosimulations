@@ -1,5 +1,5 @@
 import {
-  OntologyTerm,
+  IOntologyTerm,
   Format,
   License,
   AccessLevel,
@@ -17,7 +17,7 @@ import {
 export class Model {
   // Attributes
   taxon: Taxon | null;
-  framework: OntologyTerm;
+  framework: IOntologyTerm;
   format: Format;
   parameters: BiomodelParameter[];
   variables: BiomodelVariable[];
@@ -46,7 +46,7 @@ export class Model {
     id: string,
     metaData: any,
     attributes: BiomodelAttributes,
-    relationships: BiomodelRelationships,
+    relationships: BiomodelRelationships
   ) {
     this.id = id;
     this.taxon = attributes.taxon;
