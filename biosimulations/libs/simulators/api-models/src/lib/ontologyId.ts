@@ -50,7 +50,7 @@ export class SBOOntologyId implements ISboOntologyID {
 export const SBOOntologyIdSchema = SchemaFactory.createForClass(SBOOntologyId);
 
 export class SpdxId implements ISpdxId {
-  @ApiProperty({ enum: ['SBO'] })
+  @ApiProperty({ enum: ['SPDX'] })
   @Prop()
   namespace!: Ontologies.SPDX;
   @ApiProperty({ example: '0BSD' })

@@ -16,7 +16,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 import { AlgorithmSchema } from './algorithm';
-import { EdamOntologyId, EdamOntologyIdSchema } from './ontologyId';
+import { EdamOntologyId, EdamOntologyIdSchema, SpdxId } from './ontologyId';
 import { Algorithm } from './algorithm';
 
 // TODO Split database and api models?
@@ -63,9 +63,9 @@ export class Simulator extends Document {
   @ApiProperty({})
   @Prop({ type: ExternalReferences })
   references!: ExternalReferences;
-  @Prop({ type: Object })
-  @ApiProperty({ enum: License })
-  license!: License;
+  @Prop()
+  @ApiProperty({ type: SpdxId })
+  license!: SpdxId;
   @ApiProperty({ type: [Algorithm] })
   @Prop({ items: AlgorithmSchema, _id: false })
   algorithms!: Algorithm[];
