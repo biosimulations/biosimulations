@@ -7,11 +7,13 @@ import {
 } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/common';
+import { ModelsService } from './resources/models/models.service';
 
 describe('AppController', () => {
   let app: TestingModule;
 
   beforeAll(async () => {
+    const mockService = {};
     app = await Test.createTestingModule({
       imports: [HttpModule],
       controllers: [AppController],
@@ -27,6 +29,10 @@ describe('AppController', () => {
             return ClientProxyFactory.create(natsOptions);
           },
           inject: [ConfigService],
+        },
+        {
+          provide: ModelsService,
+          useValue: mockService,
         },
       ],
     }).compile();
@@ -48,6 +54,8 @@ describe('AppController', () => {
             simulatorVersion: '',
             filename: '',
             uniqueFilename: '',
+            authorEmail: '',
+            nameOfSimulation: '',
           }
         )
       ).toEqual({

@@ -29,7 +29,6 @@ import * as fs from 'fs';
 import path from 'path';
 import { urls } from '@biosimulations/config/common';
 import { ModelsService } from './resources/models/models.service';
-import {} from '@biosimulations/dispatch/api-models';
 import {
   DispatchSimulationStatus,
   SimulationDispatchSpec,
