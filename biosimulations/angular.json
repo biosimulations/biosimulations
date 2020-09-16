@@ -1381,32 +1381,6 @@
         }
       }
     },
-    "dispatch-datamodel": {
-      "root": "libs/dispatch/datamodel",
-      "sourceRoot": "libs/dispatch/datamodel/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "tsConfig": [
-              "libs/dispatch/datamodel/tsconfig.lib.json",
-              "libs/dispatch/datamodel/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/dispatch/datamodel/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/dispatch/datamodel/jest.config.js",
-            "tsConfig": "libs/dispatch/datamodel/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "dispatch-api-models": {
       "root": "libs/dispatch/api-models",
       "sourceRoot": "libs/dispatch/api-models/src",

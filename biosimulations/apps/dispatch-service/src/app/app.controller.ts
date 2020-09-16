@@ -15,7 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import { SimulationDispatchSpec } from '@biosimulations/dispatch/datamodel';
+import { SimulationDispatchSpec } from '@biosimulations/dispatch/api-models';
 import { v4 as uuid } from 'uuid';
 import path from 'path';
 import * as csv2Json from 'csv2json';
