@@ -130,7 +130,7 @@ export class SimulatorTableService {
     for (const algorithm of simulator.algorithms) {
       algorithms.add(algorithm.kisaoId.id);
     }
-    console.log(algorithms);
+
     const alg: Observable<string>[] = [];
     for (const id of algorithms) {
       alg.push(this.ontologyService.getKisaoTerm(id).pipe(pluck('name')));

@@ -43,7 +43,7 @@ export class OntologyService {
               term.id.replace(':', '_');
 
             term.url = termUrl;
-            console.log(term);
+
             termSet.set(term.id, term);
           });
           return termSet;
