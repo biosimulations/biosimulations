@@ -156,7 +156,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.filter = {};
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
     this.dataSource.filterPredicate = this.filterData.bind(this);
     this.dataSource.sort = this.sort;
     this.dataSource.sortData = this.sortData.bind(this);
@@ -411,7 +411,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
   }
 
   filterNumberValue(
@@ -430,7 +430,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.filter[column.id] = selectedRange;
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
   }
 
   filterStartDateValue(
@@ -453,7 +453,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
   }
 
   filterEndDateValue(
@@ -476,7 +476,20 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
+  }
+
+  setDataSourceFilter(): void {
+    if (Object.keys(this.filter).length) {
+      // Hack: alternate between value of 'a' and 'b' to force data source to filter the data
+      if (this.dataSource.filter === 'a') {
+        this.dataSource.filter = 'b';
+      } else {
+        this.dataSource.filter = 'a';
+      }
+    } else {
+      this.dataSource.filter = '';
+    }
   }
 
   filterData(datum: any, filter: string): boolean {
