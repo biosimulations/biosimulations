@@ -7,4 +7,5 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/apps/dispatch-api',
+  testEnvironment: 'node',
 };
