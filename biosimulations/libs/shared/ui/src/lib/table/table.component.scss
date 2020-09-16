@@ -1,9 +1,9 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-.container {
-    width: 100%;
-    grid-template-columns: 16rem 1fr;
+.loading {
+    display: flex;
+    justify-content: center;
 }
 
 ::ng-deep .mat-accordion {
@@ -58,10 +58,12 @@
     }
 
     .mat-list-base {
-        padding: 0 0.5rem;
+        padding: 0;
+        margin-top: -0.25rem;
+        margin-bottom: -0.25rem;
 
         .mat-list-item {
-            height: 28px;
+            height: 24px;
             @include mat-typography-level-to-styles($fontConfig, body-1);
 
             .mat-list-item-content {
@@ -74,8 +76,20 @@
         background-color: mat-color($theme-primary);
     }
 
-    .mat-checkbox .mat-checkbox-ripple {
-        display: none;
+    .mat-checkbox {
+        width: 100%;
+        ::ng-deep .mat-checkbox-layout {
+            width: 100%;
+            .mat-checkbox-label {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        .mat-checkbox-ripple {
+            display: none;
+        }
     }
 
     .mat-form-field-type-mat-date-range-input.mat-form-field-appearance-fill {
@@ -101,58 +115,6 @@
     width: 100%;
     height: max-content;
     overflow-x: auto;
-}
-
-::ng-deep .mat-table {
-    min-width: min-content;
-    border: 1px solid $light-bg-darker-5;
-    border-radius: 4px;
-}
-
-::ng-deep .mat-header-row {
-    background: $light-background;
-    min-height: 32px;
-}
-
-::ng-deep .mat-row {
-    min-height: 28px;
-}
-
-::ng-deep .mat-cell, ::ng-deep .mat-header-cell {
-    color: $dark-primary-text;
-    @include mat-typography-level-to-styles($fontConfig, body-1);
-
-    &:not(:first-of-type) {
-        padding-left: 0.25rem;
-        border-left: 1px solid $light-bg-darker-5;
-    }
-    &:not(:last-of-type) {
-        padding-right: 0.25rem;
-    }
-
-    &:first-of-type {
-        padding-left: 0.5rem;
-    }
-    &:last-of-type {
-        padding-right: 0.5rem;
-    }
-}
-
-::ng-deep .mat-header-cell {
-    font-weight: 500;
-}
-
-::ng-deep .mat-cell {
-    *:focus {
-        outline: none;
-    }
-}
-
-.cell-content-container {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 biosimulations-icon {

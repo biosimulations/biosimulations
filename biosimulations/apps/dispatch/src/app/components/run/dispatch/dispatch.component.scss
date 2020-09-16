@@ -1,4 +1,14 @@
+@import 'biosimulations-colors';
+
 form {
   min-width: 50%;
   max-width: 600px;
+}
+
+.message {
+  margin-top: 1rem;
+
+  &.success {
+    color: mat-color($theme-primary);
+  }
 }

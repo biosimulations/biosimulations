@@ -1,3 +1,8 @@
-<mat-tab-group (selectedTabChange)="this.selectedTabChange.emit($event)">
-  <ng-content></ng-content>
-</mat-tab-group>
+<biosimulations-full-page-spinner *ngIf="loading">
+</biosimulations-full-page-spinner>
+
+<div [ngClass]="{hidden: loading}">
+  <mat-tab-group (selectedTabChange)="this.selectedTabChange.emit($event)">
+    <ng-content></ng-content>
+  </mat-tab-group>
+</div>

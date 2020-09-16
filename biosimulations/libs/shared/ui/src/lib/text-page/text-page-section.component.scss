@@ -1,5 +1,12 @@
 .container {
   margin-top: 2rem;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 959px) {
+  .container {
+    margin-top: 1rem;
+  }
 }
 
 h2 {

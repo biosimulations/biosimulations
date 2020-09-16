@@ -1,0 +1,12 @@
+.container {
+  height: calc(100vh - 64px - 28px - 0.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 959px) {
+  .container {
+    height: calc(100vh - 56px);
+  }
+}

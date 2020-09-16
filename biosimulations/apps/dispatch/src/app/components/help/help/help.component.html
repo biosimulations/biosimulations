@@ -1,6 +1,6 @@
-<biosimulations-text-page heading="Tutorial">
+<biosimulations-text-page heading="Tutorial" [tocSections]="tocSections">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources">
+    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
         <a href="https://biosimulators.org" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
@@ -16,17 +16,17 @@
       </div>
     </biosimulations-text-page-side-bar-section>
 
-    <biosimulations-text-page-help-side-bar-section>
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-help-side-bar-section>
 
-    <biosimulations-text-page-feedback-side-bar-section>
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-feedback-side-bar-section>
   </ng-container>
 
-  <ng-container id="content">
+  <ng-container id="content" tocSectionsContainer>
     <biosimulations-text-page-content-section
       heading="Creating COMBINE/OMEX files that describe modeling projects"
-      shortHeading="Creating modeling projects"
+      tocSection="Creating modeling projects"
     >
       <p>
         runBioSimulations requires modeling projects (one or more simulations of one or more models) to be described by an OMEX file and packaged into a COMBINE archive. Please follow these steps to create OMEX and COMBINE files. Alternatively, COMBINE/OMEX files which describe modeling projects can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
@@ -53,14 +53,14 @@
 
     <biosimulations-text-page-content-section
       heading="Finding a simulation tool that is capable of executing a modeling project"
-      shortHeading="Finding simulation tools"
+      tocSection="Finding simulation tools"
     >
       runBioSimulations uses the BioSimulators collection of simulation tools. These tools each support different modeling frameworks, different simulation algorithms, and different model formats. The BioSimulators website <a href="https://biosimulators.org/simulators"><biosimulations-icon icon="link"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this website to identify a simulation tool which is capable of executing your modeling project.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Executing projects"
-      shortHeading="Executing projects"
+      tocSection="Executing projects"
     >
       <p>Please follow these steps to execute a modeling project:</p>
 
@@ -71,12 +71,13 @@
         <li>Enter a name for your project. We recommend choosing a descriptive name that will help you recall the purpose of your project. These names will be particularly helpful if you run multiple projects.</li>
         <li>Optionally, enter your email address to receive notification when your project has completed and is ready for your analysis.</li>
         <li>Click the "Run" button. After you click the "Run" button, you will receive a URL where you will be able to view the status of your project and retrieve and visualize its results. If you provided an email address, you will receive email notification when your project has completed. This email will contain the same URL.</li>
+        <li>Your simulation and its results will be available for six months.</li>
       </ol>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Checking the status of a project"
-      shortHeading="Checking the status of a project"
+      tocSection="Checking the status of a project"
     >
       <p>Please follow these steps to view the status of a project:</p>
 
@@ -89,21 +90,22 @@
 
     <biosimulations-text-page-content-section
       heading="Retrieiving simulation results"
-      shortHeading="Retrieiving simulation results"
+      tocSection="Retrieiving simulation results"
     >
-      <p>After your project has completed, please follow these steps to retrieve its results:</p>
-
+      <p class="no-bottom-margin">After your project has completed, please follow these steps to retrieve its results:</p>
       <ol class="vertically-spaced">
         <li>Open the URL provided after you submitted your project.</li>
-        <li>Click the results icon to download the results of the project as a zip archive. This archive will contain a file for each report specified in each SED-ML file in the COMBINE/OMEX archive for your project.</li>
+        <li>Click the results icon to download the results of the project as a zip archive. This archive will contain a file for each report specified in each SED-ML file in the COMBINE/OMEX archive for your project.</li>        
       </ol>
+
+      <p>Your simulation results will be available for six months.</p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Visualizing simulation results"
-      shortHeading="Visualizing simulation results"
+      tocSection="Visualizing simulation results"
     >
-      <p>After your project has completed, please follow these steps to visualize its results:</p>
+      <p class="no-bottom-margin">After your project has completed, please follow these steps to visualize its results:</p>
 
       <ol class="vertically-spaced">
         <li>Open the URL provided after you submitted your project.</li>
@@ -112,11 +114,13 @@
         <li>Select one of the reports in the selected SED-ML file. This will display a time series chart of the seleted report.</li>
         <li>Use the controls in the chart to customize the chart. For example, the controls can be used to view specific variables or zoom into the chart.</li>
       </ol>
+
+      <p>Your simulation results will be available for six months.</p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Programmatically executing projects with the REST API"
-      shortHeading="REST API"
+      tocSection="REST API"
     >
       In addition to this web application, a REST API for executing projects is available at <a [href]="webserviceUrl" target="_blank">{{ webserviceUrl }}</a>. This API supports the same simulation tools as this web application.
     </biosimulations-text-page-content-section>

@@ -1,5 +1,10 @@
 <biosimulations-page heading="Your simulations">
-  <biosimulations-table #table
+  <ng-container id="buttons">
+    <button mat-icon-button title="Export simulations" (click)="exportSimulations()"><biosimulations-icon icon="download"></biosimulations-icon></button>
+    <button mat-icon-button title="Import simulations" (click)="importSimulations()"><biosimulations-icon icon="upload"></biosimulations-icon></button>
+  </ng-container>
+
+  <biosimulations-table
     [columns]="columns"
   ></biosimulations-table>
 </biosimulations-page>

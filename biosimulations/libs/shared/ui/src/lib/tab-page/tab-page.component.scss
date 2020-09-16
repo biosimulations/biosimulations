@@ -10,7 +10,7 @@
   }
 
   .mat-tab-label-container {
-    padding-left: calc(20px + 1rem);
+    padding-left: 0;
   }
 
   .mat-tab-label {
@@ -36,5 +36,18 @@
   .mat-tab-body-wrapper {
     padding: 2rem;
     min-height: calc(100vh - 64px - 32px - 32px - 2 * 2rem);
+    z-index: 0;
+  }
+
+  @media screen and (max-width: 959px) {
+    .mat-tab-header {
+      top: 56px;
+    }
+
+    .mat-tab-body-wrapper {
+      padding: 1rem;
+      min-height: calc(100vh - 56px - 32px - 2 * 1rem);
+      z-index: 0;
+    }
   }
 }

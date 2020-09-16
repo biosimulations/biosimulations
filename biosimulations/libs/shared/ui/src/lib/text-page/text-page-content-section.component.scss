@@ -1,8 +1,8 @@
 @import 'biosimulations-colors';
 
 biosimulations-text-page-section ::ng-deep h2 {
-  color: $dark-primary-text;
-  background: $light-background;
+  color: mat-color($theme-primary);
+  background: mat-color($theme-primary, lightest);
 
   .icon-container {
     color: $dark-primary-text;

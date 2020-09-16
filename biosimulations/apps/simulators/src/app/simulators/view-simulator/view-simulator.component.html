@@ -1,3 +1,246 @@
-<biosimulations-text-page heading="id$">
+<biosimulations-tab-page [loading]="loading$ | async">
+  <biosimulations-tab-page-tab heading="Overview" icon="overview" [partialWidth]="true">
+    <div class="overview columns-container"
+      gdColumns.gt-sm="1fr 25rem"
+      gdGap.gt-sm="2rem"
+    >
+      <div>
+        <h2>{{ name }} ({{ id }} / {{ version }})</h2>
+        <p>
+          {{ description }}
+        </p>
 
-</biosimulations-text-page>
+        <table class="icon-list">
+          <tbody>
+            <tr>
+              <th><biosimulations-icon icon="user"></biosimulations-icon></th>
+              <td>{{ authors }}</td>
+            </tr>
+          </tbody>
+
+          <tbody class="citations">
+            <tr *ngFor="let citation of citations">
+              <th><biosimulations-icon icon="tutorial"></biosimulations-icon></th>
+              <td><a [href]="citation.url" target="_blank" [innerHTML]="citation.text"></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="border">
+        <div class="section">
+          <h3>Docker pull command</h3>
+          <div class="section-content code">
+            docker pull {{ image }}
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>License</h3>
+          <div class="section-content">
+            <p>{{ licenseName }} <a [href]="licenseUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>More info</h3>
+          <div class="section-content">
+            <p>{{ url }} <a [href]="url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </biosimulations-tab-page-tab>
+
+  <biosimulations-tab-page-tab heading="Algorithms" icon="simulator" class="algorithms">
+    <biosimulations-text-page
+      contentsHeading="Algorithms"
+      [padded]="false"
+      alwaysFixed="calc(64px + 32px + 32px + 2rem)" 
+      [tocSections]="tocSections"
+      [tocScrollSectionScrollOffset]="128"
+    >
+      <ng-container id="sideBar">
+        <biosimulations-text-page-side-bar-section heading="More info" fxShow fxHide.lt-md>
+          <div class="hanging-indent">
+            <a [href]="url" target="_blank">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+              Documentation
+            </a>
+          </div>
+        </biosimulations-text-page-side-bar-section>
+      </ng-container>
+
+      <ng-container id="content" tocSectionsContainer>
+        <biosimulations-text-page-content-section *ngFor="let algorithm of algorithms"
+          [heading]="algorithm.heading"
+          [tocSection]="algorithm.name"
+        >
+          <p class="subsection-heading no-bottom-margin">Description</p>
+          <p>
+            <ng-template ngFor let-fragment [ngForOf]="algorithm.description">
+              <span *ngIf="fragment.type == 'text'; else descriptionLink">
+                {{ fragment.value }}
+              </span>
+              <ng-template #descriptionLink>
+                <a [href]="fragment.value"><biosimulations-icon icon="link"></biosimulations-icon></a>
+              </ng-template>
+            </ng-template>
+          </p>
+
+          <p class="subsection-heading no-bottom-margin">Modeling frameworks</p>
+          <ul class="icon-list">
+              <li *ngFor="let framework of algorithm.frameworks">
+                  <biosimulations-icon icon="simulator"></biosimulations-icon>
+                  <a [href]="framework.url" target="_blank">{{ framework.name }}</a>
+              </li>
+          </ul>
+
+          <p class="subsection-heading no-bottom-margin">Model formats</p>
+          <ul class="icon-list">
+              <li *ngFor="let format of algorithm.formats">
+                  <biosimulations-icon icon="format"></biosimulations-icon>
+                  <a [href]="format.url" target="_blank">{{ format.name }}</a>
+              </li>
+          </ul>
+
+          <p class="subsection-heading no-bottom-margin">Parameters</p>
+          <div class="table-container">
+            <mat-table [dataSource]="algorithm.parameters" class="algorithm-parameters">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.id }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.name }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.type }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.value }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="range">
+                <mat-header-cell *matHeaderCellDef>Recommended range</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.range }}
+                </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="kisaoId">
+                <mat-header-cell *matHeaderCellDef>KiSAO id</mat-header-cell>
+                <mat-cell *matCellDef="let parameter">
+                  <div class="cell-content-container lines-one">
+                    {{ parameter.kisaoId }}
+                    <a *ngIf="parameter.kisaoUrl" [href]="parameter.url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
+                </div>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="parameterColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: parameterColumns"></mat-row>
+            </mat-table>
+          </div>
+
+          <p class="subsection-heading no-bottom-margin">Citations</p>
+          <ul class="icon-list">
+              <li *ngFor="let citation of algorithm.citations">
+                  <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                  <a [href]="citation.url" target="_blank" [innerHTML]="citation.text"></a>
+              </li>
+          </ul>
+
+          <p class="subsection-heading no-bottom-margin">More info</p>
+          <ul class="icon-list">
+              <li>
+                  <biosimulations-icon icon="link"></biosimulations-icon>
+                  <a [href]="algorithm.url" target="_blank">KISAO:{{ algorithm.id }}</a>
+              </li>
+          </ul>
+        </biosimulations-text-page-content-section>
+      </ng-container>
+    </biosimulations-text-page>
+  </biosimulations-tab-page-tab>
+
+  <biosimulations-tab-page-tab heading="Versions" icon="version" [partialWidth]="true">
+    <div class="columns-container"
+      gdColumns.gt-sm="1fr 25rem"
+      gdGap.gt-sm="2rem"
+    >
+      <div class="table-container">
+        <mat-table [dataSource]="versions" class="versions">
+          <ng-container matColumnDef="label">
+            <mat-header-cell *matHeaderCellDef>Version</mat-header-cell>
+            <mat-cell *matCellDef="let aVersion">
+              <div class="cell-content-container lines-one">
+                {{ aVersion.label }}
+                <a [routerLink]="['/simulators', id, aVersion.label]"><biosimulations-icon icon="internalLink"></biosimulations-icon></a>
+            </div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+            <mat-cell *matCellDef="let aVersion">
+              <div class="cell-content-container lines-one">
+                {{ aVersion.date }}
+            </div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="image">
+            <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+            <mat-cell *matCellDef="let aVersion">
+              <div class="cell-content-container lines-one">
+                {{ aVersion.image }}
+                <a *ngIf="aVersion.url" [href]="aVersion.url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="versionColumns; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let aVersion; columns: versionColumns" [ngClass]="{'highlight-row': aVersion.label === version}"></mat-row>
+        </mat-table>
+      </div>
+      <div class="border">
+        <div class="section">
+          <h3>Docker pull command</h3>
+          <div class="section-content code">
+            docker pull {{ '{' }}  image-url {{ '}' }}
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>License</h3>
+          <div class="section-content">
+            <p>{{ licenseName }} <a [href]="licenseUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>More info</h3>
+          <div class="section-content">
+            <p>{{ url }} <a [href]="url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </biosimulations-tab-page-tab>
+</biosimulations-tab-page>

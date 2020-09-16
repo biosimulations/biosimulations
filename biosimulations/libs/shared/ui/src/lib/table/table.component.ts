@@ -1,31 +1,110 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, Injectable } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatTable } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+export enum ColumnLinkType {
+  routerLink = 'routerLink',
+  href = 'href',
+}
+
+export enum ColumnFilterType {
+  string = 'string',
+  number = 'number',
+  date = 'date',
+}
+
+export enum Side {
+  left = 'left',
+  right = 'right'
+}
+
+export interface Column {
+  id: string;
+  heading: string;
+  key?: string | string[];
+  getter?: (rowData: any) => any;
+  filterGetter?: (rowData: any) => any;
+  passesFilter?: (rowData: any, filterValues: any[]) => boolean;
+  formatter?: (cellValue: any) => any;
+  filterFormatter?: (cellValue: any) => any;
+  leftIcon?: string;
+  rightIcon?: string;
+  leftIconTitle?: (rowData: any) => string | null;
+  rightIconTitle?: (rowData: any) => string | null;
+  leftLinkType?: ColumnLinkType;
+  rightLinkType?: ColumnLinkType;
+  leftRouterLink?: (rowData: any) => any[] | null;
+  rightRouterLink?: (rowData: any) => any[] | null;
+  leftHref?: (rowData: any) => string | null;
+  rightHref?: (rowData: any) => string | null;
+  minWidth?: number;
+  center?: boolean;
+  filterable?: boolean;
+  sortable?: boolean;
+  comparator?: (a: any, b: any, sign: number) => number;
+  filterComparator?: (a: any, b: any, sign: number) => number;
+  filterType?: ColumnFilterType;
+  numericFilterStep?: number;
+  show?: boolean;
+  _index?: number;
+}
+
+@Injectable()
+export class TableDataSource extends MatTableDataSource<any> {
+  paginator!: MatPaginator;
+  sort!: MatSort;
+  isLoading = new BehaviorSubject(true);
+
+  constructor() {
+    super();
+
+    this.data = [];
+    this.isLoading.next(true);
+  }
+
+  isLoading$(): Observable<boolean> {
+    return this.isLoading.asObservable();
+  }
+
+  refresh(): void {
+  }
+}
 
 @Component({
   selector: 'biosimulations-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  providers: [TableDataSource],
 })
-export class TableComponent {
+export class TableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  private _columns!: any[];
+  private _columns!: Column[];
   columnsToShow!: string[];
-  idToColumn!: any;
-  sortColumn!: string;
-  sortDirection = '';
+  idToColumn!: { [id: string] : Column };
+  isLoading!: Observable<boolean>;
+  filter: {[id: string]: any[]} = {};
+  defaultSort?: {active: string, direction: string};
 
   @Input()
-  set columns(columns: any[]) {
-    columns.forEach((column) => {
-      column._filteredValues = [];
+  linesPerRow = 1;
+
+  @Input()
+  set columns(columns: Column[]) {
+    columns.forEach((column: Column, iColumn: number): void => {
+      column._index = iColumn;
     });
     this._columns = columns;
     this.setColumnsToShow();
-    this.idToColumn = columns.reduce(function(map, obj) {
-      map[obj.id] = obj;
+    this.idToColumn = columns.reduce((map: { [id: string] : Column }, col: Column) => {
+      map[col.id] = col;
       return map;
     }, {});
 
@@ -34,46 +113,76 @@ export class TableComponent {
     }
   }
 
-  get columns(): any[] {
+  get columns(): Column[] {
     return this._columns;
   }
 
-  data!: any[];
-  filteredData!: any[];
-
   setData(data: any[]): void {
-    data.forEach((datum, iDatum) => {datum._index = iDatum});
-    this.data = data;
-    this.filterSortData();
+    const sortedData = this.sortData(data, this.defaultSort)
+    sortedData.forEach((datum: any, iDatum: number): void => {datum._index = iDatum});
+    this.dataSource.data = sortedData;
+    this.dataSource.isLoading.next(false);
   }
 
-  constructor() {}
+  constructor(public dataSource: TableDataSource) {}
 
-  getElementRoute(element: any, column: any): any {
-    if ('route' in column) {
-      return column.route(element);
+  ngOnInit(): void {
+    this.isLoading = this.dataSource.isLoading$();
+  }
+
+  ngAfterViewInit(): void {
+    this.filter = {};
+    this.dataSource.filter = JSON.stringify(this.filter);
+    this.dataSource.filterPredicate = this.filterData.bind(this);
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortData = this.sortData.bind(this);
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+  }
+
+  getElementRouterLink(element: any, column: Column, side: Side): any {
+    if (side == Side.left && column.leftLinkType === ColumnLinkType.routerLink && column.leftRouterLink !== undefined) {
+      return column.leftRouterLink(element);
+    } else if (side == Side.right && column.rightLinkType === ColumnLinkType.routerLink && column.rightRouterLink !== undefined) {
+      return column.rightRouterLink(element);
     } else {
       return null;
     }
   }
 
-  getElementHref(element: any, column: any): any {
-    if ('href' in column) {
-      return column.href(element);
+  getElementHref(element: any, column: Column, side: Side): any {
+    if (side == Side.left && column.leftLinkType === ColumnLinkType.href && column.leftHref !== undefined) {
+      return column.leftHref(element);
+    } else if (side == Side.right && column.rightLinkType === ColumnLinkType.href && column.rightHref !== undefined) {
+      return column.rightHref(element);
     } else {
       return null;
     }
   }
 
-  formatElementValue(element: any, column: any): any {
-    if ('key' in column) {
-      if (column.key in element) {
-        const value = element[column.key];
-        if ('formatter' in column) {
-          return column.formatter(value);
+  getElementValue(element: any, column: Column | undefined, defaultKey?: string | undefined): any {
+    if (column !== undefined && column.getter !== undefined) {
+      return column.getter(element);
+    } else if (column !== undefined && column.key != undefined) {
+      let keys;
+      if (Array.isArray(column.key)) {
+        keys = column.key;
+      } else {
+        keys = [column.key];
+      }
+
+      let value = element;
+      for (const key of keys) {
+        if (key in value) {
+          value = value[key];
         } else {
-          return value;
+          return null;
         }
+      }
+      return value;
+    } else if (defaultKey !== undefined) {
+      if (defaultKey in element) {
+        return element[defaultKey];
       } else {
         return null;
       }
@@ -82,34 +191,121 @@ export class TableComponent {
     }
   }
 
-  getColumnValues(column: any): any[] {
-    const values: any[] = [];
-    for (const datum of this.data) {
-      const value = datum[column.key];
+  getIconTitle(element: any, column: Column, side: Side): string | null {
+    if (side == Side.left && column.leftIconTitle !== undefined) {
+      return column.leftIconTitle(element);
+    } else if (side == Side.right && column.rightIconTitle !== undefined) {
+      return column.rightIconTitle(element);
+    } else {
+      return column.heading;
+    }
+  }
+
+  getElementFilterValue(element: any, column: Column | undefined, defaultKey?: string | undefined): any {
+    if (column !== undefined && column.filterGetter !== undefined) {
+      return column.filterGetter(element);
+    } else if (column !== undefined && column.getter !== undefined) {
+      return column.getter(element);
+    } else if (column !== undefined && column.key !== undefined) {
+      let keys;
+      if (Array.isArray(column.key)) {
+        keys = column.key;
+      } else {
+        keys = [column.key];
+      }
+
+      let value = element;
+      for (const key of keys) {
+        if (key in value) {
+          value = value[key];
+        } else {
+          return null;
+        }
+      }
+      return value;
+    } else if (defaultKey !== undefined) {
+      if (defaultKey in element) {
+        return element[defaultKey];
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  getComparator(column: Column | undefined, useDefault = false): any {
+    if (useDefault || column === undefined) {
+      return TableComponent.comparator;
+    } else if (column.comparator !== undefined) {
+      return column.comparator;
+    } else {
+      return TableComponent.comparator;
+    }
+  }
+
+  getFilterComparator(column: Column | undefined, useDefault = false): any {
+    if (useDefault || column === undefined) {
+      return TableComponent.comparator;
+    } else if (column.filterComparator !== undefined) {
+      return column.filterComparator;
+    } else if (column.comparator !== undefined) {
+      return column.comparator;
+    } else {
+      return TableComponent.comparator;
+    }
+  }
+
+  formatElementValue(value: any, column: Column): any {
+    if (column.formatter !== undefined) {
+      return column.formatter(value);
+    } else {
+      return value;
+    }
+  }
+
+  formatElementFilterValue(value: any, column: Column): any {
+    if (column.filterFormatter !== undefined) {
+      return column.filterFormatter(value);
+    } else if (column.formatter !== undefined) {
+      return column.formatter(value);
+    } else {
+      return value;
+    }
+  }
+
+  getTextColumnValues(column: Column): any[] {
+    const values: any = {};
+    for (const datum of this.dataSource.data) {
+      const value: any = this.getElementFilterValue(datum, column);
+
       if (Array.isArray(value)) {
         for (const v of value) {
-          if (v != null && v !== '') {
-            values.push(v);
+          const formattedV = this.formatElementFilterValue(v, column);
+          if (formattedV != null && formattedV !== '') {
+            values[v] = formattedV;
           }
         }
-      } else if (value != null && value !== '') {
-        values.push(value);
+      } else {
+        const formattedValue = this.formatElementFilterValue(value, column);
+        if (formattedValue != null && formattedValue !== '') {
+          values[value] = formattedValue;
+        }
       }
     }
 
-    let comparator;
-    if ('comparator' in column) {
-      comparator = column.comparator;
-    } else {
-      comparator = this.comparator;
-    }
-    values.sort(comparator);
-
-    return values;
+    const comparator = this.getFilterComparator(column);
+    const arrValues = Object.keys(values).map((key: any): any => {
+      return {value: key, formattedValue: values[key]};
+    });
+    arrValues.sort((a: any, b: any): number => {
+      return comparator(a.value, b.value);
+    });
+    return arrValues.map((el: any): any => {return el.value});
   }
 
-  getColumnRange(column: any): any {
-    if (this.data.length === 0) {
+  getNumericColumnRange(column: Column): any {
+    if (this.dataSource.data.length === 0) {
       return {min: null, max: null, step: null};
     }
 
@@ -119,12 +315,8 @@ export class TableComponent {
       step: null,
     }
 
-    for (const datum of this.data) {
-      if (!(column.key in datum)) {
-        continue;
-      }
-
-      const value = datum[column.key];
+    for (const datum of this.dataSource.data) {
+      const value = this.getElementFilterValue(datum, column);
       if (value == null || value === undefined) {
         continue;
       }
@@ -142,7 +334,7 @@ export class TableComponent {
       }
     }
 
-    if ('numericFilterStep' in column) {
+    if (column.numericFilterStep !== undefined) {
       range.step = column.numericFilterStep;
     } else if (range.max === range.min) {
       range.step = 0;
@@ -153,162 +345,207 @@ export class TableComponent {
     return range;
   }
 
-  formatFilterValue(value: any, column: any): any {
-    if ('filterFormatter' in column) {
-      return column.filterFormatter(value);
-    } else if ('formatter' in column) {
-      return column.formatter(value);
+  filterSetValue(column: Column, value: any, show: boolean): void {
+    if (show) {
+      if (!(column.id in this.filter)) {
+        this.filter[column.id] = [];
+      }
+      this.filter[column.id].push(value);
     } else {
-      return value;
+      this.filter[column.id].splice(this.filter[column.id].indexOf(value), 1);
+      if (this.filter[column.id].length === 0) {
+        delete this.filter[column.id];
+      }
     }
+
+    this.dataSource.filter = JSON.stringify(this.filter);
   }
 
-  sortRows(event: Sort) {
-    this.sortColumn = event.active;
-    this.sortDirection = event.direction;
-    this.sortData();
+  filterNumberValue(column: Column, fullRange: any, selectedRange: number[]): void {
+    if (fullRange.min === selectedRange[0] && fullRange.max === selectedRange[1]) {
+      if (column.id in this.filter) {
+        delete this.filter[column.id];
+      }
+    } else {
+      this.filter[column.id] = selectedRange;
+    }
+
+    this.dataSource.filter = JSON.stringify(this.filter);
   }
 
-  sortData() {
-    this.filteredData.sort((a, b) => {
-      let column;
-      if (this.sortColumn) {
-        column = this.idToColumn[this.sortColumn];
+  filterStartDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
+    if (event.value == null) {
+      if (column.id in this.filter) {
+        if (this.filter[column.id][1] == null) {
+          delete this.filter[column.id];
+        } else {
+          this.filter[column.id][0] = null;
+        }
       }
-
-      let key;
-      if (this.sortDirection === '') {
-        key = '_index';
+    } else {
+      if (column.id in this.filter) {
+        this.filter[column.id][0] = event.value;
       } else {
-        key = column.key;
+        this.filter[column.id] = [event.value, null];
       }
+    }
 
-      const aVal = a[key];
-      const bVal = b[key];
+    this.dataSource.filter = JSON.stringify(this.filter);
+  }
 
-      const sign = this.sortDirection !== "desc" ? 1 : -1;
-
-      let comparator;
-      if (this.sortDirection === '' || !('comparator' in column)) {
-        comparator = this.comparator;
+  filterEndDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
+    if (event.value == null) {
+      if (column.id in this.filter) {
+        if (this.filter[column.id][0] == null) {
+          delete this.filter[column.id];
+        } else {
+          this.filter[column.id][1] = null;
+        }
+      }
+    } else {
+      if (column.id in this.filter) {
+        this.filter[column.id][1] = event.value;
       } else {
-        comparator = column.comparator;
+        this.filter[column.id] = [null, event.value];
+      }
+    }
+
+    this.dataSource.filter = JSON.stringify(this.filter);
+  }
+
+  filterData(datum: any, filter: string): boolean {
+    for (const columnId in this.filter) {
+      const column = this.idToColumn[columnId];
+
+      let passesFilter;
+      if (column.passesFilter === undefined) {
+        passesFilter = this.passesColumnFilter.bind(this, column);
+      } else {
+        passesFilter = column.passesFilter;
       }
 
-      return sign * comparator(aVal, bVal);
+      const filterValue = this.filter[column.id];
+
+      if (!passesFilter(datum, filterValue)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  passesColumnFilter(column: Column, datum: any, filterValue: any[]): boolean {
+    const value = this.getElementFilterValue(datum, column);
+
+    if (column.filterType === ColumnFilterType.number) {
+      if (value == null
+        || value === undefined
+        || (filterValue[0] != null && value < filterValue[0])
+        || (filterValue[1] != null && value > filterValue[1])
+        ) {
+        return false;
+      }
+
+    } else if (column.filterType === ColumnFilterType.date) {
+      const startDate = filterValue[0];
+      const endDate = filterValue[1];
+      if (endDate != null) {
+        endDate.setDate(endDate.getDate() + 1);
+      }
+
+      if (value == null
+        || value === undefined
+        || (startDate != null && value < startDate)
+        || (endDate != null && value >= endDate)
+        ) {
+        return false;
+      }
+
+    } else {
+      if (Array.isArray(value)) {
+        let match = false;
+        for (const v of value) {
+          if (filterValue.includes(v)) {
+            match = true;
+            break;
+          }
+        }
+        if (!match) {
+          return false;
+        }
+      } else {
+        if (!filterValue.includes(value)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  sortData(data: any[], sort: any): any[] {
+    if (sort === undefined) {
+      return data;
+    }
+
+    const sortColumnId = sort.active;
+    const sortDirection = sort.direction;
+
+    const sortedData = [...data];
+
+    sortedData.sort((a: any, b: any): number => {
+      let defaultKey: string | undefined = undefined;
+      let column: Column | undefined = undefined;
+      if (sortDirection === '') {
+        defaultKey = '_index';
+      } else if (sortColumnId) {
+        column = this.idToColumn[sortColumnId];
+      }
+
+      const aVal = this.getElementValue(a, column, defaultKey);
+      const bVal = this.getElementValue(b, column, defaultKey);
+
+      const sign = sortDirection !== "desc" ? 1 : -1;
+
+      const comparator = this.getComparator(column, sortDirection === '');
+      return sign * comparator(aVal, bVal, sign);
     });
 
-    this.table.renderRows();
+    return sortedData;
   }
 
-  comparator(aVal:any, bVal:any): number {
-    if (aVal > bVal) return 1;
-    if (aVal < bVal) return -1;
+  static comparator(a:any, b:any, sign = 1): number {
+    if (a == null) {
+      if (b == null) {
+        return 0;
+      } else {
+        return 1 * sign;
+      }
+    } else if (b == null) {
+      return -1 * sign;
+    }
+
+    if (typeof a === "string") {
+      return a.localeCompare(b , undefined, { numeric: true } );
+    }
+
+    if (a > b) return 1;
+    if (a < b) return -1;
     return 0;
   }
 
-  toggleColumn(column: any): void {
+  toggleColumn(column: Column): void {
     column.show = column.show === false;
     this.setColumnsToShow();
   }
 
   setColumnsToShow(): void {
     this.columnsToShow = this.columns
-      .filter((col) => col.show !== false)
-      .map((col) => col.id);
+      .filter((col: Column): any => col.show !== false)
+      .map((col: Column): string => col.id);
   }
 
-  filterSetValue(column: any, value: any, show: boolean): void {
-    if (show) {
-      column._filteredValues.push(value);
-    } else {
-      column._filteredValues.splice(column._filteredValues.indexOf(value), 1);
-    }
-
-    this.filterSortData();
-  }
-
-  filterNumberValue(column: any, fullRange: any, selectedRange: number[]): void {
-    if (fullRange.min === selectedRange[0] && fullRange.max === selectedRange[1]) {
-      column._filteredValues = [];
-    } else {
-      column._filteredValues = selectedRange;
-    }
-    this.filterSortData();
-  }
-
-  filterStartDateValue(column: any, event: MatDatepickerInputEvent<Date>): void {
-    if (event.value === null) {
-      if (column._filteredValues.length > 0) {
-        if (column._filteredValues[1] == null) {
-          column._filteredValues = [];
-        } else {
-          column._filteredValues[0] = null;
-        }
-      }
-    } else {
-      if (column._filteredValues.length === 0) {
-        column._filteredValues = [event.value, null];
-      } else {
-        column._filteredValues[0] = event.value;
-      }
-    }
-    this.filterSortData();
-  }
-
-  filterEndDateValue(column: any, event: MatDatepickerInputEvent<Date>): void {
-    if (event.value === null) {
-      if (column._filteredValues.length > 0) {
-        if (column._filteredValues[0] == null) {
-          column._filteredValues = [];
-        } else {
-          column._filteredValues[1] = null;
-        }
-      }
-    } else {
-      event.value.setDate(event.value.getDate() + 1);
-      if (column._filteredValues.length === 0) {
-        column._filteredValues = [null, event.value];
-      } else {
-        column._filteredValues[1] = event.value;
-      }
-    }
-    this.filterSortData();
-  }
-
-  filterSortData() {
-    // filter data
-    this.filteredData = [];
-    for (const datum of this.data) {
-      let passesFilters = true;
-      for (const column of this.columns) {
-        if (column.filterable !== false && column._filteredValues.length > 0) {
-          const value = datum[column.key];
-
-          if (column.filterType === 'number' || column.filterType === 'date') {
-            if (value == null
-              || value === undefined
-              || (column._filteredValues[0] != null && value < column._filteredValues[0])
-              || (column._filteredValues[1] != null && value > column._filteredValues[1])
-              ) {
-              passesFilters = false;
-              break;
-            }
-          } else {
-            if (!column._filteredValues.includes(value)) {
-              passesFilters = false;
-              break;
-            }
-          }
-        }
-      }
-      if (passesFilters) {
-        this.filteredData.push(datum);
-      }
-    }
-    this.table.dataSource = this.filteredData;
-
-    // sort data
-    this.sortData();
+  refresh(): void {
+    this.dataSource.refresh();
   }
 }

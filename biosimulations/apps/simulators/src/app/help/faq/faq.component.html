@@ -1,16 +1,16 @@
-<biosimulations-text-page heading="FAQ">
+<biosimulations-text-page heading="FAQ" [tocSections]="tocSections">
   <ng-container id="sideBar">
-    <biosimulations-text-page-help-side-bar-section>
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-help-side-bar-section>
 
-    <biosimulations-text-page-feedback-side-bar-section>
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-feedback-side-bar-section>
   </ng-container>
 
-  <ng-container id="content">
+  <ng-container id="content" tocSectionsContainer>
     <biosimulations-text-page-content-section
       heading="Docker images/containers"
-      shortHeading="Docker images/containers"
+      tocSection="Docker images/containers"
     >
       <biosimulations-q-a heading="What is a Docker image?">
         A Docker image is a template for creating a Docker container. Typically, Docker images are containers for an operating system and additional programs. Docker images enable developers to encapsulate programs and their dependencies into a format which can be shared through online repositories such as Docker Hub and run on top of any operating system.

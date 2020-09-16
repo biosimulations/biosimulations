@@ -82,7 +82,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/service-worker/README.md
-├─ @auth0/auth0-spa-js@1.11.0
+├─ @auth0/auth0-spa-js@1.12.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/auth0-spa-js
 │  ├─ publisher: Auth0
@@ -571,7 +571,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: dave@fontawesome.com
 │  ├─ url: http://twitter.com/davegandy
 │  └─ licenseFile: @fortawesome/free-solid-svg-icons/LICENSE.txt
-├─ @ionic/storage@2.3.0
+├─ @ionic/storage@2.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ionic-team/ionic-storage
 │  └─ licenseFile: @ionic/storage/LICENSE
@@ -748,7 +748,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Turfjs/turf
 │  ├─ publisher: Turf Authors
 │  └─ licenseFile: @turf/meta/LICENSE
-├─ @typegoose/typegoose@7.3.4
+├─ @typegoose/typegoose@7.3.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typegoose/typegoose
 │  ├─ publisher: Akos Szokodi
@@ -817,7 +817,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/connect/node_modules/@types/node/LICENSE
-├─ @types/node@14.6.2
+├─ @types/node@14.6.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -963,16 +963,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/accepts
 │  └─ licenseFile: accepts/LICENSE
-├─ acorn-dynamic-import@4.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kesne/acorn-dynamic-import
-│  ├─ publisher: Jordan Gensler
-│  ├─ email: jordangens@gmail.com
-│  └─ licenseFile: acorn-dynamic-import/LICENSE
-├─ acorn-jsx@5.2.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/acornjs/acorn-jsx
-│  └─ licenseFile: acorn-jsx/LICENSE
 ├─ acorn@6.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/acornjs/acorn
@@ -1232,11 +1222,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Paul Miller
 │  ├─ url: https://paulmillr.com/
 │  └─ licenseFile: async-each/README.md
-├─ async@1.5.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/caolan/async
-│  ├─ publisher: Caolan McMahon
-│  └─ licenseFile: async/LICENSE
 ├─ async@2.6.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/caolan/async
@@ -1246,7 +1231,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/caolan/async
 │  ├─ publisher: Caolan McMahon
-│  └─ licenseFile: getos/node_modules/async/LICENSE
+│  └─ licenseFile: async/LICENSE
 ├─ asynckit@0.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/alexindigo/asynckit
@@ -1406,10 +1391,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Dima Yv
 │  ├─ email: dfcreative@gmail.com
 │  └─ licenseFile: bitmap-sdf/readme.md
-├─ bl@1.2.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/rvagg/bl
-│  └─ licenseFile: glslify/node_modules/bl/LICENSE.md
 ├─ bl@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/bl
@@ -1532,17 +1513,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Christian Amor Kvalheim
 │  ├─ email: christkv@gmail.com
 │  └─ licenseFile: bson/LICENSE.md
-├─ buble@0.19.8
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/bublejs/buble
-│  ├─ publisher: Rich Harris
-│  └─ licenseFile: buble/LICENSE.md
-├─ bubleify@1.2.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/garthenweb/bubleify
-│  ├─ publisher: Jannick Garthen
-│  ├─ email: jannick.garthen@gmail.com
-│  └─ licenseFile: bubleify/LICENSE
 ├─ buffer-crc32@0.2.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/brianloveswords/buffer-crc32
@@ -1602,7 +1572,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: cache-base/LICENSE
-├─ cache-manager@3.3.0
+├─ cache-manager@3.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/BryanDonovan/node-cache-manager
 │  ├─ publisher: Bryan Donovan
@@ -2281,6 +2251,18 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Mike Bostock
 │  ├─ url: http://bost.ocks.org/mike
 │  └─ licenseFile: d3-shape/LICENSE
+├─ d3-time-format@2.3.0
+│  ├─ licenses: BSD-3-Clause
+│  ├─ repository: https://github.com/d3/d3-time-format
+│  ├─ publisher: Mike Bostock
+│  ├─ url: http://bost.ocks.org/mike
+│  └─ licenseFile: d3-time-format/LICENSE
+├─ d3-time@1.1.0
+│  ├─ licenses: BSD-3-Clause
+│  ├─ repository: https://github.com/d3/d3-time
+│  ├─ publisher: Mike Bostock
+│  ├─ url: http://bost.ocks.org/mike
+│  └─ licenseFile: d3-time/LICENSE
 ├─ d3-timer@1.0.10
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/d3/d3-timer
@@ -3570,7 +3552,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hughskennedy@gmail.com
 │  ├─ url: http://hughsk.io/
 │  └─ licenseFile: glslify-deps/README.md
-├─ glslify@7.1.0
+├─ glslify@7.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stackgl/glslify
 │  └─ licenseFile: glslify/LICENSE.md
@@ -3770,6 +3752,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Dmitry Yv
 │  ├─ email: df.creative@gmail.com
 │  └─ licenseFile: image-palette/readme.md
+├─ image-size@0.7.5
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/image-size/image-size
+│  ├─ publisher: netroy
+│  ├─ email: aditya@netroy.in
+│  ├─ url: http://netroy.in/
+│  └─ licenseFile: plotly.js/node_modules/image-size/LICENSE
 ├─ immediate@3.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/calvinmetcalf/immediate
@@ -4117,7 +4106,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: point-cluster/node_modules/is-obj/license
+│  └─ licenseFile: @plotly/point-cluster/node_modules/is-obj/license
 ├─ is-observable@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/is-observable
@@ -4672,12 +4661,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: lower-case/LICENSE
-├─ lru-cache@4.0.0
-│  ├─ licenses: ISC
-│  ├─ repository: https://github.com/isaacs/node-lru-cache
-│  ├─ publisher: Isaac Z. Schlueter
-│  ├─ email: i@izs.me
-│  └─ licenseFile: cache-manager/node_modules/lru-cache/LICENSE
 ├─ lru-cache@4.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-lru-cache
@@ -4690,6 +4673,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Isaac Z. Schlueter
 │  ├─ email: i@izs.me
 │  └─ licenseFile: proxy-agent/node_modules/lru-cache/LICENSE
+├─ lru-cache@6.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/node-lru-cache
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  └─ licenseFile: cache-manager/node_modules/lru-cache/LICENSE
 ├─ lru-memoizer@2.1.2
 │  ├─ licenses: MIT*
 │  ├─ repository: https://github.com/jfromaniello/lru-memoizer
@@ -4972,7 +4961,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: iskren.chernev@gmail.com
 │  ├─ url: https://github.com/ichernev
 │  └─ licenseFile: moment/LICENSE
-├─ mongodb@3.6.0
+├─ mongodb@3.6.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb/node-mongodb-native
 │  └─ licenseFile: mongodb/LICENSE.md
@@ -4982,7 +4971,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Valeri Karpov
 │  ├─ email: val@karpov.io
 │  └─ licenseFile: mongoose-legacy-pluralize/LICENSE
-├─ mongoose@5.10.2
+├─ mongoose@5.10.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
@@ -5136,7 +5125,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/suguru03/neo-async
 │  └─ licenseFile: neo-async/LICENSE
-├─ nestjs-typegoose@7.1.34
+├─ nestjs-typegoose@7.1.37
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kpfromer/nestjs-typegoose
 │  ├─ publisher: Kyle Pfromer
@@ -5169,7 +5158,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/electerious/nice-try
 │  └─ licenseFile: nice-try/LICENSE
-├─ node-fetch@2.6.0
+├─ node-fetch@2.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/bitinn/node-fetch
 │  ├─ publisher: David Frank
@@ -5398,13 +5387,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: CoderPuppy
 │  ├─ email: coderpup@gmail.com
 │  └─ licenseFile: os-browserify/LICENSE
-├─ os-homedir@2.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/os-homedir
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: sindresorhus.com
-│  └─ licenseFile: buble/node_modules/os-homedir/license
 ├─ os-locale@3.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/os-locale
@@ -5773,17 +5755,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/mikolalysenko/planar-graph-to-polyline
 │  ├─ publisher: Mikola Lysenko
 │  └─ licenseFile: planar-graph-to-polyline/LICENSE
-├─ plotly.js@1.54.7
+├─ plotly.js@1.55.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/plotly/plotly.js
 │  ├─ publisher: Plotly, Inc.
 │  └─ licenseFile: plotly.js/LICENSE
-├─ point-cluster@3.1.8
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/dy/point-cluster
-│  ├─ publisher: Dmitry Yv
-│  ├─ email: df.creative@gmail.com
-│  └─ licenseFile: point-cluster/license.md
 ├─ point-in-big-polygon@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mikolalysenko/point-in-big-polygon
@@ -6414,7 +6390,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Ben Lesh
 │  ├─ email: ben@benlesh.com
 │  └─ licenseFile: @angular-devkit/core/node_modules/rxjs/LICENSE.txt
-├─ rxjs@6.6.2
+├─ rxjs@6.6.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
@@ -7883,6 +7859,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: proxy-agent/node_modules/yallist/LICENSE
+├─ yallist@4.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/yallist
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: cache-manager/node_modules/yallist/LICENSE
 ├─ yargs-parser@10.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/yargs-parser

@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ResourceHomeFeaturesComponent } from './resource-home-features.component';
 
 describe('ResourceHomeFeaturesComponent', () => {
@@ -9,6 +10,7 @@ describe('ResourceHomeFeaturesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ResourceHomeFeaturesComponent],
+      imports: [FlexLayoutModule],
     }).compileComponents();
   }));
 

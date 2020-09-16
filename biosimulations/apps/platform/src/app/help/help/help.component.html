@@ -1,6 +1,6 @@
-<biosimulations-text-page heading="Tutorial">
+<biosimulations-text-page heading="Tutorial" [tocSections]="tocSections">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources">
+    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
         <a href="https://biosimulators.org" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
@@ -15,21 +15,22 @@
       </div>
     </biosimulations-text-page-side-bar-section>
 
-    <biosimulations-text-page-help-side-bar-section>
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-help-side-bar-section>
 
-    <biosimulations-text-page-feedback-side-bar-section>
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-feedback-side-bar-section>
   </ng-container>
 
-  <ng-container id="content">
+  <ng-container id="content" tocSectionsContainer>
     <biosimulations-text-page-content-section
       heading="Guide for users: Finding, simulating, and visualizing published models"
-      shortHeading="Guide for users"
+      tocSection="Guide for users"
     >
       <ul>
         <li>Finding models</li>
         <li>Finding simulation experiment</li>
+        <li>Note, simulation results will be stored permanently</li>
         <li>Creating variants of simulations</li>
         <li>Finding visualizations</li>
         <li>Configuring visualizations</li>
@@ -38,11 +39,12 @@
 
     <biosimulations-text-page-content-section
       heading="Guide for authors: Publishing models, simulations, and visualizations"
-      shortHeading="Guide for authors"
+      tocSection="Guide for authors"
     >
       <ul>
         <li>Uploading models</li>
         <li>Uploading simulation experiments</li>
+        <li>Note, simulation results will be stored permanently</li>
         <li>Uploading visualizations</li>
         <li>Sharing resources reviewers and editors</li>
       </ul>
@@ -50,7 +52,7 @@
 
     <biosimulations-text-page-content-section
       heading="Guide for reviewers and editors: Evaluating models, simulations, and visualizations"
-      shortHeading="Guide for reviewers and editors"
+      tocSection="Guide for reviewers and editors"
     >
       <ul>
         <li>Accessing resources</li>
@@ -59,14 +61,14 @@
 
     <biosimulations-text-page-content-section
       heading="Guide for simulation software developers: Contributing an additional simulation tool"
-      shortHeading="Guide for simulator developers"
+      tocSection="Guide for simulator developers"
     >
       BioSimulations uses the BioSimulators collection of simulation tools. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about contributing an additional simulation tool.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="User accounts"
-      shortHeading="User accounts"
+      tocSection="User accounts"
     >
       <ul>
         <li>Signing up</li>
@@ -77,14 +79,14 @@
 
     <biosimulations-text-page-content-section
       heading="Programmatically working with BioSimulations via the REST API"
-      shortHeading="REST API"
+      tocSection="REST API"
     >
       A comprehensive API is available for submitting and retrieving projects, models, simulations, charts, and visualizations and executing simulations and retrieving their results. Please see the documentation for the REST API <a [href]="apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Executing simulations with the standalone simulation web application and REST API"
-      shortHeading="Standalone simulation web service"
+      tocSection="Standalone simulation web service"
     >
       In addition to this full-featured web application, runBioSimulations <a [href]="submitAppUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
     </biosimulations-text-page-content-section>

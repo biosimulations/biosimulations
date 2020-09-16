@@ -1,0 +1,137 @@
+{
+    "0000019": {
+        "name": "CVODE",
+        "description": "The CVODE is a package written in C that solves ODE initial value problems, in real N-space, written as y'=f(t,y), y(t0)=y0. It is capable for stiff and non-stiff systems and uses two different linear multi-step methods, namely the Adam-Moulton [http://identifiers.org/biomodels.kisao/KISAO_0000280] method and the backward differentiation formula [http://identifiers.org/biomodels.kisao/KISAO_0000288].",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000019"
+    },
+    "0000029": {
+        "name": "Gillespie direct algorithm",
+        "description": "Stochastic simulation algorithm using the reaction probability density function (next-reaction density function), giving the probability that the next reaction will happen in a given time interval. To choose the next reaction to fire, the algorithm directly and separately calculates the identity of the reaction and the time it will fire.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000029"
+    },
+    "0000263": {
+        "name": "NFSim agent-based simulation method",
+        "description": "A generalization a rule-based version of 'Gillespie's direct method' (SSA) [http://identifiers.org/biomodels.kisao/KISAO_0000029]. The method is guaranteed to produce the same results as the exact SSA [http://identifiers.org/biomodels.kisao/KISAO_0000029] by cycling over three primary steps. First, NFsim calculates the probability or propensity for each rule to take effect given the current molecular states. Second, it samples the time to the next reaction event and selects the corresponding reaction rule. Finally, NFsim executes the selected reaction by applying the rule and updating the molecular agents accordingly.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000263"
+    },
+    "0000032": {
+        "name": "Runge-Kutta fourth order method",
+        "description": "",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000032"
+    },
+    "0000408": {
+        "name": "Newton-type method",
+        "description": "A method which attacks the solution of a nonlinear problem F(x) = 0 by solving a sequence of liner problems of the same kind. The solution of the system F(x)=0 can be interpreted as a steady state of a dynamic system x'(t)=F(x(t)). The Newton approach will only work if the fixed point [http://identifiers.org/biomodels.teddy/TEDDY_0000086] of the dinamic system is attractive [http://identifiers.org/biomodels.teddy/TEDDY_0000094].",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000408"
+    },
+    "0000409": {
+        "name": "ordinary Newton method",
+        "description": "A 'Newton-type method' [http://identifiers.org/biomodels.kisao/KISAO_0000408] which solves the general nonlinear problem F(x)=0 by applying successive linearization F'(x[k])deltax[k]=-F(x[k]), x[k+1]=x[k]+deltax[k], k=0,1,..",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000409"
+    },
+    "0000410": {
+        "name": "simlified Newton method",
+        "description": "A 'Newton-type method' [http://identifiers.org/biomodels.kisao/KISAO_0000408] which is characterized by keeping the initial derivative throughout the whole iteration: F'(x[0])deltax[k]=-F(x[k]), x[k+1]=x[k]+deltax[k], k=0,1,..",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000410"
+    },
+    "0000411": {
+        "name": "Newton-like method",
+        "description": "A 'Newton-type method' [http://identifiers.org/biomodels.kisao/KISAO_0000408] which is characterized by the fact that, in finite dimension, the Jacodian matrices are either replaced by some fixed 'close by' Jacobian F'(z) with z not equal to the initial guess x[0], or by some approximation so that: M'(x[0])deltax[k]=-F(x[k]), x[k+1]=x[k]+deltax[k], k=0,1,...",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_000411"
+    },
+    "0000412": {
+        "name": "inexact Newton method",
+        "description": "For extremely large scale nonlinear problems the arising linear systems for the Newton corrections can no longer be solved directly ('exactly'), but must be solved iterativly ('inexactly) - which gives the name inexact Newton methods. The whole scheme then consists of an inner iteration (at Newton step k): F'(x[k])deltaxi[k]=-F(x[k])+ri[k], k=0,1,... xi[k+1]=x[k]+deltaxi[k], i=0,1,..,imax[k] in terms of residuals ri[k] and an outer iteration where, given x[0], the iterates are defined as x[k+1]=xi[k+1] for i=imax[k], k=0,1,...",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000412"
+    },
+    "0000413": {
+        "name": "exact Newton method",
+        "description": "Any of the finite dimensional Newton-type methods [http://identifiers.org/biomodels.kisao/KISAO_0000408] requires the numerical solution of the linear equations F'(x[k])deltax[k]=-F(x[k]). Whenever direct elimination methods are applicable, we speak of exact Newton methods.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000413"
+    },
+    "0000432": {
+        "name": "IDA-like method",
+        "description": "Solves real differential-algebraic systems in N-space, in the general form F(t,y,y')=0, y(t0)=y0, y'(t0)=y'0. At each step, a Newton iteration [http://identifiers.org/biomodels.kisao/KISAO_0000408] leads to linear systems Jx=b, which are solved by one of five methods - two direct (dense or band; serial version only) and three Krylov [http://identifiers.org/biomodels.kisao/KISAO_0000354] (GMRES [http://identifiers.org/biomodels.kisao/KISAO_0000353], BiCGStab [http://identifiers.org/biomodels.kisao/KISAO_0000392], or TFQMR [http://identifiers.org/biomodels.kisao/KISAO_0000396]).",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000432"
+    },
+    "0000064": {
+        "name": "Runge-Kutta based method",
+        "description": "A method of numerically integrating ordinary differential equations, which uses a sampling of slopes through an interval and takes a weighted average to determine the right end point. This averaging gives a very accurate approximation.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000064"
+    },
+    "0000030": {
+        "name": "Euler forward method",
+        "description": "The Euler method is an explicit one-step method for the numerical integration of ODES with a given initial value. The calculation of the next integration step at time t+1 is based on the state of the system at time point t.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000030"
+    },
+    "0000086": {
+        "name": "Fehlberg method",
+        "description": "The method was developed by the German mathematician Erwin Fehlberg and is based on the class of Runge-Kutta methods. The Runge-Kutta-Fehlberg method uses an O(h4) method together with an O(h5) method that uses all of the points of the O(h4) method, and hence is often referred to as an RKF45 method. Similar schemes with different orders have since been developed. By performing one extra calculation that would be required for an RK5 method, the error in the solution can be estimated and controlled and an appropriate step size can be determined automatically, making this method efficient for ordinary problems of automated numerical integration of ordinary differential equations.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000086"
+    },
+    "0000280": {
+        "name": "Adams-Moulton method",
+        "description": "The (k-1)-step Adams-Moulton method is an implicit linear multistep method that iteratively approximates the solution, y(x) at x = x0+kh, of the initial value problem by yk = yk - 1 + h * ( b0 f(xk,yk) + b1 f(xk - 1,yk - 1) + . . . + bk - 1 f(x1,y1) ), where b1, . . . , bk - 1 are constants.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000280"
+    },
+    "0000283": {
+        "name": "IDA",
+        "description": "IDA solves real differential-algebraic systems in N-space, in the general form F(t,y,y')=0, y(t0)=y0, y'(t0)=y'0. At each step, a Newton iteration [http://identifiers.org/biomodels.kisao/KISAO_0000408] leads to linear systems Jx=b, which are solved by one of five methods - two direct (dense or band; serial version only) and three Krylov [http://identifiers.org/biomodels.kisao/KISAO_0000354] (GMRES [http://identifiers.org/biomodels.kisao/KISAO_0000353], BiCGStab [http://identifiers.org/biomodels.kisao/KISAO_0000392], or TFQMR [http://identifiers.org/biomodels.kisao/KISAO_0000396]). IDA is written in C, but derived from the package DASPK [http://identifiers.org/biomodels.kisao/KISAO_0000355] which is written in Fortran.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000283"
+    },
+    "0000027": {
+        "name": "Gibson-Bruck next reaction algorithm",
+        "description": "As with the first reaction method [http://identifiers.org/biomodels.kisao/KISAO_0000015], a putative reaction time is calculated for each reaction, and the reaction with the shortest reaction time will be realized. However, the unused calculated reaction times are not wasted. The set of reactions is organized in a priority queue to allow for the efficient search for the fastest reaction. In addition, by using a so-called dependency graph only those reaction times are recalculated in each step, that are dependent on the reaction, which has been realized.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000027"
+    },
+    "0000352": {
+        "name": "hybrid method",
+        "description": "A simulation methods which combines the advantages of complementary simulation approaches: the whole system is subdivided into appropriate parts and different simulation methods operate on these parts at the same time.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000352"
+    },
+    "0000285": {
+        "name": "finite volume method",
+        "description": "The finite volume method is a method for representing and evaluating partial differential equations in the form of algebraic equations, which attempts to emulate continuous conservation laws of physics.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000285"
+    },
+    "0000057": {
+        "name": "Brownian diffusion Smoluchowski method",
+        "description": "In the Brownian diffusion Smoluchowski method, ''each molecule is treated as a point-like particle that diffuses freely in three-dimensional space. When a pair of reactive molecules collide, such as an enzyme and its substrate, a reaction occurs and the simulated reactants are replaced by products. [..] Analytic solutions are presented for some simulation parameters while others are calculated using look-up tables''. Supported chemical processes include molecular diffusion, treatment of surfaces, zeroth-order-, unimolecular-, and bimolecular reactions.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000057"
+    },
+    "0000089": {
+        "name": "LSODAR",
+        "description": "LSODAR is a variant of LSODA [http://identifiers.org/biomodels.kisao/KISAO_0000088] with a root finding capability added. Thus it solves problems dy/dt = f with dense or banded Jacobian and automatic method selection, and at the same time, it finds the roots of any of a set of given functions of the form g(t,y). This is often useful for finding stop conditions, or for finding points at which a switch is to be made in the function f.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000089"
+    },
+    "0000304": {
+        "name": "Radau method",
+        "description": "Implicit Runge-Kutta methods based on Radau quadrature.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000304"
+    },
+    "0000038": {
+        "name": "sorting stochastic simulation algorithm",
+        "description": "In order to overcome the problem of high complexity of the Stochastic Simulation Algorithm [http://identifiers.org/biomodels.kisao/KISAO_0000029] when simulating large systems, the sorting direct method maintains a loosely sorted order of the reactions as the simulation executes.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000038"
+    },
+    "0000039": {
+        "name": "tau-leaping method",
+        "description": "Approximate acceleration procedure of the Stochastic Simulation Algorithm [http://identifiers.org/biomodels.kisao/KISAO_0000029] that divides the time into subintervals and ''leaps'' from one to another, firing all the reaction events in each subinterval.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000039"
+    },
+    "0000048": {
+        "name": "adaptive explicit-implicit tau-leaping method",
+        "description": "Modification of the original tau-selection strategy [http://identifiers.org/biomodels.kisao/KISAO_0000040], designed for explicit tau-leaping, is modified to apply to implicit tau-leaping, allowing for longer steps when the system is stiff. Further, an adaptive strategy is proposed that identifies stiffness and automatically chooses between the explicit and the (new) implicit tau-selection methods to achieve better efficiency.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000048"
+    },
+    "0000088": {
+        "name": "LSODA",
+        "description": "LSODA solves systems dy/dt = f with a dense or banded Jacobian when the problem is stiff, but it automatically selects between non-stiff (Adams [http://identifiers.org/biomodels.kisao/KISAO_0000289]) and stiff (BDF [http://identifiers.org/biomodels.kisao/KISAO_0000288]) methods. It uses the non-stiff method initially, and dynamically monitors data in order to decide which method to use.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000088"
+    },
+    "0000318": {
+        "name": "Gauss-Legendre Runge-Kutta method",
+        "description": "So called 'Open Formula', two points formula, three points formula, four points formula, five points formula and six points formula of the Runge-Kutta method to solve the initial value problem of the ordinary differential equation. These formulas use the points and weights from the Gauss-Legendre Quadrature formulas for finding the value of the definite integral.",
+        "url": "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000318"
+    }
+}

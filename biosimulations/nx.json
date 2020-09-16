@@ -37,8 +37,8 @@
       "tags": ["scope:shared", "type:assets"]
     },
     "shared-content": {
-      "tags": ["scope:shared", "type:content", "platform:web"],
-      "implicitDependencies": ["shared-ui"]
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "shared-styles": {
       "tags": ["scope:shared", "type:styles", "platform:web"]
@@ -66,7 +66,7 @@
       "implicitDependencies": []
     },
     "auth-common": {
-      "tags": ["scope:auth", "platform:common", "type:datamodel"]
+      "tags": ["scope:auth", "platform:any", "type:datamodel"]
     },
     "auth-angular": {
       "tags": ["scope:auth", "type:util", "platform:web"]
@@ -78,10 +78,10 @@
       "tags": ["scope:config", "type:datamodel", "platform:any"]
     },
     "config-nest": {
-      "tags": ["scope:config", "type:util", "platform:server"]
+      "tags": ["scope:config", "type:config", "platform:server"]
     },
     "config-angular": {
-      "tags": ["scope:config", "type:util", "platform:web"]
+      "tags": ["scope:config", "type:config", "platform:web"]
     },
     "shared-datamodel": {
       "tags": ["scope:shared", "type:datamodel", "platform:any"]
@@ -123,8 +123,7 @@
       "implicitDependencies": ["simulators"]
     },
     "simulators-api": {
-      "tags": ["scope:simulators", "type:api", "platform:web"],
-      "implicitDependencies": ["shared-environments"]
+      "tags": ["scope:simulators", "type:api", "platform:server"]
     },
     "simulators-api-models": {
       "tags": ["scope:simulators", "type:datamodel", "platform:any"]

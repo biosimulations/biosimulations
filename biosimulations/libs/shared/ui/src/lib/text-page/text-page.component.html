@@ -1,10 +1,22 @@
-<biosimulations-page [heading]="heading">
-  <div class="grid grid-2">
+<biosimulations-page [heading]="heading" [padded]="padded">
+  <div
+    gdColumns.gt-sm="16rem 1fr"
+    gdGap.gt-sm="2rem"
+  >
     <div class="side-bar">
-      <div class="side-bar-inner sections-container" [ngStyle]="{position: fixed ? 'fixed': null}">
-        <biosimulations-text-page-side-bar-section heading="Contents">
+      <div class="sections-container side-bar-container"
+        [ngStyle]="{
+          position: (!heading || alwaysFixed != null || fixed) && !smallLayout ? 'fixed': null,
+          top: alwaysFixed == null ? 'calc(64px + 32px + 2rem)' : alwaysFixed
+        }"
+      >
+        <biosimulations-text-page-side-bar-section [heading]="contentsHeading">
           <ul>
-            <biosimulations-text-page-toc-item *ngFor="let section of tocSections" [heading]="section.heading" [scrollTarget]="section.target">
+            <biosimulations-text-page-toc-item *ngFor="let section of tocSections"
+              [heading]="section.heading"
+              [scrollTarget]="section.target"
+              [scrollOffset]="tocScrollSectionScrollOffset"
+            >
             </biosimulations-text-page-toc-item>
           </ul>
         </biosimulations-text-page-side-bar-section>
@@ -13,7 +25,7 @@
       </div>
     </div>
 
-    <div #sectionsContainer class="sections-container">
+    <div #sectionsContainer class="sections-container content-container">
       <ng-content select="#content"></ng-content>
     </div>
   </div>

@@ -15,7 +15,7 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
                 {route: ['/help', 'about'], icon: 'info', label: 'About'},
-                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
+                {route: ['/help', 'terms'], icon: 'legal', label: 'Terms of service'},
                 {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
             ]
         }
@@ -28,7 +28,7 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
-                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
+                {route: ['/help', 'terms'], icon: 'legal', label: 'Terms of service'},
                 {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
             ]
         }
@@ -41,7 +41,7 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
                 {route: ['/help', 'about'], icon: 'info', label: 'About'},
-                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
+                {route: ['/help', 'terms'], icon: 'legal', label: 'Terms of service'},
                 {route: ['/help', 'privacy'], icon: 'policy', label: 'Privacy policy'},
             ]
         }
@@ -68,7 +68,7 @@ const routes: Routes = [
                 {route: ['/help'], icon: 'tutorial', label: 'Tutorial'},
                 {route: ['/help', 'faq'], icon: 'help', label: 'FAQ'},
                 {route: ['/help', 'about'], icon: 'info', label: 'About'},
-                {route: ['/help', 'terms'], icon: 'policy', label: 'Terms of service'},
+                {route: ['/help', 'terms'], icon: 'legal', label: 'Terms of service'},
             ]
         }
     },

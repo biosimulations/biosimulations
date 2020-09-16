@@ -1,3 +1,18 @@
 h1 {
   margin: 0 0 2rem;
+
+  .buttons {
+    float: right;
+    margin-top: -0.125rem;
+
+    ::ng-deep .mat-icon-button {
+      width: auto;
+      height: auto;
+      font-size: 85%;
+
+      &:not(:first-child) {
+        margin-left: 0.5rem;
+      }
+    }
+  }
 }

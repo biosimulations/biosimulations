@@ -39,6 +39,7 @@ export type biosimulationsIcon =
   | 'overview'
   | 'report'
   | 'download'
+  | 'upload'
   | 'logs'
   | 'compare'
   | 'filter'
@@ -67,7 +68,11 @@ export type biosimulationsIcon =
   | 'link'
   | 'internalLink'
   | 'email'
+  | 'git'
   | 'github'
+  | 'docker'
+  | 'linkedin'
+  | 'orcid'
   | 'toTop';
 @Component({
   selector: 'biosimulations-icon',
@@ -88,7 +93,11 @@ export class IconComponent implements OnInit {
     internalLink: { type: 'fas', name: 'external-link-alt'},
     toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
+    git: { type: 'fab', name: 'git-alt' },
     github: { type: 'fab', name: 'github' },
+    docker: { type: 'fab', name: 'docker' },
+    linkedin: { type: 'fab', name: 'linkedin' },
+    orcid: { type: 'fab', name: 'orcid' },
     file: { type: 'fas', name: 'file-alt' },
     user: { type: 'fas', name: 'user' },
     author: { type: 'fas', name: 'user-edit' },
@@ -117,6 +126,7 @@ export class IconComponent implements OnInit {
     overview: { type: 'fas', name: 'list' },
     report: { type: 'fas', name: 'table' },
     download: { type: 'fas', name: 'download' },
+    upload: { type: 'fas', name: 'upload' },
     logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
     filter: { type: 'fas', name: 'filter' },

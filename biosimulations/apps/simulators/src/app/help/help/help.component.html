@@ -1,6 +1,6 @@
-<biosimulations-text-page heading="Tutorial">
+<biosimulations-text-page heading="Tutorial" [tocSections]="tocSections">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources">     
+    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
         <a [href]="apiUrl" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
@@ -9,17 +9,17 @@
       </div>
     </biosimulations-text-page-side-bar-section>
 
-    <biosimulations-text-page-help-side-bar-section>
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-help-side-bar-section>
 
-    <biosimulations-text-page-feedback-side-bar-section>
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
     </biosimulations-text-page-feedback-side-bar-section>
   </ng-container>
 
-  <ng-container id="content">
+  <ng-container id="content" tocSectionsContainer>
      <biosimulations-text-page-content-section
       heading="Creating COMBINE/OMEX files that describe modeling projects"
-      shortHeading="Creating modeling projects"
+      tocSection="Creating modeling projects"
     >
       <p>
         The containerized biosimulation tools in the BioSimulators registry require modeling projects (one or more simulations of one or more models) to be described by an OMEX file and packaged into a COMBINE archive. Please follow these steps to create OMEX and COMBINE files. Alternatively, COMBINE/OMEX files which describe modeling projects can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
@@ -46,17 +46,17 @@
 
     <biosimulations-text-page-content-section
       heading="Finding a simulation tool that is capable of executing a modeling project"
-      shortHeading="Finding simulation tools"
+      tocSection="Finding simulation tools'"
     >
-      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="interal-link"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
+      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Using a containerized simulation tool to execute a simulation"
-      shortHeading="Executing simulations"
+      tocSection="Executing simulations"
     >
       <p>Two web applications are available for using the BioSimulators simulation tools to execute simulations. runBioSimulations <a href="https://submit.biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a simple application that uses BioSimulators to execute modeling studies. BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a platform for publishing modeling studies that also uses BioSimulators to executed published modeling studies.</p>
-        
+
       <p>The BioSimulators simulation tools can also be used to execute simulations on your own machine. Please follow these steps to use a containerized simulation tool to execute a modeling study on your own machine.</p>
 
       <ol class="vertically-spaced">
@@ -75,30 +75,32 @@
           <pre>docker run \
   --tty \
   --rm \
-  --mount type=bind,source={{ '{' }} path-to-directory-of-OMEX-file {{ '}' }},target=/tmp/project,readonly \
+  --mount type=bind,source={{ '{' }} path-to-directory-of-COMBINE-archive {{ '}' }},target=/tmp/project,readonly \
   --mount type=bind,source={{ '{' }} path-to-save-results {{ '}' }},target=/tmp/results \
   biosimulators/{{ '{' }} simulator-id {{ '}' }} \
-    --archive /tmp/project/{{ '{' }} name-of-OMEX-file {{ '}' }} \
+    --archive /tmp/project/{{ '{' }} name-of-COMBINE-archive {{ '}' }} \
     --out-dir /tmp/results</pre>
 
-          <p>Your OMEX file should be located at <code>path-to-directory-of-OMEX-file/name-of-OMEX-file</code>. This will save your results to <code>path-to-save-results</code>.</p>
+          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>. This will save your results to <code>path-to-save-results</code>.</p>
         </li>
       </ol>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Programmatically retrieving information about simulation tools via the REST API"
-      shortHeading="REST API"
+      tocSection="REST API"
     >
       An API is available for retrieving information about the simulation tools in the BioSimulators collection. Please see the documentation for the REST API <a [href]="apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Developing BioSimulators-compliant containerized biosimulation tool"
-      shortHeading="Developing simulation tools"
+      tocSection="Developing simulation tools"
     >
-      <p>We welcome contributions of additional simulation tools! Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+      <p>We welcome contributions of additional simulation tools! Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. A template repository with template Python code for a command-line interface and a template for a Dockerfile is available here <a href="https://github.com/biosimulators/Biosimulators_simulator_template" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+      </p>
       <ol class="vertically-spaced">
+        <li><b>Optionally, create a Git repository for your command-line interface and Dockerfile.</b></li>
         <li>
           <p><b>Implement a BioSimulators-compliant command-line interface to your simulation tool.</b> The interface should accept two keyword arguments:</p>
           <ul>
@@ -119,8 +121,22 @@
             <li>Set the <code>ENTRYPOINT</code> directive to the path to your command-line interface.</li>
             <li>Set the <code>CMD</code> directive to <code>[]</code>.</li>
             <li>
-              <p>Use the <code>LABEL</code> directive to describe basic metadata about your simulation tool. This metadata is necessary to also submit your container to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of containers for biological research. Below is an example of the metadata for the BioNetGen container.</p>
+              <p>Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is necessary to also submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
+              <ul>
+                <li><code>version</code>: the version of your image (e.g., <code>1.0.0</code>)</li>
+                <li><code>software</code>: the simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
+                <li><code>software.version</code>: the version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
+                <li><code>about.summary</code>: short description of the simulation tool (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
+                <li><code>about.home</code>: URL for the simulation tool (e.g., <code>https://bionetgen.org/</code>).</li>
+                <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+                <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
+                <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.dev/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
+                <li><code>about.tags</code>: comma-separated list of tags which describe the simulation tool (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Plese include the tag <code>BioSimulators</code>.</li>
+                <li><code>extra.identifiers.biotools</code>: optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
+                <li><code>maintainer</code>: the name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+              </ul>
 
+              <p>Below is an example of metadata for the BioNetGen image.</p>
               <pre>LABEL base_image="ubuntu:18.04"
 LABEL version="1.0.0"
 LABEL software="BioNetGen"
@@ -130,7 +146,7 @@ LABEL about.home="https://bionetgen.org/"
 LABEL about.documentation="https://bionetgen.org/"
 LABEL about.license_file="https://github.com/RuleWorld/bionetgen/blob/master/LICENSE"
 LABEL about.license="SPDX:MIT"
-LABEL about.tags="rule-based modeling,dynamical simulation,systems biology,BNGL"
+LABEL about.tags="rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators"
 LABEL extra.identifiers.biotools="bionetgen"
 LABEL maintainer="Jonathan Karr &lt;karr@mssm.edu&gt;"
 </pre>
@@ -148,7 +164,7 @@ LABEL maintainer="Jonathan Karr &lt;karr@mssm.edu&gt;"
           <p><b>Create a JSON-formatted file which specifies the capabilities of your simulation tool.</b> This file should adhere to the schema described in the BioSimulators API <a href="https://api.biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
         </li>
         <li>
-          <p><b>Use the BioSimulators test suite to validate your image and its specificiations.</b> This will check that the image provides a BioSimulations-compliant Docker structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.</p>
+          <p><b>Use the BioSimulators test suite to validate your image and its specificiations.</b> This will check that the image provides a BioSimulators-compliant Docker structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.</p>
           <pre>pip install biosimulators-test-suite
 biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }} image-id {{ '}' }} {{ '{' }} path-to-specifications.json {{ '}' }}</pre>
         </li>
@@ -157,18 +173,21 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
 
     <biosimulations-text-page-content-section
       heading="Contributing containerized biosimulation tools to BioSimulators"
-      shortHeading="Contributing simulation tools"
+      tocSection="Contributing simulation tools"
     >
       <p>We welcome contributions of additional simulation tools! Please follow these steps to contribute a tool to BioSimulators:</p>
       <ol class="vertically-spaced">
         <li>
-          <b>Publish your Docker image to a public repository such as Docker Hub</b> by creating a free Docker Hub account and executing <code>docker push {{ '{' }} user-id {{ '}' }}/{{ '{' }} simulator-id {{ '}' }}</code>.
+          <b>Publish your image to a public repository such as Docker Hub, GitHub containers, or Quay</b> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub containers, and Quay each provide free accounts for public images.
         </li>
         <li>
           <b>Submit an issue <a href="https://github.com/biosimulations/Biosimulations/issues/new/choose" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes your tool and the URL for the Docker image for your tool.
         </li>
         <li>
-          <b>Optionally, also submit your containerized tool to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers containers repository <a href="https://github.com/BioContainers/containers/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
+          <b>Optionally, also register your tool with bio.tools.</b> Visit bio.tools <a href="https://bio.tools" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to submit your tool to their regsitry of research tools.
+        </li>
+        <li>
+          <b>Optionally, also submit your Dockerfile to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers image registry <a href="https://github.com/BioContainers/containers/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
         </li>
       </ol>
     </biosimulations-text-page-content-section>

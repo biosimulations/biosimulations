@@ -13,7 +13,7 @@
       <mat-hint
         >Select a COMBINE/OMEX archive file which describes one or more
         simulations (e.g., in SED-ML format) of one or more models (e.g., in
-        SBML format). An example archive is available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/raw/master/Biosimulations_combine_archive_test_suite/BIOMD0000000297.omex"><biosimulations-icon icon="download"></biosimulations-icon></a>. 
+        SBML format). An example archive is available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/raw/master/Biosimulators_test_suite/BIOMD0000000297.omex"><biosimulations-icon icon="download"></biosimulations-icon></a>. 
         Additional examples are available in the BioSimulators test
         suite
         <a
@@ -24,7 +24,7 @@
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >.</mat-hint
       >
-      <mat-error *ngIf="projectFileError">
+      <mat-error *ngIf="formGroup.controls.projectFile.errors">
         Please select a project file.
       </mat-error>
     </mat-form-field>
@@ -53,7 +53,7 @@
         (e.g., COMBINE/OMEX, SBML, SED-ML) that each simulation tool
         supports.</mat-hint
       >
-      <mat-error *ngIf="simulatorError">
+      <mat-error *ngIf="formGroup.controls.simulator.errors">
         Please select a simulator.
       </mat-error>
     </mat-form-field>
@@ -64,8 +64,7 @@
         formControlName="simulatorVersion"
         disableOptionCentering
         placeholder="latest"
-        required
-        [disabled]="simulatorVersions.length === 0"
+        required        
       >
         <mat-option
           *ngFor="let simulatorVersion of simulatorVersions"
@@ -82,7 +81,7 @@
         ></a>
         for information about each version of each simulation tool.</mat-hint
       >
-      <mat-error *ngIf="simulatorVersionError">
+      <mat-error *ngIf="formGroup.controls.simulatorVersion.errors">
         Please select a version of the selected simulator.
       </mat-error>
     </mat-form-field>
@@ -99,7 +98,7 @@
       <mat-hint>
         Provide a name for your simulation project. If you have execute multiple simulation projects, names will help you identify specific projects.
       </mat-hint>
-      <mat-error *ngIf="nameError">
+      <mat-error *ngIf="formGroup.controls.name.errors">
         Please select a name.
       </mat-error>
     </mat-form-field>
@@ -118,11 +117,23 @@
         will also receive a URL where you will be able to check the status of
         your simulation and retrieve its results.</mat-hint
       >
-      <mat-error *ngIf="emailError">
+      <mat-error *ngIf="formGroup.controls.email.errors">
         Please enter a valid email address.
       </mat-error>
     </mat-form-field>
 
-    <button mat-flat-button type="submit">Run</button>
+    <button mat-flat-button type="submit" [disabled]="!formGroup.valid">Run</button>
+    <div *ngIf="simulationId" class="message success">
+      Your simulation #{{ simulationId }} was submitted! You can view the status of your simulation at this page <a [routerLink]="['/simulations', uuid]"><biosimulations-icon icon="internalLink"></biosimulations-icon></a>. When your simulation completes, you will able to retrieve and visualize your results from the same page. Your simulation and its results will be available for six months.
+    </div>
+    <mat-error *ngIf="simulatorsError" class="message">
+      {{ simulatorsError }}
+    </mat-error>
+    <mat-error *ngIf="simulatorVersionsError" class="message">
+      {{ simulatorVersionsError }}
+    </mat-error>
+    <mat-error *ngIf="submitError" class="message">
+      Sorry! We were unable to execute your simulation job.
+    </mat-error>
   </form>
 </biosimulations-page>

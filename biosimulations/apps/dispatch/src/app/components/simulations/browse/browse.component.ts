@@ -1,50 +1,52 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { Component, ViewChild } from '@angular/core';
+import { Simulation, SimulationStatus } from '../../../datamodel';
+import { SimulationService } from '../../../services/simulation/simulation.service';
+import { TableComponent, Column, ColumnLinkType, ColumnFilterType } from '@biosimulations/shared/ui';
 
 @Component({
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
 })
-export class BrowseComponent implements AfterViewInit {
-  @ViewChild('table') table!: any;
+export class BrowseComponent {
+  @ViewChild(TableComponent) table!: TableComponent;
 
-  columns: any[] = [
+  columns: Column[] = [
     {
       id: 'id',
       heading: "Id",
       key: 'id',
-      container: 'plain',
-      minWidth: 34
+      minWidth: 34,
+      filterable: false,
     },
     {
       id: 'name',
       heading: "Name",
       key: 'name',
-      container: 'plain',
       minWidth: 34
     },
     {
       id: 'status',
       heading: "Status",
       key: 'status',
-      container: 'plain',
-      formatter: (value: string) => {
+      formatter: (value: SimulationStatus): string => {
         if (value) {
           return value.substring(0, 1).toUpperCase() + value.substring(1);
         } else {
           return value;
         }
       },
-      comparator: (aVal: any, bVal: any) => {
-        if (aVal === 'queued') aVal = 0;
-        if (aVal === 'succeeded') aVal = 1;
-        if (aVal === 'failed') aVal = 2;
-        if (aVal == null) aVal = 3;
+      comparator: (a: SimulationStatus, b: SimulationStatus, sign: number): number => {
+        let aVal = 0;
+        if (a === SimulationStatus.queued) aVal = 0;
+        else if (a === SimulationStatus.started) aVal = 1;
+        else if (a === SimulationStatus.succeeded) aVal = 2;
+        else if (a === SimulationStatus.failed) aVal = 3;
 
-        if (bVal === 'queued') bVal = 0;
-        if (bVal === 'succeeded') bVal = 1;
-        if (bVal === 'failed') bVal = 2;
-        if (bVal == null) bVal = 3;
+        let bVal = 0;
+        if (b === SimulationStatus.queued) bVal = 0;
+        else if (b === SimulationStatus.started) bVal = 1;
+        else if (b === SimulationStatus.succeeded) bVal = 2;
+        else if (b === SimulationStatus.failed) bVal = 3;
 
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
@@ -56,8 +58,8 @@ export class BrowseComponent implements AfterViewInit {
       id: 'runtime',
       heading: "Runtime",
       key: 'runtime',
-      formatter: (value: number) => {
-        if (value == null) {
+      formatter: (value: number): string | null => {
+        if (value === undefined) {
           return null;
         }
 
@@ -80,17 +82,14 @@ export class BrowseComponent implements AfterViewInit {
           return (value * 1000).toFixed(1) + ' ms';
         }
       },
-      filterType: 'number',
+      filterType: ColumnFilterType.number,
       show: false,
     },
     {
       id: 'submitted',
       heading: "Submitted",
       key: 'submitted',
-      formatter: (value: Date) => {
-        if (value == null) {
-          return null;
-        }
+      formatter: (value: Date): string => {
         return value.getFullYear().toString()
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
           + '-' + value.getDate().toString().padStart(2, '0')
@@ -98,17 +97,14 @@ export class BrowseComponent implements AfterViewInit {
           + ':' + value.getMinutes().toString().padStart(2, '0')
           + ':' + value.getSeconds().toString().padStart(2, '0');
       },
-      filterType: 'date',
+      filterType: ColumnFilterType.date,
       minWidth: 140,
     },
     {
-      id: 'completed',
-      heading: "Completed",
-      key: 'completed',
-      formatter: (value: Date) => {
-        if (value == null) {
-          return null;
-        }
+      id: 'updated',
+      heading: "Last updated",
+      key: 'updated',
+      formatter: (value: Date): string => {
         return value.getFullYear().toString()
           + '-' + (value.getMonth() + 1).toString().padStart(2, '0')
           + '-' + value.getDate().toString().padStart(2, '0')
@@ -116,22 +112,29 @@ export class BrowseComponent implements AfterViewInit {
           + ':' + value.getMinutes().toString().padStart(2, '0')
           + ':' + value.getSeconds().toString().padStart(2, '0');
       },
-      filterType: 'date',
+      filterType: ColumnFilterType.date,
       minWidth: 140,
+    },
+    {
+      id: 'submittedLocally',
+      heading: "Submitted locally",
+      key: 'submittedLocally',
+      formatter: (value: boolean): string => {
+        return value ? 'Yes' : 'No';
+      },
+      minWidth: 134,
+      center: true,
+      show: false,
     },
     {
       id: 'visualize',
       heading: "Visualize",
       center: true,
-      container: 'route',
-      route: (element: any) => {
-        if (element.id) {
-          return ['/simulations', element.id];
-        } else {
-          return null;
-        }
+      leftIcon: 'chart',
+      leftLinkType: ColumnLinkType.routerLink,
+      leftRouterLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id];
       },
-      icon: 'chart',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -140,15 +143,15 @@ export class BrowseComponent implements AfterViewInit {
       id: 'download',
       heading: "Download",
       center: true,
-      container: 'href',
-      href: (element: any) => {
-        if (element.id) {
-          return 'download-results/' + element.id;
+      leftIcon: 'download',
+      leftLinkType: ColumnLinkType.href,
+      leftHref: (simulation: Simulation): string | null => {
+        if (simulation.status === SimulationStatus.succeeded) {
+          return 'download-results/' + simulation.id;
         } else {
           return null;
         }
       },
-      icon: 'download',
       minWidth: 66,
       filterable: false,
       sortable: false,
@@ -157,42 +160,71 @@ export class BrowseComponent implements AfterViewInit {
       id: 'log',
       heading: "Log",
       center: true,
-      container: 'route',
-      route: (element: any) => {
-        if (element.id) {
-          return ['/simulations', element.id];
+      leftIcon: 'logs',
+      leftLinkType: ColumnLinkType.routerLink,
+      leftRouterLink: (simulation: Simulation): string[] | null => {
+        if (simulation.status === SimulationStatus.succeeded || simulation.status === SimulationStatus.failed) {
+          return ['/simulations', simulation.id];
         } else {
           return null;
         }
       },
-      icon: 'logs',
       minWidth: 66,
       filterable: false,
       sortable: false,
     },
   ];
 
-  data: any[] = [];
-
-  constructor(private dispatchService: DispatchService) {}
+  constructor(private simulationService: SimulationService) {}
 
   ngAfterViewInit() {
-    this.dispatchService.uuidUpdateEvent.subscribe(
-      (uuid: string) => {
-        // TODO: get name, status, runtime, dates from dispatch service
-        this.data.push({
-          id: uuid,
-          name: null,
-          status: null,
-          runtime: null,
-          submitted: null,
-          completed: null,
-        });
-        this.table.setData(this.data);
-      },
-      (error) => {
-        console.log('Error occured while fetching UUIds: ', error);
-      },
+    this.table.defaultSort = {active: 'id', direction: 'asc'};
+
+    this.simulationService.simulations$.subscribe(
+      (simulations: Simulation[]): void => {
+        setTimeout(() => this.table.setData(simulations));
+      }
     );
+  }
+
+  exportSimulations() {
+    const simulations = [...this.simulationService.getSimulations()] as any[];
+    simulations.forEach((simulation: any) => {
+      simulation.submitted = simulation.submitted.getTime();
+      simulation.updated = simulation.updated.getTime();
+    });
+
+    const blob = new Blob([JSON.stringify(simulations, null, 2)], {type: 'application/json'});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = 'simulations.json';
+    a.click();
+  }
+
+  importSimulations() {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.onchange = () => {
+      if (input.files == null || input.files.length === 0) {
+        return;
+      }
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target == null || typeof e.target.result !== 'string') {
+          return;
+        }
+
+        const simulations = JSON.parse(e.target.result);
+        simulations.forEach((simulation: any) => {
+          simulation.submitted = new Date(simulation.submitted);
+          simulation.updated = new Date(simulation.updated);
+          simulation.submittedLocally = false;
+        });
+        this.simulationService.setSimulations(simulations, true);
+      };
+      reader.readAsText(file);      
+    };
+    input.click();
   }
 }

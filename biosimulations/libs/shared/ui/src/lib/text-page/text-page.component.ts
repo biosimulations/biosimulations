@@ -1,55 +1,48 @@
 import {
   Component,
-  OnInit,
   Input,
   ViewChild,
+  ElementRef,
 } from '@angular/core';
-
-interface TocItem {
-  heading: string;
-  target: HTMLElement;
-}
+import { MediaMatcher } from '@angular/cdk/layout';
+import { TocSection } from '../toc/toc-section';
 
 @Component({
   selector: 'biosimulations-text-page',
   templateUrl: './text-page.component.html',
   styleUrls: ['./text-page.component.scss'],
 })
-export class TextPageComponent implements OnInit {
+export class TextPageComponent {
   @Input()
   heading = '';
 
+  @Input()
+  contentsHeading = 'Contents';
+
+  @Input()
+  padded = true;
+
+  @Input()
+  alwaysFixed: string | null = null;
+
   fixed = false;
+  smallLayout = false;
 
-  tocSections: TocItem[] = [];
+  @Input()
+  tocSections!: TocSection[];
 
-  /* TODO (low priority): switch to monitoring ContentChildren so that the TOC is dynamically updated with the section or their headings change.
-       low priority because none of the instances of TextPageComponent currently need this.
-  */
-  @ViewChild('sectionsContainer')
-  set sectionsContainer(container: any) {
-    this.getTocSections(container.nativeElement);
-  }
+  @Input()
+  tocScrollSectionScrollOffset = 96;
 
-  getTocSections(container: any) {
-    for (const section of container.children) {
-      const heading = section.getAttribute('shortHeading') || section.getAttribute('heading');
-      if (heading) {
-        this.tocSections.push({
-          heading: heading,
-          target: section,
-        });
-      } else {
-        this.getTocSections(section);
-      }
-    }
-  }
-
-  constructor() {
+  constructor(mediaMatcher: MediaMatcher) {
     window.addEventListener('scroll', this.scroll, true);
-  }
 
-  ngOnInit(): void {}
+    const matcher = mediaMatcher.matchMedia('(max-width: 959px)');
+    this.smallLayout = matcher.matches;
+    matcher.addListener((event) => {
+      this.smallLayout = event.matches;
+    });
+  }
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
