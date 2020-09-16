@@ -4,8 +4,12 @@ import { Framework } from '../../shared/views/framework';
 import { Author } from '../../shared/views/author';
 import { Taxon } from '../../shared/views/taxon';
 import { Format } from '../../shared/views/format';
-import { Owner } from '../../shared/views/owner'
-import { Person, OntologyTerm, UserId } from '@biosimulations/shared/datamodel';
+import { Owner } from '../../shared/views/owner';
+import {
+  Person,
+  IOntologyTerm,
+  UserId,
+} from '@biosimulations/shared/datamodel';
 import { ModelHttpService } from './model-http.service';
 import { map } from 'rxjs/operators';
 import { Observable, throwError, never } from 'rxjs';
@@ -21,7 +25,7 @@ export interface Model {
   summary: string;
   imageUrl: string;
 
-  framework: OntologyTerm;
+  framework: IOntologyTerm;
   format: Format;
   authors: Author[];
   owner: Owner;
@@ -36,7 +40,7 @@ export interface Model {
   providedIn: 'root',
 })
 export class ModelService {
-  constructor(private modelHttp: ModelHttpService) { }
+  constructor(private modelHttp: ModelHttpService) {}
 
   static toDataModel(model: ModelResource): Model {
     const format = model.attributes.format;
@@ -47,10 +51,10 @@ export class ModelService {
       framework: Framework.fromDTO(model.attributes.framework),
       format: Format.fromDTO(model.attributes.format),
       parameters: model.attributes.parameters.map((dto) =>
-        BiomodelParameter.fromDto(dto),
+        BiomodelParameter.fromDto(dto)
       ),
       variables: model.attributes.variables.map((dto) =>
-        BiomodelVariable.fromDTO(dto),
+        BiomodelVariable.fromDTO(dto)
       ),
 
       authors: model.attributes.metadata.authors.map((person: Person) => {
@@ -80,7 +84,7 @@ export class ModelService {
         } else {
           return ModelService.toDataModel(val);
         }
-      }),
+      })
     );
   }
 }

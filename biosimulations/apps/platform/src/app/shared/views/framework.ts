@@ -1,12 +1,15 @@
 import { ViewModel } from './view';
-import { OntologyTerm as IFramework } from '@biosimulations/shared/datamodel';
+import {
+  IOntologyTerm as IFramework,
+  Ontologies,
+} from '@biosimulations/shared/datamodel';
 export class Framework extends ViewModel implements IFramework {
   constructor(
-    public ontology: string,
+    public namespace: Ontologies,
     public id: string,
-    public name: string,
+    public name: string | null,
     public description: string | null,
-    public iri: string | null,
+    public iri: string | null
   ) {
     super();
     this.init();
@@ -14,11 +17,11 @@ export class Framework extends ViewModel implements IFramework {
 
   static fromDTO(framework: IFramework) {
     return new Framework(
-      framework.ontology,
+      framework.namespace,
       framework.id,
       framework.name,
       framework.description,
-      framework.iri,
+      framework.iri
     );
   }
   getTooltip(): string {
@@ -26,7 +29,11 @@ export class Framework extends ViewModel implements IFramework {
   }
 
   toString(): string {
-    return this.name;
+    if (this.name) {
+      return this.name;
+    } else {
+      return '';
+    }
   }
   getIcon(): 'framework' {
     return 'framework';

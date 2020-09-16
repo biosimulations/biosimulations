@@ -1,4 +1,4 @@
-import { Algorithm } from './algorithm';
+import { IAlgorithm } from './algorithm';
 import { SecondaryResourceMetaData } from '../resources';
 
 export interface SimulatorAttributes {
@@ -6,6 +6,6 @@ export interface SimulatorAttributes {
   version: string;
   url: string;
   dockerHubImageId: string;
-  algorithms: Algorithm[];
+  algorithms: IAlgorithm[];
   metadata: SecondaryResourceMetaData;
 }

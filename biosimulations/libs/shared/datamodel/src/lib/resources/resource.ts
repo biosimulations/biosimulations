@@ -37,7 +37,6 @@ export interface AccessInfo {
 export interface ExternalReferences {
   identifiers: Identifier[];
   citations: JournalReference[];
-  doi: DOI | null;
 }
 
 export interface Described {

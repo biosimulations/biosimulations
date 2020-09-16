@@ -94,7 +94,7 @@
       "tags": ["scope:platform", "type:datamodel", "platform:any"]
     },
     "platform-database-models": {
-      "tags": ["scope:platform", "type:datamodel", "platform:any"]
+      "tags": ["scope:platform", "type:datamodel", "platform:server"]
     },
     "dispatch-service": {
       "tags": ["scope:dispatch", "type:service", "platform:server"],
@@ -133,6 +133,9 @@
     },
     "dispatch-datamodel": {
       "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
+    },
+    "shared-datamodel-api": {
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
     }
   }
 }

@@ -2,16 +2,13 @@
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
-<div  
+<div
   gdAuto="row"
-
   gdColumns.gt-sm="16rem 1fr"
   gdGap="2rem"
-
   gdRows.lt-md="1fr"
   gdGap.lt-md="1rem"
-
-  [ngClass]="{hidden: isLoading | async}"
+  [ngClass]="{ hidden: isLoading | async }"
 >
   <mat-accordion class="controls">
     <mat-expansion-panel>
@@ -62,9 +59,15 @@
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
                 <ng-container [ngSwitch]="column.filterType">
-
                   <ng-template [ngSwitchCase]="'number'">
-                    <ng-template let-range="range" [ngTemplateOutletContext]="{range: getNumericColumnRange(column)}" [ngTemplateOutlet]="self" #self>
+                    <ng-template
+                      let-range="range"
+                      [ngTemplateOutletContext]="{
+                        range: getNumericColumnRange(column)
+                      }"
+                      [ngTemplateOutlet]="self"
+                      #self
+                    >
                       <npn-slider
                         [min]="range.min"
                         [max]="range.max"
@@ -78,18 +81,33 @@
                   <mat-form-field *ngSwitchCase="'date'" appearance="fill">
                     <mat-label>Enter a range of dates</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
-                      <input matStartDate placeholder="Start date" (dateChange)="filterStartDateValue(column, $event)">
-                      <input matEndDate placeholder="End date" (dateChange)="filterEndDateValue(column, $event)">
+                      <input
+                        matStartDate
+                        placeholder="Start date"
+                        (dateChange)="filterStartDateValue(column, $event)"
+                      />
+                      <input
+                        matEndDate
+                        placeholder="End date"
+                        (dateChange)="filterEndDateValue(column, $event)"
+                      />
                     </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                   </mat-form-field>
 
                   <mat-list *ngSwitchDefault>
-                    <mat-list-item *ngFor="let value of getTextColumnValues(column)">
+                    <mat-list-item
+                      *ngFor="let value of getTextColumnValues(column)"
+                    >
                       <mat-checkbox
                         #checkbox
-                        (change)="filterSetValue(column, value, checkbox.checked)"
+                        (change)="
+                          filterSetValue(column, value, checkbox.checked)
+                        "
                       >
                         {{ formatElementFilterValue(value, column) }}
                       </mat-checkbox>
@@ -105,56 +123,87 @@
   </mat-accordion>
 
   <div class="table-container">
-    <mat-table
-      matSort
-    >
-      <ng-container
-        [matColumnDef]="column.id"
-        *ngFor="let column of columns"
-      >
-        <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="column.sortable === false"
+    <mat-table matSort>
+      <ng-container [matColumnDef]="column.id" *ngFor="let column of columns">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          [disabled]="column.sortable === false"
           [ngStyle]="{
-            'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'min-width.em':
+              column.minWidth !== undefined ? column.minWidth / 14 : null,
             'justify-content': column.center !== undefined ? 'center' : null
           }"
         >
           {{ column.heading }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let element"
+
+        <mat-cell
+          *matCellDef="let element"
           [ngStyle]="{
-            'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null
+            'min-width.em':
+              column.minWidth !== undefined ? column.minWidth / 14 : null
           }"
         >
-          <div class="cell-content-container"
+          <div
+            class="cell-content-container"
             [ngClass]="{
               'lines-one': linesPerRow === 1,
               'lines-multiple': linesPerRow > 1,
-              'center': column.center === true
+              center: column.center === true
             }"
             [ngStyle]="{
               '-webkit-line-clamp': linesPerRow,
               'height.px': 20 * linesPerRow
-            }">
-
+            }"
+          >
             <span [ngSwitch]="column.leftLinkType">
               <ng-template [ngSwitchCase]="'routerLink'">
-                <a *ngIf="getElementRouterLink(element, column, 'left') as routerLink" [routerLink]="routerLink">
-                  <ng-container *ngTemplateOutlet="leftIconTemplate; context: {icon: column.leftIcon}"></ng-container>
+                <a
+                  *ngIf="
+                    getElementRouterLink(element, column, 'left') as routerLink
+                  "
+                  [routerLink]="routerLink"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      leftIconTemplate;
+                      context: { icon: column.leftIcon }
+                    "
+                  ></ng-container>
                 </a>
               </ng-template>
 
               <ng-template [ngSwitchCase]="'href'">
-                <a *ngIf="getElementHref(element, column, 'left') as href" [href]="href" target="_blank" >
-                  <ng-container *ngTemplateOutlet="leftIconTemplate; context: {icon: column.leftIcon}"></ng-container>
+                <a
+                  *ngIf="getElementHref(element, column, 'left') as href"
+                  [href]="href"
+                  target="_blank"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      leftIconTemplate;
+                      context: { icon: column.leftIcon }
+                    "
+                  ></ng-container>
                 </a>
               </ng-template>
 
               <ng-template ngSwitchDefault>
-                <ng-container *ngTemplateOutlet="leftIconTemplate; context: {icon: column.leftIcon}"></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    leftIconTemplate;
+                    context: { icon: column.leftIcon }
+                  "
+                ></ng-container>
               </ng-template>
 
               <ng-template #leftIconTemplate let-icon="icon">
-                <biosimulations-icon *ngIf="icon" [icon]="icon" [title]="getIconTitle(element, column, 'left')"></biosimulations-icon>
+                <biosimulations-icon
+                  *ngIf="icon"
+                  [icon]="icon"
+                  [title]="getIconTitle(element, column, 'left')"
+                ></biosimulations-icon>
               </ng-template>
             </span>
 
@@ -162,23 +211,51 @@
 
             <span [ngSwitch]="column.rightLinkType">
               <ng-template [ngSwitchCase]="'routerLink'">
-                <a *ngIf="getElementRouterLink(element, column, 'right') as routerLink" [routerLink]="routerLink">
-                  <ng-container *ngTemplateOutlet="rightIconTemplate; context: {icon: column.rightIcon}"></ng-container>
+                <a
+                  *ngIf="
+                    getElementRouterLink(element, column, 'right') as routerLink
+                  "
+                  [routerLink]="routerLink"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      rightIconTemplate;
+                      context: { icon: column.rightIcon }
+                    "
+                  ></ng-container>
                 </a>
               </ng-template>
 
               <ng-template [ngSwitchCase]="'href'">
-                <a *ngIf="getElementHref(element, column, 'right') as href" [href]="href" target="_blank" >
-                  <ng-container *ngTemplateOutlet="rightIconTemplate; context: {icon: column.rightIcon}"></ng-container>
+                <a
+                  *ngIf="getElementHref(element, column, 'right') as href"
+                  [href]="href"
+                  target="_blank"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      rightIconTemplate;
+                      context: { icon: column.rightIcon }
+                    "
+                  ></ng-container>
                 </a>
               </ng-template>
 
               <ng-template ngSwitchDefault>
-                <ng-container *ngTemplateOutlet="rightIconTemplate; context: {icon: column.rightIcon}"></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    rightIconTemplate;
+                    context: { icon: column.rightIcon }
+                  "
+                ></ng-container>
               </ng-template>
 
               <ng-template #rightIconTemplate let-icon="icon">
-                <biosimulations-icon *ngIf="icon" [icon]="icon" [title]="getIconTitle(element, column, 'right')"></biosimulations-icon>
+                <biosimulations-icon
+                  *ngIf="icon"
+                  [icon]="icon"
+                  [title]="getIconTitle(element, column, 'right')"
+                ></biosimulations-icon>
               </ng-template>
             </span>
           </div>
@@ -188,8 +265,7 @@
       <mat-header-row
         *matHeaderRowDef="columnsToShow; sticky: true"
       ></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columnsToShow"
-      ></mat-row>
+      <mat-row *matRowDef="let row; columns: columnsToShow"></mat-row>
     </mat-table>
   </div>
 </div>

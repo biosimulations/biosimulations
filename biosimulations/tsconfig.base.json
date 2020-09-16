@@ -49,6 +49,9 @@
       ],
       "@biosimulations/dispatch/datamodel": [
         "libs/dispatch/datamodel/src/index.ts"
+      ],
+      "@biosimulations/shared/datamodel-api": [
+        "libs/shared/datamodel-api/src/index.ts"
       ]
     }
   },

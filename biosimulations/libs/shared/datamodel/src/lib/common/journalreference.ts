@@ -1,3 +1,5 @@
+import { Identifier } from './ontology';
+
 export interface JournalReference {
   authors: string;
   title: string;
@@ -6,5 +8,5 @@ export interface JournalReference {
   issue: string | number | null;
   pages: string | null;
   year: number;
-  doi: string | null;
+  identifiers: Identifier[] | null;
 }

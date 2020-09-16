@@ -1,11 +1,19 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild, Injectable } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Input,
+  ViewChild,
+  Injectable,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export enum ColumnLinkType {
   routerLink = 'routerLink',
@@ -20,9 +28,11 @@ export enum ColumnFilterType {
 
 export enum Side {
   left = 'left',
-  right = 'right'
+  right = 'right',
 }
 
+// TODO make generic
+// TODO fix datasource / loading functionality
 export interface Column {
   id: string;
   heading: string;
@@ -71,8 +81,7 @@ export class TableDataSource extends MatTableDataSource<any> {
     return this.isLoading.asObservable();
   }
 
-  refresh(): void {
-  }
+  refresh(): void {}
 }
 
 @Component({
@@ -88,10 +97,11 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   private _columns!: Column[];
   columnsToShow!: string[];
-  idToColumn!: { [id: string] : Column };
+  idToColumn!: { [id: string]: Column };
   isLoading!: Observable<boolean>;
-  filter: {[id: string]: any[]} = {};
-  defaultSort?: {active: string, direction: string};
+  isLoaded!: Observable<boolean>;
+  filter: { [id: string]: any[] } = {};
+  defaultSort?: { active: string; direction: string };
 
   @Input()
   linesPerRow = 1;
@@ -103,31 +113,45 @@ export class TableComponent implements OnInit, AfterViewInit {
     });
     this._columns = columns;
     this.setColumnsToShow();
-    this.idToColumn = columns.reduce((map: { [id: string] : Column }, col: Column) => {
-      map[col.id] = col;
-      return map;
-    }, {});
-
-    if (this.table) {
-      this.table.renderRows();
-    }
+    this.idToColumn = columns.reduce(
+      (map: { [id: string]: Column }, col: Column) => {
+        map[col.id] = col;
+        return map;
+      },
+      {}
+    );
   }
 
   get columns(): Column[] {
     return this._columns;
   }
+  private subscription?: Subscription;
 
-  setData(data: any[]): void {
-    const sortedData = this.sortData(data, this.defaultSort)
-    sortedData.forEach((datum: any, iDatum: number): void => {datum._index = iDatum});
-    this.dataSource.data = sortedData;
-    this.dataSource.isLoading.next(false);
+  @Input()
+  set data(data: Observable<any[]>) {
+    this.subscription = data.subscribe((data: any) => {
+      this.dataSource.isLoading.next(true);
+      const sortedData = this.sortData(data, this.defaultSort);
+      sortedData.forEach((datum: any, iDatum: number): void => {
+        datum._index = iDatum;
+      });
+      this.dataSource.data = sortedData;
+      this.dataSource.isLoading.next(false);
+    });
   }
 
   constructor(public dataSource: TableDataSource) {}
 
   ngOnInit(): void {
     this.isLoading = this.dataSource.isLoading$();
+    this.isLoaded = this.dataSource
+      .isLoading$()
+      .pipe(map((isloaded: boolean) => !isloaded));
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -141,9 +165,17 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getElementRouterLink(element: any, column: Column, side: Side): any {
-    if (side == Side.left && column.leftLinkType === ColumnLinkType.routerLink && column.leftRouterLink !== undefined) {
+    if (
+      side == Side.left &&
+      column.leftLinkType === ColumnLinkType.routerLink &&
+      column.leftRouterLink !== undefined
+    ) {
       return column.leftRouterLink(element);
-    } else if (side == Side.right && column.rightLinkType === ColumnLinkType.routerLink && column.rightRouterLink !== undefined) {
+    } else if (
+      side == Side.right &&
+      column.rightLinkType === ColumnLinkType.routerLink &&
+      column.rightRouterLink !== undefined
+    ) {
       return column.rightRouterLink(element);
     } else {
       return null;
@@ -151,16 +183,28 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getElementHref(element: any, column: Column, side: Side): any {
-    if (side == Side.left && column.leftLinkType === ColumnLinkType.href && column.leftHref !== undefined) {
+    if (
+      side == Side.left &&
+      column.leftLinkType === ColumnLinkType.href &&
+      column.leftHref !== undefined
+    ) {
       return column.leftHref(element);
-    } else if (side == Side.right && column.rightLinkType === ColumnLinkType.href && column.rightHref !== undefined) {
+    } else if (
+      side == Side.right &&
+      column.rightLinkType === ColumnLinkType.href &&
+      column.rightHref !== undefined
+    ) {
       return column.rightHref(element);
     } else {
       return null;
     }
   }
 
-  getElementValue(element: any, column: Column | undefined, defaultKey?: string | undefined): any {
+  getElementValue(
+    element: any,
+    column: Column | undefined,
+    defaultKey?: string | undefined
+  ): any {
     if (column !== undefined && column.getter !== undefined) {
       return column.getter(element);
     } else if (column !== undefined && column.key != undefined) {
@@ -201,7 +245,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getElementFilterValue(element: any, column: Column | undefined, defaultKey?: string | undefined): any {
+  getElementFilterValue(
+    element: any,
+    column: Column | undefined,
+    defaultKey?: string | undefined
+  ): any {
     if (column !== undefined && column.filterGetter !== undefined) {
       return column.filterGetter(element);
     } else if (column !== undefined && column.getter !== undefined) {
@@ -296,24 +344,26 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     const comparator = this.getFilterComparator(column);
     const arrValues = Object.keys(values).map((key: any): any => {
-      return {value: key, formattedValue: values[key]};
+      return { value: key, formattedValue: values[key] };
     });
     arrValues.sort((a: any, b: any): number => {
       return comparator(a.value, b.value);
     });
-    return arrValues.map((el: any): any => {return el.value});
+    return arrValues.map((el: any): any => {
+      return el.value;
+    });
   }
 
   getNumericColumnRange(column: Column): any {
     if (this.dataSource.data.length === 0) {
-      return {min: null, max: null, step: null};
+      return { min: null, max: null, step: null };
     }
 
     const range: any = {
       min: null,
       max: null,
       step: null,
-    }
+    };
 
     for (const datum of this.dataSource.data) {
       const value = this.getElementFilterValue(datum, column);
@@ -339,7 +389,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     } else if (range.max === range.min) {
       range.step = 0;
     } else {
-      range.step = Math.pow(10, Math.floor(Math.log10((range.max - range.min) / 1000)));
+      range.step = Math.pow(
+        10,
+        Math.floor(Math.log10((range.max - range.min) / 1000))
+      );
     }
 
     return range;
@@ -361,8 +414,15 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = JSON.stringify(this.filter);
   }
 
-  filterNumberValue(column: Column, fullRange: any, selectedRange: number[]): void {
-    if (fullRange.min === selectedRange[0] && fullRange.max === selectedRange[1]) {
+  filterNumberValue(
+    column: Column,
+    fullRange: any,
+    selectedRange: number[]
+  ): void {
+    if (
+      fullRange.min === selectedRange[0] &&
+      fullRange.max === selectedRange[1]
+    ) {
       if (column.id in this.filter) {
         delete this.filter[column.id];
       }
@@ -373,7 +433,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = JSON.stringify(this.filter);
   }
 
-  filterStartDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
+  filterStartDateValue(
+    column: Column,
+    event: MatDatepickerInputEvent<Date>
+  ): void {
     if (event.value == null) {
       if (column.id in this.filter) {
         if (this.filter[column.id][1] == null) {
@@ -393,7 +456,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = JSON.stringify(this.filter);
   }
 
-  filterEndDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
+  filterEndDateValue(
+    column: Column,
+    event: MatDatepickerInputEvent<Date>
+  ): void {
     if (event.value == null) {
       if (column.id in this.filter) {
         if (this.filter[column.id][0] == null) {
@@ -438,14 +504,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     const value = this.getElementFilterValue(datum, column);
 
     if (column.filterType === ColumnFilterType.number) {
-      if (value == null
-        || value === undefined
-        || (filterValue[0] != null && value < filterValue[0])
-        || (filterValue[1] != null && value > filterValue[1])
-        ) {
+      if (
+        value == null ||
+        value === undefined ||
+        (filterValue[0] != null && value < filterValue[0]) ||
+        (filterValue[1] != null && value > filterValue[1])
+      ) {
         return false;
       }
-
     } else if (column.filterType === ColumnFilterType.date) {
       const startDate = filterValue[0];
       const endDate = filterValue[1];
@@ -453,14 +519,14 @@ export class TableComponent implements OnInit, AfterViewInit {
         endDate.setDate(endDate.getDate() + 1);
       }
 
-      if (value == null
-        || value === undefined
-        || (startDate != null && value < startDate)
-        || (endDate != null && value >= endDate)
-        ) {
+      if (
+        value == null ||
+        value === undefined ||
+        (startDate != null && value < startDate) ||
+        (endDate != null && value >= endDate)
+      ) {
         return false;
       }
-
     } else {
       if (Array.isArray(value)) {
         let match = false;
@@ -505,7 +571,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       const aVal = this.getElementValue(a, column, defaultKey);
       const bVal = this.getElementValue(b, column, defaultKey);
 
-      const sign = sortDirection !== "desc" ? 1 : -1;
+      const sign = sortDirection !== 'desc' ? 1 : -1;
 
       const comparator = this.getComparator(column, sortDirection === '');
       return sign * comparator(aVal, bVal, sign);
@@ -514,7 +580,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     return sortedData;
   }
 
-  static comparator(a:any, b:any, sign = 1): number {
+  static comparator(a: any, b: any, sign = 1): number {
     if (a == null) {
       if (b == null) {
         return 0;
@@ -525,8 +591,8 @@ export class TableComponent implements OnInit, AfterViewInit {
       return -1 * sign;
     }
 
-    if (typeof a === "string") {
-      return a.localeCompare(b , undefined, { numeric: true } );
+    if (typeof a === 'string') {
+      return a.localeCompare(b, undefined, { numeric: true });
     }
 
     if (a > b) return 1;
