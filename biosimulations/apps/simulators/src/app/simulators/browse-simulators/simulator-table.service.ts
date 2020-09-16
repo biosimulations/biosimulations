@@ -27,7 +27,6 @@ export class SimulatorTableService {
       map((simulators: any[]): TableSimulator[] => {
         return simulators.map(
           (simulator: any): TableSimulator => {
-            console.log(simulator);
             const frameworks = new Set();
             const algorithms = new Set();
             const algorithmSynonyms = new Set();
