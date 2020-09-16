@@ -64,7 +64,7 @@ export class HpcService {
                       'Execution of sbatch was successful: ' +
                         JSON.stringify(result)
                     );
-                    this.messageClient.emit(MQDispatch.log, {
+                    this.messageClient.emit(MQDispatch.SIM_DISPATCH_FINISH, {
                       simDir: simDirBase,
                       hpcOutput: result,
                     });

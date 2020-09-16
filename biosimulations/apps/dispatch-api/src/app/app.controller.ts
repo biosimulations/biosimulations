@@ -36,7 +36,7 @@ import {
   OmexDispatchFile,
   DispatchSimulationModel,
 } from '@biosimulations/dispatch/api-models';
-import { MQDispatch } from '../../../../libs/messages/dispatch/src/lib/messages-dispatch';
+import { MQDispatch } from '@biosimulations/messages/dispatch';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
@@ -117,7 +117,7 @@ export class AppController implements OnApplicationBootstrap {
     // Save the file
     await this.writeFile(omexSavePath, file.buffer);
 
-    this.messageClient.send(MQDispatch.dispatch, simSpec).subscribe(
+    this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
       (res) => {
         this.logger.log(JSON.stringify(res));
         const currentDateTime = new Date();

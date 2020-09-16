@@ -1,7 +1,6 @@
 export enum MQDispatch {
-  dispatch = 'dispatch',
-  finish = 'dispatch_finish',
-  log = 'dispatch_log',
-  to_db = 'dispatch_db',
-  result = 'dispatch_result',
+  SIM_DISPATCH_START = 'sim_dipatch_start',
+  SIM_HPC_FINISH = 'sim_hpc_finish',
+  SIM_DISPATCH_FINISH = 'sim_dispatch_finish',
+  SIM_RESULT_FINISH = 'sim_result_finish',
 }

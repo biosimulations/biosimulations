@@ -40,7 +40,7 @@ export class AppController {
   ) {}
   private logger = new Logger(AppController.name);
 
-  @MessagePattern(MQDispatch.dispatch)
+  @MessagePattern(MQDispatch.SIM_DISPATCH_START)
   async uploadFile(data: SimulationDispatchSpec) {
     this.logger.log('Data received: ' + JSON.stringify(data));
     // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
@@ -90,7 +90,7 @@ export class AppController {
   }
 
   // TODO: Add API to send required info dispatch_finish pattern to NATS
-  @MessagePattern(MQDispatch.finish)
+  @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
     const fileStorage = process.env.FILE_STORAGE || '';
     // const simDirSplit = data['simDir'].split('/');
@@ -134,8 +134,7 @@ export class AppController {
                     chartJsonPath,
                     JSON.stringify(chartResults)
                   ).then(() => {
-
-                    this.messageClient.emit(MQDispatch.result, {
+                    this.messageClient.emit(MQDispatch.SIM_RESULT_FINISH, {
                       uuid: true,
                     });
                   });
@@ -150,7 +149,7 @@ export class AppController {
     }
   }
 
-  @MessagePattern(MQDispatch.log)
+  @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
   async dispatchLog(data: any) {
     const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
     const simDirSplit = data['simDir'].split('/');
@@ -165,7 +164,7 @@ export class AppController {
       const jobMatch = squeueRes.stdout.match(/\d+/);
       const isJobRunning = jobMatch !== null && jobMatch[0] === jobId;
       if (!isJobRunning) {
-        this.messageClient.emit(MQDispatch.finish, uuid);
+        this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
         this.schedulerRegistry.getCronJob(jobId).stop();
       }
     });
