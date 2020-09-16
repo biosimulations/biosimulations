@@ -45,6 +45,7 @@ export class BrowseSimulatorsComponent implements AfterViewInit {
   constructor(private service: SimulatorTableService) {}
   ngOnInit(): void {
     this.data = this.service.getData();
+    this.data.subscribe((data) => console.log(data));
   }
 
   ngAfterViewInit(): void {
