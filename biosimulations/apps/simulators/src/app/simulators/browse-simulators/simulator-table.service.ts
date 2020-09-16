@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { SimulatorService } from '../simulator.service';
 import { forkJoin, from, Observable, of } from 'rxjs';
-import { map, mergeAll, toArray, mergeMap } from 'rxjs/operators';
+import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
 import edamJson from '../edam.json';
-import kisaoJson from '../kisao.json';
 import sboJson from '../sbo.json';
 import spdxJson from '../spdx.json';
-
+import { OntologyService } from '../ontology.service';
 const edamTerms = edamJson as {
   [id: string]: { name: string; description: string; url: string };
 };
-const kisaoTerms = kisaoJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
+
 const sboTerms = sboJson as {
   [id: string]: { name: string; description: string; url: string };
 };
@@ -21,12 +18,14 @@ const spdxTerms = spdxJson as { [id: string]: { name: string; url: string } };
 
 @Injectable({ providedIn: 'root' })
 export class SimulatorTableService {
-  constructor(private service: SimulatorService) {}
+  constructor(
+    private service: SimulatorService,
+    private ontologyService: OntologyService
+  ) {}
 
   getData(): Observable<TableSimulator[]> {
     const data = this.service.getLatest().pipe(
-      //Data from the service is an array of API objects
-      //Convert to array of table objects
+      //Data from the service is an array of API objects - Convert to array of table objects
       map((simulators: any[]) => {
         // Go through the array and convert each api object to a an observable of a table object
         //Array of table object observables
@@ -39,6 +38,7 @@ export class SimulatorTableService {
           const formats = this.getFormats(simulator);
           const license = this.getLicense(simulator);
 
+          // These are all observables of string[] that need to be collapsed
           let innerObservables = {
             frameworks: frameworks,
             algorithms: algorithms,
@@ -58,7 +58,6 @@ export class SimulatorTableService {
               }).pipe(
                 map((value) => {
                   // Table simulator
-
                   return {
                     id: simulator.id,
                     name: simulator.name,
@@ -134,7 +133,7 @@ export class SimulatorTableService {
     console.log(algorithms);
     const alg: Observable<string>[] = [];
     for (const id of algorithms) {
-      alg.push(of(kisaoTerms[id]?.name));
+      alg.push(this.ontologyService.getKisaoTerm(id).pipe(pluck('name')));
     }
     const obs = from(alg).pipe(mergeAll(), toArray());
     return obs;
@@ -148,7 +147,7 @@ export class SimulatorTableService {
     }
     const algSyn: Observable<string>[] = [];
     for (const id in algorithmSynonyms) {
-      algSyn.push(of(kisaoTerms[id]?.name));
+      algSyn.push(this.ontologyService.getKisaoTerm(id).pipe(pluck('name')));
     }
     const obs = from(algSyn).pipe(mergeAll(), toArray());
     return obs;
