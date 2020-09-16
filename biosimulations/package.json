@@ -103,7 +103,7 @@
     "@nrwl/node": "10.0.12",
     "@nrwl/nx-cloud": "^10.1.0",
     "@nrwl/workspace": "10.0.12",
-    "@types/auth0": "^2.20.7",
+    "@types/auth0": "^2.20.8",
     "@types/csv2json": "^1.4.1",
     "@types/jest": "26.0.13",
     "@types/mongoose": "^5.7.36",
