@@ -138,7 +138,7 @@
       "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
     },
     "messages-dispatch": {
-      "tags": ["scope:messages", "type:messagequeues", "platform:any"]
+      "tags": ["scope:shared", "type:messagequeues", "platform:any"]
     }
   }
 }
