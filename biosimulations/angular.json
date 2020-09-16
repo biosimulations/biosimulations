@@ -1390,7 +1390,6 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "linter": "eslint",
             "tsConfig": [
               "libs/dispatch/api-models/tsconfig.lib.json",
               "libs/dispatch/api-models/tsconfig.spec.json"
