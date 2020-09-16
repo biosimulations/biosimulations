@@ -1414,7 +1414,7 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "linter": "eslint",
             "tsConfig": [
