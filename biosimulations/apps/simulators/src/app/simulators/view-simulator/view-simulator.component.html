@@ -106,38 +106,46 @@
           [heading]="algorithm.heading"
           [tocSection]="algorithm.name"
         >
-          <p class="subsection-heading no-bottom-margin">Description</p>
-          <p>
-            <ng-template ngFor let-fragment [ngForOf]="algorithm.description">
-              <span *ngIf="fragment.type == 'text'; else descriptionLink">
-                {{ fragment.value }}
-              </span>
-              <ng-template #descriptionLink>
-                <a [href]="fragment.value"
-                  ><biosimulations-icon icon="link"></biosimulations-icon
-                ></a>
+          <ng-container *ngIf="algorithm?.description">
+            <p class="subsection-heading no-bottom-margin">Description</p>
+            <p>
+              <ng-template ngFor let-fragment [ngForOf]="algorithm.description">
+                <span *ngIf="fragment.type == 'text'; else descriptionLink">
+                  {{ fragment.value }}
+                </span>
+                <ng-template #descriptionLink>
+                  <a [href]="fragment.value"
+                    ><biosimulations-icon icon="link"></biosimulations-icon
+                  ></a>
+                </ng-template>
               </ng-template>
-            </ng-template>
-          </p>
+            </p>
+          </ng-container>
 
           <p class="subsection-heading no-bottom-margin">Modeling frameworks</p>
-          <ul class="icon-list">
+          <ul class="icon-list" *ngIf="algorithm?.frameworks?.length > 0; noFrameworksMessage">
             <li *ngFor="let framework of algorithm.frameworks">
               <biosimulations-icon icon="simulator"></biosimulations-icon>
               <a [href]="framework.url" target="_blank">{{ framework.name }}</a>
             </li>
           </ul>
+          <ng-template #noFrameworksMessage>
+            <p>This algorithm does not support any canonical modeling frameworks.</p>
+          </ng-template>
 
           <p class="subsection-heading no-bottom-margin">Model formats</p>
-          <ul class="icon-list">
+          <ul class="icon-list" *ngIf="algorithm?.formats?.length > 0; noFormatsMessage">
             <li *ngFor="let format of algorithm.formats">
               <biosimulations-icon icon="format"></biosimulations-icon>
               <a [href]="format.url" target="_blank">{{ format.name }}</a>
             </li>
           </ul>
+          <ng-template #noFormatsMessage>
+            <p>This algorithm does not support any standard model formats.</p>
+          </ng-template>
 
           <p class="subsection-heading no-bottom-margin">Parameters</p>
-          <div class="table-container">
+          <div class="table-container" *ngIf="algorithm?.parameters?.length > 0; else noParametersMessage">
             <mat-table
               [dataSource]="algorithm.parameters"
               class="algorithm-parameters"
@@ -207,6 +215,10 @@
               ></mat-row>
             </mat-table>
           </div>
+          <ng-template #noParametersMessage>
+            <p>This algorithm does not have any parameters.</p>
+          </ng-template>
+
           <ng-container *ngIf="algorithm?.citations?.length > 0">
             <p class="subsection-heading no-bottom-margin">Citations</p>
             <ul class="icon-list">
