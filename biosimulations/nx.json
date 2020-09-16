@@ -135,7 +135,7 @@
       "tags": ["scope:shared", "type:datamodel", "platform:any"]
     },
     "dispatch-api-models": {
-      "tags": ["scope:dispatch", "type:databasemodel", "platform:any"]
+      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
     },
     "messages-dispatch": {
       "tags": ["scope:messages", "type:messagequeues", "platform:any"]
