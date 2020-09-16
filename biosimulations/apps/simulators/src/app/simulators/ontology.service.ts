@@ -36,23 +36,22 @@ export class OntologyService {
         shareReplay(1),
         map((terms) => {
           const termSet: Map<string, kisaoTerm> = new Map();
-          terms.forEach((term) => termSet.set(term.id, term));
+          terms.forEach((term) => {
+            //TODO Move this functionality to the onotology API
+            let termUrl =
+              'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
+              term.id.replace(':', '_');
+
+            term.url = termUrl;
+            console.log(term);
+            termSet.set(term.id, term);
+          });
           return termSet;
         })
       );
   }
 
   getKisaoTerm(id: string): Observable<kisaoTerm> {
-    const term = kisaoTerms[id];
-
-    const ontTerm: kisaoTerm = {
-      namespace: Ontologies.KISAO,
-      id: id,
-      iri: 'http://www.biomodels.net/kisao/KISAO#' + id,
-      url: term.url,
-      name: term.name,
-      description: term.description,
-    };
     return this.kisaoTerms.pipe(
       map((value) => {
         const setTerm = value.get(id);
