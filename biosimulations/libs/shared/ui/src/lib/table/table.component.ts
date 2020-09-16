@@ -13,6 +13,7 @@ import { MatSort } from '@angular/material/sort';
 import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export enum ColumnLinkType {
   routerLink = 'routerLink',
@@ -31,6 +32,7 @@ export enum Side {
 }
 
 // TODO make generic
+// TODO fix datasource / loading functionality
 export interface Column {
   id: string;
   heading: string;
@@ -97,6 +99,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   columnsToShow!: string[];
   idToColumn!: { [id: string]: Column };
   isLoading!: Observable<boolean>;
+  isLoaded!: Observable<boolean>;
   filter: { [id: string]: any[] } = {};
   defaultSort?: { active: string; direction: string };
 
@@ -117,10 +120,6 @@ export class TableComponent implements OnInit, AfterViewInit {
       },
       {}
     );
-
-    if (this.table) {
-      this.table.renderRows();
-    }
   }
 
   get columns(): Column[] {
@@ -145,6 +144,9 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.isLoading = this.dataSource.isLoading$();
+    this.isLoaded = this.dataSource
+      .isLoading$()
+      .pipe(map((isloaded: boolean) => !isloaded));
   }
   ngOnDestroy(): void {
     if (this.subscription) {
