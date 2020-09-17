@@ -154,7 +154,7 @@ export class AppController implements OnApplicationBootstrap {
   @Get('download/:uuid')
   @ApiResponse({
     status: 200,
-    description: 'Dowload all results as zip archive',
+    description: 'Download all results as zip archive',
     type: Object,
   })
   archive(@Param('uuid') uId: string, @Res() res: any) {
