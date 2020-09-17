@@ -137,8 +137,8 @@
     "dispatch-api-models": {
       "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
     },
-    "messages-dispatch": {
-      "tags": ["scope:shared", "type:messagequeues", "platform:any"]
+    "messages": {
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
     }
   }
 }

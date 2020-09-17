@@ -10,7 +10,6 @@ import {
   Transport,
   NatsOptions,
 } from '@nestjs/microservices';
-import { exception } from 'console';
 
 describe('AppController', () => {
   let app: TestingModule;

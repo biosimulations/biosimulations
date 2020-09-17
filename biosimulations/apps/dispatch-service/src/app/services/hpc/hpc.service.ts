@@ -1,7 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { MQDispatch } from '@biosimulations/messages/dispatch';
+import { MQDispatch } from '@biosimulations/messages';
 
 @Injectable()
 export class HpcService {

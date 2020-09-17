@@ -35,7 +35,7 @@ import {
   OmexDispatchFile,
   DispatchSimulationModel,
 } from '@biosimulations/dispatch/api-models';
-import { MQDispatch } from '@biosimulations/messages/dispatch';
+import { MQDispatch } from '@biosimulations/messages';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {

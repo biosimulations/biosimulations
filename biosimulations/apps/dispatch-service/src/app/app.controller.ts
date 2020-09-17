@@ -27,7 +27,7 @@ import {
   Timeout,
 } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { MQDispatch } from '@biosimulations/messages/dispatch'
+import { MQDispatch } from '@biosimulations/messages'
 
 @Controller()
 export class AppController {
