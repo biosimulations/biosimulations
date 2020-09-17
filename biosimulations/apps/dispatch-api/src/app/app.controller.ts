@@ -13,6 +13,7 @@ import {
   Param,
   Query,
   HttpService,
+  Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
@@ -150,16 +151,16 @@ export class AppController implements OnApplicationBootstrap {
     };
   }
 
-  @Get('archive/:uuid')
+  @Get('download/:uuid')
   @ApiResponse({
     status: 200,
-    description: 'archiving whole UUID directory',
+    description: 'Dowload all results as zip archive',
     type: Object,
   })
-  archive(@Param('uuid') uId: string) {
-    return {
-      message: 'Archived',
-    };
+  archive(@Param('uuid') uId: string, @Res() res: any) {
+    const fileStorage = process.env.FILE_STORAGE || '';
+    const zipPath = path.join(fileStorage, 'simulations', uId, `${uId}.zip`);
+    res.download(zipPath);
   }
 
   @Get('result/structure/:uuid')
