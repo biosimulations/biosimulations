@@ -27,7 +27,8 @@ import {
   Timeout,
 } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { MQDispatch } from '@biosimulations/messages'
+import { MQDispatch } from '@biosimulations/messages';
+import { ArchiverService } from './services/archiver/archiver.service';
 
 @Controller()
 export class AppController {
@@ -36,7 +37,8 @@ export class AppController {
     private hpcService: HpcService,
     private sbatchService: SbatchService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private schedulerRegistry: SchedulerRegistry
+    private schedulerRegistry: SchedulerRegistry,
+    private archiverService: ArchiverService
   ) {}
   private logger = new Logger(AppController.name);
 
@@ -134,8 +136,10 @@ export class AppController {
                     chartJsonPath,
                     JSON.stringify(chartResults)
                   ).then(() => {
-                    this.messageClient.emit(MQDispatch.SIM_RESULT_FINISH, {
-                      uuid: true,
+                    this.archiverService.createResultArchive(uuid).then(() => {
+                      this.messageClient.emit(MQDispatch.SIM_RESULT_FINISH, {
+                        uuid: true,
+                      });
                     });
                   });
                 });
