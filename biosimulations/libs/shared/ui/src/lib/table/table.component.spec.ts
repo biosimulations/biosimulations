@@ -15,6 +15,7 @@ import { NpnSliderModule } from "npn-slider";
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { TableComponent } from './table.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -36,6 +37,7 @@ describe('TableComponent', () => {
         MatNativeDateModule,
         NpnSliderModule,
         BiosimulationsIconsModule,
+        FlexLayoutModule,
       ],
       declarations: [TableComponent, SpinnerComponent],
     }).compileComponents();
