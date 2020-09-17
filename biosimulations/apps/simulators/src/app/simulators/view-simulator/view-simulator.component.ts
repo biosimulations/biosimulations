@@ -36,7 +36,7 @@ interface Algorithm {
   url: string;
   frameworks: Framework[];
   formats: Format[];
-  parameters: Parameter[];
+  parameters: Observable<Parameter[]>;
   citations: Citation[];
 }
 
@@ -116,7 +116,7 @@ export class ViewSimulatorComponent implements OnInit {
   citations!: Citation[];
   algorithms!: Algorithm[];
   private _versions = new BehaviorSubject<Version[]>([]);
-  versions!: Observable<Version[]> = this._versions.asObservable();
+  versions: Observable<Version[]> = this._versions.asObservable();
 
   parametersColumns: Column[] = [
     {
@@ -182,8 +182,12 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'image',
       rightIcon: 'link',
       rightLinkType: ColumnLinkType.href,
-      rightHref: (version: Version) => {
-        return version.url;
+      rightHref: (version: Version): string | null => {
+        if (version.url === undefined) {
+          return null;
+        } else {
+          return version.url;
+        }
       },
       minWidth: 300,
     },
@@ -264,7 +268,7 @@ export class ViewSimulatorComponent implements OnInit {
               parameters: any[];
               citations: any[] | undefined;
             }): Algorithm => {
-              const parameters = new BehaviorSubject([]);
+              const parameters = new BehaviorSubject<Parameter[]>([]);
               parameters.next(algorithm.parameters.map(
                 (parameter): Parameter => {
                   return {
