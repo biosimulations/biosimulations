@@ -125,6 +125,16 @@ export class TableComponent implements OnInit, AfterViewInit {
   get columns(): Column[] {
     return this._columns;
   }
+
+  @Input()
+  singleLineHeadings = false;
+
+  @Input()
+  sortable = true;
+
+  @Input()
+  controls = true;
+
   private subscription?: Subscription;
 
   @Input()

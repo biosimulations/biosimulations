@@ -117,6 +117,12 @@
     overflow-x: auto;
 }
 
+.single-line-headings {
+    mat-header-cell {
+        white-space: nowrap;;
+    }
+}
+
 biosimulations-icon {
   font-size: 125%;
 }

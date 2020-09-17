@@ -4,13 +4,13 @@
 
 <div
   gdAuto="row"
-  gdColumns.gt-sm="16rem 1fr"
+  [gdColumns.gt-sm]="controls ? '16rem 1fr' : '1fr'"
   gdGap="2rem"
   gdRows.lt-md="1fr"
   gdGap.lt-md="1rem"
   [ngClass]="{ hidden: isLoading | async }"
 >
-  <mat-accordion class="controls">
+  <mat-accordion class="controls" *ngIf="controls">
     <mat-expansion-panel>
       <mat-expansion-panel-header
         [collapsedHeight]="'32px'"
@@ -123,12 +123,12 @@
   </mat-accordion>
 
   <div class="table-container">
-    <mat-table matSort>
+    <mat-table matSort [ngClass]="{'single-line-headings': singleLineHeadings}">
       <ng-container [matColumnDef]="column.id" *ngFor="let column of columns">
         <mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          [disabled]="column.sortable === false"
+          [disabled]="!sortable || column.sortable === false"
           [ngStyle]="{
             'min-width.em':
               column.minWidth !== undefined ? column.minWidth / 14 : null,
