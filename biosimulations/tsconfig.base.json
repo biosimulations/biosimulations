@@ -47,12 +47,15 @@
       "@biosimulations/shared/environments": [
         "libs/shared/environments/src/index.ts"
       ],
-      "@biosimulations/dispatch/datamodel": [
-        "libs/dispatch/datamodel/src/index.ts"
-      ],
       "@biosimulations/shared/datamodel-api": [
         "libs/shared/datamodel-api/src/index.ts"
-      ]
+      ],
+      "@biosimulations/dispatch/api-models": [
+        "libs/dispatch/api-models/src/index.ts"
+      ],
+      "@biosimulations/messages": [
+        "libs/messages/src/index.ts"
+      ],
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1381,9 +1381,9 @@
         }
       }
     },
-    "dispatch-datamodel": {
-      "root": "libs/dispatch/datamodel",
-      "sourceRoot": "libs/dispatch/datamodel/src",
+    "dispatch-api-models": {
+      "root": "libs/dispatch/api-models",
+      "sourceRoot": "libs/dispatch/api-models/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1391,17 +1391,17 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
-              "libs/dispatch/datamodel/tsconfig.lib.json",
-              "libs/dispatch/datamodel/tsconfig.spec.json"
+              "libs/dispatch/api-models/tsconfig.lib.json",
+              "libs/dispatch/api-models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/dispatch/datamodel/**/*"]
+            "exclude": ["**/node_modules/**", "!libs/dispatch/api-models/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/dispatch/datamodel/jest.config.js",
-            "tsConfig": "libs/dispatch/datamodel/tsconfig.spec.json",
+            "jestConfig": "libs/dispatch/api-models/jest.config.js",
+            "tsConfig": "libs/dispatch/api-models/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -1429,6 +1429,32 @@
           "options": {
             "jestConfig": "libs/shared/datamodel-api/jest.config.js",
             "tsConfig": "libs/shared/datamodel-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "messages": {
+      "root": "libs/messages",
+      "sourceRoot": "libs/messages/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/messages/tsconfig.lib.json",
+              "libs/messages/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/messages/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/messages/jest.config.js",
+            "tsConfig": "libs/messages/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

@@ -1,6 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
+import { MQDispatch } from '@biosimulations/messages';
 
 @Injectable()
 export class HpcService {
@@ -63,8 +64,7 @@ export class HpcService {
                       'Execution of sbatch was successful: ' +
                         JSON.stringify(result)
                     );
-                    // TODO: Make config file for message patterns instead of hardcoding them
-                    this.messageClient.emit('dispatch_log', {
+                    this.messageClient.emit(MQDispatch.SIM_DISPATCH_FINISH, {
                       simDir: simDirBase,
                       hpcOutput: result,
                     });

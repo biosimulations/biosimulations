@@ -131,11 +131,14 @@
     "shared-environments": {
       "tags": ["scope:shared", "type:environments", "platform:any"]
     },
-    "dispatch-datamodel": {
-      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
-    },
     "shared-datamodel-api": {
       "tags": ["scope:shared", "type:datamodel", "platform:any"]
+    },
+    "dispatch-api-models": {
+      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
+    },
+    "messages": {
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
     }
   }
 }

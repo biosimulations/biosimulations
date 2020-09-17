@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { HpcService } from './services/hpc/hpc.service';
 import { SshService } from './services/ssh/ssh.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
+import { SchedulerRegistry } from '@nestjs/schedule';
 import {
   ClientProxyFactory,
   Transport,
@@ -21,6 +22,7 @@ describe('AppController', () => {
         HpcService,
         SshService,
         SbatchService,
+        SchedulerRegistry,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {
@@ -47,6 +49,8 @@ describe('AppController', () => {
           filename: '',
           uniqueFilename: '',
           filepathOnDataStore: '',
+          authorEmail: '',
+          nameOfSimulation: ''
         })
       ).toEqual({
         message: 'Unsupported simulator was provided!',
@@ -137,5 +141,15 @@ describe('AppController', () => {
     });
   });
 
-  
+  describe('test jobMonitorCronJob', () => {
+    it('should return promise', () => {
+      const appController = app.get<AppController>(AppController);
+      const jobMonitor = appController.jobMonitorCronJob(
+        '356789',
+        '5b7de05f-401b-4903-b534-d74bbbc5856c',
+        5
+      );
+      expect(jobMonitor).toBeDefined();
+    });
+  });
 });
