@@ -13,6 +13,7 @@ import {
 } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ArchiverService } from './services/archiver/archiver.service';
 
 @Module({
   imports: [BiosimulationsConfigModule, ScheduleModule.forRoot()],
@@ -21,6 +22,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     HpcService,
     SbatchService,
     SshService,
+    ArchiverService,
     {
       provide: 'DISPATCH_MQ',
       useFactory: (configService: ConfigService) => {

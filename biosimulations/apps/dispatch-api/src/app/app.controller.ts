@@ -36,7 +36,6 @@ import {
   DispatchSimulationModel,
 } from '@biosimulations/dispatch/api-models';
 import { MQDispatch } from '@biosimulations/messages';
-
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
@@ -148,6 +147,18 @@ export class AppController implements OnApplicationBootstrap {
         id: fileId,
         filename: uniqueFilename,
       },
+    };
+  }
+
+  @Get('archive/:uuid')
+  @ApiResponse({
+    status: 200,
+    description: 'archiving whole UUID directory',
+    type: Object,
+  })
+  archive(@Param('uuid') uId: string) {
+    return {
+      message: 'Archived',
     };
   }
 
