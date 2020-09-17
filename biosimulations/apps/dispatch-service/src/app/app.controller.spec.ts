@@ -10,6 +10,7 @@ import {
   Transport,
   NatsOptions,
 } from '@nestjs/microservices';
+import { ArchiverService } from './services/archiver/archiver.service';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -23,6 +24,7 @@ describe('AppController', () => {
         SshService,
         SbatchService,
         SchedulerRegistry,
+        ArchiverService,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {
