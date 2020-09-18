@@ -121,6 +121,6 @@ export class HpcService {
 
   squeueStatus(jobId: string) {
     // Make SSH connection to HPC to check if job is running
-    return this.sshService.execStringCommand(`squeue --job ${jobId}`);
+    return this.sshService.execStringCommand(`squeue -j ${jobId} --start`);
   }
 }

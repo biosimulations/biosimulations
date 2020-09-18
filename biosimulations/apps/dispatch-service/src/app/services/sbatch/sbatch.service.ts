@@ -11,6 +11,7 @@ export class SbatchService {
     const template = `#!/bin/bash
 #SBATCH --job-name=test
 #SBATCH --output=${tempSimDir}/out/job.output
+#SBATCH --error=${tempSimDir}/out/job.error
 #SBATCH --ntasks=1
 #SBATCH --time=10:00
 #SBATCH --mem-per-cpu=1000
@@ -36,9 +37,6 @@ export class SbatchService {
         
         echo "bash version is \`bash --version\`"
         date
-        
-        echo ENVIRONMENT
-        env
         
         command="singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/biosimulations/singularity_images/${simulator}.img -i /root/in/${omexName} -o /root/out"
         echo $command
