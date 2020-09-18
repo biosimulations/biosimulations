@@ -5,6 +5,7 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import {
   DispatchSimulationModelDB as DSimMDB,
   DispatchSimulationModel as DSimModel,
+  DispatchSimulationStatus,
 } from '@biosimulations/dispatch/api-models';
 
 @Injectable()
@@ -24,10 +25,18 @@ export class ModelsService {
     return this.dispatchSimulationModel.find().lean();
   }
 
-  async get(id: string): Promise<DSimMDB | null> {
-    return this.dispatchSimulationModel.findOne({ id });
+  async get(uuid: string): Promise<DSimMDB | null> {
+    return this.dispatchSimulationModel.findOne({ uuid });
   }
   async deleteAll() {
     return this.dispatchSimulationModel.deleteMany({});
+  }
+
+  async updateStatus(uuid: string, status: DispatchSimulationStatus) {
+    const doc = await this.dispatchSimulationModel.findOne({ uuid });
+    if (doc !== null) {
+      doc.currentStatus = status;
+      await doc.save();
+    }
   }
 }

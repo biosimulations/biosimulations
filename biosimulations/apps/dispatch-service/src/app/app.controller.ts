@@ -15,7 +15,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import { SimulationDispatchSpec } from '@biosimulations/dispatch/api-models';
+import {
+  DispatchSimulationStatus,
+  SimulationDispatchSpec,
+} from '@biosimulations/dispatch/api-models';
 import { v4 as uuid } from 'uuid';
 import path from 'path';
 import * as csv2Json from 'csv2json';
@@ -29,6 +32,7 @@ import {
 import { CronJob } from 'cron';
 import { MQDispatch } from '@biosimulations/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
+import { ModelsService } from './resources/models/models.service';
 
 @Controller()
 export class AppController {
@@ -38,7 +42,8 @@ export class AppController {
     private sbatchService: SbatchService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private schedulerRegistry: SchedulerRegistry,
-    private archiverService: ArchiverService
+    private archiverService: ArchiverService,
+    private modelsService: ModelsService
   ) {}
   private logger = new Logger(AppController.name);
 
@@ -164,12 +169,17 @@ export class AppController {
 
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const squeueRes = await this.hpcService.squeueStatus(jobId);
-      const jobMatch = squeueRes.stdout.match(/\d+/);
-      const isJobRunning = jobMatch !== null && jobMatch[0] === jobId;
-      if (!isJobRunning) {
-        this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
-        this.schedulerRegistry.getCronJob(jobId).stop();
+      const jobStatus = await this.hpcService.squeueStatus(jobId);
+      this.modelsService.updateStatus(uuid, jobStatus);
+      switch (jobStatus) {
+        case DispatchSimulationStatus.SUCCEEDED:
+        case DispatchSimulationStatus.FAILED:
+          this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
+          this.schedulerRegistry.getCronJob(jobId).stop();
+          break;
+        case DispatchSimulationStatus.QUEUED:
+        case DispatchSimulationStatus.RUNNING:
+          break;
       }
     });
 

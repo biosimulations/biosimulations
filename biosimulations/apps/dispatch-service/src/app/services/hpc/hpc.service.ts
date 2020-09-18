@@ -2,6 +2,7 @@ import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { MQDispatch } from '@biosimulations/messages';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 
 @Injectable()
 export class HpcService {
@@ -119,8 +120,71 @@ export class HpcService {
     // Create a socket via SSH and stream the output file
   }
 
-  squeueStatus(jobId: string) {
+  async squeueStatus(jobId: string): Promise<DispatchSimulationStatus> {
     // Make SSH connection to HPC to check if job is running
-    return this.sshService.execStringCommand(`squeue -j ${jobId} --start`);
+    const squeueData = await this.sshService.execStringCommand(
+      `squeue -j ${jobId} --start`
+    );
+    //TODO: Handle stderr as well
+    const squeueJSON: any = this.parseSqueueOutput(squeueData.stdout);
+    if (squeueJSON.length === 0) {
+      return DispatchSimulationStatus.SUCCEEDED;
+    } else {
+      switch (squeueJSON[0]['ST']) {
+        case 'PD':
+          return DispatchSimulationStatus.QUEUED;
+        case 'R':
+          return DispatchSimulationStatus.RUNNING;
+        case 'CG':
+          return DispatchSimulationStatus.RUNNING;
+        default:
+          return DispatchSimulationStatus.FAILED;
+      }
+    }
+    /* NOTE: For SLURM STATUS 'PD' means pending/queued
+     'R' means running
+    If jobinfo is not there, the job has completed/failed */
+  }
+
+  parseSqueueOutput(data: string): object[] {
+    // Assumption: SqeueOutput is just special case of TSV
+
+    let dataLineList = data.split('\n');
+
+    let rows = [];
+
+    for (let line of dataLineList) {
+      let words = line.split(' ');
+      let row = [];
+      for (let word of words) {
+        if (word !== '') {
+          row.push(word);
+        }
+      }
+      rows.push(row);
+    }
+
+    const headers = [...rows[0]];
+    rows.splice(0, 1);
+
+    let elementLength = headers.length;
+    let rowsLength = rows.length;
+
+    if (rowsLength === 0) {
+      return [];
+    }
+
+    let finalResult = [];
+
+    for (let rowIndex = 0; rowIndex < rowsLength; rowIndex++) {
+      const currentObj: any = {};
+      for (let elementIndex = 0; elementIndex < elementLength; elementIndex++) {
+        currentObj[headers[elementIndex]] = rows[rowIndex][elementIndex];
+      }
+      finalResult.push(currentObj);
+    }
+
+    // console.log(headers)
+    return finalResult;
   }
 }
