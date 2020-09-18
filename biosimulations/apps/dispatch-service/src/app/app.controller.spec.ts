@@ -11,11 +11,13 @@ import {
   NatsOptions,
 } from '@nestjs/microservices';
 import { ArchiverService } from './services/archiver/archiver.service';
+import { ModelsService } from './resources/models/models.service';
 
 describe('AppController', () => {
   let app: TestingModule;
 
   beforeAll(async () => {
+    const mockService = {};
     app = await Test.createTestingModule({
       controllers: [AppController],
       providers: [
@@ -25,6 +27,7 @@ describe('AppController', () => {
         SbatchService,
         SchedulerRegistry,
         ArchiverService,
+        ModelsService,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {
@@ -35,6 +38,10 @@ describe('AppController', () => {
             return ClientProxyFactory.create(natsOptions);
           },
           inject: [ConfigService],
+        },
+        {
+          provide: ModelsService,
+          useValue: mockService,
         },
       ],
     }).compile();
@@ -52,7 +59,7 @@ describe('AppController', () => {
           uniqueFilename: '',
           filepathOnDataStore: '',
           authorEmail: '',
-          nameOfSimulation: ''
+          nameOfSimulation: '',
         })
       ).toEqual({
         message: 'Unsupported simulator was provided!',
