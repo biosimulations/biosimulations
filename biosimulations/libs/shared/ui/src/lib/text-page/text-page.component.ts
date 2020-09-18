@@ -58,7 +58,7 @@ export class TextPageComponent {
   });
   sideBarStyle$: Observable<SideBarStyle> = this.sideBarStyle.asObservable();
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(breakpointObserver: BreakpointObserver) {
     window.addEventListener('scroll', this.scroll, true);
 
     this.smallLayout = breakpointObserver.isMatched('(max-width: 959px)');
