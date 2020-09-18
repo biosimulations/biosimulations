@@ -149,14 +149,14 @@ export class HpcService {
   parseSqueueOutput(data: string): object[] {
     // Assumption: SqeueOutput is just special case of TSV
 
-    let dataLineList = data.split('\n');
+    const dataLineList = data.split('\n');
 
-    let rows = [];
+    const rows = [];
 
-    for (let line of dataLineList) {
-      let words = line.split(' ');
-      let row = [];
-      for (let word of words) {
+    for (const line of dataLineList) {
+      const words = line.split(' ');
+      const row = [];
+      for (const word of words) {
         if (word !== '') {
           row.push(word);
         }
@@ -167,14 +167,14 @@ export class HpcService {
     const headers = [...rows[0]];
     rows.splice(0, 1);
 
-    let elementLength = headers.length;
-    let rowsLength = rows.length;
+    const elementLength = headers.length;
+    const rowsLength = rows.length;
 
     if (rowsLength === 0) {
       return [];
     }
 
-    let finalResult = [];
+    const finalResult = [];
 
     for (let rowIndex = 0; rowIndex < rowsLength; rowIndex++) {
       const currentObj: any = {};
