@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import path from 'path';
 import { HpcService } from '../hpc/hpc.service';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
-import * as fs from 'fs';
+import { DispatchSimulationStatus, FileModifiers } from '@biosimulations/dispatch/api-models';
 
 @Injectable()
 export class SimulationService {
   constructor(private hpcService: HpcService) {}
 
   async getSimulationStatus(uuid: string, jobId: string) {
-    const file_storage = process.env.FILE_STORAGE || '';
-    const simPath = path.join(file_storage, 'simulations', uuid, 'out');
+    const fileStorage = process.env.FILE_STORAGE || '';
+    const simPath = path.join(fileStorage, 'simulations', uuid, 'out');
 
     const jobStatus = await this.hpcService.squeueStatus(jobId);
 
@@ -19,9 +18,9 @@ export class SimulationService {
       //   const outPath = `${simPath}/job.output`;
       const errPath = `${simPath}/job.error`;
 
-      //   const outStr = await this.readFile(outPath);
-      const errStr = await this.readFile(errPath);
-      console.log(errStr)
+      //   const outStr = await FileModifiers.readFile(outPath);
+      const errStr = await FileModifiers.readFile(errPath);
+      console.log(errStr);
 
       if (errStr !== '') {
         return DispatchSimulationStatus.FAILED;
@@ -33,15 +32,4 @@ export class SimulationService {
     }
   }
 
-  readFile(filePath: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  }
 }

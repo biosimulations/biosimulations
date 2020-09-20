@@ -35,6 +35,7 @@ import {
   DispatchSimulationModel,
 } from '@biosimulations/dispatch/api-models';
 import { MQDispatch } from '@biosimulations/messages';
+import { FileModifiers } from '@biosimulations/dispatch/api-models';
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
@@ -112,7 +113,7 @@ export class AppController implements OnApplicationBootstrap {
     };
 
     // Save the file
-    await this.writeFile(omexSavePath, file.buffer);
+    await FileModifiers.writeFile(omexSavePath, file.buffer);
 
     this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
       (res) => {
@@ -173,14 +174,14 @@ export class AppController implements OnApplicationBootstrap {
 
     const resultPath = path.join(fileStorage, 'simulations', uId, 'out');
 
-    const sedmls = await this.readDir(resultPath);
+    const sedmls = await FileModifiers.readDir(resultPath);
     // Removing log file names 'job.output'
     sedmls.splice(sedmls.indexOf('job.output'), 1);
     sedmls.splice(sedmls.indexOf('job.error'), 1);
 
     for (const sedml of sedmls) {
       structure[sedml] = [];
-      const taskFiles = await this.readDir(path.join(resultPath, sedml));
+      const taskFiles = await FileModifiers.readDir(path.join(resultPath, sedml));
       taskFiles.forEach((taskFile: string) => {
         if (taskFile.endsWith('.csv')) {
           structure[sedml].push(taskFile.split('.csv')[0]);
@@ -217,7 +218,7 @@ export class AppController implements OnApplicationBootstrap {
       task
     );
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
-    const fileContentBuffer = await this.readFile(filePath);
+    const fileContentBuffer = await FileModifiers.readFile(filePath);
     const fileContent = JSON.parse(fileContentBuffer.toString());
 
     return {
@@ -258,42 +259,6 @@ export class AppController implements OnApplicationBootstrap {
     });
 
     return simVersions;
-  }
-
-  readDir(dirPath: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      fs.readdir(dirPath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  }
-
-  readFile(filePath: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  }
-
-  writeFile(path: string, data: Buffer): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      fs.writeFile(path, data, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
   }
 
   async onApplicationBootstrap() {

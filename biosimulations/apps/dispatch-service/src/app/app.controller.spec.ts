@@ -12,6 +12,7 @@ import {
 } from '@nestjs/microservices';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
+import { SimulationService } from './services/simulation/simulation.service';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -28,6 +29,7 @@ describe('AppController', () => {
         SchedulerRegistry,
         ArchiverService,
         ModelsService,
+        SimulationService,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {
