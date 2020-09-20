@@ -127,6 +127,7 @@ export class HpcService {
     );
     //TODO: Handle stderr as well
     const squeueJSON: any = this.parseSqueueOutput(squeueData.stdout);
+    console.log(squeueJSON);
     if (squeueJSON.length === 0) {
       return DispatchSimulationStatus.SUCCEEDED;
     } else {
@@ -170,10 +171,9 @@ export class HpcService {
     const elementLength = headers.length;
     const rowsLength = rows.length;
 
-    if (rowsLength === 0) {
+    if (rows[0].length === 0) {
       return [];
     }
-
     const finalResult = [];
 
     for (let rowIndex = 0; rowIndex < rowsLength; rowIndex++) {
@@ -184,7 +184,6 @@ export class HpcService {
       finalResult.push(currentObj);
     }
 
-    // console.log(headers)
     return finalResult;
   }
 }
