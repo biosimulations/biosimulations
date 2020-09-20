@@ -14,56 +14,9 @@ import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Column, ColumnLinkType, ColumnFilterType, Side, RowService } from './table.interface';
 
-export enum ColumnLinkType {
-  routerLink = 'routerLink',
-  href = 'href',
-}
-
-export enum ColumnFilterType {
-  string = 'string',
-  number = 'number',
-  date = 'date',
-}
-
-export enum Side {
-  left = 'left',
-  right = 'right',
-}
-
-// TODO make generic
 // TODO fix datasource / loading functionality
-export interface Column {
-  id: string;
-  heading: string;
-  key?: string | string[];
-  getter?: (rowData: any) => any;
-  filterGetter?: (rowData: any) => any;
-  passesFilter?: (rowData: any, filterValues: any[]) => boolean;
-  formatter?: (cellValue: any) => any;
-  filterFormatter?: (cellValue: any) => any;
-  leftIcon?: string;
-  rightIcon?: string;
-  leftIconTitle?: (rowData: any) => string | null;
-  rightIconTitle?: (rowData: any) => string | null;
-  leftLinkType?: ColumnLinkType;
-  rightLinkType?: ColumnLinkType;
-  leftRouterLink?: (rowData: any) => any[] | null;
-  rightRouterLink?: (rowData: any) => any[] | null;
-  leftHref?: (rowData: any) => string | null;
-  rightHref?: (rowData: any) => string | null;
-  minWidth?: number;
-  center?: boolean;
-  filterable?: boolean;
-  sortable?: boolean;
-  comparator?: (a: any, b: any, sign: number) => number;
-  filterComparator?: (a: any, b: any, sign: number) => number;
-  filterType?: ColumnFilterType;
-  numericFilterStep?: number;
-  show?: boolean;
-  _index?: number;
-}
-
 @Injectable()
 export class TableDataSource extends MatTableDataSource<any> {
   paginator!: MatPaginator;
@@ -92,27 +45,31 @@ export class TableDataSource extends MatTableDataSource<any> {
 })
 export class TableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) private paginator!: MatPaginator;
+  @ViewChild(MatSort) private sort!: MatSort;
 
   private _columns!: Column[];
   columnsToShow!: string[];
-  idToColumn!: { [id: string]: Column };
+  private idToColumn!: { [id: string]: Column };
   isLoading!: Observable<boolean>;
-  isLoaded!: Observable<boolean>;
-  filter: { [id: string]: any[] } = {};
-  defaultSort?: { active: string; direction: string };
+  private isLoaded!: Observable<boolean>;
+  private filter: { [id: string]: any[] } = {};
+
+  @Input()
+  defaultSort!: { active: string; direction: string };
 
   @Input()
   linesPerRow = 1;
 
   @Input()
   set columns(columns: Column[]) {
+    this._columns = columns;
+    this.setColumnsToShow();
+
     columns.forEach((column: Column, iColumn: number): void => {
       column._index = iColumn;
     });
-    this._columns = columns;
-    this.setColumnsToShow();
+
     this.idToColumn = columns.reduce(
       (map: { [id: string]: Column }, col: Column) => {
         map[col.id] = col;
@@ -150,6 +107,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     });
   }
 
+  RowService = RowService;
+
   constructor(public dataSource: TableDataSource) {}
 
   ngOnInit(): void {
@@ -174,185 +133,27 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
-  getElementRouterLink(element: any, column: Column, side: Side): any {
-    if (
-      side == Side.left &&
-      column.leftLinkType === ColumnLinkType.routerLink &&
-      column.leftRouterLink !== undefined
-    ) {
-      return column.leftRouterLink(element);
-    } else if (
-      side == Side.right &&
-      column.rightLinkType === ColumnLinkType.routerLink &&
-      column.rightRouterLink !== undefined
-    ) {
-      return column.rightRouterLink(element);
-    } else {
-      return null;
-    }
-  }
-
-  getElementHref(element: any, column: Column, side: Side): any {
-    if (
-      side == Side.left &&
-      column.leftLinkType === ColumnLinkType.href &&
-      column.leftHref !== undefined
-    ) {
-      return column.leftHref(element);
-    } else if (
-      side == Side.right &&
-      column.rightLinkType === ColumnLinkType.href &&
-      column.rightHref !== undefined
-    ) {
-      return column.rightHref(element);
-    } else {
-      return null;
-    }
-  }
-
-  getElementValue(
-    element: any,
-    column: Column | undefined,
-    defaultKey?: string | undefined
-  ): any {
-    if (column !== undefined && column.getter !== undefined) {
-      return column.getter(element);
-    } else if (column !== undefined && column.key != undefined) {
-      let keys;
-      if (Array.isArray(column.key)) {
-        keys = column.key;
-      } else {
-        keys = [column.key];
-      }
-
-      let value = element;
-      for (const key of keys) {
-        if (key in value) {
-          value = value[key];
-        } else {
-          return null;
-        }
-      }
-      return value;
-    } else if (defaultKey !== undefined) {
-      if (defaultKey in element) {
-        return element[defaultKey];
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
-
-  getIconTitle(element: any, column: Column, side: Side): string | null {
-    if (side == Side.left && column.leftIconTitle !== undefined) {
-      return column.leftIconTitle(element);
-    } else if (side == Side.right && column.rightIconTitle !== undefined) {
-      return column.rightIconTitle(element);
-    } else {
-      return column.heading;
-    }
-  }
-
-  getElementFilterValue(
-    element: any,
-    column: Column | undefined,
-    defaultKey?: string | undefined
-  ): any {
-    if (column !== undefined && column.filterGetter !== undefined) {
-      return column.filterGetter(element);
-    } else if (column !== undefined && column.getter !== undefined) {
-      return column.getter(element);
-    } else if (column !== undefined && column.key !== undefined) {
-      let keys;
-      if (Array.isArray(column.key)) {
-        keys = column.key;
-      } else {
-        keys = [column.key];
-      }
-
-      let value = element;
-      for (const key of keys) {
-        if (key in value) {
-          value = value[key];
-        } else {
-          return null;
-        }
-      }
-      return value;
-    } else if (defaultKey !== undefined) {
-      if (defaultKey in element) {
-        return element[defaultKey];
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
-
-  getComparator(column: Column | undefined, useDefault = false): any {
-    if (useDefault || column === undefined) {
-      return TableComponent.comparator;
-    } else if (column.comparator !== undefined) {
-      return column.comparator;
-    } else {
-      return TableComponent.comparator;
-    }
-  }
-
-  getFilterComparator(column: Column | undefined, useDefault = false): any {
-    if (useDefault || column === undefined) {
-      return TableComponent.comparator;
-    } else if (column.filterComparator !== undefined) {
-      return column.filterComparator;
-    } else if (column.comparator !== undefined) {
-      return column.comparator;
-    } else {
-      return TableComponent.comparator;
-    }
-  }
-
-  formatElementValue(value: any, column: Column): any {
-    if (column.formatter !== undefined) {
-      return column.formatter(value);
-    } else {
-      return value;
-    }
-  }
-
-  formatElementFilterValue(value: any, column: Column): any {
-    if (column.filterFormatter !== undefined) {
-      return column.filterFormatter(value);
-    } else if (column.formatter !== undefined) {
-      return column.formatter(value);
-    } else {
-      return value;
-    }
-  }
-
   getTextColumnValues(column: Column): any[] {
     const values: any = {};
     for (const datum of this.dataSource.data) {
-      const value: any = this.getElementFilterValue(datum, column);
+      const value: any = RowService.getElementFilterValue(datum, column);
 
       if (Array.isArray(value)) {
         for (const v of value) {
-          const formattedV = this.formatElementFilterValue(v, column);
+          const formattedV = RowService.formatElementFilterValue(v, column);
           if (formattedV != null && formattedV !== '') {
             values[v] = formattedV;
           }
         }
       } else {
-        const formattedValue = this.formatElementFilterValue(value, column);
+        const formattedValue = RowService.formatElementFilterValue(value, column);
         if (formattedValue != null && formattedValue !== '') {
           values[value] = formattedValue;
         }
       }
     }
 
-    const comparator = this.getFilterComparator(column);
+    const comparator = RowService.getFilterComparator(column);
     const arrValues = Object.keys(values).map((key: any): any => {
       return { value: key, formattedValue: values[key] };
     });
@@ -376,7 +177,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     };
 
     for (const datum of this.dataSource.data) {
-      const value = this.getElementFilterValue(datum, column);
+      const value = RowService.getElementFilterValue(datum, column);
       if (value == null || value === undefined) {
         continue;
       }
@@ -524,7 +325,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   passesColumnFilter(column: Column, datum: any, filterValue: any[]): boolean {
-    const value = this.getElementFilterValue(datum, column);
+    const value = RowService.getElementFilterValue(datum, column);
 
     if (column.filterType === ColumnFilterType.number) {
       if (
@@ -591,36 +392,16 @@ export class TableComponent implements OnInit, AfterViewInit {
         column = this.idToColumn[sortColumnId];
       }
 
-      const aVal = this.getElementValue(a, column, defaultKey);
-      const bVal = this.getElementValue(b, column, defaultKey);
+      const aVal = RowService.getElementValue(a, column, defaultKey);
+      const bVal = RowService.getElementValue(b, column, defaultKey);
 
       const sign = sortDirection !== 'desc' ? 1 : -1;
 
-      const comparator = this.getComparator(column, sortDirection === '');
+      const comparator = RowService.getComparator(column, sortDirection === '');
       return sign * comparator(aVal, bVal, sign);
     });
 
     return sortedData;
-  }
-
-  static comparator(a: any, b: any, sign = 1): number {
-    if (a == null) {
-      if (b == null) {
-        return 0;
-      } else {
-        return 1 * sign;
-      }
-    } else if (b == null) {
-      return -1 * sign;
-    }
-
-    if (typeof a === 'string') {
-      return a.localeCompare(b, undefined, { numeric: true });
-    }
-
-    if (a > b) return 1;
-    if (a < b) return -1;
-    return 0;
   }
 
   toggleColumn(column: Column): void {

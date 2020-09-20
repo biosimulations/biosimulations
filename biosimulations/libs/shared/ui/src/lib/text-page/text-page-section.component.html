@@ -1,7 +1,7 @@
 <div class="container">
   <h2>
     {{ heading }}
-    <a class="icon-container" *ngIf="icon" (click)="iconClick()">
+    <a *ngIf="icon" class="icon-container" [routerLink]="iconRouterLink" [href]="iconHref" [target]="iconHref != null ? '_blank' : null" (click)="iconClick()">
       <biosimulations-icon [icon]="icon"></biosimulations-icon>
     </a>
   </h2>

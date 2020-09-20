@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PageComponent } from '../page/page.component';
 import { TextPageComponent } from './text-page.component';
@@ -14,7 +15,7 @@ describe('TextPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PageComponent, TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageTocItemComponent],
-      imports: [BiosimulationsIconsModule],
+      imports: [RouterTestingModule, BiosimulationsIconsModule],
     }).compileComponents();
   }));
 

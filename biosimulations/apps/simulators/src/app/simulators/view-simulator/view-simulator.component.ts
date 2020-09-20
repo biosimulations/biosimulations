@@ -123,11 +123,13 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'id',
       heading: 'Id',
       key: 'id',
+      showStacked: false,
     },
     {
       id: 'name',
       heading: 'Name',
       key: 'name',
+      showStacked: false,
     },
     {
       id: 'type',
@@ -154,8 +156,36 @@ export class ViewSimulatorComponent implements OnInit {
       rightHref: (parameter: Parameter): string => {
         return parameter.kisaoUrl;
       },
+      showStacked: false,
+      minWidth: 130,
     },
   ];
+
+  getParameterStackedHeading(parameter: Parameter): string {
+    const ids = [];
+    if (parameter.id) {
+      ids.push(parameter.id)
+    }
+    if (parameter.kisaoId) {
+      ids.push(parameter.kisaoId);
+    }
+
+    const name = kisaoTerms[parameter.kisaoId].name;
+
+    if (ids.length) {
+      return kisaoTerms[parameter.kisaoId].name + ' (' + ids.join(', ') + ')';
+    } else {
+      return name;
+    }
+  }
+
+  getParameterStackedHeadingMoreInfoRouterLink(parameter: Parameter): string | null {
+    if (parameter.kisaoUrl) {
+      return parameter.kisaoUrl;
+    } else {
+      return null;
+    }
+  }
 
   versionsColumns: Column[] = [
     {
@@ -168,6 +198,7 @@ export class ViewSimulatorComponent implements OnInit {
         return ['/simulators', this.id, version.label];
       },
       minWidth: 73,
+      showStacked: false,
     },
     {
       id: 'date',
@@ -192,6 +223,14 @@ export class ViewSimulatorComponent implements OnInit {
       minWidth: 300,
     },
   ];
+
+  getVersionStackedHeading(version: Version): string {
+    return version.label;
+  }
+
+  getVersionStackedHeadingMoreInfoRouterLink(version: Version): string[] {
+    return ['/simulators', this.route.snapshot.params['id'], version.label];
+  }
 
   ngOnInit(): void {
     const id$ = this.route.params.pipe(pluck('id'));
@@ -440,5 +479,10 @@ export class ViewSimulatorComponent implements OnInit {
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {this.tocSections = container.sections;});
+  }
+
+  copyDockerPullCmd(image='{ image }'): void {
+    const cmd = 'docker pull ' + image;
+    navigator.clipboard.writeText(cmd);
   }
 }

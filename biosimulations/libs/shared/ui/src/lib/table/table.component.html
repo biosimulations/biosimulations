@@ -109,7 +109,7 @@
                           filterSetValue(column, value, checkbox.checked)
                         "
                       >
-                        {{ formatElementFilterValue(value, column) }}
+                        {{ RowService.formatElementFilterValue(value, column) }}
                       </mat-checkbox>
                     </mat-list-item>
                   </mat-list>
@@ -123,7 +123,7 @@
   </mat-accordion>
 
   <div class="table-container">
-    <mat-table matSort [ngClass]="{'single-line-headings': singleLineHeadings}">
+    <mat-table matSort class="biosimulations-table" [ngClass]="{'single-line-headings': singleLineHeadings}">
       <ng-container [matColumnDef]="column.id" *ngFor="let column of columns">
         <mat-header-cell
           *matHeaderCellDef
@@ -161,13 +161,13 @@
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   *ngIf="
-                    getElementRouterLink(element, column, 'left') as routerLink
+                    RowService.getElementRouterLink(element, column, 'left') as routerLink
                   "
                   [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      leftIconTemplate;
+                      leftTemplate;
                       context: { icon: column.leftIcon }
                     "
                   ></ng-container>
@@ -176,13 +176,13 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
-                  *ngIf="getElementHref(element, column, 'left') as href"
+                  *ngIf="RowService.getElementHref(element, column, 'left') as href"
                   [href]="href"
                   target="_blank"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      leftIconTemplate;
+                      leftTemplate;
                       context: { icon: column.leftIcon }
                     "
                   ></ng-container>
@@ -192,34 +192,66 @@
               <ng-template ngSwitchDefault>
                 <ng-container
                   *ngTemplateOutlet="
-                    leftIconTemplate;
+                    leftTemplate;
                     context: { icon: column.leftIcon }
                   "
                 ></ng-container>
               </ng-template>
 
-              <ng-template #leftIconTemplate let-icon="icon">
+              <ng-template #leftTemplate let-icon="icon">
                 <biosimulations-icon
                   *ngIf="icon"
                   [icon]="icon"
-                  [title]="getIconTitle(element, column, 'left')"
+                  [title]="RowService.getIconTitle(element, column, 'left')"
                 ></biosimulations-icon>
               </ng-template>
             </span>
 
-            {{ formatElementValue(getElementValue(element, column), column) }}
+            <span [ngSwitch]="column.centerLinkType">
+              <ng-template [ngSwitchCase]="'routerLink'">
+                <a
+                  *ngIf="
+                    RowService.getElementRouterLink(element, column, 'center') as routerLink
+                  "
+                  [routerLink]="routerLink"
+                >
+                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  ></ng-container>
+                </a>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'href'">
+                <a
+                  *ngIf="RowService.getElementHref(element, column, 'center') as href"
+                  [href]="href"
+                  target="_blank"
+                >
+                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  ></ng-container>
+                </a>
+              </ng-template>
+
+              <ng-template ngSwitchDefault>
+                <ng-container *ngTemplateOutlet="centerTemplate"
+                ></ng-container>
+              </ng-template>
+
+              <ng-template #centerTemplate>
+                {{ RowService.formatElementValue(RowService.getElementValue(element, column), column) }}
+              </ng-template>
+            </span>
 
             <span [ngSwitch]="column.rightLinkType">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   *ngIf="
-                    getElementRouterLink(element, column, 'right') as routerLink
+                    RowService.getElementRouterLink(element, column, 'right') as routerLink
                   "
                   [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      rightIconTemplate;
+                      rightTemplate;
                       context: { icon: column.rightIcon }
                     "
                   ></ng-container>
@@ -228,13 +260,13 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
-                  *ngIf="getElementHref(element, column, 'right') as href"
+                  *ngIf="RowService.getElementHref(element, column, 'right') as href"
                   [href]="href"
                   target="_blank"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      rightIconTemplate;
+                      rightTemplate;
                       context: { icon: column.rightIcon }
                     "
                   ></ng-container>
@@ -244,17 +276,17 @@
               <ng-template ngSwitchDefault>
                 <ng-container
                   *ngTemplateOutlet="
-                    rightIconTemplate;
+                    rightTemplate;
                     context: { icon: column.rightIcon }
                   "
                 ></ng-container>
               </ng-template>
 
-              <ng-template #rightIconTemplate let-icon="icon">
+              <ng-template #rightTemplate let-icon="icon">
                 <biosimulations-icon
                   *ngIf="icon"
                   [icon]="icon"
-                  [title]="getIconTitle(element, column, 'right')"
+                  [title]="RowService.getIconTitle(element, column, 'right')"
                 ></biosimulations-icon>
               </ng-template>
             </span>

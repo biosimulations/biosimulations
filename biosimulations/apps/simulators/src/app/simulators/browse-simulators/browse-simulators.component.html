@@ -1,7 +1,11 @@
 <biosimulations-page heading="Simulators">
-  <biosimulations-table
+  <biosimulations-responsive-table
     [columns]="columns"
+    stackedContentsHeading="Simulators"
+    [getStackedHeading]="getStackedHeading"
+    [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
     [linesPerRow]="3"
+    [defaultSort]="{ active: 'name', direction: 'asc' }"
     [data]="data"
-  ></biosimulations-table>
+  ></biosimulations-responsive-table>
 </biosimulations-page>

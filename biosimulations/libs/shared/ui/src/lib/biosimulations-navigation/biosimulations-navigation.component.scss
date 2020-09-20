@@ -16,15 +16,6 @@
     justify-content: center;
   }
 
-  .drawer-toggle {
-    color: $light-primary-text;
-
-    &.mat-icon-button {
-      width: 32px;
-      padding-left: 0.25rem;
-    }
-  }
-
   .sidenav-menu-container {
     height: calc(100% - 64px);
     overflow-y: auto;
@@ -58,7 +49,6 @@
 
 .sidenav-topbar-right-button {
   color: $light-primary-text;
-  width: auto;
   margin-left: -2px;
   margin-right: -2px;
   padding-left: 0.5rem;
@@ -72,7 +62,6 @@
 }
 
 .topbar-left-button {
-  width: auto;
   margin-left: -2px;
   margin-right: -2px;
   padding-right: 1rem;

@@ -3,10 +3,6 @@
 biosimulations-text-page-section ::ng-deep h2 {
   color: mat-color($theme-primary);
   background: mat-color($theme-primary, lightest);
-
-  .icon-container {
-    color: $dark-primary-text;
-  }
 }
 
 biosimulations-text-page-section ::ng-deep a {

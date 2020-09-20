@@ -43,7 +43,18 @@
       <div class="border">
         <div class="section">
           <h3>Docker pull command</h3>
-          <div class="section-content code">docker pull {{ image }}</div>
+          <div class="section-content">
+            <div class="copy-value code">docker pull {{ image }}</div>
+            <button
+              mat-icon-button
+              class="biosimulations-icon-button copy-button"
+              title="Copy to clipboard"
+              (click)="copyDockerPullCmd(image)"
+            >
+              <biosimulations-icon icon="copy"></biosimulations-icon>
+            </button>
+            <div class="clear-float"></div>
+          </div>
         </div>
 
         <div class="section">
@@ -146,14 +157,18 @@
 
           <p class="subsection-heading no-bottom-margin">Parameters</p>
           <div class="table-container" *ngIf="(algorithm?.parameters | async)?.length > 0; else noParametersMessage">
-            <biosimulations-table
+            <biosimulations-responsive-table
               [columns]="parametersColumns"
               [singleLineHeadings]="true"
               [data]="algorithm.parameters"
               [sortable]="true"
               [controls]="false"
+              stackedContentsHeading="Parameters"
+              [getStackedHeading]="getParameterStackedHeading"
+              [getStackedHeadingMoreInfoRouterLink]="getParameterStackedHeadingMoreInfoRouterLink"
+              [defaultSort]="{ active: 'name', direction: 'asc' }"
             >
-            </biosimulations-table>
+            </biosimulations-responsive-table>
           </div>
           <ng-template #noParametersMessage>
             <p>This algorithm does not have any parameters.</p>
@@ -196,19 +211,34 @@
       gdGap.gt-sm="2rem"
     >
       <div class="table-container">
-        <biosimulations-table
+        <biosimulations-responsive-table
           [columns]="versionsColumns"
           [singleLineHeadings]="true"
           [data]="versions"
           [sortable]="true"
           [controls]="false"
+          stackedContentsHeading="Contents"
+          [getStackedHeading]="getVersionStackedHeading"
+          [getStackedHeadingMoreInfoRouterLink]="getVersionStackedHeadingMoreInfoRouterLink.bind(this)"
+          [defaultSort]="{ active: 'label', direction: 'desc' }"
         >
-        </biosimulations-table>
+        </biosimulations-responsive-table>
       </div>
       <div class="border">
         <div class="section">
           <h3>Docker pull command</h3>
-          <div class="section-content code">docker pull {{ image }}</div>
+          <div class="section-content">
+            <div class="copy-value code">docker pull {{ '{ ' }} image {{ '} ' }}</div>
+            <button
+              mat-icon-button
+              class="biosimulations-icon-button copy-button"
+              title="Copy to clipboard"
+              (click)="copyDockerPullCmd()"
+            >
+              <biosimulations-icon icon="copy"></biosimulations-icon>
+            </button>
+            <div class="clear-float"></div>
+          </div>
         </div>
 
         <div class="section">
