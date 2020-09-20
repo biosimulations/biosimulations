@@ -15,6 +15,7 @@ import { ArchiverService } from './services/archiver/archiver.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsModule } from './resources/models/models.module';
+import { SimulationService } from './services/simulation/simulation.service';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ModelsModule } from './resources/models/models.module';
     SbatchService,
     SshService,
     ArchiverService,
+    SimulationService,
     {
       provide: 'DISPATCH_MQ',
       useFactory: (configService: ConfigService) => {

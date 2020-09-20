@@ -33,6 +33,7 @@ import { CronJob } from 'cron';
 import { MQDispatch } from '@biosimulations/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
+import { SimulationService } from './services/simulation/simulation.service';
 
 @Controller()
 export class AppController {
@@ -43,7 +44,8 @@ export class AppController {
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private schedulerRegistry: SchedulerRegistry,
     private archiverService: ArchiverService,
-    private modelsService: ModelsService
+    private modelsService: ModelsService,
+    private simulationService: SimulationService
   ) {}
   private logger = new Logger(AppController.name);
 
@@ -169,12 +171,19 @@ export class AppController {
 
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus = await this.hpcService.squeueStatus(jobId);
+      const jobStatus = await this.simulationService.getSimulationStatus(
+        uuid,
+        jobId
+      );
       this.modelsService.updateStatus(uuid, jobStatus);
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:
-        case DispatchSimulationStatus.FAILED:
+          // TODO: Change FINISH to SUCCEED
           this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
+          this.schedulerRegistry.getCronJob(jobId).stop();
+          break;
+          // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
+        case DispatchSimulationStatus.FAILED:
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;
         case DispatchSimulationStatus.QUEUED:

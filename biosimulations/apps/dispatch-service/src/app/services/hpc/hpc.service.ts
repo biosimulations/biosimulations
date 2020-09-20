@@ -3,6 +3,7 @@ import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { MQDispatch } from '@biosimulations/messages';
 import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+import path from 'path';
 
 @Injectable()
 export class HpcService {
@@ -122,6 +123,7 @@ export class HpcService {
 
   async squeueStatus(jobId: string): Promise<DispatchSimulationStatus> {
     // Make SSH connection to HPC to check if job is running
+
     const squeueData = await this.sshService.execStringCommand(
       `squeue -j ${jobId} --start`
     );
@@ -129,7 +131,8 @@ export class HpcService {
     const squeueJSON: any = this.parseSqueueOutput(squeueData.stdout);
     console.log(squeueJSON);
     if (squeueJSON.length === 0) {
-      return DispatchSimulationStatus.SUCCEEDED;
+      // If Job is not found in SQUEUE, then status is not known
+      return DispatchSimulationStatus.UNKNOWN;
     } else {
       switch (squeueJSON[0]['ST']) {
         case 'PD':
@@ -137,13 +140,13 @@ export class HpcService {
         case 'R':
           return DispatchSimulationStatus.RUNNING;
         case 'CG':
-          return DispatchSimulationStatus.RUNNING;
+          return DispatchSimulationStatus.SUCCEEDED;
         default:
           return DispatchSimulationStatus.FAILED;
       }
     }
     /* NOTE: For SLURM STATUS 'PD' means pending/queued
-     'R' means running
+     'R' means running, 'CG' meaning completing
     If jobinfo is not there, the job has completed/failed */
   }
 

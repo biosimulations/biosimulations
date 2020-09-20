@@ -6,8 +6,6 @@ import {
   UseInterceptors,
   UploadedFile,
   Body,
-  HttpException,
-  HttpStatus,
   Logger,
   Get,
   Param,
