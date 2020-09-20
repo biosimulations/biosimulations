@@ -55,7 +55,7 @@
       ],
       "@biosimulations/messages": [
         "libs/messages/src/index.ts"
-      ],
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
