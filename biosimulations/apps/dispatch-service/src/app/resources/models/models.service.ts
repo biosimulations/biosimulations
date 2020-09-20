@@ -36,6 +36,9 @@ export class ModelsService {
     const doc = await this.dispatchSimulationModel.findOne({ uuid });
     if (doc !== null) {
       doc.currentStatus = status;
+      doc.statusModifiedTime = new Date();
+      doc.duration =
+        (doc.statusModifiedTime.getTime() - doc.submittedTime.getTime()) / 1000;
       await doc.save();
     }
   }
