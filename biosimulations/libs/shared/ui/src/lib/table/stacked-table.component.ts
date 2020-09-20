@@ -101,8 +101,6 @@ export class StackedTableComponent {
     });
   }
 
-  RowService = RowService;
-
   tocSections!: TocSection[];
 
   @ViewChild(TocSectionsContainerDirective)

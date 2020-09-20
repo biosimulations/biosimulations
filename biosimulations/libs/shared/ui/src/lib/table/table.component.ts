@@ -102,12 +102,60 @@ export class TableComponent implements OnInit, AfterViewInit {
       sortedData.forEach((datum: any, iDatum: number): void => {
         datum._index = iDatum;
       });
+
+      sortedData.forEach((datum: any): void => {
+        const cache: any = {};
+        datum['_cache'] = cache;
+
+        this.columns.forEach((column: Column): void => {
+          cache[column.id] = {
+            value: RowService.formatElementValue(RowService.getElementValue(datum, column), column),
+            left: {},
+            center: {},
+            right: {},
+          };
+
+          if (column.leftLinkType === ColumnLinkType.routerLink) {
+            cache[column.id].left['routerLink'] = RowService.getElementRouterLink(datum, column, Side.left);
+          } else if (column.leftLinkType === ColumnLinkType.href) {
+            cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
+          }
+          cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
+
+          if (column.centerLinkType === ColumnLinkType.routerLink) {
+            cache[column.id].center['routerLink'] = RowService.getElementRouterLink(datum, column, Side.center);
+          } else if (column.centerLinkType === ColumnLinkType.href) {
+            cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
+          }
+          // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
+
+          if (column.rightLinkType === ColumnLinkType.routerLink) {
+            cache[column.id].right['routerLink'] = RowService.getElementRouterLink(datum, column, Side.right);
+          } else if (column.rightLinkType === ColumnLinkType.href) {
+            cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
+          }
+          cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
+        });
+      });
+
+
+      this.columns.forEach((column: Column): void => {
+        switch (column.filterType) {
+          case ColumnFilterType.number:
+            column._filterData = this.getNumericColumnRange(sortedData, column);
+            break;
+          case ColumnFilterType.date:
+            break;
+          default:
+            column._filterData = this.getTextColumnValues(sortedData, column);
+            break;
+        }
+      });
+
       this.dataSource.data = sortedData;
       this.dataSource.isLoading.next(false);
     });
   }
-
-  RowService = RowService;
 
   constructor(public dataSource: TableDataSource) {}
 
@@ -133,9 +181,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
-  getTextColumnValues(column: Column): any[] {
+  getTextColumnValues(data: any[], column: Column): any[] {
     const values: any = {};
-    for (const datum of this.dataSource.data) {
+    for (const datum of data) {
       const value: any = RowService.getElementFilterValue(datum, column);
 
       if (Array.isArray(value)) {
@@ -160,13 +208,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     arrValues.sort((a: any, b: any): number => {
       return comparator(a.value, b.value);
     });
-    return arrValues.map((el: any): any => {
-      return el.value;
-    });
+    return arrValues;
   }
 
-  getNumericColumnRange(column: Column): any {
-    if (this.dataSource.data.length === 0) {
+  getNumericColumnRange(data: any[], column: Column): any {
+    if (data.length === 0) {
       return { min: null, max: null, step: null };
     }
 

@@ -49,6 +49,7 @@ export interface Column {
   show?: boolean;
   showStacked?: boolean;
   _index?: number;
+  _filterData?: any;
 }
 
 export interface Sort {
@@ -56,7 +57,7 @@ export interface Sort {
   direction: string;
 }
 
-export class RowService {  
+export class RowService {
   static getElementRouterLink(element: any, column: Column, side: Side): any {
     if (
       side == Side.left &&
