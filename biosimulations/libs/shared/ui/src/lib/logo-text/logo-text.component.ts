@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ConfigService } from '@biosimulations/shared/services';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-logo-text',
@@ -7,5 +6,6 @@ import { ConfigService } from '@biosimulations/shared/services';
   styleUrls: ['./logo-text.component.scss']
 })
 export class LogoTextComponent {
-  constructor(public config: ConfigService) {}
+  @Input()
+  appNameParts!: string[];
 }

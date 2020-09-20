@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from '@biosimulations/shared/services';
 import { AuthService } from '@biosimulations/auth/angular';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '@biosimulations/auth/angular';
 })
 export class AppComponent {
   title = 'platform';
-  constructor(private auth: AuthService) { }
+  constructor(public config: ConfigService, private auth: AuthService) { }
   login() {
     this.auth.login();
   }

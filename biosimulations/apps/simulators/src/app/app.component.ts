@@ -8,5 +8,5 @@ import { ConfigService } from '@biosimulations/shared/services';
 })
 export class AppComponent {
   title = 'simulators';
-  constructor() {}
+  constructor(public config: ConfigService) {}
 }

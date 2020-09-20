@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfigService } from '@biosimulations/shared/services';
 import { LogoTextComponent } from './logo-text.component';
 
 describe('LogoTextComponent', () => {
@@ -10,7 +9,7 @@ describe('LogoTextComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LogoTextComponent ],
-      providers: [ ConfigService ],
+      providers: [ ],
     })
     .compileComponents();
   }));

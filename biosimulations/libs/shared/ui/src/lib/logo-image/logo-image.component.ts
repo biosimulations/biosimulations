@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ConfigService } from '@biosimulations/shared/services';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-logo-image',
@@ -7,5 +6,6 @@ import { ConfigService } from '@biosimulations/shared/services';
   styleUrls: ['./logo-image.component.scss']
 })
 export class LogoImageComponent {
-  constructor(public config: ConfigService) { }
+  @Input()
+  logo: string = 'assets/images/biosimulations-logo/logo.svg';
 }
