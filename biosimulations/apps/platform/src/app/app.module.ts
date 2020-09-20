@@ -14,6 +14,8 @@ import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+// TODO: make parameterizable based on environment (deployment, test, dev)
 const env = {
   authDomain: 'auth.biosimulations.org',
   apiDomain: 'https://api.biosimulations.dev',
@@ -23,6 +25,7 @@ const env = {
   audience: 'api.biosimulations.org',
   scope: '',
 };
+
 const routes: Routes = [
   {
     path: '',
