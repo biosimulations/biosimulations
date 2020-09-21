@@ -241,7 +241,7 @@ export class BrowseComponent {
           simulation.updated = new Date(simulation.updated);
           simulation.submittedLocally = false;
         });
-        this.simulationService.setSimulations(simulations, true);
+        this.simulationService.setSimulations(simulations, true, false);
       };
       reader.readAsText(file);
     };

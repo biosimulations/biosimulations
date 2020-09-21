@@ -52,7 +52,7 @@ export class SimulationService {
     this.storage.set(this.key, this.simulations);
   }
 
-  updateSimulations(): void {
+  private updateSimulations(): void {
     // no updates needed if no simulations
     if (this.simulations.length === 0) {
       return;
@@ -72,14 +72,22 @@ export class SimulationService {
 
     // update status
     // TODO: connect with API
+    // TODO: only get and update status of
     const endpoint = `${urls.dispatchApi}/simulations`;
-    const ids = this.simulations.map((simulation: Simulation): string => {return simulation.id;}).join(',');
+    const ids = this.simulations
+      .filter((simulation: Simulation): boolean => {
+        return !(simulation.status === SimulationStatus.succeeded || simulation.status === SimulationStatus.failed);
+      })
+      .map((simulation: Simulation): string => {
+        return simulation.id;
+      })
+      .join(',');
 
     this.httpClient
       .get(`${endpoint}?ids=${ids}`)
       .subscribe(
         (data: any) => {
-          this.setSimulations(data.data);
+          this.setSimulations(data.data, false, true);
         },
         (error: HttpErrorResponse) => {
           if (!environment.production) {
@@ -89,13 +97,28 @@ export class SimulationService {
       );
   }
 
-  setSimulations(simulations: Simulation[], update = false): void {
-    this.simulations = simulations;
-    this.simulationIds = simulations.map((simulation: Simulation) => simulation.id);
-    this.simulationsSubject.next(simulations);
-    this.storage.set(this.key, simulations);
+  setSimulations(simulations: Simulation[], getStatus = false, updateStatus = false): void {
+    let newSimulations: Simulation[];
+    if (updateStatus) {
+      newSimulations = [...this.simulations];
 
-    if (update) {
+      const simulationIdToIndex: {[id: string]: number} = {};
+      newSimulations.forEach((simulation: Simulation, iSimulation: number): void => {
+        simulationIdToIndex[simulation.id] = iSimulation;
+      });
+
+      simulations.forEach((simulation: Simulation): void => {
+        newSimulations.splice(simulationIdToIndex[simulation.id], 1, simulation);
+      });
+    } else {
+      newSimulations = simulations;
+      this.simulationIds = newSimulations.map((simulation: Simulation): string => simulation.id);
+    }
+    this.simulations = newSimulations;
+    this.simulationsSubject.next(newSimulations);
+    this.storage.set(this.key, newSimulations);
+
+    if (getStatus) {
       this.updateSimulations();
     }
   }
