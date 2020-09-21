@@ -18,6 +18,7 @@ export class ConfigService {
   dispatchApiUrl!: string;
   simulatorsAppUrl!: string;
   simulatorsApiUrl!: string;
+  appConfig!: any;
 
   constructor() {}
 }

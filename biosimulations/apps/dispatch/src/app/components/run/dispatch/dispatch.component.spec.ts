@@ -10,6 +10,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
+import { ConfigService } from '@biosimulations/shared/services';
 
 describe('DispatchComponent', () => {
   let component: DispatchComponent;
@@ -32,7 +33,7 @@ describe('DispatchComponent', () => {
         }),
       ],
       declarations: [DispatchComponent],
-      providers: [HttpClient, HttpHandler],
+      providers: [HttpClient, HttpHandler, ConfigService],
     }).compileComponents();
   }));
 
