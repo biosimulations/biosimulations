@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-about',
@@ -7,15 +8,15 @@ import { TocSection, TocSectionsContainerDirective } from '@biosimulations/share
   styleUrls: ['./about.component.sass'],
 })
 export class AboutComponent {
-  // TODO: get from app config
-  apiUrl = 'https://api.biosimulations.org/'
-  issueUrl = 'https://github.com/biosimulations/Biosimulations/issues/new/choose'
-  emailUrl = 'mailto:' + 'info@biosimulators.org'
-
+  emailUrl!: string;
   tocSections!: TocSection[];
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {this.tocSections = container.sections;});
+  }
+
+  constructor(public config: ConfigService) {
+    this.emailUrl = 'mailto:' + config.email;
   }
 }

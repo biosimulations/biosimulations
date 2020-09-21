@@ -21,6 +21,8 @@ describe('PrivacyPolicyNoticeComponent', () => {
         MaterialWrapperModule,
         BiosimulationsIconsModule,
       ],
+      providers: [
+      ],
     }).compileComponents();
   }));
 
