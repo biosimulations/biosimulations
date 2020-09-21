@@ -5,22 +5,21 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { environment } from '@biosimulations/shared/environments';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SimulationService {
   private key = 'simulations';
-  private simulations: Simulation[] = [];  
+  private simulations: Simulation[] = [];
   private simulationIds: string[] = [];
   private simulationsSubject = new BehaviorSubject<Simulation[]>(this.simulations);
-  public simulations$: Observable<Simulation[]> = this.simulationsSubject.asObservable();  
+  public simulations$: Observable<Simulation[]> = this.simulationsSubject.asObservable();
 
-  // TODO: connect with application configuration
-  static refreshIntervalLength = 5 * 60 * 1000; // 5 minutes
   private refreshInterval!: number;
 
-  constructor(private storage: Storage, private httpClient: HttpClient) {
+  constructor(config: ConfigService, private storage: Storage, private httpClient: HttpClient) {
     this.storage.ready().then(() => {
       this.storage.keys().then((keys) => {
         if (keys.includes(this.key)) {
@@ -29,20 +28,20 @@ export class SimulationService {
             this.simulationIds = simulations.map((simulation: Simulation) => simulation.id);
             this.simulationsSubject.next(simulations);
             this.updateSimulations();
-            this.refreshInterval = setInterval(() => this.updateSimulations(), SimulationService.refreshIntervalLength);
+            this.refreshInterval = setInterval(() => this.updateSimulations(), config.appConfig?.simulationStatusRefreshIntervalSec * 1000);
           });
         } else {
           const simulations: Simulation[] = [];
           this.simulations = simulations;
           this.simulationIds = [];
           this.simulationsSubject.next(simulations);
-          this.refreshInterval = setInterval(() => this.updateSimulations(), SimulationService.refreshIntervalLength);
+          this.refreshInterval = setInterval(() => this.updateSimulations(), config.appConfig?.simulationStatusRefreshIntervalSec * 1000);
         }
       });
     });
   }
 
-  storeSimulation(simulation: Simulation): void {    
+  storeSimulation(simulation: Simulation): void {
     if (this.simulationIds.includes(simulation.id)) {
       return;
     }

@@ -14,5 +14,8 @@
     "dispatchAppUrl": "https://submit.biosimulations.org/",
     "dispatchApiUrl": "https://dispatch.biosimulations.org/",
     "simulatorsAppUrl": "https://biosimulators.org/",
-    "simulatorsApiUrl": "https://api.biosimulators.org/"
+    "simulatorsApiUrl": "https://api.biosimulators.org/",
+    "appConfig": {
+        "simulationStatusRefreshIntervalSec": 300
+    }
 }
