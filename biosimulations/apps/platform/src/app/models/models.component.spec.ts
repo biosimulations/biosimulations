@@ -4,6 +4,7 @@ import { ModelsComponent } from './models.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ResourceViewModule } from '@biosimulations/platform/view';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { ConfigService } from '@biosimulations/shared/services';
 
 describe('ModelsComponent', () => {
   let component: ModelsComponent;
@@ -17,6 +18,7 @@ describe('ModelsComponent', () => {
         BiosimulationsIconsModule,
       ],
       declarations: [ModelsComponent],
+      providers: [ConfigService],
     }).compileComponents();
   }));
 

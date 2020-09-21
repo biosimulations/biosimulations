@@ -13,9 +13,9 @@ import {
   Param,
   Query,
   HttpService,
+  Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AppService } from './app.service';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import {
   ApiOperation,
@@ -24,23 +24,26 @@ import {
   ApiBody,
   ApiQuery,
 } from '@nestjs/swagger';
-import {
-  SimulationDispatchSpec,
-  OmexDispatchFile,
-} from '@biosimulations/dispatch/datamodel';
+
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs';
 import path from 'path';
-import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
-
+import { ModelsService } from './resources/models/models.service';
+import {
+  DispatchSimulationStatus,
+  SimulationDispatchSpec,
+  OmexDispatchFile,
+  DispatchSimulationModel,
+} from '@biosimulations/dispatch/api-models';
+import { MQDispatch } from '@biosimulations/messages';
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
   constructor(
-    private readonly appService: AppService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private modelsService: ModelsService
   ) {}
 
   @Post('dispatch')
@@ -70,6 +73,12 @@ export class AppController implements OnApplicationBootstrap {
           description:
             'Version of the selected simulator like 4.27.214/latest, etc',
         },
+        authorEmail: {
+          type: 'string',
+        },
+        nameOfSimulation: {
+          type: 'string',
+        },
       },
     },
   })
@@ -95,6 +104,8 @@ export class AppController implements OnApplicationBootstrap {
 
     // Fill out info from file that will be lost after saving in central storage
     const simSpec: SimulationDispatchSpec = {
+      authorEmail: bodyData.authorEmail,
+      nameOfSimulation: bodyData.nameOfSimulation,
       simulator: bodyData.simulator,
       simulatorVersion: bodyData.simulatorVersion,
       filename: file.originalname,
@@ -105,9 +116,21 @@ export class AppController implements OnApplicationBootstrap {
     // Save the file
     await this.writeFile(omexSavePath, file.buffer);
 
-    this.messageClient.send('dispatch', simSpec).subscribe(
+    this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
       (res) => {
         this.logger.log(JSON.stringify(res));
+        const currentDateTime = new Date();
+        const dbModel: DispatchSimulationModel = {
+          uuid: fileId,
+          authorEmail: simSpec.authorEmail,
+          nameOfSimulation: simSpec.nameOfSimulation,
+          submittedTime: currentDateTime,
+          statusModifiedTime: currentDateTime,
+          currentStatus: DispatchSimulationStatus.QUEUED,
+          duration: 0,
+        };
+
+        this.modelsService.createNewDispatchSimulationModel(dbModel);
       },
       (err) => {
         this.logger.log(
@@ -126,6 +149,18 @@ export class AppController implements OnApplicationBootstrap {
         filename: uniqueFilename,
       },
     };
+  }
+
+  @Get('download/:uuid')
+  @ApiResponse({
+    status: 200,
+    description: 'Download all results as zip archive',
+    type: Object,
+  })
+  archive(@Param('uuid') uId: string, @Res() res: any) {
+    const fileStorage = process.env.FILE_STORAGE || '';
+    const zipPath = path.join(fileStorage, 'simulations', uId, `${uId}.zip`);
+    res.download(zipPath);
   }
 
   @Get('result/structure/:uuid')
@@ -200,14 +235,15 @@ export class AppController implements OnApplicationBootstrap {
   })
   @ApiQuery({ name: 'name', required: false })
   async getAllSimulatorVersion(@Query('name') simulatorName: string) {
-
     if (simulatorName === undefined) {
       // Getting info of all available simulators
-      const simulatorsInfo: any = await this.httpService.get(`${urls.fetchSimulatorsInfo}`).toPromise();
+      const simulatorsInfo: any = await this.httpService
+        .get(`${urls.fetchSimulatorsInfo}`)
+        .toPromise();
       const allSimulators: any = [];
 
-      for(const simulatorInfo of simulatorsInfo['data']['results']) {
-          allSimulators.push(simulatorInfo['name']);
+      for (const simulatorInfo of simulatorsInfo['data']['results']) {
+        allSimulators.push(simulatorInfo['name']);
       }
       return allSimulators;
     }
@@ -223,20 +259,6 @@ export class AppController implements OnApplicationBootstrap {
     });
 
     return simVersions;
-  }
-
-  @Get('dispatch-finish/:uuid')
-  @ApiResponse({
-    status: 200,
-    description:
-      'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
-    type: Object,
-  })
-  dispatchFinishEvent(@Param('uuid') uuid: string) {
-    this.messageClient.emit('dispatch_finish', { uuid });
-    return {
-      message: 'OK',
-    };
   }
 
   readDir(dirPath: string): Promise<any> {
