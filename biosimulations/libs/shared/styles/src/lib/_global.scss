@@ -135,7 +135,7 @@ table.icon-list {
   }
 }
 
-.vertically-spaced li:not(:first-child) {
+.vertically-spaced > li:not(:first-child) {
   margin-top: 0.5rem;
 }
 
@@ -175,6 +175,10 @@ a {
   }
 
   &:last-child,
+  &.no-bottom-margin {
+    margin-bottom: 0;
+  }
+
   &.no-bottom-margin {
     margin-bottom: 0;
   }

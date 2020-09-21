@@ -1,0 +1,18 @@
+{
+    "appName": "BioSimulations",
+    "appNameParts": ["Bio", "Simulations"],
+    "logo": "assets/images/biosimulations-logo/logo.svg",
+    "banner": "assets/images/biosimulations-logo/logo-white.svg",
+    "appUrl": "https://biosimulations.org/",
+    "apiUrl": "https://api.biosimulations.org/",
+    "email": "info@biosimulations.org",
+    "privacyPolicyVersion": 1,
+    "newIssueUrl": "https://github.com/biosimulations/Biosimulations/issues/new/choose",
+    "newPullUrl": "https://github.com/biosimulations/Biosimulations/compare",
+    "platformAppUrl": "https://biosimulations.org/",
+    "platformApiUrl": "https://api.biosimulations.org/",
+    "dispatchAppUrl": "https://submit.biosimulations.org/",
+    "dispatchApiUrl": "https://dispatch.biosimulations.org/",
+    "simulatorsAppUrl": "https://biosimulators.org/",
+    "simulatorsApiUrl": "https://api.biosimulators.org/"
+}

@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-dispatch-privacy-policy',
@@ -7,14 +8,15 @@ import { TocSection, TocSectionsContainerDirective } from '@biosimulations/share
   styleUrls: ['./dispatch-privacy-policy.component.scss'],
 })
 export class DispatchPrivacyPolicyComponent {
-  // TODO: get from app config
-  appName = 'runBioSimulators';
-  emailUrl = 'mailto:' + 'info@biosimulators.org'
-
+  emailUrl!: string;
   tocSections!: TocSection[];
-
+  
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {this.tocSections = container.sections;});
+  }
+    
+  constructor(public config: ConfigService) {
+    this.emailUrl = 'mailto:' + config.email;
   }
 }
