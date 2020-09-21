@@ -39,7 +39,7 @@ export class SimulatorTableService {
           const license = this.getLicense(simulator);
 
           // These are all observables of string[] that need to be collapsed
-          let innerObservables = {
+          const innerObservables = {
             frameworks: frameworks,
             algorithms: algorithms,
             algorithmSynonyms: algorithmSynonyms,
@@ -48,7 +48,7 @@ export class SimulatorTableService {
           };
 
           //Observable of the table object
-          let tableSimulatorObservable = of(innerObservables).pipe(
+          const tableSimulatorObservable = of(innerObservables).pipe(
             mergeMap((sourceValue) =>
               forkJoin({
                 algorithmSynonyms: sourceValue.algorithmSynonyms,
@@ -103,7 +103,7 @@ export class SimulatorTableService {
     for (const id of formats) {
       formatsArr.push(of(edamTerms[id as string]?.name));
     }
-    let obs = from(formatsArr).pipe(mergeAll(), toArray());
+    const obs = from(formatsArr).pipe(mergeAll(), toArray());
 
     return obs;
   }
@@ -121,7 +121,7 @@ export class SimulatorTableService {
       frameworksArr.push(of(this.trimFramework(sboTerms[id]?.name)));
     }
 
-    let obs = from(frameworksArr).pipe(mergeAll(), toArray());
+    const obs = from(frameworksArr).pipe(mergeAll(), toArray());
     return obs;
   }
 

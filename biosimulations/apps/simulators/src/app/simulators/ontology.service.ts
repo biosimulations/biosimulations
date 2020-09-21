@@ -18,7 +18,7 @@ const sboTerms = sboJson as {
 };
 const spdxTerms = spdxJson as { [id: string]: { name: string; url: string } };
 
-class kisaoTerm implements IOntologyTerm {
+class KisaoTerm implements IOntologyTerm {
   namespace!: Ontologies.KISAO;
   id!: string;
   iri!: string;
@@ -28,17 +28,17 @@ class kisaoTerm implements IOntologyTerm {
 }
 @Injectable({ providedIn: 'root' })
 export class OntologyService {
-  kisaoTerms: Observable<Map<string, kisaoTerm>>;
+  kisaoTerms: Observable<Map<string, KisaoTerm>>;
   constructor(private http: HttpClient) {
     this.kisaoTerms = this.http
-      .get<kisaoTerm[]>('https://ontology.biosimulations.dev/kisao/list')
+      .get<KisaoTerm[]>('https://ontology.biosimulations.dev/kisao/list')
       .pipe(
         shareReplay(1),
         map((terms) => {
-          const termSet: Map<string, kisaoTerm> = new Map();
+          const termSet: Map<string, KisaoTerm> = new Map();
           terms.forEach((term) => {
             //TODO Move this functionality to the onotology API
-            let termUrl =
+            const termUrl =
               'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
               term.id.replace(':', '_');
 
@@ -51,7 +51,7 @@ export class OntologyService {
       );
   }
 
-  getKisaoTerm(id: string): Observable<kisaoTerm> {
+  getKisaoTerm(id: string): Observable<KisaoTerm> {
     return this.kisaoTerms.pipe(
       map((value) => {
         const setTerm = value.get(id);
