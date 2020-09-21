@@ -16,6 +16,7 @@ export enum DispatchSimulationStatus {
   RUNNING = 'RUNNING',
   SUCCEEDED = 'SUCCEEDED',
   FAILED = 'FAILED',
+  UNKNOWN = 'UNKNOWN',
 }
 
 export class DispatchSimulationModelDB implements DispatchSimulationModel {

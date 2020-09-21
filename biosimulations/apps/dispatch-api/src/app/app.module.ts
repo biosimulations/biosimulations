@@ -1,7 +1,5 @@
 import { Module, HttpModule, CacheModule } from '@nestjs/common';
 import {
-  ClientsModule,
-  ClientProxy,
   Transport,
   ClientProxyFactory,
   NatsOptions,

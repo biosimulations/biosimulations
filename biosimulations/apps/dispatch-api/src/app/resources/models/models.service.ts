@@ -7,14 +7,11 @@ import {
   DispatchSimulationModel as DSimModel,
 } from '@biosimulations/dispatch/api-models';
 
-
 @Injectable()
 export class ModelsService {
   constructor(
     @InjectModel(DSimMDB)
-    private readonly dispatchSimulationModel: ReturnModelType<
-      typeof DSimMDB
-    >
+    private readonly dispatchSimulationModel: ReturnModelType<typeof DSimMDB>
   ) {}
 
   async createNewDispatchSimulationModel(model: DSimModel) {
@@ -27,8 +24,8 @@ export class ModelsService {
     return this.dispatchSimulationModel.find().lean();
   }
 
-  async get(id: string): Promise<DSimMDB | null> {
-    return this.dispatchSimulationModel.findOne({ id });
+  async get(uuid: string): Promise<DSimMDB | null> {
+    return this.dispatchSimulationModel.findOne({ uuid });
   }
   async deleteAll() {
     return this.dispatchSimulationModel.deleteMany({});
