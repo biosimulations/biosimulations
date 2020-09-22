@@ -146,6 +146,9 @@
     },
     "mail-service": {
       "tags": ["scope:shared", "type:service", "platform:server"]
+    },
+    "ontology-api": {
+      "tags": ["scope:shared", "type:API", "platform:server"]
     }
   }
 }
