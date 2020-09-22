@@ -10,6 +10,7 @@ import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-s
 import { json } from 'body-parser';
 import { ConfigService } from '@nestjs/config';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { environment } from '@biosimulations/shared/environments';
 
 const allowOrigin: CustomOrigin = (
   requestOrigin: string,
@@ -31,6 +32,11 @@ const allowOrigin: CustomOrigin = (
     'https://api.biosimulations.dev',
     'https://api.biosimulations.org',
   ];
+
+  if (!environment.production) {
+    this.allowedOrigins.push('http://127.0.0.1');
+    this.allowedOrigins.push('http://localhost');
+  }
 
   const allow = allowedOrigins.includes(requestOrigin);
   const error = null;
@@ -92,7 +98,7 @@ async function bootstrap() {
   const host = configService.get('server.host');
   const limit = configService.get('server.limit');
 
-  // TODO intelligently allow origin based on production mode, abstract this
+  // TODO intelligently allow origin based on production mode, abstract this; remove unconditional access from 127.0.0.1, localhost
   app.enableCors({ origin: allowOrigin });
   app.use(json({ limit }));
   setupOpenApi(app);

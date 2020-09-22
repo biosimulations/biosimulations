@@ -14,6 +14,7 @@ import {
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { environment } from '@biosimulations/shared/environments';
 function setupOpenApi(
   app: INestApplication,
   documentBuilder: DocumentBuilder,
@@ -72,7 +73,7 @@ async function bootstrap() {
   const host = configService.get('server.host');
   const limit = configService.get('server.limit');
 
-  // TODO intelligently allow origin based on production mode, abstract this
+  // TODO intelligently allow origin based on production mode, abstract this; remove unconditional access from 127.0.0.1, localhost
   const allowOrigin: CustomOrigin = (
     requestOrigin: string,
     callback: (err: Error | null, allow?: boolean | undefined) => void
@@ -93,6 +94,11 @@ async function bootstrap() {
       'https://submit.biosimulations.dev',
       'https://submit.biosimulations.org',
     ];
+
+    if (!environment.production) {
+      this.allowedOrigins.push('http://127.0.0.1');
+      this.allowedOrigins.push('http://localhost');
+    }
 
     const allow = allowedOrigins.includes(requestOrigin);
     const error = null;

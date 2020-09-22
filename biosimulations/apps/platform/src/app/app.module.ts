@@ -18,13 +18,14 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ConfigService } from '@biosimulations/shared/services';
 import config from '../assets/config.json';
 
-// TODO: make parameterizable based on environment (deployment, test, dev)
+// TODO: link redict URIs to deployed domain (i.e. biosimulations.org vs biosimulations.dev)
+// TODO: make localhost port more easily configurable
 const env = {
   authDomain: 'auth.biosimulations.org',
   apiDomain: 'https://api.biosimulations.dev',
   clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
-  redirectUri: 'http://localhost:4200',
-  logoutUri: 'http://localhost:4200',
+  redirectUri: environment.production ? 'https://biosimulations.dev' : 'http://localhost:4200',
+  logoutUri: environment.production ? 'https://biosimulations.dev' : 'http://localhost:4200',
   audience: 'api.biosimulations.org',
   scope: '',
 };
@@ -71,7 +72,7 @@ const routes: Routes = [
     SharedModule,
   ],
   providers: [
-    AuthService, 
+    AuthService,
     { provide: AuthEnvironment, useValue: env },
     {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
     {provide: ConfigService, useValue: config },

@@ -9,6 +9,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { environment } from '@biosimulations/shared/environments';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +17,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3333;
 
-  // TODO intelligently allow origin based on production mode, abstract this
+  // TODO intelligently allow origin based on production mode, abstract this; remove unconditional access from 127.0.0.1, localhost
   const allowOrigin: CustomOrigin = (
     requestOrigin: string,
     callback: (err: Error | null, allow?: boolean | undefined) => void,
@@ -38,6 +39,10 @@ async function bootstrap() {
       'https://api.biosimulations.org',
       'https://submit.biosimulations.dev',
     ];
+    if (!environment.production) {
+      this.allowedOrigins.push('http://127.0.0.1');
+      this.allowedOrigins.push('http://localhost');
+    }
     console.log(requestOrigin);
     const allow = allowedOrigins.includes(requestOrigin);
     const error = null;
