@@ -60,7 +60,7 @@
     "@nestjs/passport": "^7.1.0",
     "@nestjs/platform-express": "^7.4.4",
     "@nestjs/schedule": "^0.4.0",
-    "@nestjs/swagger": "^4.6.0",
+    "@nestjs/swagger": "^4.6.1",
     "@nrwl/angular": "10.0.12",
     "@typegoose/typegoose": "^7.3.5",
     "@types/cron": "^1.7.2",
