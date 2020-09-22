@@ -94,7 +94,6 @@ interface Version {
   selector: 'biosimulations-view-simulator',
   templateUrl: './view-simulator.component.html',
   styleUrls: ['./view-simulator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewSimulatorComponent implements OnInit {
   constructor(
@@ -109,8 +108,6 @@ export class ViewSimulatorComponent implements OnInit {
 
   parameterColumns = ['id', 'name', 'type', 'value', 'range', 'kisaoId'];
   versionColumns = ['label', 'date', 'image'];
-  id$!: Observable<string>;
-  version$!: Observable<string>;
 
   id!: string;
   version!: string;
@@ -246,10 +243,9 @@ export class ViewSimulatorComponent implements OnInit {
     this.route.params.subscribe((value) => {
       const loadingSubject = new BehaviorSubject<boolean>(true);
       const id = value?.id;
-      let version = value?.version;
+      const version = value?.version;
       let loadSimulator: Observable<Simulator[]>;
       loadSimulator = this.service.getAllById(id);
-
       loadSimulator.subscribe((simulators: Simulator[]) => {
         let simulator: Simulator;
         if (version) {
@@ -264,7 +260,6 @@ export class ViewSimulatorComponent implements OnInit {
           }
         } else {
           simulator = simulators[0];
-          version = simulator.version;
         }
 
         loadingSubject.next(false);
