@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { ConfigService } from '@biosimulations/shared/services';
 import { DispatchTermsOfServiceComponent } from './dispatch-terms-of-service.component';
 
 describe('DispatchTermsOfServiceComponent', () => {let component: DispatchTermsOfServiceComponent;
@@ -17,6 +18,9 @@ describe('DispatchTermsOfServiceComponent', () => {let component: DispatchTermsO
         RouterTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
+      ],
+      providers: [
+        ConfigService,
       ],
     }).compileComponents();
   }));

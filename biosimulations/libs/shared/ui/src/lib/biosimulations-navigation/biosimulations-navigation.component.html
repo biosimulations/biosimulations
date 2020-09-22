@@ -8,7 +8,7 @@
     [opened]="false"
   >
     <biosimulations-topbar color="#666">
-      <biosimulations-logo-text id="logo"></biosimulations-logo-text>
+      <biosimulations-logo-text id="logo" [appNameParts]="appNameParts"></biosimulations-logo-text>
       <button
         id="rightContent"
         class="sidenav-topbar-right-button"
@@ -42,6 +42,7 @@
         <biosimulations-logo-image
           class="logo-img"
           id="logo"
+          [logo]="logo"
         ></biosimulations-logo-image>
         <ng-content id="rightContent" select="biosimulations-topbar-menu">
         </ng-content>
@@ -55,6 +56,9 @@
     <div class="content">
       <ng-content select="router-outlet"> </ng-content>
     </div>
-    <biosimulations-privacy-policy-notice></biosimulations-privacy-policy-notice>
+    <biosimulations-privacy-policy-notice
+      [appName]="appName"
+      [policyVersion]="privacyPolicyVersion"
+    ></biosimulations-privacy-policy-notice>
   </mat-sidenav-content>
 </mat-sidenav-container>

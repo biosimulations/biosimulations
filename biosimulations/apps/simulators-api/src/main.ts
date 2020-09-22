@@ -90,6 +90,8 @@ async function bootstrap() {
       'http://localhost:4202',
       'https://biosimulators.org',
       'https://www.biosimulators.org',
+      'https://submit.biosimulations.dev',
+      'https://submit.biosimulations.org',
     ];
 
     const allow = allowedOrigins.includes(requestOrigin);

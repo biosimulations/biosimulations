@@ -15,6 +15,9 @@ import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { ConfigService } from '@biosimulations/shared/services';
+import config from '../assets/config.json';
+
 // TODO: make parameterizable based on environment (deployment, test, dev)
 const env = {
   authDomain: 'auth.biosimulations.org',
@@ -71,6 +74,7 @@ const routes: Routes = [
     AuthService, 
     { provide: AuthEnvironment, useValue: env },
     {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
+    {provide: ConfigService, useValue: config },
   ],
   bootstrap: [AppComponent],
 })
