@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { pluck, map, mergeAll, tap, catchError } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject } from 'rxjs';
@@ -88,7 +88,6 @@ interface Version {
   selector: 'biosimulations-view-simulator',
   templateUrl: './view-simulator.component.html',
   styleUrls: ['./view-simulator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewSimulatorComponent implements OnInit {
   constructor(
