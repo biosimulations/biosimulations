@@ -148,7 +148,13 @@
       "tags": ["scope:shared", "type:service", "platform:server"]
     },
     "ontology-api": {
-      "tags": ["scope:shared", "type:API", "platform:server"]
+      "tags": ["scope:ontology", "type:api", "platform:server"]
+    },
+    "ontology-sources": {
+      "tags": ["scope:ontology", "type:datamodel", "platform:server"]
+    },
+    "ontology-ontologies": {
+      "tags": ["scope:ontology", "type:service", "platform:server"]
     }
   }
 }

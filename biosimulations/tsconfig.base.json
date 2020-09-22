@@ -54,8 +54,12 @@
       "@biosimulations/dispatch/api-models": [
         "libs/dispatch/api-models/src/index.ts"
       ],
-      "@biosimulations/messages": [
-        "libs/messages/src/index.ts"
+      "@biosimulations/messages": ["libs/messages/src/index.ts"],
+      "@biosimulations/ontology/sources": [
+        "libs/ontology/sources/src/index.ts"
+      ],
+      "@biosimulations/ontology/ontologies": [
+        "libs/ontology/ontologies/src/index.ts"
       ]
     }
   },
