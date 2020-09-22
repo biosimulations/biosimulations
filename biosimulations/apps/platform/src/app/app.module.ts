@@ -18,6 +18,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ConfigService } from '@biosimulations/shared/services';
 import config from '../assets/config.json';
 
+// TODO: make parameterizable based on environment (deployment, test, dev)
 const env = {
   authDomain: 'auth.biosimulations.org',
   apiDomain: 'https://api.biosimulations.dev',
@@ -27,6 +28,7 @@ const env = {
   audience: 'api.biosimulations.org',
   scope: '',
 };
+
 const routes: Routes = [
   {
     path: '',
