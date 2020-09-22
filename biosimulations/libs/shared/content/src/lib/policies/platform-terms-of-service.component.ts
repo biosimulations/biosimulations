@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
+import {
+  TocSection,
+  TocSectionsContainerDirective,
+} from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
@@ -7,13 +10,15 @@ import { ConfigService } from '@biosimulations/shared/services';
   templateUrl: './platform-terms-of-service.component.html',
   styleUrls: ['./platform-terms-of-service.component.scss'],
 })
-export class PlatformTermsOfServiceComponent {  
+export class PlatformTermsOfServiceComponent {
   emailUrl!: string;
   tocSections!: TocSection[];
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
-    setTimeout(() => {this.tocSections = container.sections;});
+    setTimeout(() => {
+      this.tocSections = container.getToc();
+    });
   }
 
   constructor(public config: ConfigService) {

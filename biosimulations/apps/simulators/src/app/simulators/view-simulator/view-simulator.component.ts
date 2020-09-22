@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild,
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { pluck, map, mergeAll, tap, catchError } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject } from 'rxjs';
@@ -164,7 +169,7 @@ export class ViewSimulatorComponent implements OnInit {
   getParameterStackedHeading(parameter: Parameter): string {
     const ids = [];
     if (parameter.id) {
-      ids.push(parameter.id)
+      ids.push(parameter.id);
     }
     if (parameter.kisaoId) {
       ids.push(parameter.kisaoId);
@@ -179,7 +184,9 @@ export class ViewSimulatorComponent implements OnInit {
     }
   }
 
-  getParameterStackedHeadingMoreInfoRouterLink(parameter: Parameter): string | null {
+  getParameterStackedHeadingMoreInfoRouterLink(
+    parameter: Parameter
+  ): string | null {
     if (parameter.kisaoUrl) {
       return parameter.kisaoUrl;
     } else {
@@ -308,28 +315,30 @@ export class ViewSimulatorComponent implements OnInit {
               citations: any[] | undefined;
             }): Algorithm => {
               const parameters = new BehaviorSubject<Parameter[]>([]);
-              parameters.next(algorithm.parameters.map(
-                (parameter): Parameter => {
-                  return {
-                    id: parameter.id,
-                    name: parameter.name,
-                    type: parameter.type,
-                    value: parameter.value,
-                    range:
-                      parameter.recommendedRange === undefined
-                        ? null
-                        : parameter.recommendedRange
-                            .map((val: { toString: () => any }) => {
-                              return val.toString();
-                            })
-                            .join(' - '),
-                    kisaoId: parameter.kisaoId.id,
-                    kisaoUrl:
-                      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_' +
-                      parameter.kisaoId.id,
-                  };
-                }
-              ));
+              parameters.next(
+                algorithm.parameters.map(
+                  (parameter): Parameter => {
+                    return {
+                      id: parameter.id,
+                      name: parameter.name,
+                      type: parameter.type,
+                      value: parameter.value,
+                      range:
+                        parameter.recommendedRange === undefined
+                          ? null
+                          : parameter.recommendedRange
+                              .map((val: { toString: () => any }) => {
+                                return val.toString();
+                              })
+                              .join(' - '),
+                      kisaoId: parameter.kisaoId.id,
+                      kisaoUrl:
+                        'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_' +
+                        parameter.kisaoId.id,
+                    };
+                  }
+                )
+              );
 
               return {
                 id: algorithm.kisaoId?.id,
@@ -478,10 +487,12 @@ export class ViewSimulatorComponent implements OnInit {
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
-    setTimeout(() => {this.tocSections = container.sections;});
+    setTimeout(() => {
+      this.tocSections = container.getToc();
+    });
   }
 
-  copyDockerPullCmd(image='{ image }'): void {
+  copyDockerPullCmd(image = '{ image }'): void {
     const cmd = 'docker pull ' + image;
     navigator.clipboard.writeText(cmd);
   }

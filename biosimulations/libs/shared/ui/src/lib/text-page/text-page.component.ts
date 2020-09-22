@@ -18,6 +18,7 @@ interface SideBarStyle {
   selector: 'biosimulations-text-page',
   templateUrl: './text-page.component.html',
   styleUrls: ['./text-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextPageComponent {
   _heading = '';
@@ -71,7 +72,9 @@ export class TextPageComponent {
     });
     this.calcSideBarStyle();
   }
-
+  markChanged() {
+    this.changeRef.markForCheck();
+  }
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }
@@ -106,6 +109,5 @@ export class TextPageComponent {
     };
 
     this.sideBarStyle.next(sideBarStyle);
-    this.changeRef.markForCheck();
   }
 }
