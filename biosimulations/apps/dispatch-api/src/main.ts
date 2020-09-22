@@ -40,8 +40,8 @@ async function bootstrap() {
       'https://submit.biosimulations.dev',
     ];
     if (!environment.production) {
-      this.allowedOrigins.push('http://127.0.0.1');
-      this.allowedOrigins.push('http://localhost');
+      allowedOrigins.push('http://127.0.0.1');
+      allowedOrigins.push('http://localhost');
     }
     console.log(requestOrigin);
     const allow = allowedOrigins.includes(requestOrigin);
