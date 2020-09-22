@@ -1,8 +1,8 @@
 import {
   Component,
   Input,
-  ViewChild,
-  ElementRef,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { TocSection } from '../toc/toc-section';
@@ -58,7 +58,10 @@ export class TextPageComponent {
   });
   sideBarStyle$: Observable<SideBarStyle> = this.sideBarStyle.asObservable();
 
-  constructor(breakpointObserver: BreakpointObserver) {
+  constructor(
+    breakpointObserver: BreakpointObserver,
+    private changeRef: ChangeDetectorRef
+  ) {
     window.addEventListener('scroll', this.scroll, true);
 
     this.smallLayout = breakpointObserver.isMatched('(max-width: 959px)');
@@ -81,7 +84,10 @@ export class TextPageComponent {
   calcSideBarStyle() {
     let position: string | null = null;
     let width: string | null = null;
-    if ((!this._heading || this._alwaysFixed != null || this.fixed) && !this.smallLayout) {
+    if (
+      (!this._heading || this._alwaysFixed != null || this.fixed) &&
+      !this.smallLayout
+    ) {
       position = 'fixed';
       width = '16rem';
     }
@@ -97,8 +103,9 @@ export class TextPageComponent {
       position,
       width,
       top,
-    }
+    };
 
     this.sideBarStyle.next(sideBarStyle);
+    this.changeRef.markForCheck();
   }
 }
