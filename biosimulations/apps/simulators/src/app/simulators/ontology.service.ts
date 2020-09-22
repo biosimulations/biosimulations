@@ -49,6 +49,8 @@ export class OntologyService {
           return termSet;
         })
       );
+    // Prefetch the terms
+    this.kisaoTerms.subscribe();
   }
 
   getKisaoTerm(id: string): Observable<KisaoTerm> {
