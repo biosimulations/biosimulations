@@ -143,6 +143,9 @@
     },
     "messages": {
       "tags": ["scope:shared", "type:datamodel", "platform:server"]
+    },
+    "mail-service": {
+      "tags": ["scope:shared", "type:service", "platform:server"]
     }
   }
 }
