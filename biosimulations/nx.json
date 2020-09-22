@@ -40,6 +40,10 @@
       "tags": ["scope:shared", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
+    "shared-services": {
+      "tags": ["scope:shared", "type:service", "platform:any"],
+      "implicitDependencies": []
+    },
     "shared-styles": {
       "tags": ["scope:shared", "type:styles", "platform:web"]
     },
@@ -131,11 +135,14 @@
     "shared-environments": {
       "tags": ["scope:shared", "type:environments", "platform:any"]
     },
-    "dispatch-datamodel": {
-      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
-    },
     "shared-datamodel-api": {
       "tags": ["scope:shared", "type:datamodel", "platform:any"]
+    },
+    "dispatch-api-models": {
+      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
+    },
+    "messages": {
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
     }
   }
 }

@@ -8,7 +8,8 @@ describe('LogoTextComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogoTextComponent ]
+      declarations: [ LogoTextComponent ],
+      providers: [ ],
     })
     .compileComponents();
   }));

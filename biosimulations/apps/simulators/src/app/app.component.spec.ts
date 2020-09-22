@@ -5,6 +5,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
+import { ConfigService } from '@biosimulations/shared/services';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -14,10 +15,11 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
-        driverOrder: ['indexeddb', 'websql', 'localstorage']
-      }),
+          driverOrder: ['indexeddb', 'websql', 'localstorage']
+        }),        
       ],
       declarations: [AppComponent],
+      providers: [ConfigService],
     }).compileComponents();
   }));
 

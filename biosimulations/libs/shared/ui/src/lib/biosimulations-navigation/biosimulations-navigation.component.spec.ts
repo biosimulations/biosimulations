@@ -45,6 +45,7 @@ describe('BiosimulationsNavigationComponent', () => {
         }),
         BiosimulationsIconsModule,
       ],
+      providers: [],
     }).compileComponents();
   }));
 

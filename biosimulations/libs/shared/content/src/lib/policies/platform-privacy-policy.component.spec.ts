@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { ConfigService } from '@biosimulations/shared/services';
 import { PlatformPrivacyPolicyComponent } from './platform-privacy-policy.component';
 
 describe('PlatformPrivacyPolicyComponent', () => {
@@ -18,6 +19,9 @@ describe('PlatformPrivacyPolicyComponent', () => {
         RouterTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
+      ],
+      providers: [
+        ConfigService,
       ],
     }).compileComponents();
   }));
