@@ -1,7 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild,
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { pluck, map, mergeAll, tap, catchError } from 'rxjs/operators';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, concat } from 'rxjs';
 
 import {
   TocSection,
@@ -16,6 +21,7 @@ import edamJson from '../edam.json';
 import kisaoJson from '../kisao.json';
 import sboJson from '../sbo.json';
 import spdxJson from '../spdx.json';
+import { Simulator } from '@biosimulations/simulators/api-models';
 
 const edamTerms = edamJson as {
   [id: string]: { name: string; description: string; url: string };
@@ -93,7 +99,7 @@ interface Version {
 export class ViewSimulatorComponent implements OnInit {
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private service: SimulatorService
   ) {}
 
@@ -103,6 +109,8 @@ export class ViewSimulatorComponent implements OnInit {
 
   parameterColumns = ['id', 'name', 'type', 'value', 'range', 'kisaoId'];
   versionColumns = ['label', 'date', 'image'];
+  id$!: Observable<string>;
+  version$!: Observable<string>;
 
   id!: string;
   version!: string;
@@ -164,7 +172,7 @@ export class ViewSimulatorComponent implements OnInit {
   getParameterStackedHeading(parameter: Parameter): string {
     const ids = [];
     if (parameter.id) {
-      ids.push(parameter.id)
+      ids.push(parameter.id);
     }
     if (parameter.kisaoId) {
       ids.push(parameter.kisaoId);
@@ -179,7 +187,9 @@ export class ViewSimulatorComponent implements OnInit {
     }
   }
 
-  getParameterStackedHeadingMoreInfoRouterLink(parameter: Parameter): string | null {
+  getParameterStackedHeadingMoreInfoRouterLink(
+    parameter: Parameter
+  ): string | null {
     if (parameter.kisaoUrl) {
       return parameter.kisaoUrl;
     } else {
@@ -233,82 +243,86 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id$ = this.route.params.pipe(pluck('id'));
-    const version$ = this.route.params.pipe(pluck('version'));
-    /*
-    this.simulator$ = this.id$.pipe(
-      map((id: string) => this.simulatorService.get(id)),
-      mergeAll(),
-      tap((_) => (this.loading = false)),
-      catchError((err: any) =>
-        of(undefined).pipe(tap((_) => (this.error = err))),
-      ),
-    );
-    */
+    this.route.params.subscribe((value) => {
+      const loadingSubject = new BehaviorSubject<boolean>(true);
+      const id = value?.id;
+      let version = value?.version;
+      let loadSimulator: Observable<Simulator[]>;
+      loadSimulator = this.service.getAllById(id);
 
-    const loadingSubject = new BehaviorSubject<boolean>(true);
-    // TODO get only correct simulator based on route
-    this.service.getAll().subscribe((data: any[]) => {
-      for (const simulator of data) {
-        if (simulator.id === this.route.snapshot.params['id']) {
-          loadingSubject.next(false);
-
-          this.id = simulator.id;
-          this.version = simulator.version;
-          this.name = simulator.name;
-          this.description = simulator.description;
-          this.image = simulator.image;
-          this.url = simulator.url;
-          this.licenseUrl = spdxTerms[simulator.license.id]?.url;
-          this.licenseName = spdxTerms[simulator.license.id]?.name
-            .replace(/\bLicense\b/, '')
-            .replace('  ', ' ');
-
-          const authors = simulator.authors.map(
-            (author: {
-              lastName: any;
-              middleName: string;
-              firstName: string;
-            }) => {
-              let name = author.lastName;
-              if (author.middleName) {
-                name = author.middleName + ' ' + name;
-              }
-              if (author.firstName) {
-                name = author.firstName + ' ' + name;
-              }
-              return name;
-            }
+      loadSimulator.subscribe((simulators: Simulator[]) => {
+        let simulator: Simulator;
+        if (version) {
+          const simulatorsFilter = simulators.filter(
+            (sim: Simulator) => sim.version === version
           );
-          switch (authors.length) {
-            case 0:
-              this.authors = null;
-              break;
-            case 1:
-              this.authors = authors[0];
-              break;
-            default:
-              this.authors =
-                authors.slice(0, -1).join(', ') +
-                ' & ' +
-                authors[authors.length - 1];
-              break;
+          if (simulatorsFilter.length > 0) {
+            simulator = simulatorsFilter[0];
+          } else {
+            this.error = true;
+            simulator = simulators[0];
           }
+        } else {
+          simulator = simulators[0];
+          version = simulator.version;
+        }
 
-          this.citations = simulator.references.citations.map(
-            this.makeCitation
-          );
+        loadingSubject.next(false);
+        this.id = simulator.id;
+        this.version = simulator.version;
+        this.name = simulator.name;
+        this.description = simulator.description;
+        this.image = simulator.image;
+        this.url = simulator.url;
+        this.licenseUrl = spdxTerms[simulator?.license?.id]?.url;
+        this.licenseName = spdxTerms[simulator?.license?.id]?.name
+          .replace(/\bLicense\b/, '')
+          .replace('  ', ' ');
 
-          this.algorithms = simulator.algorithms.map(
-            (algorithm: {
-              kisaoId: { id: string };
-              modelingFrameworks: any[];
-              modelFormats: any[];
-              parameters: any[];
-              citations: any[] | undefined;
-            }): Algorithm => {
-              const parameters = new BehaviorSubject<Parameter[]>([]);
-              parameters.next(algorithm.parameters.map(
+        const authors = simulator?.authors?.map(
+          (author: {
+            lastName: string;
+            middleName: string | null;
+            firstName: string;
+          }) => {
+            let name = author.lastName;
+            if (author.middleName) {
+              name = author.middleName + ' ' + name;
+            }
+            if (author.firstName) {
+              name = author.firstName + ' ' + name;
+            }
+            return name;
+          }
+        );
+        switch (authors?.length) {
+          case 0:
+            this.authors = null;
+            break;
+          case 1:
+            this.authors = authors[0];
+            break;
+          default:
+            this.authors =
+              authors.slice(0, -1).join(', ') +
+              ' & ' +
+              authors[authors.length - 1];
+            break;
+        }
+
+        this.citations = simulator.references.citations.map(this.makeCitation);
+
+        this.algorithms = simulator.algorithms.map(
+          (algorithm: {
+            kisaoId: { id: string };
+            modelingFrameworks: any[];
+            modelFormats: any[];
+            parameters: any[];
+            citations: any[] | undefined;
+          }): Algorithm => {
+            const parameters = new BehaviorSubject<Parameter[]>([]);
+            parameters.next(
+              algorithm.parameters.map(
                 (parameter): Parameter => {
                   return {
                     id: parameter.id,
@@ -329,95 +343,74 @@ export class ViewSimulatorComponent implements OnInit {
                       parameter.kisaoId.id,
                   };
                 }
-              ));
-
-              return {
-                id: algorithm.kisaoId?.id,
-                heading:
-                  kisaoTerms[algorithm.kisaoId.id]?.name +
-                  ' (' +
-                  algorithm.kisaoId.id +
-                  ')',
-                name: kisaoTerms[algorithm.kisaoId.id]?.name,
-                description: this.formatKisaoDescription(
-                  kisaoTerms[algorithm.kisaoId.id]?.description
-                ),
-                url: kisaoTerms[algorithm.kisaoId.id]?.url,
-                frameworks: algorithm.modelingFrameworks.map(
-                  (framework): Framework => {
-                    return {
-                      id: framework.id,
-                      name: sboTerms[framework.id]?.name,
-                      url: sboTerms[framework.id]?.url,
-                    };
-                  }
-                ),
-                formats: algorithm.modelFormats.map(
-                  (format): Format => {
-                    return {
-                      id: format.id,
-                      name: edamTerms[format.id].name,
-                      url: edamTerms[format.id].url,
-                    };
-                  }
-                ),
-                parameters: parameters.asObservable(),
-                citations:
-                  algorithm.citations === undefined
-                    ? []
-                    : algorithm.citations.map(this.makeCitation),
-              };
-            }
-          );
-
-          const created = new Date(simulator.created);
-          const versions = [
-            {
-              label: simulator.version,
-              date:
-                created.getFullYear().toString() +
-                '-' +
-                (created.getMonth() + 1).toString().padStart(2, '0') +
-                '-' +
-                created.getDate().toString().padStart(2, '0'),
-              image: simulator.image,
-              url: simulator.imageUrl,
-            },
-            {
-              label: '1.0',
-              date:
-                created.getFullYear().toString() +
-                '-' +
-                (created.getMonth() + 1).toString().padStart(2, '0') +
-                '-' +
-                created.getDate().toString().padStart(2, '0'),
-              image: simulator.image,
-              url: simulator.imageUrl,
-            },
-            {
-              label: '2.0',
-              date:
-                created.getFullYear().toString() +
-                '-' +
-                (created.getMonth() + 1).toString().padStart(2, '0') +
-                '-' +
-                created.getDate().toString().padStart(2, '0'),
-              image: simulator.image,
-              url: simulator.imageUrl,
-            },
-          ];
-          versions.sort((a, b): number => {
-            return (
-              -1 * a.label.localeCompare(b.label, undefined, { numeric: true })
+              )
             );
-          });
-          this._versions.next(versions);
 
-          break;
+            return {
+              id: algorithm.kisaoId?.id,
+              heading:
+                kisaoTerms[algorithm.kisaoId.id]?.name +
+                ' (' +
+                algorithm.kisaoId.id +
+                ')',
+              name: kisaoTerms[algorithm.kisaoId.id]?.name,
+              description: this.formatKisaoDescription(
+                kisaoTerms[algorithm.kisaoId.id]?.description
+              ),
+              url: kisaoTerms[algorithm.kisaoId.id]?.url,
+              frameworks: algorithm.modelingFrameworks.map(
+                (framework): Framework => {
+                  return {
+                    id: framework.id,
+                    name: sboTerms[framework.id]?.name,
+                    url: sboTerms[framework.id]?.url,
+                  };
+                }
+              ),
+              formats: algorithm.modelFormats.map(
+                (format): Format => {
+                  return {
+                    id: format.id,
+                    name: edamTerms[format.id].name,
+                    url: edamTerms[format.id].url,
+                  };
+                }
+              ),
+              parameters: parameters.asObservable(),
+              citations:
+                algorithm.citations === undefined
+                  ? []
+                  : algorithm.citations.map(this.makeCitation),
+            };
+          }
+        );
+
+        const created = new Date(simulator.created);
+        const versions = [];
+        for (let simulatorVersion of simulators) {
+          let version = {
+            label: simulatorVersion.version,
+            date:
+              created.getFullYear().toString() +
+              '-' +
+              (created.getMonth() + 1).toString().padStart(2, '0') +
+              '-' +
+              created.getDate().toString().padStart(2, '0'),
+            image: simulatorVersion.image,
+            url: simulatorVersion.image,
+          };
+          versions.push(version);
         }
-      }
 
-      this.loading$ = loadingSubject.asObservable();
+        versions.sort((a, b): number => {
+          return (
+            -1 * a.label.localeCompare(b.label, undefined, { numeric: true })
+          );
+        });
+        this._versions.next(versions);
+
+        this.loading$ = loadingSubject.asObservable();
+      });
     });
   }
 
@@ -478,10 +471,12 @@ export class ViewSimulatorComponent implements OnInit {
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
-    setTimeout(() => {this.tocSections = container.sections;});
+    setTimeout(() => {
+      this.tocSections = container.sections;
+    });
   }
 
-  copyDockerPullCmd(image='{ image }'): void {
+  copyDockerPullCmd(image = '{ image }'): void {
     const cmd = 'docker pull ' + image;
     navigator.clipboard.writeText(cmd);
   }

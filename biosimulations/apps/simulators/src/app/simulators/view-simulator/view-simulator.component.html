@@ -134,18 +134,26 @@
           </ng-container>
 
           <p class="subsection-heading no-bottom-margin">Modeling frameworks</p>
-          <ul class="icon-list" *ngIf="algorithm?.frameworks?.length > 0; noFrameworksMessage">
+          <ul
+            class="icon-list"
+            *ngIf="algorithm?.frameworks?.length > 0; noFrameworksMessage"
+          >
             <li *ngFor="let framework of algorithm.frameworks">
               <biosimulations-icon icon="simulator"></biosimulations-icon>
               <a [href]="framework.url" target="_blank">{{ framework.name }}</a>
             </li>
           </ul>
           <ng-template #noFrameworksMessage>
-            <p>This algorithm does not support any canonical modeling frameworks.</p>
+            <p>
+              This algorithm does not support any canonical modeling frameworks.
+            </p>
           </ng-template>
 
           <p class="subsection-heading no-bottom-margin">Model formats</p>
-          <ul class="icon-list" *ngIf="algorithm?.formats?.length > 0; noFormatsMessage">
+          <ul
+            class="icon-list"
+            *ngIf="algorithm?.formats?.length > 0; noFormatsMessage"
+          >
             <li *ngFor="let format of algorithm.formats">
               <biosimulations-icon icon="format"></biosimulations-icon>
               <a [href]="format.url" target="_blank">{{ format.name }}</a>
@@ -156,7 +164,13 @@
           </ng-template>
 
           <p class="subsection-heading no-bottom-margin">Parameters</p>
-          <div class="table-container" *ngIf="(algorithm?.parameters | async)?.length > 0; else noParametersMessage">
+          <div
+            class="table-container"
+            *ngIf="
+              (algorithm?.parameters | async)?.length > 0;
+              else noParametersMessage
+            "
+          >
             <biosimulations-responsive-table
               [columns]="parametersColumns"
               [singleLineHeadings]="true"
@@ -165,7 +179,9 @@
               [controls]="false"
               stackedContentsHeading="Parameters"
               [getStackedHeading]="getParameterStackedHeading"
-              [getStackedHeadingMoreInfoRouterLink]="getParameterStackedHeadingMoreInfoRouterLink"
+              [getStackedHeadingMoreInfoRouterLink]="
+                getParameterStackedHeadingMoreInfoRouterLink
+              "
               [defaultSort]="{ active: 'name', direction: 'asc' }"
             >
             </biosimulations-responsive-table>
@@ -219,7 +235,9 @@
           [controls]="false"
           stackedContentsHeading="Contents"
           [getStackedHeading]="getVersionStackedHeading"
-          [getStackedHeadingMoreInfoRouterLink]="getVersionStackedHeadingMoreInfoRouterLink.bind(this)"
+          [getStackedHeadingMoreInfoRouterLink]="
+            getVersionStackedHeadingMoreInfoRouterLink.bind(this)
+          "
           [defaultSort]="{ active: 'label', direction: 'desc' }"
         >
         </biosimulations-responsive-table>
@@ -228,12 +246,12 @@
         <div class="section">
           <h3>Docker pull command</h3>
           <div class="section-content">
-            <div class="copy-value code">docker pull {{ '{ ' }} image {{ '} ' }}</div>
+            <div class="copy-value code">docker pull {{ image }}</div>
             <button
               mat-icon-button
               class="biosimulations-icon-button copy-button"
               title="Copy to clipboard"
-              (click)="copyDockerPullCmd()"
+              (click)="copyDockerPullCmd(this.image)"
             >
               <biosimulations-icon icon="copy"></biosimulations-icon>
             </button>
@@ -268,3 +286,8 @@
     </div>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>
+<biosimulations-debug-viewer>
+  {{ this.id$ | async }}
+  {{ this.version$ | async }}
+  {{ this.route.params | async | json }}
+</biosimulations-debug-viewer>
