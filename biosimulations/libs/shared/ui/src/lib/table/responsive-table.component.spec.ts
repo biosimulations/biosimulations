@@ -14,12 +14,22 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NpnSliderModule } from "npn-slider";
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { ResponsiveTableComponent } from './responsive-table.component';
 import { TableComponent } from './table.component';
+import { StackedTableComponent } from './stacked-table.component';
+import { PageComponent } from '../page/page.component';
+import { TextPageComponent } from '../text-page/text-page.component';
+import { TextPageSectionComponent } from '../text-page/text-page-section.component';
+import { TextPageContentSectionComponent } from '../text-page/text-page-content-section.component';
+import { TextPageSideBarSectionComponent } from '../text-page/text-page-side-bar-section.component';
+import { TextPageTocItemComponent } from '../text-page/text-page-toc-item.component';
+import { TocSectionDirective } from '../toc/toc-section.directive';
+import { TocSectionsContainerDirective } from '../toc/toc-sections-container.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+describe('ResponsiveTableComponent', () => {
+  let component: ResponsiveTableComponent;
+  let fixture: ComponentFixture<ResponsiveTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,12 +49,25 @@ describe('TableComponent', () => {
         BiosimulationsIconsModule,
         FlexLayoutModule,
       ],
-      declarations: [TableComponent, SpinnerComponent],
+      declarations: [
+        ResponsiveTableComponent,
+        TableComponent,
+        StackedTableComponent,
+        PageComponent,
+        TextPageComponent,
+        TextPageSectionComponent,
+        TextPageContentSectionComponent,
+        TextPageSideBarSectionComponent,
+        TextPageTocItemComponent,
+        TocSectionDirective,
+        TocSectionsContainerDirective,
+        SpinnerComponent,
+        ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(ResponsiveTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -16,6 +16,13 @@ img {
   height: 12vh;
 }
 
+@media screen and (max-width: 959px) {
+  img {
+    height: auto;
+    width: calc(100% - 2rem);
+  }
+}
+
 .heading {
   padding-top: 1rem;
   padding-bottom: 1rem;

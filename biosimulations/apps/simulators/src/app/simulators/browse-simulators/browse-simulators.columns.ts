@@ -1,8 +1,8 @@
-import {
-  TableComponent,
+import {  
   Column,
   ColumnLinkType,
   ColumnFilterType,
+  RowService,
 } from '@biosimulations/shared/ui';
 
 import { TableSimulator } from './tableSimulator.interface';
@@ -14,6 +14,7 @@ export const columns: Column[] = [
     key: 'id',
     filterable: false,
     minWidth: 90,
+    showStacked: false,
   },
   {
     id: 'name',
@@ -21,6 +22,7 @@ export const columns: Column[] = [
     key: 'name',
     filterable: false,
     minWidth: 90,
+    showStacked: false,
   },
   {
     id: 'frameworks',
@@ -43,14 +45,14 @@ export const columns: Column[] = [
       return name;
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return TableComponent.comparator(
+      return RowService.comparator(
         aNames.join(', '),
         bNames.join(', '),
         sign
       );
     },
     filterComparator: (aName: string, bName: string, sign = 1): number => {
-      return TableComponent.comparator(aName, bName, sign);
+      return RowService.comparator(aName, bName, sign);
     },
     minWidth: 200,
   },
@@ -75,7 +77,7 @@ export const columns: Column[] = [
       return name;
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return TableComponent.comparator(
+      return RowService.comparator(
         aNames.join(', '),
         bNames.join(', '),
         sign
@@ -98,7 +100,7 @@ export const columns: Column[] = [
 
       return false;
     },
-    filterComparator: TableComponent.comparator,
+    filterComparator: RowService.comparator,
     minWidth: 250,
   },
   {
@@ -122,13 +124,13 @@ export const columns: Column[] = [
       return name;
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return TableComponent.comparator(
+      return RowService.comparator(
         aNames.join(', '),
         bNames.join(', '),
         sign
       );
     },
-    filterComparator: TableComponent.comparator,
+    filterComparator: RowService.comparator,
     minWidth: 114,
   },
   {
@@ -165,6 +167,13 @@ export const columns: Column[] = [
   {
     id: 'moreInfo',
     heading: 'More info',
+    key: 'url',
+    formatter: (url: string): null => {
+      return null;
+    },
+    stackedFormatter: (url: string): string => {
+      return url;
+    },
     leftIcon: 'internalLink',
     rightIcon: 'link',
     leftIconTitle: (element: TableSimulator): string => {
@@ -174,9 +183,13 @@ export const columns: Column[] = [
       return element.name + ' website';
     },
     leftLinkType: ColumnLinkType.routerLink,
+    centerLinkType: ColumnLinkType.href,
     rightLinkType: ColumnLinkType.href,
     leftRouterLink: (element: any): string[] => {
       return ['/simulators', element.id];
+    },
+    centerHref: (element: TableSimulator): string => {
+      return element.url;
     },
     rightHref: (element: TableSimulator): string => {
       return element.url;

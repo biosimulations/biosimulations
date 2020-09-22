@@ -21,6 +21,8 @@ import { RouterLinkComponent } from './router-link/router-link.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons'
 import { PrivacyPolicyNoticeComponent } from './privacy-policy-notice/privacy-policy-notice.component';
 import { TableComponent } from './table/table.component';
+import { StackedTableComponent } from './table/stacked-table.component';
+import { ResponsiveTableComponent } from './table/responsive-table.component';
 import { PageComponent } from './page/page.component';
 import { TabPageComponent } from './tab-page/tab-page.component';
 import { TabPageTabComponent } from './tab-page/tab-page-tab.component';
@@ -43,7 +45,7 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     StepperButtonsComponent,
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent, SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
-    TableComponent,
+    TableComponent, StackedTableComponent, ResponsiveTableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
@@ -57,7 +59,7 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent,
     SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
-    TableComponent,
+    TableComponent, StackedTableComponent, ResponsiveTableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,

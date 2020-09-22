@@ -3,7 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { pluck, map, mergeAll, tap, catchError } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
-import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
+import {
+  TocSection,
+  TocSectionsContainerDirective,
+  Column,
+  ColumnLinkType,
+  ColumnFilterType,
+} from '@biosimulations/shared/ui';
 import { SimulatorService } from '../simulator.service';
 
 import edamJson from '../edam.json';
@@ -30,7 +36,7 @@ interface Algorithm {
   url: string;
   frameworks: Framework[];
   formats: Format[];
-  parameters: Parameter[];
+  parameters: Observable<Parameter[]>;
   citations: Citation[];
 }
 
@@ -109,7 +115,122 @@ export class ViewSimulatorComponent implements OnInit {
   authors!: string | null;
   citations!: Citation[];
   algorithms!: Algorithm[];
-  versions!: Version[];
+  private _versions = new BehaviorSubject<Version[]>([]);
+  versions: Observable<Version[]> = this._versions.asObservable();
+
+  parametersColumns: Column[] = [
+    {
+      id: 'id',
+      heading: 'Id',
+      key: 'id',
+      showStacked: false,
+    },
+    {
+      id: 'name',
+      heading: 'Name',
+      key: 'name',
+      showStacked: false,
+    },
+    {
+      id: 'type',
+      heading: 'Type',
+      key: 'type',
+    },
+    {
+      id: 'value',
+      heading: 'Default value',
+      key: 'value',
+    },
+    {
+      id: 'range',
+      heading: 'Recommended range',
+      key: 'range',
+      minWidth: 163,
+    },
+    {
+      id: 'kisaoId',
+      heading: 'KiSAO id',
+      key: 'kisaoId',
+      rightIcon: 'link',
+      rightLinkType: ColumnLinkType.href,
+      rightHref: (parameter: Parameter): string => {
+        return parameter.kisaoUrl;
+      },
+      showStacked: false,
+      minWidth: 130,
+    },
+  ];
+
+  getParameterStackedHeading(parameter: Parameter): string {
+    const ids = [];
+    if (parameter.id) {
+      ids.push(parameter.id)
+    }
+    if (parameter.kisaoId) {
+      ids.push(parameter.kisaoId);
+    }
+
+    const name = kisaoTerms[parameter.kisaoId].name;
+
+    if (ids.length) {
+      return kisaoTerms[parameter.kisaoId].name + ' (' + ids.join(', ') + ')';
+    } else {
+      return name;
+    }
+  }
+
+  getParameterStackedHeadingMoreInfoRouterLink(parameter: Parameter): string | null {
+    if (parameter.kisaoUrl) {
+      return parameter.kisaoUrl;
+    } else {
+      return null;
+    }
+  }
+
+  versionsColumns: Column[] = [
+    {
+      id: 'label',
+      heading: 'Version',
+      key: 'label',
+      rightIcon: 'internalLink',
+      rightLinkType: ColumnLinkType.routerLink,
+      rightRouterLink: (version: Version) => {
+        return ['/simulators', this.id, version.label];
+      },
+      minWidth: 73,
+      showStacked: false,
+    },
+    {
+      id: 'date',
+      heading: 'Date',
+      key: 'date',
+      filterType: ColumnFilterType.date,
+      minWidth: 80,
+    },
+    {
+      id: 'image',
+      heading: 'Image',
+      key: 'image',
+      rightIcon: 'link',
+      rightLinkType: ColumnLinkType.href,
+      rightHref: (version: Version): string | null => {
+        if (version.url === undefined) {
+          return null;
+        } else {
+          return version.url;
+        }
+      },
+      minWidth: 300,
+    },
+  ];
+
+  getVersionStackedHeading(version: Version): string {
+    return version.label;
+  }
+
+  getVersionStackedHeadingMoreInfoRouterLink(version: Version): string[] {
+    return ['/simulators', this.route.snapshot.params['id'], version.label];
+  }
 
   ngOnInit(): void {
     const id$ = this.route.params.pipe(pluck('id'));
@@ -186,6 +307,30 @@ export class ViewSimulatorComponent implements OnInit {
               parameters: any[];
               citations: any[] | undefined;
             }): Algorithm => {
+              const parameters = new BehaviorSubject<Parameter[]>([]);
+              parameters.next(algorithm.parameters.map(
+                (parameter): Parameter => {
+                  return {
+                    id: parameter.id,
+                    name: parameter.name,
+                    type: parameter.type,
+                    value: parameter.value,
+                    range:
+                      parameter.recommendedRange === undefined
+                        ? null
+                        : parameter.recommendedRange
+                            .map((val: { toString: () => any }) => {
+                              return val.toString();
+                            })
+                            .join(' - '),
+                    kisaoId: parameter.kisaoId.id,
+                    kisaoUrl:
+                      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_' +
+                      parameter.kisaoId.id,
+                  };
+                }
+              ));
+
               return {
                 id: algorithm.kisaoId?.id,
                 heading:
@@ -216,28 +361,7 @@ export class ViewSimulatorComponent implements OnInit {
                     };
                   }
                 ),
-                parameters: algorithm.parameters.map(
-                  (parameter): Parameter => {
-                    return {
-                      id: parameter.id,
-                      name: parameter.name,
-                      type: parameter.type,
-                      value: parameter.value,
-                      range:
-                        parameter.recommendedRange === undefined
-                          ? null
-                          : parameter.recommendedRange
-                              .map((val: { toString: () => any }) => {
-                                return val.toString();
-                              })
-                              .join(' - '),
-                      kisaoId: parameter.kisaoId.id,
-                      kisaoUrl:
-                        'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_' +
-                        parameter.kisaoId.id,
-                    };
-                  }
-                ),
+                parameters: parameters.asObservable(),
                 citations:
                   algorithm.citations === undefined
                     ? []
@@ -247,7 +371,7 @@ export class ViewSimulatorComponent implements OnInit {
           );
 
           const created = new Date(simulator.created);
-          this.versions = [
+          const versions = [
             {
               label: simulator.version,
               date:
@@ -282,11 +406,12 @@ export class ViewSimulatorComponent implements OnInit {
               url: simulator.imageUrl,
             },
           ];
-          this.versions.sort((a, b): number => {
+          versions.sort((a, b): number => {
             return (
               -1 * a.label.localeCompare(b.label, undefined, { numeric: true })
             );
           });
+          this._versions.next(versions);
 
           break;
         }
@@ -354,5 +479,10 @@ export class ViewSimulatorComponent implements OnInit {
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {this.tocSections = container.sections;});
+  }
+
+  copyDockerPullCmd(image='{ image }'): void {
+    const cmd = 'docker pull ' + image;
+    navigator.clipboard.writeText(cmd);
   }
 }

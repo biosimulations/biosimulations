@@ -14,56 +14,9 @@ import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Column, ColumnLinkType, ColumnFilterType, Side, RowService } from './table.interface';
 
-export enum ColumnLinkType {
-  routerLink = 'routerLink',
-  href = 'href',
-}
-
-export enum ColumnFilterType {
-  string = 'string',
-  number = 'number',
-  date = 'date',
-}
-
-export enum Side {
-  left = 'left',
-  right = 'right',
-}
-
-// TODO make generic
 // TODO fix datasource / loading functionality
-export interface Column {
-  id: string;
-  heading: string;
-  key?: string | string[];
-  getter?: (rowData: any) => any;
-  filterGetter?: (rowData: any) => any;
-  passesFilter?: (rowData: any, filterValues: any[]) => boolean;
-  formatter?: (cellValue: any) => any;
-  filterFormatter?: (cellValue: any) => any;
-  leftIcon?: string;
-  rightIcon?: string;
-  leftIconTitle?: (rowData: any) => string | null;
-  rightIconTitle?: (rowData: any) => string | null;
-  leftLinkType?: ColumnLinkType;
-  rightLinkType?: ColumnLinkType;
-  leftRouterLink?: (rowData: any) => any[] | null;
-  rightRouterLink?: (rowData: any) => any[] | null;
-  leftHref?: (rowData: any) => string | null;
-  rightHref?: (rowData: any) => string | null;
-  minWidth?: number;
-  center?: boolean;
-  filterable?: boolean;
-  sortable?: boolean;
-  comparator?: (a: any, b: any, sign: number) => number;
-  filterComparator?: (a: any, b: any, sign: number) => number;
-  filterType?: ColumnFilterType;
-  numericFilterStep?: number;
-  show?: boolean;
-  _index?: number;
-}
-
 @Injectable()
 export class TableDataSource extends MatTableDataSource<any> {
   paginator!: MatPaginator;
@@ -92,27 +45,31 @@ export class TableDataSource extends MatTableDataSource<any> {
 })
 export class TableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) private paginator!: MatPaginator;
+  @ViewChild(MatSort) private sort!: MatSort;
 
   private _columns!: Column[];
   columnsToShow!: string[];
-  idToColumn!: { [id: string]: Column };
+  private idToColumn!: { [id: string]: Column };
   isLoading!: Observable<boolean>;
-  isLoaded!: Observable<boolean>;
-  filter: { [id: string]: any[] } = {};
-  defaultSort?: { active: string; direction: string };
+  private isLoaded!: Observable<boolean>;
+  private filter: { [id: string]: any[] } = {};
+
+  @Input()
+  defaultSort!: { active: string; direction: string };
 
   @Input()
   linesPerRow = 1;
 
   @Input()
   set columns(columns: Column[]) {
+    this._columns = columns;
+    this.setColumnsToShow();
+
     columns.forEach((column: Column, iColumn: number): void => {
       column._index = iColumn;
     });
-    this._columns = columns;
-    this.setColumnsToShow();
+
     this.idToColumn = columns.reduce(
       (map: { [id: string]: Column }, col: Column) => {
         map[col.id] = col;
@@ -125,6 +82,16 @@ export class TableComponent implements OnInit, AfterViewInit {
   get columns(): Column[] {
     return this._columns;
   }
+
+  @Input()
+  singleLineHeadings = false;
+
+  @Input()
+  sortable = true;
+
+  @Input()
+  controls = true;
+
   private subscription?: Subscription;
 
   @Input()
@@ -135,6 +102,56 @@ export class TableComponent implements OnInit, AfterViewInit {
       sortedData.forEach((datum: any, iDatum: number): void => {
         datum._index = iDatum;
       });
+
+      sortedData.forEach((datum: any): void => {
+        const cache: any = {};
+        datum['_cache'] = cache;
+
+        this.columns.forEach((column: Column): void => {
+          cache[column.id] = {
+            value: RowService.formatElementValue(RowService.getElementValue(datum, column), column),
+            left: {},
+            center: {},
+            right: {},
+          };
+
+          if (column.leftLinkType === ColumnLinkType.routerLink) {
+            cache[column.id].left['routerLink'] = RowService.getElementRouterLink(datum, column, Side.left);
+          } else if (column.leftLinkType === ColumnLinkType.href) {
+            cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
+          }
+          cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
+
+          if (column.centerLinkType === ColumnLinkType.routerLink) {
+            cache[column.id].center['routerLink'] = RowService.getElementRouterLink(datum, column, Side.center);
+          } else if (column.centerLinkType === ColumnLinkType.href) {
+            cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
+          }
+          // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
+
+          if (column.rightLinkType === ColumnLinkType.routerLink) {
+            cache[column.id].right['routerLink'] = RowService.getElementRouterLink(datum, column, Side.right);
+          } else if (column.rightLinkType === ColumnLinkType.href) {
+            cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
+          }
+          cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
+        });
+      });
+
+
+      this.columns.forEach((column: Column): void => {
+        switch (column.filterType) {
+          case ColumnFilterType.number:
+            column._filterData = this.getNumericColumnRange(sortedData, column);
+            break;
+          case ColumnFilterType.date:
+            break;
+          default:
+            column._filterData = this.getTextColumnValues(sortedData, column);
+            break;
+        }
+      });
+
       this.dataSource.data = sortedData;
       this.dataSource.isLoading.next(false);
     });
@@ -156,7 +173,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.filter = {};
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
     this.dataSource.filterPredicate = this.filterData.bind(this);
     this.dataSource.sort = this.sort;
     this.dataSource.sortData = this.sortData.bind(this);
@@ -164,198 +181,38 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
-  getElementRouterLink(element: any, column: Column, side: Side): any {
-    if (
-      side == Side.left &&
-      column.leftLinkType === ColumnLinkType.routerLink &&
-      column.leftRouterLink !== undefined
-    ) {
-      return column.leftRouterLink(element);
-    } else if (
-      side == Side.right &&
-      column.rightLinkType === ColumnLinkType.routerLink &&
-      column.rightRouterLink !== undefined
-    ) {
-      return column.rightRouterLink(element);
-    } else {
-      return null;
-    }
-  }
-
-  getElementHref(element: any, column: Column, side: Side): any {
-    if (
-      side == Side.left &&
-      column.leftLinkType === ColumnLinkType.href &&
-      column.leftHref !== undefined
-    ) {
-      return column.leftHref(element);
-    } else if (
-      side == Side.right &&
-      column.rightLinkType === ColumnLinkType.href &&
-      column.rightHref !== undefined
-    ) {
-      return column.rightHref(element);
-    } else {
-      return null;
-    }
-  }
-
-  getElementValue(
-    element: any,
-    column: Column | undefined,
-    defaultKey?: string | undefined
-  ): any {
-    if (column !== undefined && column.getter !== undefined) {
-      return column.getter(element);
-    } else if (column !== undefined && column.key != undefined) {
-      let keys;
-      if (Array.isArray(column.key)) {
-        keys = column.key;
-      } else {
-        keys = [column.key];
-      }
-
-      let value = element;
-      for (const key of keys) {
-        if (key in value) {
-          value = value[key];
-        } else {
-          return null;
-        }
-      }
-      return value;
-    } else if (defaultKey !== undefined) {
-      if (defaultKey in element) {
-        return element[defaultKey];
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
-
-  getIconTitle(element: any, column: Column, side: Side): string | null {
-    if (side == Side.left && column.leftIconTitle !== undefined) {
-      return column.leftIconTitle(element);
-    } else if (side == Side.right && column.rightIconTitle !== undefined) {
-      return column.rightIconTitle(element);
-    } else {
-      return column.heading;
-    }
-  }
-
-  getElementFilterValue(
-    element: any,
-    column: Column | undefined,
-    defaultKey?: string | undefined
-  ): any {
-    if (column !== undefined && column.filterGetter !== undefined) {
-      return column.filterGetter(element);
-    } else if (column !== undefined && column.getter !== undefined) {
-      return column.getter(element);
-    } else if (column !== undefined && column.key !== undefined) {
-      let keys;
-      if (Array.isArray(column.key)) {
-        keys = column.key;
-      } else {
-        keys = [column.key];
-      }
-
-      let value = element;
-      for (const key of keys) {
-        if (key in value) {
-          value = value[key];
-        } else {
-          return null;
-        }
-      }
-      return value;
-    } else if (defaultKey !== undefined) {
-      if (defaultKey in element) {
-        return element[defaultKey];
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
-
-  getComparator(column: Column | undefined, useDefault = false): any {
-    if (useDefault || column === undefined) {
-      return TableComponent.comparator;
-    } else if (column.comparator !== undefined) {
-      return column.comparator;
-    } else {
-      return TableComponent.comparator;
-    }
-  }
-
-  getFilterComparator(column: Column | undefined, useDefault = false): any {
-    if (useDefault || column === undefined) {
-      return TableComponent.comparator;
-    } else if (column.filterComparator !== undefined) {
-      return column.filterComparator;
-    } else if (column.comparator !== undefined) {
-      return column.comparator;
-    } else {
-      return TableComponent.comparator;
-    }
-  }
-
-  formatElementValue(value: any, column: Column): any {
-    if (column.formatter !== undefined) {
-      return column.formatter(value);
-    } else {
-      return value;
-    }
-  }
-
-  formatElementFilterValue(value: any, column: Column): any {
-    if (column.filterFormatter !== undefined) {
-      return column.filterFormatter(value);
-    } else if (column.formatter !== undefined) {
-      return column.formatter(value);
-    } else {
-      return value;
-    }
-  }
-
-  getTextColumnValues(column: Column): any[] {
+  getTextColumnValues(data: any[], column: Column): any[] {
     const values: any = {};
-    for (const datum of this.dataSource.data) {
-      const value: any = this.getElementFilterValue(datum, column);
+    for (const datum of data) {
+      const value: any = RowService.getElementFilterValue(datum, column);
 
       if (Array.isArray(value)) {
         for (const v of value) {
-          const formattedV = this.formatElementFilterValue(v, column);
+          const formattedV = RowService.formatElementFilterValue(v, column);
           if (formattedV != null && formattedV !== '') {
             values[v] = formattedV;
           }
         }
       } else {
-        const formattedValue = this.formatElementFilterValue(value, column);
+        const formattedValue = RowService.formatElementFilterValue(value, column);
         if (formattedValue != null && formattedValue !== '') {
           values[value] = formattedValue;
         }
       }
     }
 
-    const comparator = this.getFilterComparator(column);
+    const comparator = RowService.getFilterComparator(column);
     const arrValues = Object.keys(values).map((key: any): any => {
       return { value: key, formattedValue: values[key] };
     });
     arrValues.sort((a: any, b: any): number => {
       return comparator(a.value, b.value);
     });
-    return arrValues.map((el: any): any => {
-      return el.value;
-    });
+    return arrValues;
   }
 
-  getNumericColumnRange(column: Column): any {
-    if (this.dataSource.data.length === 0) {
+  getNumericColumnRange(data: any[], column: Column): any {
+    if (data.length === 0) {
       return { min: null, max: null, step: null };
     }
 
@@ -366,7 +223,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     };
 
     for (const datum of this.dataSource.data) {
-      const value = this.getElementFilterValue(datum, column);
+      const value = RowService.getElementFilterValue(datum, column);
       if (value == null || value === undefined) {
         continue;
       }
@@ -411,7 +268,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
   }
 
   filterNumberValue(
@@ -430,7 +287,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.filter[column.id] = selectedRange;
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
   }
 
   filterStartDateValue(
@@ -453,7 +310,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
   }
 
   filterEndDateValue(
@@ -476,7 +333,20 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.dataSource.filter = JSON.stringify(this.filter);
+    this.setDataSourceFilter();
+  }
+
+  setDataSourceFilter(): void {
+    if (Object.keys(this.filter).length) {
+      // Hack: alternate between value of 'a' and 'b' to force data source to filter the data
+      if (this.dataSource.filter === 'a') {
+        this.dataSource.filter = 'b';
+      } else {
+        this.dataSource.filter = 'a';
+      }
+    } else {
+      this.dataSource.filter = '';
+    }
   }
 
   filterData(datum: any, filter: string): boolean {
@@ -501,7 +371,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   passesColumnFilter(column: Column, datum: any, filterValue: any[]): boolean {
-    const value = this.getElementFilterValue(datum, column);
+    const value = RowService.getElementFilterValue(datum, column);
 
     if (column.filterType === ColumnFilterType.number) {
       if (
@@ -568,36 +438,16 @@ export class TableComponent implements OnInit, AfterViewInit {
         column = this.idToColumn[sortColumnId];
       }
 
-      const aVal = this.getElementValue(a, column, defaultKey);
-      const bVal = this.getElementValue(b, column, defaultKey);
+      const aVal = RowService.getElementValue(a, column, defaultKey);
+      const bVal = RowService.getElementValue(b, column, defaultKey);
 
       const sign = sortDirection !== 'desc' ? 1 : -1;
 
-      const comparator = this.getComparator(column, sortDirection === '');
+      const comparator = RowService.getComparator(column, sortDirection === '');
       return sign * comparator(aVal, bVal, sign);
     });
 
     return sortedData;
-  }
-
-  static comparator(a: any, b: any, sign = 1): number {
-    if (a == null) {
-      if (b == null) {
-        return 0;
-      } else {
-        return 1 * sign;
-      }
-    } else if (b == null) {
-      return -1 * sign;
-    }
-
-    if (typeof a === 'string') {
-      return a.localeCompare(b, undefined, { numeric: true });
-    }
-
-    if (a > b) return 1;
-    if (a < b) return -1;
-    return 0;
   }
 
   toggleColumn(column: Column): void {

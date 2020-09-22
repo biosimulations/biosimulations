@@ -139,6 +139,16 @@ table.icon-list {
   margin-top: 0.5rem;
 }
 
+ul.key-value li {
+  a {
+    color: $dark-primary-text;
+  }
+
+  a:hover {
+    color: mat-color($theme-primary);
+  }
+}
+
 a {
   color: mat-color($theme-primary);
   text-decoration: none;
@@ -305,8 +315,14 @@ npn-slider .slider {
 }
 
 /* buttons */
-.mat-icon-button .mat-button-focus-overlay {
-  display: none;
+.mat-icon-button.biosimulations-icon-button {
+  width: auto;
+  height: auto;
+  line-height: unset;
+
+  .mat-button-focus-overlay {
+    display: none;
+  }
 }
 
 /* tables */
@@ -316,18 +332,23 @@ table {
   }
 }
 
-.mat-table {
+.mat-table.biosimulations-table {
   min-width: min-content;
   border: 1px solid $light-bg-darker-5;
   border-radius: 4px;
+  background: transparent;
 
   &:not(:last-child) {
     margin-bottom: 0.5rem;
   }
 
   .mat-header-row {
-    background: $light-background;
+    background: mat-color($theme-primary, lightest);
     min-height: 32px;
+  }
+
+  mat-row:nth-child(even) {
+    background: $light-bg-lighter-5;
   }
 
   .mat-row {
@@ -339,7 +360,6 @@ table {
   }
 
   .mat-cell, .mat-header-cell {
-    color: $dark-primary-text;
     @include mat-typography-level-to-styles($fontConfig, body-1);
 
     &:not(:first-of-type) {
@@ -359,10 +379,12 @@ table {
   }
 
   .mat-header-cell {
+    color: mat-color($theme-primary);
     font-weight: 500;
   }
 
   .mat-cell {
+    color: $dark-primary-text;
     *:focus {
         outline: none;
     }
@@ -398,4 +420,8 @@ table {
 .border {
   border: 1px solid $light-bg-darker-5;
   border-radius: 4px;
+}
+
+.clear-float {
+  clear: both;
 }

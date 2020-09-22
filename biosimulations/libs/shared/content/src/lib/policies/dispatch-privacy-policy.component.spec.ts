@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
@@ -15,6 +16,7 @@ describe('DispatchPrivacyPolicyComponent', () => {
         DispatchPrivacyPolicyComponent,
       ],
       imports: [
+        RouterTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
       ],

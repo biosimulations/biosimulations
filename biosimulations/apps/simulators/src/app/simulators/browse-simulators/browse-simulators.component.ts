@@ -1,8 +1,8 @@
 import {
   Component,
-  AfterViewInit,
   ChangeDetectionStrategy,
   ViewChild,
+  OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -37,17 +37,22 @@ const spdxTerms = spdxJson as { [id: string]: { name: string; url: string } };
   styleUrls: ['./browse-simulators.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrowseSimulatorsComponent implements AfterViewInit {
+export class BrowseSimulatorsComponent implements OnInit {
   @ViewChild(TableComponent) table!: TableComponent;
   columns = columns;
   data: Observable<TableSimulator[]> = of([]);
 
   constructor(private service: SimulatorTableService) {}
+
   ngOnInit(): void {
     this.data = this.service.getData();
   }
 
-  ngAfterViewInit(): void {
-    this.table.defaultSort = { active: 'name', direction: 'asc' };
+  getStackedHeading(simulator: TableSimulator): string {
+    return simulator.name + ' (' + simulator.id + ')';
+  }
+
+  getStackedHeadingMoreInfoRouterLink(simulator: TableSimulator): string[] {
+    return ['/simulators', simulator.id];
   }
 }

@@ -4,13 +4,13 @@
 
 <div
   gdAuto="row"
-  gdColumns.gt-sm="16rem 1fr"
+  [gdColumns.gt-sm]="controls ? '16rem 1fr' : '1fr'"
   gdGap="2rem"
   gdRows.lt-md="1fr"
   gdGap.lt-md="1rem"
   [ngClass]="{ hidden: isLoading | async }"
 >
-  <mat-accordion class="controls">
+  <mat-accordion class="controls" *ngIf="controls">
     <mat-expansion-panel>
       <mat-expansion-panel-header
         [collapsedHeight]="'32px'"
@@ -63,7 +63,7 @@
                     <ng-template
                       let-range="range"
                       [ngTemplateOutletContext]="{
-                        range: getNumericColumnRange(column)
+                        range: column._filterData
                       }"
                       [ngTemplateOutlet]="self"
                       #self
@@ -101,15 +101,15 @@
 
                   <mat-list *ngSwitchDefault>
                     <mat-list-item
-                      *ngFor="let value of getTextColumnValues(column)"
+                      *ngFor="let value of column._filterData"
                     >
                       <mat-checkbox
                         #checkbox
                         (change)="
-                          filterSetValue(column, value, checkbox.checked)
+                          filterSetValue(column, value.value, checkbox.checked)
                         "
                       >
-                        {{ formatElementFilterValue(value, column) }}
+                        {{ value.formattedValue }}
                       </mat-checkbox>
                     </mat-list-item>
                   </mat-list>
@@ -123,12 +123,12 @@
   </mat-accordion>
 
   <div class="table-container">
-    <mat-table matSort>
+    <mat-table matSort class="biosimulations-table" [ngClass]="{'single-line-headings': singleLineHeadings}">
       <ng-container [matColumnDef]="column.id" *ngFor="let column of columns">
         <mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          [disabled]="column.sortable === false"
+          [disabled]="!sortable || column.sortable === false"
           [ngStyle]="{
             'min-width.em':
               column.minWidth !== undefined ? column.minWidth / 14 : null,
@@ -160,14 +160,12 @@
             <span [ngSwitch]="column.leftLinkType">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
-                  *ngIf="
-                    getElementRouterLink(element, column, 'left') as routerLink
-                  "
+                  *ngIf="element._cache[column.id].left.routerLink as routerLink"
                   [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      leftIconTemplate;
+                      leftTemplate;
                       context: { icon: column.leftIcon }
                     "
                   ></ng-container>
@@ -176,13 +174,13 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
-                  *ngIf="getElementHref(element, column, 'left') as href"
+                  *ngIf="element._cache[column.id].left.href as href"
                   [href]="href"
                   target="_blank"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      leftIconTemplate;
+                      leftTemplate;
                       context: { icon: column.leftIcon }
                     "
                   ></ng-container>
@@ -192,34 +190,66 @@
               <ng-template ngSwitchDefault>
                 <ng-container
                   *ngTemplateOutlet="
-                    leftIconTemplate;
+                    leftTemplate;
                     context: { icon: column.leftIcon }
                   "
                 ></ng-container>
               </ng-template>
 
-              <ng-template #leftIconTemplate let-icon="icon">
+              <ng-template #leftTemplate let-icon="icon">
                 <biosimulations-icon
                   *ngIf="icon"
                   [icon]="icon"
-                  [title]="getIconTitle(element, column, 'left')"
+                  [title]="element._cache[column.id].left.iconTitle"
                 ></biosimulations-icon>
               </ng-template>
             </span>
 
-            {{ formatElementValue(getElementValue(element, column), column) }}
+            <span [ngSwitch]="column.centerLinkType">
+              <ng-template [ngSwitchCase]="'routerLink'">
+                <a
+                  *ngIf="
+                    element._cache[column.id].center.routerLink as routerLink
+                  "
+                  [routerLink]="routerLink"
+                >
+                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  ></ng-container>
+                </a>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'href'">
+                <a
+                  *ngIf="element._cache[column.id].center.href as href"
+                  [href]="href"
+                  target="_blank"
+                >
+                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  ></ng-container>
+                </a>
+              </ng-template>
+
+              <ng-template ngSwitchDefault>
+                <ng-container *ngTemplateOutlet="centerTemplate"
+                ></ng-container>
+              </ng-template>
+
+              <ng-template #centerTemplate>
+                {{ element._cache[column.id].value }}
+              </ng-template>
+            </span>
 
             <span [ngSwitch]="column.rightLinkType">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   *ngIf="
-                    getElementRouterLink(element, column, 'right') as routerLink
+                    element._cache[column.id].right.routerLink as routerLink
                   "
                   [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      rightIconTemplate;
+                      rightTemplate;
                       context: { icon: column.rightIcon }
                     "
                   ></ng-container>
@@ -228,13 +258,13 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
-                  *ngIf="getElementHref(element, column, 'right') as href"
+                  *ngIf="element._cache[column.id].right.href as href"
                   [href]="href"
                   target="_blank"
                 >
                   <ng-container
                     *ngTemplateOutlet="
-                      rightIconTemplate;
+                      rightTemplate;
                       context: { icon: column.rightIcon }
                     "
                   ></ng-container>
@@ -244,17 +274,17 @@
               <ng-template ngSwitchDefault>
                 <ng-container
                   *ngTemplateOutlet="
-                    rightIconTemplate;
+                    rightTemplate;
                     context: { icon: column.rightIcon }
                   "
                 ></ng-container>
               </ng-template>
 
-              <ng-template #rightIconTemplate let-icon="icon">
+              <ng-template #rightTemplate let-icon="icon">
                 <biosimulations-icon
                   *ngIf="icon"
                   [icon]="icon"
-                  [title]="getIconTitle(element, column, 'right')"
+                  [title]="element._cache[column.id].right.iconTitle"
                 ></biosimulations-icon>
               </ng-template>
             </span>

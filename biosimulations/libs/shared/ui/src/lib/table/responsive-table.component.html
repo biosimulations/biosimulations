@@ -1,0 +1,23 @@
+<biosimulations-table *ngIf="showTable$ | async; else stackedTable"
+    [linesPerRow]="linesPerRow"
+    [columns]="columns"
+    [singleLineHeadings]="singleLineHeadings"
+    [sortable]="sortable"
+    [defaultSort]="defaultSort"
+    [controls]="controls"
+    [data]="data"
+>
+</biosimulations-table>
+
+<ng-template #stackedTable>
+  <biosimulations-stacked-table
+    [contentsHeading]="stackedContentsHeading"
+    [columns]="columns"
+    [getHeading]="getStackedHeading"
+    [getHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
+    [getHeadingMoreInfoHref]="getStackedHeadingMoreInfoHref"
+    [defaultSort]="defaultSort"
+    [data]="data"
+  >
+  </biosimulations-stacked-table>
+</ng-template>

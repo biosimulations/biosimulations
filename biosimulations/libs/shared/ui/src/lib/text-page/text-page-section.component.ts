@@ -19,7 +19,13 @@ export class TextPageSectionComponent implements OnInit {
   icon = '';
 
   @Input()
-  iconClick!: any;
+  iconRouterLink!: any[] | string | null;
+
+  @Input()
+  iconHref!: string | null;
+
+  @Input()
+  iconClick!: () => void | null;
 
   constructor() {}
 

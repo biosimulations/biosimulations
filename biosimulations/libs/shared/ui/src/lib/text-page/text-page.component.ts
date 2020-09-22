@@ -4,8 +4,15 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { TocSection } from '../toc/toc-section';
+import { Observable, BehaviorSubject } from 'rxjs';
+
+interface SideBarStyle {
+  position: string | null;
+  width: string | null;
+  top: string | null;
+}
 
 @Component({
   selector: 'biosimulations-text-page',
@@ -13,8 +20,13 @@ import { TocSection } from '../toc/toc-section';
   styleUrls: ['./text-page.component.scss'],
 })
 export class TextPageComponent {
+  _heading = '';
+
   @Input()
-  heading = '';
+  set heading(value: string) {
+    this._heading = value;
+    this.calcSideBarStyle();
+  }
 
   @Input()
   contentsHeading = 'Contents';
@@ -22,11 +34,16 @@ export class TextPageComponent {
   @Input()
   padded = true;
 
-  @Input()
-  alwaysFixed: string | null = null;
+  private _alwaysFixed: string | null = null;
 
-  fixed = false;
-  smallLayout = false;
+  @Input()
+  set alwaysFixed(value: string | null) {
+    this._alwaysFixed = value;
+    this.calcSideBarStyle();
+  }
+
+  private fixed = false;
+  private smallLayout = false;
 
   @Input()
   tocSections!: TocSection[];
@@ -34,14 +51,22 @@ export class TextPageComponent {
   @Input()
   tocScrollSectionScrollOffset = 96;
 
-  constructor(mediaMatcher: MediaMatcher) {
+  private sideBarStyle = new BehaviorSubject<SideBarStyle>({
+    position: null,
+    width: null,
+    top: null,
+  });
+  sideBarStyle$: Observable<SideBarStyle> = this.sideBarStyle.asObservable();
+
+  constructor(breakpointObserver: BreakpointObserver) {
     window.addEventListener('scroll', this.scroll, true);
 
-    const matcher = mediaMatcher.matchMedia('(max-width: 959px)');
-    this.smallLayout = matcher.matches;
-    matcher.addListener((event) => {
-      this.smallLayout = event.matches;
+    this.smallLayout = breakpointObserver.isMatched('(max-width: 959px)');
+    breakpointObserver.observe(['(max-width: 959px)']).subscribe((result) => {
+      this.smallLayout = result.matches;
+      this.calcSideBarStyle();
     });
+    this.calcSideBarStyle();
   }
 
   ngOnDestroy() {
@@ -50,5 +75,30 @@ export class TextPageComponent {
 
   scroll = (event: any): void => {
     this.fixed = event.srcElement.scrollTop > 64;
+    this.calcSideBarStyle();
   };
+
+  calcSideBarStyle() {
+    let position: string | null = null;
+    let width: string | null = null;
+    if ((!this._heading || this._alwaysFixed != null || this.fixed) && !this.smallLayout) {
+      position = 'fixed';
+      width = '16rem';
+    }
+
+    let top;
+    if (this._alwaysFixed == null) {
+      top = 'calc(64px + 32px + 2rem)';
+    } else {
+      top = this._alwaysFixed;
+    }
+
+    const sideBarStyle = {
+      position,
+      width,
+      top,
+    }
+
+    this.sideBarStyle.next(sideBarStyle);
+  }
 }

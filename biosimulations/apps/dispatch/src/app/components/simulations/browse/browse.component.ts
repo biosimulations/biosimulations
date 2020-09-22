@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import {
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
 })
-export class BrowseComponent {
+export class BrowseComponent implements OnInit {
   @ViewChild(TableComponent) table!: TableComponent;
 
   columns: Column[] = [
@@ -197,12 +197,26 @@ export class BrowseComponent {
     },
   ];
   simulations!: Observable<Simulation[]>;
+
   constructor(private simulationService: SimulationService) {}
+
   ngOnInit() {
     this.simulations = this.simulationService.simulations$;
   }
-  ngAfterViewInit() {
-    this.table.defaultSort = { active: 'id', direction: 'asc' };
+
+  getStackedHeading(simulation: Simulation): string | null {
+    return simulation.name + ' (' + simulation.id + ')';
+  }
+
+  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] | null {
+    if (
+      simulation.status === SimulationStatus.succeeded ||
+      simulation.status === SimulationStatus.failed
+    ) {
+      return ['/simulations', simulation.id];
+    } else {
+      return null;
+    }
   }
 
   exportSimulations() {

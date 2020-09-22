@@ -2,6 +2,7 @@
   <ng-container id="buttons">
     <button
       mat-icon-button
+      class="biosimulations-icon-button"
       title="Export simulations"
       (click)="exportSimulations()"
     >
@@ -9,6 +10,7 @@
     </button>
     <button
       mat-icon-button
+      class="biosimulations-icon-button"
       title="Import simulations"
       (click)="importSimulations()"
     >
@@ -16,8 +18,12 @@
     </button>
   </ng-container>
 
-  <biosimulations-table
+  <biosimulations-responsive-table
     [columns]="columns"
     [data]="simulations"
-  ></biosimulations-table>
+    [defaultSort]="{ active: 'id', direction: 'asc' }"
+    stackedContentsHeading="Simulations"
+    [getStackedHeading]="getStackedHeading"
+    [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
+  ></biosimulations-responsive-table>
 </biosimulations-page>

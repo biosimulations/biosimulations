@@ -1,0 +1,53 @@
+<biosimulations-text-page
+  [tocSections]="tocSections"
+  [contentsHeading]="contentsHeading"
+  >
+  <ng-container id="sideBar">
+  </ng-container>
+
+  <ng-container id="content" tocSectionsContainer>
+    <biosimulations-text-page-content-section *ngFor="let row of derivedData$ | async"
+      [heading]="row.heading"
+      [tocSection]="row.heading"
+      [icon]="row.icon"
+      [iconAction]="row.iconAction"
+    >
+      <ul class="key-value">
+        <li *ngFor="let column of displayedColumns">
+          <b>{{ column.heading }}:</b>
+          <span [ngSwitch]="column.centerLinkType">
+            <ng-template [ngSwitchCase]="'routerLink'">
+              <a
+                *ngIf="row.columns[column.id]?.centerRouterLink as routerLink"
+                [routerLink]="routerLink"
+              >
+                <ng-container *ngTemplateOutlet="centerTemplate"
+                ></ng-container>
+              </a>
+            </ng-template>
+
+            <ng-template [ngSwitchCase]="'href'">
+              <a
+                *ngIf="row.columns[column.id]?.centerHref as href"
+                [href]="href"
+                target="_blank"
+              >
+                <ng-container *ngTemplateOutlet="centerTemplate"
+                ></ng-container>
+              </a>
+            </ng-template>
+
+            <ng-template ngSwitchDefault>
+              <ng-container *ngTemplateOutlet="centerTemplate"
+              ></ng-container>
+            </ng-template>
+
+            <ng-template #centerTemplate>
+              {{ row.columns[column.id]?.value }}
+            </ng-template>
+          </span>
+        </li>
+      </ul>
+    </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>
