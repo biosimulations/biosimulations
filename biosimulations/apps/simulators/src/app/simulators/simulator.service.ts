@@ -48,8 +48,8 @@ export class SimulatorService {
   getVersions(simId: string): Observable<string[]> {
     return this.allSims.pipe(
       map((sims: Simulator[]) => {
-        let versions = [];
-        for (let sim of sims) {
+        const versions = [];
+        for (const sim of sims) {
           if (sim.id === simId) {
             versions.push(sim.version);
           }

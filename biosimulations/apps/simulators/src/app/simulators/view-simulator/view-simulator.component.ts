@@ -107,7 +107,7 @@ export class ViewSimulatorComponent implements OnInit {
   error = false;
 
   parameterColumns = ['id', 'name', 'type', 'value', 'range', 'kisaoId'];
-  versionColumns = ['label', 'date', 'image'];
+  Columns = ['label', 'date', 'image'];
 
   id!: string;
   version!: string;
@@ -244,8 +244,9 @@ export class ViewSimulatorComponent implements OnInit {
       const loadingSubject = new BehaviorSubject<boolean>(true);
       const id = value?.id;
       const version = value?.version;
-      let loadSimulator: Observable<Simulator[]>;
-      loadSimulator = this.service.getAllById(id);
+      const loadSimulator: Observable<Simulator[]> = this.service.getAllById(
+        id
+      );
       loadSimulator.subscribe((simulators: Simulator[]) => {
         let simulator: Simulator;
         if (version) {
@@ -382,8 +383,8 @@ export class ViewSimulatorComponent implements OnInit {
 
         const created = new Date(simulator.created);
         const versions = [];
-        for (let simulatorVersion of simulators) {
-          let version = {
+        for (const simulatorVersion of simulators) {
+          const version = {
             label: simulatorVersion.version,
             date:
               created.getFullYear().toString() +
