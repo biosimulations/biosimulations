@@ -11,13 +11,23 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: ViewSimulatorComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'latest',
+      },
+      {
+        path: 'latest',
+        component: ViewSimulatorComponent,
+        data: {
+          breadcrumb: null,
+        },
+      },
       {
         path: ':version',
         component: ViewSimulatorComponent,
       },
-    ]
+    ],
   },
 ];
 
@@ -25,4 +35,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SimulatorsRoutingModule { }
+export class SimulatorsRoutingModule {}
