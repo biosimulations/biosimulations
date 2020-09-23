@@ -62,7 +62,7 @@
     "@nestjs/schedule": "^0.4.0",
     "@nestjs/swagger": "^4.6.1",
     "@nrwl/angular": "10.0.12",
-    "@typegoose/typegoose": "^7.3.5",
+    "@typegoose/typegoose": "^7.4.1",
     "@types/cron": "^1.7.2",
     "angular-plotly.js": "^3.0.0",
     "archiver": "^5.0.2",
