@@ -64,7 +64,7 @@ export class ViewComponent implements OnInit {
         .subscribe((data: any) => {
           // data['data'].submittedLocally = false;
           this.setProjectResults(data['data']);
-          this.simulationService.storeSimulation(data['data']);
+          // this.simulationService.storeSimulation(data['data']);
         });
     }
   }
