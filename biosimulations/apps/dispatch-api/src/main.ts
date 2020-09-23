@@ -19,7 +19,7 @@ async function bootstrap() {
   // TODO intelligently allow origin based on production mode, abstract this
   const allowOrigin: CustomOrigin = (
     requestOrigin: string,
-    callback: (err: Error | null, allow?: boolean | undefined) => void,
+    callback: (err: Error | null, allow?: boolean | undefined) => void
   ) => {
     if (!requestOrigin) {
       callback(null, true);
@@ -34,9 +34,8 @@ async function bootstrap() {
       'http://localhost:4202',
       'https://biosimulations.dev',
       'https://biosimulations.org',
-      'https://api.biosimulations.dev',
-      'https://api.biosimulations.org',
       'https://submit.biosimulations.dev',
+      'https://run.biosimulaions.org',
     ];
     console.log(requestOrigin);
     const allow = allowedOrigins.includes(requestOrigin);
@@ -49,7 +48,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('Simulation dispatch example')
     .setDescription(
-      'Dispatch API allows dispatching of simulation jobs to UConn HPC',
+      'Dispatch API allows dispatching of simulation jobs to UConn HPC'
     )
     .setVersion('1.0')
     .addTag('dispatch')
