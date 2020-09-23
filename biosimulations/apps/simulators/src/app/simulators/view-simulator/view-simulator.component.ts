@@ -306,6 +306,7 @@ export class ViewSimulatorComponent implements OnInit {
             break;
         }
 
+
         this.citations = simulator.references.citations.map(this.makeCitation);
 
         this.algorithms = simulator.algorithms.map(
@@ -340,6 +341,7 @@ export class ViewSimulatorComponent implements OnInit {
                   };
                 }
               )
+
             );
 
             return {
@@ -468,7 +470,9 @@ export class ViewSimulatorComponent implements OnInit {
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {
-      this.tocSections = container.sections;
+
+      this.tocSections = container.getToc();
+
     });
   }
 

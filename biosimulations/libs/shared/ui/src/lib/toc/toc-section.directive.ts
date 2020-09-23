@@ -9,17 +9,17 @@ import { TocSectionsContainerDirective } from './toc-sections-container.directiv
 })
 export class TocSectionDirective {
   @Input()
-  set tocSection (heading: string) {
+  set tocSection(heading: string) {
     this.section.heading = heading;
   }
 
   private section: TocSection = {};
 
   constructor(
-    @Host() sectionsContainer: TocSectionsContainerDirective,
-    elementRef: ElementRef,
+    @Host() private sectionsContainer: TocSectionsContainerDirective,
+    elementRef: ElementRef
   ) {
     this.section.target = elementRef.nativeElement;
-    sectionsContainer.sections.push(this.section);
+    sectionsContainer.addToc(this.section);
   }
 }
