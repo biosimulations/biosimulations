@@ -33,7 +33,7 @@ async function bootstrap() {
       'http://localhost:4202',
       'https://biosimulations.dev',
       'https://biosimulations.org',
-      'https://submit.biosimulations.dev',
+      'https://run.biosimulations.dev',
       'https://run.biosimulaions.org',
     ];
     console.log(requestOrigin);
