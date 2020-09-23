@@ -37,7 +37,10 @@ export class ViewComponent implements OnInit {
   sedmlError!: string;
   reportError!: string;
 
-  projectResults!: any;
+  projectStructure!: any;
+
+  selectedSedml!: string;
+  selectedReport!: string;
 
   @ViewChild('visualization') visualization!: VisualisationComponent;
 
@@ -45,7 +48,7 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
-    private visualisationService: VisualisationService,
+    private visualisationService: VisualisationService
   ) {
     this.formGroup = formBuilder.group({
       sedml: ['', [Validators.required]],
@@ -55,43 +58,51 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    if (this.projectResults === undefined) {
+    if (this.projectStructure === undefined) {
       this.visualisationService
         .getResultStructure(this.uuid)
         .subscribe((data: any) => {
-          data['data'].submittedLocally = false;
+          // data['data'].submittedLocally = false;
           this.setProjectResults(data['data']);
           this.simulationService.storeSimulation(data['data']);
         });
     }
   }
 
-  setProjectResults(projectResults: any): void {
-    this.projectResults = projectResults;
+  setProjectResults(projectStructure: any): void {
+    this.projectStructure = projectStructure;
 
-    this.sedmls = Object.keys(projectResults);
-    const sedml = this.sedmls[0];
-    this.formGroup.controls.sedml.setValue(sedml);
+    this.sedmls = Object.keys(projectStructure);
+    this.selectedSedml = this.sedmls[0];
+    // const sedml = this.sedmls[0];
+    // this.formGroup.controls.sedml.setValue(sedml);
 
     this.setSedml();
   }
 
   setSedml(): void {
-    const sedml = this.formGroup.value.sedml;
-    this.reports = Object.keys(this.projectResults[sedml]);
-    const report = this.reports[0];
-    this.formGroup.controls.report.setValue(report);
+    // const sedml = this.formGroup.value.sedml;
+    // this.reports = Object.keys(this.projectResults[sedml]);
+    this.reports = this.projectStructure[this.selectedSedml];
+    this.selectedReport = this.reports[0];
+    // const report = this.reports[0];
+    // this.formGroup.controls.report.setValue(report);
     this.setReport();
   }
 
   setReport(): void {
-    const sedml = this.formGroup.value.sedml;
-    const report = this.formGroup.value.report;
-    const reportResults = this.projectResults[sedml][report];
-    this.visualisationService.updateDataEvent.next({
-      report: report,
-      data: reportResults,
-    });
+    // const sedml = this.formGroup.value.sedml;
+    // const report = this.formGroup.value.report;
+    // const reportResults = this.projectResults[sedml][report];
+
+    this.visualisationService
+      .getVisualisation(this.uuid, this.selectedSedml, this.selectedReport)
+      .subscribe((data: any) => {
+        this.visualisationService.updateDataEvent.next({
+          report: this.selectedReport,
+          data: data['data'],
+        });
+      });
   }
 
   selectedTabChange($event: MatTabChangeEvent): void {

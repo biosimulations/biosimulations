@@ -29,7 +29,7 @@
         <mat-select
           formControlName="sedml"
           disableOptionCentering
-
+[(ngModel)]="selectedSedml"
           (selectionChange)="setSedml()"
           required
         >
@@ -52,7 +52,7 @@
         <mat-select
           formControlName="report"
           disableOptionCentering
-
+[(ngModel)]="selectedReport"
           (selectionChange)="setReport()"
           required
         >
