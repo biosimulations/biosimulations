@@ -1,20 +1,45 @@
 <biosimulations-tab-page (selectedTabChange)="selectedTabChange($event)">
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <p>
-      <b class="highlight-primary">Simulation #{{ uuid }}</b><br/>
-      {{name}}
+      <b class="highlight-primary">Simulation #{{ uuid }}</b
+      ><br />
+      {{ name }}
     </p>
 
     <table class="icon-list">
-      <tr><th><biosimulations-icon icon="status"></biosimulations-icon></th><td><span class="heading">Status:</span> {{ status }}</td></tr>
-      <tr><th><biosimulations-icon icon="duration"></biosimulations-icon></th><td><span class="heading">Runtime:</span> {{ runtime }}</td></tr>
-      <tr><th><biosimulations-icon icon="date"></biosimulations-icon></th><td><span class="heading">Submitted</span>: {{ submitted }}</td></tr>
-      <tr><th><biosimulations-icon icon="date"></biosimulations-icon></th><td><span class="heading">Updated:</span> {{ updated }}</td></tr>
+      <tr>
+        <th><biosimulations-icon icon="status"></biosimulations-icon></th>
+        <td><span class="heading">Status:</span> {{ status }}</td>
+      </tr>
+      <tr>
+        <th><biosimulations-icon icon="duration"></biosimulations-icon></th>
+        <td><span class="heading">Runtime:</span> {{ runtime }}</td>
+      </tr>
+      <tr>
+        <th><biosimulations-icon icon="date"></biosimulations-icon></th>
+        <td><span class="heading">Submitted</span>: {{ submitted }}</td>
+      </tr>
+      <tr>
+        <th><biosimulations-icon icon="date"></biosimulations-icon></th>
+        <td><span class="heading">Updated:</span> {{ updated }}</td>
+      </tr>
     </table>
 
     <table class="icon-list">
-      <tr><th><biosimulations-icon icon="download"></biosimulations-icon></th><td><span class="heading">Project:</span>{{ ' ' }}<a [href]="projectUrl">{{ projectSize }}</a></td></tr>
-      <tr><th><biosimulations-icon icon="download"></biosimulations-icon></th><td><span class="heading">Results:</span>{{ ' ' }}<a [href]="resultsUrl">{{ resultsSize }}</a></td></tr>
+      <tr>
+        <th><biosimulations-icon icon="download"></biosimulations-icon></th>
+        <td>
+          <span class="heading">Project:</span>{{ ' '
+          }}<a [href]="projectUrl">{{ projectSize }}</a>
+        </td>
+      </tr>
+      <tr>
+        <th><biosimulations-icon icon="download"></biosimulations-icon></th>
+        <td>
+          <span class="heading">Results:</span>{{ ' '
+          }}<a [href]="resultsUrl">{{ resultsSize }}</a>
+        </td>
+      </tr>
     </table>
   </biosimulations-tab-page-tab>
 
@@ -22,11 +47,20 @@
     <pre>{{ log }}</pre>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Design chart" icon="write" [disabled]="sedmls === undefined">
-    <form [formGroup]="formGroup" class="design-visualization" *ngIf="sedmls !== undefined">
+  <biosimulations-tab-page-tab
+    heading="Design chart"
+    icon="write"
+    [disabled]="sedmls === undefined"
+  >
+    <form
+      [formGroup]="formGroup"
+      class="design-visualization"
+      *ngIf="sedmls !== undefined"
+    >
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>
         <mat-select
+          [(ngModel)]="selectedSedml"
           formControlName="sedml"
           disableOptionCentering
 [(ngModel)]="selectedSedml"
@@ -42,13 +76,13 @@
           >Select one of the SED-ML files in the COMBINE/OMEX archive which
           describes one or more reports of one or more simulations.</mat-hint
         >
-        <mat-error *ngIf="sedmlError">
-          Please select a SED-ML file.
-        </mat-error>
+        <mat-error *ngIf="sedmlError"> Please select a SED-ML file. </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Select a report of the results of one or more simulations</mat-label>
+        <mat-label
+          >Select a report of the results of one or more simulations</mat-label
+        >
         <mat-select
           formControlName="report"
           disableOptionCentering
@@ -62,9 +96,9 @@
         </mat-select>
         <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
         <mat-hint
-          >Select a report within the selected SED-ML file which describes the results of one or
-          more simulations (e.g., in SED-ML format) of one or more models (e.g.,
-          in SBML format).</mat-hint
+          >Select a report within the selected SED-ML file which describes the
+          results of one or more simulations (e.g., in SED-ML format) of one or
+          more models (e.g., in SBML format).</mat-hint
         >
         <mat-error *ngIf="reportError">
           Please select a report of the results of one or more simulations.
@@ -73,8 +107,11 @@
     </form>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" [disabled]="sedmls === undefined">
-    <biosimulations-visualisation #visualization
-    ></biosimulations-visualisation>
+  <biosimulations-tab-page-tab
+    heading="Visualize chart"
+    icon="chart"
+    [disabled]="sedmls === undefined"
+  >
+    <biosimulations-visualisation #visualization></biosimulations-visualisation>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

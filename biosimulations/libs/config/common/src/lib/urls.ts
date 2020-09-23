@@ -22,7 +22,7 @@ const envUrls: { [key in envs]: urlMap } = {
   prod: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://dispatch.biosimulations.dev/',
+    dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
@@ -44,7 +44,7 @@ const envUrls: { [key in envs]: urlMap } = {
   stage: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://dispatch.biosimulations.dev/api',
+    dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
