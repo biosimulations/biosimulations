@@ -17,10 +17,10 @@ import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { map, pluck, tap } from 'rxjs/operators';
 import {} from './view-simulator.component';
 import {
-  EdamOntologyId,
-  SBOOntologyId,
-} from 'libs/simulators/api-models/src/lib/ontologyId';
-import { AlgorithmParameter } from 'libs/simulators/api-models/src/lib/algorithmParameter';
+  IEdamOntologyId,
+  ISboOntologyID,
+} from '@biosimulations/shared/datamodel';
+import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
 
 @Injectable({ providedIn: 'root' })
 export class ViewSimulatorService {
@@ -115,10 +115,10 @@ export class ViewSimulatorService {
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
     };
   }
-  getFrameworks(value: SBOOntologyId): Observable<ViewFramework> {
+  getFrameworks(value: ISboOntologyID): Observable<ViewFramework> {
     return this.ontService.getSboTerm(value.id);
   }
-  getFormats(value: EdamOntologyId): Observable<ViewFormat> {
+  getFormats(value: IEdamOntologyId): Observable<ViewFormat> {
     return this.ontService.getEdamTerm(value.id);
   }
   setVersionDate(value: Version): ViewVersion {

@@ -98,7 +98,7 @@ export class OntologyService {
     return input.pipe(
       map((value) => {
         const arr = [];
-        for (let id in value) {
+        for (const id in value) {
           arr.push(value.id);
         }
         return arr;
