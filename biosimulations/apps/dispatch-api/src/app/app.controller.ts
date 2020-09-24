@@ -104,7 +104,7 @@ export class AppController implements OnApplicationBootstrap {
     const simSpec: SimulationDispatchSpec = {
       authorEmail: bodyData.authorEmail,
       nameOfSimulation: bodyData.nameOfSimulation,
-      simulator: bodyData.simulator.toUpperCase(),
+      simulator: bodyData.simulator.toLowerCase(),
       simulatorVersion: bodyData.simulatorVersion,
       filename: file.originalname,
       uniqueFilename,
