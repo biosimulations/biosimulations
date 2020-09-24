@@ -3,20 +3,10 @@ import { SimulatorService } from '../simulator.service';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
-import edamJson from '../edam.json';
-import sboJson from '../sbo.json';
-import spdxJson from '../spdx.json';
+
 import { OntologyService } from '../ontology.service';
-const edamTerms = edamJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
 
-const sboTerms = sboJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
-const spdxTerms = spdxJson as { [id: string]: { name: string; url: string } };
-
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class SimulatorTableService {
   constructor(
     private service: SimulatorService,
@@ -55,6 +45,7 @@ export class SimulatorTableService {
                 algorithms: sourceValue.algorithms,
                 frameworks: sourceValue.frameworks,
                 formats: sourceValue.formats,
+                license: license,
               }).pipe(
                 map((value) => {
                   // Table simulator
@@ -64,7 +55,7 @@ export class SimulatorTableService {
                     latestVersion: simulator.version,
                     url: simulator.url,
                     created: new Date(simulator.created),
-                    license: license,
+                    license: value.license,
                     frameworks: value.frameworks,
                     algorithms: value.algorithms,
                     algorithmSynonyms: value.algorithmSynonyms,
@@ -89,7 +80,10 @@ export class SimulatorTableService {
   }
 
   getLicense(simulator: any) {
-    return this.shortenLicense(spdxTerms[simulator.license.id]?.name);
+    return this.ontologyService.getSpdxTerm(simulator.license.id).pipe(
+      pluck('name'),
+      map((name) => this.shortenLicense(name))
+    );
   }
 
   getFormats(simulator: any): Observable<string[]> {
@@ -101,7 +95,7 @@ export class SimulatorTableService {
     }
     const formatsArr: Observable<string>[] = [];
     for (const id of formats) {
-      formatsArr.push(of(edamTerms[id as string]?.name));
+      formatsArr.push(this.ontologyService.getEdamTerm(id).pipe(pluck('name')));
     }
     const obs = from(formatsArr).pipe(mergeAll(), toArray());
 
@@ -118,7 +112,9 @@ export class SimulatorTableService {
 
     const frameworksArr: Observable<string>[] = [];
     for (const id of frameworks) {
-      frameworksArr.push(of(this.trimFramework(sboTerms[id]?.name)));
+      frameworksArr.push(
+        this.ontologyService.getSboTerm(id).pipe(pluck('name'))
+      );
     }
 
     const obs = from(frameworksArr).pipe(mergeAll(), toArray());
