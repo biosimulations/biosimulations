@@ -12,9 +12,10 @@ import {
   SPDXTerm,
   EDAMTerm,
   KisaoId,
+  IdentifierTerm,
 } from '@biosimulations/shared/datamodel';
 import { Observable, of, throwError } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { catchError, map, shareReplay } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class OntologyService {
@@ -48,7 +49,8 @@ export class OntologyService {
             const termUrl =
               'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
               term.id.replace(':', '_');
-
+            const namespace = Ontologies.KISAO;
+            term.namespace = namespace;
             term.url = termUrl;
             termSet[term.id] = term;
           });
@@ -96,18 +98,30 @@ export class OntologyService {
       })
     );
   }
-  private getTerm<T>(
+  private getTerm<T extends IdentifierTerm>(
     input: Observable<{ [id: string]: T }>,
     term: string
   ): Observable<T> {
     return input.pipe(
       map((value) => {
-        const setTerm = value?.term;
+        const setTerm = value[term];
         if (setTerm) {
           return setTerm;
         } else {
-          throw 'Term Not Found';
+          throw { term, value };
         }
+      }),
+      catchError((err: any, caught: Observable<T>) => {
+        const value = JSON.parse(JSON.stringify(err.value)) as any;
+
+        return of(({
+          namespace: (value[Object.keys(value)[0]] as any).namespace,
+          id: term,
+          name: term,
+          description: 'Unknown Term',
+          url: '',
+          iri: '',
+        } as unknown) as T);
       })
     );
   }
