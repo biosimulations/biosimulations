@@ -86,7 +86,7 @@ export class AppController implements OnApplicationBootstrap {
   async uploadFile(
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
-  ) {
+  ): Promise<{}> {
     // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
     // TODO: Create the required folders automatically
     const fileStorage = process.env.FILE_STORAGE;
@@ -152,24 +152,48 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   @Get('download/:uuid')
+  @ApiOperation({ summary: 'Downloads result files' })
   @ApiResponse({
     status: 200,
     description: 'Download all results as zip archive',
     type: Object,
   })
-  archive(@Param('uuid') uId: string, @Res() res: any) {
+  archive(@Param('uuid') uId: string, @Res() res: any): void {
     const fileStorage = process.env.FILE_STORAGE || '';
     const zipPath = path.join(fileStorage, 'simulations', uId, `${uId}.zip`);
     res.download(zipPath);
   }
 
+  @Get('download/logs/:uuid')
+  @ApiOperation({
+    summary: 'Downloads log file',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Download all results as zip archive',
+    type: Object,
+  })
+  downloadLogFile(@Param('uuid') uId: string, @Res() res: any): void {
+    const fileStorage = process.env.FILE_STORAGE || '';
+    const logPath = path.join(fileStorage, 'simulations', uId, 'out');
+
+    if (DispatchSimulationStatus.SUCCEEDED) {
+      const logOutPath = path.join(logPath, 'job.output');
+      res.download(logOutPath);
+    } else if (DispatchSimulationStatus.FAILED) {
+      const logErrPath = path.join(logPath, 'job.error');
+      res.download(logErrPath);
+    }
+  }
+
   @Get('result/structure/:uuid')
+  @ApiOperation({ summary: 'Shows result structure' })
   @ApiResponse({
     status: 200,
     description: 'Get results structure (SEDMLS and TASKS)',
     type: Object,
   })
-  async getResultStructure(@Param('uuid') uId: string) {
+  async getResultStructure(@Param('uuid') uId: string): Promise<{}> {
     const fileStorage = process.env.FILE_STORAGE || '';
     const structure: any = {};
 
@@ -199,6 +223,10 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   @Get('result/:uuid')
+  @ApiOperation({
+    summary:
+      'Get individual resultant JSON with or without chart data for each SED-ML and report ',
+  })
   @ApiResponse({
     status: 200,
     description: 'Get Simulation Results',
@@ -209,7 +237,7 @@ export class AppController implements OnApplicationBootstrap {
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
     @Query('task') task: string
-  ) {
+  ):Promise<{}> {
     const fileStorage = process.env.FILE_STORAGE || '';
 
     const jsonPath = path.join(
@@ -231,12 +259,13 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   @Post('/jobinfo')
+  @ApiOperation({ summary: 'Fetches job information from Database' })
   @ApiResponse({
     status: 200,
     description: 'Fetch all simulation information',
     type: Object,
   })
-  async getJobInfo(@Body() listUid: string[]) {
+  async getJobInfo(@Body() listUid: string[]): Promise<{}> {
     return {
       message: 'Data fetched successfully',
       data: await this.modelsService.getData(listUid),
@@ -244,13 +273,16 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   @Get('/simulators')
+  @ApiOperation({
+    summary: 'Gives Information about all simulators avialable from dockerHub',
+  })
   @ApiResponse({
     status: 200,
     description: 'Get all simulators and their versions',
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(@Query('name') simulatorName: string) {
+  async getAllSimulatorVersion(@Query('name') simulatorName: string): Promise<string[]> {
     if (simulatorName === undefined) {
       // Getting info of all available simulators
       const simulatorsInfo: any = await this.httpService
