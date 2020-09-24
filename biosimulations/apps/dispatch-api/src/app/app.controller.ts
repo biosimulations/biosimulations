@@ -72,9 +72,11 @@ export class AppController implements OnApplicationBootstrap {
             'Version of the selected simulator like 4.27.214/latest, etc',
         },
         authorEmail: {
+          description: 'Provide an email for notifications',
           type: 'string',
         },
         nameOfSimulation: {
+          description: 'Define a name for your simulation project',
           type: 'string',
         },
       },
