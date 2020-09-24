@@ -42,12 +42,38 @@ export interface IOntologyTerm extends IOntologyId {
   name: string | null;
   description: string | null;
 }
-export interface KISAOTerm extends IOntologyTerm {
+export interface KISAOTerm extends IKisaoOntologyId {
   namespace: Ontologies.KISAO;
   id: KisaoId;
   name: string;
   description: string;
   iri: string;
+  url: string;
 }
 
+export interface SBOTerm extends IOntologyTerm {
+  namespace: Ontologies.SBO;
+  id: KisaoId;
+  name: string;
+  description: string;
+  iri: string;
+  url: string;
+}
+
+export interface EDAMTerm extends IOntologyTerm {
+  namespace: Ontologies.EDAM;
+  id: KisaoId;
+  name: string;
+  description: string;
+  iri: string;
+  url: string;
+}
+
+export interface SPDXTerm extends Identifier {
+  namespace: Ontologies.SPDX;
+  id: KisaoId;
+  name: string;
+  description: string;
+  url: string;
+}
 // Identifiers.org identifier
