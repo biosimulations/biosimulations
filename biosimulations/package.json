@@ -130,7 +130,7 @@
     "license-checker": "^25.0.1",
     "prettier": "2.1.2",
     "ts-jest": "25.5.1",
-    "ts-node": "~7.0.0",
+    "ts-node": "~9.0.0",
     "tslint": "~6.0.0",
     "typescript": "~3.9.3"
   }
