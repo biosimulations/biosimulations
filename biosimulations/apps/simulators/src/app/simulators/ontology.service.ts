@@ -37,6 +37,13 @@ export class OntologyService {
     this.spdxTerms = this.fetchSpdxTerms();
     this.spdxTerms.subscribe();
   }
+
+  getKisaoUrl(id: string): string {
+    return (
+      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_' +
+      id
+    );
+  }
   private fetchKisaoTerms(): Observable<{ [id: string]: KISAOTerm }> {
     return this.http
       .get<KISAOTerm[]>('https://ontology.biosimulations.dev/kisao/list')
