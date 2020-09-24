@@ -1,3 +1,4 @@
+import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -165,8 +166,8 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'download',
       leftLinkType: ColumnLinkType.href,
       leftHref: (simulation: Simulation): string | null => {
-        if (simulation.status === SimulationStatus.succeeded) {
-          return 'download-results/' + simulation.id;
+        if (simulation.status === SimulationStatus.queued) {
+          return `${urls.dispatchApi}/download/${simulation.id}`;
         } else {
           return null;
         }
