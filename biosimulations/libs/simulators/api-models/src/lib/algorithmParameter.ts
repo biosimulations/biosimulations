@@ -36,5 +36,5 @@ export class AlgorithmParameter {
     minItems: 1,
     example: [22.7, 2270],
   })
-  recomendedRange!: (boolean | number | string)[] | null;
+  recommendedRange!: (boolean | number | string)[] | null;
 }
