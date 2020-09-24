@@ -1,10 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import path from 'path';
 import { HpcService } from '../hpc/hpc.service';
-import { DispatchSimulationStatus, FileModifiers } from '@biosimulations/dispatch/api-models';
+import {
+  DispatchSimulationStatus,
+  FileModifiers,
+} from '@biosimulations/dispatch/api-models';
 
 @Injectable()
 export class SimulationService {
+  private logger = new Logger(SimulationService.name);
   constructor(private hpcService: HpcService) {}
 
   async getSimulationStatus(uuid: string, jobId: string) {
@@ -19,17 +23,18 @@ export class SimulationService {
       const errPath = `${simPath}/job.error`;
 
       //   const outStr = await FileModifiers.readFile(outPath);
-      const errStr = await FileModifiers.readFile(errPath);
-      console.log(errStr);
+      const errStr: Buffer = await FileModifiers.readFile(errPath);
+      this.logger.log(errStr);
 
-      if (errStr !== '') {
+      if (errStr.toString() !== '') {
+        this.logger.log('Sim failed');
         return DispatchSimulationStatus.FAILED;
       } else {
+        this.logger.log('Sim succeeded');
         return DispatchSimulationStatus.SUCCEEDED;
       }
     } else {
       return jobStatus;
     }
   }
-
 }

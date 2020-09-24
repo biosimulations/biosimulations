@@ -17,7 +17,6 @@ export class DispatchService {
     name: string,
     email: string
   ) {
-   
     const endpoint = `${urls.dispatchApi}/dispatch`;
 
     // TODO: Create a datamodel to hold the schema for simulation spec for frontend
@@ -25,6 +24,8 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulator', selectedSimulator);
     formData.append('simulatorVersion', selectedVersion);
+    formData.append('authorEmail', email);
+    formData.append('nameOfSimulation', name);
     console.log(formData);
     // formData.append('name', name);
     // formData.append('email', email);

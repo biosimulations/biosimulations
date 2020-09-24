@@ -12,6 +12,7 @@ import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.in
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   const port = process.env.PORT || 3333;
 
   // TODO intelligently allow origin based on production mode, abstract this
@@ -32,7 +33,7 @@ async function bootstrap() {
       'http://localhost:4202',
       'https://biosimulations.dev',
       'https://biosimulations.org',
-      'https://submit.biosimulations.dev',
+      'https://run.biosimulations.dev',
       'https://run.biosimulaions.org',
     ];
     console.log(requestOrigin);
