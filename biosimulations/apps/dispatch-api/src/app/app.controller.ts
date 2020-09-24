@@ -24,7 +24,6 @@ import {
 } from '@nestjs/swagger';
 
 import { v4 as uuid } from 'uuid';
-import * as fs from 'fs';
 import path from 'path';
 import { urls } from '@biosimulations/config/common';
 import { ModelsService } from './resources/models/models.service';
@@ -105,7 +104,7 @@ export class AppController implements OnApplicationBootstrap {
     const simSpec: SimulationDispatchSpec = {
       authorEmail: bodyData.authorEmail,
       nameOfSimulation: bodyData.nameOfSimulation,
-      simulator: bodyData.simulator,
+      simulator: bodyData.simulator.toLowerCase(),
       simulatorVersion: bodyData.simulatorVersion,
       filename: file.originalname,
       uniqueFilename,
@@ -181,7 +180,9 @@ export class AppController implements OnApplicationBootstrap {
 
     for (const sedml of sedmls) {
       structure[sedml] = [];
-      const taskFiles = await FileModifiers.readDir(path.join(resultPath, sedml));
+      const taskFiles = await FileModifiers.readDir(
+        path.join(resultPath, sedml)
+      );
       taskFiles.forEach((taskFile: string) => {
         if (taskFile.endsWith('.csv')) {
           structure[sedml].push(taskFile.split('.csv')[0]);
@@ -227,7 +228,20 @@ export class AppController implements OnApplicationBootstrap {
     };
   }
 
-  @Get('simulators')
+  @Post('/jobinfo')
+  @ApiResponse({
+    status: 200,
+    description: 'Fetch all simulation information',
+    type: Object,
+  })
+  async getJobInfo(@Body() listUid: string[]) {
+    return {
+      message: 'Data fetched successfully',
+      data: await this.modelsService.getData(listUid),
+    };
+  }
+
+  @Get('/simulators')
   @ApiResponse({
     status: 200,
     description: 'Get all simulators and their versions',
