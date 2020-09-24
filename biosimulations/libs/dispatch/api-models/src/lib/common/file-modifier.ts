@@ -1,8 +1,6 @@
 import * as fs from 'fs';
 
-// TODO: Move file modifier to shared libs 
 export class FileModifiers {
-
   static readDir(dirPath: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       fs.readdir(dirPath, (err, data) => {
