@@ -2,14 +2,14 @@
 @import 'biosimulations-typography';
 
 html {
-  height: 100%;
+  min-height: 100%;
   scroll-behavior: smooth;
   font-size: 16px;
 }
 
 body {
   margin: 0;
-  height: 100%;
+  min-height: 100%;
 }
 
 /* Page content */
@@ -67,7 +67,7 @@ h2,
   margin: 0;
   padding: 0;
 
-  &>*:after:not(:last-child) {
+  & > *:after:not(:last-child) {
     content: ', ';
   }
 }
@@ -164,7 +164,7 @@ a {
 }
 
 .zoom {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .zoom:hover {
@@ -197,13 +197,12 @@ a {
 /* forms */
 biosimulations-root {
   .mat-form-field {
-      display: block;
-      letter-spacing: unset;
+    display: block;
+    letter-spacing: unset;
   }
 
   .mat-form-field-appearance-fill {
-
-    .mat-form-field-flex  {
+    .mat-form-field-flex {
       padding: 0.75em 0.75em 0;
       background-color: $light-background;
     }
@@ -227,26 +226,29 @@ biosimulations-root {
   }
 
   .mat-form-field-prefix biosimulations-icon {
-      font-size: 32px;
-      position: relative;
-      top: -0.125rem;
-      margin-right: 0.5rem;
-      color: rgba(0, 0, 0, 0.7);
+    font-size: 32px;
+    position: relative;
+    top: -0.125rem;
+    margin-right: 0.5rem;
+    color: rgba(0, 0, 0, 0.7);
   }
 
   .ngx-mat-file-input .mat-icon-button.mat-primary {
     color: rgba(0, 0, 0, 0.8);
   }
 
-  .mat-form-field:not(.mat-form-field-appearance-legacy) .ngx-mat-file-input .mat-form-field-suffix .mat-icon-button {
+  .mat-form-field:not(.mat-form-field-appearance-legacy)
+    .ngx-mat-file-input
+    .mat-form-field-suffix
+    .mat-icon-button {
     width: 1.5em;
     margin-right: 0.2rem;
   }
 
   form {
     .mat-flat-button {
-        padding: 0 .75em;
-        background-color: $light-background;
+      padding: 0 0.75em;
+      background-color: $light-background;
     }
   }
 }
@@ -275,7 +277,8 @@ code {
   padding: 0.25rem;
 }
 
-code, pre {
+code,
+pre {
   font-size: 90%;
   background: $light-background;
 }
@@ -287,7 +290,8 @@ code, pre {
 /* range slider */
 npn-slider .slider {
   .bar {
-    & > span.left-handle, & > span.right-handle {
+    & > span.left-handle,
+    & > span.right-handle {
       border-color: mat-color($theme-primary) !important;
       background: mat-color($theme-primary, lighter) !important;
 
@@ -359,22 +363,23 @@ table {
     background: mat-color($theme-primary, lightest);
   }
 
-  .mat-cell, .mat-header-cell {
+  .mat-cell,
+  .mat-header-cell {
     @include mat-typography-level-to-styles($fontConfig, body-1);
 
     &:not(:first-of-type) {
-        padding-left: 0.25rem;
-        border-left: 1px solid $light-bg-darker-5;
+      padding-left: 0.25rem;
+      border-left: 1px solid $light-bg-darker-5;
     }
     &:not(:last-of-type) {
-        padding-right: 0.25rem;
+      padding-right: 0.25rem;
     }
 
     &:first-of-type {
-        padding-left: 0.5rem;
+      padding-left: 0.5rem;
     }
     &:last-of-type {
-        padding-right: 0.5rem;
+      padding-right: 0.5rem;
     }
   }
 
@@ -386,7 +391,7 @@ table {
   .mat-cell {
     color: $dark-primary-text;
     *:focus {
-        outline: none;
+      outline: none;
     }
   }
 
