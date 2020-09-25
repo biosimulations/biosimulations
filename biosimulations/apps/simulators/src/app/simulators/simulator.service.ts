@@ -5,6 +5,14 @@ import { urls } from '@biosimulations/config/common';
 import { map, pluck, shareReplay } from 'rxjs/operators';
 //TODO set the api interface type
 import { Simulator } from '@biosimulations/simulators/api-models';
+
+export interface Version {
+  version: string;
+  date: Date;
+  image: string;
+  url?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class SimulatorService {
   endpoint = urls.simulatorsApi + 'simulators/';
@@ -27,7 +35,7 @@ export class SimulatorService {
       })
     );
   }
-  getOneByVersion(id: string, version: string) {
+  getOneByVersion(id: string, version: string): Observable<Simulator> {
     return this.getAll().pipe(
       map((value: Simulator[]) => {
         return value.filter(
@@ -45,13 +53,18 @@ export class SimulatorService {
     );
   }
 
-  getVersions(simId: string): Observable<string[]> {
+  getVersions(simId: string): Observable<Version[]> {
     return this.allSims.pipe(
       map((sims: Simulator[]) => {
         const versions = [];
         for (const sim of sims) {
           if (sim.id === simId) {
-            versions.push(sim.version);
+            versions.push({
+              version: sim.version,
+              image: sim.image,
+              date: sim.created,
+              url: sim.url,
+            });
           }
         }
         return versions;
