@@ -234,6 +234,27 @@ export class AppController implements OnApplicationBootstrap {
           //   data: fileContent.toString(),
           // };
         }
+      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED){
+        res.send({message: 'Can\'t fetch logs if the simulation is QUEUED'})
+      } else {
+        filePath = path.join(logPath, 'job.output');
+        console.log('Filepath: ', filePath);
+        console.log('Download: ', download);
+        if (download) {
+          console.log('Inside download true');
+          res.set('Content-Type', 'text/html');
+          res.download(filePath);
+          // return null;
+        } else {
+          console.log('Inside download false');
+          const fileContent = (
+            await FileModifiers.readFile(filePath)
+          ).toString();
+          res.set('Content-Type', 'application/json');
+          res.send({
+            data: fileContent,
+          });
+        }
       }
     }
     // return null;
