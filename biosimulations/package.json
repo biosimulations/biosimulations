@@ -73,7 +73,7 @@
     "csv2json": "^2.0.2",
     "jwks-rsa": "^1.8.1",
     "localforage": "^1.5.0",
-    "mongoose": "^5.10.6",
+    "mongoose": "^5.10.7",
     "nats": "^1.4.12",
     "nestjs-typegoose": "^7.1.37",
     "ngx-markdown": "^10.1.0",
