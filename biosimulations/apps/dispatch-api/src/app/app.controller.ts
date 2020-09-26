@@ -21,6 +21,7 @@ import {
   ApiConsumes,
   ApiBody,
   ApiQuery,
+  ApiProperty
 } from '@nestjs/swagger';
 
 import { v4 as uuid } from 'uuid';
@@ -164,37 +165,78 @@ export class AppController implements OnApplicationBootstrap {
     res.download(zipPath);
   }
 
-  @Get('download/logs/:uuid')
+  @Get('logs/:uuid')
   @ApiOperation({
-    summary: 'Downloads log file',
+    summary: 'Log file',
   })
   @ApiResponse({
     status: 200,
-    description: 'Download all results as zip archive',
+    description: 'Download or get response for log files',
     type: Object,
   })
   async downloadLogFile(
     @Param('uuid') uId: string,
+    @Query('download') download: boolean,
     @Res() res: any
   ): Promise<void> {
     const fileStorage = process.env.FILE_STORAGE || '';
     const logPath = path.join(fileStorage, 'simulations', uId, 'out');
     const simInfo = await this.modelsService.get(uId);
 
+    //TODO: Nestjs is internally converting boolean query param to string, remove this workaround after fixed
+    download = String(download) === 'false'? false: true
+
     if (simInfo === null) {
       res.send({ message: 'Cannot find the UUID specified' });
+      // return {
+      //   message: 'Cannot find the UUID specified',
+      // };
     } else {
-      switch (simInfo.currentStatus) {
-        case DispatchSimulationStatus.SUCCEEDED:
-          const logOutPath = path.join(logPath, 'job.output');
-          res.download(logOutPath);
-          break;
-        case DispatchSimulationStatus.FAILED:
-          const logErrPath = path.join(logPath, 'job.error');
-          res.download(logErrPath);
-          break;
+      let filePath: string = '';
+      if (simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) {
+        filePath = path.join(logPath, 'job.output');
+        console.log('Filepath: ', filePath);
+        console.log('Download: ', download);
+        if (download) {
+          console.log('Inside download true');
+          res.set('Content-Type', 'text/html');
+          res.download(filePath);
+          // return null;
+        } else {
+          console.log('Inside download false');
+          const fileContent = (
+            await FileModifiers.readFile(filePath)
+          ).toString();
+          res.set('Content-Type', 'application/json');
+          res.send({
+            data: fileContent,
+          });
+          // return {
+          //   data: fileContent.toString(),
+          // };
+        }
+      } else if (simInfo.currentStatus === DispatchSimulationStatus.FAILED) {
+        filePath = path.join(logPath, 'job.error');
+        console.log('Filepath: ', filePath);
+        if (download) {
+          res.set('Content-Type', 'text/html');
+          res.download(filePath);
+          // return null;
+        } else {
+          const fileContent = (
+            await FileModifiers.readFile(filePath)
+          ).toString();
+          res.set('Content-Type', 'application/json');
+          res.send({
+            data: fileContent,
+          });
+          // return {
+          //   data: fileContent.toString(),
+          // };
+        }
       }
     }
+    // return null;
   }
 
   @Get('result/structure/:uuid')
@@ -259,6 +301,9 @@ export class AppController implements OnApplicationBootstrap {
       sedml,
       task
     );
+
+    //TODO: Nestjs is internally converting boolean query param to string, remove this workaround after fixed
+    chart = String(chart) === 'false'? false: true;
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
     const fileContentBuffer = await FileModifiers.readFile(filePath);
     const fileContent = JSON.parse(fileContentBuffer.toString());
