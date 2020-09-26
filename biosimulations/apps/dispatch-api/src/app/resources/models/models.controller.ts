@@ -1,6 +1,6 @@
 import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ModelsService } from './models.service';
 
 @Controller()
@@ -9,6 +9,7 @@ export class ModelsController {
 
   // Note: Temp route to test DB linkage
   @Post('db-save')
+  @ApiConsumes('application/json')
   @ApiOperation({
     summary: 'Save to DB',
   })

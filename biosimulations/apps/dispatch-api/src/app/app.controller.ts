@@ -173,16 +173,27 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Download all results as zip archive',
     type: Object,
   })
-  downloadLogFile(@Param('uuid') uId: string, @Res() res: any): void {
+  async downloadLogFile(
+    @Param('uuid') uId: string,
+    @Res() res: any
+  ): Promise<void> {
     const fileStorage = process.env.FILE_STORAGE || '';
     const logPath = path.join(fileStorage, 'simulations', uId, 'out');
+    const simInfo = await this.modelsService.get(uId);
 
-    if (DispatchSimulationStatus.SUCCEEDED) {
-      const logOutPath = path.join(logPath, 'job.output');
-      res.download(logOutPath);
-    } else if (DispatchSimulationStatus.FAILED) {
-      const logErrPath = path.join(logPath, 'job.error');
-      res.download(logErrPath);
+    if (simInfo === null) {
+      res.send({ message: 'Cannot find the UUID specified' });
+    } else {
+      switch (simInfo.currentStatus) {
+        case DispatchSimulationStatus.SUCCEEDED:
+          const logOutPath = path.join(logPath, 'job.output');
+          res.download(logOutPath);
+          break;
+        case DispatchSimulationStatus.FAILED:
+          const logErrPath = path.join(logPath, 'job.error');
+          res.download(logErrPath);
+          break;
+      }
     }
   }
 
@@ -237,7 +248,7 @@ export class AppController implements OnApplicationBootstrap {
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
     @Query('task') task: string
-  ):Promise<{}> {
+  ): Promise<{}> {
     const fileStorage = process.env.FILE_STORAGE || '';
 
     const jsonPath = path.join(
@@ -282,7 +293,9 @@ export class AppController implements OnApplicationBootstrap {
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(@Query('name') simulatorName: string): Promise<string[]> {
+  async getAllSimulatorVersion(
+    @Query('name') simulatorName: string
+  ): Promise<string[]> {
     if (simulatorName === undefined) {
       // Getting info of all available simulators
       const simulatorsInfo: any = await this.httpService
