@@ -21,8 +21,10 @@ import {
   ApiConsumes,
   ApiBody,
   ApiQuery,
-  ApiProperty
+  ApiProperty,
+  ApiTags,
 } from '@nestjs/swagger';
+
 
 import { v4 as uuid } from 'uuid';
 import path from 'path';
@@ -36,6 +38,7 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { MQDispatch } from '@biosimulations/messages';
 import { FileModifiers } from '@biosimulations/dispatch/api-models';
+
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
@@ -44,7 +47,7 @@ export class AppController implements OnApplicationBootstrap {
     private httpService: HttpService,
     private modelsService: ModelsService
   ) {}
-
+  @ApiTags('Dispatch')
   @Post('dispatch')
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Dispatch a simulation job' })
@@ -151,7 +154,7 @@ export class AppController implements OnApplicationBootstrap {
       },
     };
   }
-
+  @ApiTags('Dispatch')
   @Get('download/:uuid')
   @ApiOperation({ summary: 'Downloads result files' })
   @ApiResponse({
@@ -164,7 +167,7 @@ export class AppController implements OnApplicationBootstrap {
     const zipPath = path.join(fileStorage, 'simulations', uId, `${uId}.zip`);
     res.download(zipPath);
   }
-
+  @ApiTags('Dispatch')
   @Get('logs/:uuid')
   @ApiOperation({
     summary: 'Log file',
@@ -184,7 +187,7 @@ export class AppController implements OnApplicationBootstrap {
     const simInfo = await this.modelsService.get(uId);
 
     //TODO: Nestjs is internally converting boolean query param to string, remove this workaround after fixed
-    download = String(download) === 'false'? false: true
+    download = String(download) === 'false' ? false : true;
 
     if (simInfo === null) {
       res.send({ message: 'Cannot find the UUID specified' });
@@ -234,8 +237,8 @@ export class AppController implements OnApplicationBootstrap {
           //   data: fileContent.toString(),
           // };
         }
-      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED){
-        res.send({message: 'Can\'t fetch logs if the simulation is QUEUED'})
+      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
+        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
       } else {
         filePath = path.join(logPath, 'job.output');
         console.log('Filepath: ', filePath);
@@ -259,7 +262,7 @@ export class AppController implements OnApplicationBootstrap {
     }
     // return null;
   }
-
+  @ApiTags('Dispatch')
   @Get('result/structure/:uuid')
   @ApiOperation({ summary: 'Shows result structure' })
   @ApiResponse({
@@ -295,7 +298,7 @@ export class AppController implements OnApplicationBootstrap {
       data: structure,
     };
   }
-
+  @ApiTags('Dispatch')
   @Get('result/:uuid')
   @ApiOperation({
     summary:
@@ -324,7 +327,7 @@ export class AppController implements OnApplicationBootstrap {
     );
 
     //TODO: Nestjs is internally converting boolean query param to string, remove this workaround after fixed
-    chart = String(chart) === 'false'? false: true;
+    chart = String(chart) === 'false' ? false : true;
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
     const fileContentBuffer = await FileModifiers.readFile(filePath);
     const fileContent = JSON.parse(fileContentBuffer.toString());
@@ -335,20 +338,7 @@ export class AppController implements OnApplicationBootstrap {
     };
   }
 
-  @Post('/jobinfo')
-  @ApiOperation({ summary: 'Fetches job information from Database' })
-  @ApiResponse({
-    status: 200,
-    description: 'Fetch all simulation information',
-    type: Object,
-  })
-  async getJobInfo(@Body() listUid: string[]): Promise<{}> {
-    return {
-      message: 'Data fetched successfully',
-      data: await this.modelsService.getData(listUid),
-    };
-  }
-
+  @ApiTags('Simulators')
   @Get('/simulators')
   @ApiOperation({
     summary: 'Gives Information about all simulators avialable from dockerHub',
