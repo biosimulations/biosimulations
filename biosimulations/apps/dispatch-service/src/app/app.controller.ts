@@ -82,7 +82,6 @@ export class AppController {
     return { message: 'Simulation dispatch started.' };
   }
 
-  // TODO: Add API to send required info dispatch_finish pattern to NATS
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
     const fileStorage = process.env.FILE_STORAGE || '';

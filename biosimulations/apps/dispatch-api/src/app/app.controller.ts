@@ -90,7 +90,6 @@ export class AppController implements OnApplicationBootstrap {
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
   ): Promise<{}> {
-    // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
     // TODO: Create the required folders automatically
     const fileStorage = process.env.FILE_STORAGE;
     const omexStorage = `${fileStorage}/OMEX/ID`;
