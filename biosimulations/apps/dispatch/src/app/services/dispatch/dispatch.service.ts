@@ -40,5 +40,10 @@ export class DispatchService {
     return this.http.get(`${endpoint}?name=${simulatorName}`);
   }
 
+  getSimulationLogs(uuid: string) {
+    const endpoint = `${urls.dispatchApi}/logs/${uuid}?download=false`;
+    return this.http.get(endpoint);
+  }
+
   constructor(private http: HttpClient) {}
 }

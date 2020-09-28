@@ -11,6 +11,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 import { VisualisationComponent } from './visualisation/visualisation.component';
+import { DispatchService } from '../../../services/dispatch/dispatch.service';
 
 @Component({
   templateUrl: './view.component.html',
@@ -48,7 +49,8 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
-    private visualisationService: VisualisationService
+    private visualisationService: VisualisationService,
+    private dispatchService: DispatchService
   ) {
     this.formGroup = formBuilder.group({
       sedml: ['', [Validators.required]],
@@ -67,6 +69,16 @@ export class ViewComponent implements OnInit {
           // this.simulationService.storeSimulation(data['data']);
         });
     }
+
+    this.dispatchService.getSimulationLogs(this.uuid)
+    .subscribe((data: any) => {
+      if(data.data === undefined) {
+        this.log = data.message;
+      } else {
+        this.log = data.data;
+      }
+    })
+
   }
 
   setProjectResults(projectStructure: any): void {

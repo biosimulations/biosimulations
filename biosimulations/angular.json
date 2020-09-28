@@ -931,7 +931,9 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "dispatch-api:build"
+            "buildTarget": "dispatch-api:build",
+            "inspect": true,
+            "port": 4444
           }
         },
         "lint": {
