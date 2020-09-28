@@ -185,7 +185,6 @@ export class AppController implements OnApplicationBootstrap {
     const logPath = path.join(fileStorage, 'simulations', uId, 'out');
     const simInfo = await this.modelsService.get(uId);
 
-    //TODO: Nestjs is internally converting boolean query param to string, remove this workaround after fixed
     download = String(download) === 'false' ? false : true;
 
     if (simInfo === null) {
@@ -325,7 +324,6 @@ export class AppController implements OnApplicationBootstrap {
       task
     );
 
-    //TODO: Nestjs is internally converting boolean query param to string, remove this workaround after fixed
     chart = String(chart) === 'false' ? false : true;
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
     const fileContentBuffer = await FileModifiers.readFile(filePath);

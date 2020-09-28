@@ -12,25 +12,6 @@ import { ModelsService } from './models.service';
 export class ModelsController {
   constructor(private modelsService: ModelsService) {}
 
-  // Note: Temp route to test DB linkage
-
-  @Post('db-save')
-  @ApiConsumes('application/json')
-  @ApiOperation({
-    summary: 'Save to DB',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Temp route to test DB linkage',
-    type: Object,
-  })
-  dbSave(@Body() model: DispatchSimulationModelDB): {} {
-    this.modelsService.createNewDispatchSimulationModel(model);
-    return {
-      message: 'OK',
-    };
-  }
-
   @Post('/jobinfo')
   @ApiOperation({ summary: 'Fetches job information from Database' })
   @ApiResponse({
