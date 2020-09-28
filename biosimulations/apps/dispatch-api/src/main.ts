@@ -34,7 +34,7 @@ async function bootstrap() {
       'https://biosimulations.dev',
       'https://biosimulations.org',
       'https://run.biosimulations.dev',
-      'https://run.biosimulaions.org',
+      'https://run.biosimulations.org',
     ];
     console.log(requestOrigin);
     const allow = allowedOrigins.includes(requestOrigin);
