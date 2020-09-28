@@ -25,7 +25,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-
 import { v4 as uuid } from 'uuid';
 import path from 'path';
 import { urls } from '@biosimulations/config/common';
@@ -352,19 +351,24 @@ export class AppController implements OnApplicationBootstrap {
   async getAllSimulatorVersion(
     @Query('name') simulatorName: string
   ): Promise<string[]> {
-    if (simulatorName === undefined) {
-      // Getting info of all available simulators
-      const simulatorsInfo: any = await this.httpService
-        .get(`${urls.fetchSimulatorsInfo}`)
-        .toPromise();
-      const allSimulators: any = [];
+    // Getting info of all available simulators
+    const simulatorsInfo: any = await this.httpService
+      .get(`${urls.fetchSimulatorsInfo}`)
+      .toPromise();
 
-      for (const simulatorInfo of simulatorsInfo['data']['results']) {
-        allSimulators.push(simulatorInfo['name']);
-      }
-      return allSimulators;
+    const allSimulators: any = [];
+
+    for (const simulatorInfo of simulatorsInfo['data']['results']) {
+      allSimulators.push(simulatorInfo['name']);
     }
 
+    if (simulatorName === undefined) {
+      return allSimulators;
+    } else if (!allSimulators.includes(simulatorName)) {
+      return [
+        `Simulator ${simulatorName.toUpperCase()} is not supported, check for supported simulators on https://biosimulators.org/simulators.`,
+      ];
+    }
     const simVersionRes = this.httpService.get(
       `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
     );
