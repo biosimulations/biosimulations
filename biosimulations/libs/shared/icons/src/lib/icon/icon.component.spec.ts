@@ -41,7 +41,7 @@ describe('IconComponent', () => {
       component.icon = key as biosimulationsIcon
       fixture.detectChanges();
       fixture.componentInstance.iconComponent.ngOnInit()
-      console.log(key)
+
       expect(fixture.componentInstance.iconComponent.iconInfo.name).toEqual(iconMap[key as biosimulationsIcon].name)
     }
 
