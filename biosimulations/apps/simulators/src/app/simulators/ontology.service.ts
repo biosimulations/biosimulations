@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import edamJson from './edam.json';
-import kisaoJson from './kisao.json';
-import sboJson from './sbo.json';
+
 import spdxJson from './spdx.json';
 import {
   IOntologyTerm,
@@ -160,9 +158,9 @@ export class OntologyService {
     return this.getTerm(this.edamTerms, id);
   }
   getSboTerm(id: string): Observable<SBOTerm> {
-    if (id.startsWith("SBO_")) {
+    if (!id.startsWith("SBO_")) {
 
-    } else {
+
       id = "SBO_" + id
     }
     return this.getTerm(this.sboTerms, id);

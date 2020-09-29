@@ -25,22 +25,10 @@ import {
 } from '@biosimulations/shared/ui';
 import { SimulatorService } from '../simulator.service';
 import { ViewSimulatorService } from './view-simulator.service';
-import edamJson from '../edam.json';
-import kisaoJson from '../kisao.json';
-import sboJson from '../sbo.json';
-import spdxJson from '../spdx.json';
+
+
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { ViewAlgorithm, ViewSimulator } from './view-simulator.interface';
-const edamTerms = edamJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
-const kisaoTerms = kisaoJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
-const sboTerms = sboJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
-const spdxTerms = spdxJson as { [id: string]: { name: string; url: string } };
 
 interface Algorithm extends ViewAlgorithm {
   id: string;
@@ -109,7 +97,7 @@ export class ViewSimulatorComponent implements OnInit {
     public route: ActivatedRoute,
     private service: SimulatorService,
     private simService: ViewSimulatorService
-  ) {}
+  ) { }
 
   loadingSubject = new BehaviorSubject(true);
   loading$!: Observable<boolean>;
@@ -185,10 +173,11 @@ export class ViewSimulatorComponent implements OnInit {
       ids.push(parameter.kisaoId);
     }
 
-    const name = kisaoTerms[parameter.kisaoId].name;
+    //TODO get name from ontology service
+    const name = parameter.kisaoId;
 
     if (ids.length) {
-      return kisaoTerms[parameter.kisaoId].name + ' (' + ids.join(', ') + ')';
+      return name + ' (' + ids.join(', ') + ')';
     } else {
       return name;
     }
