@@ -14,7 +14,7 @@ import {
 } from '@biosimulations/shared/datamodel';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
-
+import { urls } from '@biosimulations/config/common'
 @Injectable({ providedIn: 'root' })
 export class OntologyService {
   kisaoTerms: Observable<{ [id: string]: KISAOTerm }>;
@@ -34,7 +34,7 @@ export class OntologyService {
 
 
   }
-
+  endpoint = urls.ontologyApi
   getKisaoUrl(id: string): string {
     return (
       'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_' +
@@ -43,7 +43,7 @@ export class OntologyService {
   }
   private fetchKisaoTerms(): Observable<{ [id: string]: KISAOTerm }> {
     return this.http
-      .get<KISAOTerm[]>('https://ontology.biosimulations.dev/kisao/list')
+      .get<KISAOTerm[]>(this.endpoint + '/kisao/list')
       .pipe(
         shareReplay(1),
         map((terms) => {
@@ -60,7 +60,7 @@ export class OntologyService {
     [id: string]: SBOTerm;
   }> {
     return this.http
-      .get<SBOTerm[]>('https://ontology.biosimulations.dev/sbo/list')
+      .get<SBOTerm[]>(this.endpoint + '/sbo/list')
       .pipe(
         shareReplay(1),
         map((terms) => {
@@ -77,7 +77,7 @@ export class OntologyService {
     [id: string]: EDAMTerm;
   }> {
     return this.http
-      .get<EDAMTerm[]>('https://ontology.biosimulations.dev/edam/list')
+      .get<EDAMTerm[]>(this.endpoint + '/edam/list')
       .pipe(
         shareReplay(1),
         map((terms) => {

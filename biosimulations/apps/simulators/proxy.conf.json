@@ -5,5 +5,12 @@
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": { "^/simulators-api": "/simulators" }
+  },
+  "/ontology-api": {
+    "target": "http://localhost:3333/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/ontology-api": "" }
   }
 }
