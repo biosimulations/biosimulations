@@ -169,7 +169,7 @@ export class IconComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.icon)
+
     this.iconInfo = this.iconMap[this.icon];
     if (!this.iconInfo) {
       console.error("icon '" + this.icon + "' not found in library")

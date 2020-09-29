@@ -48,7 +48,7 @@ export class BreadCrumbsComponent implements OnInit {
         label = label
           ? label + ' ' + route.snapshot.params[paramName]
           : route.snapshot.params[paramName];
-        console.log(label);
+
       }
     };
 
