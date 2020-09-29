@@ -1,3 +1,4 @@
+import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -95,18 +96,19 @@ export class BrowseComponent implements OnInit {
       heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
+        const dateVal = new Date(value);
         return (
-          value.getFullYear().toString() +
+          dateVal.getFullYear().toString() +
           '-' +
-          (value.getMonth() + 1).toString().padStart(2, '0') +
+          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          value.getDate().toString().padStart(2, '0') +
+          dateVal.getDate().toString().padStart(2, '0') +
           ' ' +
-          value.getHours().toString().padStart(2, '0') +
+          dateVal.getHours().toString().padStart(2, '0') +
           ':' +
-          value.getMinutes().toString().padStart(2, '0') +
+          dateVal.getMinutes().toString().padStart(2, '0') +
           ':' +
-          value.getSeconds().toString().padStart(2, '0')
+          dateVal.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
@@ -117,18 +119,19 @@ export class BrowseComponent implements OnInit {
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
+        const dateVal = new Date(value);
         return (
-          value.getFullYear().toString() +
+          dateVal.getFullYear().toString() +
           '-' +
-          (value.getMonth() + 1).toString().padStart(2, '0') +
+          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          value.getDate().toString().padStart(2, '0') +
+          dateVal.getDate().toString().padStart(2, '0') +
           ' ' +
-          value.getHours().toString().padStart(2, '0') +
+          dateVal.getHours().toString().padStart(2, '0') +
           ':' +
-          value.getMinutes().toString().padStart(2, '0') +
+          dateVal.getMinutes().toString().padStart(2, '0') +
           ':' +
-          value.getSeconds().toString().padStart(2, '0')
+          dateVal.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
@@ -166,7 +169,7 @@ export class BrowseComponent implements OnInit {
       leftLinkType: ColumnLinkType.href,
       leftHref: (simulation: Simulation): string | null => {
         if (simulation.status === SimulationStatus.succeeded) {
-          return 'download-results/' + simulation.id;
+          return `${urls.dispatchApi}/download/${simulation.id}`;
         } else {
           return null;
         }

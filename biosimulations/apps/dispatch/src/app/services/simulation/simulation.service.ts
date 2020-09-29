@@ -1,3 +1,4 @@
+import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 import { Injectable } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../datamodel';
 import { Storage } from '@ionic/storage';
@@ -14,28 +15,44 @@ export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
   private simulationIds: string[] = [];
-  private simulationsSubject = new BehaviorSubject<Simulation[]>(this.simulations);
-  public simulations$: Observable<Simulation[]> = this.simulationsSubject.asObservable();
+  private simulationsSubject = new BehaviorSubject<Simulation[]>(
+    this.simulations
+  );
+  public simulations$: Observable<
+    Simulation[]
+  > = this.simulationsSubject.asObservable();
 
-  private refreshInterval!: number;
+  private refreshInterval!: any;
 
-  constructor(config: ConfigService, private storage: Storage, private httpClient: HttpClient) {
+  constructor(
+    config: ConfigService,
+    private storage: Storage,
+    private httpClient: HttpClient
+  ) {
     this.storage.ready().then(() => {
       this.storage.keys().then((keys) => {
         if (keys.includes(this.key)) {
           this.storage.get(this.key).then((simulations): void => {
             this.simulations = simulations;
-            this.simulationIds = simulations.map((simulation: Simulation) => simulation.id);
+            this.simulationIds = simulations.map(
+              (simulation: Simulation) => simulation.id
+            );
             this.simulationsSubject.next(simulations);
             this.updateSimulations();
-            this.refreshInterval = setInterval(() => this.updateSimulations(), config.appConfig?.simulationStatusRefreshIntervalSec * 1000);
+            this.refreshInterval = setInterval(
+              () => this.updateSimulations(),
+              config.appConfig?.simulationStatusRefreshIntervalSec * 1000
+            );
           });
         } else {
           const simulations: Simulation[] = [];
           this.simulations = simulations;
           this.simulationIds = [];
           this.simulationsSubject.next(simulations);
-          this.refreshInterval = setInterval(() => this.updateSimulations(), config.appConfig?.simulationStatusRefreshIntervalSec * 1000);
+          this.refreshInterval = setInterval(
+            () => this.updateSimulations(),
+            config.appConfig?.simulationStatusRefreshIntervalSec * 1000
+          );
         }
       });
     });
@@ -61,7 +78,10 @@ export class SimulationService {
     // no updates needed if no simulation is queued or running
     let activeSimulation = false;
     for (const simulation of this.simulations) {
-      if (simulation.status !== SimulationStatus.failed && simulation.status !== SimulationStatus.succeeded) {
+      if (
+        simulation.status !== SimulationStatus.failed &&
+        simulation.status !== SimulationStatus.succeeded
+      ) {
         activeSimulation = true;
         break;
       }
@@ -73,46 +93,80 @@ export class SimulationService {
     // update status
     // TODO: connect with API
     // TODO: only get and update status of
-    const endpoint = `${urls.dispatchApi}/simulations`;
+    const endpoint = `${urls.dispatchApi}/jobinfo`;
     const ids = this.simulations
       .filter((simulation: Simulation): boolean => {
-        return !(simulation.status === SimulationStatus.succeeded || simulation.status === SimulationStatus.failed);
+        return !(
+          simulation.status === SimulationStatus.succeeded ||
+          simulation.status === SimulationStatus.failed
+        );
       })
       .map((simulation: Simulation): string => {
         return simulation.id;
       })
       .join(',');
 
-    this.httpClient
-      .get(`${endpoint}?ids=${ids}`)
-      .subscribe(
-        (data: any) => {
-          this.setSimulations(data.data, false, true);
-        },
-        (error: HttpErrorResponse) => {
-          if (!environment.production) {
-            console.error('Unable to update simulations: ' + error.status.toString() + ': ' + error.message);
-          }
+    this.httpClient.post(`${endpoint}`, ids.split(',')).subscribe(
+      (data: any) => {
+        // Reformatting simulations according to Simulation interface
+        const simulations: Simulation[] = [];
+        for (const sim of data.data) {
+          console.log(sim);
+          const dispatchSim: DispatchSimulationModelDB = sim;
+          simulations.push({
+            name: dispatchSim.nameOfSimulation,
+            email: dispatchSim.authorEmail,
+            runtime: dispatchSim.duration,
+            id: dispatchSim.uuid,
+            status: (dispatchSim.currentStatus as unknown) as SimulationStatus,
+            submitted: dispatchSim.submittedTime as Date,
+            submittedLocally: true,
+            updated: dispatchSim.statusModifiedTime as Date,
+          });
         }
-      );
+        this.setSimulations(simulations, false, true);
+      },
+      (error: HttpErrorResponse) => {
+        if (!environment.production) {
+          console.error(
+            'Unable to update simulations: ' +
+              error.status.toString() +
+              ': ' +
+              error.message
+          );
+        }
+      }
+    );
   }
 
-  setSimulations(simulations: Simulation[], getStatus = false, updateStatus = false): void {
+  setSimulations(
+    simulations: Simulation[],
+    getStatus = false,
+    updateStatus = false
+  ): void {
     let newSimulations: Simulation[];
     if (updateStatus) {
       newSimulations = [...this.simulations];
 
-      const simulationIdToIndex: {[id: string]: number} = {};
-      newSimulations.forEach((simulation: Simulation, iSimulation: number): void => {
-        simulationIdToIndex[simulation.id] = iSimulation;
-      });
+      const simulationIdToIndex: { [id: string]: number } = {};
+      newSimulations.forEach(
+        (simulation: Simulation, iSimulation: number): void => {
+          simulationIdToIndex[simulation.id] = iSimulation;
+        }
+      );
 
       simulations.forEach((simulation: Simulation): void => {
-        newSimulations.splice(simulationIdToIndex[simulation.id], 1, simulation);
+        newSimulations.splice(
+          simulationIdToIndex[simulation.id],
+          1,
+          simulation
+        );
       });
     } else {
       newSimulations = simulations;
-      this.simulationIds = newSimulations.map((simulation: Simulation): string => simulation.id);
+      this.simulationIds = newSimulations.map(
+        (simulation: Simulation): string => simulation.id
+      );
     }
     this.simulations = newSimulations;
     this.simulationsSubject.next(newSimulations);
