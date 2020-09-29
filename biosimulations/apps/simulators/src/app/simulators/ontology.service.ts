@@ -142,6 +142,8 @@ export class OntologyService {
   getKisaoTerm(id: string): Observable<KISAOTerm> {
     if (id.startsWith("KISAO:")) {
       id = id.replace("KISAO:", "KISAO_")
+    } else if (!id.startsWith("KISAO_")) {
+      id = "KISAO_" + id;
     }
     return this.getTerm(this.kisaoTerms, id);
   }

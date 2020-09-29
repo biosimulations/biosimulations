@@ -3,23 +3,23 @@ import { SimulatorService } from '../simulator.service';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
-
 import { OntologyService } from '../ontology.service';
+import { Simulator } from '@biosimulations/simulators/api-models';
 
 @Injectable()
 export class SimulatorTableService {
   constructor(
     private service: SimulatorService,
     private ontologyService: OntologyService
-  ) {}
+  ) { }
 
   getData(): Observable<TableSimulator[]> {
     const data = this.service.getLatest().pipe(
       //Data from the service is an array of API objects - Convert to array of table objects
-      map((simulators: any[]) => {
+      map((simulators: Simulator[]) => {
         // Go through the array and convert each api object to a an observable of a table object
         //Array of table object observables
-        const tableSimulatorObservables = simulators.map((simulator: any) => {
+        const tableSimulatorObservables = simulators.map((simulator: Simulator) => {
           // Simulator is a api object
           //Use the data to get the definitions for all additional calls
           const frameworks = this.getFrameworks(simulator);
@@ -137,7 +137,7 @@ export class SimulatorTableService {
   getSynonyms(simulator: any): Observable<string[]> {
     const algorithmSynonyms: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
-      for (const synonym of algorithm.kisaoSynonyms) {
+      for (const synonym of algorithm?.kisaoSynonyms || []) {
         algorithmSynonyms.add(synonym.id);
       }
     }

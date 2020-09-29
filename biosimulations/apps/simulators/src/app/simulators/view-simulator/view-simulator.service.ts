@@ -15,7 +15,7 @@ import { OntologyService } from '../ontology.service';
 import { Observable, of } from 'rxjs';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { map, pluck, tap } from 'rxjs/operators';
-import {} from './view-simulator.component';
+import { } from './view-simulator.component';
 import {
   IEdamOntologyId,
   ISboOntologyID,
@@ -27,11 +27,11 @@ export class ViewSimulatorService {
   constructor(
     private simService: SimulatorService,
     private ontService: OntologyService
-  ) {}
+  ) { }
   callMe() {
     console.log('Called');
   }
-  getVersions(simulatorId: string) {}
+  getVersions(simulatorId: string) { }
   getLatest(simulatorId: string) {
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
@@ -55,7 +55,7 @@ export class ViewSimulatorService {
       description: sim.description,
       url: sim.url,
       authors: this.getAuthors(sim),
-      citations: sim?.references?.citations.map(this.makeCitation),
+      citations: sim?.references?.citations?.map(this.makeCitation),
 
       licenseName: this.ontService.getSpdxTerm(sim.license.id).pipe(
         pluck('name'),
@@ -106,10 +106,10 @@ export class ViewSimulatorService {
       value: parameter.value,
       range: parameter.recommendedRange
         ? parameter.recommendedRange
-            .map((val: { toString: () => any }) => {
-              return val.toString();
-            })
-            .join(' - ')
+          .map((val: { toString: () => any }) => {
+            return val.toString();
+          })
+          .join(' - ')
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
@@ -219,7 +219,7 @@ export class ViewSimulatorService {
     text += ' (' + citation.year + ').';
 
     return {
-      url: citation.identifiers[0].url as string,
+      url: citation?.identifiers?.[0]?.url as string || null,
       text: text,
     };
   }
