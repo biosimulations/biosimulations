@@ -46,7 +46,7 @@ export interface ViewParameter {
 }
 
 export interface ViewCitation {
-  url: string;
+  url: string | null;
   text: string;
 }
 

@@ -175,7 +175,7 @@ export class ViewSimulatorComponent implements OnInit {
     }
 
     //TODO get name from ontology service
-    const name = parameter.kisaoId;
+    const name = parameter.name || parameter.id || parameter.kisaoId;
 
     if (ids.length) {
       return name + ' (' + ids.join(', ') + ')';
