@@ -9,17 +9,62 @@ import {
 import { FaIconComponent } from './fa-icon/fa-icon.component';
 import {
   fas,
-  faFilm,
-  faUsers,
-  faDna,
-  faBezierCurve,
   faHome,
+  faLink,
+  faExternalLinkAlt,
+  faAngleDoubleUp,
+  faEnvelope,
+  faFileAlt,
+  faUser,
+  faUserEdit,
+  faUserCog,
+  faPencilAlt,
+  faTasks,
+  faSignInAlt,
+  faSignOutAlt,
+  faQuestionCircle,
+  faBookOpen,
+  faInfoCircle,
+  faBalanceScale,
+  faShieldAlt,
+  faCommentDots,
+  faBug,
+  faExclamation,
+  faFolderOpen,
+  faProjectDiagram,
+  faChartBar,
+  faPaintBrush,
+  faList,
+  faTable,
+  faDownload,
+  faUpload,
+  faTerminal,
+  faFilter,
+  faColumns,
+  faSyncAlt,
+  faDna,
+  faCalculator,
+  faCertificate,
+  faCog,
+  faCogs,
+  faDatabase,
+  faHashtag,
+  faTag,
+  faTags,
+  faTachometerAlt,
+  faCalendarAlt,
+  faStopwatch,
+  faCopy,
+  faCodeBranch,
+
+
+
 } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far, faFile, faUser } from '@fortawesome/free-regular-svg-icons';
+import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare } from '@fortawesome/free-brands-svg-icons';
+import { far, faFile, } from '@fortawesome/free-regular-svg-icons';
 import { MatIconComponent } from './mat-icon/mat-icon.component';
 import { CCIconComponent } from './cc-icon/cc-icon.component';
-export {biosimulationsIcon} from './icon/icon.component'
+export { biosimulationsIcon } from './icon/icon.component'
 @NgModule({
   imports: [CommonModule, MatIconModule, FontAwesomeModule],
   declarations: [
@@ -33,8 +78,57 @@ export {biosimulationsIcon} from './icon/icon.component'
 })
 export class BiosimulationsIconsModule {
   constructor(library: FaIconLibrary) {
-    library.addIconPacks(far);
-    library.addIconPacks(fas);
-    library.addIconPacks(fab);
+
+    library.addIcons(
+      faHome,
+      faLink,
+      faExternalLinkAlt,
+      faAngleDoubleUp,
+      faEnvelope,
+      faFileAlt,
+      faUser,
+      faUserEdit,
+      faUserCog,
+      faPencilAlt,
+      faTasks,
+      faSignInAlt,
+      faSignOutAlt,
+      faQuestionCircle,
+      faBookOpen,
+      faInfoCircle,
+      faBalanceScale,
+      faShieldAlt,
+      faCommentDots,
+      faBug,
+      faExclamation,
+      faFolderOpen,
+      faProjectDiagram,
+      faChartBar,
+      faPaintBrush,
+      faList,
+      faTable,
+      faDownload,
+      faUpload,
+      faTerminal,
+      faFilter,
+      faColumns,
+      faSyncAlt,
+      faDna,
+      faCalculator,
+      faCertificate,
+      faCog,
+      faCogs,
+      faDatabase,
+      faHashtag,
+      faTag,
+      faTags,
+      faTachometerAlt,
+      faCalendarAlt,
+      faStopwatch,
+      faCopy,
+      faCodeBranch,
+      faGitAlt,
+      faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare)
+
   }
 }
