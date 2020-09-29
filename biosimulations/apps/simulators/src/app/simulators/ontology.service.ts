@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import spdxLicenseList from 'spdx-license-list/full'
 
-import spdxJson from './spdx.json';
 import {
   IOntologyTerm,
   Ontologies,
@@ -20,7 +20,7 @@ export class OntologyService {
   kisaoTerms: Observable<{ [id: string]: KISAOTerm }>;
   edamTerms: Observable<{ [id: string]: EDAMTerm }>;
   sboTerms: Observable<{ [id: string]: SBOTerm }>;
-  spdxTerms: Observable<{ [id: string]: SPDXTerm }>;
+
 
   constructor(private http: HttpClient) {
     this.kisaoTerms = this.fetchKisaoTerms();
@@ -32,8 +32,7 @@ export class OntologyService {
     this.sboTerms = this.fetchSBOTerms();
     this.sboTerms.subscribe();
 
-    this.spdxTerms = this.fetchSpdxTerms();
-    this.spdxTerms.subscribe();
+
   }
 
   getKisaoUrl(id: string): string {
@@ -91,14 +90,7 @@ export class OntologyService {
         })
       );
   }
-  private fetchSpdxTerms(): Observable<{
-    [id: string]: SPDXTerm;
-  }> {
-    const spdxTerms = spdxJson as {
-      [id: string]: SPDXTerm;
-    };
-    return of(spdxTerms);
-  }
+
 
   private mapToArray<T>(
     input: Observable<{ [id: string]: T }>
@@ -166,7 +158,14 @@ export class OntologyService {
     return this.getTerm(this.sboTerms, id);
   }
   getSpdxTerm(id: string): Observable<SPDXTerm> {
+    const term = spdxLicenseList[id]
+    return of({
+      id: id,
+      namespace: Ontologies.SPDX,
+      name: term.name,
+      url: term.url,
+      description: term.licenseText
+    })
 
-    return this.getTerm(this.spdxTerms, id);
   }
 }
