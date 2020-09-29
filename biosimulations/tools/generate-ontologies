@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+java -jar GenerateOntology.jar http://www.biomodels.net/kisao/KISAO kisao.json
+java -jar GenerateOntology.jar http://edamontology.org/EDAM.owl edam.json
+java -jar GenerateOntology.jar http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl sbo.json

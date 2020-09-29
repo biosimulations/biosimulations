@@ -1,1 +1,3 @@
-export * from './lib/ontology-sources.module';
+export { sboTerms } from "./lib/sboTerms";
+export { kisaoTerms } from "./lib/kisaoTerms";
+export { edamTerms } from './lib/edamTerms';
