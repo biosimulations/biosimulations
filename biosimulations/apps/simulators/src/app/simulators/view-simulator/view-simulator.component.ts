@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ViewChild,
+  ViewChild, ChangeDetectorRef
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {
@@ -96,7 +96,8 @@ export class ViewSimulatorComponent implements OnInit {
     private router: Router,
     public route: ActivatedRoute,
     private service: SimulatorService,
-    private simService: ViewSimulatorService
+    private simService: ViewSimulatorService,
+    private cd: ChangeDetectorRef
   ) { }
 
   loadingSubject = new BehaviorSubject(true);
@@ -235,7 +236,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   getVersionStackedHeadingMoreInfoRouterLink(version: Version): string[] {
-    console.log();
+
     return ['/simulators', this.id, version.label];
   }
 
@@ -252,13 +253,16 @@ export class ViewSimulatorComponent implements OnInit {
         } else {
           return this.simService
             .getLatest(id)
-            .pipe(tap((val) => console.log(val)));
+
         }
       }),
 
-      tap((_) => this.loadingSubject.next(false))
+      tap((_) => {
+        this.loadingSubject.next(false); this.cd.detectChanges();
+      })
     );
   }
+
 
   formatKisaoDescription(value: string): DescriptionFragment[] {
     const formattedValue = [];
