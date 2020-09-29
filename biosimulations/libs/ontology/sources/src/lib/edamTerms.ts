@@ -1,10 +1,10 @@
 import { Ontologies, EDAMTerm } from '@biosimulations/shared/datamodel'
 import edamJson from './edam.json'
 function getEdamTerms(input: any): { [id: string]: EDAMTerm } {
-    let edamTerms: { [id: string]: EDAMTerm } = {};
+    const edamTerms: { [id: string]: EDAMTerm } = {};
 
     // Drop context
-    let edamJsonParse = input["@graph"]
+    const edamJsonParse = input["@graph"]
 
     edamJsonParse.forEach(
         (jsonTerm: any) => {
@@ -17,7 +17,7 @@ function getEdamTerms(input: any): { [id: string]: EDAMTerm } {
                 const termDescription = jsonTerm["http://www.geneontology.org/formats/oboInOwl#hasDefinition"]
                 const termName = jsonTerm["rdf:label"]
                 const termUrl = jsonTerm?.["http://edamontology.org/documentation"]?.["@id"] || jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"] || encodeURI("http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=" + termIRI)
-                let term: EDAMTerm = {
+                const term: EDAMTerm = {
                     id: termId,
                     name: termName,
                     description: termDescription,

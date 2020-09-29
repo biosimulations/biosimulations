@@ -8,7 +8,7 @@ export class SboController {
     @Get("list")
     getAll() {
         const terms = []
-        for (let term in sboTerms) {
+        for (const term in sboTerms) {
             terms.push(sboTerms[term])
         }
         return terms

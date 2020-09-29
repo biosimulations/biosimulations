@@ -9,7 +9,7 @@ export class EdamController {
     @Get("list")
     getAll() {
         const terms = []
-        for (let term in edamTerms) {
+        for (const term in edamTerms) {
             terms.push(edamTerms[term])
         }
         return terms

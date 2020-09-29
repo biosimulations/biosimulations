@@ -9,7 +9,7 @@ export class KisaoController {
     @Get("list")
     getAll() {
         const terms = []
-        for (let term in kisaoTerms) {
+        for (const term in kisaoTerms) {
             terms.push(kisaoTerms[term])
         }
         return terms

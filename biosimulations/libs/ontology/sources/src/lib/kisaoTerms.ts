@@ -3,9 +3,9 @@ import kisaoJson from './kisao.json'
 
 function getKisaoTerms(input: any): { [id: string]: KISAOTerm } {
 
-    let kisaoTerms: { [id: string]: KISAOTerm } = {}
+    const kisaoTerms: { [id: string]: KISAOTerm } = {}
     input = kisaoJson
-    let kisaoJsonParse = input["@graph"]
+    const kisaoJsonParse = input["@graph"]
 
     kisaoJsonParse.forEach((jsonTerm: any) => {
         if (jsonTerm?.["@id"].startsWith("http://www.biomodels.net/kisao/KISAO#")) {
@@ -15,7 +15,7 @@ function getKisaoTerms(input: any): { [id: string]: KISAOTerm } {
             const termName = jsonTerm["rdf:label"]
             const termDescription = jsonTerm["http://www.w3.org/2004/02/skos/core#definition"]
             const termUrl = encodeURI("http://bioportal.bioontology.org/ontologies/KISAO/?p=classes&conceptid=" + termIRI)
-            let term: KISAOTerm = {
+            const term: KISAOTerm = {
                 id: termId,
                 name: termName,
                 description: termDescription,
