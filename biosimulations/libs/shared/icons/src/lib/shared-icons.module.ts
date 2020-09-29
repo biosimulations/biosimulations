@@ -62,7 +62,7 @@ import {
 
 
 } from '@fortawesome/free-solid-svg-icons';
-import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare } from '@fortawesome/free-brands-svg-icons';
+import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare, faOsi } from '@fortawesome/free-brands-svg-icons';
 import { far, faFile, faFileAlt as farFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { MatIconComponent } from './mat-icon/mat-icon.component';
 import { CCIconComponent } from './cc-icon/cc-icon.component';
@@ -143,7 +143,8 @@ export class BiosimulationsIconsModule {
       faCreativeCommonsZero,
       faCreativeCommonsSa,
       faCreativeCommonsShare,
-      farFileAlt
+      farFileAlt,
+      faOsi,
     )
 
   }
