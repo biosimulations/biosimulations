@@ -1,11 +1,12 @@
+import { Ontologies } from '@biosimulations/shared/datamodel';
 import { Module } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { OntologiesModule } from '@biosimulations/ontology/ontologies'
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { SwaggerModule } from '@nestjs/swagger';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [OntologiesModule, SwaggerModule, BiosimulationsConfigModule],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule { }
