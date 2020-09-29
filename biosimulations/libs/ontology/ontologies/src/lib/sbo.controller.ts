@@ -16,13 +16,13 @@ export class SboController {
     }
 
     @Get(':id')
-    getKisao(@Param('id') id: string) {
+    getTerm(@Param('id') id: string) {
         console.log(id)
         return sboTerms[id]
     }
 
     @Get("")
-    describeKisao() {
+    describeOntology() {
 
     }
 

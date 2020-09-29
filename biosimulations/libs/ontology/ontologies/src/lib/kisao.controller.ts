@@ -17,13 +17,13 @@ export class KisaoController {
     }
 
     @Get(':id')
-    getKisao(@Param('id') id: string) {
+    getTerm(@Param('id') id: string) {
         console.log(id)
         return kisaoTerms[id]
     }
 
     @Get("")
-    describeKisao() {
+    describeOntology() {
 
     }
 
