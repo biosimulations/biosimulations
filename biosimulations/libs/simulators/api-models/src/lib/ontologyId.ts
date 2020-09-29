@@ -32,7 +32,7 @@ export class KisaoOntologyId implements IKisaoOntologyId {
   @ApiProperty({ enum: ['KISAO'] })
   @Prop()
   namespace!: Ontologies.KISAO;
-  @ApiProperty({ example: 'KISAO:0000306' })
+  @ApiProperty({ example: 'KISAO_0000306' })
   @Prop()
   id!: string;
 }
@@ -43,7 +43,7 @@ export class SBOOntologyId implements ISboOntologyID {
   @ApiProperty({ enum: ['SBO'] })
   @Prop()
   namespace!: Ontologies.SBO;
-  @ApiProperty({ example: '0000004' })
+  @ApiProperty({ example: 'SBO_0000004' })
   @Prop()
   id!: string;
 }
