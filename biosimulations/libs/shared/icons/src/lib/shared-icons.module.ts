@@ -56,7 +56,9 @@ import {
   faStopwatch,
   faCopy,
   faCodeBranch,
-
+  faQuestion,
+  faUserCheck,
+  faPlusCircle
 
 
 } from '@fortawesome/free-solid-svg-icons';
@@ -88,6 +90,7 @@ export class BiosimulationsIconsModule {
       faFileAlt,
       faUser,
       faUserEdit,
+      faUserCheck,
       faUserCog,
       faPencilAlt,
       faTasks,
@@ -106,6 +109,7 @@ export class BiosimulationsIconsModule {
       faChartBar,
       faPaintBrush,
       faList,
+      faPlusCircle,
       faTable,
       faDownload,
       faUpload,
@@ -128,7 +132,18 @@ export class BiosimulationsIconsModule {
       faCopy,
       faCodeBranch,
       faGitAlt,
-      faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare)
+      faQuestion,
+      faGithub,
+      faDocker,
+      faLinkedin,
+      faOrcid,
+      faCreativeCommons,
+      faCreativeCommonsBy,
+      faCreativeCommonsNc,
+      faCreativeCommonsZero,
+      faCreativeCommonsSa,
+      faCreativeCommonsShare,
+    )
 
   }
 }
