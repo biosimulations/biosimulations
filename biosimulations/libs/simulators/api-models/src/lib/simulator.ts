@@ -5,7 +5,7 @@ import {
   IOntologyTerm,
   IAlgorithm,
   JournalReference,
-  AlgorithmParameter,
+  AlgorithmParameter, KisaoIdRegEx
 } from '@biosimulations/shared/datamodel';
 import {
   ExternalReferences,
@@ -20,54 +20,63 @@ import { EdamOntologyId, EdamOntologyIdSchema, SpdxId } from './ontologyId';
 import { Algorithm } from './algorithm';
 
 // TODO Split database and api models?
-@Schema()
+@Schema({ typePojoToMixed: false })
 export class Simulator extends Document {
   @ApiProperty({
     example: 'tellurium',
     name: 'id',
   })
-  @Prop({ required: true })
+  @Prop({ lowercase: true, trim: true, required: true })
   id!: string;
 
-  @Prop({ required: true })
   @ApiProperty({ example: 'Tellurium' })
+  @Prop({ required: true })
   name!: string;
 
-  @Prop({ required: true })
   @ApiProperty({
     example: '2.4.1',
   })
+  @Prop({ required: true })
   version!: string;
-  @Prop()
+
+
+  @Prop({ text: true })
   @ApiProperty({
     example:
       'Tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.',
   })
   description!: string;
-  @Prop()
+
+
+  @Prop({})
   @ApiProperty({
     example: 'http://tellurium.analogmachine.org/',
   })
   url!: string;
+
+
   @Prop()
   @ApiProperty({
     example: 'docker.io/biosimulators/tellurium:2.4.1',
   })
   image!: string;
-  @Prop({ type: EdamOntologyIdSchema, _id: false })
+
+
   @ApiProperty({ type: EdamOntologyId })
+  @Prop({ type: EdamOntologyIdSchema })
   format!: EdamOntologyId;
+
   @ApiProperty({ type: [Person] })
   @Prop({ items: Object })
   authors!: Person[];
-  @ApiProperty({})
+  @ApiProperty({ type: ExternalReferences })
   @Prop({ type: ExternalReferences })
   references!: ExternalReferences;
-  @Prop()
   @ApiProperty({ type: SpdxId })
+  @Prop()
   license!: SpdxId;
   @ApiProperty({ type: [Algorithm] })
-  @Prop({ items: AlgorithmSchema, _id: false })
+  @Prop({ type: [AlgorithmSchema], _id: false, required: true, })
   algorithms!: Algorithm[];
 
   @ApiResponseProperty({})
@@ -81,4 +90,5 @@ SimulatorSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',
 });
+
 //SimulatorSchema.set('id', false);

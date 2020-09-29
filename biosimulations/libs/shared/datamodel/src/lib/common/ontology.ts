@@ -6,7 +6,8 @@ export enum Ontologies {
   EDAM = 'EDAM',
   SPDX = 'SPDX',
 }
-
+export const KisaoIdRegEx: RegExp = /^KISAO_\d+$/ //sourced from identifiers.org 
+export const SboIdRegEx: RegExp = /^SBO_\d+$/
 export interface Identifier {
   namespace: string;
   id: string;
