@@ -39,6 +39,7 @@ export interface IOntologyTerm extends IOntologyId {
   id: string;
   iri: string | null;
   url?: string | null;
+  externalUrl?: string | null
   name: string | null;
   description: string | null;
 }
@@ -56,6 +57,7 @@ export interface KISAOTerm extends IKisaoOntologyId {
   description: string;
   iri: string;
   url: string;
+  externalUrl?: string | null
 }
 
 export interface SBOTerm extends IOntologyTerm {
@@ -65,6 +67,7 @@ export interface SBOTerm extends IOntologyTerm {
   description: string;
   iri: string;
   url: string;
+  externalUrl?: string | null
 }
 
 export interface EDAMTerm extends IOntologyTerm {
@@ -74,6 +77,7 @@ export interface EDAMTerm extends IOntologyTerm {
   description: string;
   iri: string;
   url: string;
+  externalUrl?: string | null
 }
 
 export interface SPDXTerm extends IdentifierTerm {

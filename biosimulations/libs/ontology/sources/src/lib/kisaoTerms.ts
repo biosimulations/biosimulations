@@ -14,7 +14,8 @@ function getKisaoTerms(input: any): { [id: string]: KISAOTerm } {
             const termId = jsonTerm["@id"].replace("http://www.biomodels.net/kisao/KISAO#", "")
             const termName = jsonTerm["rdfs:label"]
             const termDescription = jsonTerm["http://www.w3.org/2004/02/skos/core#definition"]
-            const termUrl = encodeURI("http://bioportal.bioontology.org/ontologies/KISAO/?p=classes&conceptid=" + termIRI)
+            const termUrl = "http://bioportal.bioontology.org/ontologies/KISAO/?p=classes&conceptid=" + encodeURIComponent(termIRI)
+
             const term: KISAOTerm = {
                 id: termId,
                 name: termName,
