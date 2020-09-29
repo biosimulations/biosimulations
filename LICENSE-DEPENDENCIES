@@ -658,7 +658,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/platform-express/LICENSE
-├─ @nestjs/schedule@0.4.0
+├─ @nestjs/schedule@0.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
@@ -753,7 +753,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Turfjs/turf
 │  ├─ publisher: Turf Authors
 │  └─ licenseFile: @turf/meta/LICENSE
-├─ @typegoose/typegoose@7.3.5
+├─ @typegoose/typegoose@7.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typegoose/typegoose
 │  ├─ publisher: Akos Szokodi
@@ -1231,7 +1231,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: assign-symbols/LICENSE
-├─ ast-types@0.14.1
+├─ ast-types@0.14.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/benjamn/ast-types
 │  ├─ publisher: Ben Newman
@@ -1280,7 +1280,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: coolaj86@gmail.com
 │  ├─ url: https://coolaj86.com
 │  └─ licenseFile: atob/LICENSE
-├─ auth0@2.28.0
+├─ auth0@2.29.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
@@ -2384,6 +2384,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
 │  └─ licenseFile: @cypress/webpack-preprocessor/node_modules/debug/LICENSE
+├─ debug@4.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/visionmedia/debug
+│  ├─ publisher: TJ Holowaychuk
+│  ├─ email: tj@vision-media.ca
+│  └─ licenseFile: auth0/node_modules/debug/LICENSE
 ├─ decamelize@1.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/decamelize
@@ -4429,6 +4435,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Brian J. Brennan
 │  ├─ email: brianloveswords@gmail.com
 │  └─ licenseFile: jwa/LICENSE
+├─ jwks-rsa@1.10.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/auth0/node-jwks-rsa
+│  ├─ publisher: Auth0
+│  └─ licenseFile: auth0/node_modules/jwks-rsa/LICENSE
 ├─ jwks-rsa@1.9.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
@@ -4739,13 +4750,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: log-update/license
-├─ loglevel@1.6.8
+├─ loglevel@1.7.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pimterry/loglevel
 │  ├─ publisher: Tim Perry
 │  ├─ email: pimterry@gmail.com
 │  ├─ url: http://tim-perry.co.uk
-│  └─ licenseFile: loglevel/LICENSE-MIT
+│  └─ licenseFile: @typegoose/typegoose/node_modules/loglevel/LICENSE-MIT
 ├─ loose-envify@1.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zertosh/loose-envify
@@ -6852,6 +6863,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Shinnosuke Watanabe
 │  ├─ url: https://github.com/shinnn
 │  └─ licenseFile: spdx-license-ids/README.md
+├─ spdx-license-list@6.3.0
+│  ├─ licenses: CC0-1.0
+│  ├─ repository: https://github.com/sindresorhus/spdx-license-list
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: https://sindresorhus.com
+│  └─ licenseFile: spdx-license-list/license
 ├─ split-polygon@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mikolalysenko/split-polygon
@@ -7713,10 +7731,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
 │  └─ licenseFile: @cypress/request/node_modules/uuid/LICENSE.md
-├─ uuid@8.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/uuidjs/uuid
-│  └─ licenseFile: @nestjs/schedule/node_modules/uuid/LICENSE.md
 ├─ uuid@8.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
