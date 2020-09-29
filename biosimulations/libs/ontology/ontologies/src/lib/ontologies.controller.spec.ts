@@ -1,17 +1,17 @@
 import { Test } from '@nestjs/testing';
-import { OntologyOntologiesController } from './ontology-ontologies.controller';
-import { OntologiesService } from './ontology-ontologies.service';
+import { OntologiesController } from './ontologies.controller';
+import { OntologiesService } from './ontologies.service';
 
-describe('OntologyOntologiesController', () => {
-  let controller: OntologyOntologiesController;
+describe('OntologiesController', () => {
+  let controller: OntologiesController;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [OntologiesService],
-      controllers: [OntologyOntologiesController],
+      controllers: [OntologiesController],
     }).compile();
 
-    controller = module.get(OntologyOntologiesController);
+    controller = module.get(OntologiesController);
   });
 
   it('should be defined', () => {

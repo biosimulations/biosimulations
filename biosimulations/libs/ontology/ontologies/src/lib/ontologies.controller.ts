@@ -1,7 +1,14 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { OntologiesService } from './ontologies.service';
+import { edamTerms } from '@biosimulations/ontology/sources'
+import { Ontologies } from '@biosimulations/shared/datamodel';
+@Controller()
 
-@Controller('ontologies')
 export class OntologiesController {
   constructor(private OntologiesService: OntologiesService) { }
+
+  @Get("/list")
+  ontologyList() {
+    return Ontologies
+  }
 }
