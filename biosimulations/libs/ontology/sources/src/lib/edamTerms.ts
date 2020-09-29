@@ -15,15 +15,17 @@ function getEdamTerms(input: any): { [id: string]: EDAMTerm } {
                 const termNameSpace = Ontologies.EDAM
                 const termId = jsonTerm["@id"].replace("http://edamontology.org/", "")
                 const termDescription = jsonTerm["http://www.geneontology.org/formats/oboInOwl#hasDefinition"]
-                const termName = jsonTerm["rdf:label"]
-                const termUrl = jsonTerm?.["http://edamontology.org/documentation"]?.["@id"] || jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"] || encodeURI("http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=" + termId)
+                const termName = jsonTerm["rdfs:label"]
+                const termUrl = encodeURI("http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=" + termId)
+                const docUrl = jsonTerm?.["http://edamontology.org/documentation"]?.["@id"] || jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"]
                 const term: EDAMTerm = {
                     id: termId,
                     name: termName,
                     description: termDescription,
                     namespace: termNameSpace,
                     iri: termIRI,
-                    url: termUrl
+                    url: termUrl,
+                    externalUrl: docUrl
                 }
 
 

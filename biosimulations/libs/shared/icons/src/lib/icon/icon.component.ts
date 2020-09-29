@@ -92,7 +92,7 @@ export class IconComponent implements OnInit {
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     link: { type: 'fas', name: 'link' },
-    internalLink: { type: 'fas', name: 'external-link-alt'},
+    internalLink: { type: 'fas', name: 'external-link-alt' },
     toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
     git: { type: 'fab', name: 'git-alt' },
@@ -153,7 +153,7 @@ export class IconComponent implements OnInit {
     ccBy: { type: 'fab', name: 'creative-commons-by' },
     ccNc: { type: 'fab', name: 'creative-commons-nc' },
     ccSa: { type: 'fab', name: 'creative-commons-sa' },
-    ccS: { type: 'fab', name: 'creative-commons-s' },
+    ccS: { type: 'fab', name: 'creative-commons-share' },
     ccByNc: { type: 'cc', name: 'creative-commons-by_creative-commons-nc' },
     ccByNcSa: {
       type: 'cc',
@@ -169,6 +169,7 @@ export class IconComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.iconInfo = this.iconMap[this.icon];
     if (!this.iconInfo) {
       console.error("icon '" + this.icon + "' not found in library")

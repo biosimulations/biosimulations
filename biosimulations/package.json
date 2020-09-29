@@ -84,6 +84,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "save": "^2.4.0",
+    "spdx-license-list": "^6.3.0",
     "ssh2": "^0.8.9",
     "swagger-ui-express": "^4.1.4",
     "uuid": "^8.3.0",

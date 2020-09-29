@@ -12,6 +12,7 @@ export type appName =
   | 'account'
   | 'dispatch'
   | 'simulators'
+  | 'ontologyApi'
   | 'fetchSimulatorsInfo';
 
 export type envs = 'prod' | 'dev' | 'local' | 'stage';
@@ -28,6 +29,7 @@ const envUrls: { [key in envs]: urlMap } = {
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: 'https://ontology.biosimulations.dev',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   dev: {
@@ -39,6 +41,7 @@ const envUrls: { [key in envs]: urlMap } = {
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: '/ontology-api',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   stage: {
@@ -50,6 +53,7 @@ const envUrls: { [key in envs]: urlMap } = {
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: 'https://ontology.biosimulations.dev',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   local: {
@@ -61,6 +65,7 @@ const envUrls: { [key in envs]: urlMap } = {
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: '/ontology-api',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
 };

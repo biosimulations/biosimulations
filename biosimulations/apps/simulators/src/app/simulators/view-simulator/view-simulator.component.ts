@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ViewChild,
+  ViewChild, ChangeDetectorRef
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {
@@ -25,22 +25,10 @@ import {
 } from '@biosimulations/shared/ui';
 import { SimulatorService } from '../simulator.service';
 import { ViewSimulatorService } from './view-simulator.service';
-import edamJson from '../edam.json';
-import kisaoJson from '../kisao.json';
-import sboJson from '../sbo.json';
-import spdxJson from '../spdx.json';
+
+
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { ViewAlgorithm, ViewSimulator } from './view-simulator.interface';
-const edamTerms = edamJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
-const kisaoTerms = kisaoJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
-const sboTerms = sboJson as {
-  [id: string]: { name: string; description: string; url: string };
-};
-const spdxTerms = spdxJson as { [id: string]: { name: string; url: string } };
 
 interface Algorithm extends ViewAlgorithm {
   id: string;
@@ -108,8 +96,9 @@ export class ViewSimulatorComponent implements OnInit {
     private router: Router,
     public route: ActivatedRoute,
     private service: SimulatorService,
-    private simService: ViewSimulatorService
-  ) {}
+    private simService: ViewSimulatorService,
+    private cd: ChangeDetectorRef
+  ) { }
 
   loadingSubject = new BehaviorSubject(true);
   loading$!: Observable<boolean>;
@@ -185,10 +174,11 @@ export class ViewSimulatorComponent implements OnInit {
       ids.push(parameter.kisaoId);
     }
 
-    const name = kisaoTerms[parameter.kisaoId].name;
+    //TODO get name from ontology service
+    const name = parameter.kisaoId;
 
     if (ids.length) {
-      return kisaoTerms[parameter.kisaoId].name + ' (' + ids.join(', ') + ')';
+      return name + ' (' + ids.join(', ') + ')';
     } else {
       return name;
     }
@@ -246,7 +236,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   getVersionStackedHeadingMoreInfoRouterLink(version: Version): string[] {
-    console.log();
+
     return ['/simulators', this.id, version.label];
   }
 
@@ -263,13 +253,16 @@ export class ViewSimulatorComponent implements OnInit {
         } else {
           return this.simService
             .getLatest(id)
-            .pipe(tap((val) => console.log(val)));
+
         }
       }),
 
-      tap((_) => this.loadingSubject.next(false))
+      tap((_) => {
+        this.loadingSubject.next(false); this.cd.detectChanges();
+      })
     );
   }
+
 
   formatKisaoDescription(value: string): DescriptionFragment[] {
     const formattedValue = [];
