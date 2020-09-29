@@ -50,15 +50,9 @@ export class OntologyService {
       .pipe(
         shareReplay(1),
         map((terms) => {
+
           const termSet: { [id: string]: KISAOTerm } = {};
           terms.forEach((term) => {
-            //TODO Move this functionality to the onotology API
-            const termUrl =
-              'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
-              term.id.replace(':', '_');
-            const namespace = Ontologies.KISAO;
-            term.namespace = namespace;
-            term.url = termUrl;
             termSet[term.id] = term;
           });
           return termSet;
@@ -68,20 +62,36 @@ export class OntologyService {
   private fetchSBOTerms(): Observable<{
     [id: string]: SBOTerm;
   }> {
-    const sboTerms = sboJson as {
-      [id: string]: SBOTerm;
-    };
+    return this.http
+      .get<SBOTerm[]>('https://ontology.biosimulations.dev/sbo/list')
+      .pipe(
+        shareReplay(1),
+        map((terms) => {
 
-    return of(sboTerms);
+          const termSet: { [id: string]: SBOTerm } = {};
+          terms.forEach((term) => {
+            termSet[term.id] = term;
+          });
+          return termSet;
+        })
+      );
   }
   private fetchEdamTerms(): Observable<{
     [id: string]: EDAMTerm;
   }> {
-    const edamTerms = edamJson as {
-      [id: string]: EDAMTerm;
-    };
+    return this.http
+      .get<EDAMTerm[]>('https://ontology.biosimulations.dev/edam/list')
+      .pipe(
+        shareReplay(1),
+        map((terms) => {
 
-    return of(edamTerms);
+          const termSet: { [id: string]: EDAMTerm } = {};
+          terms.forEach((term) => {
+            termSet[term.id] = term;
+          });
+          return termSet;
+        })
+      );
   }
   private fetchSpdxTerms(): Observable<{
     [id: string]: SPDXTerm;
@@ -111,7 +121,9 @@ export class OntologyService {
   ): Observable<T> {
     return input.pipe(
       map((value) => {
+
         const setTerm = value[term];
+
         if (setTerm) {
           return setTerm;
         } else {
@@ -119,6 +131,7 @@ export class OntologyService {
         }
       }),
       catchError((err: any, caught: Observable<T>) => {
+
         const value = JSON.parse(JSON.stringify(err.value)) as any;
 
         return of(({
@@ -137,6 +150,9 @@ export class OntologyService {
   }
 
   getKisaoTerm(id: string): Observable<KISAOTerm> {
+    if (id.startsWith("KISAO:")) {
+      id = id.replace("KISAO:", "KISAO_")
+    }
     return this.getTerm(this.kisaoTerms, id);
   }
 
@@ -144,9 +160,15 @@ export class OntologyService {
     return this.getTerm(this.edamTerms, id);
   }
   getSboTerm(id: string): Observable<SBOTerm> {
+    if (id.startsWith("SBO_")) {
+
+    } else {
+      id = "SBO_" + id
+    }
     return this.getTerm(this.sboTerms, id);
   }
   getSpdxTerm(id: string): Observable<SPDXTerm> {
+
     return this.getTerm(this.spdxTerms, id);
   }
 }
