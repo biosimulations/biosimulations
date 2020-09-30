@@ -37,6 +37,7 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { MQDispatch } from '@biosimulations/messages';
 import { FileModifiers } from '@biosimulations/dispatch/api-models';
+import { Cron } from '@nestjs/schedule';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
@@ -377,6 +378,18 @@ export class AppController implements OnApplicationBootstrap {
     });
 
     return simVersions;
+  }
+
+  // Enable cron when storage is out
+  // @Cron('14 * * * * *')
+  async deleteSimData() {
+    var uuids = await this.modelsService.getOlderUuids();
+
+    uuids.forEach((uuid) => {
+      const filePath = process.env.FILE_STORAGE;
+      const uuidPath = `${filePath}/simulations/${uuid['uuid']}`;
+      FileModifiers.deleteDir(uuidPath);
+    });
   }
 
   async onApplicationBootstrap() {

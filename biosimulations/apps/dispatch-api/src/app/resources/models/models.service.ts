@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { InjectModel } from 'nestjs-typegoose';
 import { ReturnModelType } from '@typegoose/typegoose';
@@ -12,7 +12,8 @@ import {
 export class ModelsService {
   constructor(
     @InjectModel(DSimMDB)
-    private readonly dispatchSimulationModel: ReturnModelType<typeof DSimMDB>
+    private readonly dispatchSimulationModel: ReturnModelType<typeof DSimMDB>,
+    private logger = new Logger(ModelsService.name)
   ) {}
 
   async createNewDispatchSimulationModel(model: DSimModel) {
@@ -47,5 +48,27 @@ export class ModelsService {
     return this.dispatchSimulationModel.find({
       uuid: { $in: uuids },
     });
+  }
+
+  async getOlderUuids() {
+    const now = new Date();
+    const sixMonthsOldDate = now.setDate(now.getDate() - 180);
+    return await this.dispatchSimulationModel.find(
+      {
+        submittedTime: { $lt: new Date(sixMonthsOldDate) },
+      },
+      { uuid: 1, _id: 0 }
+    );
+  }
+
+  async deleteSixOldData() {
+    const uuids = await this.getOlderUuids();
+    try {
+      await this.dispatchSimulationModel.deleteMany({
+        uuids,
+      });
+    } catch (error) {
+      this.logger.log('Write error: ', error);
+    }
   }
 }
