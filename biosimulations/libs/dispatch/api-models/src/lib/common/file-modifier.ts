@@ -36,4 +36,16 @@ export class FileModifiers {
       });
     });
   }
+
+  static deleteDir(path: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      fs.rmdir(path, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
 }
