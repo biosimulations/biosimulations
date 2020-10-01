@@ -61,11 +61,12 @@ export class ModelsService {
     );
   }
 
-  async deleteSixOldData() {
-    const uuids = await this.getOlderUuids();
+  async deleteSixOldData(uuids: string[]) {
     try {
       await this.dispatchSimulationModel.deleteMany({
-        uuids,
+        uuid: {
+          $in: uuids,
+        },
       });
     } catch (error) {
       this.logger.log('Write error: ', error);

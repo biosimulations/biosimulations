@@ -37,13 +37,73 @@ export class FileModifiers {
     });
   }
 
-  static deleteDir(path: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  static async deleteNonEmptyDir(path: string) {
+    if (await FileModifiers.exists(path)) {
+      const files = await FileModifiers.readDir(path);
+
+      if (files.length > 0) {
+        for (const filename of files) {
+          const fileStat: fs.Stats = await FileModifiers.stat(
+            path + '/' + filename
+          );
+          if (fileStat.isDirectory()) {
+            FileModifiers.deleteNonEmptyDir(path + '/' + filename);
+          } else {
+            await FileModifiers.unlink(path + '/' + filename);
+          }
+        }
+        await FileModifiers.deletEmptyDir(path);
+      } else {
+        await FileModifiers.deletEmptyDir(path);
+      }
+    } else {
+      console.log('Directory path not found.');
+    }
+  }
+
+  static async deletEmptyDir(path: string) {
+    return new Promise((resolve, reject) => {
       fs.rmdir(path, (err) => {
+        if (err) {
+          reject();
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+ 
+  static async unlink(path: string) {
+    return new Promise((resolve, reject) => {
+      fs.unlink(path, (err) => {
+        if (err) {
+          reject();
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  static async exists(path: string) {
+    return new Promise((resolve, reject) => {
+      fs.exists(path, (exists) => {
+        if (exists) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  }
+
+  static async stat(path: string): Promise<fs.Stats> {
+    return new Promise((resolve, reject) => {
+      fs.stat(path, (err, data: fs.Stats) => {
         if (err) {
           reject(err);
         } else {
-          resolve();
+          resolve(data);
         }
       });
     });
