@@ -383,7 +383,7 @@ export class AppController implements OnApplicationBootstrap {
   // Enable cron when storage is out
   // @Cron('14 * * * * *')
   async deleteSimData() {
-    var uuids = await this.modelsService.getOlderUuids();
+    const uuids = await this.modelsService.getOlderUuids();
 
     uuids.forEach((uuid) => {
       const filePath = process.env.FILE_STORAGE;
