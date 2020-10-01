@@ -10,10 +10,10 @@ import {
 
 @Injectable()
 export class ModelsService {
+  private logger = new Logger(ModelsService.name);
   constructor(
     @InjectModel(DSimMDB)
-    private readonly dispatchSimulationModel: ReturnModelType<typeof DSimMDB>,
-    private logger = new Logger(ModelsService.name)
+    private readonly dispatchSimulationModel: ReturnModelType<typeof DSimMDB>
   ) {}
 
   async createNewDispatchSimulationModel(model: DSimModel) {
