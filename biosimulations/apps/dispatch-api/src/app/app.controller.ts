@@ -1,3 +1,5 @@
+import { AppService } from './app.service';
+import { ClientProxy } from '@nestjs/microservices';
 import {
   Controller,
   Inject,
@@ -6,48 +8,35 @@ import {
   UseInterceptors,
   UploadedFile,
   Body,
-  Logger,
   Get,
   Param,
   Query,
-  HttpService,
   Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import {
   ApiOperation,
   ApiResponse,
   ApiConsumes,
   ApiBody,
   ApiQuery,
-  ApiProperty,
   ApiTags,
 } from '@nestjs/swagger';
-
-import { v4 as uuid } from 'uuid';
-import path from 'path';
-import { urls } from '@biosimulations/config/common';
-import { ModelsService } from './resources/models/models.service';
 import {
-  DispatchSimulationStatus,
   SimulationDispatchSpec,
   OmexDispatchFile,
-  DispatchSimulationModel,
 } from '@biosimulations/dispatch/api-models';
-import { MQDispatch } from '@biosimulations/messages';
+import { ModelsService } from './resources/models/models.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
-import { Cron } from '@nestjs/schedule';
-
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
-  private logger = new Logger('AppController');
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private httpService: HttpService,
-    private modelsService: ModelsService
-  ) { }
+    private appService: AppService,
+    private modelsService: ModelsService,
+  ) {}
+
   @ApiTags('Dispatch')
   @Post('dispatch')
   @ApiConsumes('multipart/form-data')
@@ -92,72 +81,9 @@ export class AppController implements OnApplicationBootstrap {
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
   ): Promise<{}> {
-    // TODO: Create the required folders automatically
-    const fileStorage = process.env.FILE_STORAGE;
-    const omexStorage = `${fileStorage}/OMEX/ID`;
-
-    if (bodyData.simulator === '') {
-      return { message: 'No Simulator was provided' };
-    }
-
-    // Get existing filetype
-    // Generate a unique filename
-    const fileId = uuid();
-    const uniqueFilename = `${fileId}.omex`;
-    const omexSavePath = path.join(omexStorage, uniqueFilename);
-
-    // console.log('bodyData:',bodyData)
-
-    // Fill out info from file that will be lost after saving in central storage
-    const simSpec: SimulationDispatchSpec = {
-      authorEmail: bodyData.authorEmail,
-      nameOfSimulation: bodyData.nameOfSimulation,
-      simulator: bodyData.simulator.toLowerCase(),
-      simulatorVersion: bodyData.simulatorVersion,
-      filename: file.originalname,
-      uniqueFilename,
-      filepathOnDataStore: omexSavePath,
-    };
-
-    // Save the file
-    await FileModifiers.writeFile(omexSavePath, file.buffer);
-
-    this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
-      (res) => {
-        this.logger.log(JSON.stringify(res));
-        const currentDateTime = new Date();
-        const dbModel: DispatchSimulationModel = {
-          uuid: fileId,
-          authorEmail: simSpec.authorEmail,
-          nameOfSimulation: simSpec.nameOfSimulation,
-          submittedTime: currentDateTime,
-          statusModifiedTime: currentDateTime,
-          currentStatus: DispatchSimulationStatus.QUEUED,
-          duration: 0,
-          projectSize: Buffer.byteLength(file.buffer),
-          resultSize: 0
-        };
-
-        this.modelsService.createNewDispatchSimulationModel(dbModel);
-      },
-      (err) => {
-        this.logger.log(
-          'Error occured in dispatch service: ' + JSON.stringify(err)
-        );
-      }
-    );
-    this.logger.log(
-      'Dispatch message was sent successfully' + JSON.stringify(simSpec)
-    );
-
-    return {
-      message: 'File uploaded successfuly',
-      data: {
-        id: fileId,
-        filename: uniqueFilename,
-      },
-    };
+    return this.appService.uploadFile(file, bodyData);
   }
+
   @ApiTags('Dispatch')
   @Get('download/:uuid')
   @ApiOperation({ summary: 'Downloads result files' })
@@ -167,10 +93,9 @@ export class AppController implements OnApplicationBootstrap {
     type: Object,
   })
   archive(@Param('uuid') uId: string, @Res() res: any): void {
-    const fileStorage = process.env.FILE_STORAGE || '';
-    const zipPath = path.join(fileStorage, 'simulations', uId, `${uId}.zip`);
-    res.download(zipPath);
+    return this.appService.downloadArchive(uId, res);
   }
+
   @ApiTags('Dispatch')
   @Get('logs/:uuid')
   @ApiOperation({
@@ -186,47 +111,7 @@ export class AppController implements OnApplicationBootstrap {
     @Query('download') download: boolean,
     @Res() res: any
   ): Promise<void> {
-    const fileStorage = process.env.FILE_STORAGE || '';
-    const logPath = path.join(fileStorage, 'simulations', uId, 'out');
-    const simInfo = await this.modelsService.get(uId);
-    let filePathOut = '';
-    let filePathErr = '';
-
-    download = String(download) === 'false' ? false : true;
-    if (simInfo === null) {
-      res.send({ message: 'Cannot find the UUID specified' })
-    } else if (download) {
-      if (simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) {
-        filePathOut = path.join(logPath, 'job.output');
-        res.set('Content-Type', 'text/html');
-        res.download(filePathOut);
-      } else if (simInfo.currentStatus === DispatchSimulationStatus.FAILED) {
-        filePathErr = path.join(logPath, 'job.error');
-        res.set('Content-Type', 'text/html');
-        res.download(filePathErr);
-      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
-        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
-      }
-    } else if (!download) {
-      if ((simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) || (simInfo.currentStatus === DispatchSimulationStatus.FAILED)) {
-        filePathOut = path.join(logPath, 'job.output');
-        filePathErr = path.join(logPath, 'job.error');
-        const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
-        const fileContentErr = (await FileModifiers.readFile(filePathErr)).toString();
-        res.set('Content-Type', 'application/json');
-        res.send({
-          message: 'Logs fetched successfully',
-          data: {
-            output: fileContentOut,
-            error: fileContentErr
-          }
-        });
-      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
-        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
-      }
-    } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
-      res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
-    }
+    return this.appService.downloadLogFile(uId, download, res);
   }
 
   @ApiTags('Dispatch')
@@ -238,52 +123,7 @@ export class AppController implements OnApplicationBootstrap {
     type: Object,
   })
   async getResultStructure(@Param('uuid') uId: string): Promise<{}> {
-    const fileStorage = process.env.FILE_STORAGE || '';
-    const structure: any = {};
-
-    const resultPath = path.join(fileStorage, 'simulations', uId, 'out');
-    // const resultPath = '/Users/akhilteja/results/out';
-
-    const allFilesInfo = await FileModifiers.getFilesRecursive(resultPath);
-
-    const allFiles = [];
-
-    const indexesToSplice = [];
-
-    for (let index = 0; index < allFilesInfo.length; index++) {
-      if (
-        allFilesInfo[index].name === 'job.output' ||
-        allFilesInfo[index].name === 'job.error'
-      ) {
-        indexesToSplice.push(index);
-      } else if (allFilesInfo[index].name.endsWith('.csv')) {
-        // Getting only relative path
-        allFiles.push(
-          allFilesInfo[index].path.substring(resultPath.length + 1)
-        );
-      }
-    }
-
-    // Seperating files from directory paths to create structure
-    for (const filePath of allFiles) {
-      const filePathSplit = filePath.split('/');
-      const task = filePathSplit[filePathSplit.length - 1].split('.csv')[0];
-
-      filePathSplit.splice(filePathSplit.length - 1, 1);
-
-      const sedml = filePathSplit.join('/');
-
-      if (structure[sedml] === undefined) {
-        structure[sedml] = [task];
-      } else {
-        structure[sedml].push(task);
-      }
-    }
-
-    return {
-      message: 'OK',
-      data: structure,
-    };
+    return this.appService.getResultStructure(uId);
   }
 
   @ApiTags('Dispatch')
@@ -303,26 +143,7 @@ export class AppController implements OnApplicationBootstrap {
     @Query('sedml') sedml: string,
     @Query('task') task: string
   ): Promise<{}> {
-    const fileStorage = process.env.FILE_STORAGE || '';
-
-    const jsonPath = path.join(
-      fileStorage,
-      'simulations',
-      uId,
-      'out',
-      sedml,
-      task
-    );
-
-    chart = String(chart) === 'false' ? false : true;
-    const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
-    const fileContentBuffer = await FileModifiers.readFile(filePath);
-    const fileContent = JSON.parse(fileContentBuffer.toString());
-
-    return {
-      message: 'Data fetched successfully',
-      data: fileContent,
-    };
+    return this.appService.getVisualizationData(uId, sedml, task, chart);
   }
 
   @ApiTags('Simulators')
@@ -339,35 +160,7 @@ export class AppController implements OnApplicationBootstrap {
   async getAllSimulatorVersion(
     @Query('name') simulatorName: string
   ): Promise<string[]> {
-    // Getting info of all available simulators
-    const simulatorsInfo: any = await this.httpService
-      .get(`${urls.fetchSimulatorsInfo}`)
-      .toPromise();
-
-    const allSimulators: any = [];
-
-    for (const simulatorInfo of simulatorsInfo['data']['results']) {
-      allSimulators.push(simulatorInfo['name']);
-    }
-
-    if (simulatorName === undefined) {
-      return allSimulators;
-    } else if (!allSimulators.includes(simulatorName)) {
-      return [
-        `Simulator ${simulatorName.toUpperCase()} is not supported, check for supported simulators on https://biosimulators.org/simulators.`,
-      ];
-    }
-    const simVersionRes = this.httpService.get(
-      `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
-    );
-
-    const dockerData: any = await simVersionRes.toPromise();
-    const simVersions: Array<string> = [];
-    dockerData.data.forEach((element: { layer: string; name: string }) => {
-      simVersions.push(element.name);
-    });
-
-    return simVersions;
+    return this.appService.getSimulators(simulatorName);
   }
 
   // Enable cron when storage is out
