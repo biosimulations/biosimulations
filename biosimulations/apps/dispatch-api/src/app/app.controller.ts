@@ -381,15 +381,25 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   // Enable cron when storage is out
-  // @Cron('14 * * * * *')
+  @Cron('*/10 * * * * *')
   async deleteSimData() {
-    const uuids = await this.modelsService.getOlderUuids();
+    const uuidObjects: {
+      uuid: string;
+    }[] = await this.modelsService.getOlderUuids();
+
+    const uuids: string[] = [];
+
+    for (const uuidObj of uuidObjects) {
+      uuids.push(uuidObj.uuid);
+    }
 
     uuids.forEach((uuid) => {
       const filePath = process.env.FILE_STORAGE;
-      const uuidPath = `${filePath}/simulations/${uuid['uuid']}`;
-      FileModifiers.deleteDir(uuidPath);
+      const uuidPath = `${filePath}/simulations/${uuid}`;
+      FileModifiers.deleteNonEmptyDir(uuidPath);
     });
+
+    await this.modelsService.deleteSixOldData(uuids);
   }
 
   async onApplicationBootstrap() {
