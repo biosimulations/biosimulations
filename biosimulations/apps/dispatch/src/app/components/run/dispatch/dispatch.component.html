@@ -130,7 +130,7 @@
     <div *ngIf="simulationId" class="message success">
       Your simulation #{{ simulationId }} was submitted! You can view the status
       of your simulation at this page
-      <a [routerLink]="['/simulations', uuid]"
+      <a [routerLink]="['/simulations', simulationId]"
         ><biosimulations-icon icon="internalLink"></biosimulations-icon></a
       >. When your simulation completes, you will able to retrieve and visualize
       your results from the same page. Your simulation and its results will be
