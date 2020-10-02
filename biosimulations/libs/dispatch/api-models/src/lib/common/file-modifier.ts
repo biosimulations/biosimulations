@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as rmrf from 'rimraf';
 
 export class FileModifiers {
   static readDir(dirPath: string): Promise<any> {
@@ -37,6 +38,7 @@ export class FileModifiers {
     });
   }
 
+  // TODO: Deletes all the content of the folders but not the specified folder, fix it.
   static async deleteNonEmptyDir(path: string) {
     if (await FileModifiers.exists(path)) {
       const files = await FileModifiers.readDir(path);
@@ -107,5 +109,18 @@ export class FileModifiers {
         }
       });
     });
+  }
+
+
+  static async rmrfDir(path: string): Promise<void | Error> {
+    return new Promise((resolve, reject) => {
+      rmrf.default(path, (err) => {
+        if(err) {
+          reject(err)
+        } else {
+          resolve();
+        }
+      });
+    })
   }
 }
