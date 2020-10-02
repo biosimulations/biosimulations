@@ -38,6 +38,7 @@ import {
 import { MQDispatch } from '@biosimulations/messages';
 import { FileModifiers } from '@biosimulations/dispatch/api-models';
 import { Cron } from '@nestjs/schedule';
+import * as rmrf from 'rimraf';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
@@ -381,7 +382,7 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   // Enable cron when storage is out
-  // @Cron('*/10 * * * * *')
+  // @Cron('0 0 2 * * *')
   async deleteSimData() {
     const uuidObjects: {
       uuid: string;
@@ -393,11 +394,11 @@ export class AppController implements OnApplicationBootstrap {
       uuids.push(uuidObj.uuid);
     }
 
-    uuids.forEach((uuid) => {
+    for(const uuid of uuids) {
       const filePath = process.env.FILE_STORAGE;
       const uuidPath = `${filePath}/simulations/${uuid}`;
-      FileModifiers.deleteNonEmptyDir(uuidPath);
-    });
+      FileModifiers.rmrfDir(uuidPath);
+    }
 
     await this.modelsService.deleteSixOldData(uuids);
   }
