@@ -1,4 +1,4 @@
-import { prop } from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 import { ApiProperty } from '@nestjs/swagger';
 
 export interface DispatchSimulationModel {
@@ -19,6 +19,7 @@ export enum DispatchSimulationStatus {
   UNKNOWN = 'UNKNOWN',
 }
 
+@modelOptions({schemaOptions:{collection: 'dispatches'}})
 export class DispatchSimulationModelDB implements DispatchSimulationModel {
   @ApiProperty()
   @prop({ required: true })

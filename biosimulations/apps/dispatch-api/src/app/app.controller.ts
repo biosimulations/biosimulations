@@ -381,7 +381,7 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   // Enable cron when storage is out
-  @Cron('*/10 * * * * *')
+  // @Cron('*/10 * * * * *')
   async deleteSimData() {
     const uuidObjects: {
       uuid: string;
