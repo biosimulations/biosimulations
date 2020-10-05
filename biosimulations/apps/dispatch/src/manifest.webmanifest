@@ -1,6 +1,6 @@
 {
-  "name": "BioSimulations",
-  "short_name": "BioSimulations",
+  "name": "runBioSimulations",
+  "short_name": "runBioSimulations",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
