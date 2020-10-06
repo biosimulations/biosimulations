@@ -274,22 +274,43 @@ export class AppController implements OnApplicationBootstrap {
     const structure: any = {};
 
     const resultPath = path.join(fileStorage, 'simulations', uId, 'out');
+    // const resultPath = '/Users/akhilteja/results/out';
 
-    const sedmls = await FileModifiers.readDir(resultPath);
-    // Removing log file names 'job.output'
-    sedmls.splice(sedmls.indexOf('job.output'), 1);
-    sedmls.splice(sedmls.indexOf('job.error'), 1);
+    const allFilesInfo = await FileModifiers.getFilesRecursive(resultPath);
+    console.log('AllFiles: ', allFilesInfo);
 
-    for (const sedml of sedmls) {
-      structure[sedml] = [];
-      const taskFiles = await FileModifiers.readDir(
-        path.join(resultPath, sedml)
-      );
-      taskFiles.forEach((taskFile: string) => {
-        if (taskFile.endsWith('.csv')) {
-          structure[sedml].push(taskFile.split('.csv')[0]);
-        }
-      });
+    const allFiles = [];
+
+    const indexesToSplice = [];
+
+    for (let index = 0; index < allFilesInfo.length; index++) {
+      if (
+        allFilesInfo[index].name === 'job.output' ||
+        allFilesInfo[index].name === 'job.error'
+      ) {
+        indexesToSplice.push(index);
+      } else if (allFilesInfo[index].name.endsWith('.csv')) {
+        // Getting only relative path
+        allFiles.push(
+          allFilesInfo[index].path.substring(resultPath.length + 1)
+        );
+      }
+    }
+
+    // Seperating files from directory paths to create structure
+    for (const filePath of allFiles) {
+      const filePathSplit = filePath.split('/');
+      const task = filePathSplit[filePathSplit.length - 1].split('.csv')[0];
+
+      filePathSplit.splice(filePathSplit.length - 1, 1);
+
+      const sedml = filePathSplit.join('/');
+
+      if (structure[sedml] === undefined) {
+        structure[sedml] = [task];
+      } else {
+        structure[sedml].push(task);
+      }
     }
 
     return {
@@ -297,6 +318,7 @@ export class AppController implements OnApplicationBootstrap {
       data: structure,
     };
   }
+  
   @ApiTags('Dispatch')
   @Get('result/:uuid')
   @ApiOperation({
@@ -394,7 +416,7 @@ export class AppController implements OnApplicationBootstrap {
       uuids.push(uuidObj.uuid);
     }
 
-    for(const uuid of uuids) {
+    for (const uuid of uuids) {
       const filePath = process.env.FILE_STORAGE;
       const uuidPath = `${filePath}/simulations/${uuid}`;
       FileModifiers.rmrfDir(uuidPath);
