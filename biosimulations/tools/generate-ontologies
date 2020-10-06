@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
 java -jar GenerateOntology.jar http://www.biomodels.net/kisao/KISAO kisao.json
-java -jar GenerateOntology.jar http://edamontology.org/EDAM.owl edam.json
+java -jar GenerateOntology.jar http://data.bioontology.org/ontologies/EDAM/submissions/43/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb edam.json
 java -jar GenerateOntology.jar http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl sbo.json
+mv edam.json ../libs/ontology/sources/src/lib/
+mv kisao.json ../libs/ontology/sources/src/lib/
+mv sbo.json ../libs/ontology/sources/src/lib/
