@@ -1,10 +1,17 @@
 import * as fs from 'fs';
 import * as rmrf from 'rimraf';
+import ospath from 'path';
+
+// TODO: Move to Dispatch libs
+export interface RecursiveFiles {
+  name: string;
+  path: string;
+}
 
 export class FileModifiers {
-  static readDir(dirPath: string): Promise<any> {
+  static readDir(dirPath: string, options?: object): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      fs.readdir(dirPath, (err, data) => {
+      fs.readdir(dirPath, options, (err, data) => {
         if (err) {
           reject(err);
         } else {
@@ -74,7 +81,7 @@ export class FileModifiers {
       });
     });
   }
- 
+
   static async unlink(path: string) {
     return new Promise((resolve, reject) => {
       fs.unlink(path, (err) => {
@@ -111,16 +118,41 @@ export class FileModifiers {
     });
   }
 
-
   static async rmrfDir(path: string): Promise<void | Error> {
     return new Promise((resolve, reject) => {
       rmrf.default(path, (err) => {
-        if(err) {
-          reject(err)
+        if (err) {
+          reject(err);
         } else {
           resolve();
         }
       });
-    })
+    });
+  }
+
+  static async getFilesRecursive(path: string) {
+    const entries = await FileModifiers.readDir(path, { withFileTypes: true });
+
+    // Get files within the current directory and add a path key to the file objects
+    const files: RecursiveFiles[] = entries
+      .filter((file: any) => !file.isDirectory())
+      .map((file: any) => ({ ...file, path: ospath.join(path, file.name) }));
+
+    // Get folders within the current directory
+    const folders = entries.filter((folder: any) => folder.isDirectory());
+
+    /*
+          Add the found files within the subdirectory to the files array by calling the
+          current function itself
+        */
+    for (const folder of folders)
+      files.push(
+        // ...(await FileModifiers.getFilesRecursive(`${path}/${folder.name}`))
+        ...(await FileModifiers.getFilesRecursive(
+          ospath.join(path, folder.name)
+        ))
+      );
+
+    return files;
   }
 }
