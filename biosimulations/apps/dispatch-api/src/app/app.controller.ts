@@ -197,8 +197,8 @@ export class AppController implements OnApplicationBootstrap {
       let filePath: string = '';
       if (simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) {
         filePath = path.join(logPath, 'job.output');
-        console.log('Filepath: ', filePath);
-        console.log('Download: ', download);
+        // console.log('Filepath: ', filePath);
+        // console.log('Download: ', download);
         if (download) {
           console.log('Inside download true');
           res.set('Content-Type', 'text/html');
@@ -219,7 +219,7 @@ export class AppController implements OnApplicationBootstrap {
         }
       } else if (simInfo.currentStatus === DispatchSimulationStatus.FAILED) {
         filePath = path.join(logPath, 'job.error');
-        console.log('Filepath: ', filePath);
+        // console.log('Filepath: ', filePath);
         if (download) {
           res.set('Content-Type', 'text/html');
           res.download(filePath);
@@ -240,8 +240,8 @@ export class AppController implements OnApplicationBootstrap {
         res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
       } else {
         filePath = path.join(logPath, 'job.output');
-        console.log('Filepath: ', filePath);
-        console.log('Download: ', download);
+        // console.log('Filepath: ', filePath);
+        // console.log('Download: ', download);
         if (download) {
           console.log('Inside download true');
           res.set('Content-Type', 'text/html');
@@ -277,7 +277,7 @@ export class AppController implements OnApplicationBootstrap {
     // const resultPath = '/Users/akhilteja/results/out';
 
     const allFilesInfo = await FileModifiers.getFilesRecursive(resultPath);
-    console.log('AllFiles: ', allFilesInfo);
+    // console.log('AllFiles: ', allFilesInfo);
 
     const allFiles = [];
 
@@ -318,7 +318,7 @@ export class AppController implements OnApplicationBootstrap {
       data: structure,
     };
   }
-  
+
   @ApiTags('Dispatch')
   @Get('result/:uuid')
   @ApiOperation({
