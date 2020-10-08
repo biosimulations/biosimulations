@@ -31,7 +31,8 @@ export class ViewComponent implements OnInit {
 
   sedmls!: Array<string>;
   reports!: Array<string>;
-  log!: string;
+  outLog = 'No output logs found'
+  errLog = 'No error logs found'
 
   formGroup: FormGroup;
 
@@ -71,13 +72,20 @@ export class ViewComponent implements OnInit {
     }
 
     this.dispatchService.getSimulationLogs(this.uuid)
-    .subscribe((data: any) => {
-      if(data.data === undefined) {
-        this.log = data.message;
-      } else {
-        this.log = data.data;
-      }
-    })
+      .subscribe((data: any) => {
+        if (data.data === undefined) {
+          this.outLog = data.message;
+        } else {
+          const out = data.data.output;
+          const err = data.data.error;
+
+          if (err !== "") {
+            this.errLog = err;
+          } else {
+            this.outLog = out;
+          }
+        }
+      })
 
   }
 

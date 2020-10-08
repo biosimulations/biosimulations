@@ -19,7 +19,7 @@ export enum DispatchSimulationStatus {
   UNKNOWN = 'UNKNOWN',
 }
 
-@modelOptions({schemaOptions:{collection: 'dispatches'}})
+@modelOptions({ schemaOptions: { collection: 'dispatches' } })
 export class DispatchSimulationModelDB implements DispatchSimulationModel {
   @ApiProperty()
   @prop({ required: true })
@@ -30,7 +30,6 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   authorEmail!: string;
 
   @ApiProperty()
-  @prop({ required: true })
   nameOfSimulation!: string;
 
   @ApiProperty()
