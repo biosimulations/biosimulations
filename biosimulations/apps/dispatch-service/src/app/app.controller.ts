@@ -31,7 +31,7 @@ export class AppController {
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
     private simulationService: SimulationService
-  ) {}
+  ) { }
   private logger = new Logger(AppController.name);
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_START)
@@ -60,9 +60,8 @@ export class AppController {
 
     // Generate SBATCH script
     const simulatorString = `biosimulations_${data.simulator}_${data.simulatorVersion}`;
-    const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${
-      data.uniqueFilename.split('.')[0]
-    }`;
+    const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${data.uniqueFilename.split('.')[0]
+      }`;
     const sbatchString = this.sbatchService.generateSbatch(
       hpcTempDirPath,
       simulatorString,
@@ -85,14 +84,14 @@ export class AppController {
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
     const fileStorage = process.env.FILE_STORAGE || '';
-    
+
 
     const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
 
-    
+
 
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
-    
+
 
     const allFiles = [];
 
@@ -113,13 +112,13 @@ export class AppController {
     // Seperating files from directory paths to create structure
     for (const filePath of allFiles) {
       const filePathSplit = filePath.split('/');
-      
+
       //Removing task files
       filePathSplit.splice(filePathSplit.length - 1, 1);
 
       directoryList.push(filePathSplit.join('/'));
 
-      
+
     }
 
     // this.logger.log('Log message data: ' + JSON.stringify(data));
@@ -131,9 +130,13 @@ export class AppController {
     // const logFileIndex = directoryList.indexOf('job.output');
     // directoryList.splice(logFileIndex);
 
+    const dirLength = directoryList.length;
+    let dirCounter = 0;
     for (const directoryName of directoryList) {
       FileModifiers.readDir(path.join(resDir, directoryName)).then(
         (fileList: any) => {
+          const fileLength = fileList.length;
+          let fileCounter = 0;
           for (const filename of fileList) {
             if (filename.endsWith('csv')) {
               const filePath = path.join(resDir, directoryName, filename);
@@ -160,28 +163,36 @@ export class AppController {
                       chartJsonPath,
                       JSON.stringify(chartResults)
                     ).then(() => {
-                      // TODO: Run archiver once per simulation only
-                      this.archiverService
-                        .createResultArchive(uuid)
-                        .then(() => {
-                          this.messageClient.emit(
-                            MQDispatch.SIM_RESULT_FINISH,
-                            {
-                              uuid: true,
-                            }
-                          );
-                        });
+
+                      fileCounter++;
+                      dirCounter++;
+                      if ((fileCounter === fileLength) && (dirCounter === dirLength)) {
+                        this.messageClient.emit(
+                          MQDispatch.SIM_RESULT_FINISH,
+                          uuid
+                        );
+                      }
                     });
                   });
                 })
                 .on('error', (err) => {
-                  console.log('Error occured in file writing', err);
+                  return this.logger.log('Error occured in file writing' + JSON.stringify(err));
                 });
             }
           }
         }
       );
     }
+  }
+
+  @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
+  async resultFinish(uuid: string) {
+
+    this.archiverService
+      .createResultArchive(uuid)
+      .then(() => {
+
+      });
   }
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
