@@ -122,8 +122,10 @@ export class SimulationService {
             submitted: dispatchSim.submittedTime as Date,
             submittedLocally: true,
             updated: dispatchSim.statusModifiedTime as Date,
-          });
-        }
+            resultSize: dispatchSim.resultSize,
+            projectSize: dispatchSim.projectSize
+          })
+        };
         this.setSimulations(simulations, false, true);
       },
       (error: HttpErrorResponse) => {
@@ -179,5 +181,9 @@ export class SimulationService {
 
   getSimulations(): Simulation[] {
     return this.simulations;
+  }
+
+  getSimulationByUuid(uuid: string): Simulation {
+    return this.simulations.filter(element => element.id === uuid)[0] as Simulation;
   }
 }
