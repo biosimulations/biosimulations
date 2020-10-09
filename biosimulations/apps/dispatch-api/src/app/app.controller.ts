@@ -132,6 +132,8 @@ export class AppController implements OnApplicationBootstrap {
           statusModifiedTime: currentDateTime,
           currentStatus: DispatchSimulationStatus.QUEUED,
           duration: 0,
+          projectSize: Buffer.byteLength(file.buffer),
+          resultSize: 0
         };
 
         this.modelsService.createNewDispatchSimulationModel(dbModel);
