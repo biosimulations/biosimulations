@@ -106,6 +106,8 @@ export class AppController implements OnApplicationBootstrap {
     const uniqueFilename = `${fileId}.omex`;
     const omexSavePath = path.join(omexStorage, uniqueFilename);
 
+    console.log('bodyData:',bodyData)
+
     // Fill out info from file that will be lost after saving in central storage
     const simSpec: SimulationDispatchSpec = {
       authorEmail: bodyData.authorEmail,

@@ -32,6 +32,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   authorEmail!: string;
 
   @ApiProperty()
+  @prop()
   nameOfSimulation!: string;
 
   @ApiProperty()

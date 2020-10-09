@@ -19,15 +19,15 @@ import { DispatchService } from '../../../services/dispatch/dispatch.service';
 })
 export class ViewComponent implements OnInit {
   uuid = '';
-  name = 'Knockout of gene A';
-  status = 'finished';
-  submitted = '2020-08-39 12:43:00';
-  updated = '2020-08-30 10:05:12';
-  runtime = '1 min';
+  name = '';
+  status = '';
+  submitted = '';
+  updated = '';
+  runtime = '';
   projectUrl = '';
-  projectSize = '300 kb';
+  projectSize = '';
   resultsUrl = '';
-  resultsSize = '5 mb';
+  resultsSize = '';
 
   sedmls!: Array<string>;
   reports!: Array<string>;
@@ -71,6 +71,7 @@ export class ViewComponent implements OnInit {
         });
     }
 
+
     this.dispatchService.getSimulationLogs(this.uuid)
       .subscribe((data: any) => {
         if (data.data === undefined) {
@@ -98,6 +99,7 @@ export class ViewComponent implements OnInit {
     // this.formGroup.controls.sedml.setValue(sedml);
 
     this.setSedml();
+    this.setSimulationInfo();
   }
 
   setSedml(): void {
@@ -129,5 +131,17 @@ export class ViewComponent implements OnInit {
     if ($event.index == 3) {
       this.visualization.setLayout();
     }
+  }
+
+  setSimulationInfo() {
+    const simulation = this.simulationService.getSimulationByUuid(this.uuid);
+    console.log('simulation: ', simulation);
+    this.name = simulation.name;
+    this.status = simulation.status;
+    this.runtime = `${(simulation.runtime ? simulation.runtime : 0).toString()} sec`;
+    this.submitted = new Date(simulation.submitted).toLocaleString();
+    this.updated = new Date(simulation.updated).toLocaleString();
+    this.resultsSize = `${((simulation.resultSize ? simulation.resultSize:0) / 1024).toFixed(2).toString()} KB`;
+    this.projectSize = `${((simulation.projectSize ? simulation.projectSize:0) / 1024).toFixed(2).toString()} KB`;
   }
 }
