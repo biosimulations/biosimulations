@@ -129,7 +129,7 @@ export class HpcService {
     );
     //TODO: Handle stderr as well
     const squeueJSON: any = this.parseSqueueOutput(squeueData.stdout);
-    console.log(squeueJSON);
+    // console.log(squeueJSON);
     if (squeueJSON.length === 0) {
       // If Job is not found in SQUEUE, then status is not known
       return DispatchSimulationStatus.UNKNOWN;

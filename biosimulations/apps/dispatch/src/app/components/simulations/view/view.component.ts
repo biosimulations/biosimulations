@@ -135,7 +135,7 @@ export class ViewComponent implements OnInit {
 
   setSimulationInfo() {
     const simulation = this.simulationService.getSimulationByUuid(this.uuid);
-    console.log('simulation: ', simulation);
+    // console.log('simulation: ', simulation);
     this.name = simulation.name;
     this.status = simulation.status;
     this.runtime = `${(simulation.runtime ? simulation.runtime : 0).toString()} sec`;

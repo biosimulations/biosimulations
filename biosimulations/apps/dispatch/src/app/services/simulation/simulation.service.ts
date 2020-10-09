@@ -111,7 +111,7 @@ export class SimulationService {
         // Reformatting simulations according to Simulation interface
         const simulations: Simulation[] = [];
         for (const sim of data.data) {
-          console.log(sim);
+          // console.log(sim);
           const dispatchSim: DispatchSimulationModelDB = sim;
           simulations.push({
             name: dispatchSim.nameOfSimulation,
