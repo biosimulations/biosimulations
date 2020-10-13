@@ -46,11 +46,11 @@
       <div class="border">
         <div class="section">
           <h3>Docker pull command</h3>
-          <div class="section-content">
-            <div class="copy-value code">docker pull {{ simulator.image }}</div>
+          <div class="section-content copy-image">
+            <div class="code">docker pull {{ simulator.image }}</div>
             <button
               mat-icon-button
-              class="biosimulations-icon-button copy-button"
+              class="biosimulations-icon-button"
               title="Copy to clipboard"
               (click)="copyDockerPullCmd(image)"
             >
@@ -244,73 +244,20 @@
     [partialWidth]="true"
   >
     <ng-container *ngIf="simulator | async as simulator">
-      <ng-container *ngIf="simulator.algorithms as algorithms">
-        <div
-          class="columns-container"
-          gdColumns.gt-sm="1fr 25rem"
-          gdGap.gt-sm="2rem"
-        >
-          <div class="table-container">
-            <biosimulations-responsive-table
-              [columns]="versionsColumns"
-              [singleLineHeadings]="true"
-              [data]="simulator.versions"
-              [sortable]="true"
-              [controls]="false"
-              stackedContentsHeading="Contents"
-              [getStackedHeading]="getVersionStackedHeading"
-              [getStackedHeadingMoreInfoRouterLink]="
-                getVersionStackedHeadingMoreInfoRouterLink.bind(this)
-              "
-              [defaultSort]="{ active: 'label', direction: 'desc' }"
-            >
-            </biosimulations-responsive-table>
-          </div>
-          <div class="border">
-            <div class="section">
-              <h3>Docker pull command</h3>
-              <div class="section-content">
-                <div class="copy-value code">
-                  docker pull {{ simulator.image }}
-                </div>
-                <button
-                  mat-icon-button
-                  class="biosimulations-icon-button copy-button"
-                  title="Copy to clipboard"
-                  (click)="copyDockerPullCmd(simulator.image)"
-                >
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </div>
-            </div>
-
-            <div class="section">
-              <h3>License</h3>
-              <div class="section-content">
-                <p>
-                  {{ simulator.licenseName | async }}
-                  <a [href]="simulator.licenseUrl | async" target="_blank"
-                    ><biosimulations-icon icon="link"></biosimulations-icon
-                  ></a>
-                </p>
-              </div>
-            </div>
-
-            <div class="section">
-              <h3>More info</h3>
-              <div class="section-content">
-                <p>
-                  {{ simulator.url }}
-                  <a [href]="url" target="_blank"
-                    ><biosimulations-icon icon="link"></biosimulations-icon
-                  ></a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container>
+      <biosimulations-responsive-table
+        [columns]="versionsColumns"
+        [singleLineHeadings]="true"
+        [data]="simulator.versions"
+        [sortable]="true"
+        [controls]="false"
+        stackedContentsHeading="Contents"
+        [getStackedHeading]="getVersionStackedHeading"
+        [getStackedHeadingMoreInfoRouterLink]="
+          getVersionStackedHeadingMoreInfoRouterLink.bind(this)
+        "
+        [defaultSort]="{ active: 'label', direction: 'desc' }"
+      >
+      </biosimulations-responsive-table>
     </ng-container>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

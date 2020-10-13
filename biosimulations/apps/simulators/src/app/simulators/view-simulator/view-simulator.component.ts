@@ -218,7 +218,8 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'image',
       heading: 'Image',
       key: 'image',
-      rightIcon: 'link',
+      rightIcon: 'copy',
+      rightIconTitle: (): string => {return 'Copy to clipboard'},
       rightLinkType: ColumnLinkType.href,
       rightHref: (version: Version): string | null => {
         if (version.url === undefined) {
@@ -227,7 +228,7 @@ export class ViewSimulatorComponent implements OnInit {
           return version.url;
         }
       },
-      minWidth: 300,
+      minWidth: 650,
     },
   ];
 
