@@ -153,6 +153,13 @@ a {
   color: mat-color($theme-primary);
   text-decoration: none;
   cursor: pointer;
+
+  &.text {
+    color: $dark-primary-text;
+    &:hover {
+      color: mat-color($theme-primary);
+    }
+  }
 }
 
 .highlight-primary {
@@ -320,6 +327,10 @@ npn-slider .slider {
   height: auto;
   line-height: unset;
 
+  &.primary {
+    color: mat-color($theme-primary);
+  }
+
   .mat-button-focus-overlay {
     display: none;
   }
@@ -424,4 +435,11 @@ table {
 
 .clear-float {
   clear: both;
+}
+
+/* columns */
+.ragged-columns {
+  .column {
+    height: max-content;
+  }
 }

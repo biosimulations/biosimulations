@@ -1,6 +1,7 @@
-export enum ColumnLinkType {
+export enum ColumnActionType {
   routerLink = 'routerLink',
   href = 'href',
+  click = 'click',
 }
 
 export enum ColumnFilterType {
@@ -29,15 +30,18 @@ export interface Column {
   rightIcon?: string;
   leftIconTitle?: (rowData: any) => string | null;
   rightIconTitle?: (rowData: any) => string | null;
-  leftLinkType?: ColumnLinkType;
-  centerLinkType?: ColumnLinkType;
-  rightLinkType?: ColumnLinkType;
+  leftAction?: ColumnActionType;
+  centerAction?: ColumnActionType;
+  rightAction?: ColumnActionType;
   leftRouterLink?: (rowData: any) => any[] | null;
   centerRouterLink?: (rowData: any) => any[] | null;
   rightRouterLink?: (rowData: any) => any[] | null;
   leftHref?: (rowData: any) => string | null;
   centerHref?: (rowData: any) => string | null;
   rightHref?: (rowData: any) => string | null;
+  leftClick?: (rowData: any) => void;
+  centerClick?: (rowData: any) => void;
+  rightClick?: (rowData: any) => void;
   minWidth?: number;
   center?: boolean;
   filterable?: boolean;
@@ -48,6 +52,8 @@ export interface Column {
   numericFilterStep?: number;
   show?: boolean;
   showStacked?: boolean;
+  centerShowStacked?: boolean;
+  rightShowStacked?: boolean;
   _index?: number;
   _filterData?: any;
 }
@@ -61,19 +67,19 @@ export class RowService {
   static getElementRouterLink(element: any, column: Column, side: Side): any {
     if (
       side == Side.left &&
-      column.leftLinkType === ColumnLinkType.routerLink &&
+      column.leftAction === ColumnActionType.routerLink &&
       column.leftRouterLink !== undefined
     ) {
       return column.leftRouterLink(element);
     } else if (
       side == Side.center &&
-      column.centerLinkType === ColumnLinkType.routerLink &&
+      column.centerAction === ColumnActionType.routerLink &&
       column.centerRouterLink !== undefined
     ) {
       return column.centerRouterLink(element);
     } else if (
       side == Side.right &&
-      column.rightLinkType === ColumnLinkType.routerLink &&
+      column.rightAction === ColumnActionType.routerLink &&
       column.rightRouterLink !== undefined
     ) {
       return column.rightRouterLink(element);
@@ -85,25 +91,48 @@ export class RowService {
   static getElementHref(element: any, column: Column, side: Side): any {
     if (
       side == Side.left &&
-      column.leftLinkType === ColumnLinkType.href &&
+      column.leftAction === ColumnActionType.href &&
       column.leftHref !== undefined
     ) {
       return column.leftHref(element);
     } else if (
       side == Side.center &&
-      column.centerLinkType === ColumnLinkType.href &&
+      column.centerAction === ColumnActionType.href &&
       column.centerHref !== undefined
     ) {
       return column.centerHref(element);
     } else if (
       side == Side.right &&
-      column.rightLinkType === ColumnLinkType.href &&
+      column.rightAction === ColumnActionType.href &&
       column.rightHref !== undefined
     ) {
       return column.rightHref(element);
     } else {
       return null;
     }
+  }
+
+  static getElementClick(column: Column, side: Side): (element: any) => void | null {
+    if (
+      side == Side.left &&
+      column.leftAction === ColumnActionType.click &&
+      column.leftClick !== undefined
+    ) {
+      return column.leftClick;
+    } else if (
+      side == Side.center &&
+      column.centerAction === ColumnActionType.click &&
+      column.centerClick !== undefined
+    ) {
+      return column.centerClick;
+    } else if (
+      side == Side.right &&
+      column.rightAction === ColumnActionType.click &&
+      column.rightClick !== undefined
+    ) {
+      return column.rightClick;
+    }
+    return null;
   }
 
   static getElementValue(

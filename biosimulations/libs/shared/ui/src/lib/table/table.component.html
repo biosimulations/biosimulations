@@ -157,7 +157,7 @@
               'height.px': 20 * linesPerRow
             }"
           >
-            <span [ngSwitch]="column.leftLinkType">
+            <span [ngSwitch]="column.leftAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
@@ -187,6 +187,22 @@
                 </a>
               </ng-template>
 
+              <ng-template [ngSwitchCase]="'click'">
+                <button
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
+                  *ngIf="element._cache[column.id].left.click as click"
+                  (click)="click(element)"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      leftTemplate;
+                      context: { icon: column.leftIcon }
+                    "
+                  ></ng-container>
+                </button>
+              </ng-template>
+
               <ng-template ngSwitchDefault>
                 <ng-container
                   *ngTemplateOutlet="
@@ -205,7 +221,7 @@
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.centerLinkType">
+            <span [ngSwitch]="column.centerAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   *ngIf="
@@ -229,6 +245,18 @@
                 </a>
               </ng-template>
 
+              <ng-template [ngSwitchCase]="'click'">
+                <button
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
+                  *ngIf="element._cache[column.id].center.click as click"
+                  (click)="click(element)"
+                >
+                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  ></ng-container>
+                </button>
+              </ng-template>
+
               <ng-template ngSwitchDefault>
                 <ng-container *ngTemplateOutlet="centerTemplate"
                 ></ng-container>
@@ -239,7 +267,7 @@
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.rightLinkType">
+            <span [ngSwitch]="column.rightAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   *ngIf="
@@ -269,6 +297,22 @@
                     "
                   ></ng-container>
                 </a>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'click'">
+                <button
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
+                  *ngIf="element._cache[column.id].right.click as click"
+                  (click)="click(element)"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      rightTemplate;
+                      context: { icon: column.rightIcon }
+                    "
+                  ></ng-container>
+                </button>
               </ng-template>
 
               <ng-template ngSwitchDefault>

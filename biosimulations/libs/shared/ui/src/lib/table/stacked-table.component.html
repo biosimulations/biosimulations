@@ -15,7 +15,7 @@
       <ul class="key-value">
         <li *ngFor="let column of displayedColumns">
           <b>{{ column.heading }}:</b>
-          <span [ngSwitch]="column.centerLinkType">
+          <span [ngSwitch]="column.centerAction">
             <ng-template [ngSwitchCase]="'routerLink'">
               <a
                 *ngIf="row.columns[column.id]?.centerRouterLink as routerLink"
@@ -37,6 +37,18 @@
               </a>
             </ng-template>
 
+            <ng-template [ngSwitchCase]="'click'">
+              <button
+                mat-icon-button
+                class="biosimulations-icon-button primary"
+                *ngIf="row.columns[column.id]?.centerClick as click"
+                (click)="click(row.rawData)"
+              >
+                <ng-container *ngTemplateOutlet="centerTemplate"
+                ></ng-container>
+              </button>
+            </ng-template>
+
             <ng-template ngSwitchDefault>
               <ng-container *ngTemplateOutlet="centerTemplate"
               ></ng-container>
@@ -44,6 +56,54 @@
 
             <ng-template #centerTemplate>
               {{ row.columns[column.id]?.value }}
+            </ng-template>
+          </span>
+
+          <span [ngSwitch]="column.rightAction" *ngIf="column.rightShowStacked !== false">
+            <ng-template [ngSwitchCase]="'routerLink'">
+              <a
+                *ngIf="row.columns[column.id]?.rightRouterLink as routerLink"
+                [routerLink]="routerLink"
+              >
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                ></ng-container>
+              </a>
+            </ng-template>
+
+            <ng-template [ngSwitchCase]="'href'">
+              <a
+                *ngIf="row.columns[column.id]?.rightHref as href"
+                [href]="href"
+                target="_blank"
+              >
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                ></ng-container>
+              </a>
+            </ng-template>
+
+            <ng-template [ngSwitchCase]="'click'">
+              <button
+                mat-icon-button
+                class="biosimulations-icon-button primary"
+                *ngIf="row.columns[column.id]?.rightClick as click"
+                (click)="click(row.rawData)"
+              >
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                ></ng-container>
+              </button>
+            </ng-template>
+
+            <ng-template ngSwitchDefault>
+              <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+              ></ng-container>
+            </ng-template>
+
+            <ng-template #rightTemplate let-icon="icon">
+              <biosimulations-icon
+                *ngIf="icon"
+                [icon]="icon"
+                [title]="row.columns[column.id]?.rightIconTitle"
+              ></biosimulations-icon>
             </ng-template>
           </span>
         </li>

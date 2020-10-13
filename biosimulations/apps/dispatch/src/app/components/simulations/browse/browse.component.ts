@@ -5,7 +5,7 @@ import { SimulationService } from '../../../services/simulation/simulation.servi
 import {
   TableComponent,
   Column,
-  ColumnLinkType,
+  ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import { Observable } from 'rxjs';
@@ -153,7 +153,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Visualize',
       center: true,
       leftIcon: 'chart',
-      leftLinkType: ColumnLinkType.routerLink,
+      leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] => {
         return ['/simulations', simulation.id];
       },
@@ -166,7 +166,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Download',
       center: true,
       leftIcon: 'download',
-      leftLinkType: ColumnLinkType.href,
+      leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
         if (simulation.status === SimulationStatus.succeeded) {
           return `${urls.dispatchApi}/download/${simulation.id}`;
@@ -183,7 +183,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Log',
       center: true,
       leftIcon: 'logs',
-      leftLinkType: ColumnLinkType.routerLink,
+      leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (
           simulation.status === SimulationStatus.succeeded ||

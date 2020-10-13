@@ -62,14 +62,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     float: left;
-    max-width: calc(100% - 0.25rem - 12.25px);
+    max-width: calc(100% - 0.25rem - 13px);
   }
 
   .biosimulations-icon-button {
     position: relative;
     top: -0.15rem;
-    color: mat-color($theme-primary);
-    float: right;
+    float: left;
+    margin-left: 0.25rem;
     font-size: 125%;
   }
 }

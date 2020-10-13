@@ -20,7 +20,7 @@ import {
   TocSection,
   TocSectionsContainerDirective,
   Column,
-  ColumnLinkType,
+  ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import { SimulatorService } from '../simulator.service';
@@ -156,7 +156,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'KiSAO id',
       key: 'kisaoId',
       rightIcon: 'link',
-      rightLinkType: ColumnLinkType.href,
+      rightAction: ColumnActionType.href,
       rightHref: (parameter: Parameter): string => {
         return parameter.kisaoUrl;
       },
@@ -200,7 +200,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Version',
       key: 'label',
       rightIcon: 'internalLink',
-      rightLinkType: ColumnLinkType.routerLink,
+      rightAction: ColumnActionType.routerLink,
       rightRouterLink: (version: Version) => {
         return ['/simulators', this.id, version.label];
       },
@@ -220,13 +220,9 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'image',
       rightIcon: 'copy',
       rightIconTitle: (): string => {return 'Copy to clipboard'},
-      rightLinkType: ColumnLinkType.href,
-      rightHref: (version: Version): string | null => {
-        if (version.url === undefined) {
-          return null;
-        } else {
-          return version.url;
-        }
+      rightAction: ColumnActionType.click,
+      rightClick: (version: Version): void => {
+        this.copyDockerPullCmd(version.image);
       },
       minWidth: 650,
     },

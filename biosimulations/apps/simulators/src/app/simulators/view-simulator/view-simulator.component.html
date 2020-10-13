@@ -5,12 +5,12 @@
     [partialWidth]="true"
   >
     <div
-      class="overview columns-container"
+      class="overview columns-container ragged-columns"
       gdColumns.gt-sm="1fr 25rem"
       gdGap.gt-sm="2rem"
       *ngIf="simulator | async as simulator"
     >
-      <div>
+      <div class="column">
         <h2>
           {{ simulator.name }} ({{ simulator.id }} / {{ simulator.version }})
         </h2>
@@ -43,16 +43,16 @@
         </table>
       </div>
       <!-- TODO Fix repeated code-->
-      <div class="border">
+      <div class="column border">
         <div class="section">
           <h3>Docker pull command</h3>
           <div class="section-content copy-image">
             <div class="code">docker pull {{ simulator.image }}</div>
             <button
               mat-icon-button
-              class="biosimulations-icon-button"
+              class="biosimulations-icon-button primary"
               title="Copy to clipboard"
-              (click)="copyDockerPullCmd(image)"
+              (click)="copyDockerPullCmd(simulator.image)"
             >
               <biosimulations-icon icon="copy"></biosimulations-icon>
             </button>
@@ -75,12 +75,9 @@
         <div class="section">
           <h3>More info</h3>
           <div class="section-content">
-            <p>
+            <a [href]="simulator.url" target="_blank" class="text">
               {{ simulator.url }}
-              <a [href]="url" target="_blank"
-                ><biosimulations-icon icon="link"></biosimulations-icon
-              ></a>
-            </p>
+            </a>
           </div>
         </div>
       </div>
