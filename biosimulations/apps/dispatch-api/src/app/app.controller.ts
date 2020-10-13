@@ -21,10 +21,11 @@ import {
   ApiConsumes,
   ApiBody,
   ApiQuery,
+  ApiProperty,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { v4 as uuid } from 'uuid';
-import * as fs from 'fs';
 import path from 'path';
 import { urls } from '@biosimulations/config/common';
 import { ModelsService } from './resources/models/models.service';
@@ -36,6 +37,7 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { MQDispatch } from '@biosimulations/messages';
 import { FileModifiers } from '@biosimulations/dispatch/api-models';
+
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   private logger = new Logger(AppController.name);
@@ -44,7 +46,7 @@ export class AppController implements OnApplicationBootstrap {
     private httpService: HttpService,
     private modelsService: ModelsService
   ) {}
-
+  @ApiTags('Dispatch')
   @Post('dispatch')
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Dispatch a simulation job' })
@@ -73,9 +75,11 @@ export class AppController implements OnApplicationBootstrap {
             'Version of the selected simulator like 4.27.214/latest, etc',
         },
         authorEmail: {
+          description: 'Provide an email for notifications',
           type: 'string',
         },
         nameOfSimulation: {
+          description: 'Define a name for your simulation project',
           type: 'string',
         },
       },
@@ -85,8 +89,7 @@ export class AppController implements OnApplicationBootstrap {
   async uploadFile(
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
-  ) {
-    // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
+  ): Promise<{}> {
     // TODO: Create the required folders automatically
     const fileStorage = process.env.FILE_STORAGE;
     const omexStorage = `${fileStorage}/OMEX/ID`;
@@ -105,7 +108,7 @@ export class AppController implements OnApplicationBootstrap {
     const simSpec: SimulationDispatchSpec = {
       authorEmail: bodyData.authorEmail,
       nameOfSimulation: bodyData.nameOfSimulation,
-      simulator: bodyData.simulator,
+      simulator: bodyData.simulator.toLowerCase(),
       simulatorVersion: bodyData.simulatorVersion,
       filename: file.originalname,
       uniqueFilename,
@@ -149,26 +152,122 @@ export class AppController implements OnApplicationBootstrap {
       },
     };
   }
-
+  @ApiTags('Dispatch')
   @Get('download/:uuid')
+  @ApiOperation({ summary: 'Downloads result files' })
   @ApiResponse({
     status: 200,
     description: 'Download all results as zip archive',
     type: Object,
   })
-  archive(@Param('uuid') uId: string, @Res() res: any) {
+  archive(@Param('uuid') uId: string, @Res() res: any): void {
     const fileStorage = process.env.FILE_STORAGE || '';
     const zipPath = path.join(fileStorage, 'simulations', uId, `${uId}.zip`);
     res.download(zipPath);
   }
+  @ApiTags('Dispatch')
+  @Get('logs/:uuid')
+  @ApiOperation({
+    summary: 'Log file',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Download or get response for log files',
+    type: Object,
+  })
+  async downloadLogFile(
+    @Param('uuid') uId: string,
+    @Query('download') download: boolean,
+    @Res() res: any
+  ): Promise<void> {
+    const fileStorage = process.env.FILE_STORAGE || '';
+    const logPath = path.join(fileStorage, 'simulations', uId, 'out');
+    const simInfo = await this.modelsService.get(uId);
 
+    download = String(download) === 'false' ? false : true;
+
+    if (simInfo === null) {
+      res.send({ message: 'Cannot find the UUID specified' });
+      // return {
+      //   message: 'Cannot find the UUID specified',
+      // };
+    } else {
+      let filePath: string = '';
+      if (simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) {
+        filePath = path.join(logPath, 'job.output');
+        console.log('Filepath: ', filePath);
+        console.log('Download: ', download);
+        if (download) {
+          console.log('Inside download true');
+          res.set('Content-Type', 'text/html');
+          res.download(filePath);
+          // return null;
+        } else {
+          console.log('Inside download false');
+          const fileContent = (
+            await FileModifiers.readFile(filePath)
+          ).toString();
+          res.set('Content-Type', 'application/json');
+          res.send({
+            data: fileContent,
+          });
+          // return {
+          //   data: fileContent.toString(),
+          // };
+        }
+      } else if (simInfo.currentStatus === DispatchSimulationStatus.FAILED) {
+        filePath = path.join(logPath, 'job.error');
+        console.log('Filepath: ', filePath);
+        if (download) {
+          res.set('Content-Type', 'text/html');
+          res.download(filePath);
+          // return null;
+        } else {
+          const fileContent = (
+            await FileModifiers.readFile(filePath)
+          ).toString();
+          res.set('Content-Type', 'application/json');
+          res.send({
+            data: fileContent,
+          });
+          // return {
+          //   data: fileContent.toString(),
+          // };
+        }
+      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
+        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+      } else {
+        filePath = path.join(logPath, 'job.output');
+        console.log('Filepath: ', filePath);
+        console.log('Download: ', download);
+        if (download) {
+          console.log('Inside download true');
+          res.set('Content-Type', 'text/html');
+          res.download(filePath);
+          // return null;
+        } else {
+          console.log('Inside download false');
+          const fileContent = (
+            await FileModifiers.readFile(filePath)
+          ).toString();
+          res.set('Content-Type', 'application/json');
+          res.send({
+            data: fileContent,
+          });
+        }
+      }
+    }
+    // return null;
+  }
+  @ApiTags('Dispatch')
   @Get('result/structure/:uuid')
+  @ApiOperation({ summary: 'Shows result structure' })
   @ApiResponse({
     status: 200,
     description: 'Get results structure (SEDMLS and TASKS)',
     type: Object,
   })
-  async getResultStructure(@Param('uuid') uId: string) {
+  async getResultStructure(@Param('uuid') uId: string): Promise<{}> {
     const fileStorage = process.env.FILE_STORAGE || '';
     const structure: any = {};
 
@@ -181,7 +280,9 @@ export class AppController implements OnApplicationBootstrap {
 
     for (const sedml of sedmls) {
       structure[sedml] = [];
-      const taskFiles = await FileModifiers.readDir(path.join(resultPath, sedml));
+      const taskFiles = await FileModifiers.readDir(
+        path.join(resultPath, sedml)
+      );
       taskFiles.forEach((taskFile: string) => {
         if (taskFile.endsWith('.csv')) {
           structure[sedml].push(taskFile.split('.csv')[0]);
@@ -194,8 +295,12 @@ export class AppController implements OnApplicationBootstrap {
       data: structure,
     };
   }
-
+  @ApiTags('Dispatch')
   @Get('result/:uuid')
+  @ApiOperation({
+    summary:
+      'Get individual resultant JSON with or without chart data for each SED-ML and report ',
+  })
   @ApiResponse({
     status: 200,
     description: 'Get Simulation Results',
@@ -206,7 +311,7 @@ export class AppController implements OnApplicationBootstrap {
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
     @Query('task') task: string
-  ) {
+  ): Promise<{}> {
     const fileStorage = process.env.FILE_STORAGE || '';
 
     const jsonPath = path.join(
@@ -217,6 +322,8 @@ export class AppController implements OnApplicationBootstrap {
       sedml,
       task
     );
+
+    chart = String(chart) === 'false' ? false : true;
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
     const fileContentBuffer = await FileModifiers.readFile(filePath);
     const fileContent = JSON.parse(fileContentBuffer.toString());
@@ -227,27 +334,38 @@ export class AppController implements OnApplicationBootstrap {
     };
   }
 
-  @Get('simulators')
+  @ApiTags('Simulators')
+  @Get('/simulators')
+  @ApiOperation({
+    summary: 'Gives Information about all simulators avialable from dockerHub',
+  })
   @ApiResponse({
     status: 200,
     description: 'Get all simulators and their versions',
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(@Query('name') simulatorName: string) {
-    if (simulatorName === undefined) {
-      // Getting info of all available simulators
-      const simulatorsInfo: any = await this.httpService
-        .get(`${urls.fetchSimulatorsInfo}`)
-        .toPromise();
-      const allSimulators: any = [];
+  async getAllSimulatorVersion(
+    @Query('name') simulatorName: string
+  ): Promise<string[]> {
+    // Getting info of all available simulators
+    const simulatorsInfo: any = await this.httpService
+      .get(`${urls.fetchSimulatorsInfo}`)
+      .toPromise();
 
-      for (const simulatorInfo of simulatorsInfo['data']['results']) {
-        allSimulators.push(simulatorInfo['name']);
-      }
-      return allSimulators;
+    const allSimulators: any = [];
+
+    for (const simulatorInfo of simulatorsInfo['data']['results']) {
+      allSimulators.push(simulatorInfo['name']);
     }
 
+    if (simulatorName === undefined) {
+      return allSimulators;
+    } else if (!allSimulators.includes(simulatorName)) {
+      return [
+        `Simulator ${simulatorName.toUpperCase()} is not supported, check for supported simulators on https://biosimulators.org/simulators.`,
+      ];
+    }
     const simVersionRes = this.httpService.get(
       `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
     );

@@ -12,6 +12,7 @@ export type appName =
   | 'account'
   | 'dispatch'
   | 'simulators'
+  | 'ontologyApi'
   | 'fetchSimulatorsInfo';
 
 export type envs = 'prod' | 'dev' | 'local' | 'stage';
@@ -22,12 +23,13 @@ const envUrls: { [key in envs]: urlMap } = {
   prod: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://dispatch.biosimulations.dev/',
+    dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
-    dispatch: 'https://submit.biosimulations.dev',
+    dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: 'https://ontology.biosimulations.dev',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   dev: {
@@ -37,19 +39,21 @@ const envUrls: { [key in envs]: urlMap } = {
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
-    dispatch: 'https://submit.biosimulations.dev',
+    dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: '/ontology-api',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   stage: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://dispatch.biosimulations.dev/api',
+    dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
-    dispatch: 'https://submit.biosimulations.dev',
+    dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: 'https://ontology.biosimulations.dev',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   local: {
@@ -59,8 +63,9 @@ const envUrls: { [key in envs]: urlMap } = {
     simulatorsApi: '/simulators-api/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
-    dispatch: 'https://submit.biosimulations.dev',
+    dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
+    ontologyApi: '/ontology-api',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
 };

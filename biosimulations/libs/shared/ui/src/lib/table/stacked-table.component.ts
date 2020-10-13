@@ -1,6 +1,12 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Column, ColumnLinkType, Sort, Side, RowService } from './table.interface';
+import {
+  Column,
+  ColumnLinkType,
+  Sort,
+  Side,
+  RowService,
+} from './table.interface';
 import { TocSection } from '../toc/toc-section';
 import { TocSectionsContainerDirective } from '../toc/toc-sections-container.directive';
 
@@ -17,9 +23,11 @@ export class StackedTableComponent {
   displayedColumns!: Column[];
 
   @Input()
-  set columns (columns: Column[]) {
+  set columns(columns: Column[]) {
     this._columns = columns;
-    this.displayedColumns = columns.filter((column: Column) => column.showStacked !== false);
+    this.displayedColumns = columns.filter(
+      (column: Column) => column.showStacked !== false
+    );
     this.updateDerivedData();
     this.derivedData.next(this._derivedData);
   }
@@ -48,7 +56,7 @@ export class StackedTableComponent {
     this.data.subscribe((data: any[]) => {
       this._derivedData = [];
 
-      data.forEach((datum: any, index:number) => {
+      data.forEach((datum: any, index: number) => {
         const derivedDatum: any = {};
         this._derivedData.push(derivedDatum);
 
@@ -65,7 +73,7 @@ export class StackedTableComponent {
           derivedDatum['iconAction'] = null;
         }
 
-        derivedDatum['columns'] = {}
+        derivedDatum['columns'] = {};
       });
 
       this._dataValue = data;
@@ -84,18 +92,28 @@ export class StackedTableComponent {
       return;
     }
 
-    this._dataValue.forEach((datum: any, index:number) => {
+    this._dataValue.forEach((datum: any, index: number) => {
       const derivedDatum = this._derivedData[index]['columns'];
 
       this.displayedColumns.forEach((column: Column) => {
         derivedDatum[column.id] = {};
 
-        derivedDatum[column.id]['value'] = RowService.formatElementValue(RowService.getElementValue(datum, column), column, true);
+        derivedDatum[column.id]['value'] = RowService.formatElementValue(
+          RowService.getElementValue(datum, column),
+          column,
+          true
+        );
 
         if (column.centerLinkType === ColumnLinkType.routerLink) {
-          derivedDatum[column.id]['centerRouterLink'] = RowService.getElementRouterLink(datum, column, Side.center);
+          derivedDatum[column.id][
+            'centerRouterLink'
+          ] = RowService.getElementRouterLink(datum, column, Side.center);
         } else if (column.centerLinkType === ColumnLinkType.href) {
-          derivedDatum[column.id]['centerHef'] = RowService.getElementHref(datum, column, Side.center);
+          derivedDatum[column.id]['centerHef'] = RowService.getElementHref(
+            datum,
+            column,
+            Side.center
+          );
         }
       });
     });
@@ -105,6 +123,8 @@ export class StackedTableComponent {
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
-    setTimeout(() => {this.tocSections = container.sections;});
+    setTimeout(() => {
+      this.tocSections = container.getToc();
+    });
   }
 }

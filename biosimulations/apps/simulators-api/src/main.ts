@@ -91,8 +91,8 @@ async function bootstrap() {
       'http://localhost:4202',
       'https://biosimulators.org',
       'https://www.biosimulators.org',
-      'https://submit.biosimulations.dev',
-      'https://submit.biosimulations.org',
+      'https://run.biosimulations.dev',
+      'https://run.biosimulations.org',
     ];
 
     if (!environment.production) {

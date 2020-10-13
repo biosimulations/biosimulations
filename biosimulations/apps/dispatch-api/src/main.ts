@@ -13,14 +13,13 @@ import { environment } from '@biosimulations/shared/environments';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
+
   const port = process.env.PORT || 3333;
 
   // TODO intelligently allow origin based on production mode, abstract this; remove unconditional access from 127.0.0.1, localhost
   const allowOrigin: CustomOrigin = (
     requestOrigin: string,
-    callback: (err: Error | null, allow?: boolean | undefined) => void,
+    callback: (err: Error | null, allow?: boolean | undefined) => void
   ) => {
     if (!requestOrigin) {
       callback(null, true);
@@ -35,9 +34,8 @@ async function bootstrap() {
       'http://localhost:4202',
       'https://biosimulations.dev',
       'https://biosimulations.org',
-      'https://api.biosimulations.dev',
-      'https://api.biosimulations.org',
-      'https://submit.biosimulations.dev',
+      'https://run.biosimulations.dev',
+      'https://run.biosimulations.org',
     ];
     if (!environment.production) {
       allowedOrigins.push('http://127.0.0.1');
@@ -49,22 +47,30 @@ async function bootstrap() {
     callback(error, allow);
   };
   app.enableCors({ origin: allowOrigin });
-
+  const favIcon =
+    'https://github.com/biosimulations/Biosimulations/raw/dev/biosimulations/libs/shared/assets/src/assets/icons/favicon-32x32.png';
+  const removeIcon = ' .swagger-ui .topbar { display: none }';
   // Swagger doc
-  const options = new DocumentBuilder()
-    .setTitle('Simulation dispatch example')
+  const tags = ['Dispatch', 'Simulators', 'Database'];
+  const builder = new DocumentBuilder()
+    .setTitle('Simulation dispatch')
     .setDescription(
-      'Dispatch API allows dispatching of simulation jobs to UConn HPC',
+      'Dispatch API allows dispatching of simulation jobs to UConn HPC'
     )
-    .setVersion('1.0')
-    .addTag('dispatch')
-    // .addBearerAuth()
-    .build();
+    .setVersion('0.1');
+  for (const tag of tags) {
+    builder.addTag(tag);
+  }
+  const options = builder.build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('', app, document);
+  SwaggerModule.setup('', app, document, {
+    customfavIcon: favIcon,
+    customSiteTitle: 'Dispatch API BioSimulations',
+    customCss: removeIcon,
+  });
 
   await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+    Logger.log('Listening at http://localhost:' + port);
   });
 }
 

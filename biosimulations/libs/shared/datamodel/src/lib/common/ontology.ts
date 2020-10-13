@@ -6,7 +6,8 @@ export enum Ontologies {
   EDAM = 'EDAM',
   SPDX = 'SPDX',
 }
-
+export const KisaoIdRegEx: RegExp = /^KISAO_\d+$/ //sourced from identifiers.org 
+export const SboIdRegEx: RegExp = /^SBO_\d+$/
 export interface Identifier {
   namespace: string;
   id: string;
@@ -39,15 +40,52 @@ export interface IOntologyTerm extends IOntologyId {
   id: string;
   iri: string | null;
   url?: string | null;
+  externalUrl?: string | null
   name: string | null;
   description: string | null;
 }
-export interface KISAOTerm extends IOntologyTerm {
+export interface IdentifierTerm extends Identifier {
+  namespace: Ontologies;
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+}
+export interface KISAOTerm extends IKisaoOntologyId {
   namespace: Ontologies.KISAO;
   id: KisaoId;
   name: string;
   description: string;
   iri: string;
+  url: string;
+  externalUrl?: string | null
 }
 
+export interface SBOTerm extends IOntologyTerm {
+  namespace: Ontologies.SBO;
+  id: KisaoId;
+  name: string;
+  description: string;
+  iri: string;
+  url: string;
+  externalUrl?: string | null
+}
+
+export interface EDAMTerm extends IOntologyTerm {
+  namespace: Ontologies.EDAM;
+  id: KisaoId;
+  name: string;
+  description: string;
+  iri: string;
+  url: string;
+  externalUrl?: string | null
+}
+
+export interface SPDXTerm extends IdentifierTerm {
+  namespace: Ontologies.SPDX;
+  id: KisaoId;
+  name: string;
+  description: string;
+  url: string;
+}
 // Identifiers.org identifier

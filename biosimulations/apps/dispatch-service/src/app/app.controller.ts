@@ -1,8 +1,4 @@
-import {
-  Controller,
-  Logger,
-  Inject,
-} from '@nestjs/common';
+import { Controller, Logger, Inject } from '@nestjs/common';
 import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -16,9 +12,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import path from 'path';
 import * as csv2Json from 'csv2json';
-import {
-  SchedulerRegistry
-} from '@nestjs/schedule';
+import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
 import { MQDispatch } from '@biosimulations/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
@@ -47,12 +41,13 @@ export class AppController {
     const fileStorage = process.env.FILE_STORAGE;
     const sbatchStorage = `${fileStorage}/SBATCH/ID`;
 
+    // TODO: Hit simulator-api to get these simulator names
     if (
-      data.simulator !== 'COPASI' &&
-      data.simulator !== 'VCell' &&
-      data.simulator !== 'Tellurium' &&
-      data.simulator !== 'CobraPy' &&
-      data.simulator !== 'BioNetGen'
+      data.simulator !== 'copasi' &&
+      data.simulator !== 'vcell' &&
+      data.simulator !== 'tellurium' &&
+      data.simulator !== 'cobrapy' &&
+      data.simulator !== 'bionetgen'
     ) {
       return { message: 'Unsupported simulator was provided!' };
     }
@@ -64,9 +59,7 @@ export class AppController {
     this.logger.log('SBatch path: ' + sbatchPath);
 
     // Generate SBATCH script
-    const simulatorString = `biosimulations_${data.simulator.toLowerCase()}_${
-      data.simulatorVersion
-    }`;
+    const simulatorString = `biosimulations_${data.simulator}_${data.simulatorVersion}`;
     const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${
       data.uniqueFilename.split('.')[0]
     }`;
@@ -89,7 +82,6 @@ export class AppController {
     return { message: 'Simulation dispatch started.' };
   }
 
-  // TODO: Add API to send required info dispatch_finish pattern to NATS
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
     const fileStorage = process.env.FILE_STORAGE || '';
@@ -131,19 +123,21 @@ export class AppController {
                     const chartResults = this.convertJsonDataToChartData(
                       JSON.parse(jsonData)
                     );
-                    FileModifiers.writeFile(chartJsonPath, JSON.stringify(chartResults))
-                      .then(() => {
-                        this.archiverService
-                          .createResultArchive(uuid)
-                          .then(() => {
-                            this.messageClient.emit(
-                              MQDispatch.SIM_RESULT_FINISH,
-                              {
-                                uuid: true,
-                              }
-                            );
-                          });
-                      });
+                    FileModifiers.writeFile(
+                      chartJsonPath,
+                      JSON.stringify(chartResults)
+                    ).then(() => {
+                      this.archiverService
+                        .createResultArchive(uuid)
+                        .then(() => {
+                          this.messageClient.emit(
+                            MQDispatch.SIM_RESULT_FINISH,
+                            {
+                              uuid: true,
+                            }
+                          );
+                        });
+                    });
                   });
                 })
                 .on('error', (err) => {
@@ -178,7 +172,7 @@ export class AppController {
           this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;
-          // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
+        // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
         case DispatchSimulationStatus.FAILED:
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;

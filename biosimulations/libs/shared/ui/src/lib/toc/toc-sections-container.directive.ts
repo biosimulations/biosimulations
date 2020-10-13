@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef } from '@angular/core';
 
 import { TocSection } from './toc-section';
 
@@ -7,5 +7,18 @@ import { TocSection } from './toc-section';
   exportAs: 'tocSectionsContainer',
 })
 export class TocSectionsContainerDirective {
-  sections: any[] = [];
+  constructor(private changeRef: ChangeDetectorRef) {}
+  public addToc(toc: TocSection) {
+    this.sections.push(toc);
+    this.markChanged();
+  }
+
+  public getToc() {
+    this.markChanged();
+    return this.sections;
+  }
+  private sections: TocSection[] = [];
+  private markChanged() {
+    this.changeRef.markForCheck();
+  }
 }

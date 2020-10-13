@@ -64,9 +64,9 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -451,12 +451,13 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "serviceWorker": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -931,7 +932,9 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "dispatch-api:build"
+            "buildTarget": "dispatch-api:build",
+            "inspect": true,
+            "port": 4444
           }
         },
         "lint": {
@@ -1019,12 +1022,14 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+
+              "serviceWorker": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -1150,6 +1155,7 @@
       "root": "apps/simulators",
       "sourceRoot": "apps/simulators/src",
       "prefix": "biosimulations",
+
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -1205,12 +1211,14 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
+              "serviceWorker": true,
+
               "budgets": [
                 {
                   "type": "initial",

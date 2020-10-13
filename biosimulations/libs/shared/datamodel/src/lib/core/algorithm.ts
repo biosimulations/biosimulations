@@ -13,7 +13,7 @@ import {
  * Represents a parameter in a particlar simulation algorith or method.
  * id refers to the identifier used by some software package to refrence parameter
  * type is an enum string to determine what the underling type of the parameter's value is
- * recomendedRange is a sensible value from the original that the parameter can be changed to
+ * recommendedRange is a sensible value from the original that the parameter can be changed to
  */
 export interface AlgorithmParameter {
   id: string;
@@ -21,7 +21,7 @@ export interface AlgorithmParameter {
   type: PrimitiveType;
   value: boolean | number | string;
   // Todo make this a conditional type based on value
-  recomendedRange: (boolean | number | string)[] | null;
+  recommendedRange: (boolean | number | string)[] | null;
   kisaoId: IKisaoOntologyId;
   kisaoSynonyms: IKisaoOntologyId[];
   characteristics: IOntologyId[];

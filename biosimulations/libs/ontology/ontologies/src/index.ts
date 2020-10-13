@@ -1,3 +1,3 @@
-export * from './lib/ontology-ontologies.module';
-export * from './lib/ontology-ontologies.service';
-export * from './lib/ontology-ontologies.controller';
+export * from './lib/ontologies.module';
+export * from './lib/ontologies.service';
+export * from './lib/ontologies.controller';

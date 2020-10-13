@@ -11,6 +11,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 import { VisualisationComponent } from './visualisation/visualisation.component';
+import { DispatchService } from '../../../services/dispatch/dispatch.service';
 
 @Component({
   templateUrl: './view.component.html',
@@ -37,7 +38,10 @@ export class ViewComponent implements OnInit {
   sedmlError!: string;
   reportError!: string;
 
-  projectResults!: any;
+  projectStructure!: any;
+
+  selectedSedml!: string;
+  selectedReport!: string;
 
   @ViewChild('visualization') visualization!: VisualisationComponent;
 
@@ -46,6 +50,7 @@ export class ViewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
     private visualisationService: VisualisationService,
+    private dispatchService: DispatchService
   ) {
     this.formGroup = formBuilder.group({
       sedml: ['', [Validators.required]],
@@ -55,43 +60,61 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    if (this.projectResults === undefined) {
+    if (this.projectStructure === undefined) {
       this.visualisationService
         .getResultStructure(this.uuid)
         .subscribe((data: any) => {
-          data['data'].submittedLocally = false;
+          // data['data'].submittedLocally = false;
           this.setProjectResults(data['data']);
-          this.simulationService.storeSimulation(data['data']);
+          // this.simulationService.storeSimulation(data['data']);
         });
     }
+
+    this.dispatchService.getSimulationLogs(this.uuid)
+    .subscribe((data: any) => {
+      if(data.data === undefined) {
+        this.log = data.message;
+      } else {
+        this.log = data.data;
+      }
+    })
+
   }
 
-  setProjectResults(projectResults: any): void {
-    this.projectResults = projectResults;
+  setProjectResults(projectStructure: any): void {
+    this.projectStructure = projectStructure;
 
-    this.sedmls = Object.keys(projectResults);
-    const sedml = this.sedmls[0];
-    this.formGroup.controls.sedml.setValue(sedml);
+    this.sedmls = Object.keys(projectStructure);
+    this.selectedSedml = this.sedmls[0];
+    // const sedml = this.sedmls[0];
+    // this.formGroup.controls.sedml.setValue(sedml);
 
     this.setSedml();
   }
 
   setSedml(): void {
-    const sedml = this.formGroup.value.sedml;
-    this.reports = Object.keys(this.projectResults[sedml]);
-    const report = this.reports[0];
-    this.formGroup.controls.report.setValue(report);
+    // const sedml = this.formGroup.value.sedml;
+    // this.reports = Object.keys(this.projectResults[sedml]);
+    this.reports = this.projectStructure[this.selectedSedml];
+    this.selectedReport = this.reports[0];
+    // const report = this.reports[0];
+    // this.formGroup.controls.report.setValue(report);
     this.setReport();
   }
 
   setReport(): void {
-    const sedml = this.formGroup.value.sedml;
-    const report = this.formGroup.value.report;
-    const reportResults = this.projectResults[sedml][report];
-    this.visualisationService.updateDataEvent.next({
-      report: report,
-      data: reportResults,
-    });
+    // const sedml = this.formGroup.value.sedml;
+    // const report = this.formGroup.value.report;
+    // const reportResults = this.projectResults[sedml][report];
+
+    this.visualisationService
+      .getVisualisation(this.uuid, this.selectedSedml, this.selectedReport)
+      .subscribe((data: any) => {
+        this.visualisationService.updateDataEvent.next({
+          report: this.selectedReport,
+          data: data['data'],
+        });
+      });
   }
 
   selectedTabChange($event: MatTabChangeEvent): void {

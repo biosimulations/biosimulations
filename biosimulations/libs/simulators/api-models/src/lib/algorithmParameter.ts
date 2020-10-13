@@ -1,8 +1,10 @@
 import { PrimitiveType } from '@biosimulations/shared/datamodel';
 import { KisaoOntologyId, OntologyId } from './ontologyId';
 import { ApiProperty } from '@nestjs/swagger';
-import { Prop } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+
+@Schema({ _id: false })
 export class AlgorithmParameter {
   @Prop()
   @ApiProperty()
@@ -11,7 +13,7 @@ export class AlgorithmParameter {
   @ApiProperty()
   kisaoSynonyms!: KisaoOntologyId[];
   @Prop()
-  @ApiProperty()
+  @ApiProperty({ required: true })
   characteristics!: OntologyId[];
   @Prop()
   @ApiProperty()
@@ -21,7 +23,7 @@ export class AlgorithmParameter {
   name!: string;
   @Prop()
   @ApiProperty({
-    type: String,
+    enum: [PrimitiveType],
   })
   type!: PrimitiveType;
   @Prop()
@@ -36,5 +38,6 @@ export class AlgorithmParameter {
     minItems: 1,
     example: [22.7, 2270],
   })
-  recomendedRange!: (boolean | number | string)[] | null;
+  recommendedRange!: (boolean | number | string)[] | null;
 }
+export const AlgorithmParameterSchema = SchemaFactory.createForClass(AlgorithmParameter);

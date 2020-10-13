@@ -8,22 +8,25 @@
       class="overview columns-container"
       gdColumns.gt-sm="1fr 25rem"
       gdGap.gt-sm="2rem"
+      *ngIf="simulator | async as simulator"
     >
       <div>
-        <h2>{{ name }} ({{ id }} / {{ version }})</h2>
+        <h2>
+          {{ simulator.name }} ({{ simulator.id }} / {{ simulator.version }})
+        </h2>
         <p>
-          {{ description }}
+          {{ simulator.description }}
         </p>
 
         <table class="icon-list">
           <tbody>
-            <tr *ngIf="authors?.length > 0">
+            <tr *ngIf="simulator.authors?.length > 0">
               <th><biosimulations-icon icon="user"></biosimulations-icon></th>
-              <td>{{ authors }}</td>
+              <td>{{ simulator.authors }}</td>
             </tr>
           </tbody>
 
-          <tbody class="citations" *ngIf="citations?.length > 0">
+          <tbody class="citations" *ngIf="simulator.citations?.length > 0">
             <tr *ngFor="let citation of citations">
               <th>
                 <biosimulations-icon icon="tutorial"></biosimulations-icon>
@@ -44,7 +47,7 @@
         <div class="section">
           <h3>Docker pull command</h3>
           <div class="section-content">
-            <div class="copy-value code">docker pull {{ image }}</div>
+            <div class="copy-value code">docker pull {{ simulator.image }}</div>
             <button
               mat-icon-button
               class="biosimulations-icon-button copy-button"
@@ -61,8 +64,8 @@
           <h3>License</h3>
           <div class="section-content">
             <p>
-              {{ licenseName }}
-              <a [href]="licenseUrl" target="_blank"
+              {{ simulator.licenseName | async }}
+              <a [href]="simulator.licenseUrl | async" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
             </p>
@@ -73,7 +76,7 @@
           <h3>More info</h3>
           <div class="section-content">
             <p>
-              {{ url }}
+              {{ simulator.url }}
               <a [href]="url" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
@@ -112,90 +115,125 @@
       </ng-container>
 
       <ng-container id="content" tocSectionsContainer>
-        <biosimulations-text-page-content-section
-          *ngFor="let algorithm of algorithms"
-          [heading]="algorithm.heading"
-          [tocSection]="algorithm.name"
-        >
-          <ng-container *ngIf="algorithm?.description">
-            <p class="subsection-heading no-bottom-margin">Description</p>
-            <p>
-              <ng-template ngFor let-fragment [ngForOf]="algorithm.description">
-                <span *ngIf="fragment.type == 'text'; else descriptionLink">
-                  {{ fragment.value }}
-                </span>
-                <ng-template #descriptionLink>
-                  <a [href]="fragment.value"
-                    ><biosimulations-icon icon="link"></biosimulations-icon
-                  ></a>
-                </ng-template>
-              </ng-template>
-            </p>
-          </ng-container>
-
-          <p class="subsection-heading no-bottom-margin">Modeling frameworks</p>
-          <ul class="icon-list" *ngIf="algorithm?.frameworks?.length > 0; noFrameworksMessage">
-            <li *ngFor="let framework of algorithm.frameworks">
-              <biosimulations-icon icon="simulator"></biosimulations-icon>
-              <a [href]="framework.url" target="_blank">{{ framework.name }}</a>
-            </li>
-          </ul>
-          <ng-template #noFrameworksMessage>
-            <p>This algorithm does not support any canonical modeling frameworks.</p>
-          </ng-template>
-
-          <p class="subsection-heading no-bottom-margin">Model formats</p>
-          <ul class="icon-list" *ngIf="algorithm?.formats?.length > 0; noFormatsMessage">
-            <li *ngFor="let format of algorithm.formats">
-              <biosimulations-icon icon="format"></biosimulations-icon>
-              <a [href]="format.url" target="_blank">{{ format.name }}</a>
-            </li>
-          </ul>
-          <ng-template #noFormatsMessage>
-            <p>This algorithm does not support any standard model formats.</p>
-          </ng-template>
-
-          <p class="subsection-heading no-bottom-margin">Parameters</p>
-          <div class="table-container" *ngIf="(algorithm?.parameters | async)?.length > 0; else noParametersMessage">
-            <biosimulations-responsive-table
-              [columns]="parametersColumns"
-              [singleLineHeadings]="true"
-              [data]="algorithm.parameters"
-              [sortable]="true"
-              [controls]="false"
-              stackedContentsHeading="Parameters"
-              [getStackedHeading]="getParameterStackedHeading"
-              [getStackedHeadingMoreInfoRouterLink]="getParameterStackedHeadingMoreInfoRouterLink"
-              [defaultSort]="{ active: 'name', direction: 'asc' }"
+        <ng-container *ngIf="simulator | async as simulator">
+          <ng-container *ngIf="simulator.algorithms as algorithms">
+            <biosimulations-text-page-content-section
+              *ngFor="let algorithm of algorithms"
+              [heading]="algorithm.heading | async"
+              [tocSection]="algorithm.name | async"
             >
-            </biosimulations-responsive-table>
-          </div>
-          <ng-template #noParametersMessage>
-            <p>This algorithm does not have any parameters.</p>
-          </ng-template>
+              <ng-container
+                *ngIf="algorithm.description | async as description"
+              >
+                <p class="subsection-heading no-bottom-margin">Description</p>
+                <p>
+                  <ng-template ngFor let-fragment [ngForOf]="description">
+                    <span *ngIf="fragment.type == 'text'; else descriptionLink">
+                      {{ fragment.value }}
+                    </span>
+                    <ng-template #descriptionLink>
+                      <a [href]="fragment.value"
+                        ><biosimulations-icon icon="link"></biosimulations-icon
+                      ></a>
+                    </ng-template>
+                  </ng-template>
+                </p>
+              </ng-container>
 
-          <ng-container *ngIf="algorithm?.citations?.length > 0">
-            <p class="subsection-heading no-bottom-margin">Citations</p>
-            <ul class="icon-list">
-              <li *ngFor="let citation of algorithm.citations">
-                <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                <a
-                  [href]="citation.url"
-                  target="_blank"
-                  [innerHTML]="citation.text"
-                ></a>
-              </li>
-            </ul>
+              <p class="subsection-heading no-bottom-margin">
+                Modeling frameworks
+              </p>
+              <ul
+                class="icon-list"
+                *ngIf="algorithm?.frameworks.length > 0; noFrameworksMessage"
+              >
+                <li *ngFor="let framework of algorithm.frameworks">
+                  <ng-container *ngIf="framework | async as framework">
+                    <biosimulations-icon icon="simulator"></biosimulations-icon>
+                    <a [href]="framework.url" target="_blank">{{
+                      framework.name
+                    }}</a>
+                  </ng-container>
+                </li>
+              </ul>
+              <ng-template #noFrameworksMessage>
+                <p>
+                  This algorithm does not support any canonical modeling
+                  frameworks.
+                </p>
+              </ng-template>
+
+              <p class="subsection-heading no-bottom-margin">Model formats</p>
+              <ul
+                class="icon-list"
+                *ngIf="algorithm?.formats?.length > 0; noFormatsMessage"
+              >
+                <li *ngFor="let format of algorithm.formats">
+                  <ng-container *ngIf="format | async as format">
+                    <biosimulations-icon icon="format"></biosimulations-icon>
+                    <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                  </ng-container>
+                </li>
+              </ul>
+              <ng-template #noFormatsMessage>
+                <p>
+                  This algorithm does not support any standard model formats.
+                </p>
+              </ng-template>
+
+              <p class="subsection-heading no-bottom-margin">Parameters</p>
+              <div
+                class="table-container"
+                *ngIf="
+                  (algorithm?.parameters | async)?.length > 0;
+                  else noParametersMessage
+                "
+              >
+                <biosimulations-responsive-table
+                  [columns]="parametersColumns"
+                  [singleLineHeadings]="true"
+                  [data]="algorithm.parameters"
+                  [sortable]="true"
+                  [controls]="false"
+                  stackedContentsHeading="Parameters"
+                  [getStackedHeading]="getParameterStackedHeading"
+                  [getStackedHeadingMoreInfoRouterLink]="
+                    getParameterStackedHeadingMoreInfoRouterLink
+                  "
+                  [defaultSort]="{ active: 'name', direction: 'asc' }"
+                >
+                </biosimulations-responsive-table>
+              </div>
+              <ng-template #noParametersMessage>
+                <p>This algorithm does not have any parameters.</p>
+              </ng-template>
+
+              <ng-container *ngIf="algorithm?.citations?.length > 0">
+                <p class="subsection-heading no-bottom-margin">Citations</p>
+                <ul class="icon-list">
+                  <li *ngFor="let citation of algorithm.citations">
+                    <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                    <a
+                      [href]="citation.url"
+                      target="_blank"
+                      [innerHTML]="citation.text"
+                    ></a>
+                  </li>
+                </ul>
+              </ng-container>
+
+              <p class="subsection-heading no-bottom-margin">More info</p>
+              <ul class="icon-list">
+                <li>
+                  <biosimulations-icon icon="link"></biosimulations-icon>
+                  <a [href]="algorithm?.url | async" target="_blank">{{
+                    algorithm?.id
+                  }}</a>
+                </li>
+              </ul>
+            </biosimulations-text-page-content-section>
           </ng-container>
-
-          <p class="subsection-heading no-bottom-margin">More info</p>
-          <ul class="icon-list">
-            <li>
-              <biosimulations-icon icon="link"></biosimulations-icon>
-              <a [href]="algorithm?.url" target="_blank">{{ algorithm?.id }}</a>
-            </li>
-          </ul>
-        </biosimulations-text-page-content-section>
+        </ng-container>
       </ng-container>
     </biosimulations-text-page>
   </biosimulations-tab-page-tab>
@@ -205,66 +243,74 @@
     icon="version"
     [partialWidth]="true"
   >
-    <div
-      class="columns-container"
-      gdColumns.gt-sm="1fr 25rem"
-      gdGap.gt-sm="2rem"
-    >
-      <div class="table-container">
-        <biosimulations-responsive-table
-          [columns]="versionsColumns"
-          [singleLineHeadings]="true"
-          [data]="versions"
-          [sortable]="true"
-          [controls]="false"
-          stackedContentsHeading="Contents"
-          [getStackedHeading]="getVersionStackedHeading"
-          [getStackedHeadingMoreInfoRouterLink]="getVersionStackedHeadingMoreInfoRouterLink.bind(this)"
-          [defaultSort]="{ active: 'label', direction: 'desc' }"
+    <ng-container *ngIf="simulator | async as simulator">
+      <ng-container *ngIf="simulator.algorithms as algorithms">
+        <div
+          class="columns-container"
+          gdColumns.gt-sm="1fr 25rem"
+          gdGap.gt-sm="2rem"
         >
-        </biosimulations-responsive-table>
-      </div>
-      <div class="border">
-        <div class="section">
-          <h3>Docker pull command</h3>
-          <div class="section-content">
-            <div class="copy-value code">docker pull {{ '{ ' }} image {{ '} ' }}</div>
-            <button
-              mat-icon-button
-              class="biosimulations-icon-button copy-button"
-              title="Copy to clipboard"
-              (click)="copyDockerPullCmd()"
+          <div class="table-container">
+            <biosimulations-responsive-table
+              [columns]="versionsColumns"
+              [singleLineHeadings]="true"
+              [data]="simulator.versions"
+              [sortable]="true"
+              [controls]="false"
+              stackedContentsHeading="Contents"
+              [getStackedHeading]="getVersionStackedHeading"
+              [getStackedHeadingMoreInfoRouterLink]="
+                getVersionStackedHeadingMoreInfoRouterLink.bind(this)
+              "
+              [defaultSort]="{ active: 'label', direction: 'desc' }"
             >
-              <biosimulations-icon icon="copy"></biosimulations-icon>
-            </button>
-            <div class="clear-float"></div>
+            </biosimulations-responsive-table>
           </div>
-        </div>
+          <div class="border">
+            <div class="section">
+              <h3>Docker pull command</h3>
+              <div class="section-content">
+                <div class="copy-value code">
+                  docker pull {{ simulator.image }}
+                </div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-icon-button copy-button"
+                  title="Copy to clipboard"
+                  (click)="copyDockerPullCmd(simulator.image)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </div>
+            </div>
 
-        <div class="section">
-          <h3>License</h3>
-          <div class="section-content">
-            <p>
-              {{ licenseName }}
-              <a [href]="licenseUrl" target="_blank"
-                ><biosimulations-icon icon="link"></biosimulations-icon
-              ></a>
-            </p>
-          </div>
-        </div>
+            <div class="section">
+              <h3>License</h3>
+              <div class="section-content">
+                <p>
+                  {{ simulator.licenseName | async }}
+                  <a [href]="simulator.licenseUrl | async" target="_blank"
+                    ><biosimulations-icon icon="link"></biosimulations-icon
+                  ></a>
+                </p>
+              </div>
+            </div>
 
-        <div class="section">
-          <h3>More info</h3>
-          <div class="section-content">
-            <p>
-              {{ url }}
-              <a [href]="url" target="_blank"
-                ><biosimulations-icon icon="link"></biosimulations-icon
-              ></a>
-            </p>
+            <div class="section">
+              <h3>More info</h3>
+              <div class="section-content">
+                <p>
+                  {{ simulator.url }}
+                  <a [href]="url" target="_blank"
+                    ><biosimulations-icon icon="link"></biosimulations-icon
+                  ></a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </ng-container>
+    </ng-container>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

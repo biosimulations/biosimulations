@@ -9,7 +9,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
-
+import { MarkedPreloadingStrategy } from './MarkedPreloadingStrategy'
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -26,7 +26,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./simulators/simulators.module').then((m) => m.SimulatorsModule),
     data: {
-      breadcrumb: 'Simulators'
+      breadcrumb: 'Simulators',
+      preload: {
+        preload: true,
+        delay: 500
+      }
     }
   },
   {
@@ -34,7 +38,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./help/help.module').then((m) => m.HelpModule),
     data: {
-      breadcrumb: 'Help'
+      breadcrumb: 'Help',
+      preload: {
+        preload: true,
+        delay: 1000
+      }
     }
   },
 ];
@@ -47,7 +55,7 @@ const routes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     SharedUiModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled', preloadingStrategy: MarkedPreloadingStrategy }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
@@ -56,8 +64,8 @@ const routes: Routes = [
     }),
   ],
   providers: [
-    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
-    {provide: ConfigService, useValue: config },
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
+    { provide: ConfigService, useValue: config },
   ],
   bootstrap: [AppComponent],
 })
