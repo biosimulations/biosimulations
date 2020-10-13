@@ -27,7 +27,7 @@
           </tbody>
 
           <tbody class="citations" *ngIf="simulator.citations?.length > 0">
-            <tr *ngFor="let citation of citations">
+            <tr *ngFor="let citation of simulator.citations">
               <th>
                 <biosimulations-icon icon="tutorial"></biosimulations-icon>
               </th>
@@ -36,7 +36,11 @@
                   [href]="citation.url"
                   target="_blank"
                   [innerHTML]="citation.text"
+                  *ngIf="citation.url; else plainCitation"
                 ></a>
+                <ng-template #plainCitation>
+                  <span [innerHTML]="citation.text"></span>
+                </ng-template>
               </td>
             </tr>
           </tbody>
@@ -214,7 +218,11 @@
                       [href]="citation.url"
                       target="_blank"
                       [innerHTML]="citation.text"
+                      *ngIf="citation.url; else plainCitation"
                     ></a>
+                    <ng-template #plainCitation>
+                      <span [innerHTML]="citation.text"></span>
+                    </ng-template>
                   </li>
                 </ul>
               </ng-container>
