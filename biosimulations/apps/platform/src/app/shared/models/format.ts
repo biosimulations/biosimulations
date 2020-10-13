@@ -49,6 +49,6 @@ export class Format implements JsonSerializable<FormatDTO> {
   }
 
   getEdamUrl(): string {
-    return `http://bioportal.bioontology.org/ontologies/EDAM?p=classes&conceptid=format_${this.edamId}`;
+    return `https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_${this.edamId}`;
   }
 }

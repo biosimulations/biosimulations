@@ -17,7 +17,7 @@ function getSboTerms(input: any): { [id: string]: SBOTerm } {
                 const termId = jsonTerm["@id"].replace("http://biomodels.net/SBO/", "")
                 const termDescription = jsonTerm["rdfs:comment"]
                 const termName = jsonTerm["rdfs:label"]
-                const termUrl = encodeURI("http://bioportal.bioontology.org/ontologies/SBO/?p=classes&conceptid=http://purl.obolibrary.org/obo/" + termId)
+                const termUrl = encodeURI("https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2F" + termId)
                 const term: SBOTerm = {
                     id: termId,
                     name: termName,
