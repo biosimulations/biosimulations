@@ -83,6 +83,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     return this._columns;
   }
 
+  private _highlightRow!: (element: any) => boolean;
+
+  @Input()
+  set highlightRow(func: (element: any) => boolean) {
+    this._highlightRow = func;
+    this.setRowHighlighting(this.dataSource.data);    
+  }
+
   @Input()
   singleLineHeadings = false;
 
@@ -102,6 +110,8 @@ export class TableComponent implements OnInit, AfterViewInit {
       sortedData.forEach((datum: any, iDatum: number): void => {
         datum._index = iDatum;
       });
+
+      this.setRowHighlighting(sortedData);
 
       sortedData.forEach((datum: any): void => {
         const cache: any = {};
@@ -171,6 +181,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       .isLoading$()
       .pipe(map((isloaded: boolean) => !isloaded));
   }
+
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -185,6 +196,16 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.sortData = this.sortData.bind(this);
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  setRowHighlighting(rows: any[]) {
+    rows.forEach((row: any): void => {
+      if (this._highlightRow === undefined) {
+        row['_highlight'] = false;
+      } else {        
+        row['_highlight'] = this._highlightRow(row);
+      }
+    });
   }
 
   getTextColumnValues(data: any[], column: Column): any[] {

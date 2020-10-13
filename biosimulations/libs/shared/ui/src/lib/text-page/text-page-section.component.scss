@@ -71,3 +71,22 @@ h2 {
     }
   }
 }
+
+.highlight-container {
+  border: 1px solid mat-color($theme-primary);
+  border-radius: 4px;
+  
+  h2 {
+    background: mat-color($theme-primary);
+    color: $light-text;
+    border-radius: 0;
+
+    a {
+      color: $light-text;
+
+      &:hover {
+        color: $light-disabled-text;
+      }
+    }
+  }
+}

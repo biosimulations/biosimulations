@@ -105,22 +105,8 @@ export class ViewSimulatorComponent implements OnInit {
   // TODO handler errors from simulator service
   error = false;
 
-  parameterColumns = ['id', 'name', 'type', 'value', 'range', 'kisaoId'];
-  Columns = ['label', 'date', 'image'];
   simulator!: Observable<ViewSimulator>;
   id!: string;
-  version!: string;
-  name!: string;
-  description!: string | null;
-  image!: string;
-  url!: string;
-  licenseUrl!: Observable<string>;
-  licenseName!: Observable<string>;
-  authors!: string | null;
-  citations!: Citation[];
-  algorithms!: Algorithm[];
-  private _versions = new BehaviorSubject<Version[]>([]);
-  versions: Observable<Version[]> = this._versions.asObservable();
 
   parametersColumns: Column[] = [
     {
@@ -233,9 +219,10 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   getVersionStackedHeadingMoreInfoRouterLink(version: Version): string[] {
-
     return ['/simulators', this.id, version.label];
   }
+
+  highlightVersion!: (version: Version) => boolean;
 
   ngOnInit(): void {
     const params = this.route.params;
@@ -245,21 +232,28 @@ export class ViewSimulatorComponent implements OnInit {
         const id = value.id;
         const version = value.version;
         this.id = id;
+        let simulator: Observable<ViewSimulator>;
         if (version) {
-          return this.simService.getVersion(id, version);
+          simulator = this.simService.getVersion(id, version);
         } else {
-          return this.simService
-            .getLatest(id)
-
+          simulator = this.simService.getLatest(id);
         }
+        simulator.subscribe(this.setHighlightVersion.bind(this));
+        return simulator;
       }),
 
       tap((_) => {
-        this.loadingSubject.next(false); this.cd.detectChanges();
+        this.loadingSubject.next(false);
+        this.cd.detectChanges();
       })
     );
   }
 
+  setHighlightVersion(simulator: ViewSimulator) {
+    this.highlightVersion = (version: Version): boolean => {
+      return version.label === simulator.version;
+    };
+  }
 
   formatKisaoDescription(value: string): DescriptionFragment[] {
     const formattedValue = [];

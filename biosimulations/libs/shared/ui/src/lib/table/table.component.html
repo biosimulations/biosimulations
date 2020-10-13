@@ -144,6 +144,7 @@
             'min-width.em':
               column.minWidth !== undefined ? column.minWidth / 14 : null
           }"
+          [ngClass]="{'highlight-row': element?._highlight}"
         >
           <div
             class="cell-content-container"

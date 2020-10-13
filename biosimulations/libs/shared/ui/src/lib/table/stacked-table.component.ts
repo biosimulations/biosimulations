@@ -41,6 +41,15 @@ export class StackedTableComponent {
   @Input()
   getHeadingMoreInfoHref!: (row: any) => string | null;
 
+  private _highlightRow!: (element: any) => boolean;
+
+  @Input()
+  set highlightRow(func: (element: any) => boolean) {    
+    this._highlightRow = func;
+    this.setRowHighlighting();
+    this.derivedData.next(this._derivedData);
+  }
+
   @Input()
   defaultSort!: Sort;
 
@@ -79,6 +88,8 @@ export class StackedTableComponent {
 
       this._dataValue = data;
       this.updateDerivedData();
+
+      this.setRowHighlighting();
 
       this.derivedData.next(this._derivedData);
     });
@@ -140,6 +151,16 @@ export class StackedTableComponent {
         }        
         derivedDatum[column.id]['rightIconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
+    });
+  }
+
+  setRowHighlighting() {
+    this._derivedData.forEach((row: any): void => {
+      if (this._highlightRow === undefined) {
+        row['highlight'] = false;
+      } else {
+        row['highlight'] = this._highlightRow(row.rawData);
+      }
     });
   }
 

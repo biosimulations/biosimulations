@@ -103,7 +103,7 @@
           fxHide.lt-md
         >
           <div class="hanging-indent">
-            <a [href]="url" target="_blank">
+            <a *ngIf="simulator | async as simulator" [href]="simulator.url" target="_blank">
               <biosimulations-icon icon="link"></biosimulations-icon>
               Documentation
             </a>
@@ -253,6 +253,7 @@
           getVersionStackedHeadingMoreInfoRouterLink.bind(this)
         "
         [defaultSort]="{ active: 'label', direction: 'desc' }"
+        [highlightRow]="highlightVersion"
       >
       </biosimulations-responsive-table>
     </ng-container>

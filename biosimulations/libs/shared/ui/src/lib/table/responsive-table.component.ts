@@ -31,6 +31,9 @@ export class ResponsiveTableComponent {
   singleLineHeadings = false;
 
   @Input()
+  highlightRow!: (row: any) => boolean;
+
+  @Input()
   sortable = true;
 
   @Input()
