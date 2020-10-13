@@ -11,7 +11,7 @@
       "rules": {
         "@angular-eslint/template/cyclomatic-complexity": [
           "error",
-          { "maxComplexity": 25 }
+          { "maxComplexity": 30 }
         ]
       }
     }

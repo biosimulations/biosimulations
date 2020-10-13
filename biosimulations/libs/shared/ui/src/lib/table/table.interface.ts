@@ -112,7 +112,7 @@ export class RowService {
     }
   }
 
-  static getElementClick(column: Column, side: Side): (element: any) => void | null {
+  static getElementClick(column: Column, side: Side): ((element: any) => void) | null {
     if (
       side == Side.left &&
       column.leftAction === ColumnActionType.click &&
