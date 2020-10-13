@@ -36,7 +36,7 @@ import {
   DispatchSimulationModel,
 } from '@biosimulations/dispatch/api-models';
 import { MQDispatch } from '@biosimulations/messages';
-import { FileModifiers } from '@biosimulations/dispatch/api-models';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 import { Cron } from '@nestjs/schedule';
 
 

@@ -155,6 +155,9 @@
     },
     "ontology-ontologies": {
       "tags": ["scope:ontology", "type:service", "platform:server"]
+    },
+    "dispatch-file-modifiers": {
+      "tags": ["scope:dispatch", "type:util", "platform:any"]
     }
   }
 }
