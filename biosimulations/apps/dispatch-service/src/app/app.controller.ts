@@ -102,7 +102,6 @@ export class AppController {
         allFilesInfo[index].name === 'job.output' ||
         allFilesInfo[index].name === 'job.error'
       ) {
-        //TODO:  Remove these files
       } else if (allFilesInfo[index].name.endsWith('.csv')) {
         // Getting only relative path
         allFiles.push(allFilesInfo[index].path.substring(resDir.length + 1));
