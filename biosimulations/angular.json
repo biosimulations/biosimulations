@@ -1028,7 +1028,6 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-
               "serviceWorker": true,
               "budgets": [
                 {
@@ -1155,7 +1154,6 @@
       "root": "apps/simulators",
       "sourceRoot": "apps/simulators/src",
       "prefix": "biosimulations",
-
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -1218,7 +1216,6 @@
               "vendorChunk": true,
               "buildOptimizer": true,
               "serviceWorker": true,
-
               "budgets": [
                 {
                   "type": "initial",
@@ -1657,6 +1654,35 @@
           "options": {
             "jestConfig": "libs/ontology/ontologies/jest.config.js",
             "tsConfig": "libs/ontology/ontologies/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dispatch-file-modifiers": {
+      "root": "libs/dispatch/file-modifiers",
+      "sourceRoot": "libs/dispatch/file-modifiers/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/dispatch/file-modifiers/tsconfig.lib.json",
+              "libs/dispatch/file-modifiers/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/dispatch/file-modifiers/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dispatch/file-modifiers/jest.config.js",
+            "tsConfig": "libs/dispatch/file-modifiers/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

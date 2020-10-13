@@ -18,7 +18,7 @@ import { MQDispatch } from '@biosimulations/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 import { SimulationService } from './services/simulation/simulation.service';
-import { FileModifiers } from '@biosimulations/dispatch/api-models';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Controller()
 export class AppController {
@@ -84,17 +84,9 @@ export class AppController {
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
     const fileStorage = process.env.FILE_STORAGE || '';
-
-
     const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
-
-
-
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
-
-
     const allFiles = [];
-
     const directoryList = [];
 
     for (let index = 0; index < allFilesInfo.length; index++) {
@@ -102,6 +94,7 @@ export class AppController {
         allFilesInfo[index].name === 'job.output' ||
         allFilesInfo[index].name === 'job.error'
       ) {
+        //
       } else if (allFilesInfo[index].name.endsWith('.csv')) {
         // Getting only relative path
         allFiles.push(allFilesInfo[index].path.substring(resDir.length + 1));
@@ -111,13 +104,10 @@ export class AppController {
     // Seperating files from directory paths to create structure
     for (const filePath of allFiles) {
       const filePathSplit = filePath.split('/');
-
+      
       //Removing task files
       filePathSplit.splice(filePathSplit.length - 1, 1);
-
       directoryList.push(filePathSplit.join('/'));
-
-
     }
 
     // this.logger.log('Log message data: ' + JSON.stringify(data));
