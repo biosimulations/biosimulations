@@ -189,6 +189,29 @@ a {
   }
 }
 
+ul.comma-separated {
+  list-style-type: none;
+  padding-inline-start: 0;
+
+  li {
+    display: inline-block;
+
+    &:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
+      content: ",";
+      margin-right: 0.25rem;
+    }
+
+    &:nth-last-child(2)::after {
+      content: " or";
+      margin-right: 0.25rem;
+    }
+  }
+
+  &.no-wrap li {
+    white-space: nowrap;
+  }
+}
+
 /* forms */
 biosimulations-root {
   .mat-form-field {
@@ -379,7 +402,40 @@ table {
   }
 }
 
+.biosimulations-table {
+  width: 100%;
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  thead {
+    tr {
+      background: mat-color($theme-primary, lightest);
+      height: 32px;
+    }
+  }
+
+  tbody {
+    tr:nth-child(even) {
+      background: $light-bg-lighter-5;
+    }
+    tr:hover {
+      background: $light-background;
+    }
+    td {
+      vertical-align: top;
+    }
+  }
+
+  th, td {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    text-align: left;
+  }
+}
+
 .mat-table.biosimulations-table {
+  width: auto;
   min-width: min-content;
   border: 1px solid $light-bg-darker-5;
   border-radius: 4px;
@@ -400,6 +456,9 @@ table {
 
   .mat-row {
     min-height: 28px;
+    &:hover {
+      background: $light-background;
+    }
   }
 
   .highlight-row {
