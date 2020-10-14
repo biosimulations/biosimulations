@@ -1,5 +1,16 @@
 .mat-list-item {
     white-space: nowrap;
+
+    ::ng-deep .mat-list-item-content {
+        &:hover {
+            color: rgba(#000000, 0.9);
+        }
+
+        &:active {
+            background: rgba(44, 44, 44, 0.04);
+            color: rgba(#000000, 1.0);
+        }
+    }
 }
 
 .mat-list-item biosimulations-icon {

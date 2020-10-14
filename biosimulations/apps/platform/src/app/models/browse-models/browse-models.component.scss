@@ -8,6 +8,21 @@
   height: 100%;
   width: 100%;
 }
+.global-controls {
+  text-align: center;
+  margin-bottom: 0.5rem;
+
+  .biosimulations-icon-button {
+    font-size: 135%;  
+    &:not(:first-child) {
+      margin-left: 0.25rem;
+    }
+    &:not(:last-child) {
+      margin-right: 0.25rem;
+    }
+  }
+}
+
 mat-paginator {
   width: 100%;
 }
@@ -51,6 +66,14 @@ mat-paginator {
 }
 .click {
   cursor: pointer;
+
+  &:hover {
+    background: rgba(#000000, 0.04);
+  }
+
+  &:active {
+    background: rgba(#000000, 0.08);
+  }
 }
 .hide-overflow {
   overflow: hidden;

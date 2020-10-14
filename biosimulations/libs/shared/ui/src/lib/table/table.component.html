@@ -161,6 +161,8 @@
             <span [ngSwitch]="column.leftAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
                   [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
                 >
@@ -175,6 +177,8 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.href as href"
                   [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
@@ -225,6 +229,8 @@
             <span [ngSwitch]="column.centerAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="
                     element._cache[column.id].center.routerLink as routerLink
                   "
@@ -237,6 +243,8 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].center.href as href"
                   [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
@@ -273,6 +281,8 @@
             <span [ngSwitch]="column.rightAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="
                     element._cache[column.id].right.routerLink as routerLink
                   "
@@ -289,6 +299,8 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].right.href as href"
                   [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"

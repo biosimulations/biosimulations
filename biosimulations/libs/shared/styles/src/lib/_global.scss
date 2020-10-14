@@ -100,18 +100,6 @@ ul.icon-list {
     }
   }
 
-  .icon-container {
-    width: 20px;
-    display: inline-block;
-    text-align: center;
-    position: relative;
-    top: -0.0625rem;
-
-    biosimulations-icon {
-      font-size: 125%;
-    }
-  }
-
   biosimulations-icon {
     margin-right: 0.25rem;
   }
@@ -327,8 +315,56 @@ npn-slider .slider {
   height: auto;
   line-height: unset;
 
+  &.text {
+    color: $dark-primary-text;
+
+    &:hover {
+      color: rgba(#000000, 0.9);
+    }
+
+    &:active {
+      color: rgba(#000000, 1.0);
+      filter: drop-shadow( 1px 1px 1px rgba(#000000, 0.2));
+    }
+  }
+
   &.primary {
     color: mat-color($theme-primary);
+
+    &:hover {
+      color: #0c88eb;
+    }
+
+    &:active {
+      color: #0b79d1;
+      filter: drop-shadow( 1px 1px 1px rgba(#0b79d1, 0.2));
+    }
+  }
+
+  &.accent {
+    color: mat-color($theme-accent);
+
+    &:hover {
+      color: #e58800;
+    }
+
+    &:active {
+      color: #cc7900;
+      filter: drop-shadow( 1px 1px 1px rgba(#cc7900, 0.2));
+    }
+  }
+
+  &.white {
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffffdd;
+    }
+
+    &:active {
+      color: #ffffffbb;
+      filter: drop-shadow( 1px 1px 1px rgba(#ffffff, 0.4));
+    }
   }
 
   .mat-button-focus-overlay {
