@@ -36,8 +36,8 @@ export interface ViewFormat {
 }
 
 export interface ViewParameter {
-  id?: string;
-  name?: string;
+  id: string;
+  name: Observable<string>;
   type: string;
   value: boolean | number | string;
   range: string | null;

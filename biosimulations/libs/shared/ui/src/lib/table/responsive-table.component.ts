@@ -19,7 +19,7 @@ export class ResponsiveTableComponent {
   stackedContentsHeading!: string;
 
   @Input()
-  getStackedHeading!: (row: any) => string;
+  getStackedHeading!: (row: any) => (string | Observable<string>);
 
   @Input()
   getStackedHeadingMoreInfoRouterLink!: (row: any) => any[] | string | null;

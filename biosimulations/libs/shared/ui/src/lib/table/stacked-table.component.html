@@ -7,8 +7,8 @@
 
   <ng-container id="content" tocSectionsContainer>
     <biosimulations-text-page-content-section *ngFor="let row of derivedData$ | async"
-      [heading]="row.heading"
-      [tocSection]="row.heading"
+      [heading]="isObservable(row.heading) ? (row.heading | async) : row.heading"
+      [tocSection]="isObservable(row.heading) ? (row.heading | async) : row.heading"
       [icon]="row.icon"
       [iconAction]="row.iconAction"
       [highlight]="row?.highlight"
@@ -20,7 +20,7 @@
             <ng-template [ngSwitchCase]="'routerLink'">
               <a
                 *ngIf="row.columns[column.id]?.centerRouterLink as routerLink"
-                [routerLink]="routerLink"
+                [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
               >
                 <ng-container *ngTemplateOutlet="centerTemplate"
                 ></ng-container>
@@ -30,7 +30,7 @@
             <ng-template [ngSwitchCase]="'href'">
               <a
                 *ngIf="row.columns[column.id]?.centerHref as href"
-                [href]="href"
+                [href]="isObservable(href) ? (href | async) : href"
                 target="_blank"
               >
                 <ng-container *ngTemplateOutlet="centerTemplate"
@@ -56,7 +56,9 @@
             </ng-template>
 
             <ng-template #centerTemplate>
-              {{ row.columns[column.id]?.value }}
+              <ng-container *ngIf="row.columns[column.id]?.value as value">
+                {{ isObservable(value) ? (value | async) : value }}
+              </ng-container>
             </ng-template>
           </span>
 
@@ -64,7 +66,7 @@
             <ng-template [ngSwitchCase]="'routerLink'">
               <a
                 *ngIf="row.columns[column.id]?.rightRouterLink as routerLink"
-                [routerLink]="routerLink"
+                [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
               >
                 <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
                 ></ng-container>
@@ -74,7 +76,7 @@
             <ng-template [ngSwitchCase]="'href'">
               <a
                 *ngIf="row.columns[column.id]?.rightHref as href"
-                [href]="href"
+                [href]="isObservable(href) ? (href | async) : href"
                 target="_blank"
               >
                 <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"

@@ -28,7 +28,7 @@ import { ViewSimulatorService } from './view-simulator.service';
 
 
 import { Simulator } from '@biosimulations/simulators/api-models';
-import { ViewAlgorithm, ViewSimulator } from './view-simulator.interface';
+import { ViewAlgorithm, ViewSimulator, ViewParameter, ViewFramework, ViewFormat, ViewVersion, ViewCitation } from './view-simulator.interface';
 
 interface Algorithm extends ViewAlgorithm {
   id: string;
@@ -36,10 +36,10 @@ interface Algorithm extends ViewAlgorithm {
   name: Observable<string>;
   description: Observable<DescriptionFragment[]>;
   url: Observable<string>;
-  frameworks: Observable<Framework>[];
-  formats: Observable<Format>[];
-  parameters: Observable<Parameter[]>;
-  citations: Citation[];
+  frameworks: Observable<ViewFramework>[];
+  formats: Observable<ViewFormat>[];
+  parameters: Observable<ViewParameter[]>;
+  citations: ViewCitation[];
 }
 
 export enum DescriptionFragmentType {
@@ -50,40 +50,6 @@ export enum DescriptionFragmentType {
 export interface DescriptionFragment {
   type: DescriptionFragmentType;
   value: string;
-}
-
-interface Framework {
-  id: string;
-  name: string;
-  url: string;
-}
-
-interface Format {
-  id: string;
-  name: string;
-  url: string;
-}
-
-interface Parameter {
-  id?: string;
-  name?: string;
-  type: string;
-  value: boolean | number | string;
-  range: string | null;
-  kisaoId: string;
-  kisaoUrl: string;
-}
-
-interface Citation {
-  url: string;
-  text: string;
-}
-
-interface Version {
-  label: string;
-  date: string;
-  image: string;
-  url?: string;
 }
 
 @Component({
@@ -113,7 +79,6 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'id',
       heading: 'Id',
       key: 'id',
-      showStacked: false,
     },
     {
       id: 'name',
@@ -143,7 +108,7 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'kisaoId',
       rightIcon: 'link',
       rightAction: ColumnActionType.href,
-      rightHref: (parameter: Parameter): string => {
+      rightHref: (parameter: ViewParameter): string => {
         return parameter.kisaoUrl;
       },
       showStacked: false,
@@ -151,33 +116,14 @@ export class ViewSimulatorComponent implements OnInit {
     },
   ];
 
-  getParameterStackedHeading(parameter: Parameter): string {
-    const ids = [];
-    if (parameter.id) {
-      ids.push(parameter.id);
-    }
-    if (parameter.kisaoId) {
-      ids.push(parameter.kisaoId);
-    }
-
-    //TODO get name from ontology service
-    const name = parameter.name || parameter.id || parameter.kisaoId;
-
-    if (ids.length) {
-      return name + ' (' + ids.join(', ') + ')';
-    } else {
-      return name;
-    }
+  getParameterStackedHeading(parameter: ViewParameter): Observable<string> {
+    return parameter.name;
   }
 
   getParameterStackedHeadingMoreInfoRouterLink(
-    parameter: Parameter
-  ): string | null {
-    if (parameter.kisaoUrl) {
-      return parameter.kisaoUrl;
-    } else {
-      return null;
-    }
+    parameter: ViewParameter
+  ): string {
+    return parameter.kisaoUrl;
   }
 
   versionsColumns: Column[] = [
@@ -187,7 +133,7 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'label',
       rightIcon: 'internalLink',
       rightAction: ColumnActionType.routerLink,
-      rightRouterLink: (version: Version) => {
+      rightRouterLink: (version: ViewVersion) => {
         return ['/simulators', this.id, version.label];
       },
       minWidth: 73,
@@ -207,22 +153,22 @@ export class ViewSimulatorComponent implements OnInit {
       rightIcon: 'copy',
       rightIconTitle: (): string => {return 'Copy to clipboard'},
       rightAction: ColumnActionType.click,
-      rightClick: (version: Version): void => {
+      rightClick: (version: ViewVersion): void => {
         this.copyDockerPullCmd(version.image);
       },
       minWidth: 650,
     },
   ];
 
-  getVersionStackedHeading(version: Version): string {
+  getVersionStackedHeading(version: ViewVersion): string {
     return version.label;
   }
 
-  getVersionStackedHeadingMoreInfoRouterLink(version: Version): string[] {
+  getVersionStackedHeadingMoreInfoRouterLink(version: ViewVersion): string[] {
     return ['/simulators', this.id, version.label];
   }
 
-  highlightVersion!: (version: Version) => boolean;
+  highlightVersion!: (version: ViewVersion) => boolean;
 
   ngOnInit(): void {
     const params = this.route.params;
@@ -250,7 +196,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   setHighlightVersion(simulator: ViewSimulator) {
-    this.highlightVersion = (version: Version): boolean => {
+    this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };
   }
@@ -283,7 +229,7 @@ export class ViewSimulatorComponent implements OnInit {
     return formattedValue;
   }
 
-  makeCitation(citation: any): Citation {
+  makeCitation(citation: any): ViewCitation {
     let text =
       citation.authors +
       '. ' +

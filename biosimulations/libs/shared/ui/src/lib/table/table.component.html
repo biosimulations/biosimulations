@@ -162,7 +162,7 @@
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
-                  [routerLink]="routerLink"
+                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -176,7 +176,7 @@
               <ng-template [ngSwitchCase]="'href'">
                 <a
                   *ngIf="element._cache[column.id].left.href as href"
-                  [href]="href"
+                  [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
                 >
                   <ng-container
@@ -228,7 +228,7 @@
                   *ngIf="
                     element._cache[column.id].center.routerLink as routerLink
                   "
-                  [routerLink]="routerLink"
+                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
@@ -238,7 +238,7 @@
               <ng-template [ngSwitchCase]="'href'">
                 <a
                   *ngIf="element._cache[column.id].center.href as href"
-                  [href]="href"
+                  [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
@@ -264,7 +264,9 @@
               </ng-template>
 
               <ng-template #centerTemplate>
-                {{ element._cache[column.id].value }}
+                <ng-container *ngIf="element._cache[column.id].value as value">
+                  {{ isObservable(value) ? (value | async) : value }}                  
+                </ng-container>
               </ng-template>
             </span>
 
@@ -274,7 +276,7 @@
                   *ngIf="
                     element._cache[column.id].right.routerLink as routerLink
                   "
-                  [routerLink]="routerLink"
+                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -288,7 +290,7 @@
               <ng-template [ngSwitchCase]="'href'">
                 <a
                   *ngIf="element._cache[column.id].right.href as href"
-                  [href]="href"
+                  [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
                 >
                   <ng-container

@@ -491,4 +491,8 @@ export class TableComponent implements OnInit, AfterViewInit {
   refresh(): void {
     this.dataSource.refresh();
   }
+
+  isObservable(value: any): boolean {
+    return value instanceof Observable;
+  }
 }

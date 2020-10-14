@@ -99,9 +99,11 @@ export class ViewSimulatorService {
     };
   }
   getParameters(parameter: AlgorithmParameter): ViewParameter {
+    const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
+
     return {
       id: parameter.id,
-      name: parameter.name,
+      name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
       value: parameter.value,
       range: parameter.recommendedRange

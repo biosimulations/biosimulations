@@ -33,7 +33,7 @@ export class StackedTableComponent {
   }
 
   @Input()
-  getHeading!: (row: any) => string;
+  getHeading!: (row: any) => (string | Observable<string>);
 
   @Input()
   getHeadingMoreInfoRouterLink!: (row: any) => any[] | string | null;
@@ -171,5 +171,9 @@ export class StackedTableComponent {
     setTimeout(() => {
       this.tocSections = container.getToc();
     });
+  }
+
+  isObservable(value: any): boolean {
+    return value instanceof Observable;
   }
 }
