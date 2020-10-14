@@ -129,7 +129,7 @@
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-cypress": "^2.10.3",
     "jest": "25.2.3",
-    "jest-preset-angular": "8.1.2",
+    "jest-preset-angular": "8.2.0",
     "license-checker": "^25.0.1",
     "prettier": "2.1.2",
     "ts-jest": "25.5.1",
