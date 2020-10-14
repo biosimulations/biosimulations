@@ -155,6 +155,9 @@
     },
     "ontology-ontologies": {
       "tags": ["scope:ontology", "type:service", "platform:server"]
+    },
+    "shared-utils-routes": {
+      "tags": ["scope:shared", "type:utils", "platform:web"]
     }
   }
 }

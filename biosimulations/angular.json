@@ -1028,7 +1028,6 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-
               "serviceWorker": true,
               "budgets": [
                 {
@@ -1155,7 +1154,6 @@
       "root": "apps/simulators",
       "sourceRoot": "apps/simulators/src",
       "prefix": "biosimulations",
-
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -1218,7 +1216,6 @@
               "vendorChunk": true,
               "buildOptimizer": true,
               "serviceWorker": true,
-
               "budgets": [
                 {
                   "type": "initial",
@@ -1659,6 +1656,38 @@
             "tsConfig": "libs/ontology/ontologies/tsconfig.spec.json",
             "passWithNoTests": true
           }
+        }
+      }
+    },
+    "shared-utils-routes": {
+      "projectType": "library",
+      "root": "libs/shared/utils/routes",
+      "sourceRoot": "libs/shared/utils/routes/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/utils/routes/tsconfig.lib.json",
+              "libs/shared/utils/routes/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/utils/routes/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/utils/routes/jest.config.js",
+            "tsConfig": "libs/shared/utils/routes/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/utils/routes/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }
