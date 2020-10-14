@@ -42,7 +42,7 @@ import { Cron } from '@nestjs/schedule';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
-  private logger = new Logger(AppController.name);
+  private logger = new Logger('AppController');
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private httpService: HttpService,
