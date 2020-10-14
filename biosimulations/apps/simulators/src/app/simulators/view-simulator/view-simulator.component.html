@@ -266,49 +266,6 @@
             >
             </biosimulations-responsive-table>
           </div>
-          <div class="border">
-            <div class="section">
-              <h3>Docker pull command</h3>
-              <div class="section-content">
-                <div class="copy-value code">
-                  docker pull {{ simulator.image }}
-                </div>
-                <button
-                  mat-icon-button
-                  class="biosimulations-icon-button copy-button"
-                  title="Copy to clipboard"
-                  (click)="copyDockerPullCmd(simulator.image)"
-                >
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </div>
-            </div>
-
-            <div class="section">
-              <h3>License</h3>
-              <div class="section-content">
-                <p>
-                  {{ simulator.licenseName | async }}
-                  <a [href]="simulator.licenseUrl | async" target="_blank"
-                    ><biosimulations-icon icon="link"></biosimulations-icon
-                  ></a>
-                </p>
-              </div>
-            </div>
-
-            <div class="section">
-              <h3>More info</h3>
-              <div class="section-content">
-                <p>
-                  {{ simulator.url }}
-                  <a [href]="url" target="_blank"
-                    ><biosimulations-icon icon="link"></biosimulations-icon
-                  ></a>
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </ng-container>
     </ng-container>
