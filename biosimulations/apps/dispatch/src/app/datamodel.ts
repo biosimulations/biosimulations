@@ -15,4 +15,6 @@ export interface Simulation {
   runtime?: number;
   submitted: Date;
   updated: Date;
+  resultSize?: number;
+  projectSize?: number;
 }

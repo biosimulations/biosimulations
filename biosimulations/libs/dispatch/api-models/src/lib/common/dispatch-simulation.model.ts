@@ -1,4 +1,4 @@
-import { prop } from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 import { ApiProperty } from '@nestjs/swagger';
 
 export interface DispatchSimulationModel {
@@ -9,6 +9,8 @@ export interface DispatchSimulationModel {
   statusModifiedTime: Date;
   currentStatus: DispatchSimulationStatus;
   duration: number;
+  resultSize: number;
+  projectSize: number
 }
 
 export enum DispatchSimulationStatus {
@@ -19,6 +21,7 @@ export enum DispatchSimulationStatus {
   UNKNOWN = 'UNKNOWN',
 }
 
+@modelOptions({ schemaOptions: { collection: 'dispatches' } })
 export class DispatchSimulationModelDB implements DispatchSimulationModel {
   @ApiProperty()
   @prop({ required: true })
@@ -29,7 +32,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   authorEmail!: string;
 
   @ApiProperty()
-  @prop({ required: true })
+  @prop()
   nameOfSimulation!: string;
 
   @ApiProperty()
@@ -48,6 +51,12 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   @prop()
   duration!: number;
 
+  @prop()
+  projectSize!: number;
+
+  @prop()
+  resultSize!: number;
+
   constructor(public model: DispatchSimulationModel) {
     this.uuid = model.uuid;
     this.authorEmail = model.authorEmail;
@@ -56,5 +65,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
     this.statusModifiedTime = model.statusModifiedTime;
     this.currentStatus = model.currentStatus;
     this.duration = model.duration;
+    this.resultSize = model.resultSize;
+    this.projectSize = model.projectSize;
   }
 }

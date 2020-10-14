@@ -1,15 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import path from 'path';
 import { HpcService } from '../hpc/hpc.service';
-import {
-  DispatchSimulationStatus,
-  FileModifiers,
-} from '@biosimulations/dispatch/api-models';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()
 export class SimulationService {
   private logger = new Logger(SimulationService.name);
-  constructor(private hpcService: HpcService) {}
+  constructor(private hpcService: HpcService) { }
 
   async getSimulationStatus(uuid: string, jobId: string) {
     const fileStorage = process.env.FILE_STORAGE || '';
