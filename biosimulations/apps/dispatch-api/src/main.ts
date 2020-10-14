@@ -12,7 +12,7 @@ import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.in
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  const logger = new Logger('bootstrap');
   const port = process.env.PORT || 3333;
 
   // TODO intelligently allow origin based on production mode, abstract this
@@ -65,7 +65,7 @@ async function bootstrap() {
   });
 
   await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port);
+    logger.log('Listening at http://localhost:' + port);
   });
 }
 
