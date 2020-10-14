@@ -8,6 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/common';
 import { ModelsService } from './resources/models/models.service';
+import { AppService } from './app.service';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -19,6 +20,7 @@ describe('AppController', () => {
       controllers: [AppController],
       providers: [
         ConfigService,
+        AppService,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {
