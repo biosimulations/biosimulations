@@ -158,6 +158,10 @@
     },
     "shared-utils-routes": {
       "tags": ["scope:shared", "type:utils", "platform:web"]
+    },
+
+    "dispatch-file-modifiers": {
+      "tags": ["scope:dispatch", "type:util", "platform:any"]
     }
   }
 }

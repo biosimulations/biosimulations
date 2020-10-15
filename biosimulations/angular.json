@@ -1672,12 +1672,7 @@
               "libs/shared/utils/routes/tsconfig.lib.json",
               "libs/shared/utils/routes/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/utils/routes/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
+            "exclude": ["**/node_modules/**", "!libs/shared/utils/routes/**/*"],
             "jestConfig": "libs/shared/utils/routes/jest.config.js",
             "tsConfig": "libs/shared/utils/routes/tsconfig.spec.json",
             "passWithNoTests": true,
@@ -1688,6 +1683,36 @@
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+
+    "dispatch-file-modifiers": {
+      "root": "libs/dispatch/file-modifiers",
+      "sourceRoot": "libs/dispatch/file-modifiers/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/dispatch/file-modifiers/tsconfig.lib.json",
+              "libs/dispatch/file-modifiers/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/dispatch/file-modifiers/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dispatch/file-modifiers/jest.config.js",
+            "tsConfig": "libs/dispatch/file-modifiers/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
         }
       }
     }

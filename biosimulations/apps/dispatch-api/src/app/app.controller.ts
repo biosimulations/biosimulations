@@ -36,16 +36,18 @@ import {
   DispatchSimulationModel,
 } from '@biosimulations/dispatch/api-models';
 import { MQDispatch } from '@biosimulations/messages';
-import { FileModifiers } from '@biosimulations/dispatch/api-models';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+import { Cron } from '@nestjs/schedule';
+
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
-  private logger = new Logger(AppController.name);
+  private logger = new Logger('AppController');
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private httpService: HttpService,
     private modelsService: ModelsService
-  ) {}
+  ) { }
   @ApiTags('Dispatch')
   @Post('dispatch')
   @ApiConsumes('multipart/form-data')
@@ -104,6 +106,8 @@ export class AppController implements OnApplicationBootstrap {
     const uniqueFilename = `${fileId}.omex`;
     const omexSavePath = path.join(omexStorage, uniqueFilename);
 
+    // console.log('bodyData:',bodyData)
+
     // Fill out info from file that will be lost after saving in central storage
     const simSpec: SimulationDispatchSpec = {
       authorEmail: bodyData.authorEmail,
@@ -130,6 +134,8 @@ export class AppController implements OnApplicationBootstrap {
           statusModifiedTime: currentDateTime,
           currentStatus: DispatchSimulationStatus.QUEUED,
           duration: 0,
+          projectSize: Buffer.byteLength(file.buffer),
+          resultSize: 0
         };
 
         this.modelsService.createNewDispatchSimulationModel(dbModel);
@@ -183,82 +189,46 @@ export class AppController implements OnApplicationBootstrap {
     const fileStorage = process.env.FILE_STORAGE || '';
     const logPath = path.join(fileStorage, 'simulations', uId, 'out');
     const simInfo = await this.modelsService.get(uId);
+    let filePathOut: string = '';
+    let filePathErr: string = '';
 
     download = String(download) === 'false' ? false : true;
-
     if (simInfo === null) {
-      res.send({ message: 'Cannot find the UUID specified' });
-      // return {
-      //   message: 'Cannot find the UUID specified',
-      // };
-    } else {
-      let filePath: string = '';
+      res.send({ message: 'Cannot find the UUID specified' })
+    } else if (download) {
       if (simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) {
-        filePath = path.join(logPath, 'job.output');
-        console.log('Filepath: ', filePath);
-        console.log('Download: ', download);
-        if (download) {
-          console.log('Inside download true');
-          res.set('Content-Type', 'text/html');
-          res.download(filePath);
-          // return null;
-        } else {
-          console.log('Inside download false');
-          const fileContent = (
-            await FileModifiers.readFile(filePath)
-          ).toString();
-          res.set('Content-Type', 'application/json');
-          res.send({
-            data: fileContent,
-          });
-          // return {
-          //   data: fileContent.toString(),
-          // };
-        }
+        filePathOut = path.join(logPath, 'job.output');
+        res.set('Content-Type', 'text/html');
+        res.download(filePathOut);
       } else if (simInfo.currentStatus === DispatchSimulationStatus.FAILED) {
-        filePath = path.join(logPath, 'job.error');
-        console.log('Filepath: ', filePath);
-        if (download) {
-          res.set('Content-Type', 'text/html');
-          res.download(filePath);
-          // return null;
-        } else {
-          const fileContent = (
-            await FileModifiers.readFile(filePath)
-          ).toString();
-          res.set('Content-Type', 'application/json');
-          res.send({
-            data: fileContent,
-          });
-          // return {
-          //   data: fileContent.toString(),
-          // };
-        }
+        filePathErr = path.join(logPath, 'job.error');
+        res.set('Content-Type', 'text/html');
+        res.download(filePathErr);
       } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
         res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
-      } else {
-        filePath = path.join(logPath, 'job.output');
-        console.log('Filepath: ', filePath);
-        console.log('Download: ', download);
-        if (download) {
-          console.log('Inside download true');
-          res.set('Content-Type', 'text/html');
-          res.download(filePath);
-          // return null;
-        } else {
-          console.log('Inside download false');
-          const fileContent = (
-            await FileModifiers.readFile(filePath)
-          ).toString();
-          res.set('Content-Type', 'application/json');
-          res.send({
-            data: fileContent,
-          });
-        }
       }
+    } else if (!download) {
+      if ((simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) || (simInfo.currentStatus === DispatchSimulationStatus.FAILED)) {
+        filePathOut = path.join(logPath, 'job.output');
+        filePathErr = path.join(logPath, 'job.error');
+        const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
+        const fileContentErr = (await FileModifiers.readFile(filePathErr)).toString();
+        res.set('Content-Type', 'application/json');
+        res.send({
+          message: 'Logs fetched successfully',
+          data: {
+            output: fileContentOut,
+            error: fileContentErr
+          }
+        });
+      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
+        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+      }
+    } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
+      res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
     }
-    // return null;
   }
+
   @ApiTags('Dispatch')
   @Get('result/structure/:uuid')
   @ApiOperation({ summary: 'Shows result structure' })
@@ -272,22 +242,42 @@ export class AppController implements OnApplicationBootstrap {
     const structure: any = {};
 
     const resultPath = path.join(fileStorage, 'simulations', uId, 'out');
+    // const resultPath = '/Users/akhilteja/results/out';
 
-    const sedmls = await FileModifiers.readDir(resultPath);
-    // Removing log file names 'job.output'
-    sedmls.splice(sedmls.indexOf('job.output'), 1);
-    sedmls.splice(sedmls.indexOf('job.error'), 1);
+    const allFilesInfo = await FileModifiers.getFilesRecursive(resultPath);
 
-    for (const sedml of sedmls) {
-      structure[sedml] = [];
-      const taskFiles = await FileModifiers.readDir(
-        path.join(resultPath, sedml)
-      );
-      taskFiles.forEach((taskFile: string) => {
-        if (taskFile.endsWith('.csv')) {
-          structure[sedml].push(taskFile.split('.csv')[0]);
-        }
-      });
+    const allFiles = [];
+
+    const indexesToSplice = [];
+
+    for (let index = 0; index < allFilesInfo.length; index++) {
+      if (
+        allFilesInfo[index].name === 'job.output' ||
+        allFilesInfo[index].name === 'job.error'
+      ) {
+        indexesToSplice.push(index);
+      } else if (allFilesInfo[index].name.endsWith('.csv')) {
+        // Getting only relative path
+        allFiles.push(
+          allFilesInfo[index].path.substring(resultPath.length + 1)
+        );
+      }
+    }
+
+    // Seperating files from directory paths to create structure
+    for (const filePath of allFiles) {
+      const filePathSplit = filePath.split('/');
+      const task = filePathSplit[filePathSplit.length - 1].split('.csv')[0];
+
+      filePathSplit.splice(filePathSplit.length - 1, 1);
+
+      const sedml = filePathSplit.join('/');
+
+      if (structure[sedml] === undefined) {
+        structure[sedml] = [task];
+      } else {
+        structure[sedml].push(task);
+      }
     }
 
     return {
@@ -295,6 +285,7 @@ export class AppController implements OnApplicationBootstrap {
       data: structure,
     };
   }
+
   @ApiTags('Dispatch')
   @Get('result/:uuid')
   @ApiOperation({
@@ -377,6 +368,28 @@ export class AppController implements OnApplicationBootstrap {
     });
 
     return simVersions;
+  }
+
+  // Enable cron when storage is out
+  // @Cron('0 0 2 * * *')
+  async deleteSimData() {
+    const uuidObjects: {
+      uuid: string;
+    }[] = await this.modelsService.getOlderUuids();
+
+    const uuids: string[] = [];
+
+    for (const uuidObj of uuidObjects) {
+      uuids.push(uuidObj.uuid);
+    }
+
+    for (const uuid of uuids) {
+      const filePath = process.env.FILE_STORAGE;
+      const uuidPath = `${filePath}/simulations/${uuid}`;
+      FileModifiers.rmrfDir(uuidPath);
+    }
+
+    await this.modelsService.deleteSixOldData(uuids);
   }
 
   async onApplicationBootstrap() {

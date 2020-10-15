@@ -61,8 +61,13 @@
       "@biosimulations/ontology/ontologies": [
         "libs/ontology/ontologies/src/index.ts"
       ],
+
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"
+      ],
+
+      "@biosimulations/dispatch/file-modifiers": [
+        "libs/dispatch/file-modifiers/src/index.ts"
       ]
     }
   },

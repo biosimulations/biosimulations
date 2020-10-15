@@ -25,7 +25,6 @@ export class VisualisationComponent implements OnInit {
         });
         this.data = res;
 
-        console.log('Data for vis-container: ', reports['data']);
       },
       (error) => {
       }
