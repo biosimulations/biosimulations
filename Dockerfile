@@ -32,7 +32,7 @@ Copy biosimulations/angular.json /app/angular.json
 
 
 # install the app, including the dev dependencies
-RUN npm ci
+RUN npm ci --silent
 
 #copy source
 Copy biosimulations/libs /app/libs
@@ -49,7 +49,7 @@ RUN nx build ${APP} --prod
 FROM base as prod
 WORKDIR /app
 # install the app and include only dependencies needed to run
-RUN npm ci --only=production
+RUN npm ci --only=production --silent
 
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}

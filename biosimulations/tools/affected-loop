@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+while read line
+do
+for app in $line; do
+    __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    echo Testing $app
+    bash ${__dir}/docker-build
+done 
+    
+done < "${1:-/dev/stdin}"

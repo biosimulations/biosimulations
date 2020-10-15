@@ -150,3 +150,30 @@ jobs:
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
+
+  Docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - run: |
+          if [[ $GITHUB_BASE_REF ]]
+            then
+              echo '::set-env name=NX_BASE::origin/'$GITHUB_BASE_REF
+           else
+            echo '::set-env name=NX_BASE::origin/deploy'
+          fi
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+
+      - name: List apps with changes
+        working-directory: ./biosimulations
+        run: nx affected:apps --plain   | ./tools/affected-loop
