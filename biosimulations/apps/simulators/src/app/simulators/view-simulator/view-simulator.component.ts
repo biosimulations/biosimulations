@@ -107,7 +107,7 @@ export class ViewSimulatorComponent implements OnInit {
 
   parameterColumns = ['id', 'name', 'type', 'value', 'range', 'kisaoId'];
   Columns = ['label', 'date', 'image'];
-  simulator!: Observable<ViewSimulator | undefined>;
+  simulator!: Observable<ViewSimulator>;
   id!: string;
   version!: string;
   name!: string;
@@ -319,12 +319,10 @@ export class ViewSimulatorComponent implements OnInit {
   tocSections!: TocSection[];
 
   @ViewChild(TocSectionsContainerDirective)
-  set tocSectionsContainer(container: TocSectionsContainerDirective | undefined) {
-    if (container !== undefined) {
-      setTimeout(() => {
-        this.tocSections = container.getToc();
-      });
-    }
+  set tocSectionsContainer(container: TocSectionsContainerDirective) {
+    setTimeout(() => {
+      this.tocSections = container.getToc();
+    });
   }
 
   copyDockerPullCmd(image = '{ image }'): void {

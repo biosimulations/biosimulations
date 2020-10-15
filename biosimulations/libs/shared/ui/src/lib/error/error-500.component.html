@@ -1,7 +1,7 @@
 <biosimulations-error icon="bug" [pageHasBreadCrumbs]="pageHasBreadCrumbs">
   <ng-container id="label">500</ng-container>
-  <ng-container id="title">Server error</ng-container>
-  <ng-container id="message">
-    We're sorry! Something went wrong. Please try again later. If this error persists, please submit an <span class="no-wrap">issue <a [href]="newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></span> or contact us at <a [href]="emailUrl" subject="BioSimulations 404 error">{{ email }}</a>.
+  <ng-container id="message">{{ message }}</ng-container>
+  <ng-container id="details">
+    We're sorry! {{ details }} Please try again later. If this error persists, please submit an <span class="no-wrap">issue <a [href]="newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></span> or contact us at <a [href]="emailUrl" subject="BioSimulations 404 error">{{ email }}</a>.
   </ng-container>
 </biosimulations-error>

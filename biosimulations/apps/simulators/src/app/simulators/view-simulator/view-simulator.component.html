@@ -1,4 +1,4 @@
-<biosimulations-tab-page [loading]="loading$ | async" *ngIf="(loading$ | async) || (simulator | async) !== undefined; error404">
+<biosimulations-tab-page [loading]="loading$ | async">
   <biosimulations-tab-page-tab
     heading="Overview"
     icon="overview"
@@ -314,4 +314,3 @@
     </ng-container>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>
-<biosimulations-error-404 #error404 [pageHasBreadCrumbs]="true"></biosimulations-error-404>
