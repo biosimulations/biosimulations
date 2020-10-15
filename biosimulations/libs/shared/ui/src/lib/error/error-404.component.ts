@@ -11,6 +11,7 @@ export class Error404Component {
   @Input()
   pageHasBreadCrumbs = false;
 
+  code: number | string | undefined = '404';
   message = 'Page not found';
   details = "We're sorry! The page you requested could not be found.";
   email: string;
@@ -19,8 +20,15 @@ export class Error404Component {
 
   constructor(router: Router, activatedRoute: ActivatedRoute) {
     const state = router.getCurrentNavigation()?.extras.state;
-    this.message = state?.message || this.message;
-    this.details = state?.details || this.details;
+    if (state?.code !== undefined) {
+      this.code = state.code;
+    }
+    if (state?.message !== undefined) {
+      this.message = state?.message;
+    }
+    if (state?.details !== undefined) {
+      this.details = state?.details;
+    }
 
     const config = activatedRoute.snapshot.data?.config;
     this.email = config?.email;

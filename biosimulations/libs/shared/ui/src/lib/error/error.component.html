@@ -1,7 +1,7 @@
 <div class="container full-height horz-centered vert-centered padded" [ngClass]="{'has-breadcrumbs': pageHasBreadCrumbs}">
   <div class="icon">
     <biosimulations-icon [icon]="icon"></biosimulations-icon>
-    <span><ng-content select="#label"></ng-content></span>
+    <span *ngIf="code">{{ code }}</span>
   </div>
   <h1 class="message">
     <ng-content select="#message"></ng-content>

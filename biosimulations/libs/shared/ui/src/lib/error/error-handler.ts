@@ -14,7 +14,8 @@ export class ErrorHandler implements BaseErrorHandler {
     }
 
     let errorTemplate = '500';
-    const errorState: {message: string | undefined, details: string | undefined} = {
+    const errorState: {code: number | string | undefined, message: string | undefined, details: string | undefined} = {
+      code: undefined,
       message: undefined,
       details: undefined,
     };
@@ -23,12 +24,16 @@ export class ErrorHandler implements BaseErrorHandler {
       const config = this.getConfig(this.activatedRoute);
       const url = error.url;
 
+      errorState.code = 500;
+      errorState.message = 'Server error';
+
       if (url?.startsWith(config.platformApiUrl) || 
           url?.startsWith(config.dispatchApiUrl) ||
           url?.startsWith(config.simulatorsApiUrl)
-      ) {
-        errorState.message = 'Server error';
+      ) {        
         errorState.details = 'Something went wrong with our server.';
+      } else {
+        errorState.details = 'Something went wrong.';
       }
     
     } else if (error instanceof BiosimulationsError) {
@@ -38,8 +43,12 @@ export class ErrorHandler implements BaseErrorHandler {
         errorTemplate = '404';
       }
 
+      errorState.code = biosimulationsError.code;
       errorState.message = biosimulationsError.message;
       errorState.details = biosimulationsError.details;
+    } else {
+      errorState.code = '';
+      errorState.message = 'Runtime error';
     }
 
     this.ngZone.run(() => {

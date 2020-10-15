@@ -11,5 +11,8 @@ export class ErrorComponent {
   icon!: string;
 
   @Input()
+  code!: number | string;
+
+  @Input()
   pageHasBreadCrumbs = false;
 }
