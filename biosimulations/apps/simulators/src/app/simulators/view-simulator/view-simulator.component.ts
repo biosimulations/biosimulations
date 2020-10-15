@@ -27,6 +27,7 @@ import {
   styleUrls: ['./view-simulator.component.scss'],
 })
 export class ViewSimulatorComponent implements OnInit {
+  getVersionLinkBound!: (version: ViewVersion) => string[];
   constructor(
     public route: ActivatedRoute,
 
@@ -141,6 +142,10 @@ export class ViewSimulatorComponent implements OnInit {
   highlightVersion!: (version: ViewVersion) => boolean;
 
   ngOnInit(): void {
+    this.getVersionLinkBound = this.getVersionStackedHeadingMoreInfoRouterLink.bind(
+      this
+    );
+
     const params = this.route.params;
     this.loading$ = this.loadingSubject.asObservable();
     this.simulator = params.pipe(

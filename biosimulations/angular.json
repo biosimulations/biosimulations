@@ -1063,14 +1063,13 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
               "apps/platform/tsconfig.app.json",
               "apps/platform/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/platform/**/*"],
-            "linter": "eslint"
+            "exclude": ["**/node_modules/**", "!apps/platform/**/*"]
           }
         },
         "test": {
@@ -1118,14 +1117,13 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
               "libs/platform/view/tsconfig.lib.json",
               "libs/platform/view/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/platform/view/**/*"],
-            "linter": "eslint"
+            "exclude": ["**/node_modules/**", "!libs/platform/view/**/*"]
           }
         },
         "test": {
@@ -1250,14 +1248,13 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
               "apps/simulators/tsconfig.app.json",
               "apps/simulators/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/simulators/**/*"],
-            "linter": "eslint"
+            "exclude": ["**/node_modules/**", "!apps/simulators/**/*"]
           }
         },
         "test": {
@@ -1447,9 +1444,8 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "linter": "eslint",
             "tsConfig": [
               "libs/shared/datamodel-api/tsconfig.lib.json",
               "libs/shared/datamodel-api/tsconfig.spec.json"
@@ -1529,9 +1525,8 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "linter": "eslint",
             "tsConfig": [
               "apps/mail-service/tsconfig.app.json",
               "apps/mail-service/tsconfig.spec.json"
@@ -1585,9 +1580,8 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "linter": "eslint",
             "tsConfig": [
               "apps/ontology-api/tsconfig.app.json",
               "apps/ontology-api/tsconfig.spec.json"
@@ -1612,9 +1606,8 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "linter": "@angular-eslint/builder:lint",
             "tsConfig": [
               "libs/ontology/sources/tsconfig.lib.json",
               "libs/ontology/sources/tsconfig.spec.json"
@@ -1639,9 +1632,8 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "linter": "eslint",
             "tsConfig": [
               "libs/ontology/ontologies/tsconfig.lib.json",
               "libs/ontology/ontologies/tsconfig.spec.json"
@@ -1666,7 +1658,7 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
               "libs/shared/utils/routes/tsconfig.lib.json",
@@ -1691,7 +1683,6 @@
         }
       }
     },
-
     "dispatch-file-modifiers": {
       "root": "libs/dispatch/file-modifiers",
       "sourceRoot": "libs/dispatch/file-modifiers/src",
@@ -1729,7 +1720,7 @@
   "schematics": {
     "@nrwl/workspace": {
       "library": {
-        "linter": "@angular-eslint/builder:lint"
+        "linter": "eslint"
       }
     },
     "@nrwl/cypress": {
@@ -1766,13 +1757,13 @@
       "e2eTestRunner": "cypress",
       "strict": true,
       "style": "scss",
-      "linter": "@angular-eslint/builder:lint"
+      "linter": "eslint"
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest",
       "strict": true,
       "style": "scss",
-      "linter": "@angular-eslint/builder:lint"
+      "linter": "eslint"
     }
   },
   "defaultProject": "platform"

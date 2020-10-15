@@ -63,10 +63,11 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
   columnsToDisplay: string[] = this.displayedColumns
     .filter((col) => col.show)
     .map((col) => col.id);
+  initCheckbox: { [key: string]: boolean } = {};
   constructor(
     public dataSource: ModelDataSource,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -75,6 +76,10 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+    this.displayedColumns.map(
+      (value: any) => (this.initCheckbox[value.id] = value.show)
+    );
+
     this.isLoading = this.dataSource.isLoading$();
   }
   toggleMenu() {
@@ -97,7 +102,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
     moveItemInArray(
       this.columnsToDisplay,
       event.previousIndex,
-      event.currentIndex,
+      event.currentIndex
     );
   }
 

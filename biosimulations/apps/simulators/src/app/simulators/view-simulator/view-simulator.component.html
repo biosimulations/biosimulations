@@ -261,9 +261,7 @@
           [controls]="false"
           stackedContentsHeading="Contents"
           [getStackedHeading]="getVersionStackedHeading"
-          [getStackedHeadingMoreInfoRouterLink]="
-            getVersionStackedHeadingMoreInfoRouterLink.bind(this)
-          "
+          [getStackedHeadingMoreInfoRouterLink]="getVersionLinkBound"
           [defaultSort]="{ active: 'label', direction: 'desc' }"
           [highlightRow]="highlightVersion"
         >
