@@ -22,7 +22,7 @@ export class ResourceOverviewComponent {
   summary = '';
 
   @Input()
-  tags: string[] = [];
+  tags: string[] = [''];
 
   @Input()
   description!: string;
@@ -33,6 +33,6 @@ export class ResourceOverviewComponent {
   tagsDisplay!: string;
 
   ngOnInit() {
-    this.tagsDisplay = this.tags.join(',');
+    this.tagsDisplay = this.tags.join(', ');
   }
 }
