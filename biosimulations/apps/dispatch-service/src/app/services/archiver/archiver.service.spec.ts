@@ -1,6 +1,7 @@
 import { ModelsService } from './../../resources/models/models.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ArchiverService } from './archiver.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('ArchiverService', () => {
   let service: ArchiverService;
@@ -9,7 +10,8 @@ describe('ArchiverService', () => {
     const mockService = {};
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ArchiverService, 
+        ArchiverService,
+        ConfigService,
         {
         provide: ModelsService,
         useValue: mockService,

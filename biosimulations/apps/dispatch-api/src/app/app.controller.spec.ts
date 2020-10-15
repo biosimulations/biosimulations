@@ -66,17 +66,5 @@ describe('AppController', () => {
     });
   });
 
-  describe('getVisualizationData', () => {
-    it('should run with given parameters and save generate JSON data', () => {
-      const appController = app.get<AppController>(AppController);
-      expect(
-        appController.getVisualizationData(
-          'ffd2a2af-c977-4f8b-b0d0-66f724d55621',
-          false,
-          'VilarBMDB',
-          'task1'
-        )
-      ).toBeDefined();
-    });
-  });
+  
 });
