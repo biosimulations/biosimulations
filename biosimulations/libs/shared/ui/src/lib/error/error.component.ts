@@ -9,4 +9,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 export class ErrorComponent {
   @Input()
   icon!: string;
+
+  @Input()
+  pageHasBreadCrumbs = false;
 }

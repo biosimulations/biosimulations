@@ -30,7 +30,8 @@ const routes: Routes = [
       preload: {
         preload: true,
         delay: 500
-      }
+      },
+      config: config,
     }
   },
   {

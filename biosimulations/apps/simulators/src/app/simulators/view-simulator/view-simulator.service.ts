@@ -28,17 +28,14 @@ export class ViewSimulatorService {
     private simService: SimulatorService,
     private ontService: OntologyService
   ) { }
-  callMe() {
-    console.log('Called');
-  }
   getVersions(simulatorId: string) { }
-  getLatest(simulatorId: string) {
+  getLatest(simulatorId: string): Observable<ViewSimulator | undefined> {
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
     );
     return sim.pipe(map(this.apiToView, this));
   }
-  getVersion(simulatorId: string, version: string): Observable<ViewSimulator> {
+  getVersion(simulatorId: string, version: string): Observable<ViewSimulator | undefined> {
     const sim: Observable<Simulator> = this.simService.getOneByVersion(
       simulatorId,
       version
@@ -46,7 +43,11 @@ export class ViewSimulatorService {
     return sim.pipe(map(this.apiToView, this));
   }
 
-  apiToView(sim: Simulator): ViewSimulator {
+  apiToView(sim: Simulator | undefined): ViewSimulator | undefined {
+    if (sim === undefined) {
+      return undefined;
+    }
+
     const viewSim: ViewSimulator = {
       id: sim.id,
       version: sim.version,
@@ -124,7 +125,6 @@ export class ViewSimulatorService {
   setVersionDate(value: Version): ViewVersion {
     let created: Date = value.date;
     created = new Date(created);
-    console.log(created);
     const date =
       created.getFullYear().toString() +
       '-' +

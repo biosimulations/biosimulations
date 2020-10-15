@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-under-maintainence',
@@ -7,4 +7,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnderMaintainenceComponent {
+  @Input()
+  pageHasBreadCrumbs = false;
 }

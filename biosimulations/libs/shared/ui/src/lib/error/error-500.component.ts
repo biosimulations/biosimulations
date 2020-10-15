@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,6 +8,9 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Error500Component {
+  @Input()
+  pageHasBreadCrumbs = false;
+
   email: string;
   emailUrl: string;
   newIssueUrl: string;
