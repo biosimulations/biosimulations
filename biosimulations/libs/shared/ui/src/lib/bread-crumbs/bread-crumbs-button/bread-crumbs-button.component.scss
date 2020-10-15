@@ -1,14 +1,20 @@
 @import 'biosimulations-colors';
 
-.button {
+.biosimulations-icon-button {
   color: mat-color($theme-primary);
 
   &:hover {
     color: mat-color($theme-accent);
   }
 
+  &:active {
+    color: #e58800;
+    filter: drop-shadow( 1px 1px 1px rgba(#e58800, 0.2));
+  }
+
   .icon {
-    font-size: 1.25em;
+    font-size: 1.35em;
     margin-right: 0.25rem;
+    line-height: 0;
   }
 }

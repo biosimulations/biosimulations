@@ -18,10 +18,15 @@
     min-width: unset;
     padding: 0 1rem;
     color: mat-color($theme-primary);
-    opacity: 0.9;
+    opacity: 1.0;
 
-    &.mat-tab-label-active {
-      opacity: 0.9;
+    &:hover {
+      color: #0c88eb;
+    }
+
+    &:active {
+      color: #0b79d1;
+      filter: drop-shadow( 1px 1px 1px rgba(#0b79d1, 0.2));
     }
   }
 

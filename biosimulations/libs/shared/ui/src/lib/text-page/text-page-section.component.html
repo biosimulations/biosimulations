@@ -1,7 +1,13 @@
-<div class="container">
+<div class="container" [ngClass]="{'highlight-container': highlight}">
   <h2>
     {{ heading }}
-    <a *ngIf="icon" class="icon-container" [routerLink]="iconRouterLink" [href]="iconHref" [target]="iconHref != null ? '_blank' : null" (click)="iconClick()">
+    <a *ngIf="icon"
+        mat-icon-button
+        class="icon-container biosimulations-icon-button"
+        [routerLink]="iconRouterLink"
+        [href]="iconHref" [target]="iconHref != null ? '_blank' : null"
+        (click)="iconClick()"
+    >
       <biosimulations-icon [icon]="icon"></biosimulations-icon>
     </a>
   </h2>

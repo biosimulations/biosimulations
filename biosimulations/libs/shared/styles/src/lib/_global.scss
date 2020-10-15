@@ -100,18 +100,6 @@ ul.icon-list {
     }
   }
 
-  .icon-container {
-    width: 20px;
-    display: inline-block;
-    text-align: center;
-    position: relative;
-    top: -0.0625rem;
-
-    biosimulations-icon {
-      font-size: 125%;
-    }
-  }
-
   biosimulations-icon {
     margin-right: 0.25rem;
   }
@@ -153,6 +141,13 @@ a {
   color: mat-color($theme-primary);
   text-decoration: none;
   cursor: pointer;
+
+  &.text {
+    color: $dark-primary-text;
+    &:hover {
+      color: mat-color($theme-primary);
+    }
+  }
 }
 
 .highlight-primary {
@@ -191,6 +186,29 @@ a {
 
   &.no-bottom-margin {
     margin-bottom: 0;
+  }
+}
+
+ul.comma-separated {
+  list-style-type: none;
+  padding-inline-start: 0;
+
+  li {
+    display: inline-block;
+
+    &:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
+      content: ",";
+      margin-right: 0.25rem;
+    }
+
+    &:nth-last-child(2)::after {
+      content: " or";
+      margin-right: 0.25rem;
+    }
+  }
+
+  &.no-wrap li {
+    white-space: nowrap;
   }
 }
 
@@ -320,6 +338,58 @@ npn-slider .slider {
   height: auto;
   line-height: unset;
 
+  &.text {
+    color: $dark-primary-text;
+
+    &:hover {
+      color: rgba(#000000, 0.9);
+    }
+
+    &:active {
+      color: rgba(#000000, 1.0);
+      filter: drop-shadow( 1px 1px 1px rgba(#000000, 0.2));
+    }
+  }
+
+  &.primary {
+    color: mat-color($theme-primary);
+
+    &:hover {
+      color: #0c88eb;
+    }
+
+    &:active {
+      color: #0b79d1;
+      filter: drop-shadow( 1px 1px 1px rgba(#0b79d1, 0.2));
+    }
+  }
+
+  &.accent {
+    color: mat-color($theme-accent);
+
+    &:hover {
+      color: #e58800;
+    }
+
+    &:active {
+      color: #cc7900;
+      filter: drop-shadow( 1px 1px 1px rgba(#cc7900, 0.2));
+    }
+  }
+
+  &.white {
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffffdd;
+    }
+
+    &:active {
+      color: #ffffffbb;
+      filter: drop-shadow( 1px 1px 1px rgba(#ffffff, 0.4));
+    }
+  }
+
   .mat-button-focus-overlay {
     display: none;
   }
@@ -332,7 +402,40 @@ table {
   }
 }
 
+.biosimulations-table {
+  width: 100%;
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  thead {
+    tr {
+      background: mat-color($theme-primary, lightest);
+      height: 32px;
+    }
+  }
+
+  tbody {
+    tr:nth-child(even) {
+      background: $light-bg-lighter-5;
+    }
+    tr:hover {
+      background: $light-background;
+    }
+    td {
+      vertical-align: top;
+    }
+  }
+
+  th, td {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    text-align: left;
+  }
+}
+
 .mat-table.biosimulations-table {
+  width: auto;
   min-width: min-content;
   border: 1px solid $light-bg-darker-5;
   border-radius: 4px;
@@ -353,6 +456,9 @@ table {
 
   .mat-row {
     min-height: 28px;
+    &:hover {
+      background: $light-background;
+    }
   }
 
   .highlight-row {
@@ -424,4 +530,11 @@ table {
 
 .clear-float {
   clear: both;
+}
+
+/* columns */
+.ragged-columns {
+  .column {
+    height: max-content;
+  }
 }

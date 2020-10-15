@@ -12,6 +12,10 @@
     color: mat-color($theme-accent);
   }
 
+  &:active:not(.mat-button-disabled) {
+    color: mat-color($theme-accent, darker);
+  }
+
   .button-content {
     display: flex;
     align-items: center;

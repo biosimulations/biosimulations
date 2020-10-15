@@ -20,4 +20,9 @@
       margin-right: 3.5px;
     }
   }
+
+  &:active:not([disabled]) {
+    background: rgba(44, 44, 44, 0.08);
+    color: rgba(#000000, 0.9);
+  }
 }

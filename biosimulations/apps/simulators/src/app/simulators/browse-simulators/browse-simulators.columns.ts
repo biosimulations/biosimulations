@@ -1,6 +1,6 @@
 import {  
   Column,
-  ColumnLinkType,
+  ColumnActionType,
   ColumnFilterType,
   RowService,
 } from '@biosimulations/shared/ui';
@@ -182,9 +182,9 @@ export const columns: Column[] = [
     rightIconTitle: (element: TableSimulator): string => {
       return element.name + ' website';
     },
-    leftLinkType: ColumnLinkType.routerLink,
-    centerLinkType: ColumnLinkType.href,
-    rightLinkType: ColumnLinkType.href,
+    leftAction: ColumnActionType.routerLink,
+    centerAction: ColumnActionType.href,
+    rightAction: ColumnActionType.href,
     leftRouterLink: (element: any): string[] => {
       return ['/simulators', element.id];
     },
@@ -194,6 +194,7 @@ export const columns: Column[] = [
     rightHref: (element: TableSimulator): string => {
       return element.url;
     },
+    rightShowStacked: false,
     minWidth: 66,
     center: true,
     filterable: false,

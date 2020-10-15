@@ -99,9 +99,11 @@ export class ViewSimulatorService {
     };
   }
   getParameters(parameter: AlgorithmParameter): ViewParameter {
+    const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
+
     return {
       id: parameter.id,
-      name: parameter.name,
+      name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
       value: parameter.value,
       range: parameter.recommendedRange
@@ -218,9 +220,29 @@ export class ViewSimulatorService {
     }
     text += ' (' + citation.year + ').';
 
+    let url = citation?.identifiers?.[0]?.url as string || null;
+    if (!url && citation?.identifiers?.[0]) {
+      const namespace = citation?.identifiers?.[0].namespace;
+      const id = citation?.identifiers?.[0].id;
+      switch (namespace.toLowerCase()) {
+        case 'doi':
+          url = 'https://doi.org/' + id;
+          break;
+        case 'isbn':
+          url = 'https://isbndb.com/book/' + id;
+          break;
+        case 'url':
+          url = id;
+          break;
+        default:
+          url = 'https://identifiers.org/' + namespace + '/' + id;
+          break;
+      }
+    }
+
     return {
-      url: citation?.identifiers?.[0]?.url as string || null,
       text: text,
+      url: url,
     };
   }
 }

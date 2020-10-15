@@ -16,7 +16,7 @@ function getEdamTerms(input: any): { [id: string]: EDAMTerm } {
                 const termId = jsonTerm["@id"].replace("http://edamontology.org/", "")
                 const termDescription = jsonTerm["http://www.geneontology.org/formats/oboInOwl#hasDefinition"]
                 const termName = jsonTerm["rdfs:label"]
-                const termUrl = encodeURI("http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=" + termId)
+                const termUrl = encodeURI("https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F" + termId)
                 const docUrl = jsonTerm?.["http://edamontology.org/documentation"]?.["@id"] || jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"]
                 const term: EDAMTerm = {
                     id: termId,

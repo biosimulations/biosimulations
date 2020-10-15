@@ -1,12 +1,14 @@
-<div class="full-width">
-  <div class="fx" fxLayout="row" fxLayoutGap="1rem">
+<div class="full-width padded">
+  <div class="fx" fxLayout="row" fxLayoutGap="2rem">
     <div fxFlex="initial">
-      <button mat-icon-button (click)="toggleMenu()">
-        <mat-icon>read_more</mat-icon>
-      </button>
-      <button mat-icon-button (click)="refresh()">
-        <mat-icon>refresh</mat-icon>
-      </button>
+      <div class="global-controls">
+        <button mat-icon-button class="biosimulations-icon-button text" (click)="toggleMenu()">
+          <biosimulations-icon icon="controls"></biosimulations-icon>
+        </button>
+        <button mat-icon-button class="biosimulations-icon-button text" (click)="refresh()">
+          <biosimulations-icon icon="refresh"></biosimulations-icon>
+        </button>
+      </div>
       <mat-accordion *ngIf="showMenu" class="controls">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
