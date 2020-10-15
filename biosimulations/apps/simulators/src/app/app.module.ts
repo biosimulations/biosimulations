@@ -9,17 +9,19 @@ import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
-import { MarkedPreloadingStrategy } from './MarkedPreloadingStrategy'
+
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
+import {
+  MARKED_PRELOADING_STRATEGY,
+  RoutesModule,
+} from '@biosimulations/shared/utils/routes';
 import config from '../assets/config.json';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-
   },
   {
     path: 'simulators',
@@ -29,21 +31,20 @@ const routes: Routes = [
       breadcrumb: 'Simulators',
       preload: {
         preload: true,
-        delay: 500
-      }
-    }
+        delay: 500,
+      },
+    },
   },
   {
     path: 'help',
-    loadChildren: () =>
-      import('./help/help.module').then((m) => m.HelpModule),
+    loadChildren: () => import('./help/help.module').then((m) => m.HelpModule),
     data: {
       breadcrumb: 'Help',
       preload: {
         preload: true,
-        delay: 1000
-      }
-    }
+        delay: 1000,
+      },
+    },
   },
 ];
 
@@ -55,12 +56,17 @@ const routes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     SharedUiModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled', preloadingStrategy: MarkedPreloadingStrategy }),
+    RoutesModule,
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled',
+      scrollPositionRestoration: 'enabled',
+      preloadingStrategy: MARKED_PRELOADING_STRATEGY,
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
     IonicStorageModule.forRoot({
-      driverOrder: ['indexeddb', 'websql', 'localstorage']
+      driverOrder: ['indexeddb', 'websql', 'localstorage'],
     }),
   ],
   providers: [
@@ -69,4 +75,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
