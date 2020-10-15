@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LogoImageComponent {
   @Input()
-  logo: string = 'assets/images/biosimulations-logo/logo.svg';
+  logo = 'assets/images/biosimulations-logo/logo.svg';
 }

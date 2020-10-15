@@ -156,6 +156,10 @@
     "ontology-ontologies": {
       "tags": ["scope:ontology", "type:service", "platform:server"]
     },
+    "shared-utils-routes": {
+      "tags": ["scope:shared", "type:utils", "platform:web"]
+    },
+
     "dispatch-file-modifiers": {
       "tags": ["scope:dispatch", "type:util", "platform:any"]
     }

@@ -189,8 +189,8 @@ export class AppController implements OnApplicationBootstrap {
     const fileStorage = process.env.FILE_STORAGE || '';
     const logPath = path.join(fileStorage, 'simulations', uId, 'out');
     const simInfo = await this.modelsService.get(uId);
-    let filePathOut: string = '';
-    let filePathErr: string = '';
+    let filePathOut = '';
+    let filePathErr = '';
 
     download = String(download) === 'false' ? false : true;
     if (simInfo === null) {

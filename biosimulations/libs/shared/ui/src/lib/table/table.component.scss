@@ -48,6 +48,19 @@
         }
     }
 
+    .mat-expansion-panel {
+        .mat-expansion-panel-header {
+            background: $light-background;
+        }
+        .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+            background: $light-bg-darker-5;
+        }
+
+        .mat-expansion-panel-header:active:not([aria-disabled=true]) {
+            background: $light-bg-darker-10;
+        }
+    }
+
     biosimulations-icon {
         margin-right: 0.25rem;
         margin-top: -0.0625rem;
@@ -87,8 +100,25 @@
                 white-space: nowrap;
             }
         }
+        ::ng-deep .mat-checkbox-inner-container {
+            margin-right: 0.25rem;
+        }
         .mat-checkbox-ripple {
             display: none;
+        }
+
+        &:hover {
+            color: rgba(#000000, 0.9);
+            ::ng-deep .mat-checkbox-frame {
+                border-color: rgba(0, 0, 0, 0.72);
+            }
+        }
+
+        &:active {
+            color: rgba(#000000, 1.0);
+            ::ng-deep .mat-checkbox-frame {
+                border-color: rgba(0, 0, 0, 0.82);   
+            }
         }
     }
 

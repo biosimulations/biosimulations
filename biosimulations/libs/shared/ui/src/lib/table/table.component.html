@@ -144,6 +144,7 @@
             'min-width.em':
               column.minWidth !== undefined ? column.minWidth / 14 : null
           }"
+          [ngClass]="{'highlight-row': element?._highlight}"
         >
           <div
             class="cell-content-container"
@@ -157,11 +158,13 @@
               'height.px': 20 * linesPerRow
             }"
           >
-            <span [ngSwitch]="column.leftLinkType">
+            <span [ngSwitch]="column.leftAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
-                  [routerLink]="routerLink"
+                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -174,8 +177,10 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.href as href"
-                  [href]="href"
+                  [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
                 >
                   <ng-container
@@ -185,6 +190,22 @@
                     "
                   ></ng-container>
                 </a>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'click'">
+                <button
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
+                  *ngIf="element._cache[column.id].left.click as click"
+                  (click)="click(element)"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      leftTemplate;
+                      context: { icon: column.leftIcon }
+                    "
+                  ></ng-container>
+                </button>
               </ng-template>
 
               <ng-template ngSwitchDefault>
@@ -205,13 +226,15 @@
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.centerLinkType">
+            <span [ngSwitch]="column.centerAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="
                     element._cache[column.id].center.routerLink as routerLink
                   "
-                  [routerLink]="routerLink"
+                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
@@ -220,13 +243,27 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].center.href as href"
-                  [href]="href"
+                  [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
                 </a>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'click'">
+                <button
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
+                  *ngIf="element._cache[column.id].center.click as click"
+                  (click)="click(element)"
+                >
+                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  ></ng-container>
+                </button>
               </ng-template>
 
               <ng-template ngSwitchDefault>
@@ -235,17 +272,21 @@
               </ng-template>
 
               <ng-template #centerTemplate>
-                {{ element._cache[column.id].value }}
+                <ng-container *ngIf="element._cache[column.id].value as value">
+                  {{ isObservable(value) ? (value | async) : value }}                  
+                </ng-container>
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.rightLinkType">
+            <span [ngSwitch]="column.rightAction">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="
                     element._cache[column.id].right.routerLink as routerLink
                   "
-                  [routerLink]="routerLink"
+                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -258,8 +299,10 @@
 
               <ng-template [ngSwitchCase]="'href'">
                 <a
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].right.href as href"
-                  [href]="href"
+                  [href]="isObservable(href) ? (href | async) : href"
                   target="_blank"
                 >
                   <ng-container
@@ -269,6 +312,22 @@
                     "
                   ></ng-container>
                 </a>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'click'">
+                <button
+                  mat-icon-button
+                  class="biosimulations-icon-button primary"
+                  *ngIf="element._cache[column.id].right.click as click"
+                  (click)="click(element)"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      rightTemplate;
+                      context: { icon: column.rightIcon }
+                    "
+                  ></ng-container>
+                </button>
               </ng-template>
 
               <ng-template ngSwitchDefault>

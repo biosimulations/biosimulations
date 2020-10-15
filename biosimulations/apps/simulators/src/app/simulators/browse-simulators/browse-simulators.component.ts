@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import {
   TableComponent,
   Column,
-  ColumnLinkType,
+  ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 

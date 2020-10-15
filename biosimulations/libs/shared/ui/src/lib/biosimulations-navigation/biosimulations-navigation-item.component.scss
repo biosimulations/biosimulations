@@ -15,6 +15,18 @@
     padding: 0 1rem;
 }
 
+.mat-expansion-panel {
+    .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+        background: rgba(44, 44, 44, 0.04);
+        color: rgba(#000000, 0.9);
+    }
+    
+    .mat-expansion-panel-header:active:not([aria-disabled=true]) {
+        background: rgba(44, 44, 44, 0.08);
+        color: rgba(#000000, 1.0);
+    }
+}
+
 .mat-expansion-panel-header-title biosimulations-icon {
     font-size: 150%;
     width: 29px;

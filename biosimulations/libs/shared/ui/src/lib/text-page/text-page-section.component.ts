@@ -27,6 +27,9 @@ export class TextPageSectionComponent implements OnInit {
   @Input()
   iconClick!: () => void | null;
 
+  @Input()
+  highlight = false;
+
   constructor() {}
 
   ngOnInit(): void {}

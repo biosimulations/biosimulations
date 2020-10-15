@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import {
   Column,
-  ColumnLinkType,
+  ColumnActionType,
   Sort,
   Side,
   RowService,
@@ -33,13 +33,22 @@ export class StackedTableComponent {
   }
 
   @Input()
-  getHeading!: (row: any) => string;
+  getHeading!: (row: any) => (string | Observable<string>);
 
   @Input()
   getHeadingMoreInfoRouterLink!: (row: any) => any[] | string | null;
 
   @Input()
   getHeadingMoreInfoHref!: (row: any) => string | null;
+
+  private _highlightRow!: (element: any) => boolean;
+
+  @Input()
+  set highlightRow(func: (element: any) => boolean) {    
+    this._highlightRow = func;
+    this.setRowHighlighting();
+    this.derivedData.next(this._derivedData);
+  }
 
   @Input()
   defaultSort!: Sort;
@@ -73,11 +82,14 @@ export class StackedTableComponent {
           derivedDatum['iconAction'] = null;
         }
 
+        derivedDatum['rawData'] = datum;
         derivedDatum['columns'] = {};
       });
 
       this._dataValue = data;
       this.updateDerivedData();
+
+      this.setRowHighlighting();
 
       this.derivedData.next(this._derivedData);
     });
@@ -104,18 +116,51 @@ export class StackedTableComponent {
           true
         );
 
-        if (column.centerLinkType === ColumnLinkType.routerLink) {
+        if (column.centerAction === ColumnActionType.routerLink) {
           derivedDatum[column.id][
             'centerRouterLink'
           ] = RowService.getElementRouterLink(datum, column, Side.center);
-        } else if (column.centerLinkType === ColumnLinkType.href) {
-          derivedDatum[column.id]['centerHef'] = RowService.getElementHref(
+        } else if (column.centerAction === ColumnActionType.href) {
+          derivedDatum[column.id]['centerHref'] = RowService.getElementHref(
             datum,
             column,
             Side.center
           );
+        } else if (column.centerAction === ColumnActionType.click) {
+          derivedDatum[column.id]['centerClick'] = RowService.getElementClick(
+            column,
+            Side.center
+          );
         }
+
+        if (column.rightAction === ColumnActionType.routerLink) {
+          derivedDatum[column.id][
+            'rightRouterLink'
+          ] = RowService.getElementRouterLink(datum, column, Side.right);
+        } else if (column.rightAction === ColumnActionType.href) {
+          derivedDatum[column.id]['rightHref'] = RowService.getElementHref(
+            datum,
+            column,
+            Side.right
+          );
+        } else if (column.rightAction === ColumnActionType.click) {
+          derivedDatum[column.id]['rightClick'] = RowService.getElementClick(
+            column,
+            Side.right
+          );
+        }        
+        derivedDatum[column.id]['rightIconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
+    });
+  }
+
+  setRowHighlighting() {
+    this._derivedData.forEach((row: any): void => {
+      if (this._highlightRow === undefined) {
+        row['highlight'] = false;
+      } else {
+        row['highlight'] = this._highlightRow(row.rawData);
+      }
     });
   }
 
@@ -126,5 +171,9 @@ export class StackedTableComponent {
     setTimeout(() => {
       this.tocSections = container.getToc();
     });
+  }
+
+  isObservable(value: any): boolean {
+    return value instanceof Observable;
   }
 }

@@ -37,7 +37,7 @@ export class OntologyService {
   endpoint = urls.ontologyApi
   getKisaoUrl(id: string): string {
     return (
-      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_' +
+      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
       id
     );
   }
