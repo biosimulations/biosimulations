@@ -1,4 +1,5 @@
 import { ModelsService } from './../../resources/models/models.service';
+import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@angular/core';
 import { Logger } from '@nestjs/common';
 import archiver from 'archiver';
@@ -7,14 +8,18 @@ import path from 'path';
 
 @Injectable()
 export class ArchiverService {
-  constructor(private modelsService: ModelsService) { }
+  constructor(
+    private modelsService: ModelsService,
+    private configService: ConfigService,) { }
   private logger = new Logger(ArchiverService.name);
+  private fileStorage: string = this.configService.get(
+    'hpc.fileStorage') || '';
 
   async createResultArchive(uuid: string) {
-    const fileStorage = process.env.FILE_STORAGE || '';
 
-    const resultPath = path.join(fileStorage, 'simulations', uuid, 'out');
-    const simPath = path.join(fileStorage, 'simulations', uuid);
+
+    const resultPath = path.join(this.fileStorage, 'simulations', uuid, 'out');
+    const simPath = path.join(this.fileStorage, 'simulations', uuid);
     const output = fs.createWriteStream(path.join(simPath, uuid + '.zip'));
     const archive = archiver('zip');
 
