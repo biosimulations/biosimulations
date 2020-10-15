@@ -41,6 +41,8 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
 import { ErrorComponent } from './error/error.component';
 import { Error404Component } from './error/error-404.component';
 import { Error500Component } from './error/error-500.component';
+import { UnderConstructionComponent } from './error/under-construction.component';
+import { UnderMaintainenceComponent } from './error/under-maintainence.component';
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, BreadCrumbsModule],
   exports: [MaterialWrapperModule, TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
@@ -55,7 +57,7 @@ import { Error500Component } from './error/error-500.component';
     QAComponent,
     HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
-    ErrorComponent, Error404Component, Error500Component,
+    ErrorComponent, Error404Component, Error500Component, UnderConstructionComponent, UnderMaintainenceComponent,
   ],
   declarations: [TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
     HoverOpenMenuComponent, DropdownMenuItemComponent,
@@ -70,7 +72,7 @@ import { Error500Component } from './error/error-500.component';
     QAComponent,
     HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
-    ErrorComponent, Error404Component, Error500Component,
+    ErrorComponent, Error404Component, Error500Component, UnderConstructionComponent, UnderMaintainenceComponent,
   ],
 })
 export class SharedUiModule { }

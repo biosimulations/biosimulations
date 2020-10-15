@@ -7,4 +7,6 @@ export * from './lib/toc/toc-section.directive';
 export * from './lib/toc/toc-sections-container.directive';
 export * from './lib/error/error-404.component';
 export * from './lib/error/error-500.component';
+export * from './lib/error/under-construction.component';
+export * from './lib/error/under-maintainence.component';
 export * from './lib/shared-ui.module';

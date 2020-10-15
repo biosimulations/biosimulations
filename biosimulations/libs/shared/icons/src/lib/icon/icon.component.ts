@@ -75,7 +75,9 @@ export type biosimulationsIcon =
   | 'docker'
   | 'linkedin'
   | 'orcid'
-  | 'toTop';
+  | 'toTop'
+  | 'construction'
+  | 'maintainence';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -163,6 +165,8 @@ export class IconComponent implements OnInit {
     version: { type: 'fas', name: 'code-branch' },
     copy: { type: 'fas', name: 'copy' },
     fork: { type: 'fas', name: 'code-branch' },
+    construction: { type: 'fas', name: 'tools' },
+    maintainence: { type: 'fas', name: 'tools' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];
