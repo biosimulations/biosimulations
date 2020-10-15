@@ -9,6 +9,7 @@ import { HttpService, Inject, Injectable, Logger } from '@nestjs/common';
 import path from 'path';
 import { ModelsService } from './resources/models/models.service';
 import { v4 as uuid } from 'uuid';
+import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
 import { MQDispatch } from '@biosimulations/messages';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
@@ -18,7 +19,8 @@ export class AppService {
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private httpService: HttpService,
-    private modelsService: ModelsService
+    private modelsService: ModelsService,
+    private configService: ConfigService,
   ) {}
 
   private readonly fileStorage = process.env.FILE_STORAGE || '';
