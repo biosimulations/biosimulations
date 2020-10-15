@@ -1,21 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild, ChangeDetectorRef
-} from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import {
-  pluck,
-  map,
-  mergeAll,
-  tap,
-  catchError,
-  switchMap,
-  delay,
-} from 'rxjs/operators';
-import { Observable, of, BehaviorSubject, concat } from 'rxjs';
-
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { tap, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -23,34 +9,17 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-import { SimulatorService } from '../simulator.service';
+
 import { ViewSimulatorService } from './view-simulator.service';
 
-
-import { Simulator } from '@biosimulations/simulators/api-models';
-import { ViewAlgorithm, ViewSimulator, ViewParameter, ViewFramework, ViewFormat, ViewVersion, ViewCitation } from './view-simulator.interface';
-
-interface Algorithm extends ViewAlgorithm {
-  id: string;
-  heading: Observable<string>;
-  name: Observable<string>;
-  description: Observable<DescriptionFragment[]>;
-  url: Observable<string>;
-  frameworks: Observable<ViewFramework>[];
-  formats: Observable<ViewFormat>[];
-  parameters: Observable<ViewParameter[]>;
-  citations: ViewCitation[];
-}
-
-export enum DescriptionFragmentType {
-  text = 'text',
-  href = 'href',
-}
-
-export interface DescriptionFragment {
-  type: DescriptionFragmentType;
-  value: string;
-}
+import {
+  ViewSimulator,
+  ViewParameter,
+  ViewVersion,
+  ViewCitation,
+  DescriptionFragment,
+  DescriptionFragmentType,
+} from './view-simulator.interface';
 
 @Component({
   selector: 'biosimulations-view-simulator',
@@ -59,12 +28,11 @@ export interface DescriptionFragment {
 })
 export class ViewSimulatorComponent implements OnInit {
   constructor(
-    private router: Router,
     public route: ActivatedRoute,
-    private service: SimulatorService,
+
     private simService: ViewSimulatorService,
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
   loadingSubject = new BehaviorSubject(true);
   loading$!: Observable<boolean>;
@@ -151,7 +119,9 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Image',
       key: 'image',
       rightIcon: 'copy',
-      rightIconTitle: (): string => {return 'Copy to clipboard'},
+      rightIconTitle: (): string => {
+        return 'Copy to clipboard';
+      },
       rightAction: ColumnActionType.click,
       rightClick: (version: ViewVersion): void => {
         this.copyDockerPullCmd(version.image);
