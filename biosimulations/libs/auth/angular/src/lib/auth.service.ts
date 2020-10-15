@@ -41,7 +41,7 @@ export class AuthService {
     createAuth0Client({
       domain: this.environment.authDomain,
       client_id: this.environment.clientId,
-      redirect_uri: this.redirectUri,
+      redirect_uri: this.environment.redirectUri,
       response_type: 'token id_token',
       scope: this.environment.scope,
       audience: this.environment.audience,
