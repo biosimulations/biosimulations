@@ -38,6 +38,9 @@ import { HomeTeaserComponent } from './home/home-teaser.component';
 import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
+import { ErrorComponent } from './error/error.component';
+import { Error404Component } from './error/error-404.component';
+import { Error500Component } from './error/error-500.component';
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, BreadCrumbsModule],
   exports: [MaterialWrapperModule, TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
@@ -52,6 +55,7 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     QAComponent,
     HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
+    ErrorComponent, Error404Component, Error500Component,
   ],
   declarations: [TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
     HoverOpenMenuComponent, DropdownMenuItemComponent,
@@ -66,6 +70,7 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     QAComponent,
     HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
+    ErrorComponent, Error404Component, Error500Component,
   ],
 })
 export class SharedUiModule { }

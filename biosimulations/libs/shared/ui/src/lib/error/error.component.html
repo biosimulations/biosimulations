@@ -1,0 +1,12 @@
+<div class="container full-height horz-centered vert-centered padded">
+  <div class="icon">
+    <biosimulations-icon [icon]="icon"></biosimulations-icon>
+    <span><ng-content select="#label"></ng-content></span>
+  </div>
+  <h1 class="title">
+    <ng-content select="#title"></ng-content>
+  </h1>
+  <div class="message">
+    <ng-content select="#message"></ng-content>
+  </div>
+</div>

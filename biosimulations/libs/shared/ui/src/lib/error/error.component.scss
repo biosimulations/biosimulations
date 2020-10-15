@@ -1,0 +1,22 @@
+@import 'biosimulations-colors';
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.icon {
+  font-size: 48px;
+
+  biosimulations-icon:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}
+
+h1.title {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 24px;
+  color: mat-color($theme-primary);
+  border-bottom: none;
+}

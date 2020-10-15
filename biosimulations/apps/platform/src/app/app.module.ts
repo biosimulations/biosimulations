@@ -15,6 +15,8 @@ import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { Error404Component } from '@biosimulations/shared/ui';
+
 import { ConfigService } from '@biosimulations/shared/services';
 import config from '../assets/config.json';
 
@@ -50,6 +52,13 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Help'
     }
+  },
+  {
+    path: '**',
+    component: Error404Component,
+    data: {
+      config: config,
+    },
   },
 ];
 @NgModule({

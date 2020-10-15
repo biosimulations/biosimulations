@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService } from '@biosimulations/shared/services';
+import { Error404Component } from '@biosimulations/shared/ui';
 
 import config from '../assets/config.json';
 
@@ -41,6 +42,13 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Help'
     }
+  },
+  {
+    path: '**',
+    component: Error404Component,
+    data: {
+      config: config,
+    },
   },
 ];
 

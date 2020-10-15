@@ -12,6 +12,7 @@ import { ConfigService } from '@biosimulations/shared/services';
 import { MarkedPreloadingStrategy } from './MarkedPreloadingStrategy'
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Error404Component } from '@biosimulations/shared/ui';
 
 import config from '../assets/config.json';
 
@@ -19,7 +20,6 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-
   },
   {
     path: 'simulators',
@@ -44,6 +44,13 @@ const routes: Routes = [
         delay: 1000
       }
     }
+  },
+  {
+    path: '**',
+    component: Error404Component,
+    data: {
+      config: config,
+    },
   },
 ];
 

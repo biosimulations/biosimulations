@@ -5,4 +5,6 @@ export * from './lib/table/responsive-table.component';
 export * from './lib/toc/toc-section';
 export * from './lib/toc/toc-section.directive';
 export * from './lib/toc/toc-sections-container.directive';
+export * from './lib/error/error-404.component';
+export * from './lib/error/error-500.component';
 export * from './lib/shared-ui.module';
