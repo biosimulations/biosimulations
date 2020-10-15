@@ -23,8 +23,8 @@ const env = {
   authDomain: 'auth.biosimulations.org',
   apiDomain: 'https://api.biosimulations.dev',
   clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
-  redirectUri: 'http://localhost:4200',
-  logoutUri: 'http://localhost:4200',
+  redirectUri: `${window.location.origin}`,
+  logoutUri: `${window.location.origin}`,
   audience: 'api.biosimulations.org',
   scope: '',
 };
@@ -33,23 +33,21 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-
   },
   {
     path: 'models',
     loadChildren: () =>
       import('./models/models.module').then((m) => m.ModelsModule),
     data: {
-      breadcrumb: 'Models'
-    }
+      breadcrumb: 'Models',
+    },
   },
   {
     path: 'help',
-    loadChildren: () =>
-      import('./help/help.module').then((m) => m.HelpModule),
+    loadChildren: () => import('./help/help.module').then((m) => m.HelpModule),
     data: {
-      breadcrumb: 'Help'
-    }
+      breadcrumb: 'Help',
+    },
   },
 ];
 @NgModule({
@@ -61,21 +59,24 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled',
+      scrollPositionRestoration: 'enabled',
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
     IonicStorageModule.forRoot({
-      driverOrder: ['indexeddb', 'websql', 'localstorage']
+      driverOrder: ['indexeddb', 'websql', 'localstorage'],
     }),
     SharedModule,
   ],
   providers: [
-    AuthService, 
+    AuthService,
     { provide: AuthEnvironment, useValue: env },
-    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
-    {provide: ConfigService, useValue: config },
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
+    { provide: ConfigService, useValue: config },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
