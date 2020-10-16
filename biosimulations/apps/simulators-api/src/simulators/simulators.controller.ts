@@ -7,6 +7,9 @@ import {
   Query,
   UseGuards,
   NotFoundException,
+  Put,
+  ConflictException,
+  BadRequestException,
 } from '@nestjs/common';
 import { AdminGuard } from '@biosimulations/auth/nest';
 import {
@@ -19,6 +22,9 @@ import {
   ApiNotFoundResponse,
   ApiOperation,
   ApiCreatedResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiBadRequestResponse,
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
@@ -100,6 +106,26 @@ export class SimulatorsController {
       return [this.getSimulatorByVersion(id, version)];
     }
   }
+
+  @Get(':id/:version')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'version',
+    required: false,
+    type: String,
+  })
+  @ApiOkResponse({ type: Simulator })
+  @ApiNotFoundResponse()
+  async getSimulatorVersion(
+    @Param('id') id: string,
+    @Param('version') version: string
+  ): Promise<Simulator> {
+    return this.getSimulatorByVersion(id, version);
+  }
   private async getSimulatorById(id: string) {
     const res = await this.service.findById(id);
     if (!res?.length) {
@@ -121,7 +147,48 @@ export class SimulatorsController {
     type: Simulator,
   })
   @ApiCreatedResponse({ type: Simulator })
-  async create(@Body() doc: Simulator) {
+  @ApiUnauthorizedResponse({})
+  @ApiForbiddenResponse({})
+  async create(@Body() doc: Simulator): Promise<Simulator[]> {
     return this.service.new(doc);
+  }
+  @Put(':id/:version')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'version',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    type: Simulator,
+    description: 'Ok',
+  })
+  @ApiNotFoundResponse({
+    description: 'No such simulator',
+  })
+  @ApiUnauthorizedResponse({ description: 'No permission to edit simulators' })
+  @ApiForbiddenResponse({
+    description: 'No permission to edit simulator',
+  })
+  @ApiBadRequestResponse({ description: 'Request body does not match schema' })
+  async update(
+    @Body() doc: Simulator,
+    @Param('id') id: string,
+    @Param('version') version: string
+  ) {
+    return this.service
+      .replace(id, version, doc)
+      .then((res) => res)
+      .catch((err) => {
+        throw new BadRequestException({
+          statusCode: '400',
+          message: 'The input did not match the schema',
+          details: err.errors,
+        });
+      });
   }
 }
