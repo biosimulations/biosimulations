@@ -15,7 +15,7 @@ import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import config from '../assets/config.json';
 
 // TODO: make parameterizable based on environment (deployment, test, dev)
@@ -61,7 +61,7 @@ const routes: Routes = [
     SharedUiModule,
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
-      scrollPositionRestoration: 'enabled',
+      scrollPositionRestoration: 'disabled',
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -76,6 +76,7 @@ const routes: Routes = [
     { provide: AuthEnvironment, useValue: env },
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
+    ScrollService,
   ],
   bootstrap: [AppComponent],
 })

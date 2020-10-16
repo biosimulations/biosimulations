@@ -9,7 +9,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 import config from '../assets/config.json';
 
@@ -55,8 +55,10 @@ const routes: Routes = [
     BiosimulationsIconsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled', 
+      scrollPositionRestoration: 'disabled',
+    }),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage']
     }),
@@ -64,6 +66,7 @@ const routes: Routes = [
   providers: [
     {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
     {provide: ConfigService, useValue: config },
+    ScrollService,
   ],
   bootstrap: [AppComponent],
   schemas: [],
