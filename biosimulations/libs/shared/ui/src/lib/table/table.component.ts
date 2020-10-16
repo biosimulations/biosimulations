@@ -88,7 +88,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input()
   set highlightRow(func: (element: any) => boolean) {
     this._highlightRow = func;
-    this.setRowHighlighting(this.dataSource.data);    
+    this.setRowHighlighting(this.dataSource.data);
   }
 
   @Input()
@@ -202,7 +202,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     rows.forEach((row: any): void => {
       if (this._highlightRow === undefined) {
         row['_highlight'] = false;
-      } else {        
+      } else {
         row['_highlight'] = this._highlightRow(row);
       }
     });
@@ -494,5 +494,17 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   isObservable(value: any): boolean {
     return value instanceof Observable;
+  }
+
+  controlsOpen = false;
+
+  toggleControls(): void {
+    this.controlsOpen = !this.controlsOpen;
+  }
+
+  openControlPanelId = 2;
+
+  openControlPanel(id: number): void {
+    this.openControlPanelId = id;
   }
 }
