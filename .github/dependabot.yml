@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/biosimulations"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  target-branch: dev
+  labels:
+  - dependencies
