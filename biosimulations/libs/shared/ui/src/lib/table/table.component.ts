@@ -364,7 +364,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setDataSourceFilter(): void {
-    if (Object.keys(this.filter).length) {
+    if (Object.keys(this.filter).length || this.searchQuery) {
       // Hack: alternate between value of 'a' and 'b' to force data source to filter the data
       if (this.dataSource.filter === 'a') {
         this.dataSource.filter = 'b';
@@ -377,6 +377,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   filterData(datum: any, filter: string): boolean {
+    /* filtering */
     for (const columnId in this.filter) {
       const column = this.idToColumn[columnId];
 
@@ -394,6 +395,22 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
+    /* searching */
+    if (this.searchQuery) {
+      let matchesSearch = false;
+      for (const column of this.columns) {
+        if (this.matchesSearchQuery(datum, column)) {
+          matchesSearch = true;
+          break;
+        }
+      }
+
+      if (!matchesSearch) {
+        return false;
+      }
+    }
+
+    /* return */
     return true;
   }
 
@@ -446,6 +463,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     return true;
   }
 
+  matchesSearchQuery(datum: any, column: Column): boolean {
+    const value = datum._cache[column.id].value;
+    return (typeof value === "string") && value.toLowerCase().includes(this.searchQuery as string);
+  }
+
   sortData(data: any[], sort: any): any[] {
     if (sort === undefined) {
       return data;
@@ -496,15 +518,25 @@ export class TableComponent implements OnInit, AfterViewInit {
     return value instanceof Observable;
   }
 
-  controlsOpen = false;
+  controlsOpen = true;
 
   toggleControls(): void {
     this.controlsOpen = !this.controlsOpen;
   }
 
-  openControlPanelId = 2;
+  openControlPanelId = 3;
 
   openControlPanel(id: number): void {
     this.openControlPanelId = id;
+  }
+
+  @Input()
+  searchPlaceHolder!: string;
+
+  searchQuery: string | undefined = undefined;
+
+  searchRows(query: string): void {
+    this.searchQuery = query.toLowerCase();
+    this.setDataSourceFilter();
   }
 }
