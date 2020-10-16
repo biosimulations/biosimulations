@@ -15,6 +15,9 @@ export class TextPageSideBarSectionComponent implements OnInit {
   @Input()
   heading = '';
 
+  @Input()
+  highlight = false;
+
   constructor() {}
 
   ngOnInit(): void {}

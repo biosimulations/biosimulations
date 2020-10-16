@@ -9,10 +9,14 @@ import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
-import { MarkedPreloadingStrategy } from './MarkedPreloadingStrategy'
+
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
+import {
+  MARKED_PRELOADING_STRATEGY,
+  RoutesModule,
+} from '@biosimulations/shared/utils/routes';
 
 import config from '../assets/config.json';
 
@@ -29,21 +33,20 @@ const routes: Routes = [
       breadcrumb: 'Simulators',
       preload: {
         preload: true,
-        delay: 500
+        delay: 500,
       },
-    }
+    },
   },
   {
     path: 'help',
-    loadChildren: () =>
-      import('./help/help.module').then((m) => m.HelpModule),
+    loadChildren: () => import('./help/help.module').then((m) => m.HelpModule),
     data: {
       breadcrumb: 'Help',
       preload: {
         preload: true,
-        delay: 1000
-      }
-    }
+        delay: 1000,
+      },
+    },
   },
   {
     path: 'error',
@@ -70,12 +73,17 @@ routes.forEach((route: Route): void => {
     HttpClientModule,
     BrowserAnimationsModule,
     SharedUiModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled', preloadingStrategy: MarkedPreloadingStrategy }),
+    RoutesModule,
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled',
+      scrollPositionRestoration: 'enabled',
+      preloadingStrategy: MARKED_PRELOADING_STRATEGY,
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
     IonicStorageModule.forRoot({
-      driverOrder: ['indexeddb', 'websql', 'localstorage']
+      driverOrder: ['indexeddb', 'websql', 'localstorage'],
     }),
   ],
   providers: [
@@ -85,4 +93,4 @@ routes.forEach((route: Route): void => {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

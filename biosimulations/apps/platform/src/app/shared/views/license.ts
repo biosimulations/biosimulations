@@ -98,6 +98,6 @@ export class LicenseModel extends ViewModel {
   }
 
   getSwoUrl(id: number): string {
-    return `http://bioportal.bioontology.org/ontologies/SWO?p=classes&conceptid=http://www.ebi.ac.uk/swo/license/SWO_${id}`;
+    return `https://www.ebi.ac.uk/ols/ontologies/swo/terms?iri=http://www.ebi.ac.uk/swo/license/SWO_${id}`;
   }
 }

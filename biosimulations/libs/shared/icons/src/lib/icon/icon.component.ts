@@ -40,8 +40,10 @@ export type biosimulationsIcon =
   | 'report'
   | 'download'
   | 'upload'
+  | 'refresh'
   | 'logs'
   | 'compare'
+  | 'controls'
   | 'filter'
   | 'columns'
   | 'reuse'
@@ -131,8 +133,10 @@ export class IconComponent implements OnInit {
     report: { type: 'fas', name: 'table' },
     download: { type: 'fas', name: 'download' },
     upload: { type: 'fas', name: 'upload' },
+    refresh: { type: 'fas', name: 'sync-alt' },
     logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
+    controls: { type: 'fas', name: 'cog' },
     filter: { type: 'fas', name: 'filter' },
     columns: { type: 'fas', name: 'columns' },
     reuse: { type: 'fas', name: 'sync-alt' },

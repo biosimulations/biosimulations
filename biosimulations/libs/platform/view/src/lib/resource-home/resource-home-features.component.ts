@@ -12,7 +12,8 @@ export class ResourceHomeFeaturesComponent implements OnInit {
   @Input()
   cols = 2;
 
+  colsString = this.cols.toString();
   constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

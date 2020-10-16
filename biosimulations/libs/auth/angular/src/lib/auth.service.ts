@@ -41,7 +41,7 @@ export class AuthService {
     createAuth0Client({
       domain: this.environment.authDomain,
       client_id: this.environment.clientId,
-      redirect_uri: this.redirectUri,
+      redirect_uri: this.environment.redirectUri,
       response_type: 'token id_token',
       scope: this.environment.scope,
       audience: this.environment.audience,
@@ -94,7 +94,7 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 
-  public login(redirectPath: string = '/') {
+  public login(redirectPath = '/') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists

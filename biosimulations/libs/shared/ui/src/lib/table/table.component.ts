@@ -14,7 +14,7 @@ import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Column, ColumnLinkType, ColumnFilterType, Side, RowService } from './table.interface';
+import { Column, ColumnActionType, ColumnFilterType, Side, RowService } from './table.interface';
 
 // TODO fix datasource / loading functionality
 @Injectable()
@@ -83,6 +83,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     return this._columns;
   }
 
+  private _highlightRow!: (element: any) => boolean;
+
+  @Input()
+  set highlightRow(func: (element: any) => boolean) {
+    this._highlightRow = func;
+    this.setRowHighlighting(this.dataSource.data);    
+  }
+
   @Input()
   singleLineHeadings = false;
 
@@ -103,6 +111,8 @@ export class TableComponent implements OnInit, AfterViewInit {
         datum._index = iDatum;
       });
 
+      this.setRowHighlighting(sortedData);
+
       sortedData.forEach((datum: any): void => {
         const cache: any = {};
         datum['_cache'] = cache;
@@ -115,24 +125,30 @@ export class TableComponent implements OnInit, AfterViewInit {
             right: {},
           };
 
-          if (column.leftLinkType === ColumnLinkType.routerLink) {
+          if (column.leftAction === ColumnActionType.routerLink) {
             cache[column.id].left['routerLink'] = RowService.getElementRouterLink(datum, column, Side.left);
-          } else if (column.leftLinkType === ColumnLinkType.href) {
+          } else if (column.leftAction === ColumnActionType.href) {
             cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
+          } else if (column.leftAction === ColumnActionType.click) {
+            cache[column.id].left['click'] = RowService.getElementClick(column, Side.left);
           }
           cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
 
-          if (column.centerLinkType === ColumnLinkType.routerLink) {
+          if (column.centerAction === ColumnActionType.routerLink) {
             cache[column.id].center['routerLink'] = RowService.getElementRouterLink(datum, column, Side.center);
-          } else if (column.centerLinkType === ColumnLinkType.href) {
+          } else if (column.centerAction === ColumnActionType.href) {
             cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
+          } else if (column.centerAction === ColumnActionType.click) {
+            cache[column.id].center['click'] = RowService.getElementClick(column, Side.center);
           }
           // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
 
-          if (column.rightLinkType === ColumnLinkType.routerLink) {
+          if (column.rightAction === ColumnActionType.routerLink) {
             cache[column.id].right['routerLink'] = RowService.getElementRouterLink(datum, column, Side.right);
-          } else if (column.rightLinkType === ColumnLinkType.href) {
+          } else if (column.rightAction === ColumnActionType.href) {
             cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
+          } else if (column.rightAction === ColumnActionType.click) {
+            cache[column.id].right['click'] = RowService.getElementClick(column, Side.right);
           }
           cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
         });
@@ -165,6 +181,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       .isLoading$()
       .pipe(map((isloaded: boolean) => !isloaded));
   }
+
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -179,6 +196,16 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.sortData = this.sortData.bind(this);
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  setRowHighlighting(rows: any[]) {
+    rows.forEach((row: any): void => {
+      if (this._highlightRow === undefined) {
+        row['_highlight'] = false;
+      } else {        
+        row['_highlight'] = this._highlightRow(row);
+      }
+    });
   }
 
   getTextColumnValues(data: any[], column: Column): any[] {
@@ -463,5 +490,9 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   refresh(): void {
     this.dataSource.refresh();
+  }
+
+  isObservable(value: any): boolean {
+    return value instanceof Observable;
   }
 }
