@@ -1,7 +1,6 @@
 ---
-name: Request or contribute a model format, algorithm, or simulator
-about: Request support for or contribute an additional modeling format, algorithm,
-  or simulation tool
+name: Request a model format, algorithm, or simulator
+about: Request support for an additional modeling format, algorithm, or simulation tool
 title: ''
 labels: enhancement
 assignees: ''
@@ -22,11 +21,3 @@ Please describe the simulation tool you would prefer to use (e.g., COBRApy, COPA
 
 **Which features of this simulation tools do you need?**
 Please describe any specific features that you need (e.g., delays, events, stop conditions).
-
-**To contribute a simulator, please also answer the following questions**
-
-**What is the Git repository for the BioSimulators-compliant interface to this tool?**
-E.g., https://github.com/biosimulators/Biosimulators_COPASI
-
-**What is the DockerHub id for the BioSimulators-compliant interface to this tool?**
-E.g., biosimulators/copasi
