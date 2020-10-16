@@ -8,6 +8,14 @@ export type appName =
   | 'accountApi'
   | 'dispatchApi'
   | 'simulatorsApi'
+  | 'platformNewIssue'
+  | 'accountNewIssue'
+  | 'dispatchNewIssue'
+  | 'simulatorsNewIssue'
+  | 'platformNewPull'
+  | 'accountNewPull'
+  | 'dispatchNewPull'
+  | 'simulatorsNewPull'
   | 'platform'
   | 'account'
   | 'dispatch'
@@ -25,6 +33,14 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
+    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -37,6 +53,14 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: '/api',
     simulatorsApi: 'https://api.biosimulators.org/',
+    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -49,6 +73,14 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
+    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -61,6 +93,14 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: '/api/',
     dispatchApi: '/api/',
     simulatorsApi: '/simulators-api/',
+    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
