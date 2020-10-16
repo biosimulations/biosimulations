@@ -21,9 +21,9 @@ export class AppService {
     private httpService: HttpService,
     private modelsService: ModelsService,
     private configService: ConfigService,
-  ) {}
+  ) { }
 
-  private readonly fileStorage = process.env.FILE_STORAGE || '';
+  private fileStorage: string = this.configService.get('hpc.fileStorage') || '';
   private logger = new Logger('AppService');
   async uploadFile(file: OmexDispatchFile, bodyData: SimulationDispatchSpec) {
     // TODO: Create the required folders automatically
@@ -151,63 +151,43 @@ export class AppService {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
     const simInfo = await this.modelsService.get(uId);
 
+    let filePathOut = '';
+    let filePathErr = '';
+
     download = String(download) === 'false' ? false : true;
-
     if (simInfo === null) {
-      res.send({ message: 'Cannot find the UUID specified' });
-    } else {
-      let filePath: string = '';
+      res.send({ message: 'Cannot find the UUID specified' })
+    } else if (download) {
       if (simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) {
-        filePath = path.join(logPath, 'job.output');
-
-        if (download) {
-          res.set('Content-Type', 'text/html');
-          res.download(filePath);
-        } else {
-          const fileContent = (
-            await FileModifiers.readFile(filePath)
-          ).toString();
-          res.set('Content-Type', 'application/json');
-          res.send({
-            data: fileContent,
-          });
-        }
+        filePathOut = path.join(logPath, 'job.output');
+        res.set('Content-Type', 'text/html');
+        res.download(filePathOut);
       } else if (simInfo.currentStatus === DispatchSimulationStatus.FAILED) {
-        filePath = path.join(logPath, 'job.error');
-        console.log('Filepath: ', filePath);
-        if (download) {
-          res.set('Content-Type', 'text/html');
-          res.download(filePath);
-        } else {
-          const fileContent = (
-            await FileModifiers.readFile(filePath)
-          ).toString();
-          res.set('Content-Type', 'application/json');
-          res.send({
-            data: fileContent,
-          });
-        }
+        filePathErr = path.join(logPath, 'job.error');
+        res.set('Content-Type', 'text/html');
+        res.download(filePathErr);
       } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
         res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
-      } else {
-        filePath = path.join(logPath, 'job.output');
-        console.log('Filepath: ', filePath);
-        console.log('Download: ', download);
-        if (download) {
-          console.log('Inside download true');
-          res.set('Content-Type', 'text/html');
-          res.download(filePath);
-        } else {
-          console.log('Inside download false');
-          const fileContent = (
-            await FileModifiers.readFile(filePath)
-          ).toString();
-          res.set('Content-Type', 'application/json');
-          res.send({
-            data: fileContent,
-          });
-        }
       }
+    } else if (!download) {
+      if ((simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) || (simInfo.currentStatus === DispatchSimulationStatus.FAILED)) {
+        filePathOut = path.join(logPath, 'job.output');
+        filePathErr = path.join(logPath, 'job.error');
+        const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
+        const fileContentErr = (await FileModifiers.readFile(filePathErr)).toString();
+        res.set('Content-Type', 'application/json');
+        res.send({
+          message: 'Logs fetched successfully',
+          data: {
+            output: fileContentOut,
+            error: fileContentErr
+          }
+        });
+      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
+        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+      }
+    } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
+      res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
     }
   }
 
