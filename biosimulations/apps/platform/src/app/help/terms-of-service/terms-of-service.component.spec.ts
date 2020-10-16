@@ -6,7 +6,7 @@ import { TermsOfServiceComponent } from './terms-of-service.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 describe('TermsOfServiceComponent', () => {
   let component: TermsOfServiceComponent;
@@ -15,7 +15,7 @@ describe('TermsOfServiceComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule],
-      providers: [RouterTestingModule, ConfigService],
+      providers: [RouterTestingModule, ConfigService, ScrollService],
       declarations: [TermsOfServiceComponent],
     }).compileComponents();
   }));
