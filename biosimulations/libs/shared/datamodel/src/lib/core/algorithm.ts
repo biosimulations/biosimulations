@@ -23,16 +23,13 @@ export interface AlgorithmParameter {
   // Todo make this a conditional type based on value
   recommendedRange: (boolean | number | string)[] | null;
   kisaoId: IKisaoOntologyId;
-  kisaoSynonyms: IKisaoOntologyId[];
-  characteristics: IOntologyId[];
 }
 
 export interface IAlgorithm {
   id: string;
   name: string;
   kisaoId: IKisaoOntologyId;
-  kisaoSynonyms: IKisaoOntologyId[];
-  characteristics: IOntologyId[];
+
   modelingFrameworks: ISboOntologyID[];
   modelFormats: IEdamOntologyId[];
   parameters: AlgorithmParameter[];

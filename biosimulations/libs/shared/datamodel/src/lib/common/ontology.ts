@@ -5,14 +5,18 @@ export enum Ontologies {
   SBO = 'SBO',
   EDAM = 'EDAM',
   SPDX = 'SPDX',
+  URL = 'URL',
 }
-export const KisaoIdRegEx = /^KISAO_\d+$/ //sourced from identifiers.org 
-export const SboIdRegEx = /^SBO_\d+$/
+export const KisaoIdRegEx = /^KISAO_\d+$/; //sourced from identifiers.org
+export const SboIdRegEx = /^SBO_\d+$/;
 export interface Identifier {
   namespace: string;
   id: string;
 }
-
+export interface IURL extends Identifier {
+  namespace: Ontologies.URL;
+  id: string;
+}
 export interface ISpdxId extends Identifier {
   namespace: Ontologies.SPDX;
   id: string;
@@ -40,7 +44,7 @@ export interface IOntologyTerm extends IOntologyId {
   id: string;
   iri: string | null;
   url?: string | null;
-  externalUrl?: string | null
+  externalUrl?: string | null;
   name: string | null;
   description: string | null;
 }
@@ -58,7 +62,7 @@ export interface KISAOTerm extends IKisaoOntologyId {
   description: string;
   iri: string;
   url: string;
-  externalUrl?: string | null
+  externalUrl?: string | null;
 }
 
 export interface SBOTerm extends IOntologyTerm {
@@ -68,7 +72,7 @@ export interface SBOTerm extends IOntologyTerm {
   description: string;
   iri: string;
   url: string;
-  externalUrl?: string | null
+  externalUrl?: string | null;
 }
 
 export interface EDAMTerm extends IOntologyTerm {
@@ -78,7 +82,7 @@ export interface EDAMTerm extends IOntologyTerm {
   description: string;
   iri: string;
   url: string;
-  externalUrl?: string | null
+  externalUrl?: string | null;
 }
 
 export interface SPDXTerm extends IdentifierTerm {
