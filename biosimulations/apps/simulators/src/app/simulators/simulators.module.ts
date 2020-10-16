@@ -8,7 +8,6 @@ import { SharedDebugModule } from '@biosimulations/shared/debug';
 import { SimulatorsRoutingModule } from './simulators-routing.module';
 import { BrowseSimulatorsComponent } from './browse-simulators/browse-simulators.component';
 import { ViewSimulatorComponent } from './view-simulator/view-simulator.component';
-const routes: Routes = [{ path: '', component: BrowseSimulatorsComponent }];
 
 @NgModule({
   declarations: [BrowseSimulatorsComponent, ViewSimulatorComponent],

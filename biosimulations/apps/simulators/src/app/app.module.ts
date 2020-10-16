@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Route, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { IonicStorageModule } from '@ionic/storage';
 import { environment } from '@biosimulations/shared/environments';
@@ -12,10 +12,12 @@ import { ConfigService } from '@biosimulations/shared/services';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
 import {
   MARKED_PRELOADING_STRATEGY,
   RoutesModule,
 } from '@biosimulations/shared/utils/routes';
+
 import config from '../assets/config.json';
 
 const routes: Routes = [
@@ -46,7 +48,22 @@ const routes: Routes = [
       },
     },
   },
+  {
+    path: 'error',
+    children: errorRoutes,
+  },
+  {
+    path: '**',
+    component: Error404Component,
+  },
 ];
+routes.forEach((route: Route): void => {
+  if (route.data) {
+    route.data.config = config;
+  } else {
+    route.data = {config};
+  }
+});
 
 @NgModule({
   declarations: [AppComponent],
@@ -72,6 +89,7 @@ const routes: Routes = [
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
+    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],
 })

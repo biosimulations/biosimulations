@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Route, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
@@ -14,6 +14,8 @@ import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
 
 import { ConfigService } from '@biosimulations/shared/services';
 import config from '../assets/config.json';
@@ -49,7 +51,22 @@ const routes: Routes = [
       breadcrumb: 'Help',
     },
   },
+  {
+    path: 'error',
+    children: errorRoutes,
+  },
+  {
+    path: '**',
+    component: Error404Component,
+  },
 ];
+routes.forEach((route: Route): void => {
+  if (route.data) {
+    route.data.config = config;
+  } else {
+    route.data = {config};
+  }
+});
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -74,8 +91,9 @@ const routes: Routes = [
   providers: [
     AuthService,
     { provide: AuthEnvironment, useValue: env },
-    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true} },
     { provide: ConfigService, useValue: config },
+    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],
 })
