@@ -4,7 +4,9 @@ import {
   IEdamOntologyId,
   IKisaoOntologyId,
   ISboOntologyID,
-  ISpdxId, KisaoIdRegEx, SboIdRegEx
+  ISpdxId,
+  KisaoIdRegEx,
+  SboIdRegEx,
 } from '@biosimulations/shared/datamodel';
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
@@ -20,14 +22,13 @@ export class OntologyId implements IOntologyId {
 }
 export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
 
-
 @Schema({ _id: false })
 export class EdamOntologyId implements IEdamOntologyId {
   @ApiProperty({ enum: ['EDAM'] })
-  @Prop({ type: String, required: true, })
+  @Prop({ type: String, required: true })
   namespace!: Ontologies.EDAM;
   @ApiProperty({ example: 'format_3973' })
-  @Prop({ required: true, })
+  @Prop({ required: true })
   id!: string;
 }
 export const EdamOntologyIdSchema = SchemaFactory.createForClass(
@@ -36,10 +37,22 @@ export const EdamOntologyIdSchema = SchemaFactory.createForClass(
 @Schema({ _id: false })
 export class KisaoOntologyId implements IKisaoOntologyId {
   @ApiProperty({ enum: ['KISAO'] })
-  @Prop({ type: String, required: true, uppercase: true, trim: true, validate: (val: string) => val === Ontologies.KISAO })
+  @Prop({
+    type: String,
+    required: true,
+    uppercase: true,
+    trim: true,
+    validate: (val: string) => val === Ontologies.KISAO,
+  })
   namespace!: Ontologies.KISAO;
   @ApiProperty({ example: 'KISAO_0000306' })
-  @Prop({ required: true, uppercase: true, trim: true, validate: KisaoIdRegEx })
+  @Prop({
+    type: String,
+    required: true,
+    uppercase: true,
+    trim: true,
+    validate: KisaoIdRegEx,
+  })
   id!: string;
 }
 export const KisaoOntologyIdSchema = SchemaFactory.createForClass(
