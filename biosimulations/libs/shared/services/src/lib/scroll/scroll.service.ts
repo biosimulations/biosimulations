@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 @Injectable()
 export class ScrollService {
   static scrollContainerId = 'mat-sidenav-content';
-  scrollContainer!: Element;
+  private scrollContainer!: Element;
 
   constructor(private router: Router) {}
 
@@ -25,18 +25,35 @@ export class ScrollService {
        }))
       .subscribe((routerEvent: Event): void => {
         if (routerEvent instanceof NavigationStart) {
-          scollPositionHistory.push(this.scrollContainer.scrollTop);
+          scollPositionHistory.push(this.getScrollTop());
 
           if (routerEvent.restoredState == null) {
-            this.scrollContainer.scrollTo({top: 0, behavior: 'smooth'});
+            this.scrollTo({top: 0, behavior: 'smooth'});
             nextScrollPosition = undefined;
           } else {
             nextScrollPosition = scollPositionHistory[routerEvent.restoredState.navigationId];
           }
 
         } else {
-          this.scrollContainer.scrollTo({top: nextScrollPosition, behavior: 'smooth'});
+          this.scrollTo({top: nextScrollPosition, behavior: 'smooth'});
         }
       });
+  }
+
+  getScrollTop(): number {
+    return this.scrollContainer.scrollTop;
+  }
+
+  scrollTo(arg: any): void {
+    this.scrollContainer.scrollTo(arg);
+  }
+
+  scrollToTop(offset: number = 0): void {
+    this.scrollTo({top: 64 + 1 + offset, behavior: 'smooth'});
+  }
+
+  scrollToElement(target: Element, offset: number = 0): void {
+    const y = target.getBoundingClientRect().top + this.getScrollTop() - offset;
+    this.scrollTo({top: y, behavior: 'smooth'});
   }
 }
