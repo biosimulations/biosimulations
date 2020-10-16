@@ -40,7 +40,7 @@ Copy biosimulations/apps /app/apps
 
 # generate build
 # Redifining the env *might* correct cache invalidtion issue
-ENV APP = ${APP}
+ENV APP=${APP}
 RUN nx build ${APP} --prod
 
 ############
