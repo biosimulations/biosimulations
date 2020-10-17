@@ -42,33 +42,24 @@ export class AppService {
           projectSize: Buffer.byteLength(file.buffer),
           resultSize: 0
         };
-
         this.modelsService.createNewDispatchSimulationModel(dbModel);
       },
       (err) => {
-        this.logger.log(
-          'Error occured in dispatch service: ' + JSON.stringify(err)
-        );
+        this.logger.log('Error occured in dispatch service: ' + JSON.stringify(err));
       }
     );
-    this.logger.log(
-      'Dispatch message was sent successfully' + JSON.stringify(simSpec)
-    );
+    this.logger.log('Dispatch message was sent successfully' + JSON.stringify(simSpec));
   }
   async uploadFile(file: OmexDispatchFile, bodyData: SimulationDispatchSpec) {
     // TODO: Create the required folders automatically
     const omexStorage = `${this.fileStorage}/OMEX/ID`;
-
     if (bodyData.simulator === '') {
       return { message: 'No Simulator was provided' };
     }
-
-    // Get existing filetype
-    // Generate a unique filename
+    // Get existing filetype and Generate a unique filename
     const fileId = uuid();
     const uniqueFilename = `${fileId}.omex`;
     const omexSavePath = path.join(omexStorage, uniqueFilename);
-
     // Fill out info from file that will be lost after saving in central storage
     const simSpec: SimulationDispatchSpec = {
       authorEmail: bodyData.authorEmail,
@@ -79,12 +70,9 @@ export class AppService {
       uniqueFilename,
       filepathOnDataStore: omexSavePath,
     };
-
     // Save the file
     await FileModifiers.writeFile(omexSavePath, file.buffer);
-
     this.sendDispatchStartMessage(simSpec, fileId, file);
-
     return {
       message: 'File uploaded successfuly',
       data: {
