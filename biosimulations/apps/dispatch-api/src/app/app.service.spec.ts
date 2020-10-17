@@ -1,14 +1,11 @@
-import { FileModifiers } from './../../../../libs/dispatch/file-modifiers/src/lib/dispatch-file-modifiers';
-import { HttpModule, HttpService } from '@nestjs/common';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+import { HttpModule } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxyFactory, NatsOptions, Transport } from '@nestjs/microservices';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-
-
 import { AppService } from './app.service';
 import { ModelsService } from './resources/models/models.service';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 
 describe('AppService', () => {
     let app: TestingModule;
@@ -45,8 +42,6 @@ describe('AppService', () => {
                 }
             ],
         }).compile();
-
-        // service = app.get<AppService>(AppService);
     });
 
     describe('test getSimulators', () => {
