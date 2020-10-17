@@ -23,8 +23,38 @@ export class AppService {
     private configService: ConfigService,
   ) { }
 
-  private fileStorage: string = this.configService.get('hpc.fileStorage') || '';
+  private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
   private logger = new Logger('AppService');
+
+  private async sendDispatchStartMessage(simSpec: SimulationDispatchSpec, fileId: string, file: OmexDispatchFile) {
+    this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
+      (res) => {
+        this.logger.log(JSON.stringify(res));
+        const currentDateTime = new Date();
+        const dbModel: DispatchSimulationModel = {
+          uuid: fileId,
+          authorEmail: simSpec.authorEmail,
+          nameOfSimulation: simSpec.nameOfSimulation,
+          submittedTime: currentDateTime,
+          statusModifiedTime: currentDateTime,
+          currentStatus: DispatchSimulationStatus.QUEUED,
+          duration: 0,
+          projectSize: Buffer.byteLength(file.buffer),
+          resultSize: 0
+        };
+
+        this.modelsService.createNewDispatchSimulationModel(dbModel);
+      },
+      (err) => {
+        this.logger.log(
+          'Error occured in dispatch service: ' + JSON.stringify(err)
+        );
+      }
+    );
+    this.logger.log(
+      'Dispatch message was sent successfully' + JSON.stringify(simSpec)
+    );
+  }
   async uploadFile(file: OmexDispatchFile, bodyData: SimulationDispatchSpec) {
     // TODO: Create the required folders automatically
     const omexStorage = `${this.fileStorage}/OMEX/ID`;
@@ -53,33 +83,7 @@ export class AppService {
     // Save the file
     await FileModifiers.writeFile(omexSavePath, file.buffer);
 
-    this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
-      (res) => {
-        this.logger.log(JSON.stringify(res));
-        const currentDateTime = new Date();
-        const dbModel: DispatchSimulationModel = {
-          uuid: fileId,
-          authorEmail: simSpec.authorEmail,
-          nameOfSimulation: simSpec.nameOfSimulation,
-          submittedTime: currentDateTime,
-          statusModifiedTime: currentDateTime,
-          currentStatus: DispatchSimulationStatus.QUEUED,
-          duration: 0,
-          projectSize: Buffer.byteLength(file.buffer),
-          resultSize: 0
-        };
-
-        this.modelsService.createNewDispatchSimulationModel(dbModel);
-      },
-      (err) => {
-        this.logger.log(
-          'Error occured in dispatch service: ' + JSON.stringify(err)
-        );
-      }
-    );
-    this.logger.log(
-      'Dispatch message was sent successfully' + JSON.stringify(simSpec)
-    );
+    this.sendDispatchStartMessage(simSpec, fileId, file);
 
     return {
       message: 'File uploaded successfuly',
@@ -107,7 +111,6 @@ export class AppService {
       sedml,
       task
     );
-
     chart = String(chart) === 'false' ? false : true;
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
     const fileContentBuffer = await FileModifiers.readFile(filePath);
