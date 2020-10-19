@@ -6,9 +6,6 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { Model } from 'mongoose';
-import { Logger } from '@nestjs/common';
-import { ApiNotFoundResponse } from '@nestjs/swagger';
-// TODO should errors be in the db layer or controller layer?
 
 @Injectable()
 export class SimulatorsService {
@@ -27,6 +24,7 @@ export class SimulatorsService {
   }
   async findAllLatest() {
     const all = this.simulator.find({}, { _id: 0, __v: 0 }).lean().exec();
+    return all;
   }
   async findById(id: string) {
     return this.simulator.find({ id: id }, { _id: 0, __v: 0 }).lean().exec();
@@ -44,7 +42,6 @@ export class SimulatorsService {
       res = (await sim.save()).toJSON({ versionKey: false });
     } catch (e) {
       if (e.name == 'MongoError' && e.code == 11000) {
-        console.log(e);
         throw new ConflictException(
           'Key Conflict',
           `Simulator with id: ${e?.keyValue?.id}, version: ${e?.keyValue?.version} already exists`
@@ -64,7 +61,7 @@ export class SimulatorsService {
     let sim = await this.simulator.findOne({ id: id, version: version }).exec();
 
     if (!sim) {
-      throw new NotFoundException();
+      throw new NotFoundException('No model with id ' + id);
     }
 
     sim.overwrite(doc);
