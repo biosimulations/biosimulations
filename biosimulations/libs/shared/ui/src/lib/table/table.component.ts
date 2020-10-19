@@ -15,6 +15,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Column, ColumnActionType, ColumnFilterType, Side, RowService } from './table.interface';
+import lunr from 'lunr';
 
 // TODO fix datasource / loading functionality
 @Injectable()
@@ -54,6 +55,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   isLoading!: Observable<boolean>;
   private isLoaded!: Observable<boolean>;
   private filter: { [id: string]: any[] } = {};
+
+  private fullTextIndex!: any;
+  private fullTextMatches!: {[index: number]: boolean};
 
   @Input()
   defaultSort!: { active: string; direction: string };
@@ -168,6 +172,24 @@ export class TableComponent implements OnInit, AfterViewInit {
         }
       });
 
+      // set up full text index
+      const columns = this.columns;
+      this.fullTextIndex = lunr(function(this: any) {
+        this.ref('index');
+        columns.forEach((column: Column): void => {
+          this.field(column.id);
+        });
+
+        sortedData.forEach((datum: any, iDatum: number): void => {
+          const fullTextDoc: {index: string, [colId: string]: string} = {index: iDatum.toString()};
+          columns.forEach((column: Column): void => {
+            fullTextDoc[column.id] = datum._cache[column.id].value || '';
+          });
+          this.add(fullTextDoc);
+        });
+      });
+
+      // set data for table
       this.dataSource.data = sortedData;
       this.dataSource.isLoading.next(false);
     });
@@ -364,6 +386,15 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setDataSourceFilter(): void {
+    // conduct full text search
+    this.fullTextMatches = {};
+    if (this.searchQuery) {
+      this.fullTextIndex.search(this.searchQuery).forEach((match: any): void => {
+        this.fullTextMatches[parseInt(match.ref)] = true;
+      });
+    }
+
+    // trigger table to filter data via calling the filterData method for each entry
     if (Object.keys(this.filter).length || this.searchQuery) {
       // Hack: alternate between value of 'a' and 'b' to force data source to filter the data
       if (this.dataSource.filter === 'a') {
@@ -395,17 +426,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    /* searching */
+    // full text search
     if (this.searchQuery) {
-      let matchesSearch = false;
-      for (const column of this.columns) {
-        if (this.matchesSearchQuery(datum, column)) {
-          matchesSearch = true;
-          break;
-        }
-      }
-
-      if (!matchesSearch) {
+      if (!(datum._index in this.fullTextMatches)) {
         return false;
       }
     }
@@ -461,11 +484,6 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     return true;
-  }
-
-  matchesSearchQuery(datum: any, column: Column): boolean {
-    const value = datum._cache[column.id].value;
-    return (typeof value === "string") && value.toLowerCase().includes(this.searchQuery as string);
   }
 
   sortData(data: any[], sort: any): any[] {
