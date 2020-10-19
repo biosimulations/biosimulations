@@ -30,7 +30,7 @@
           <mat-list>
             <mat-list-item *ngFor="let column of columns">
               <mat-checkbox
-                [checked]="column.show !== false"
+                [checked]="showColumns[column.id]"
                 (change)="toggleColumn(column)"
               >
                 {{ column.heading }}
@@ -68,7 +68,7 @@
                       <ng-template
                         let-range="range"
                         [ngTemplateOutletContext]="{
-                          range: column._filterData
+                          range: columnFilterData[column.id]
                         }"
                         [ngTemplateOutlet]="self"
                         #self
@@ -106,7 +106,7 @@
 
                     <mat-list *ngSwitchDefault>
                       <mat-list-item
-                        *ngFor="let value of column._filterData"
+                        *ngFor="let value of columnFilterData[column.id]"
                       >
                         <mat-checkbox
                           #checkbox
@@ -138,7 +138,7 @@
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <mat-form-field appearance="fill" class="search-field">
-            <input #searchInput matInput type="text" 
+            <input #searchInput matInput type="text"
               (keydown.enter)="searchRows(searchInput.value)"
               [placeholder]="searchPlaceHolder"
               [matTooltip]="searchToolTip"
@@ -194,7 +194,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
-                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                  [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -210,7 +210,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.href as href"
-                  [href]="isObservable(href) ? (href | async) : href"
+                  [href]="href"
                   target="_blank"
                 >
                   <ng-container
@@ -264,7 +264,7 @@
                   *ngIf="
                     element._cache[column.id].center.routerLink as routerLink
                   "
-                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                  [routerLink]="routerLink"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
@@ -276,7 +276,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].center.href as href"
-                  [href]="isObservable(href) ? (href | async) : href"
+                  [href]="href"
                   target="_blank"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
@@ -303,7 +303,7 @@
 
               <ng-template #centerTemplate>
                 <ng-container *ngIf="element._cache[column.id].value as value">
-                  {{ isObservable(value) ? (value | async) : value }}
+                  {{ value }}
                 </ng-container>
               </ng-template>
             </span>
@@ -316,7 +316,7 @@
                   *ngIf="
                     element._cache[column.id].right.routerLink as routerLink
                   "
-                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                  [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -332,7 +332,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].right.href as href"
-                  [href]="isObservable(href) ? (href | async) : href"
+                  [href]="href"
                   target="_blank"
                 >
                   <ng-container

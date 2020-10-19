@@ -27,6 +27,7 @@ import { TextPageTocItemComponent } from '../text-page/text-page-toc-item.compon
 import { TocSectionDirective } from '../toc/toc-section.directive';
 import { TocSectionsContainerDirective } from '../toc/toc-sections-container.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 describe('ResponsiveTableComponent', () => {
   let component: ResponsiveTableComponent;
@@ -50,6 +51,7 @@ describe('ResponsiveTableComponent', () => {
         NpnSliderModule,
         BiosimulationsIconsModule,
         FlexLayoutModule,
+        MatTooltipModule,
       ],
       declarations: [
         ResponsiveTableComponent,
