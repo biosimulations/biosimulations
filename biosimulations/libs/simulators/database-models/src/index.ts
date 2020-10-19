@@ -1,1 +1,1 @@
-export * from './lib/simulators-database-models.module';
+export * from './lib/simulators-database-models';

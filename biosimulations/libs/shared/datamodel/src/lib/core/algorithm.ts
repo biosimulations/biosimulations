@@ -2,7 +2,7 @@ import { PrimitiveType } from '../common/primitive-type';
 import { IOntologyTerm, Format, JournalReference } from '../..';
 import { KisaoId } from '../common/alias';
 import {
-  ISboOntologyID,
+  ISboOntologyId,
   IOntologyId,
   IKisaoOntologyId,
   IEdamOntologyId,
@@ -10,8 +10,8 @@ import {
 } from '../common';
 
 /**
- * Represents a parameter in a particlar simulation algorith or method.
- * id refers to the identifier used by some software package to refrence parameter
+ * Represents a parameter in a particular simulation algorith or method.
+ * id refers to the identifier used by some software package to reference parameter
  * type is an enum string to determine what the underling type of the parameter's value is
  * recommendedRange is a sensible value from the original that the parameter can be changed to
  */
@@ -29,8 +29,7 @@ export interface IAlgorithm {
   id: string;
   name: string;
   kisaoId: IKisaoOntologyId;
-
-  modelingFrameworks: ISboOntologyID[];
+  modelingFrameworks: ISboOntologyId[];
   modelFormats: IEdamOntologyId[];
   parameters: AlgorithmParameter[];
   simulationFormats: IEdamOntologyId[];

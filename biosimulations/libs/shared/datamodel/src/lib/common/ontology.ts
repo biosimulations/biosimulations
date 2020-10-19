@@ -34,7 +34,7 @@ export interface IKisaoOntologyId extends IOntologyId {
   id: string;
 }
 
-export interface ISboOntologyID extends IOntologyId {
+export interface ISboOntologyId extends IOntologyId {
   namespace: Ontologies.SBO;
   id: string;
 }

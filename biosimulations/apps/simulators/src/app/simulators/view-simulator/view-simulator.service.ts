@@ -15,10 +15,10 @@ import { OntologyService } from '../ontology.service';
 import { Observable, of } from 'rxjs';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { map, pluck, tap } from 'rxjs/operators';
-import { } from './view-simulator.component';
+import {} from './view-simulator.component';
 import {
   IEdamOntologyId,
-  ISboOntologyID,
+  ISboOntologyId,
 } from '@biosimulations/shared/datamodel';
 import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
 
@@ -27,11 +27,11 @@ export class ViewSimulatorService {
   constructor(
     private simService: SimulatorService,
     private ontService: OntologyService
-  ) { }
+  ) {}
   callMe() {
     console.log('Called');
   }
-  getVersions(simulatorId: string) { }
+  getVersions(simulatorId: string) {}
   getLatest(simulatorId: string) {
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
@@ -108,16 +108,16 @@ export class ViewSimulatorService {
       value: parameter.value,
       range: parameter.recommendedRange
         ? parameter.recommendedRange
-          .map((val: { toString: () => any }) => {
-            return val.toString();
-          })
-          .join(' - ')
+            .map((val: { toString: () => any }) => {
+              return val.toString();
+            })
+            .join(' - ')
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
     };
   }
-  getFrameworks(value: ISboOntologyID): Observable<ViewFramework> {
+  getFrameworks(value: ISboOntologyId): Observable<ViewFramework> {
     return this.ontService.getSboTerm(value.id);
   }
   getFormats(value: IEdamOntologyId): Observable<ViewFormat> {
@@ -220,7 +220,7 @@ export class ViewSimulatorService {
     }
     text += ' (' + citation.year + ').';
 
-    let url = citation?.identifiers?.[0]?.url as string || null;
+    let url = (citation?.identifiers?.[0]?.url as string) || null;
     if (!url && citation?.identifiers?.[0]) {
       const namespace = citation?.identifiers?.[0].namespace;
       const id = citation?.identifiers?.[0].id;
