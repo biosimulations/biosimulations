@@ -184,6 +184,9 @@ export class SimulatorsController {
       .replace(id, version, doc)
       .then((res) => res)
       .catch((err) => {
+        if (err?.status == 404) {
+          throw err;
+        }
         throw new BadRequestException({
           statusCode: '400',
           message: 'The input did not match the schema',
