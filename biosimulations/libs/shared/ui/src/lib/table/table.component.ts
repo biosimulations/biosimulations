@@ -177,13 +177,13 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.fullTextIndex = lunr(function(this: any) {
         this.ref('index');
         columns.forEach((column: Column): void => {
-          this.field(column.id);
+          this.field(column.heading.toLowerCase().replace(' ', '-'));
         });
 
         sortedData.forEach((datum: any, iDatum: number): void => {
           const fullTextDoc: {index: string, [colId: string]: string} = {index: iDatum.toString()};
           columns.forEach((column: Column): void => {
-            fullTextDoc[column.id] = datum._cache[column.id].value || '';
+            fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] = datum._cache[column.id].value || '';
           });
           this.add(fullTextDoc);
         });
@@ -550,6 +550,9 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @Input()
   searchPlaceHolder!: string;
+
+  @Input()
+  searchToolTip!: string;
 
   searchQuery: string | undefined = undefined;
 

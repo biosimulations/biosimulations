@@ -138,7 +138,11 @@
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <mat-form-field appearance="fill" class="search-field">
-            <input #searchInput matInput type="text" [placeholder]="searchPlaceHolder" (keydown.enter)="searchRows(searchInput.value)">
+            <input #searchInput matInput type="text" 
+              (keydown.enter)="searchRows(searchInput.value)"
+              [placeholder]="searchPlaceHolder"
+              [matTooltip]="searchToolTip"
+            >
             <button matSuffix mat-icon-button class="biosimulations-icon-button text" (click)="searchRows(searchInput.value)">
               <biosimulations-icon icon="search"></biosimulations-icon>
             </button>
