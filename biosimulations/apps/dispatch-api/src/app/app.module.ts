@@ -11,6 +11,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ModelsModule } from './resources/models/models.module';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { ModelsModule } from './resources/models/models.module';
       },
       inject: [ConfigService],
     },
+    AppService,
   ],
 })
 export class AppModule {}
