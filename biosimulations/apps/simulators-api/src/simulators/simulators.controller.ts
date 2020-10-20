@@ -129,14 +129,16 @@ export class SimulatorsController {
   private async getSimulatorById(id: string) {
     const res = await this.service.findById(id);
     if (!res?.length) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Simulator with id ${id} was not found`);
     }
     return res;
   }
   private async getSimulatorByVersion(id: string, version: string) {
     const res = await this.service.findByVersion(id, version);
     if (!res) {
-      throw new NotFoundException();
+      throw new NotFoundException(
+        `Simulator with id ${id} and version ${version} was not found`
+      );
     }
     return res;
   }
@@ -152,7 +154,9 @@ export class SimulatorsController {
   async create(@Body() doc: Simulator): Promise<Simulator[]> {
     return this.service.new(doc);
   }
-  @Put(':id/:version')
+
+  @UseGuards(AdminGuard)
+  @ApiOAuth2([])
   @ApiParam({
     name: 'id',
     required: true,
@@ -175,6 +179,7 @@ export class SimulatorsController {
     description: 'No permission to edit simulator',
   })
   @ApiBadRequestResponse({ description: 'Request body does not match schema' })
+  @Put(':id/:version')
   async update(
     @Body() doc: Simulator,
     @Param('id') id: string,
