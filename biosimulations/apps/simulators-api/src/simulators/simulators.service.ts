@@ -58,7 +58,7 @@ export class SimulatorsService {
     version: string,
     doc: Simulator
   ): Promise<Simulator> {
-    let sim = await this.simulator.findOne({ id: id, version: version }).exec();
+    const sim = await this.simulator.findOne({ id: id, version: version }).exec();
 
     if (!sim) {
       throw new NotFoundException('No model with id ' + id);

@@ -28,7 +28,7 @@ import {
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/shared/datamodel-api';
-import { BiosimulationsException } from 'libs/shared/exceptions/src/lib/exception';
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -206,11 +206,11 @@ export class SimulatorsController {
         }
         // TODO Replace with an error that takes validation error in constructor
         if (err?.name === 'ValidationError') {
-          let details = [];
-          let path = [];
+          const details = [];
+          const path = [];
 
-          for (let key in err.errors) {
-            let validatorError = err.errors[key];
+          for (const key in err.errors) {
+            const validatorError = err.errors[key];
 
             details.push(validatorError.message);
             path.push('/' + key); //add a starting slash as per RFC 6901
