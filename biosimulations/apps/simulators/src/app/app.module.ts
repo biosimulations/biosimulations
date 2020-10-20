@@ -8,7 +8,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -76,7 +76,7 @@ routes.forEach((route: Route): void => {
     RoutesModule,
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
-      scrollPositionRestoration: 'enabled',
+      scrollPositionRestoration: 'disabled',
       preloadingStrategy: MARKED_PRELOADING_STRATEGY,
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -89,6 +89,7 @@ routes.forEach((route: Route): void => {
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
+    ScrollService,
     { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],

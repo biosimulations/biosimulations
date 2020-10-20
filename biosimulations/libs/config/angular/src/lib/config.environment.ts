@@ -14,10 +14,16 @@ export class ConfigEnvironment {
   newPullUrl!: string;
   platformAppUrl = urls.platform;
   platformApiUrl = urls.platformApi;
+  platformNewIssueUrl = urls.platformNewIssue;
+  platformNewPullUrl = urls.platformNewPull;
   dispatchAppUrl = urls.dispatch;
   dispatchApiUrl = urls.dispatchApi;
+  dispatchNewIssueUrl = urls.dispatchNewIssue;
+  dispatchNewPullUrl = urls.dispatchNewPull;
   simulatorsAppUrl = urls.simulators;
   simulatorsApiUrl = urls.simulatorsApi;
+  simulatorsNewIssueUrl = urls.simulatorsNewIssue;
+  simulatorsNewPullUrl = urls.simulatorsNewPull;
 
   constructor() {}
 }

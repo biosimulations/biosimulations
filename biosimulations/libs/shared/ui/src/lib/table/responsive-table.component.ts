@@ -43,6 +43,12 @@ export class ResponsiveTableComponent {
   controls = true;
 
   @Input()
+  searchPlaceHolder!: string;
+
+  @Input()
+  searchToolTip!: string;
+
+  @Input()
   data: Observable<any[]> = of([]);
 
   private showTable = new BehaviorSubject<boolean>(true);

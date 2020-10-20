@@ -557,10 +557,23 @@ table {
 .no-wrap {
   white-space: nowrap;
 }
+
+.info-message {
+  font-style: italic;
+}
+
+/* tooltip */
+.mat-tooltip {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  line-height: 135%;
+}
+
 /* columns */
 .ragged-columns {
   .column {
     height: max-content;
   }
-
 }

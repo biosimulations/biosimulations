@@ -16,8 +16,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
-import { ConfigService } from '@biosimulations/shared/services';
 import config from '../assets/config.json';
 
 // TODO: make parameterizable based on environment (deployment, test, dev)
@@ -78,7 +78,7 @@ routes.forEach((route: Route): void => {
     SharedUiModule,
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
-      scrollPositionRestoration: 'enabled',
+      scrollPositionRestoration: 'disabled',
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -93,6 +93,7 @@ routes.forEach((route: Route): void => {
     { provide: AuthEnvironment, useValue: env },
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true} },
     { provide: ConfigService, useValue: config },
+    ScrollService,
     { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],

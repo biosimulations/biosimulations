@@ -6,7 +6,7 @@ import { PrivacyPolicyComponent } from './privacy-policy.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 describe('PrivacyPolicyComponent', () => {
   let component: PrivacyPolicyComponent;
@@ -15,7 +15,7 @@ describe('PrivacyPolicyComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule],
-      providers: [RouterTestingModule, ConfigService],
+      providers: [RouterTestingModule, ConfigService, ScrollService],
       declarations: [PrivacyPolicyComponent],
     }).compileComponents();
   }));

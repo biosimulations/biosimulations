@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -15,7 +15,7 @@ describe('AboutComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule],
       declarations: [AboutComponent],
-      providers: [ConfigService],
+      providers: [ConfigService, ScrollService],
     }).compileComponents();
   }));
 

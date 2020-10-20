@@ -9,7 +9,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
 
 import config from '../assets/config.json';
@@ -71,8 +71,10 @@ routes.forEach((route: Route): void => {
     BiosimulationsIconsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' }),
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled', 
+      scrollPositionRestoration: 'disabled',
+    }),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage']
     }),
@@ -80,6 +82,7 @@ routes.forEach((route: Route): void => {
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true} },
     { provide: ConfigService, useValue: config },
+    ScrollService,
     { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],

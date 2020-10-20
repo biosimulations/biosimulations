@@ -11,8 +11,14 @@
     "newPullUrl": "https://github.com/biosimulations/Biosimulations/compare",
     "platformAppUrl": "https://biosimulations.org/",
     "platformApiUrl": "https://api.biosimulations.org/",
+    "platformNewIssueUrl": "https://github.com/biosimulations/Biosimulations/issues/new/choose",
+    "platformNewPullUrl": "https://github.com/biosimulations/Biosimulations/compare",
     "dispatchAppUrl": "https://submit.biosimulations.org/",
     "dispatchApiUrl": "https://dispatch.biosimulations.org/",
+    "dispatchNewIssueUrl": "https://github.com/biosimulations/Biosimulations/issues/new/choose",
+    "dispatchNewPullUrl": "https://github.com/biosimulations/Biosimulations/compare",
     "simulatorsAppUrl": "https://biosimulators.org/",
-    "simulatorsApiUrl": "https://api.biosimulators.org/"
+    "simulatorsApiUrl": "https://api.biosimulators.org/",
+    "simulatorsNewIssueUrl": "https://github.com/biosimulators/Biosimulators/issues/new/choose",
+    "simulatorsNewPullUrl": "https://github.com/biosimulators/Biosimulators/compare"
 }

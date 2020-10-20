@@ -4,123 +4,153 @@
 
 <div
   gdAuto="row"
-  [gdColumns.gt-sm]="controls ? '16rem 1fr' : '1fr'"
-  gdGap="2rem"
+  [gdColumns.gt-sm]="controls ? 'auto 1fr' : '1fr'"
+  [gdGap]="controlsOpen ? '2rem' : 0"
   gdRows.lt-md="1fr"
   gdGap.lt-md="1rem"
-  [ngClass]="{ hidden: isLoading | async }"
+  class="ragged-columns"
+  [ngClass]="{ hidden: isLoading | async, 'controls-closed': !controlsOpen }"
 >
-  <mat-accordion class="controls" *ngIf="controls">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header
-        [collapsedHeight]="'32px'"
-        [expandedHeight]="'32px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="columns"></biosimulations-icon>
-          Columns
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <mat-list>
-          <mat-list-item *ngFor="let column of columns">
-            <mat-checkbox
-              [checked]="column.show !== false"
-              (change)="toggleColumn(column)"
-            >
-              {{ column.heading }}
-            </mat-checkbox>
-          </mat-list-item>
-        </mat-list>
-      </ng-template>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header
-        [collapsedHeight]="'32px'"
-        [expandedHeight]="'32px'"
-      >
-        <mat-panel-title>
-          <biosimulations-icon icon="filter"></biosimulations-icon>
-          Filters
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <mat-accordion class="controls">
-          <ng-template ngFor let-column [ngForOf]="columns">
-            <mat-expansion-panel *ngIf="column.filterable !== false">
-              <mat-expansion-panel-header
-                [collapsedHeight]="'32px'"
-                [expandedHeight]="'32px'"
+  <div *ngIf="controls" class="controls-container column">
+    <div class="title" (click)="toggleControls()">
+      <div class="title-inner">Controls</div><biosimulations-icon icon="controls"></biosimulations-icon>
+    </div>
+    <mat-accordion class="controls">
+      <mat-expansion-panel [expanded]="openControlPanelId === 1" [disabled]="openControlPanelId === 1" (opened)="openControlPanel(1)">
+        <mat-expansion-panel-header
+          collapsedHeight="32px"
+          expandedHeight="32px"
+        >
+          <mat-panel-title>
+            <biosimulations-icon icon="columns"></biosimulations-icon>
+            Columns
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mat-list>
+            <mat-list-item *ngFor="let column of columns">
+              <mat-checkbox
+                [checked]="showColumns[column.id]"
+                (change)="toggleColumn(column)"
               >
-                <mat-panel-title>
-                  {{ column.heading }}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <ng-template matExpansionPanelContent>
-                <ng-container [ngSwitch]="column.filterType">
-                  <ng-template [ngSwitchCase]="'number'">
-                    <ng-template
-                      let-range="range"
-                      [ngTemplateOutletContext]="{
-                        range: column._filterData
-                      }"
-                      [ngTemplateOutlet]="self"
-                      #self
-                    >
-                      <npn-slider
-                        [min]="range.min"
-                        [max]="range.max"
-                        [step]="range.step"
-                        (onChange)="filterNumberValue(column, range, $event)"
+                {{ column.heading }}
+              </mat-checkbox>
+            </mat-list-item>
+          </mat-list>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="openControlPanelId === 2" [disabled]="openControlPanelId === 2" (opened)="openControlPanel(2)">
+        <mat-expansion-panel-header
+          collapsedHeight="32px"
+          expandedHeight="32px"
+        >
+          <mat-panel-title>
+            <biosimulations-icon icon="filter"></biosimulations-icon>
+            Filters
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mat-accordion class="controls">
+            <ng-template ngFor let-column [ngForOf]="columns">
+              <mat-expansion-panel *ngIf="column.filterable !== false">
+                <mat-expansion-panel-header
+                  collapsedHeight="32px"
+                  expandedHeight="32px"
+                >
+                  <mat-panel-title>
+                    {{ column.heading }}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ng-template matExpansionPanelContent>
+                  <ng-container [ngSwitch]="column.filterType">
+                    <ng-template [ngSwitchCase]="'number'">
+                      <ng-template
+                        let-range="range"
+                        [ngTemplateOutletContext]="{
+                          range: columnFilterData[column.id]
+                        }"
+                        [ngTemplateOutlet]="self"
+                        #self
                       >
-                      </npn-slider>
+                        <npn-slider
+                          [min]="range.min"
+                          [max]="range.max"
+                          [step]="range.step"
+                          (onChange)="filterNumberValue(column, range, $event)"
+                        >
+                        </npn-slider>
+                      </ng-template>
                     </ng-template>
-                  </ng-template>
 
-                  <mat-form-field *ngSwitchCase="'date'" appearance="fill">
-                    <mat-label>Enter a range of dates</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
-                      <input
-                        matStartDate
-                        placeholder="Start date"
-                        (dateChange)="filterStartDateValue(column, $event)"
-                      />
-                      <input
-                        matEndDate
-                        placeholder="End date"
-                        (dateChange)="filterEndDateValue(column, $event)"
-                      />
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-                  </mat-form-field>
+                    <mat-form-field *ngSwitchCase="'date'" appearance="fill">
+                      <mat-label>Enter a range of dates</mat-label>
+                      <mat-date-range-input [rangePicker]="picker">
+                        <input
+                          matStartDate
+                          placeholder="Start date"
+                          (dateChange)="filterStartDateValue(column, $event)"
+                        />
+                        <input
+                          matEndDate
+                          placeholder="End date"
+                          (dateChange)="filterEndDateValue(column, $event)"
+                        />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
 
-                  <mat-list *ngSwitchDefault>
-                    <mat-list-item
-                      *ngFor="let value of column._filterData"
-                    >
-                      <mat-checkbox
-                        #checkbox
-                        (change)="
-                          filterSetValue(column, value.value, checkbox.checked)
-                        "
+                    <mat-list *ngSwitchDefault>
+                      <mat-list-item
+                        *ngFor="let value of columnFilterData[column.id]"
                       >
-                        {{ value.formattedValue }}
-                      </mat-checkbox>
-                    </mat-list-item>
-                  </mat-list>
-                </ng-container>
-              </ng-template>
-            </mat-expansion-panel>
-          </ng-template>
-        </mat-accordion>
-      </ng-template>
-    </mat-expansion-panel>
-  </mat-accordion>
+                        <mat-checkbox
+                          #checkbox
+                          (change)="
+                            filterSetValue(column, value.value, checkbox.checked)
+                          "
+                        >
+                          {{ value.formattedValue }}
+                        </mat-checkbox>
+                      </mat-list-item>
+                    </mat-list>
+                  </ng-container>
+                </ng-template>
+              </mat-expansion-panel>
+            </ng-template>
+          </mat-accordion>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="openControlPanelId === 3" [disabled]="openControlPanelId === 3" (opened)="openControlPanel(3)">
+        <mat-expansion-panel-header
+          collapsedHeight="32px"
+          expandedHeight="32px"
+        >
+          <mat-panel-title>
+            <biosimulations-icon icon="search"></biosimulations-icon>
+            Search
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mat-form-field appearance="fill" class="search-field">
+            <input #searchInput matInput type="text"
+              (keydown.enter)="searchRows(searchInput.value)"
+              [placeholder]="searchPlaceHolder"
+              [matTooltip]="searchToolTip"
+            >
+            <button matSuffix mat-icon-button class="biosimulations-icon-button text" (click)="searchRows(searchInput.value)">
+              <biosimulations-icon icon="search"></biosimulations-icon>
+            </button>
+          </mat-form-field>
+        </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 
   <div class="table-container">
     <mat-table matSort class="biosimulations-table" [ngClass]="{'single-line-headings': singleLineHeadings}">
@@ -164,7 +194,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
-                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                  [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -180,7 +210,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.href as href"
-                  [href]="isObservable(href) ? (href | async) : href"
+                  [href]="href"
                   target="_blank"
                 >
                   <ng-container
@@ -234,7 +264,7 @@
                   *ngIf="
                     element._cache[column.id].center.routerLink as routerLink
                   "
-                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                  [routerLink]="routerLink"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
@@ -246,7 +276,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].center.href as href"
-                  [href]="isObservable(href) ? (href | async) : href"
+                  [href]="href"
                   target="_blank"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
@@ -273,7 +303,7 @@
 
               <ng-template #centerTemplate>
                 <ng-container *ngIf="element._cache[column.id].value as value">
-                  {{ isObservable(value) ? (value | async) : value }}                  
+                  {{ value }}
                 </ng-container>
               </ng-template>
             </span>
@@ -286,7 +316,7 @@
                   *ngIf="
                     element._cache[column.id].right.routerLink as routerLink
                   "
-                  [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                  [routerLink]="routerLink"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -302,7 +332,7 @@
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].right.href as href"
-                  [href]="isObservable(href) ? (href | async) : href"
+                  [href]="href"
                   target="_blank"
                 >
                   <ng-container

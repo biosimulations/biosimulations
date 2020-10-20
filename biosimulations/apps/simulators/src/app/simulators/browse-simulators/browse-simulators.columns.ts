@@ -12,6 +12,10 @@ export const columns: Column[] = [
     id: 'id',
     heading: 'Id',
     key: 'id',
+    centerAction: ColumnActionType.routerLink,    
+    centerRouterLink: (element: any): string[] => {
+      return ['/simulators', element.id];
+    },    
     filterable: false,
     minWidth: 90,
     showStacked: false,
@@ -174,20 +178,12 @@ export const columns: Column[] = [
     stackedFormatter: (url: string): string => {
       return url;
     },
-    leftIcon: 'internalLink',
     rightIcon: 'link',
-    leftIconTitle: (element: TableSimulator): string => {
-      return element.name + ' image';
-    },
     rightIconTitle: (element: TableSimulator): string => {
       return element.name + ' website';
     },
-    leftAction: ColumnActionType.routerLink,
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
-    leftRouterLink: (element: any): string[] => {
-      return ['/simulators', element.id];
-    },
     centerHref: (element: TableSimulator): string => {
       return element.url;
     },

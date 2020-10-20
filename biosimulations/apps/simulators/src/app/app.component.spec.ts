@@ -5,7 +5,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +19,10 @@ describe('AppComponent', () => {
         }),        
       ],
       declarations: [AppComponent],
-      providers: [ConfigService],
+      providers: [
+        ConfigService,
+        ScrollService,
+      ],
     }).compileComponents();
   }));
 

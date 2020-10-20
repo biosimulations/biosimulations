@@ -8,6 +8,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -16,6 +17,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { TableComponent } from './table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -32,12 +34,14 @@ describe('TableComponent', () => {
         MatExpansionModule,
         MatListModule,
         MatFormFieldModule,
+        MatInputModule,
         MatCheckboxModule,
         MatDatepickerModule,
         MatNativeDateModule,
         NpnSliderModule,
         BiosimulationsIconsModule,
         FlexLayoutModule,
+        MatTooltipModule,
       ],
       declarations: [TableComponent, SpinnerComponent],
     }).compileComponents();

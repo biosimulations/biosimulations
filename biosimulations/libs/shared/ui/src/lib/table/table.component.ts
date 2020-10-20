@@ -13,8 +13,10 @@ import { MatSort } from '@angular/material/sort';
 import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Column, ColumnActionType, ColumnFilterType, Side, RowService } from './table.interface';
+import lunr from 'lunr';
 
 // TODO fix datasource / loading functionality
 @Injectable()
@@ -49,11 +51,16 @@ export class TableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) private sort!: MatSort;
 
   private _columns!: Column[];
+  showColumns!: {[id: string]: boolean};
   columnsToShow!: string[];
   private idToColumn!: { [id: string]: Column };
+  columnFilterData!: {[id: string]: any};
   isLoading!: Observable<boolean>;
   private isLoaded!: Observable<boolean>;
   private filter: { [id: string]: any[] } = {};
+
+  private fullTextIndex!: any;
+  private fullTextMatches!: {[index: number]: boolean};
 
   @Input()
   defaultSort!: { active: string; direction: string };
@@ -64,6 +71,11 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input()
   set columns(columns: Column[]) {
     this._columns = columns;
+    this.columnFilterData = {};
+    this.showColumns = {};
+    columns.forEach((column: Column): void => {
+      this.showColumns[column.id] = column.show !== false;
+    });
     this.setColumnsToShow();
 
     columns.forEach((column: Column, iColumn: number): void => {
@@ -88,7 +100,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input()
   set highlightRow(func: (element: any) => boolean) {
     this._highlightRow = func;
-    this.setRowHighlighting(this.dataSource.data);    
+    this.setRowHighlighting(this.dataSource.data);
   }
 
   @Input()
@@ -104,73 +116,132 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @Input()
   set data(data: Observable<any[]>) {
-    this.subscription = data.subscribe((data: any) => {
-      this.dataSource.isLoading.next(true);
-      const sortedData = this.sortData(data, this.defaultSort);
-      sortedData.forEach((datum: any, iDatum: number): void => {
-        datum._index = iDatum;
-      });
+    this.subscription = data.subscribe((unresolvedData: any[]): void => {
+      this.resolveAndSetData(unresolvedData);
+    });
+  }
 
-      this.setRowHighlighting(sortedData);
-
-      sortedData.forEach((datum: any): void => {
-        const cache: any = {};
-        datum['_cache'] = cache;
-
-        this.columns.forEach((column: Column): void => {
-          cache[column.id] = {
-            value: RowService.formatElementValue(RowService.getElementValue(datum, column), column),
-            left: {},
-            center: {},
-            right: {},
-          };
-
-          if (column.leftAction === ColumnActionType.routerLink) {
-            cache[column.id].left['routerLink'] = RowService.getElementRouterLink(datum, column, Side.left);
-          } else if (column.leftAction === ColumnActionType.href) {
-            cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
-          } else if (column.leftAction === ColumnActionType.click) {
-            cache[column.id].left['click'] = RowService.getElementClick(column, Side.left);
-          }
-          cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
-
-          if (column.centerAction === ColumnActionType.routerLink) {
-            cache[column.id].center['routerLink'] = RowService.getElementRouterLink(datum, column, Side.center);
-          } else if (column.centerAction === ColumnActionType.href) {
-            cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
-          } else if (column.centerAction === ColumnActionType.click) {
-            cache[column.id].center['click'] = RowService.getElementClick(column, Side.center);
-          }
-          // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
-
-          if (column.rightAction === ColumnActionType.routerLink) {
-            cache[column.id].right['routerLink'] = RowService.getElementRouterLink(datum, column, Side.right);
-          } else if (column.rightAction === ColumnActionType.href) {
-            cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
-          } else if (column.rightAction === ColumnActionType.click) {
-            cache[column.id].right['click'] = RowService.getElementClick(column, Side.right);
-          }
-          cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
-        });
-      });
-
-
-      this.columns.forEach((column: Column): void => {
-        switch (column.filterType) {
-          case ColumnFilterType.number:
-            column._filterData = this.getNumericColumnRange(sortedData, column);
-            break;
-          case ColumnFilterType.date:
-            break;
-          default:
-            column._filterData = this.getTextColumnValues(sortedData, column);
-            break;
+  resolveAndSetData(unresolvedData: any[]): void {
+    const dataToResolve: Observable<any>[] = [];
+    const dataIndexesToResolve: number[] = [];
+    const resolvedData: any[] = [];
+    unresolvedData.forEach((unresolvedDatum: any, iDatum: number): void => {
+      const datumObservables: {[key: string]: Observable<any>} = {};
+      const resolvedDatum: {[key: string]: any} = {};
+      Object.keys(unresolvedDatum).forEach((key: any): void => {
+        const val = unresolvedDatum[key];
+        if (val instanceof Observable) {
+          datumObservables[key] = val;
+          resolvedDatum[key] = undefined;
+        } else {
+          resolvedDatum[key] = val;
         }
       });
-
-      this.dataSource.data = sortedData;
-      this.dataSource.isLoading.next(false);
+      if (Object.keys(datumObservables).length) {
+        dataToResolve.push(forkJoin(datumObservables));
+        dataIndexesToResolve.push(iDatum);
+      }
+      resolvedData.push(resolvedDatum);
     });
+
+    if (dataToResolve.length) {
+      forkJoin(dataToResolve).subscribe((dataResolved: any[]): void => {
+        dataResolved.forEach((datumResolved: any, iDatumResolved: number) => {
+          const resolvedDatum = resolvedData[dataIndexesToResolve[iDatumResolved]];
+          Object.assign(resolvedDatum, datumResolved);
+        });
+
+        this.setData(resolvedData);
+      });
+    } else {
+      this.setData(resolvedData);
+    }
+  }
+
+  setData(data: any[]): void {
+    this.dataSource.isLoading.next(true);
+    const sortedData = this.sortData(data, this.defaultSort);
+    sortedData.forEach((datum: any, iDatum: number): void => {
+      datum._index = iDatum;
+    });
+
+    this.setRowHighlighting(sortedData);
+
+    sortedData.forEach((datum: any): void => {
+      const cache: any = {};
+      datum['_cache'] = cache;
+
+      this.columns.forEach((column: Column): void => {
+        cache[column.id] = {
+          value: RowService.formatElementValue(RowService.getElementValue(datum, column), column),
+          left: {},
+          center: {},
+          right: {},
+        };
+
+        if (column.leftAction === ColumnActionType.routerLink) {
+          cache[column.id].left['routerLink'] = RowService.getElementRouterLink(datum, column, Side.left);
+        } else if (column.leftAction === ColumnActionType.href) {
+          cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
+        } else if (column.leftAction === ColumnActionType.click) {
+          cache[column.id].left['click'] = RowService.getElementClick(column, Side.left);
+        }
+        cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
+
+        if (column.centerAction === ColumnActionType.routerLink) {
+          cache[column.id].center['routerLink'] = RowService.getElementRouterLink(datum, column, Side.center);
+        } else if (column.centerAction === ColumnActionType.href) {
+          cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
+        } else if (column.centerAction === ColumnActionType.click) {
+          cache[column.id].center['click'] = RowService.getElementClick(column, Side.center);
+        }
+        // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
+
+        if (column.rightAction === ColumnActionType.routerLink) {
+          cache[column.id].right['routerLink'] = RowService.getElementRouterLink(datum, column, Side.right);
+        } else if (column.rightAction === ColumnActionType.href) {
+          cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
+        } else if (column.rightAction === ColumnActionType.click) {
+          cache[column.id].right['click'] = RowService.getElementClick(column, Side.right);
+        }
+        cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
+      });
+    });
+
+
+    this.columns.forEach((column: Column): void => {
+      switch (column.filterType) {
+        case ColumnFilterType.number:
+          this.columnFilterData[column.id] = this.getNumericColumnRange(sortedData, column);
+          break;
+        case ColumnFilterType.date:
+          break;
+        default:
+          this.columnFilterData[column.id] = this.getTextColumnValues(sortedData, column);
+          break;
+      }
+    });
+
+    // set up full text index
+    const columns = this.columns;
+    this.fullTextIndex = lunr(function(this: any) {
+      this.ref('index');
+      columns.forEach((column: Column): void => {
+        this.field(column.heading.toLowerCase().replace(' ', '-'));
+      });
+
+      sortedData.forEach((datum: any, iDatum: number): void => {
+        const fullTextDoc: {index: string, [colId: string]: string} = {index: iDatum.toString()};
+        columns.forEach((column: Column): void => {
+          fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] = datum._cache[column.id].value || '';
+        });
+        this.add(fullTextDoc);
+      });
+    });
+
+    // set data for table
+    this.dataSource.data = sortedData;
+    this.dataSource.isLoading.next(false);
   }
 
   constructor(public dataSource: TableDataSource) {}
@@ -202,7 +273,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     rows.forEach((row: any): void => {
       if (this._highlightRow === undefined) {
         row['_highlight'] = false;
-      } else {        
+      } else {
         row['_highlight'] = this._highlightRow(row);
       }
     });
@@ -364,7 +435,16 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setDataSourceFilter(): void {
-    if (Object.keys(this.filter).length) {
+    // conduct full text search
+    this.fullTextMatches = {};
+    if (this.searchQuery) {
+      this.fullTextIndex.search(this.searchQuery).forEach((match: any): void => {
+        this.fullTextMatches[parseInt(match.ref)] = true;
+      });
+    }
+
+    // trigger table to filter data via calling the filterData method for each entry
+    if (Object.keys(this.filter).length || this.searchQuery) {
       // Hack: alternate between value of 'a' and 'b' to force data source to filter the data
       if (this.dataSource.filter === 'a') {
         this.dataSource.filter = 'b';
@@ -377,6 +457,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   filterData(datum: any, filter: string): boolean {
+    /* filtering */
     for (const columnId in this.filter) {
       const column = this.idToColumn[columnId];
 
@@ -394,6 +475,14 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
+    // full text search
+    if (this.searchQuery) {
+      if (!(datum._index in this.fullTextMatches)) {
+        return false;
+      }
+    }
+
+    /* return */
     return true;
   }
 
@@ -478,14 +567,17 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   toggleColumn(column: Column): void {
-    column.show = column.show === false;
+    this.showColumns[column.id] = this.showColumns[column.id] === false;
     this.setColumnsToShow();
   }
 
   setColumnsToShow(): void {
-    this.columnsToShow = this.columns
-      .filter((col: Column): any => col.show !== false)
-      .map((col: Column): string => col.id);
+    this.columnsToShow = [];
+    Object.keys(this.showColumns).forEach((colId: string): void => {
+      if (this.showColumns[colId]) {
+        this.columnsToShow.push(colId);
+      }
+    });
   }
 
   refresh(): void {
@@ -494,5 +586,30 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   isObservable(value: any): boolean {
     return value instanceof Observable;
+  }
+
+  controlsOpen = true;
+
+  toggleControls(): void {
+    this.controlsOpen = !this.controlsOpen;
+  }
+
+  openControlPanelId = 3;
+
+  openControlPanel(id: number): void {
+    this.openControlPanelId = id;
+  }
+
+  @Input()
+  searchPlaceHolder!: string;
+
+  @Input()
+  searchToolTip!: string;
+
+  searchQuery: string | undefined = undefined;
+
+  searchRows(query: string): void {
+    this.searchQuery = query.toLowerCase();
+    this.setDataSourceFilter();
   }
 }

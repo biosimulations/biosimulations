@@ -44,6 +44,7 @@ export type biosimulationsIcon =
   | 'logs'
   | 'compare'
   | 'controls'
+  | 'search'
   | 'filter'
   | 'columns'
   | 'reuse'
@@ -137,6 +138,7 @@ export class IconComponent implements OnInit {
     logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
     controls: { type: 'fas', name: 'cog' },
+    search: { type: 'fas', name: 'search' },
     filter: { type: 'fas', name: 'filter' },
     columns: { type: 'fas', name: 'columns' },
     reuse: { type: 'fas', name: 'sync-alt' },
