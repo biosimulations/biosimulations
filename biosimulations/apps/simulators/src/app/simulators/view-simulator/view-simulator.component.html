@@ -199,6 +199,8 @@
                   [data]="algorithm.parameters"
                   [sortable]="true"
                   [controls]="false"
+                  searchPlaceHolder="Query (e.g., tol)"
+                  searchToolTip="Enter a query such as 'tol'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) (e.g., 'kisao-id: KISAO_0000211')."
                   stackedContentsHeading="Parameters"
                   [getStackedHeading]="getParameterStackedHeading"
                   [getStackedHeadingMoreInfoRouterLink]="
@@ -209,7 +211,7 @@
                 </biosimulations-responsive-table>
               </div>
               <ng-template #noParametersMessage>
-                <p>This algorithm does not have any parameters.</p>
+                <p class="info-message">This algorithm does not have any parameters.</p>
               </ng-template>
 
               <ng-container *ngIf="algorithm?.citations?.length > 0">
@@ -259,6 +261,8 @@
           [data]="simulator.versions"
           [sortable]="true"
           [controls]="false"
+          searchPlaceHolder="Query (e.g., 1.0)"
+          searchToolTip="Enter a query such as '2020'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'date: 2020'."
           stackedContentsHeading="Contents"
           [getStackedHeading]="getVersionStackedHeading"
           [getStackedHeadingMoreInfoRouterLink]="getVersionLinkBound"

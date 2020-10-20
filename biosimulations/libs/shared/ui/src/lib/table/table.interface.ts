@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-
 export enum ColumnActionType {
   routerLink = 'routerLink',
   href = 'href',
@@ -35,12 +33,12 @@ export interface Column {
   leftAction?: ColumnActionType;
   centerAction?: ColumnActionType;
   rightAction?: ColumnActionType;
-  leftRouterLink?: (rowData: any) => (any[] | Observable<any[]>) | null;
-  centerRouterLink?: (rowData: any) => (any[] | Observable<any[]>) | null;
-  rightRouterLink?: (rowData: any) => (any[] | Observable<any[]>) | null;
-  leftHref?: (rowData: any) => (string | Observable<string>) | null;
-  centerHref?: (rowData: any) => (string | Observable<string>) | null;
-  rightHref?: (rowData: any) => (string | Observable<string>) | null;
+  leftRouterLink?: (rowData: any) => any[] | null;
+  centerRouterLink?: (rowData: any) => any[] | null;
+  rightRouterLink?: (rowData: any) => any[] | null;
+  leftHref?: (rowData: any) => string | null;
+  centerHref?: (rowData: any) => string | null;
+  rightHref?: (rowData: any) => string | null;
   leftClick?: (rowData: any) => void;
   centerClick?: (rowData: any) => void;
   rightClick?: (rowData: any) => void;

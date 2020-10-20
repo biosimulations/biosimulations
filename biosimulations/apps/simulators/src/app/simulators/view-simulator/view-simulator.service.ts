@@ -21,32 +21,40 @@ import {
   ISboOntologyId,
 } from '@biosimulations/shared/datamodel';
 import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
+import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
 export class ViewSimulatorService {
   constructor(
     private simService: SimulatorService,
     private ontService: OntologyService
-  ) {}
-  callMe() {
-    console.log('Called');
-  }
-  getVersions(simulatorId: string) {}
-  getLatest(simulatorId: string) {
+
+  ) { }
+  getVersions(simulatorId: string) { }
+  getLatest(simulatorId: string): Observable<ViewSimulator> {
+
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
     );
-    return sim.pipe(map(this.apiToView, this));
+    return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
   }
   getVersion(simulatorId: string, version: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getOneByVersion(
       simulatorId,
       version
     );
-    return sim.pipe(map(this.apiToView, this));
+    return sim.pipe(map(this.apiToView.bind(this, simulatorId, version)));
   }
 
-  apiToView(sim: Simulator): ViewSimulator {
+  apiToView(simulatorId: string, version: string | undefined, sim: Simulator | undefined): ViewSimulator {
+    if (sim === undefined) {
+      if (version) {
+        throw new BiosimulationsError('Simulation version not found', `Simulator "${simulatorId}" does not have version "${version}".`, 404);
+      } else {
+        throw new BiosimulationsError('Simulator not found', `There is no simulator with id "${simulatorId}".`, 404);
+      }
+    }
+
     const viewSim: ViewSimulator = {
       id: sim.id,
       version: sim.version,
@@ -126,7 +134,6 @@ export class ViewSimulatorService {
   setVersionDate(value: Version): ViewVersion {
     let created: Date = value.date;
     created = new Date(created);
-    console.log(created);
     const date =
       created.getFullYear().toString() +
       '-' +

@@ -30,16 +30,17 @@ export class AppController {
     private schedulerRegistry: SchedulerRegistry,
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
   ) { }
   private logger = new Logger(AppController.name);
+  private fileStorage: string = this.configService.get(
+    'hpc.fileStorage') || '';
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_START)
   async uploadFile(data: SimulationDispatchSpec) {
     this.logger.log('Data received: ' + JSON.stringify(data));
-    // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
-    const fileStorage = process.env.FILE_STORAGE;
-    const sbatchStorage = `${fileStorage}/SBATCH/ID`;
+    
+    const sbatchStorage = `${this.fileStorage}/SBATCH/ID`;
 
     // TODO: Hit simulator-api to get these simulator names
     if (
@@ -60,7 +61,7 @@ export class AppController {
 
     // Generate SBATCH script
     const simulatorString = `biosimulations_${data.simulator}_${data.simulatorVersion}`;
-    const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${data.uniqueFilename.split('.')[0]
+    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${data.uniqueFilename.split('.')[0]
       }`;
     const sbatchString = this.sbatchService.generateSbatch(
       hpcTempDirPath,
@@ -83,8 +84,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
-    const fileStorage = process.env.FILE_STORAGE || '';
-    const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
+    const resDir = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
     const allFiles = [];
     const directoryList = [];

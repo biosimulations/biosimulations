@@ -158,6 +158,7 @@ export class ViewSimulatorComponent implements OnInit {
           simulator = this.simService.getVersion(id, version);
         } else {
           simulator = this.simService.getLatest(id);
+
         }
         simulator.subscribe(this.setHighlightVersion.bind(this));
         return simulator;

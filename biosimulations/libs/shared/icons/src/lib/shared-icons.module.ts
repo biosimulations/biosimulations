@@ -39,6 +39,7 @@ import {
   faDownload,
   faUpload,
   faTerminal,
+  faSearch,
   faFilter,
   faColumns,
   faSyncAlt,
@@ -58,9 +59,8 @@ import {
   faCodeBranch,
   faQuestion,
   faUserCheck,
-  faPlusCircle
-
-
+  faPlusCircle,
+  faTools,
 } from '@fortawesome/free-solid-svg-icons';
 import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare, faOsi } from '@fortawesome/free-brands-svg-icons';
 import { far, faFile, faFileAlt as farFileAlt } from '@fortawesome/free-regular-svg-icons';
@@ -110,10 +110,12 @@ export class BiosimulationsIconsModule {
       faPaintBrush,
       faList,
       faPlusCircle,
+      faTools,
       faTable,
       faDownload,
       faUpload,
       faTerminal,
+      faSearch,
       faFilter,
       faColumns,
       faSyncAlt,

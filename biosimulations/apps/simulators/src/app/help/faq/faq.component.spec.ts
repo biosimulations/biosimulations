@@ -6,7 +6,7 @@ import { FaqComponent } from './faq.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 describe('FaqComponent', () => {
   let component: FaqComponent;
@@ -15,7 +15,7 @@ describe('FaqComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule],
-      providers: [RouterTestingModule, ConfigService],
+      providers: [RouterTestingModule, ConfigService, ScrollService],
       declarations: [FaqComponent],
     }).compileComponents();
   }));

@@ -44,6 +44,7 @@ export type biosimulationsIcon =
   | 'logs'
   | 'compare'
   | 'controls'
+  | 'search'
   | 'filter'
   | 'columns'
   | 'reuse'
@@ -77,7 +78,9 @@ export type biosimulationsIcon =
   | 'docker'
   | 'linkedin'
   | 'orcid'
-  | 'toTop';
+  | 'toTop'
+  | 'construction'
+  | 'maintainence';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -135,6 +138,7 @@ export class IconComponent implements OnInit {
     logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
     controls: { type: 'fas', name: 'cog' },
+    search: { type: 'fas', name: 'search' },
     filter: { type: 'fas', name: 'filter' },
     columns: { type: 'fas', name: 'columns' },
     reuse: { type: 'fas', name: 'sync-alt' },
@@ -167,6 +171,8 @@ export class IconComponent implements OnInit {
     version: { type: 'fas', name: 'code-branch' },
     copy: { type: 'fas', name: 'copy' },
     fork: { type: 'fas', name: 'code-branch' },
+    construction: { type: 'fas', name: 'tools' },
+    maintainence: { type: 'fas', name: 'tools' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];
