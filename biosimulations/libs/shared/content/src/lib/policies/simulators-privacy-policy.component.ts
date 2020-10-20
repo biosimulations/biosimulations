@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -12,12 +13,12 @@ import { ConfigService } from '@biosimulations/shared/services';
 })
 export class SimulatorsPrivacyPolicyComponent {
   emailUrl!: string;
-  tocSections!: TocSection[];
+  tocSections!: Observable<TocSection[]>;
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {
-      this.tocSections = container.getToc();
+      this.tocSections = container.sections$;
     });
   }
 

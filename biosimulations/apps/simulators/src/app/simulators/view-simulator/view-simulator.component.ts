@@ -230,12 +230,12 @@ export class ViewSimulatorComponent implements OnInit {
     };
   }
 
-  tocSections!: TocSection[];
+  tocSections!: Observable<TocSection[]>;
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {
-      this.tocSections = container.getToc();
+      this.tocSections = container.sections$;
     });
   }
 
