@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { UtilsService } from '@biosimulations/shared/services';
 import {
   Column,
   ColumnActionType,
@@ -44,7 +45,7 @@ export class StackedTableComponent {
   private _highlightRow!: (element: any) => boolean;
 
   @Input()
-  set highlightRow(func: (element: any) => boolean) {    
+  set highlightRow(func: (element: any) => boolean) {
     this._highlightRow = func;
     this.setRowHighlighting();
     this.derivedData.next(this._derivedData);
@@ -62,41 +63,50 @@ export class StackedTableComponent {
   @Input()
   set data(data: Observable<any[]>) {
     this._data = data;
-    this.data.subscribe((data: any[]) => {
-      this._derivedData = [];
-
-      data.forEach((datum: any, index: number) => {
-        const derivedDatum: any = {};
-        this._derivedData.push(derivedDatum);
-
-        derivedDatum['heading'] = this.getHeading(datum);
-
-        if (this.getHeadingMoreInfoRouterLink !== undefined) {
-          derivedDatum['icon'] = 'internalLink';
-          derivedDatum['iconAction'] = this.getHeadingMoreInfoRouterLink(datum);
-        } else if (this.getHeadingMoreInfoHref !== undefined) {
-          derivedDatum['icon'] = 'link';
-          derivedDatum['iconAction'] = this.getHeadingMoreInfoHref(datum);
-        } else {
-          derivedDatum['icon'] = 'toTop';
-          derivedDatum['iconAction'] = null;
-        }
-
-        derivedDatum['rawData'] = datum;
-        derivedDatum['columns'] = {};
-      });
-
-      this._dataValue = data;
-      this.updateDerivedData();
-
-      this.setRowHighlighting();
-
-      this.derivedData.next(this._derivedData);
+    this.data.subscribe((unresolvedData: any[]) => {
+      UtilsService.recursiveForkJoin(unresolvedData)
+        .subscribe((resolvedData: any[] | undefined) => {
+          if (resolvedData !== undefined) {
+            this.setData(resolvedData);
+          }
+        });
     });
   }
 
   get data(): Observable<any[]> {
     return this._data;
+  }
+
+  setData(data: any[]): void {
+    this._derivedData = [];
+
+    data.forEach((datum: any, index: number) => {
+      const derivedDatum: any = {};
+      this._derivedData.push(derivedDatum);
+
+      derivedDatum['heading'] = this.getHeading(datum);
+
+      if (this.getHeadingMoreInfoRouterLink !== undefined) {
+        derivedDatum['icon'] = 'internalLink';
+        derivedDatum['iconAction'] = this.getHeadingMoreInfoRouterLink(datum);
+      } else if (this.getHeadingMoreInfoHref !== undefined) {
+        derivedDatum['icon'] = 'link';
+        derivedDatum['iconAction'] = this.getHeadingMoreInfoHref(datum);
+      } else {
+        derivedDatum['icon'] = 'toTop';
+        derivedDatum['iconAction'] = null;
+      }
+
+      derivedDatum['rawData'] = datum;
+      derivedDatum['columns'] = {};
+    });
+
+    this._dataValue = data;
+    this.updateDerivedData();
+
+    this.setRowHighlighting();
+
+    this.derivedData.next(this._derivedData);
   }
 
   updateDerivedData(): void {
@@ -148,7 +158,7 @@ export class StackedTableComponent {
             column,
             Side.right
           );
-        }        
+        }
         derivedDatum[column.id]['rightIconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
     });
