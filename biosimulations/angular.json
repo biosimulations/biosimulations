@@ -1741,6 +1741,66 @@
           }
         }
       }
+    },
+    "shared-exceptions-filters": {
+      "root": "libs/shared/exceptions/filters",
+      "sourceRoot": "libs/shared/exceptions/filters/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/shared/exceptions/filters/tsconfig.lib.json",
+              "libs/shared/exceptions/filters/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/exceptions/filters/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/exceptions/filters/jest.config.js",
+            "tsConfig": "libs/shared/exceptions/filters/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-exceptions-exceptions": {
+      "root": "libs/shared/exceptions/exceptions",
+      "sourceRoot": "libs/shared/exceptions/exceptions/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/shared/exceptions/exceptions/tsconfig.lib.json",
+              "libs/shared/exceptions/exceptions/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/exceptions/exceptions/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/exceptions/exceptions/jest.config.js",
+            "tsConfig": "libs/shared/exceptions/exceptions/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

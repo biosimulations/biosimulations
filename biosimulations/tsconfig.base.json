@@ -69,6 +69,12 @@
       ],
       "@biosimulations/simulators/database-models": [
         "libs/simulators/database-models/src/index.ts"
+      ],
+      "@biosimulations/shared/exceptions/filters": [
+        "libs/shared/exceptions/filters/src/index.ts"
+      ],
+      "@biosimulations/shared/exceptions/exceptions": [
+        "libs/shared/exceptions/exceptions/src/index.ts"
       ]
     }
   },

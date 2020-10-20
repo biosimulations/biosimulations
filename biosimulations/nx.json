@@ -163,7 +163,13 @@
       "tags": ["scope:dispatch", "type:util", "platform:any"]
     },
     "simulators-database-models": {
-      "tags": []
+      "tags": ["scope:simulators", "type:datamodel", "platform:server"]
+    },
+    "shared-exceptions-filters": {
+      "tags": ["scope:shared", "platform:server", "type:util"]
+    },
+    "shared-exceptions-exceptions": {
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
     }
   }
 }
