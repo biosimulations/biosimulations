@@ -6,12 +6,15 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ErrorObject } from '@biosimulations/shared/datamodel-api';
+import {
+  ErrorObject,
+  ErrorResponseDocument,
+} from '@biosimulations/shared/datamodel-api';
 import {
   BiosimulationsException,
   isBiosimulationsException,
 } from './exception';
-import { stat } from 'fs';
+
 @Catch()
 export class BiosimulationsExceptionFilter implements ExceptionFilter {
   catch(
@@ -31,16 +34,16 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
       exception = BiosimulationsException.fromHTTP(exception);
       status = exception.getStatus();
       resbody = exception.getError();
-      response.status(exception.getStatus()).json(exception.getError());
     } else {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
-
       resbody = {
         status: HttpStatus.INTERNAL_SERVER_ERROR.toString(),
         title: 'Internal Server Error',
         detail: exception,
       };
     }
-    response.status(status).json(resbody);
+
+    let responseError: ErrorResponseDocument = { error: [resbody] };
+    response.status(status).json(responseError);
   }
 }

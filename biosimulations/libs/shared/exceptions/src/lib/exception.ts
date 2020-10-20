@@ -66,9 +66,13 @@ export class BiosimulationsException extends Error {
 
   // TODO write test
   static fromHTTP(exception: HttpException): BiosimulationsException {
-    let response = exception.getResponse();
-    if (typeof response === 'string') {
-      return new BiosimulationsException(exception.getStatus(), response);
+    let response = exception.getResponse() as any;
+    if (response && typeof response !== 'string') {
+      return new BiosimulationsException(
+        exception.getStatus(),
+        response.error,
+        response.message
+      );
     } else {
       return new BiosimulationsException(
         exception.getStatus(),

@@ -28,6 +28,7 @@ import {
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
+import { ErrorResponseDocument } from '@biosimulations/shared/datamodel-api';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -46,7 +47,10 @@ export class SimulatorsController {
 
   @Get('latest')
   @ApiOkResponse({ description: 'OK', type: [Simulator] })
-  @ApiNotFoundResponse({ description: 'Not Found' })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'Not Found',
+  })
   @ApiOperation({
     summary: 'Get the latest version of each simulator',
     description:
@@ -94,16 +98,19 @@ export class SimulatorsController {
     type: String,
   })
   @ApiOkResponse({ type: [Simulator] })
-  @ApiNotFoundResponse()
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'Simulator not found',
+  })
   async getSimulator(
     @Param('id') id: string,
     @Query('version') version: string
   ) {
-    let res;
     if (!version) {
-      return this.getSimulatorById(id);
+      return await this.getSimulatorById(id);
     } else {
-      return [this.getSimulatorByVersion(id, version)];
+      let res = await this.getSimulatorByVersion(id, version);
+      return [res];
     }
   }
 
@@ -119,7 +126,10 @@ export class SimulatorsController {
     type: String,
   })
   @ApiOkResponse({ type: Simulator })
-  @ApiNotFoundResponse()
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'Simulator not found',
+  })
   async getSimulatorVersion(
     @Param('id') id: string,
     @Param('version') version: string
@@ -136,10 +146,17 @@ export class SimulatorsController {
   private async getSimulatorByVersion(id: string, version: string) {
     const res = await this.service.findByVersion(id, version);
     if (!res) {
-      throw new NotFoundException(
-        `Simulator with id ${id} and version ${version} was not found`
-      );
+      if (version) {
+        console.log(version);
+        throw new NotFoundException(
+          `Simulator with id ${id} and version ${version} was not found`
+        );
+      } else {
+        console.log('here?');
+        throw new NotFoundException(`Simulator with id ${id} was not found`);
+      }
     }
+
     return res;
   }
   @UseGuards(AdminGuard)
@@ -149,8 +166,8 @@ export class SimulatorsController {
     type: Simulator,
   })
   @ApiCreatedResponse({ type: Simulator })
-  @ApiUnauthorizedResponse({})
-  @ApiForbiddenResponse({})
+  @ApiUnauthorizedResponse({ type: ErrorResponseDocument })
+  @ApiForbiddenResponse({ type: ErrorResponseDocument })
   async create(@Body() doc: Simulator): Promise<Simulator[]> {
     return this.service.new(doc);
   }
@@ -172,13 +189,21 @@ export class SimulatorsController {
     description: 'Ok',
   })
   @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
     description: 'No such simulator',
   })
-  @ApiUnauthorizedResponse({ description: 'No permission to edit simulators' })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to edit simulators',
+  })
   @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
     description: 'No permission to edit simulator',
   })
-  @ApiBadRequestResponse({ description: 'Request body does not match schema' })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'Request body does not match schema',
+  })
   @Put(':id/:version')
   async update(
     @Body() doc: Simulator,
