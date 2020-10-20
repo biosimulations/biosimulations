@@ -20,7 +20,7 @@ export class TocSectionDirective {
   constructor(
     @Host() private sectionsContainer: TocSectionsContainerDirective,
     elementRef: ElementRef
-  ) {    
+  ) {
     this.section = {
       heading: this.heading.asObservable(),
       target: elementRef.nativeElement,
