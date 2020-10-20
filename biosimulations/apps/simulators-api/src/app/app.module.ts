@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 
 import { SimulatorsModule } from '../simulators/simulators.module';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
+import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -21,6 +22,7 @@ import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
       inject: [ConfigService],
     }),
     SimulatorsModule,
+    SharedExceptionsModule,
   ],
 })
 export class AppModule {}

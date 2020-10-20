@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'shared-exceptions-exceptions',
-  preset: '../../../../jest.config.js',
+  name: 'shared-exceptions',
+  preset: '../../../jest.config.js',
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../../coverage/libs/shared/exceptions/exceptions',
+  coverageDirectory: '../../../coverage/libs/shared/exceptions',
 };
