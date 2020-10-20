@@ -46,7 +46,7 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
       time: Date.now(),
       url: request.url,
     };
-    let responseError: ErrorResponseDocument = { error: [resbody] };
+    const responseError: ErrorResponseDocument = { error: [resbody] };
     response.status(status).json(responseError);
   }
 }

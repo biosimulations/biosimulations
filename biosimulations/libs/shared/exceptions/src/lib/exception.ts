@@ -36,13 +36,13 @@ export class BiosimulationsException extends Error {
       error.code = this.code;
     }
     if (this.link) {
-      let linkObject: AboutLinksObject = {
+      const linkObject: AboutLinksObject = {
         about: this.link,
       };
       error.links = linkObject;
     }
     if (this.sourceParameter || this.sourcePointer) {
-      let source: ErrorSourceObject = {};
+      const source: ErrorSourceObject = {};
       if (this.sourcePointer) {
         source.pointer = this.sourcePointer;
       }
@@ -65,7 +65,7 @@ export class BiosimulationsException extends Error {
 
   // TODO write test
   static fromHTTP(exception: HttpException): BiosimulationsException {
-    let response = exception.getResponse() as any;
+    const response = exception.getResponse() as any;
     if (response && typeof response == 'object') {
       return new BiosimulationsException(
         exception.getStatus(),
