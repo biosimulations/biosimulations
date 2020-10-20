@@ -42,7 +42,10 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
         detail: exception,
       };
     }
-
+    resbody.meta = {
+      time: Date.now(),
+      url: request.url,
+    };
     let responseError: ErrorResponseDocument = { error: [resbody] };
     response.status(status).json(responseError);
   }

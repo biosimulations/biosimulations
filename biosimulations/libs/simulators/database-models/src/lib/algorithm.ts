@@ -1,12 +1,5 @@
 import {
-  Format as IFormat,
-  Person,
-  ExternalReferences,
-  License,
-  KISAOTerm,
-  IOntologyTerm,
   IAlgorithm,
-  KisaoIdRegEx,
   IEdamOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
@@ -16,7 +9,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import {
   EdamOntologyIdSchema,
-  OntologyIdSchema,
   KisaoOntologyIdSchema,
   SboOntologyIdSchema,
 } from './ontologyId';
@@ -26,7 +18,7 @@ import {
   AlgorithmParameterSchema,
 } from './algorithmParameter';
 
-@Schema({})
+@Schema({ _id: false, storeSubdocValidationError: false })
 export class Algorithm implements IAlgorithm {
   @Prop({ type: KisaoOntologyIdSchema })
   kisaoId!: IKisaoOntologyId;

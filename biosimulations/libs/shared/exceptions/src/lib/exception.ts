@@ -4,7 +4,6 @@ import {
   ErrorSourceObject,
 } from '@biosimulations/shared/datamodel-api';
 import { HttpException } from '@nestjs/common';
-import { strict, throws } from 'assert';
 
 export class BiosimulationsException extends Error {
   private errorObject: ErrorObject;
@@ -67,7 +66,7 @@ export class BiosimulationsException extends Error {
   // TODO write test
   static fromHTTP(exception: HttpException): BiosimulationsException {
     let response = exception.getResponse() as any;
-    if (response && typeof response !== 'string') {
+    if (response && typeof response == 'object') {
       return new BiosimulationsException(
         exception.getStatus(),
         response.error,

@@ -3,7 +3,7 @@ import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/shared/datamodel';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ _id: false })
+@Schema({ _id: false, storeSubdocValidationError: false })
 export class AlgorithmParameter {
   @Prop({ type: KisaoOntologyIdSchema })
   kisaoId!: IKisaoOntologyId;

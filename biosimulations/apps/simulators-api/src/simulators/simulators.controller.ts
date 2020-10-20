@@ -8,9 +8,8 @@ import {
   UseGuards,
   NotFoundException,
   Put,
-  ConflictException,
-  BadRequestException,
 } from '@nestjs/common';
+
 import { AdminGuard } from '@biosimulations/auth/nest';
 import {
   ApiTags,
@@ -29,6 +28,7 @@ import {
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/shared/datamodel-api';
+import { BiosimulationsException } from 'libs/shared/exceptions/src/lib/exception';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -92,26 +92,13 @@ export class SimulatorsController {
     required: true,
     type: String,
   })
-  @ApiQuery({
-    name: 'version',
-    required: false,
-    type: String,
-  })
   @ApiOkResponse({ type: [Simulator] })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'Simulator not found',
   })
-  async getSimulator(
-    @Param('id') id: string,
-    @Query('version') version: string
-  ) {
-    if (!version) {
-      return await this.getSimulatorById(id);
-    } else {
-      let res = await this.getSimulatorByVersion(id, version);
-      return [res];
-    }
+  async getSimulator(@Param('id') id: string) {
+    return await this.getSimulatorById(id);
   }
 
   @Get(':id/:version')
@@ -217,11 +204,28 @@ export class SimulatorsController {
         if (err?.status == 404) {
           throw err;
         }
-        throw new BadRequestException({
-          statusCode: '400',
-          message: 'The input did not match the schema',
-          details: err.errors,
-        });
+        // TODO Replace with an error that takes validation error in constructor
+        if (err?.name === 'ValidationError') {
+          let details = [];
+          let path = [];
+
+          for (let key in err.errors) {
+            let validatorError = err.errors[key];
+
+            details.push(validatorError.message);
+            path.push('/' + key); //add a starting slash as per RFC 6901
+            console.log(validatorError.name);
+          }
+
+          throw new BiosimulationsException(
+            400,
+            'Validation Error',
+            details.join(', '),
+            undefined,
+            undefined,
+            path.join(', ').replace(new RegExp('\\.', 'g'), '/') //Change the "." in the path to  "/" to make a valid JSON path
+          );
+        }
       });
   }
 }
