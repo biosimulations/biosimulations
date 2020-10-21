@@ -8,7 +8,6 @@ import {
   UseGuards,
   NotFoundException,
   Put,
-  BadRequestException,
   HttpCode,
 } from '@nestjs/common';
 import * as mongoose from 'mongoose';
@@ -139,7 +138,6 @@ export class SimulatorsController {
     const res = await this.service.findByVersion(id, version);
     if (!res) {
       if (version) {
-        console.log(version);
         throw new NotFoundException(
           `Simulator with id ${id} and version ${version} was not found`
         );
@@ -177,9 +175,7 @@ export class SimulatorsController {
   @ApiNoContentResponse({ description: 'No Content' })
   @HttpCode(204)
   async validateSimulator(@Body() doc: Simulator) {
-    await this.service
-      .validate(doc)
-      .catch((err) => SimulatorsController.handleValidationError(err));
+    await this.service.validate(doc);
     return;
   }
 
@@ -221,18 +217,7 @@ export class SimulatorsController {
     @Param('id') id: string,
     @Param('version') version: string
   ) {
-    return this.service
-      .replace(id, version, doc)
-      .then((res) => res)
-      .catch((err) => {
-        if (err?.status == 404) {
-          throw err;
-        }
-        // TODO Replace with an filter for validation errors
-        if (err?.name === 'ValidationError') {
-          SimulatorsController.handleValidationError(err);
-        }
-      });
+    return this.service.replace(id, version, doc).then((res) => res);
   }
 
   static handleValidationError(err: mongoose.Error.ValidationError) {

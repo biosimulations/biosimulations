@@ -6,6 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { Model } from 'mongoose';
+import { assert } from 'console';
 
 @Injectable()
 export class SimulatorsService {
@@ -47,12 +48,11 @@ export class SimulatorsService {
     } catch (e) {
       if (e.name == 'MongoError' && e.code == 11000) {
         throw new ConflictException(
-          'Key Conflict',
           `Simulator with id: ${e?.keyValue?.id}, version: ${e?.keyValue?.version} already exists`
         );
       } else {
         console.log(e);
-        throw new ConflictException('Conflict', 'Database Error');
+        throw new ConflictException(`Database Error: ${e?.message}`);
       }
     }
     return res;
@@ -67,7 +67,9 @@ export class SimulatorsService {
       .exec();
 
     if (!sim) {
-      throw new NotFoundException('No model with id ' + id);
+      throw new NotFoundException(
+        `No simulator with id ${id} and version ${version}`
+      );
     }
 
     sim.overwrite(doc);
