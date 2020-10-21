@@ -7,7 +7,9 @@ import {
   Query,
   UseGuards,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
+
 import { AdminGuard } from '@biosimulations/auth/nest';
 import {
   ApiTags,
@@ -19,9 +21,14 @@ import {
   ApiNotFoundResponse,
   ApiOperation,
   ApiCreatedResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiBadRequestResponse,
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
+import { ErrorResponseDocument } from '@biosimulations/shared/datamodel-api';
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -40,7 +47,10 @@ export class SimulatorsController {
 
   @Get('latest')
   @ApiOkResponse({ description: 'OK', type: [Simulator] })
-  @ApiNotFoundResponse({ description: 'Not Found' })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'Not Found',
+  })
   @ApiOperation({
     summary: 'Get the latest version of each simulator',
     description:
@@ -82,36 +92,58 @@ export class SimulatorsController {
     required: true,
     type: String,
   })
-  @ApiQuery({
+  @ApiOkResponse({ type: [Simulator] })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'Simulator not found',
+  })
+  async getSimulator(@Param('id') id: string) {
+    return await this.getSimulatorById(id);
+  }
+
+  @Get(':id/:version')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
     name: 'version',
     required: false,
     type: String,
   })
-  @ApiOkResponse({ type: [Simulator] })
-  @ApiNotFoundResponse()
-  async getSimulator(
+  @ApiOkResponse({ type: Simulator })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'Simulator not found',
+  })
+  async getSimulatorVersion(
     @Param('id') id: string,
-    @Query('version') version: string
-  ) {
-    let res;
-    if (!version) {
-      return this.getSimulatorById(id);
-    } else {
-      return [this.getSimulatorByVersion(id, version)];
-    }
+    @Param('version') version: string
+  ): Promise<Simulator> {
+    return this.getSimulatorByVersion(id, version);
   }
   private async getSimulatorById(id: string) {
     const res = await this.service.findById(id);
     if (!res?.length) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Simulator with id ${id} was not found`);
     }
     return res;
   }
   private async getSimulatorByVersion(id: string, version: string) {
     const res = await this.service.findByVersion(id, version);
     if (!res) {
-      throw new NotFoundException();
+      if (version) {
+        console.log(version);
+        throw new NotFoundException(
+          `Simulator with id ${id} and version ${version} was not found`
+        );
+      } else {
+        console.log('here?');
+        throw new NotFoundException(`Simulator with id ${id} was not found`);
+      }
     }
+
     return res;
   }
   @UseGuards(AdminGuard)
@@ -121,7 +153,79 @@ export class SimulatorsController {
     type: Simulator,
   })
   @ApiCreatedResponse({ type: Simulator })
-  async create(@Body() doc: Simulator) {
+  @ApiUnauthorizedResponse({ type: ErrorResponseDocument })
+  @ApiForbiddenResponse({ type: ErrorResponseDocument })
+  async create(@Body() doc: Simulator): Promise<Simulator[]> {
     return this.service.new(doc);
+  }
+
+  @UseGuards(AdminGuard)
+  @ApiOAuth2([])
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'version',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    type: Simulator,
+    description: 'Ok',
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No such simulator',
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to edit simulators',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to edit simulator',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'Request body does not match schema',
+  })
+  @Put(':id/:version')
+  async update(
+    @Body() doc: Simulator,
+    @Param('id') id: string,
+    @Param('version') version: string
+  ) {
+    return this.service
+      .replace(id, version, doc)
+      .then((res) => res)
+      .catch((err) => {
+        if (err?.status == 404) {
+          throw err;
+        }
+        // TODO Replace with an error that takes validation error in constructor
+        if (err?.name === 'ValidationError') {
+          const details = [];
+          const path = [];
+
+          for (const key in err.errors) {
+            const validatorError = err.errors[key];
+
+            details.push(validatorError.message);
+            path.push('/' + key); //add a starting slash as per RFC 6901
+            console.log(validatorError.name);
+          }
+
+          throw new BiosimulationsException(
+            400,
+            'Validation Error',
+            details.join(', '),
+            undefined,
+            undefined,
+            path.join(', ').replace(new RegExp('\\.', 'g'), '/') //Change the "." in the path to  "/" to make a valid JSON path
+          );
+        }
+      });
   }
 }

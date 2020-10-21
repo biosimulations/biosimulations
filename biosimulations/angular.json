@@ -1711,6 +1711,63 @@
           }
         }
       }
+    },
+    "simulators-database-models": {
+      "root": "libs/simulators/database-models",
+      "sourceRoot": "libs/simulators/database-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/simulators/database-models/tsconfig.lib.json",
+              "libs/simulators/database-models/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/simulators/database-models/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/simulators/database-models/jest.config.js",
+            "tsConfig": "libs/simulators/database-models/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-exceptions": {
+      "root": "libs/shared/exceptions",
+      "sourceRoot": "libs/shared/exceptions/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": { 
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/shared/exceptions/tsconfig.lib.json",
+              "libs/shared/exceptions/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/exceptions/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/exceptions/jest.config.js",
+            "tsConfig": "libs/shared/exceptions/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
