@@ -199,7 +199,13 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
           <b>Publish your image to a public repository such as Docker Hub, GitHub containers, or Quay</b> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub containers, and Quay each provide free accounts for public images.
         </li>
         <li>
-          <b>Submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes your tool and the URL for the Docker image for your tool.
+          <b>Submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes the URL to the specifications of your tool. This will initiate a workflow which will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool which must be addressed.
+        </li>
+        <li>
+          <b>Optionally, also publish the source code for your simulation tool to a repository</b> such as BitBucket <a href="https://bitbucket.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub <a href="https://github.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or GitLab <a href="https://gitlab.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        </li>
+        <li>
+          <b>Optionally, also publish your simulation tool to a software repository</b> such as CRAN <a href="https://cran.r-project.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (R), NPM <a href="https://www.npmjs.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (JavaScript), or PyPi <a href="https://pypi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (Python).
         </li>
         <li>
           <b>Optionally, also register your tool with bio.tools.</b> Visit bio.tools <a href="https://bio.tools" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to submit your tool to their regsitry of research tools.
