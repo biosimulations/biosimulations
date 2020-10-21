@@ -91,7 +91,7 @@
     "spdx-license-list": "^6.3.0",
     "ssh2": "^0.8.9",
     "swagger-ui-express": "^4.1.4",
-    "uuid": "^8.3.0",
+    "uuid": "^8.3.1",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
