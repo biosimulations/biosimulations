@@ -16,6 +16,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Column, ColumnActionType, ColumnFilterType, Side, RowService } from './table.interface';
+import { UtilsService } from '@biosimulations/shared/services';
 import lunr from 'lunr';
 
 // TODO fix datasource / loading functionality
@@ -117,45 +118,13 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input()
   set data(data: Observable<any[]>) {
     this.subscription = data.subscribe((unresolvedData: any[]): void => {
-      this.resolveAndSetData(unresolvedData);
-    });
-  }
-
-  resolveAndSetData(unresolvedData: any[]): void {
-    const dataToResolve: Observable<any>[] = [];
-    const dataIndexesToResolve: number[] = [];
-    const resolvedData: any[] = [];
-    unresolvedData.forEach((unresolvedDatum: any, iDatum: number): void => {
-      const datumObservables: {[key: string]: Observable<any>} = {};
-      const resolvedDatum: {[key: string]: any} = {};
-      Object.keys(unresolvedDatum).forEach((key: any): void => {
-        const val = unresolvedDatum[key];
-        if (val instanceof Observable) {
-          datumObservables[key] = val;
-          resolvedDatum[key] = undefined;
-        } else {
-          resolvedDatum[key] = val;
-        }
-      });
-      if (Object.keys(datumObservables).length) {
-        dataToResolve.push(forkJoin(datumObservables));
-        dataIndexesToResolve.push(iDatum);
-      }
-      resolvedData.push(resolvedDatum);
-    });
-
-    if (dataToResolve.length) {
-      forkJoin(dataToResolve).subscribe((dataResolved: any[]): void => {
-        dataResolved.forEach((datumResolved: any, iDatumResolved: number) => {
-          const resolvedDatum = resolvedData[dataIndexesToResolve[iDatumResolved]];
-          Object.assign(resolvedDatum, datumResolved);
+      UtilsService.recursiveForkJoin(unresolvedData)
+        .subscribe((resolvedData: any[] | undefined) => {
+          if (resolvedData !== undefined) {
+            this.setData(resolvedData);
+          }
         });
-
-        this.setData(resolvedData);
-      });
-    } else {
-      this.setData(resolvedData);
-    }
+    });
   }
 
   setData(data: any[]): void {

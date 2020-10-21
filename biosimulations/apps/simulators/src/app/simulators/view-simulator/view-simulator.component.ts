@@ -64,12 +64,28 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'value',
       heading: 'Default value',
       key: 'value',
+      getter: (parameter: ViewParameter): boolean | number | string => {
+        const value = parameter.value;
+        if (value != null && value !== undefined) {
+          return value;
+        } else {
+          return 'Not available';
+        }
+      },
     },
     {
       id: 'range',
       heading: 'Recommended range',
       key: 'range',
       minWidth: 163,
+      getter: (parameter: ViewParameter): boolean | number | string => {
+        const value = parameter.range;
+        if (value != null && value !== undefined) {
+          return value;
+        } else {
+          return 'Not available';
+        }
+      },
     },
     {
       id: 'kisaoId',
@@ -80,7 +96,7 @@ export class ViewSimulatorComponent implements OnInit {
       rightHref: (parameter: ViewParameter): string => {
         return parameter.kisaoUrl;
       },
-      showStacked: false,
+      showStacked: true,
       minWidth: 130,
     },
   ];
@@ -230,12 +246,12 @@ export class ViewSimulatorComponent implements OnInit {
     };
   }
 
-  tocSections!: TocSection[];
+  tocSections!: Observable<TocSection[]>;
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     setTimeout(() => {
-      this.tocSections = container.getToc();
+      this.tocSections = container.sections$;
     });
   }
 
