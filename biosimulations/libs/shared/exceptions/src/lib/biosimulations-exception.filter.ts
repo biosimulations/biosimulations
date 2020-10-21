@@ -15,33 +15,19 @@ import {
   isBiosimulationsException,
 } from './exception';
 
-@Catch()
+@Catch(BiosimulationsException)
 export class BiosimulationsExceptionFilter implements ExceptionFilter {
-  catch(
-    exception: HttpException | BiosimulationsException | any,
-    host: ArgumentsHost
-  ) {
+  catch(exception: BiosimulationsException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    let status: number;
-    let resbody: ErrorObject;
-    if (isBiosimulationsException(exception)) {
-      status = exception.getStatus();
-      resbody = exception.getError();
-    } else if (exception instanceof HttpException) {
-      exception = BiosimulationsException.fromHTTP(exception);
-      status = exception.getStatus();
-      resbody = exception.getError();
-    } else {
-      status = HttpStatus.INTERNAL_SERVER_ERROR;
-      resbody = {
-        status: HttpStatus.INTERNAL_SERVER_ERROR.toString(),
-        title: 'Internal Server Error',
-        detail: exception,
-      };
-    }
+    let status: number = 500;
+    let resbody: ErrorObject = {};
+
+    status = exception.getStatus();
+    resbody = exception.getError();
+
     resbody.meta = {
       time: Date.now(),
       url: request.url,
