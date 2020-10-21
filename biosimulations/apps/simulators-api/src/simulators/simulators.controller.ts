@@ -219,26 +219,4 @@ export class SimulatorsController {
   ) {
     return this.service.replace(id, version, doc).then((res) => res);
   }
-
-  static handleValidationError(err: mongoose.Error.ValidationError) {
-    const details = [];
-    const path = [];
-
-    for (const key in err.errors) {
-      const validatorError = err.errors[key];
-
-      details.push(validatorError.message);
-      path.push('/' + key); //add a starting slash as per RFC 6901
-      console.log(validatorError.name);
-    }
-    // Change this to an exception that can contain multiple other exceptions
-    throw new BiosimulationsException(
-      400,
-      'Validation Error',
-      details.join(', '),
-      undefined,
-      undefined,
-      path.join(', ').replace(new RegExp('\\.', 'g'), '/') //Change the "." in the path to  "/" to make a valid JSON path
-    );
-  }
 }
