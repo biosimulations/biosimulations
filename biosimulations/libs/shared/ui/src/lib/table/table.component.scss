@@ -22,10 +22,11 @@
         width: 22px;
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
+        cursor: pointer;
 
         &:hover {
             background: $light-bg-darker-10;
-            border: 1px solid $light-bg-darker-20;
+            border: 1px solid $light-bg-darker-20;            
         }
 
         &:active {
