@@ -17,8 +17,8 @@ export class DefaultFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    let status = HttpStatus.INTERNAL_SERVER_ERROR;
-    let resbody = {
+    const status = HttpStatus.INTERNAL_SERVER_ERROR;
+    const resbody = {
       status: HttpStatus.INTERNAL_SERVER_ERROR.toString(),
       title: 'Internal Server Error',
       meta: {

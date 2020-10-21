@@ -22,7 +22,7 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    let status: number = 500;
+    let status = 500;
     let resbody: ErrorObject = {};
 
     status = exception.getStatus();
