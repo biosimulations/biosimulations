@@ -141,38 +141,38 @@ export class AppService {
   async downloadLogFile(uId: string, download: boolean, res: any) {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
     const simInfo = await this.modelsService.get(uId);
-
     let filePathOut = '';
     let filePathErr = '';
-
     download = String(download) === 'false' ? false : true;
     if (simInfo === null) {
       res.send({ message: 'Cannot find the UUID specified' })
       return;
     }
-
     switch (download) {
-      case true:
+      case true: {
         switch (simInfo.currentStatus) {
-          case DispatchSimulationStatus.SUCCEEDED:
+          case DispatchSimulationStatus.SUCCEEDED: {
             filePathOut = path.join(logPath, 'job.output');
             res.set('Content-Type', 'text/html');
             res.download(filePathOut);
             break;
-          case DispatchSimulationStatus.FAILED:
+          }
+          case DispatchSimulationStatus.FAILED: {
             filePathErr = path.join(logPath, 'job.error');
             res.set('Content-Type', 'text/html');
             res.download(filePathErr);
             break;
-          case DispatchSimulationStatus.QUEUED:
+          }
+          case DispatchSimulationStatus.QUEUED: {
             res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
             break;
-        };
+          }
+        }
         break;
-      case false:
+      }
+      case false: {
         switch (simInfo.currentStatus) {
-          case DispatchSimulationStatus.SUCCEEDED:
-          case DispatchSimulationStatus.FAILED:
+          case DispatchSimulationStatus.SUCCEEDED ||DispatchSimulationStatus.FAILED: {
             filePathOut = path.join(logPath, 'job.output');
             filePathErr = path.join(logPath, 'job.error');
             const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
@@ -186,10 +186,13 @@ export class AppService {
               }
             });
             break;
-          case DispatchSimulationStatus.QUEUED:
+          }
+          case DispatchSimulationStatus.QUEUED: {
             res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
             break;
+          }
         }
+      }
     }
   }
 
