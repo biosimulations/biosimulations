@@ -9,6 +9,10 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class SimulatorsService {
+  validate(doc: Simulator) {
+    const sim = new this.simulator(doc);
+    return sim.validate();
+  }
   constructor(
     @InjectModel(Simulator.name) private simulator: Model<Simulator>
   ) {}
@@ -58,7 +62,9 @@ export class SimulatorsService {
     version: string,
     doc: Simulator
   ): Promise<Simulator> {
-    const sim = await this.simulator.findOne({ id: id, version: version }).exec();
+    const sim = await this.simulator
+      .findOne({ id: id, version: version })
+      .exec();
 
     if (!sim) {
       throw new NotFoundException('No model with id ' + id);
