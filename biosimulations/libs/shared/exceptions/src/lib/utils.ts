@@ -42,8 +42,7 @@ export const makeErrorObject = (
 
 export const makeErrorObjectFromHttp = (exception: HttpException) => {
   let resp = exception.getResponse();
-  if (typeof resp === 'string') {
-  } else {
+  if (typeof resp !== 'string') {
     resp = (resp as any)?.error as string;
   }
   return makeErrorObject(exception.getStatus(), resp, exception.message);

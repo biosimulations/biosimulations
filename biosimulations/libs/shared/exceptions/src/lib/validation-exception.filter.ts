@@ -23,8 +23,8 @@ export class ValidationExceptionFilter implements ExceptionFilter {
       const validatorError:
         | mongoose.Error.ValidatorError
         | mongoose.Error.CastError = err.errors[key];
-      let path = ('/' + key).replace(new RegExp('\\.', 'g'), '/'); //Change the "." in the path to  "/" to make a valid JSON path as per RFC 6901
-      let error = makeErrorObject(
+      const path = ('/' + key).replace(new RegExp('\\.', 'g'), '/'); //Change the "." in the path to  "/" to make a valid JSON path as per RFC 6901
+      const error = makeErrorObject(
         HttpStatus.BAD_REQUEST,
         validatorError.name,
         validatorError.message,
