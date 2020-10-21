@@ -24,7 +24,6 @@ export class TabPageComponent implements OnInit, AfterViewInit, AfterViewChecked
   ngOnInit(): void {
     this.route.params.subscribe(() => {
       this.selectedTabIndex = 0;
-      console.log('here')
     });
   }
 
