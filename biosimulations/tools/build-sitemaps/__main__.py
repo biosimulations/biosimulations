@@ -6,6 +6,7 @@ import enum
 import jinja2
 import os
 import requests
+import sys
 
 
 class ChangeFreq(str, enum.Enum):
@@ -99,9 +100,16 @@ def build_biosimulations_sitemap():
 
 
 def main():
-    build_biosimulators_sitemap()
-    build_runbiosimulations_sitemap()
-    build_biosimulations_sitemap()
+    apps = sys.argv[1:]
+
+    if not apps or 'simulators' in apps:
+        build_biosimulators_sitemap()
+
+    if not apps or 'dispatch' in apps:
+        build_runbiosimulations_sitemap()
+
+    if not apps or 'platform' in apps:
+        build_biosimulations_sitemap()
 
 
 if __name__ == '__main__':
