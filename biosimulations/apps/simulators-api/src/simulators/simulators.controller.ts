@@ -8,9 +8,11 @@ import {
   UseGuards,
   NotFoundException,
   Put,
+  HttpCode,
 } from '@nestjs/common';
+import * as mongoose from 'mongoose';
 
-import { AdminGuard } from '@biosimulations/auth/nest';
+import { AdminGuard, JwtGuard } from '@biosimulations/auth/nest';
 import {
   ApiTags,
   ApiBody,
@@ -24,6 +26,7 @@ import {
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
   ApiBadRequestResponse,
+  ApiNoContentResponse,
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
@@ -34,6 +37,7 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 @Controller('simulators')
 export class SimulatorsController {
   constructor(private service: SimulatorsService) {}
+
   @Get()
   @ApiOperation({
     summary: 'Get all simulators and versions',
@@ -134,12 +138,10 @@ export class SimulatorsController {
     const res = await this.service.findByVersion(id, version);
     if (!res) {
       if (version) {
-        console.log(version);
         throw new NotFoundException(
           `Simulator with id ${id} and version ${version} was not found`
         );
       } else {
-        console.log('here?');
         throw new NotFoundException(`Simulator with id ${id} was not found`);
       }
     }
@@ -155,8 +157,26 @@ export class SimulatorsController {
   @ApiCreatedResponse({ type: Simulator })
   @ApiUnauthorizedResponse({ type: ErrorResponseDocument })
   @ApiForbiddenResponse({ type: ErrorResponseDocument })
+  @ApiBadRequestResponse({ type: ErrorResponseDocument })
   async create(@Body() doc: Simulator): Promise<Simulator[]> {
     return this.service.new(doc);
+  }
+
+  @Post('validate')
+  @ApiOperation({
+    summary: 'Validate a simulator schema',
+    description:
+      'Takes in a simulator description. Returns 204 (No Content) for a correct schema, or a 400 (Bad Input) for a incorrect schema. Does not check authentication',
+  })
+  @ApiBody({
+    type: Simulator,
+  })
+  @ApiBadRequestResponse({ type: ErrorResponseDocument })
+  @ApiNoContentResponse({ description: 'No Content' })
+  @HttpCode(204)
+  async validateSimulator(@Body() doc: Simulator) {
+    await this.service.validate(doc);
+    return;
   }
 
   @UseGuards(AdminGuard)
@@ -197,35 +217,6 @@ export class SimulatorsController {
     @Param('id') id: string,
     @Param('version') version: string
   ) {
-    return this.service
-      .replace(id, version, doc)
-      .then((res) => res)
-      .catch((err) => {
-        if (err?.status == 404) {
-          throw err;
-        }
-        // TODO Replace with an error that takes validation error in constructor
-        if (err?.name === 'ValidationError') {
-          const details = [];
-          const path = [];
-
-          for (const key in err.errors) {
-            const validatorError = err.errors[key];
-
-            details.push(validatorError.message);
-            path.push('/' + key); //add a starting slash as per RFC 6901
-            console.log(validatorError.name);
-          }
-
-          throw new BiosimulationsException(
-            400,
-            'Validation Error',
-            details.join(', '),
-            undefined,
-            undefined,
-            path.join(', ').replace(new RegExp('\\.', 'g'), '/') //Change the "." in the path to  "/" to make a valid JSON path
-          );
-        }
-      });
+    return this.service.replace(id, version, doc).then((res) => res);
   }
 }

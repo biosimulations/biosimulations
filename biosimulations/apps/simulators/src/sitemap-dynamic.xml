@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
+  <url>
+    <loc>https://biosimulators.org/bionetgen</loc>
+    <lastmod>2020-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/bionetgen/2.5.0</loc>
+    <lastmod>2020-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/cobrapy</loc>
+    <lastmod>2020-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/cobrapy/0.17.1</loc>
+    <lastmod>2020-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/copasi</loc>
+    <lastmod>2020-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/copasi/4.27.214</loc>
+    <lastmod>2020-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/tellurium</loc>
+    <lastmod>2020-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/tellurium/2.4.1</loc>
+    <lastmod>2020-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/vcell</loc>
+    <lastmod>2020-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/vcell/7.2</loc>
+    <lastmod>2020-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+</urlset>
