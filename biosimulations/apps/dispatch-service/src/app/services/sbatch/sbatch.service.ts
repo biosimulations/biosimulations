@@ -9,11 +9,11 @@ export class SbatchService {
     omexName: string
   ): string {
     const template = `#!/bin/bash
-#SBATCH --job-name=test
+#SBATCH --job-name=BioSimulations
+#SBATCH --time=10:00
 #SBATCH --output=${tempSimDir}/out/job.output
 #SBATCH --error=${tempSimDir}/out/job.error
 #SBATCH --ntasks=1
-#SBATCH --time=10:00
 #SBATCH --mem-per-cpu=1000
 #SBATCH --partition=general
 #SBATCH --qos=general
