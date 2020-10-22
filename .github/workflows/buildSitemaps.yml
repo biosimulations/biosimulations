@@ -40,7 +40,7 @@ jobs:
         run: python3.7 -m pip install -r ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps/requirements.txt
       
       - name: Build sitemap(s)
-        run: python3 ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps ${{ github.event.inputs.apps }}
+        run: python3.7 ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps ${{ github.event.inputs.apps }}
       
       - name: Commit updated sitemaps to repository
         uses: peter-evans/create-pull-request@v3
