@@ -6,19 +6,22 @@ jobs:
   dependency-report:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
-      - name: Generate report
+
+      - name: Generate license report
         working-directory: ./biosimulations
         run: |
           npm install -g license-checker
           npm ci
           npm run gen-dependency-license-report
 
-      - name: Create pull request
+      - name: Create pull request for updated license report
         id: create_pull_request
         uses: peter-evans/create-pull-request@v3
         with:
