@@ -1,0 +1,53 @@
+name: Build sitemap(s) for app(s)
+
+on:
+  push:
+
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+
+  workflow_dispatch:
+    inputs:
+      apps:
+        description: 'Comma-separated list of the names of app(s) to build sitemaps for; default: build a sitemap for each app'
+        required: false
+        default: ''
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      
+      - name: Install Python 3.7 and pip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends software-properties-common
+          sudo add-apt-repository -y ppa:deadsnakes/ppa
+          sudo apt-get install -y --no-install-recommends \
+              git \
+              python3.7 \
+              python3 \
+              python3-pip
+          python3.7 -m pip install pip
+          python3.7 -m pip install setuptools
+      
+      - name: Install sitemap build utility
+        run: python3.7 -m pip install -r ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps/requirements.txt
+      
+      - name: Build sitemap(s)
+        run: python3 ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps ${{ github.event.inputs.apps }}
+      
+      - name: Commit updated sitemaps to repository
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          branch: sitemaps
+          base: dev
+          commit-message: "Updated sitemaps"
+          committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
