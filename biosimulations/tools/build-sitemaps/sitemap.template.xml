@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for url in urls %} 
+  <url>
+    <loc>{{ base_url }}{{ url.loc }}</loc>
+    <lastmod>{{ '%04d-%02d-%02d' | format(url.last_mod.year, url.last_mod.month, url.last_mod.day) }}</lastmod>
+    <changefreq>{{ url.change_freq.name }}</changefreq>
+  </url>
+  {% endfor %}
+</urlset>
