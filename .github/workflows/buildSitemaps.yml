@@ -1,8 +1,6 @@
 name: Build sitemap(s) for app(s)
 
 on:
-  push:
-
   schedule:
     - cron: '0 0 * * 0' # weekly
 
