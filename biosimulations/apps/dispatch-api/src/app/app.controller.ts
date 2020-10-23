@@ -21,6 +21,7 @@ import {
   ApiBody,
   ApiQuery,
   ApiTags,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import {
   SimulationDispatchSpec,
@@ -46,7 +47,10 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Dispatch status',
     type: Object,
   })
-  // TODO: Create a custom decorator for this and move to shared libs
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal Server Error',
+  })
   @ApiBody({
     schema: {
       type: 'object',
