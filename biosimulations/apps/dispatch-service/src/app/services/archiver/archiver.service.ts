@@ -11,13 +11,11 @@ export class ArchiverService {
   constructor(
     private modelsService: ModelsService,
     private configService: ConfigService,) { }
-  private logger = new Logger(ArchiverService.name);
+  private logger = new Logger('ArchiverService');
   private fileStorage: string = this.configService.get(
-    'hpc.fileStorage') || '';
+    'hpc.fileStorage', '');
 
   async createResultArchive(uuid: string) {
-
-
     const resultPath = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const simPath = path.join(this.fileStorage, 'simulations', uuid);
     const output = fs.createWriteStream(path.join(simPath, uuid + '.zip'));
