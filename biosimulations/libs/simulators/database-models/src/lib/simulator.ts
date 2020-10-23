@@ -10,9 +10,12 @@ import { AlgorithmSchema } from './algorithm';
 import { EdamOntologyIdSchema, SpdxIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
 import { IEdamOntologyId, ISpdxId } from '@biosimulations/shared/datamodel';
+import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 @Schema({})
 class Simulator extends Document {
+  @Prop()
+  biosimulators!: BiosimulatorsMeta;
   @Prop({ lowercase: true, trim: true, required: true })
   id!: string;
 

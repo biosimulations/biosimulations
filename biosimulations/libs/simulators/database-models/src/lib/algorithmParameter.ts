@@ -1,10 +1,13 @@
-import { PrimitiveType } from '@biosimulations/shared/datamodel';
+import {
+  PrimitiveType,
+  AlgorithmParameter as IAlgorithmParameter,
+} from '@biosimulations/shared/datamodel';
 import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/shared/datamodel';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ _id: false, storeSubdocValidationError: false })
-export class AlgorithmParameter {
+export class AlgorithmParameter implements IAlgorithmParameter {
   @Prop({ type: KisaoOntologyIdSchema })
   kisaoId!: IKisaoOntologyId;
   @Prop()
