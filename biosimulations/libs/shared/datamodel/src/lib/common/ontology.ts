@@ -12,6 +12,7 @@ export const SboIdRegEx = /^SBO_\d+$/;
 export interface Identifier {
   namespace: string;
   id: string;
+  url?: string | null;
 }
 export interface IURL extends Identifier {
   namespace: Ontologies.URL;
