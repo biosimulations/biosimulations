@@ -1,3 +1,7 @@
-/api  /api/
 /api/*  https://api.biosimulations.dev/:splat  200
+/swagger-ui.css                    /api/swagger-ui.css
+/swagger-ui-bundle.js              /api/swagger-ui-bundle.js
+/swagger-ui-standalone-preset.js   /api/swagger-ui-standalone-preset.js
+/swagger-ui-init.js                /api/swagger-ui-init.js
+/favicon-32x32.png                 /api/favicon-32x32.png
 /*    /index.html    200
