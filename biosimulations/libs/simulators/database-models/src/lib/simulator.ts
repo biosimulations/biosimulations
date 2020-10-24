@@ -10,19 +10,21 @@ import { AlgorithmSchema } from './algorithm';
 import { EdamOntologyIdSchema, SpdxIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
 import { IEdamOntologyId, ISpdxId } from '@biosimulations/shared/datamodel';
+import { ExternalReferencesSchema, PersonSchema } from './common';
 
 @Schema({})
 class Simulator extends Document {
-  @Prop({ lowercase: true, trim: true, required: true })
+  @Prop({ type: String, lowercase: true, trim: true, required: true })
   id!: string;
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   name!: string;
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   version!: string;
 
-  @Prop({ text: true, required: true })
+  // TODO Should descriptions have a max length?
+  @Prop({ type: String, text: true, required: true })
   description!: string;
 
   @Prop({})
@@ -34,10 +36,10 @@ class Simulator extends Document {
   @Prop({ type: EdamOntologyIdSchema })
   format!: IEdamOntologyId;
 
-  @Prop({ items: Object })
+  @Prop({ items: [PersonSchema] })
   authors!: Person[];
 
-  @Prop({ type: ExternalReferences })
+  @Prop({ type: ExternalReferencesSchema })
   references!: ExternalReferences;
 
   @Prop({ type: SpdxIdSchema })

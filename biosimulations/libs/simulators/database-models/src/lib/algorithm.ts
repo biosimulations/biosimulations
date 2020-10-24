@@ -17,6 +17,7 @@ import {
   AlgorithmParameter,
   AlgorithmParameterSchema,
 } from './algorithmParameter';
+import { CitationSchema } from './common';
 
 @Schema({ _id: false, storeSubdocValidationError: false })
 export class Algorithm implements IAlgorithm {
@@ -42,7 +43,7 @@ export class Algorithm implements IAlgorithm {
   @Prop({ type: [EdamOntologyIdSchema], _id: false })
   archiveFormats!: IEdamOntologyId[];
 
-  @Prop({})
+  @Prop({ type: [CitationSchema], _id: false })
   citations!: JournalReference[];
 }
 export const AlgorithmSchema = SchemaFactory.createForClass(Algorithm);
