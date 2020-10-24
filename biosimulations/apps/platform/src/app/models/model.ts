@@ -5,7 +5,7 @@ import {
   AccessLevel,
   Person,
   Identifier,
-  JournalReference,
+  Citation,
   BiomodelParameter,
   BiomodelVariable,
   Taxon,
@@ -29,7 +29,7 @@ export class Model {
   description!: string;
   tags!: string[];
   identifiers!: Identifier[];
-  refs!: JournalReference[];
+  refs!: Citation[];
   authors!: Person[];
   license!: License;
   created!: Date;

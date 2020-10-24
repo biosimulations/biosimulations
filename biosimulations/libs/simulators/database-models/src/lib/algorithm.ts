@@ -4,7 +4,7 @@ import {
   IKisaoOntologyId,
   ISboOntologyId,
 } from '@biosimulations/shared/datamodel';
-import { JournalReference } from '@biosimulations/shared/datamodel-api';
+import { Citation } from '@biosimulations/shared/datamodel-api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import {
@@ -17,6 +17,7 @@ import {
   AlgorithmParameter,
   AlgorithmParameterSchema,
 } from './algorithmParameter';
+import { CitationSchema } from './common';
 
 @Schema({ _id: false, storeSubdocValidationError: false })
 export class Algorithm implements IAlgorithm {
@@ -42,7 +43,7 @@ export class Algorithm implements IAlgorithm {
   @Prop({ type: [EdamOntologyIdSchema], _id: false })
   archiveFormats!: IEdamOntologyId[];
 
-  @Prop({})
-  citations!: JournalReference[];
+  @Prop({ type: [CitationSchema], _id: false })
+  citations!: Citation[];
 }
 export const AlgorithmSchema = SchemaFactory.createForClass(Algorithm);

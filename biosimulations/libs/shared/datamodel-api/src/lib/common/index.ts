@@ -1,5 +1,5 @@
 export * from './format';
-export * from './journalreference';
+export * from './citation';
 export * from './taxon';
 export * from './license.dto';
 export * from './ontology.dto';

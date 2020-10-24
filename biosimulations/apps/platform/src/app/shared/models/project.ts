@@ -1,7 +1,7 @@
 import { AccessLevel } from '@biosimulations/shared/datamodel';
 import { License } from './license';
 import { Identifier } from './identifier';
-import { JournalReference } from './journal-reference';
+import { Citation } from './journal-reference';
 import { Person } from './person';
 import { ProjectProduct } from './project-product';
 import { RemoteFile } from './remote-file';
@@ -26,7 +26,7 @@ export class Project extends TopLevelResource {
   description?: string;
   tags?: string[] = [];
   identifiers?: Identifier[] = [];
-  refs?: JournalReference[] = [];
+  refs?: Citation[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;
