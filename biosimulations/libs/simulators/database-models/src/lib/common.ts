@@ -1,15 +1,14 @@
 import {
   ExternalReferences as IExternalReferences,
   Identifier,
-  JournalReference,
+  Citation as ICitation,
 } from '@biosimulations/shared/datamodel';
 
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
 import { IdentifierSchema } from './ontologyId';
-import { JournalReference as IJournalReference } from '@biosimulations/shared/datamodel';
 
 @Schema({ _id: false, storeSubdocValidationError: false })
-class Citation implements IJournalReference {
+class Citation implements ICitation {
   @Prop({ type: String, required: true })
   authors!: string;
   @Prop({ type: String, required: true })
@@ -44,7 +43,7 @@ export class ExternalReferences implements IExternalReferences {
   @Prop({ type: IdentifierSchema })
   identifiers!: Identifier[];
   @Prop({ type: CitationSchema })
-  citations!: JournalReference[];
+  citations!: Citation[];
 }
 
 export const ExternalReferencesSchema = SchemaFactory.createForClass(

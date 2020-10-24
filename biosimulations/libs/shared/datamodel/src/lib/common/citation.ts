@@ -1,6 +1,6 @@
 import { Identifier } from './ontology';
 
-export interface JournalReference {
+export interface Citation {
   authors: string;
   title: string;
   journal: string | null;

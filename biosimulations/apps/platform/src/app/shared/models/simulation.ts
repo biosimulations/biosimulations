@@ -8,7 +8,7 @@ import { AlgorithmParameter } from './algorithm-parameter';
 import { ChartType } from './chart-type';
 import { Format } from './format';
 import { Identifier } from './identifier';
-import { JournalReference } from './journal-reference';
+import { Citation } from './journal-reference';
 import { Model } from './model';
 import { OntologyTerm } from './ontology-term';
 import { Person } from './person';

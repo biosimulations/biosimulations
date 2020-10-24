@@ -1,4 +1,4 @@
-import { JournalReference as JournalReferenceDTO } from '@biosimulations/shared/datamodel';
+import { Citation as JournalReferenceDTO } from '@biosimulations/shared/datamodel';
 export interface JournalReferenceSerialized {
   authors?: string;
   title?: string;
@@ -14,7 +14,7 @@ interface Names {
   middleNames: string[];
   lastName: string;
 }
-export class JournalReference {
+export class Citation {
   public authors: string;
   public title: string;
   public journal: string;
@@ -116,6 +116,20 @@ export class JournalReference {
   }
 
   toString() {
-    return this.getAuthorsStr() + ' . ' + this.title + '. <i>' + this.journal + '>/i>  <b>' + this.volume + '</b>' + ', ' + this.pages + '(' + this.year + ').'
+    return (
+      this.getAuthorsStr() +
+      ' . ' +
+      this.title +
+      '. <i>' +
+      this.journal +
+      '>/i>  <b>' +
+      this.volume +
+      '</b>' +
+      ', ' +
+      this.pages +
+      '(' +
+      this.year +
+      ').'
+    );
   }
 }

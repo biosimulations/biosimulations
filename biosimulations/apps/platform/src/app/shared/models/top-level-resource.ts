@@ -1,7 +1,7 @@
 import { AccessLevel } from '@biosimulations/shared/datamodel';
 import { License } from './license';
 import { Identifier } from './identifier';
-import { JournalReference } from './journal-reference';
+import { Citation } from './journal-reference';
 import { Person } from './person';
 import { RemoteFile } from './remote-file';
 import { User } from './user';
@@ -21,7 +21,7 @@ export abstract class TopLevelResource {
   accessToken?: string;
   image?: RemoteFile;
   identifiers?: Identifier[];
-  refs?: JournalReference[];
+  refs?: Citation[];
   authors?: Person[];
   owner?: User;
   access?: AccessLevel;
@@ -49,7 +49,7 @@ export abstract class TopLevelResource {
       } else {
         this.owner$ = this.userService.get$(this.ownerId).pipe(
           shareReplay(1),
-          tap((owner) => (this.owner = owner)),
+          tap((owner) => (this.owner = owner))
         );
         return this.owner$;
       }
