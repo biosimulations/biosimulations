@@ -40,9 +40,9 @@ export class SimulatorsController {
 
   @Get()
   @ApiOperation({
-    summary: 'Get all simulators and versions',
+    summary: 'Get all simulators and all of their versions',
     description:
-      'Returns a list of all of the available simulators. A unique simulator is identified by its id and version field.',
+      'Returns a list of the specifications of each available version of each simulators.',
   })
   @ApiOkResponse({ description: 'OK', type: [Simulator] })
   getSimulators() {
@@ -58,7 +58,7 @@ export class SimulatorsController {
   @ApiOperation({
     summary: 'Get the latest version of each simulator',
     description:
-      'Returns a list of the latest version of each simulator. Specify a value for the id query parameter to get the latest version of a particular simulator',
+      'Returns a list of the specifications of the latest version of each simulator.',
   })
   @ApiQuery({
     name: 'id',
@@ -91,6 +91,10 @@ export class SimulatorsController {
     }
   }
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get the versions of a simulator',
+    description: 'Get a list of the specifications of each version of a simulator',
+  })
   @ApiParam({
     name: 'id',
     required: true,
@@ -106,6 +110,10 @@ export class SimulatorsController {
   }
 
   @Get(':id/:version')
+  @ApiOperation({
+    summary: 'Get a version of a simulator',
+    description: 'Get the specifications of a version of a simulator',
+  })
   @ApiParam({
     name: 'id',
     required: true,
@@ -151,6 +159,10 @@ export class SimulatorsController {
   @UseGuards(AdminGuard)
   @ApiOAuth2([])
   @Post()
+  @ApiOperation({
+    summary: 'Add a version of a simulator to the database',
+    description: 'Add the specifications of a version of a simulator to the database.',
+  })
   @ApiBody({
     type: Simulator,
   })
@@ -164,9 +176,9 @@ export class SimulatorsController {
 
   @Post('validate')
   @ApiOperation({
-    summary: 'Validate a simulator schema',
+    summary: 'Validate the specification of a simulator',
     description:
-      'Takes in a simulator description. Returns 204 (No Content) for a correct schema, or a 400 (Bad Input) for a incorrect schema. Does not check authentication',
+      'Returns 204 (No Content) for a correct specification, or a 400 (Bad Input) for an incorrect specification.',
   })
   @ApiBody({
     type: Simulator,
@@ -212,6 +224,10 @@ export class SimulatorsController {
     description: 'Request body does not match schema',
   })
   @Put(':id/:version')
+  @ApiOperation({
+    summary: 'Update a version of a simulator',
+    description: 'Update the specifications of a version of a simulator.',
+  })
   async update(
     @Body() doc: Simulator,
     @Param('id') id: string,
