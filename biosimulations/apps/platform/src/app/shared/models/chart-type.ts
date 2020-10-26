@@ -6,7 +6,7 @@ import {
 import { License } from './license';
 import { ChartTypeDataField } from './chart-data-field';
 import { Identifier } from './identifier';
-import { JournalReference } from './journal-reference';
+import { Citation } from './journal-reference';
 import { Model } from './model';
 import { Person } from './person';
 import { Project } from './project';
@@ -28,7 +28,7 @@ export class ChartType extends TopLevelResource {
   description?: string;
   tags?: string[] = [];
   identifiers?: Identifier[] = [];
-  refs?: JournalReference[] = [];
+  refs?: Citation[] = [];
   authors?: (User | Person)[] = [];
   owner?: User;
   access?: AccessLevel;

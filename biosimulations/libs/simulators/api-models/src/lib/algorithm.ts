@@ -2,7 +2,7 @@ import {
   Format as IFormat,
   IAlgorithm,
 } from '@biosimulations/shared/datamodel';
-import { JournalReference } from '@biosimulations/shared/datamodel-api';
+import { Citation } from '@biosimulations/shared/datamodel-api';
 
 import {
   EdamOntologyId,
@@ -34,6 +34,6 @@ export class Algorithm implements IAlgorithm {
   simulationFormats!: EdamOntologyId[];
   @ApiProperty({ type: [EdamOntologyId] })
   archiveFormats!: EdamOntologyId[];
-  @ApiProperty({ type: [JournalReference] })
-  citations!: JournalReference[];
+  @ApiProperty({ type: [Citation] })
+  citations!: Citation[];
 }

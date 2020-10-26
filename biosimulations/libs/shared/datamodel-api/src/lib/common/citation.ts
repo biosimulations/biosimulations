@@ -1,8 +1,8 @@
-import { JournalReference as IJournalReference } from '@biosimulations/shared/datamodel';
+import { Citation as IJournalReference } from '@biosimulations/shared/datamodel';
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
 import { Identifier } from './ontology.dto';
 
-export class JournalReference implements IJournalReference {
+export class Citation implements IJournalReference {
   @ApiProperty()
   authors!: string;
   @ApiProperty()

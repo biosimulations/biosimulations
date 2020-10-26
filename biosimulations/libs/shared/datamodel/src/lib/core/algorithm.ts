@@ -1,5 +1,5 @@
 import { PrimitiveType } from '../common/primitive-type';
-import { IOntologyTerm, Format, JournalReference } from '../..';
+import { IOntologyTerm, Format, Citation } from '../..';
 import { KisaoId } from '../common/alias';
 import {
   ISboOntologyId,
@@ -34,7 +34,7 @@ export interface IAlgorithm {
   parameters: AlgorithmParameter[];
   simulationFormats: IEdamOntologyId[];
   archiveFormats: IEdamOntologyId[];
-  citations: JournalReference[];
+  citations: Citation[];
 }
 
 /*

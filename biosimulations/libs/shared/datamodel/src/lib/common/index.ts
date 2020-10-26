@@ -1,6 +1,6 @@
 export * from './alias';
 export * from './format';
-export * from './journalreference';
+export * from './citation';
 export * from './license';
 export * from './format';
 export * from './ontology';

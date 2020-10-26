@@ -1,5 +1,5 @@
 import { ProjectProductType } from '@biosimulations/shared/datamodel';
-import { JournalReference } from './journal-reference';
+import { Citation } from './journal-reference';
 import { Model } from './model';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
@@ -12,7 +12,7 @@ import { ProjectProduct as ProjectProductDTO } from '@biosimulations/shared/data
 Synonyms: artifact, output, display item
 */
 export class ProjectProduct {
-  ref?: JournalReference;
+  ref?: Citation;
   type?: ProjectProductType;
   label?: string;
   description?: string;

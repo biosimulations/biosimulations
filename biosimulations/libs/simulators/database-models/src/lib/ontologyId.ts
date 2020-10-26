@@ -7,13 +7,21 @@ import {
   ISpdxId,
   KisaoIdRegEx,
   SboIdRegEx,
+  Identifier as IIdentifier,
 } from '@biosimulations/shared/datamodel';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ _id: false })
+@Schema({ _id: false, storeSubdocValidationError: false })
+class Identifier implements IIdentifier {
+  namespace!: string;
+  id!: string;
+  url!: string;
+}
+export const IdentifierSchema = SchemaFactory.createForClass(Identifier);
+@Schema({ _id: false, storeSubdocValidationError: false })
 class OntologyId implements IOntologyId {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, enum: Ontologies })
   namespace!: Ontologies;
 
   @Prop({ required: true })

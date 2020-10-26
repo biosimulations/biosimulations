@@ -8,8 +8,12 @@ import { Document } from 'mongoose';
 
 import { EdamOntologyId, SpdxId } from './ontologyId';
 import { Algorithm } from './algorithm';
+import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator extends Document {
+  @ApiProperty()
+  biosimulators!: BiosimulatorsMeta;
+
   @ApiProperty({
     example: 'tellurium',
     name: 'id',
