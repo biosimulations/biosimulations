@@ -223,7 +223,7 @@ export class ViewSimulatorService {
       text += ' (' + citation.issue + ')';
     }
     if (citation.pages) {
-      text += ', ' + citation.pages;
+      text += ', ' + citation.pages.replace(/\-+/g, '–');
     }
     text += ' (' + citation.year + ').';
 
