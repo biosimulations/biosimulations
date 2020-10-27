@@ -79,7 +79,7 @@ export class ViewSimulatorComponent implements OnInit {
           } else {
             val = val.toFixed(3);
           }
-          return `${val}e${exp}`;        
+          return `${val}e${exp}`;
         }
         return value;
       },

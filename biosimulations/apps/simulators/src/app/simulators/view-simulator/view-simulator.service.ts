@@ -212,10 +212,10 @@ export class ViewSimulatorService {
     let text =
       citation.authors +
       '. ' +
-      citation.title +
-      '. <i>' +
-      citation.journal +
-      '</i>';
+      citation.title;
+    if (citation.journal) {
+      text += '. <i>' + citation.journal + '</i>';
+    }
     if (citation.volume) {
       text += ' ' + citation.volume;
     }
