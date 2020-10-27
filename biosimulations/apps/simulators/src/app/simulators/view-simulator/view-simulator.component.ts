@@ -45,11 +45,6 @@ export class ViewSimulatorComponent implements OnInit {
 
   parametersColumns: Column[] = [
     {
-      id: 'id',
-      heading: 'Id',
-      key: 'id',
-    },
-    {
       id: 'name',
       heading: 'Name',
       key: 'name',
@@ -64,13 +59,32 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'value',
       heading: 'Default value',
       key: 'value',
-      getter: (parameter: ViewParameter): boolean | number | string => {
+      getter: (parameter: ViewParameter): string | null => {
         const value = parameter.value;
-        if (value != null && value !== undefined) {
+        if (value === null) {
           return value;
-        } else {
-          return 'Not available';
+        } else if (typeof value === 'string') {
+          return value;
+        } else if (value === true || value === false) {
+          return value.toString();
+        } else if (value === 0) {
+          return '0';
+        } else if (value < 1e-3 || value > 1e3) {
+          const exp = Math.floor(Math.log10(value as number));
+          const val = (value as number) / Math.pow(10, exp);
+          let valStr: string;
+          if (Math.abs((val * 1e0 - Math.round(val * 1e0)) / (val * 1e0)) < 1e-12) {
+            valStr = val.toFixed(0);
+          } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
+            valStr = val.toFixed(1);
+          } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
+            valStr = val.toFixed(2);
+          } else {
+            valStr = val.toFixed(3);
+          }
+          return `${valStr}e${exp}`;
         }
+        return null;
       },
     },
     {
@@ -78,14 +92,6 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Recommended range',
       key: 'range',
       minWidth: 163,
-      getter: (parameter: ViewParameter): boolean | number | string => {
-        const value = parameter.range;
-        if (value != null && value !== undefined) {
-          return value;
-        } else {
-          return 'Not available';
-        }
-      },
     },
     {
       id: 'kisaoId',
