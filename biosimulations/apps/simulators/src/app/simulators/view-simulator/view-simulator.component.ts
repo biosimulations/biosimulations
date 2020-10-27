@@ -49,6 +49,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Name',
       key: 'name',
       showStacked: false,
+      minWidth: 250
     },
     {
       id: 'type',
@@ -83,8 +84,9 @@ export class ViewSimulatorComponent implements OnInit {
             valStr = val.toFixed(3);
           }
           return `${valStr}e${exp}`;
+        } else {
+          return value.toString();
         }
-        return null;
       },
     },
     {
