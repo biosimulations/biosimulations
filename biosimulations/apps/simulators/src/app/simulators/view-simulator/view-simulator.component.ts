@@ -63,25 +63,28 @@ export class ViewSimulatorComponent implements OnInit {
         const value = parameter.value;
         if (value === null) {
           return value;
-        } if (value === true || value === false) {
+        } else if (typeof value === 'string') {
+          return value;
+        } else if (value === true || value === false) {
           return value.toString();
         } else if (value === 0) {
           return '0';
         } else if (value < 1e-3 || value > 1e3) {
-          const exp = Math.floor(Math.log10(value));
-          let val = value / Math.pow(10, exp);
-          if (val === Math.round(val)) {
-            val = val.toFixed(0);
-          } else if (val * 1e1 === Math.round(val * 1e1)) {
-            val = val.toFixed(1);
-          } else if (val * 1e2 === Math.round(val * 1e2)) {
-            val = val.toFixed(2);
+          const exp = Math.floor(Math.log10(value as number));
+          const val = (value as number) / Math.pow(10, exp);
+          let valStr: string;
+          if (Math.abs((val * 1e0 - Math.round(val * 1e0)) / (val * 1e0)) < 1e-12) {
+            valStr = val.toFixed(0);
+          } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
+            valStr = val.toFixed(1);
+          } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
+            valStr = val.toFixed(2);
           } else {
-            val = val.toFixed(3);
+            valStr = val.toFixed(3);
           }
-          return `${val}e${exp}`;
+          return `${valStr}e${exp}`;
         }
-        return value;
+        return null;
       },
     },
     {
