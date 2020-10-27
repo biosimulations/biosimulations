@@ -119,7 +119,7 @@ export class ViewSimulatorService {
             .map((val: { toString: () => any }) => {
               return val.toString();
             })
-            .join(' - ')
+            .join(', ')
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
