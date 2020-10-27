@@ -1,12 +1,12 @@
 export class Simulator {
   name?: string;
   version?: string;
-  dockerHubImageId?: string;
+  image?: string;
 
-  constructor (name?: string, version?: string, dockerHubImageId?: string) {
+  constructor (name?: string, version?: string, image?: string) {
     this.name = name;
     this.version = version;
-    this.dockerHubImageId = dockerHubImageId;
+    this.image = image;
   }
 
   getFullName(): string {
@@ -15,9 +15,5 @@ export class Simulator {
         fullName += ' ' + this.version;
     }
     return fullName;
-  }
-
-  getDockerHubUrl(): string {
-    return 'https://hub.docker.com/r/' + this.dockerHubImageId;
   }
 }

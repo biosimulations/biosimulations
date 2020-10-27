@@ -5,7 +5,7 @@ export interface SimulatorAttributes {
   name: string;
   version: string;
   url: string;
-  dockerHubImageId: string;
+  image: string;
   algorithms: IAlgorithm[];
   metadata: SecondaryResourceMetaData;
 }
