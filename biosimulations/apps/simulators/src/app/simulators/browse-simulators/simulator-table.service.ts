@@ -113,7 +113,10 @@ export class SimulatorTableService {
     const frameworksArr: Observable<string>[] = [];
     for (const id of frameworks) {
       frameworksArr.push(
-        this.ontologyService.getSboTerm(id).pipe(pluck('name'))
+        this.ontologyService.getSboTerm(id).pipe(
+          pluck('name'),
+          map((name) => this.trimFramework(name))
+        )
       );
     }
 
@@ -134,6 +137,7 @@ export class SimulatorTableService {
     const obs = from(alg).pipe(mergeAll(), toArray());
     return obs;
   }
+
   getSynonyms(simulator: any): Observable<string[]> {
     const algorithmSynonyms: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
@@ -148,9 +152,10 @@ export class SimulatorTableService {
     const obs = from(algSyn).pipe(mergeAll(), toArray());
     return obs;
   }
+
   trimFramework(name: string): string {
-    if (name.toLowerCase().endsWith(' framework')) {
-      name = name.substring(0, name.length - 10);
+    if (name && name.toLowerCase().endsWith(' framework')) {
+      name = name.substring(0, name.length - 10).trim();
     }
     return name;
   }
