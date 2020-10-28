@@ -24,7 +24,7 @@ export class Simulator extends Document {
   name!: string;
 
   @ApiProperty({
-    example: '2.4.1',
+    example: '2.1.6',
   })
   version!: string;
 
@@ -40,7 +40,7 @@ export class Simulator extends Document {
   url!: string;
 
   @ApiProperty({
-    example: 'docker.io/biosimulators/tellurium:2.4.1',
+    example: 'docker.io/biosimulators/tellurium:2.1.6',
   })
   image!: string;
 
