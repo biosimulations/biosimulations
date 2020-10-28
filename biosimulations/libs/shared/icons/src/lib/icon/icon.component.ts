@@ -146,7 +146,7 @@ export class IconComponent implements OnInit {
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
     format: { type: 'far', name: 'file-alt' },
-    license: { type: 'fas', name: 'certificate' },
+    license: { type: 'fas', name: 'balance-scale' },
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },
