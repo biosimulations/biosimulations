@@ -62,8 +62,8 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'value',
       getter: (parameter: ViewParameter): string | null => {
         const value = parameter.value;
-        if (value === null) {
-          return value;
+        if (value == null || value === undefined) {
+          return null;
         } else if (typeof value === 'string') {
           return value;
         } else if (value === true || value === false) {
