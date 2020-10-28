@@ -57,19 +57,23 @@
 }
 
 .copy-image {
+  biosimulations-icon, .code {
+    float: left;
+  }
+
   .code {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    float: left;
-    max-width: calc(100% - 0.25rem - 13px);
+    max-width: calc(100% - 2 * 0.25rem - 14px - 13px);
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 
   .biosimulations-icon-button {
     position: relative;
     top: -0.15rem;
     float: left;
-    margin-left: 0.25rem;
     font-size: 125%;
   }
 }

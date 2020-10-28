@@ -50,6 +50,7 @@
         <div class="section">
           <h3>Docker pull command</h3>
           <div class="section-content copy-image">
+            <biosimulations-icon icon="logs"></biosimulations-icon>
             <div class="code">docker pull {{ simulator.image }}</div>
             <button
               mat-icon-button
@@ -67,10 +68,10 @@
           <h3>License</h3>
           <div class="section-content">
             <p>
-              {{ simulator.licenseName | async }}
-              <a [href]="simulator.licenseUrl | async" target="_blank"
-                ><biosimulations-icon icon="link"></biosimulations-icon
-              ></a>
+              <biosimulations-icon icon="license"></biosimulations-icon>
+              <a [href]="simulator.licenseUrl | async" target="_blank" class="text">
+                {{ simulator.licenseName | async }}
+              </a>
             </p>
           </div>
         </div>
@@ -78,6 +79,7 @@
         <div class="section">
           <h3>More info</h3>
           <div class="section-content">
+            <biosimulations-icon icon="tutorial"></biosimulations-icon>
             <a [href]="simulator.url" target="_blank" class="text">
               {{ simulator.url }}
             </a>
@@ -89,9 +91,8 @@
           <div class="section-content">
             <ul class="identifiers icon-list">
               <li *ngFor="let identifier of simulator.identifiers">
-                <a [href]="identifier.url" target="_blank">
-                  <biosimulations-icon icon="id"></biosimulations-icon>{{ identifier.text }}
-                </a>
+                <biosimulations-icon icon="id"></biosimulations-icon>
+                <a [href]="identifier.url" target="_blank">{{ identifier.text }}</a>
               </li>
             </ul>
           </div>
