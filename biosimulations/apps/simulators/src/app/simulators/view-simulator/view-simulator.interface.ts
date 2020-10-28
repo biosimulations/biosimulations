@@ -45,6 +45,11 @@ export interface ViewParameter {
   kisaoUrl: string;
 }
 
+export interface ViewIdentifier {
+  text: string;
+  url: string | null;
+}
+
 export interface ViewCitation {
   url: string | null;
   text: string;
@@ -67,6 +72,7 @@ export interface ViewSimulator {
   licenseUrl: Observable<string>;
   licenseName: Observable<string>;
   authors: string | null;
+  identifiers: ViewIdentifier[];
   citations: ViewCitation[];
   algorithms: ViewAlgorithm[];
   versions: Observable<ViewVersion[]>;

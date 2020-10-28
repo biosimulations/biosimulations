@@ -83,6 +83,19 @@
             </a>
           </div>
         </div>
+
+        <div class="section" *ngIf="simulator.identifiers.length">
+          <h3>Cross references</h3>
+          <div class="section-content">
+            <ul class="identifiers icon-list">
+              <li *ngFor="let identifier of simulator.identifiers">
+                <a [href]="identifier.url" target="_blank">
+                  <biosimulations-icon icon="id"></biosimulations-icon>{{ identifier.text }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </biosimulations-tab-page-tab>

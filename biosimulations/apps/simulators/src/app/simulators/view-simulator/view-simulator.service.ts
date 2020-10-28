@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SimulatorService, Version } from '../simulator.service';
 import {
   ViewSimulator,
+  ViewIdentifier,
   ViewCitation,
   ViewVersion,
   ViewAlgorithm,
@@ -63,7 +64,8 @@ export class ViewSimulatorService {
       description: sim.description,
       url: sim.url,
       authors: this.getAuthors(sim),
-      citations: sim?.references?.citations?.map(this.makeCitation),
+      identifiers: sim?.references?.identifiers?.map(this.makeIdentifier, this),
+      citations: sim?.references?.citations?.map(this.makeCitation, this),
 
       licenseName: this.ontService.getSpdxTerm(sim.license.id).pipe(
         pluck('name'),
@@ -208,6 +210,12 @@ export class ViewSimulatorService {
     }
     return formattedValue;
   }
+  makeIdentifier(identifier: any): ViewIdentifier {
+    return {
+      text: identifier.namespace + ':' + identifier.id,
+      url: this.getIdentifierUrl(identifier)
+    };
+  }
   makeCitation(citation: any): ViewCitation {
     let text =
       citation.authors +
@@ -227,29 +235,37 @@ export class ViewSimulatorService {
     }
     text += ' (' + citation.year + ').';
 
-    let url = (citation?.identifiers?.[0]?.url as string) || null;
-    if (!url && citation?.identifiers?.[0]) {
-      const namespace = citation?.identifiers?.[0].namespace;
-      const id = citation?.identifiers?.[0].id;
-      switch (namespace.toLowerCase()) {
-        case 'doi':
-          url = 'https://doi.org/' + id;
-          break;
-        case 'isbn':
-          url = 'https://isbndb.com/book/' + id;
-          break;
-        case 'url':
-          url = id;
-          break;
-        default:
-          url = 'https://identifiers.org/' + namespace + '/' + id;
-          break;
-      }
+    const identifier = citation?.identifiers?.[0];
+    let url: string | null = null;
+    if (identifier) {
+      url = this.getIdentifierUrl(identifier);
     }
 
     return {
       text: text,
       url: url,
     };
+  }
+  getIdentifierUrl(identifier: any): string | null {
+    const url = (identifier?.url as string) || null;
+    if (url) {
+      return url;
+    }
+
+    const namespace = identifier.namespace;
+    const id = identifier.id;
+    switch (namespace.toLowerCase()) {
+      case 'doi':
+        return 'https://doi.org/' + id;
+        break;
+      case 'isbn':
+        return 'https://isbndb.com/book/' + id;
+        break;
+      case 'url':
+        return id;
+        break;
+      default:
+        return 'https://identifiers.org/' + namespace + '/' + id;
+    }
   }
 }
