@@ -15,7 +15,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Column, ColumnActionType, ColumnFilterType, Side, RowService } from './table.interface';
+import { Column, ColumnActionType, ColumnFilterType, IdColumnMap, Side, RowService, Sort as ISort } from './table.interface';
 import { UtilsService } from '@biosimulations/shared/services';
 import lunr from 'lunr';
 
@@ -54,7 +54,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   private _columns!: Column[];
   showColumns!: {[id: string]: boolean};
   columnsToShow!: string[];
-  private idToColumn!: { [id: string]: Column };
+  private idToColumn!: IdColumnMap;
   columnFilterData!: {[id: string]: any};
   isLoading!: Observable<boolean>;
   private isLoaded!: Observable<boolean>;
@@ -64,7 +64,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   private fullTextMatches!: {[index: number]: boolean};
 
   @Input()
-  defaultSort!: { active: string; direction: string };
+  defaultSort!: ISort;
 
   @Input()
   linesPerRow = 1;
@@ -116,20 +116,29 @@ export class TableComponent implements OnInit, AfterViewInit {
   private subscription?: Subscription;
 
   @Input()
-  set data(data: Observable<any[]>) {
-    this.subscription = data.subscribe((unresolvedData: any[]): void => {
-      UtilsService.recursiveForkJoin(unresolvedData)
+  set data(data: any) {
+    if (data instanceof Observable) {
+      this.subscription = data.subscribe((unresolvedData: any[]): void => {
+        UtilsService.recursiveForkJoin(unresolvedData)
+          .subscribe((resolvedData: any[] | undefined) => {
+            if (resolvedData !== undefined) {
+              this.setData(resolvedData);
+            }
+          });
+      });
+    } else {
+      UtilsService.recursiveForkJoin(data)
         .subscribe((resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
             this.setData(resolvedData);
           }
         });
-    });
+    }
   }
 
   setData(data: any[]): void {
     this.dataSource.isLoading.next(true);
-    const sortedData = this.sortData(data, this.defaultSort);
+    const sortedData = RowService.sortData(this.idToColumn, data, this.defaultSort);
     sortedData.forEach((datum: any, iDatum: number): void => {
       datum._index = iDatum;
     });
@@ -233,7 +242,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.setDataSourceFilter();
     this.dataSource.filterPredicate = this.filterData.bind(this);
     this.dataSource.sort = this.sort;
-    this.dataSource.sortData = this.sortData.bind(this);
+    this.dataSource.sortData = (data: any[], sort: Sort) => {
+      return RowService.sortData(this.idToColumn, data, sort);
+    };
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
@@ -502,37 +513,6 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     return true;
-  }
-
-  sortData(data: any[], sort: any): any[] {
-    if (sort === undefined) {
-      return data;
-    }
-
-    const sortColumnId = sort.active;
-    const sortDirection = sort.direction;
-
-    const sortedData = [...data];
-
-    sortedData.sort((a: any, b: any): number => {
-      let defaultKey: string | undefined = undefined;
-      let column: Column | undefined = undefined;
-      if (sortDirection === '') {
-        defaultKey = '_index';
-      } else if (sortColumnId) {
-        column = this.idToColumn[sortColumnId];
-      }
-
-      const aVal = RowService.getElementValue(a, column, defaultKey);
-      const bVal = RowService.getElementValue(b, column, defaultKey);
-
-      const sign = sortDirection !== 'desc' ? 1 : -1;
-
-      const comparator = RowService.getComparator(column, sortDirection === '');
-      return sign * comparator(aVal, bVal, sign);
-    });
-
-    return sortedData;
   }
 
   toggleColumn(column: Column): void {

@@ -109,7 +109,7 @@ export class ViewSimulatorComponent implements OnInit {
     },
   ];
 
-  getParameterStackedHeading(parameter: ViewParameter): Observable<string> {
+  getParameterStackedHeading(parameter: ViewParameter): string {
     return parameter.name;
   }
 

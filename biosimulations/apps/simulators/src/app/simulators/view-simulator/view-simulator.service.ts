@@ -6,21 +6,22 @@ import {
   ViewCitation,
   ViewVersion,
   ViewAlgorithm,
+  ViewAlgorithmObservable,
   ViewFramework,
   ViewFormat,
-  ViewParameter,
+  ViewParameterObservable,
   DescriptionFragment,
   DescriptionFragmentType,
 } from './view-simulator.interface';
 import { OntologyService } from '../ontology.service';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { map, pluck, tap } from 'rxjs/operators';
-import {} from './view-simulator.component';
 import {
   IEdamOntologyId,
   ISboOntologyId,
 } from '@biosimulations/shared/datamodel';
+import { UtilsService } from '@biosimulations/shared/services';
 import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
@@ -54,8 +55,9 @@ export class ViewSimulatorService {
       } else {
         throw new BiosimulationsError('Simulator not found', `There is no simulator with id "${simulatorId}".`, 404);
       }
-    }
+    }    
 
+    const viewSimAlgorithms = new BehaviorSubject<ViewAlgorithm[]>([]);
     const viewSim: ViewSimulator = {
       id: sim.id,
       version: sim.version,
@@ -79,12 +81,24 @@ export class ViewSimulatorService {
       versions: this.simService
         .getVersions(sim.id)
         .pipe(map((value: Version[]) => value.map(this.setVersionDate))),
-      algorithms: sim.algorithms.map(this.mapAlgorithms, this),
+      algorithms: viewSimAlgorithms.asObservable(),
     };
+
+    const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
+    UtilsService.recursiveForkJoin(unresolvedAlgorithms)
+        .subscribe((algorithms: any[] | undefined) => {
+          if (algorithms !== undefined) {
+            algorithms.sort((a, b) => {
+              return a.name.localeCompare(b.name, undefined, { numeric: true });
+            });
+            viewSimAlgorithms.next(algorithms);
+          }          
+        });
+
     return viewSim;
   }
 
-  mapAlgorithms(value: Algorithm): ViewAlgorithm {
+  mapAlgorithms(value: Algorithm): ViewAlgorithmObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(value.kisaoId.id);
     const kisaoName = kisaoTerm.pipe(pluck('name'));
 
@@ -108,7 +122,7 @@ export class ViewSimulatorService {
         : [],
     };
   }
-  getParameters(parameter: AlgorithmParameter): ViewParameter {
+  getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
     return {

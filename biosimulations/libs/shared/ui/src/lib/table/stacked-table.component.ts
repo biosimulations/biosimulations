@@ -4,6 +4,7 @@ import { UtilsService } from '@biosimulations/shared/services';
 import {
   Column,
   ColumnActionType,
+  IdColumnMap,
   Sort,
   Side,
   RowService,
@@ -22,6 +23,7 @@ export class StackedTableComponent {
 
   private _columns!: Column[];
   displayedColumns!: Column[];
+  private idToColumn!: IdColumnMap;
 
   @Input()
   set columns(columns: Column[]) {
@@ -29,6 +31,15 @@ export class StackedTableComponent {
     this.displayedColumns = columns.filter(
       (column: Column) => column.showStacked !== false
     );
+
+    this.idToColumn = columns.reduce(
+      (map: { [id: string]: Column }, col: Column) => {
+        map[col.id] = col;
+        return map;
+      },
+      {}
+    );
+
     this.updateDerivedData();
     this.derivedData.next(this._derivedData);
   }
@@ -54,33 +65,38 @@ export class StackedTableComponent {
   @Input()
   defaultSort!: Sort;
 
-  private _data!: Observable<any[]>;
   private _dataValue!: any[];
   private _derivedData: any[] = [];
   private derivedData = new BehaviorSubject<any[]>([]);
   derivedData$ = this.derivedData.asObservable();
 
   @Input()
-  set data(data: Observable<any[]>) {
-    this._data = data;
-    this.data.subscribe((unresolvedData: any[]) => {
-      UtilsService.recursiveForkJoin(unresolvedData)
+  set data(data: any) {
+    if (data instanceof Observable) {
+      data.subscribe((unresolvedData: any[]) => {
+        UtilsService.recursiveForkJoin(unresolvedData)
+          .subscribe((resolvedData: any[] | undefined) => {
+            if (resolvedData !== undefined) {
+              this.setData(resolvedData);
+            }
+          });
+      });
+    } else {
+      UtilsService.recursiveForkJoin(data)
         .subscribe((resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
             this.setData(resolvedData);
           }
         });
-    });
-  }
-
-  get data(): Observable<any[]> {
-    return this._data;
+    }
   }
 
   setData(data: any[]): void {
     this._derivedData = [];
 
-    data.forEach((datum: any, index: number) => {
+    const sortedData = RowService.sortData(this.idToColumn, data, this.defaultSort);
+
+    sortedData.forEach((datum: any, index: number) => {
       const derivedDatum: any = {};
       this._derivedData.push(derivedDatum);
 
@@ -101,7 +117,7 @@ export class StackedTableComponent {
       derivedDatum['columns'] = {};
     });
 
-    this._dataValue = data;
+    this._dataValue = sortedData;
     this.updateDerivedData();
 
     this.setRowHighlighting();

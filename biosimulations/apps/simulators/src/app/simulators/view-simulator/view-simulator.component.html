@@ -86,7 +86,7 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator.identifiers.length">
+        <div class="section" *ngIf="simulator.identifiers?.length">
           <h3>Cross references</h3>
           <div class="section-content">
             <ul class="identifiers icon-list">
@@ -134,14 +134,14 @@
 
       <ng-container id="content" tocSectionsContainer>
         <ng-container *ngIf="simulator | async as simulator">
-          <ng-container *ngIf="simulator.algorithms as algorithms">
+          <ng-container *ngIf="simulator.algorithms | async as algorithms">
             <biosimulations-text-page-content-section
               *ngFor="let algorithm of algorithms"
-              [heading]="algorithm.heading | async"
-              [tocSection]="algorithm.name | async"
+              [heading]="algorithm.heading"
+              [tocSection]="algorithm.name"
             >
               <ng-container
-                *ngIf="algorithm.description | async as description"
+                *ngIf="algorithm.description as description"
               >
                 <p class="subsection-heading no-bottom-margin">Description</p>
                 <p>
@@ -166,7 +166,7 @@
                 *ngIf="algorithm?.frameworks.length > 0; noFrameworksMessage"
               >
                 <li *ngFor="let framework of algorithm.frameworks">
-                  <ng-container *ngIf="framework | async as framework">
+                  <ng-container *ngIf="framework as framework">
                     <biosimulations-icon icon="simulator"></biosimulations-icon>
                     <a [href]="framework.url" target="_blank">{{
                       framework.name
@@ -187,7 +187,7 @@
                 *ngIf="algorithm?.formats?.length > 0; noFormatsMessage"
               >
                 <li *ngFor="let format of algorithm.formats">
-                  <ng-container *ngIf="format | async as format">
+                  <ng-container *ngIf="format as format">
                     <biosimulations-icon icon="format"></biosimulations-icon>
                     <a [href]="format.url" target="_blank">{{ format.name }}</a>
                   </ng-container>
@@ -203,7 +203,7 @@
               <div
                 class="table-container"
                 *ngIf="
-                  (algorithm?.parameters | async)?.length > 0;
+                  algorithm?.parameters?.length > 0;
                   else noParametersMessage
                 "
               >
@@ -220,7 +220,7 @@
                   [getStackedHeadingMoreInfoRouterLink]="
                     getParameterStackedHeadingMoreInfoRouterLink
                   "
-                  [defaultSort]="{ active: 'id', direction: 'asc' }"
+                  [defaultSort]="{ active: 'name', direction: 'asc' }"
                 >
                 </biosimulations-responsive-table>
               </div>
@@ -250,7 +250,7 @@
               <ul class="icon-list">
                 <li>
                   <biosimulations-icon icon="link"></biosimulations-icon>
-                  <a [href]="algorithm?.url | async" target="_blank">{{
+                  <a [href]="algorithm?.url" target="_blank">{{
                     algorithm?.id
                   }}</a>
                 </li>

@@ -105,7 +105,7 @@ export const columns: Column[] = [
       return false;
     },
     filterComparator: RowService.comparator,
-    minWidth: 250,
+    minWidth: 280,
   },
   {
     id: 'formats',

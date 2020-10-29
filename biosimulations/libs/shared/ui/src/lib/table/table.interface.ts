@@ -58,6 +58,10 @@ export interface Column {
   _filterData?: any;
 }
 
+export interface IdColumnMap {
+  [id: string]: Column;
+}
+
 export interface Sort {
   active: string;
   direction: string;
@@ -215,6 +219,37 @@ export class RowService {
     } else {
       return null;
     }
+  }
+
+  static sortData(idToColumn: IdColumnMap, data: any[], sort: Sort): any[] {
+    if (sort === undefined) {
+      return data;
+    }
+
+    const sortColumnId = sort.active;
+    const sortDirection = sort.direction;
+
+    const sortedData = [...data];
+
+    sortedData.sort((a: any, b: any): number => {
+      let defaultKey: string | undefined = undefined;
+      let column: Column | undefined = undefined;
+      if (sortDirection === '') {
+        defaultKey = '_index';
+      } else if (sortColumnId) {
+        column = idToColumn[sortColumnId];
+      }
+
+      const aVal = RowService.getElementValue(a, column, defaultKey);
+      const bVal = RowService.getElementValue(b, column, defaultKey);
+
+      const sign = sortDirection !== 'desc' ? 1 : -1;
+
+      const comparator = RowService.getComparator(column, sortDirection === '');
+      return sign * comparator(aVal, bVal, sign);
+    });
+
+    return sortedData;
   }
 
   static getComparator(column: Column | undefined, useDefault = false): any {
