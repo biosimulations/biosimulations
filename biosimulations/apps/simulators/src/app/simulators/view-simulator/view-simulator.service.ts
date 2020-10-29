@@ -66,7 +66,11 @@ export class ViewSimulatorService {
       description: sim.description,
       url: sim.url,
       authors: this.getAuthors(sim),
-      identifiers: sim?.references?.identifiers?.map(this.makeIdentifier, this),
+      identifiers: sim?.references?.identifiers
+        ?.map(this.makeIdentifier, this)
+        .sort((a, b) => {
+          return a.text.localeCompare(b.text, undefined, { numeric: true });
+        }),
       citations: sim?.references?.citations?.map(this.makeCitation, this),
 
       licenseName: this.ontService.getSpdxTerm(sim.license.id).pipe(
