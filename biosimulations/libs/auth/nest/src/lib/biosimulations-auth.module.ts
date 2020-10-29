@@ -6,8 +6,8 @@ import { AuthzService } from './authz/authz.service';
 import { PermissionsGuard } from './permissions.guard';
 import { JwtGuard } from './jwt.guard';
 import { AuthConfigService } from './auth0/strategy.config';
-import { AdminGuard } from './admin.guard';
-import { AdminStrategy } from './admin.strategy';
+import { AdminGuard } from './admin/admin.guard';
+import { AdminStrategy } from './admin/admin.strategy';
 
 @Module({
   imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
