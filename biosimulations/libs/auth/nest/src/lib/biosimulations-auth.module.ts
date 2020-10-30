@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt.strategy';
-import { SecretStrategy } from './secret.strategy';
-import { AuthzService } from './authz/authz.service';
-import { PermissionsGuard } from './permissions.guard';
-import { JwtGuard } from './jwt.guard';
-import { AuthConfigService } from './auth0/strategy.config';
+import { PermissionsGuard } from './permissions/permissions.guard';
 import { AdminGuard } from './admin/admin.guard';
-import { AdminStrategy } from './admin/admin.strategy';
+import { JwtGuard } from './jwt/jwt.guard';
+import { AuthzService } from './authz/authz.service';
+
+import { JwtStrategy } from './strategy/jwt.strategy';
+import { SecretStrategy } from './strategy/secret.strategy';
+import { AuthConfigService } from './strategy/strategy.config';
 
 @Module({
   imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
@@ -19,7 +19,6 @@ import { AdminStrategy } from './admin/admin.strategy';
     JwtGuard,
     AuthConfigService,
     AdminGuard,
-    AdminStrategy,
   ],
   exports: [AuthzService, PermissionsGuard, JwtGuard, AdminGuard],
 })

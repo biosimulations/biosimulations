@@ -19,6 +19,7 @@ export class AuthConfigService {
     issuer: this.config.get('auth.auth0_domain'),
     algorithms: ['RS256'],
   };
+
   getConfig() {
     return this.authConfig;
   }
