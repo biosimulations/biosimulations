@@ -14,14 +14,21 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ _id: false, storeSubdocValidationError: false })
 class Identifier implements IIdentifier {
+  @Prop({ required: true })
   namespace!: string;
+  @Prop({ required: true })
   id!: string;
+  @Prop({ required: true })
   url!: string;
 }
 export const IdentifierSchema = SchemaFactory.createForClass(Identifier);
 @Schema({ _id: false, storeSubdocValidationError: false })
 class OntologyId implements IOntologyId {
-  @Prop({ type: String, required: true, enum: Ontologies })
+  @Prop({
+    type: String,
+    required: true,
+    enum: Object.keys(Ontologies).map((k) => Ontologies[k as Ontologies]),
+  })
   namespace!: Ontologies;
 
   @Prop({ required: true })
