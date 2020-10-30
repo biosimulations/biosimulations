@@ -46,7 +46,7 @@
 
     <biosimulations-text-page-content-section
       heading="Finding a simulation tool that is capable of executing a modeling project"
-      tocSection="Finding simulation tools'"
+      tocSection="Finding simulation tools"
     >
       The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
     </biosimulations-text-page-content-section>
@@ -190,16 +190,55 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      heading="Contributing a containerized biosimulation tools to BioSimulators"
+      heading="Contributing a containerized biosimulation tool to BioSimulators"
       tocSection="Contributing simulation tools"
     >
       <p>We welcome contributions of additional simulation tools! Please follow these steps to contribute a tool to BioSimulators:</p>
       <ol class="vertically-spaced">
         <li>
-          <b>Publish your image to a public repository such as Docker Hub, GitHub containers, or Quay</b> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub containers, and Quay each provide free accounts for public images.
+          <b>Publish your image to a public repository</b> such as Docker Hub <a href="https://dockerhub.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub Container Registry <a href="https://github.com/features/packages" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or Quay <a href="https://quay.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
         </li>
         <li>
-          <b>Submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes the URL to the specifications of your tool. This will initiate a workflow which will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool which must be addressed.
+          <b>Submit an issue <a href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Submit+simulator&template=contribute-a-simulator.md&title=" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> to the BioSimulators GitHub repository that describes briefly describes the URL to the specifications of your tool. This will initiate a workflow which will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool which must be addressed.
+        </li>
+        <li>
+          <p><b>Optionally, set up your continuous integration workflow to automatically push each release to BioSimulators.</b> Within your continuous integration workflow (e.g., CircleCI, GitHub actions, Jenkins, Travis), use the GitHub REST API to automatically create issues that submit versions of your simulator to BioSimulators.</p>
+
+          <p>This requires a GitHub account and a personal access token with the <code>public_repo</code> scope. Instructions for creating an access token are available in the GitHub documentation <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+          <ul>
+            <li>Endpoint: <code>http://api.github.com/repos/biosimulators/Biosimulators/issues</code></li>
+            <li>Method: <code>POST</code></li>
+            <li>Auth: <code>{{ '{' }} github-username {{ '}' }}:{{ '{' }} github-person-access-token {{ '}' }}</code></li>
+            <li>Headers: 
+              <ul>
+                <li>Accept: <code>application/vnd.github.v3+json</code></li>
+              </ul>
+            </li>
+            <li>Body (JSON-encoded)
+              <ul>
+                <li>title: <code>Submit {{ '{' }} simulator-name {{ '}' }} {{ '{' }} simulator-version {{ '}' }}</code></li>
+                <li>body: <pre>---
+name: {{ '{' }} simulator-name {{ '}' }}
+version: {{ '{' }} simulator-version {{ '}' }}
+specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
+
+---</pre>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <p class="no-bottom-margin">curl code sample:</p>
+
+          <pre>curl \
+  -X POST \
+  -u jonrkarr:{{ '{' }} github-personal-access-token {{ '}' }} \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/biosimulators/Biosimulators/issues \
+  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</pre>
+
+          <p>The above is implemented by the Python method <code>Biosimulations_utils.simulator.submit_to_biosimulators.submit_simulator_to_biosimulators</code>. See the documentation <a href="https://biosimulations-utils.readthedocs.io/"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
         </li>
         <li>
           <b>Optionally, also publish the source code for your simulation tool to a repository</b> such as BitBucket <a href="https://bitbucket.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub <a href="https://github.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or GitLab <a href="https://gitlab.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
