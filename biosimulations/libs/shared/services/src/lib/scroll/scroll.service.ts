@@ -56,4 +56,21 @@ export class ScrollService {
     const y = target.getBoundingClientRect().top + this.getScrollTop() - offset;
     this.scrollTo({top: y, behavior: 'smooth'});
   }
+
+  addScrollListener(listener: (event: any) => void): ((event: any) => void) {
+
+    const wrappedListener = (event: any): void => {
+      if (event.target === this.scrollContainer) {
+        listener(event);
+      }
+    }
+
+    window.addEventListener('scroll', wrappedListener, true);
+
+    return wrappedListener;
+  }
+
+  removeScrollListener(wrappedListener: (event: any) => void): void {
+    window.removeEventListener('scroll', wrappedListener, true);
+  }
 }
