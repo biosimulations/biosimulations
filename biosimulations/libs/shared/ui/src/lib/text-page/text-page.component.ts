@@ -65,7 +65,7 @@ export class TextPageComponent {
     private changeRef: ChangeDetectorRef,
     private scrollService: ScrollService
   ) {
-    window.addEventListener('scroll', this.boundScroll, true);
+    this.boundScroll = this.scrollService.addScrollListener(this.scroll.bind(this));
 
     this.smallLayout = breakpointObserver.isMatched('(max-width: 959px)');
     breakpointObserver.observe(['(max-width: 959px)']).subscribe((result) => {
@@ -78,16 +78,14 @@ export class TextPageComponent {
     this.changeRef.markForCheck();
   }
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.boundScroll, true);
+    this.scrollService.removeScrollListener(this.boundScroll);
   }
 
   scroll(event: any): void {
-    if (event.target === this.scrollService.scrollContainer) {
-      this.fixed = event.srcElement.scrollTop > 64;
-      this.calcSideBarStyle();
-    }
+    this.fixed = event.srcElement.scrollTop > 64;
+    this.calcSideBarStyle();
   }
-  boundScroll = this.scroll.bind(this);
+  boundScroll: (event: any) => void;
 
   calcSideBarStyle() {
     let position: string | null = null;
