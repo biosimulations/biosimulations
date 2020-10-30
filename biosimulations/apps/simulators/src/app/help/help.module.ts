@@ -21,7 +21,6 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     BiosimulationsIconsModule,
     SharedContentModule,
     HelpRoutingModule,
-    HighlightModule,
   ],
 })
 export class HelpModule { }
