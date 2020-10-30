@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 @Injectable()
 export class ScrollService {
   static scrollContainerId = 'mat-sidenav-content';
-  private scrollContainer!: Element;
+  public scrollContainer!: Element;
 
   constructor(private router: Router) {}
 

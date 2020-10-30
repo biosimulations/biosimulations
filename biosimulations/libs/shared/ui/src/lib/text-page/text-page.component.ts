@@ -7,6 +7,7 @@ import {
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { TocSection } from '../toc/toc-section';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { ScrollService } from '@biosimulations/shared/services';
 
 interface SideBarStyle {
   position: string | null;
@@ -61,9 +62,10 @@ export class TextPageComponent {
 
   constructor(
     breakpointObserver: BreakpointObserver,
-    private changeRef: ChangeDetectorRef
+    private changeRef: ChangeDetectorRef,
+    private scrollService: ScrollService
   ) {
-    window.addEventListener('scroll', this.scroll, true);
+    window.addEventListener('scroll', this.boundScroll, true);
 
     this.smallLayout = breakpointObserver.isMatched('(max-width: 959px)');
     breakpointObserver.observe(['(max-width: 959px)']).subscribe((result) => {
@@ -76,13 +78,16 @@ export class TextPageComponent {
     this.changeRef.markForCheck();
   }
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scroll, true);
+    window.removeEventListener('scroll', this.boundScroll, true);
   }
 
-  scroll = (event: any): void => {
-    this.fixed = event.srcElement.scrollTop > 64;
-    this.calcSideBarStyle();
-  };
+  scroll(event: any): void {
+    if (event.target === this.scrollService.scrollContainer) {
+      this.fixed = event.srcElement.scrollTop > 64;
+      this.calcSideBarStyle();
+    }
+  }
+  boundScroll = this.scroll.bind(this);
 
   calcSideBarStyle() {
     let position: string | null = null;
