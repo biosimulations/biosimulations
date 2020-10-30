@@ -55,8 +55,8 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab heading="Log" icon="logs">
-    <pre [ngStyle]="{'color':'black'}">{{ 'Output:-\n' + outLog }}</pre>
-    <pre [ngStyle]="{'color':'red'}">{{ 'Error:-\n' + errLog }}</pre>
+    <pre [ngStyle]="{'color':'black'}"><code>{{ 'Output:-\n' + outLog }}</code></pre>
+    <pre [ngStyle]="{'color':'red'}"><code>{{ 'Error:-\n' + errLog }}</code></pre>
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab heading="Design chart" icon="write" [disabled]="sedmls === undefined">

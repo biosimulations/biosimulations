@@ -299,6 +299,9 @@ biosimulations-root {
   margin-left: -6px;
 }
 
+/* code highlighting */
+
+@import '~highlight.js/styles/github.css';
 pre {
   padding: 0.5rem;
   margin: 0;
@@ -308,15 +311,21 @@ pre {
   &:not(:last-child) {
     margin-bottom: 0.5rem;
   }
+
+  code, code.hljs {
+    padding: 0;
+  }
 }
 
-code {
+code, code.hljs {
   padding: 0.25rem;
+  display: inline;
 }
 
-code, pre {
+code, code.hljs, pre {
   font-size: 90%;
   background: $light-background;
+  color: $dark-primary-text;
 }
 
 .code {
