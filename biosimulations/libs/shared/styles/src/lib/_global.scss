@@ -372,12 +372,11 @@ npn-slider .slider {
     color: $dark-primary-text;
 
     &:hover {
-      color: rgba(#000000, 0.9);
+      color: mat-color($theme-primary);
     }
 
     &:active {
-      color: rgba(#000000, 1.0);
-      filter: drop-shadow( 1px 1px 1px rgba(#000000, 0.2));
+      color: #1479ed;
     }
   }
 
@@ -390,7 +389,6 @@ npn-slider .slider {
 
     &:active {
       color: #0b79d1;
-      filter: drop-shadow( 1px 1px 1px rgba(#0b79d1, 0.2));
     }
   }
 
@@ -403,7 +401,6 @@ npn-slider .slider {
 
     &:active {
       color: #cc7900;
-      filter: drop-shadow( 1px 1px 1px rgba(#cc7900, 0.2));
     }
   }
 
@@ -416,7 +413,6 @@ npn-slider .slider {
 
     &:active {
       color: #ffffffbb;
-      filter: drop-shadow( 1px 1px 1px rgba(#ffffff, 0.4));
     }
   }
 

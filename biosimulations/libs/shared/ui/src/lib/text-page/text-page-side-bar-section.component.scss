@@ -6,12 +6,11 @@ biosimulations-text-page-section ::ng-deep h2 {
 
   .mat-icon-button.biosimulations-icon-button {
     &:hover {
-      color: rgba(#000000, 0.9);
+      color: mat-color($theme-primary);
     }
 
     &:active {
-      color: rgba(#000000, 1.0);
-      filter: drop-shadow( 1px 1px 1px rgba(#000000, 0.2));
+      color: #1479ed;
     }
   }
 }
