@@ -281,7 +281,11 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     const comparator = RowService.getFilterComparator(column);
     const arrValues = Object.keys(values).map((key: any): any => {
-      return { value: key, formattedValue: values[key] };
+      return { 
+        value: key, 
+        formattedValue: values[key],
+        checked: false,
+      };
     });
     arrValues.sort((a: any, b: any): number => {
       return comparator(a.value, b.value);
@@ -338,13 +342,14 @@ export class TableComponent implements OnInit, AfterViewInit {
       if (!(column.id in this.filter)) {
         this.filter[column.id] = [];
       }
-      this.filter[column.id].push(value);
+      this.filter[column.id].push(value.value);       
     } else {
-      this.filter[column.id].splice(this.filter[column.id].indexOf(value), 1);
+      this.filter[column.id].splice(this.filter[column.id].indexOf(value.value), 1);
       if (this.filter[column.id].length === 0) {
         delete this.filter[column.id];
       }
     }
+    value.checked = show;
 
     this.setDataSourceFilter();
   }
@@ -513,6 +518,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     return true;
+  }
+
+  clearFilter(column:Column):  void {
+    delete this.filter[column.id];
+    for (const val of this.columnFilterData[column.id]) {
+      val.checked = false;
+    }
+    this.setDataSourceFilter();
   }
 
   toggleColumn(column: Column): void {

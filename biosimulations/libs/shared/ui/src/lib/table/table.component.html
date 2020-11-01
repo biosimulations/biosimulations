@@ -110,14 +110,18 @@
                       >
                         <mat-checkbox
                           #checkbox
+                          [checked]="value.checked"
                           (change)="
-                            filterSetValue(column, value.value, checkbox.checked)
+                            filterSetValue(column, value, checkbox.checked)
                           "
                         >
                           {{ value.formattedValue }}
                         </mat-checkbox>
                       </mat-list-item>
                     </mat-list>
+                    <button mat-icon-button class="biosimulations-icon-button text filter-set-clear-all" (click)="clearFilter(column)">
+                      See all
+                    </button>
                   </ng-container>
                 </ng-template>
               </mat-expansion-panel>
