@@ -59,6 +59,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   isLoading!: Observable<boolean>;
   private isLoaded!: Observable<boolean>;
   private filter: { [id: string]: any[] } = {};
+  columnIsFiltered: { [id: string]: boolean } = {};
 
   private fullTextIndex!: any;
   private fullTextMatches!: {[index: number]: boolean};
@@ -239,6 +240,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.filter = {};
+    this.columnIsFiltered = {};
     this.setDataSourceFilter();
     this.dataSource.filterPredicate = this.filterData.bind(this);
     this.dataSource.sort = this.sort;
@@ -350,6 +352,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
     value.checked = show;
+    this.columnIsFiltered[column.id] = column.id in this.filter;
 
     this.setDataSourceFilter();
   }
@@ -369,6 +372,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     } else {
       this.filter[column.id] = selectedRange;
     }
+    this.columnIsFiltered[column.id] = column.id in this.filter;
 
     this.setDataSourceFilter();
   }
@@ -392,6 +396,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.filter[column.id] = [event.value, null];
       }
     }
+    this.columnIsFiltered[column.id] = column.id in this.filter;
 
     this.setDataSourceFilter();
   }
@@ -415,6 +420,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.filter[column.id] = [null, event.value];
       }
     }
+    this.columnIsFiltered[column.id] = column.id in this.filter;
 
     this.setDataSourceFilter();
   }
@@ -525,6 +531,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     for (const val of this.columnFilterData[column.id]) {
       val.checked = false;
     }
+    this.columnIsFiltered[column.id] = false;
     this.setDataSourceFilter();
   }
 

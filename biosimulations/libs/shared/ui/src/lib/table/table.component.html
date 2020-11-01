@@ -170,6 +170,7 @@
           }"
         >
           {{ column.heading }}
+          <biosimulations-icon icon="filter" class="column-filter-icon" *ngIf="columnIsFiltered[column.id] === true"></biosimulations-icon>
         </mat-header-cell>
 
         <mat-cell

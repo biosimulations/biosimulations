@@ -476,6 +476,11 @@ table {
     min-height: 32px;
   }
 
+  .mat-sort-header-arrow {
+    color: mat-color($theme-primary);
+    transform: scale(1.35, 1.35) !important;
+  }
+
   mat-row:nth-child(even) {
     background: $light-bg-lighter-5;
   }
