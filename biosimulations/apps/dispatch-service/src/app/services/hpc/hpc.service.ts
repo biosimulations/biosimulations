@@ -134,9 +134,9 @@ export class HpcService {
     const saactDataOutput = saactData.stdout;
     // const saactDataError = saactData.stderr;
     const saactDataOutputSplit = saactDataOutput.split("\n");
-    const finalStatus = saactDataOutputSplit[2];
+    const finalStatusList = saactDataOutputSplit[2].split(" ");
+    const finalStatus = finalStatusList[finalStatusList.length - 2]
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
-
     switch (finalStatus) {
       case 'PENDING' || '':
         return DispatchSimulationStatus.QUEUED;

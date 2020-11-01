@@ -37,6 +37,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_START)
   async uploadFile(data: SimulationDispatchSpec) {
+    this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
 
     const sbatchStorage = `${this.fileStorage}/SBATCH/ID`;
@@ -83,6 +84,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
+    this.logger.log('Simulation Finished on HPC');
     const resDir = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
     const allFiles = [];
@@ -195,7 +197,7 @@ export class AppController {
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
       const jobStatus = await this.simulationService.getSimulationStatus(
-        uuid
+        jobId
       ) || DispatchSimulationStatus.QUEUED;
       this.modelsService.updateStatus(uuid, jobStatus);
       switch (jobStatus) {
