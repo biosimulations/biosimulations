@@ -206,13 +206,13 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.fullTextIndex = lunr(function(this: any) {
       this.ref('index');
       columns.forEach((column: Column): void => {
-        this.field(column.heading.toLowerCase().replace(' ', '-'));
+        this.field(column.heading.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-'));
       });
 
       sortedData.forEach((datum: any, iDatum: number): void => {
         const fullTextDoc: {index: string, [colId: string]: string} = {index: iDatum.toString()};
         columns.forEach((column: Column): void => {
-          fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] = datum._cache[column.id].value || '';
+          fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] = RowService.getElementSearchValue(datum, column);
         });
         this.add(fullTextDoc);
       });
@@ -283,8 +283,8 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     const comparator = RowService.getFilterComparator(column);
     const arrValues = Object.keys(values).map((key: any): any => {
-      return { 
-        value: key, 
+      return {
+        value: key,
         formattedValue: values[key],
         checked: false,
       };
@@ -344,7 +344,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       if (!(column.id in this.filter)) {
         this.filter[column.id] = [];
       }
-      this.filter[column.id].push(value.value);       
+      this.filter[column.id].push(value.value);
     } else {
       this.filter[column.id].splice(this.filter[column.id].indexOf(value.value), 1);
       if (this.filter[column.id].length === 0) {
