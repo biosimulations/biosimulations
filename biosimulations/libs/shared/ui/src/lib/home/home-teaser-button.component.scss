@@ -1,0 +1,25 @@
+@import 'biosimulations-colors';
+
+.mat-flat-button {
+    padding: 1rem 0;
+    width: 172px;
+    line-height: normal;
+
+    &:not(.mat-button-disabled) {
+        background: mat-color($theme-primary, lighter);
+
+        &:hover {
+            background: mat-color($theme-primary);
+        }
+        &:active {
+            background: mat-color($theme-primary, darker);
+        }
+    }
+}
+
+:host:not(:first-child) {
+    margin-left: 0.5rem;
+}
+:host:not(:last-child) {
+    margin-right: 0.5rem;
+}
