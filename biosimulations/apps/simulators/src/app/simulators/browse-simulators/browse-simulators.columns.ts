@@ -107,7 +107,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 280,
+    minWidth: 262,
   },
   {
     id: 'formats',
@@ -140,7 +140,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator): string => {
       return element.formatIds.join(' ');
     },
-    minWidth: 114,
+    minWidth: 132,
   },
   {
     id: 'latestVersion',
@@ -158,7 +158,7 @@ export const columns: Column[] = [
       return element.licenseId;
     },
     show: false,
-    minWidth: 75,
+    minWidth: 125,
   },
   {
     id: 'created',
