@@ -117,7 +117,7 @@
     "@nrwl/nx-cloud": "^10.1.6",
     "@nrwl/workspace": "10.0.12",
     "@types/archiver": "^3.1.1",
-    "@types/auth0": "^2.20.8",
+    "@types/auth0": "^2.20.9",
     "@types/csv2json": "^1.4.1",
     "@types/jest": "26.0.15",
     "@types/mongoose": "^5.7.36",
