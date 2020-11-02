@@ -2,7 +2,7 @@
 
 ::ng-deep mat-tab-group {
   .mat-tab-header {
-    background: mat-color($theme-primary, lightest);
+    background: $primary-lightest-color;
     border-bottom: none;
     position: sticky;
     top: calc(64px + 32px);

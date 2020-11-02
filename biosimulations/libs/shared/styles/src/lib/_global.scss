@@ -376,7 +376,7 @@ npn-slider .slider {
     }
 
     &:active {
-      color: #1479ed;
+      color: mat-color($theme-primary, darker);
     }
   }
 
@@ -436,7 +436,7 @@ table {
 
   thead {
     tr {
-      background: mat-color($theme-primary, lightest);
+      background: $primary-lightest-color;
       height: 32px;
     }
   }
@@ -472,7 +472,7 @@ table {
   }
 
   .mat-header-row {
-    background: mat-color($theme-primary, lightest);
+    background: $primary-lightest-color;
     min-height: 32px;
   }
 
@@ -493,7 +493,7 @@ table {
   }
 
   .highlight-row {
-    background: mat-color($theme-primary, lightest);
+    background: $primary-lightest-color;
   }
 
   .mat-cell, .mat-header-cell {

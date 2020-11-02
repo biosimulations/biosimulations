@@ -10,7 +10,7 @@ biosimulations-text-page-section ::ng-deep h2 {
     }
 
     &:active {
-      color: #1479ed;
+      color: mat-color($theme-primary, darker);
     }
   }
 }

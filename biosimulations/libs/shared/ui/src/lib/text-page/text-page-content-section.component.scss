@@ -2,7 +2,7 @@
 
 biosimulations-text-page-section ::ng-deep h2 {
   color: mat-color($theme-primary);
-  background: mat-color($theme-primary, lightest);
+  background: $primary-lightest-color;
 
   .mat-icon-button.biosimulations-icon-button {
     &:hover {
