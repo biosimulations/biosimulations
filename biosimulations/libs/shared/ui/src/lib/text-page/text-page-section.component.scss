@@ -17,6 +17,16 @@ h2 {
   margin: 0;
   border-radius: 4px;
 
+  .heading {
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    max-width: calc(100% - 0.5rem - 10px);
+  }
+
   .icon-container {
     float: right;
     font-size: inherit;
