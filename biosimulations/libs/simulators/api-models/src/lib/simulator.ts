@@ -11,7 +11,9 @@ import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator extends Document {
-  @ApiProperty()
+  @ApiProperty({
+    type: BiosimulatorsMeta,
+  })
   biosimulators!: BiosimulatorsMeta;
 
   @ApiProperty({
