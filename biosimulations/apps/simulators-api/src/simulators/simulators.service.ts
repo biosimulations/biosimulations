@@ -2,6 +2,7 @@ import {
   Injectable,
   ConflictException,
   NotFoundException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/api-models';
@@ -57,7 +58,7 @@ export class SimulatorsService {
     }
     return res;
   }
-  
+
   async replace(
     id: string,
     version: string,
@@ -78,12 +79,9 @@ export class SimulatorsService {
     return res;
   }
 
-  async delete(
-    id: string,
-    version: string
-  ): Promise<Simulator> {
+  async deleteOne(id: string, version: string): Promise<Simulator> {
     const sim = await this.simulator
-      .findOne({ id: id, version: version })
+      .findOne({ id: id, version: version }, { _id: 0, __v: 0 })
       .exec();
 
     if (!sim) {
@@ -91,7 +89,37 @@ export class SimulatorsService {
         `No simulator with id ${id} and version ${version}`
       );
     }
+    const deleted = await this.simulator
+      .findOneAndDelete({ id: id, version: version })
+      .exec();
 
-    return sim.remove();
+    return sim;
+  }
+
+  async deleteMany(id: string) {
+    const sims = await this.simulator.deleteMany({ id: id }).exec();
+    if (sims.n == 0) {
+      throw new NotFoundException(`No simulator with id ${id}`);
+    } else {
+      if (sims.deletedCount != sims.n) {
+        throw new InternalServerErrorException(
+          `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`
+        );
+      }
+      if (!sims.ok) {
+        throw new InternalServerErrorException('Operation Failed');
+      }
+    }
+  }
+  async deleteAll() {
+    const sims = await this.simulator.deleteMany({});
+    if (sims.deletedCount != sims.n) {
+      throw new InternalServerErrorException(
+        `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`
+      );
+    }
+    if (!sims.ok) {
+      throw new InternalServerErrorException('Operation Failed');
+    }
   }
 }
