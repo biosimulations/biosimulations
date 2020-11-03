@@ -1,21 +1,35 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { BiosimulationsExceptionFilter } from './biosimulations-exception.filter';
 import { DefaultFilter } from './default.filter';
+import { MongooseErrorInterceptor } from './filters/Mongo/mongose-exception.filter';
+
+import { StrictModeExceptionFilter } from './filters/Mongo/strict-mode-exception.filter';
+import { ValidationExceptionFilter } from './filters/Mongo/validation-exception.filter';
 import { HttpExceptionFilter } from './http-exception.filter';
-import { ValidationExceptionFilter } from './validation-exception.filter';
 
 @Module({
   controllers: [],
   providers: [
+    // ENSURE that the defualt filter is provided first! Filters catch from the bottom up
+    {
+      provide: APP_FILTER,
+      useClass: DefaultFilter,
+    },
+    // Keep mongose filter above other mongo errors
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: MongooseErrorInterceptor,
+    },
     {
       provide: APP_FILTER,
       useClass: BiosimulationsExceptionFilter,
     },
     {
       provide: APP_FILTER,
-      useClass: DefaultFilter,
+      useClass: StrictModeExceptionFilter,
     },
+
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,

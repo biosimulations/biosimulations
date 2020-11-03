@@ -8,7 +8,7 @@ import {
 import { Response } from 'express';
 import * as mongoose from 'mongoose';
 
-import { makeErrorObject } from './utils';
+import { makeErrorObject } from '../../utils';
 
 @Catch(mongoose.Error.ValidationError)
 export class ValidationExceptionFilter implements ExceptionFilter {
