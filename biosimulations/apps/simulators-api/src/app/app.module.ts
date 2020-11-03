@@ -8,6 +8,10 @@ import { ConfigService } from '@nestjs/config';
 import { SimulatorsModule } from '../simulators/simulators.module';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
+
+import * as mongoose from 'mongoose';
+mongoose.set('strict', 'throw');
+
 @Module({
   imports: [
     BiosimulationsConfigModule,

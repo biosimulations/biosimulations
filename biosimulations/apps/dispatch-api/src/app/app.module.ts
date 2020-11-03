@@ -13,6 +13,9 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ModelsModule } from './resources/models/models.module';
 import { AppService } from './app.service';
 
+import * as mongoose from 'mongoose';
+mongoose.set('strict', 'throw');
+
 @Module({
   imports: [
     BiosimulationsConfigModule,

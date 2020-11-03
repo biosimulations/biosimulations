@@ -17,6 +17,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsModule } from './resources/models/models.module';
 import { SimulationService } from './services/simulation/simulation.service';
 
+import * as mongoose from 'mongoose';
+mongoose.set('strict', 'throw');
+
 @Module({
   imports: [
     BiosimulationsConfigModule,

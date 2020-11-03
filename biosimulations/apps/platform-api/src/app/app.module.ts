@@ -11,6 +11,9 @@ import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import * as mongoose from 'mongoose';
+mongoose.set('strict', 'throw');
+
 @Module({
   imports: [
     BiosimulationsConfigModule,

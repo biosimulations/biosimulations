@@ -8,6 +8,10 @@ import {
   AuthTestModule,
   BiosimulationsAuthModule,
 } from '@biosimulations/auth/nest';
+
+import * as mongoose from 'mongoose';
+mongoose.set('strict', 'throw');
+
 @Module({
   controllers: [SimulatorsController],
   providers: [SimulatorsService],
