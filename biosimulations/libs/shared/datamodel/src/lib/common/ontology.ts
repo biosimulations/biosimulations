@@ -7,8 +7,10 @@ export enum Ontologies {
   SPDX = 'SPDX',
   URL = 'URL',
 }
-export const KisaoIdRegEx = /^KISAO_\d+$/; //sourced from identifiers.org
-export const SboIdRegEx = /^SBO_\d+$/;
+export const EdamIdRegEx = /^(data|topic|operation|format)_\d{4}$/;
+export const EdamFormatIdRegEx = /^format_\d{4}$/;
+export const KisaoIdRegEx = /^KISAO_\d{7}$/; //sourced from identifiers.org
+export const SboIdRegEx = /^SBO_\d{7}$/;
 export interface Identifier {
   namespace: string;
   id: string;

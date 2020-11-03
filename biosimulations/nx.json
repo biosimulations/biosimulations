@@ -151,7 +151,7 @@
       "tags": ["scope:ontology", "type:api", "platform:server"]
     },
     "ontology-sources": {
-      "tags": ["scope:ontology", "type:datamodel", "platform:server"]
+      "tags": ["scope:ontology", "scope:simulators", "type:datamodel", "platform:server"]
     },
     "ontology-ontologies": {
       "tags": ["scope:ontology", "type:service", "platform:server"]

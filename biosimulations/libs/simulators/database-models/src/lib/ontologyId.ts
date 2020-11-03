@@ -5,20 +5,24 @@ import {
   IKisaoOntologyId,
   ISboOntologyId,
   ISpdxId,
+  EdamFormatIdRegEx,
   KisaoIdRegEx,
   SboIdRegEx,
   Identifier as IIdentifier,
 } from '@biosimulations/shared/datamodel';
 
+import { edamTerms, kisaoTerms, sboTerms } from '@biosimulations/ontology/sources';
+import spdxLicenseList from 'spdx-license-list/full';
+
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ _id: false, storeSubdocValidationError: false })
 class Identifier implements IIdentifier {
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   namespace!: string;
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   id!: string;
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   url!: string;
 }
 export const IdentifierSchema = SchemaFactory.createForClass(Identifier);
@@ -31,7 +35,7 @@ class OntologyId implements IOntologyId {
   })
   namespace!: Ontologies;
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   id!: string;
 }
 export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
@@ -41,7 +45,22 @@ class EdamOntologyId implements IEdamOntologyId {
   @Prop({ type: String, required: true })
   namespace!: Ontologies.EDAM;
 
-  @Prop({ required: true })
+  @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: EdamFormatIdRegEx,
+        message: props => `${props.value} is not an id for a valid EDAM format term.`
+      },
+      {
+        validator: function(id: string): boolean {
+          return id in edamTerms;
+        },
+        message: props => `${props.value} is not an id for a valid EDAM term.`
+      }
+    ],
+  })
   id!: string;
 }
 export const EdamOntologyIdSchema = SchemaFactory.createForClass(
@@ -63,7 +82,18 @@ class KisaoOntologyId implements IKisaoOntologyId {
     required: true,
     uppercase: true,
     trim: true,
-    validate: KisaoIdRegEx,
+    validate: [
+      {
+        validator: KisaoIdRegEx,
+        message: props => `${props.value} is not an id for a valid KiSAO term.`
+      },
+      {
+        validator: function(id: string): boolean {
+          return id in kisaoTerms;
+        },
+        message: props => `${props.value} is not an id for a valid KiSAO term.`
+      }
+    ],
   })
   id!: string;
 }
@@ -75,7 +105,22 @@ class SboOntologyId implements ISboOntologyId {
   @Prop({ type: String, required: true })
   namespace!: Ontologies.SBO;
 
-  @Prop({ required: true, validate: SboIdRegEx })
+  @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: SboIdRegEx,
+        message: props => `${props.value} is not an id for a valid SBO term.`
+      },
+      {
+        validator: function(id: string): boolean {
+          return id in sboTerms;
+        },
+        message: props => `${props.value} is not an id for a valid SBO term.`
+      }
+    ],
+  })
   id!: string;
 }
 export const SboOntologyIdSchema = SchemaFactory.createForClass(SboOntologyId);
@@ -85,7 +130,18 @@ class SpdxId implements ISpdxId {
   @Prop({ type: String, required: true })
   namespace!: Ontologies.SPDX;
 
-  @Prop({ type: String, required: true })
+  @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: function(id: string): boolean {
+          return id in spdxLicenseList;
+        },
+        message: props => `${props.value} is not an id for a valid SPDX license.`
+      }
+    ],
+  })
   id!: string;
 }
 export const SpdxIdSchema = SchemaFactory.createForClass(SpdxId);
