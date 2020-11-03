@@ -224,7 +224,8 @@ export class AppController {
     const finalRes: any = {};
 
     const taskKeys = Object.keys(data[0]);
-    taskKeys.splice(taskKeys.indexOf('time'), 1);
+    const timeKey = taskKeys[0];
+    taskKeys.splice(taskKeys.indexOf(timeKey), 1);
 
     for (const taskKey of taskKeys) {
       finalRes[taskKey] = {};
@@ -235,8 +236,8 @@ export class AppController {
 
     for (const dataObj of data) {
       for (const taskKey of taskKeys) {
-        finalRes[taskKey]['x'].push(dataObj['time']);
-        finalRes[taskKey]['y'].push(dataObj[taskKey]);
+        finalRes[taskKey]['x'].push(parseFloat(dataObj[timeKey]));
+        finalRes[taskKey]['y'].push(parseFloat(dataObj[taskKey]));
       }
     }
 
