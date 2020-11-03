@@ -1,10 +1,11 @@
-export { JwtStrategy } from './lib/jwt.strategy';
-export { JwtGuard } from './lib/jwt.guard';
-export { SecretStrategy } from './lib/secret.strategy';
 export { AuthzService } from './lib/authz/authz.service';
+
+export { permissions } from './lib/permissions/permissions.decorator';
+
 export { BiosimulationsAuthModule } from './lib/biosimulations-auth.module';
-export { permissions } from './lib/permissions.decorator';
-export { PermissionsGuard } from './lib/permissions.guard';
-export { AdminGuard } from './lib/admin.guard';
-export * from './lib/token.utils';
-export * from './lib/authToken';
+
+export { PermissionsGuard } from './lib/permissions/permissions.guard';
+
+export { AdminGuard } from './lib/admin/admin.guard';
+export { JwtGuard } from './lib/jwt/jwt.guard';
+export { AuthTestModule } from './test/authTest.module';

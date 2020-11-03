@@ -10,10 +10,15 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-
+import { JwtGuard } from '../jwt/jwt.guard';
+import { AuthToken } from '@biosimulations/auth/common';
+import { AdminGuard } from '../admin/admin.guard';
 @Injectable()
-export class PermissionsGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+export class PermissionsGuard {
+  constructor(
+    private readonly reflector: Reflector,
+    private admin: AdminGuard
+  ) {}
 
   canActivate(
     context: ExecutionContext
@@ -23,21 +28,19 @@ export class PermissionsGuard implements CanActivate {
       context.getHandler()
     );
 
-    const userPermissions = context.getArgs()[0].user.permissions || [];
-
-    if (!routePermissions) {
-      return true;
-    }
+    const user: AuthToken = context.getArgs()[0].user;
+    const userPermissions = user['https://biosimulations.org/permissions'];
 
     const hasPermission = () =>
       routePermissions.every((routePermission) =>
-        userPermissions.includes(routePermission)
+        userPermissions?.includes(routePermission)
       );
-    if (hasPermission()) {
+    const isAdmin = this.admin.canActivate(context);
+    if (hasPermission() || isAdmin) {
       return true;
     } else {
       throw new ForbiddenException(
-        'You do not have permission to make this call'
+        'You do not have the needed permissions: ' + routePermissions.toString()
       );
     }
   }

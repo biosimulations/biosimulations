@@ -12,7 +12,12 @@ import {
 } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 
-import { AdminGuard, JwtGuard } from '@biosimulations/auth/nest';
+import {
+  AdminGuard,
+  JwtGuard,
+  permissions,
+  PermissionsGuard,
+} from '@biosimulations/auth/nest';
 import {
   ApiTags,
   ApiBody,
@@ -93,7 +98,8 @@ export class SimulatorsController {
   @Get(':id')
   @ApiOperation({
     summary: 'Get the versions of a simulator',
-    description: 'Get a list of the specifications of each version of a simulator',
+    description:
+      'Get a list of the specifications of each version of a simulator',
   })
   @ApiParam({
     name: 'id',
@@ -121,7 +127,7 @@ export class SimulatorsController {
   })
   @ApiParam({
     name: 'version',
-    required: false,
+    required: true,
     type: String,
   })
   @ApiOkResponse({ type: Simulator })
@@ -156,12 +162,14 @@ export class SimulatorsController {
 
     return res;
   }
-  @UseGuards(AdminGuard)
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('write:simulators')
   @ApiOAuth2([])
   @Post()
   @ApiOperation({
     summary: 'Add a version of a simulator to the database',
-    description: 'Add the specifications of a version of a simulator to the database.',
+    description:
+      'Add the specifications of a version of a simulator to the database.',
   })
   @ApiBody({
     type: Simulator,
@@ -191,7 +199,8 @@ export class SimulatorsController {
     return;
   }
 
-  @UseGuards(AdminGuard)
+  @permissions('write:simulators')
+  @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
     name: 'id',
@@ -213,7 +222,7 @@ export class SimulatorsController {
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
-    description: 'No permission to edit simulators',
+    description: 'Invalid Authorization Provided',
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,

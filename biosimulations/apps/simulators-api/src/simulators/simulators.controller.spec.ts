@@ -1,3 +1,7 @@
+import {
+  AdminGuard,
+  BiosimulationsAuthModule,
+} from '@biosimulations/auth/nest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SimulatorsController } from './simulators.controller';
 
@@ -7,9 +11,10 @@ describe('SimulatorsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [SimulatorsController],
+      controllers: [SimulatorsController, BiosimulationsAuthModule],
       providers: [
         { provide: 'SimulatorsService', useClass: MockSimulatorService },
+        AdminGuard,
       ],
     }).compile();
 

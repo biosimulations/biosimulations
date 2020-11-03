@@ -3,17 +3,14 @@ import { Account } from './account.model';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
 import { AuthzService } from '@biosimulations/auth/nest';
-import {
-  UserMetadata,
-  AppMetadata,
-} from '@biosimulations/auth/common';
+import { UserMetadata, AppMetadata } from '@biosimulations/auth/common';
 
 @Injectable()
 export class AppService {
   constructor(
     @InjectModel(Account)
     private readonly accountModel: ReturnModelType<typeof Account>,
-    private authz: AuthzService,
+    private authz: AuthzService
   ) {}
 
   async findById(userId: string): Promise<Account | null> {
@@ -40,7 +37,8 @@ export class AppService {
     const appMetadata: AppMetadata = {
       registered: true,
       termsAcceptedOn: createdAccount.termsAcceptedOn,
-      admin: false,
+      roles: [],
+      permissions: [],
     };
     this.authz.updateUserMetadata(createdAccount._id, userMetadata);
     this.authz.updateAppMetadata(createdAccount._id, appMetadata);

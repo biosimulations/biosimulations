@@ -26,6 +26,7 @@ export class DefaultFilter implements ExceptionFilter {
         url: request.url,
       },
     };
+    console.error(exception);
     const responseError: ErrorResponseDocument = { error: [resbody] };
     response.status(status).json(responseError);
   }
