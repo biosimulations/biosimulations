@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { SimulatorsModule } from '../simulators/simulators.module';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
+// TODO create seperate auth environment for simulators-api
 @Module({
   imports: [
     BiosimulationsConfigModule,
