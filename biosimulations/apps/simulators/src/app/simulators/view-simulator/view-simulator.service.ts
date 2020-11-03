@@ -24,7 +24,6 @@ import {
   AlgorithmParameterType,
 } from '@biosimulations/shared/datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
-import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
@@ -139,7 +138,7 @@ export class ViewSimulatorService {
         : [],
     };
   }
-  getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
+  getParameters(parameter: any): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
     let value;
@@ -152,7 +151,7 @@ export class ViewSimulatorService {
     return {
       id: parameter.id,
       name: kisaoTerm.pipe(pluck('name')),
-      type: AlgorithmParameterType[parameter.type],
+      type: (AlgorithmParameterType as any)[parameter.type as string],
       value,
       range: parameter.recommendedRange
         ? parameter.recommendedRange
