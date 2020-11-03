@@ -8,16 +8,16 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtGuard } from '../jwt/jwt.guard';
+import { Observable } from 'rxjs';
+import { IdToken } from '@biosimulations/auth/common';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  constructor(private jwt: JwtGuard) {}
-  async canActivate(context: ExecutionContext) {
+  constructor() {}
+  canActivate(context: ExecutionContext): boolean {
     const request: Request = context.switchToHttp().getRequest();
 
-    //The user should be placed by the JWT strategy
-    //await this.jwt.canActivate(context);
-    const user = request.user as any;
+    const user = (request.user as any) as IdToken;
 
     if (user?.['https://biosimulations.org/roles']?.includes('admin')) {
       return true;
