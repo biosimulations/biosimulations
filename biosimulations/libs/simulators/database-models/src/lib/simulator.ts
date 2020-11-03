@@ -62,5 +62,5 @@ SimulatorSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',
 });
-SimulatorSchema.set('strict', true);
+SimulatorSchema.set('strict', 'throw');
 //SimulatorSchema.set('id', false);
