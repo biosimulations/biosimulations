@@ -8,6 +8,7 @@ import {
   UseGuards,
   NotFoundException,
   Put,
+  Delete,
   HttpCode,
 } from '@nestjs/common';
 import * as mongoose from 'mongoose';
@@ -243,5 +244,46 @@ export class SimulatorsController {
     @Param('version') version: string
   ) {
     return this.service.replace(id, version, doc).then((res) => res);
+  }
+
+  @permissions('write:simulators')
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @ApiOAuth2([])
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'version',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    type: Simulator,
+    description: 'Ok',
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No such simulator',
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'Invalid Authorization Provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to edit simulator',
+  })
+  @Delete(':id/:version')
+  @ApiOperation({
+    summary: 'Delete a version of a simulator',
+    description: 'Delete the specifications of a version of a simulator.',
+  })
+  async deleteSimulatorVersion(
+    @Param('id') id: string,
+    @Param('version') version: string
+  ) {
+    return this.service.delete(id, version).then((res) => res);
   }
 }

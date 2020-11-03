@@ -57,6 +57,7 @@ export class SimulatorsService {
     }
     return res;
   }
+  
   async replace(
     id: string,
     version: string,
@@ -75,5 +76,22 @@ export class SimulatorsService {
     sim.overwrite(doc);
     const res = sim.save();
     return res;
+  }
+
+  async delete(
+    id: string,
+    version: string
+  ): Promise<Simulator> {
+    const sim = await this.simulator
+      .findOne({ id: id, version: version })
+      .exec();
+
+    if (!sim) {
+      throw new NotFoundException(
+        `No simulator with id ${id} and version ${version}`
+      );
+    }
+
+    return sim.remove();
   }
 }
