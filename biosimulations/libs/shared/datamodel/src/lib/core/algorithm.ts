@@ -9,11 +9,11 @@ import {
 } from '../common';
 
 export enum AlgorithmParameterType {
-  boolean = 'boolean',
-  integer = ' integer',
+  boolean = 'Boolean',
+  integer = 'integer',
   float = 'float',
   string = 'string',
-  kisaoId = 'kisaoId',
+  kisaoId = 'KiSAO id',
   list = 'list',
   object = 'object',
   any = 'any',

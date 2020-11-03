@@ -21,6 +21,7 @@ import { map, pluck, tap } from 'rxjs/operators';
 import {
   IEdamOntologyId,
   ISboOntologyId,
+  AlgorithmParameterType,
 } from '@biosimulations/shared/datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
 import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
@@ -98,7 +99,9 @@ export class ViewSimulatorService {
             });
             algorithms.forEach((algorithm: ViewAlgorithm): void => {
               algorithm.parameters.forEach((parameter: ViewParameter): void => {
-                if (parameter.type !== 'boolean' && parameter.type !== 'number' && Array.isArray(parameter.range)) {
+                if (parameter.type !== AlgorithmParameterType[AlgorithmParameterType.integer] 
+                  && parameter.type !== AlgorithmParameterType[AlgorithmParameterType.float] 
+                  && Array.isArray(parameter.range)) {
                   parameter.range.sort((a, b) => {
                     return a.localeCompare(b, undefined, { numeric: true });
                   });
@@ -139,9 +142,8 @@ export class ViewSimulatorService {
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
-    // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
     let value;
-    if (parameter.type === 'string' && parameter.value && parameter.value.toString().match(/^KISAO_\d{7,7}$/)) {
+    if (parameter.type === 'kisaoId') {
       value = this.ontService.getKisaoTerm(parameter.value.toString()).pipe(pluck('name'));
     } else {
       value = parameter.value;
@@ -150,15 +152,14 @@ export class ViewSimulatorService {
     return {
       id: parameter.id,
       name: kisaoTerm.pipe(pluck('name')),
-      type: parameter.type,
+      type: AlgorithmParameterType[parameter.type],
       value,
       range: parameter.recommendedRange
         ? parameter.recommendedRange
             .map((val: { toString: () => string }): string | Observable<string> => {
               const strVal = val.toString();
 
-              // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
-              if (parameter.type === 'string' && strVal.match(/^KISAO_\d{7,7}$/)) {
+              if (parameter.type === 'kisaoId') {
                 return this.ontService.getKisaoTerm(strVal).pipe(pluck('name'));
               } else {
                 return strVal;

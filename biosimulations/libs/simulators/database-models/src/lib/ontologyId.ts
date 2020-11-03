@@ -31,7 +31,7 @@ class OntologyId implements IOntologyId {
   @Prop({
     type: String,
     required: true,
-    enum: Object.keys(Ontologies).map((k: Ontologies) => Ontologies[k]).sort(),
+    enum: Object.keys(Ontologies).sort(),
   })
   namespace!: Ontologies;
 

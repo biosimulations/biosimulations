@@ -16,7 +16,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   name!: string;
   @Prop({
     type: String,
-    enum: Object.keys(AlgorithmParameterType).map((key: AlgorithmParameterType) => AlgorithmParameterType[key]).sort(),
+    enum: Object.keys(AlgorithmParameterType).sort(),
     required: true,
   })
   type!: AlgorithmParameterType;
