@@ -12,6 +12,7 @@ import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
 import * as mongoose from 'mongoose';
 mongoose.set('strict', 'throw');
 
+// TODO create seperate auth environment for simulators-api
 @Module({
   imports: [
     BiosimulationsConfigModule,

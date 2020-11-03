@@ -8,6 +8,7 @@ import {
   UseGuards,
   NotFoundException,
   Put,
+  Delete,
   HttpCode,
 } from '@nestjs/common';
 import * as mongoose from 'mongoose';
@@ -243,5 +244,104 @@ export class SimulatorsController {
     @Param('version') version: string
   ) {
     return this.service.replace(id, version, doc).then((res) => res);
+  }
+
+  // TODO does the github issues process need this permission?
+  @permissions('delete:simulators')
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @ApiOAuth2([])
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'version',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    type: Simulator,
+    description: 'Ok',
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No such simulator',
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'Invalid Authorization Provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to edit simulator',
+  })
+  @Delete(':id/:version')
+  @ApiOperation({
+    summary: 'Delete a version of a simulator',
+    description: 'Delete the specifications of a version of a simulator.',
+  })
+  async deleteSimulatorVersion(
+    @Param('id') id: string,
+    @Param('version') version: string
+  ) {
+    return this.service.deleteOne(id, version);
+  }
+
+  @permissions('delete:simulators')
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @ApiOAuth2([])
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @ApiNoContentResponse({
+    description: 'Simulator Deleted',
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No such simulator',
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'Invalid Authorization Provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to delete simulator',
+  })
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Delete all versions of a simulator',
+    description: 'Delete the specifications of  a simulator.',
+  })
+  @HttpCode(204)
+  async deleteSimulator(@Param('id') id: string) {
+    return this.service.deleteMany(id);
+  }
+
+  // No permissions, must be admin
+  @UseGuards(JwtGuard, AdminGuard)
+  @ApiOAuth2([])
+  @ApiNoContentResponse({
+    description: 'Simulators Deleted',
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'Invalid Authorization Provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to delete data',
+  })
+  @Delete()
+  @ApiOperation({
+    summary: 'Delete all simulators',
+    description: 'Clear the database. Use with extreme caution',
+  })
+  @HttpCode(204)
+  async deleteAll() {
+    return this.service.deleteAll();
   }
 }
