@@ -63,4 +63,6 @@ SimulatorSchema.set('timestamps', {
   updatedAt: 'updated',
 });
 SimulatorSchema.set('strict', 'throw');
+// This should be kept false so subdocuments must also have strict mode. Will not throw error for subdocuments
+SimulatorSchema.set('useNestedStrict', false);
 //SimulatorSchema.set('id', false);
