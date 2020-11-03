@@ -9,6 +9,7 @@ import {
   ViewAlgorithmObservable,
   ViewFramework,
   ViewFormat,
+  ViewParameter,
   ViewParameterObservable,
   DescriptionFragment,
   DescriptionFragmentType,
@@ -55,7 +56,7 @@ export class ViewSimulatorService {
       } else {
         throw new BiosimulationsError('Simulator not found', `There is no simulator with id "${simulatorId}".`, 404);
       }
-    }    
+    }
 
     const viewSimAlgorithms = new BehaviorSubject<ViewAlgorithm[]>([]);
     const viewSim: ViewSimulator = {
@@ -90,13 +91,22 @@ export class ViewSimulatorService {
 
     const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms)
-        .subscribe((algorithms: any[] | undefined) => {
+        .subscribe((algorithms: ViewAlgorithm[] | undefined) => {
           if (algorithms !== undefined) {
             algorithms.sort((a, b) => {
               return a.name.localeCompare(b.name, undefined, { numeric: true });
             });
+            algorithms.forEach((algorithm: ViewAlgorithm): void => {
+              algorithm.parameters.forEach((parameter: ViewParameter): void => {
+                if (parameter.type !== 'boolean' && parameter.type !== 'number' && Array.isArray(parameter.range)) {
+                  parameter.range.sort((a, b) => {
+                    return a.localeCompare(b, undefined, { numeric: true });
+                  });
+                }
+              });
+            });
             viewSimAlgorithms.next(algorithms);
-          }          
+          }
         });
 
     return viewSim;
@@ -120,7 +130,7 @@ export class ViewSimulatorService {
       url: kisaoTerm.pipe(pluck('url')),
       frameworks: value.modelingFrameworks.map(this.getFrameworks, this),
       formats: value.modelFormats.map(this.getFormats, this),
-      parameters: of(value.parameters.map(this.getParameters, this)),
+      parameters: value.parameters.map(this.getParameters, this),
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -129,17 +139,31 @@ export class ViewSimulatorService {
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
+    // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
+    let value;
+    if (parameter.type === 'string' && parameter.value && parameter.value.toString().match(/^KISAO_\d{7,7}$/)) {
+      value = this.ontService.getKisaoTerm(parameter.value.toString()).pipe(pluck('name'));
+    } else {
+      value = parameter.value;
+    }
+
     return {
       id: parameter.id,
       name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
-      value: parameter.value,
+      value,
       range: parameter.recommendedRange
         ? parameter.recommendedRange
-            .map((val: { toString: () => any }) => {
-              return val.toString();
+            .map((val: { toString: () => string }): string | Observable<string> => {
+              const strVal = val.toString();
+
+              // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
+              if (parameter.type === 'string' && strVal.match(/^KISAO_\d{7,7}$/)) {
+                return this.ontService.getKisaoTerm(strVal).pipe(pluck('name'));
+              } else {
+                return strVal;
+              }
             })
-            .join(', ')
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),

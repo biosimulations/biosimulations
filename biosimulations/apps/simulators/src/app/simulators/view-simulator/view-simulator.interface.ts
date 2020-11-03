@@ -20,7 +20,7 @@ export interface ViewAlgorithmObservable {
   url: Observable<string>;
   frameworks: Observable<ViewFramework>[];
   formats: Observable<ViewFormat>[];
-  parameters: Observable<ViewParameterObservable[]>;
+  parameters: ViewParameterObservable[];
   citations: ViewCitation[];
 }
 
@@ -51,7 +51,7 @@ export interface ViewParameter {
   name: string;
   type: string;
   value: boolean | number | string;
-  range: string | null;
+  range: string[] | null;
   kisaoId: string;
   kisaoUrl: string;
 }
@@ -60,8 +60,8 @@ export interface ViewParameterObservable {
   id: string;
   name: Observable<string>;
   type: string;
-  value: boolean | number | string;
-  range: string | null;
+  value: boolean | number | string | Observable<string>;
+  range: (string | Observable<string>)[] | null;
   kisaoId: string;
   kisaoUrl: string;
 }

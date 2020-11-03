@@ -93,6 +93,13 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'range',
       heading: 'Recommended range',
       key: 'range',
+      getter: (parameter: ViewParameter): string | null => {
+        if (parameter.range) {
+          return parameter.range.join(', ');
+        } else {
+          return null;
+        }
+      },
       minWidth: 163,
     },
     {
