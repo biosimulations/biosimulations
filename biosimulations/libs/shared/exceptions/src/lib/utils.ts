@@ -5,7 +5,6 @@ import {
   MetaObject,
 } from '@biosimulations/shared/datamodel-api';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { exception } from 'console';
 
 export const makeErrorObject = (
   status: HttpStatus,
