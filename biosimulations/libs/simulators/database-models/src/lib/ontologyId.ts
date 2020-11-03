@@ -42,7 +42,13 @@ export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
 
 @Schema({ _id: false, storeSubdocValidationError: false })
 class EdamOntologyId implements IEdamOntologyId {
-  @Prop({ type: String, required: true })
+  @Prop({ 
+    type: String, 
+    enum: [Ontologies[Ontologies.EDAM]],
+    required: true,
+    uppercase: true,
+    trim: true,
+  })
   namespace!: Ontologies.EDAM;
 
   @Prop({
@@ -70,10 +76,10 @@ export const EdamOntologyIdSchema = SchemaFactory.createForClass(
 class KisaoOntologyId implements IKisaoOntologyId {
   @Prop({
     type: String,
+    enum: [Ontologies[Ontologies.KISAO]],
     required: true,
     uppercase: true,
     trim: true,
-    validate: (val: string) => val === Ontologies.KISAO,
   })
   namespace!: Ontologies.KISAO;
 
@@ -102,7 +108,13 @@ export const KisaoOntologyIdSchema = SchemaFactory.createForClass(
 );
 @Schema({ _id: false, storeSubdocValidationError: false })
 class SboOntologyId implements ISboOntologyId {
-  @Prop({ type: String, required: true })
+  @Prop({ 
+    type: String,
+    enum: [Ontologies[Ontologies.SBO]],
+    required: true,
+    uppercase: true,
+    trim: true,
+  })
   namespace!: Ontologies.SBO;
 
   @Prop({
@@ -127,7 +139,13 @@ export const SboOntologyIdSchema = SchemaFactory.createForClass(SboOntologyId);
 
 @Schema({ _id: false, storeSubdocValidationError: false })
 class SpdxId implements ISpdxId {
-  @Prop({ type: String, required: true })
+  @Prop({
+    type: String,
+    enum: [Ontologies[Ontologies.SPDX]],
+    required: true,
+    uppercase: true,
+    trim: true,
+  })
   namespace!: Ontologies.SPDX;
 
   @Prop({

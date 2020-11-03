@@ -14,7 +14,11 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   id!: string;
   @Prop()
   name!: string;
-  @Prop()
+  @Prop({
+    type: String,
+    enum: Object.values(PrimitiveType).sort(),
+    required: true,
+  })
   type!: PrimitiveType;
   @Prop()
   value!: boolean | number | string;
