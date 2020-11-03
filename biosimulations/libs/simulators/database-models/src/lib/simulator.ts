@@ -18,8 +18,7 @@ import { BiosimulatorsMeta } from './biosimulatorsMeta';
 class Simulator extends Document {
   @Prop()
   biosimulators!: BiosimulatorsMeta;
-  @Prop({  type: String, lowercase: true, trim: true, required: true })
-
+  @Prop({ type: String, lowercase: true, trim: true, required: true })
   id!: string;
 
   @Prop({ type: String, required: true })
@@ -63,5 +62,5 @@ SimulatorSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',
 });
-
+SimulatorSchema.set('strict', true);
 //SimulatorSchema.set('id', false);

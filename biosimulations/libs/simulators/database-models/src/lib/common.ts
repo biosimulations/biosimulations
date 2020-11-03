@@ -33,16 +33,16 @@ class Citation implements ICitation {
   })
   year!: number;
 
-  @Prop({ type: IdentifierSchema })
+  @Prop({ type: [IdentifierSchema] })
   identifiers!: Identifier[] | null;
 }
 export const CitationSchema = SchemaFactory.createForClass(Citation);
 
 @Schema({ _id: false, storeSubdocValidationError: false })
 export class ExternalReferences implements IExternalReferences {
-  @Prop({ type: IdentifierSchema })
+  @Prop({ type: [IdentifierSchema] })
   identifiers!: Identifier[];
-  @Prop({ type: CitationSchema })
+  @Prop({ type: [CitationSchema] })
   citations!: Citation[];
 }
 
