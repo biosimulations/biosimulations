@@ -1,5 +1,5 @@
 import {
-  PrimitiveType,
+  AlgorithmParameterType,
   AlgorithmParameter as IAlgorithmParameter,
 } from '@biosimulations/shared/datamodel';
 import { KisaoOntologyIdSchema } from './ontologyId';
@@ -16,10 +16,10 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   name!: string;
   @Prop({
     type: String,
-    enum: Object.values(PrimitiveType).sort(),
+    enum: Object.keys(AlgorithmParameterType).map((key: AlgorithmParameterType) => AlgorithmParameterType[key]).sort(),
     required: true,
   })
-  type!: PrimitiveType;
+  type!: AlgorithmParameterType;
   @Prop()
   value!: boolean | number | string;
   @Prop()

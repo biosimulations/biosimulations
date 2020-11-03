@@ -1,4 +1,3 @@
-import { PrimitiveType } from '../common/primitive-type';
 import { IOntologyTerm, Format, Citation } from '../..';
 import { KisaoId } from '../common/alias';
 import {
@@ -9,6 +8,17 @@ import {
   KISAOTerm,
 } from '../common';
 
+export enum AlgorithmParameterType {
+  boolean = 'boolean',
+  integer = ' integer',
+  float = 'float',
+  string = 'string',
+  kisaoId = 'kisaoId',
+  list = 'list',
+  object = 'object',
+  any = 'any',
+}
+
 /**
  * Represents a parameter in a particular simulation algorith or method.
  * id refers to the identifier used by some software package to reference parameter
@@ -18,7 +28,7 @@ import {
 export interface AlgorithmParameter {
   id: string;
   name: string;
-  type: PrimitiveType;
+  type: AlgorithmParameterType;
   value: boolean | number | string;
   // Todo make this a conditional type based on value
   recommendedRange: (boolean | number | string)[] | null;
