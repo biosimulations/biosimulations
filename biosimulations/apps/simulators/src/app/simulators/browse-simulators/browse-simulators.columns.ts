@@ -1,4 +1,4 @@
-import {  
+import {
   Column,
   ColumnActionType,
   ColumnFilterType,
@@ -12,10 +12,10 @@ export const columns: Column[] = [
     id: 'id',
     heading: 'Id',
     key: 'id',
-    centerAction: ColumnActionType.routerLink,    
+    centerAction: ColumnActionType.routerLink,
     centerRouterLink: (element: any): string[] => {
       return ['/simulators', element.id];
-    },    
+    },
     filterable: false,
     minWidth: 90,
     showStacked: false,
@@ -58,6 +58,9 @@ export const columns: Column[] = [
     filterComparator: (aName: string, bName: string, sign = 1): number => {
       return RowService.comparator(aName, bName, sign);
     },
+    extraSearchGetter: (element: TableSimulator): string => {
+      return element.frameworkIds.join(' ');
+    },
     minWidth: 200,
   },
   {
@@ -92,12 +95,8 @@ export const columns: Column[] = [
       filterValues: string[]
     ): boolean => {
       const algorithms = element.algorithms;
-      const algorithmSynonyms = element.algorithmSynonyms;
       for (const v of filterValues) {
         if (algorithms.includes(v)) {
-          return true;
-        }
-        if (algorithmSynonyms.includes(v)) {
           return true;
         }
       }
@@ -105,7 +104,10 @@ export const columns: Column[] = [
       return false;
     },
     filterComparator: RowService.comparator,
-    minWidth: 280,
+    extraSearchGetter: (element: TableSimulator):string => {
+      return element.algorithmIds.join(' ');
+    },
+    minWidth: 262,
   },
   {
     id: 'formats',
@@ -135,7 +137,10 @@ export const columns: Column[] = [
       );
     },
     filterComparator: RowService.comparator,
-    minWidth: 114,
+    extraSearchGetter: (element: TableSimulator): string => {
+      return element.formatIds.join(' ');
+    },
+    minWidth: 132,
   },
   {
     id: 'latestVersion',
@@ -149,8 +154,11 @@ export const columns: Column[] = [
     id: 'license',
     heading: 'License',
     key: 'license',
+    extraSearchGetter: (element: TableSimulator): string => {
+      return element.licenseId;
+    },
     show: false,
-    minWidth: 75,
+    minWidth: 125,
   },
   {
     id: 'created',

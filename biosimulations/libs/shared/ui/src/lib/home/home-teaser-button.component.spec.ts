@@ -1,18 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { HomeTeaserComponent } from './home-teaser.component';
 import { HomeTeaserButtonComponent } from './home-teaser-button.component';
 import { MatButtonModule } from '@angular/material/button';
 
-describe('HomeTeaserComponent', () => {
-  let component: HomeTeaserComponent;
-  let fixture: ComponentFixture<HomeTeaserComponent>;
+describe('HomeTeaserButtonComponent', () => {
+  let component: HomeTeaserButtonComponent;
+  let fixture: ComponentFixture<HomeTeaserButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HomeTeaserComponent,
         HomeTeaserButtonComponent,
       ],
       imports: [
@@ -23,7 +21,7 @@ describe('HomeTeaserComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeTeaserComponent);
+    fixture = TestBed.createComponent(HomeTeaserButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

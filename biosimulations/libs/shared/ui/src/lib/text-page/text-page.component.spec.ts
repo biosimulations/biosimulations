@@ -7,6 +7,7 @@ import { TextPageSectionComponent } from './text-page-section.component';
 import { TextPageSideBarSectionComponent } from './text-page-side-bar-section.component';
 import { TextPageTocItemComponent } from './text-page-toc-item.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { ScrollService } from '@biosimulations/shared/services';
 
 describe('TextPageComponent', () => {
   let component: TextPageComponent;
@@ -16,6 +17,7 @@ describe('TextPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PageComponent, TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageTocItemComponent],
       imports: [RouterTestingModule, BiosimulationsIconsModule],
+      providers: [ScrollService],
     }).compileComponents();
   }));
 

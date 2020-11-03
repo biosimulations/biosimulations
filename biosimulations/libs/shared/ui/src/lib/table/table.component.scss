@@ -50,6 +50,10 @@
         width: calc(16rem - 22px);
     }
 
+    .filter-set-clear-all {
+        margin-top: 0.5rem;
+    }
+
     .search-field {
         ::ng-deep .mat-form-field-wrapper {
             padding-bottom: 0;
@@ -226,6 +230,11 @@
     mat-header-cell {
         white-space: nowrap;
     }
+}
+
+.column-filter-icon {
+    margin-left: 0.25rem;
+    opacity: 0.54;
 }
 
 biosimulations-icon {

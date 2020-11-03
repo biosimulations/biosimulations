@@ -299,6 +299,9 @@ biosimulations-root {
   margin-left: -6px;
 }
 
+/* code highlighting */
+
+@import '~highlight.js/styles/github.css';
 pre {
   padding: 0.5rem;
   margin: 0;
@@ -308,15 +311,21 @@ pre {
   &:not(:last-child) {
     margin-bottom: 0.5rem;
   }
+
+  code, code.hljs {
+    padding: 0;
+  }
 }
 
-code {
+code, code.hljs {
   padding: 0.25rem;
+  display: inline;
 }
 
-code, pre {
+code, code.hljs, pre {
   font-size: 90%;
   background: $light-background;
+  color: $dark-primary-text;
 }
 
 .code {
@@ -363,12 +372,11 @@ npn-slider .slider {
     color: $dark-primary-text;
 
     &:hover {
-      color: rgba(#000000, 0.9);
+      color: mat-color($theme-primary);
     }
 
     &:active {
-      color: rgba(#000000, 1.0);
-      filter: drop-shadow( 1px 1px 1px rgba(#000000, 0.2));
+      color: mat-color($theme-primary, darker);
     }
   }
 
@@ -381,7 +389,6 @@ npn-slider .slider {
 
     &:active {
       color: #0b79d1;
-      filter: drop-shadow( 1px 1px 1px rgba(#0b79d1, 0.2));
     }
   }
 
@@ -394,7 +401,6 @@ npn-slider .slider {
 
     &:active {
       color: #cc7900;
-      filter: drop-shadow( 1px 1px 1px rgba(#cc7900, 0.2));
     }
   }
 
@@ -407,7 +413,6 @@ npn-slider .slider {
 
     &:active {
       color: #ffffffbb;
-      filter: drop-shadow( 1px 1px 1px rgba(#ffffff, 0.4));
     }
   }
 
@@ -431,7 +436,7 @@ table {
 
   thead {
     tr {
-      background: mat-color($theme-primary, lightest);
+      background: $primary-lightest-color;
       height: 32px;
     }
   }
@@ -467,8 +472,13 @@ table {
   }
 
   .mat-header-row {
-    background: mat-color($theme-primary, lightest);
+    background: $primary-lightest-color;
     min-height: 32px;
+  }
+
+  .mat-sort-header-arrow {
+    color: mat-color($theme-primary);
+    transform: scale(1.35, 1.35) !important;
   }
 
   mat-row:nth-child(even) {
@@ -483,7 +493,7 @@ table {
   }
 
   .highlight-row {
-    background: mat-color($theme-primary, lightest);
+    background: $primary-lightest-color;
   }
 
   .mat-cell, .mat-header-cell {

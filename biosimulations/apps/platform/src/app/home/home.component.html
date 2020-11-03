@@ -2,7 +2,16 @@
   heading="Sharing and reusing biomodels, simulations, and visualizations"
   banner="assets/images/biosimulations-logo/logo-white.svg"
 >
-  BioSimulations is a free platform for sharing and re-using biomodels, simulations, and visualizations. BioSimulations makes sharing and reuse easier by providing a simple web interface for a wide range of frameworks (e.g., logical, Flux-Balance Analysis (FBA), continuous kinetic, discrete kinetic), simulation algorithms (e.g., FBA, SSA), model formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
+  <ng-container id="buttons">
+    <biosimulations-home-teaser-button label="Browse projects" [routerLink]="['/projects']" [disabled]="true"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse models" [routerLink]="['/models']"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse simulations" [routerLink]="['/simulations']" [disabled]="true"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse charts" [routerLink]="['/charts']" [disabled]="true"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse visualizations" [routerLink]="['/visualizations']" [disabled]="true"></biosimulations-home-teaser-button>
+  </ng-container>
+  <ng-container id="description">
+    BioSimulations is a free platform for sharing and re-using biomodels, simulations, and visualizations. BioSimulations makes sharing and reuse easier by providing a simple web interface for a wide range of frameworks (e.g., logical, Flux-Balance Analysis (FBA), continuous kinetic, discrete kinetic), simulation algorithms (e.g., FBA, SSA), model formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
+  </ng-container>
 </biosimulations-home-teaser>
 
 <biosimulations-home-section

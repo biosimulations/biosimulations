@@ -9,6 +9,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -85,12 +86,19 @@ routes.forEach((route: Route): void => {
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage'],
     }),
+    HighlightModule,
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
     { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        fullLibraryLoader: () => import('highlight.js'),
+      }
+    },
   ],
   bootstrap: [AppComponent],
 })

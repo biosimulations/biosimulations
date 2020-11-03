@@ -1,6 +1,6 @@
 <div class="container" [ngClass]="{'highlight-container': highlight}">
   <h2>
-    {{ heading }}
+    <div class="heading">{{ heading }}</div>
     <a *ngIf="icon"
         mat-icon-button
         class="icon-container biosimulations-icon-button"
@@ -10,6 +10,7 @@
     >
       <biosimulations-icon [icon]="icon"></biosimulations-icon>
     </a>
+    <div class="clear-float"></div>
   </h2>
   <div class="content">
     <ng-content select="#content"></ng-content>

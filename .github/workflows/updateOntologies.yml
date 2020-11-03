@@ -1,0 +1,35 @@
+name: Update JSON versions of ontologies
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+
+  workflow_dispatch:
+    inputs:
+      ontologies:
+        description: 'Comma-separated list of the names of ontologies to update; default: update each ontology'
+        required: false
+        default: ''
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Update ontologies
+        run: ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
+
+      - name: Commit updated ontologies to repository
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          branch: update-ontologies
+          base: dev
+          commit-message: "Updated ontologies"
+          committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>

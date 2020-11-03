@@ -12,6 +12,7 @@ import { FaqComponent } from './faq/faq.component';
 import { HelpComponent } from './help/help.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [AboutComponent, FaqComponent, HelpComponent, TermsOfServiceComponent, PrivacyPolicyComponent],
@@ -21,6 +22,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     BiosimulationsIconsModule,
     SharedContentModule,
     HelpRoutingModule,
-  ]
+    HighlightModule,
+  ],
 })
 export class HelpModule { }

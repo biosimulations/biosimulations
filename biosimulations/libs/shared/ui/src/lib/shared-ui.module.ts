@@ -35,6 +35,7 @@ import { QAComponent } from './q-a/q-a.component';
 import { HomeSectionComponent } from './home/home-section.component';
 import { HomeSubsectionComponent } from './home/home-subsection.component';
 import { HomeTeaserComponent } from './home/home-teaser.component';
+import { HomeTeaserButtonComponent } from './home/home-teaser-button.component';
 import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
@@ -55,7 +56,7 @@ import { UnderMaintainenceComponent } from './error/under-maintainence.component
     TabPageComponent, TabPageTabComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
-    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
+    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeTeaserButtonComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
     ErrorComponent, Error404Component, Error500Component, UnderConstructionComponent, UnderMaintainenceComponent,
   ],
@@ -70,7 +71,7 @@ import { UnderMaintainenceComponent } from './error/under-maintainence.component
     TabPageComponent, TabPageTabComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
-    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
+    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeTeaserButtonComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
     ErrorComponent, Error404Component, Error500Component, UnderConstructionComponent, UnderMaintainenceComponent,
   ],

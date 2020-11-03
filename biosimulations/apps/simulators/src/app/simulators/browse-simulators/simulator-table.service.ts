@@ -24,7 +24,6 @@ export class SimulatorTableService {
           //Use the data to get the definitions for all additional calls
           const frameworks = this.getFrameworks(simulator);
           const algorithms = this.getAlgorithms(simulator);
-          const algorithmSynonyms = this.getSynonyms(simulator);
           const formats = this.getFormats(simulator);
           const license = this.getLicense(simulator);
 
@@ -32,16 +31,28 @@ export class SimulatorTableService {
           const innerObservables = {
             frameworks: frameworks,
             algorithms: algorithms,
-            algorithmSynonyms: algorithmSynonyms,
             formats: formats,
             license: license,
           };
+
+          const frameworkIds = new Set<string>();
+          const algorithmIds = new Set<string>();
+          const formatIds = new Set<string>();
+          for (const alg of simulator.algorithms) {
+            for (const framework of alg.modelingFrameworks) {
+              frameworkIds.add(framework.id);
+            }
+            algorithmIds.add(alg.kisaoId.id);
+            for (const format of alg.modelFormats) {
+              formatIds.add(format.id);
+            }
+          }
+          const licenseId = simulator.license.id
 
           //Observable of the table object
           const tableSimulatorObservable = of(innerObservables).pipe(
             mergeMap((sourceValue) =>
               forkJoin({
-                algorithmSynonyms: sourceValue.algorithmSynonyms,
                 algorithms: sourceValue.algorithms,
                 frameworks: sourceValue.frameworks,
                 formats: sourceValue.formats,
@@ -56,10 +67,13 @@ export class SimulatorTableService {
                     url: simulator.url,
                     created: new Date(simulator.created),
                     license: value.license,
+                    licenseId: '',
                     frameworks: value.frameworks,
+                    frameworkIds: [...frameworkIds],
                     algorithms: value.algorithms,
-                    algorithmSynonyms: value.algorithmSynonyms,
+                    algorithmIds: [...algorithmIds],
                     formats: value.formats,
+                    formatIds: [...formatIds],
                   };
                 })
               )
@@ -135,21 +149,6 @@ export class SimulatorTableService {
       alg.push(this.ontologyService.getKisaoTerm(id).pipe(pluck('name')));
     }
     const obs = from(alg).pipe(mergeAll(), toArray());
-    return obs;
-  }
-
-  getSynonyms(simulator: any): Observable<string[]> {
-    const algorithmSynonyms: Set<string> = new Set();
-    for (const algorithm of simulator.algorithms) {
-      for (const synonym of algorithm?.kisaoSynonyms || []) {
-        algorithmSynonyms.add(synonym.id);
-      }
-    }
-    const algSyn: Observable<string>[] = [];
-    for (const id in algorithmSynonyms) {
-      algSyn.push(this.ontologyService.getKisaoTerm(id).pipe(pluck('name')));
-    }
-    const obs = from(algSyn).pipe(mergeAll(), toArray());
     return obs;
   }
 

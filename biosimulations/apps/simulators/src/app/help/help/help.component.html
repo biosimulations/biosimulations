@@ -46,7 +46,7 @@
 
     <biosimulations-text-page-content-section
       heading="Finding a simulation tool that is capable of executing a modeling project"
-      tocSection="Finding simulation tools'"
+      tocSection="Finding simulation tools"
     >
       The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The simulators page <a [routerLink]="['/simulators']"><biosimulations-icon icon="internalLink"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
     </biosimulations-text-page-content-section>
@@ -72,14 +72,14 @@
           <p><b>Use the selected simulator(s) to execute simulations and save their results:</b>
           Execute the following from your console:</p>
 
-          <pre>docker run \
+          <pre><code>docker run \
   --tty \
   --rm \
   --mount type=bind,source={{ '{' }} path-to-directory-of-COMBINE-archive {{ '}' }},target=/tmp/project,readonly \
   --mount type=bind,source={{ '{' }} path-to-save-results {{ '}' }},target=/tmp/results \
   biosimulators/{{ '{' }} simulator-id {{ '}' }} \
     --archive /tmp/project/{{ '{' }} name-of-COMBINE-archive {{ '}' }} \
-    --out-dir /tmp/results</pre>
+    --out-dir /tmp/results</code></pre>
 
           <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>. This will save your results to <code>path-to-save-results</code>. Reports will be saved in CSV format and plots will be saved in PDF format.</p>
         </li>
@@ -154,28 +154,27 @@
               </ul>
 
               <p>Below is an example of metadata for the BioNetGen image.</p>
-              <pre>LABEL base_image="ubuntu:18.04"
-LABEL version="1.0.0"
-LABEL software="BioNetGen"
-LABEL software.version="2.5.0"
-LABEL about.summary="Package for rule-based modeling of complex biochemical systems"
-LABEL about.home="https://bionetgen.org/"
-LABEL about.documentation="https://bionetgen.org/"
-LABEL about.license_file="https://github.com/RuleWorld/bionetgen/blob/master/LICENSE"
-LABEL about.license="SPDX:MIT"
-LABEL about.tags="rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators"
-LABEL extra.identifiers.biotools="bionetgen"
-LABEL maintainer="Jonathan Karr &lt;karr@mssm.edu&gt;"
-</pre>
+              <pre><code [languages]="['dockerfile']" highlight="LABEL base_image=&quot;ubuntu:18.04&quot;
+LABEL version=&quot;1.0.0&quot;
+LABEL software=&quot;BioNetGen&quot;
+LABEL software.version=&quot;2.5.0&quot;
+LABEL about.summary=&quot;Package for rule-based modeling of complex biochemical systems&quot;
+LABEL about.home=&quot;https://bionetgen.org/&quot;
+LABEL about.documentation=&quot;https://bionetgen.org/&quot;
+LABEL about.license_file=&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;
+LABEL about.license=&quot;SPDX:MIT&quot;
+LABEL about.tags=&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;
+LABEL extra.identifiers.biotools=&quot;bionetgen&quot;
+LABEL maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
           </ul>
         </li>
         <li>
           <p><b>Use Docker and the Dockerfile to build an image for your simulation tool</b> by executing the following from your console:</p>
-          <pre>docker build \
+          <pre><code>docker build \
   --tag {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }} simulator-id {{ '}' }}:{{ '{' }} simulator-version {{ '}' }} \
   --tag {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }} simulator-id {{ '}' }}:latest \
   --file {{ '{' }} path-to-Dockerfile {{ '}' }} \
-  .</pre>
+  .</code></pre>
         </li>
         <li>
           <p><b>Create a JSON-formatted file which specifies the capabilities of your simulation tool.</b> This file should adhere to the schema described in the BioSimulators API <a href="https://api.biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
@@ -183,23 +182,62 @@ LABEL maintainer="Jonathan Karr &lt;karr@mssm.edu&gt;"
         </li>
         <li>
           <p><b>Use the BioSimulators test suite to validate your image and its specificiations.</b> This will check that the image provides a BioSimulators-compliant Docker structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.</p>
-          <pre>pip install biosimulators-test-suite
-biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }} image-id {{ '}' }} {{ '{' }} path-to-specifications.json {{ '}' }}</pre>
+          <pre><code>pip install biosimulators-test-suite
+biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }} image-id {{ '}' }} {{ '{' }} path-to-specifications.json {{ '}' }}</code></pre>
         </li>
       </ol>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      heading="Contributing a containerized biosimulation tools to BioSimulators"
+      heading="Contributing a containerized biosimulation tool to BioSimulators"
       tocSection="Contributing simulation tools"
     >
       <p>We welcome contributions of additional simulation tools! Please follow these steps to contribute a tool to BioSimulators:</p>
       <ol class="vertically-spaced">
         <li>
-          <b>Publish your image to a public repository such as Docker Hub, GitHub containers, or Quay</b> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub containers, and Quay each provide free accounts for public images.
+          <b>Publish your image to a public repository</b> such as Docker Hub <a href="https://dockerhub.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub Container Registry <a href="https://github.com/features/packages" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or Quay <a href="https://quay.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
         </li>
         <li>
-          <b>Submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> that describes briefly describes the URL to the specifications of your tool. This will initiate a workflow which will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool which must be addressed.
+          <b>Submit an issue <a href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Submit+simulator&template=contribute-a-simulator.md&title=" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> to the BioSimulators GitHub repository that describes briefly describes the URL to the specifications of your tool. This will initiate a workflow which will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool which must be addressed.
+        </li>
+        <li>
+          <p><b>Optionally, set up your continuous integration workflow to automatically push each release to BioSimulators.</b> Within your continuous integration workflow (e.g., CircleCI, GitHub actions, Jenkins, Travis), use the GitHub REST API to automatically create issues that submit versions of your simulator to BioSimulators.</p>
+
+          <p>This requires a GitHub account and a personal access token with the <code>public_repo</code> scope. Instructions for creating an access token are available in the GitHub documentation <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+          <ul>
+            <li>Endpoint: <code>http://api.github.com/repos/biosimulators/Biosimulators/issues</code></li>
+            <li>Method: <code>POST</code></li>
+            <li>Auth: <code>{{ '{' }} github-username {{ '}' }}:{{ '{' }} github-person-access-token {{ '}' }}</code></li>
+            <li>Headers: 
+              <ul>
+                <li>Accept: <code>application/vnd.github.v3+json</code></li>
+              </ul>
+            </li>
+            <li>Body (JSON-encoded)
+              <ul>
+                <li>title: <code>Submit {{ '{' }} simulator-name {{ '}' }} {{ '{' }} simulator-version {{ '}' }}</code></li>
+                <li>body: <pre><code>---
+name: {{ '{' }} simulator-name {{ '}' }}
+version: {{ '{' }} simulator-version {{ '}' }}
+specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
+
+---</code></pre>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <p class="no-bottom-margin">curl code sample:</p>
+
+          <pre><code>curl \
+  -X POST \
+  -u jonrkarr:{{ '{' }} github-personal-access-token {{ '}' }} \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/biosimulators/Biosimulators/issues \
+  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</code></pre>
+
+          <p>The above is implemented by the Python method <code>Biosimulations_utils.simulator.submit_to_biosimulators.submit_simulator_to_biosimulators</code>. See the documentation <a href="https://biosimulations-utils.readthedocs.io/"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
         </li>
         <li>
           <b>Optionally, also publish the source code for your simulation tool to a repository</b> such as BitBucket <a href="https://bitbucket.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub <a href="https://github.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or GitLab <a href="https://gitlab.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.

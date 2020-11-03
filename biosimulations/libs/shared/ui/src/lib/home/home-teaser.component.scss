@@ -24,15 +24,19 @@ img {
 }
 
 .heading {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  margin-top: 1rem;
   font-size: 28px;
   line-height: normal;
   font-weight: bold;
   text-align: center;
 }
 
+.buttons {
+  margin-top: 1rem;
+}
+
 .text {
+  margin-top: 1rem;
   padding: 0 2rem;
   font-size: 18px;
   line-height: 150%;

@@ -126,6 +126,8 @@ body {
   --text-primary-darker-color: #{$light-primary-text};
 }
 
+$primary-lightest-color: #d2eafc;
+
 $mat-primary: (
   main: #2196f3,
   lighter: #9bcff9,
@@ -141,7 +143,7 @@ $mat-primary: (
       darker: $light-primary-text,
     ),
 );
-$theme-primary: mat-palette($mat-primary, main, lighter, lighest, darker);
+$theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 body {
   --accent-color: #ff9800;
