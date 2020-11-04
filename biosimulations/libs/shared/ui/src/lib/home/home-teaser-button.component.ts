@@ -8,10 +8,19 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class HomeTeaserButtonComponent {
   @Input()
-  label = '';
+  route!: any;
 
   @Input()
-  routerLink!: any;
+  href!: string;
+
+  @Input()
+  width = '156px';
+
+  @Input()
+  height = '104px';
+
+  @Input()
+  color = 'primary';
 
   @Input()
   disabled = false;
