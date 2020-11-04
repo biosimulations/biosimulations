@@ -4,8 +4,14 @@ biosimulations-text-page-section ::ng-deep h2 {
   color: $dark-primary-text;
   background: $light-background;
 
-  .icon-container {
-    color: mat-color($theme-primary);
+  .mat-icon-button.biosimulations-icon-button {
+    &:hover {
+      color: mat-color($theme-primary);
+    }
+
+    &:active {
+      color: mat-color($theme-primary, darker);
+    }
   }
 }
 

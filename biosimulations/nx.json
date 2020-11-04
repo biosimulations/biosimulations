@@ -40,6 +40,10 @@
       "tags": ["scope:shared", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
+    "shared-services": {
+      "tags": ["scope:shared", "type:service", "platform:any"],
+      "implicitDependencies": []
+    },
     "shared-styles": {
       "tags": ["scope:shared", "type:styles", "platform:web"]
     },
@@ -94,7 +98,7 @@
       "tags": ["scope:platform", "type:datamodel", "platform:any"]
     },
     "platform-database-models": {
-      "tags": ["scope:platform", "type:datamodel", "platform:any"]
+      "tags": ["scope:platform", "type:datamodel", "platform:server"]
     },
     "dispatch-service": {
       "tags": ["scope:dispatch", "type:service", "platform:server"],
@@ -131,8 +135,38 @@
     "shared-environments": {
       "tags": ["scope:shared", "type:environments", "platform:any"]
     },
-    "dispatch-datamodel": {
+    "shared-datamodel-api": {
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
+    },
+    "dispatch-api-models": {
       "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
+    },
+    "messages": {
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
+    },
+    "mail-service": {
+      "tags": ["scope:shared", "type:service", "platform:server"]
+    },
+    "ontology-api": {
+      "tags": ["scope:ontology", "type:api", "platform:server"]
+    },
+    "ontology-sources": {
+      "tags": ["scope:ontology", "type:datamodel", "platform:server"]
+    },
+    "ontology-ontologies": {
+      "tags": ["scope:ontology", "type:service", "platform:server"]
+    },
+    "shared-utils-routes": {
+      "tags": ["scope:shared", "type:utils", "platform:web"]
+    },
+    "dispatch-file-modifiers": {
+      "tags": ["scope:dispatch", "type:util", "platform:any"]
+    },
+    "simulators-database-models": {
+      "tags": ["scope:simulators", "type:datamodel", "platform:server"]
+    },
+    "shared-exceptions": {
+      "tags": ["scope:shared", "type:util", "platform:server"]
     }
   }
 }

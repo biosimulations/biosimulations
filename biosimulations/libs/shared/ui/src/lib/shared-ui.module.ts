@@ -21,6 +21,8 @@ import { RouterLinkComponent } from './router-link/router-link.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons'
 import { PrivacyPolicyNoticeComponent } from './privacy-policy-notice/privacy-policy-notice.component';
 import { TableComponent } from './table/table.component';
+import { StackedTableComponent } from './table/stacked-table.component';
+import { ResponsiveTableComponent } from './table/responsive-table.component';
 import { PageComponent } from './page/page.component';
 import { TabPageComponent } from './tab-page/tab-page.component';
 import { TabPageTabComponent } from './tab-page/tab-page-tab.component';
@@ -33,9 +35,15 @@ import { QAComponent } from './q-a/q-a.component';
 import { HomeSectionComponent } from './home/home-section.component';
 import { HomeSubsectionComponent } from './home/home-subsection.component';
 import { HomeTeaserComponent } from './home/home-teaser.component';
+import { HomeTeaserButtonComponent } from './home/home-teaser-button.component';
 import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
+import { ErrorComponent } from './error/error.component';
+import { Error404Component } from './error/error-404.component';
+import { Error500Component } from './error/error-500.component';
+import { UnderConstructionComponent } from './error/under-construction.component';
+import { UnderMaintainenceComponent } from './error/under-maintainence.component';
 @NgModule({
   imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, BreadCrumbsModule],
   exports: [MaterialWrapperModule, TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
@@ -43,13 +51,14 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     StepperButtonsComponent,
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent, SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
-    TableComponent,
+    TableComponent, StackedTableComponent, ResponsiveTableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
-    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
+    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeTeaserButtonComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
+    ErrorComponent, Error404Component, Error500Component, UnderConstructionComponent, UnderMaintainenceComponent,
   ],
   declarations: [TopbarComponent, TopbarMenuComponent, TopbarMenuItemComponent,
     HoverOpenMenuComponent, DropdownMenuItemComponent,
@@ -57,13 +66,14 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent,
     SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
-    TableComponent,
+    TableComponent, StackedTableComponent, ResponsiveTableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,
     TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageContentSectionComponent, TextPageTocItemComponent,
     QAComponent,
-    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeLogoComponent,
+    HomeSectionComponent, HomeSubsectionComponent, HomeTeaserComponent, HomeTeaserButtonComponent, HomeLogoComponent,
     TocSectionDirective, TocSectionsContainerDirective,
+    ErrorComponent, Error404Component, Error500Component, UnderConstructionComponent, UnderMaintainenceComponent,
   ],
 })
 export class SharedUiModule { }

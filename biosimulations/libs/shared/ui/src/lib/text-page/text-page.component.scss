@@ -1,9 +1,10 @@
 .sections-container {
   margin-top: -2rem;
+  overflow: auto;
 }
 
 @media screen and (max-width: 959px) {
- .side-bar-container {
+ .side-bar .sections-container {
    margin-top: -1rem;
   }
 

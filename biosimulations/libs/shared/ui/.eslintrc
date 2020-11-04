@@ -1,5 +1,19 @@
 {
   "extends": "../../../.eslintrc",
   "rules": {},
-  "ignorePatterns": ["!**/*", "**/*.spec.ts", "**/table.component.html"]
+  "ignorePatterns": ["!**/*", "**/*.spec.ts"],
+  "overrides": [
+    {
+      "files": ["**/*.component.html"],
+      "parser": "@angular-eslint/template-parser",
+      "plugins": ["@angular-eslint/template"],
+
+      "rules": {
+        "@angular-eslint/template/cyclomatic-complexity": [
+          "error",
+          { "maxComplexity": 40 }
+        ]
+      }
+    }
+  ]
 }

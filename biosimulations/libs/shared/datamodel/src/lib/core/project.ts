@@ -1,4 +1,4 @@
-import { JournalReference } from '../common';
+import { Citation } from '../common';
 import { BiosimulationsId } from '../common/alias';
 
 export enum ProjectProductType {
@@ -20,7 +20,7 @@ export const projectProductTypes = [
 ];
 
 export interface ProjectProduct {
-  reference: JournalReference;
+  reference: Citation;
   type: ProjectProductType;
   label: string;
   description: string;

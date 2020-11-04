@@ -19,11 +19,11 @@ import {
 } from '@nestjs/swagger';
 
 import {
-  getUserId,
   permissions,
   JwtGuard,
   PermissionsGuard,
 } from '@biosimulations/auth/nest';
+import { getUserId } from '@biosimulations/auth/common';
 
 class CreateAccountDTO {
   @ApiProperty()
@@ -80,7 +80,7 @@ export class AppController {
     if (!regEx.test(username)) {
       valid = false;
       message =
-        'Usernames must consist of numbers, letters and underscores \'_\'  only';
+        "Usernames must consist of numbers, letters and underscores '_'  only";
     } else {
       const taken = await this.accountService.find(username);
 

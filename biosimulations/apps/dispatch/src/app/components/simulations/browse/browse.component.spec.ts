@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { ConfigService } from '@biosimulations/shared/services';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowseComponent } from './browse.component';
@@ -24,6 +25,7 @@ describe('BrowseComponent', () => {
           driverOrder: ['indexeddb', 'websql', 'localstorage']
         }),
       ],
+      providers: [ConfigService],
       declarations: [BrowseComponent],
     }).compileComponents();
   }));

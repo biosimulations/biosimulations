@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { AuthService } from '@biosimulations/auth/angular';
 
 @Component({
@@ -6,9 +7,14 @@ import { AuthService } from '@biosimulations/auth/angular';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'platform';
-  constructor(private auth: AuthService) { }
+  constructor(public config: ConfigService, private scrollService: ScrollService, private auth: AuthService) { }
+
+  ngAfterViewInit(): void {
+    this.scrollService.init();
+  }
+
   login() {
     this.auth.login();
   }

@@ -64,9 +64,9 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -250,6 +250,34 @@
         }
       }
     },
+    "shared-services": {
+      "projectType": "library",
+      "root": "libs/shared/services",
+      "sourceRoot": "libs/shared/services/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/services/tsconfig.lib.json",
+              "libs/shared/services/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/services/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/services/jest.config.js",
+            "tsConfig": "libs/shared/services/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/services/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
     "shared-styles": {
       "projectType": "library",
       "root": "libs/shared/styles",
@@ -405,7 +433,10 @@
                 "output": "assets"
               },
               "apps/dispatch/src/manifest.webmanifest",
-              "apps/dispatch/src/browserconfig.xml"
+              "apps/dispatch/src/browserconfig.xml",
+              "apps/dispatch/src/sitemap.xml",
+              "apps/dispatch/src/sitemap-static.xml",
+              "apps/dispatch/src/sitemap-dynamic.xml"
             ],
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
@@ -423,12 +454,13 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "serviceWorker": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -903,7 +935,9 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "dispatch-api:build"
+            "buildTarget": "dispatch-api:build",
+            "inspect": true,
+            "port": 4444
           }
         },
         "lint": {
@@ -973,7 +1007,10 @@
                 "output": "assets"
               },
               "apps/platform/src/manifest.webmanifest",
-              "apps/platform/src/browserconfig.xml"
+              "apps/platform/src/browserconfig.xml",
+              "apps/platform/src/sitemap.xml",
+              "apps/platform/src/sitemap-static.xml",
+              "apps/platform/src/sitemap-dynamic.xml"
             ],
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/marked/lib/marked.js"],
@@ -991,12 +1028,13 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "serviceWorker": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -1031,14 +1069,13 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
               "apps/platform/tsconfig.app.json",
               "apps/platform/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/platform/**/*"],
-            "linter": "eslint"
+            "exclude": ["**/node_modules/**", "!apps/platform/**/*"]
           }
         },
         "test": {
@@ -1086,14 +1123,13 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
               "libs/platform/view/tsconfig.lib.json",
               "libs/platform/view/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/platform/view/**/*"],
-            "linter": "eslint"
+            "exclude": ["**/node_modules/**", "!libs/platform/view/**/*"]
           }
         },
         "test": {
@@ -1159,7 +1195,10 @@
                 "output": "assets"
               },
               "apps/simulators/src/manifest.webmanifest",
-              "apps/simulators/src/browserconfig.xml"
+              "apps/simulators/src/browserconfig.xml",
+              "apps/simulators/src/sitemap.xml",
+              "apps/simulators/src/sitemap-static.xml",
+              "apps/simulators/src/sitemap-dynamic.xml"
             ],
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/marked/lib/marked.js"],
@@ -1177,12 +1216,13 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
+              "serviceWorker": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -1217,14 +1257,13 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
               "apps/simulators/tsconfig.app.json",
               "apps/simulators/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/simulators/**/*"],
-            "linter": "eslint"
+            "exclude": ["**/node_modules/**", "!apps/simulators/**/*"]
           }
         },
         "test": {
@@ -1381,9 +1420,9 @@
         }
       }
     },
-    "dispatch-datamodel": {
-      "root": "libs/dispatch/datamodel",
-      "sourceRoot": "libs/dispatch/datamodel/src",
+    "dispatch-api-models": {
+      "root": "libs/dispatch/api-models",
+      "sourceRoot": "libs/dispatch/api-models/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1391,17 +1430,349 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "tsConfig": [
-              "libs/dispatch/datamodel/tsconfig.lib.json",
-              "libs/dispatch/datamodel/tsconfig.spec.json"
+              "libs/dispatch/api-models/tsconfig.lib.json",
+              "libs/dispatch/api-models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/dispatch/datamodel/**/*"]
+            "exclude": ["**/node_modules/**", "!libs/dispatch/api-models/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/dispatch/datamodel/jest.config.js",
-            "tsConfig": "libs/dispatch/datamodel/tsconfig.spec.json",
+            "jestConfig": "libs/dispatch/api-models/jest.config.js",
+            "tsConfig": "libs/dispatch/api-models/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-datamodel-api": {
+      "root": "libs/shared/datamodel-api",
+      "sourceRoot": "libs/shared/datamodel-api/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/datamodel-api/tsconfig.lib.json",
+              "libs/shared/datamodel-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/datamodel-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/datamodel-api/jest.config.js",
+            "tsConfig": "libs/shared/datamodel-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "messages": {
+      "root": "libs/messages",
+      "sourceRoot": "libs/messages/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/messages/tsconfig.lib.json",
+              "libs/messages/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/messages/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/messages/jest.config.js",
+            "tsConfig": "libs/messages/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mail-service": {
+      "root": "apps/mail-service",
+      "sourceRoot": "apps/mail-service/src",
+      "projectType": "application",
+      "prefix": "mail-service",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/mail-service",
+            "main": "apps/mail-service/src/main.ts",
+            "tsConfig": "apps/mail-service/tsconfig.app.json",
+            "assets": ["apps/mail-service/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/mail-service/src/environments/environment.ts",
+                  "with": "apps/mail-service/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "mail-service:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "apps/mail-service/tsconfig.app.json",
+              "apps/mail-service/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/mail-service/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/mail-service/jest.config.js",
+            "tsConfig": "apps/mail-service/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ontology-api": {
+      "root": "apps/ontology-api",
+      "sourceRoot": "apps/ontology-api/src",
+      "projectType": "application",
+      "prefix": "ontology-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/ontology-api",
+            "main": "apps/ontology-api/src/main.ts",
+            "tsConfig": "apps/ontology-api/tsconfig.app.json",
+            "assets": ["apps/ontology-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/ontology-api/src/environments/environment.ts",
+                  "with": "apps/ontology-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "ontology-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "apps/ontology-api/tsconfig.app.json",
+              "apps/ontology-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ontology-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ontology-api/jest.config.js",
+            "tsConfig": "apps/ontology-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ontology-sources": {
+      "root": "libs/ontology/sources",
+      "sourceRoot": "libs/ontology/sources/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/ontology/sources/tsconfig.lib.json",
+              "libs/ontology/sources/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ontology/sources/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ontology/sources/jest.config.js",
+            "tsConfig": "libs/ontology/sources/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ontology-ontologies": {
+      "root": "libs/ontology/ontologies",
+      "sourceRoot": "libs/ontology/ontologies/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/ontology/ontologies/tsconfig.lib.json",
+              "libs/ontology/ontologies/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ontology/ontologies/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ontology/ontologies/jest.config.js",
+            "tsConfig": "libs/ontology/ontologies/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-utils-routes": {
+      "projectType": "library",
+      "root": "libs/shared/utils/routes",
+      "sourceRoot": "libs/shared/utils/routes/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/utils/routes/tsconfig.lib.json",
+              "libs/shared/utils/routes/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/utils/routes/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/utils/routes/jest.config.js",
+            "tsConfig": "libs/shared/utils/routes/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/utils/routes/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "dispatch-file-modifiers": {
+      "root": "libs/dispatch/file-modifiers",
+      "sourceRoot": "libs/dispatch/file-modifiers/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/dispatch/file-modifiers/tsconfig.lib.json",
+              "libs/dispatch/file-modifiers/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/dispatch/file-modifiers/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dispatch/file-modifiers/jest.config.js",
+            "tsConfig": "libs/dispatch/file-modifiers/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "simulators-database-models": {
+      "root": "libs/simulators/database-models",
+      "sourceRoot": "libs/simulators/database-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/simulators/database-models/tsconfig.lib.json",
+              "libs/simulators/database-models/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/simulators/database-models/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/simulators/database-models/jest.config.js",
+            "tsConfig": "libs/simulators/database-models/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-exceptions": {
+      "root": "libs/shared/exceptions",
+      "sourceRoot": "libs/shared/exceptions/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": { 
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/shared/exceptions/tsconfig.lib.json",
+              "libs/shared/exceptions/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/exceptions/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/exceptions/jest.config.js",
+            "tsConfig": "libs/shared/exceptions/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -1451,12 +1822,14 @@
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress",
       "strict": true,
-      "style": "scss"
+      "style": "scss",
+      "linter": "eslint"
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest",
       "strict": true,
-      "style": "scss"
+      "style": "scss",
+      "linter": "eslint"
     }
   },
   "defaultProject": "platform"

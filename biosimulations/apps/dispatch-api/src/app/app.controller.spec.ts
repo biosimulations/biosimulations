@@ -1,24 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import {
   ClientProxyFactory,
   NatsOptions,
   Transport,
 } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
-import { HttpModule, Controller } from '@nestjs/common';
+import { HttpModule } from '@nestjs/common';
+import { ModelsService } from './resources/models/models.service';
+import { AppService } from './app.service';
 
 describe('AppController', () => {
   let app: TestingModule;
 
   beforeAll(async () => {
+    const mockService = {};
     app = await Test.createTestingModule({
       imports: [HttpModule],
       controllers: [AppController],
       providers: [
-        AppService,
         ConfigService,
+        AppService,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {
@@ -29,6 +31,10 @@ describe('AppController', () => {
             return ClientProxyFactory.create(natsOptions);
           },
           inject: [ConfigService],
+        },
+        {
+          provide: ModelsService,
+          useValue: mockService,
         },
       ],
     }).compile();
@@ -50,6 +56,8 @@ describe('AppController', () => {
             simulatorVersion: '',
             filename: '',
             uniqueFilename: '',
+            authorEmail: '',
+            nameOfSimulation: '',
           }
         )
       ).toEqual({
@@ -58,22 +66,5 @@ describe('AppController', () => {
     });
   });
 
-  describe('dispatchFinishEvent', () => {
-    it('should return "OK" after sending message to NATS', () => {
-      const appController = app.get<AppController>(AppController);
-      expect(
-        appController.dispatchFinishEvent('213243421sdfvds')
-      ).toEqual({message: 'OK'})
-    })
-  });
-
-  describe('getVisualizationData', () => {
-    it('should run with given parameters and save generate JSON data', () => {
-      const appController = app.get<AppController>(AppController)
-      expect(appController.getVisualizationData('21312312asad', false, 'VilarBMDB', 'task1'))
-      .toBeDefined();
-    })
-  })
-
-
+  
 });

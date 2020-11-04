@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { ScrollService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-text-page-toc-item',
@@ -21,13 +22,11 @@ export class TextPageTocItemComponent implements OnInit {
   @Input()
   scrollOffset = 0;
 
-  constructor() {}
+  constructor(private scrollService: ScrollService) {}
 
   ngOnInit(): void {}
 
   scrollToElement(): void {
-    const scrollContainer = document.getElementsByTagName('mat-sidenav-content')[0];
-    const y = this.scrollTarget.getBoundingClientRect().top + scrollContainer.scrollTop - this.scrollOffset;
-    scrollContainer.scrollTo({top: y, behavior: 'smooth'});
+    this.scrollService.scrollToElement(this.scrollTarget, this.scrollOffset);
   }
 }

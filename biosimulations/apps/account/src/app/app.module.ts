@@ -15,6 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AgreementComponent } from './components/agreement/agreement.component';
+import { ScrollService } from '@biosimulations/shared/services';
 
 import { CommonModule } from '@angular/common';
 
@@ -34,7 +35,10 @@ import { CommonModule } from '@angular/common';
         },
         { path: '', redirectTo: 'register', pathMatch: 'full' },
       ],
-      { initialNavigation: 'enabled', scrollPositionRestoration: 'enabled' },
+      {
+        initialNavigation: 'enabled',
+        scrollPositionRestoration: 'disabled',
+      },
     ),
     SharedUiModule,
 
@@ -43,6 +47,7 @@ import { CommonModule } from '@angular/common';
   ],
   providers: [
     {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
+    ScrollService,
   ],
   bootstrap: [AppComponent],
 })

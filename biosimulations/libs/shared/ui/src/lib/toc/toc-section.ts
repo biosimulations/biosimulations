@@ -1,6 +1,7 @@
 import { ElementRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface TocSection {
-  heading?: string;
+  heading?: Observable<string>;
   target?: HTMLElement;
 }

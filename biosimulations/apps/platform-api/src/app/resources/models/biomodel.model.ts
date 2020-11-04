@@ -19,7 +19,7 @@ import {
   Taxon,
   BiomodelParameter,
   BiomodelVariable,
-  OntologyTerm,
+  IOntologyTerm,
   Format,
   BiomodelRelationships,
   License,
@@ -35,7 +35,6 @@ import {
   CreateModelResource,
   ExternalReferences,
 } from '@biosimulations/platform/api-models';
-
 
 // TODO expand definitions, add prop decorators, validation. Abstract to library. Include nested fields
 
@@ -108,21 +107,20 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: true, items: BiomodelVariableDB, _id: false })
   variables!: BiomodelVariableDB[];
   @prop({ required: true })
-  framework: OntologyTerm;
+  framework: IOntologyTerm;
   @prop({ required: true })
   format: Format;
 
-  
   @prop({ required: true, _id: false })
   metadata: Attributes;
 
   constructor(
     taxon: Taxon | null,
     parameters: BiomodelParameter[],
-    framework: OntologyTerm,
+    framework: IOntologyTerm,
     format: Format,
     metaData: AttributesMetadata,
-    variables: ModelVariable[],
+    variables: ModelVariable[]
   ) {
     this.taxon = taxon;
     this.parameters = parameters;
@@ -189,7 +187,7 @@ export class Model {
       model.attributes.framework,
       model.attributes.format,
       model.attributes.metadata,
-      model.attributes.variables,
+      model.attributes.variables
     );
     this.created = Date.now();
     this.updated = Date.now();

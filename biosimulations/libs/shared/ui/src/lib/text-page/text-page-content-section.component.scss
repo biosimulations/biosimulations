@@ -2,13 +2,15 @@
 
 biosimulations-text-page-section ::ng-deep h2 {
   color: mat-color($theme-primary);
-  background: mat-color($theme-primary, lightest);
+  background: $primary-lightest-color;
 
-  .icon-container {
-    color: $dark-primary-text;
+  .mat-icon-button.biosimulations-icon-button {
+    &:hover {
+      color: mat-color($theme-accent);
+    }
+
+    &:active {
+      color: #e58800;
+    }
   }
-}
-
-biosimulations-text-page-section ::ng-deep a {
-  color: mat-color($theme-primary);
 }

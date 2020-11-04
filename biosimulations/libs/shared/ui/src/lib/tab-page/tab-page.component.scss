@@ -2,7 +2,7 @@
 
 ::ng-deep mat-tab-group {
   .mat-tab-header {
-    background: mat-color($theme-primary, lightest);
+    background: $primary-lightest-color;
     border-bottom: none;
     position: sticky;
     top: calc(64px + 32px);
@@ -18,10 +18,14 @@
     min-width: unset;
     padding: 0 1rem;
     color: mat-color($theme-primary);
-    opacity: 0.9;
+    opacity: 1.0;
 
-    &.mat-tab-label-active {
-      opacity: 0.9;
+    &:hover {
+      color: mat-color($theme-accent);
+    }
+
+    &:active {
+      color: #e58800;
     }
   }
 

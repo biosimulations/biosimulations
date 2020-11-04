@@ -26,6 +26,8 @@ export class RegistrationComponent implements OnInit, OnChanges {
   termsAndConditionsFormValue: Observable<string>;
 
   // TODO use a common config library for these
+  // TODO: replace with biosimulations-terms-of-service, biosimulations-privacy-policy OR links to https://biosimulations.org/help/terms and https://biosimulations.org/help/privacy
+  // TODO: CODE_OF_CONDUCT.md is for developers, rather than for users. This should be removed or replaced with a code of conduct for users
   ccUrl =
     'https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/CODE_OF_CONDUCT.md';
   tosUrl =

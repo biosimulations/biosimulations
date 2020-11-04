@@ -40,8 +40,11 @@ export type biosimulationsIcon =
   | 'report'
   | 'download'
   | 'upload'
+  | 'refresh'
   | 'logs'
   | 'compare'
+  | 'controls'
+  | 'search'
   | 'filter'
   | 'columns'
   | 'reuse'
@@ -65,6 +68,8 @@ export type biosimulationsIcon =
   | 'ccBySa'
   | 'ccByNcSa'
   | 'version'
+  | 'copy'
+  | 'fork'
   | 'link'
   | 'internalLink'
   | 'email'
@@ -73,7 +78,9 @@ export type biosimulationsIcon =
   | 'docker'
   | 'linkedin'
   | 'orcid'
-  | 'toTop';
+  | 'toTop'
+  | 'construction'
+  | 'maintainence';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -90,7 +97,7 @@ export class IconComponent implements OnInit {
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     link: { type: 'fas', name: 'link' },
-    internalLink: { type: 'fas', name: 'external-link-alt'},
+    internalLink: { type: 'fas', name: 'external-link-alt' },
     toTop: { type: 'fas', name: 'angle-double-up' },
     email: { type: 'fas', name: 'envelope' },
     git: { type: 'fab', name: 'git-alt' },
@@ -127,8 +134,11 @@ export class IconComponent implements OnInit {
     report: { type: 'fas', name: 'table' },
     download: { type: 'fas', name: 'download' },
     upload: { type: 'fas', name: 'upload' },
+    refresh: { type: 'fas', name: 'sync-alt' },
     logs: { type: 'fas', name: 'terminal' },
     compare: { type: 'mat', name: 'stacked_line_chart' },
+    controls: { type: 'fas', name: 'cog' },
+    search: { type: 'fas', name: 'search' },
     filter: { type: 'fas', name: 'filter' },
     columns: { type: 'fas', name: 'columns' },
     reuse: { type: 'fas', name: 'sync-alt' },
@@ -136,7 +146,7 @@ export class IconComponent implements OnInit {
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
     format: { type: 'far', name: 'file-alt' },
-    license: { type: 'fas', name: 'certificate' },
+    license: { type: 'fas', name: 'balance-scale' },
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },
@@ -151,7 +161,7 @@ export class IconComponent implements OnInit {
     ccBy: { type: 'fab', name: 'creative-commons-by' },
     ccNc: { type: 'fab', name: 'creative-commons-nc' },
     ccSa: { type: 'fab', name: 'creative-commons-sa' },
-    ccS: { type: 'fab', name: 'creative-commons-s' },
+    ccS: { type: 'fab', name: 'creative-commons-share' },
     ccByNc: { type: 'cc', name: 'creative-commons-by_creative-commons-nc' },
     ccByNcSa: {
       type: 'cc',
@@ -159,12 +169,17 @@ export class IconComponent implements OnInit {
     },
     ccBySa: { type: 'cc', name: 'creative-commons-by_creative-commons-sa' },
     version: { type: 'fas', name: 'code-branch' },
+    copy: { type: 'fas', name: 'copy' },
+    fork: { type: 'fas', name: 'code-branch' },
+    construction: { type: 'fas', name: 'tools' },
+    maintainence: { type: 'fas', name: 'tools' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];
   }
 
   ngOnInit(): void {
+
     this.iconInfo = this.iconMap[this.icon];
     if (!this.iconInfo) {
       console.error("icon '" + this.icon + "' not found in library")

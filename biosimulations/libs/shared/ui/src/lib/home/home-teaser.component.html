@@ -2,8 +2,11 @@
   <div class="logo-inner">
     <img [src]="banner" />
     <div class="heading">{{ heading }}</div>
+    <div class="buttons partial-width">
+      <ng-content select="#buttons"></ng-content>
+    </div>
     <div class="text partial-width">
-      <ng-content></ng-content>
+      <ng-content select="#description"></ng-content>
     </div>
   </div>
 </div>

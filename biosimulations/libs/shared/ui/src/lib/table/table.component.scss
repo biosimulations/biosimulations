@@ -6,6 +6,81 @@
     justify-content: center;
 }
 
+.controls-container {
+    display: flex;
+    flex-direction: row;
+
+    .title {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border: 1px solid $light-bg-darker-10;
+        background: $light-bg-darker-5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 22px;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        cursor: pointer;
+
+        &:hover {
+            background: $light-bg-darker-10;
+            border: 1px solid $light-bg-darker-20;
+        }
+
+        &:active {
+            background: $light-bg-darker-20;
+            border: 1px solid $light-bg-darker-30;
+        }
+
+        biosimulations-icon {
+            transform: rotate(-90deg);
+        }
+
+        .title-inner {
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            font-weight: bold;
+            transform: rotate(180deg);
+        }
+    }
+
+    .controls {
+        width: calc(16rem - 22px);
+    }
+
+    .filter-set-clear-all {
+        margin-top: 0.5rem;
+    }
+
+    .search-field {
+        ::ng-deep .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+
+        ::ng-deep .mat-form-field-flex {
+            padding: 0.25rem 0 0 0.25rem;
+        }
+
+        ::ng-deep .mat-form-field-infix {
+            padding: 0;
+            border-top: none;
+        }
+
+        ::ng-deep &.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+            height: auto;
+            width: auto;
+            position: relative;
+            top: -0.125rem;
+        }
+
+        &.mat-form-field-appearance-fill ::ng-deep .mat-form-field-subscript-wrapper {
+            display: none;
+        }
+    }
+}
+
 ::ng-deep .mat-accordion {
     .mat-expansion-panel {
         border-left: 1px solid $light-bg-darker-5;
@@ -18,13 +93,13 @@
         border-bottom: 1px solid $light-bg-darker-5;
     }
 
-    .mat-expansion-panel:first-child {
-        border-top-left-radius: 4px;
+    .mat-expansion-panel:first-of-type {
         border-top-right-radius: 4px;
+        border-top-left-radius: 0;
     }
-    .mat-expansion-panel:last-child {
-        border-bottom-left-radius: 4px;
+    .mat-expansion-panel:last-of-type {
         border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 0;
     }
 
     .mat-expansion-panel-spacing {
@@ -45,6 +120,23 @@
 
         &.mat-expanded:focus {
             background: $light-background;
+        }
+
+        &[aria-disabled=true] {
+            color: unset;
+        }
+    }
+
+    .mat-expansion-panel {
+        .mat-expansion-panel-header {
+            background: $light-background;
+        }
+        .mat-expansion-panel-header:hover {
+            background: $light-bg-darker-5;
+        }
+
+        .mat-expansion-panel-header:active:not([aria-disabled=true]) {
+            background: $light-bg-darker-10;
         }
     }
 
@@ -87,8 +179,25 @@
                 white-space: nowrap;
             }
         }
+        ::ng-deep .mat-checkbox-inner-container {
+            margin-right: 0.25rem;
+        }
         .mat-checkbox-ripple {
             display: none;
+        }
+
+        &:hover {
+            color: rgba(#000000, 0.9);
+            ::ng-deep .mat-checkbox-frame {
+                border-color: rgba(0, 0, 0, 0.72);
+            }
+        }
+
+        &:active {
+            color: rgba(#000000, 1.0);
+            ::ng-deep .mat-checkbox-frame {
+                border-color: rgba(0, 0, 0, 0.82);
+            }
         }
     }
 
@@ -117,6 +226,37 @@
     overflow-x: auto;
 }
 
+.single-line-headings {
+    mat-header-cell {
+        white-space: nowrap;
+    }
+}
+
+.column-filter-icon {
+    margin-left: 0.25rem;
+    opacity: 0.54;
+}
+
 biosimulations-icon {
   font-size: 125%;
+}
+
+.controls-closed {
+    .controls-container {
+        height: 100%;
+
+        .title {
+            // border-top-right-radius: 4px;
+            // border-bottom-right-radius: 4px;
+        }
+
+        .controls {
+            display: none;
+        }
+    }
+
+    .mat-table.biosimulations-table {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 }

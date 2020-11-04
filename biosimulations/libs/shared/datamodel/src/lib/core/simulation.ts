@@ -2,7 +2,7 @@ import {
   BiomodelParameter,
   AlgorithmParameter,
   SimulationRunAttributes,
-  Algorithm,
+  IAlgorithm,
 } from '.';
 
 import { Format, PrimaryResourceMetaData } from '../..';
@@ -18,7 +18,7 @@ export interface SimulationAttributes {
   format: Format;
   modelParameterChanges: ParameterChange[];
   algorithmParameterChanges: ParameterChange[];
-  algorithm: Algorithm;
+  algorithm: IAlgorithm;
   runs: BiosimulationsId[];
   numTimepoints: number;
   outputStartTime: number;

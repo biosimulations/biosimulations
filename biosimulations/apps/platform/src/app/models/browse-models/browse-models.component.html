@@ -1,20 +1,28 @@
-<div class="full-width">
-  <div class="fx" fxLayout="row" fxLayoutGap="1rem">
+
+<div class="full-height has-breadcrumbs padded">
+
+  <div class="fx" fxLayout="row" fxLayoutGap="2rem">
     <div fxFlex="initial">
-      <button mat-icon-button (click)="toggleMenu()">
-        <mat-icon>read_more</mat-icon>
-      </button>
-      <button mat-icon-button (click)="refresh()">
-        <mat-icon>refresh</mat-icon>
-      </button>
+      <div class="global-controls">
+        <button
+          mat-icon-button
+          class="biosimulations-icon-button text"
+          (click)="toggleMenu()"
+        >
+          <biosimulations-icon icon="controls"> toggle</biosimulations-icon>
+        </button>
+        <button
+          mat-icon-button
+          class="biosimulations-icon-button text"
+          (click)="refresh()"
+        >
+          <biosimulations-icon icon="refresh">refresh</biosimulations-icon>
+        </button>
+      </div>
       <mat-accordion *ngIf="showMenu" class="controls">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>
-                list
-              </mat-icon></mat-panel-title
-            >
+            <mat-panel-title> <mat-icon> list </mat-icon></mat-panel-title>
           </mat-expansion-panel-header>
           <ng-template matExpansionPanelContent>
             <mat-list>
@@ -25,7 +33,7 @@
                 <mat-list-item>
                   <mat-checkbox
                     #checkbox
-                    [checked]="columnsToDisplay.includes(column.id)"
+                    [checked]="initCheckbox[column.id]"
                     (change)="handleChange(checkbox.checked, column.id)"
                   >
                     {{ column.id | titlecase }}
@@ -38,19 +46,13 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon>
-                filter_list
-              </mat-icon></mat-panel-title
+              <mat-icon> filter_list </mat-icon></mat-panel-title
             >
           </mat-expansion-panel-header>
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>
-                search
-              </mat-icon></mat-panel-title
-            >
+            <mat-panel-title> <mat-icon> search </mat-icon></mat-panel-title>
           </mat-expansion-panel-header>
         </mat-expansion-panel>
       </mat-accordion>
@@ -73,22 +75,30 @@
             [matColumnDef]="column.id"
             *ngFor="let column of displayedColumns"
           >
-            <mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header 
+            <mat-header-cell
+              cdkDrag
+              *matHeaderCellDef
+              mat-sort-header
               [ngStyle]="{
-                'min-width.em': column.minWidth != null ? column.minWidth / 12 : null, 
-                'max-width.em': column.maxWidth != null ? column.maxWidth / 12 : null, 
+                'min-width.em':
+                  column.minWidth != null ? column.minWidth / 12 : null,
+                'max-width.em':
+                  column.maxWidth != null ? column.maxWidth / 12 : null,
                 'flex-grow': column.minWidth != null ? 0 : 1
-              }"              
+              }"
             >
               {{ column.id | titlecase }}
             </mat-header-cell>
-            <mat-cell *matCellDef="let element" 
+            <mat-cell
+              *matCellDef="let element"
               [ngStyle]="{
-                'min-width.em': column.minWidth != null ? column.minWidth / 14 : null, 
-                'max-width.em': column.maxWidth != null ? column.maxWidth / 14 : null, 
+                'min-width.em':
+                  column.minWidth != null ? column.minWidth / 14 : null,
+                'max-width.em':
+                  column.maxWidth != null ? column.maxWidth / 14 : null,
                 'flex-grow': column.minWidth != null ? 0 : 1,
                 'white-space': column.nowrap
-              }" 
+              }"
             >
               <div class="cell">
                 {{ element[column.id] }}

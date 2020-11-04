@@ -5,6 +5,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,6 +21,10 @@ describe('AppComponent', () => {
         }),
       ],
       declarations: [AppComponent],
+      providers: [
+        ConfigService,
+        ScrollService,
+      ],
     }).compileComponents();
   }));
 

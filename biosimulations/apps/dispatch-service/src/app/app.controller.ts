@@ -1,24 +1,24 @@
-import {
-  Controller,
-  Get,
-  Logger,
-  Post,
-  Body,
-  UseInterceptors,
-  UploadedFile,
-  UploadedFiles,
-  Inject,
-} from '@nestjs/common';
+import { Controller, Logger, Inject } from '@nestjs/common';
 import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import { SimulationDispatchSpec } from '@biosimulations/dispatch/datamodel';
+import {
+  DispatchSimulationStatus,
+  SimulationDispatchSpec,
+} from '@biosimulations/dispatch/api-models';
 import { v4 as uuid } from 'uuid';
 import path from 'path';
 import * as csv2Json from 'csv2json';
+import { SchedulerRegistry } from '@nestjs/schedule';
+import { CronJob } from 'cron';
+import { MQDispatch } from '@biosimulations/messages';
+import { ArchiverService } from './services/archiver/archiver.service';
+import { ModelsService } from './resources/models/models.service';
+import { SimulationService } from './services/simulation/simulation.service';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Controller()
 export class AppController {
@@ -26,23 +26,29 @@ export class AppController {
     private readonly configService: ConfigService,
     private hpcService: HpcService,
     private sbatchService: SbatchService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) {}
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
+    private schedulerRegistry: SchedulerRegistry,
+    private archiverService: ArchiverService,
+    private modelsService: ModelsService,
+    private simulationService: SimulationService,
+  ) { }
   private logger = new Logger(AppController.name);
+  private fileStorage: string = this.configService.get(
+    'hpc.fileStorage') || '';
 
-  @MessagePattern('dispatch')
+  @MessagePattern(MQDispatch.SIM_DISPATCH_START)
   async uploadFile(data: SimulationDispatchSpec) {
     this.logger.log('Data received: ' + JSON.stringify(data));
-    // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
-    const fileStorage = process.env.FILE_STORAGE;
-    const sbatchStorage = `${fileStorage}/SBATCH/ID`;
+    
+    const sbatchStorage = `${this.fileStorage}/SBATCH/ID`;
 
+    // TODO: Hit simulator-api to get these simulator names
     if (
-      data.simulator !== 'COPASI' &&
-      data.simulator !== 'VCell' &&
-      data.simulator !== 'Tellurium' &&
-      data.simulator !== 'CobraPy' &&
-      data.simulator !== 'BioNetGen'
+      data.simulator !== 'copasi' &&
+      data.simulator !== 'vcell' &&
+      data.simulator !== 'tellurium' &&
+      data.simulator !== 'cobrapy' &&
+      data.simulator !== 'bionetgen'
     ) {
       return { message: 'Unsupported simulator was provided!' };
     }
@@ -54,18 +60,15 @@ export class AppController {
     this.logger.log('SBatch path: ' + sbatchPath);
 
     // Generate SBATCH script
-    const simulatorString = `biosimulations_${data.simulator.toLowerCase()}_${
-      data.simulatorVersion
-    }`;
-    const hpcTempDirPath = `${this.configService.get('hpc').simDirBase}/${
-      data.uniqueFilename.split('.')[0]
-    }`;
+    const simulatorString = `biosimulations_${data.simulator}_${data.simulatorVersion}`;
+    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${data.uniqueFilename.split('.')[0]
+      }`;
     const sbatchString = this.sbatchService.generateSbatch(
       hpcTempDirPath,
       simulatorString,
       data.filename
     );
-    await this.writeFile(sbatchPath, sbatchString);
+    await FileModifiers.writeFile(sbatchPath, sbatchString);
 
     this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
 
@@ -79,64 +82,142 @@ export class AppController {
     return { message: 'Simulation dispatch started.' };
   }
 
-  // TODO: Add API to send required info dispatch_finish pattern to NATS
-  @MessagePattern('dispatch_finish')
-  async dispatchLog(data: any) {
-    const fileStorage = process.env.FILE_STORAGE || '';
-    // const simDirSplit = data['simDir'].split('/');
-    const uuid = data['uuid'];
-    const resDir = path.join(fileStorage, 'simulations', uuid, 'out');
+  @MessagePattern(MQDispatch.SIM_HPC_FINISH)
+  async dispatchFinish(uuid: string) {
+    const resDir = path.join(this.fileStorage, 'simulations', uuid, 'out');
+    const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
+    const allFiles = [];
+    const directoryList = [];
 
-    this.logger.log('Log message data: ' + JSON.stringify(data));
+    for (let index = 0; index < allFilesInfo.length; index++) {
+      if (
+        allFilesInfo[index].name === 'job.output' ||
+        allFilesInfo[index].name === 'job.error'
+      ) {
+        //TODO:  Remove these files
+      } else if (allFilesInfo[index].name.endsWith('.csv')) {
+        // Getting only relative path
+        allFiles.push(allFilesInfo[index].path.substring(resDir.length + 1));
+      }
+    }
+
+    // Seperating files from directory paths to create structure
+    for (const filePath of allFiles) {
+      const filePathSplit = filePath.split('/');
+      
+      //Removing task files
+      filePathSplit.splice(filePathSplit.length - 1, 1);
+      directoryList.push(filePathSplit.join('/'));
+    }
+
+    // this.logger.log('Log message data: ' + JSON.stringify(data));
     this.logger.log('Output directory: ' + resDir);
 
-    const directoryList = await this.readDir(resDir);
+    // const directoryList = await FileModifiers.readDir(resDir);
 
     // NOTE: job.output is the Log file generated by the SBATCH simulation job
-    const logFileIndex = directoryList.indexOf('job.output');
-    directoryList.splice(logFileIndex);
+    // const logFileIndex = directoryList.indexOf('job.output');
+    // directoryList.splice(logFileIndex);
 
+    const dirLength = directoryList.length;
+    let dirCounter = 0;
     for (const directoryName of directoryList) {
-      this.readDir(path.join(resDir, directoryName)).then((fileList: any) => {
-        for (const filename of fileList) {
-          if (filename.endsWith('csv')) {
-            const filePath = path.join(resDir, directoryName, filename);
-            this.logger.log('Reading file: ' + filePath);
+      FileModifiers.readDir(path.join(resDir, directoryName)).then(
+        (fileList: any) => {
+          const fileLength = fileList.length;
+          let fileCounter = 0;
+          for (const filename of fileList) {
+            if (filename.endsWith('csv')) {
+              const filePath = path.join(resDir, directoryName, filename);
+              this.logger.log('Reading file: ' + filePath);
 
-            const jsonPath = filePath.split('.csv')[0] + '.json';
+              const jsonPath = filePath.split('.csv')[0] + '.json';
 
-            fs.createReadStream(filePath)
-              .pipe(
-                csv2Json.default({
-                  separator: ',',
-                })
-              )
-              .pipe(fs.createWriteStream(jsonPath))
-              .on('close', () => {
-                // Convert CSV to chart JSON
-                const chartJsonPath = jsonPath.split('.json')[0] + '_chart.json';
-                this.readFile(jsonPath).then((jsonData: any) => {
-                  const chartResults = this.convertJsonDataToChartData(
-                    JSON.parse(jsonData)
-                  );
-                  this.writeFile(
-                    chartJsonPath,
-                    JSON.stringify(chartResults)
-                  ).then(() => {
-                    // TODO: place all message patterns in a single location
+              fs.createReadStream(filePath)
+                .pipe(
+                  csv2Json.default({
+                    separator: ',',
+                  })
+                )
+                .pipe(fs.createWriteStream(jsonPath))
+                .on('close', () => {
+                  // Convert CSV to chart JSON
+                  const chartJsonPath =
+                    jsonPath.split('.json')[0] + '_chart.json';
+                  FileModifiers.readFile(jsonPath).then((jsonData: any) => {
+                    const chartResults = this.convertJsonDataToChartData(
+                      JSON.parse(jsonData)
+                    );
+                    FileModifiers.writeFile(
+                      chartJsonPath,
+                      JSON.stringify(chartResults)
+                    ).then(() => {
 
-                    this.messageClient.emit('dispatch_result', {
-                      uuid: true,
+                      fileCounter++;
+                      dirCounter++;
+                      if ((fileCounter === fileLength) && (dirCounter === dirLength)) {
+                        this.messageClient.emit(
+                          MQDispatch.SIM_RESULT_FINISH,
+                          uuid
+                        );
+                      }
                     });
                   });
+                })
+                .on('error', (err) => {
+                  return this.logger.log('Error occured in file writing' + JSON.stringify(err));
                 });
-              });
+            }
           }
         }
-      })
-
-      
+      );
     }
+  }
+
+  @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
+  async resultFinish(uuid: string) {
+
+    this.archiverService
+      .createResultArchive(uuid)
+      .then(() => {
+
+      });
+  }
+
+  @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
+  async dispatchLog(data: any) {
+    const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
+    const simDirSplit = data['simDir'].split('/');
+    const uuid = simDirSplit[simDirSplit.length - 1];
+    // TODO: research more for better duration
+    this.jobMonitorCronJob(slurmjobId, uuid, 30);
+  }
+
+  async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
+    const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
+      const jobStatus = await this.simulationService.getSimulationStatus(
+        uuid,
+        jobId
+      );
+      this.modelsService.updateStatus(uuid, jobStatus);
+      switch (jobStatus) {
+        case DispatchSimulationStatus.SUCCEEDED:
+          // TODO: Change FINISH to SUCCEED
+          this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
+          this.schedulerRegistry.getCronJob(jobId).stop();
+          break;
+        // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
+        case DispatchSimulationStatus.FAILED:
+          this.schedulerRegistry.getCronJob(jobId).stop();
+          break;
+        case DispatchSimulationStatus.QUEUED:
+        case DispatchSimulationStatus.RUNNING:
+          break;
+      }
+    });
+
+    this.schedulerRegistry.addCronJob(jobId, job);
+    job.start();
   }
 
   convertJsonDataToChartData(data: any) {
@@ -160,41 +241,5 @@ export class AppController {
     }
 
     return finalRes;
-  }
-
-  readDir(dirPath: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      fs.readdir(dirPath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  }
-
-  readFile(filePath: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  }
-
-  writeFile(path: string, data: Buffer | string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      fs.writeFile(path, data, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
   }
 }

@@ -1,1 +1,2 @@
+/api/*  https://api.biosimulations.dev/:splat  200
 /*    /index.html    200

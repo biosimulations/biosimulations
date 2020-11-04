@@ -38,32 +38,6 @@
   }
 }
 
-.algorithm-parameters {
-  .mat-header-cell {
-    white-space: nowrap;
-  }
-
-  .mat-header-cell:nth-child(1),
-  .mat-header-cell:nth-child(3),
-  .mat-header-cell:nth-child(4),
-  .mat-header-cell:nth-child(6),
-  .mat-cell:nth-child(1),
-  .mat-cell:nth-child(3),
-  .mat-cell:nth-child(4),
-  .mat-cell:nth-child(6) {
-    flex: 0.75;
-  }
-}
-
-.versions {
-  .mat-header-cell:nth-child(1),
-  .mat-header-cell:nth-child(2),
-  .mat-cell:nth-child(1),
-  .mat-cell:nth-child(2) {
-    flex: 0.3;
-  }
-}
-
 .icon-list {
   a {
     color: $dark-primary-text;
@@ -82,8 +56,24 @@
   }
 }
 
-.code {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.copy-image {
+  biosimulations-icon, .code {
+    float: left;
+  }
+
+  .code {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 2 * 0.25rem - 14px - 13px);
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+
+  .biosimulations-icon-button {
+    position: relative;
+    top: -0.15rem;
+    float: left;
+    font-size: 125%;
+  }
 }

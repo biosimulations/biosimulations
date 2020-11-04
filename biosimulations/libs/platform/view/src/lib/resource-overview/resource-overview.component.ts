@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './resource-overview.component.html',
   styleUrls: ['./resource-overview.component.scss'],
 })
-export class ResourceOverviewComponent  {
+export class ResourceOverviewComponent {
   @Input()
   imageUrl = '';
 
@@ -19,10 +19,10 @@ export class ResourceOverviewComponent  {
   owner = '';
 
   @Input()
-  summary = "";
+  summary = '';
 
   @Input()
-  tags: string[] = [];
+  tags: string[] = [''];
 
   @Input()
   description!: string;
@@ -30,5 +30,9 @@ export class ResourceOverviewComponent  {
   @Input()
   attributes: any[] | undefined;
 
- 
+  tagsDisplay!: string;
+
+  ngOnInit() {
+    this.tagsDisplay = this.tags.join(', ');
+  }
 }

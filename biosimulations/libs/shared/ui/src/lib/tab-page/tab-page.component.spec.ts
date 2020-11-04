@@ -7,6 +7,7 @@ import { TabPageTabComponent } from './tab-page-tab.component';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { FullPageSpinnerComponent } from '../spinner/full-page-spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TabPageComponent', () => {
   let component: TabPageComponent;
@@ -15,7 +16,7 @@ describe('TabPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TabPageComponent, TabPageTabComponent, FullPageSpinnerComponent, SpinnerComponent],
-      imports: [MatTabsModule, BiosimulationsIconsModule, MatProgressSpinnerModule],
+      imports: [MatTabsModule, BiosimulationsIconsModule, MatProgressSpinnerModule, RouterTestingModule],
     }).compileComponents();
   }));
 

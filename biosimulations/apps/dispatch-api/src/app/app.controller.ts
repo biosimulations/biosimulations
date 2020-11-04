@@ -1,3 +1,5 @@
+import { AppService } from './app.service';
+import { ClientProxy } from '@nestjs/microservices';
 import {
   Controller,
   Inject,
@@ -6,43 +8,36 @@ import {
   UseInterceptors,
   UploadedFile,
   Body,
-  HttpException,
-  HttpStatus,
-  Logger,
   Get,
   Param,
   Query,
-  HttpService,
+  Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AppService } from './app.service';
-import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import {
   ApiOperation,
   ApiResponse,
   ApiConsumes,
   ApiBody,
   ApiQuery,
+  ApiTags,
 } from '@nestjs/swagger';
 import {
   SimulationDispatchSpec,
   OmexDispatchFile,
-} from '@biosimulations/dispatch/datamodel';
-import { v4 as uuid } from 'uuid';
-import * as fs from 'fs';
-import path from 'path';
-import { map } from 'rxjs/operators';
-import { urls } from '@biosimulations/config/common';
+} from '@biosimulations/dispatch/api-models';
+import { ModelsService } from './resources/models/models.service';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
-  private logger = new Logger(AppController.name);
   constructor(
-    private readonly appService: AppService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private httpService: HttpService
+    private appService: AppService,
+    private modelsService: ModelsService,
   ) {}
 
+  @ApiTags('Dispatch')
   @Post('dispatch')
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Dispatch a simulation job' })
@@ -70,6 +65,14 @@ export class AppController implements OnApplicationBootstrap {
           description:
             'Version of the selected simulator like 4.27.214/latest, etc',
         },
+        authorEmail: {
+          description: 'Provide an email for notifications',
+          type: 'string',
+        },
+        nameOfSimulation: {
+          description: 'Define a name for your simulation project',
+          type: 'string',
+        },
       },
     },
   })
@@ -77,90 +80,58 @@ export class AppController implements OnApplicationBootstrap {
   async uploadFile(
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
-  ) {
-    // TODO: Replace with fileStorage URL from configModule (BiosimulationsConfig)
-    // TODO: Create the required folders automatically
-    const fileStorage = process.env.FILE_STORAGE;
-    const omexStorage = `${fileStorage}/OMEX/ID`;
-
-    if (bodyData.simulator === '') {
-      return { message: 'No Simulator was provided' };
-    }
-
-    // Get existing filetype
-    // Generate a unique filename
-    const fileId = uuid();
-    const uniqueFilename = `${fileId}.omex`;
-    const omexSavePath = path.join(omexStorage, uniqueFilename);
-
-    // Fill out info from file that will be lost after saving in central storage
-    const simSpec: SimulationDispatchSpec = {
-      simulator: bodyData.simulator,
-      simulatorVersion: bodyData.simulatorVersion,
-      filename: file.originalname,
-      uniqueFilename,
-      filepathOnDataStore: omexSavePath,
-    };
-
-    // Save the file
-    await this.writeFile(omexSavePath, file.buffer);
-
-    this.messageClient.send('dispatch', simSpec).subscribe(
-      (res) => {
-        this.logger.log(JSON.stringify(res));
-      },
-      (err) => {
-        this.logger.log(
-          'Error occured in dispatch service: ' + JSON.stringify(err)
-        );
-      }
-    );
-    this.logger.log(
-      'Dispatch message was sent successfully' + JSON.stringify(simSpec)
-    );
-
-    return {
-      message: 'File uploaded successfuly',
-      data: {
-        id: fileId,
-        filename: uniqueFilename,
-      },
-    };
+  ): Promise<{}> {
+    return this.appService.uploadFile(file, bodyData);
   }
 
+  @ApiTags('Dispatch')
+  @Get('download/:uuid')
+  @ApiOperation({ summary: 'Downloads result files' })
+  @ApiResponse({
+    status: 200,
+    description: 'Download all results as zip archive',
+    type: Object,
+  })
+  archive(@Param('uuid') uId: string, @Res() res: any): void {
+    return this.appService.downloadArchive(uId, res);
+  }
+
+  @ApiTags('Dispatch')
+  @Get('logs/:uuid')
+  @ApiOperation({
+    summary: 'Log file',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Download or get response for log files',
+    type: Object,
+  })
+  async downloadLogFile(
+    @Param('uuid') uId: string,
+    @Query('download') download: boolean,
+    @Res() res: any
+  ): Promise<void> {
+    return this.appService.downloadLogFile(uId, download, res);
+  }
+
+  @ApiTags('Dispatch')
   @Get('result/structure/:uuid')
+  @ApiOperation({ summary: 'Shows result structure' })
   @ApiResponse({
     status: 200,
     description: 'Get results structure (SEDMLS and TASKS)',
     type: Object,
   })
-  async getResultStructure(@Param('uuid') uId: string) {
-    const fileStorage = process.env.FILE_STORAGE || '';
-    const structure: any = {};
-
-    const resultPath = path.join(fileStorage, 'simulations', uId, 'out');
-
-    const sedmls = await this.readDir(resultPath);
-    // Removing log file names 'job.output'
-    sedmls.splice(sedmls.indexOf('job.output'), 1);
-
-    for (const sedml of sedmls) {
-      structure[sedml] = [];
-      const taskFiles = await this.readDir(path.join(resultPath, sedml));
-      taskFiles.forEach((taskFile: string) => {
-        if (taskFile.endsWith('.csv')) {
-          structure[sedml].push(taskFile.split('.csv')[0]);
-        }
-      });
-    }
-
-    return {
-      message: 'OK',
-      data: structure,
-    };
+  async getResultStructure(@Param('uuid') uId: string): Promise<{}> {
+    return this.appService.getResultStructure(uId);
   }
 
+  @ApiTags('Dispatch')
   @Get('result/:uuid')
+  @ApiOperation({
+    summary:
+      'Get individual resultant JSON with or without chart data for each SED-ML and report ',
+  })
   @ApiResponse({
     status: 200,
     description: 'Get Simulation Results',
@@ -171,108 +142,47 @@ export class AppController implements OnApplicationBootstrap {
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
     @Query('task') task: string
-  ) {
-    const fileStorage = process.env.FILE_STORAGE || '';
-
-    const jsonPath = path.join(
-      fileStorage,
-      'simulations',
-      uId,
-      'out',
-      sedml,
-      task
-    );
-    const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
-    const fileContentBuffer = await this.readFile(filePath);
-    const fileContent = JSON.parse(fileContentBuffer.toString());
-
-    return {
-      message: 'Data fetched successfully',
-      data: fileContent,
-    };
+  ): Promise<{}> {
+    return this.appService.getVisualizationData(uId, sedml, task, chart);
   }
 
-  @Get('simulators')
+  @ApiTags('Simulators')
+  @Get('/simulators')
+  @ApiOperation({
+    summary: 'Gives Information about all simulators avialable from dockerHub',
+  })
   @ApiResponse({
     status: 200,
     description: 'Get all simulators and their versions',
     type: Object,
   })
   @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(@Query('name') simulatorName: string) {
+  async getAllSimulatorVersion(
+    @Query('name') simulatorName: string
+  ): Promise<string[]> {
+    return this.appService.getSimulators(simulatorName);
+  }
 
-    if (simulatorName === undefined) {
-      // Getting info of all available simulators
-      const simulatorsInfo: any = await this.httpService.get(`${urls.fetchSimulatorsInfo}`).toPromise();
-      const allSimulators: any = [];
+  // Enable cron when storage is out
+  // @Cron('0 0 2 * * *')
+  async deleteSimData() {
+    const uuidObjects: {
+      uuid: string;
+    }[] = await this.modelsService.getOlderUuids();
 
-      for(const simulatorInfo of simulatorsInfo['data']['results']) {
-          allSimulators.push(simulatorInfo['name']);
-      }
-      return allSimulators;
+    const uuids: string[] = [];
+
+    for (const uuidObj of uuidObjects) {
+      uuids.push(uuidObj.uuid);
     }
 
-    const simVersionRes = this.httpService.get(
-      `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
-    );
+    for (const uuid of uuids) {
+      const filePath = process.env.FILE_STORAGE;
+      const uuidPath = `${filePath}/simulations/${uuid}`;
+      FileModifiers.rmrfDir(uuidPath);
+    }
 
-    const dockerData: any = await simVersionRes.toPromise();
-    const simVersions: Array<string> = [];
-    dockerData.data.forEach((element: { layer: string; name: string }) => {
-      simVersions.push(element.name);
-    });
-
-    return simVersions;
-  }
-
-  @Get('dispatch-finish/:uuid')
-  @ApiResponse({
-    status: 200,
-    description:
-      'Temp API to emit message when simulation is finished, will be removed after job mintoring module is done',
-    type: Object,
-  })
-  dispatchFinishEvent(@Param('uuid') uuid: string) {
-    this.messageClient.emit('dispatch_finish', { uuid });
-    return {
-      message: 'OK',
-    };
-  }
-
-  readDir(dirPath: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      fs.readdir(dirPath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  }
-
-  readFile(filePath: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  }
-
-  writeFile(path: string, data: Buffer): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      fs.writeFile(path, data, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    await this.modelsService.deleteSixOldData(uuids);
   }
 
   async onApplicationBootstrap() {

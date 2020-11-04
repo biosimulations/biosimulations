@@ -1,10 +1,31 @@
 <biosimulations-page heading="Your simulations">
   <ng-container id="buttons">
-    <button mat-icon-button title="Export simulations" (click)="exportSimulations()"><biosimulations-icon icon="download"></biosimulations-icon></button>
-    <button mat-icon-button title="Import simulations" (click)="importSimulations()"><biosimulations-icon icon="upload"></biosimulations-icon></button>
+    <button
+      mat-icon-button
+      class="biosimulations-icon-button primary"
+      title="Export simulations"
+      (click)="exportSimulations()"
+    >
+      <biosimulations-icon icon="download"></biosimulations-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="biosimulations-icon-button primary"
+      title="Import simulations"
+      (click)="importSimulations()"
+    >
+      <biosimulations-icon icon="upload"></biosimulations-icon>
+    </button>
   </ng-container>
 
-  <biosimulations-table
+  <biosimulations-responsive-table
     [columns]="columns"
-  ></biosimulations-table>
+    [data]="simulations"
+    [defaultSort]="{ active: 'id', direction: 'asc' }"
+    stackedContentsHeading="Simulations"
+    [getStackedHeading]="getStackedHeading"
+    [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
+    searchPlaceHolder="Query (e.g., scan)"
+    searchToolTip="Enter a query such as 'queued'. By default, your query will be searched over all columns. This search supports the features of the Lunr search engine. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'last-updated: 2020'."
+  ></biosimulations-responsive-table>
 </biosimulations-page>

@@ -1,6 +1,23 @@
 {
   "/simulators-api": {
-    "target": "http://localhost:3333",
-    "secure": false
+    "target": "http://localhost:3333/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/simulators-api": "/simulators" }
+  },
+  "/ontology-api": {
+    "target": "https://ontology.biosimulations.dev",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/ontology-api": "" }
+  },
+  "/ontology-api-local": {
+    "target": "http://localhost:3333/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/ontology-api": "" }
   }
 }

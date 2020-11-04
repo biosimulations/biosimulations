@@ -55,8 +55,15 @@
             "onlyDependOnLibsWithTags": ["scope:auth", "type:environments"]
           },
           {
+            // todo change scope to type
             "sourceTag": "scope:simulators",
-            "onlyDependOnLibsWithTags": ["scope:simulators", "scope:shared"]
+            "onlyDependOnLibsWithTags": [
+              "scope:simulators",
+              "scope:shared",
+              "scope:auth",
+              "type:config",
+              "scope:config"
+            ]
           },
           {
             "sourceTag": "scope:accounts",

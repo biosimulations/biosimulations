@@ -1,6 +1,9 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
+import { MQDispatch } from '@biosimulations/messages';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+import path from 'path';
 
 @Injectable()
 export class HpcService {
@@ -63,8 +66,7 @@ export class HpcService {
                       'Execution of sbatch was successful: ' +
                         JSON.stringify(result)
                     );
-                    // TODO: Make config file for message patterns instead of hardcoding them
-                    this.messageClient.emit('dispatch_log', {
+                    this.messageClient.emit(MQDispatch.SIM_DISPATCH_FINISH, {
                       simDir: simDirBase,
                       hpcOutput: result,
                     });
@@ -119,8 +121,72 @@ export class HpcService {
     // Create a socket via SSH and stream the output file
   }
 
-  squeueStatus(jobId: string) {
+  async squeueStatus(jobId: string): Promise<DispatchSimulationStatus> {
     // Make SSH connection to HPC to check if job is running
-    return this.sshService.execStringCommand(`squeue --job ${jobId}`);
+
+    const squeueData = await this.sshService.execStringCommand(
+      `squeue -j ${jobId} --start`
+    );
+    //TODO: Handle stderr as well
+    const squeueJSON: any = this.parseSqueueOutput(squeueData.stdout);
+    // console.log(squeueJSON);
+    if (squeueJSON.length === 0) {
+      // If Job is not found in SQUEUE, then status is not known
+      return DispatchSimulationStatus.UNKNOWN;
+    } else {
+      switch (squeueJSON[0]['ST']) {
+        case 'PD':
+          return DispatchSimulationStatus.QUEUED;
+        case 'R':
+          return DispatchSimulationStatus.RUNNING;
+        case 'CG':
+          return DispatchSimulationStatus.SUCCEEDED;
+        default:
+          return DispatchSimulationStatus.FAILED;
+      }
+    }
+    /* NOTE: For SLURM STATUS 'PD' means pending/queued
+     'R' means running, 'CG' meaning completing
+    If jobinfo is not there, the job has completed/failed */
+  }
+
+  parseSqueueOutput(data: string): object[] {
+    // Assumption: SqeueOutput is just special case of TSV
+
+    const dataLineList = data.split('\n');
+
+    const rows = [];
+
+    for (const line of dataLineList) {
+      const words = line.split(' ');
+      const row = [];
+      for (const word of words) {
+        if (word !== '') {
+          row.push(word);
+        }
+      }
+      rows.push(row);
+    }
+
+    const headers = [...rows[0]];
+    rows.splice(0, 1);
+
+    const elementLength = headers.length;
+    const rowsLength = rows.length;
+
+    if (rows[0].length === 0) {
+      return [];
+    }
+    const finalResult = [];
+
+    for (let rowIndex = 0; rowIndex < rowsLength; rowIndex++) {
+      const currentObj: any = {};
+      for (let elementIndex = 0; elementIndex < elementLength; elementIndex++) {
+        currentObj[headers[elementIndex]] = rows[rowIndex][elementIndex];
+      }
+      finalResult.push(currentObj);
+    }
+
+    return finalResult;
   }
 }

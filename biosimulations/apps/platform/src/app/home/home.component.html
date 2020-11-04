@@ -2,7 +2,16 @@
   heading="Sharing and reusing biomodels, simulations, and visualizations"
   banner="assets/images/biosimulations-logo/logo-white.svg"
 >
-  BioSimulations is a free platform for sharing and re-using biomodels, simulations, and visualizations. BioSimulations makes sharing and reuse easier by providing a simple web interface for a wide range of frameworks (e.g., logical, Flux-Balance Analysis (FBA), continuous kinetic, discrete kinetic), simulation algorithms (e.g., FBA, SSA), model formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
+  <ng-container id="buttons">
+    <biosimulations-home-teaser-button label="Browse projects" [routerLink]="['/projects']" [disabled]="true"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse models" [routerLink]="['/models']"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse simulations" [routerLink]="['/simulations']" [disabled]="true"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse charts" [routerLink]="['/charts']" [disabled]="true"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button label="Browse visualizations" [routerLink]="['/visualizations']" [disabled]="true"></biosimulations-home-teaser-button>
+  </ng-container>
+  <ng-container id="description">
+    BioSimulations is a free platform for sharing and re-using biomodels, simulations, and visualizations. BioSimulations makes sharing and reuse easier by providing a simple web interface for a wide range of frameworks (e.g., logical, Flux-Balance Analysis (FBA), continuous kinetic, discrete kinetic), simulation algorithms (e.g., FBA, SSA), model formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
+  </ng-container>
 </biosimulations-home-teaser>
 
 <biosimulations-home-section
@@ -112,7 +121,6 @@
     icon="simulator"
   >
     <p>
-      <!--
       <biosimulations-home-logo
         title="AMICI"
         src="assets/images/about/partners/amici.svg"
@@ -120,6 +128,14 @@
       >
       </biosimulations-home-logo>
 
+      <biosimulations-home-logo
+        title="BioNetGen"
+        src="assets/images/about/partners/bionetgen.png"
+        href="https://bionetgen.org"
+      >
+      </biosimulations-home-logo>
+
+      <!--
       <biosimulations-home-logo
         title="Cayenne"
         src="assets/images/about/partners/cayenne.png"
@@ -141,26 +157,19 @@
         href="http://copasi.org/"
       >
       </biosimulations-home-logo>
-
+    </p>
+    <p>
       <biosimulations-home-logo
         title="GillesPy2"
         src="assets/images/about/partners/gillespy2.svg"
         href="https://gillespy2.github.io/GillesPy2/"
       >
       </biosimulations-home-logo>
-    </p>
-    <p>
+    
       <biosimulations-home-logo
         title="iBioSim"
         src="assets/images/about/partners/ibiosim.svg"
         href="https://github.com/MyersResearchGroup/iBioSim"
-      >
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="NFsim"
-        src="assets/images/about/partners/nfsim.svg"
-        href="http://michaelsneddon.net/nfsim/"
       >
       </biosimulations-home-logo>
 
@@ -322,7 +331,6 @@
           </biosimulations-home-logo>
         </p>
         <p>
-          <!--
           <biosimulations-home-logo
             title="AMICI"
             src="assets/images/about/partners/amici.svg"
@@ -330,6 +338,14 @@
           >
           </biosimulations-home-logo>
 
+          <biosimulations-home-logo
+            title="BioNetGen"
+            src="assets/images/about/partners/bionetgen.png"
+            href="https://bionetgen.org"
+          >
+          </biosimulations-home-logo>
+
+          <!--
           <biosimulations-home-logo
             title="Cayenne"
             src="assets/images/about/partners/cayenne.png"
@@ -364,14 +380,7 @@
             src="assets/images/about/partners/ibiosim.svg"
             href="https://github.com/MyersResearchGroup/iBioSim"
           >
-          </biosimulations-home-logo>
-
-          <biosimulations-home-logo
-            title="NFsim"
-            src="assets/images/about/partners/nfsim.svg"
-            href="http://michaelsneddon.net/nfsim/"
-          >
-          </biosimulations-home-logo>
+          </biosimulations-home-logo>          
 
           <biosimulations-home-logo
             title="PySCeS"
@@ -393,7 +402,8 @@
             href="https://vcell.org/"
           >
           </biosimulations-home-logo>
-
+        </p>
+        <p>
           <biosimulations-home-logo
             title="BiGG"
             src="assets/images/about/partners/bigg.png"
@@ -412,6 +422,27 @@
             title="Cell Collective"
             src="assets/images/about/partners/cell-collective.png"
             href="http://cellcollective.org/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="Fluxer"
+            src="assets/images/about/partners/fluxer.svg"
+            href="https://fluxer.umbc.edu/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="JWS Online"
+            src="assets/images/about/partners/jws.svg"
+            href="https://jjj.biochem.sun.ac.za/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="StochSS"
+            src="assets/images/about/partners/stochss.svg"
+            href="https://stochss.org/"
           >
           </biosimulations-home-logo>
         </p>

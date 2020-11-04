@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomeTeaserComponent } from './home-teaser.component';
+import { HomeTeaserButtonComponent } from './home-teaser-button.component';
+import { MatButtonModule } from '@angular/material/button';
 
 describe('HomeTeaserComponent', () => {
   let component: HomeTeaserComponent;
@@ -8,8 +11,14 @@ describe('HomeTeaserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeTeaserComponent],
-      imports: [],
+      declarations: [
+        HomeTeaserComponent,
+        HomeTeaserButtonComponent,
+      ],
+      imports: [
+        RouterTestingModule,
+        MatButtonModule,
+      ],
     }).compileComponents();
   }));
 

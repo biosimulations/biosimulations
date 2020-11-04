@@ -1,12 +1,19 @@
 import { PrimitiveType } from '../common/primitive-type';
-import { OntologyTerm, Format, JournalReference } from '../..';
+import { IOntologyTerm, Format, Citation } from '../..';
 import { KisaoId } from '../common/alias';
+import {
+  ISboOntologyId,
+  IOntologyId,
+  IKisaoOntologyId,
+  IEdamOntologyId,
+  KISAOTerm,
+} from '../common';
 
 /**
- * Represents a parameter in a particlar simulation algorith or method.
- * id refers to the identifier used by some software package to refrence parameter
+ * Represents a parameter in a particular simulation algorith or method.
+ * id refers to the identifier used by some software package to reference parameter
  * type is an enum string to determine what the underling type of the parameter's value is
- * recomendedRange is a sensible value from the original that the parameter can be changed to
+ * recommendedRange is a sensible value from the original that the parameter can be changed to
  */
 export interface AlgorithmParameter {
   id: string;
@@ -14,21 +21,20 @@ export interface AlgorithmParameter {
   type: PrimitiveType;
   value: boolean | number | string;
   // Todo make this a conditional type based on value
-  recomendedRange: (boolean | number | string)[] | null;
-  kisaoId: KisaoId | null;
+  recommendedRange: (boolean | number | string)[] | null;
+  kisaoId: IKisaoOntologyId;
 }
 
-export interface Algorithm {
+export interface IAlgorithm {
   id: string;
   name: string;
-  kisaoId: KisaoId;
-  ontologyTerms: OntologyTerm[];
-  modelingFrameworks: OntologyTerm[];
-  modelFormats: Format[];
+  kisaoId: IKisaoOntologyId;
+  modelingFrameworks: ISboOntologyId[];
+  modelFormats: IEdamOntologyId[];
   parameters: AlgorithmParameter[];
-  simulationFormats: Format[];
-  archiveFormats: Format[];
-  references: JournalReference[];
+  simulationFormats: IEdamOntologyId[];
+  archiveFormats: IEdamOntologyId[];
+  citations: Citation[];
 }
 
 /*

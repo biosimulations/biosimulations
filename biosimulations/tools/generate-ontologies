@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# map of the URL of the latest version of each ontology in OWL format
+declare -A ONTOLOGY_URLS=( \
+    ["edam"]="http://edamontology.org/EDAM.owl" \
+    ["kisao"]="http://www.biomodels.net/kisao/KISAO" \
+    ["sbo"]="http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl" \
+    )
+
+# list of ontologies that needs to be updated
+# specified by single command-line argument with comma-separated list of ontology ids
+# if no argument is provided, default is to update all ontologies
+if [ -z "${1}" ]
+then
+    read -a ontologies <<< "${!ONTOLOGY_URLS[@]}"
+else
+    IFS="," read -a ontologies <<< "${1/ /}"
+    unset IFS
+fi
+
+# sort ontologies
+IFS=$'\n' ontologies=($(sort <<<"${ontologies[*]}"))
+unset IFS
+
+# print status
+echo "Updating ${#ontologies[@]} ontologies."
+
+# location of this script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# download latest version of each ontology, convert to JSON, and save to this repository
+for ontology in "${ontologies[@]}"
+do
+    # print status
+    echo "Updating ${ontology} ..."
+
+    # get URL for OWL version of ontology
+    ontology_url=${ONTOLOGY_URLS[$ontology]}
+
+    # create temp file for JSON version of ontology
+    temp_file="$(mktemp)"
+
+    # convert ontology from OWL to JSON
+    java -jar ${script_dir}/GenerateOntology.jar ${ontology_url} ${temp_file}
+
+    # move JSON version of ontology to repo
+    mv ${temp_file} ${script_dir}/../libs/ontology/sources/src/lib/${ontology}.json
+
+    # print status
+    echo " done."
+done

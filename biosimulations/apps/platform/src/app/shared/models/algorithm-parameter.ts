@@ -9,21 +9,21 @@ export class AlgorithmParameter
   value: number | boolean | string;
   kisaoId: string | null;
   type: PrimitiveType;
-  recomendedRange: (boolean | string | number)[] | null;
+  recommendedRange: (boolean | string | number)[] | null;
   constructor(data: AlgorithmParameterDTO) {
     this.name = data.name;
     this.id = data.id;
     this.value = data.value;
     this.type = data.type;
     this.kisaoId = data.kisaoId;
-    this.recomendedRange = data.recomendedRange;
+    this.recommendedRange = data.recommendedRange;
   }
   serialize(): AlgorithmParameterDTO {
     return {
       name: this.name,
       id: this.id,
       type: this.type,
-      recomendedRange: this.recomendedRange,
+      recommendedRange: this.recommendedRange,
       value: this.value,
       kisaoId: this.kisaoId,
     };

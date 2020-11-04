@@ -1,4 +1,4 @@
-import { JournalReference } from '../common/journalreference';
+import { Citation } from '../common/citation';
 
 import { Person } from '../common/person';
 
@@ -36,8 +36,7 @@ export interface AccessInfo {
 
 export interface ExternalReferences {
   identifiers: Identifier[];
-  citations: JournalReference[];
-  doi: DOI | null;
+  citations: Citation[];
 }
 
 export interface Described {

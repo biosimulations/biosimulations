@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Host } from '@angular/core';
-
+import { BehaviorSubject, Observable } from 'rxjs';
 import { TocSection } from './toc-section';
 import { TocSectionsContainerDirective } from './toc-sections-container.directive';
 
@@ -8,18 +8,23 @@ import { TocSectionsContainerDirective } from './toc-sections-container.directiv
   exportAs: 'tocSection',
 })
 export class TocSectionDirective {
+  private heading = new BehaviorSubject<string>('');
+
   @Input()
-  set tocSection (heading: string) {
-    this.section.heading = heading;
+  set tocSection(heading: string) {
+    this.heading.next(heading);
   }
 
-  private section: TocSection = {};
+  private section: TocSection;
 
   constructor(
-    @Host() sectionsContainer: TocSectionsContainerDirective,
-    elementRef: ElementRef,
+    @Host() private sectionsContainer: TocSectionsContainerDirective,
+    elementRef: ElementRef
   ) {
-    this.section.target = elementRef.nativeElement;
-    sectionsContainer.sections.push(this.section);
+    this.section = {
+      heading: this.heading.asObservable(),
+      target: elementRef.nativeElement,
+    };
+    sectionsContainer.addToc(this.section);
   }
 }

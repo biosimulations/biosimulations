@@ -1,5 +1,7 @@
-biosimulations-table {
-  ::ng-deep a:first-child {
-    margin-right: 0.25rem;
+biosimulations-responsive-table {
+  ::ng-deep biosimulations-table {
+    a:first-child {
+      margin-right: 0.25rem;
+    }
   }
 }
