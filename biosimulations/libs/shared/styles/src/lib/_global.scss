@@ -384,11 +384,11 @@ npn-slider .slider {
     color: mat-color($theme-primary);
 
     &:hover {
-      color: #0c88eb;
+      color: darken(mat-color($theme-primary), 5%);
     }
 
     &:active {
-      color: #0b79d1;
+      color: darken(mat-color($theme-primary), 10%);
     }
   }
 
@@ -396,11 +396,11 @@ npn-slider .slider {
     color: mat-color($theme-accent);
 
     &:hover {
-      color: #e58800;
+      color: darken(mat-color($theme-accent), 5%);
     }
 
     &:active {
-      color: #cc7900;
+      color: darken(mat-color($theme-accent), 10%);
     }
   }
 

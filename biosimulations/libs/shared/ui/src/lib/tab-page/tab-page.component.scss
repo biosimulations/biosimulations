@@ -25,7 +25,7 @@
     }
 
     &:active {
-      color: #e58800;
+      color: mat-color($theme-accent, darker);
     }
   }
 
