@@ -84,6 +84,7 @@ export interface ViewVersion {
 }
 
 export interface ViewSimulator {
+  _json: string;
   id: string;
   version: string;
   name: string;

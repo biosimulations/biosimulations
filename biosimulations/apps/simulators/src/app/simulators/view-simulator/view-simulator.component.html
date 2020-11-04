@@ -287,4 +287,12 @@
       </ng-container>
     </ng-container>
   </biosimulations-tab-page-tab>
+
+  <biosimulations-tab-page-tab
+    heading="Specifications (JSON)"
+    icon="code"
+    [partialWidth]="false"
+  >
+    <pre *ngIf="simulator | async as simulator" class="json"><code [languages]="['json']" [highlight]="simulator._json"></code></pre>
+  </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

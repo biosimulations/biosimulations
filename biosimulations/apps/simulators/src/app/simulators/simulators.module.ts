@@ -8,6 +8,7 @@ import { SharedDebugModule } from '@biosimulations/shared/debug';
 import { SimulatorsRoutingModule } from './simulators-routing.module';
 import { BrowseSimulatorsComponent } from './browse-simulators/browse-simulators.component';
 import { ViewSimulatorComponent } from './view-simulator/view-simulator.component';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [BrowseSimulatorsComponent, ViewSimulatorComponent],
@@ -17,6 +18,7 @@ import { ViewSimulatorComponent } from './view-simulator/view-simulator.componen
     BiosimulationsIconsModule,
     SimulatorsRoutingModule,
     SharedDebugModule,
+    HighlightModule,
   ],
   providers: [],
 })

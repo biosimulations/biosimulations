@@ -77,3 +77,13 @@
     font-size: 125%;
   }
 }
+
+.json {
+  max-height: calc(100vh - 64px - 28px - 0.25rem - 32px - 2 * 2rem - 2 * 0.5rem);
+}
+
+@media screen and (max-width: 959px) {
+  .json {
+    max-height: calc(100vh - 56px - 32px - 2 * 1rem - 2 * 0.5rem);
+  }
+}

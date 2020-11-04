@@ -8,6 +8,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollService } from '@biosimulations/shared/services';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 describe('ViewSimulatorComponent', () => {
   let component: ViewSimulatorComponent;
@@ -15,9 +16,25 @@ describe('ViewSimulatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[SharedUiModule, RouterTestingModule, HttpClientTestingModule, BiosimulationsIconsModule, MatTabsModule, NoopAnimationsModule],
+      imports:[
+        SharedUiModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        BiosimulationsIconsModule,
+        MatTabsModule,
+        NoopAnimationsModule,
+        HighlightModule,
+      ],
       declarations: [ ViewSimulatorComponent ],
-      providers: [ScrollService],
+      providers: [
+        ScrollService,
+        {
+          provide: HIGHLIGHT_OPTIONS,
+          useValue: {
+            fullLibraryLoader: () => import('highlight.js'),
+          }
+        }
+      ],
     })
     .compileComponents();
   }));
