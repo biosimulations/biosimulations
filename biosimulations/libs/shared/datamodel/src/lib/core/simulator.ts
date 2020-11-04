@@ -1,11 +1,12 @@
-import { IAlgorithm } from './algorithm';
-import { SecondaryResourceMetaData } from '../resources';
-
-export interface SimulatorAttributes {
-  name: string;
-  version: string;
-  url: string;
-  image: string;
-  algorithms: IAlgorithm[];
-  metadata: SecondaryResourceMetaData;
+export enum specificationVersions {
+  latest = '1.0.0',
+  '1.0.0' = '1.0.0',
+}
+export enum imageVersions {
+  latest = '1.0.0',
+  '1.0.0' = '1.0.0',
+}
+export interface IBiosimulatorsMeta {
+  specificationVersion: specificationVersions;
+  imageVersion: imageVersions;
 }

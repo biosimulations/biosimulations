@@ -4,6 +4,9 @@ import { SimulatorsService } from './simulators.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorSchema } from '@biosimulations/simulators/database-models';
+import * as mongoose from 'mongoose';
+mongoose.set('strict', 'throw');
+//mongoose.set('useNestedStrict', true);
 import {
   AuthTestModule,
   BiosimulationsAuthModule,

@@ -27,7 +27,6 @@ class Simulator extends Document {
   @Prop({ type: String, required: true })
   version!: string;
 
-  // TODO Should descriptions have a max length?
   @Prop({ type: String, text: true, required: true })
   description!: string;
 
@@ -62,7 +61,7 @@ SimulatorSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',
 });
-SimulatorSchema.set('strict', 'throw');
-// This should be kept false so subdocuments must also have strict mode. Will not throw error for subdocuments
-SimulatorSchema.set('useNestedStrict', false);
+//SimulatorSchema.set('strict', 'throw');
+// This should be kept true so that subdocuments can override the strict mode requirement
+//SimulatorSchema.set('useNestedStrict', true);
 //SimulatorSchema.set('id', false);
