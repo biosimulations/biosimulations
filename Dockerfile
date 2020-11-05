@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM node:14-alpine as base
+FROM node:15-alpine as base
 
 #The name of the app to build
 ARG app
@@ -15,7 +15,7 @@ COPY biosimulations/package-lock.json /app/package-lock.json
 #############
 ### build ###
 #############
-from base as build
+FROM base as build
 
 # set working directory
 WORKDIR /app
@@ -27,16 +27,16 @@ ENV PATH /app/node_modules/.bin:$PATH
 RUN npm install -g @nrwl/cli
 
 # copy dependencies
-Copy biosimulations/nx.json  /app/nx.json
-Copy biosimulations/angular.json /app/angular.json
+COPY biosimulations/nx.json  /app/nx.json
+COPY biosimulations/angular.json /app/angular.json
 
 
 # install the app, including the dev dependencies
 RUN npm ci --silent
 
 #copy source
-Copy biosimulations/libs /app/libs
-Copy biosimulations/apps /app/apps
+COPY biosimulations/libs /app/libs
+COPY biosimulations/apps /app/apps
 
 # generate build
 # Redifining the env *might* correct cache invalidtion issue
@@ -46,6 +46,8 @@ RUN nx build ${APP} --prod
 ############
 ### prod ###
 ############
+
+LABEL org.opencontainers.image.source https://github.com/biosimulations/biosimulations
 
 # base image
 FROM base as prod
