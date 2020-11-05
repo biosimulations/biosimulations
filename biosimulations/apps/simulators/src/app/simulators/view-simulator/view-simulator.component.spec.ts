@@ -7,7 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 describe('ViewSimulatorComponent', () => {
@@ -27,6 +27,7 @@ describe('ViewSimulatorComponent', () => {
       ],
       declarations: [ ViewSimulatorComponent ],
       providers: [
+        ConfigService,
         ScrollService,
         {
           provide: HIGHLIGHT_OPTIONS,

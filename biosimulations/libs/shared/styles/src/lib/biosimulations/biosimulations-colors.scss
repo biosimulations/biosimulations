@@ -118,12 +118,12 @@ $mat-dark-theme-background: (
 $theme-primary-main: #2196f3;
 $theme-primary-lighter: #9bcff9; // 55%
 $theme-primary-lightest: #d2eafc; // 80%
+$theme-primary-lightestest: #e8f4fd; // 90%
 $theme-primary-darker: #1479ed; // 5%
 
 body {
   --primary-color: #{$theme-primary-main};
   --primary-lighter-color: #{$theme-primary-lighter};
-  --primary-lightest-color: #{$theme-primary-lightest};
   --primary-darker-color: #{$theme-primary-darker};
   --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
@@ -146,7 +146,7 @@ $mat-primary: (
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 $theme-accent-main: #ff9800;
-$theme-accent-lighter: #ffe0b3; // 70%
+$theme-accent-lighter: #ffe0b2; // 70%
 $theme-accent-darker: #ff7b00;
 
 body {

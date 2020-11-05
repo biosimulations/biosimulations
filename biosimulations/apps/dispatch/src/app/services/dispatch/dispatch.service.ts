@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 @Injectable({
   providedIn: 'root',
@@ -32,12 +32,12 @@ export class DispatchService {
     return this.http.post(endpoint, formData);
   }
 
-  getAllSimulatorInfo(simulatorName?: string) {
+  getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
     const endpoint = `${urls.dispatchApi}/simulators`;
     if (simulatorName === undefined) {
-      return this.http.get(endpoint);
+      return this.http.get(endpoint) as Observable<string[]>;
     }
-    return this.http.get(`${endpoint}?name=${simulatorName}`);
+    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<string[]>;
   }
 
   getSimulationLogs(uuid: string) {

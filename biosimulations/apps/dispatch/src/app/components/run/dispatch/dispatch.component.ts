@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -10,6 +11,7 @@ import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
 import { SimulationStatus } from '../../../datamodel';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -28,6 +30,7 @@ export class DispatchComponent implements OnInit {
   simulationId: string | undefined = undefined;
 
   constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
@@ -42,8 +45,24 @@ export class DispatchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: Params): void => {
+      const simulator: string = params?.simulator;
+      const simulatorVersion: string = params?.simulatorVersion;
+      if (simulator) {
+        this.formGroup.controls.simulator.setValue(
+            simulator
+        );
+        this.onSimulatorChange({value: simulator});
+        if (simulatorVersion) {
+          this.formGroup.controls.simulatorVersion.setValue(
+              simulatorVersion
+          );
+        }
+      }
+    });
+
     this.dispatchService.getAllSimulatorInfo().subscribe(
-      (simulators: any) => {
+      (simulators: string[]) => {
         this.simulators = simulators;
         this.simulatorsError = undefined;
         this.formGroup.controls.simulator.enable();
@@ -117,7 +136,7 @@ export class DispatchComponent implements OnInit {
 
   onSimulatorChange($event: any) {
     this.dispatchService.getAllSimulatorInfo($event.value).subscribe(
-      (simulatorVersions: any) => {
+      (simulatorVersions: string[]) => {
         this.simulatorVersions = simulatorVersions;
         this.simulatorVersionsError = undefined;
         this.formGroup.controls.simulatorVersion.enable();

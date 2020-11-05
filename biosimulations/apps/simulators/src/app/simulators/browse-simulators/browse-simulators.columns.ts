@@ -107,7 +107,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 262,
+    minWidth: 244,
   },
   {
     id: 'formats',
@@ -177,8 +177,36 @@ export const columns: Column[] = [
     show: false,
   },
   {
+    id: 'run',
+    heading: 'Run',
+    key: 'id',
+    formatter: (id: string): null => {
+      return null;
+    },
+    stackedFormatter: (id: string): string => {
+      return 'https://run.biosimulations.org/run?simulator=' + id;
+    },
+    rightIcon: 'simulator',
+    rightIconTitle: (element: TableSimulator): string => {
+      return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
+    },
+    centerAction: ColumnActionType.href,
+    rightAction: ColumnActionType.href,
+    centerHref: (element: TableSimulator): string => {
+      return 'https://run.biosimulations.org/run?simulator=' + element.id;
+    },
+    rightHref: (element: TableSimulator): string => {
+      return 'https://run.biosimulations.org/run?simulator=' + element.id;
+    },
+    rightShowStacked: false,
+    minWidth: 40,
+    center: true,
+    filterable: false,
+    sortable: false,
+  },
+  {
     id: 'moreInfo',
-    heading: 'More info',
+    heading: 'Docs',
     key: 'url',
     formatter: (url: string): null => {
       return null;
@@ -186,7 +214,7 @@ export const columns: Column[] = [
     stackedFormatter: (url: string): string => {
       return url;
     },
-    rightIcon: 'link',
+    rightIcon: 'tutorial',
     rightIconTitle: (element: TableSimulator): string => {
       return element.name + ' website';
     },
@@ -199,7 +227,7 @@ export const columns: Column[] = [
       return element.url;
     },
     rightShowStacked: false,
-    minWidth: 66,
+    minWidth: 40,
     center: true,
     filterable: false,
     sortable: false,

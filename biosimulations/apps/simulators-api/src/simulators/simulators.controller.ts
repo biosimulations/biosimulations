@@ -164,7 +164,7 @@ export class SimulatorsController {
     return res;
   }
   @UseGuards(JwtGuard, PermissionsGuard)
-  @permissions('write:simulators')
+  @permissions('write:Simulators')
   @ApiOAuth2([])
   @Post()
   @ApiOperation({
@@ -200,7 +200,7 @@ export class SimulatorsController {
     return;
   }
 
-  @permissions('write:simulators')
+  @permissions('write:Simulators')
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
@@ -246,8 +246,7 @@ export class SimulatorsController {
     return this.service.replace(id, version, doc).then((res) => res);
   }
 
-  // TODO does the github issues process need this permission?
-  @permissions('delete:simulators')
+  @permissions('delete:Simulators')
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
@@ -288,7 +287,7 @@ export class SimulatorsController {
     return this.service.deleteOne(id, version);
   }
 
-  @permissions('delete:simulators')
+  @permissions('delete:Simulators')
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({

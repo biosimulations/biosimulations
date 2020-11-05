@@ -232,7 +232,7 @@ specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
 
           <pre><code>curl \
   -X POST \
-  -u jonrkarr:{{ '{' }} github-personal-access-token {{ '}' }} \
+  -u jonrkarr:********* \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/biosimulators/Biosimulators/issues \
   -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</code></pre>
