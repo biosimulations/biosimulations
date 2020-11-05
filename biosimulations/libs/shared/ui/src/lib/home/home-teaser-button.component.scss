@@ -8,9 +8,27 @@
 
     svg {
         width: 100%;
-        color: mat-color($theme-primary, lighter);
+        color: darken(mat-color($theme-primary, lighter), 25%);
         &.accent {
-            color: mat-color($theme-accent, lighter);
+            color: darken(mat-color($theme-accent, lighter), 10%);
+
+            path.foreground {
+                fill: currentColor;
+                fill-opacity: 0.20;
+                stroke-opacity: 0.5;
+                stroke-dasharray: 2px 2px;
+            }
+        }
+
+        path.foreground {
+            fill: currentColor;
+            fill-opacity: 0.70;
+            stroke: currentColor;
+        }
+
+        path.background {
+            fill: #fff;
+            stroke: #fff;
         }
     }
 
