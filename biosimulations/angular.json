@@ -1204,7 +1204,13 @@
             "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
               "includePaths": ["libs/shared/styles/src/lib"]
-            }
+            },
+            "fileReplacements": [
+              {
+                "replace": "libs/shared/styles/src/lib/biosimulations-colors.scss",
+                "with": "libs/shared/styles/src/lib/biosimulators-colors.scss"
+              }
+            ]
           },
           "configurations": {
             "production": {
