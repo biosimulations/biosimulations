@@ -116,14 +116,14 @@ $mat-dark-theme-background: (
 
 // Theme Config
 $theme-primary-main: #ff9800;
-$theme-primary-lighter: #ffe0b2; // 70%
-$theme-primary-lightest: #fff4e5; // 90%
+$theme-primary-lighter: #ffdaa5; // 65%
+$theme-primary-lightest: #feeacc; // 80%
+$theme-primary-lightestest: #fff4e5; // 90%
 $theme-primary-darker: #ff7b00;
 
 body {
   --primary-color: #{$theme-primary-main};
   --primary-lighter-color: #{$theme-primary-lighter};
-  --primary-lightest-color: #{$theme-primary-lightest};
   --primary-darker-color: #{$theme-primary-darker};
   --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};

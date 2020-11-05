@@ -10,12 +10,12 @@
         width: 100%;
         color: darken(mat-color($theme-primary, lighter), 25%);
         &.accent {
-            color: darken(mat-color($theme-accent, lighter), 10%);
+            color: darken(mat-color($theme-accent, lighter), 25%);
 
             path.foreground {
                 fill: currentColor;
-                fill-opacity: 0.20;
-                stroke-opacity: 0.5;
+                fill-opacity: 0.25;
+                stroke-opacity: 0.75;
                 stroke-dasharray: 2px 2px;
             }
         }
