@@ -173,7 +173,10 @@ jobs:
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
+      - name: Install apps
+        working-directory: ./biosimulations
+        run: npm ci
 
       - name: Build Docker Images
         working-directory: ./biosimulations
-        run: nx affected:apps --plain   | ./tools/affected-loop
+        run: nx affected:apps --base=$NX_BASE --plain  | ./tools/affected-loop
