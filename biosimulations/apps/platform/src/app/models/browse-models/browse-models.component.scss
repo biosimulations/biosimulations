@@ -1,3 +1,5 @@
+@import 'biosimulations-colors';
+
 .table-container {
   overflow: auto;
 }
@@ -83,7 +85,7 @@ mat-paginator {
 ::ng-deep .controls {
   .mat-expansion-panel-header.mat-expanded {
       height: 32px;
-      background: #efefef;
+      background: $light-background;
   }
 
   .mat-expansion-panel-header {

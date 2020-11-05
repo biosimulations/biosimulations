@@ -13,7 +13,7 @@
   }
 
   &:active:not(.mat-button-disabled) {
-    color: #e58800;
+    color: mat-color($theme-accent, darker);
   }
 
   .button-content {

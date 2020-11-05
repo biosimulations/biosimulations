@@ -40,7 +40,7 @@ export class Simulator extends Document {
   url!: string;
 
   @ApiProperty({
-    example: 'docker.io/biosimulators/tellurium:2.1.6',
+    example: 'ghcr.io/biosimulators/tellurium:2.1.6',
   })
   image!: string;
 

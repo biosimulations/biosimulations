@@ -3,8 +3,30 @@
   banner="assets/images/runbiosimulations-logo/logo-white.svg"
 >
   <ng-container id="buttons">
-    <biosimulations-home-teaser-button label="Run simulation" [routerLink]="['/run']"></biosimulations-home-teaser-button>
-    <biosimulations-home-teaser-button label="View simulations" [routerLink]="['/simulations']"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button [href]="config.simulatorsAppUrl" width="180px" color="accent">
+      <ng-container id="title">Find simulators</ng-container>
+      <ng-container id="text">
+        <p>@BioSimulators</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button [route]="['/run']" width="180px" color="primary">
+      <ng-container id="title">Run simulations</ng-container>
+      <ng-container id="text">
+        <p>@runBioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button [route]="['/simulations']" width="180px" color="primary">
+      <ng-container id="title">Viz simulation results</ng-container>
+      <ng-container id="text">
+        <p>@runBioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button [href]="config.platformAppUrl" width="180px" color="accent">
+      <ng-container id="title">Share simulations</ng-container>
+      <ng-container id="text">
+        <p>@BioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
   </ng-container>
   <ng-container id="description">
     runBioSimulations is a free tool for executing a wide range of simulations. runBioSimulations provides the same simulation capabilities as BioSimulations via a simpler interface that doesn't require an account. runBioSimulations supports a broad range of frameworks (e.g., logical, kinetic), simulation Algorithms (e.g., FBA, SSA), formats (e.g., SBML, SED-ML), and simulation tools (e.g., COBRApy, COPASI).

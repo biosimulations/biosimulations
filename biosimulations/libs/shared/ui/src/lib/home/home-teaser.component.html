@@ -1,8 +1,8 @@
 <div class="container">
   <div class="logo-inner">
     <img [src]="banner" />
-    <div class="heading">{{ heading }}</div>
-    <div class="buttons partial-width">
+    <div class="heading partial-width">{{ heading }}</div>
+    <div class="buttons partial-width" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="-0.35rem">
       <ng-content select="#buttons"></ng-content>
     </div>
     <div class="text partial-width">

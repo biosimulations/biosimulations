@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { HomeComponent } from './home.component';
+import { ConfigService } from '@biosimulations/shared/services';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,7 +13,8 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
-      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule]
+      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
+      providers: [ConfigService],
     })
     .compileComponents();
   }));

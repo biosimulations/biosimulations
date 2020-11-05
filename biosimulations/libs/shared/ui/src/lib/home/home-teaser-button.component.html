@@ -1,3 +1,48 @@
-<button mat-flat-button [routerLink]="routerLink" [disabled]="disabled">
-  <div>{{ label }}</div>
-</button>
+<ng-container *ngIf="disabled; else activeButton">
+  <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
+</ng-container>
+
+<ng-template #activeButton>
+  <a *ngIf="route; else hrefButton" [routerLink]="route">
+    <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
+  </a>
+
+  <ng-template #hrefButton>
+    <a [href]="href" target="_blank">
+      <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
+    </a>
+  </ng-template>
+</ng-template>
+
+<ng-template #buttonTemplate>
+  <button mat-flat-button [ngStyle]="{width: width}" [disabled]="disabled">
+    <svg
+       xmlns:svg="http://www.w3.org/2000/svg"
+       xmlns="http://www.w3.org/2000/svg"
+       version="1.1"
+       viewBox="0 0 180 104"
+       preserveAspectRatio="none"
+       [ngClass]="{primary: color === 'primary', accent: color === 'accent'}"
+       [ngStyle]="{height: height}"
+       >
+      <path
+        d="
+          m 0,0
+          h 165
+          l 15 52
+          l -15 52 
+          h -165
+          l 15 -52
+          z"
+         style="fill: currentColor;" />
+    </svg>
+    <div class="content">
+      <div class="title">
+        <ng-content select="#title"></ng-content>
+      </div>
+      <div class="text">
+        <ng-content select="#text"></ng-content>
+      </div>
+    </div>
+  </button>
+</ng-template>

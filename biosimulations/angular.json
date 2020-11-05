@@ -51,7 +51,10 @@
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib",
+                "libs/shared/styles/src/lib/biosimulations"
+              ]
             }
           },
           "configurations": {
@@ -441,7 +444,10 @@
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib",
+                "libs/shared/styles/src/lib/biosimulations"
+              ]
             }
           },
           "configurations": {
@@ -1015,7 +1021,10 @@
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib",
+                "libs/shared/styles/src/lib/biosimulations"
+              ]
             }
           },
           "configurations": {
@@ -1203,7 +1212,10 @@
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib",
+                "libs/shared/styles/src/lib/biosimulators"
+              ]
             }
           },
           "configurations": {
