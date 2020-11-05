@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 COMMIT=$(git rev-parse HEAD)
+#COMMIT= $(git branch --show-current)
 :"${DOCKER_BUILD_CONTEXT=..}" "${DOCKER_BACKEND_PATH=../Dockerfile}" "${TAG:=$COMMIT}" "${APP:=simulators-api}"
 
 DOCKER_PATH=$DOCKER_BACKEND_PATH
-DOCKER_HOST=docker.io
-DOCKER_NAMESPACE=biosimulations
+DOCKER_HOST=ghcr.io
+DOCKER_NAMESPACE=biosimulations/biosimulations
 
 USAGE="$0 [-a <App Name> -t <Tag Name>]"
 
