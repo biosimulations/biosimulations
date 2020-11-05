@@ -135,9 +135,8 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'label',
       heading: 'Version',
       key: 'label',
-      rightIcon: 'internalLink',
-      rightAction: ColumnActionType.routerLink,
-      rightRouterLink: (version: ViewVersion) => {
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (version: ViewVersion) => {
         return ['/simulators', this.id, version.label];
       },
       minWidth: 73,

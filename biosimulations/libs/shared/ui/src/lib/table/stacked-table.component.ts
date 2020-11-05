@@ -103,13 +103,16 @@ export class StackedTableComponent {
       derivedDatum['heading'] = this.getHeading(datum);
 
       if (this.getHeadingMoreInfoRouterLink !== undefined) {
-        derivedDatum['icon'] = 'internalLink';
+        derivedDatum['icon'] = 'more';
+        derivedDatum['iconActionType'] = 'routerLink';
         derivedDatum['iconAction'] = this.getHeadingMoreInfoRouterLink(datum);
       } else if (this.getHeadingMoreInfoHref !== undefined) {
         derivedDatum['icon'] = 'link';
+        derivedDatum['iconActionType'] = 'href';
         derivedDatum['iconAction'] = this.getHeadingMoreInfoHref(datum);
       } else {
         derivedDatum['icon'] = 'toTop';
+        derivedDatum['iconActionType'] = 'scrollToTop';
         derivedDatum['iconAction'] = null;
       }
 

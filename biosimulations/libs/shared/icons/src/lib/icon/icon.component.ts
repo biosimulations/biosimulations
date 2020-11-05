@@ -80,6 +80,7 @@ export type biosimulationsIcon =
   | 'linkedin'
   | 'orcid'
   | 'toTop'
+  | 'more'
   | 'construction'
   | 'maintainence';
 @Component({
@@ -100,6 +101,7 @@ export class IconComponent implements OnInit {
     link: { type: 'fas', name: 'link' },
     internalLink: { type: 'fas', name: 'external-link-alt' },
     toTop: { type: 'fas', name: 'angle-double-up' },
+    more: { type: 'fas', name: 'angle-double-right' },
     email: { type: 'fas', name: 'envelope' },
     git: { type: 'fab', name: 'git-alt' },
     github: { type: 'fab', name: 'github' },

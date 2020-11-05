@@ -5,6 +5,12 @@ import {
 } from '@angular/core';
 import { ScrollService } from '@biosimulations/shared/services';
 
+export enum IconActionType {
+  scrollToTop = 'scrollToTop',
+  routerLink = 'routerLink',
+  href = 'href',
+}
+
 @Component({
   selector: 'biosimulations-text-page-content-section',
   templateUrl: './text-page-content-section.component.html',
@@ -28,6 +34,7 @@ export class TextPageContentSectionComponent {
   }
 
   _iconAction!: any;
+  _iconActionType = IconActionType.scrollToTop;
 
   @Input()
   set iconAction(iconAction: any) {
@@ -39,20 +46,30 @@ export class TextPageContentSectionComponent {
     return this._iconAction;
   }
 
+  @Input()
+  set iconActionType(iconActionType: IconActionType) {
+    this._iconActionType = iconActionType;
+    this.setIconAction();
+  }
+
+  get iconActionType(): IconActionType {
+    return this._iconActionType;
+  }
+
   iconRouterLink: any = null;
   iconHref: string | null = null;
   iconClick: () => void = this.scrollService.scrollToTop.bind(this.scrollService);
 
   setIconAction(): void {
-    if (this._icon === 'top') {
+    if (this._iconActionType === IconActionType.scrollToTop) {
       this.iconRouterLink = null;
       this.iconHref = null;
       this.iconClick = this.scrollService.scrollToTop.bind(this.scrollService);
-    } else if (this._icon === 'internalLink') {
+    } else if (this._iconActionType === IconActionType.routerLink) {
       this.iconRouterLink = this._iconAction;
       this.iconHref = null;
       this.iconClick = () => {};
-    } else if (this._icon === 'link') {
+    } else if (this._iconActionType === IconActionType.href) {
       this.iconRouterLink = null;
       this.iconHref = this._iconAction;
       this.iconClick = () => {};
