@@ -1,4 +1,4 @@
-import { PrimitiveType } from '@biosimulations/datamodel/common';
+import { AlgorithmParameterType } from '@biosimulations/datamodel/common';
 import { KisaoOntologyId } from './ontologyId';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -13,9 +13,9 @@ export class AlgorithmParameter {
   name!: string;
 
   @ApiProperty({
-    enum: [PrimitiveType],
+    enum: [AlgorithmParameterType],
   })
-  type!: PrimitiveType;
+  type!: AlgorithmParameterType;
 
   @ApiProperty({
     type: String,

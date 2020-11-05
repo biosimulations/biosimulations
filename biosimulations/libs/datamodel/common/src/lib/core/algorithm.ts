@@ -1,4 +1,4 @@
-import { PrimitiveType } from '../common/primitive-type';
+import { AlgorithmParameterType } from '../common/primitive-type';
 import { IOntologyTerm, Format, Citation } from '../..';
 import { KisaoId } from '../common/alias';
 import {
@@ -18,7 +18,7 @@ import {
 export interface AlgorithmParameter {
   id: string;
   name: string;
-  type: PrimitiveType;
+  type: AlgorithmParameterType;
   value: boolean | number | string;
   // Todo make this a conditional type based on value
   recommendedRange: (boolean | number | string)[] | null;

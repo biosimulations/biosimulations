@@ -1,5 +1,5 @@
 import {
-  PrimitiveType,
+  AlgorithmParameterType,
   AlgorithmParameter as IAlgorithmParameter,
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
@@ -20,7 +20,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   @Prop()
   name!: string;
   @Prop()
-  type!: PrimitiveType;
+  type!: AlgorithmParameterType;
   @Prop()
   value!: boolean | number | string;
   @Prop()

@@ -1,6 +1,6 @@
 import {
   BiomodelVariable as BiomodelVariableDTO,
-  PrimitiveType,
+  AlgorithmParameterType,
 } from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { Identifier } from '@biosimulations/platform/api-models';
@@ -9,7 +9,7 @@ export class ModelVariable implements BiomodelVariableDTO {
   target: string;
   group: string;
   description: string;
-  type: PrimitiveType;
+  type: AlgorithmParameterType;
   units: string;
   id: string;
   name: string;

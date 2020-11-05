@@ -1,4 +1,9 @@
-import { Identifier, PrimitiveType, IOntologyTerm, Format } from '../..';
+import {
+  Identifier,
+  AlgorithmParameterType,
+  IOntologyTerm,
+  Format,
+} from '../..';
 import { Taxon } from '../common/taxon';
 import { PrimaryResourceMetaData } from '../resources';
 import { BiosimulationsId, UserId } from '../common';
@@ -10,7 +15,7 @@ export interface BiomodelParameter {
   name: string;
   description: string | null;
   identifiers: Identifier[];
-  type: PrimitiveType;
+  type: AlgorithmParameterType;
   value: number | string | boolean;
   recommendedRange: (boolean | string | number)[];
   units: string;
@@ -26,7 +31,7 @@ export interface BiomodelVariable {
   id: string;
   name: string;
   description: string;
-  type: PrimitiveType;
+  type: AlgorithmParameterType;
   units: string;
   identifiers: Identifier[];
 }
