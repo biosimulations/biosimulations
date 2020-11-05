@@ -52,6 +52,7 @@ export class DispatchComponent implements OnInit {
         this.formGroup.controls.simulator.setValue(
             simulator
         );
+        this.onSimulatorChange({value: simulator});
         if (simulatorVersion) {
           this.formGroup.controls.simulatorVersion.setValue(
               simulatorVersion
