@@ -1,5 +1,3 @@
-import { KisaoId } from './alias';
-
 export enum Ontologies {
   KISAO = 'KISAO',
   SBO = 'SBO',
@@ -63,7 +61,7 @@ export interface IdentifierTerm extends Identifier {
 }
 export interface KISAOTerm extends IKisaoOntologyId {
   namespace: Ontologies.KISAO;
-  id: KisaoId;
+  id: string;
   name: string;
   description: string;
   iri: string;
@@ -73,7 +71,7 @@ export interface KISAOTerm extends IKisaoOntologyId {
 
 export interface SBOTerm extends IOntologyTerm {
   namespace: Ontologies.SBO;
-  id: KisaoId;
+  id: string;
   name: string;
   description: string;
   iri: string;
@@ -83,7 +81,7 @@ export interface SBOTerm extends IOntologyTerm {
 
 export interface EDAMTerm extends IOntologyTerm {
   namespace: Ontologies.EDAM;
-  id: KisaoId;
+  id: string;
   name: string;
   description: string;
   iri: string;
@@ -93,7 +91,7 @@ export interface EDAMTerm extends IOntologyTerm {
 
 export interface SPDXTerm extends IdentifierTerm {
   namespace: Ontologies.SPDX;
-  id: KisaoId;
+  id: string;
   name: string;
   description: string;
   url: string;

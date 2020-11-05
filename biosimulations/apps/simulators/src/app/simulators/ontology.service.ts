@@ -10,7 +10,6 @@ import {
   SBOTerm,
   SPDXTerm,
   EDAMTerm,
-  KisaoId,
   IdentifierTerm,
 } from '@biosimulations/datamodel/common';
 import { Observable, of, throwError } from 'rxjs';

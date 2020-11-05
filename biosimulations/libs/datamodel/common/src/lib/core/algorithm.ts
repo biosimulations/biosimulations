@@ -1,6 +1,6 @@
-import { AlgorithmParameterType } from '../common/primitive-type';
+import { AlgorithmParameterType } from '../common/';
 import { IOntologyTerm, Format, Citation } from '../..';
-import { KisaoId } from '../common/alias';
+
 import {
   ISboOntologyId,
   IOntologyId,

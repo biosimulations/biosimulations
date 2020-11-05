@@ -6,4 +6,4 @@ export * from './format';
 export * from './ontology';
 export * from './person';
 export * from './taxon';
-export * from './primitive-type';
+export * from './algortihm-paramter-type';

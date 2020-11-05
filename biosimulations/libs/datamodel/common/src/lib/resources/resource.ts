@@ -3,7 +3,7 @@ import { Citation } from '../common/citation';
 import { Person } from '../common/person';
 
 import { License, Identifier } from '../..';
-import { UserId, BiosimulationsId, DOI, DateString } from '../common/alias';
+import { UserId, BiosimulationsId, DateString } from '../common/alias';
 
 export enum ResourceType {
   project = 'project',
