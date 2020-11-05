@@ -13,13 +13,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-
-import {
-  JwtGuard,
-  AdminGuard,
-  PermissionsGuard,
-  permissions,
-} from '@biosimulations/auth/nest';
+import { AdminGuard } from '../lib/admin/admin.guard';
+import { JwtGuard } from '../lib/jwt/jwt.guard';
+import { permissions } from '../lib/permissions/permissions.decorator';
+import { PermissionsGuard } from '../lib/permissions/permissions.guard';
 
 @ApiTags('Authentication Test')
 @ApiOAuth2([])
