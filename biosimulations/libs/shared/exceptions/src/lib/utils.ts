@@ -3,7 +3,7 @@ import {
   ErrorObject,
   ErrorResponseDocument,
   MetaObject,
-} from '@biosimulations/shared/datamodel-api';
+} from '@biosimulations/datamodel/api';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export const makeErrorObject = (

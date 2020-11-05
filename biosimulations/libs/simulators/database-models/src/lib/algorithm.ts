@@ -4,7 +4,7 @@ import {
   IKisaoOntologyId,
   ISboOntologyId,
 } from '@biosimulations/shared/datamodel';
-import { Citation } from '@biosimulations/shared/datamodel-api';
+import { Citation } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import {

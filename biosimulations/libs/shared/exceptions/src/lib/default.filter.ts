@@ -1,4 +1,4 @@
-import { ErrorResponseDocument } from '@biosimulations/shared/datamodel-api';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
   ExceptionFilter,
   Catch,

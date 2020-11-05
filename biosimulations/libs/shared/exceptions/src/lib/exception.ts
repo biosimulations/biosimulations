@@ -2,7 +2,7 @@ import {
   AboutLinksObject,
   ErrorObject,
   ErrorSourceObject,
-} from '@biosimulations/shared/datamodel-api';
+} from '@biosimulations/datamodel/api';
 import { HttpException } from '@nestjs/common';
 
 export class BiosimulationsException extends Error {

@@ -1,7 +1,7 @@
 import {
   ExternalReferences,
   Person,
-} from '@biosimulations/shared/datamodel-api';
+} from '@biosimulations/datamodel/api';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 
 import { Document } from 'mongoose';

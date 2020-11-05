@@ -1,7 +1,7 @@
 import {
   ErrorObject,
   ErrorResponseDocument,
-} from '@biosimulations/shared/datamodel-api';
+} from '@biosimulations/datamodel/api';
 import {
   Catch,
   ExceptionFilter,
