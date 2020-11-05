@@ -19,9 +19,9 @@ export interface AlgorithmParameter {
   id: string;
   name: string;
   type: AlgorithmParameterType;
-  value: boolean | number | string;
+  value: string;
   // Todo make this a conditional type based on value
-  recommendedRange: (boolean | number | string)[] | null;
+  recommendedRange: string[] | null;
   kisaoId: IKisaoOntologyId;
 }
 
