@@ -1,4 +1,4 @@
-import { Ontologies, KISAOTerm } from '@biosimulations/shared/datamodel'
+import { Ontologies, KISAOTerm } from '@biosimulations/datamodel/common'
 import kisaoJson from './kisao.json'
 
 function getKisaoTerms(input: any): { [id: string]: KISAOTerm } {

@@ -1,6 +1,6 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 
-import { License, AccessLevel } from '@biosimulations/shared/datamodel';
+import { License, AccessLevel } from '@biosimulations/datamodel/common';
 
 import { Person, ExternalReferences } from '../common/index';
 

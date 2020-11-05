@@ -9,7 +9,7 @@ import { Document } from 'mongoose';
 import { AlgorithmSchema } from './algorithm';
 import { EdamOntologyIdSchema, SpdxIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
-import { IEdamOntologyId, ISpdxId } from '@biosimulations/shared/datamodel';
+import { IEdamOntologyId, ISpdxId } from '@biosimulations/datamodel/common';
 
 import { ExternalReferencesSchema, PersonSchema } from './common';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';

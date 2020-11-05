@@ -8,7 +8,7 @@ import {
   KisaoIdRegEx,
   SboIdRegEx,
   Identifier as IIdentifier,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 

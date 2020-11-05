@@ -1,4 +1,4 @@
-import { Taxon as ITaxon } from '@biosimulations/shared/datamodel';
+import { Taxon as ITaxon } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
 export class Taxon implements ITaxon {
   @ApiProperty({ example: 9606 })

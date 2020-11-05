@@ -1,11 +1,11 @@
-import { ProjectProductType } from '@biosimulations/shared/datamodel';
+import { ProjectProductType } from '@biosimulations/datamodel/common';
 import { Citation } from './journal-reference';
 import { Model } from './model';
 import { Simulation } from './simulation';
 import { Visualization } from './visualization';
 import { ChartType } from './chart-type';
 import { Observable } from 'rxjs';
-import { ProjectProduct as ProjectProductDTO } from '@biosimulations/shared/datamodel';
+import { ProjectProduct as ProjectProductDTO } from '@biosimulations/datamodel/common';
 
 /* The product of a project, such as a figure, table, box, or supplementary item, and the resources that were used to create it.
 

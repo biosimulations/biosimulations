@@ -5,7 +5,7 @@ import {
   IOntologyTerm,
   UserId,
   Person,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 

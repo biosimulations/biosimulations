@@ -1,4 +1,4 @@
-import { Ontologies, SBOTerm } from '@biosimulations/shared/datamodel';
+import { Ontologies, SBOTerm } from '@biosimulations/datamodel/common';
 
 import sboJson from './sbo.json';
 

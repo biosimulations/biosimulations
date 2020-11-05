@@ -1,4 +1,4 @@
-import { AccessLevel } from '@biosimulations/shared/datamodel';
+import { AccessLevel } from '@biosimulations/datamodel/common';
 import { License } from './license';
 import { ChartType } from './chart-type';
 import { Identifier } from './identifier';

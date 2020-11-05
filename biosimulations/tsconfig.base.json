@@ -63,9 +63,6 @@
       "@biosimulations/config/angular": [
         "libs/config/angular/src/index.ts"
       ],
-      "@biosimulations/shared/datamodel": [
-        "libs/shared/datamodel/src/index.ts"
-      ],
       "@biosimulations/platform/api-models": [
         "libs/platform/api-models/src/index.ts"
       ],
@@ -110,6 +107,9 @@
       ],
       "@biosimulations/datamodel/api": [
         "libs/datamodel/api/src/index.ts"
+      ],
+      "@biosimulations/datamodel/common": [
+        "libs/datamodel/common/src/index.ts"
       ]
     }
   },

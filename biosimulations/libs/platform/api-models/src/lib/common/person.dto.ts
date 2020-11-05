@@ -1,4 +1,4 @@
-import { Person as IPerson } from '@biosimulations/shared/datamodel';
+import { Person as IPerson } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class Person implements IPerson {

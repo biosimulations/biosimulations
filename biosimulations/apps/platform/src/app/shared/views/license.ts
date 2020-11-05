@@ -1,5 +1,5 @@
 import { ViewModel } from './view';
-import { License, LicenseInfo } from '@biosimulations/shared/datamodel';
+import { License, LicenseInfo } from '@biosimulations/datamodel/common';
 import { switchAll } from 'rxjs/operators';
 export class LicenseModel extends ViewModel {
   getTooltip(): string {

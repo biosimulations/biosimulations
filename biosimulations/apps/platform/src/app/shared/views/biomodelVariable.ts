@@ -3,7 +3,7 @@ import {
   BiomodelVariable as IBP,
   PrimitiveType,
   Identifier,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 export class BiomodelVariable extends ViewModel implements IBP {
   static fromDTO(dto: IBP): BiomodelVariable {

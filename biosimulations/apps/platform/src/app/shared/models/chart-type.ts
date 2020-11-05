@@ -2,7 +2,7 @@ import {
   ChartDataFieldShape,
   ChartDataFieldType,
   AccessLevel,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { License } from './license';
 import { ChartTypeDataField } from './chart-data-field';
 import { Identifier } from './identifier';

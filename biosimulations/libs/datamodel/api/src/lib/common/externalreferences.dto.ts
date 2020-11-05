@@ -1,4 +1,4 @@
-import { ExternalReferences as IExternalReferences } from '@biosimulations/shared/datamodel';
+import { ExternalReferences as IExternalReferences } from '@biosimulations/datamodel/common';
 import { Identifier } from './ontology.dto';
 import { Citation } from './citation';
 import { ApiProperty } from '@nestjs/swagger';

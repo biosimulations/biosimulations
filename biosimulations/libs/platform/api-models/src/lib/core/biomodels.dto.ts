@@ -3,7 +3,7 @@ import {
   PrimitiveType,
   BiomodelVariable,
   BiomodelAttributes,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import {
   ApiProperty,
   ApiExtraModels,

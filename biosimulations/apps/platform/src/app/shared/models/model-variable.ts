@@ -1,7 +1,7 @@
 import {
   BiomodelVariable as BiomodelVariableDTO,
   PrimitiveType,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { Identifier } from '@biosimulations/platform/api-models';
 

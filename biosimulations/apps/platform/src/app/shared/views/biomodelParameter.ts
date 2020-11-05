@@ -4,7 +4,7 @@ import {
   BiomodelParameter as IParam,
   PrimitiveType,
   Identifier,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 export class BiomodelParameter extends ViewModel {
   constructor(
     public target: string,

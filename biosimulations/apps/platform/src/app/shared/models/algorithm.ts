@@ -5,7 +5,7 @@ import {
   Citation as JournalReferenceDTO,
   Format as FormatDTO,
   AlgorithmParameter as AlgorithmParameterDTO,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 import { OntologyTerm } from './ontology-term';
 import { Format } from './format';

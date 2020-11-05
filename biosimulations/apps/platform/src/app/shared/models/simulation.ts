@@ -1,6 +1,6 @@
-import { AccessLevel } from '@biosimulations/shared/datamodel';
+import { AccessLevel } from '@biosimulations/datamodel/common';
 import { License } from './license';
-import { SimulationResultsFormat } from '@biosimulations/shared/datamodel';
+import { SimulationResultsFormat } from '@biosimulations/datamodel/common';
 import { SimulationStatus } from './simulation-status';
 import { ParameterChange } from './parameter-change';
 import { Algorithm } from './algorithm';

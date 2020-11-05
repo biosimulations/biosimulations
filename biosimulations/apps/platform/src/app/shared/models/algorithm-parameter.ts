@@ -1,6 +1,6 @@
-import { AlgorithmParameter as AlgorithmParameterDTO } from '@biosimulations/shared/datamodel';
+import { AlgorithmParameter as AlgorithmParameterDTO } from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
-import { PrimitiveType } from '@biosimulations/shared/datamodel';
+import { PrimitiveType } from '@biosimulations/datamodel/common';
 
 export class AlgorithmParameter
   implements JsonSerializable<AlgorithmParameterDTO> {

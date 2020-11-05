@@ -5,7 +5,7 @@ import {
   IKisaoOntologyId,
   ISboOntologyId,
   ISpdxId,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class OntologyId implements IOntologyId {

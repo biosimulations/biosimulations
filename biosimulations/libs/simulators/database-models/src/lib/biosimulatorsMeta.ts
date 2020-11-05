@@ -2,7 +2,7 @@ import {
   IBiosimulatorsMeta,
   imageVersions,
   specificationVersions,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({
