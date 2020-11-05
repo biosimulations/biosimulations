@@ -1,7 +1,4 @@
-import {
-  ExternalReferences,
-  Person,
-} from '@biosimulations/datamodel/api';
+import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
@@ -15,7 +12,7 @@ import { ExternalReferencesSchema, PersonSchema } from './common';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 @Schema({})
-class Simulator extends Document {
+export class Simulator extends Document {
   @Prop()
   biosimulators!: BiosimulatorsMeta;
   @Prop({ type: String, lowercase: true, trim: true, required: true })

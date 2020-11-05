@@ -22,9 +22,9 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   @Prop()
   type!: AlgorithmParameterType;
   @Prop()
-  value!: boolean | number | string;
+  value!: string;
   @Prop()
-  recommendedRange!: (boolean | number | string)[] | null;
+  recommendedRange!: string[] | null;
 }
 export const AlgorithmParameterSchema = SchemaFactory.createForClass(
   AlgorithmParameter
