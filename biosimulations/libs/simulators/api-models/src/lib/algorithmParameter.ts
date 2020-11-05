@@ -1,8 +1,11 @@
-import { AlgorithmParameterType } from '@biosimulations/datamodel/common';
+import {
+  AlgorithmParameter as IAlgorithmParameter,
+  AlgorithmParameterType,
+} from '@biosimulations/datamodel/common';
 import { KisaoOntologyId } from './ontologyId';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class AlgorithmParameter {
+export class AlgorithmParameter implements IAlgorithmParameter {
   @ApiProperty()
   kisaoId!: KisaoOntologyId;
 
@@ -13,14 +16,14 @@ export class AlgorithmParameter {
   name!: string;
 
   @ApiProperty({
-    enum: [AlgorithmParameterType],
+    enum: AlgorithmParameterType,
   })
   type!: AlgorithmParameterType;
 
   @ApiProperty({
     type: String,
   })
-  value!: boolean | number | string;
+  value!: string;
 
   @ApiProperty({
     type: [String, Number, Boolean],
@@ -28,5 +31,5 @@ export class AlgorithmParameter {
     minItems: 1,
     example: [22.7, 2270],
   })
-  recommendedRange!: (boolean | number | string)[] | null;
+  recommendedRange!: string[] | null;
 }

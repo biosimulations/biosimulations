@@ -1,7 +1,4 @@
-import {
-  ExternalReferences,
-  Person,
-} from '@biosimulations/datamodel/api';
+import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 
 import { Document } from 'mongoose';
@@ -10,7 +7,7 @@ import { EdamOntologyId, SpdxId } from './ontologyId';
 import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
-export class Simulator extends Document {
+export class Simulator {
   @ApiProperty()
   biosimulators!: BiosimulatorsMeta;
 
