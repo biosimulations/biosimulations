@@ -7,7 +7,12 @@ import {
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
 import { IdentifierSchema } from './ontologyId';
 
-@Schema({ _id: false, storeSubdocValidationError: false })
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
 class Citation implements ICitation {
   @Prop({ type: String, required: true })
   authors!: string;
@@ -38,19 +43,28 @@ class Citation implements ICitation {
 }
 export const CitationSchema = SchemaFactory.createForClass(Citation);
 
-@Schema({ _id: false, storeSubdocValidationError: false })
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
 export class ExternalReferences implements IExternalReferences {
   @Prop({ type: [IdentifierSchema] })
   identifiers!: Identifier[];
   @Prop({ type: [CitationSchema] })
   citations!: Citation[];
 }
-
 export const ExternalReferencesSchema = SchemaFactory.createForClass(
   ExternalReferences
 );
 
-@Schema({ _id: false, storeSubdocValidationError: false })
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
 class Person {
   @Prop({ type: String, required: true })
   firstName!: string;

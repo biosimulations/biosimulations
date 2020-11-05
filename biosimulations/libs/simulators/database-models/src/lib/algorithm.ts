@@ -19,7 +19,12 @@ import {
 } from './algorithmParameter';
 import { CitationSchema } from './common';
 
-@Schema({ _id: false, storeSubdocValidationError: false })
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
 export class Algorithm implements IAlgorithm {
   @Prop({ type: KisaoOntologyIdSchema })
   kisaoId!: IKisaoOntologyId;
