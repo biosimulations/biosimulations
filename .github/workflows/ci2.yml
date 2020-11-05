@@ -180,4 +180,4 @@ jobs:
 
       - name: Build Docker Images
         working-directory: ./biosimulations
-        run: nx affected:apps --plain   | ./tools/affected-loop
+        run: nx affected:apps --base=$NX_BASE --plain  | ./tools/affected-loop
