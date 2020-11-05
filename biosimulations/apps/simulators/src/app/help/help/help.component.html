@@ -235,7 +235,7 @@ specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
   -u jonrkarr:{{ '{' }} github-personal-access-token {{ '}' }} \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/biosimulators/Biosimulators/issues \
-  -d '{{ '{' }}"labels": ["Submit simulator", "Validated"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</code></pre>
+  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</code></pre>
 
           <p>The above is implemented by the Python method <code>Biosimulations_utils.simulator.submit_to_biosimulators.submit_simulator_to_biosimulators</code>. See the documentation <a href="https://biosimulations-utils.readthedocs.io/"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
         </li>
