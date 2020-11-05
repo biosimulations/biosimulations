@@ -23,7 +23,7 @@ import {
   ISboOntologyId,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
-import { AlgorithmParameter } from '@biosimulations/datamodel/common';
+import { AlgorithmParameter, AlgorithmParameterType } from '@biosimulations/datamodel/common';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
@@ -99,11 +99,17 @@ export class ViewSimulatorService {
             });
             algorithms.forEach((algorithm: ViewAlgorithm): void => {
               algorithm.parameters.forEach((parameter: ViewParameter): void => {
-                if (parameter.type !== 'boolean' && parameter.type !== 'number' && Array.isArray(parameter.range)) {
-                  parameter.range.sort((a, b) => {
-                    return a.localeCompare(b, undefined, { numeric: true });
-                  });
-                }
+               if (
+                 parameter.type !==
+                   AlgorithmParameterType[AlgorithmParameterType.integer] &&
+                 parameter.type !==
+                   AlgorithmParameterType[AlgorithmParameterType.float] &&
+                 Array.isArray(parameter.range)
+               ) {
+                 parameter.range.sort((a, b) => {
+                   return a.localeCompare(b, undefined, { numeric: true });
+                 });
+               }
               });
             });
             viewSimAlgorithms.next(algorithms);
@@ -140,9 +146,9 @@ export class ViewSimulatorService {
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
-    // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
+  
     let value;
-    if (parameter.type === 'string' && parameter.value && parameter.value.toString().match(/^KISAO_\d{7,7}$/)) {
+    if (parameter.type === 'kisaoId') {
       value = this.ontService.getKisaoTerm(parameter.value.toString()).pipe(pluck('name'));
     } else {
       value = parameter.value;
@@ -158,8 +164,7 @@ export class ViewSimulatorService {
             .map((val: { toString: () => string }): string | Observable<string> => {
               const strVal = val.toString();
 
-              // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
-              if (parameter.type === 'string' && strVal.match(/^KISAO_\d{7,7}$/)) {
+              if (parameter.type === 'kisaoId') {
                 return this.ontService.getKisaoTerm(strVal).pipe(pluck('name'));
               } else {
                 return strVal;
