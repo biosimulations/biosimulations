@@ -1,6 +1,7 @@
 @import 'biosimulations-colors';
 
 .mat-flat-button {
+    margin-top: 0.5rem;
     padding: 0;
     line-height: normal;
     background: none;
@@ -58,17 +59,9 @@
                 margin-bottom: 0.25rem;
             }
         }
-
         
         .text ::ng-deep p:not(:last-child) {
             margin-bottom: 0.25rem;
         }
     }
-}
-
-:host:not(:first-child) {
-    margin-left: 0.5rem;
-}
-:host:not(:last-child) {
-    margin-right: 0.5rem;
 }

@@ -32,7 +32,7 @@ img {
 }
 
 .buttons {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .text {
@@ -41,4 +41,9 @@ img {
   font-size: 18px;
   line-height: 150%;
   text-align: center;
+}
+
+.heading, .buttons, .text {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
