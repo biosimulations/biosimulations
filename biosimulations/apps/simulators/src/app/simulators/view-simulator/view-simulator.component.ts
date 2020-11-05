@@ -30,6 +30,7 @@ import {
 export class ViewSimulatorComponent implements OnInit {
   getVersionLinkBound!: (version: ViewVersion) => string[];
   dispatchAppUrl!: string;
+  dispatchAppRunUrl!: string;
 
   constructor(
     public route: ActivatedRoute,
@@ -161,7 +162,35 @@ export class ViewSimulatorComponent implements OnInit {
       rightClick: (version: ViewVersion): void => {
         this.copyDockerPullCmd(version.image);
       },
-      minWidth: 650,
+      minWidth: 610,
+    },
+    {
+      id: 'run',
+      heading: 'Run',
+      key: 'label',
+      formatter: (label: string): null => {
+        return null;
+      },
+      stackedFormatter: (label: string): string => {
+        return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
+      },
+      rightIcon: 'simulator',
+      rightIconTitle: (version: ViewVersion): string => {
+        return 'Execute simulations with v' + version.label + ' @ runBioSimulations';
+      },
+      centerAction: ColumnActionType.href,
+      rightAction: ColumnActionType.href,
+      centerHref: (version: ViewVersion): string => {
+        return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+      },
+      rightHref: (version: ViewVersion): string => {
+        return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+      },
+      rightShowStacked: false,
+      minWidth: 40,
+      center: true,
+      filterable: false,
+      sortable: false,
     },
   ];
 
@@ -192,9 +221,8 @@ export class ViewSimulatorComponent implements OnInit {
           simulator = this.simService.getVersion(id, version);
         } else {
           simulator = this.simService.getLatest(id);
-        }
-        this.dispatchAppUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + id + '&simulatorVersion=' + version;
-        simulator.subscribe(this.setHighlightVersion.bind(this));
+        }        
+        simulator.subscribe(this.processSimulator.bind(this));
         return simulator;
       }),
 
@@ -205,7 +233,9 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
-  setHighlightVersion(simulator: ViewSimulator) {
+  processSimulator(simulator: ViewSimulator) {
+    this.dispatchAppUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+    this.dispatchAppRunUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };

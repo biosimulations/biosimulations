@@ -180,11 +180,11 @@ export const columns: Column[] = [
     id: 'run',
     heading: 'Run',
     key: 'id',
-    formatter: (url: string): null => {
+    formatter: (id: string): null => {
       return null;
     },
-    stackedFormatter: (url: string): string => {
-      return url;
+    stackedFormatter: (id: string): string => {
+      return 'https://run.biosimulations.org/run?simulator=' + id;
     },
     rightIcon: 'simulator',
     rightIconTitle: (element: TableSimulator): string => {
@@ -193,10 +193,10 @@ export const columns: Column[] = [
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run/?simulator=' + element.id + '&simulatorVersion=' + element.latestVersion;
+      return 'https://run.biosimulations.org/run?simulator=' + element.id;
     },
     rightHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run/?simulator=' + element.id + '&simulatorVersion=' + element.latestVersion;
+      return 'https://run.biosimulations.org/run?simulator=' + element.id;
     },
     rightShowStacked: false,
     minWidth: 40,
