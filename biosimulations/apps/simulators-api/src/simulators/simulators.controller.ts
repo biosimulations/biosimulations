@@ -246,7 +246,6 @@ export class SimulatorsController {
     return this.service.replace(id, version, doc).then((res) => res);
   }
 
-  // TODO does the github issues process need this permission?
   @permissions('delete:Simulators')
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
