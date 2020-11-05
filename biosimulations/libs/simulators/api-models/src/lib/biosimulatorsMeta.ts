@@ -7,9 +7,9 @@ import {
 
 export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   @ApiProperty({
-    default: '1.0.0',
+    required: true,
     description:
-      ' The version of the API schema that the properties of the simulators conforms to',
+      'The version of the BioSimulators simulator specifications format that the simulator specifications conforms to',
     examples: ['1.0.0'],
     enum: specificationVersions,
   })
@@ -17,9 +17,9 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
 
   @ApiProperty({
     type: String,
-    default: '1.0.0',
+    required: true,
     description:
-      ' The version of the docker image interface and features supported by the image',
+      'The version of the BioSimulators simulator image format (command-line interface and Docker image structure) that the simulator implements',
     examples: ['1.0.0'],
     enum: imageVersions,
   })
