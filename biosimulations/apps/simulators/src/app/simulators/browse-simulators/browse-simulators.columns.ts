@@ -193,10 +193,10 @@ export const columns: Column[] = [
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run';
+      return 'https://run.biosimulations.org/run/?simulator=' + element.id + '&simulatorVersion=' + element.latestVersion;
     },
     rightHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run';
+      return 'https://run.biosimulations.org/run/?simulator=' + element.id + '&simulatorVersion=' + element.latestVersion;
     },
     rightShowStacked: false,
     minWidth: 40,

@@ -29,16 +29,14 @@ import {
 })
 export class ViewSimulatorComponent implements OnInit {
   getVersionLinkBound!: (version: ViewVersion) => string[];
-  dispatchAppUrl: string;
+  dispatchAppUrl!: string;
 
   constructor(
     public route: ActivatedRoute,
     private simService: ViewSimulatorService,
     private cd: ChangeDetectorRef,
-    config: ConfigService
-  ) {
-    this.dispatchAppUrl = config.dispatchAppUrl + 'run';
-  }
+    private config: ConfigService
+  ) {}
 
   loadingSubject = new BehaviorSubject(true);
   loading$!: Observable<boolean>;
@@ -194,8 +192,8 @@ export class ViewSimulatorComponent implements OnInit {
           simulator = this.simService.getVersion(id, version);
         } else {
           simulator = this.simService.getLatest(id);
-
         }
+        this.dispatchAppUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + id + '&simulatorVersion=' + version;
         simulator.subscribe(this.setHighlightVersion.bind(this));
         return simulator;
       }),
