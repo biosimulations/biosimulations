@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ManagementClient, User } from 'auth0';
 import { ConfigService } from '@nestjs/config';
-
+// TODO Put this into its own library. Currently importing the auth library requires having Auth0 management secrets loaded in the env
 @Injectable()
 export class AuthzService {
   authzClient: ManagementClient;
