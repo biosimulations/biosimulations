@@ -5,7 +5,7 @@ COMMIT=$(git rev-parse HEAD)
 
 DOCKER_PATH=$DOCKER_BACKEND_PATH
 DOCKER_HOST=ghcr.io
-DOCKER_NAMESPACE=biosimulations/biosimulations
+DOCKER_NAMESPACE=biosimulations
 
 USAGE="$0 [-a <App Name> -t <Tag Name>]"
 
