@@ -1,7 +1,7 @@
 import {
   Format as IFormat,
   IAlgorithm,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { Citation } from '@biosimulations/datamodel/api';
 
 import {

@@ -13,7 +13,7 @@ import { VisualizationService } from '../Services/Resources/visualization.servic
 import * as md5 from 'md5';
 import { Observable, of } from 'rxjs';
 import { Person } from './person';
-import { Profile } from '@biosimulations/shared/datamodel';
+import { Profile } from '@biosimulations/datamodel/common';
 import { JsonPipe } from '@angular/common';
 import { isNull } from 'util';
 

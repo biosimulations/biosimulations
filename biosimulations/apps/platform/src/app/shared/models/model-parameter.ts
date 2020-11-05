@@ -3,7 +3,7 @@ import {
   isBiomodelParameter as isBiomodelParameterDTO,
   Identifier as IdentifierDTO,
   PrimitiveType,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { Identifier } from './identifier';
 

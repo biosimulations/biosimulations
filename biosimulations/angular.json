@@ -778,35 +778,6 @@
         }
       }
     },
-    "shared-datamodel": {
-      "root": "libs/shared/datamodel",
-      "sourceRoot": "libs/shared/datamodel/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "tsConfig": [
-              "libs/shared/datamodel/tsconfig.lib.json",
-              "libs/shared/datamodel/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/shared/datamodel/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/datamodel/jest.config.js",
-            "tsConfig": "libs/shared/datamodel/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "platform-api": {
       "root": "apps/platform-api",
       "sourceRoot": "apps/platform-api/src",
@@ -1964,6 +1935,35 @@
           "options": {
             "jestConfig": "libs/datamodel/api/jest.config.js",
             "tsConfig": "libs/datamodel/api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "datamodel-common": {
+      "root": "libs/datamodel/common",
+      "sourceRoot": "libs/datamodel/common/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": [
+              "libs/datamodel/common/tsconfig.lib.json",
+              "libs/datamodel/common/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/common/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/common/jest.config.js",
+            "tsConfig": "libs/datamodel/common/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

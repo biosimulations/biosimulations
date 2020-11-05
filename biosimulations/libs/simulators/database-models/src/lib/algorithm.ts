@@ -3,7 +3,7 @@ import {
   IEdamOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { Citation } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 

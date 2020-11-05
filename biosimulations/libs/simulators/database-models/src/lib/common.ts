@@ -2,7 +2,7 @@ import {
   ExternalReferences as IExternalReferences,
   Identifier,
   Citation as ICitation,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
 import { IdentifierSchema } from './ontologyId';

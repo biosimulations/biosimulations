@@ -12,7 +12,7 @@ import {
   EDAMTerm,
   KisaoId,
   IdentifierTerm,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';

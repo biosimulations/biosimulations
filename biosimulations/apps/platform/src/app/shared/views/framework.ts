@@ -2,7 +2,7 @@ import { ViewModel } from './view';
 import {
   IOntologyTerm as IFramework,
   Ontologies,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 export class Framework extends ViewModel implements IFramework {
   constructor(
     public namespace: Ontologies,

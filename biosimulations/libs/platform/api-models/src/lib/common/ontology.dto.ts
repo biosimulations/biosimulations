@@ -2,7 +2,7 @@ import {
   IOntologyTerm,
   Ontologies,
   Identifier as IIdentifier,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class OntologyTerm implements IOntologyTerm {

@@ -20,7 +20,7 @@ import { VisualizationService } from '../Services/Resources/visualization.servic
 import { UserService } from '../Services/user.service';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { BiomodelVariable } from '@biosimulations/shared/datamodel';
+import { BiomodelVariable } from '@biosimulations/datamodel/common';
 
 export class Model extends TopLevelResource {
   taxon?: Taxon;

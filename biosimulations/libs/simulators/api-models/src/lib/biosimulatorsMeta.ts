@@ -3,7 +3,7 @@ import {
   IBiosimulatorsMeta,
   imageVersions,
   specificationVersions,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   @ApiProperty({

@@ -1,4 +1,4 @@
-import { Ontologies, EDAMTerm } from '@biosimulations/shared/datamodel'
+import { Ontologies, EDAMTerm } from '@biosimulations/datamodel/common'
 import edamJson from './edam.json'
 function getEdamTerms(input: any): { [id: string]: EDAMTerm } {
     const edamTerms: { [id: string]: EDAMTerm } = {};

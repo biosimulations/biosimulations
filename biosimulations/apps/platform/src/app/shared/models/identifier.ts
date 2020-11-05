@@ -1,4 +1,4 @@
-import { Identifier as IdentifierDTO } from '@biosimulations/shared/datamodel';
+import { Identifier as IdentifierDTO } from '@biosimulations/datamodel/common';
 
 export class Identifier implements IdentifierDTO {
   namespace: string;

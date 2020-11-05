@@ -8,7 +8,7 @@ import {
 import {
   ResourceType,
   BiomodelAttributes,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 import {
   FileRelationshipObject,

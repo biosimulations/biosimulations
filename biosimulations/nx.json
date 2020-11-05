@@ -171,13 +171,6 @@
         "platform:web"
       ]
     },
-    "shared-datamodel": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:any"
-      ]
-    },
     "platform-api": {
       "tags": [
         "scope:platform",
@@ -355,6 +348,13 @@
       ]
     },
     "datamodel-api": {
+      "tags": [
+        "scope:shared",
+        "type:datamodel",
+        "platform:any"
+      ]
+    },
+    "datamodel-common": {
       "tags": [
         "scope:shared",
         "type:datamodel",

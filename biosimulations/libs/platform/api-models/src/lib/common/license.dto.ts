@@ -1,7 +1,7 @@
 import {
   License,
   LicenseInfo as ILicenseInfo,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LicenseInfo implements ILicenseInfo {

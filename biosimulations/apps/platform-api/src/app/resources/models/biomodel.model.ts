@@ -27,7 +27,7 @@ import {
   Person,
   PrimitiveType,
   Identifier,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 import {
   AttributesMetadata,

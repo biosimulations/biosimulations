@@ -1,4 +1,4 @@
-import { PrimitiveType } from '@biosimulations/shared/datamodel';
+import { PrimitiveType } from '@biosimulations/datamodel/common';
 import { KisaoOntologyId } from './ontologyId';
 import { ApiProperty } from '@nestjs/swagger';
 

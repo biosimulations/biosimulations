@@ -12,7 +12,7 @@ import {
   BiomodelAttributes,
   BiomodelRelationships,
   PrimaryResourceMetaData,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 export class Model {
   // Attributes

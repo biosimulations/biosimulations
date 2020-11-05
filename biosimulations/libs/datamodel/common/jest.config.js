@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'shared-datamodel',
+  name: 'datamodel-common',
   preset: '../../../jest.config.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/shared/datamodel',
+  coverageDirectory: '../../../coverage/libs/datamodel/common',
 };

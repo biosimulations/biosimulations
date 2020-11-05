@@ -1,5 +1,5 @@
 import { ViewModel } from './view';
-import { Format as IFormat } from '@biosimulations/shared/datamodel';
+import { Format as IFormat } from '@biosimulations/datamodel/common';
 export class Format extends ViewModel {
   constructor(
     public id: string,

@@ -2,7 +2,7 @@ import {
   ChartDataFieldShape,
   ChartDataField,
   ChartDataFieldType,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 export class ChartTypeDataField implements ChartDataField {
   name: string;

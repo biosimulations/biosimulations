@@ -1,9 +1,9 @@
 import {
   PrimitiveType,
   AlgorithmParameter as IAlgorithmParameter,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
-import { IKisaoOntologyId } from '@biosimulations/shared/datamodel';
+import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({

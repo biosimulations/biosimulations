@@ -21,9 +21,9 @@ import { map, pluck, tap } from 'rxjs/operators';
 import {
   IEdamOntologyId,
   ISboOntologyId,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
-import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
+import { AlgorithmParameter } from '@biosimulations/datamodel/common';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
