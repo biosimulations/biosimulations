@@ -36,7 +36,7 @@ import {
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
-import { ErrorResponseDocument } from '@biosimulations/shared/datamodel-api';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @ApiTags('Simulators')

@@ -2,7 +2,7 @@ import {
   Format as IFormat,
   IAlgorithm,
 } from '@biosimulations/shared/datamodel';
-import { Citation } from '@biosimulations/shared/datamodel-api';
+import { Citation } from '@biosimulations/datamodel/api';
 
 import {
   EdamOntologyId,

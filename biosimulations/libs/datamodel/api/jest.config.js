@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'shared-datamodel-api',
+  name: 'datamodel-api',
   preset: '../../../jest.config.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/shared/datamodel-api',
+  coverageDirectory: '../../../coverage/libs/datamodel/api',
 };

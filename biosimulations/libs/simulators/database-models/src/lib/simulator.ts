@@ -1,7 +1,7 @@
 import {
   ExternalReferences,
   Person,
-} from '@biosimulations/shared/datamodel-api';
+} from '@biosimulations/datamodel/api';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
