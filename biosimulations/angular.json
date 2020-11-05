@@ -1771,7 +1771,7 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:lint",
-          "options": { 
+          "options": {
             "linter": "eslint",
             "tsConfig": [
               "libs/shared/exceptions/tsconfig.lib.json",
@@ -1785,6 +1785,33 @@
           "options": {
             "jestConfig": "libs/shared/exceptions/jest.config.js",
             "tsConfig": "libs/shared/exceptions/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "datamodel-database": {
+      "root": "libs/datamodel/database",
+      "sourceRoot": "libs/datamodel/database/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/datamodel/database/tsconfig.lib.json",
+              "libs/datamodel/database/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/datamodel/database/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/database/jest.config.js",
+            "tsConfig": "libs/datamodel/database/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

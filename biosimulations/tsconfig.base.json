@@ -72,6 +72,9 @@
       ],
       "@biosimulations/shared/exceptions": [
         "libs/shared/exceptions/src/index.ts"
+      ],
+      "@biosimulations/datamodel-database": [
+        "libs/datamodel/database/src/index.ts"
       ]
     }
   },

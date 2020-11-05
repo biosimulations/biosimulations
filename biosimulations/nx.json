@@ -167,6 +167,9 @@
     },
     "shared-exceptions": {
       "tags": ["scope:shared", "type:util", "platform:server"]
+    },
+    "datamodel-database": {
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
     }
   }
 }
