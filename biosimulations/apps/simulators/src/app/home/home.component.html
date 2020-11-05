@@ -3,7 +3,27 @@
   banner="assets/images/biosimulators-logo/logo-white.svg"
 >
   <ng-container id="buttons">
-    <biosimulations-home-teaser-button label="Browse simulators" [routerLink]="['/simulators']"></biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button [route]="['/simulators']" width="180px" color="primary">
+      <ng-container id="title">Find simulation tools</ng-container>
+      <ng-container id="text">
+        <p>Browse simulation software tools</p>
+        <p>@BioSimulators</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button [href]="config.dispatchAppUrl" width="180px" color="accent">
+      <ng-container id="title">Execute simulations</ng-container>
+      <ng-container id="text">
+        <p>Use simulators to execute simulations</p>
+        <p>@runBioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+    <biosimulations-home-teaser-button [href]="config.platformAppUrl" width="180px" color="accent">
+      <ng-container id="title">Share &amp; reuse studies</ng-container>
+      <ng-container id="text">
+        <p>Share, modify & run simulation studies</p>
+        <p>@BioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
   </ng-container>
   <ng-container id="description">
     BioSimulators is a free collection of containerized biosimulation tools that provide consistent interfaces and a guide to choosing a simulator. In particular, BioSimulators makes it easier to reuse published simulations. BioSimulators supports a broad range of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and formats (e.g., SBML, SED-ML). BioSimulators is powered by a standard interface, a container structure, and format for describing the capabilities of a simulator and a database of the capabilities of simulators.

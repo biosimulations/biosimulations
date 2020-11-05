@@ -384,11 +384,11 @@ npn-slider .slider {
     color: mat-color($theme-primary);
 
     &:hover {
-      color: #0c88eb;
+      color: darken(mat-color($theme-primary), 5%);
     }
 
     &:active {
-      color: #0b79d1;
+      color: darken(mat-color($theme-primary), 10%);
     }
   }
 
@@ -396,11 +396,11 @@ npn-slider .slider {
     color: mat-color($theme-accent);
 
     &:hover {
-      color: #e58800;
+      color: darken(mat-color($theme-accent), 5%);
     }
 
     &:active {
-      color: #cc7900;
+      color: darken(mat-color($theme-accent), 10%);
     }
   }
 
@@ -436,7 +436,7 @@ table {
 
   thead {
     tr {
-      background: $primary-lightest-color;
+      background: $theme-primary-lightest;
       height: 32px;
     }
   }
@@ -472,7 +472,7 @@ table {
   }
 
   .mat-header-row {
-    background: $primary-lightest-color;
+    background: $theme-primary-lightest;
     min-height: 32px;
   }
 
@@ -493,7 +493,7 @@ table {
   }
 
   .highlight-row {
-    background: $primary-lightest-color;
+    background: $theme-primary-lightest;
   }
 
   .mat-cell, .mat-header-cell {

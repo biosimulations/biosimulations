@@ -60,6 +60,7 @@ export class ViewSimulatorService {
 
     const viewSimAlgorithms = new BehaviorSubject<ViewAlgorithm[]>([]);
     const viewSim: ViewSimulator = {
+      _json: JSON.stringify(sim, null, 2),
       id: sim.id,
       version: sim.version,
       name: sim.name,
