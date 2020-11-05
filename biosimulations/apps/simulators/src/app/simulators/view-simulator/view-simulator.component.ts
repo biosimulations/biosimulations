@@ -11,6 +11,7 @@ import {
 } from '@biosimulations/shared/ui';
 
 import { ViewSimulatorService } from './view-simulator.service';
+import { ConfigService } from '@biosimulations/shared/services';
 
 import {
   ViewSimulator,
@@ -28,12 +29,16 @@ import {
 })
 export class ViewSimulatorComponent implements OnInit {
   getVersionLinkBound!: (version: ViewVersion) => string[];
+  dispatchAppUrl: string;
+
   constructor(
     public route: ActivatedRoute,
-
     private simService: ViewSimulatorService,
-    private cd: ChangeDetectorRef
-  ) {}
+    private cd: ChangeDetectorRef,
+    config: ConfigService
+  ) {
+    this.dispatchAppUrl = config.dispatchAppUrl + 'run';
+  }
 
   loadingSubject = new BehaviorSubject(true);
   loading$!: Observable<boolean>;
