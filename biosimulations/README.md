@@ -1,4 +1,12 @@
 # BioSimulations
+
+## Apps
+
+## Libraries
+
+## Tools
+
+
 ### Nx
 This project uses [Nx](https://nx.dev). The below information should be sufficient for most development in the repository.
 #### Quick Start & Documentation
