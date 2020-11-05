@@ -4,10 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { DispatchComponent } from './dispatch/dispatch.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: DispatchComponent,
-    },
+  {
+    path: '',
+    component: DispatchComponent,
+  },
 ];
 
 @NgModule({
