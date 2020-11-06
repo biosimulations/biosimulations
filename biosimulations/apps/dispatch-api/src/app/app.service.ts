@@ -45,7 +45,7 @@ export class AppService {
         this.modelsService.createNewDispatchSimulationModel(dbModel);
       },
       (err) => {
-        this.logger.log('Error occured in dispatch service: ' + JSON.stringify(err));
+        this.logger.error('Error occured in dispatch service: ' + JSON.stringify(err));
       }
     );
     this.logger.log('Dispatch message was sent successfully' + JSON.stringify(simSpec));

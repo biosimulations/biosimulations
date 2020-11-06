@@ -11,4 +11,8 @@ export class SimulationService {
     const jobStatus = await this.hpcService.saactJobStatus(jobId);
     return jobStatus;
   }
+
+  async cancelRunningSimulation(jobId: string) {
+    return await this.hpcService.scancelJob(jobId);
+  }
 }

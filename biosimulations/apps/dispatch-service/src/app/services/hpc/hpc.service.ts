@@ -4,6 +4,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { MQDispatch } from '@biosimulations/messages';
 import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 import path from 'path';
+import { stderr, stdout } from 'process';
 
 @Injectable()
 export class HpcService {
@@ -111,16 +112,6 @@ export class HpcService {
       });
   }
 
-  getOutputFiles(simId: string) {
-    // pack all files (zip)
-    // Get them on local
-    // Unpack them and save to mongo
-  }
-
-  getRealtimeOutput(simId: string) {
-    // Create a socket via SSH and stream the output file
-  }
-
 
   async saactJobStatus(jobId: string) {
 
@@ -152,4 +143,18 @@ export class HpcService {
     }
 
   }
+
+  async scancelJob(jobId: string) {
+    // TODO: Implement with non-root user
+    const scancelJobData = await this.sshService.execStringCommand(
+      `scancel ${jobId}`
+    ).catch((error) => {
+      this.logger.error('Cannot cancel the job, ' + JSON.stringify(error));
+      return {
+        stdout: stdout,
+        stderror: stderr,
+      }
+    });
+  }
+
 }
