@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { JwtGuard } from '../jwt/jwt.guard';
 import { AuthToken } from '@biosimulations/auth/common';
 import { AdminGuard } from '../admin/admin.guard';
+
 @Injectable()
 export class PermissionsGuard {
   constructor(
@@ -35,7 +36,9 @@ export class PermissionsGuard {
       routePermissions.every((routePermission) =>
         userPermissions?.includes(routePermission)
       );
-    const isAdmin = this.admin.canActivate(context);
+
+    const isAdmin = this.admin.isAdmin(user);
+
     if (hasPermission() || isAdmin) {
       return true;
     } else {

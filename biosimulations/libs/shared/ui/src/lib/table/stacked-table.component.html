@@ -10,7 +10,8 @@
       [heading]="isObservable(row.heading) ? (row.heading | async) : row.heading"
       [tocSection]="isObservable(row.heading) ? (row.heading | async) : row.heading"
       [icon]="row.icon"
-      [iconAction]="row.iconAction"
+      [iconActionType]="row.iconActionType"
+      [iconAction]="row.iconAction"      
       [highlight]="row?.highlight"
     >
       <ul class="key-value">

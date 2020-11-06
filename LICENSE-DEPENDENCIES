@@ -806,6 +806,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/glob/LICENSE
+├─ @types/highlight.js@9.12.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+│  └─ licenseFile: @types/highlight.js/LICENSE
 ├─ @types/json-schema@7.0.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -840,7 +844,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/mongoose/LICENSE
-├─ @types/node@14.10.2
+├─ @types/node@14.14.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -1877,7 +1881,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: collection-visit/LICENSE
-├─ color-alpha@1.1.2
+├─ color-alpha@1.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/colorjs/color-alpha
 │  ├─ publisher: ΔY
@@ -1913,19 +1917,19 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: DY
 │  ├─ email: dfcreative@gmail.com
 │  └─ licenseFile: ora/node_modules/color-name/LICENSE
-├─ color-normalize@1.5.2
+├─ color-normalize@1.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/colorjs/color-normalize
 │  ├─ publisher: Dmitry Yv
 │  ├─ email: dfcreative@gmail.com
 │  └─ licenseFile: color-normalize/readme.md
-├─ color-parse@1.4.2
+├─ color-parse@1.3.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/colorjs/color-parse
 │  ├─ publisher: Deema Ywanov
 │  ├─ email: df.creative@gmail.com
 │  └─ licenseFile: color-parse/LICENSE
-├─ color-rgba@2.2.3
+├─ color-rgba@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/colorjs/color-rgba
 │  ├─ publisher: Dmitry Yv
@@ -3417,7 +3421,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/gl-vis/gl-plot2d
 │  ├─ publisher: Mikola Lysenko
 │  └─ licenseFile: gl-plot2d/LICENSE
-├─ gl-plot3d@2.4.6
+├─ gl-plot3d@2.4.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gl-vis/gl-plot3d
 │  ├─ publisher: Mikola Lysenko
@@ -3783,6 +3787,18 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Fedor Indutny
 │  ├─ email: fedor@indutny.com
 │  └─ licenseFile: hash.js/README.md
+├─ highlight.js@10.3.2
+│  ├─ licenses: BSD-3-Clause
+│  ├─ repository: https://github.com/highlightjs/highlight.js
+│  ├─ publisher: Ivan Sagalaev
+│  ├─ email: maniac@softwaremaniacs.org
+│  └─ licenseFile: highlight.js/LICENSE
+├─ highlightjs-line-numbers.js@2.8.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/wcoder/highlightjs-line-numbers.js
+│  ├─ publisher: Yauheni Pakala
+│  ├─ email: evgeniy.pakalo@gmail.com
+│  └─ licenseFile: highlightjs-line-numbers.js/LICENSE
 ├─ hmac-drbg@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/indutny/hmac-drbg
@@ -5161,7 +5177,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Valeri Karpov
 │  ├─ email: val@karpov.io
 │  └─ licenseFile: mongoose-legacy-pluralize/LICENSE
-├─ mongoose@5.10.6
+├─ mongoose@5.10.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
@@ -5338,6 +5354,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/mikolalysenko/nextafter
 │  ├─ publisher: Mikola Lysenko
 │  └─ licenseFile: nextafter/LICENSE
+├─ ngx-highlightjs@4.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/murhafsousli/ngx-highlightjs
+│  ├─ publisher: Murhaf Sousli
+│  ├─ url: http://github.com/murhafsousli
+│  └─ licenseFile: ngx-highlightjs/README.md
 ├─ ngx-markdown@10.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jfcere/ngx-markdown
@@ -5950,7 +5972,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/mikolalysenko/planar-graph-to-polyline
 │  ├─ publisher: Mikola Lysenko
 │  └─ licenseFile: planar-graph-to-polyline/LICENSE
-├─ plotly.js@1.57.0
+├─ plotly.js@1.57.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/plotly/plotly.js
 │  ├─ publisher: Plotly, Inc.
