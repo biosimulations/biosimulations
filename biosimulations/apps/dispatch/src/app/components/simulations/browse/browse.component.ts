@@ -169,7 +169,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
         if (simulation.status === SimulationStatus.succeeded) {
-          return `${urls.dispatchApi}/download/${simulation.id}`;
+          return `${urls.dispatchApi}/download/result/${simulation.id}`;
         } else {
           return null;
         }

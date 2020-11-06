@@ -196,7 +196,7 @@ export class AppService {
     }
   }
 
-  downloadArchive(uId: string, res: any) {
+  downloadResultArchive(uId: string, res: any) {
     const zipPath = path.join(
       this.fileStorage,
       'simulations',
@@ -204,6 +204,16 @@ export class AppService {
       `${uId}.zip`
     );
     res.download(zipPath);
+  }
+
+  downloadUserOmexArchive(uuid: string, res: any) {
+    const omexPath = path.join(
+      this.fileStorage,
+      'OMEX',
+      'ID',
+      `${uuid}.omex`
+    );
+      res.download(omexPath);
   }
 
   async getSimulators(simulatorName: string) {

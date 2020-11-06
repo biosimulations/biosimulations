@@ -42,7 +42,7 @@
           }}<a [href]="projectUrl">{{ projectSize }}</a>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="status === 'SUCCEEDED' || status === 'FAILED'">
         <th>
           <biosimulations-icon icon="download"></biosimulations-icon>
         </th>
