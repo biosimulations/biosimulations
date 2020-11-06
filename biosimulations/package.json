@@ -60,7 +60,7 @@
     "@nestjs/microservices": "^7.4.4",
     "@nestjs/mongoose": "^7.0.2",
     "@nestjs/passport": "^7.1.0",
-    "@nestjs/platform-express": "^7.4.4",
+    "@nestjs/platform-express": "^7.5.1",
     "@nestjs/schedule": "^0.4.1",
     "@nestjs/swagger": "^4.6.1",
     "@nrwl/angular": "10.0.12",
