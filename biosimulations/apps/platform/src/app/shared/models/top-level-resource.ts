@@ -1,4 +1,4 @@
-import { AccessLevel } from '@biosimulations/shared/datamodel';
+import { AccessLevel } from '@biosimulations/datamodel/common';
 import { License } from './license';
 import { Identifier } from './identifier';
 import { Citation } from './journal-reference';

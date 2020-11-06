@@ -1,9 +1,9 @@
 import {
   BiomodelParameter,
-  PrimitiveType,
+  AlgorithmParameterType,
   BiomodelVariable,
   BiomodelAttributes,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import {
   ApiProperty,
   ApiExtraModels,
@@ -31,10 +31,10 @@ export class ModelParameter implements BiomodelParameter {
   identifiers!: Identifier[];
   @ApiProperty({
     enum: ['string', 'boolean', 'integer', 'float'],
-    enumName: 'PrimitiveType',
+    enumName: 'AlgorithmParameterType',
     example: 'float',
   })
-  type!: PrimitiveType;
+  type!: AlgorithmParameterType;
   @ApiProperty({ type: String, example: 227 })
   value!: string | number | boolean;
   @ApiProperty({
@@ -63,7 +63,7 @@ export class ModelVariable implements BiomodelVariable {
     enum: ['string', 'boolean', 'integer', 'float'],
     example: 'float',
   })
-  type!: PrimitiveType;
+  type!: AlgorithmParameterType;
   @ApiProperty()
   units!: string;
 

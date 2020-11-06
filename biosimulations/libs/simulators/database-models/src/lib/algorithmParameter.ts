@@ -1,12 +1,17 @@
 import {
-  PrimitiveType,
+  AlgorithmParameterType,
   AlgorithmParameter as IAlgorithmParameter,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
-import { IKisaoOntologyId } from '@biosimulations/shared/datamodel';
+import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ _id: false, storeSubdocValidationError: false })
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
 export class AlgorithmParameter implements IAlgorithmParameter {
   @Prop({ type: KisaoOntologyIdSchema })
   kisaoId!: IKisaoOntologyId;
@@ -15,11 +20,11 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   @Prop()
   name!: string;
   @Prop()
-  type!: PrimitiveType;
+  type!: AlgorithmParameterType;
   @Prop()
-  value!: boolean | number | string;
+  value!: string;
   @Prop()
-  recommendedRange!: (boolean | number | string)[] | null;
+  recommendedRange!: string[] | null;
 }
 export const AlgorithmParameterSchema = SchemaFactory.createForClass(
   AlgorithmParameter

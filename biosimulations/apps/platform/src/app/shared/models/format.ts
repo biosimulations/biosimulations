@@ -1,4 +1,4 @@
-import { Format as FormatDTO } from '@biosimulations/shared/datamodel';
+import { Format as FormatDTO } from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 
 export class Format implements JsonSerializable<FormatDTO> {

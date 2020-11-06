@@ -9,6 +9,8 @@ import { SimulatorsModule } from '../simulators/simulators.module';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
 // TODO create seperate auth environment for simulators-api
+import * as mongoose from 'mongoose';
+mongoose.set('strict', 'throw');
 @Module({
   imports: [
     BiosimulationsConfigModule,

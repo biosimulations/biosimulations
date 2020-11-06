@@ -1,26 +1,27 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  IBiosimulatorsMeta,
+  imageVersions,
+  specificationVersions,
+} from '@biosimulations/datamodel/common';
 
-export class BiosimulatorsMeta {
+export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   @ApiProperty({
-    default: '1.0.0',
+    required: true,
     description:
-      ' The version of the API schema that the properties of the simulators conforms to',
-    examples: ['1.0.0', '1.2.3'],
-    enum: ['1.0.0'],
+      'The version of the BioSimulators simulator specifications format that the simulator specifications conforms to',
+    examples: ['1.0.0'],
+    enum: specificationVersions,
   })
-  schemaVersion!: string;
+  specificationVersion!: specificationVersions;
 
   @ApiProperty({
-    default: '1.0.0',
+    type: String,
+    required: true,
     description:
-      ' The version of the docker image interface and features supported by the image',
-    examples: ['1.0.0', '1.2.3'],
-    enum: ['1.0.0'],
+      'The version of the BioSimulators simulator image format (command-line interface and Docker image structure) that the simulator implements',
+    examples: ['1.0.0'],
+    enum: imageVersions,
   })
-  imageVersion!: string;
-
-  @ApiPropertyOptional({
-    description: 'True if the simulator is supported by the BioSimulators team',
-  })
-  internal?: boolean;
+  imageVersion!: imageVersions;
 }

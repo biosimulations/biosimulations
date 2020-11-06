@@ -9,7 +9,7 @@ import {
   Person,
   IOntologyTerm,
   UserId,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { ModelHttpService } from './model-http.service';
 import { map } from 'rxjs/operators';
 import { Observable, throwError, never } from 'rxjs';

@@ -1,6 +1,6 @@
 import { PersonInterface } from './person.interface';
 import { UtilsService } from '../Services/utils.service';
-import { Person as PersonDTO } from '@biosimulations/shared/datamodel';
+import { Person as PersonDTO } from '@biosimulations/datamodel/common';
 
 export class Person implements PersonInterface {
   firstName: string;

@@ -1,4 +1,4 @@
-import { OntologyTerm as OntologyTermDTO } from '@biosimulations/shared/datamodel';
+import { OntologyTerm as OntologyTermDTO } from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 
 export class OntologyTerm implements JsonSerializable<OntologyTermDTO> {

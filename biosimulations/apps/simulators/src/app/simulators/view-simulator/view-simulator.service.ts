@@ -21,9 +21,12 @@ import { map, pluck, tap } from 'rxjs/operators';
 import {
   IEdamOntologyId,
   ISboOntologyId,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
-import { AlgorithmParameter } from '@biosimulations/shared/datamodel';
+import {
+  AlgorithmParameter,
+  AlgorithmParameterType,
+} from '@biosimulations/datamodel/common';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
@@ -31,11 +34,9 @@ export class ViewSimulatorService {
   constructor(
     private simService: SimulatorService,
     private ontService: OntologyService
-
-  ) { }
-  getVersions(simulatorId: string) { }
+  ) {}
+  getVersions(simulatorId: string) {}
   getLatest(simulatorId: string): Observable<ViewSimulator> {
-
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
     );
@@ -49,12 +50,24 @@ export class ViewSimulatorService {
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, version)));
   }
 
-  apiToView(simulatorId: string, version: string | undefined, sim: Simulator | undefined): ViewSimulator {
+  apiToView(
+    simulatorId: string,
+    version: string | undefined,
+    sim: Simulator | undefined
+  ): ViewSimulator {
     if (sim === undefined) {
       if (version) {
-        throw new BiosimulationsError('Simulation version not found', `Simulator "${simulatorId}" does not have version "${version}".`, 404);
+        throw new BiosimulationsError(
+          'Simulation version not found',
+          `Simulator "${simulatorId}" does not have version "${version}".`,
+          404
+        );
       } else {
-        throw new BiosimulationsError('Simulator not found', `There is no simulator with id "${simulatorId}".`, 404);
+        throw new BiosimulationsError(
+          'Simulator not found',
+          `There is no simulator with id "${simulatorId}".`,
+          404
+        );
       }
     }
 
@@ -91,24 +104,31 @@ export class ViewSimulatorService {
     };
 
     const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
-    UtilsService.recursiveForkJoin(unresolvedAlgorithms)
-        .subscribe((algorithms: ViewAlgorithm[] | undefined) => {
-          if (algorithms !== undefined) {
-            algorithms.sort((a, b) => {
-              return a.name.localeCompare(b.name, undefined, { numeric: true });
+    UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
+      (algorithms: ViewAlgorithm[] | undefined) => {
+        if (algorithms !== undefined) {
+          algorithms.sort((a, b) => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          });
+          algorithms.forEach((algorithm: ViewAlgorithm): void => {
+            algorithm.parameters.forEach((parameter: ViewParameter): void => {
+              if (
+                parameter.type !==
+                  AlgorithmParameterType[AlgorithmParameterType.integer] &&
+                parameter.type !==
+                  AlgorithmParameterType[AlgorithmParameterType.float] &&
+                Array.isArray(parameter.range)
+              ) {
+                parameter.range.sort((a, b) => {
+                  return a.localeCompare(b, undefined, { numeric: true });
+                });
+              }
             });
-            algorithms.forEach((algorithm: ViewAlgorithm): void => {
-              algorithm.parameters.forEach((parameter: ViewParameter): void => {
-                if (parameter.type !== 'boolean' && parameter.type !== 'number' && Array.isArray(parameter.range)) {
-                  parameter.range.sort((a, b) => {
-                    return a.localeCompare(b, undefined, { numeric: true });
-                  });
-                }
-              });
-            });
-            viewSimAlgorithms.next(algorithms);
-          }
-        });
+          });
+          viewSimAlgorithms.next(algorithms);
+        }
+      }
+    );
 
     return viewSim;
   }
@@ -140,10 +160,11 @@ export class ViewSimulatorService {
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
-    // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
     let value;
-    if (parameter.type === 'string' && parameter.value && parameter.value.toString().match(/^KISAO_\d{7,7}$/)) {
-      value = this.ontService.getKisaoTerm(parameter.value.toString()).pipe(pluck('name'));
+    if (parameter.type === 'kisaoId') {
+      value = this.ontService
+        .getKisaoTerm(parameter.value.toString())
+        .pipe(pluck('name'));
     } else {
       value = parameter.value;
     }
@@ -154,17 +175,17 @@ export class ViewSimulatorService {
       type: parameter.type,
       value,
       range: parameter.recommendedRange
-        ? parameter.recommendedRange
-            .map((val: { toString: () => string }): string | Observable<string> => {
-              const strVal = val.toString();
+        ? parameter.recommendedRange.map((val: { toString: () => string }):
+            | string
+            | Observable<string> => {
+            const strVal = val.toString();
 
-              // TODO: change condition to `parameter.type === 'kisaoId'` after #1417 is closed
-              if (parameter.type === 'string' && strVal.match(/^KISAO_\d{7,7}$/)) {
-                return this.ontService.getKisaoTerm(strVal).pipe(pluck('name'));
-              } else {
-                return strVal;
-              }
-            })
+            if (parameter.type === 'kisaoId') {
+              return this.ontService.getKisaoTerm(strVal).pipe(pluck('name'));
+            } else {
+              return strVal;
+            }
+          })
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
@@ -256,14 +277,11 @@ export class ViewSimulatorService {
   makeIdentifier(identifier: any): ViewIdentifier {
     return {
       text: identifier.namespace + ':' + identifier.id,
-      url: this.getIdentifierUrl(identifier)
+      url: this.getIdentifierUrl(identifier),
     };
   }
   makeCitation(citation: any): ViewCitation {
-    let text =
-      citation.authors +
-      '. ' +
-      citation.title;
+    let text = citation.authors + '. ' + citation.title;
     if (citation.journal) {
       text += '. <i>' + citation.journal + '</i>';
     }

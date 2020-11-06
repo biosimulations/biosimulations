@@ -2,9 +2,9 @@ import { ViewModel } from './view';
 
 import {
   BiomodelParameter as IParam,
-  PrimitiveType,
+  AlgorithmParameterType,
   Identifier,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 export class BiomodelParameter extends ViewModel {
   constructor(
     public target: string,
@@ -12,11 +12,11 @@ export class BiomodelParameter extends ViewModel {
     public id: string,
     public name: string,
     public identifiers: Identifier[],
-    public type: PrimitiveType,
+    public type: AlgorithmParameterType,
     public value: string | number | boolean,
     public recommendedRange: (string | number | boolean)[],
     public units: string,
-    public descrption: string | null,
+    public descrption: string | null
   ) {
     super();
     this.init();
@@ -33,7 +33,7 @@ export class BiomodelParameter extends ViewModel {
       param.value,
       param.recommendedRange,
       param.units,
-      param.description,
+      param.description
     );
   }
 

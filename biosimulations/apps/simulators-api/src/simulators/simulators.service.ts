@@ -5,13 +5,13 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Simulator } from '@biosimulations/simulators/api-models';
+import { Simulator } from '@biosimulations/simulators/database-models';
+import { Simulator as APISimulator } from '@biosimulations/simulators/api-models';
 import { Model } from 'mongoose';
-import { assert } from 'console';
 
 @Injectable()
 export class SimulatorsService {
-  validate(doc: Simulator) {
+  validate(doc: APISimulator) {
     const sim = new this.simulator(doc);
     return sim.validate();
   }
@@ -24,7 +24,7 @@ export class SimulatorsService {
       .find({}, { _id: 0, __v: 0 })
       .lean()
       .exec();
-    // TODO remove the cast, and change return type to simulator interface
+
     //results.forEach((value) => value.toJSON());
     return results as Simulator[];
   }
@@ -41,7 +41,7 @@ export class SimulatorsService {
       .exec();
   }
 
-  async new(doc: Simulator): Promise<Simulator[]> {
+  async new(doc: APISimulator): Promise<Simulator[]> {
     const sim = new this.simulator(doc);
     let res: Simulator[];
     try {
@@ -62,7 +62,7 @@ export class SimulatorsService {
   async replace(
     id: string,
     version: string,
-    doc: Simulator
+    doc: APISimulator
   ): Promise<Simulator> {
     const sim = await this.simulator
       .findOne({ id: id, version: version })

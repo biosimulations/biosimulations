@@ -1,4 +1,4 @@
-import { Citation as JournalReferenceDTO } from '@biosimulations/shared/datamodel';
+import { Citation as JournalReferenceDTO } from '@biosimulations/datamodel/common';
 export interface JournalReferenceSerialized {
   authors?: string;
   title?: string;

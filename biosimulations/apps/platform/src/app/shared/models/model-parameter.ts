@@ -2,8 +2,8 @@ import {
   BiomodelParameter as BiomodelParameterDTO,
   isBiomodelParameter as isBiomodelParameterDTO,
   Identifier as IdentifierDTO,
-  PrimitiveType,
-} from '@biosimulations/shared/datamodel';
+  AlgorithmParameterType,
+} from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { Identifier } from './identifier';
 
@@ -16,7 +16,7 @@ export class ModelParameter implements BiomodelParameterDTO {
   target: string;
   description: string | null;
   identifiers: Identifier[];
-  type: PrimitiveType;
+  type: AlgorithmParameterType;
   recommendedRange: (string | number | boolean)[];
 
   constructor(data: BiomodelParameterDTO) {
@@ -29,7 +29,7 @@ export class ModelParameter implements BiomodelParameterDTO {
     this.description = data.description;
     this.identifiers = [];
     data.identifiers.map((value: IdentifierDTO) =>
-      this.identifiers.push(new Identifier(value)),
+      this.identifiers.push(new Identifier(value))
     );
 
     this.type = data.type;

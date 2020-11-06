@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ResourceIdentifier } from './jsonApi';
-import { ResourceType } from '@biosimulations/shared/datamodel';
+import { ResourceType } from '@biosimulations/datamodel/common';
 
 export class UserIdentifier implements ResourceIdentifier {
   @ApiProperty({ enum: ['user'] })

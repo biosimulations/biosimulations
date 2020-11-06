@@ -5,7 +5,7 @@ import {
   ParameterChange as ParameterChangeDTO,
   isAlgorithmParameter as isAlgorithmParameterDTO,
   isBiomodelParameter as isBiomodelParameterDTO,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 export class ParameterChange {
   parameter!: ModelParameter | AlgorithmParameter;

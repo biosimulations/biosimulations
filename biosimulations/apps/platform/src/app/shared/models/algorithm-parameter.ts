@@ -1,6 +1,6 @@
-import { AlgorithmParameter as AlgorithmParameterDTO } from '@biosimulations/shared/datamodel';
+import { AlgorithmParameter as AlgorithmParameterDTO } from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
-import { PrimitiveType } from '@biosimulations/shared/datamodel';
+import { AlgorithmParameterType } from '@biosimulations/datamodel/common';
 
 export class AlgorithmParameter
   implements JsonSerializable<AlgorithmParameterDTO> {
@@ -8,7 +8,7 @@ export class AlgorithmParameter
   id: string;
   value: number | boolean | string;
   kisaoId: string | null;
-  type: PrimitiveType;
+  type: AlgorithmParameterType;
   recommendedRange: (boolean | string | number)[] | null;
   constructor(data: AlgorithmParameterDTO) {
     this.name = data.name;

@@ -9,7 +9,7 @@ import { Request, Response } from 'express';
 import {
   ErrorObject,
   ErrorResponseDocument,
-} from '@biosimulations/shared/datamodel-api';
+} from '@biosimulations/datamodel/api';
 import {
   BiosimulationsException,
   isBiosimulationsException,

@@ -1,9 +1,9 @@
 import { ViewModel } from './view';
 import {
   BiomodelVariable as IBP,
-  PrimitiveType,
+  AlgorithmParameterType,
   Identifier,
-} from '@biosimulations/shared/datamodel';
+} from '@biosimulations/datamodel/common';
 
 export class BiomodelVariable extends ViewModel implements IBP {
   static fromDTO(dto: IBP): BiomodelVariable {
@@ -15,7 +15,7 @@ export class BiomodelVariable extends ViewModel implements IBP {
       dto.description,
       dto.identifiers,
       dto.type,
-      dto.units,
+      dto.units
     );
   }
   constructor(
@@ -25,9 +25,9 @@ export class BiomodelVariable extends ViewModel implements IBP {
     public name: string,
     public description: string,
     public identifiers: Identifier[],
-    public type: PrimitiveType,
+    public type: AlgorithmParameterType,
 
-    public units: string,
+    public units: string
   ) {
     super();
     this.init();
