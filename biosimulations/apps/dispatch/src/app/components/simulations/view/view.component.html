@@ -94,7 +94,13 @@
     </form>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" [disabled]="sedmls === undefined">
-    <biosimulations-visualisation #visualization></biosimulations-visualisation>
+  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" 
+  
+  >
+    <div style="height: 100%;">
+      
+      <biosimulations-visualisation #visualization></biosimulations-visualisation >
+    </div>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>
+<!-- [disabled]="sedmls === undefined" -->

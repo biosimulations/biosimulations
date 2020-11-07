@@ -85,6 +85,12 @@ export class AppService {
     };
   }
 
+  private async getJobCancel(uuid: string) {
+    this.messageClient.send(MQDispatch.SIM_HPC_CANCEL,
+      uuid
+    );
+  }
+
   async getVisualizationData(
     uId: string,
     sedml: string,
@@ -172,7 +178,7 @@ export class AppService {
       }
       case false: {
         switch (simInfo.currentStatus) {
-          case DispatchSimulationStatus.SUCCEEDED ||DispatchSimulationStatus.FAILED: {
+          case DispatchSimulationStatus.SUCCEEDED || DispatchSimulationStatus.FAILED: {
             filePathOut = path.join(logPath, 'job.output');
             filePathErr = path.join(logPath, 'job.error');
             const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
@@ -213,8 +219,10 @@ export class AppService {
       'ID',
       `${uuid}.omex`
     );
-      res.download(omexPath);
+    res.download(omexPath);
   }
+
+  // async 
 
   async getSimulators(simulatorName: string) {
     // Getting info of all available simulators from dockerhub

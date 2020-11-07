@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HpcService } from '../hpc/hpc.service';
+import { MQDispatch } from '@biosimulations/messages';
+import { MessagePattern } from '@nestjs/microservices';
 
 @Injectable()
 export class SimulationService {
@@ -12,6 +14,7 @@ export class SimulationService {
     return jobStatus;
   }
 
+  @MessagePattern(MQDispatch.SIM_HPC_CANCEL)
   async cancelRunningSimulation(jobId: string) {
     return await this.hpcService.scancelJob(jobId);
   }

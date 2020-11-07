@@ -144,7 +144,8 @@ export class HpcService {
 
   }
 
-  async scancelJob(jobId: string) {
+  
+  async scancelJob(jobId: string): Promise<string | void | {}> {
     // TODO: Implement with non-root user
     const scancelJobData = await this.sshService.execStringCommand(
       `scancel ${jobId}`
