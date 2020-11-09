@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 export enum License {
   cc0 = 'CC0',
   cc_by = 'CC BY',

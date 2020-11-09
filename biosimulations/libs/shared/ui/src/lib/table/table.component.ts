@@ -15,15 +15,21 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Column, ColumnActionType, ColumnFilterType, IdColumnMap, Side, RowService, Sort as ISort } from './table.interface';
+import {
+  Column,
+  ColumnActionType,
+  ColumnFilterType,
+  IdColumnMap,
+  Side,
+  RowService,
+  Sort as ISort,
+} from './table.interface';
 import { UtilsService } from '@biosimulations/shared/services';
 import lunr from 'lunr';
 
 // TODO fix datasource / loading functionality
 @Injectable()
 export class TableDataSource extends MatTableDataSource<any> {
-  paginator!: MatPaginator;
-  sort!: MatSort;
   isLoading = new BehaviorSubject(true);
 
   constructor() {
@@ -52,17 +58,17 @@ export class TableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) private sort!: MatSort;
 
   private _columns!: Column[];
-  showColumns!: {[id: string]: boolean};
+  showColumns!: { [id: string]: boolean };
   columnsToShow!: string[];
   private idToColumn!: IdColumnMap;
-  columnFilterData!: {[id: string]: any};
+  columnFilterData!: { [id: string]: any };
   isLoading!: Observable<boolean>;
   private isLoaded!: Observable<boolean>;
   private filter: { [id: string]: any[] } = {};
   columnIsFiltered: { [id: string]: boolean } = {};
 
   private fullTextIndex!: any;
-  private fullTextMatches!: {[index: number]: boolean};
+  private fullTextMatches!: { [index: number]: boolean };
 
   @Input()
   defaultSort!: ISort;
@@ -120,26 +126,32 @@ export class TableComponent implements OnInit, AfterViewInit {
   set data(data: any) {
     if (data instanceof Observable) {
       this.subscription = data.subscribe((unresolvedData: any[]): void => {
-        UtilsService.recursiveForkJoin(unresolvedData)
-          .subscribe((resolvedData: any[] | undefined) => {
+        UtilsService.recursiveForkJoin(unresolvedData).subscribe(
+          (resolvedData: any[] | undefined) => {
             if (resolvedData !== undefined) {
               this.setData(resolvedData);
             }
-          });
+          }
+        );
       });
     } else {
-      UtilsService.recursiveForkJoin(data)
-        .subscribe((resolvedData: any[] | undefined) => {
+      UtilsService.recursiveForkJoin(data).subscribe(
+        (resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
             this.setData(resolvedData);
           }
-        });
+        }
+      );
     }
   }
 
   setData(data: any[]): void {
     this.dataSource.isLoading.next(true);
-    const sortedData = RowService.sortData(this.idToColumn, data, this.defaultSort);
+    const sortedData = RowService.sortData(
+      this.idToColumn,
+      data,
+      this.defaultSort
+    );
     sortedData.forEach((datum: any, iDatum: number): void => {
       datum._index = iDatum;
     });
@@ -152,67 +164,116 @@ export class TableComponent implements OnInit, AfterViewInit {
 
       this.columns.forEach((column: Column): void => {
         cache[column.id] = {
-          value: RowService.formatElementValue(RowService.getElementValue(datum, column), column),
+          value: RowService.formatElementValue(
+            RowService.getElementValue(datum, column),
+            column
+          ),
           left: {},
           center: {},
           right: {},
         };
 
         if (column.leftAction === ColumnActionType.routerLink) {
-          cache[column.id].left['routerLink'] = RowService.getElementRouterLink(datum, column, Side.left);
+          cache[column.id].left['routerLink'] = RowService.getElementRouterLink(
+            datum,
+            column,
+            Side.left
+          );
         } else if (column.leftAction === ColumnActionType.href) {
-          cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
+          cache[column.id].left['href'] = RowService.getElementHref(
+            datum,
+            column,
+            Side.left
+          );
         } else if (column.leftAction === ColumnActionType.click) {
-          cache[column.id].left['click'] = RowService.getElementClick(column, Side.left);
+          cache[column.id].left['click'] = RowService.getElementClick(
+            column,
+            Side.left
+          );
         }
-        cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
+        cache[column.id].left['iconTitle'] = RowService.getIconTitle(
+          datum,
+          column,
+          Side.left
+        );
 
         if (column.centerAction === ColumnActionType.routerLink) {
-          cache[column.id].center['routerLink'] = RowService.getElementRouterLink(datum, column, Side.center);
+          cache[column.id].center[
+            'routerLink'
+          ] = RowService.getElementRouterLink(datum, column, Side.center);
         } else if (column.centerAction === ColumnActionType.href) {
-          cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
+          cache[column.id].center['href'] = RowService.getElementHref(
+            datum,
+            column,
+            Side.center
+          );
         } else if (column.centerAction === ColumnActionType.click) {
-          cache[column.id].center['click'] = RowService.getElementClick(column, Side.center);
+          cache[column.id].center['click'] = RowService.getElementClick(
+            column,
+            Side.center
+          );
         }
         // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
 
         if (column.rightAction === ColumnActionType.routerLink) {
-          cache[column.id].right['routerLink'] = RowService.getElementRouterLink(datum, column, Side.right);
+          cache[column.id].right[
+            'routerLink'
+          ] = RowService.getElementRouterLink(datum, column, Side.right);
         } else if (column.rightAction === ColumnActionType.href) {
-          cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
+          cache[column.id].right['href'] = RowService.getElementHref(
+            datum,
+            column,
+            Side.right
+          );
         } else if (column.rightAction === ColumnActionType.click) {
-          cache[column.id].right['click'] = RowService.getElementClick(column, Side.right);
+          cache[column.id].right['click'] = RowService.getElementClick(
+            column,
+            Side.right
+          );
         }
-        cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
+        cache[column.id].right['iconTitle'] = RowService.getIconTitle(
+          datum,
+          column,
+          Side.right
+        );
       });
     });
-
 
     this.columns.forEach((column: Column): void => {
       switch (column.filterType) {
         case ColumnFilterType.number:
-          this.columnFilterData[column.id] = this.getNumericColumnRange(sortedData, column);
+          this.columnFilterData[column.id] = this.getNumericColumnRange(
+            sortedData,
+            column
+          );
           break;
         case ColumnFilterType.date:
           break;
         default:
-          this.columnFilterData[column.id] = this.getTextColumnValues(sortedData, column);
+          this.columnFilterData[column.id] = this.getTextColumnValues(
+            sortedData,
+            column
+          );
           break;
       }
     });
 
     // set up full text index
     const columns = this.columns;
-    this.fullTextIndex = lunr(function(this: any) {
+    this.fullTextIndex = lunr(function (this: any) {
       this.ref('index');
       columns.forEach((column: Column): void => {
         this.field(column.heading.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-'));
       });
 
       sortedData.forEach((datum: any, iDatum: number): void => {
-        const fullTextDoc: {index: string, [colId: string]: string} = {index: iDatum.toString()};
+        const fullTextDoc: { index: string; [colId: string]: string } = {
+          index: iDatum.toString(),
+        };
         columns.forEach((column: Column): void => {
-          fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] = RowService.getElementSearchValue(datum, column);
+          fullTextDoc[
+            column.heading.toLowerCase().replace(' ', '-')
+          ] = RowService.getElementSearchValue(datum, column);
         });
         this.add(fullTextDoc);
       });
@@ -274,7 +335,10 @@ export class TableComponent implements OnInit, AfterViewInit {
           }
         }
       } else {
-        const formattedValue = RowService.formatElementFilterValue(value, column);
+        const formattedValue = RowService.formatElementFilterValue(
+          value,
+          column
+        );
         if (formattedValue != null && formattedValue !== '') {
           values[value] = formattedValue;
         }
@@ -346,7 +410,10 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
       this.filter[column.id].push(value.value);
     } else {
-      this.filter[column.id].splice(this.filter[column.id].indexOf(value.value), 1);
+      this.filter[column.id].splice(
+        this.filter[column.id].indexOf(value.value),
+        1
+      );
       if (this.filter[column.id].length === 0) {
         delete this.filter[column.id];
       }
@@ -429,9 +496,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     // conduct full text search
     this.fullTextMatches = {};
     if (this.searchQuery) {
-      this.fullTextIndex.search(this.searchQuery).forEach((match: any): void => {
-        this.fullTextMatches[parseInt(match.ref)] = true;
-      });
+      this.fullTextIndex
+        .search(this.searchQuery)
+        .forEach((match: any): void => {
+          this.fullTextMatches[parseInt(match.ref)] = true;
+        });
     }
 
     // trigger table to filter data via calling the filterData method for each entry
@@ -526,7 +595,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     return true;
   }
 
-  clearFilter(column:Column):  void {
+  clearFilter(column: Column): void {
     delete this.filter[column.id];
     for (const val of this.columnFilterData[column.id]) {
       val.checked = false;

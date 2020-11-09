@@ -35,7 +35,7 @@ export class AppController implements OnApplicationBootstrap {
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private appService: AppService,
-    private modelsService: ModelsService,
+    private modelsService: ModelsService
   ) {}
 
   @ApiTags('Dispatch')
@@ -84,7 +84,7 @@ export class AppController implements OnApplicationBootstrap {
   async uploadFile(
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
-  ): Promise<{}> {
+  ): Promise<any> {
     return this.appService.uploadFile(file, bodyData);
   }
 
@@ -138,7 +138,7 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Get results structure (SEDMLS and TASKS)',
     type: Object,
   })
-  async getResultStructure(@Param('uuid') uId: string): Promise<{}> {
+  async getResultStructure(@Param('uuid') uId: string): Promise<any> {
     return this.appService.getResultStructure(uId);
   }
 
@@ -158,7 +158,7 @@ export class AppController implements OnApplicationBootstrap {
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
     @Query('task') task: string
-  ): Promise<{}> {
+  ): Promise<any> {
     return this.appService.getVisualizationData(uId, sedml, task, chart);
   }
 
