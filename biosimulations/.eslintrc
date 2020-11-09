@@ -4,7 +4,7 @@
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.base.json"
+    "project": "./tsconfig.*?.json"
   },
   "ignorePatterns": ["**/*"],
   "plugins": [
@@ -26,7 +26,6 @@
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/no-inferrable-types": "warn",
     "@typescript-eslint/interface-name-prefix": "off",
-
     "@nrwl/nx/enforce-module-boundaries": [
       "error",
       {
@@ -49,13 +48,11 @@
             "sourceTag": "scope:config",
             "onlyDependOnLibsWithTags": ["scope:config", "type:environments"]
           },
-
           {
             "sourceTag": "scope:auth",
             "onlyDependOnLibsWithTags": ["scope:auth", "type:environments"]
           },
           {
-            // todo change scope to type
             "sourceTag": "scope:simulators",
             "onlyDependOnLibsWithTags": [
               "scope:simulators",
@@ -84,7 +81,6 @@
             ]
           },
           {
-            // todo change scope to type
             "sourceTag": "scope:dispatch",
             "onlyDependOnLibsWithTags": [
               "scope:dispatch",

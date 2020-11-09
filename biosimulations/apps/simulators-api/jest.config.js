@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'simulators-api',
-  preset: '../../jest.config.js',
+  preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
@@ -8,4 +7,5 @@ module.exports = {
   },
   coverageDirectory: '../../coverage/apps/simulators-api',
   testEnvironment: 'node',
+  displayName: 'simulators-api',
 };

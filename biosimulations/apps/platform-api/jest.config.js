@@ -1,11 +1,11 @@
 module.exports = {
-  name: 'platform-api',
-  testEnvironment: "node",
-  preset: '../../jest.config.js',
+  testEnvironment: 'node',
+  preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
     },
   },
   coverageDirectory: '../../coverage/apps/platform-api',
+  displayName: 'platform-api',
 };
