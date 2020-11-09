@@ -45,7 +45,7 @@ export class AppController implements OnApplicationBootstrap {
   @ApiResponse({
     status: 201,
     description: 'Dispatch status',
-    typeect,
+    type: Object,
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -84,7 +84,7 @@ export class AppController implements OnApplicationBootstrap {
   async uploadFile(
     @UploadedFile() file: OmexDispatchFile,
     @Body() bodyData: SimulationDispatchSpec
-  ): Promise<any> {
+  ): Promise<{}> {
     return this.appService.uploadFile(file, bodyData);
   }
 
@@ -138,7 +138,7 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Get results structure (SEDMLS and TASKS)',
     type: Object,
   })
-  async getResultStructure(@Param('uuid') uId: string): Promise<any> {
+  async getResultStructure(@Param('uuid') uId: string): Promise<{}> {
     return this.appService.getResultStructure(uId);
   }
 
@@ -158,7 +158,7 @@ export class AppController implements OnApplicationBootstrap {
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
     @Query('task') task: string
-  ): Promise<any> {
+  ): Promise<{}> {
     return this.appService.getVisualizationData(uId, sedml, task, chart);
   }
 
