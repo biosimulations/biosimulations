@@ -3,6 +3,9 @@ import { sboTerms } from '@biosimulations/ontology/sources';
 import { kisaoTerms } from '@biosimulations/ontology/sources';
 import { edamTerms } from '@biosimulations/ontology/sources';
 import { EDAMTerm, KISAOTerm, SBOTerm } from '@biosimulations/datamodel/common';
+
+import spdxLicenseListSimple from 'spdx-license-list/simple';
+
 @Injectable()
 export class OntologiesService {
   getEdam(): EDAMTerm[] {
@@ -47,5 +50,19 @@ export class OntologiesService {
   }
   isEdamTerm(id: string): boolean {
     return !!this.getEdamTerm(id);
+  }
+  static edamValidator(id: string): boolean {
+    console.log(id);
+    console.log(edamTerms[id]);
+    return !!edamTerms[id];
+  }
+  static kisaoValidator(id: string): boolean {
+    return !!kisaoTerms[id];
+  }
+  static sboValidator(id: string): boolean {
+    return !!sboTerms[id];
+  }
+  static spdxValidator(id: string): boolean {
+    return spdxLicenseListSimple.has(id);
   }
 }

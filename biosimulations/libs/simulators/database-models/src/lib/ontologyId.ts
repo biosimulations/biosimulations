@@ -8,8 +8,9 @@ import {
   KisaoIdRegEx,
   SboIdRegEx,
   Identifier as IIdentifier,
+  EdamFormatIdRegEx,
 } from '@biosimulations/datamodel/common';
-
+import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({
@@ -54,10 +55,20 @@ export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
   useNestedStrict: true,
 })
 class EdamOntologyId implements IEdamOntologyId {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, enum: [Ontologies.EDAM] })
   namespace!: Ontologies.EDAM;
 
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+    validate: [
+      {
+        validator: EdamFormatIdRegEx,
+      },
+      {
+        validator: OntologiesService.edamValidator,
+      },
+    ],
+  })
   id!: string;
 }
 export const EdamOntologyIdSchema = SchemaFactory.createForClass(
@@ -85,7 +96,10 @@ class KisaoOntologyId implements IKisaoOntologyId {
     required: true,
     uppercase: true,
     trim: true,
-    validate: KisaoIdRegEx,
+    validate: [
+      { validator: KisaoIdRegEx },
+      { validator: OntologiesService.kisaoValidator },
+    ],
   })
   id!: string;
 }
@@ -103,7 +117,13 @@ class SboOntologyId implements ISboOntologyId {
   @Prop({ type: String, required: true })
   namespace!: Ontologies.SBO;
 
-  @Prop({ required: true, validate: SboIdRegEx })
+  @Prop({
+    required: true,
+    validate: [
+      { validator: SboIdRegEx },
+      { validator: OntologiesService.sboValidator },
+    ],
+  })
   id!: string;
 }
 export const SboOntologyIdSchema = SchemaFactory.createForClass(SboOntologyId);
@@ -118,7 +138,11 @@ class SpdxId implements ISpdxId {
   @Prop({ type: String, required: true })
   namespace!: Ontologies.SPDX;
 
-  @Prop({ type: String, required: true })
+  @Prop({
+    type: String,
+    required: true,
+    validate: OntologiesService.spdxValidator,
+  })
   id!: string;
 }
 export const SpdxIdSchema = SchemaFactory.createForClass(SpdxId);
