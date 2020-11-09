@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({providedIn: "root"})
+@Injectable({ providedIn: 'root' })
 export class StatsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  get(): object {
+  get(): any {
     return {
       countObjectsByType: [
         { category: 'Projects', count: 11 },
