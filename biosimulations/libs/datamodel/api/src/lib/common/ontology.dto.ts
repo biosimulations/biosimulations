@@ -31,7 +31,7 @@ export class OntologyTerm implements IOntologyTerm {
 export class EDAMTerm extends EdamOntologyId {
   @ApiProperty()
   name!: string;
-  @ApiProperty()
+  @ApiProperty({ type: String, nullable: true })
   description!: string | null;
   @ApiProperty()
   iri!: string | null;
