@@ -133,41 +133,47 @@
       "tags": [
         "scope:auth",
         "platform:any",
-        "type:datamodel"
+        "type:datamodel",
+        "shared:true"
       ]
     },
     "auth-angular": {
       "tags": [
         "scope:auth",
         "type:util",
-        "platform:web"
+        "platform:web",
+        "shared:true"
       ]
     },
     "auth-nest": {
       "tags": [
         "scope:auth",
         "type:util",
-        "platform:server"
+        "platform:server",
+        "shared:true"
       ]
     },
     "config-common": {
       "tags": [
         "scope:config",
         "type:datamodel",
-        "platform:any"
+        "platform:any",
+        "shared:true"
       ]
     },
     "config-nest": {
       "tags": [
         "scope:config",
         "type:config",
-        "platform:server"
+        "platform:server",
+        "shared:true"
       ]
     },
     "config-angular": {
       "tags": [
         "scope:config",
         "type:config",
+        "shared:true",
         "platform:web"
       ]
     },
@@ -302,14 +308,18 @@
       "tags": [
         "scope:ontology",
         "type:datamodel",
-        "platform:server"
+        "platform:server",
+        "shared:false"
+
       ]
     },
     "ontology-ontologies": {
       "tags": [
         "scope:ontology",
         "type:service",
-        "platform:server"
+        "platform:server",
+        "shared:true"
+
       ]
     },
     "shared-utils-routes": {
