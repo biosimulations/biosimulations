@@ -23,14 +23,14 @@ export class ModelsController {
   @ApiNotFoundResponse({
     status: 404,
     description: 'No data found',
-    type: Object
+    type: Object,
   })
   @ApiResponse({
     status: 200,
     description: 'Fetch all simulation information',
     type: Object,
   })
-  async getJobInfo(@Body() listUid: string[]): Promise<{}> {
+  async getJobInfo(@Body() listUid: string[]): Promise<any> {
     return {
       data: await this.modelsService.getData(listUid),
     };

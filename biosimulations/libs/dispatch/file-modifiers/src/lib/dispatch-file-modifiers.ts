@@ -8,7 +8,7 @@ export interface RecursiveFiles {
 }
 
 export class FileModifiers {
-  static readDir(dirPath: string, options?: object): Promise<any> {
+  static readDir(dirPath: string, options?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       fs.readdir(dirPath, options, (err, data) => {
         if (err) {

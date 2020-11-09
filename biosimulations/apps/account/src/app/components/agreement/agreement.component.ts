@@ -55,10 +55,10 @@ export class AgreementComponent implements OnInit, ControlValueAccessor {
     this.onTouched();
     this.cd.detectChanges();
   }
-  registerOnChange(fn: (_: any) => {}): void {
+  registerOnChange(fn: (_: any) => any): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: () => {}): void {
+  registerOnTouched(fn: () => any): void {
     this.onTouched = fn;
   }
   setDisabledState(isDisabled: boolean): void {
