@@ -24,4 +24,11 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     enum: imageVersions,
   })
   imageVersion!: imageVersions;
+
+  @ApiProperty({
+    type: Boolean,
+    description:
+      'Whether or not the image for the simulator has passed validation',
+  })
+  validated!: boolean;
 }
