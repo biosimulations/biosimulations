@@ -42,7 +42,7 @@
           }}<a [href]="projectUrl">{{ projectSize }}</a>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="status === 'SUCCEEDED' || status === 'FAILED'">
         <th>
           <biosimulations-icon icon="download"></biosimulations-icon>
         </th>
@@ -55,8 +55,8 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab heading="Log" icon="logs">
-    <pre [ngStyle]="{'color':'black'}"><code>{{ 'Output:-\n' + outLog }}</code></pre>
-    <pre [ngStyle]="{'color':'red'}"><code>{{ 'Error:-\n' + errLog }}</code></pre>
+    <pre><code style="color:black">{{ 'Output:-\n' + outLog }}</code></pre>
+    <pre><code style="color:red">{{ 'Error:-\n' + errLog }}</code></pre>
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab heading="Design chart" icon="write" [disabled]="sedmls === undefined">

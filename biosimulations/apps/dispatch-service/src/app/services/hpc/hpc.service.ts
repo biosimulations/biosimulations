@@ -13,7 +13,7 @@ export class HpcService {
     // private readonly configService: ConfigService,
     private sshService: SshService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) {}
+  ) { }
 
   dispatchJob(
     simDirBase: string,
@@ -64,7 +64,7 @@ export class HpcService {
                   .then((result) => {
                     this.logger.log(
                       'Execution of sbatch was successful: ' +
-                        JSON.stringify(result)
+                      JSON.stringify(result)
                     );
                     this.messageClient.emit(MQDispatch.SIM_DISPATCH_FINISH, {
                       simDir: simDirBase,
@@ -80,7 +80,7 @@ export class HpcService {
               .catch((err) => {
                 this.logger.log(
                   'Error occured whiled changing permission: ' +
-                    JSON.stringify(err)
+                  JSON.stringify(err)
                 );
               });
           })
@@ -106,7 +106,7 @@ export class HpcService {
       .catch((err) => {
         this.logger.log(
           'Could not create output directory for simulation: ' +
-            JSON.stringify(err)
+          JSON.stringify(err)
         );
       });
   }
@@ -121,72 +121,35 @@ export class HpcService {
     // Create a socket via SSH and stream the output file
   }
 
-  async squeueStatus(jobId: string): Promise<DispatchSimulationStatus> {
-    // Make SSH connection to HPC to check if job is running
 
-    const squeueData = await this.sshService.execStringCommand(
-      `squeue -j ${jobId} --start`
-    );
-    //TODO: Handle stderr as well
-    const squeueJSON: any = this.parseSqueueOutput(squeueData.stdout);
-    // console.log(squeueJSON);
-    if (squeueJSON.length === 0) {
-      // If Job is not found in SQUEUE, then status is not known
-      return DispatchSimulationStatus.UNKNOWN;
-    } else {
-      switch (squeueJSON[0]['ST']) {
-        case 'PD':
-          return DispatchSimulationStatus.QUEUED;
-        case 'R':
-          return DispatchSimulationStatus.RUNNING;
-        case 'CG':
-          return DispatchSimulationStatus.SUCCEEDED;
-        default:
-          return DispatchSimulationStatus.FAILED;
-      }
-    }
-    /* NOTE: For SLURM STATUS 'PD' means pending/queued
-     'R' means running, 'CG' meaning completing
-    If jobinfo is not there, the job has completed/failed */
-  }
+  async saactJobStatus(jobId: string) {
 
-  parseSqueueOutput(data: string): object[] {
-    // Assumption: SqeueOutput is just special case of TSV
+    const saactData = await this.sshService.execStringCommand(
+      `sacct -X -j ${jobId} -o state%20`
+    ).catch((err) => {
+      this.logger.error('Failed to fetch results, updating the sim status as Pending, ' + JSON.stringify(err));
+      return { stdout: '\n\nPENDING' }
+    });
 
-    const dataLineList = data.split('\n');
-
-    const rows = [];
-
-    for (const line of dataLineList) {
-      const words = line.split(' ');
-      const row = [];
-      for (const word of words) {
-        if (word !== '') {
-          row.push(word);
-        }
-      }
-      rows.push(row);
+    const saactDataOutput = saactData.stdout;
+    // const saactDataError = saactData.stderr;
+    const saactDataOutputSplit = saactDataOutput.split("\n");
+    const finalStatusList = saactDataOutputSplit[2].split(" ");
+    const finalStatus = finalStatusList[finalStatusList.length - 2]
+    // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
+    switch (finalStatus) {
+      case 'PENDING' || '':
+        return DispatchSimulationStatus.QUEUED;
+      case 'RUNNING':
+        return DispatchSimulationStatus.RUNNING;
+      case 'COMPLETED':
+        return DispatchSimulationStatus.SUCCEEDED;
+      // TODO: Implement Stop simulation functionality from user-end
+      case 'CANCELLED':
+        return DispatchSimulationStatus.CANCELLED;
+      case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
+        return DispatchSimulationStatus.FAILED;
     }
 
-    const headers = [...rows[0]];
-    rows.splice(0, 1);
-
-    const elementLength = headers.length;
-    const rowsLength = rows.length;
-
-    if (rows[0].length === 0) {
-      return [];
-    }
-    const finalResult = [];
-
-    for (let rowIndex = 0; rowIndex < rowsLength; rowIndex++) {
-      const currentObj: any = {};
-      for (let elementIndex = 0; elementIndex < elementLength; elementIndex++) {
-        currentObj[headers[elementIndex]] = rows[rowIndex][elementIndex];
-      }
-      finalResult.push(currentObj);
-    }
-
-    return finalResult;
   }
 }

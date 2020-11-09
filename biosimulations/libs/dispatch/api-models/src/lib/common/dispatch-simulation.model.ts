@@ -18,7 +18,11 @@ export enum DispatchSimulationStatus {
   RUNNING = 'RUNNING',
   SUCCEEDED = 'SUCCEEDED',
   FAILED = 'FAILED',
-  UNKNOWN = 'UNKNOWN',
+  // UNKNOWN = 'UNKNOWN',
+  CANCELLED = 'CANCELLED',
+  TIMEOUT = 'TIMEOUT',
+  OUT_OF_MEMORY = 'OUT-OF-MEMORY',
+  NODE_FAIL = 'NODE_FAIL',
 }
 
 @modelOptions({ schemaOptions: { collection: 'dispatches' } })

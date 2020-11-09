@@ -56,7 +56,7 @@ routes.forEach((route: Route): void => {
   if (route.data) {
     route.data.config = config;
   } else {
-    route.data = {config};
+    route.data = { config };
   }
 });
 
@@ -72,7 +72,7 @@ routes.forEach((route: Route): void => {
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled', 
+      initialNavigation: 'enabled',
       scrollPositionRestoration: 'disabled',
     }),
     IonicStorageModule.forRoot({
@@ -80,12 +80,12 @@ routes.forEach((route: Route): void => {
     }),
   ],
   providers: [
-    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true} },
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
+    // { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],
   schemas: [],
 })
-export class AppModule {}
+export class AppModule { }

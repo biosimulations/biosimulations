@@ -6,10 +6,7 @@ import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-conne
 
 @Injectable()
 export class SshService {
-  // private hpcConfig = null;
-  // private sftpConfig: SshConnectionConfig;
-  // private sshConfig: SshConnectionConfig;
-  private sshConfig: SshConnectionConfig = this.configService.get(
+  private sshConfig: SshConnectionConfig = this.configService.get<SshConnectionConfig>(
     'hpc.ssh',
     new SshConnectionConfig('', 0, '', '')
   );
@@ -18,21 +15,13 @@ export class SshService {
     new SshConnectionConfig('', 0, '', '')
   );
 
-  private logger = new Logger(SshService.name);
+  private logger = new Logger('SshService');
 
   constructor(
-    // TODO Create the ssh client in the constructor
-    // TODO connect to the server using the ssh/sftp variables rather than using environment variables
     private configService: ConfigService
   ) {
     this.logger.log('SSH config host: ' + this.sshConfig.host);
     this.logger.log('SFTP config host: ' + this.sftpConfig.host);
-
-    // this.hpcConfig = this.configService.get('hpc');
-    // if (this.hpcConfig !== undefined) {
-    //     this.sshConfig = this.hpcConfig.ssh as SshConnectionConfig;
-    //     this.sftpConfig = this.hpcConfig.sftp as SshConnectionConfig;
-    // }
   }
 
   execStringCommand(cmd: string): Promise<{ stdout: string; stderr: string }> {
@@ -50,6 +39,7 @@ export class SshService {
               }
               stream
                 .on('close', (code: any, signal: any) => {
+                  this.logger.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
                   resolve({ stdout, stderr });
                   conn.end();
                   this.logger.log('Connection closed');
@@ -167,16 +157,4 @@ export class SshService {
         .connect(this.sftpConfig);
     });
   }
-
-  // TODO: Complete 'deleteFile' method
-  // @body: https://ourcodeworld.com/articles/read/133/how-to-create-a-sftp-client-with-node-js-ssh2-in-electron-framework
-  // deleteFile(remoteFilePath: string): Promise<boolean> {
-
-  // }
-
-  // TODO: Complete 'changeFilePermissions' method
-  // @body: https://ourcodeworld.com/articles/read/133/how-to-create-a-sftp-client-with-node-js-ssh2-in-electron-framework
-  // changeFilePermissions(remoteFilePath: string): Promise<boolean> {
-
-  // }
 }

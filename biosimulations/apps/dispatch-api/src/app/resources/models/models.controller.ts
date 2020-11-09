@@ -1,7 +1,8 @@
 import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 import { Body, Controller, Post } from '@nestjs/common';
 import {
-  ApiConsumes,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -14,6 +15,16 @@ export class ModelsController {
 
   @Post('/jobinfo')
   @ApiOperation({ summary: 'Fetches job information from Database' })
+  @ApiCreatedResponse({
+    status: 200,
+    description: 'Data fetched successfully',
+    type: Object,
+  })
+  @ApiNotFoundResponse({
+    status: 404,
+    description: 'No data found',
+    type: Object
+  })
   @ApiResponse({
     status: 200,
     description: 'Fetch all simulation information',
@@ -21,7 +32,6 @@ export class ModelsController {
   })
   async getJobInfo(@Body() listUid: string[]): Promise<{}> {
     return {
-      message: 'Data fetched successfully',
       data: await this.modelsService.getData(listUid),
     };
   }

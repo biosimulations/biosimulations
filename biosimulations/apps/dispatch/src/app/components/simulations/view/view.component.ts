@@ -12,6 +12,7 @@ import { SimulationService } from '../../../services/simulation/simulation.servi
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 import { VisualisationComponent } from './visualisation/visualisation.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { urls } from '@biosimulations/config/common';
 
 @Component({
   templateUrl: './view.component.html',
@@ -28,7 +29,6 @@ export class ViewComponent implements OnInit {
   projectSize = '';
   resultsUrl = '';
   resultsSize = '';
-
   sedmls!: Array<string>;
   reports!: Array<string>;
   outLog = 'No output logs found'
@@ -143,5 +143,7 @@ export class ViewComponent implements OnInit {
     this.updated = new Date(simulation.updated).toLocaleString();
     this.resultsSize = `${((simulation.resultSize ? simulation.resultSize:0) / 1024).toFixed(2).toString()} KB`;
     this.projectSize = `${((simulation.projectSize ? simulation.projectSize:0) / 1024).toFixed(2).toString()} KB`;
+    this.projectUrl = `${urls.dispatchApi}/download/omex/${simulation.id}`;
+    this.resultsUrl = `${urls.dispatchApi}/download/result/${simulation.id}`;
   }
 }

@@ -1,7 +1,6 @@
 import { Controller, Logger, Inject } from '@nestjs/common';
 import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
-import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
@@ -33,13 +32,14 @@ export class AppController {
     private simulationService: SimulationService,
   ) { }
   private logger = new Logger(AppController.name);
-  private fileStorage: string = this.configService.get(
-    'hpc.fileStorage') || '';
+  private fileStorage: string = this.configService.get<string>(
+    'hpc.fileStorage', '');
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_START)
   async uploadFile(data: SimulationDispatchSpec) {
+    this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
-    
+
     const sbatchStorage = `${this.fileStorage}/SBATCH/ID`;
 
     // TODO: Hit simulator-api to get these simulator names
@@ -84,6 +84,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
+    this.logger.log('Simulation Finished on HPC');
     const resDir = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
     const allFiles = [];
@@ -104,7 +105,7 @@ export class AppController {
     // Seperating files from directory paths to create structure
     for (const filePath of allFiles) {
       const filePathSplit = filePath.split('/');
-      
+
       //Removing task files
       filePathSplit.splice(filePathSplit.length - 1, 1);
       directoryList.push(filePathSplit.join('/'));
@@ -196,9 +197,8 @@ export class AppController {
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
       const jobStatus = await this.simulationService.getSimulationStatus(
-        uuid,
         jobId
-      );
+      ) || DispatchSimulationStatus.QUEUED;
       this.modelsService.updateStatus(uuid, jobStatus);
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:
@@ -224,7 +224,8 @@ export class AppController {
     const finalRes: any = {};
 
     const taskKeys = Object.keys(data[0]);
-    taskKeys.splice(taskKeys.indexOf('time'), 1);
+    const timeKey = taskKeys[0];
+    taskKeys.splice(taskKeys.indexOf(timeKey), 1);
 
     for (const taskKey of taskKeys) {
       finalRes[taskKey] = {};
@@ -235,7 +236,7 @@ export class AppController {
 
     for (const dataObj of data) {
       for (const taskKey of taskKeys) {
-        finalRes[taskKey]['x'].push(dataObj['time']);
+        finalRes[taskKey]['x'].push(dataObj[timeKey]);
         finalRes[taskKey]['y'].push(dataObj[taskKey]);
       }
     }

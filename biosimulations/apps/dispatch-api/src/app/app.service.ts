@@ -141,48 +141,62 @@ export class AppService {
   async downloadLogFile(uId: string, download: boolean, res: any) {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
     const simInfo = await this.modelsService.get(uId);
-
     let filePathOut = '';
     let filePathErr = '';
-
     download = String(download) === 'false' ? false : true;
     if (simInfo === null) {
       res.send({ message: 'Cannot find the UUID specified' })
-    } else if (download) {
-      if (simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) {
-        filePathOut = path.join(logPath, 'job.output');
-        res.set('Content-Type', 'text/html');
-        res.download(filePathOut);
-      } else if (simInfo.currentStatus === DispatchSimulationStatus.FAILED) {
-        filePathErr = path.join(logPath, 'job.error');
-        res.set('Content-Type', 'text/html');
-        res.download(filePathErr);
-      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
-        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
-      }
-    } else if (!download) {
-      if ((simInfo.currentStatus === DispatchSimulationStatus.SUCCEEDED) || (simInfo.currentStatus === DispatchSimulationStatus.FAILED)) {
-        filePathOut = path.join(logPath, 'job.output');
-        filePathErr = path.join(logPath, 'job.error');
-        const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
-        const fileContentErr = (await FileModifiers.readFile(filePathErr)).toString();
-        res.set('Content-Type', 'application/json');
-        res.send({
-          message: 'Logs fetched successfully',
-          data: {
-            output: fileContentOut,
-            error: fileContentErr
+      return;
+    }
+    switch (download) {
+      case true: {
+        switch (simInfo.currentStatus) {
+          case DispatchSimulationStatus.SUCCEEDED: {
+            filePathOut = path.join(logPath, 'job.output');
+            res.set('Content-Type', 'text/html');
+            res.download(filePathOut);
+            break;
           }
-        });
-      } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
-        res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+          case DispatchSimulationStatus.FAILED: {
+            filePathErr = path.join(logPath, 'job.error');
+            res.set('Content-Type', 'text/html');
+            res.download(filePathErr);
+            break;
+          }
+          case DispatchSimulationStatus.QUEUED: {
+            res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+            break;
+          }
+        }
+        break;
       }
-    } else if (simInfo.currentStatus === DispatchSimulationStatus.QUEUED) {
-      res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+      case false: {
+        switch (simInfo.currentStatus) {
+          case DispatchSimulationStatus.SUCCEEDED ||DispatchSimulationStatus.FAILED: {
+            filePathOut = path.join(logPath, 'job.output');
+            filePathErr = path.join(logPath, 'job.error');
+            const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
+            const fileContentErr = (await FileModifiers.readFile(filePathErr)).toString();
+            res.set('Content-Type', 'application/json');
+            res.send({
+              message: 'Logs fetched successfully',
+              data: {
+                output: fileContentOut,
+                error: fileContentErr
+              }
+            });
+            break;
+          }
+          case DispatchSimulationStatus.QUEUED: {
+            res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+            break;
+          }
+        }
+      }
     }
   }
 
-  downloadArchive(uId: string, res: any) {
+  downloadResultArchive(uId: string, res: any) {
     const zipPath = path.join(
       this.fileStorage,
       'simulations',
@@ -190,6 +204,16 @@ export class AppService {
       `${uId}.zip`
     );
     res.download(zipPath);
+  }
+
+  downloadUserOmexArchive(uuid: string, res: any) {
+    const omexPath = path.join(
+      this.fileStorage,
+      'OMEX',
+      'ID',
+      `${uuid}.omex`
+    );
+      res.download(omexPath);
   }
 
   async getSimulators(simulatorName: string) {

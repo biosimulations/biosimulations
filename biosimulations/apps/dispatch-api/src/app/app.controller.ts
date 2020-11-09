@@ -21,6 +21,7 @@ import {
   ApiBody,
   ApiQuery,
   ApiTags,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import {
   SimulationDispatchSpec,
@@ -46,7 +47,10 @@ export class AppController implements OnApplicationBootstrap {
     description: 'Dispatch status',
     type: Object,
   })
-  // TODO: Create a custom decorator for this and move to shared libs
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal Server Error',
+  })
   @ApiBody({
     schema: {
       type: 'object',
@@ -84,19 +88,31 @@ export class AppController implements OnApplicationBootstrap {
     return this.appService.uploadFile(file, bodyData);
   }
 
-  @ApiTags('Dispatch')
-  @Get('download/:uuid')
+  @ApiTags('Downloads')
+  @Get('download/result/:uuid')
   @ApiOperation({ summary: 'Downloads result files' })
   @ApiResponse({
     status: 200,
     description: 'Download all results as zip archive',
     type: Object,
   })
-  archive(@Param('uuid') uId: string, @Res() res: any): void {
-    return this.appService.downloadArchive(uId, res);
+  resultArchive(@Param('uuid') uId: string, @Res() res: any): void {
+    return this.appService.downloadResultArchive(uId, res);
   }
 
-  @ApiTags('Dispatch')
+  @ApiTags('Downloads')
+  @Get('download/omex/:uuid')
+  @ApiOperation({ summary: 'Download omex file' })
+  @ApiResponse({
+    status: 200,
+    description: 'Download omex file',
+    type: Object,
+  })
+  omexArchive(@Param('uuid') uId: string, @Res() res: any): void {
+    return this.appService.downloadUserOmexArchive(uId, res);
+  }
+
+  @ApiTags('Downloads')
   @Get('logs/:uuid')
   @ApiOperation({
     summary: 'Log file',
@@ -114,7 +130,7 @@ export class AppController implements OnApplicationBootstrap {
     return this.appService.downloadLogFile(uId, download, res);
   }
 
-  @ApiTags('Dispatch')
+  @ApiTags('Result')
   @Get('result/structure/:uuid')
   @ApiOperation({ summary: 'Shows result structure' })
   @ApiResponse({
@@ -126,7 +142,7 @@ export class AppController implements OnApplicationBootstrap {
     return this.appService.getResultStructure(uId);
   }
 
-  @ApiTags('Dispatch')
+  @ApiTags('Result')
   @Get('result/:uuid')
   @ApiOperation({
     summary:
