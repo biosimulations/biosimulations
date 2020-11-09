@@ -2,14 +2,13 @@ import {
   Format as IFormat,
   IAlgorithm,
 } from '@biosimulations/datamodel/common';
-import { Citation } from '@biosimulations/datamodel/api';
-
 import {
+  Citation,
   EdamOntologyId,
-  OntologyId,
   KisaoOntologyId,
   SBOOntologyId,
-} from './ontologyId';
+} from '@biosimulations/datamodel/api';
+
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 

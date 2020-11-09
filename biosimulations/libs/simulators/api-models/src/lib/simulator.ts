@@ -1,9 +1,6 @@
 import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-
-import { Document } from 'mongoose';
-
-import { EdamOntologyId, SpdxId } from './ontologyId';
+import { EdamOntologyId, SpdxId } from '@biosimulations/datamodel/api';
 import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 

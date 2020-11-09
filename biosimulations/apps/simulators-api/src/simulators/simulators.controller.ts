@@ -33,6 +33,7 @@ import {
   ApiForbiddenResponse,
   ApiBadRequestResponse,
   ApiNoContentResponse,
+  ApiConflictResponse,
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
@@ -175,10 +176,23 @@ export class SimulatorsController {
   @ApiBody({
     type: Simulator,
   })
-  @ApiCreatedResponse({ type: Simulator })
-  @ApiUnauthorizedResponse({ type: ErrorResponseDocument })
-  @ApiForbiddenResponse({ type: ErrorResponseDocument })
-  @ApiBadRequestResponse({ type: ErrorResponseDocument })
+  @ApiCreatedResponse({ description: 'Simulator Created', type: Simulator })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'Invalid Authorization Provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'No permission to edit simulator',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'Request body does not match schema',
+  })
+  @ApiConflictResponse({
+    type: ErrorResponseDocument,
+    description: 'Conflict with existing entry',
+  })
   async create(@Body() doc: Simulator): Promise<Simulator[]> {
     return this.service.new(doc);
   }

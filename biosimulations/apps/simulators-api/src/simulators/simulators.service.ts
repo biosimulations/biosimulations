@@ -52,8 +52,9 @@ export class SimulatorsService {
           `Simulator with id: ${e?.keyValue?.id}, version: ${e?.keyValue?.version} already exists`
         );
       } else {
+        // Will be caught by other filters
         console.log(e);
-        throw new ConflictException(`Database Error: ${e?.message}`);
+        throw e;
       }
     }
     return res;

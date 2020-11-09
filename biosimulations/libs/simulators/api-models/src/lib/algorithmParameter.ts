@@ -1,8 +1,9 @@
+import { KisaoOntologyId } from '@biosimulations/datamodel/api';
 import {
   AlgorithmParameter as IAlgorithmParameter,
   AlgorithmParameterType,
 } from '@biosimulations/datamodel/common';
-import { KisaoOntologyId } from './ontologyId';
+
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AlgorithmParameter implements IAlgorithmParameter {

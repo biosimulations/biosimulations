@@ -57,9 +57,7 @@
             "onlyDependOnLibsWithTags": [
               "scope:simulators",
               "scope:shared",
-              "scope:auth",
-              "type:config",
-              "scope:config"
+              "shared:true"
             ]
           },
           {
@@ -67,8 +65,7 @@
             "onlyDependOnLibsWithTags": [
               "scope:accounts",
               "scope:shared",
-              "type:config",
-              "scope:auth"
+              "shared:true"
             ]
           },
           {
@@ -76,8 +73,7 @@
             "onlyDependOnLibsWithTags": [
               "scope:platform",
               "scope:shared",
-              "type:config",
-              "scope:auth"
+              "shared:true"
             ]
           },
           {
@@ -85,7 +81,8 @@
             "onlyDependOnLibsWithTags": [
               "scope:dispatch",
               "scope:shared",
-              "scope:config"
+              "shared:true"
+
             ]
           },
           {

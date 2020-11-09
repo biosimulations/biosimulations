@@ -2,8 +2,16 @@ import {
   IOntologyTerm,
   Ontologies,
   Identifier as IIdentifier,
+  IKisaoOntologyId,
+  IEdamOntologyId,
+  ISboOntologyId,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  EdamOntologyId,
+  KisaoOntologyId,
+  SBOOntologyId,
+} from './ontologyId.dto';
 
 export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ enum: Ontologies })
@@ -20,6 +28,36 @@ export class OntologyTerm implements IOntologyTerm {
   url?: string | null;
 }
 
+export class EDAMTerm extends EdamOntologyId {
+  @ApiProperty()
+  name!: string;
+  @ApiProperty({ type: String, nullable: true })
+  description!: string | null;
+  @ApiProperty()
+  iri!: string | null;
+  @ApiProperty()
+  url?: string | null | undefined;
+}
+export class KisaoTerm extends KisaoOntologyId {
+  @ApiProperty()
+  name!: string;
+  @ApiProperty()
+  description!: string | null;
+  @ApiProperty()
+  iri!: string | null;
+  @ApiProperty()
+  url?: string | null | undefined;
+}
+export class SboTerm extends SBOOntologyId {
+  @ApiProperty()
+  name!: string;
+  @ApiProperty()
+  description!: string | null;
+  @ApiProperty()
+  iri!: string | null;
+  @ApiProperty()
+  url?: string | null | undefined;
+}
 export class Identifier implements IIdentifier {
   @ApiProperty()
   namespace!: string;
