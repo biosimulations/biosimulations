@@ -51,8 +51,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
       .isLoading$()
       .subscribe((isLoading: boolean) => this.isLoading.next(isLoading));
   }
-  paginator!: MatPaginator;
-  sort!: MatSort;
+
   subscription?: Subscription;
   isLoading = new BehaviorSubject(true);
   // TODO consolidate with model serivce
