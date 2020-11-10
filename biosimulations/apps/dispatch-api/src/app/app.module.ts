@@ -12,7 +12,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ModelsModule } from './resources/models/models.module';
 import { AppService } from './app.service';
-
+//import { SimulationRunModule } from '../simulation-run/simulation-run.module';
+import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -38,6 +39,8 @@ import { AppService } from './app.service';
     }),
     CacheModule.register(),
     ModelsModule,
+    //SimulationRunModule,
+    SharedExceptionsModule,
   ],
 
   controllers: [AppController],
