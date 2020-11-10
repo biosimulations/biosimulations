@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { prop } from '@typegoose/typegoose';
 import { Document } from 'mongoose';
-
+import { Schema as SchemaType } from 'mongoose';
 @Schema({ collection: 'Simulation Files' })
 export class SimulationFile extends Document {
   @Prop({ type: String })
@@ -16,7 +16,7 @@ export class SimulationFile extends Document {
   size!: number;
 }
 
-export const SimulationFileSchema = SchemaFactory.createForClass(
+export const SimulationFileSchema: SchemaType<SimulationFile> = SchemaFactory.createForClass(
   SimulationFile
 );
 SimulationFileSchema.set('strict', 'throw');
