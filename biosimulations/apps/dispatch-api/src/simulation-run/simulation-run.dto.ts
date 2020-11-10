@@ -7,34 +7,50 @@ import {
 import { SimulationRunStatus } from './simulation-run.model';
 
 export class SimulationRun {
-  @ApiResponseProperty()
+  @ApiResponseProperty({ example: '5fab1cf714f9dd3dfbcfe51b' })
   id!: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Kockout of gene A' })
   name!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of a BioSimulators compliant simulator',
+    examples: [
+      'vcell',
+      'gillespy2',
+      'cobrapy',
+      'copasi',
+      'bionetgen',
+      'tellurium',
+    ],
+    example: 'tellurium',
+    externalDocs: {
+      url: 'https://biosimulators.org/simulators',
+      description: 'Simulators List',
+    },
+  })
   simulator!: string;
 
-  @ApiProperty()
+  @ApiProperty({ examples: ['latest', '2.1'], example: 'latest' })
   simulatorVersion!: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ format: 'email', example: 'info@biosimulations.org' })
   email!: string;
 
   @ApiProperty({ type: Boolean, default: false })
   public!: boolean;
-
+  @ApiResponseProperty({ example: '5fab1cf714f9dd3dfbcfe51b' })
+  file!: string;
   @ApiResponseProperty({ enum: SimulationRunStatus })
   status!: SimulationRunStatus;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ example: 55 })
   duration!: number;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ example: 1123 })
   projectSize!: number;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ example: 11234 })
   resultsSize!: number;
 
   @ApiResponseProperty()
@@ -43,6 +59,7 @@ export class SimulationRun {
   @ApiResponseProperty()
   updated!: Date;
 }
+
 export class SimulationUpload {
   @ApiProperty({ type: String, format: 'binary' })
   file!: string;
