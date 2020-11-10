@@ -63,6 +63,8 @@ import {
   faUserCheck,
   faPlusCircle,
   faTools,
+  faCheck,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare, faOsi } from '@fortawesome/free-brands-svg-icons';
 import { far, faFile, faFileAlt as farFileAlt } from '@fortawesome/free-regular-svg-icons';
@@ -114,6 +116,8 @@ export class BiosimulationsIconsModule {
       faList,
       faPlusCircle,
       faTools,
+      faCheck,
+      faTimes,
       faTable,
       faDownload,
       faUpload,
