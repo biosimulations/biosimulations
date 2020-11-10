@@ -2,17 +2,18 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { prop } from '@typegoose/typegoose';
 import { Document } from 'mongoose';
 import { Schema as SchemaType } from 'mongoose';
+
 @Schema({ collection: 'Simulation Files' })
 export class SimulationFile extends Document {
-  @Prop({ type: String })
+  @Prop({ type: String, required: true })
   originalname!: string;
-  @Prop({ type: String })
+  @Prop({ type: String, required: true })
   encoding!: string;
-  @Prop({ type: String })
+  @Prop({ type: String, required: true })
   mimetype!: string;
-  @Prop({ type: Object })
+  @Prop({ type: Object, required: true })
   buffer!: Buffer;
-  @Prop({ type: String })
+  @Prop({ type: String, required: true })
   size!: number;
 }
 
