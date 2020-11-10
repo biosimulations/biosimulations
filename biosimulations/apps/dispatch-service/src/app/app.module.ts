@@ -1,3 +1,4 @@
+import { NATSQueues } from './../../../../libs/messages/src/lib/messages';
 import { Module, CacheModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { HpcService } from './services/hpc/hpc.service';
@@ -46,10 +47,13 @@ import { SimulationService } from './services/simulation/simulation.service';
         const natsOptions: NatsOptions = {};
         natsOptions.transport = Transport.NATS;
         natsOptions.options = natsServerConfig;
+        if (natsOptions.options !== undefined) {
+          natsOptions.options.queue = NATSQueues.SIM_DISPATCH;
+        }
         return ClientProxyFactory.create(natsOptions);
       },
       inject: [ConfigService],
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
