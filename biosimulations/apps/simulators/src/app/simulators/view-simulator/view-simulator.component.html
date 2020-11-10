@@ -47,7 +47,7 @@
         </table>
       </div>
       <div class="column border">
-        <div class="section">
+        <div class="section" *ngIf="simulator.image">
           <h3>Run simulations online with runBioSimulations</h3>
           <div class="section-content">
             <ul class="icon-list">
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" *ngIf="simulator.image">
           <h3>Run simulations locally with Docker</h3>
           <div class="section-content copy-image">
             <biosimulations-icon icon="logs"></biosimulations-icon>

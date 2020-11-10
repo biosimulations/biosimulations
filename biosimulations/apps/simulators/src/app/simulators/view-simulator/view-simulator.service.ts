@@ -105,7 +105,7 @@ export class ViewSimulatorService {
       created: this.getDateStr(new Date(sim.created)),
       updated: this.getDateStr(new Date(sim.updated)),
     };
-    
+
     const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
       (algorithms: ViewAlgorithm[] | undefined) => {

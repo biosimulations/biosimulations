@@ -153,13 +153,26 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'image',
       heading: 'Image',
       key: 'image',
+      stackedFormatter: (image: string | undefined): string => {
+        if (image) {
+          return image;
+        } else {
+          return 'Not available';
+        }
+      },
       rightIcon: 'copy',
-      rightIconTitle: (): string => {
-        return 'Copy to clipboard';
+      rightIconTitle: (version: ViewVersion): string | null => {
+        if (version.image) {
+          return 'Copy to clipboard';
+        } else {
+          return null;
+        }
       },
       rightAction: ColumnActionType.click,
       rightClick: (version: ViewVersion): void => {
-        this.copyDockerPullCmd(version.image);
+        if (version.image) {
+          this.copyDockerPullCmd(version.image);
+        }
       },
       minWidth: 610,
     },
@@ -238,7 +251,7 @@ export class ViewSimulatorComponent implements OnInit {
           simulator = this.simService.getVersion(id, version);
         } else {
           simulator = this.simService.getLatest(id);
-        }        
+        }
         simulator.subscribe(this.processSimulator.bind(this));
         return simulator;
       }),
