@@ -99,10 +99,13 @@ export class ViewSimulatorService {
         .pipe(pluck('url')),
       versions: this.simService
         .getVersions(sim.id)
-        .pipe(map((value: Version[]) => value.map(this.setVersionDate))),
+        .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
+      validated: sim?.biosimulators?.validated,
+      created: this.getDateStr(new Date(sim.created)),
+      updated: this.getDateStr(new Date(sim.updated)),
     };
-
+    
     const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
       (algorithms: ViewAlgorithm[] | undefined) => {
@@ -198,20 +201,12 @@ export class ViewSimulatorService {
     return this.ontService.getEdamTerm(value.id);
   }
   setVersionDate(value: Version): ViewVersion {
-    let created: Date = value.date;
-    created = new Date(created);
-    const date =
-      created.getFullYear().toString() +
-      '-' +
-      (created.getMonth() + 1).toString().padStart(2, '0') +
-      '-' +
-      created.getDate().toString().padStart(2, '0');
-
     return {
       label: value.version,
-      date: date,
+      created: this.getDateStr(new Date(value.created as Date)),
       url: value.url,
       image: value.image,
+      validated: value.validated,
     };
   }
   getAuthors(simulator: Simulator): string | null {
@@ -328,5 +323,13 @@ export class ViewSimulatorService {
       default:
         return 'https://identifiers.org/' + namespace + '/' + id;
     }
+  }
+  getDateStr(date: Date): string {
+    return (
+      date.getFullYear().toString() +
+      '-' +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
+      '-' +
+      date.getDate().toString().padStart(2, '0'));
   }
 }

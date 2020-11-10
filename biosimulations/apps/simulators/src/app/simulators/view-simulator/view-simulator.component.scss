@@ -39,6 +39,11 @@
 }
 
 .icon-list {
+  li {
+    margin-left: calc(16px + 0.25rem);
+    text-indent: calc(-1 * (16px + 0.25rem));
+  }
+
   a {
     color: $dark-primary-text;
     &:hover {

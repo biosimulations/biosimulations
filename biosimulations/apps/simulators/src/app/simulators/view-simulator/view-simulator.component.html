@@ -50,12 +50,14 @@
         <div class="section">
           <h3>Run simulations online with runBioSimulations</h3>
           <div class="section-content">
-            <p class="run-online">
-              <biosimulations-icon icon="simulator"></biosimulations-icon>
-              <a [href]="dispatchAppRunUrl" target="_blank" class="text">
-                {{ dispatchAppUrl }}
-              </a>
-            </p>
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="simulator"></biosimulations-icon>
+                <a [href]="dispatchAppRunUrl" target="_blank" class="text">
+                  {{ dispatchAppUrl }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -77,24 +79,42 @@
         </div>
 
         <div class="section">
+          <h3>Validation status</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon [icon]="simulator.validated ? 'valid' : 'invalid'"></biosimulations-icon>
+                {{ simulator.validated ? 'Validated' : 'Not validated' }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section">
           <h3>License</h3>
           <div class="section-content">
-            <p>
-              <biosimulations-icon icon="license"></biosimulations-icon>
-              <a [href]="simulator.licenseUrl | async" target="_blank" class="text">
-                {{ simulator.licenseName | async }}
-              </a>
-            </p>
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="license"></biosimulations-icon>
+                <a [href]="simulator.licenseUrl | async" target="_blank" class="text">
+                  {{ simulator.licenseName | async }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
         <div class="section">
           <h3>More info</h3>
           <div class="section-content">
-            <biosimulations-icon icon="tutorial"></biosimulations-icon>
-            <a [href]="simulator.url" target="_blank" class="text">
-              {{ simulator.url }}
-            </a>
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                <a [href]="simulator.url" target="_blank" class="text">
+                  {{ simulator.url }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -105,6 +125,22 @@
               <li *ngFor="let identifier of simulator.identifiers">
                 <biosimulations-icon icon="id"></biosimulations-icon>
                 <a [href]="identifier.url" target="_blank">{{ identifier.text }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Dates</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="date"></biosimulations-icon>
+                Created: {{ simulator.created }}
+              </li>
+              <li *ngIf="simulator.updated !== simulator.created">
+                <biosimulations-icon icon="date"></biosimulations-icon>
+                Updated: {{ simulator.updated }}
               </li>
             </ul>
           </div>
