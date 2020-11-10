@@ -8,7 +8,7 @@ import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.sass'],
+  styleUrls: ['./faq.component.scss'],
 })
 export class FaqComponent {
   tocSections!: Observable<TocSection[]>;
