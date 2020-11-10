@@ -127,7 +127,7 @@
     "@types/rimraf": "^3.0.0",
     "@types/ssh2": "^0.5.45",
     "@types/uuid": "^8.3.0",
-    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/eslint-plugin": "4.7.0",
     "@typescript-eslint/parser": "4.6.1",
     "codelyzer": "~6.0.1",
     "cypress": "^4.1.0",
