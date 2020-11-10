@@ -145,7 +145,7 @@ export class ViewSimulatorComponent implements OnInit {
     {
       id: 'date',
       heading: 'Date',
-      key: 'date',
+      key: 'created',
       filterType: ColumnFilterType.date,
       minWidth: 80,
     },
@@ -162,6 +162,24 @@ export class ViewSimulatorComponent implements OnInit {
         this.copyDockerPullCmd(version.image);
       },
       minWidth: 610,
+    },
+    {
+      id: 'validated',
+      heading: 'Validated',
+      key: 'validated',
+      formatter: (value: boolean): string => {
+        return value ? '✔' : '✖';
+      },
+      stackedFormatter: (value: boolean): string => {
+        return value ? 'Yes' : 'No';
+      },
+      filterFormatter: (value: boolean): string => {
+        return value ? 'Yes' : 'No';
+      },
+      show: true,
+      center: true,
+      minWidth: 100,
+      filterable: true,
     },
     {
       id: 'run',

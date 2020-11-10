@@ -78,9 +78,10 @@ export interface ViewCitation {
 
 export interface ViewVersion {
   label: string;
-  date: string;
+  created: string;
   image: string;
   url?: string;
+  validated: boolean;
 }
 
 export interface ViewSimulator {
@@ -98,4 +99,7 @@ export interface ViewSimulator {
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
   versions: Observable<ViewVersion[]>;
+  validated: boolean;
+  created: string;
+  updated: string;
 }
