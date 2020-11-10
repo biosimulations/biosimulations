@@ -139,7 +139,7 @@
     "jest-preset-angular": "8.2.1",
     "license-checker": "^25.0.1",
     "prettier": "2.1.2",
-    "ts-jest": "26.4.0",
+    "ts-jest": "26.4.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
     "typescript": "~4.0.3"
