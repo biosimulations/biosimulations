@@ -8,7 +8,6 @@ import { AppController } from './app.controller';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ModelsModule } from './resources/models/models.module';
 import { AppService } from './app.service';
@@ -18,15 +17,6 @@ import { AppService } from './app.service';
     BiosimulationsConfigModule,
     HttpModule,
     ScheduleModule.forRoot(),
-    MongooseModule.forRootAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('database.uri') || '',
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }),
-      inject: [ConfigService],
-    }),
     TypegooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({

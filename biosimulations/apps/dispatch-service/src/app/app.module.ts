@@ -13,7 +13,6 @@ import { ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsModule } from './resources/models/models.module';
 import { SimulationService } from './services/simulation/simulation.service';
 
@@ -21,15 +20,6 @@ import { SimulationService } from './services/simulation/simulation.service';
   imports: [
     BiosimulationsConfigModule,
     ScheduleModule.forRoot(),
-    MongooseModule.forRootAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('database.uri') || '',
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }),
-      inject: [ConfigService],
-    }),
     TypegooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
