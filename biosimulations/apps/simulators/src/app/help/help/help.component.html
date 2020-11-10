@@ -122,7 +122,11 @@
           <p><b>Implement a BioSimulators-compliant command-line interface to your simulation tool.</b> The interface should accept two keyword arguments:</p>
           <ul>
             <li><code>-i, --archive</code>: A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
-            <li><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in CSV format and plots should be saved in PDF format. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</li>
+            <li>
+              <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</p>
+
+              <p>The columns of the reports should correspond to the simulation outputs specified in the corresponding SED-ML document (e.g., time, specific species). For time course simulations, the rows should correspond to the predicted time points. The first row of each report table should describe the data represented by each column. Specifically, the first element of each column should be the id of the simulation output (e.g., time or species id) represented by the column.</p>
+            </li>
           </ul>
 
           <p>In addition, we recommend providing optional arguments for reporting help and version information about your simulator:</p>

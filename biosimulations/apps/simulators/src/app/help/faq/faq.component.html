@@ -78,8 +78,60 @@
       tocSection="Simulation outputs"
     >
       <biosimulations-q-a heading="Which formats does BioSimulators support?">
-        Currently, reports are saved in CSV format and plots are saved in PDf format.
+        Currently, reports are saved in Comma-Separated Values (CSV) format and plots are saved in Portable Document Format (PDF).
       </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How are results encoded into CSV files?">
+        <p>The columns of reports correspond to the simulation outputs specified in the corresponding SED-ML document (e.g., time, specific species). For time course simulations, the rows of reports correspond to the predicted time points. The first row of each report table describes the data represented by each column. Specifically, the first element of each column is the id of the simulation output (e.g., time or species id) represented by the column. Below is a sample report in CSV format and a formatted version of the same report.</p>
+
+        <p class="no-bottom-margin">Formatted sample report:</p>
+        <table class="biosimulations-table">
+          <thead>
+            <tr>
+              <th>time</th>
+              <th>metabolite-a</th>
+              <th>metabolite-b</th>
+              <th>protein-a</th>
+              <th>protein-b</th>
+              <th>flux-a</th>
+              <th>flux-b</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0.0</td>
+              <td>4.0</td><td>9.0</td>
+              <td>6.0</td><td>7.0</td>
+              <td>2.0</td><td>7.0</td>
+            </tr>
+            <tr>
+              <td>1.0</td>
+              <td>8.0</td><td>3.0</td>
+              <td>9.0</td><td>1.0</td>
+              <td>3.0</td><td>2.0</td>
+            </tr>
+            <tr>
+              <td>2.0</td>
+              <td>9.0</td><td>6.0</td>
+              <td>5.0</td><td>6.0</td>
+              <td>4.0</td><td>5.0</td>
+            </tr>
+            <tr>
+              <td>...</td>
+              <td>...</td><td>...</td>
+              <td>...</td><td>...</td>
+              <td>...</td><td>...</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="no-bottom-margin">Sample report in CSV format:</p>
+        <pre><code>time,metabolite-a,metabolite-b,protein-a,protein-b,flux-a,flux-b
+0.0,4.0,9.0,6.0,7.0,2.0,7.0
+1.0,8.0,3.0,9.0,1.0,3.0,2.0
+2.0,9.0,6.0,5.0,6.0,4.0,5.0
+...,...,...,...,...,...,...</code></pre>
+      </biosimulations-q-a>      
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
