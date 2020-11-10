@@ -35,6 +35,7 @@ export class Simulator {
 
   @ApiProperty({
     example: 'ghcr.io/biosimulators/tellurium:2.1.6',
+    nullable: true,
   })
   image!: string;
 
