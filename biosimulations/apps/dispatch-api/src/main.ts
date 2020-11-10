@@ -46,7 +46,21 @@ async function bootstrap() {
     'https://github.com/biosimulations/Biosimulations/raw/dev/biosimulations/libs/shared/assets/src/assets/icons/favicon-32x32.png';
   const removeIcon = ' .swagger-ui .topbar { display: none }';
   // Swagger doc
-  const tags = ['Dispatch', 'Simulators', 'Database'];
+  const tags = [
+    { name: 'Dispatch', description: '' },
+    { name: 'Simulators', description: '' },
+    { name: 'Database', description: '' },
+    {
+      name: 'Simulation Runs',
+      description:
+        'Operations for submitting a Simulation Run, checking its status, modifying details, and canceling the run.',
+    },
+    {
+      name: 'Results',
+      description:
+        ' Operations for viewing and retrieving the results of a Simulation Run',
+    },
+  ];
   const builder = new DocumentBuilder()
     .setTitle('Simulation dispatch')
     .setDescription(
@@ -54,7 +68,7 @@ async function bootstrap() {
     )
     .setVersion('0.1');
   for (const tag of tags) {
-    builder.addTag(tag);
+    builder.addTag(tag.name, tag.description);
   }
   const options = builder.build();
   const document = SwaggerModule.createDocument(app, options);
