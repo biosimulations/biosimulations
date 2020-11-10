@@ -3,6 +3,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -92,10 +93,32 @@ export class SimulationRunController {
     return this.service.get(id);
   }
 
+  @ApiOperation({
+    summary: 'Modify a simulation run',
+    description: 'Change the status or information of a simulation run',
+  })
   // TODO limit this to admins/permission only. Can be used by service to update status
   @Put(':id')
   modfiyRun(@Param() id: string, @Body() run: SimulationRun) {
     //TODO determine which feilds can be updated. Either in buissness logic or schema
     this.service.update(id, run);
+  }
+
+  @ApiOperation({
+    summary: 'Delete a simulation run',
+    description: 'Delete a simulation run',
+  })
+  @Delete(':id')
+  deleteRun(@Param() id: string, @Body() run: SimulationRun) {
+    this.service.delete(id);
+  }
+
+  @ApiOperation({
+    summary: 'Delete all simulation runs',
+    description: 'Delete all simulation runs',
+  })
+  @Delete()
+  deleteAll(@Param() id: string, @Body() run: SimulationRun) {
+    this.service.deleteAll(id);
   }
 }

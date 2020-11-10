@@ -14,6 +14,12 @@ const toApi = (obj: any) => {
 };
 @Injectable()
 export class SimulationRunService {
+  deleteAll(id: string) {
+    throw new Error('Method not implemented.');
+  }
+  delete(id: string) {
+    throw new Error('Method not implemented.');
+  }
   update(id: string, run: SimulationRun) {
     throw new Error('Method not implemented.');
   }
