@@ -17,7 +17,7 @@ export const columns: Column[] = [
       return ['/simulators', element.id];
     },
     filterable: false,
-    minWidth: 90,
+    minWidth: 75,
     showStacked: false,
   },
   {
@@ -25,8 +25,16 @@ export const columns: Column[] = [
     heading: 'Name',
     key: 'name',
     filterable: false,
-    minWidth: 90,
+    minWidth: 75,
     showStacked: false,
+  },
+  {
+    id: 'latestVersion',
+    heading: 'Latest version',
+    key: 'latestVersion',
+    filterable: false,
+    show: false,
+    minWidth: 110,
   },
   {
     id: 'frameworks',
@@ -61,7 +69,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator): string => {
       return element.frameworkIds.join(' ');
     },
-    minWidth: 200,
+    minWidth: 158,
   },
   {
     id: 'algorithms',
@@ -107,7 +115,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 244,
+    minWidth: 210,
   },
   {
     id: 'formats',
@@ -143,12 +151,19 @@ export const columns: Column[] = [
     minWidth: 132,
   },
   {
-    id: 'latestVersion',
-    heading: 'Latest version',
-    key: 'latestVersion',
-    filterable: false,
-    show: false,
-    minWidth: 110,
+    id: 'validated',
+    heading: 'Validated',
+    key: 'validated',
+    formatter: (value: boolean): string => {
+      return value ? '✔' : '✖';
+    },
+    filterFormatter: (value: boolean): string => {
+      return value ? 'Yes' : 'No';
+    },
+    filterable: true,
+    show: true,
+    minWidth: 99,
+    center: true,
   },
   {
     id: 'license',

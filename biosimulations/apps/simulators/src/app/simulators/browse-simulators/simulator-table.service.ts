@@ -74,6 +74,7 @@ export class SimulatorTableService {
                     algorithmIds: [...algorithmIds],
                     formats: value.formats,
                     formatIds: [...formatIds],
+                    validated: simulator?.biosimulators?.validated,
                   };
                 })
               )

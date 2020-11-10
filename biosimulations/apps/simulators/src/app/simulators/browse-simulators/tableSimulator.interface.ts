@@ -8,6 +8,7 @@ export interface TableSimulator {
   formats: string[];
   formatIds: string[];
   latestVersion: string;
+  validated: boolean;
   url: string;
   license: string;
   licenseId: string
