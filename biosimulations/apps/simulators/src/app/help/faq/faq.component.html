@@ -33,14 +33,6 @@
       heading="Simulation experiments"
       tocSection="Simulation experiments"
     >
-      <biosimulations-q-a heading="Which simulation tools does BioSimulators support?">
-        The <a [routerLink]="['/simulators']">simulators page</a> describes the available simulation tools.
-      </biosimulations-q-a>
-
-      <biosimulations-q-a heading="How can I execute an alternative simulation tool?">
-        Please submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for an additional tool.
-      </biosimulations-q-a>
-
       <biosimulations-q-a heading="Which simulation algorithms does BioSimulators support?">
         The <a [routerLink]="['/simulators']">simulators page</a> describes the algorithms that the available simulation tools support.
       </biosimulations-q-a>
@@ -59,6 +51,25 @@
         </ul>
 
         <p>Some of the simulation tools, such as tellurium, support the full SED-ML specification.</p>
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Simulation tools"
+      tocSection="Simulation tools"
+    >
+      <biosimulations-q-a heading="Which simulation tools does BioSimulators support?">
+        The <a [routerLink]="['/simulators']">simulators page</a> describes the available simulation tools.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="How can I execute an alternative simulation tool?">
+        Please submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for an additional tool.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Can I submit a simulation tool to the BioSimulators registry for which there is no Docker image, or for which there is a Docker image that is not consistent with the BioSimulators standards?">
+        <p>Yes, we encourage the community to submit all simulation tools, even if they do not support the BioSimulators interface and Docker image structure standards.</p>
+
+        <p>Please note, BioSimulators can only validate simulation tools that support these standards. Consequently, when creating GitHub issues to submit simulation tools that do not support the BioSimulators standards, set <code>validateImage</code> to <code>false</code> to decline validation of the Docker image (or lack thereof) for your simulation tool. The validation status of your simulation tool (passed or skipped) will be communicated to BioSimulators users.</p>
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 

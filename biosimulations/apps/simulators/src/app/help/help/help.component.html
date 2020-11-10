@@ -115,7 +115,7 @@
 
       <p>Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. A template repository with template Python code for a command-line interface and a template for a Dockerfile is available here <a href="https://github.com/biosimulators/Biosimulators_simulator_template" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
-    
+
       <ol class="vertically-spaced">
         <li><b>Optionally, create a Git repository for your command-line interface and Dockerfile.</b></li>
         <li>
@@ -209,7 +209,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li>Endpoint: <code>http://api.github.com/repos/biosimulators/Biosimulators/issues</code></li>
             <li>Method: <code>POST</code></li>
             <li>Auth: <code>{{ '{' }} github-username {{ '}' }}:{{ '{' }} github-person-access-token {{ '}' }}</code></li>
-            <li>Headers: 
+            <li>Headers:
               <ul>
                 <li>Accept: <code>application/vnd.github.v3+json</code></li>
               </ul>
@@ -221,8 +221,10 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
 name: {{ '{' }} simulator-name {{ '}' }}
 version: {{ '{' }} simulator-version {{ '}' }}
 specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
+validateImage: true
 
 ---</code></pre>
+                  To skip the validation of your Docker image, or to submit a simulation tool for which there is no Docker image that provides a BioSimulators-compliant command-line entrypoint, set <code>validateImage</code> to <code>false</code>.
                 </li>
               </ul>
             </li>
@@ -235,7 +237,7 @@ specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
   -u jonrkarr:********* \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/biosimulators/Biosimulators/issues \
-  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</code></pre>
+  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\nvalidateImage: true\n\n---"{{ '}' }}'</code></pre>
 
           <p>The above is implemented by the Python method <code>Biosimulations_utils.simulator.submit_to_biosimulators.submit_simulator_to_biosimulators</code>. See the documentation <a href="https://biosimulations-utils.readthedocs.io/"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
         </li>
