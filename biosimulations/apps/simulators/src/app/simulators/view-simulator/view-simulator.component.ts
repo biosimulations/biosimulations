@@ -322,9 +322,11 @@ export class ViewSimulatorComponent implements OnInit {
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
-    setTimeout(() => {
-      this.tocSections = container.sections$;
-    });
+    if (container) {
+      setTimeout(() => {
+        this.tocSections = container.sections$;
+      });
+    }
   }
 
   copyDockerPullCmd(image = '{ image }'): void {

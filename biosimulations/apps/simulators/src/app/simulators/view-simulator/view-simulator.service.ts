@@ -106,7 +106,7 @@ export class ViewSimulatorService {
       updated: this.getDateStr(new Date(sim.updated)),
     };
 
-    const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
+    const unresolvedAlgorithms = sim.algorithms.filter((alg: Algorithm) => { return !!alg.kisaoId; }).map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
       (algorithms: ViewAlgorithm[] | undefined) => {
         if (algorithms !== undefined) {
@@ -153,7 +153,9 @@ export class ViewSimulatorService {
       ),
       url: kisaoTerm.pipe(pluck('url')),
       frameworks: value.modelingFrameworks.map(this.getFrameworks, this),
-      formats: value.modelFormats.map(this.getFormats, this),
+      modelFormats: value.modelFormats.map(this.getFormats, this),
+      simulationFormats: value.simulationFormats.map(this.getFormats, this),
+      archiveFormats: value.archiveFormats.map(this.getFormats, this),
       parameters: value.parameters.map(this.getParameters, this),
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)

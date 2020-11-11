@@ -115,15 +115,15 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 210,
+    minWidth: 200,
   },
   {
-    id: 'formats',
+    id: 'modelFormats',
     heading: 'Model formats',
-    key: 'formats',
+    key: 'modelFormats',
     getter: (element: TableSimulator): string[] => {
       const value = [];
-      for (const format of element.formats) {
+      for (const format of element.modelFormats) {
         value.push(format);
       }
       value.sort((a: string, b: string): number => {
@@ -146,9 +146,77 @@ export const columns: Column[] = [
     },
     filterComparator: RowService.comparator,
     extraSearchGetter: (element: TableSimulator): string => {
-      return element.formatIds.join(' ');
+      return element.modelFormatIds.join(' ');
     },
-    minWidth: 132,
+    minWidth: 142,
+  },
+  {
+    id: 'simulationFormats',
+    heading: 'Simulation formats',
+    key: 'simulationFormats',
+    getter: (element: TableSimulator): string[] => {
+      const value = [];
+      for (const format of element.simulationFormats) {
+        value.push(format);
+      }
+      value.sort((a: string, b: string): number => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      });
+      return value;
+    },
+    formatter: (names: string[]): string => {
+      return names.join(', ');
+    },
+    filterFormatter: (name: string): string => {
+      return name;
+    },
+    comparator: (aNames: string[], bNames: string[], sign = 1): number => {
+      return RowService.comparator(
+        aNames.join(', '),
+        bNames.join(', '),
+        sign
+      );
+    },
+    filterComparator: RowService.comparator,
+    extraSearchGetter: (element: TableSimulator): string => {
+      return element.simulationFormatIds.join(' ');
+    },
+    minWidth: 142,
+    show: false,
+  },
+  {
+    id: 'archiveFormats',
+    heading: 'Archive formats',
+    key: 'archiveFormats',
+    getter: (element: TableSimulator): string[] => {
+      const value = [];
+      for (const format of element.archiveFormats) {
+        value.push(format);
+      }
+      value.sort((a: string, b: string): number => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      });
+      return value;
+    },
+    formatter: (names: string[]): string => {
+      return names.join(', ');
+    },
+    filterFormatter: (name: string): string => {
+      return name;
+    },
+    comparator: (aNames: string[], bNames: string[], sign = 1): number => {
+      return RowService.comparator(
+        aNames.join(', '),
+        bNames.join(', '),
+        sign
+      );
+    },
+    filterComparator: RowService.comparator,
+    extraSearchGetter: (element: TableSimulator): string => {
+      return element.archiveFormatIds.join(' ');
+    },
+    minWidth: 142,
+    show: false,
   },
   {
     id: 'image',

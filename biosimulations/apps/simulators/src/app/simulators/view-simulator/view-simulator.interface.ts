@@ -7,7 +7,9 @@ export interface ViewAlgorithm {
   description: DescriptionFragment[];
   url: string;
   frameworks: ViewFramework[];
-  formats: ViewFormat[];
+  modelFormats: ViewFormat[];
+  simulationFormats: ViewFormat[];
+  archiveFormats: ViewFormat[];
   parameters: ViewParameter[];
   citations: ViewCitation[];
 }
@@ -19,7 +21,9 @@ export interface ViewAlgorithmObservable {
   description: Observable<DescriptionFragment[]>;
   url: Observable<string>;
   frameworks: Observable<ViewFramework>[];
-  formats: Observable<ViewFormat>[];
+  modelFormats: Observable<ViewFormat>[];
+  simulationFormats: Observable<ViewFormat>[];
+  archiveFormats: Observable<ViewFormat>[];
   parameters: ViewParameterObservable[];
   citations: ViewCitation[];
 }

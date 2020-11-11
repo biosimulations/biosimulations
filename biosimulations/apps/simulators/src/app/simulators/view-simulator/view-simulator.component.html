@@ -168,160 +168,201 @@
     icon="simulator"
     class="algorithms"
   >
-    <biosimulations-text-page
-      contentsHeading="Algorithms"
-      [padded]="false"
-      alwaysFixed="calc(64px + 32px + 32px + 2rem)"
-      [tocSections]="tocSections"
-      [tocScrollSectionScrollOffset]="128"
-    >
-      <ng-container id="sideBar">
-        <biosimulations-text-page-side-bar-section
-          heading="More info"
-          fxShow
-          fxHide.lt-md
-        >
-          <div class="hanging-indent">
-            <a
-              *ngIf="simulator | async as simulator"
-              [href]="simulator.url"
-              target="_blank"
-            >
-              <biosimulations-icon icon="link"></biosimulations-icon>
-              Documentation
-            </a>
-          </div>
-        </biosimulations-text-page-side-bar-section>
-      </ng-container>
-
-      <ng-container id="content" tocSectionsContainer>
-        <ng-container *ngIf="simulator | async as simulator">
-          <ng-container *ngIf="simulator.algorithms | async as algorithms">
-            <biosimulations-text-page-content-section
-              *ngFor="let algorithm of algorithms"
-              [heading]="algorithm.heading"
-              [tocSection]="algorithm.name"
-            >
-              <ng-container
-                *ngIf="algorithm.description as description"
+    <ng-container *ngIf="simulator | async as simulator">
+      <ng-container *ngIf="simulator.algorithms | async as algorithms">
+        <ng-container *ngIf="algorithms.length > 0; else noAlgorithms">
+          <biosimulations-text-page
+            contentsHeading="Algorithms"
+            [padded]="false"
+            alwaysFixed="calc(64px + 32px + 32px + 2rem)"
+            [tocSections]="tocSections"
+            [tocScrollSectionScrollOffset]="128"
+          >
+            <ng-container id="sideBar">
+              <biosimulations-text-page-side-bar-section
+                heading="More info"
+                fxShow
+                fxHide.lt-md
               >
-                <p class="subsection-heading no-bottom-margin">Description</p>
-                <p>
-                  <ng-template ngFor let-fragment [ngForOf]="description">
-                    <span *ngIf="fragment.type == 'text'; else descriptionLink">
-                      {{ fragment.value }}
-                    </span>
-                    <ng-template #descriptionLink>
-                      <a [href]="fragment.value" target="_blank"
-                        ><biosimulations-icon icon="link"></biosimulations-icon
-                      ></a>
-                    </ng-template>
-                  </ng-template>
-                </p>
-              </ng-container>
+                <div class="hanging-indent">
+                  <a
+                    [href]="simulator.url"
+                    target="_blank"
+                  >
+                    <biosimulations-icon icon="link"></biosimulations-icon>
+                    Documentation
+                  </a>
+                </div>
+              </biosimulations-text-page-side-bar-section>
+            </ng-container>
 
-              <p class="subsection-heading no-bottom-margin">
-                Modeling frameworks
-              </p>
-              <ul
-                class="icon-list"
-                *ngIf="algorithm?.frameworks.length > 0; noFrameworksMessage"
+            <ng-container id="content" tocSectionsContainer>        
+              <biosimulations-text-page-content-section
+                *ngFor="let algorithm of algorithms"
+                [heading]="algorithm.heading"
+                [tocSection]="algorithm.name"
               >
-                <li *ngFor="let framework of algorithm.frameworks">
-                  <ng-container *ngIf="framework as framework">
-                    <biosimulations-icon icon="simulator"></biosimulations-icon>
-                    <a [href]="framework.url" target="_blank">{{
-                      framework.name
-                    }}</a>
-                  </ng-container>
-                </li>
-              </ul>
-              <ng-template #noFrameworksMessage>
-                <p>
-                  This algorithm does not support any canonical modeling
-                  frameworks.
-                </p>
-              </ng-template>
-
-              <p class="subsection-heading no-bottom-margin">Model formats</p>
-              <ul
-                class="icon-list"
-                *ngIf="algorithm?.formats?.length > 0; noFormatsMessage"
-              >
-                <li *ngFor="let format of algorithm.formats">
-                  <ng-container *ngIf="format as format">
-                    <biosimulations-icon icon="format"></biosimulations-icon>
-                    <a [href]="format.url" target="_blank">{{ format.name }}</a>
-                  </ng-container>
-                </li>
-              </ul>
-              <ng-template #noFormatsMessage>
-                <p>
-                  This algorithm does not support any standard model formats.
-                </p>
-              </ng-template>
-
-              <p class="subsection-heading no-bottom-margin">Parameters</p>
-              <div
-                class="table-container"
-                *ngIf="
-                  algorithm?.parameters?.length > 0;
-                  else noParametersMessage
-                "
-              >
-                <biosimulations-responsive-table
-                  [columns]="parametersColumns"
-                  [singleLineHeadings]="true"
-                  [data]="algorithm.parameters"
-                  [sortable]="true"
-                  [controls]="false"
-                  searchPlaceHolder="Query (e.g., tol)"
-                  searchToolTip="Enter a query such as 'tol'. By default, your query will be searched over all columns. This search supports the features of the Lunr search engine. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) (e.g., 'kisao-id: KISAO_0000211')."
-                  stackedContentsHeading="Parameters"
-                  [getStackedHeading]="getParameterStackedHeading"
-                  [getStackedHeadingMoreInfoRouterLink]="
-                    getParameterStackedHeadingMoreInfoRouterLink
-                  "
-                  [defaultSort]="{ active: 'name', direction: 'asc' }"
+                <ng-container
+                  *ngIf="algorithm.description as description"
                 >
-                </biosimulations-responsive-table>
-              </div>
-              <ng-template #noParametersMessage>
-                <p class="info-message">This algorithm does not have any parameters.</p>
-              </ng-template>
-
-              <ng-container *ngIf="algorithm?.citations?.length > 0">
-                <p class="subsection-heading no-bottom-margin">Citations</p>
-                <ul class="icon-list">
-                  <li *ngFor="let citation of algorithm.citations">
-                    <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                    <a
-                      [href]="citation.url"
-                      target="_blank"
-                      [innerHTML]="citation.text"
-                      *ngIf="citation.url; else plainCitation"
-                    ></a>
-                    <ng-template #plainCitation>
-                      <span [innerHTML]="citation.text"></span>
+                  <p class="subsection-heading no-bottom-margin">Description</p>
+                  <p>
+                    <ng-template ngFor let-fragment [ngForOf]="description">
+                      <span *ngIf="fragment.type == 'text'; else descriptionLink">
+                        {{ fragment.value }}
+                      </span>
+                      <ng-template #descriptionLink>
+                        <a [href]="fragment.value" target="_blank"
+                          ><biosimulations-icon icon="link"></biosimulations-icon
+                        ></a>
+                      </ng-template>
                     </ng-template>
+                  </p>
+                </ng-container>
+
+                <p class="subsection-heading no-bottom-margin">
+                  Modeling frameworks
+                </p>
+                <ul
+                  class="icon-list"
+                  *ngIf="algorithm?.frameworks.length > 0; else noFrameworksMessage"
+                >
+                  <li *ngFor="let framework of algorithm.frameworks">
+                    <ng-container *ngIf="framework as framework">
+                      <biosimulations-icon icon="simulator"></biosimulations-icon>
+                      <a [href]="framework.url" target="_blank">{{
+                        framework.name
+                      }}</a>
+                    </ng-container>
                   </li>
                 </ul>
-              </ng-container>
+                <ng-template #noFrameworksMessage>
+                  <p class="info-message">
+                    This algorithm does not support any canonical modeling
+                    frameworks.
+                  </p>
+                </ng-template>
 
-              <p class="subsection-heading no-bottom-margin">More info</p>
-              <ul class="icon-list">
-                <li>
-                  <biosimulations-icon icon="link"></biosimulations-icon>
-                  <a [href]="algorithm?.url" target="_blank">{{
-                    algorithm?.id
-                  }}</a>
-                </li>
-              </ul>
-            </biosimulations-text-page-content-section>
-          </ng-container>
+                <p class="subsection-heading no-bottom-margin">Model formats</p>
+                <ul
+                  class="icon-list"
+                  *ngIf="algorithm?.modelFormats?.length > 0; else noModelFormatsMessage"
+                >
+                  <li *ngFor="let format of algorithm.modelFormats">
+                    <ng-container *ngIf="format as format">
+                      <biosimulations-icon icon="format"></biosimulations-icon>
+                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                    </ng-container>
+                  </li>
+                </ul>
+                <ng-template #noModelFormatsMessage>
+                  <p class="info-message">
+                    This algorithm does not support any standard model formats.
+                  </p>
+                </ng-template>
+
+                <p class="subsection-heading no-bottom-margin">Simulation formats</p>
+                <ul
+                  class="icon-list"
+                  *ngIf="algorithm?.simulationFormats?.length > 0; else noSimulationFormatsMessage"
+                >
+                  <li *ngFor="let format of algorithm.simulationFormats">
+                    <ng-container *ngIf="format as format">
+                      <biosimulations-icon icon="format"></biosimulations-icon>
+                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                    </ng-container>
+                  </li>
+                </ul>
+                <ng-template #noSimulationFormatsMessage>
+                  <p class="info-message">
+                    This algorithm does not support any standard simulation formats.
+                  </p>
+                </ng-template>
+
+                <p class="subsection-heading no-bottom-margin">Archive formats</p>
+                <ul
+                  class="icon-list"
+                  *ngIf="algorithm?.archiveFormats?.length > 0; else noArchiveFormatsMessage"
+                >
+                  <li *ngFor="let format of algorithm.archiveFormats">
+                    <ng-container *ngIf="format as format">
+                      <biosimulations-icon icon="format"></biosimulations-icon>
+                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                    </ng-container>
+                  </li>
+                </ul>
+                <ng-template #noArchiveFormatsMessage>
+                  <p class="info-message">
+                    This algorithm does not support any standard archive formats.
+                  </p>
+                </ng-template>
+
+                <p class="subsection-heading no-bottom-margin">Parameters</p>
+                <div
+                  class="table-container"
+                  *ngIf="
+                    algorithm?.parameters?.length > 0;
+                    else noParametersMessage
+                  "
+                >
+                  <biosimulations-responsive-table
+                    [columns]="parametersColumns"
+                    [singleLineHeadings]="true"
+                    [data]="algorithm.parameters"
+                    [sortable]="true"
+                    [controls]="false"
+                    searchPlaceHolder="Query (e.g., tol)"
+                    searchToolTip="Enter a query such as 'tol'. By default, your query will be searched over all columns. This search supports the features of the Lunr search engine. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) (e.g., 'kisao-id: KISAO_0000211')."
+                    stackedContentsHeading="Parameters"
+                    [getStackedHeading]="getParameterStackedHeading"
+                    [getStackedHeadingMoreInfoRouterLink]="
+                      getParameterStackedHeadingMoreInfoRouterLink
+                    "
+                    [defaultSort]="{ active: 'name', direction: 'asc' }"
+                  >
+                  </biosimulations-responsive-table>
+                </div>
+                <ng-template #noParametersMessage>
+                  <p class="info-message">This algorithm does not have any parameters.</p>
+                </ng-template>
+
+                <ng-container *ngIf="algorithm?.citations?.length > 0">
+                  <p class="subsection-heading no-bottom-margin">Citations</p>
+                  <ul class="icon-list">
+                    <li *ngFor="let citation of algorithm.citations">
+                      <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                      <a
+                        [href]="citation.url"
+                        target="_blank"
+                        [innerHTML]="citation.text"
+                        *ngIf="citation.url; else plainCitation"
+                      ></a>
+                      <ng-template #plainCitation>
+                        <span [innerHTML]="citation.text"></span>
+                      </ng-template>
+                    </li>
+                  </ul>
+                </ng-container>
+
+                <p class="subsection-heading no-bottom-margin">More info</p>
+                <ul class="icon-list">
+                  <li>
+                    <biosimulations-icon icon="link"></biosimulations-icon>
+                    <a [href]="algorithm?.url" target="_blank">{{
+                      algorithm?.id
+                    }}</a>
+                  </li>
+                </ul>
+              </biosimulations-text-page-content-section>      
+            </ng-container>
+          </biosimulations-text-page>
         </ng-container>
+
+        <ng-template #noAlgorithms>
+          <p class="info-message">The algorithms supported by {{ simulator.id }} have not yet been curated.</p>
+        </ng-template>
       </ng-container>
-    </biosimulations-text-page>
+    </ng-container>
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab

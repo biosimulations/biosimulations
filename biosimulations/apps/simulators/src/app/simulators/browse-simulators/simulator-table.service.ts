@@ -25,27 +25,41 @@ export class SimulatorTableService {
             //Use the data to get the definitions for all additional calls
             const frameworks = this.getFrameworks(simulator);
             const algorithms = this.getAlgorithms(simulator);
-            const formats = this.getFormats(simulator);
+            const modelFormats = this.getFormats(simulator, 'modelFormats');
+            const simulationFormats = this.getFormats(simulator, 'simulationFormats');
+            const archiveFormats = this.getFormats(simulator, 'archiveFormats');
             const license = this.getLicense(simulator);
 
             // These are all observables of string[] that need to be collapsed
             const innerObservables = {
               frameworks: frameworks,
               algorithms: algorithms,
-              formats: formats,
+              modelFormats: modelFormats,
+              simulationFormats: simulationFormats,
+              archiveFormats: archiveFormats,
               license: license,
             };
 
             const frameworkIds = new Set<string>();
             const algorithmIds = new Set<string>();
-            const formatIds = new Set<string>();
+            const modelFormatIds = new Set<string>();
+            const simulationFormatIds = new Set<string>();
+            const archiveFormatIds = new Set<string>();
             for (const alg of simulator.algorithms) {
               for (const framework of alg.modelingFrameworks) {
                 frameworkIds.add(framework.id);
               }
-              algorithmIds.add(alg.kisaoId.id);
+              if (alg.kisaoId) {
+                algorithmIds.add(alg.kisaoId.id);
+              }
               for (const format of alg.modelFormats) {
-                formatIds.add(format.id);
+                modelFormatIds.add(format.id);
+              }
+              for (const format of alg.simulationFormats) {
+                simulationFormatIds.add(format.id);
+              }
+              for (const format of alg.archiveFormats) {
+                archiveFormatIds.add(format.id);
               }
             }
             const licenseId = simulator.license.id;
@@ -55,8 +69,10 @@ export class SimulatorTableService {
               mergeMap((sourceValue) =>
                 forkJoin({
                   algorithms: sourceValue.algorithms,
-                  frameworks: sourceValue.frameworks,
-                  formats: sourceValue.formats,
+                  frameworks: sourceValue.frameworks,                  
+                  modelFormats: sourceValue.modelFormats,
+                  simulationFormats: sourceValue.simulationFormats,
+                  archiveFormats: sourceValue.archiveFormats,
                   license: license,
                 }).pipe(
                   map((value) => {
@@ -73,8 +89,12 @@ export class SimulatorTableService {
                       frameworkIds: [...frameworkIds],
                       algorithms: value.algorithms,
                       algorithmIds: [...algorithmIds],
-                      formats: value.formats,
-                      formatIds: [...formatIds],
+                      modelFormats: value.modelFormats,
+                      modelFormatIds: [...modelFormatIds],
+                      simulationFormats: value.simulationFormats,
+                      simulationFormatIds: [...simulationFormatIds],
+                      archiveFormats: value.archiveFormats,
+                      archiveFormatIds: [...archiveFormatIds],
                       image: simulator.image || undefined,
                       validated: simulator?.biosimulators?.validated,
                     };
@@ -104,10 +124,10 @@ export class SimulatorTableService {
     );
   }
 
-  getFormats(simulator: any): Observable<string[]> {
+  getFormats(simulator: any, formatType: string): Observable<string[]> {
     const formats: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
-      for (const format of algorithm.modelFormats) {
+      for (const format of algorithm[formatType]) {
         formats.add(format.id as string);
       }
     }
@@ -145,7 +165,9 @@ export class SimulatorTableService {
   getAlgorithms(simulator: any): Observable<string[]> {
     const algorithms: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
-      algorithms.add(algorithm.kisaoId.id);
+      if (algorithm.kisaoId) {
+        algorithms.add(algorithm.kisaoId.id);
+      }
     }
 
     const alg: Observable<string>[] = [];
