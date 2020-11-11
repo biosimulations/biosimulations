@@ -142,34 +142,64 @@
             <li>Set the <code>ENTRYPOINT</code> directive to the path to your command-line interface.</li>
             <li>Set the <code>CMD</code> directive to <code>[]</code>.</li>
             <li>
-              <p>Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is necessary to also submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
+              <p class="no-bottom-margin">Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is necessary to also submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
               <ul>
-                <li><code>version</code>: the version of your image (e.g., <code>1.0.0</code>)</li>
-                <li><code>software</code>: the simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
-                <li><code>software.version</code>: the version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
-                <li><code>about.summary</code>: short description of the simulation tool (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
-                <li><code>about.home</code>: URL for the simulation tool (e.g., <code>https://bionetgen.org/</code>).</li>
-                <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
-                <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
-                <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.dev/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
-                <li><code>about.tags</code>: comma-separated list of tags which describe the simulation tool (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Plese include the tag <code>BioSimulators</code>.</li>
-                <li><code>extra.identifiers.biotools</code>: optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
-                <li><code>maintainer</code>: the name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+                <li>Open Containers Initiative <a href="https://opencontainers.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> labels
+                  <ul>
+                    <li><code>org.opencontainers.image.title</code>: Human-readable title of the image.</li>
+                    <li><code>org.opencontainers.image.version</code>: Version of the software in the image.</li>
+                    <li><code>org.opencontainers.image.revision</code>: Source control revision identifier of the software in the image.</li>
+                    <li><code>org.opencontainers.image.description</code>: Human-readable description of the software in the image.</li>
+                    <li><code>org.opencontainers.image.url</code>: URL to find more information about the image.</li>
+                    <li><code>org.opencontainers.image.documentation</code>: URL to get documentation about the image.</li>
+                    <li><code>org.opencontainers.image.source</code>: URL to get the Dockerfile for building the image.</li>
+                    <li><code>org.opencontainers.image.authors</code>: Contact details of the people or organization responsible for the image.</li>
+                    <li><code>org.opencontainers.image.vendor</code>: Name of the entity, organization or individual which distributes the image.</li>
+                    <li><code>org.opencontainers.image.licenses</code>: SPDX expression which describes the license(s) under which the software in the image is distributed.</li>
+                    <li><code>org.opencontainers.image.created</code>: Date and time when the image was built (RFC 3339).</li>
+                  </ul>
+                </li>
+                <li>BioContainers labels:
+                  <ul>
+                    <li><code>version</code>: the version of your image (e.g., <code>1.0.0</code>)</li>
+                    <li><code>software</code>: the simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
+                    <li><code>software.version</code>: the version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
+                    <li><code>about.summary</code>: short description of the simulation tool (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
+                    <li><code>about.home</code>: URL for the simulation tool (e.g., <code>https://bionetgen.org/</code>).</li>
+                    <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+                    <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
+                    <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.dev/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
+                    <li><code>about.tags</code>: comma-separated list of tags which describe the simulation tool (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Plese include the tag <code>BioSimulators</code>.</li>
+                    <li><code>extra.identifiers.biotools</code>: optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
+                    <li><code>maintainer</code>: the name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+                  </ul>
+                </li>
               </ul>
 
               <p>Below is an example of metadata for the BioNetGen image.</p>
-              <pre><code [languages]="['dockerfile']" highlight="LABEL base_image=&quot;ubuntu:18.04&quot;
-LABEL version=&quot;1.0.0&quot;
-LABEL software=&quot;BioNetGen&quot;
-LABEL software.version=&quot;2.5.0&quot;
-LABEL about.summary=&quot;Package for rule-based modeling of complex biochemical systems&quot;
-LABEL about.home=&quot;https://bionetgen.org/&quot;
-LABEL about.documentation=&quot;https://bionetgen.org/&quot;
-LABEL about.license_file=&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;
-LABEL about.license=&quot;SPDX:MIT&quot;
-LABEL about.tags=&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;
-LABEL extra.identifiers.biotools=&quot;bionetgen&quot;
-LABEL maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
+              <pre><code [languages]="['dockerfile']" highlight="LABEL \
+  org.opencontainers.image.title=&quot;BioNetGen&quot; \
+  org.opencontainers.image.version=&quot;2.5.0&quot; \
+  org.opencontainers.image.description=&quot;Package for rule-based modeling of complex biochemical systems&quot; \
+  org.opencontainers.image.url=&quot;https://bionetgen.org/&quot; \
+  org.opencontainers.image.documentation=&quot;https://bionetgen.org/&quot; \
+  org.opencontainers.image.source=&quot;https://github.com/biosimulators/biosimulators_bionetgen&quot; \
+  org.opencontainers.image.authors=&quot;BioSimulators Team &lt;info@biosimulators.org&gt;&quot; \
+  org.opencontainers.image.vendor=&quot;BioSimulators Team&quot; \
+  org.opencontainers.image.licenses=&quot;MIT&quot; \
+  \
+  base_image=&quot;ubuntu:18.04&quot;
+  version=&quot;1.0.0&quot;
+  software=&quot;BioNetGen&quot;
+  software.version=&quot;2.5.0&quot;
+  about.summary=&quot;Package for rule-based modeling of complex biochemical systems&quot;
+  about.home=&quot;https://bionetgen.org/&quot;
+  about.documentation=&quot;https://bionetgen.org/&quot;
+  about.license_file=&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;
+  about.license=&quot;SPDX:MIT&quot;
+  about.tags=&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;
+  extra.identifiers.biotools=&quot;bionetgen&quot;
+  maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
           </ul>
         </li>
         <li>
