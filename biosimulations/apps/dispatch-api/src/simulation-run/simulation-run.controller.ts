@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Put,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -24,8 +25,7 @@ import {
   ApiProperty,
   ApiTags,
 } from '@nestjs/swagger';
-import { throws } from 'assert';
-import { fstat } from 'fs';
+import { Response } from 'express';
 import {
   SimulationRun,
   SimulationUpload,
@@ -125,5 +125,21 @@ export class SimulationRunController {
   @Delete()
   deleteAll(@Param() id: string, @Body() run: SimulationRun) {
     this.service.deleteAll(id);
+  }
+
+  @ApiOperation({
+    description: 'Download the OMEX file for the Simulation Run',
+  })
+  @Get(':id/download')
+  async download(@Param('id') id: string, @Res() response: Response) {
+    // TODO can this can be done without using the Res decorator?
+    // See https://docs.nestjs.com/controllers#request-object
+    const file = await this.service.download(id);
+    console.log(file.buffer);
+    response.setHeader('Content-Type', file.mimetype);
+    const contentDisposition = `attachment; filename=${file.originalname}`;
+    response.setHeader('Content-Disposition', contentDisposition);
+
+    response.send(file.buffer);
   }
 }

@@ -1,7 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  MethodNotAllowedException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { SimulationRun, UpdateSimulationRun } from './simulation-run.dto';
-import { SimulationFile } from './file.model';
+import { SimulationFile, SimulationFileSchema } from './file.model';
 import { Model, Mongoose } from 'mongoose';
 import {
   SimulationRunModel,
@@ -14,20 +19,55 @@ const toApi = (obj: any) => {
 };
 @Injectable()
 export class SimulationRunService {
+  async download(
+    id: string
+  ): Promise<{
+    size: number;
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
+    encoding: string;
+  }> {
+    const file = await this.simulationRunModel.findById(id, { file: 1 }).exec();
+
+    const fileId = (file?.file as any) as string;
+
+    if (!!fileId) {
+      const SimFile = await this.fileModel
+        .findOne(
+          { _id: fileId },
+          { size: 1, mimetype: 1, buffer: 1, originalname: 1, encoding: 1 }
+        )
+        .exec();
+      if (!!SimFile) {
+        return {
+          size: SimFile.size,
+          mimetype: SimFile.mimetype,
+          buffer: Buffer.from(SimFile.buffer.buffer),
+          encoding: SimFile.encoding,
+          originalname: SimFile.originalname,
+        };
+      } else {
+        throw new NotFoundException('File not found');
+      }
+    } else {
+      throw new NotFoundException(`No SimulationRun with id ${id} found`);
+    }
+  }
   deleteAll(id: string) {
-    throw new Error('Method not implemented.');
+    throw new MethodNotAllowedException('Cannot call this method');
   }
   delete(id: string) {
-    throw new Error('Method not implemented.');
+    throw new MethodNotAllowedException('Cannot call this method');
   }
   update(id: string, run: UpdateSimulationRun) {
-    throw new Error('Method not implemented.');
+    throw new MethodNotAllowedException('Cannot call this method');
   }
   async getAll() {
     return (await this.simulationRunModel.find().lean().exec()).map(toApi);
   }
   get(id: string) {
-    throw new Error('Method not implemented.');
+    throw new MethodNotAllowedException('Cannot call this method');
   }
   async createRun(run: SimulationRun, file: any): Promise<SimulationRunModel> {
     const fileParsed = {
