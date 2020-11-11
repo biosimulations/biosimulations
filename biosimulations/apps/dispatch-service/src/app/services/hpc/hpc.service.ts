@@ -144,16 +144,16 @@ export class HpcService {
 
   }
 
-  
-  async scancelJob(jobId: string): Promise<string | void | {}> {
+
+  async scancelJob(jobId: string): Promise<{ stdout: any, stderr: any }> {
     // TODO: Implement with non-root user
-    const scancelJobData = await this.sshService.execStringCommand(
+    return await this.sshService.execStringCommand(
       `scancel ${jobId}`
     ).catch((error) => {
       this.logger.error('Cannot cancel the job, ' + JSON.stringify(error));
       return {
         stdout: stdout,
-        stderror: stderr,
+        stderr: stderr,
       }
     });
   }
