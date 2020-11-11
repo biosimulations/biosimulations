@@ -98,8 +98,8 @@ export class ViewComponent implements OnInit {
     // const sedml = this.sedmls[0];
     // this.formGroup.controls.sedml.setValue(sedml);
 
-    this.setSedml();
     this.setSimulationInfo();
+    this.setSedml();
   }
 
   setSedml(): void {
