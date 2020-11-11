@@ -1,3 +1,9 @@
+/**
+ * @file Provides methods that imnplement the CRUD operations on the Simulation Runs in the mongo database. Is used by the controller to excute the user requests from the HTTP API.
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import {
   BadRequestException,
   Injectable,
@@ -12,11 +18,14 @@ import {
   SimulationRunModel,
   SimulationRunModelSchema,
 } from './simulation-run.model';
+
+// TODO provide typing here
 const toApi = (obj: any) => {
   delete obj.__v;
   delete obj._id;
   return obj;
 };
+
 @Injectable()
 export class SimulationRunService {
   async download(

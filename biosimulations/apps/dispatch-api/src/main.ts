@@ -1,6 +1,9 @@
 /**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
+ * @file  The main file to run the server. Largley based on the template. Contains the express middlewares that need to be loaded such as CORS. Also provides the Open API document base that is filled in by the NestJS/swagger module.
+ * @author Bilal Shaikh
+ * @author Akhil Marupilla
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
  */
 
 import { Logger } from '@nestjs/common';
@@ -47,9 +50,6 @@ async function bootstrap() {
   const removeIcon = ' .swagger-ui .topbar { display: none }';
   // Swagger doc
   const tags = [
-    { name: 'Dispatch', description: '' },
-    { name: 'Simulators', description: '' },
-    { name: 'Database', description: '' },
     {
       name: 'Simulation Runs',
       description:
@@ -62,19 +62,23 @@ async function bootstrap() {
     },
   ];
   const builder = new DocumentBuilder()
-    .setTitle('Simulation dispatch')
+    .setTitle('runBioSimulations API')
     .setDescription(
-      'Dispatch API allows dispatching of simulation jobs to UConn HPC'
+      'API to submit and manage simulations jobs to the runBioSimulations Service'
     )
     .setVersion('0.1');
+
   for (const tag of tags) {
     builder.addTag(tag.name, tag.description);
   }
+
   const options = builder.build();
+
   const document = SwaggerModule.createDocument(app, options);
+
   SwaggerModule.setup('', app, document, {
     customfavIcon: favIcon,
-    customSiteTitle: 'Dispatch API BioSimulations',
+    customSiteTitle: 'runBioSimulations API',
     customCss: removeIcon,
   });
 

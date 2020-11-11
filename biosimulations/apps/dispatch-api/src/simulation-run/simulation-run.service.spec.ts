@@ -1,3 +1,9 @@
+/**
+ * @file Contains tests for the simulation run service
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from 'nestjs-typegoose';
 import { SimulationFile } from './file.model';

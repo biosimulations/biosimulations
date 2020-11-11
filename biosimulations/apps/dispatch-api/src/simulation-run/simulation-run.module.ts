@@ -1,3 +1,11 @@
+/**
+ * @file Module file declares the controller for Simulation Runs and provides the service for accessing the database collection. Requires the Mongoose module to imported to the top level app.
+ *       Also includes the feature module for the Simulation run and Simulation File models.
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
+
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationFile, SimulationFileSchema } from './file.model';

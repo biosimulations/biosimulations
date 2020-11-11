@@ -1,3 +1,9 @@
+/**
+ * @file Provides the controller for HTTP API for the results of Simulation Runs. Get/Download operations are intended for end users. Post/Modification methods are intended for other services/admin/service users.
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import {
   Body,
   Controller,

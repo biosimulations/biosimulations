@@ -1,3 +1,9 @@
+/**
+ * @file Contains the DTO specification for the simulation run object, as well as the multipart/form-data request for uploading a new simulation
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import {
   ApiProperty,
   ApiPropertyOptional,

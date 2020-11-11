@@ -1,3 +1,9 @@
+/**
+ * @file Test file for the results service
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsModel } from './results.model';

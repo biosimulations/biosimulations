@@ -1,3 +1,9 @@
+/**
+ * @file Contains the controller for CRUD operations on simulation runs
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team 2020
+ * @license MIT
+ */
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
@@ -22,7 +28,6 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiPayloadTooLargeResponse,
-  ApiProperty,
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';

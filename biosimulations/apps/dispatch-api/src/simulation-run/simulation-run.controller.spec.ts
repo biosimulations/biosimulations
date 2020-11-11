@@ -6,6 +6,12 @@ import { SimulationRunController } from './simulation-run.controller';
 import { SimulationRunModel } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 
+/**
+ * @file Test file for controller
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 describe('SimulationRunsController', () => {
   let controller: SimulationRunController;
   class mockFile {

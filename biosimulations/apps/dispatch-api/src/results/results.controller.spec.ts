@@ -1,3 +1,9 @@
+/**
+ * @file Test file for the results controller
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';

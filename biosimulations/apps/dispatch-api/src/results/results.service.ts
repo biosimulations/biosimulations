@@ -1,3 +1,9 @@
+/**
+ * @file Service for implementing the methods of the controller. Relies on the mongoose model for results being injected.
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
