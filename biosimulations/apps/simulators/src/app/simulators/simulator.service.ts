@@ -9,7 +9,7 @@ import { Simulator } from '@biosimulations/simulators/api-models';
 export interface Version {
   version: string;
   created: Date;
-  image: string;
+  image?: string;
   url?: string;
   validated: boolean;
 }
@@ -62,7 +62,7 @@ export class SimulatorService {
           if (sim.id === simId) {
             versions.push({
               version: sim.version,
-              image: sim.image,
+              image: sim.image || undefined,
               created: sim.created,
               url: sim.url,
               validated: sim?.biosimulators?.validated,
