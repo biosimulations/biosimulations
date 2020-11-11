@@ -29,14 +29,18 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { ModelsService } from './resources/models/models.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private appService: AppService,
-    private modelsService: ModelsService
+    private modelsService: ModelsService,
+    private readonly configService: ConfigService
   ) {}
+  private fileStorage: string = this.configService.get<string>(
+    'hpc.fileStorage', '');
 
   @ApiTags('Dispatch')
   @Post('dispatch')
@@ -193,8 +197,7 @@ export class AppController implements OnApplicationBootstrap {
     }
 
     for (const uuid of uuids) {
-      const filePath = process.env.FILE_STORAGE;
-      const uuidPath = `${filePath}/simulations/${uuid}`;
+      const uuidPath = `${this.fileStorage}/simulations/${uuid}`;
       FileModifiers.rmrfDir(uuidPath);
     }
 
