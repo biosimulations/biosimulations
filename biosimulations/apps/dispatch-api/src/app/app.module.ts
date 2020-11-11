@@ -38,12 +38,12 @@ import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
       inject: [ConfigService],
     }),
     CacheModule.register(),
-    ModelsModule,
+
     SimulationRunModule,
     SharedExceptionsModule,
   ],
 
-  controllers: [AppController],
+  controllers: [],
   providers: [
     {
       provide: 'DISPATCH_MQ',
@@ -56,7 +56,6 @@ import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
       },
       inject: [ConfigService],
     },
-    AppService,
   ],
 })
 export class AppModule {}
