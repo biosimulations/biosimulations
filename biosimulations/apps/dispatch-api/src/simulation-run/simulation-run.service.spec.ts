@@ -1,13 +1,11 @@
-import { SimulationResultsFormat } from '@biosimulations/datamodel/common';
-import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
+import { getModelToken } from 'nestjs-typegoose';
 import { SimulationFile } from './file.model';
-import { SimulationRunController } from './simulation-run.controller';
 import { SimulationRunModel } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 
-describe('SimulationRunsController', () => {
-  let controller: SimulationRunController;
+describe('SimulationRunService', () => {
+  let service: SimulationRunService;
   class mockFile {
     data: any;
     save: () => any;
@@ -20,7 +18,6 @@ describe('SimulationRunsController', () => {
   }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [SimulationRunController],
       providers: [
         SimulationRunService,
         {
@@ -34,10 +31,10 @@ describe('SimulationRunsController', () => {
       ],
     }).compile();
 
-    controller = module.get<SimulationRunController>(SimulationRunController);
+    service = module.get<SimulationRunService>(SimulationRunService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(service).toBeDefined();
   });
 });

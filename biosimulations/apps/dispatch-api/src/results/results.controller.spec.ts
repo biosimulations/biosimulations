@@ -1,12 +1,31 @@
+import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
+import { ResultsModel } from './results.model';
+import { ResultsService } from './results.service';
 
 describe('ResultsController', () => {
   let controller: ResultsController;
-
+  class mockFile {
+    data: any;
+    save: () => any;
+    constructor(body: any) {
+      this.data = body;
+      this.save = () => {
+        return this.data;
+      };
+    }
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResultsController],
+      providers: [
+        ResultsService,
+        {
+          provide: getModelToken(ResultsModel.name),
+          useClass: mockFile,
+        },
+      ],
     }).compile();
 
     controller = module.get<ResultsController>(ResultsController);
