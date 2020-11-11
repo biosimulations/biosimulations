@@ -14,6 +14,7 @@ import { ModelsModule } from './resources/models/models.module';
 import { AppService } from './app.service';
 import { SimulationRunModule } from '../simulation-run/simulation-run.module';
 import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
+import { ResultsModule } from '../results/results.module';
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -40,6 +41,7 @@ import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
     CacheModule.register(),
 
     SimulationRunModule,
+    ResultsModule,
     SharedExceptionsModule,
   ],
 
