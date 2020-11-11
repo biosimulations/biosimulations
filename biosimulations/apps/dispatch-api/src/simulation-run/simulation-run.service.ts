@@ -38,7 +38,7 @@ export class SimulationRunService {
       size: file.size,
     };
 
-    let newFile = new this.fileModel(fileParsed);
+    const newFile = new this.fileModel(fileParsed);
     const newSimulationRun = new this.simulationRunModel(run);
     newSimulationRun.id = newSimulationRun._id;
     newSimulationRun.file = newFile;
@@ -49,7 +49,7 @@ export class SimulationRunService {
 
     // TODO determine if there is a better way to do this. Need to ensure that file is saved properly, if not delete the model entry
     // Unclear if I should use a promise.all here. Since promise is created before await, this should be efficient either way.
-
+    // The method will probably? still return even if the new run is removed. That would need to be fixed to retun an error instead
     filePromise.catch((reason) => {
       newSimulationRun.remove();
     });
