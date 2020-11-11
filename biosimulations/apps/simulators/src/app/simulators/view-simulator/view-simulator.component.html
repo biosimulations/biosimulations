@@ -48,13 +48,13 @@
       </div>
       <div class="column border">
         <div class="section" *ngIf="simulator.image">
-          <h3>Run simulations online with runBioSimulations</h3>
+          <h3>BioSimulators-compliant Docker image</h3>
           <div class="section-content">
             <ul class="icon-list">
               <li>
-                <biosimulations-icon icon="simulator"></biosimulations-icon>
-                <a [href]="dispatchAppRunUrl" target="_blank" class="text">
-                  {{ dispatchAppUrl }}
+                <biosimulations-icon icon="docker"></biosimulations-icon>
+                <a [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id" target="_blank" class="text">
+                  ghcr.io/biosimulators/{{ simulator.id }}
                 </a>
               </li>
             </ul>
@@ -75,6 +75,20 @@
               <biosimulations-icon icon="copy"></biosimulations-icon>
             </button>
             <div class="clear-float"></div>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator.image">
+          <h3>Run simulations online with runBioSimulations</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="simulator"></biosimulations-icon>
+                <a [href]="dispatchAppRunUrl" target="_blank" class="text">
+                  {{ dispatchAppUrl }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 

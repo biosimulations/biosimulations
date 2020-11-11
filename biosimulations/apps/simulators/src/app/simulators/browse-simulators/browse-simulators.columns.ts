@@ -154,8 +154,8 @@ export const columns: Column[] = [
     id: 'image',
     heading: 'Image',
     key: 'image',
-    formatter: (value: string | undefined): string => {
-      return value ? '✔' : '';
+    formatter: (value: string | undefined): null => {
+      return null;
     },
     stackedFormatter: (value: string | undefined): string => {
       return value ? value : 'Not available';
@@ -163,10 +163,35 @@ export const columns: Column[] = [
     filterFormatter: (value: string | undefined): string => {
       return value ? 'Yes' : 'No';
     },
+    centerAction: ColumnActionType.href,
+    rightAction: ColumnActionType.href,
+    centerHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+      } else {
+        return null;
+      }
+    },
+    rightHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+      } else {
+        return null;
+      }
+    },
+    rightIcon: 'docker',
+    rightIconTitle: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'BioSimulators-compliant Docker image';
+      } else {
+        return null;
+      }
+    },
     filterable: true,
     show: false,
     minWidth: 60,
     center: true,
+    rightShowStacked: false,
   },
   {
     id: 'validated',

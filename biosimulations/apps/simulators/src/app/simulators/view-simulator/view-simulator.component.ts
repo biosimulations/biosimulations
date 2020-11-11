@@ -160,18 +160,12 @@ export class ViewSimulatorComponent implements OnInit {
           return 'Not available';
         }
       },
-      rightIcon: 'copy',
-      rightIconTitle: (version: ViewVersion): string | null => {
+      centerAction: ColumnActionType.href,
+      centerHref: (version: ViewVersion): string | null => {
         if (version.image) {
-          return 'Copy to clipboard';
+          return 'https://github.com/orgs/biosimulators/packages/container/package/' + this.id;
         } else {
           return null;
-        }
-      },
-      rightAction: ColumnActionType.click,
-      rightClick: (version: ViewVersion): void => {
-        if (version.image) {
-          this.copyDockerPullCmd(version.image);
         }
       },
       minWidth: 610,
