@@ -79,7 +79,7 @@ export interface ViewCitation {
 export interface ViewVersion {
   label: string;
   created: string;
-  image: string;
+  image?: string;
   url?: string;
   validated: boolean;
 }
@@ -90,7 +90,7 @@ export interface ViewSimulator {
   version: string;
   name: string;
   description: string | null;
-  image: string;
+  image?: string;
   url: string;
   licenseUrl: Observable<string>;
   licenseName: Observable<string>;

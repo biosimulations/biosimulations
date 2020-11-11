@@ -1,6 +1,7 @@
 export interface TableSimulator {
   id: string;
   name: string;
+  image?: string;
   frameworks: string[];
   frameworkIds: string[];
   algorithms: string[];

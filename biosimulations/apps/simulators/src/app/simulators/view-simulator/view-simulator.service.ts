@@ -77,7 +77,7 @@ export class ViewSimulatorService {
       id: sim.id,
       version: sim.version,
       name: sim.name,
-      image: sim.image,
+      image: sim.image || undefined,
       description: sim.description,
       url: sim.url,
       authors: this.getAuthors(sim),
@@ -105,7 +105,7 @@ export class ViewSimulatorService {
       created: this.getDateStr(new Date(sim.created)),
       updated: this.getDateStr(new Date(sim.updated)),
     };
-    
+
     const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
       (algorithms: ViewAlgorithm[] | undefined) => {
@@ -205,7 +205,7 @@ export class ViewSimulatorService {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
       url: value.url,
-      image: value.image,
+      image: value.image || undefined,
       validated: value.validated,
     };
   }
@@ -330,6 +330,7 @@ export class ViewSimulatorService {
       '-' +
       (date.getMonth() + 1).toString().padStart(2, '0') +
       '-' +
-      date.getDate().toString().padStart(2, '0'));
+      date.getDate().toString().padStart(2, '0')
+    );
   }
 }

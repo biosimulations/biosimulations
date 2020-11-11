@@ -153,13 +153,20 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'image',
       heading: 'Image',
       key: 'image',
-      rightIcon: 'copy',
-      rightIconTitle: (): string => {
-        return 'Copy to clipboard';
+      stackedFormatter: (image: string | undefined): string => {
+        if (image) {
+          return image;
+        } else {
+          return 'Not available';
+        }
       },
-      rightAction: ColumnActionType.click,
-      rightClick: (version: ViewVersion): void => {
-        this.copyDockerPullCmd(version.image);
+      centerAction: ColumnActionType.href,
+      centerHref: (version: ViewVersion): string | null => {
+        if (version.image) {
+          return 'https://github.com/orgs/biosimulators/packages/container/package/' + this.id;
+        } else {
+          return null;
+        }
       },
       minWidth: 610,
     },
@@ -238,7 +245,7 @@ export class ViewSimulatorComponent implements OnInit {
           simulator = this.simService.getVersion(id, version);
         } else {
           simulator = this.simService.getLatest(id);
-        }        
+        }
         simulator.subscribe(this.processSimulator.bind(this));
         return simulator;
       }),

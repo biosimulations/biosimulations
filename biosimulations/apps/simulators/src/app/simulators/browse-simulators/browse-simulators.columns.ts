@@ -151,17 +151,63 @@ export const columns: Column[] = [
     minWidth: 132,
   },
   {
+    id: 'image',
+    heading: 'Image',
+    key: 'image',
+    formatter: (value: string | undefined): null => {
+      return null;
+    },
+    stackedFormatter: (value: string | undefined): string => {
+      return value ? value : 'Not available';
+    },
+    filterFormatter: (value: string | undefined): string => {
+      return value ? 'Yes' : 'No';
+    },
+    centerAction: ColumnActionType.href,
+    rightAction: ColumnActionType.href,
+    centerHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+      } else {
+        return null;
+      }
+    },
+    rightHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+      } else {
+        return null;
+      }
+    },
+    rightIcon: 'docker',
+    rightIconTitle: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'BioSimulators-compliant Docker image';
+      } else {
+        return null;
+      }
+    },
+    filterable: true,
+    show: false,
+    minWidth: 60,
+    center: true,
+    rightShowStacked: false,
+  },
+  {
     id: 'validated',
     heading: 'Validated',
     key: 'validated',
     formatter: (value: boolean): string => {
-      return value ? '✔' : '✖';
+      return value ? '✔' : '';
+    },
+    stackedFormatter: (value: boolean): string => {
+      return value ? 'Yes' : 'No';
     },
     filterFormatter: (value: boolean): string => {
       return value ? 'Yes' : 'No';
     },
     filterable: true,
-    show: true,
+    show: false,
     minWidth: 99,
     center: true,
   },
@@ -195,23 +241,46 @@ export const columns: Column[] = [
     id: 'run',
     heading: 'Run',
     key: 'id',
-    formatter: (id: string): null => {
+    getter: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return element.id;
+      } else {
+        return null;
+      }
+    },
+    formatter: (id: string | undefined): null => {
       return null;
     },
-    stackedFormatter: (id: string): string => {
-      return 'https://run.biosimulations.org/run?simulator=' + id;
+    stackedFormatter: (id: string | undefined): string => {
+      if (id) {
+        return 'https://run.biosimulations.org/run?simulator=' + id;
+      } else {
+        return 'Not available';
+      }
     },
     rightIcon: 'simulator',
-    rightIconTitle: (element: TableSimulator): string => {
-      return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
+    rightIconTitle: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
+      } else {
+        return null;
+      }
     },
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
-    centerHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run?simulator=' + element.id;
+    centerHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://run.biosimulations.org/run?simulator=' + element.id;
+      } else {
+        return null;
+      }
     },
-    rightHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run?simulator=' + element.id;
+    rightHref: (element: TableSimulator): string | null  => {
+      if (element.image) {
+        return 'https://run.biosimulations.org/run?simulator=' + element.id;
+      } else {
+        return null;
+      }
     },
     rightShowStacked: false,
     minWidth: 40,

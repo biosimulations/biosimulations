@@ -11,7 +11,7 @@ export class SimulatorTableService {
   constructor(
     private service: SimulatorService,
     private ontologyService: OntologyService
-  ) { }
+  ) {}
 
   getData(): Observable<TableSimulator[]> {
     const data = this.service.getLatest().pipe(
@@ -19,69 +19,72 @@ export class SimulatorTableService {
       map((simulators: Simulator[]) => {
         // Go through the array and convert each api object to a an observable of a table object
         //Array of table object observables
-        const tableSimulatorObservables = simulators.map((simulator: Simulator) => {
-          // Simulator is a api object
-          //Use the data to get the definitions for all additional calls
-          const frameworks = this.getFrameworks(simulator);
-          const algorithms = this.getAlgorithms(simulator);
-          const formats = this.getFormats(simulator);
-          const license = this.getLicense(simulator);
+        const tableSimulatorObservables = simulators.map(
+          (simulator: Simulator) => {
+            // Simulator is a api object
+            //Use the data to get the definitions for all additional calls
+            const frameworks = this.getFrameworks(simulator);
+            const algorithms = this.getAlgorithms(simulator);
+            const formats = this.getFormats(simulator);
+            const license = this.getLicense(simulator);
 
-          // These are all observables of string[] that need to be collapsed
-          const innerObservables = {
-            frameworks: frameworks,
-            algorithms: algorithms,
-            formats: formats,
-            license: license,
-          };
+            // These are all observables of string[] that need to be collapsed
+            const innerObservables = {
+              frameworks: frameworks,
+              algorithms: algorithms,
+              formats: formats,
+              license: license,
+            };
 
-          const frameworkIds = new Set<string>();
-          const algorithmIds = new Set<string>();
-          const formatIds = new Set<string>();
-          for (const alg of simulator.algorithms) {
-            for (const framework of alg.modelingFrameworks) {
-              frameworkIds.add(framework.id);
+            const frameworkIds = new Set<string>();
+            const algorithmIds = new Set<string>();
+            const formatIds = new Set<string>();
+            for (const alg of simulator.algorithms) {
+              for (const framework of alg.modelingFrameworks) {
+                frameworkIds.add(framework.id);
+              }
+              algorithmIds.add(alg.kisaoId.id);
+              for (const format of alg.modelFormats) {
+                formatIds.add(format.id);
+              }
             }
-            algorithmIds.add(alg.kisaoId.id);
-            for (const format of alg.modelFormats) {
-              formatIds.add(format.id);
-            }
-          }
-          const licenseId = simulator.license.id
+            const licenseId = simulator.license.id;
 
-          //Observable of the table object
-          const tableSimulatorObservable = of(innerObservables).pipe(
-            mergeMap((sourceValue) =>
-              forkJoin({
-                algorithms: sourceValue.algorithms,
-                frameworks: sourceValue.frameworks,
-                formats: sourceValue.formats,
-                license: license,
-              }).pipe(
-                map((value) => {
-                  // Table simulator
-                  return {
-                    id: simulator.id,
-                    name: simulator.name,
-                    latestVersion: simulator.version,
-                    url: simulator.url,
-                    created: new Date(simulator.created),
-                    license: value.license,
-                    licenseId: '',
-                    frameworks: value.frameworks,
-                    frameworkIds: [...frameworkIds],
-                    algorithms: value.algorithms,
-                    algorithmIds: [...algorithmIds],
-                    formats: value.formats,
-                    formatIds: [...formatIds],
-                    validated: simulator?.biosimulators?.validated,
-                  };
-                })
+            //Observable of the table object
+            const tableSimulatorObservable = of(innerObservables).pipe(
+              mergeMap((sourceValue) =>
+                forkJoin({
+                  algorithms: sourceValue.algorithms,
+                  frameworks: sourceValue.frameworks,
+                  formats: sourceValue.formats,
+                  license: license,
+                }).pipe(
+                  map((value) => {
+                    // Table simulator
+                    return {
+                      id: simulator.id,
+                      name: simulator.name,
+                      latestVersion: simulator.version,
+                      url: simulator.url,
+                      created: new Date(simulator.created),
+                      license: value.license,
+                      licenseId: '',
+                      frameworks: value.frameworks,
+                      frameworkIds: [...frameworkIds],
+                      algorithms: value.algorithms,
+                      algorithmIds: [...algorithmIds],
+                      formats: value.formats,
+                      formatIds: [...formatIds],
+                      image: simulator.image || undefined,
+                      validated: simulator?.biosimulators?.validated,
+                    };
+                  })
+                )
               )
-            )
-          );
-          return tableSimulatorObservable;
-        });
+            );
+            return tableSimulatorObservable;
+          }
+        );
 
         const observableTableSimulators = from(tableSimulatorObservables).pipe(
           mergeAll(),

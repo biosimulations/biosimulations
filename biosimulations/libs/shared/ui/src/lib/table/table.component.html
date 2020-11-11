@@ -120,7 +120,7 @@
                       </mat-list-item>
                     </mat-list>
                     <button mat-icon-button class="biosimulations-icon-button text filter-set-clear-all" (click)="clearFilter(column)">
-                      Clear filter 
+                      Clear filter
                     </button>
                   </ng-container>
                 </ng-template>
@@ -254,7 +254,7 @@
 
               <ng-template #leftTemplate let-icon="icon">
                 <biosimulations-icon
-                  *ngIf="icon"
+                  *ngIf="icon && element._cache[column.id].left.iconTitle"
                   [icon]="icon"
                   [title]="element._cache[column.id].left.iconTitle"
                 ></biosimulations-icon>
@@ -376,7 +376,7 @@
 
               <ng-template #rightTemplate let-icon="icon">
                 <biosimulations-icon
-                  *ngIf="icon"
+                  *ngIf="icon && element._cache[column.id].right.iconTitle"
                   [icon]="icon"
                   [title]="element._cache[column.id].right.iconTitle"
                 ></biosimulations-icon>
