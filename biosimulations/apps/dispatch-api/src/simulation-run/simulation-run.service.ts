@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { SimulationRun } from './simulation-run.dto';
+import { SimulationRun, UpdateSimulationRun } from './simulation-run.dto';
 import { SimulationFile } from './file.model';
 import { Model, Mongoose } from 'mongoose';
 import {
@@ -20,7 +20,7 @@ export class SimulationRunService {
   delete(id: string) {
     throw new Error('Method not implemented.');
   }
-  update(id: string, run: SimulationRun) {
+  update(id: string, run: UpdateSimulationRun) {
     throw new Error('Method not implemented.');
   }
   async getAll() {

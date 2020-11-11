@@ -6,6 +6,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   UploadedFile,
@@ -25,7 +26,11 @@ import {
 } from '@nestjs/swagger';
 import { throws } from 'assert';
 import { fstat } from 'fs';
-import { SimulationRun, SimulationUpload } from './simulation-run.dto';
+import {
+  SimulationRun,
+  SimulationUpload,
+  UpdateSimulationRun,
+} from './simulation-run.dto';
 import { SimulationRunService } from './simulation-run.service';
 
 @ApiTags('Simulation Runs')
@@ -98,8 +103,8 @@ export class SimulationRunController {
     description: 'Change the status or information of a simulation run',
   })
   // TODO limit this to admins/permission only. Can be used by service to update status
-  @Put(':id')
-  modfiyRun(@Param() id: string, @Body() run: SimulationRun) {
+  @Patch(':id')
+  modfiyRun(@Param() id: string, @Body() run: UpdateSimulationRun) {
     //TODO determine which feilds can be updated. Either in buissness logic or schema
     this.service.update(id, run);
   }

@@ -3,6 +3,7 @@ import {
   ApiPropertyOptional,
   ApiResponse,
   ApiResponseProperty,
+  PartialType,
 } from '@nestjs/swagger';
 import { SimulationRunStatus } from './simulation-run.model';
 
@@ -66,3 +67,21 @@ export class SimulationUpload {
   @ApiProperty({ type: SimulationRun })
   simulationRun!: SimulationRun;
 }
+export class PatchSimulationRun {
+  @ApiProperty({ type: Boolean })
+  public!: boolean;
+
+  @ApiProperty({ enum: SimulationRunStatus })
+  status!: SimulationRunStatus;
+
+  @ApiProperty({ example: 55 })
+  duration!: number;
+
+  @ApiProperty({ example: 1123 })
+  projectSize!: number;
+
+  @ApiProperty({ example: 11234 })
+  resultsSize!: number;
+}
+
+export class UpdateSimulationRun extends PartialType(PatchSimulationRun) {}
