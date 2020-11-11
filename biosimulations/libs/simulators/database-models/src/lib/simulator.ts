@@ -30,8 +30,8 @@ export class Simulator extends Document {
   @Prop({})
   url!: string;
 
-  @Prop({ required: false })
-  image!: string;
+  @Prop({ required: false, type: String, default: null })
+  image!: string | null;
 
   @Prop({ type: EdamOntologyIdSchema })
   format!: IEdamOntologyId;

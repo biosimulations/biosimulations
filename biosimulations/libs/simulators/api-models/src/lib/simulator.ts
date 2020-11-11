@@ -36,8 +36,10 @@ export class Simulator {
   @ApiProperty({
     example: 'ghcr.io/biosimulators/tellurium:2.1.6',
     nullable: true,
+    required: true,
+    type: String,
   })
-  image!: string;
+  image!: string | null;
 
   @ApiProperty({ type: EdamOntologyId })
   format!: EdamOntologyId;
