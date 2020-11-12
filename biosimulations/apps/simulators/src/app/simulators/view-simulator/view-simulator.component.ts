@@ -265,59 +265,6 @@ export class ViewSimulatorComponent implements OnInit {
     };
   }
 
-  formatKisaoDescription(value: string): DescriptionFragment[] {
-    const formattedValue = [];
-    let prevEnd = 0;
-
-    const regExp = /\[(https?:\/\/.*?)\]/gi;
-    let match;
-    while ((match = regExp.exec(value)) !== null) {
-      if (match.index > 0) {
-        formattedValue.push({
-          type: DescriptionFragmentType.text,
-          value: value.substring(prevEnd, match.index),
-        });
-      }
-      prevEnd = match.index + match[0].length;
-      formattedValue.push({
-        type: DescriptionFragmentType.href,
-        value: match[1],
-      });
-    }
-    if (prevEnd < value?.length) {
-      formattedValue.push({
-        type: DescriptionFragmentType.text,
-        value: value.substring(prevEnd),
-      });
-    }
-    return formattedValue;
-  }
-
-  makeCitation(citation: any): ViewCitation {
-    let text =
-      citation.authors +
-      '. ' +
-      citation.title +
-      '. <i>' +
-      citation.journal +
-      '</i>';
-    if (citation.volume) {
-      text += ' ' + citation.volume;
-    }
-    if (citation.issue) {
-      text += ' (' + citation.issue + ')';
-    }
-    if (citation.pages) {
-      text += ', ' + citation.pages;
-    }
-    text += ' (' + citation.year + ').';
-
-    return {
-      url: citation.identifiers[0].url as string,
-      text: text,
-    };
-  }
-
   tocSections!: Observable<TocSection[]>;
 
   @ViewChild(TocSectionsContainerDirective)
