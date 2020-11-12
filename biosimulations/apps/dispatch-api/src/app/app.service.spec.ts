@@ -47,6 +47,11 @@ describe('AppService', () => {
       ],
     }).compile();
   });
+  describe('test', () => {
+    it('test', () => {
+      expect(true).toEqual(true);
+    });
+  });
   // REMOVED non deterministic tests
   /*   describe('test getSimulators', () => {
     it('should return the versions of copasi bioSimulator', async () => {
