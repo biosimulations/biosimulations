@@ -11,6 +11,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -99,8 +100,25 @@ export class SimulationRunController {
   })
   @ApiOkResponse({ type: SimulationRun })
   @Get(':id')
-  getRun(@Param() id: string) {
-    return this.service.get(id);
+  async getRun(@Param('id') id: string): Promise<SimulationRun> {
+    const run = await this.service.get(id);
+    if (!!run) {
+      return new SimulationRun(
+        run.id,
+        run.name,
+        run.simulator,
+        run.simulatorVersion,
+        run.status,
+        run.public,
+        run.submitted,
+        run.updated,
+        run.duration,
+        run.projectSize,
+        run.resultsSize,
+        run.email
+      );
+    }
+    throw new NotFoundException(`No Simulation Run with id ${id}`);
   }
 
   @ApiOperation({

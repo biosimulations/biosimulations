@@ -28,6 +28,11 @@ const toApi = (obj: any) => {
 
 @Injectable()
 export class SimulationRunService {
+  /**
+   * Download the OMEX file for the provided id. The omex file is a ref on the object
+   * @param id The id of the simulation
+   *
+   */
   async download(
     id: string
   ): Promise<{
@@ -75,9 +80,17 @@ export class SimulationRunService {
   async getAll() {
     return (await this.simulationRunModel.find().lean().exec()).map(toApi);
   }
-  get(id: string) {
-    throw new MethodNotAllowedException('Cannot call this method');
+
+  get(id: string): Promise<SimulationRunModel | null> {
+    const run = this.simulationRunModel.findById(id).exec();
+    return run;
   }
+
+  /**
+   *
+   * @param run A POJO with the fields of the Simulation Run
+   * @param file The file object returned by the Mutter library containing the OMEX file
+   */
   async createRun(run: SimulationRun, file: any): Promise<SimulationRunModel> {
     const fileParsed = {
       originalname: file.originalname,
