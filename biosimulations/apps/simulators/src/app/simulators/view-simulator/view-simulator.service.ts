@@ -114,7 +114,7 @@ export class ViewSimulatorService {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
           });
           algorithms.forEach((algorithm: ViewAlgorithm): void => {
-            algorithm.parameters.forEach((parameter: ViewParameter): void => {
+            algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
                 parameter.type !==
                   AlgorithmParameterType[AlgorithmParameterType.integer] &&
@@ -156,7 +156,7 @@ export class ViewSimulatorService {
       modelFormats: value.modelFormats.map(this.getFormats, this),
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
-      parameters: value.parameters.map(this.getParameters, this),
+      parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],

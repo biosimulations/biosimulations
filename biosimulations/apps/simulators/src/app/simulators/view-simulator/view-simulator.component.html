@@ -302,7 +302,7 @@
                   class="table-container"
                   *ngIf="
                     algorithm?.parameters?.length > 0;
-                    else noParametersMessage
+                    else noCuratedParametersMessage
                   "
                 >
                   <biosimulations-responsive-table
@@ -322,8 +322,11 @@
                   >
                   </biosimulations-responsive-table>
                 </div>
-                <ng-template #noParametersMessage>
-                  <p class="info-message">This algorithm does not have any parameters.</p>
+                <ng-template #noCuratedParametersMessage>                  
+                  <p class="info-message" *ngIf="algorithm.parameters == null; else zeroParametersMessage">The parameters for {{ algorithm.name }} have not been curated.</p>
+                  <ng-template #zeroParametersMessage>
+                    <p class="info-message">{{ algorithm.name }} does not have any parameters.</p>
+                  </ng-template>
                 </ng-template>
 
                 <ng-container *ngIf="algorithm?.citations?.length > 0">

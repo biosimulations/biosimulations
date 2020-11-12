@@ -10,7 +10,7 @@ export interface ViewAlgorithm {
   modelFormats: ViewFormat[];
   simulationFormats: ViewFormat[];
   archiveFormats: ViewFormat[];
-  parameters: ViewParameter[];
+  parameters: ViewParameter[] | null;
   citations: ViewCitation[];
 }
 
@@ -24,7 +24,7 @@ export interface ViewAlgorithmObservable {
   modelFormats: Observable<ViewFormat>[];
   simulationFormats: Observable<ViewFormat>[];
   archiveFormats: Observable<ViewFormat>[];
-  parameters: ViewParameterObservable[];
+  parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
 }
 
