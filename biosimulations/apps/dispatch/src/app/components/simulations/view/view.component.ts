@@ -98,8 +98,10 @@ export class ViewComponent implements OnInit {
     // const sedml = this.sedmls[0];
     // this.formGroup.controls.sedml.setValue(sedml);
 
-    this.setSimulationInfo();
-    this.setSedml();
+    this.setSimulationInfo().then(() => {
+
+      this.setSedml();
+    });
   }
 
   setSedml(): void {
@@ -133,16 +135,16 @@ export class ViewComponent implements OnInit {
     }
   }
 
-  setSimulationInfo() {
-    const simulation = this.simulationService.getSimulationByUuid(this.uuid);
-    // console.log('simulation: ', simulation);
+  async setSimulationInfo() {
+    const simulation = await this.simulationService.getSimulationByUuid(this.uuid);
+    console.log(simulation);
     this.name = simulation.name;
     this.status = simulation.status;
     this.runtime = `${(simulation.runtime ? simulation.runtime : 0).toString()} sec`;
     this.submitted = new Date(simulation.submitted).toLocaleString();
     this.updated = new Date(simulation.updated).toLocaleString();
-    this.resultsSize = `${((simulation.resultSize ? simulation.resultSize:0) / 1024).toFixed(2).toString()} KB`;
-    this.projectSize = `${((simulation.projectSize ? simulation.projectSize:0) / 1024).toFixed(2).toString()} KB`;
+    this.resultsSize = `${((simulation.resultSize ? simulation.resultSize : 0) / 1024).toFixed(2).toString()} KB`;
+    this.projectSize = `${((simulation.projectSize ? simulation.projectSize : 0) / 1024).toFixed(2).toString()} KB`;
     this.projectUrl = `${urls.dispatchApi}/download/omex/${simulation.id}`;
     this.resultsUrl = `${urls.dispatchApi}/download/result/${simulation.id}`;
   }
