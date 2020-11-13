@@ -102,7 +102,7 @@ export class SimulationRunController {
   @Get(':id')
   async getRun(@Param('id') id: string): Promise<SimulationRun> {
     const run = await this.service.get(id);
-    if (!!run) {
+    if (run) {
       return new SimulationRun(
         run.id,
         run.name,
