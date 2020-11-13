@@ -113,9 +113,6 @@ export class PatchSimulationRun {
   @ApiProperty({ example: 55 })
   duration!: number;
 
-  @ApiProperty({ example: 1123 })
-  projectSize!: number;
-
   @ApiProperty({ example: 11234 })
   resultsSize!: number;
 }

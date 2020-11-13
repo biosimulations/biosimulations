@@ -7,6 +7,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   MethodNotAllowedException,
   NotFoundException,
 } from '@nestjs/common';
@@ -16,14 +17,17 @@ import { SimulationFile, SimulationFileSchema } from './file.model';
 import { Model, Mongoose } from 'mongoose';
 import {
   SimulationRunModel,
+  SimulationRunModelReturnType,
   SimulationRunModelSchema,
+  SimulationRunModelType,
 } from './simulation-run.model';
 
-// TODO provide typing here
-const toApi = (obj: any) => {
+const toApi = <T extends SimulationRunModelType>(
+  obj: T
+): SimulationRunModelReturnType => {
   delete obj.__v;
   delete obj._id;
-  return obj;
+  return (obj as any) as SimulationRunModelReturnType;
 };
 
 @Injectable()
@@ -42,11 +46,14 @@ export class SimulationRunService {
     mimetype: string;
     encoding: string;
   }> {
+    // Find the simulation with the id
     const file = await this.simulationRunModel.findById(id, { file: 1 }).exec();
 
+    //Get the id of the file
     const fileId = (file?.file as any) as string;
 
     if (fileId) {
+      // Get the file object from the db
       const SimFile = await this.fileModel
         .findOne(
           { _id: fileId },
@@ -54,6 +61,7 @@ export class SimulationRunService {
         )
         .exec();
       if (SimFile) {
+        // Return the file and metadata
         return {
           size: SimFile.size,
           mimetype: SimFile.mimetype,
@@ -62,28 +70,62 @@ export class SimulationRunService {
           originalname: SimFile.originalname,
         };
       } else {
+        // The simulator gave a file id, but not found
         throw new NotFoundException('File not found');
       }
     } else {
+      // The simulator did not give a file id
       throw new NotFoundException(`No SimulationRun with id ${id} found`);
     }
   }
-  deleteAll(id: string) {
-    throw new MethodNotAllowedException('Cannot call this method');
-  }
-  delete(id: string) {
-    throw new MethodNotAllowedException('Cannot call this method');
-  }
-  update(id: string, run: UpdateSimulationRun) {
-    throw new MethodNotAllowedException('Cannot call this method');
-  }
-  async getAll() {
-    return (await this.simulationRunModel.find().lean().exec()).map(toApi);
+
+  async deleteAll() {
+    const res = await this.simulationRunModel.deleteMany({}).exec();
+    if (!res.ok) {
+      throw new InternalServerErrorException(
+        `There was an error. Deleted ${res.deletedCount} out of ${res.n} documents`
+      );
+    }
   }
 
-  get(id: string): Promise<SimulationRunModel | null> {
-    const run = this.simulationRunModel.findById(id).exec();
-    return run;
+  async delete(id: string) {
+    const res = await this.simulationRunModel.findByIdAndDelete(id);
+    return res;
+  }
+
+  async update(
+    id: string,
+    run: UpdateSimulationRun
+  ): Promise<SimulationRunModelReturnType> {
+    const model = await this.simulationRunModel.findById(id);
+    if (model) {
+      model.duration = run.duration || model.duration;
+      model.resultsSize = run.resultsSize || model.resultsSize;
+      model.status = run.status || model.status;
+      return toApi(await model.save());
+    } else {
+      throw new NotFoundException(`Simulation Run with id ${id} was not found`);
+    }
+  }
+  async getAll(): Promise<SimulationRunModelReturnType[]> {
+    const res = await this.simulationRunModel
+      .find()
+      .lean()
+      .map((sims) => {
+        return sims.map((sim) => {
+          return toApi({ ...sim, id: sim._id });
+        });
+      });
+    return res;
+  }
+
+  async get(id: string): Promise<SimulationRunModelReturnType | null> {
+    const run = await this.simulationRunModel.findById(id).lean().exec();
+    let res = null;
+    if (run) {
+      res = toApi({ ...run, id: run._id });
+    }
+    return res;
   }
 
   /**
@@ -91,7 +133,10 @@ export class SimulationRunService {
    * @param run A POJO with the fields of the Simulation Run
    * @param file The file object returned by the Mutter library containing the OMEX file
    */
-  async createRun(run: SimulationRun, file: any): Promise<SimulationRunModel> {
+  async createRun(
+    run: SimulationRun,
+    file: any
+  ): Promise<SimulationRunModelReturnType> {
     const fileParsed = {
       originalname: file.originalname,
       encoding: file.encoding,
@@ -104,21 +149,25 @@ export class SimulationRunService {
     const newSimulationRun = new this.simulationRunModel(run);
     newSimulationRun.id = newSimulationRun._id;
     newSimulationRun.file = newFile;
+    newSimulationRun.projectSize = newFile.size;
     newSimulationRun.depopulate('file');
 
     const filePromise = newFile.save();
     const modelPromise = newSimulationRun.save();
 
-    // TODO determine if there is a better way to do this. Need to ensure that file is saved properly, if not delete the model entry
-    // Unclear if I should use a promise.all here. Since promise is created before await, this should be efficient either way.
-    // The method will probably? still return even if the new run is removed. That would need to be fixed to retun an error instead
+    /* Determine if there is a better way to do this. Need to ensure that file is saved properly, if not delete the model entry
+    Unclear if I should use a promise.all here. Since promise is created before await, this should be efficient either way.
+    The method will probably? still return even if the new run is removed. That would need to be fixed to retun an error instead */
+
     filePromise.catch((reason) => {
       newSimulationRun.remove();
+      throw new InternalServerErrorException('Could not save the file');
     });
 
     const modelRes = await modelPromise;
+    //Wait for this to resolve to make sure that the model is deleted if needed.
     const fileRes = await filePromise;
-    return modelRes;
+    return toApi(modelRes);
   }
   constructor(
     @InjectModel(SimulationFile.name) private fileModel: Model<SimulationFile>,

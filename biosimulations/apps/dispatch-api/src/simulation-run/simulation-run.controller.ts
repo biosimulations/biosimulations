@@ -79,19 +79,37 @@ export class SimulationRunController {
   // Set a file size limit close to 16mb which is the mongodb limit
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 16000000 } }))
   @Post()
-  createRun(@Body() run: { simulationRun: string }, @UploadedFile() file: any) {
+  async createRun(
+    @Body() body: { simulationRun: string },
+    @UploadedFile() file: any
+  ): Promise<SimulationRun> {
     // Since this is a multipart, the form field for "simulationRun" contains the SimulationRun object encoding as a string
     try {
-      JSON.parse(run.simulationRun);
+      JSON.parse(body.simulationRun);
     } catch (e) {
       console.log(e);
       throw new BadRequestException(
         'The provided input was not valid: ' + e.message
       );
     }
-    const parsedRun = JSON.parse(run.simulationRun) as SimulationRun;
+    const parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
 
-    return this.service.createRun(parsedRun, file);
+    const run = await this.service.createRun(parsedRun, file);
+
+    return new SimulationRun(
+      run.id,
+      run.name,
+      run.simulator,
+      run.simulatorVersion,
+      run.status,
+      run.public,
+      run.submitted,
+      run.updated,
+      run.duration,
+      run.projectSize,
+      run.resultsSize,
+      run.email
+    );
   }
 
   @ApiOperation({
@@ -127,9 +145,8 @@ export class SimulationRunController {
   })
   // TODO limit this to admins/permission only. Can be used by service to update status
   @Patch(':id')
-  modfiyRun(@Param() id: string, @Body() run: UpdateSimulationRun) {
-    //TODO determine which feilds can be updated. Either in buissness logic or schema
-    this.service.update(id, run);
+  modfiyRun(@Param() id: string, @Body() body: UpdateSimulationRun) {
+    const run = this.service.update(id, body);
   }
 
   @ApiOperation({
@@ -138,7 +155,12 @@ export class SimulationRunController {
   })
   @Delete(':id')
   deleteRun(@Param() id: string, @Body() run: SimulationRun) {
-    this.service.delete(id);
+    const res = this.service.delete(id);
+    if (res) {
+      return res;
+    } else {
+      throw new NotFoundException(`No Simulation Run with id ${id} found`);
+    }
   }
 
   @ApiOperation({
@@ -147,7 +169,7 @@ export class SimulationRunController {
   })
   @Delete()
   deleteAll(@Param() id: string, @Body() run: SimulationRun) {
-    this.service.deleteAll(id);
+    return this.service.deleteAll();
   }
 
   @ApiOperation({
@@ -158,7 +180,7 @@ export class SimulationRunController {
     // TODO can this can be done without using the Res decorator?
     // See https://docs.nestjs.com/controllers#request-object
     const file = await this.service.download(id);
-    console.log(file.buffer);
+
     response.setHeader('Content-Type', file.mimetype);
     const contentDisposition = `attachment; filename=${file.originalname}`;
     response.setHeader('Content-Disposition', contentDisposition);
