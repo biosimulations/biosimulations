@@ -46,14 +46,14 @@ export class SimulationRunService {
 
     const fileId = (file?.file as any) as string;
 
-    if (!!fileId) {
+    if (fileId) {
       const SimFile = await this.fileModel
         .findOne(
           { _id: fileId },
           { size: 1, mimetype: 1, buffer: 1, originalname: 1, encoding: 1 }
         )
         .exec();
-      if (!!SimFile) {
+      if (SimFile) {
         return {
           size: SimFile.size,
           mimetype: SimFile.mimetype,
