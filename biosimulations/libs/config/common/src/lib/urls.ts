@@ -33,10 +33,14 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
-    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    platformNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue:
+      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
     platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
@@ -52,11 +56,15 @@ const envUrls: { [key in envs]: urlMap } = {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: '/api',
-    simulatorsApi: 'https://api.biosimulators.org/',
-    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    simulatorsApi: '/simulators-api',
+    platformNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue:
+      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
     platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
@@ -73,10 +81,14 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: 'https://dispatch.biosimulations.dev',
     simulatorsApi: 'https://api.biosimulators.org/',
-    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    platformNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue:
+      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
     platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
@@ -93,10 +105,14 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: '/api/',
     dispatchApi: '/api/',
     simulatorsApi: '/simulators-api/',
-    platformNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue: 'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue: 'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+    platformNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    accountNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    dispatchNewIssue:
+      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    simulatorsNewIssue:
+      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
     platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
     dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',

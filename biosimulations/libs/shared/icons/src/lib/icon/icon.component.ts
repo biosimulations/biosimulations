@@ -82,7 +82,9 @@ export type biosimulationsIcon =
   | 'toTop'
   | 'more'
   | 'construction'
-  | 'maintainence';
+  | 'maintainence'
+  | 'valid'
+  | 'invalid';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -177,6 +179,8 @@ export class IconComponent implements OnInit {
     fork: { type: 'fas', name: 'code-branch' },
     construction: { type: 'fas', name: 'tools' },
     maintainence: { type: 'fas', name: 'tools' },
+    valid: { type: 'fas', name: 'check' },
+    invalid: { type: 'fas', name: 'times' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

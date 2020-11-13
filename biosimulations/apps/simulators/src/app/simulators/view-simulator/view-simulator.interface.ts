@@ -7,8 +7,10 @@ export interface ViewAlgorithm {
   description: DescriptionFragment[];
   url: string;
   frameworks: ViewFramework[];
-  formats: ViewFormat[];
-  parameters: ViewParameter[];
+  modelFormats: ViewFormat[];
+  simulationFormats: ViewFormat[];
+  archiveFormats: ViewFormat[];
+  parameters: ViewParameter[] | null;
   citations: ViewCitation[];
 }
 
@@ -19,8 +21,10 @@ export interface ViewAlgorithmObservable {
   description: Observable<DescriptionFragment[]>;
   url: Observable<string>;
   frameworks: Observable<ViewFramework>[];
-  formats: Observable<ViewFormat>[];
-  parameters: ViewParameterObservable[];
+  modelFormats: Observable<ViewFormat>[];
+  simulationFormats: Observable<ViewFormat>[];
+  archiveFormats: Observable<ViewFormat>[];
+  parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
 }
 
@@ -78,9 +82,10 @@ export interface ViewCitation {
 
 export interface ViewVersion {
   label: string;
-  date: string;
-  image: string;
+  created: string;
+  image?: string;
   url?: string;
+  validated: boolean;
 }
 
 export interface ViewSimulator {
@@ -89,7 +94,7 @@ export interface ViewSimulator {
   version: string;
   name: string;
   description: string | null;
-  image: string;
+  image?: string;
   url: string;
   licenseUrl: Observable<string>;
   licenseName: Observable<string>;
@@ -98,4 +103,7 @@ export interface ViewSimulator {
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
   versions: Observable<ViewVersion[]>;
+  validated: boolean;
+  created: string;
+  updated: string;
 }

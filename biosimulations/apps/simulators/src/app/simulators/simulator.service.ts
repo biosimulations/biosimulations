@@ -8,9 +8,10 @@ import { Simulator } from '@biosimulations/simulators/api-models';
 
 export interface Version {
   version: string;
-  date: Date;
-  image: string;
+  created: Date;
+  image?: string;
   url?: string;
+  validated: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -61,9 +62,10 @@ export class SimulatorService {
           if (sim.id === simId) {
             versions.push({
               version: sim.version,
-              image: sim.image,
-              date: sim.created,
+              image: sim.image || undefined,
+              created: sim.created,
               url: sim.url,
+              validated: sim?.biosimulators?.validated,
             });
           }
         }

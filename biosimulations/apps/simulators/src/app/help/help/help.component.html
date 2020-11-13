@@ -115,14 +115,18 @@
 
       <p>Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. A template repository with template Python code for a command-line interface and a template for a Dockerfile is available here <a href="https://github.com/biosimulators/Biosimulators_simulator_template" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
-    
+
       <ol class="vertically-spaced">
         <li><b>Optionally, create a Git repository for your command-line interface and Dockerfile.</b></li>
         <li>
           <p><b>Implement a BioSimulators-compliant command-line interface to your simulation tool.</b> The interface should accept two keyword arguments:</p>
           <ul>
             <li><code>-i, --archive</code>: A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
-            <li><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in CSV format and plots should be saved in PDF format. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</li>
+            <li>
+              <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</p>
+
+              <p>The columns of the reports should correspond to the simulation outputs specified in the corresponding SED-ML document (e.g., time, specific species). For time course simulations, the rows should correspond to the predicted time points. The first row of each report table should describe the data represented by each column. Specifically, the first element of each column should be the id of the simulation output (e.g., time or species id) represented by the column.</p>
+            </li>
           </ul>
 
           <p>In addition, we recommend providing optional arguments for reporting help and version information about your simulator:</p>
@@ -138,34 +142,64 @@
             <li>Set the <code>ENTRYPOINT</code> directive to the path to your command-line interface.</li>
             <li>Set the <code>CMD</code> directive to <code>[]</code>.</li>
             <li>
-              <p>Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is necessary to also submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
+              <p class="no-bottom-margin">Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is necessary to also submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
               <ul>
-                <li><code>version</code>: the version of your image (e.g., <code>1.0.0</code>)</li>
-                <li><code>software</code>: the simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
-                <li><code>software.version</code>: the version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
-                <li><code>about.summary</code>: short description of the simulation tool (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
-                <li><code>about.home</code>: URL for the simulation tool (e.g., <code>https://bionetgen.org/</code>).</li>
-                <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
-                <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
-                <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.dev/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
-                <li><code>about.tags</code>: comma-separated list of tags which describe the simulation tool (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Plese include the tag <code>BioSimulators</code>.</li>
-                <li><code>extra.identifiers.biotools</code>: optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
-                <li><code>maintainer</code>: the name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+                <li>Open Containers Initiative <a href="https://opencontainers.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> labels
+                  <ul>
+                    <li><code>org.opencontainers.image.title</code>: Human-readable title of the image.</li>
+                    <li><code>org.opencontainers.image.version</code>: Version of the software in the image.</li>
+                    <li><code>org.opencontainers.image.revision</code>: Source control revision identifier of the software in the image.</li>
+                    <li><code>org.opencontainers.image.description</code>: Human-readable description of the software in the image.</li>
+                    <li><code>org.opencontainers.image.url</code>: URL to find more information about the image.</li>
+                    <li><code>org.opencontainers.image.documentation</code>: URL to get documentation about the image.</li>
+                    <li><code>org.opencontainers.image.source</code>: URL to get the Dockerfile for building the image.</li>
+                    <li><code>org.opencontainers.image.authors</code>: Contact details of the people or organization responsible for the image.</li>
+                    <li><code>org.opencontainers.image.vendor</code>: Name of the entity, organization or individual which distributes the image.</li>
+                    <li><code>org.opencontainers.image.licenses</code>: SPDX expression which describes the license(s) under which the software in the image is distributed.</li>
+                    <li><code>org.opencontainers.image.created</code>: Date and time when the image was built (RFC 3339).</li>
+                  </ul>
+                </li>
+                <li>BioContainers labels:
+                  <ul>
+                    <li><code>version</code>: the version of your image (e.g., <code>1.0.0</code>)</li>
+                    <li><code>software</code>: the simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
+                    <li><code>software.version</code>: the version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
+                    <li><code>about.summary</code>: short description of the simulation tool (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
+                    <li><code>about.home</code>: URL for the simulation tool (e.g., <code>https://bionetgen.org/</code>).</li>
+                    <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+                    <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
+                    <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.dev/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
+                    <li><code>about.tags</code>: comma-separated list of tags which describe the simulation tool (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Plese include the tag <code>BioSimulators</code>.</li>
+                    <li><code>extra.identifiers.biotools</code>: optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
+                    <li><code>maintainer</code>: the name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+                  </ul>
+                </li>
               </ul>
 
               <p>Below is an example of metadata for the BioNetGen image.</p>
-              <pre><code [languages]="['dockerfile']" highlight="LABEL base_image=&quot;ubuntu:18.04&quot;
-LABEL version=&quot;1.0.0&quot;
-LABEL software=&quot;BioNetGen&quot;
-LABEL software.version=&quot;2.5.0&quot;
-LABEL about.summary=&quot;Package for rule-based modeling of complex biochemical systems&quot;
-LABEL about.home=&quot;https://bionetgen.org/&quot;
-LABEL about.documentation=&quot;https://bionetgen.org/&quot;
-LABEL about.license_file=&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;
-LABEL about.license=&quot;SPDX:MIT&quot;
-LABEL about.tags=&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;
-LABEL extra.identifiers.biotools=&quot;bionetgen&quot;
-LABEL maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
+              <pre><code [languages]="['dockerfile']" highlight="LABEL \
+  org.opencontainers.image.title=&quot;BioNetGen&quot; \
+  org.opencontainers.image.version=&quot;2.5.0&quot; \
+  org.opencontainers.image.description=&quot;Package for rule-based modeling of complex biochemical systems&quot; \
+  org.opencontainers.image.url=&quot;https://bionetgen.org/&quot; \
+  org.opencontainers.image.documentation=&quot;https://bionetgen.org/&quot; \
+  org.opencontainers.image.source=&quot;https://github.com/biosimulators/biosimulators_bionetgen&quot; \
+  org.opencontainers.image.authors=&quot;BioSimulators Team &lt;info@biosimulators.org&gt;&quot; \
+  org.opencontainers.image.vendor=&quot;BioSimulators Team&quot; \
+  org.opencontainers.image.licenses=&quot;MIT&quot; \
+  \
+  base_image=&quot;ubuntu:18.04&quot;
+  version=&quot;1.0.0&quot;
+  software=&quot;BioNetGen&quot;
+  software.version=&quot;2.5.0&quot;
+  about.summary=&quot;Package for rule-based modeling of complex biochemical systems&quot;
+  about.home=&quot;https://bionetgen.org/&quot;
+  about.documentation=&quot;https://bionetgen.org/&quot;
+  about.license_file=&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;
+  about.license=&quot;SPDX:MIT&quot;
+  about.tags=&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;
+  extra.identifiers.biotools=&quot;bionetgen&quot;
+  maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
           </ul>
         </li>
         <li>
@@ -209,7 +243,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li>Endpoint: <code>http://api.github.com/repos/biosimulators/Biosimulators/issues</code></li>
             <li>Method: <code>POST</code></li>
             <li>Auth: <code>{{ '{' }} github-username {{ '}' }}:{{ '{' }} github-person-access-token {{ '}' }}</code></li>
-            <li>Headers: 
+            <li>Headers:
               <ul>
                 <li>Accept: <code>application/vnd.github.v3+json</code></li>
               </ul>
@@ -221,8 +255,10 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
 name: {{ '{' }} simulator-name {{ '}' }}
 version: {{ '{' }} simulator-version {{ '}' }}
 specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
+validateImage: true
 
 ---</code></pre>
+                  To skip the validation of your Docker image, or to submit a simulation tool for which there is no Docker image that provides a BioSimulators-compliant command-line entrypoint, set <code>validateImage</code> to <code>false</code>.
                 </li>
               </ul>
             </li>
@@ -235,7 +271,7 @@ specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
   -u jonrkarr:********* \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/biosimulators/Biosimulators/issues \
-  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</code></pre>
+  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\nvalidateImage: true\n\n---"{{ '}' }}'</code></pre>
 
           <p>The above is implemented by the Python method <code>Biosimulations_utils.simulator.submit_to_biosimulators.submit_simulator_to_biosimulators</code>. See the documentation <a href="https://biosimulations-utils.readthedocs.io/"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
         </li>

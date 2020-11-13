@@ -17,7 +17,7 @@ export const columns: Column[] = [
       return ['/simulators', element.id];
     },
     filterable: false,
-    minWidth: 90,
+    minWidth: 75,
     showStacked: false,
   },
   {
@@ -25,8 +25,16 @@ export const columns: Column[] = [
     heading: 'Name',
     key: 'name',
     filterable: false,
-    minWidth: 90,
+    minWidth: 75,
     showStacked: false,
+  },
+  {
+    id: 'latestVersion',
+    heading: 'Latest version',
+    key: 'latestVersion',
+    filterable: false,
+    show: false,
+    minWidth: 110,
   },
   {
     id: 'frameworks',
@@ -61,7 +69,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator): string => {
       return element.frameworkIds.join(' ');
     },
-    minWidth: 200,
+    minWidth: 158,
   },
   {
     id: 'algorithms',
@@ -107,15 +115,15 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 244,
+    minWidth: 200,
   },
   {
-    id: 'formats',
+    id: 'modelFormats',
     heading: 'Model formats',
-    key: 'formats',
+    key: 'modelFormats',
     getter: (element: TableSimulator): string[] => {
       const value = [];
-      for (const format of element.formats) {
+      for (const format of element.modelFormats) {
         value.push(format);
       }
       value.sort((a: string, b: string): number => {
@@ -138,17 +146,138 @@ export const columns: Column[] = [
     },
     filterComparator: RowService.comparator,
     extraSearchGetter: (element: TableSimulator): string => {
-      return element.formatIds.join(' ');
+      return element.modelFormatIds.join(' ');
     },
-    minWidth: 132,
+    minWidth: 142,
   },
   {
-    id: 'latestVersion',
-    heading: 'Latest version',
-    key: 'latestVersion',
-    filterable: false,
+    id: 'simulationFormats',
+    heading: 'Simulation formats',
+    key: 'simulationFormats',
+    getter: (element: TableSimulator): string[] => {
+      const value = [];
+      for (const format of element.simulationFormats) {
+        value.push(format);
+      }
+      value.sort((a: string, b: string): number => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      });
+      return value;
+    },
+    formatter: (names: string[]): string => {
+      return names.join(', ');
+    },
+    filterFormatter: (name: string): string => {
+      return name;
+    },
+    comparator: (aNames: string[], bNames: string[], sign = 1): number => {
+      return RowService.comparator(
+        aNames.join(', '),
+        bNames.join(', '),
+        sign
+      );
+    },
+    filterComparator: RowService.comparator,
+    extraSearchGetter: (element: TableSimulator): string => {
+      return element.simulationFormatIds.join(' ');
+    },
+    minWidth: 142,
     show: false,
-    minWidth: 110,
+  },
+  {
+    id: 'archiveFormats',
+    heading: 'Archive formats',
+    key: 'archiveFormats',
+    getter: (element: TableSimulator): string[] => {
+      const value = [];
+      for (const format of element.archiveFormats) {
+        value.push(format);
+      }
+      value.sort((a: string, b: string): number => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      });
+      return value;
+    },
+    formatter: (names: string[]): string => {
+      return names.join(', ');
+    },
+    filterFormatter: (name: string): string => {
+      return name;
+    },
+    comparator: (aNames: string[], bNames: string[], sign = 1): number => {
+      return RowService.comparator(
+        aNames.join(', '),
+        bNames.join(', '),
+        sign
+      );
+    },
+    filterComparator: RowService.comparator,
+    extraSearchGetter: (element: TableSimulator): string => {
+      return element.archiveFormatIds.join(' ');
+    },
+    minWidth: 142,
+    show: false,
+  },
+  {
+    id: 'image',
+    heading: 'Image',
+    key: 'image',
+    formatter: (value: string | undefined): null => {
+      return null;
+    },
+    stackedFormatter: (value: string | undefined): string => {
+      return value ? value : 'Not available';
+    },
+    filterFormatter: (value: string | undefined): string => {
+      return value ? 'Yes' : 'No';
+    },
+    centerAction: ColumnActionType.href,
+    rightAction: ColumnActionType.href,
+    centerHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+      } else {
+        return null;
+      }
+    },
+    rightHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+      } else {
+        return null;
+      }
+    },
+    rightIcon: 'docker',
+    rightIconTitle: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'BioSimulators-compliant Docker image';
+      } else {
+        return null;
+      }
+    },
+    filterable: true,
+    show: false,
+    minWidth: 60,
+    center: true,
+    rightShowStacked: false,
+  },
+  {
+    id: 'validated',
+    heading: 'Validated',
+    key: 'validated',
+    formatter: (value: boolean): string => {
+      return value ? '✔' : '';
+    },
+    stackedFormatter: (value: boolean): string => {
+      return value ? 'Yes' : 'No';
+    },
+    filterFormatter: (value: boolean): string => {
+      return value ? 'Yes' : 'No';
+    },
+    filterable: true,
+    show: false,
+    minWidth: 99,
+    center: true,
   },
   {
     id: 'license',
@@ -180,23 +309,46 @@ export const columns: Column[] = [
     id: 'run',
     heading: 'Run',
     key: 'id',
-    formatter: (id: string): null => {
+    getter: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return element.id;
+      } else {
+        return null;
+      }
+    },
+    formatter: (id: string | undefined): null => {
       return null;
     },
-    stackedFormatter: (id: string): string => {
-      return 'https://run.biosimulations.org/run?simulator=' + id;
+    stackedFormatter: (id: string | undefined): string => {
+      if (id) {
+        return 'https://run.biosimulations.org/run?simulator=' + id;
+      } else {
+        return 'Not available';
+      }
     },
     rightIcon: 'simulator',
-    rightIconTitle: (element: TableSimulator): string => {
-      return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
+    rightIconTitle: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
+      } else {
+        return null;
+      }
     },
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
-    centerHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run?simulator=' + element.id;
+    centerHref: (element: TableSimulator): string | null => {
+      if (element.image) {
+        return 'https://run.biosimulations.org/run?simulator=' + element.id;
+      } else {
+        return null;
+      }
     },
-    rightHref: (element: TableSimulator): string => {
-      return 'https://run.biosimulations.org/run?simulator=' + element.id;
+    rightHref: (element: TableSimulator): string | null  => {
+      if (element.image) {
+        return 'https://run.biosimulations.org/run?simulator=' + element.id;
+      } else {
+        return null;
+      }
     },
     rightShowStacked: false,
     minWidth: 40,

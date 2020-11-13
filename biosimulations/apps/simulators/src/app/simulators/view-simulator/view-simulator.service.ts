@@ -77,7 +77,7 @@ export class ViewSimulatorService {
       id: sim.id,
       version: sim.version,
       name: sim.name,
-      image: sim.image,
+      image: sim.image || undefined,
       description: sim.description,
       url: sim.url,
       authors: this.getAuthors(sim),
@@ -99,11 +99,14 @@ export class ViewSimulatorService {
         .pipe(pluck('url')),
       versions: this.simService
         .getVersions(sim.id)
-        .pipe(map((value: Version[]) => value.map(this.setVersionDate))),
+        .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
+      validated: sim?.biosimulators?.validated,
+      created: this.getDateStr(new Date(sim.created)),
+      updated: this.getDateStr(new Date(sim.updated)),
     };
 
-    const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
+    const unresolvedAlgorithms = sim.algorithms.filter((alg: Algorithm) => { return !!alg.kisaoId; }).map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
       (algorithms: ViewAlgorithm[] | undefined) => {
         if (algorithms !== undefined) {
@@ -111,7 +114,7 @@ export class ViewSimulatorService {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
           });
           algorithms.forEach((algorithm: ViewAlgorithm): void => {
-            algorithm.parameters.forEach((parameter: ViewParameter): void => {
+            algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
                 parameter.type !==
                   AlgorithmParameterType[AlgorithmParameterType.integer] &&
@@ -150,8 +153,10 @@ export class ViewSimulatorService {
       ),
       url: kisaoTerm.pipe(pluck('url')),
       frameworks: value.modelingFrameworks.map(this.getFrameworks, this),
-      formats: value.modelFormats.map(this.getFormats, this),
-      parameters: value.parameters.map(this.getParameters, this),
+      modelFormats: value.modelFormats.map(this.getFormats, this),
+      simulationFormats: value.simulationFormats.map(this.getFormats, this),
+      archiveFormats: value.archiveFormats.map(this.getFormats, this),
+      parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -198,20 +203,12 @@ export class ViewSimulatorService {
     return this.ontService.getEdamTerm(value.id);
   }
   setVersionDate(value: Version): ViewVersion {
-    let created: Date = value.date;
-    created = new Date(created);
-    const date =
-      created.getFullYear().toString() +
-      '-' +
-      (created.getMonth() + 1).toString().padStart(2, '0') +
-      '-' +
-      created.getDate().toString().padStart(2, '0');
-
     return {
       label: value.version,
-      date: date,
+      created: this.getDateStr(new Date(value.created as Date)),
       url: value.url,
-      image: value.image,
+      image: value.image || undefined,
+      validated: value.validated,
     };
   }
   getAuthors(simulator: Simulator): string | null {
@@ -328,5 +325,14 @@ export class ViewSimulatorService {
       default:
         return 'https://identifiers.org/' + namespace + '/' + id;
     }
+  }
+  getDateStr(date: Date): string {
+    return (
+      date.getFullYear().toString() +
+      '-' +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
+      '-' +
+      date.getDate().toString().padStart(2, '0')
+    );
   }
 }

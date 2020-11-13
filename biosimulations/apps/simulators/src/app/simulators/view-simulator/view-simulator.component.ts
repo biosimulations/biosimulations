@@ -145,7 +145,7 @@ export class ViewSimulatorComponent implements OnInit {
     {
       id: 'date',
       heading: 'Date',
-      key: 'date',
+      key: 'created',
       filterType: ColumnFilterType.date,
       minWidth: 80,
     },
@@ -153,15 +153,40 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'image',
       heading: 'Image',
       key: 'image',
-      rightIcon: 'copy',
-      rightIconTitle: (): string => {
-        return 'Copy to clipboard';
+      stackedFormatter: (image: string | undefined): string => {
+        if (image) {
+          return image;
+        } else {
+          return 'Not available';
+        }
       },
-      rightAction: ColumnActionType.click,
-      rightClick: (version: ViewVersion): void => {
-        this.copyDockerPullCmd(version.image);
+      centerAction: ColumnActionType.href,
+      centerHref: (version: ViewVersion): string | null => {
+        if (version.image) {
+          return 'https://github.com/orgs/biosimulators/packages/container/package/' + this.id;
+        } else {
+          return null;
+        }
       },
       minWidth: 610,
+    },
+    {
+      id: 'validated',
+      heading: 'Validated',
+      key: 'validated',
+      formatter: (value: boolean): string => {
+        return value ? '✔' : '✖';
+      },
+      stackedFormatter: (value: boolean): string => {
+        return value ? 'Yes' : 'No';
+      },
+      filterFormatter: (value: boolean): string => {
+        return value ? 'Yes' : 'No';
+      },
+      show: true,
+      center: true,
+      minWidth: 100,
+      filterable: true,
     },
     {
       id: 'run',
@@ -220,7 +245,7 @@ export class ViewSimulatorComponent implements OnInit {
           simulator = this.simService.getVersion(id, version);
         } else {
           simulator = this.simService.getLatest(id);
-        }        
+        }
         simulator.subscribe(this.processSimulator.bind(this));
         return simulator;
       }),
@@ -240,66 +265,15 @@ export class ViewSimulatorComponent implements OnInit {
     };
   }
 
-  formatKisaoDescription(value: string): DescriptionFragment[] {
-    const formattedValue = [];
-    let prevEnd = 0;
-
-    const regExp = /\[(https?:\/\/.*?)\]/gi;
-    let match;
-    while ((match = regExp.exec(value)) !== null) {
-      if (match.index > 0) {
-        formattedValue.push({
-          type: DescriptionFragmentType.text,
-          value: value.substring(prevEnd, match.index),
-        });
-      }
-      prevEnd = match.index + match[0].length;
-      formattedValue.push({
-        type: DescriptionFragmentType.href,
-        value: match[1],
-      });
-    }
-    if (prevEnd < value?.length) {
-      formattedValue.push({
-        type: DescriptionFragmentType.text,
-        value: value.substring(prevEnd),
-      });
-    }
-    return formattedValue;
-  }
-
-  makeCitation(citation: any): ViewCitation {
-    let text =
-      citation.authors +
-      '. ' +
-      citation.title +
-      '. <i>' +
-      citation.journal +
-      '</i>';
-    if (citation.volume) {
-      text += ' ' + citation.volume;
-    }
-    if (citation.issue) {
-      text += ' (' + citation.issue + ')';
-    }
-    if (citation.pages) {
-      text += ', ' + citation.pages;
-    }
-    text += ' (' + citation.year + ').';
-
-    return {
-      url: citation.identifiers[0].url as string,
-      text: text,
-    };
-  }
-
   tocSections!: Observable<TocSection[]>;
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
-    setTimeout(() => {
-      this.tocSections = container.sections$;
-    });
+    if (container) {
+      setTimeout(() => {
+        this.tocSections = container.sections$;
+      });
+    }
   }
 
   copyDockerPullCmd(image = '{ image }'): void {
