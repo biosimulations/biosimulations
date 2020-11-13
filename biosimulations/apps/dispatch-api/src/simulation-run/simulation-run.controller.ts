@@ -4,6 +4,12 @@
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
+import {
+  AdminGuard,
+  JwtGuard,
+  permissions,
+  PermissionsGuard,
+} from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
@@ -18,6 +24,7 @@ import {
   Put,
   Res,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -26,6 +33,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiCreatedResponse,
+  ApiOAuth2,
   ApiOkResponse,
   ApiOperation,
   ApiPayloadTooLargeResponse,
@@ -44,16 +52,34 @@ import { SimulationRunService } from './simulation-run.service';
 export class SimulationRunController {
   constructor(private service: SimulationRunService) {}
 
-  // TODO limit this to admins/permission only
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
     description:
       'Returns an array of all the Simulation Run objects in the database',
   })
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('read:SimulationRuns')
   @Get()
-  getRuns() {
-    return this.service.getAll();
+  async getRuns(): Promise<SimulationRun[]> {
+    const res = await this.service.getAll();
+    return res.map(
+      (run) =>
+        new SimulationRun(
+          run.id,
+          run.name,
+          run.simulator,
+          run.simulatorVersion,
+          run.status,
+          run.public,
+          run.submitted,
+          run.updated,
+          run.duration,
+          run.projectSize,
+          run.resultsSize,
+          run.email
+        )
+    );
   }
 
   @ApiOperation({
@@ -143,7 +169,9 @@ export class SimulationRunController {
     summary: 'Modify a simulation run',
     description: 'Change the status or information of a simulation run',
   })
-  // TODO limit this to admins/permission only. Can be used by service to update status
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('write:SimulationRuns')
+  @ApiOAuth2([])
   @Patch(':id')
   modfiyRun(@Param() id: string, @Body() body: UpdateSimulationRun) {
     const run = this.service.update(id, body);
@@ -153,6 +181,8 @@ export class SimulationRunController {
     summary: 'Delete a simulation run',
     description: 'Delete a simulation run',
   })
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('delete:SimulationRuns')
   @Delete(':id')
   deleteRun(@Param() id: string, @Body() run: SimulationRun) {
     const res = this.service.delete(id);
@@ -167,6 +197,8 @@ export class SimulationRunController {
     summary: 'Delete all simulation runs',
     description: 'Delete all simulation runs',
   })
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('delete:SimulationRuns')
   @Delete()
   deleteAll(@Param() id: string, @Body() run: SimulationRun) {
     return this.service.deleteAll();
@@ -177,8 +209,6 @@ export class SimulationRunController {
   })
   @Get(':id/download')
   async download(@Param('id') id: string, @Res() response: Response) {
-    // TODO can this can be done without using the Res decorator?
-    // See https://docs.nestjs.com/controllers#request-object
     const file = await this.service.download(id);
 
     response.setHeader('Content-Type', file.mimetype);
