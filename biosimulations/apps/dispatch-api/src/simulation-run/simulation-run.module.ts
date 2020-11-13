@@ -6,6 +6,7 @@
  * @license MIT
  */
 
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationFile, SimulationFileSchema } from './file.model';
@@ -19,6 +20,7 @@ import { SimulationRunService } from './simulation-run.service';
 @Module({
   controllers: [SimulationRunController],
   imports: [
+    BiosimulationsAuthModule,
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
       {

@@ -12,6 +12,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -61,7 +62,7 @@ async function bootstrap() {
         ' Operations for viewing and retrieving the results of a Simulation Run',
     },
   ];
-  const builder = new DocumentBuilder()
+  let builder = new DocumentBuilder()
     .setTitle('runBioSimulations API')
     .setDescription(
       'API to submit and manage simulations jobs to the runBioSimulations Service'
@@ -72,14 +73,48 @@ async function bootstrap() {
     builder.addTag(tag.name, tag.description);
   }
 
-  const options = builder.build();
+  const scopes = [
+    'read:SimulationRuns',
+    'write:SimulationRuns',
+    'delete:SimulationsRuns',
+  ];
+  const authorizationUrl =
+    'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org';
+  const openIdConnectUrl =
+    'https://auth.biosimulations.org/.well-known/openid-configuration';
+  const clientId = 'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT';
 
+  const oauthSchema: SecuritySchemeObject = {
+    type: 'oauth2',
+    flows: {
+      implicit: {
+        authorizationUrl: authorizationUrl,
+        scopes: scopes,
+      },
+    },
+  };
+
+  builder = builder.addOAuth2(oauthSchema);
+
+  const openIDSchema: SecuritySchemeObject = {
+    type: 'openIdConnect',
+    openIdConnectUrl: openIdConnectUrl,
+  };
+
+  builder = builder.addSecurity('OpenIdc', openIDSchema);
+
+  const options = builder.build();
   const document = SwaggerModule.createDocument(app, options);
 
   SwaggerModule.setup('', app, document, {
     customfavIcon: favIcon,
     customSiteTitle: 'runBioSimulations API',
     customCss: removeIcon,
+    swaggerOptions: {
+      oauth: {
+        clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a',
+      },
+    },
   });
 
   await app.listen(port, () => {

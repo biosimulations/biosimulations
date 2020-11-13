@@ -60,6 +60,7 @@ export class SimulationRunController {
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('read:SimulationRuns')
+  @ApiOAuth2(['read:SimulationRuns'])
   @Get()
   async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
@@ -171,7 +172,7 @@ export class SimulationRunController {
   })
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('write:SimulationRuns')
-  @ApiOAuth2([])
+  @ApiOAuth2(['write:SimulationRuns'])
   @Patch(':id')
   modfiyRun(@Param() id: string, @Body() body: UpdateSimulationRun) {
     const run = this.service.update(id, body);
@@ -199,6 +200,7 @@ export class SimulationRunController {
   })
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:SimulationRuns')
+  @ApiOAuth2(['delete:SimulationRuns'])
   @Delete()
   deleteAll(@Param() id: string, @Body() run: SimulationRun) {
     return this.service.deleteAll();

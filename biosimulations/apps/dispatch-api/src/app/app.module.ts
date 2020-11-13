@@ -15,9 +15,15 @@ import { AppService } from './app.service';
 import { SimulationRunModule } from '../simulation-run/simulation-run.module';
 import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
 import { ResultsModule } from '../results/results.module';
+import { ModelsController } from './resources/models/models.controller';
+import {
+  AuthTestModule,
+  BiosimulationsAuthModule,
+} from '@biosimulations/auth/nest';
 @Module({
   imports: [
     BiosimulationsConfigModule,
+    BiosimulationsAuthModule,
     HttpModule,
     ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
@@ -43,10 +49,13 @@ import { ResultsModule } from '../results/results.module';
     SimulationRunModule,
     ResultsModule,
     SharedExceptionsModule,
+    ModelsModule,
+    AuthTestModule,
   ],
 
-  controllers: [],
+  controllers: [AppController],
   providers: [
+    AppService,
     {
       provide: 'DISPATCH_MQ',
       useFactory: (configService: ConfigService) => {
