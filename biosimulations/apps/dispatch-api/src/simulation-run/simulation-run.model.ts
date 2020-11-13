@@ -80,6 +80,29 @@ export class SimulationRunModel extends Document {
   public!: boolean;
 }
 
+export type SimulationRunModelType = Pick<
+  SimulationRunModel,
+  | 'id'
+  | 'file'
+  | 'name'
+  | 'email'
+  | 'status'
+  | 'duration'
+  | 'projectSize'
+  | 'resultsSize'
+  | 'simulator'
+  | 'simulatorVersion'
+  | 'submitted'
+  | 'updated'
+  | 'public'
+  | '__v'
+  | '_id'
+>;
+export type TestType = Exclude<SimulationRunModel, Document>;
+export type SimulationRunModelReturnType = Omit<
+  SimulationRunModelType,
+  '__v' | '_id'
+> & { _id: never; __v: never };
 export const SimulationRunModelSchema = SchemaFactory.createForClass(
   SimulationRunModel
 );
