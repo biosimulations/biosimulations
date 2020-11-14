@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
 import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -40,10 +41,38 @@ export class DispatchService {
     return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<string[]>;
   }
 
+  getSimulatorsFromDb() {
+    const endpoint = `https://api.biosimulators.org/simulators`;
+
+    return this.http.get(endpoint).pipe(map((response: any) => {
+
+      // response to dict logic 
+      const simulatorsInfo: any = {};
+      const simualtorsList: any = [];
+      const data = response;
+
+      // this.logger.debug(data[2]['version']);
+      for (let index = 0; index < data.length; index++) {
+        simualtorsList.push(data[index]['id'])
+      }
+
+      for (let index = 0; index < simualtorsList.length; index++) {
+
+        if (simulatorsInfo[simualtorsList[index]] !== undefined) {
+
+          simulatorsInfo[simualtorsList[index]].push(data[index]['version']);
+        } else {
+          simulatorsInfo[simualtorsList[index]] = [data[index]['version']];
+        }
+      }
+      return simulatorsInfo;
+    }));
+  }
+
   getSimulationLogs(uuid: string) {
     const endpoint = `${urls.dispatchApi}/logs/${uuid}?download=false`;
     return this.http.get(endpoint);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 }

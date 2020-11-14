@@ -132,9 +132,9 @@ export class SimulationService {
         if (!environment.production) {
           console.error(
             'Unable to update simulations: ' +
-              error.status.toString() +
-              ': ' +
-              error.message
+            error.status.toString() +
+            ': ' +
+            error.message
           );
         }
       }
@@ -183,7 +183,8 @@ export class SimulationService {
     return this.simulations;
   }
 
-  getSimulationByUuid(uuid: string): Simulation {
-    return this.simulations.filter(element => element.id === uuid)[0] as Simulation;
+  async getSimulationByUuid(uuid: string): Promise<Simulation> {
+    const simulations = await this.storage.get(this.key) as Simulation[];
+    return simulations.filter(element => element.id === uuid)[0] as Simulation;
   }
 }

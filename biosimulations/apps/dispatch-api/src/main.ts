@@ -79,7 +79,7 @@ async function bootstrap() {
     'delete:SimulationsRuns',
   ];
   const authorizationUrl =
-    'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org';
+    'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
   const openIdConnectUrl =
     'https://auth.biosimulations.org/.well-known/openid-configuration';
   const clientId = 'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT';
@@ -94,14 +94,14 @@ async function bootstrap() {
     },
   };
 
-  builder = builder.addOAuth2(oauthSchema);
+  builder.addOAuth2(oauthSchema);
 
   const openIDSchema: SecuritySchemeObject = {
     type: 'openIdConnect',
     openIdConnectUrl: openIdConnectUrl,
   };
 
-  builder = builder.addSecurity('OpenIdc', openIDSchema);
+  builder.addSecurity('OpenIdc', openIDSchema);
 
   const options = builder.build();
   const document = SwaggerModule.createDocument(app, options);

@@ -27,6 +27,8 @@ export class DispatchComponent implements OnInit {
   simulatorVersionsError: string | undefined = undefined;
   submitError: string | undefined = undefined;
 
+  simulatorVersionsMap: any | undefined = undefined;
+
   simulationId: string | undefined = undefined;
 
   constructor(
@@ -50,23 +52,22 @@ export class DispatchComponent implements OnInit {
       const simulatorVersion: string = params?.simulatorVersion;
       if (simulator) {
         this.formGroup.controls.simulator.setValue(
-            simulator
+          simulator
         );
-        this.onSimulatorChange({value: simulator});
+        this.onSimulatorChange({ value: simulator });
         if (simulatorVersion) {
           this.formGroup.controls.simulatorVersion.setValue(
-              simulatorVersion
+            simulatorVersion
           );
         }
       }
     });
 
-    this.dispatchService.getAllSimulatorInfo().subscribe(
-      (simulators: string[]) => {
-        this.simulators = simulators;
-        this.simulatorsError = undefined;
-        this.formGroup.controls.simulator.enable();
-      },
+
+    this.dispatchService.getSimulatorsFromDb().subscribe((simDict: any) => {
+      this.simulators = Object.keys(simDict);
+      this.simulatorVersionsMap = simDict;
+    },
       (error: HttpErrorResponse) => {
         this.simulatorsError =
           'Sorry! We were not able to retrieve the available simulators.';
@@ -74,9 +75,9 @@ export class DispatchComponent implements OnInit {
         if (!environment.production) {
           console.error(
             'Error ' +
-              error.status.toString() +
-              ' while fetching simulators: ' +
-              error.message
+            error.status.toString() +
+            ' while fetching simulators: ' +
+            error.message
           );
         }
       }
@@ -125,9 +126,9 @@ export class DispatchComponent implements OnInit {
           if (!environment.production) {
             console.error(
               'Error ' +
-                error.status.toString() +
-                ' while submitting simulation: ' +
-                error.message
+              error.status.toString() +
+              ' while submitting simulation: ' +
+              error.message
             );
           }
         }
@@ -135,28 +136,14 @@ export class DispatchComponent implements OnInit {
   }
 
   onSimulatorChange($event: any) {
-    this.dispatchService.getAllSimulatorInfo($event.value).subscribe(
-      (simulatorVersions: string[]) => {
-        this.simulatorVersions = simulatorVersions;
-        this.simulatorVersionsError = undefined;
-        this.formGroup.controls.simulatorVersion.enable();
-        this.formGroup.controls.simulatorVersion.setValue(
-          this.simulatorVersions[0]
-        );
-      },
-      (error: HttpErrorResponse) => {
-        this.simulatorVersionsError =
-          'Sorry! We were not able to retrieve the available simulation versions.';
-        this.formGroup.controls.simulatorVersion.disable();
-        if (!environment.production) {
-          console.error(
-            'Error ' +
-              error.status.toString() +
-              ' while fetching simulator versions: ' +
-              error.message
-          );
-        }
-      }
-    );
+
+    if (this.simulatorVersionsMap !== undefined) {
+      this.simulatorVersions = Array.from(this.simulatorVersionsMap[$event.value]);
+      this.simulatorVersionsError = undefined;
+      this.formGroup.controls.simulatorVersion.enable();
+      this.formGroup.controls.simulatorVersion.setValue(
+        this.simulatorVersions[0]
+      );
+    }
   }
 }

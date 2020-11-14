@@ -27,16 +27,16 @@ export class Simulator extends Document {
   @Prop({ type: String, text: true, required: true })
   description!: string;
 
-  @Prop({})
+  @Prop({ type: String, required: true })
   url!: string;
 
   @Prop({ required: false, type: String, default: null })
   image!: string | null;
 
-  @Prop({ type: EdamOntologyIdSchema })
+  @Prop({ type: EdamOntologyIdSchema, required: true })
   format!: IEdamOntologyId;
 
-  @Prop({ items: [PersonSchema] })
+  @Prop({ items: [PersonSchema], required: true })
   authors!: Person[];
 
   @Prop({ type: ExternalReferencesSchema })
