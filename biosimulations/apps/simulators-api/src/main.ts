@@ -109,7 +109,7 @@ async function bootstrap() {
   setupOpenApi(
     app,
     doc,
-    'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org',
+    'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
     'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT'
   );
