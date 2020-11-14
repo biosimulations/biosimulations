@@ -12,10 +12,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ModelsModule } from './resources/models/models.module';
 import { AppService } from './app.service';
-
+import { SimulationRunModule } from '../simulation-run/simulation-run.module';
+import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
+import { ResultsModule } from '../results/results.module';
+import { ModelsController } from './resources/models/models.controller';
+import {
+  AuthTestModule,
+  BiosimulationsAuthModule,
+} from '@biosimulations/auth/nest';
 @Module({
   imports: [
     BiosimulationsConfigModule,
+    BiosimulationsAuthModule,
     HttpModule,
     ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
@@ -37,11 +45,17 @@ import { AppService } from './app.service';
       inject: [ConfigService],
     }),
     CacheModule.register(),
+
+    SimulationRunModule,
+    ResultsModule,
+    SharedExceptionsModule,
     ModelsModule,
+    AuthTestModule,
   ],
 
   controllers: [AppController],
   providers: [
+    AppService,
     {
       provide: 'DISPATCH_MQ',
       useFactory: (configService: ConfigService) => {
@@ -53,7 +67,6 @@ import { AppService } from './app.service';
       },
       inject: [ConfigService],
     },
-    AppService,
   ],
 })
 export class AppModule {}

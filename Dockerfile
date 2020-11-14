@@ -47,10 +47,10 @@ RUN nx build ${APP} --prod
 ### prod ###
 ############
 
-LABEL org.opencontainers.image.source https://github.com/biosimulations/biosimulations
-
 # base image
 FROM base as prod
+LABEL org.opencontainers.image.source https://github.com/biosimulations/biosimulations
+
 WORKDIR /app
 # install the app and include only dependencies needed to run
 RUN npm ci --only=production --silent
