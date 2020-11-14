@@ -1,3 +1,4 @@
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { SimulationResultsFormat } from '@biosimulations/datamodel/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -5,7 +6,7 @@ import { SimulationFile } from './file.model';
 import { SimulationRunController } from './simulation-run.controller';
 import { SimulationRunModel } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
-
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 /**
  * @file Test file for controller
  * @author Bilal Shaikh
@@ -27,6 +28,7 @@ describe('SimulationRunsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SimulationRunController],
+      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule],
       providers: [
         SimulationRunService,
         {

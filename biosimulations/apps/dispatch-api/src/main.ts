@@ -62,7 +62,7 @@ async function bootstrap() {
         ' Operations for viewing and retrieving the results of a Simulation Run',
     },
   ];
-  let builder = new DocumentBuilder()
+  const builder = new DocumentBuilder()
     .setTitle('runBioSimulations API')
     .setDescription(
       'API to submit and manage simulations jobs to the runBioSimulations Service'
