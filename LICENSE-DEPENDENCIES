@@ -2703,6 +2703,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Fedor Indutny
 │  ├─ email: fedor@indutny.com
 │  └─ licenseFile: elliptic/README.md
+├─ email-validator@2.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/manishsaraan/email-validator
+│  ├─ publisher: Manish Saraan
+│  ├─ email: manish021js@gmail.com
+│  └─ licenseFile: email-validator/LICENSE
 ├─ emoji-regex@8.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mathiasbynens/emoji-regex
