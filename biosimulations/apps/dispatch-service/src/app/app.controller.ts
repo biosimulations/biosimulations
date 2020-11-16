@@ -42,7 +42,6 @@ export class AppController {
 
     const sbatchStorage = `${this.fileStorage}/SBATCH/ID`;
 
-    // TODO: Hit simulator-api to get these simulator names
     if (
       data.simulator !== 'copasi' &&
       data.simulator !== 'vcell' &&
