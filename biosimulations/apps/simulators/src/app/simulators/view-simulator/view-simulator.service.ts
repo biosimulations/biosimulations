@@ -116,13 +116,12 @@ export class ViewSimulatorService {
           algorithms.forEach((algorithm: ViewAlgorithm): void => {
             algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
-                parameter.type !==
-                  AlgorithmParameterType[AlgorithmParameterType.integer] &&
-                parameter.type !==
-                  AlgorithmParameterType[AlgorithmParameterType.float] &&
-                Array.isArray(parameter.range)
+                parameter.type !== AlgorithmParameterType.boolean &&
+                parameter.type !== AlgorithmParameterType.integer &&
+                parameter.type !== AlgorithmParameterType.float &&
+                parameter.range
               ) {
-                parameter.range.sort((a, b) => {
+                (parameter.range as string[]).sort((a: string, b: string) => {
                   return a.localeCompare(b, undefined, { numeric: true });
                 });
               }
@@ -165,37 +164,39 @@ export class ViewSimulatorService {
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
-    let value;
-    if (parameter.type === 'kisaoId') {
-      value = this.ontService
-        .getKisaoTerm(parameter.value.toString())
-        .pipe(pluck('name'));
-    } else {
-      value = parameter.value;
-    }
-
     return {
       id: parameter.id,
       name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
-      value,
+      value: this.parseParameterVal(parameter.type, parameter.value),
       range: parameter.recommendedRange
-        ? parameter.recommendedRange.map((val: { toString: () => string }):
-            | string
-            | Observable<string> => {
-            const strVal = val.toString();
-
-            if (parameter.type === 'kisaoId') {
-              return this.ontService.getKisaoTerm(strVal).pipe(pluck('name'));
-            } else {
-              return strVal;
-            }
-          })
+        ? parameter.recommendedRange.map(this.parseParameterVal.bind(this, parameter.type)) as (boolean | number | string | Observable<string>)[]
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
     };
   }
+
+  parseParameterVal(type: string, val: string | null): boolean | number | string | Observable<string> | null {
+    if (val == null || val === '') {
+      return null;
+    } else {
+      if (type === AlgorithmParameterType.kisaoId) {
+        return this.ontService
+          .getKisaoTerm(val)
+          .pipe(pluck('name'));
+      } else if (type === AlgorithmParameterType.boolean) {
+        return ['1', 'true'].includes(val.toLowerCase());
+      } else if (type === AlgorithmParameterType.integer) {
+        return parseInt(val);
+      } else if (type === AlgorithmParameterType.float) {
+        return parseFloat(val);
+      } else {
+        return val;
+      }
+    }
+  }
+
   getFrameworks(value: ISboOntologyId): Observable<ViewFramework> {
     return this.ontService.getSboTerm(value.id);
   }

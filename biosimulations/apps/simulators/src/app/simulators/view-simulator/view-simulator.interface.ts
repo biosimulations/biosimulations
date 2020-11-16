@@ -54,8 +54,8 @@ export interface ViewParameter {
   id: string;
   name: string;
   type: string;
-  value: boolean | number | string;
-  range: string[] | null;
+  value: boolean | number | string | null;
+  range: (boolean | number | string)[] | null;
   kisaoId: string;
   kisaoUrl: string;
 }
@@ -64,8 +64,8 @@ export interface ViewParameterObservable {
   id: string;
   name: Observable<string>;
   type: string;
-  value: boolean | number | string | Observable<string>;
-  range: (string | Observable<string>)[] | null;
+  value: boolean | number | string | Observable<string> | null;
+  range: (boolean | number | string | Observable<string>)[] | null;
   kisaoId: string;
   kisaoUrl: string;
 }

@@ -9,7 +9,9 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-
+import {
+  AlgorithmParameterType,
+} from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 
@@ -65,32 +67,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Default value',
       key: 'value',
       getter: (parameter: ViewParameter): string | null => {
-        const value = parameter.value;
-        if (value == null || value === undefined) {
-          return null;
-        } else if (typeof value === 'string') {
-          return value;
-        } else if (value === true || value === false) {
-          return value.toString();
-        } else if (value === 0) {
-          return '0';
-        } else if (value < 1e-3 || value > 1e3) {
-          const exp = Math.floor(Math.log10(value as number));
-          const val = (value as number) / Math.pow(10, exp);
-          let valStr: string;
-          if (Math.abs((val * 1e0 - Math.round(val * 1e0)) / (val * 1e0)) < 1e-12) {
-            valStr = val.toFixed(0);
-          } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
-            valStr = val.toFixed(1);
-          } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
-            valStr = val.toFixed(2);
-          } else {
-            valStr = val.toFixed(3);
-          }
-          return `${valStr}e${exp}`;
-        } else {
-          return value.toString();
-        }
+        return this.formatParameterVal(parameter.type, parameter.value);
       },
     },
     {
@@ -99,12 +76,13 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'range',
       getter: (parameter: ViewParameter): string | null => {
         if (parameter.range) {
-          return parameter.range.join(', ');
+          return parameter.range.map(this.formatParameterVal.bind(this, parameter.type)).join(', ');
         } else {
           return null;
         }
       },
       minWidth: 163,
+      filterable: false,
     },
     {
       id: 'kisaoId',
@@ -119,6 +97,36 @@ export class ViewSimulatorComponent implements OnInit {
       minWidth: 130,
     },
   ];
+
+  formatParameterVal(type: string, value: boolean | number | string | null): string | null {
+    if (value == null) {
+      return value;
+    } else if (type === AlgorithmParameterType.boolean) {
+      return value.toString();
+    } else if (type === AlgorithmParameterType.integer || type === AlgorithmParameterType.float) {
+      if (value === 0) {
+        return '0';
+      } else if (value < 1e-3 || value > 1e3) {
+        const exp = Math.floor(Math.log10(value as number));
+        const val = (value as number) / Math.pow(10, exp);
+        let valStr: string;
+        if (Math.abs((val * 1e0 - Math.round(val * 1e0)) / (val * 1e0)) < 1e-12) {
+          valStr = val.toFixed(0);
+        } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
+          valStr = val.toFixed(1);
+        } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
+          valStr = val.toFixed(2);
+        } else {
+          valStr = val.toFixed(3);
+        }
+        return `${valStr}e${exp}`;
+      } else {
+        return value.toString();
+      }
+    } else {
+      return value as string;
+    }
+  }
 
   getParameterStackedHeading(parameter: ViewParameter): string {
     return parameter.name;
