@@ -72,9 +72,10 @@ routes.forEach((route: Route): void => {
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
-      scrollPositionRestoration: 'disabled',
-    }),
+    initialNavigation: 'enabled',
+    scrollPositionRestoration: 'disabled',
+    relativeLinkResolution: 'legacy'
+}),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage']
     }),
