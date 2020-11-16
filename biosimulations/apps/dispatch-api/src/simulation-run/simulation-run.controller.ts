@@ -1,10 +1,10 @@
-import { MQDispatch } from './../../../../libs/messages/src/lib/messages';
 /**
  * @file Contains the controller for CRUD operations on simulation runs
  * @author Bilal Shaikh
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
+import { MQDispatch } from '@biosimulations/messages';
 import {
   AdminGuard,
   JwtGuard,

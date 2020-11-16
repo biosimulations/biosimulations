@@ -1,4 +1,4 @@
-import { urls } from './../../../../libs/config/common/src/lib/urls';
+import { urls } from '@biosimulations/config/common';
 import { Controller, Logger, Inject } from '@nestjs/common';
 import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
