@@ -82,7 +82,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/service-worker/README.md
-├─ @auth0/auth0-spa-js@1.13.2
+├─ @auth0/auth0-spa-js@1.13.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/auth0-spa-js
 │  ├─ publisher: Auth0
