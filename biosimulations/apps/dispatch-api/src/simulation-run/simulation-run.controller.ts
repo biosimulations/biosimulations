@@ -129,18 +129,16 @@ export class SimulationRunController {
 
     const run = await this.service.createRun(parsedRun, file);
 
-    // console.log('start to Dispatch with filename: ', file.originalname)
-    this.messageClient.send(MQDispatch.SIM_DISPATCH_START,
+    this.messageClient.emit(MQDispatch.SIM_DISPATCH_START,
       {
         simulationId: run.id,
         omexFileName: file.originalname,
         simulator: run.simulator,
         simulatorVersion: run.simulatorVersion
       })
-      .subscribe(dat => {
-        // TODO: Make MQ work without this subscription
-        // console.log('event dispatched: ', dat)
-      });
+      // .subscribe(dat => {
+      //   // console.log('event dispatched: ', dat)
+      // });
 
 
     return new SimulationRun(

@@ -32,20 +32,6 @@ export class HpcService {
         this.logger.log(
           'Simdirectory created on HPC: ' + JSON.stringify(value)
         );
-
-        // this.sshService
-        //   .putFile(omexPath, `${simDirBase}/in/${omexName}`)
-        //   .then((val) => {
-        //     this.logger.log(
-        //       'Omex copying to HPC successful: ' + JSON.stringify(val)
-        //     );
-        //   })
-        //   .catch((omexErr) => {
-        //     this.logger.log(
-        //       'Could not copy omex to HPC: ' + JSON.stringify(omexErr)
-        //     );
-        //   });
-
         this.sshService
           .putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`)
           .then((res) => {

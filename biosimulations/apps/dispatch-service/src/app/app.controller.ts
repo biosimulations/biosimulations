@@ -68,7 +68,6 @@ export class AppController {
       hpcTempDirPath,
       simulatorString,
       data.omexFileName,
-      // 'http://99d1dcb20ebd.ngrok.io', 
       urls.dispatchApi,
       data.simulationId
     );
@@ -79,7 +78,6 @@ export class AppController {
     this.hpcService.dispatchJob(
       hpcTempDirPath,
       sbatchPath,
-      // omexPath,
       data.omexFileName
     );
 
