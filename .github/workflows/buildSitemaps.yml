@@ -49,3 +49,6 @@ jobs:
           commit-message: "Updated sitemaps"
           committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
           author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          delete-branch: true
+          title: Update Sitemaps
+          body: Updates and builds the sitemaps for each app
