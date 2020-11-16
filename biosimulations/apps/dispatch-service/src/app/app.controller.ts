@@ -1,3 +1,4 @@
+import { urls } from './../../../../libs/config/common/src/lib/urls';
 import { Controller, Logger, Inject } from '@nestjs/common';
 import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
@@ -36,7 +37,9 @@ export class AppController {
     'hpc.fileStorage', '');
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_START)
-  async uploadFile(data: SimulationDispatchSpec) {
+  // async uploadFile(data: SimulationDispatchSpec) {
+  // Required in data: simulationId, omex filename
+  async uploadFile(data: { simulationId: string, omexFileName: string, simulator: string, simulatorVersion: string },) {
     this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
 
@@ -52,20 +55,22 @@ export class AppController {
       return { message: 'Unsupported simulator was provided!' };
     }
 
-    const omexPath = data.filepathOnDataStore;
-    const sbatchName = `${uuid()}.sbatch`;
+    const sbatchName = `${data.simulationId}.sbatch`;
     const sbatchPath = path.join(sbatchStorage, sbatchName);
 
     this.logger.log('SBatch path: ' + sbatchPath);
 
     // Generate SBATCH script
+    // TODO: Rename singularity images biosimulations_ to biosimulators_ on HPC and build new images according to /simulator from DB
     const simulatorString = `biosimulations_${data.simulator}_${data.simulatorVersion}`;
-    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${data.uniqueFilename.split('.')[0]
-      }`;
+    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${data.simulationId}`;
     const sbatchString = this.sbatchService.generateSbatch(
       hpcTempDirPath,
       simulatorString,
-      data.filename
+      data.omexFileName,
+      // 'http://99d1dcb20ebd.ngrok.io', 
+      urls.dispatchApi,
+      data.simulationId
     );
     await FileModifiers.writeFile(sbatchPath, sbatchString);
 
@@ -74,8 +79,8 @@ export class AppController {
     this.hpcService.dispatchJob(
       hpcTempDirPath,
       sbatchPath,
-      omexPath,
-      data.filename
+      // omexPath,
+      data.omexFileName
     );
 
     return { message: 'Simulation dispatch started.' };

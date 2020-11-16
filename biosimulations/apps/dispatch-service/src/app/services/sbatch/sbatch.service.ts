@@ -6,7 +6,9 @@ export class SbatchService {
   generateSbatch(
     tempSimDir: string,
     simulator: string,
-    omexName: string
+    omexName: string,
+    apiDomain: string,
+    simId: string
   ): string {
     const template = `#!/bin/bash
 #SBATCH --job-name=BioSimulations
@@ -23,6 +25,7 @@ export class SbatchService {
         TMPDIR=${tempSimDir}/out
         if [ ! -e $TMPDIR ]; then mkdir -p $TMPDIR ; fi
         date
+        wget ${apiDomain}/run/${simId}/download -O ${tempSimDir}/in/${omexName}
         command="singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/biosimulations/singularity_images/${simulator}.img -i /root/in/${omexName} -o /root/out"
         eval $command;`;
     return template;

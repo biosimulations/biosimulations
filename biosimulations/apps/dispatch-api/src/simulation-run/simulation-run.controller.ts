@@ -1,3 +1,4 @@
+import { MQDispatch } from './../../../../libs/messages/src/lib/messages';
 /**
  * @file Contains the controller for CRUD operations on simulation runs
  * @author Bilal Shaikh
@@ -10,6 +11,7 @@ import {
   permissions,
   PermissionsGuard,
 } from '@biosimulations/auth/nest';
+import { ClientProxy } from '@nestjs/microservices';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
@@ -17,6 +19,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   NotFoundException,
   Param,
   Patch,
@@ -50,7 +53,10 @@ import { SimulationRunService } from './simulation-run.service';
 @ApiTags('Simulation Runs')
 @Controller('run')
 export class SimulationRunController {
-  constructor(private service: SimulationRunService) {}
+  constructor(
+    private service: SimulationRunService,
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
+  ) { }
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
@@ -122,6 +128,20 @@ export class SimulationRunController {
     const parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
 
     const run = await this.service.createRun(parsedRun, file);
+
+    // console.log('start to Dispatch with filename: ', file.originalname)
+    this.messageClient.send(MQDispatch.SIM_DISPATCH_START,
+      {
+        simulationId: run.id,
+        omexFileName: file.originalname,
+        simulator: run.simulator,
+        simulatorVersion: run.simulatorVersion
+      })
+      .subscribe(dat => {
+        // TODO: Make MQ work without this subscription
+        // console.log('event dispatched: ', dat)
+      });
+
 
     return new SimulationRun(
       run.id,
