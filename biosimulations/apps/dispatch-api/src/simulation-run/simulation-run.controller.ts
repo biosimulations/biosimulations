@@ -4,7 +4,7 @@
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
-import { MQDispatch } from '@biosimulations/messages';
+import { MQDispatch } from '@biosimulations/messages/messages';
 import {
   AdminGuard,
   JwtGuard,

@@ -1,7 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { MQDispatch } from '@biosimulations/messages';
+import { MQDispatch } from '@biosimulations/messages/messages';
 import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 import path from 'path';
 

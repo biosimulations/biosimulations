@@ -283,13 +283,6 @@
         "platform:any"
       ]
     },
-    "messages": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:server"
-      ]
-    },
     "mail-service": {
       "tags": [
         "scope:shared",
@@ -310,7 +303,6 @@
         "type:datamodel",
         "platform:server",
         "shared:false"
-
       ]
     },
     "ontology-ontologies": {
@@ -319,7 +311,6 @@
         "type:service",
         "platform:server",
         "shared:true"
-
       ]
     },
     "shared-utils-routes": {
@@ -369,6 +360,13 @@
         "scope:shared",
         "type:datamodel",
         "platform:any"
+      ]
+    },
+    "messages-messages": {
+      "tags": [
+        "scope:shared",
+        "type:datamodel",
+        "platform:server"
       ]
     }
   }

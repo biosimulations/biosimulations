@@ -11,7 +11,7 @@ import { ModelsService } from './resources/models/models.service';
 import { v4 as uuid } from 'uuid';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
-import { MQDispatch } from '@biosimulations/messages';
+import { MQDispatch } from '@biosimulations/messages/messages';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()

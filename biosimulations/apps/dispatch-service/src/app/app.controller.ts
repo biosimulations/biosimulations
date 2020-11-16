@@ -14,7 +14,7 @@ import path from 'path';
 import * as csv2Json from 'csv2json';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { MQDispatch } from '@biosimulations/messages';
+import { MQDispatch } from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 import { SimulationService } from './services/simulation/simulation.service';
