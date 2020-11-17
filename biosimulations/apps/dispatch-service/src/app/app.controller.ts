@@ -1,6 +1,10 @@
 import { urls } from '@biosimulations/config/common';
 import { Controller, Logger, Inject } from '@nestjs/common';
-import { MessagePattern, ClientProxy } from '@nestjs/microservices';
+import {
+  MessagePattern,
+  ClientProxy,
+  EventPattern,
+} from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
@@ -14,7 +18,13 @@ import path from 'path';
 import * as csv2Json from 'csv2json';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { MQDispatch } from '@biosimulations/messages/messages';
+import {
+  createdResponse,
+  DispatchCreatedPayload,
+  DispatchMessage,
+  DispatchPayload,
+  MQDispatch,
+} from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 import { SimulationService } from './services/simulation/simulation.service';
@@ -30,16 +40,18 @@ export class AppController {
     private schedulerRegistry: SchedulerRegistry,
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
-    private simulationService: SimulationService,
-  ) { }
+    private simulationService: SimulationService
+  ) {}
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>(
-    'hpc.fileStorage', '');
+    'hpc.fileStorage',
+    ''
+  );
 
-  @MessagePattern(MQDispatch.SIM_DISPATCH_START)
+  @MessagePattern(DispatchMessage.created)
   // async uploadFile(data: SimulationDispatchSpec) {
   // Required in data: simulationId, omex filename
-  async uploadFile(data: { simulationId: string, omexFileName: string, simulator: string, simulatorVersion: string },) {
+  async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
     this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
 
@@ -52,7 +64,7 @@ export class AppController {
       data.simulator !== 'cobrapy' &&
       data.simulator !== 'bionetgen'
     ) {
-      return { message: 'Unsupported simulator was provided!' };
+      return new createdResponse(false, 'invalid simulator');
     }
 
     const sbatchName = `${data.simulationId}.sbatch`;
@@ -62,26 +74,25 @@ export class AppController {
 
     // Generate SBATCH script
     // TODO: Rename singularity images biosimulations_ to biosimulators_ on HPC and build new images according to /simulator from DB
-    const simulatorString = `biosimulations_${data.simulator}_${data.simulatorVersion}`;
-    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${data.simulationId}`;
+    const simulatorString = `biosimulations_${data.simulator}_${data.version}`;
+    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${
+      data.simulationId
+    }`;
     const sbatchString = this.sbatchService.generateSbatch(
       hpcTempDirPath,
       simulatorString,
-      data.omexFileName,
+      data.fileName,
       urls.dispatchApi,
       data.simulationId
     );
-    await FileModifiers.writeFile(sbatchPath, sbatchString);
+    return FileModifiers.writeFile(sbatchPath, sbatchString)
+      .then(() => {
+        this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
 
-    this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
-
-    this.hpcService.dispatchJob(
-      hpcTempDirPath,
-      sbatchPath,
-      data.omexFileName
-    );
-
-    return { message: 'Simulation dispatch started.' };
+        this.hpcService.dispatchJob(hpcTempDirPath, sbatchPath, data.fileName);
+        return new createdResponse();
+      })
+      .catch((err: any) => new createdResponse(false));
   }
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
@@ -155,10 +166,12 @@ export class AppController {
                       chartJsonPath,
                       JSON.stringify(chartResults)
                     ).then(() => {
-
                       fileCounter++;
                       dirCounter++;
-                      if ((fileCounter === fileLength) && (dirCounter === dirLength)) {
+                      if (
+                        fileCounter === fileLength &&
+                        dirCounter === dirLength
+                      ) {
                         this.messageClient.emit(
                           MQDispatch.SIM_RESULT_FINISH,
                           uuid
@@ -168,7 +181,9 @@ export class AppController {
                   });
                 })
                 .on('error', (err) => {
-                  return this.logger.log('Error occured in file writing' + JSON.stringify(err));
+                  return this.logger.log(
+                    'Error occured in file writing' + JSON.stringify(err)
+                  );
                 });
             }
           }
@@ -179,12 +194,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
   async resultFinish(uuid: string) {
-
-    this.archiverService
-      .createResultArchive(uuid)
-      .then(() => {
-
-      });
+    this.archiverService.createResultArchive(uuid).then(() => {});
   }
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
@@ -198,9 +208,9 @@ export class AppController {
 
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus = await this.simulationService.getSimulationStatus(
-        jobId
-      ) || DispatchSimulationStatus.QUEUED;
+      const jobStatus =
+        (await this.simulationService.getSimulationStatus(jobId)) ||
+        DispatchSimulationStatus.QUEUED;
       this.modelsService.updateStatus(uuid, jobStatus);
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:

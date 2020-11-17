@@ -4,7 +4,11 @@
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
-import { MQDispatch } from '@biosimulations/messages/messages';
+import {
+  createdResponse,
+  DispatchMessage,
+  MQDispatch,
+} from '@biosimulations/messages/messages';
 import {
   AdminGuard,
   JwtGuard,
@@ -49,14 +53,18 @@ import {
   UpdateSimulationRun,
 } from './simulation-run.dto';
 import { SimulationRunService } from './simulation-run.service';
+import {
+  SimulationRunModelReturnType,
+  SimulationRunStatus,
+} from './simulation-run.model';
 
 @ApiTags('Simulation Runs')
 @Controller('run')
 export class SimulationRunController {
   constructor(
     private service: SimulationRunService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-  ) { }
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+  ) {}
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
@@ -70,23 +78,7 @@ export class SimulationRunController {
   @Get()
   async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
-    return res.map(
-      (run) =>
-        new SimulationRun(
-          run.id,
-          run.name,
-          run.simulator,
-          run.simulatorVersion,
-          run.status,
-          run.public,
-          run.submitted,
-          run.updated,
-          run.duration,
-          run.projectSize,
-          run.resultsSize,
-          run.email
-        )
-    );
+    return res.map(this.makeSimulationRun);
   }
 
   @ApiOperation({
@@ -128,19 +120,30 @@ export class SimulationRunController {
     const parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
 
     const run = await this.service.createRun(parsedRun, file);
-
-    this.messageClient.emit(MQDispatch.SIM_DISPATCH_START,
-      {
-        simulationId: run.id,
-        omexFileName: file.originalname,
+    const response: SimulationRun = this.makeSimulationRun(run);
+    // Move to another layer?
+    // TODO add type checking here
+    this.messageClient
+      .send(DispatchMessage.created, {
+        id: run.id,
+        file: file.originalname,
         simulator: run.simulator,
-        simulatorVersion: run.simulatorVersion
+        version: run.simulatorVersion,
       })
-      // .subscribe(dat => {
-      //   // console.log('event dispatched: ', dat)
-      // });
-
-
+      .subscribe((res: createdResponse) => {
+        if (res.okay) {
+          this.service.setStatus(response.id, SimulationRunStatus.QUEUED);
+        } else {
+          this.service.setStatus(response.id, SimulationRunStatus.FAILED);
+        }
+      });
+    return response;
+  }
+  /**
+   *  Creates the controllers return type SimulationRun
+   * @param run The value that is returned from the service.
+   */
+  makeSimulationRun(run: SimulationRunModelReturnType): SimulationRun {
     return new SimulationRun(
       run.id,
       run.name,
@@ -166,20 +169,7 @@ export class SimulationRunController {
   async getRun(@Param('id') id: string): Promise<SimulationRun> {
     const run = await this.service.get(id);
     if (run) {
-      return new SimulationRun(
-        run.id,
-        run.name,
-        run.simulator,
-        run.simulatorVersion,
-        run.status,
-        run.public,
-        run.submitted,
-        run.updated,
-        run.duration,
-        run.projectSize,
-        run.resultsSize,
-        run.email
-      );
+      this.makeSimulationRun(run);
     }
     throw new NotFoundException(`No Simulation Run with id ${id}`);
   }
