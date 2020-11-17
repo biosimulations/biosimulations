@@ -19,7 +19,7 @@ export class createdResponse extends Response {
     super(ok);
   }
   _message = DispatchMessage.created;
-  description?: String;
+  description?: string;
 }
 export class DispatchPayload {
   _message!: DispatchMessage;
