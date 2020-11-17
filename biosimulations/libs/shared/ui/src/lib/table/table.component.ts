@@ -22,7 +22,8 @@ import {
   IdColumnMap,
   Side,
   RowService,
-  Sort as ISort,
+  ColumnSort,
+  ColumnSortDirection,
 } from './table.interface';
 import { UtilsService } from '@biosimulations/shared/services';
 import lunr from 'lunr';
@@ -71,7 +72,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   private fullTextMatches!: { [index: number]: boolean };
 
   @Input()
-  defaultSort!: ISort;
+  defaultSort!: ColumnSort;
 
   @Input()
   linesPerRow = 1;
@@ -163,9 +164,14 @@ export class TableComponent implements OnInit, AfterViewInit {
       datum['_cache'] = cache;
 
       this.columns.forEach((column: Column): void => {
+        const value = RowService.getElementValue(datum, column)
         cache[column.id] = {
           value: RowService.formatElementValue(
-            RowService.getElementValue(datum, column),
+            value,
+            column
+          ),
+          toolTip: RowService.formatElementToolTip(
+            value,
             column
           ),
           left: {},
@@ -306,7 +312,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.filterPredicate = this.filterData.bind(this);
     this.dataSource.sort = this.sort;
     this.dataSource.sortData = (data: any[], sort: Sort) => {
-      return RowService.sortData(this.idToColumn, data, sort);
+      const columnSort: ColumnSort = {
+        active: sort.active,
+        direction: sort.direction ? ColumnSortDirection[sort.direction] : undefined,
+      }
+      return RowService.sortData(this.idToColumn, data, columnSort);
     };
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
@@ -323,15 +333,19 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getTextColumnValues(data: any[], column: Column): any[] {
-    const values: any = {};
-    for (const datum of data) {
-      const value: any = RowService.getElementFilterValue(datum, column);
+    const values: any[] = column.filterValues
+      ? column.filterValues
+      : data.map((datum: any): any => RowService.getElementFilterValue(datum, column));
 
+    const formattedValuesMap: any = {};
+    const allValues = new Set<any>();
+    for (const value of values) {
       if (Array.isArray(value)) {
         for (const v of value) {
           const formattedV = RowService.formatElementFilterValue(v, column);
           if (formattedV != null && formattedV !== '') {
-            values[v] = formattedV;
+            formattedValuesMap[v] = formattedV;
+            allValues.add(v);
           }
         }
       } else {
@@ -340,23 +354,30 @@ export class TableComponent implements OnInit, AfterViewInit {
           column
         );
         if (formattedValue != null && formattedValue !== '') {
-          values[value] = formattedValue;
+          formattedValuesMap[value] = formattedValue;
+          allValues.add(value);
         }
       }
     }
 
     const comparator = RowService.getFilterComparator(column);
-    const arrValues = Object.keys(values).map((key: any): any => {
-      return {
-        value: key,
-        formattedValue: values[key],
+    const formattedValuesArr = [];
+    for (const value of allValues) {
+      formattedValuesArr.push({
+        value: value,
+        formattedValue: formattedValuesMap[value],
         checked: false,
-      };
-    });
-    arrValues.sort((a: any, b: any): number => {
+      });
+    }
+    formattedValuesArr.sort((a: any, b: any): number => {
       return comparator(a.value, b.value);
     });
-    return arrValues;
+
+    if (column.filterSortDirection === ColumnSortDirection.desc) {
+      formattedValuesArr.reverse();
+    }
+
+    return formattedValuesArr;
   }
 
   getNumericColumnRange(data: any[], column: Column): any {

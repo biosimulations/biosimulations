@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Column, Sort } from './table.interface';
+import { Column, ColumnSort } from './table.interface';
 import { BreakpointObserver, } from '@angular/cdk/layout';
 
 @Component({
@@ -37,7 +37,7 @@ export class ResponsiveTableComponent {
   sortable = true;
 
   @Input()
-  defaultSort!: Sort;
+  defaultSort!: ColumnSort;
 
   @Input()
   controls = true;

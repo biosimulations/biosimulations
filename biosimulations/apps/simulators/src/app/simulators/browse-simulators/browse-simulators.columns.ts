@@ -2,10 +2,11 @@ import {
   Column,
   ColumnActionType,
   ColumnFilterType,
-  RowService,
+  ColumnSortDirection,
+  RowService,  
 } from '@biosimulations/shared/ui';
 
-import { TableSimulator } from './tableSimulator.interface';
+import { TableSimulator, CurationStatus } from './tableSimulator.interface';
 
 export const columns: Column[] = [
   {
@@ -17,7 +18,7 @@ export const columns: Column[] = [
       return ['/simulators', element.id];
     },
     filterable: false,
-    minWidth: 75,
+    minWidth: 80,
     showStacked: false,
   },
   {
@@ -25,7 +26,7 @@ export const columns: Column[] = [
     heading: 'Name',
     key: 'name',
     filterable: false,
-    minWidth: 75,
+    minWidth: 80,
     showStacked: false,
   },
   {
@@ -88,6 +89,9 @@ export const columns: Column[] = [
     formatter: (names: string[]): string => {
       return names.join(', ');
     },
+    toolTipFormatter: (names: string[]): string => {
+      return names.join(', ');
+    },
     filterFormatter: (name: string): string => {
       return name;
     },
@@ -112,10 +116,11 @@ export const columns: Column[] = [
       return false;
     },
     filterComparator: RowService.comparator,
+    showFilterItemToolTips: true,
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 200,
+    minWidth: 190,
   },
   {
     id: 'modelFormats',
@@ -228,6 +233,9 @@ export const columns: Column[] = [
     stackedFormatter: (value: string | undefined): string => {
       return value ? value : 'Not available';
     },
+    filterGetter: (element: TableSimulator): boolean => {
+      return !!element.image;
+    },
     filterFormatter: (value: string | undefined): string => {
       return value ? 'Yes' : 'No';
     },
@@ -256,38 +264,70 @@ export const columns: Column[] = [
       }
     },
     filterable: true,
+    filterSortDirection: ColumnSortDirection.desc,
     show: false,
     minWidth: 60,
     center: true,
     rightShowStacked: false,
   },
   {
-    id: 'validated',
-    heading: 'Validated',
-    key: 'validated',
-    formatter: (value: boolean): string => {
-      return value ? '✔' : '';
+    id: 'curationStatus',
+    heading: 'Curation',
+    key: 'curationStatus',
+    formatter: (value: CurationStatus): string => {
+      return '★'.repeat(value) + '☆'.repeat(CurationStatus["Image validated"] - value);
     },
-    stackedFormatter: (value: boolean): string => {
-      return value ? 'Yes' : 'No';
+    toolTipFormatter: (value: CurationStatus): string => {
+      let label: string = '';
+      for (const [key, val] of Object.entries(CurationStatus)) {
+        if (typeof key === "string" && val === value) {
+          label = key as string;
+          break;
+        }
+      }
+      return '★'.repeat(value)  + '☆'.repeat(CurationStatus["Image validated"] - value) + ' ' + label;
     },
-    filterFormatter: (value: boolean): string => {
-      return value ? 'Yes' : 'No';
+    stackedFormatter: (value: CurationStatus): string => {
+      let label: string = '';
+      for (const [key, val] of Object.entries(CurationStatus)) {
+        if (typeof key === "string" && val === value) {
+          label = key as string;
+          break;
+        }
+      }
+      return '★'.repeat(value)  + '☆'.repeat(CurationStatus["Image validated"] - value) + ' ' + label;
+    },
+    filterFormatter: (value: CurationStatus): string => {
+      let label: string = '';
+      for (const [key, val] of Object.entries(CurationStatus)) {
+        if (typeof key === "string" && val === value) {
+          label = key as string;
+          break;
+        }
+      }
+      return '★'.repeat(value)  + '☆'.repeat(CurationStatus["Image validated"] - value) + ' ' + label;
     },
     filterable: true,
-    show: false,
-    minWidth: 99,
+    filterValues: Object.values(CurationStatus).filter((value: number | string): boolean => typeof value === "number"),
+    filterSortDirection: ColumnSortDirection.desc,
+    showFilterItemToolTips: true,
+    show: true,
+    minWidth: 92,
     center: true,
   },
   {
     id: 'license',
     heading: 'License',
     key: 'license',
+    toolTipFormatter: (value: string): string => {
+      return value;
+    },
     extraSearchGetter: (element: TableSimulator): string => {
       return element.licenseId;
     },
     show: false,
     minWidth: 125,
+    showFilterItemToolTips: true,
   },
   {
     id: 'created',
@@ -310,7 +350,7 @@ export const columns: Column[] = [
     heading: 'Run',
     key: 'id',
     getter: (element: TableSimulator): string | null => {
-      if (element.image) {
+      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
         return element.id;
       } else {
         return null;
@@ -328,7 +368,7 @@ export const columns: Column[] = [
     },
     rightIcon: 'simulator',
     rightIconTitle: (element: TableSimulator): string | null => {
-      if (element.image) {
+      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
         return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
       } else {
         return null;
@@ -337,14 +377,14 @@ export const columns: Column[] = [
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
-      if (element.image) {
+      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
         return 'https://run.biosimulations.org/run?simulator=' + element.id;
       } else {
         return null;
       }
     },
     rightHref: (element: TableSimulator): string | null  => {
-      if (element.image) {
+      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
         return 'https://run.biosimulations.org/run?simulator=' + element.id;
       } else {
         return null;

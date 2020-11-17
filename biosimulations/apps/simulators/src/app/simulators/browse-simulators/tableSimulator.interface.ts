@@ -1,3 +1,11 @@
+export enum CurationStatus {
+  'Registered with BioSimulators' = 1,
+  'Algorithms curated' = 2,
+  'Parameters curated' = 3,
+  'Image available' = 4,
+  'Image validated' = 5,
+}
+
 export interface TableSimulator {
   id: string;
   name: string;
@@ -13,7 +21,7 @@ export interface TableSimulator {
   archiveFormats: string[];
   archiveFormatIds: string[];
   latestVersion: string;
-  validated: boolean;
+  curationStatus: CurationStatus;
   url: string;
   license: string;
   licenseId: string

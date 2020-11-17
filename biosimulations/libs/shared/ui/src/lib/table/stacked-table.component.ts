@@ -5,7 +5,7 @@ import {
   Column,
   ColumnActionType,
   IdColumnMap,
-  Sort,
+  ColumnSort,
   Side,
   RowService,
 } from './table.interface';
@@ -63,7 +63,7 @@ export class StackedTableComponent {
   }
 
   @Input()
-  defaultSort!: Sort;
+  defaultSort!: ColumnSort;
 
   private _dataValue!: any[];
   private _derivedData: any[] = [];

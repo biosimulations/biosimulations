@@ -114,6 +114,8 @@
                           (change)="
                             filterSetValue(column, value, checkbox.checked)
                           "
+                          ng-attr-title
+                          [attr.title]="column.showFilterItemToolTips === true ? value.formattedValue : null"
                         >
                           {{ value.formattedValue }}
                         </mat-checkbox>
@@ -308,7 +310,7 @@
 
               <ng-template #centerTemplate>
                 <ng-container *ngIf="element._cache[column.id].value as value">
-                  {{ value }}
+                  <span [attr.title]="element._cache[column.id].toolTip">{{ value }}</span>
                 </ng-container>
               </ng-template>
             </span>
