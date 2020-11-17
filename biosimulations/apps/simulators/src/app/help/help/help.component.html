@@ -35,7 +35,7 @@
         </li>
         <li>
           <b>Create or more simulations:</b>
-          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the simulation tools support a subset of SED-ML including one step and timecourse simulations (<code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>), individual simulation tasks (<code>sedml:Task</code>), data generators for time and individual variables (<code>sedml:DataGenerator</code>), and report outputs (<code>sedml:Report</code>). Some of the simulation tools support the full SED-ML specification including steady-state simulations (<code>sedml:SteadyState</code>), repeated tasks (<code>sedml:RepeatedTask</code>), data generators for mathematical expressions (<code>sedml:DataGenerator</code>), and plot outputs (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the validated simulation tools support a subset of SED-ML including steady-state, one step, and timecourse simulations (<code>sedml:SteadyState</code>, <code>sedml:OneStep</code>, and <code>sedml:UniformTimeCourse</code>), individual simulation tasks (<code>sedml:Task</code>), data generators for time and individual variables (<code>sedml:DataGenerator</code>), and report outputs (<code>sedml:Report</code>). Some of the simulation tools support the full SED-ML specification including repeated tasks (<code>sedml:RepeatedTask</code>), data generators for mathematical expressions (<code>sedml:DataGenerator</code>), and plot outputs (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </li>
         <li>
           <b>Create an OMEX file which describes your model and simulation files and package them into a COMBINE archive file:</b>
@@ -81,7 +81,11 @@
     --archive /tmp/project/{{ '{' }} name-of-COMBINE-archive {{ '}' }} \
     --out-dir /tmp/results</code></pre>
 
-          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>. This will save your results to <code>path-to-save-results</code>. Reports will be saved in CSV format and plots will be saved in PDF format.</p>
+          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>.</p>
+
+          <p>The results will be saved to <code>path-to-save-results</code>. Reports will be saved in Comma-Separated Values (CSV) format and plots will be saved in Portable Document Format (PDF).</p>
+
+          <p>The columns of the reports will represent the data generators defined in the corresponding SED-ML file. The first row of each report will contain column headings that indicate the id of the data generator represented by each column. For steady-state and one-step simulations, the second row of each report will contain the predicted value of each data generator. For time course simulations, each subsequent row will represent a time point in the predicted time course; each cell (row, column) will represent the predicted value of the corresponding data generator (column) at the corresponding time point (row).</p>
         </li>
       </ol>
     </biosimulations-text-page-content-section>
@@ -99,12 +103,12 @@
     >
       <p>We welcome contributions of additional simulation tools!</p>
 
-      <p>All simulation tools submitted to BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.</p>
+      <p>All simulation tools submitted for validiation by BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.</p>
       <ul class="vertically-spaced">
         <li><b>Modeling languages.</b> Containers should support at least a subset of at least one modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
         <li><b>SED-ML.</b> Currently, containers should support at least the following features of SED-ML:
           <ul>
-            <li>One step and timecourse simulations: <code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>.</li>
+            <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:SteadyState</code>, <code>sedml:OneStep</code>, or <code>sedml:UniformTimeCourse</code>.</li>
             <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
             <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
             <li>Report outputs: <code>sedml:Report</code>.</li>
@@ -125,7 +129,7 @@
             <li>
               <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</p>
 
-              <p>The columns of the reports should correspond to the simulation outputs specified in the corresponding SED-ML document (e.g., time, specific species). For time course simulations, the rows should correspond to the predicted time points. The first row of each report table should describe the data represented by each column. Specifically, the first element of each column should be the id of the simulation output (e.g., time or species id) represented by the column.</p>
+              <p>The columns of the reports should correspond to the data generators specified in the corresponding SED-ML document (e.g., time, specific species). The first row of each report should contain column headings that indicate the id of the data generator represented by each column. For steady-state and one-step simulations, each report should contain a second row which contains the predicted value of each data generator. For time course simulations, the subsequent rows of each report should correspond to the time points of the predicted time course; each cell (row, column) should represent the predicted value of the corresponding data generator (column) at the corresponding time point (row).</p>
             </li>
           </ul>
 
