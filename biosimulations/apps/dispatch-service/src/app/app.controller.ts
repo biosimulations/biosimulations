@@ -8,11 +8,8 @@ import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import {
-  DispatchSimulationStatus,
-  SimulationDispatchSpec,
-} from '@biosimulations/dispatch/api-models';
-import { v4 as uuid } from 'uuid';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+
 import path from 'path';
 import * as csv2Json from 'csv2json';
 import { SchedulerRegistry } from '@nestjs/schedule';
@@ -21,7 +18,6 @@ import {
   createdResponse,
   DispatchCreatedPayload,
   DispatchMessage,
-  DispatchPayload,
   MQDispatch,
 } from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
@@ -57,6 +53,10 @@ export class AppController {
     this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
 
+    /**
+     * @todo Dont hardcode these
+     * @gmarupilla Lets remove these to a common service that is also used by the /simulators route
+     */
     if (
       data.simulator !== 'copasi' &&
       data.simulator !== 'vcell' &&
