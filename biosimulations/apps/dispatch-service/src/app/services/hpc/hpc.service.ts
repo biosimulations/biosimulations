@@ -1,7 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { MQDispatch } from '@biosimulations/messages/messages';
+import { DispatchMessage, MQDispatch } from '@biosimulations/messages/messages';
 import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 import path from 'path';
 import { ConfigService } from '@nestjs/config';
@@ -19,6 +19,30 @@ export class HpcService {
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
   ) {}
 
+  /**
+   *
+   * @param id
+   * @param sbatchString
+   */
+  async execJob(id: string, sbatchString: string) {
+    /**
+     * @todo Use this implementation to send job
+     * @body @gmarupilla Would something like be suffcient for replacing the other method and addresssing #1526?
+     */
+    this.sshService
+      .execStringCommand(`echo ${sbatchString} | sbatch`)
+      .then((result) => {
+        this.logger.log(
+          'Execution of sbatch was successful: ' + JSON.stringify(result)
+        );
+        this.messageClient.emit(DispatchMessage.started, {
+          simulatorId: id,
+        });
+      })
+      .catch((error) => {
+        this.logger.log('Could not execute SBATCH: ' + JSON.stringify(error));
+      });
+  }
   async dispatchJob(
     id: string,
     simulator: string,
