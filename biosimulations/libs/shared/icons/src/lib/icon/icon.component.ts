@@ -51,6 +51,7 @@ export type biosimulationsIcon =
   | 'taxon'
   | 'framework'
   | 'format'
+  | 'standard'
   | 'code'
   | 'license'
   | 'id'
@@ -151,6 +152,7 @@ export class IconComponent implements OnInit {
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
     format: { type: 'far', name: 'file-alt' },
+    standard: { type: 'fas', name: 'check-double' },
     code: { type: 'fas', name: 'code' },
     license: { type: 'fas', name: 'balance-scale' },
     simulator: { type: 'fas', name: 'cog' },
