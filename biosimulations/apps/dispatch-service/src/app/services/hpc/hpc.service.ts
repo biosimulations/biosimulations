@@ -4,27 +4,53 @@ import { ClientProxy } from '@nestjs/microservices';
 import { MQDispatch } from '@biosimulations/messages/messages';
 import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 import path from 'path';
-
+import { ConfigService } from '@nestjs/config';
+import { SbatchService } from '../sbatch/sbatch.service';
+import { urls } from '@biosimulations/config/common';
+import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 @Injectable()
 export class HpcService {
   private logger = new Logger(HpcService.name);
 
   constructor(
-    // private readonly configService: ConfigService,
+    private readonly configService: ConfigService,
     private sshService: SshService,
+    private sbatchService: SbatchService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) { }
+  ) {}
 
-  dispatchJob(
-    simDirBase: string,
-    sbatchPath: string,
-    // omexPath: string,
-    omexName: string
+  async dispatchJob(
+    id: string,
+    simulator: string,
+    version: string,
+    fileName: string
   ) {
-    const sbatchName = 'run.sbatch';
+    // Generate SBATCH script
+    // TODO: Rename singularity images biosimulations_ to biosimulators_ on HPC and build new images according to /simulator from DB
+    const simulatorString = `biosimulations_${simulator}_${version}`;
+    const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
+    const sbatchString = this.sbatchService.generateSbatch(
+      simDirBase,
+      simulatorString,
+      fileName,
+      urls.dispatchApi,
+      id
+    );
 
-    this.logger.log('Omex name: ' + JSON.stringify(omexName));
+    const fileStorage: string = this.configService.get<string>(
+      'hpc.fileStorage',
+      ''
+    );
+    const sbatchStorage = `${fileStorage}/SBATCH/ID`;
+    const sbatchName = `${id}.sbatch`;
+    const sbatchPath = path.join(sbatchStorage, sbatchName);
+    // Cab this be replaced with  this with fs.writefile? dont see the point of this wrapper
+    await FileModifiers.writeFile(sbatchPath, sbatchString);
 
+    /** @todo Send the sbatch over directly from string
+     * @body @gmarupilla Does the sbatch need to be sent over as a file ? This is a lot of extra work.cant we just feed the string to the sbatch command ?
+     */
+    this.logger.log('SBatch path: ' + sbatchPath);
     // get remote InDir and OutDir from config (ideally indir name should be simId)
     this.sshService
       .execStringCommand(`mkdir -p ${simDirBase}/in`)
@@ -50,7 +76,7 @@ export class HpcService {
                   .then((result) => {
                     this.logger.log(
                       'Execution of sbatch was successful: ' +
-                      JSON.stringify(result)
+                        JSON.stringify(result)
                     );
                     this.messageClient.emit(MQDispatch.SIM_DISPATCH_FINISH, {
                       simDir: simDirBase,
@@ -66,7 +92,7 @@ export class HpcService {
               .catch((err) => {
                 this.logger.log(
                   'Error occured whiled changing permission: ' +
-                  JSON.stringify(err)
+                    JSON.stringify(err)
                 );
               });
           })
@@ -92,7 +118,7 @@ export class HpcService {
       .catch((err) => {
         this.logger.log(
           'Could not create output directory for simulation: ' +
-          JSON.stringify(err)
+            JSON.stringify(err)
         );
       });
   }
@@ -107,21 +133,22 @@ export class HpcService {
     // Create a socket via SSH and stream the output file
   }
 
-
   async saactJobStatus(jobId: string) {
-
-    const saactData = await this.sshService.execStringCommand(
-      `sacct -X -j ${jobId} -o state%20`
-    ).catch((err) => {
-      this.logger.error('Failed to fetch results, updating the sim status as Pending, ' + JSON.stringify(err));
-      return { stdout: '\n\nPENDING' }
-    });
+    const saactData = await this.sshService
+      .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
+      .catch((err) => {
+        this.logger.error(
+          'Failed to fetch results, updating the sim status as Pending, ' +
+            JSON.stringify(err)
+        );
+        return { stdout: '\n\nPENDING' };
+      });
 
     const saactDataOutput = saactData.stdout;
     // const saactDataError = saactData.stderr;
-    const saactDataOutputSplit = saactDataOutput.split("\n");
-    const finalStatusList = saactDataOutputSplit[2].split(" ");
-    const finalStatus = finalStatusList[finalStatusList.length - 2]
+    const saactDataOutputSplit = saactDataOutput.split('\n');
+    const finalStatusList = saactDataOutputSplit[2].split(' ');
+    const finalStatus = finalStatusList[finalStatusList.length - 2];
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
       case 'PENDING' || '':
@@ -136,6 +163,5 @@ export class HpcService {
       case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
         return DispatchSimulationStatus.FAILED;
     }
-
   }
 }

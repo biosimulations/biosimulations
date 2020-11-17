@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-
+import { urls } from '@biosimulations/config/common';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class SbatchService {
+  constructor(private configService: ConfigService) {}
   // Note: Don't indent the template lines starting with "#SBATCH", otherwise SLURM configuration doesn't work
   generateSbatch(
     tempSimDir: string,

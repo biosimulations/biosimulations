@@ -1,4 +1,3 @@
-import { urls } from '@biosimulations/config/common';
 import { Controller, Logger, Inject } from '@nestjs/common';
 import {
   MessagePattern,
@@ -48,14 +47,15 @@ export class AppController {
     ''
   );
 
+  /**
+   *
+   * @param data The payload sent for the created simulation run message
+   * The method responds to the message by calling the hpc service to start a job. It then sends a reply to the message.
+   */
   @MessagePattern(DispatchMessage.created)
-  // async uploadFile(data: SimulationDispatchSpec) {
-  // Required in data: simulationId, omex filename
   async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
     this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
-
-    const sbatchStorage = `${this.fileStorage}/SBATCH/ID`;
 
     if (
       data.simulator !== 'copasi' &&
@@ -66,33 +66,14 @@ export class AppController {
     ) {
       return new createdResponse(false, 'invalid simulator');
     }
-
-    const sbatchName = `${data.simulationId}.sbatch`;
-    const sbatchPath = path.join(sbatchStorage, sbatchName);
-
-    this.logger.log('SBatch path: ' + sbatchPath);
-
-    // Generate SBATCH script
-    // TODO: Rename singularity images biosimulations_ to biosimulators_ on HPC and build new images according to /simulator from DB
-    const simulatorString = `biosimulations_${data.simulator}_${data.version}`;
-    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${
-      data.simulationId
-    }`;
-    const sbatchString = this.sbatchService.generateSbatch(
-      hpcTempDirPath,
-      simulatorString,
-      data.fileName,
-      urls.dispatchApi,
-      data.simulationId
+    // TODO have this send back a status and adjust response accordingly
+    this.hpcService.dispatchJob(
+      data.simulationId,
+      data.simulator,
+      data.version,
+      data.fileName
     );
-    return FileModifiers.writeFile(sbatchPath, sbatchString)
-      .then(() => {
-        this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
-
-        this.hpcService.dispatchJob(hpcTempDirPath, sbatchPath, data.fileName);
-        return new createdResponse();
-      })
-      .catch((err: any) => new createdResponse(false));
+    return new createdResponse();
   }
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
