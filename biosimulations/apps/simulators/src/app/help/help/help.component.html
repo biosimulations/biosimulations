@@ -2,8 +2,14 @@
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
+        <a [routerLink]="['/standards']">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Documentation for the BioSimulators standards
+        </a>
+      </div>
+      <div class="hanging-indent">
         <a [href]="config.apiUrl" target="_blank">
-          <biosimulations-icon icon="link"></biosimulations-icon>
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
           REST API documentation
         </a>
       </div>
@@ -31,7 +37,7 @@
         </li>
         <li>
           <b>Create one or more models:</b>
-          Create files which describe the models that you would like to simulate and save these files to the directory for the modeling project. Currently, the simulations tools in the BioSimulators collection support the BioNetGen Language <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (BNGL) and Systems Biology Markup Language <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SBML) formats. More information about BNGL and SBML is available from their websites. Alternatively, models can be obtained from BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and other model repositories.
+          Create files which describe the models that you would like to simulate and save these files to the directory for the modeling project. Currently, the simulations tools in the BioSimulators collection support several languages including the BioNetGen Language <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (BNGL) and Systems Biology Markup Language <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SBML) formats. More information about BNGL and SBML is available from their websites. Alternatively, models can be obtained from BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and other model repositories.
         </li>
         <li>
           <b>Create or more simulations:</b>
@@ -127,7 +133,7 @@
           <ul>
             <li><code>-i, --archive</code>: A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
             <li>
-              <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</p>
+              <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions <code>.csv</code> or <code>.pdf</code>.</p>
 
               <p>The columns of the reports should correspond to the data generators specified in the corresponding SED-ML document (e.g., time, specific species). The first row of each report should contain column headings that indicate the id of the data generator represented by each column. For steady-state and one-step simulations, each report should contain a second row which contains the predicted value of each data generator. For time course simulations, the subsequent rows of each report should correspond to the time points of the predicted time course; each cell (row, column) should represent the predicted value of the corresponding data generator (column) at the corresponding time point (row).</p>
             </li>
