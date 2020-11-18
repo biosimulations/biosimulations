@@ -238,7 +238,7 @@
                 </ul>
                 <ng-template #noFrameworksMessage>
                   <p class="info-message">
-                    This algorithm does not support any canonical modeling
+                    This implementation of this algorithm does not support any canonical modeling
                     frameworks.
                   </p>
                 </ng-template>
@@ -257,7 +257,7 @@
                 </ul>
                 <ng-template #noModelFormatsMessage>
                   <p class="info-message">
-                    This algorithm does not support any standard model formats.
+                    This implementation of this algorithm does not support any standard model formats.
                   </p>
                 </ng-template>
 
@@ -275,7 +275,7 @@
                 </ul>
                 <ng-template #noSimulationFormatsMessage>
                   <p class="info-message">
-                    This algorithm does not support any standard simulation formats.
+                    This implementation of this algorithm does not support any standard simulation formats.
                   </p>
                 </ng-template>
 
@@ -293,7 +293,7 @@
                 </ul>
                 <ng-template #noArchiveFormatsMessage>
                   <p class="info-message">
-                    This algorithm does not support any standard archive formats.
+                    This implementation of this algorithm does not support any standard archive formats.
                   </p>
                 </ng-template>
 
@@ -323,9 +323,9 @@
                   </biosimulations-responsive-table>
                 </div>
                 <ng-template #noCuratedParametersMessage>                  
-                  <p class="info-message" *ngIf="algorithm.parameters == null; else zeroParametersMessage">The parameters for {{ algorithm.name }} have not been curated.</p>
+                  <p class="info-message" *ngIf="algorithm.parameters == null; else zeroParametersMessage">The parameters for this implementation of {{ algorithm.name }} have not been curated.</p>
                   <ng-template #zeroParametersMessage>
-                    <p class="info-message">{{ algorithm.name }} does not have any parameters.</p>
+                    <p class="info-message">This implementation of {{ algorithm.name }} does not have any parameters.</p>
                   </ng-template>
                 </ng-template>
 
@@ -362,7 +362,7 @@
         </ng-container>
 
         <ng-template #noAlgorithms>
-          <p class="info-message">The algorithms supported by {{ simulator.id }} have not yet been curated.</p>
+          <p class="info-message">The algorithms implemented by {{ simulator.id }} have not yet been curated.</p>
         </ng-template>
       </ng-container>
     </ng-container>
