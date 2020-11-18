@@ -458,6 +458,11 @@ table {
     padding-right: 0.25rem;
     text-align: left;
   }
+
+  .mat-icon-button {
+    display: inline;
+    white-space: normal;
+  }
 }
 
 .mat-table.biosimulations-table {

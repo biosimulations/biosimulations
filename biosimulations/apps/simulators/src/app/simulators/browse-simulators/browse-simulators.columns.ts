@@ -13,20 +13,21 @@ export const columns: Column[] = [
     id: 'id',
     heading: 'Id',
     key: 'id',
-    centerAction: ColumnActionType.routerLink,
-    centerRouterLink: (element: any): string[] => {
-      return ['/simulators', element.id];
-    },
     filterable: false,
-    minWidth: 80,
+    show: false,
+    minWidth: 110,
     showStacked: false,
   },
   {
     id: 'name',
     heading: 'Name',
     key: 'name',
+    centerAction: ColumnActionType.routerLink,
+    centerRouterLink: (element: any): string[] => {
+      return ['/simulators', element.id];
+    },
     filterable: false,
-    minWidth: 70,
+    minWidth: 130,
     showStacked: false,
   },
   {
@@ -70,7 +71,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator): string => {
       return element.frameworkIds.join(' ');
     },
-    minWidth: 154,
+    minWidth: 165,
   },
   {
     id: 'algorithms',
@@ -120,7 +121,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 154,
+    minWidth: 165,
   },
   {
     id: 'modelFormats',
