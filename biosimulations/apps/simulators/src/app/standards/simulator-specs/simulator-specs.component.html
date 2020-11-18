@@ -1,0 +1,63 @@
+<biosimulations-text-page heading="BioSimulators format for the specifications of a simulation tool" [tocSections]="tocSections">
+  <ng-container id="sideBar">
+    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+      <div class="hanging-indent">
+        <a [routerLink]="['/help']">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Tutorial
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a [href]="config.apiUrl" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          REST API documentation
+        </a>
+      </div>
+    </biosimulations-text-page-side-bar-section>
+
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-help-side-bar-section>
+
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-feedback-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content" tocSectionsContainer>
+    <biosimulations-text-page-content-section
+      heading="Overview"
+      tocSection="Overview"
+    >
+      <p>The BioSimulators format for the specifications of a simulation tool is a JSON-based format for describing the modeling framworks (e.g., logical, constraint-based), simulation algorithms (e.g., CVODE, SSA), and modeling formats (e.g., CellML, COMBINE/OMEX, SBML, SED-ML) that a simulation tool supports, as well as the parameters of each algorithm (e.g., random number generator seed), their data types, and their allowed and default values.</p>
+
+      <p>The format can also capture a variety of metadata about simulation tools including the</p>
+      <ul>
+        <li>Name of the tool;</li>
+        <li>Version of the tool;</li>
+        <li>Description of the tool;</li>
+        <li>URL for a standardized Docker image for the tool;</li>
+        <li>URL for documentation about about the tool;</li>
+        <li>Citations for the tool;</li>
+        <li>Citations for each algorithm supported by the tool;</li>
+        <li>Other identifiers for the tool such as for bio.tools, CRAN, and PyPI;</li>
+        <li>License for the tool;</li>
+        <li>The authors of the tool; and</li>
+        <li>Dates when the tool was created and last updated.</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Schema"
+      tocSection="Schema"
+    >
+      <p>The schema for the format is available at <a [href]="openApiUrl" target="_blank">{{ openApiUrl }}</a>. Documentation for the schema is available at <a [href]="config.apiUrl" target="_blank">{{ config.apiUrl }}</a>.</p>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Example specifications of a simulator"
+      tocSection="Example specs"
+    >
+      <p>An an example, below is the specifications for tellurium <a href="http://tellurium.analogmachine.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+      <pre><code [languages]="['json']" [highlight]="exampleSpecs"></code></pre>
+    </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>

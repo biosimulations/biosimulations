@@ -39,6 +39,17 @@ const routes: Routes = [
     },
   },
   {
+    path: 'standards',
+    loadChildren: () => import('./standards/standards.module').then((m) => m.StandardsModule),
+    data: {
+      breadcrumb: 'Standards',
+      preload: {
+        preload: true,
+        delay: 1000,
+      },
+    },
+  },
+  {
     path: 'help',
     loadChildren: () => import('./help/help.module').then((m) => m.HelpModule),
     data: {
