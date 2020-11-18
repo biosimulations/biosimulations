@@ -96,8 +96,8 @@ export interface ViewSimulator {
   description: string | null;
   image?: string;
   url: string;
-  licenseUrl: Observable<string>;
-  licenseName: Observable<string>;
+  licenseUrl: Observable<string> | null;
+  licenseName: Observable<string> | null;
   authors: string | null;
   identifiers: ViewIdentifier[];
   citations: ViewCitation[];

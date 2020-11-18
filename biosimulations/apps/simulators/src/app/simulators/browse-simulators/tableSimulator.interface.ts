@@ -23,7 +23,7 @@ export interface TableSimulator {
   latestVersion: string;
   curationStatus: CurationStatus;
   url: string;
-  license: string;
-  licenseId: string
+  license: string | null;
+  licenseId: string | null;
   created: Date;
 }

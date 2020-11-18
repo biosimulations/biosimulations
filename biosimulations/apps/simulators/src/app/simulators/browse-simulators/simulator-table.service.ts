@@ -36,9 +36,11 @@ export class SimulatorTableService {
               algorithms: algorithms,
               modelFormats: modelFormats,
               simulationFormats: simulationFormats,
-              archiveFormats: archiveFormats,
-              license: license,
+              archiveFormats: archiveFormats,              
             };
+            if (license instanceof Observable) {
+              innerObservables['license'] = license;
+            }
 
             const frameworkIds = new Set<string>();
             const algorithmIds = new Set<string>();
@@ -62,7 +64,6 @@ export class SimulatorTableService {
                 archiveFormatIds.add(format.id);
               }
             }
-            const licenseId = simulator.license.id;
 
             let curationStatus = CurationStatus['Registered with BioSimulators'];
             if (simulator.algorithms.length > 0) {
@@ -90,25 +91,27 @@ export class SimulatorTableService {
 
             //Observable of the table object
             const tableSimulatorObservable = of(innerObservables).pipe(
-              mergeMap((sourceValue) =>
-                forkJoin({
+              mergeMap((sourceValue) => {
+                const innerInnerObservables = {
                   algorithms: sourceValue.algorithms,
                   frameworks: sourceValue.frameworks,                  
                   modelFormats: sourceValue.modelFormats,
                   simulationFormats: sourceValue.simulationFormats,
-                  archiveFormats: sourceValue.archiveFormats,
-                  license: license,
-                }).pipe(
+                  archiveFormats: sourceValue.archiveFormats,                  
+                };
+                if (license instanceof Observable) {
+                  innerInnerObservables['license'] = license;
+                }
+                return forkJoin(innerInnerObservables).pipe(
                   map((value) => {
                     // Table simulator
-                    return {
+                    const returnVal = {
                       id: simulator.id,
                       name: simulator.name,
                       latestVersion: simulator.version,
                       url: simulator.url,
                       created: new Date(simulator.created),
-                      license: value.license,
-                      licenseId: '',
+                      licenseId: simulator.license ? simulator.license.id : null,
                       frameworks: value.frameworks,
                       frameworkIds: [...frameworkIds],
                       algorithms: value.algorithms,
@@ -122,9 +125,15 @@ export class SimulatorTableService {
                       image: simulator.image || undefined,
                       curationStatus: curationStatus,
                     };
+                    if (license instanceof Observable) {
+                      returnVal['license'] = value.license;
+                    } else {
+                      returnVal['license'] = license;
+                    }
+                    return returnVal;
                   })
                 )
-              )
+              })
             );
             return tableSimulatorObservable;
           }
@@ -141,11 +150,15 @@ export class SimulatorTableService {
     return data;
   }
 
-  getLicense(simulator: any) {
-    return this.ontologyService.getSpdxTerm(simulator.license.id).pipe(
-      pluck('name'),
-      map((name) => this.shortenLicense(name))
-    );
+  getLicense(simulator: any): Observable<string> | null {
+    if (simulator.license) {
+      return this.ontologyService.getSpdxTerm(simulator.license.id).pipe(
+        pluck('name'),
+        map((name) => this.shortenLicense(name))
+      );
+    } else {
+      return null;
+    }
   }
 
   getFormats(simulator: any, formatType: string): Observable<string[]> {

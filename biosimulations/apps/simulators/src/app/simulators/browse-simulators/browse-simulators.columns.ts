@@ -26,7 +26,7 @@ export const columns: Column[] = [
     heading: 'Name',
     key: 'name',
     filterable: false,
-    minWidth: 80,
+    minWidth: 70,
     showStacked: false,
   },
   {
@@ -70,7 +70,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator): string => {
       return element.frameworkIds.join(' ');
     },
-    minWidth: 158,
+    minWidth: 154,
   },
   {
     id: 'algorithms',
@@ -120,7 +120,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator):string => {
       return element.algorithmIds.join(' ');
     },
-    minWidth: 190,
+    minWidth: 154,
   },
   {
     id: 'modelFormats',
@@ -153,7 +153,7 @@ export const columns: Column[] = [
     extraSearchGetter: (element: TableSimulator): string => {
       return element.modelFormatIds.join(' ');
     },
-    minWidth: 142,
+    minWidth: 132,
   },
   {
     id: 'simulationFormats',
@@ -319,10 +319,10 @@ export const columns: Column[] = [
     id: 'license',
     heading: 'License',
     key: 'license',
-    toolTipFormatter: (value: string): string => {
+    toolTipFormatter: (value: string | null): string | null => {
       return value;
     },
-    extraSearchGetter: (element: TableSimulator): string => {
+    extraSearchGetter: (element: TableSimulator): string | null => {
       return element.licenseId;
     },
     show: false,

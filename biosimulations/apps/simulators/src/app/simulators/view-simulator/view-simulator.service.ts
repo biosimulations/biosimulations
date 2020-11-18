@@ -88,15 +88,19 @@ export class ViewSimulatorService {
         }),
       citations: sim?.references?.citations?.map(this.makeCitation, this),
 
-      licenseName: this.ontService.getSpdxTerm(sim.license.id).pipe(
-        pluck('name'),
-        map((name: string) =>
-          name.replace(/\bLicense\b/, '').replace('  ', ' ')
-        )
-      ),
-      licenseUrl: this.ontService
-        .getSpdxTerm(sim.license.id)
-        .pipe(pluck('url')),
+      licenseName: sim.license
+        ? this.ontService.getSpdxTerm(sim.license.id).pipe(
+          pluck('name'),
+          map((name: string) =>
+            name.replace(/\bLicense\b/, '').replace('  ', ' ')
+          )
+        ) 
+        : null,
+      licenseUrl: sim.license
+        ? this.ontService
+          .getSpdxTerm(sim.license.id)
+          .pipe(pluck('url'))
+        : null,
       versions: this.simService
         .getVersions(sim.id)
         .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
