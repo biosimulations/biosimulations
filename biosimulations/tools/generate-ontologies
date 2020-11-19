@@ -6,6 +6,7 @@ declare -A ONTOLOGY_URLS=( \
     ["edam"]="https://raw.githubusercontent.com/edamontology/edamontology/master/releases/EDAM.owl" \
     ["kisao"]="http://www.biomodels.net/kisao/KISAO" \
     ["sbo"]="http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl" \
+    ["sio"]="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl" \
     )
 
 # list of ontologies that needs to be updated

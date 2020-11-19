@@ -5,12 +5,14 @@ import {
   IKisaoOntologyId,
   IEdamOntologyId,
   ISboOntologyId,
+  ISioOntologyId,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   EdamOntologyId,
   KisaoOntologyId,
-  SBOOntologyId,
+  SboOntologyId,
+  SioOntologyId,
 } from './ontologyId.dto';
 
 export class OntologyTerm implements IOntologyTerm {
@@ -28,7 +30,7 @@ export class OntologyTerm implements IOntologyTerm {
   url?: string | null;
 }
 
-export class EDAMTerm extends EdamOntologyId {
+export class EdamTerm extends EdamOntologyId {
   @ApiProperty()
   name!: string;
   @ApiProperty({ type: String, nullable: true })
@@ -48,7 +50,17 @@ export class KisaoTerm extends KisaoOntologyId {
   @ApiProperty()
   url?: string | null | undefined;
 }
-export class SboTerm extends SBOOntologyId {
+export class SboTerm extends SboOntologyId {
+  @ApiProperty()
+  name!: string;
+  @ApiProperty()
+  description!: string | null;
+  @ApiProperty()
+  iri!: string | null;
+  @ApiProperty()
+  url?: string | null | undefined;
+}
+export class SioTerm extends SioOntologyId {
   @ApiProperty()
   name!: string;
   @ApiProperty()

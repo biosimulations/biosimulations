@@ -1,7 +1,7 @@
-import { Ontologies, EDAMTerm } from '@biosimulations/datamodel/common'
+import { Ontologies, EdamTerm } from '@biosimulations/datamodel/common'
 import edamJson from './edam.json'
-function getEdamTerms(input: any): { [id: string]: EDAMTerm } {
-    const edamTerms: { [id: string]: EDAMTerm } = {};
+function getEdamTerms(input: any): { [id: string]: EdamTerm } {
+    const edamTerms: { [id: string]: EdamTerm } = {};
 
     // Drop context
     const edamJsonParse = input["@graph"]
@@ -18,7 +18,7 @@ function getEdamTerms(input: any): { [id: string]: EDAMTerm } {
                 const termName = jsonTerm["rdfs:label"]
                 const termUrl = encodeURI("https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F" + termId)
                 const docUrl = jsonTerm?.["http://edamontology.org/documentation"]?.["@id"] || jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"]
-                const term: EDAMTerm = {
+                const term: EdamTerm = {
                     id: termId,
                     name: termName,
                     description: termDescription,

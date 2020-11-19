@@ -2,6 +2,7 @@ export enum Ontologies {
   KISAO = 'KISAO',
   SBO = 'SBO',
   EDAM = 'EDAM',
+  SIO = 'SIO',
   SPDX = 'SPDX',
   URL = 'URL',
 }
@@ -11,6 +12,7 @@ export const EdamIdRegEx = /^(data|topic|operation|format)_\d{4}$/;
 export const EdamFormatIdRegEx = /^format_\d{4}$/;
 export const KisaoIdRegEx = /^KISAO_\d{7}$/; //sourced from identifiers.org
 export const SboIdRegEx = /^SBO_\d{7}$/;
+export const SioIdRegEx = /^SIO_\d{6}$/;
 
 export interface Identifier {
   namespace: string;
@@ -43,6 +45,11 @@ export interface ISboOntologyId extends IOntologyId {
   id: string;
 }
 
+export interface ISioOntologyId extends IOntologyId {
+  namespace: Ontologies.SIO;
+  id: string;
+}
+
 export interface IOntologyTerm extends IOntologyId {
   namespace: Ontologies;
   id: string;
@@ -59,7 +66,7 @@ export interface IdentifierTerm extends Identifier {
   description: string;
   url: string;
 }
-export interface KISAOTerm extends IKisaoOntologyId {
+export interface KisaoTerm extends IKisaoOntologyId {
   namespace: Ontologies.KISAO;
   id: string;
   name: string;
@@ -69,7 +76,7 @@ export interface KISAOTerm extends IKisaoOntologyId {
   externalUrl?: string | null;
 }
 
-export interface SBOTerm extends IOntologyTerm {
+export interface SboTerm extends IOntologyTerm {
   namespace: Ontologies.SBO;
   id: string;
   name: string;
@@ -79,7 +86,7 @@ export interface SBOTerm extends IOntologyTerm {
   externalUrl?: string | null;
 }
 
-export interface EDAMTerm extends IOntologyTerm {
+export interface EdamTerm extends IOntologyTerm {
   namespace: Ontologies.EDAM;
   id: string;
   name: string;
@@ -89,7 +96,17 @@ export interface EDAMTerm extends IOntologyTerm {
   externalUrl?: string | null;
 }
 
-export interface SPDXTerm extends IdentifierTerm {
+export interface SioTerm extends IOntologyTerm {
+  namespace: Ontologies.SIO;
+  id: string;
+  name: string;
+  description: string;
+  iri: string;
+  url: string;
+  externalUrl?: string | null;
+}
+
+export interface SpdxTerm extends IdentifierTerm {
   namespace: Ontologies.SPDX;
   id: string;
   name: string;

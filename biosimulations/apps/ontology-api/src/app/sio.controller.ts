@@ -1,4 +1,4 @@
-import { ErrorResponseDocument, SboTerm } from '@biosimulations/datamodel/api';
+import { ErrorResponseDocument, SioTerm } from '@biosimulations/datamodel/api';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
 import {
@@ -16,26 +16,26 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-@Controller('/sbo')
-@ApiTags('SBO')
-export class SboController {
+@Controller('/sio')
+@ApiTags('SIO')
+export class SioController {
   constructor(private service: OntologiesService) {}
 
   @Get('list')
-  @ApiOkResponse({ type: [SboTerm] })
-  getAll(): SboTerm[] {
-    return this.service.getSbo();
+  @ApiOkResponse({ type: [SioTerm] })
+  getAll(): SioTerm[] {
+    return this.service.getSIO();
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: SboTerm })
+  @ApiOkResponse({ type: SioTerm })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
   })
-  getTerm(@Param('id') id: string): SboTerm {
-    const term = this.service.getSboTerm(id);
+  getTerm(@Param('id') id: string): SioTerm {
+    const term = this.service.getSioTerm(id);
     if (!term) {
-      throw new NotFoundException(`No SBO term with id ${id} exists`);
+      throw new NotFoundException(`No SIO term with id ${id} exists`);
     }
     return term;
   }

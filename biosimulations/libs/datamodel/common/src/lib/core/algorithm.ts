@@ -6,7 +6,7 @@ import {
   IOntologyId,
   IKisaoOntologyId,
   IEdamOntologyId,
-  KISAOTerm,
+  KisaoTerm,
 } from '../common';
 
 /**

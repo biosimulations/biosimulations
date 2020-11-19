@@ -1,9 +1,9 @@
-import { Ontologies, KISAOTerm } from '@biosimulations/datamodel/common'
+import { Ontologies, KisaoTerm } from '@biosimulations/datamodel/common'
 import kisaoJson from './kisao.json'
 
-function getKisaoTerms(input: any): { [id: string]: KISAOTerm } {
+function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
 
-    const kisaoTerms: { [id: string]: KISAOTerm } = {}
+    const kisaoTerms: { [id: string]: KisaoTerm } = {}
     input = kisaoJson
     const kisaoJsonParse = input["@graph"]
 
@@ -16,7 +16,7 @@ function getKisaoTerms(input: any): { [id: string]: KISAOTerm } {
             const termDescription = jsonTerm["http://www.w3.org/2004/02/skos/core#definition"]
             const termUrl = "https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23" + encodeURIComponent(termId)
 
-            const term: KISAOTerm = {
+            const term: KisaoTerm = {
                 id: termId,
                 name: termName,
                 description: termDescription,

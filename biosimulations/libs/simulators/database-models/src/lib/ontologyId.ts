@@ -4,9 +4,11 @@ import {
   IEdamOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
+  ISioOntologyId,
   ISpdxId,
   KisaoIdRegEx,
   SboIdRegEx,
+  SioIdRegEx,
   Identifier as IIdentifier,
   EdamFormatIdRegEx,
 } from '@biosimulations/datamodel/common';
@@ -127,6 +129,27 @@ class SboOntologyId implements ISboOntologyId {
   id!: string;
 }
 export const SboOntologyIdSchema = SchemaFactory.createForClass(SboOntologyId);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class SioOntologyId implements ISioOntologyId {
+  @Prop({ type: String, required: true })
+  namespace!: Ontologies.SIO;
+
+  @Prop({
+    required: true,
+    validate: [
+      { validator: SioIdRegEx },
+      { validator: OntologiesService.sioValidator },
+    ],
+  })
+  id!: string;
+}
+export const SioOntologyIdSchema = SchemaFactory.createForClass(SioOntologyId);
 
 @Schema({
   _id: false,
