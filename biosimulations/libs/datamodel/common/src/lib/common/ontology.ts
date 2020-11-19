@@ -7,6 +7,13 @@ export enum Ontologies {
   URL = 'URL',
 }
 
+export interface OntologyInfo {
+  bioportalId: string;
+  olsId: string;
+  version: string;
+  source: string;
+}
+
 export const EdamIdRegEx = /^(data|topic|operation|format)_\d{4}$/;
 
 export const EdamFormatIdRegEx = /^format_\d{4}$/;

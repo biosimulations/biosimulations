@@ -1,4 +1,4 @@
-import { ErrorResponseDocument, SioTerm } from '@biosimulations/datamodel/api';
+import { ErrorResponseDocument, SioTerm, OntologyInfo } from '@biosimulations/datamodel/api';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
 import {
@@ -21,10 +21,16 @@ import {
 export class SioController {
   constructor(private service: OntologiesService) {}
 
+  @Get('info')
+  @ApiOkResponse({ type: OntologyInfo })
+  getInfo(): OntologyInfo {
+    return this.service.getSioInfo();
+  }
+
   @Get('list')
   @ApiOkResponse({ type: [SioTerm] })
   getAll(): SioTerm[] {
-    return this.service.getSIO();
+    return this.service.getSio();
   }
 
   @Get(':id')

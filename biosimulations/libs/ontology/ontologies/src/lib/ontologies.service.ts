@@ -1,21 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { 
+  edamInfo,
+  kisaoInfo,
+  sboInfo,
+  sioInfo,
   sboTerms,
   kisaoTerms,
   edamTerms,
   sioTerms,
  } from '@biosimulations/ontology/sources';
 import { 
+  OntologyInfo,
   EdamTerm,
   KisaoTerm,
   SboTerm,
-  SioTerm,
+  SioTerm,  
 } from '@biosimulations/datamodel/common';
 
 import spdxLicenseListSimple from 'spdx-license-list/simple';
 
 @Injectable()
 export class OntologiesService {
+  getEdamInfo(): OntologyInfo {
+    return edamInfo;
+  }
+
+  getKisaoInfo(): OntologyInfo {
+    return kisaoInfo;
+  }
+
+  getSboInfo(): OntologyInfo {
+    return sboInfo;
+  }
+
+  getSioInfo(): OntologyInfo {
+    return sioInfo;
+  }
+
   getEdam(): EdamTerm[] {
     const terms = [];
     for (const term in edamTerms) {

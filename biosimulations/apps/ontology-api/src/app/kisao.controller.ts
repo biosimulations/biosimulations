@@ -11,6 +11,7 @@ import { ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   ErrorResponseDocument,
   KisaoTerm,
+  OntologyInfo,
 } from '@biosimulations/datamodel/api';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
@@ -18,6 +19,12 @@ import { OntologiesService } from '@biosimulations/ontology/ontologies';
 @ApiTags('KISAO')
 export class KisaoController {
   constructor(private service: OntologiesService) {}
+
+  @Get('info')
+  @ApiOkResponse({ type: OntologyInfo })
+  getInfo(): OntologyInfo {
+    return this.service.getKisaoInfo();
+  }
 
   @Get('list')
   @ApiOkResponse({ type: [KisaoTerm] })

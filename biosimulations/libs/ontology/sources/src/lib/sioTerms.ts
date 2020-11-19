@@ -1,7 +1,8 @@
-import { Ontologies, SioTerm } from '@biosimulations/datamodel/common';
+import { Ontologies, SioTerm, OntologyInfo } from '@biosimulations/datamodel/common';
 
 import sioJson from './sio.json';
 
+let sioVersion: string = '';
 function getSioTerms(input: any): { [id: string]: SioTerm } {
     const Terms: { [id: string]: SioTerm } = {};
 
@@ -9,7 +10,9 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
     const jsonParse = input["@graph"]
     jsonParse.forEach(
         (jsonTerm: any) => {
-            if (jsonTerm["@id"].startsWith("http://semanticscience.org/resource/SIO_")) {
+            if (jsonTerm["@id"] === "http://semanticscience.org/ontology/sio.owl") {
+                sioVersion = jsonTerm["owl:versionInfo"];
+            } else if (jsonTerm["@id"].startsWith("http://semanticscience.org/resource/SIO_")) {
 
 
                 const termIRI = jsonTerm["@id"];
@@ -39,4 +42,11 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
 
 }
 
-export const sioTerms = getSioTerms(sioJson)
+export const sioTerms = getSioTerms(sioJson);
+
+export const sioInfo: OntologyInfo = {
+  'bioportalId': 'SIO',
+  'olsId': 'sio',
+  'version': sioVer,
+  'source': 'https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl',
+};

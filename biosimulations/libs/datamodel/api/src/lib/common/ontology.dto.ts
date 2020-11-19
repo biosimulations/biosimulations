@@ -6,6 +6,7 @@ import {
   IEdamOntologyId,
   ISboOntologyId,
   ISioOntologyId,
+  OntologyInfo as IOntologyInfo,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
@@ -14,6 +15,20 @@ import {
   SboOntologyId,
   SioOntologyId,
 } from './ontologyId.dto';
+
+export class OntologyInfo implements IOntologyInfo {
+  @ApiProperty()
+  bioportalId!: string;
+
+  @ApiProperty()
+  olsId!: string;
+
+  @ApiProperty()
+  version!: string;
+
+  @ApiProperty()
+  source!: string;
+}
 
 export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ enum: Ontologies })

@@ -8,11 +8,17 @@ import {
 } from '@nestjs/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { EdamTerm, ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { EdamTerm, ErrorResponseDocument, OntologyInfo } from '@biosimulations/datamodel/api';
 @Controller('/edam')
 @ApiTags('EDAM')
 export class EdamController {
   constructor(private service: OntologiesService) {}
+
+  @Get('info')
+  @ApiOkResponse({ type: OntologyInfo })
+  getInfo(): OntologyInfo {
+    return this.service.getEdamInfo();
+  }
 
   @Get('list')
   @ApiOkResponse({ type: [EdamTerm] })

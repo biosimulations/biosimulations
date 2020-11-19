@@ -1,5 +1,6 @@
-import { Ontologies, EdamTerm } from '@biosimulations/datamodel/common'
-import edamJson from './edam.json'
+import { Ontologies, EdamTerm, OntologyInfo } from '@biosimulations/datamodel/common';
+import edamJson from './edam.json';
+let edamVersion: string = '';
 function getEdamTerms(input: any): { [id: string]: EdamTerm } {
     const edamTerms: { [id: string]: EdamTerm } = {};
 
@@ -8,8 +9,9 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
 
     edamJsonParse.forEach(
         (jsonTerm: any) => {
-
-            if (jsonTerm["@id"].startsWith("http://edamontology.org/") && !(jsonTerm?.["owl:deprecated"])) {
+            if (jsonTerm["@id"] === "http://edamontology.org") {
+                edamVersion = jsonTerm["http://usefulinc.com/ns/doap#Version"];
+            } else if (jsonTerm["@id"].startsWith("http://edamontology.org/") && !(jsonTerm?.["owl:deprecated"])) {
 
                 const termIRI = jsonTerm["@id"];
                 const termNameSpace = Ontologies.EDAM
@@ -42,3 +44,10 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
 
 }
 export const edamTerms = getEdamTerms(edamJson);
+
+export const edamInfo: OntologyInfo = {
+  'bioportalId': 'EDAM',
+  'olsId': 'edam',
+  'version': edamVersion,
+  'source': 'https://raw.githubusercontent.com/edamontology/edamontology/master/releases/EDAM.owl',
+};

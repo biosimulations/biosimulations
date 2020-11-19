@@ -1,4 +1,4 @@
-import { ErrorResponseDocument, SboTerm } from '@biosimulations/datamodel/api';
+import { ErrorResponseDocument, SboTerm, OntologyInfo } from '@biosimulations/datamodel/api';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
 import {
@@ -20,6 +20,12 @@ import {
 @ApiTags('SBO')
 export class SboController {
   constructor(private service: OntologiesService) {}
+
+  @Get('info')
+  @ApiOkResponse({ type: OntologyInfo })
+  getInfo(): OntologyInfo {
+    return this.service.getSboInfo();
+  }
 
   @Get('list')
   @ApiOkResponse({ type: [SboTerm] })

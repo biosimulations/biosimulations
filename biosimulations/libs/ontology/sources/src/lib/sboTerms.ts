@@ -1,7 +1,8 @@
-import { Ontologies, SboTerm } from '@biosimulations/datamodel/common';
+import { Ontologies, SboTerm, OntologyInfo } from '@biosimulations/datamodel/common';
 
 import sboJson from './sbo.json';
 
+let sboVersion: string = '';
 function getSboTerms(input: any): { [id: string]: SboTerm } {
     const Terms: { [id: string]: SboTerm } = {};
 
@@ -9,7 +10,9 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
     const jsonParse = input["@graph"]
     jsonParse.forEach(
         (jsonTerm: any) => {
-            if (jsonTerm["@id"].startsWith("http://biomodels.net/SBO/")) {
+            if (jsonTerm["@id"] === "http://biomodels.net/SBO/") {
+                sboVersion = jsonTerm["owl:versionInfo"];
+            } else if (jsonTerm["@id"].startsWith("http://biomodels.net/SBO/")) {
 
 
                 const termIRI = jsonTerm["@id"];
@@ -39,4 +42,11 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
 
 }
 
-export const sboTerms = getSboTerms(sboJson)
+export const sboTerms = getSboTerms(sboJson);
+
+export const sboInfo: OntologyInfo = {
+  'bioportalId': 'SBO',
+  'olsId': 'sbo',
+  'version': sboVersion,
+  'source': 'http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl',
+};
