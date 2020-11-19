@@ -25,7 +25,7 @@ export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
 module load singularity/3.1.1
 TMPDIR=${tempSimDir}/out
-if [ ! -e $TMPDIR ]; then mkdir -p $TMPDIR ; fi
+if [ ! -e \\$TMPDIR ]; then mkdir -p \\$TMPDIR ; fi
 date
 wget ${apiDomain}/run/${simId}/download -O ${tempSimDir}/in/${omexName}
 command="singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/biosimulations/singularity_images/${simulator}.img -i /root/in/${omexName} -o /root/out"
