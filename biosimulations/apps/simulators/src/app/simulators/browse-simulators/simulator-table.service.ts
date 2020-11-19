@@ -31,7 +31,7 @@ export class SimulatorTableService {
             const license = this.getLicense(simulator);
 
             // These are all observables of string[] that need to be collapsed
-            const innerObservables = {
+            const innerObservables: any = {
               frameworks: frameworks,
               algorithms: algorithms,
               modelFormats: modelFormats,
@@ -92,7 +92,7 @@ export class SimulatorTableService {
             //Observable of the table object
             const tableSimulatorObservable = of(innerObservables).pipe(
               mergeMap((sourceValue) => {
-                const innerInnerObservables = {
+                const innerInnerObservables: any = {
                   algorithms: sourceValue.algorithms,
                   frameworks: sourceValue.frameworks,                  
                   modelFormats: sourceValue.modelFormats,
@@ -103,9 +103,9 @@ export class SimulatorTableService {
                   innerInnerObservables['license'] = license;
                 }
                 return forkJoin(innerInnerObservables).pipe(
-                  map((value) => {
+                  map((value: any) => {
                     // Table simulator
-                    const returnVal = {
+                    const returnVal: any = {
                       id: simulator.id,
                       name: simulator.name,
                       latestVersion: simulator.version,

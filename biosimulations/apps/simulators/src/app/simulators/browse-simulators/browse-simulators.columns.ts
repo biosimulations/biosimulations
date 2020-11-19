@@ -324,7 +324,7 @@ export const columns: Column[] = [
       return value;
     },
     extraSearchGetter: (element: TableSimulator): string | null => {
-      return element.licenseId;
+      return element.licenseId ? element.licenseId : null;
     },
     show: false,
     minWidth: 125,

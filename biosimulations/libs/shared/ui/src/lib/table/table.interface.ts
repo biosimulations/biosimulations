@@ -22,7 +22,7 @@ export interface Column {
   key?: string | string[];
   getter?: (rowData: any) => any;
   filterGetter?: (rowData: any) => any;
-  extraSearchGetter?: (rowData: any) => string;
+  extraSearchGetter?: (rowData: any) => string | null;
   passesFilter?: (rowData: any, filterValues: any[]) => boolean;
   formatter?: (cellValue: any) => any;
   toolTipFormatter?: (cellValue: any) => any;
@@ -343,9 +343,9 @@ export class RowService {
     if (column.extraSearchGetter !== undefined) {
       const extraSearchVal = column.extraSearchGetter(value);
       if (searchVal && extraSearchVal) {
-        searchVal += ' ' + extraSearchVal;
-      } else {
-        searchVal = extraSearchVal;
+        searchVal += ' ' + (extraSearchVal as string);
+      } else if (extraSearchVal) {
+        searchVal = extraSearchVal as string;
       }
     }
 
