@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { SimulatorService } from '../simulator.service';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
-import { TableSimulator, CurationStatus } from './tableSimulator.interface';
+import { TableSimulator } from './tableSimulator.interface';
 import { OntologyService } from '../ontology.service';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
+import { UtilsService } from '@biosimulations/shared/services';
 
 @Injectable()
 export class SimulatorTableService {
@@ -65,29 +66,7 @@ export class SimulatorTableService {
               }
             }
 
-            let curationStatus = CurationStatus['Registered with BioSimulators'];
-            if (simulator.algorithms.length > 0) {
-              curationStatus = CurationStatus['Algorithms curated'];
-              
-              let parametersCurated = true;
-              simulator.algorithms.forEach((algorithm: Algorithm): void => {
-                if (algorithm.parameters == null) {
-                  parametersCurated = false;
-                }
-              });
-
-              if (parametersCurated) {
-                curationStatus = CurationStatus['Parameters curated'];
-
-                if (simulator.image && simulator.format) {
-                  curationStatus = CurationStatus['Image available'];
-
-                  if (simulator?.biosimulators?.validated) {
-                    curationStatus = CurationStatus['Image validated'];
-                  }
-                }
-              }
-            }
+            const curationStatus = UtilsService.getSimulatorCurationStatus(simulator);
 
             //Observable of the table object
             const tableSimulatorObservable = of(innerObservables).pipe(

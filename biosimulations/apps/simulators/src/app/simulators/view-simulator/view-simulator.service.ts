@@ -105,7 +105,7 @@ export class ViewSimulatorService {
         .getVersions(sim.id)
         .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
-      validated: sim?.biosimulators?.validated,
+      curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
       created: this.getDateStr(new Date(sim.created)),
       updated: this.getDateStr(new Date(sim.updated)),
     };
@@ -213,7 +213,7 @@ export class ViewSimulatorService {
       created: this.getDateStr(new Date(value.created as Date)),
       url: value.url,
       image: value.image || undefined,
-      validated: value.validated,
+      curationStatus: value.curationStatus,
     };
   }
   getAuthors(simulator: Simulator): string | null {

@@ -6,7 +6,9 @@ import {
   RowService,  
 } from '@biosimulations/shared/ui';
 
-import { TableSimulator, CurationStatus } from './tableSimulator.interface';
+import { TableSimulator } from './tableSimulator.interface';
+import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
+import { UtilsService } from '@biosimulations/shared/services';
 
 export const columns: Column[] = [
   {
@@ -275,41 +277,12 @@ export const columns: Column[] = [
     id: 'curationStatus',
     heading: 'Curation',
     key: 'curationStatus',
-    formatter: (value: CurationStatus): string => {
-      return '★'.repeat(value) + '☆'.repeat(CurationStatus["Image validated"] - value);
-    },
-    toolTipFormatter: (value: CurationStatus): string => {
-      let label: string = '';
-      for (const [key, val] of Object.entries(CurationStatus)) {
-        if (typeof key === "string" && val === value) {
-          label = key as string;
-          break;
-        }
-      }
-      return '★'.repeat(value)  + '☆'.repeat(CurationStatus["Image validated"] - value) + ' ' + label;
-    },
-    stackedFormatter: (value: CurationStatus): string => {
-      let label: string = '';
-      for (const [key, val] of Object.entries(CurationStatus)) {
-        if (typeof key === "string" && val === value) {
-          label = key as string;
-          break;
-        }
-      }
-      return '★'.repeat(value)  + '☆'.repeat(CurationStatus["Image validated"] - value) + ' ' + label;
-    },
-    filterFormatter: (value: CurationStatus): string => {
-      let label: string = '';
-      for (const [key, val] of Object.entries(CurationStatus)) {
-        if (typeof key === "string" && val === value) {
-          label = key as string;
-          break;
-        }
-      }
-      return '★'.repeat(value)  + '☆'.repeat(CurationStatus["Image validated"] - value) + ' ' + label;
-    },
+    formatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value, false),
+    toolTipFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
+    stackedFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
+    filterFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
     filterable: true,
-    filterValues: Object.values(CurationStatus).filter((value: number | string): boolean => typeof value === "number"),
+    filterValues: Object.values(SimulatorCurationStatus).filter((value: number | string): boolean => typeof value === "number"),
     filterSortDirection: ColumnSortDirection.desc,
     showFilterItemToolTips: true,
     show: true,
@@ -351,7 +324,7 @@ export const columns: Column[] = [
     heading: 'Run',
     key: 'id',
     getter: (element: TableSimulator): string | null => {
-      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
         return element.id;
       } else {
         return null;
@@ -369,7 +342,7 @@ export const columns: Column[] = [
     },
     rightIcon: 'simulator',
     rightIconTitle: (element: TableSimulator): string | null => {
-      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
         return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
       } else {
         return null;
@@ -378,14 +351,14 @@ export const columns: Column[] = [
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
-      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
         return 'https://run.biosimulations.org/run?simulator=' + element.id;
       } else {
         return null;
       }
     },
     rightHref: (element: TableSimulator): string | null  => {
-      if (element.image && element.curationStatus === CurationStatus['Image validated']) {
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
         return 'https://run.biosimulations.org/run?simulator=' + element.id;
       } else {
         return null;

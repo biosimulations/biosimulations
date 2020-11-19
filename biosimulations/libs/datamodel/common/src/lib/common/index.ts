@@ -6,4 +6,5 @@ export * from './format';
 export * from './ontology';
 export * from './person';
 export * from './taxon';
-export * from './algortihm-parameter-type';
+export * from './algorithm-parameter-type';
+export * from './simulator-curation-status';

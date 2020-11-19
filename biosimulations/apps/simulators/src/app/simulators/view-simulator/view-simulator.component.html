@@ -93,14 +93,9 @@
         </div>
 
         <div class="section">
-          <h3>Validation status</h3>
+          <h3>Curation status</h3>
           <div class="section-content">
-            <ul class="icon-list">
-              <li>
-                <biosimulations-icon [icon]="simulator.validated ? 'valid' : 'invalid'"></biosimulations-icon>
-                {{ simulator.validated ? 'Validated' : 'Not validated' }}
-              </li>
-            </ul>
+            {{ simulator.curationStatus }}
           </div>
         </div>
 

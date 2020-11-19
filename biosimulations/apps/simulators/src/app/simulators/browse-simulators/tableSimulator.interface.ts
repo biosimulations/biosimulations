@@ -1,10 +1,4 @@
-export enum CurationStatus {
-  'Registered with BioSimulators' = 1,
-  'Algorithms curated' = 2,
-  'Parameters curated' = 3,
-  'Image available' = 4,
-  'Image validated' = 5,
-}
+import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
 
 export interface TableSimulator {
   id: string;
@@ -21,7 +15,7 @@ export interface TableSimulator {
   archiveFormats: string[];
   archiveFormatIds: string[];
   latestVersion: string;
-  curationStatus: CurationStatus;
+  curationStatus: SimulatorCurationStatus;
   url: string;
   license: string | null;
   licenseId: string | null;

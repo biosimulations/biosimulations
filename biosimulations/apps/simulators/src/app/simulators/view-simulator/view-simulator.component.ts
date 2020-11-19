@@ -179,21 +179,12 @@ export class ViewSimulatorComponent implements OnInit {
       minWidth: 610,
     },
     {
-      id: 'validated',
-      heading: 'Validated',
-      key: 'validated',
-      formatter: (value: boolean): string => {
-        return value ? '✔' : '✖';
-      },
-      stackedFormatter: (value: boolean): string => {
-        return value ? 'Yes' : 'No';
-      },
-      filterFormatter: (value: boolean): string => {
-        return value ? 'Yes' : 'No';
-      },
+      id: 'curationStatus',
+      heading: 'Curation',
+      key: 'curationStatus',
       show: true,
       center: true,
-      minWidth: 100,
+      minWidth: 74,
       filterable: true,
     },
     {

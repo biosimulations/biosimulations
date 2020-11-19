@@ -85,7 +85,7 @@ export interface ViewVersion {
   created: string;
   image?: string;
   url?: string;
-  validated: boolean;
+  curationStatus: string;
 }
 
 export interface ViewSimulator {
@@ -103,7 +103,7 @@ export interface ViewSimulator {
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
   versions: Observable<ViewVersion[]>;
-  validated: boolean;
+  curationStatus: string;
   created: string;
   updated: string;
 }
