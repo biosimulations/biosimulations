@@ -67,7 +67,7 @@ export class AppController {
       return new createdResponse(false, 'invalid simulator');
     }
     // TODO have this send back a status and adjust response accordingly
-    this.hpcService.submitJob(data.id, data.simulator, data.version, data.file);
+    this.hpcService.execJob(data.id, data.simulator, data.version, data.file);
     return new createdResponse();
   }
 

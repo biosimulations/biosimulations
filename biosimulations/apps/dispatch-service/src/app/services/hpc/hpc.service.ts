@@ -19,14 +19,25 @@ export class HpcService {
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
   ) {}
 
-  async submitJob(
+  /**
+   *
+   * @param id
+   * @param sbatchString
+   */
+
+  async execJob(
     id: string,
     simulator: string,
     version: string,
     fileName: string
   ) {
+    /**
+     * @todo Use this implementation to send job
+     * @body @gmarupilla Would something like be suffcient for replacing the other method and addresssing #1526?
+     */
     const simulatorString = `biosimulations_${simulator}_${version}`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
+
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,
@@ -34,23 +45,10 @@ export class HpcService {
       urls.dispatchApi,
       id
     );
-    console.log(sbatchString);
-    await this.execJob(id, sbatchString);
-  }
-  /**
-   *
-   * @param id
-   * @param sbatchString
-   */
-
-  async execJob(id: string, sbatchString: string) {
-    /**
-     * @todo Use this implementation to send job
-     * @body @gmarupilla Would something like be suffcient for replacing the other method and addresssing #1526?
-     */
+    // TODO save the sbatch into simDirbase
     this.sshService
       .execStringCommand(
-        `echo "${sbatchString}" > test.sbatch & sbatch test.sbatch`
+        `mkdir -p ${simDirBase}/in & mkdir -p ${simDirBase}/out & echo "${sbatchString}" > test.sbatch & chmod +x test.sbatch & sbatch test.sbatch`
       )
       .then((result) => {
         this.logger.log(
@@ -61,111 +59,8 @@ export class HpcService {
         });
       })
       .catch((error) => {
-        console.log(error);
-        this.logger.error('Could not execute SBATCH: ' + JSON.stringify(error));
-      });
-  }
-  async dispatchJob(
-    id: string,
-    simulator: string,
-    version: string,
-    fileName: string
-  ) {
-    // Generate SBATCH script
-    // TODO: Rename singularity images biosimulations_ to biosimulators_ on HPC and build new images according to /simulator from DB
-    const simulatorString = `biosimulations_${simulator}_${version}`;
-    const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
-    const sbatchString = this.sbatchService.generateSbatch(
-      simDirBase,
-      simulatorString,
-      fileName,
-      urls.dispatchApi,
-      id
-    );
-
-    const fileStorage: string = this.configService.get<string>(
-      'hpc.fileStorage',
-      ''
-    );
-    const sbatchStorage = `${fileStorage}/SBATCH/ID`;
-    const sbatchName = `${id}.sbatch`;
-    const sbatchPath = path.join(sbatchStorage, sbatchName);
-    // Can this be replaced with  this with fs.writefile? dont see the point of this wrapper
-    //await FileModifiers.writeFile(sbatchPath, sbatchString);
-
-    /** @todo Send the sbatch over directly from string
-     * @body @gmarupilla Does the sbatch need to be sent over as a file ? This is a lot of extra work.cant we just feed the string to the sbatch command ?
-     */
-    this.logger.log('SBatch path: ' + sbatchPath);
-    // get remote InDir and OutDir from config (ideally indir name should be simId)
-    this.sshService
-      .execStringCommand(`mkdir -p ${simDirBase}/in`)
-      .then((value) => {
-        this.logger.log(
-          'Simdirectory created on HPC: ' + JSON.stringify(value)
-        );
-        this.sshService
-          .putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`)
-          .then((res) => {
-            this.logger.log(
-              'SBATCH copying to HPC successful: ' + JSON.stringify(res)
-            );
-            this.sshService
-              .execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`)
-              .then((resp) => {
-                this.logger.log(
-                  'Sbatch made executable: ' + JSON.stringify(resp)
-                );
-
-                this.sshService
-                  .execStringCommand(`sbatch ${simDirBase}/in/${sbatchName}`)
-                  .then((result) => {
-                    this.logger.log(
-                      'Execution of sbatch was successful: ' +
-                        JSON.stringify(result)
-                    );
-                    this.messageClient.emit(MQDispatch.SIM_DISPATCH_FINISH, {
-                      simDir: simDirBase,
-                      hpcOutput: result,
-                    });
-                  })
-                  .catch((error) => {
-                    this.logger.log(
-                      'Could not execute SBATCH: ' + JSON.stringify(error)
-                    );
-                  });
-              })
-              .catch((err) => {
-                this.logger.error(
-                  'Error occured whiled changing permission: ' +
-                    JSON.stringify(err)
-                );
-              });
-          })
-          .catch((err) => {
-            this.logger.error(
-              'Could not copy SBATCH to HPC: ' + JSON.stringify(err)
-            );
-          });
-      })
-      .catch((err) => {
-        this.logger.error(
-          'Error occured while creating simdirectory: ' + JSON.stringify(err)
-        );
-      });
-
-    this.sshService
-      .execStringCommand(`mkdir -p ${simDirBase}/out`)
-      .then((value) => {
-        this.logger.log(
-          'Output directory for simulation created: ' + JSON.stringify(value)
-        );
-      })
-      .catch((err) => {
-        this.logger.error(
-          'Could not create output directory for simulation: ' +
-            JSON.stringify(err)
-        );
+        this.logger.error('Could not execute SBATCH: ');
+        this.logger.debug(error);
       });
   }
 
