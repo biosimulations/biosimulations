@@ -1,4 +1,4 @@
-export { sboTerms } from "./lib/sboTerms";
-export { kisaoTerms } from "./lib/kisaoTerms";
-export { edamTerms } from './lib/edamTerms';
-export { sioTerms } from './lib/sioTerms';
+export { sboTerms, sboInfo } from "./lib/sboTerms";
+export { kisaoTerms, kisaoInfo } from "./lib/kisaoTerms";
+export { edamTerms, edamInfo } from './lib/edamTerms';
+export { sioTerms, sioInfo } from './lib/sioTerms';

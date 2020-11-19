@@ -47,6 +47,6 @@ export const sioTerms = getSioTerms(sioJson);
 export const sioInfo: OntologyInfo = {
   'bioportalId': 'SIO',
   'olsId': 'sio',
-  'version': sioVer,
+  'version': sioVersion,
   'source': 'https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl',
 };
