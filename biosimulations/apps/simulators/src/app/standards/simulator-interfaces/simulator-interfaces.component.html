@@ -43,12 +43,22 @@
         <li><b><code>-v, --version</code>:</b> Optionally, this argument should instruct the command-line program to report its version and the versions of any critical dependencies.</li>
       </ul>
 
-      <p>Simulation tools which implement the BioSimulators command-line interface standard should also execute simulations and record their results according to the following conventions:</p>
+      <p>Simulation tools which implement the BioSimulators command-line interface standard should also support the following conventions:</p>
       <ul class="vertically-spaced">
-        <li><b>Execution of the contents of COMBINE/OMEX archives:</b> Simulation tools should execute all simulations (e.g., all tasks in all SED-ML files) defined inside COMBINE/OMEX archives.</li>
-        <li><b>Formats of simulation results:</b> Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</li>
-        <li><b>Encoding of simulation reports:</b> Reports of simulation reports should adhere to the <a [routerLink]="['/standards', 'simulation-reports']">BioSimulators format for reports of simulation results</a>.</li>
-        <li><b>File paths of simulation results:</b> Reports should be saved to the same directory relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the extension <code>.csv</code> for reports or <code>.pdf</code> for charts.</li>
+        <li><b>Support at least one "standard" modeling language.</b> Interfaces to simulation tools should support at least a subset of at least one "standard" modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
+        <li><b>Support the SED-ML format for describing simulation experiments.</b> Interfaces to simulation tools should support at least the following features of SED-ML:
+          <ul>
+            <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:SteadyState</code>, <code>sedml:OneStep</code>, or <code>sedml:UniformTimeCourse</code>.</li>
+            <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
+            <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
+            <li>Report outputs: <code>sedml:Report</code>.</li>
+          </ul>
+        <li><b>Use KiSAO to describe simulation algorithms and their parameters.</b> Interfaces to simulation tools should use KiSAO terms to indicate specific algorithms and algorithm parameters.</li>
+        <li><b>Support the COMBINE/OMEX format for collections of models and simulations.</b> Interfaces to simulation tools should support the full COMBINE/OMEX specification.</li>
+        <li><b>Execute all simulations described in COMBINE/OMEX archives:</b> Simulation tools should execute all simulations (e.g., all tasks in all SED-ML files) defined inside COMBINE/OMEX archives.</li>
+        <li><b>Support the BioSimulators standard format for reports of simulation results:</b> Interfaces to simulation tools should save reports in the <a [routerLink]="['/standards', 'simulation-reports']">BioSimulators format for reports of simulation results</a>.</li>
+        <li><b>Save charts in Portable Document Format (PDF).</b></li>
+        <li><b>Save simulation results to standard file paths:</b> Reports and charts should be saved to the same directory relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the extension <code>.csv</code> for reports or <code>.pdf</code> for charts.</li>
       </ul>
     </biosimulations-text-page-content-section>
 
