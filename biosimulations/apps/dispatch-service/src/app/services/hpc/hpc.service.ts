@@ -19,18 +19,39 @@ export class HpcService {
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
   ) {}
 
+  async submitJob(
+    id: string,
+    simulator: string,
+    version: string,
+    fileName: string
+  ) {
+    const simulatorString = `biosimulations_${simulator}_${version}`;
+    const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
+    const sbatchString = this.sbatchService.generateSbatch(
+      simDirBase,
+      simulatorString,
+      fileName,
+      urls.dispatchApi,
+      id
+    );
+    console.log(sbatchString);
+    await this.execJob(id, sbatchString);
+  }
   /**
    *
    * @param id
    * @param sbatchString
    */
+
   async execJob(id: string, sbatchString: string) {
     /**
      * @todo Use this implementation to send job
      * @body @gmarupilla Would something like be suffcient for replacing the other method and addresssing #1526?
      */
     this.sshService
-      .execStringCommand(`echo ${sbatchString} | sbatch`)
+      .execStringCommand(
+        `echo "${sbatchString}" > test.sbatch & sbatch test.sbatch`
+      )
       .then((result) => {
         this.logger.log(
           'Execution of sbatch was successful: ' + JSON.stringify(result)
@@ -40,7 +61,8 @@ export class HpcService {
         });
       })
       .catch((error) => {
-        this.logger.log('Could not execute SBATCH: ' + JSON.stringify(error));
+        console.log(error);
+        this.logger.error('Could not execute SBATCH: ' + JSON.stringify(error));
       });
   }
   async dispatchJob(
@@ -68,8 +90,8 @@ export class HpcService {
     const sbatchStorage = `${fileStorage}/SBATCH/ID`;
     const sbatchName = `${id}.sbatch`;
     const sbatchPath = path.join(sbatchStorage, sbatchName);
-    // Cab this be replaced with  this with fs.writefile? dont see the point of this wrapper
-    await FileModifiers.writeFile(sbatchPath, sbatchString);
+    // Can this be replaced with  this with fs.writefile? dont see the point of this wrapper
+    //await FileModifiers.writeFile(sbatchPath, sbatchString);
 
     /** @todo Send the sbatch over directly from string
      * @body @gmarupilla Does the sbatch need to be sent over as a file ? This is a lot of extra work.cant we just feed the string to the sbatch command ?
@@ -114,20 +136,20 @@ export class HpcService {
                   });
               })
               .catch((err) => {
-                this.logger.log(
+                this.logger.error(
                   'Error occured whiled changing permission: ' +
                     JSON.stringify(err)
                 );
               });
           })
           .catch((err) => {
-            this.logger.log(
+            this.logger.error(
               'Could not copy SBATCH to HPC: ' + JSON.stringify(err)
             );
           });
       })
       .catch((err) => {
-        this.logger.log(
+        this.logger.error(
           'Error occured while creating simdirectory: ' + JSON.stringify(err)
         );
       });
@@ -140,7 +162,7 @@ export class HpcService {
         );
       })
       .catch((err) => {
-        this.logger.log(
+        this.logger.error(
           'Could not create output directory for simulation: ' +
             JSON.stringify(err)
         );

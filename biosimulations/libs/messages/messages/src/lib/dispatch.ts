@@ -23,19 +23,19 @@ export class createdResponse extends Response {
 }
 export class DispatchPayload {
   _message!: DispatchMessage;
-  simulationId: string;
+  id: string;
   constructor(id: string) {
-    this.simulationId = id;
+    this.id = id;
   }
 }
 export class DispatchCreatedPayload extends DispatchPayload {
   _message: DispatchMessage = DispatchMessage.created;
-  fileName: string;
+  file: string;
   simulator: string;
   version: string;
   constructor(id: string, file: string, simulator: string, version: string) {
     super(id);
-    this.fileName = file;
+    this.file = file;
     this.simulator = simulator;
     this.version = version;
   }
