@@ -11,108 +11,63 @@ import {
   sioTerms,
   spdxTerms,
  } from '@biosimulations/ontology/sources';
-import { 
+import {
+  Ontologies,
   OntologyInfo,
-  EdamTerm,
-  KisaoTerm,
-  SboTerm,
-  SioTerm,
-  SpdxTerm,
+  IOntologyTerm,  
 } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class OntologiesService {
-  getEdamInfo(): OntologyInfo {
-    return edamInfo;
+  getInfo(ontology: Ontologies): OntologyInfo | null {
+    switch (ontology) {
+      case Ontologies.EDAM: return edamInfo;
+      case Ontologies.KISAO: return kisaoInfo;
+      case Ontologies.SBO: return sboInfo;
+      case Ontologies.SIO: return sioInfo;
+      case Ontologies.SPDX: return spdxInfo;
+    } 
+    return null;
   }
 
-  getKisaoInfo(): OntologyInfo {
-    return kisaoInfo;
-  }
-
-  getSboInfo(): OntologyInfo {
-    return sboInfo;
-  }
-
-  getSioInfo(): OntologyInfo {
-    return sioInfo;
-  }
-
-  getSpdxInfo(): OntologyInfo {
-    return spdxInfo;
-  }
-
-  getEdam(): EdamTerm[] {
-    const terms = [];
-    for (const term in edamTerms) {
-      terms.push(edamTerms[term]);
+  getTerms(ontology: Ontologies): IOntologyTerm[] | null {
+    let termsObj: any = null;
+    switch (ontology) {
+      case Ontologies.EDAM: termsObj = edamTerms; break;
+      case Ontologies.KISAO: termsObj = kisaoTerms; break;
+      case Ontologies.SBO: termsObj = sboTerms; break;
+      case Ontologies.SIO: termsObj = sioTerms; break;
+      case Ontologies.SPDX: termsObj = spdxTerms; break;
     }
-    return terms;
-  }
 
-  getKisao(): KisaoTerm[] {
-    const terms = [];
-    for (const term in kisaoTerms) {
-      terms.push(kisaoTerms[term]);
+    if (termsObj == null) {
+      return null;
     }
-    return terms;
-  }
 
-  getSbo(): SboTerm[] {
-    const terms = [];
-    for (const term in sboTerms) {
-      terms.push(sboTerms[term]);
+    const termsArr = [];
+    for (const term in termsObj) {
+      termsArr.push(termsObj[term]);
     }
-    return terms;
+    return termsArr;
   }
 
-  getSio(): SioTerm[] {
-    const terms = [];
-    for (const term in sioTerms) {
-      terms.push(sioTerms[term]);
+  getTerm(ontology: Ontologies, term: string): IOntologyTerm | null {
+    let termsObj: any = null;
+    switch (ontology) {
+      case Ontologies.EDAM: termsObj = edamTerms; break;
+      case Ontologies.KISAO: termsObj = kisaoTerms; break;
+      case Ontologies.SBO: termsObj = sboTerms; break;
+      case Ontologies.SIO: termsObj = sioTerms; break;
+      case Ontologies.SPDX: termsObj = spdxTerms; break;
     }
-    return terms;
-  }
 
-  getSpdx(): SpdxTerm[] {
-    const terms = [];
-    for (const term in spdxTerms) {
-      terms.push(spdxTerms[term]);
+    if (termsObj == null) {
+      return null;
     }
-    return terms;
+
+    return termsObj[term];
   }
 
-  getSboTerm(id: string): SboTerm | null {
-    return sboTerms[id];
-  }
-  getKisaoTerm(id: string): KisaoTerm | null {
-    return kisaoTerms[id];
-  }
-  getEdamTerm(id: string): EdamTerm | null {
-    return edamTerms[id];
-  }
-  getSioTerm(id: string): SioTerm | null {
-    return sioTerms[id];
-  }
-  getSpdxTerm(id: string): SpdxTerm | null {
-    return spdxTerms[id];
-  }
-
-  isSboTerm(id: string): boolean {
-    return !!this.getSboTerm(id);
-  }
-  isKisaoTerm(id: string): boolean {
-    return !!this.getKisaoTerm(id);
-  }
-  isEdamTerm(id: string): boolean {
-    return !!this.getEdamTerm(id);
-  }
-  isSioTerm(id: string): boolean {
-    return !!this.getSioTerm(id);
-  }
-  isSpdxTerm(id: string): boolean {
-    return !!this.getSpdxTerm(id);
-  }
   static edamValidator(id: string): boolean {
     return !!edamTerms[id];
   }

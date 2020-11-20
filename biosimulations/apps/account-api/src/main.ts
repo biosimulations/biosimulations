@@ -31,6 +31,7 @@ function setupOpenApi(app: INestApplication) {
     .setTitle('BioSimulations Accounts API')
     .setDescription('The API to manage user accounts')
     .setVersion('0.1')
+    .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org')
     .addSecurity('OpenIdc', openIDSchema)
     .addOAuth2(oauthSchema)
     .build();

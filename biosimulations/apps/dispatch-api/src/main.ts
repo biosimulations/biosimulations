@@ -65,9 +65,10 @@ async function bootstrap() {
   const builder = new DocumentBuilder()
     .setTitle('runBioSimulations API')
     .setDescription(
-      'API to submit and manage simulations jobs to the runBioSimulations Service'
+      'API to submit and manage simulations jobs to the runBioSimulations service'
     )
-    .setVersion('0.1');
+    .setVersion('0.1')
+    .setContact('runBioSimulations Team', 'https://run.biosimulations.org/help/about', 'info@biosimulations.org');
 
   for (const tag of tags) {
     builder.addTag(tag.name, tag.description);

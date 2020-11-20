@@ -41,8 +41,12 @@ function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
 export const kisaoTerms = getKisaoTerms(kisaoJson);
 
 export const kisaoInfo: OntologyInfo = {
-  'bioportalId': 'KISAO',
-  'olsId': 'kisao',
-  'version': kisaoVersion,
-  'source': 'http://www.biomodels.net/kisao/KISAO',
+  id: Ontologies.KISAO,
+  acronym: 'KiSAO',
+  name: 'Kinetic Simulation Algorithm Ontology',
+  description: 'A classification of algorithms available for the simulation of models in biology.',
+  bioportalId: 'KISAO',
+  olsId: 'kisao',
+  version: kisaoVersion,
+  source: 'http://www.biomodels.net/kisao/KISAO',
 };

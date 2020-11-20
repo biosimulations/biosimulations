@@ -5,7 +5,7 @@ import {
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
-  ISpdxId,
+  ISpdxOntologyId,
   KisaoIdRegEx,
   SboIdRegEx,
   SioIdRegEx,
@@ -157,7 +157,7 @@ export const SioOntologyIdSchema = SchemaFactory.createForClass(SioOntologyId);
   strict: 'throw',
   useNestedStrict: true,
 })
-class SpdxId implements ISpdxId {
+class SpdxOntologyId implements ISpdxOntologyId {
   @Prop({ type: String, required: true })
   namespace!: Ontologies.SPDX;
 
@@ -168,4 +168,4 @@ class SpdxId implements ISpdxId {
   })
   id!: string;
 }
-export const SpdxIdSchema = SchemaFactory.createForClass(SpdxId);
+export const SpdxOntologyIdSchema = SchemaFactory.createForClass(SpdxOntologyId);

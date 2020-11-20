@@ -46,8 +46,12 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
 export const edamTerms = getEdamTerms(edamJson);
 
 export const edamInfo: OntologyInfo = {
-  'bioportalId': 'EDAM',
-  'olsId': 'edam',
-  'version': edamVersion,
-  'source': 'https://raw.githubusercontent.com/edamontology/edamontology/master/releases/EDAM.owl',
+  id: Ontologies.EDAM,
+  acronym: Ontologies.EDAM,
+  name: 'EMBRACE Data And Methods',
+  description: 'EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics, including types of data and data identifiers, data formats, operations and topics. EDAM provides a set of terms with synonyms and definitions - organised into an intuitive hierarchy for convenient use.',
+  bioportalId: 'EDAM',
+  olsId: 'edam',
+  version: edamVersion,
+  source: 'https://raw.githubusercontent.com/edamontology/edamontology/master/releases/EDAM.owl',
 };

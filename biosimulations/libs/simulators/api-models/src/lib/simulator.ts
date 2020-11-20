@@ -1,6 +1,6 @@
 import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-import { SpdxId } from '@biosimulations/datamodel/api';
+import { SpdxOntologyId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
@@ -45,8 +45,8 @@ export class Simulator {
   authors!: Person[];
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
-  @ApiProperty({ type: SpdxId, required: true, nullable: true })
-  license!: SpdxId | null;
+  @ApiProperty({ type: SpdxOntologyId, required: true, nullable: true })
+  license!: SpdxOntologyId | null;
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
 

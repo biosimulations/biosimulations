@@ -56,8 +56,9 @@ function setupOpenApi(app: INestApplication) {
   };
   const options = new DocumentBuilder()
     .setTitle('BioSimulations Resource API')
-    .setDescription('The API to interact with the BioSimulations Database')
+    .setDescription('The API to interact with the BioSimulations database')    
     .setVersion('0.1')
+    .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org')
     .addTag('Models')
     .addTag('Projects')
     .addTag('Simulations')

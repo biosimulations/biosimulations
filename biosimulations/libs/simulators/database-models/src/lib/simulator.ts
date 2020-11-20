@@ -5,9 +5,9 @@ import { Document } from 'mongoose';
 
 import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
-import { SpdxIdSchema } from './ontologyId';
+import { SpdxOntologyIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
-import { IImage, ISpdxId } from '@biosimulations/datamodel/common';
+import { IImage, ISpdxOntologyId } from '@biosimulations/datamodel/common';
 
 import { ExternalReferencesSchema, PersonSchema } from './common';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
@@ -40,8 +40,8 @@ export class Simulator extends Document {
   @Prop({ type: ExternalReferencesSchema })
   references!: ExternalReferences;
 
-  @Prop({ type: SpdxIdSchema, required: true, default: null })
-  license!: ISpdxId | null;
+  @Prop({ type: SpdxOntologyIdSchema, required: true, default: null })
+  license!: ISpdxOntologyId | null;
 
   @Prop({ type: [AlgorithmSchema], _id: false, required: true })
   algorithms!: Algorithm[];

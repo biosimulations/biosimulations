@@ -5,7 +5,7 @@ import {
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
-  ISpdxId,
+  ISpdxOntologyId,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -44,7 +44,7 @@ export class SioOntologyId implements ISioOntologyId {
   id!: string;
 }
 
-export class SpdxId implements ISpdxId {
+export class SpdxOntologyId implements ISpdxOntologyId {
   @ApiProperty({ enum: ['SPDX'] })
   namespace!: Ontologies.SPDX;
   @ApiProperty({ example: '0BSD' })

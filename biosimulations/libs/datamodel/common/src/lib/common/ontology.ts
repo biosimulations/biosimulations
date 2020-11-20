@@ -7,6 +7,10 @@ export enum Ontologies {
 }
 
 export interface OntologyInfo {
+  id: string;
+  acronym: string,  
+  name: string;
+  description: string;
   bioportalId?: string | null;
   olsId?: string | null;
   version: string;
@@ -25,7 +29,7 @@ export interface Identifier {
   id: string;
   url?: string | null;
 }
-export interface ISpdxId extends Identifier {
+export interface ISpdxOntologyId extends IOntologyId {
   namespace: Ontologies.SPDX;
   id: string;
 }
@@ -55,11 +59,11 @@ export interface ISioOntologyId extends IOntologyId {
 export interface IOntologyTerm extends IOntologyId {
   namespace: Ontologies;
   id: string;
-  iri: string | null;
-  url?: string | null;
+  iri?: string | null;
+  url: string;
   externalUrl?: string | null;
-  name: string | null;
-  description: string | null;
+  name: string;
+  description?: string | null;
 }
 export interface IdentifierTerm extends Identifier {
   namespace: Ontologies;
@@ -72,7 +76,7 @@ export interface KisaoTerm extends IKisaoOntologyId {
   namespace: Ontologies.KISAO;
   id: string;
   name: string;
-  description: string;
+  description?: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
@@ -82,7 +86,7 @@ export interface SboTerm extends IOntologyTerm {
   namespace: Ontologies.SBO;
   id: string;
   name: string;
-  description: string;
+  description?: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
@@ -92,7 +96,7 @@ export interface EdamTerm extends IOntologyTerm {
   namespace: Ontologies.EDAM;
   id: string;
   name: string;
-  description: string;
+  description?: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
@@ -102,17 +106,18 @@ export interface SioTerm extends IOntologyTerm {
   namespace: Ontologies.SIO;
   id: string;
   name: string;
-  description: string;
+  description?: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
 }
 
-export interface SpdxTerm extends IdentifierTerm {
+export interface SpdxTerm extends IOntologyTerm {
   namespace: Ontologies.SPDX;
   id: string;
   name: string;
   description?: string | null;
+  iri: null;
   url: string;
 }
 // Identifiers.org identifier

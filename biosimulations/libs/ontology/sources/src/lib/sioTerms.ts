@@ -45,8 +45,12 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
 export const sioTerms = getSioTerms(sioJson);
 
 export const sioInfo: OntologyInfo = {
-  'bioportalId': 'SIO',
-  'olsId': 'sio',
-  'version': sioVersion,
-  'source': 'https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl',
+  id: Ontologies.SIO,
+  acronym: Ontologies.SIO,
+  name: 'Semanticscience Integrated Ontology',
+  description: 'The Semanticscience Integrated Ontology (SIO) provides a simple, integrated ontology of types and relations for rich description of objects, processes and their attributes.',
+  bioportalId: 'SIO',
+  olsId: 'sio',
+  version: sioVersion,
+  source: 'https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl',
 };

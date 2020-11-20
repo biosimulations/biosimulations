@@ -46,7 +46,7 @@ export class OntologyService {
     );
   }
   private fetchKisaoTerms(): Observable<{ [id: string]: KisaoTerm }> {
-    return this.http.get<KisaoTerm[]>(this.endpoint + '/kisao/list').pipe(
+    return this.http.get<KisaoTerm[]>(this.endpoint + '/' + Ontologies.KISAO + '/list').pipe(
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: KisaoTerm } = {};
@@ -60,7 +60,7 @@ export class OntologyService {
   private fetchSboTerms(): Observable<{
     [id: string]: SboTerm;
   }> {
-    return this.http.get<SboTerm[]>(this.endpoint + '/sbo/list').pipe(
+    return this.http.get<SboTerm[]>(this.endpoint + '/' + Ontologies.SBO + '/list').pipe(
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: SboTerm } = {};
@@ -74,7 +74,7 @@ export class OntologyService {
   private fetchEdamTerms(): Observable<{
     [id: string]: EdamTerm;
   }> {
-    return this.http.get<EdamTerm[]>(this.endpoint + '/edam/list').pipe(
+    return this.http.get<EdamTerm[]>(this.endpoint + '/' + Ontologies.EDAM + '/list').pipe(
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: EdamTerm } = {};
@@ -88,7 +88,7 @@ export class OntologyService {
   private fetchSioTerms(): Observable<{
     [id: string]: SioTerm;
   }> {
-    return this.http.get<SioTerm[]>(this.endpoint + '/sio/list').pipe(
+    return this.http.get<SioTerm[]>(this.endpoint + '/' + Ontologies.SIO + '/list').pipe(
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: SioTerm } = {};
@@ -102,7 +102,7 @@ export class OntologyService {
   private fetchSpdxTerms(): Observable<{
     [id: string]: SpdxTerm;
   }> {
-    return this.http.get<SpdxTerm[]>(this.endpoint + '/spdx/list').pipe(
+    return this.http.get<SpdxTerm[]>(this.endpoint + '/' + Ontologies.SPDX + '/list').pipe(
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: SpdxTerm } = {};
