@@ -27,7 +27,7 @@ export const SioIdRegEx = /^SIO_\d{6}$/;
 export interface Identifier {
   namespace: string;
   id: string;
-  url: string | null;
+  url?: string | null;
 }
 export interface ISpdxOntologyId extends IOntologyId {
   namespace: Ontologies.SPDX;

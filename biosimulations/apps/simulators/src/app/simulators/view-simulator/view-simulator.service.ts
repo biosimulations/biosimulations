@@ -40,7 +40,7 @@ export class ViewSimulatorService {
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
     );
-    return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
+    return sim.pipe(map(this.apiToView.bind(this, simulatorId, null)));
   }
   getVersion(simulatorId: string, version: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getOneByVersion(
@@ -52,10 +52,10 @@ export class ViewSimulatorService {
 
   apiToView(
     simulatorId: string,
-    version: string | undefined,
-    sim: Simulator | undefined
+    version: string | null,
+    sim: Simulator | null
   ): ViewSimulator {
-    if (sim === undefined) {
+    if (sim === null) {
       if (version) {
         throw new BiosimulationsError(
           'Simulation version not found',
@@ -77,7 +77,7 @@ export class ViewSimulatorService {
       id: sim.id,
       version: sim.version,
       name: sim.name,
-      image: sim.image?.url || undefined,
+      image: sim.image?.url || null,
       description: sim.description,
       url: sim.url,
       authors: this.getAuthors(sim),
@@ -112,8 +112,8 @@ export class ViewSimulatorService {
 
     const unresolvedAlgorithms = sim.algorithms.filter((alg: Algorithm) => { return !!alg.kisaoId; }).map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
-      (algorithms: ViewAlgorithm[] | undefined) => {
-        if (algorithms !== undefined) {
+      (algorithms: ViewAlgorithm[] | null) => {
+        if (algorithms !== null) {
           algorithms.sort((a, b) => {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
           });
@@ -212,7 +212,7 @@ export class ViewSimulatorService {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
       url: value.url,
-      image: value.image || undefined,
+      image: value.image || null,
       curationStatus: value.curationStatus,
     };
   }
@@ -249,17 +249,22 @@ export class ViewSimulatorService {
         );
     }
   }
-  formatKisaoDescription(value: string): DescriptionFragment[] {
-    const formattedValue = [];
+  formatKisaoDescription(value: string | null): DescriptionFragment[] {        
+    const formattedValue: DescriptionFragment[] = [];
+    if (!value) {
+      return formattedValue;
+    }
+
+    const strValue = value as string;
     let prevEnd = 0;
 
     const regExp = /\[(https?:\/\/.*?)\]/gi;
     let match;
-    while ((match = regExp.exec(value)) !== null) {
+    while ((match = regExp.exec(strValue)) !== null) {
       if (match.index > 0) {
         formattedValue.push({
           type: DescriptionFragmentType.text,
-          value: value.substring(prevEnd, match.index),
+          value: strValue.substring(prevEnd, match.index),
         });
       }
       prevEnd = match.index + match[0].length;
@@ -268,10 +273,10 @@ export class ViewSimulatorService {
         value: match[1],
       });
     }
-    if (prevEnd < value?.length) {
+    if (prevEnd < strValue?.length) {
       formattedValue.push({
         type: DescriptionFragmentType.text,
-        value: value.substring(prevEnd),
+        value: strValue.substring(prevEnd),
       });
     }
     return formattedValue;
