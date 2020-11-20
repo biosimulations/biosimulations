@@ -116,9 +116,11 @@ export class DispatchComponent implements OnInit {
             email: email,
             submittedLocally: true,
             status: SimulationStatus.queued,
-            runtime: undefined,
+            runtime: null,
             submitted: new Date(),
             updated: new Date(),
+            resultSize: null,
+            projectSize: null,
           });
         },
         (error: HttpErrorResponse) => {

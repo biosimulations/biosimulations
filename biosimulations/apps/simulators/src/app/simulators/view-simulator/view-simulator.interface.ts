@@ -83,8 +83,8 @@ export interface ViewCitation {
 export interface ViewVersion {
   label: string;
   created: string;
-  image?: string;
-  url?: string;
+  image: string | null;
+  url: string;
   curationStatus: string;
 }
 
@@ -94,7 +94,7 @@ export interface ViewSimulator {
   version: string;
   name: string;
   description: string | null;
-  image?: string;
+  image: string | null;
   url: string;
   licenseUrl: Observable<string> | null;
   licenseName: Observable<string> | null;

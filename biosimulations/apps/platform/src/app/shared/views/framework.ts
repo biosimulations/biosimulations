@@ -7,9 +7,10 @@ export class Framework extends ViewModel implements IFramework {
   constructor(
     public namespace: Ontologies,
     public id: string,
-    public name: string | null,
+    public name: string,
     public description: string | null,
-    public iri: string | null
+    public iri: string | null,
+    public url: string,
   ) {
     super();
     this.init();
@@ -21,7 +22,8 @@ export class Framework extends ViewModel implements IFramework {
       framework.id,
       framework.name,
       framework.description,
-      framework.iri
+      framework.iri,
+      framework.url,
     );
   }
   getTooltip(): string {

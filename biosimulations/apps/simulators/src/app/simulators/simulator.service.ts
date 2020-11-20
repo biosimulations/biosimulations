@@ -10,8 +10,8 @@ import { UtilsService } from '@biosimulations/shared/services';
 export interface Version {
   version: string;
   created: Date;
-  image?: string;
-  url?: string;
+  image: string | null;
+  url: string;
   curationStatus: string;
 }
 
@@ -63,7 +63,7 @@ export class SimulatorService {
           if (sim.id === simId) {
             versions.push({
               version: sim.version,
-              image: sim.image?.url || undefined,
+              image: sim.image?.url || null,
               created: sim.created,
               url: sim.url,
               curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim), false),

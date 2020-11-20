@@ -11,8 +11,8 @@ export interface OntologyInfo {
   acronym: string,  
   name: string;
   description: string;
-  bioportalId?: string | null;
-  olsId?: string | null;
+  bioportalId: string | null;
+  olsId: string | null;
   version: string;
   source: string;
 }
@@ -27,7 +27,7 @@ export const SioIdRegEx = /^SIO_\d{6}$/;
 export interface Identifier {
   namespace: string;
   id: string;
-  url?: string | null;
+  url: string | null;
 }
 export interface ISpdxOntologyId extends IOntologyId {
   namespace: Ontologies.SPDX;
@@ -59,24 +59,24 @@ export interface ISioOntologyId extends IOntologyId {
 export interface IOntologyTerm extends IOntologyId {
   namespace: Ontologies;
   id: string;
-  iri?: string | null;
+  iri: string | null;
   url: string;
   externalUrl?: string | null;
   name: string;
-  description?: string | null;
+  description: string | null;
 }
 export interface IdentifierTerm extends Identifier {
   namespace: Ontologies;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
   url: string;
 }
 export interface KisaoTerm extends IKisaoOntologyId {
   namespace: Ontologies.KISAO;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
@@ -86,7 +86,7 @@ export interface SboTerm extends IOntologyTerm {
   namespace: Ontologies.SBO;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
@@ -96,7 +96,7 @@ export interface EdamTerm extends IOntologyTerm {
   namespace: Ontologies.EDAM;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
@@ -106,7 +106,7 @@ export interface SioTerm extends IOntologyTerm {
   namespace: Ontologies.SIO;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
   iri: string;
   url: string;
   externalUrl?: string | null;
@@ -116,7 +116,7 @@ export interface SpdxTerm extends IOntologyTerm {
   namespace: Ontologies.SPDX;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
   iri: null;
   url: string;
 }
