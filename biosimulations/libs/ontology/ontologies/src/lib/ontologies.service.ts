@@ -1,14 +1,48 @@
 import { Injectable } from '@nestjs/common';
-import { sboTerms } from '@biosimulations/ontology/sources';
-import { kisaoTerms } from '@biosimulations/ontology/sources';
-import { edamTerms } from '@biosimulations/ontology/sources';
-import { EDAMTerm, KISAOTerm, SBOTerm } from '@biosimulations/datamodel/common';
-
-import spdxLicenseListSimple from 'spdx-license-list/simple';
+import { 
+  edamInfo,
+  kisaoInfo,
+  sboInfo,
+  sioInfo,
+  spdxInfo,
+  sboTerms,
+  kisaoTerms,
+  edamTerms,
+  sioTerms,
+  spdxTerms,
+ } from '@biosimulations/ontology/sources';
+import { 
+  OntologyInfo,
+  EdamTerm,
+  KisaoTerm,
+  SboTerm,
+  SioTerm,
+  SpdxTerm,
+} from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class OntologiesService {
-  getEdam(): EDAMTerm[] {
+  getEdamInfo(): OntologyInfo {
+    return edamInfo;
+  }
+
+  getKisaoInfo(): OntologyInfo {
+    return kisaoInfo;
+  }
+
+  getSboInfo(): OntologyInfo {
+    return sboInfo;
+  }
+
+  getSioInfo(): OntologyInfo {
+    return sioInfo;
+  }
+
+  getSpdxInfo(): OntologyInfo {
+    return spdxInfo;
+  }
+
+  getEdam(): EdamTerm[] {
     const terms = [];
     for (const term in edamTerms) {
       terms.push(edamTerms[term]);
@@ -16,7 +50,7 @@ export class OntologiesService {
     return terms;
   }
 
-  getKisao(): KISAOTerm[] {
+  getKisao(): KisaoTerm[] {
     const terms = [];
     for (const term in kisaoTerms) {
       terms.push(kisaoTerms[term]);
@@ -24,7 +58,7 @@ export class OntologiesService {
     return terms;
   }
 
-  getSBO(): SBOTerm[] {
+  getSbo(): SboTerm[] {
     const terms = [];
     for (const term in sboTerms) {
       terms.push(sboTerms[term]);
@@ -32,14 +66,36 @@ export class OntologiesService {
     return terms;
   }
 
-  getSboTerm(id: string): SBOTerm | null {
+  getSio(): SioTerm[] {
+    const terms = [];
+    for (const term in sioTerms) {
+      terms.push(sioTerms[term]);
+    }
+    return terms;
+  }
+
+  getSpdx(): SpdxTerm[] {
+    const terms = [];
+    for (const term in spdxTerms) {
+      terms.push(spdxTerms[term]);
+    }
+    return terms;
+  }
+
+  getSboTerm(id: string): SboTerm | null {
     return sboTerms[id];
   }
-  getKisaoTerm(id: string): KISAOTerm | null {
+  getKisaoTerm(id: string): KisaoTerm | null {
     return kisaoTerms[id];
   }
-  getEdamTerm(id: string): EDAMTerm | null {
+  getEdamTerm(id: string): EdamTerm | null {
     return edamTerms[id];
+  }
+  getSioTerm(id: string): SioTerm | null {
+    return sioTerms[id];
+  }
+  getSpdxTerm(id: string): SpdxTerm | null {
+    return spdxTerms[id];
   }
 
   isSboTerm(id: string): boolean {
@@ -51,9 +107,13 @@ export class OntologiesService {
   isEdamTerm(id: string): boolean {
     return !!this.getEdamTerm(id);
   }
+  isSioTerm(id: string): boolean {
+    return !!this.getSioTerm(id);
+  }
+  isSpdxTerm(id: string): boolean {
+    return !!this.getSpdxTerm(id);
+  }
   static edamValidator(id: string): boolean {
-    console.log(id);
-    console.log(edamTerms[id]);
     return !!edamTerms[id];
   }
   static kisaoValidator(id: string): boolean {
@@ -62,7 +122,10 @@ export class OntologiesService {
   static sboValidator(id: string): boolean {
     return !!sboTerms[id];
   }
+  static sioValidator(id: string): boolean {
+    return !!sioTerms[id];
+  }
   static spdxValidator(id: string): boolean {
-    return spdxLicenseListSimple.has(id);
+    return !!spdxTerms[id];
   }
 }

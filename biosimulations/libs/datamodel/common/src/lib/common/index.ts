@@ -8,3 +8,4 @@ export * from './person';
 export * from './taxon';
 export * from './algorithm-parameter-type';
 export * from './simulator-curation-status';
+export * from './image';

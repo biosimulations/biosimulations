@@ -7,6 +7,8 @@ import { OntologiesController } from './ontologies.controller';
 import { KisaoController } from './kisao.controller';
 import { EdamController } from './edam.controller';
 import { SboController } from './sbo.controller';
+import { SioController } from './sio.controller';
+import { SpdxController } from './spdx.controller';
 @Module({
   imports: [OntologiesModule, SwaggerModule, BiosimulationsConfigModule],
   controllers: [
@@ -14,6 +16,8 @@ import { SboController } from './sbo.controller';
     KisaoController,
     EdamController,
     SboController,
+    SioController,
+    SpdxController,
   ],
   providers: [],
 })

@@ -6,7 +6,7 @@ import {
   Citation,
   EdamOntologyId,
   KisaoOntologyId,
-  SBOOntologyId,
+  SboOntologyId,
 } from '@biosimulations/datamodel/api';
 
 import { ApiProperty } from '@nestjs/swagger';
@@ -15,16 +15,16 @@ import { AlgorithmParameter } from './algorithmParameter';
 export class Algorithm implements IAlgorithm {
   @ApiProperty()
   kisaoId!: KisaoOntologyId;
-  @ApiProperty({ type: [AlgorithmParameter] })
-  parameters: AlgorithmParameter[] = [];
+  @ApiProperty({ type: [AlgorithmParameter], nullable: true, required: true, default: null })
+  parameters!: AlgorithmParameter[] | null;
 
   @ApiProperty()
   id!: string;
   @ApiProperty()
   name!: string;
 
-  @ApiProperty({ type: [SBOOntologyId] })
-  modelingFrameworks!: SBOOntologyId[];
+  @ApiProperty({ type: [SboOntologyId] })
+  modelingFrameworks!: SboOntologyId[];
 
   @ApiProperty({ type: [EdamOntologyId] })
   modelFormats!: EdamOntologyId[];

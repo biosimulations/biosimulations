@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { edamTerms } from '@biosimulations/ontology/sources';
 import { Ontologies } from '@biosimulations/datamodel/common';
 import { ApiTags } from '@nestjs/swagger';
 @Controller()
@@ -9,7 +8,12 @@ export class OntologiesController {
   constructor() {}
 
   @Get('/list')
-  ontologyList() {
-    return Ontologies;
+  ontologyList(): string[] {
+    const ontologiesIds = new Set<string>();
+    for (const [key, val] of Object.entries(Ontologies)) {
+      ontologiesIds.add(key);
+    }
+
+    return [...ontologiesIds].sort();
   }
 }

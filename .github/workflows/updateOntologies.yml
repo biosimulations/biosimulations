@@ -20,6 +20,9 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Install dependencies
+        run: apt-get install -y --no-install-recommends wget
+
       - name: Update ontologies
         run: ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
 
