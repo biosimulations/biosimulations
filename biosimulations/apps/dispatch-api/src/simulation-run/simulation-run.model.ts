@@ -42,8 +42,8 @@ export class SimulationRunModel extends Document {
   @Prop({ type: String, required: true })
   name!: string;
 
-  @Prop({ type: String, required: false, validate: EmailValidator.validate })
-  email!: string;
+  @Prop({ type: String, required: false, default: null, validate: EmailValidator.validate })
+  email!: string | null;
 
   @Prop({
     type: String,

@@ -35,8 +35,8 @@ export class Simulator {
   url!: string;
 
   @ApiProperty({
-    nullable: true,
     required: true,
+    nullable: true,
     type: Image,
   })
   image!: Image | null;

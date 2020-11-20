@@ -31,6 +31,9 @@ export class AlgorithmParameter implements IAlgorithmParameter {
     maxItems: 2,
     minItems: 1,
     example: [22.7, 2270],
+    nullable: true,
+    required: false,
+    default: null,
   })
   recommendedRange!: string[] | null;
 }

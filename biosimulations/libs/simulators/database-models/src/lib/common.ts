@@ -18,16 +18,16 @@ class Citation implements ICitation {
   authors!: string;
   @Prop({ type: String, required: true })
   title!: string;
-  @Prop({ type: String, default: null })
+  @Prop({ type: String, required: false, default: null })
   journal!: string | null;
 
   // cast the numbers to string. On read, cast back if possible? or keep as string?
-  @Prop({ type: String, default: null })
+  @Prop({ type: String, required: false, default: null })
   volume!: string | number | null;
 
-  @Prop({ type: String, default: null })
+  @Prop({ type: String, required: false, default: null })
   issue!: string | number | null;
-  @Prop({ type: String, default: null })
+  @Prop({ type: String, required: false, default: null })
   pages!: string | null;
 
   @Prop({
@@ -38,8 +38,8 @@ class Citation implements ICitation {
   })
   year!: number;
 
-  @Prop({ type: [IdentifierSchema] })
-  identifiers!: Identifier[] | null;
+  @Prop({ type: [IdentifierSchema], required: false, default: [] })
+  identifiers!: Identifier[];
 }
 export const CitationSchema = SchemaFactory.createForClass(Citation);
 
@@ -68,8 +68,8 @@ export const ExternalReferencesSchema = SchemaFactory.createForClass(
 class Person {
   @Prop({ type: String, required: true })
   firstName!: string;
-  @Prop({ type: String, required: false })
-  middleName?: string;
+  @Prop({ type: String, required: false, default: null })
+  middleName!: string | null;
   @Prop({ type: String, required: true })
   lastName!: string;
 }

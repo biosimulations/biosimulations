@@ -17,7 +17,7 @@ export class ModelParameter implements BiomodelParameterDTO {
   description: string | null;
   identifiers: Identifier[];
   type: AlgorithmParameterType;
-  recommendedRange: (string | number | boolean)[];
+  recommendedRange: (string | number | boolean)[] | null;
 
   constructor(data: BiomodelParameterDTO) {
     this.id = data.id;

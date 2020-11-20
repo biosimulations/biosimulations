@@ -17,7 +17,7 @@ export interface BiomodelParameter {
   identifiers: Identifier[];
   type: AlgorithmParameterType;
   value: number | string | boolean;
-  recommendedRange: (boolean | string | number)[];
+  recommendedRange: (boolean | string | number)[] | null;
   units: string;
 }
 

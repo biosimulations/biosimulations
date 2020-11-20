@@ -10,12 +10,14 @@ export class OntologyTerm implements IOntologyTerm {
   namespace!: Ontologies;
   @ApiProperty()
   id!: string;
-  @ApiProperty()
-  name!: string | null;
+  @ApiProperty({ type: String })
+  name!: string;
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
   @ApiProperty({ type: String, nullable: true })
   iri!: string | null;
+  @ApiProperty({ type: String })
+  url!: string;
 }
 
 export class Identifier implements IIdentifier {

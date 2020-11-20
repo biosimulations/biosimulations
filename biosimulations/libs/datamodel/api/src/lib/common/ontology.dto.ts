@@ -81,7 +81,7 @@ export class KisaoTerm extends KisaoOntologyId {
 export class SboTerm extends SboOntologyId {
   @ApiProperty()
   name!: string;
-  @ApiProperty()
+  @ApiProperty({ type: String, nullable: true })
   description?: string | null;
   @ApiProperty()
   iri!: string;
@@ -103,7 +103,7 @@ export class SpdxTerm extends SpdxOntologyId {
   name!: string;
   @ApiProperty({ type: String, nullable: true })
   description?: string | null;
-  @ApiProperty()
+  @ApiProperty({ nullable: true })
   iri!: null;
   @ApiProperty()
   url!: string;

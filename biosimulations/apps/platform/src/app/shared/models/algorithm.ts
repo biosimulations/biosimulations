@@ -18,7 +18,7 @@ export class Algorithm {
   ontologyTerms: OntologyTerm[];
   modelingFrameworks: OntologyTerm[];
   modelFormats: Format[];
-  parameters: AlgorithmParameter[] = [];
+  parameters: AlgorithmParameter[] | null = null;
   simulationFormats: Format[];
   archiveFormats: Format[];
   references: Citation[];

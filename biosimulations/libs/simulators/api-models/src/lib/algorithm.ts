@@ -15,7 +15,7 @@ import { AlgorithmParameter } from './algorithmParameter';
 export class Algorithm implements IAlgorithm {
   @ApiProperty()
   kisaoId!: KisaoOntologyId;
-  @ApiProperty({ type: [AlgorithmParameter], nullable: true, required: true, default: null })
+  @ApiProperty({ type: [AlgorithmParameter], nullable: true, required: true })
   parameters!: AlgorithmParameter[] | null;
 
   @ApiProperty()

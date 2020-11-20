@@ -14,7 +14,7 @@ export class BiomodelParameter extends ViewModel {
     public identifiers: Identifier[],
     public type: AlgorithmParameterType,
     public value: string | number | boolean,
-    public recommendedRange: (string | number | boolean)[],
+    public recommendedRange: (string | number | boolean)[] | null,
     public units: string,
     public descrption: string | null
   ) {

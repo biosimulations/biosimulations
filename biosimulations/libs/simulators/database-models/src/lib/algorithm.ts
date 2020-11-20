@@ -29,7 +29,7 @@ export class Algorithm implements IAlgorithm {
   @Prop({ type: KisaoOntologyIdSchema })
   kisaoId!: IKisaoOntologyId;
 
-  @Prop({ type: [AlgorithmParameterSchema], required: true, default: null })
+  @Prop({ type: [AlgorithmParameterSchema], required: false, default: null })
   parameters!: AlgorithmParameter[] | null;
   @Prop()
   id!: string;

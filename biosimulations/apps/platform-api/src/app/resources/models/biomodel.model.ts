@@ -94,7 +94,7 @@ class BiomodelParameterDB implements BiomodelParameter {
   @prop({ type: Object })
   value!: string | number | boolean;
   @prop({ items: Object })
-  recommendedRange!: (string | number | boolean)[];
+  recommendedRange!: (string | number | boolean)[] | null;
   @prop()
   units!: string;
 }

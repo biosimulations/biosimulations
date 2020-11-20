@@ -31,7 +31,19 @@ export class Simulator extends Document {
   @Prop({ type: String, required: true })
   url!: string;
 
-  @Prop({ required: true, type: ImageSchema, default: null })
+  @Prop({ 
+    type: ImageSchema, 
+    required: false,
+    default: null,
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return value == null || value?.format?.id === 'format_3973'
+        },
+        message: props => `Image format must be Docker (EDAM:format_3973) or null!`
+      },
+    ],
+  })
   image!: IImage | null;
 
   @Prop({ items: [PersonSchema], required: true })
@@ -40,7 +52,7 @@ export class Simulator extends Document {
   @Prop({ type: ExternalReferencesSchema })
   references!: ExternalReferences;
 
-  @Prop({ type: SpdxOntologyIdSchema, required: true, default: null })
+  @Prop({ type: SpdxOntologyIdSchema, required: false, default: null })
   license!: ISpdxOntologyId | null;
 
   @Prop({ type: [AlgorithmSchema], _id: false, required: true })

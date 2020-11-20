@@ -65,9 +65,11 @@ class EdamOntologyId implements IEdamOntologyId {
     validate: [
       {
         validator: EdamFormatIdRegEx,
+        message: props => `${props.value} is not an id for an EDAM term!`
       },
       {
         validator: OntologiesService.edamValidator,
+        message: props => `${props.value} is not an id for an EDAM term!`
       },
     ],
   })
@@ -99,8 +101,14 @@ class KisaoOntologyId implements IKisaoOntologyId {
     uppercase: true,
     trim: true,
     validate: [
-      { validator: KisaoIdRegEx },
-      { validator: OntologiesService.kisaoValidator },
+      { 
+        validator: KisaoIdRegEx,
+        message: props => `${props.value} is not an id for a KiSAO term!`
+      },
+      { 
+        validator: OntologiesService.kisaoValidator,
+        message: props => `${props.value} is not an id for a KiSAO term!`
+      },
     ],
   })
   id!: string;
@@ -122,8 +130,14 @@ class SboOntologyId implements ISboOntologyId {
   @Prop({
     required: true,
     validate: [
-      { validator: SboIdRegEx },
-      { validator: OntologiesService.sboValidator },
+      {
+        validator: SboIdRegEx,
+        message: props => `${props.value} is not an id for a SBO term!`
+      },
+      {
+        validator: OntologiesService.sboValidator,
+        message: props => `${props.value} is not an id for a SBO term!`
+      },
     ],
   })
   id!: string;
@@ -143,8 +157,14 @@ class SioOntologyId implements ISioOntologyId {
   @Prop({
     required: true,
     validate: [
-      { validator: SioIdRegEx },
-      { validator: OntologiesService.sioValidator },
+      {
+        validator: SioIdRegEx,
+        message: props => `${props.value} is not an id for a SIO term!`
+      },
+      {
+        validator: OntologiesService.sioValidator,
+        message: props => `${props.value} is not an id for a SIO term!`
+      },
     ],
   })
   id!: string;
@@ -164,7 +184,10 @@ class SpdxOntologyId implements ISpdxOntologyId {
   @Prop({
     type: String,
     required: true,
-    validate: OntologiesService.spdxValidator,
+    validate: [{
+      validator: OntologiesService.spdxValidator,
+      message: props => `${props.value} is not an id for a SPDX term!`
+    }],
   })
   id!: string;
 }

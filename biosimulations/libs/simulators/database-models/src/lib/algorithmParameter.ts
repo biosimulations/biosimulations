@@ -23,7 +23,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   type!: AlgorithmParameterType;
   @Prop()
   value!: string;
-  @Prop()
+  @Prop({ required: false })
   recommendedRange!: string[] | null;
 }
 export const AlgorithmParameterSchema = SchemaFactory.createForClass(
