@@ -6,6 +6,7 @@
  */
 import {
   createdResponse,
+  DispatchCreatedPayload,
   DispatchMessage,
   MQDispatch,
 } from '@biosimulations/messages/messages';
@@ -123,13 +124,17 @@ export class SimulationRunController {
     const response: SimulationRun = this.makeSimulationRun(run);
     // Move to another layer?
     // TODO add type checking here
+    const message: DispatchCreatedPayload = {
+      _message: DispatchMessage.created,
+      id: run.id,
+      file: file.orgiginalname,
+      simulator: run.simulator,
+      version: run.simulatorVersion,
+    };
+
+    // Create a custom method for this
     this.messageClient
-      .send(DispatchMessage.created, {
-        id: run.id,
-        file: file.originalname,
-        simulator: run.simulator,
-        version: run.simulatorVersion,
-      })
+      .send(DispatchMessage.created, message)
       .subscribe((res: createdResponse) => {
         if (res.okay) {
           this.service.setStatus(response.id, SimulationRunStatus.QUEUED);

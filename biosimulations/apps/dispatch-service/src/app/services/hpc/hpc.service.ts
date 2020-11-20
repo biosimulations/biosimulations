@@ -46,22 +46,9 @@ export class HpcService {
       id
     );
     // TODO save the sbatch into simDirbase
-    this.sshService
-      .execStringCommand(
-        `mkdir -p ${simDirBase}/in & mkdir -p ${simDirBase}/out & echo "${sbatchString}" > test.sbatch & chmod +x test.sbatch & sbatch test.sbatch`
-      )
-      .then((result) => {
-        this.logger.log(
-          'Execution of sbatch was successful: ' + JSON.stringify(result)
-        );
-        this.messageClient.emit(DispatchMessage.started, {
-          simulatorId: id,
-        });
-      })
-      .catch((error) => {
-        this.logger.error('Could not execute SBATCH: ');
-        this.logger.debug(error);
-      });
+    return this.sshService.execStringCommand(
+      `mkdir -p ${simDirBase}/in & mkdir -p ${simDirBase}/out & echo "${sbatchString}" > test.sbatch & chmod +x test.sbatch & sbatch test.sbatch`
+    );
   }
 
   getOutputFiles(simId: string) {

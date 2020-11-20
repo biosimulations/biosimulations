@@ -44,9 +44,9 @@ export class AppController {
   );
 
   /**
+   *The method responds to the message by calling the hpc service to start a job. It then sends a reply to the message.
    *
    * @param data The payload sent for the created simulation run message
-   * The method responds to the message by calling the hpc service to start a job. It then sends a reply to the message.
    */
   @MessagePattern(DispatchMessage.created)
   async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
@@ -67,7 +67,13 @@ export class AppController {
       return new createdResponse(false, 'invalid simulator');
     }
     // TODO have this send back a status and adjust response accordingly
-    this.hpcService.execJob(data.id, data.simulator, data.version, data.file);
+    const response = await this.hpcService.execJob(
+      data.id,
+      data.simulator,
+      data.version,
+      data.file
+    );
+
     return new createdResponse();
   }
 
