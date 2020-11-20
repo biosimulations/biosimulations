@@ -26,5 +26,5 @@ export class Identifier implements IIdentifier {
   @ApiProperty()
   id!: string;
   @ApiProperty({ type: String, nullable: true })
-  url?: string | null;
+  url!: string | null;
 }

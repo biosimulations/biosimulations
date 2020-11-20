@@ -9,12 +9,12 @@ export enum SimulationStatus {
 export interface Simulation {
   id: string;
   name: string;
-  email?: string;
-  submittedLocally?: boolean;
+  email: string | null;
+  submittedLocally: boolean;
   status: SimulationStatus;
-  runtime?: number;
+  runtime: number | null;
   submitted: Date;
   updated: Date;
-  resultSize?: number;
-  projectSize?: number;
+  resultSize: number | null;
+  projectSize: number | null;
 }

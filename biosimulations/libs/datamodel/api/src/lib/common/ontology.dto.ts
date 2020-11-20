@@ -31,10 +31,10 @@ export class OntologyInfo implements IOntologyInfo {
   description!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  bioportalId?: string | null;
+  bioportalId!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  olsId?: string | null;
+  olsId!: string | null;
 
   @ApiProperty()
   version!: string;
@@ -51,9 +51,9 @@ export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ type: String })
   name!: string;
   @ApiProperty({ type: String, nullable: true })
-  description?: string | null;
+  description!: string | null;
   @ApiProperty({ type: String, nullable: true })
-  iri?: string | null;
+  iri!: string | null;
   @ApiPropertyOptional({ type: String })
   url!: string;
 }
@@ -62,7 +62,7 @@ export class EdamTerm extends EdamOntologyId {
   @ApiProperty()
   name!: string;
   @ApiProperty({ type: String, nullable: true })
-  description?: string | null;
+  description!: string | null;
   @ApiProperty()
   iri!: string;
   @ApiProperty()
@@ -72,7 +72,7 @@ export class KisaoTerm extends KisaoOntologyId {
   @ApiProperty()
   name!: string;
   @ApiProperty({ type: String, nullable: true })
-  description?: string | null;
+  description!: string | null;
   @ApiProperty()
   iri!: string;
   @ApiProperty()
@@ -82,7 +82,7 @@ export class SboTerm extends SboOntologyId {
   @ApiProperty()
   name!: string;
   @ApiProperty({ type: String, nullable: true })
-  description?: string | null;
+  description!: string | null;
   @ApiProperty()
   iri!: string;
   @ApiProperty()
@@ -92,7 +92,7 @@ export class SioTerm extends SioOntologyId {
   @ApiProperty()
   name!: string;
   @ApiProperty({ type: String, nullable: true })
-  description?: string | null;
+  description!: string | null;
   @ApiProperty()
   iri!: string;
   @ApiProperty()
@@ -102,7 +102,7 @@ export class SpdxTerm extends SpdxOntologyId {
   @ApiProperty()
   name!: string;
   @ApiProperty({ type: String, nullable: true })
-  description?: string | null;
+  description!: string | null;
   @ApiProperty({ nullable: true })
   iri!: null;
   @ApiProperty()
@@ -114,5 +114,5 @@ export class Identifier implements IIdentifier {
   @ApiProperty()
   id!: string;
   @ApiPropertyOptional({ nullable: true, type: String, format: 'url' })
-  url?: string | null;
+  url!: string | null;
 }

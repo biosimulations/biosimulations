@@ -70,7 +70,7 @@ export class ModelResource implements ResourceObject {
   @ApiProperty()
   relationships: ModelRelationships;
   @ApiProperty()
-  links?: any;
+  links!: any;
   @ApiProperty()
   meta: ResourceMetadata;
 

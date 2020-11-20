@@ -44,7 +44,7 @@ export class SimulationRun {
   simulatorVersion!: string;
 
   @ApiPropertyOptional({ format: 'email', example: 'info@biosimulations.org' })
-  email?: string;
+  email!: string | null;
 
   @ApiProperty({ type: Boolean, default: false })
   public: boolean;
@@ -53,13 +53,13 @@ export class SimulationRun {
   status: SimulationRunStatus;
 
   @ApiResponseProperty({ example: 55 })
-  duration?: number;
+  duration!: number | null;
 
   @ApiResponseProperty({ example: 1123 })
-  projectSize?: number;
+  projectSize!: number | null;
 
   @ApiResponseProperty({ example: 11234 })
-  resultsSize?: number;
+  resultsSize: number | null;
 
   @ApiResponseProperty()
   submitted!: Date;
@@ -76,10 +76,10 @@ export class SimulationRun {
     isPublic: boolean,
     submitted: Date,
     updated: Date,
-    duration?: number,
-    projectSize?: number,
-    resultsSize?: number,
-    email?: string
+    duration: number | null,
+    projectSize: number | null,
+    resultsSize: number | null,
+    email: string | null
   ) {
     this.id = id;
     this.name = name;
