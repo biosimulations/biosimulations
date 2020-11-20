@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// TODO move this to API
-import spdxLicenseList from 'spdx-license-list/full';
 
 import {
   IOntologyTerm,
@@ -22,6 +20,7 @@ export class OntologyService {
   edamTerms: Observable<{ [id: string]: EdamTerm }>;
   sboTerms: Observable<{ [id: string]: SboTerm }>;
   sioTerms: Observable<{ [id: string]: SioTerm }>;
+  spdxTerms: Observable<{ [id: string]: SpdxTerm }>;
 
   constructor(private http: HttpClient) {
     this.kisaoTerms = this.fetchKisaoTerms();
@@ -35,6 +34,9 @@ export class OntologyService {
 
     this.sioTerms = this.fetchSioTerms();
     this.sioTerms.subscribe();
+
+    this.spdxTerms = this.fetchSpdxTerms();
+    this.spdxTerms.subscribe();
   }
   endpoint = urls.ontologyApi;
   getKisaoUrl(id: string): string {
@@ -90,6 +92,20 @@ export class OntologyService {
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: SioTerm } = {};
+        terms.forEach((term) => {
+          termSet[term.id] = term;
+        });
+        return termSet;
+      })
+    );
+  }
+  private fetchSpdxTerms(): Observable<{
+    [id: string]: SpdxTerm;
+  }> {
+    return this.http.get<SpdxTerm[]>(this.endpoint + '/spdx/list').pipe(
+      shareReplay(1),
+      map((terms) => {
+        const termSet: { [id: string]: SpdxTerm } = {};
         terms.forEach((term) => {
           termSet[term.id] = term;
         });
@@ -168,13 +184,6 @@ export class OntologyService {
     return this.getTerm(this.sioTerms, id);
   }
   getSpdxTerm(id: string): Observable<SpdxTerm> {
-    const term = spdxLicenseList[id];
-    return of({
-      id: id,
-      namespace: Ontologies.SPDX,
-      name: term.name,
-      url: term.url,
-      description: term.licenseText,
-    });
+    return this.getTerm(this.spdxTerms, id);
   }
 }

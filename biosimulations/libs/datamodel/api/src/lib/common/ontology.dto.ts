@@ -14,14 +14,15 @@ import {
   KisaoOntologyId,
   SboOntologyId,
   SioOntologyId,
+  SpdxId,
 } from './ontologyId.dto';
 
 export class OntologyInfo implements IOntologyInfo {
-  @ApiProperty()
-  bioportalId!: string;
+  @ApiProperty({ type: String, nullable: true })
+  bioportalId?: string | null;
 
-  @ApiProperty()
-  olsId!: string;
+  @ApiProperty({ type: String, nullable: true })
+  olsId?: string | null;
 
   @ApiProperty()
   version!: string;
@@ -82,6 +83,14 @@ export class SioTerm extends SioOntologyId {
   description!: string | null;
   @ApiProperty()
   iri!: string | null;
+  @ApiProperty()
+  url?: string | null | undefined;
+}
+export class SpdxTerm extends SpdxId {
+  @ApiProperty()
+  name!: string;
+  @ApiProperty()
+  description?: string | null;
   @ApiProperty()
   url?: string | null | undefined;
 }

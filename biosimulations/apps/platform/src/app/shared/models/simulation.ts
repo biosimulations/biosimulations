@@ -36,8 +36,8 @@ export class Simulation extends TopLevelResource {
   startTime?: number; // in seconds
   endTime?: number; // in seconds
   length?: number; // in seconds
-  algorithm?: Algorithm; // KISAO modeling and simulation algorithm
-  algorithmParameterChanges?: ParameterChange[] = []; // KISAO modeling and simulation algorithm parameter
+  algorithm?: Algorithm; // KiSAO modeling and simulation algorithm
+  algorithmParameterChanges?: ParameterChange[] = []; // KiSAO modeling and simulation algorithm parameter
   simulator?: Simulator;
   numTimePoints?: number;
   parent?: Simulation;

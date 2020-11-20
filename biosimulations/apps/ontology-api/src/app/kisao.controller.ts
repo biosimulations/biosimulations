@@ -38,7 +38,7 @@ export class KisaoController {
   getTerm(@Param('id') id: string): KisaoTerm {
     const term = this.service.getKisaoTerm(id);
     if (!term) {
-      throw new NotFoundException(`No KISAO Term with id ${id} exists `);
+      throw new NotFoundException(`No KiSAO term with id ${id} exists `);
     }
     return term;
   }

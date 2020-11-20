@@ -11,9 +11,7 @@ export class OntologiesController {
   ontologyList(): string[] {
     const ontologiesIds = new Set<string>();
     for (const [key, val] of Object.entries(Ontologies)) {
-        if (key !== 'URL' && key !== 'SPDX') {
-            ontologiesIds.add(key);
-        }
+      ontologiesIds.add(key);
     }
 
     return [...ontologiesIds].sort();

@@ -4,12 +4,11 @@ export enum Ontologies {
   EDAM = 'EDAM',
   SIO = 'SIO',
   SPDX = 'SPDX',
-  URL = 'URL',
 }
 
 export interface OntologyInfo {
-  bioportalId: string;
-  olsId: string;
+  bioportalId?: string | null;
+  olsId?: string | null;
   version: string;
   source: string;
 }
@@ -25,10 +24,6 @@ export interface Identifier {
   namespace: string;
   id: string;
   url?: string | null;
-}
-export interface IURL extends Identifier {
-  namespace: Ontologies.URL;
-  id: string;
 }
 export interface ISpdxId extends Identifier {
   namespace: Ontologies.SPDX;
@@ -70,7 +65,7 @@ export interface IdentifierTerm extends Identifier {
   namespace: Ontologies;
   id: string;
   name: string;
-  description: string;
+  description?: string | null;
   url: string;
 }
 export interface KisaoTerm extends IKisaoOntologyId {
@@ -117,7 +112,7 @@ export interface SpdxTerm extends IdentifierTerm {
   namespace: Ontologies.SPDX;
   id: string;
   name: string;
-  description: string;
+  description?: string | null;
   url: string;
 }
 // Identifiers.org identifier

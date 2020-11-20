@@ -4,20 +4,21 @@ import {
   kisaoInfo,
   sboInfo,
   sioInfo,
+  spdxInfo,
   sboTerms,
   kisaoTerms,
   edamTerms,
   sioTerms,
+  spdxTerms,
  } from '@biosimulations/ontology/sources';
 import { 
   OntologyInfo,
   EdamTerm,
   KisaoTerm,
   SboTerm,
-  SioTerm,  
+  SioTerm,
+  SpdxTerm,
 } from '@biosimulations/datamodel/common';
-
-import spdxLicenseListSimple from 'spdx-license-list/simple';
 
 @Injectable()
 export class OntologiesService {
@@ -35,6 +36,10 @@ export class OntologiesService {
 
   getSioInfo(): OntologyInfo {
     return sioInfo;
+  }
+
+  getSpdxInfo(): OntologyInfo {
+    return spdxInfo;
   }
 
   getEdam(): EdamTerm[] {
@@ -69,6 +74,14 @@ export class OntologiesService {
     return terms;
   }
 
+  getSpdx(): SpdxTerm[] {
+    const terms = [];
+    for (const term in spdxTerms) {
+      terms.push(spdxTerms[term]);
+    }
+    return terms;
+  }
+
   getSboTerm(id: string): SboTerm | null {
     return sboTerms[id];
   }
@@ -80,6 +93,9 @@ export class OntologiesService {
   }
   getSioTerm(id: string): SioTerm | null {
     return sioTerms[id];
+  }
+  getSpdxTerm(id: string): SpdxTerm | null {
+    return spdxTerms[id];
   }
 
   isSboTerm(id: string): boolean {
@@ -94,6 +110,9 @@ export class OntologiesService {
   isSioTerm(id: string): boolean {
     return !!this.getSioTerm(id);
   }
+  isSpdxTerm(id: string): boolean {
+    return !!this.getSpdxTerm(id);
+  }
   static edamValidator(id: string): boolean {
     return !!edamTerms[id];
   }
@@ -107,6 +126,6 @@ export class OntologiesService {
     return !!sioTerms[id];
   }
   static spdxValidator(id: string): boolean {
-    return spdxLicenseListSimple.has(id);
+    return !!spdxTerms[id];
   }
 }
