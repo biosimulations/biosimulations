@@ -77,7 +77,7 @@ export class ViewSimulatorService {
       id: sim.id,
       version: sim.version,
       name: sim.name,
-      image: sim.image || undefined,
+      image: sim.image?.url || undefined,
       description: sim.description,
       url: sim.url,
       authors: this.getAuthors(sim),

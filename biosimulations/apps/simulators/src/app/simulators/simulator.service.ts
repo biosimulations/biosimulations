@@ -63,7 +63,7 @@ export class SimulatorService {
           if (sim.id === simId) {
             versions.push({
               version: sim.version,
-              image: sim.image || undefined,
+              image: sim.image?.url || undefined,
               created: sim.created,
               url: sim.url,
               curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim), false),

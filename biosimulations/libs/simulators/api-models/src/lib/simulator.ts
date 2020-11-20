@@ -1,6 +1,7 @@
 import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-import { EdamOntologyId, SpdxId } from '@biosimulations/datamodel/api';
+import { SpdxId } from '@biosimulations/datamodel/api';
+import { Image } from './image';
 import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
@@ -34,22 +35,18 @@ export class Simulator {
   url!: string;
 
   @ApiProperty({
-    example: 'ghcr.io/biosimulators/tellurium:2.1.6',
     nullable: true,
     required: true,
-    type: String,
+    type: Image,
   })
-  image!: string | null;
-
-  @ApiProperty({ type: EdamOntologyId })
-  format!: EdamOntologyId;
+  image!: Image | null;
 
   @ApiProperty({ type: [Person] })
   authors!: Person[];
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
-  @ApiProperty({ type: SpdxId })
-  license!: SpdxId;
+  @ApiProperty({ type: SpdxId, required: true, nullable: true })
+  license!: SpdxId | null;
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
 

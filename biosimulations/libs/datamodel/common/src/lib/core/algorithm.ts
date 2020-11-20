@@ -31,7 +31,7 @@ export interface IAlgorithm {
   kisaoId: IKisaoOntologyId;
   modelingFrameworks: ISboOntologyId[];
   modelFormats: IEdamOntologyId[];
-  parameters: AlgorithmParameter[];
+  parameters: AlgorithmParameter[] | null;
   simulationFormats: IEdamOntologyId[];
   archiveFormats: IEdamOntologyId[];
   citations: Citation[];

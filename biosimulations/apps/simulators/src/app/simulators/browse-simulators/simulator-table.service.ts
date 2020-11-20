@@ -101,7 +101,7 @@ export class SimulatorTableService {
                       simulationFormatIds: [...simulationFormatIds],
                       archiveFormats: value.archiveFormats,
                       archiveFormatIds: [...archiveFormatIds],
-                      image: simulator.image || undefined,
+                      image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,
                     };
                     if (license instanceof Observable) {

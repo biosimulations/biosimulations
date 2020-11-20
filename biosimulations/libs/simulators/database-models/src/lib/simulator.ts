@@ -3,10 +3,11 @@ import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
-import { EdamOntologyIdSchema, SpdxIdSchema } from './ontologyId';
+import { SpdxIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
-import { IEdamOntologyId, ISpdxId } from '@biosimulations/datamodel/common';
+import { IImage, ISpdxId } from '@biosimulations/datamodel/common';
 
 import { ExternalReferencesSchema, PersonSchema } from './common';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
@@ -30,11 +31,8 @@ export class Simulator extends Document {
   @Prop({ type: String, required: true })
   url!: string;
 
-  @Prop({ required: false, type: String, default: null })
-  image!: string | null;
-
-  @Prop({ type: EdamOntologyIdSchema, required: true })
-  format!: IEdamOntologyId;
+  @Prop({ required: true, type: ImageSchema, default: null })
+  image!: IImage | null;
 
   @Prop({ items: [PersonSchema], required: true })
   authors!: Person[];
@@ -42,8 +40,8 @@ export class Simulator extends Document {
   @Prop({ type: ExternalReferencesSchema })
   references!: ExternalReferences;
 
-  @Prop({ type: SpdxIdSchema })
-  license!: ISpdxId;
+  @Prop({ type: SpdxIdSchema, required: true, default: null })
+  license!: ISpdxId | null;
 
   @Prop({ type: [AlgorithmSchema], _id: false, required: true })
   algorithms!: Algorithm[];
