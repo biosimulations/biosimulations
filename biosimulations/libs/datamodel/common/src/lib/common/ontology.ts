@@ -7,6 +7,10 @@ export enum Ontologies {
 }
 
 export interface OntologyInfo {
+  id: string,
+  acronym: string,
+  name: string,
+  description: string,
   bioportalId?: string | null;
   olsId?: string | null;
   version: string;

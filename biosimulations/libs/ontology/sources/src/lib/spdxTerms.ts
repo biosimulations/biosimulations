@@ -18,8 +18,12 @@ function getSpdxTerms(input: any): { [id: string]: SpdxTerm } {
 export const spdxTerms = getSpdxTerms(spdxJson);
 
 export const spdxInfo: OntologyInfo = {
-  'bioportalId': null,
-  'olsId': null,
-  'version': spdxJson.licenseListVersion,
-  'source': 'https://github.com/spdx/license-list-data/blob/master/json/licenses.json',
+  id: Ontologies.SPDX,
+  acronym: Ontologies.SPDX,
+  name: 'Software Package Data Exchange',
+  description: 'List of commonly found licenses and exceptions used in free and open source and other collaborative software or documentation.',
+  bioportalId: null,
+  olsId: null,
+  version: spdxJson.licenseListVersion,
+  source: 'https://github.com/spdx/license-list-data/blob/master/json/licenses.json',
 };

@@ -18,16 +18,28 @@ import {
 } from './ontologyId.dto';
 
 export class OntologyInfo implements IOntologyInfo {
+  @ApiProperty({ type: String })
+  id!: string;
+
+  @ApiProperty({ type: String })
+  acronym!: string;
+
+  @ApiProperty({ type: String })
+  name!: string;
+
+  @ApiProperty({ type: String })
+  description!: string;
+
   @ApiProperty({ type: String, nullable: true })
   bioportalId?: string | null;
 
   @ApiProperty({ type: String, nullable: true })
   olsId?: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   version!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   source!: string;
 }
 
