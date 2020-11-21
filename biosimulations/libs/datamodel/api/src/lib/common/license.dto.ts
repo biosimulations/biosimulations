@@ -13,6 +13,6 @@ export class LicenseInfo implements ILicenseInfo {
   version!: string;
   @ApiProperty()
   swoId!: number;
-  @ApiProperty()
+  @ApiProperty({ format: 'url', })
   url!: string;
 }

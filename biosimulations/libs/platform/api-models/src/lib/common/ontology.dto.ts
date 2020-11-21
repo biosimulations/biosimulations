@@ -14,7 +14,7 @@ export class OntologyTerm implements IOntologyTerm {
   name!: string | null;
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, format: 'url' })
   iri!: string | null;
 }
 
@@ -23,6 +23,6 @@ export class Identifier implements IIdentifier {
   namespace!: string;
   @ApiProperty()
   id!: string;
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, format: 'url' })
   url?: string | null;
 }
