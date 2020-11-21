@@ -101,9 +101,9 @@ async function bootstrap() {
   };
   app.enableCors({ origin: allowOrigin });
   const doc = new DocumentBuilder()
-    .setTitle('BioSimulations ontology API')
+    .setTitle('BioSimulations/BioSimulators ontology API')
     .setDescription(
-      'An API to get information about ontologies and terms used in BioSimulations'
+      'An API to get information about ontologies and terms used in BioSimulations and BioSimulators'
     )
     .setVersion('0.1').setLicense("MIT", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
     .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org');
