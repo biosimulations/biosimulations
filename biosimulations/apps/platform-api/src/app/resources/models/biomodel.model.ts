@@ -1,4 +1,5 @@
 import { prop } from '@typegoose/typegoose';
+import is from '@sindresorhus/is';
 
 import {
   IsString,
@@ -54,7 +55,15 @@ class IdentiferDB implements Identifier {
   namespace!: string;
   @prop()
   id!: string;
-  @prop()
+  @prop({
+    type: String,
+    validate: [{
+      validator: (value: any): boolean => {
+        return value == null || is.urlString(value);
+      },
+      message: (props: any): string => `${props.value} is not a valid URL`,
+    }],
+  })
   url!: string | null;
 }
 
