@@ -8,6 +8,7 @@ function getSpdxTerms(input: any): { [id: string]: SpdxTerm } {
             id: license.licenseId,
             namespace: Ontologies.SPDX,
             name: license.name,
+            iri: null,
             url: license.detailsUrl,
             description: null,
         }

@@ -72,9 +72,11 @@ class EdamOntologyId implements IEdamOntologyId {
     validate: [
       {
         validator: EdamFormatIdRegEx,
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
       },
       {
-        validator: OntologiesService.edamValidator,
+        validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.EDAM, value),
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
       },
     ],
   })
@@ -106,8 +108,14 @@ class KisaoOntologyId implements IKisaoOntologyId {
     uppercase: true,
     trim: true,
     validate: [
-      { validator: KisaoIdRegEx },
-      { validator: OntologiesService.kisaoValidator },
+      { 
+        validator: KisaoIdRegEx,
+        message: (props: any): string => `${props.value} is not an id of a KiSAO term`,
+      },
+      { 
+        validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.KISAO, value),
+        message: (props: any): string => `${props.value} is not an id of a KiSAO term`,
+      },
     ],
   })
   id!: string;
@@ -129,8 +137,14 @@ class SboOntologyId implements ISboOntologyId {
   @Prop({
     required: true,
     validate: [
-      { validator: SboIdRegEx },
-      { validator: OntologiesService.sboValidator },
+      { 
+        validator: SboIdRegEx,
+        message: (props: any): string => `${props.value} is not an id of a SBO term`,
+      },
+      { 
+        validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.SBO, value),
+        message: (props: any): string => `${props.value} is not an id of a SBO term`,
+      },
     ],
   })
   id!: string;
@@ -150,8 +164,14 @@ class SioOntologyId implements ISioOntologyId {
   @Prop({
     required: true,
     validate: [
-      { validator: SioIdRegEx },
-      { validator: OntologiesService.sioValidator },
+      { 
+        validator: SioIdRegEx,
+        message: (props: any): string => `${props.value} is not an id of a SIO term`,
+      },
+      { 
+        validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.SIO, value),
+        message: (props: any): string => `${props.value} is not an id of a SIO term`,
+      },
     ],
   })
   id!: string;
@@ -171,7 +191,10 @@ class SpdxId implements ISpdxId {
   @Prop({
     type: String,
     required: true,
-    validate: OntologiesService.spdxValidator,
+    validate: [{
+      validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.SPDX, value),
+      message: (props: any): string => `${props.value} is not an id of a SPDX term`,
+    }]
   })
   id!: string;
 }

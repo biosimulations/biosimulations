@@ -102,7 +102,9 @@ export class SpdxTerm extends SpdxId {
   @ApiProperty()
   name!: string;
   @ApiProperty()
-  description?: string | null;
+  description!: string | null;
+  @ApiProperty()
+  iri!: null;
   @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
