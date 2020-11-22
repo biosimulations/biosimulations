@@ -31,10 +31,10 @@ export class OntologyInfo implements IOntologyInfo {
   description!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  bioportalId?: string | null;
+  bioportalId!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  olsId?: string | null;
+  olsId!: string | null;
 
   @ApiProperty({ type: String })
   version!: string;

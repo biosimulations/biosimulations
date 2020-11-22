@@ -11,8 +11,8 @@ export interface OntologyInfo {
   acronym: string,
   name: string,
   description: string,
-  bioportalId?: string | null;
-  olsId?: string | null;
+  bioportalId: string | null;
+  olsId: string | null;
   version: string;
   source: string;
 }
