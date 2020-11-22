@@ -14,7 +14,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import is from '@sindresorhus/is';
+import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -30,7 +30,7 @@ class Identifier implements IIdentifier {
   @Prop({
     required: true,
     validate: [{
-      validator: is.urlString,
+      validator: isUrl,
       message: (props: any): string => `${props.value} is not a valid URL`,
     }],
   })

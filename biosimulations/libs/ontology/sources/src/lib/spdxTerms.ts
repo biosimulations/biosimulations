@@ -1,15 +1,18 @@
 import { Ontologies, SpdxTerm, OntologyInfo } from '@biosimulations/datamodel/common';
+import isUrl from 'is-url';
 import spdxJson from './spdx.json';
 
 function getSpdxTerms(input: any): { [id: string]: SpdxTerm } {
     const terms: { [id: string]: SpdxTerm } = {};
     input.licenses.forEach((license: any): void => {
+        const seeAlso = license?.seeAlso?.[0];
         terms[license.licenseId] = {
             id: license.licenseId,
             namespace: Ontologies.SPDX,
             name: license.name,
             iri: null,
             url: license.detailsUrl,
+            moreInfoUrl: seeAlso && isUrl(seeAlso) ? seeAlso : null,
             description: null,
         }
     });

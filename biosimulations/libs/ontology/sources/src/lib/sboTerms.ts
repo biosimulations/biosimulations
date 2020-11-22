@@ -18,7 +18,7 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
                 const termIRI = jsonTerm["@id"];
                 const termNameSpace = Ontologies.SBO
                 const termId = jsonTerm["@id"].replace("http://biomodels.net/SBO/", "")
-                const termDescription = jsonTerm["rdfs:comment"]
+                const termDescription = jsonTerm["rdfs:comment"] || null;
                 const termName = jsonTerm["rdfs:label"]
                 const termUrl = encodeURI("https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2F" + termId)
                 const term: SboTerm = {
@@ -27,7 +27,8 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
                     description: termDescription,
                     namespace: termNameSpace,
                     iri: termIRI,
-                    url: termUrl
+                    url: termUrl,
+                    moreInfoUrl: null,
                 }
 
 

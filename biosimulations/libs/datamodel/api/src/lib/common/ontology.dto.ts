@@ -54,8 +54,10 @@ export class OntologyTerm implements IOntologyTerm {
   description!: string | null;
   @ApiProperty({ type: String, nullable: true, format: 'url' })
   iri!: string | null;
-  @ApiPropertyOptional({ type: String, format: 'url' })
-  url?: string | null;
+  @ApiProperty({ type: String, format: 'url' })
+  url!: string;
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
 
 export class EdamTerm extends EdamOntologyId {
@@ -66,7 +68,9 @@ export class EdamTerm extends EdamOntologyId {
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
 export class KisaoTerm extends KisaoOntologyId {
   @ApiProperty()
@@ -76,7 +80,9 @@ export class KisaoTerm extends KisaoOntologyId {
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
 export class SboTerm extends SboOntologyId {
   @ApiProperty()
@@ -86,7 +92,9 @@ export class SboTerm extends SboOntologyId {
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
 export class SioTerm extends SioOntologyId {
   @ApiProperty()
@@ -96,7 +104,9 @@ export class SioTerm extends SioOntologyId {
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
 export class SpdxTerm extends SpdxId {
   @ApiProperty()
@@ -106,7 +116,9 @@ export class SpdxTerm extends SpdxId {
   @ApiProperty()
   iri!: null;
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
 export class Identifier implements IIdentifier {
   @ApiProperty()

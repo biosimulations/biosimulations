@@ -60,8 +60,8 @@ export interface IOntologyTerm extends IOntologyId {
   namespace: Ontologies;
   id: string;
   iri: string | null;
-  url?: string | null;
-  externalUrl?: string | null;
+  url: string;
+  moreInfoUrl: string | null;
   name: string;
   description: string | null;
 }
@@ -79,7 +79,7 @@ export interface KisaoTerm extends IKisaoOntologyId {
   description: string;
   iri: string;
   url: string;
-  externalUrl?: string | null;
+  moreInfoUrl: string | null;
 }
 
 export interface SboTerm extends IOntologyTerm {
@@ -89,7 +89,7 @@ export interface SboTerm extends IOntologyTerm {
   description: string;
   iri: string;
   url: string;
-  externalUrl?: string | null;
+  moreInfoUrl: null;
 }
 
 export interface EdamTerm extends IOntologyTerm {
@@ -99,7 +99,7 @@ export interface EdamTerm extends IOntologyTerm {
   description: string;
   iri: string;
   url: string;
-  externalUrl?: string | null;
+  moreInfoUrl: string | null;
 }
 
 export interface SioTerm extends IOntologyTerm {
@@ -109,7 +109,7 @@ export interface SioTerm extends IOntologyTerm {
   description: string;
   iri: string;
   url: string;
-  externalUrl?: string | null;
+  moreInfoUrl: string | null;
 }
 
 export interface SpdxTerm extends IdentifierTerm {
@@ -119,5 +119,6 @@ export interface SpdxTerm extends IdentifierTerm {
   description: string | null;
   iri: null;
   url: string;
+  moreInfoUrl: string | null;
 }
 // Identifiers.org identifier

@@ -2,7 +2,7 @@ import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import is from '@sindresorhus/is';
+import isUrl from 'is-url';
 
 import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
@@ -33,7 +33,7 @@ export class Simulator extends Document {
     type: String,
     required: true,
     validate: [{
-      validator: is.urlString,
+      validator: isUrl,
       message: (props: any): string => `${props.value} is not a valid URL`,
     }],
   })

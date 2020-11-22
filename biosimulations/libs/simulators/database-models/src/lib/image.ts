@@ -4,7 +4,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { EdamOntologyIdSchema } from './ontologyId';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import is from '@sindresorhus/is';
+import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -17,7 +17,7 @@ export class Image implements IImage {
     type: String,
     required: true,
     validate: [{
-      validator: is.urlString,
+      validator: isUrl,
       message: (props: any): string => `${props.value} is not a valid URL`,
     }],
   })

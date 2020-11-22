@@ -1,4 +1,5 @@
 import { Ontologies, EdamTerm, OntologyInfo } from '@biosimulations/datamodel/common';
+import isUrl from 'is-url';
 import edamJson from './edam.json';
 let edamVersion: string = '';
 function getEdamTerms(input: any): { [id: string]: EdamTerm } {
@@ -19,10 +20,15 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
                 if (!termId.match(/^(format)_\d{4}$/)) {
                     return;
                 }
-                const termDescription = jsonTerm["http://www.geneontology.org/formats/oboInOwl#hasDefinition"]
+                const termDescription = jsonTerm["http://www.geneontology.org/formats/oboInOwl#hasDefinition"] || null;
                 const termName = jsonTerm["rdfs:label"]
                 const termUrl = encodeURI("https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F" + termId)
-                const docUrl = jsonTerm?.["http://edamontology.org/documentation"]?.["@id"] || jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"]
+                let moreInfoUrl: string | null = null;
+                if (isUrl(jsonTerm?.["http://edamontology.org/documentation"]?.["@id"])) {
+                    moreInfoUrl = jsonTerm?.["http://edamontology.org/documentation"]?.["@id"];
+                } else if (isUrl(jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"])) {
+                    moreInfoUrl = jsonTerm?.["http://www.geneontology.org/formats/oboInOwl#hasDbXref"]?.["@id"];
+                }
                 const term: EdamTerm = {
                     id: termId,
                     name: termName,
@@ -30,7 +36,7 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
                     namespace: termNameSpace,
                     iri: termIRI,
                     url: termUrl,
-                    externalUrl: docUrl
+                    moreInfoUrl: moreInfoUrl
                 }
 
 
