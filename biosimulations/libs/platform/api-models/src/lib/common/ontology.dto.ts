@@ -11,7 +11,7 @@ export class OntologyTerm implements IOntologyTerm {
   @ApiProperty()
   id!: string;
   @ApiProperty()
-  name!: string | null;
+  name!: string;
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
   @ApiProperty({ type: String, nullable: true, format: 'url' })

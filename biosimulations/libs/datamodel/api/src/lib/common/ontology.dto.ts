@@ -64,7 +64,7 @@ export class EdamTerm extends EdamOntologyId {
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string | null;
+  iri!: string;
   @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
@@ -74,7 +74,7 @@ export class KisaoTerm extends KisaoOntologyId {
   @ApiProperty()
   description!: string | null;
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string | null;
+  iri!: string;
   @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
@@ -84,7 +84,7 @@ export class SboTerm extends SboOntologyId {
   @ApiProperty()
   description!: string | null;
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string | null;
+  iri!: string;
   @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
@@ -94,7 +94,7 @@ export class SioTerm extends SioOntologyId {
   @ApiProperty()
   description!: string | null;
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string | null;
+  iri!: string;
   @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
