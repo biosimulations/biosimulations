@@ -16,7 +16,7 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
                 const termIRI = jsonTerm["@id"];
                 const termNameSpace = Ontologies.EDAM
                 const termId = jsonTerm["@id"].replace("http://edamontology.org/", "")
-                if (!termId.match(/^(format)\_\d{4}$/)) {
+                if (!termId.match(/^(format)_\d{4}$/)) {
                     return;
                 }
                 const termDescription = jsonTerm["http://www.geneontology.org/formats/oboInOwl#hasDefinition"]
