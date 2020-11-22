@@ -65,7 +65,7 @@
     "@nestjs/swagger": "^4.7.4",
     "@nrwl/angular": "10.4.1",
     "@sindresorhus/is": "^4.0.0",
-    "@typegoose/typegoose": "^7.4.1",
+    "@typegoose/typegoose": "^7.4.2",
     "angular-plotly.js": "^3.0.0",
     "archiver": "^5.0.2",
     "auth0": "^2.30.0",
