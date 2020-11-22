@@ -109,7 +109,7 @@ class BiomodelParameterDB implements BiomodelParameter {
 }
 
 export class BiomodelAttributesDB implements BiomodelAttributes {
-  @prop({ required: false })
+  @prop({ required: false, default: null })
   taxon: Taxon | null;
   @prop({ required: true, items: BiomodelParameterDB, _id: false })
   parameters: BiomodelParameter[];
@@ -171,10 +171,10 @@ export class Model {
   @prop({ required: true })
   file: string;
 
-  @prop({ required: false })
+  @prop({ required: false, default: null })
   parent: string | null = null;
 
-  @prop({ required: false })
+  @prop({ required: false, default: null })
   image: string | null = null;
 
   @prop({ required: true, immutable: true })
