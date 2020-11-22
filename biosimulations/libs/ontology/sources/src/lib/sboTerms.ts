@@ -45,8 +45,12 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
 export const sboTerms = getSboTerms(sboJson);
 
 export const sboInfo: OntologyInfo = {
-  'bioportalId': 'SBO',
-  'olsId': 'sbo',
-  'version': sboVersion,
-  'source': 'http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl',
+  id: Ontologies.SBO,
+  acronym: Ontologies.SBO,
+  name: 'Systems Biology Ontology',
+  description: 'Terms commonly used in Systems Biology, and in particular in computational modeling.',
+  bioportalId: 'SBO',
+  olsId: 'sbo',
+  version: sboVersion,
+  source: 'http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl',
 };

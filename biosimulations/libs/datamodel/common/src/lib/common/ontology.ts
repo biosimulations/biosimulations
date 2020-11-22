@@ -7,6 +7,10 @@ export enum Ontologies {
 }
 
 export interface OntologyInfo {
+  id: string,
+  acronym: string,
+  name: string,
+  description: string,
   bioportalId?: string | null;
   olsId?: string | null;
   version: string;
@@ -58,7 +62,7 @@ export interface IOntologyTerm extends IOntologyId {
   iri: string | null;
   url?: string | null;
   externalUrl?: string | null;
-  name: string | null;
+  name: string;
   description: string | null;
 }
 export interface IdentifierTerm extends Identifier {
@@ -112,7 +116,8 @@ export interface SpdxTerm extends IdentifierTerm {
   namespace: Ontologies.SPDX;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
+  iri: null;
   url: string;
 }
 // Identifiers.org identifier

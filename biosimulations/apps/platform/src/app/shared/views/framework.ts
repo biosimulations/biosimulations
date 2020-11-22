@@ -7,7 +7,7 @@ export class Framework extends ViewModel implements IFramework {
   constructor(
     public namespace: Ontologies,
     public id: string,
-    public name: string | null,
+    public name: string,
     public description: string | null,
     public iri: string | null
   ) {

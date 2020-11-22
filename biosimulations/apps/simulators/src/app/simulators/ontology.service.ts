@@ -4,108 +4,54 @@ import { Injectable } from '@angular/core';
 import {
   IOntologyTerm,
   Ontologies,
+  EdamTerm,
   KisaoTerm,
   SboTerm,
-  SpdxTerm,
-  EdamTerm,
   SioTerm,
-  IdentifierTerm,
+  SpdxTerm,
 } from '@biosimulations/datamodel/common';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 @Injectable({ providedIn: 'root' })
 export class OntologyService {
-  kisaoTerms: Observable<{ [id: string]: KisaoTerm }>;
   edamTerms: Observable<{ [id: string]: EdamTerm }>;
+  kisaoTerms: Observable<{ [id: string]: KisaoTerm }>;
   sboTerms: Observable<{ [id: string]: SboTerm }>;
   sioTerms: Observable<{ [id: string]: SioTerm }>;
   spdxTerms: Observable<{ [id: string]: SpdxTerm }>;
 
   constructor(private http: HttpClient) {
-    this.kisaoTerms = this.fetchKisaoTerms();
-    this.kisaoTerms.subscribe();
-
-    this.edamTerms = this.fetchEdamTerms();
+    this.edamTerms = this.fetchTerms<EdamTerm>(Ontologies.EDAM) as Observable<{ [id: string]: EdamTerm }>;
     this.edamTerms.subscribe();
 
-    this.sboTerms = this.fetchSboTerms();
+    this.kisaoTerms = this.fetchTerms<KisaoTerm>(Ontologies.KISAO) as Observable<{ [id: string]: KisaoTerm }>;
+    this.kisaoTerms.subscribe();
+
+    this.sboTerms = this.fetchTerms<SboTerm>(Ontologies.SBO) as Observable<{ [id: string]: SboTerm }>;
     this.sboTerms.subscribe();
 
-    this.sioTerms = this.fetchSioTerms();
+    this.sioTerms = this.fetchTerms<SioTerm>(Ontologies.SIO) as Observable<{ [id: string]: SioTerm }>;
     this.sioTerms.subscribe();
 
-    this.spdxTerms = this.fetchSpdxTerms();
+    this.spdxTerms = this.fetchTerms<SpdxTerm>(Ontologies.SPDX) as Observable<{ [id: string]: SpdxTerm }>;
     this.spdxTerms.subscribe();
   }
+
   endpoint = urls.ontologyApi;
+  
   getKisaoUrl(id: string): string {
     return (
       'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
       id
     );
   }
-  private fetchKisaoTerms(): Observable<{ [id: string]: KisaoTerm }> {
-    return this.http.get<KisaoTerm[]>(this.endpoint + '/kisao/list').pipe(
+
+  private fetchTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<{ [id: string]: T }> {
+    return this.http.get<T[]>(this.endpoint + '/' + ontologyId + '/list').pipe(
       shareReplay(1),
       map((terms) => {
-        const termSet: { [id: string]: KisaoTerm } = {};
-        terms.forEach((term) => {
-          termSet[term.id] = term;
-        });
-        return termSet;
-      })
-    );
-  }
-  private fetchSboTerms(): Observable<{
-    [id: string]: SboTerm;
-  }> {
-    return this.http.get<SboTerm[]>(this.endpoint + '/sbo/list').pipe(
-      shareReplay(1),
-      map((terms) => {
-        const termSet: { [id: string]: SboTerm } = {};
-        terms.forEach((term) => {
-          termSet[term.id] = term;
-        });
-        return termSet;
-      })
-    );
-  }
-  private fetchEdamTerms(): Observable<{
-    [id: string]: EdamTerm;
-  }> {
-    return this.http.get<EdamTerm[]>(this.endpoint + '/edam/list').pipe(
-      shareReplay(1),
-      map((terms) => {
-        const termSet: { [id: string]: EdamTerm } = {};
-        terms.forEach((term) => {
-          termSet[term.id] = term;
-        });
-        return termSet;
-      })
-    );
-  }
-  private fetchSioTerms(): Observable<{
-    [id: string]: SioTerm;
-  }> {
-    return this.http.get<SioTerm[]>(this.endpoint + '/sio/list').pipe(
-      shareReplay(1),
-      map((terms) => {
-        const termSet: { [id: string]: SioTerm } = {};
-        terms.forEach((term) => {
-          termSet[term.id] = term;
-        });
-        return termSet;
-      })
-    );
-  }
-  private fetchSpdxTerms(): Observable<{
-    [id: string]: SpdxTerm;
-  }> {
-    return this.http.get<SpdxTerm[]>(this.endpoint + '/spdx/list').pipe(
-      shareReplay(1),
-      map((terms) => {
-        const termSet: { [id: string]: SpdxTerm } = {};
+        const termSet: { [id: string]: T } = {};
         terms.forEach((term) => {
           termSet[term.id] = term;
         });
@@ -114,24 +60,23 @@ export class OntologyService {
     );
   }
 
-  private mapToArray<T>(
-    input: Observable<{ [id: string]: T }>
-  ): Observable<T[]> {
-    return input.pipe(
-      map((value) => {
-        const arr = [];
-        for (const id in value) {
-          arr.push(value.id);
-        }
-        return arr;
-      })
-    );
+  private getTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<{ [id: string]: T }> | null {
+    switch (ontologyId) {
+      case Ontologies.EDAM: return this.edamTerms as Observable<{ [id: string]: T }>;
+      case Ontologies.KISAO: return this.kisaoTerms as Observable<{ [id: string]: T }>;
+      case Ontologies.SBO: return this.sboTerms as Observable<{ [id: string]: T }>;
+      case Ontologies.SIO: return this.sioTerms as Observable<{ [id: string]: T }>;
+      case Ontologies.SPDX: return this.spdxTerms as Observable<{ [id: string]: T }>;
+    }
+    return null;
   }
-  private getTerm<T extends IdentifierTerm>(
-    input: Observable<{ [id: string]: T }>,
+
+  private getTerm<T extends IOntologyTerm>(
+    ontologyId: Ontologies,
     term: string
   ): Observable<T> {
-    return input.pipe(
+    const terms = this.getTerms<T>(ontologyId) as Observable<{ [id: string]: T }>;
+    return terms.pipe(
       map((value) => {
         const setTerm = value[term];
 
@@ -155,8 +100,9 @@ export class OntologyService {
       })
     );
   }
-  getKisaoTerms(): Observable<KisaoTerm[]> {
-    return this.mapToArray(this.kisaoTerms);
+
+  getEdamTerm(id: string): Observable<EdamTerm> {
+    return this.getTerm<EdamTerm>(Ontologies.EDAM, id);
   }
 
   getKisaoTerm(id: string): Observable<KisaoTerm> {
@@ -165,25 +111,24 @@ export class OntologyService {
     } else if (!id.startsWith('KISAO_')) {
       id = 'KISAO_' + id;
     }
-    return this.getTerm(this.kisaoTerms, id);
+    return this.getTerm<KisaoTerm>(Ontologies.KISAO, id);
   }
 
-  getEdamTerm(id: string): Observable<EdamTerm> {
-    return this.getTerm(this.edamTerms, id);
-  }
   getSboTerm(id: string): Observable<SboTerm> {
     if (!id.startsWith('SBO_')) {
       id = 'SBO_' + id;
     }
-    return this.getTerm(this.sboTerms, id);
+    return this.getTerm<SboTerm>(Ontologies.SBO, id);
   }
+
   getSioTerm(id: string): Observable<SioTerm> {
     if (!id.startsWith('SBO_')) {
       id = 'SBO_' + id;
     }
-    return this.getTerm(this.sioTerms, id);
+    return this.getTerm<SioTerm>(Ontologies.SIO, id);
   }
+
   getSpdxTerm(id: string): Observable<SpdxTerm> {
-    return this.getTerm(this.spdxTerms, id);
+    return this.getTerm<SpdxTerm>(Ontologies.SPDX, id);
   }
 }

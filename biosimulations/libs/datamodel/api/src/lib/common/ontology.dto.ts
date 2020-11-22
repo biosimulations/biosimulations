@@ -18,16 +18,28 @@ import {
 } from './ontologyId.dto';
 
 export class OntologyInfo implements IOntologyInfo {
+  @ApiProperty({ type: String })
+  id!: string;
+
+  @ApiProperty({ type: String })
+  acronym!: string;
+
+  @ApiProperty({ type: String })
+  name!: string;
+
+  @ApiProperty({ type: String })
+  description!: string;
+
   @ApiProperty({ type: String, nullable: true })
   bioportalId?: string | null;
 
   @ApiProperty({ type: String, nullable: true })
   olsId?: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   version!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   source!: string;
 }
 
@@ -40,9 +52,9 @@ export class OntologyTerm implements IOntologyTerm {
   name!: string;
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, format: 'url' })
   iri!: string | null;
-  @ApiPropertyOptional({ type: String })
+  @ApiPropertyOptional({ type: String, format: 'url' })
   url?: string | null;
 }
 
@@ -51,9 +63,9 @@ export class EdamTerm extends EdamOntologyId {
   name!: string;
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
-  @ApiProperty()
-  iri!: string | null;
-  @ApiProperty()
+  @ApiProperty({ type: String, format: 'url' })
+  iri!: string;
+  @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
 export class KisaoTerm extends KisaoOntologyId {
@@ -61,9 +73,9 @@ export class KisaoTerm extends KisaoOntologyId {
   name!: string;
   @ApiProperty()
   description!: string | null;
-  @ApiProperty()
-  iri!: string | null;
-  @ApiProperty()
+  @ApiProperty({ type: String, format: 'url' })
+  iri!: string;
+  @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
 export class SboTerm extends SboOntologyId {
@@ -71,9 +83,9 @@ export class SboTerm extends SboOntologyId {
   name!: string;
   @ApiProperty()
   description!: string | null;
-  @ApiProperty()
-  iri!: string | null;
-  @ApiProperty()
+  @ApiProperty({ type: String, format: 'url' })
+  iri!: string;
+  @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
 export class SioTerm extends SioOntologyId {
@@ -81,17 +93,19 @@ export class SioTerm extends SioOntologyId {
   name!: string;
   @ApiProperty()
   description!: string | null;
-  @ApiProperty()
-  iri!: string | null;
-  @ApiProperty()
+  @ApiProperty({ type: String, format: 'url' })
+  iri!: string;
+  @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
 export class SpdxTerm extends SpdxId {
   @ApiProperty()
   name!: string;
   @ApiProperty()
-  description?: string | null;
+  description!: string | null;
   @ApiProperty()
+  iri!: null;
+  @ApiProperty({ type: String, format: 'url' })
   url?: string | null | undefined;
 }
 export class Identifier implements IIdentifier {

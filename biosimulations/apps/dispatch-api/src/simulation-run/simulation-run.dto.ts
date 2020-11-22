@@ -61,10 +61,10 @@ export class SimulationRun {
   @ApiResponseProperty({ example: 11234 })
   resultsSize?: number;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ format: 'date-time' })
   submitted!: Date;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ format: 'date-time' })
   updated!: Date;
 
   constructor(
