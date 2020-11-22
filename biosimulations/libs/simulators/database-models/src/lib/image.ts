@@ -23,7 +23,16 @@ export class Image implements IImage {
   })
   url!: string;
 
-  @Prop({ type: EdamOntologyIdSchema, required: true })
+  @Prop({
+    type: EdamOntologyIdSchema,
+    required: true,
+    validate: [{
+      validator: (value: any): boolean => {
+        return value?.id === 'format_3973';
+      },
+      message: (props: any): string => `Format must be the Docker image format (EDAM:format_3973)`,
+    }],
+  })
   format!: IEdamOntologyId;
 }
 
