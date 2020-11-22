@@ -4,7 +4,7 @@ export interface ViewAlgorithm {
   id: string;
   heading: string;
   name: string;
-  description: DescriptionFragment[];
+  description: DescriptionFragment[] | null;
   url: string;
   frameworks: ViewFramework[];
   modelFormats: ViewFormat[];
@@ -18,7 +18,7 @@ export interface ViewAlgorithmObservable {
   id: string;
   heading: Observable<string>;
   name: Observable<string>;
-  description: Observable<DescriptionFragment[]>;
+  description: Observable<DescriptionFragment[]| null>;
   url: Observable<string>;
   frameworks: Observable<ViewFramework>[];
   modelFormats: Observable<ViewFormat>[];

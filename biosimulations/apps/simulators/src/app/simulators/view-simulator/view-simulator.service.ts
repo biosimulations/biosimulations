@@ -249,8 +249,12 @@ export class ViewSimulatorService {
         );
     }
   }
-  formatKisaoDescription(value: string): DescriptionFragment[] {
-    const formattedValue = [];
+  formatKisaoDescription(value: string | null): DescriptionFragment[] | null {
+    if (value == null) {
+      return null;
+    }
+
+    const formattedValue: DescriptionFragment[] = [];
     let prevEnd = 0;
 
     const regExp = /\[(https?:\/\/.*?)\]/gi;

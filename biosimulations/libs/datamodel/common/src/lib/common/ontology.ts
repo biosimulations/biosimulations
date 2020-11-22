@@ -76,7 +76,7 @@ export interface KisaoTerm extends IKisaoOntologyId {
   namespace: Ontologies.KISAO;
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   iri: string;
   url: string;
   moreInfoUrl: string | null;
@@ -86,7 +86,7 @@ export interface SboTerm extends IOntologyTerm {
   namespace: Ontologies.SBO;
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   iri: string;
   url: string;
   moreInfoUrl: null;
@@ -96,7 +96,7 @@ export interface EdamTerm extends IOntologyTerm {
   namespace: Ontologies.EDAM;
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   iri: string;
   url: string;
   moreInfoUrl: string | null;
@@ -106,7 +106,7 @@ export interface SioTerm extends IOntologyTerm {
   namespace: Ontologies.SIO;
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   iri: string;
   url: string;
   moreInfoUrl: string | null;
@@ -116,7 +116,7 @@ export interface SpdxTerm extends IdentifierTerm {
   namespace: Ontologies.SPDX;
   id: string;
   name: string;
-  description: string | null;
+  description: null;
   iri: null;
   url: string;
   moreInfoUrl: string | null;
