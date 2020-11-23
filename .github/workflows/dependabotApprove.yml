@@ -2,9 +2,27 @@ name: Auto approve
 on: pull_request
 
 jobs:
-  approve:
+  approve-dependabot:
     name: Auto-approve dependabot PRs
     if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@v2.0.0
+        with:
+          github-token: "${{secrets.GITHUB_TOKEN }}"
+
+  approve-sitemaps:
+    name: Auto-approve sitemaps PRs
+    if: github.ref == 'refs/heads/sitemaps'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@v2.0.0
+        with:
+          github-token: "${{secrets.GITHUB_TOKEN }}"
+
+  approve-dependency-licences-report:
+    name: Auto-approve dependency licenses report PRs
+    if: github.ref == 'refs/heads/dep-licenses'
     runs-on: ubuntu-latest
     steps:
       - uses: hmarr/auto-approve-action@v2.0.0
