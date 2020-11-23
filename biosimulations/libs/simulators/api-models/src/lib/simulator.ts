@@ -31,6 +31,7 @@ export class Simulator {
 
   @ApiProperty({
     example: 'http://tellurium.analogmachine.org/',
+    format: 'url',
   })
   url!: string;
 
@@ -50,8 +51,8 @@ export class Simulator {
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
 
-  @ApiResponseProperty({})
+  @ApiResponseProperty({ format: 'date-time' })
   created!: Date;
-  @ApiResponseProperty({})
+  @ApiResponseProperty({ format: 'date-time' })
   updated!: Date;
 }

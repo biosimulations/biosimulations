@@ -10,9 +10,9 @@ export class Format implements IFormat {
   version!: string;
   @ApiProperty({ type: String, nullable: true })
   edamId!: string | null;
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, format: 'url' })
   specUrl!: string | null;
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, format: 'url' })
   url!: string | null;
   @ApiProperty({ type: String, nullable: true })
   mimetype!: string | null;
