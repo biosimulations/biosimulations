@@ -21,6 +21,7 @@ import { map, pluck, tap } from 'rxjs/operators';
 import {
   IEdamOntologyId,
   ISboOntologyId,
+  Identifier,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
@@ -280,12 +281,14 @@ export class ViewSimulatorService {
     }
     return formattedValue;
   }
-  makeIdentifier(identifier: any): ViewIdentifier {
+
+  makeIdentifier(identifier: Identifier): ViewIdentifier {
     return {
       text: identifier.namespace + ':' + identifier.id,
       url: this.getIdentifierUrl(identifier),
     };
   }
+
   makeCitation(citation: any): ViewCitation {
     let text = citation.authors + '. ' + citation.title;
     if (citation.journal) {
@@ -313,28 +316,11 @@ export class ViewSimulatorService {
       url: url,
     };
   }
-  getIdentifierUrl(identifier: any): string | null {
-    const url = (identifier?.url as string) || null;
-    if (url) {
-      return url;
-    }
 
-    const namespace = identifier.namespace;
-    const id = identifier.id;
-    switch (namespace.toLowerCase()) {
-      case 'doi':
-        return 'https://doi.org/' + id;
-        break;
-      case 'isbn':
-        return 'https://isbndb.com/book/' + id;
-        break;
-      case 'url':
-        return id;
-        break;
-      default:
-        return 'https://identifiers.org/' + namespace + '/' + id;
-    }
+  getIdentifierUrl(identifier: Identifier): string {
+    return identifier.url;
   }
+
   getDateStr(date: Date): string {
     return (
       date.getFullYear().toString() +

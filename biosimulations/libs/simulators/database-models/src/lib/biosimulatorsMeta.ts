@@ -32,11 +32,12 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   })
   imageVersion!: imageVersions;
 
-  @Prop({ type: Object, required: false })
+  @Prop({ type: Object, required: false, default: null })
   meta: any;
+
   @Prop({ type: Boolean, required: true })
   validated!: boolean;
 }
-export const BiosimulatorsInfoSchema = SchemaFactory.createForClass(
+export const BiosimulatorsMetaSchema = SchemaFactory.createForClass(
   BiosimulatorsMeta
 );

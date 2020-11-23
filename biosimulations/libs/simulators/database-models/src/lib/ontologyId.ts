@@ -25,8 +25,10 @@ import isUrl from 'is-url';
 class Identifier implements IIdentifier {
   @Prop({ required: true })
   namespace!: string;
+
   @Prop({ required: true })
   id!: string;
+
   @Prop({
     required: true,
     validate: [{

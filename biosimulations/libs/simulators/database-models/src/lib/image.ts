@@ -17,8 +17,10 @@ export class Image implements IImage {
     type: String,
     required: true,
     validate: [{
-      validator: isUrl,
-      message: (props: any): string => `${props.value} is not a valid URL`,
+      validator: (value: any): boolean => {
+        return typeof value === "string" && isUrl('https://' + value);
+      },
+      message: (props: any): string => `${props.value} is not a valid URL for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,
     }],
   })
   url!: string;

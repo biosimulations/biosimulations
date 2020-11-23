@@ -24,16 +24,17 @@ export const KisaoIdRegEx = /^KISAO_\d{7}$/; //sourced from identifiers.org
 export const SboIdRegEx = /^SBO_\d{7}$/;
 export const SioIdRegEx = /^SIO_\d{6}$/;
 
-export interface Identifier {
+export interface IdentifierBase {
   namespace: string;
   id: string;
-  url?: string | null;
 }
-export interface ISpdxId extends Identifier {
-  namespace: Ontologies.SPDX;
+
+export interface Identifier extends IdentifierBase {
+  namespace: string;
   id: string;
+  url: string;
 }
-export interface IOntologyId extends Identifier {
+export interface IOntologyId extends IdentifierBase {
   namespace: Ontologies;
   id: string;
 }
@@ -55,7 +56,10 @@ export interface ISioOntologyId extends IOntologyId {
   namespace: Ontologies.SIO;
   id: string;
 }
-
+export interface ISpdxId extends IOntologyId {
+  namespace: Ontologies.SPDX;
+  id: string;
+}
 export interface IOntologyTerm extends IOntologyId {
   namespace: Ontologies;
   id: string;

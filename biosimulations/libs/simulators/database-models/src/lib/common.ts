@@ -2,6 +2,7 @@ import {
   ExternalReferences as IExternalReferences,
   Identifier,
   Citation as ICitation,
+  addValidationForNullableAttributes
 } from '@biosimulations/datamodel/common';
 
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
@@ -16,18 +17,28 @@ import { IdentifierSchema } from './ontologyId';
 class Citation implements ICitation {
   @Prop({ type: String, required: true })
   authors!: string;
+
   @Prop({ type: String, required: true })
   title!: string;
-  @Prop({ type: String, default: null })
+
+  @Prop({ type: String, required: false, default: null })
   journal!: string | null;
 
-  // cast the numbers to string. On read, cast back if possible? or keep as string?
-  @Prop({ type: String, default: null })
-  volume!: string | number | null;
+  @Prop({
+    type: String,
+    required: false,
+    default: null,
+  })
+  volume!: string | null;
 
-  @Prop({ type: String, default: null })
-  issue!: string | number | null;
-  @Prop({ type: String, default: null })
+  @Prop({ 
+    type: String,
+    required: false,
+    default: null,
+  })
+  issue!: string | null;
+
+  @Prop({ type: String, required: false, default: null })
   pages!: string | null;
 
   @Prop({
@@ -38,10 +49,21 @@ class Citation implements ICitation {
   })
   year!: number;
 
-  @Prop({ type: [IdentifierSchema] })
-  identifiers!: Identifier[] | null;
+  @Prop({
+    type: [IdentifierSchema], 
+    required: true,
+  })
+  identifiers!: Identifier[];
 }
+
 export const CitationSchema = SchemaFactory.createForClass(Citation);
+
+addValidationForNullableAttributes(CitationSchema, {
+  journal: null,
+  volume: null,
+  issue: null,
+  pages: null,
+});
 
 @Schema({
   _id: false,
@@ -50,11 +72,13 @@ export const CitationSchema = SchemaFactory.createForClass(Citation);
   useNestedStrict: true,
 })
 export class ExternalReferences implements IExternalReferences {
-  @Prop({ type: [IdentifierSchema] })
+  @Prop({ type: [IdentifierSchema], required: true })
   identifiers!: Identifier[];
-  @Prop({ type: [CitationSchema] })
+
+  @Prop({ type: [CitationSchema], required: true })
   citations!: Citation[];
 }
+
 export const ExternalReferencesSchema = SchemaFactory.createForClass(
   ExternalReferences
 );
@@ -68,10 +92,16 @@ export const ExternalReferencesSchema = SchemaFactory.createForClass(
 class Person {
   @Prop({ type: String, required: true })
   firstName!: string;
-  @Prop({ type: String, required: false })
-  middleName?: string;
+
+  @Prop({ type: String, required: false, default: null })
+  middleName!: string | null;
+
   @Prop({ type: String, required: true })
   lastName!: string;
 }
 
 export const PersonSchema = SchemaFactory.createForClass(Person);
+
+addValidationForNullableAttributes(PersonSchema, {
+  middleName: null,
+});

@@ -17,9 +17,9 @@ import {
  */
 export interface AlgorithmParameter {
   id: string;
-  name: string;
+  name: string | null;
   type: AlgorithmParameterType;
-  value: string;
+  value: string | null;
   // Todo make this a conditional type based on value
   recommendedRange: string[] | null;
   kisaoId: IKisaoOntologyId;
@@ -27,7 +27,7 @@ export interface AlgorithmParameter {
 
 export interface IAlgorithm {
   id: string;
-  name: string;
+  name: string | null;
   kisaoId: IKisaoOntologyId;
   modelingFrameworks: ISboOntologyId[];
   modelFormats: IEdamOntologyId[];

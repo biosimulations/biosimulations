@@ -18,6 +18,7 @@ import {
   AlgorithmParameterSchema,
 } from './algorithmParameter';
 import { CitationSchema } from './common';
+import { addValidationForNullableAttributes } from '@biosimulations/datamodel/common';
 
 @Schema({
   _id: false,
@@ -26,29 +27,48 @@ import { CitationSchema } from './common';
   useNestedStrict: true,
 })
 export class Algorithm implements IAlgorithm {
-  @Prop({ type: KisaoOntologyIdSchema })
+  @Prop({ type: KisaoOntologyIdSchema, required: true })
   kisaoId!: IKisaoOntologyId;
 
-  @Prop({ type: [AlgorithmParameterSchema], required: true, default: null })
+  @Prop({ type: [AlgorithmParameterSchema], required: false, default: undefined })
   parameters!: AlgorithmParameter[] | null;
-  @Prop()
+  
+  @Prop({
+    type: String,
+    required: true,
+    // required: false,
+    // default: null,
+  })
   id!: string;
-  @Prop()
-  name!: string;
+  
+  @Prop({
+    type: String,
+    required: false,
+    // default: null,
+  })
+  name!: string | null;
 
-  @Prop({ type: [SboOntologyIdSchema], _id: false })
+  @Prop({ type: [SboOntologyIdSchema], _id: false, required: true })
   modelingFrameworks!: ISboOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false })
+  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true })
   modelFormats!: IEdamOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false })
+  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true })
   simulationFormats!: IEdamOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false })
+  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true })
   archiveFormats!: IEdamOntologyId[];
 
-  @Prop({ type: [CitationSchema], _id: false })
+  @Prop({ type: [CitationSchema], _id: false, required: true })
   citations!: Citation[];
 }
+
 export const AlgorithmSchema = SchemaFactory.createForClass(Algorithm);
+
+addValidationForNullableAttributes(AlgorithmSchema, {
+  // id: null,
+  name: null,
+  parameters: undefined,
+});
+

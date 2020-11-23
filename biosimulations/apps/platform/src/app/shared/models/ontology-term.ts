@@ -4,8 +4,8 @@ import { JsonSerializable } from '@biosimulations/datamodel/utils';
 export class OntologyTerm implements JsonSerializable<OntologyTermDTO> {
   public ontology: string;
   public id: string;
-  public name: string;
-  public description: string;
+  public name: string | null;
+  public description: string | null;
   public iri: string | null;
   public url: string;
   public moreInfoUrl: string | null;

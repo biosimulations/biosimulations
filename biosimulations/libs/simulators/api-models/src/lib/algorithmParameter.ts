@@ -10,11 +10,21 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   @ApiProperty()
   kisaoId!: KisaoOntologyId;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: String,
+    // nullable: true,
+    // required: false,
+    // default: null
+  })
   id!: string;
 
-  @ApiProperty()
-  name!: string;
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null
+  })
+  name!: string | null;
 
   @ApiProperty({
     enum: AlgorithmParameterType,
@@ -23,14 +33,17 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @ApiProperty({
     type: String,
+    example: "30.5",
+    nullable: true,
   })
-  value!: string;
+  value!: string | null;
 
   @ApiProperty({
-    type: [String, Number, Boolean],
-    maxItems: 2,
-    minItems: 1,
-    example: [22.7, 2270],
+    type: [String],
+    example: ["22.7", "2270"],
+    nullable: true,
+    required: false,
+    default: null,
   })
   recommendedRange!: string[] | null;
 }

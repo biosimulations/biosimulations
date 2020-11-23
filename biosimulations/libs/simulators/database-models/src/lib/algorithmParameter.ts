@@ -3,7 +3,7 @@ import {
   AlgorithmParameter as IAlgorithmParameter,
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
-import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
+import { IKisaoOntologyId, addValidationForNullableAttributes } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({
@@ -13,19 +13,47 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
   useNestedStrict: true,
 })
 export class AlgorithmParameter implements IAlgorithmParameter {
-  @Prop({ type: KisaoOntologyIdSchema })
+  @Prop({ type: KisaoOntologyIdSchema, required: true })
   kisaoId!: IKisaoOntologyId;
-  @Prop()
+
+  @Prop({
+    type: String,
+    require: true,
+    // required: false,
+    // default: null,
+  })
   id!: string;
-  @Prop()
-  name!: string;
-  @Prop()
+
+  @Prop({
+    type: String,
+    required: false,
+    // default: null,
+  })
+  name!: string | null;
+
+  @Prop({ 
+    type: String,
+    enum: Object.keys(AlgorithmParameterType).map(
+      (k) => AlgorithmParameterType[k as AlgorithmParameterType]
+    ),
+    required: true,
+  })
   type!: AlgorithmParameterType;
-  @Prop()
-  value!: string;
-  @Prop()
+
+  @Prop({ type: String, required: false, default: undefined })
+  value!: string | null;
+
+  @Prop({ type: [String], required: false, default: undefined })
   recommendedRange!: string[] | null;
 }
+
 export const AlgorithmParameterSchema = SchemaFactory.createForClass(
   AlgorithmParameter
 );
+
+addValidationForNullableAttributes(AlgorithmParameterSchema, {
+  // id: null,
+  name: null,
+  value: undefined,
+  recommendedRange: null,
+});

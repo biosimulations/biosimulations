@@ -37,22 +37,25 @@ export class Simulator {
 
   @ApiProperty({
     nullable: true,
-    required: true,
     type: Image,
   })
   image!: Image | null;
 
   @ApiProperty({ type: [Person] })
   authors!: Person[];
+
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
-  @ApiProperty({ type: SpdxId, required: true, nullable: true })
+
+  @ApiProperty({ type: SpdxId, nullable: true })
   license!: SpdxId | null;
+
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
 
   @ApiResponseProperty({ format: 'date-time' })
   created!: Date;
+
   @ApiResponseProperty({ format: 'date-time' })
   updated!: Date;
 }

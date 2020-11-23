@@ -8,15 +8,16 @@ import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
 import { SpdxIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
-import { IImage, ISpdxId } from '@biosimulations/datamodel/common';
+import { IImage, ISpdxId, addValidationForNullableAttributes } from '@biosimulations/datamodel/common';
 
 import { ExternalReferencesSchema, PersonSchema } from './common';
-import { BiosimulatorsMeta } from './biosimulatorsMeta';
+import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
 
 @Schema({})
 export class Simulator extends Document {
-  @Prop()
+  @Prop({ type: BiosimulatorsMetaSchema, required: true })
   biosimulators!: BiosimulatorsMeta;
+
   @Prop({ type: String, lowercase: true, trim: true, required: true })
   id!: string;
 
@@ -39,19 +40,23 @@ export class Simulator extends Document {
   })
   url!: string;
 
-  @Prop({ required: true, type: ImageSchema, default: null })
+  @Prop({ type: ImageSchema, required: false, default: undefined })
   image!: IImage | null;
 
-  @Prop({ items: [PersonSchema], required: true })
+  @Prop({ type: [PersonSchema], required: true })
   authors!: Person[];
 
-  @Prop({ type: ExternalReferencesSchema })
+  @Prop({ type: ExternalReferencesSchema, required: true })
   references!: ExternalReferences;
 
-  @Prop({ type: SpdxIdSchema, required: true, default: null })
+  @Prop({ type: SpdxIdSchema, required: false, default: undefined })
   license!: ISpdxId | null;
 
-  @Prop({ type: [AlgorithmSchema], _id: false, required: true })
+  @Prop({
+    type: [AlgorithmSchema], 
+    _id: false, 
+    required: true,
+  })
   algorithms!: Algorithm[];
 
   created!: Date;
@@ -59,6 +64,12 @@ export class Simulator extends Document {
   updated!: Date;
 }
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
+
+/* handle nullable attributes */
+addValidationForNullableAttributes(SimulatorSchema, {
+  image: undefined,
+  license: undefined,
+});
 
 // Can not be set in the decorator for compund schemas.
 SimulatorSchema.index({ id: 1, version: 1 }, { unique: true });

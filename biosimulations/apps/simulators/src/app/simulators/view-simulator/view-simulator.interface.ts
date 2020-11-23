@@ -72,7 +72,7 @@ export interface ViewParameterObservable {
 
 export interface ViewIdentifier {
   text: string;
-  url: string | null;
+  url: string;
 }
 
 export interface ViewCitation {

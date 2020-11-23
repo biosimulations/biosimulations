@@ -35,7 +35,7 @@ export interface EmailInfo {
 
 export interface User extends Person {
   firstName: string;
-  middleName: string;
+  middleName: string | null;
   lastName: string;
   userID: string;
   profile: Profile;

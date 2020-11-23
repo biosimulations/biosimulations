@@ -53,57 +53,74 @@ export interface Attributes extends AttributesMetadata {
 class IdentiferDB implements Identifier {
   @prop()
   namespace!: string;
+
   @prop()
   id!: string;
+
   @prop({
     type: String,
     validate: [{
-      validator: (value: any): boolean => {
-        return value == null || isUrl(value);
-      },
+      validator: isUrl,
       message: (props: any): string => `${props.value} is not a valid URL`,
     }],
   })
-  url!: string | null;
+  url!: string;
 }
 
 export class BiomodelVariableDB implements BiomodelVariable {
-  @prop({ items: IdentiferDB, _id: false })
+  @prop({ type: [IdentiferDB], _id: false })
   identifiers!: Identifier[];
+
   @prop()
   target!: string;
+
   @prop()
   group!: string;
+
   @prop()
   id!: string;
-  @prop()
-  name!: string;
-  @prop({ text: true })
-  description!: string;
+
+  @prop({ type: String, required: false, default: null })
+  name!: string | null;
+
+  @prop({ type: String, required: false, default: null })
+  description!: string | null;
+
   @prop()
   type!: AlgorithmParameterType;
+
   @prop()
   units!: string;
 }
+
 class BiomodelParameterDB implements BiomodelParameter {
   @prop()
   target!: string;
+
   @prop()
   group!: string;
+
   @prop()
   id!: string;
-  @prop()
-  name!: string;
-  @prop()
+
+  @prop({ type: String, required: false, default: null })
+  name!: string | null;
+
+  @prop({ type: String, required: false, default: null })
   description!: string | null;
-  @prop({ items: IdentiferDB, _id: false })
+
+  @prop({ type: [IdentiferDB], _id: false })
   identifiers!: Identifier[];
+
   @prop({ type: String })
   type!: AlgorithmParameterType;
-  @prop({ type: Object })
-  value!: string | number | boolean;
-  @prop({ items: Object })
-  recommendedRange!: (string | number | boolean)[];
+
+  @prop({ type: String, required: false, default: null })
+  value!: string | null;
+
+  @prop({ type: [String], required: false, default: null })
+  recommendedRange!: string[] | null;
+
   @prop()
   units!: string;
 }
@@ -111,12 +128,16 @@ class BiomodelParameterDB implements BiomodelParameter {
 export class BiomodelAttributesDB implements BiomodelAttributes {
   @prop({ required: false, default: null })
   taxon: Taxon | null;
-  @prop({ required: true, items: BiomodelParameterDB, _id: false })
+
+  @prop({ required: true, type: [BiomodelParameterDB], _id: false })
   parameters: BiomodelParameter[];
-  @prop({ required: true, items: BiomodelVariableDB, _id: false })
+
+  @prop({ required: true, type: [BiomodelVariableDB], _id: false })
   variables!: BiomodelVariableDB[];
+
   @prop({ required: true })
   framework: IOntologyTerm;
+
   @prop({ required: true })
   format: Format;
 
@@ -152,6 +173,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     this.metadata = md;
   }
 }
+
 export class Model {
   @IsMongoId()
   @prop({ required: true })

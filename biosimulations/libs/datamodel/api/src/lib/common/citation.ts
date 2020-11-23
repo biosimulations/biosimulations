@@ -1,5 +1,5 @@
 import { Citation as IJournalReference } from '@biosimulations/datamodel/common';
-import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Identifier } from './ontology.dto';
 
 export class Citation implements IJournalReference {
@@ -18,20 +18,20 @@ export class Citation implements IJournalReference {
   journal!: string | null;
 
   @ApiProperty({
-    oneOf: [{ type: 'string' }, { type: 'number' }],
+    type: String,
     nullable: true,
     required: false,
     default: null,
   })
-  volume!: string | number | null;
+  volume!: string | null;
 
   @ApiProperty({
-    oneOf: [{ type: 'string' }, { type: 'number' }],
+    type: String,
     nullable: true,
     required: false,
     default: null,
   })
-  issue!: string | number | null;
+  issue!: string | null;
 
   @ApiProperty({
     type: 'string',
@@ -46,9 +46,6 @@ export class Citation implements IJournalReference {
 
   @ApiProperty({
     type: [Identifier],
-    nullable: true,
-    required: false,
-    default: [],
   })
-  identifiers!: Identifier[] | null;
+  identifiers!: Identifier[];
 }

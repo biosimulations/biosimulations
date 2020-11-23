@@ -15,13 +15,25 @@ import { AlgorithmParameter } from './algorithmParameter';
 export class Algorithm implements IAlgorithm {
   @ApiProperty()
   kisaoId!: KisaoOntologyId;
-  @ApiProperty({ type: [AlgorithmParameter], nullable: true, required: true, default: null })
+
+  @ApiProperty({ type: [AlgorithmParameter], nullable: true })
   parameters!: AlgorithmParameter[] | null;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: String,
+    // nullable: true,
+    // required: false,
+    // default: null
+  })
   id!: string;
-  @ApiProperty()
-  name!: string;
+
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null
+  })
+  name!: string | null;
 
   @ApiProperty({ type: [SboOntologyId] })
   modelingFrameworks!: SboOntologyId[];
@@ -31,8 +43,10 @@ export class Algorithm implements IAlgorithm {
 
   @ApiProperty({ type: [EdamOntologyId] })
   simulationFormats!: EdamOntologyId[];
+
   @ApiProperty({ type: [EdamOntologyId] })
   archiveFormats!: EdamOntologyId[];
+
   @ApiProperty({ type: [Citation] })
   citations!: Citation[];
 }
