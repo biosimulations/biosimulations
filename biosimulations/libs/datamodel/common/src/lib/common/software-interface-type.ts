@@ -1,6 +1,6 @@
 export enum SoftwareInterfaceType {
   library = 'library',
-  commandLine = 'command-line',
+  commandLine = 'command-line application',
   desktopApplication = 'desktop application',
   mobileApplication = 'mobile application',
   webService = 'web service',
