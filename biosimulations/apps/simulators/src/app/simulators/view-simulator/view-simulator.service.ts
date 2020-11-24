@@ -29,6 +29,7 @@ import { UtilsService } from '@biosimulations/shared/services';
 import {
   AlgorithmParameter,
   AlgorithmParameterType,
+  SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
@@ -111,6 +112,10 @@ export class ViewSimulatorService {
         .getVersions(sim.id)
         .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
+      interfaces: sim.interfaceTypes.map((interfaceType: SoftwareInterfaceType): string => {
+        return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+      }),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages,
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),

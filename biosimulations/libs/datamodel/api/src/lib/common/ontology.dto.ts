@@ -14,11 +14,11 @@ import {
 } from './ontologyId.dto';
 
 export class OntologyInfo implements IOntologyInfo {
-  @ApiProperty({ type: String })
-  id!: string;
+  @ApiProperty({ type: String, nullable: true })
+  id!: string | null;
 
-  @ApiProperty({ type: String })
-  acronym!: string;
+  @ApiProperty({ type: String, nullable: true })
+  acronym!: string | null;
 
   @ApiProperty({ type: String })
   name!: string;
@@ -32,8 +32,8 @@ export class OntologyInfo implements IOntologyInfo {
   @ApiProperty({ type: String, nullable: true })
   olsId!: string | null;
 
-  @ApiProperty({ type: String })
-  version!: string;
+  @ApiProperty({ type: String, nullable: true })
+  version!: string | null;
 
   @ApiProperty({ type: String })
   source!: string;

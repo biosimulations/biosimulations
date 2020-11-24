@@ -8,7 +8,13 @@ import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
 import { SpdxIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
-import { IImage, ISpdxId, addValidationForNullableAttributes } from '@biosimulations/datamodel/common';
+import {
+  IImage,
+  ISpdxId,
+  SoftwareInterfaceType, 
+  addValidationForNullableAttributes,
+} from '@biosimulations/datamodel/common';
+import { gitHubLanguageTerms } from '@biosimulations/ontology/sources';
 
 import { ExternalReferencesSchema, PersonSchema } from './common';
 import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
@@ -60,6 +66,24 @@ export class Simulator extends Document {
     default: undefined,
   })
   algorithms!: Algorithm[];
+
+  @Prop({
+    type: [String],
+    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
+    required: true,
+    default: undefined,
+  })
+  interfaceTypes!: SoftwareInterfaceType[];
+
+  @Prop({
+    type: [String],
+    enum: gitHubLanguageTerms,
+    required: true,
+    default: undefined,
+  })
+  supportedProgrammingLanguages!: string[];
 }
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 

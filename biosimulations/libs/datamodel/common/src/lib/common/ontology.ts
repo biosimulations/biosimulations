@@ -7,13 +7,13 @@ export enum Ontologies {
 }
 
 export interface OntologyInfo {
-  id: string,
-  acronym: string,
+  id: string | null,
+  acronym: string | null,
   name: string,
   description: string,
   bioportalId: string | null;
   olsId: string | null;
-  version: string;
+  version: string | null;
   source: string;
 }
 

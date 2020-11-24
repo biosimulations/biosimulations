@@ -100,6 +100,30 @@
           </div>
         </div>
 
+        <div class="section" *ngIf="simulator.interfaceTypes?.length > 0">
+          <h3>Interfaces</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li *ngFor="let interfaceType of simulator.interfaceTypes">
+                <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                {{ interfaceType }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator.supportedProgrammingLanguages?.length > 0">
+          <h3>Supported programming languages</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
+                <biosimulations-icon icon="code"></biosimulations-icon>
+                {{ supportedProgrammingLanguage }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="section">
           <h3>Curation status</h3>
           <div class="section-content">

@@ -1,4 +1,6 @@
 import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
+import { SoftwareInterfaceType } from '@biosimulations/datamodel/common';
+import { gitHubLanguageTerms } from '@biosimulations/ontology/sources';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SpdxId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
@@ -52,4 +54,16 @@ export class Simulator {
 
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
+
+  @ApiProperty({
+    type: [SoftwareInterfaceType],
+    enum: SoftwareInterfaceType,
+  })
+  interfaceTypes!: SoftwareInterfaceType[];
+
+  @ApiProperty({
+    type: [String],
+    enum: gitHubLanguageTerms,
+  })
+  supportedProgrammingLanguages!: string[];
 }
