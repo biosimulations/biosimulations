@@ -172,6 +172,7 @@ export class ViewSimulatorService {
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
       parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
+      availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -190,6 +191,7 @@ export class ViewSimulatorService {
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
+      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes,
     };
   }
 

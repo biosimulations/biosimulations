@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Url } from '@biosimulations/datamodel/common';
+import { Url, SoftwareInterfaceType } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -13,6 +13,7 @@ export interface ViewAlgorithm {
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
   citations: ViewCitation[];
+  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
 }
 
 export interface ViewAlgorithmObservable {
@@ -27,6 +28,7 @@ export interface ViewAlgorithmObservable {
   archiveFormats: Observable<ViewFormat>[];
   parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
+  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
 }
 
 export enum DescriptionFragmentType {
@@ -58,6 +60,7 @@ export interface ViewParameter {
   range: (boolean | number | string)[] | null;
   kisaoId: string;
   kisaoUrl: string;
+  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
 }
 
 export interface ViewParameterObservable {
@@ -67,6 +70,7 @@ export interface ViewParameterObservable {
   range: (boolean | number | string | Observable<string>)[] | null;
   kisaoId: string;
   kisaoUrl: string;
+  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
 }
 
 export interface ViewIdentifier {

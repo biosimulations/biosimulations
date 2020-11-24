@@ -1,6 +1,7 @@
 import {
   Format as IFormat,
   IAlgorithm,
+  SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import {
   Citation,
@@ -48,6 +49,13 @@ export class Algorithm implements IAlgorithm {
 
   @ApiProperty({ type: [EdamOntologyId] })
   archiveFormats!: EdamOntologyId[];
+
+  @ApiProperty({
+    type: [SoftwareInterfaceType],
+    enum: SoftwareInterfaceType,
+    description: "List of software interfaces which support the parameter"
+  })
+  availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 
   @ApiProperty({ type: [Citation] })
   citations!: Citation[];

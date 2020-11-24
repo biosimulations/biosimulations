@@ -1,4 +1,4 @@
-import { AlgorithmParameterType } from '../common/';
+import { AlgorithmParameterType, SoftwareInterfaceType } from '../common/';
 import { IOntologyTerm, Format, Citation } from '../..';
 
 import {
@@ -22,6 +22,7 @@ export interface AlgorithmParameter {
   value: string | null;
   // Todo make this a conditional type based on value
   recommendedRange: string[] | null;
+  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
   kisaoId: IKisaoOntologyId;
 }
 
@@ -34,6 +35,7 @@ export interface IAlgorithm {
   parameters: AlgorithmParameter[] | null;
   simulationFormats: IEdamOntologyId[];
   archiveFormats: IEdamOntologyId[];
+  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
   citations: Citation[];
 }
 

@@ -5,4 +5,5 @@ export enum SoftwareInterfaceType {
   mobileApplication = 'mobile application',
   webService = 'web service',
   webApplication = 'web application',
+  bioSimulatorsDockerImage = 'BioSimulators Docker image',
 }

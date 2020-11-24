@@ -1,6 +1,7 @@
 import {
   AlgorithmParameterType,
   AlgorithmParameter as IAlgorithmParameter,
+  SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
@@ -45,6 +46,16 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @Prop({ type: [String], required: false, default: undefined })
   recommendedRange!: string[] | null;
+
+  @Prop({
+    type: [String],
+    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
+    required: true,
+    default: undefined,
+  })
+  availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 }
 
 export const AlgorithmParameterSchema = SchemaFactory.createForClass(

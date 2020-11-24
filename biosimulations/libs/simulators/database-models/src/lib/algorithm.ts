@@ -3,6 +3,7 @@ import {
   IEdamOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
+  SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import { Citation } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
@@ -57,6 +58,16 @@ export class Algorithm implements IAlgorithm {
 
   @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true, default: undefined })
   archiveFormats!: IEdamOntologyId[];
+
+  @Prop({
+    type: [String],
+    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
+    required: true,
+    default: undefined,
+  })
+  availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 
   @Prop({ type: [CitationSchema], _id: false, required: true, default: undefined })
   citations!: Citation[];

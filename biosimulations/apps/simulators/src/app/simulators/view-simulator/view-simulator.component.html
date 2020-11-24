@@ -358,6 +358,17 @@
                   </ng-template>
                 </ng-template>
 
+                <p class="subsection-heading no-bottom-margin">Availability</p>
+                <ul *ngIf="algorithm?.availableSoftwareInterfaceTypes?.length > 0; else noSupportedInterfaces" class="icon-list">
+                  <li *ngFor="let interfaceType of algorithm.availableSoftwareInterfaceTypes">
+                    <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                    {{ interfaceType }}
+                  </li>
+                </ul>
+                <ng-template #noSupportedInterfaces>
+                  <p class="info-message">Information about which interfaces support the algorithm is not available.</p>
+                </ng-template>
+
                 <ng-container *ngIf="algorithm?.citations?.length > 0">
                   <p class="subsection-heading no-bottom-margin">Citations</p>
                   <ul class="icon-list">

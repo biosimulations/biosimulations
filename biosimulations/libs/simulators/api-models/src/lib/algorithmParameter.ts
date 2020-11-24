@@ -2,6 +2,7 @@ import { KisaoOntologyId } from '@biosimulations/datamodel/api';
 import {
   AlgorithmParameter as IAlgorithmParameter,
   AlgorithmParameterType,
+  SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
@@ -46,4 +47,11 @@ export class AlgorithmParameter implements IAlgorithmParameter {
     nullable: true,
   })
   recommendedRange!: string[] | null;
+
+  @ApiProperty({
+    type: [SoftwareInterfaceType],
+    enum: SoftwareInterfaceType,
+    description: "List of software interfaces which support the parameter"
+  })
+  availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 }
