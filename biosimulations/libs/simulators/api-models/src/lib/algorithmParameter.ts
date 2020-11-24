@@ -11,6 +11,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   kisaoId!: KisaoOntologyId;
 
   @ApiProperty({
+    description: "Id of the parameter within the simulator's implementation of the algorithm such as the name of a function argument which implements the parameter. The scope of this id is typically limited to the individual simulator.",
     type: String,
     nullable: true,
     required: false,
@@ -19,6 +20,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   id!: string | null;
 
   @ApiProperty({
+    description: "Name of the parameter within the simulator's implementation of the algorithm. The scope of this name is typically limited to the individual simulator.",
     type: String,
     nullable: true,
     required: false,

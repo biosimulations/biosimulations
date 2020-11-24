@@ -20,6 +20,7 @@ export class Algorithm implements IAlgorithm {
   parameters!: AlgorithmParameter[] | null;
 
   @ApiProperty({
+    description: "Id of the algorithm within the simulator such as the name of the function which implements the algorithm. The scope of this id is typically limited to the individual simulator.",
     type: String,
     nullable: true,
     required: false,
@@ -28,6 +29,7 @@ export class Algorithm implements IAlgorithm {
   id!: string | null;
 
   @ApiProperty({
+    description: "Name of the algorithm within the simulator. The scope of this name is typically limited to the individual simulator.",
     type: String,
     nullable: true,
     required: false,
