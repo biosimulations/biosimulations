@@ -103,7 +103,7 @@
     "@angular-eslint/template-parser": "0.1.0-beta.1",
     "@angular/cli": "~11.0.1",
     "@angular/compiler-cli": "^11.0.0",
-    "@angular/language-service": "^11.0.0",
+    "@angular/language-service": "^11.0.2",
     "@nestjs/schematics": "^7.2.1",
     "@nestjs/testing": "^7.5.1",
     "@nrwl/cli": "^10.4.1",
