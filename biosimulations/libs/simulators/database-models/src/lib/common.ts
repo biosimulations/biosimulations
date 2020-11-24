@@ -98,3 +98,19 @@ class Person {
 }
 
 export const PersonSchema = SchemaFactory.createForClass(Person);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class Url {
+  @Prop({ type: String, required: true, default: undefined })
+  url!: string;
+
+  @Prop({ type: String, required: true, default: undefined })
+  title!: string;
+}
+
+export const UrlSchema = SchemaFactory.createForClass(Url);

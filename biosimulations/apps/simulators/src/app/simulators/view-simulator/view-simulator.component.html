@@ -150,10 +150,12 @@
           <div class="section-content">
             <ul class="icon-list">
               <li>
-                <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                <a [href]="simulator.url" target="_blank" class="text">
-                  {{ simulator.url }}
-                </a>
+                <biosimulations-icon icon="home"></biosimulations-icon>
+                Home page: <a [href]="simulator.url" target="_blank" class="text">{{ simulator.url }}</a>
+              </li>
+              <li *ngIf="simulator.contactUrl">
+                <biosimulations-icon icon="contact"></biosimulations-icon>
+                Contact: <a [href]="simulator.contactUrl.url" target="_blank" class="text">{{ simulaor.contactInfo.title }}</a>
               </li>
             </ul>
           </div>

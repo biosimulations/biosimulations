@@ -10,3 +10,4 @@ export * from './algorithm-parameter-type';
 export * from './simulator-curation-status';
 export * from './image';
 export * from './software-interface-type';
+export * from './url';

@@ -3,4 +3,3 @@ export { kisaoTerms, kisaoInfo } from "./lib/kisaoTerms";
 export { edamTerms, edamInfo } from './lib/edamTerms';
 export { sioTerms, sioInfo } from './lib/sioTerms';
 export { spdxTerms, spdxInfo } from './lib/spdxTerms';
-export { gitHubLanguageTerms, gitHubLanguageInfo } from './lib/gitHubLanguageTerms';

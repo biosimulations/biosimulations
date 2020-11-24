@@ -1,10 +1,10 @@
-import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
+import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
 import { SoftwareInterfaceType } from '@biosimulations/datamodel/common';
-import { gitHubLanguageTerms } from '@biosimulations/ontology/sources';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SpdxId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';
+import { gitHubLanguageTerms } from '@biosimulations/simulators/database-models';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator {
@@ -45,6 +45,9 @@ export class Simulator {
 
   @ApiProperty({ type: [Person] })
   authors!: Person[];
+
+  @ApiProperty({ type: Url, nullable: true, required: false, default: null })
+  contactUrl!: Url | null;
 
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;

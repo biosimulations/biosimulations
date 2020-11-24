@@ -1,4 +1,4 @@
-import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
+import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
@@ -11,12 +11,12 @@ import { Algorithm } from './algorithm';
 import {
   IImage,
   ISpdxId,
-  SoftwareInterfaceType, 
+  SoftwareInterfaceType,
   addValidationForNullableAttributes,
 } from '@biosimulations/datamodel/common';
-import { gitHubLanguageTerms } from '@biosimulations/ontology/sources';
+import { gitHubLanguageTerms } from './gitHubLanguageTerms';
 
-import { ExternalReferencesSchema, PersonSchema } from './common';
+import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
 import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
 
 @Schema({})
@@ -52,6 +52,9 @@ export class Simulator extends Document {
 
   @Prop({ type: [PersonSchema], required: true, default: undefined })
   authors!: Person[];
+
+  @Prop({ type: [UrlSchema], required: false, default: null })
+  contactUrl!: Url | null;
 
   @Prop({ type: ExternalReferencesSchema, required: true, default: undefined })
   references!: ExternalReferences;

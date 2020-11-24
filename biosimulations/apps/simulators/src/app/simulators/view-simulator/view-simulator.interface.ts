@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { Url } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -99,6 +100,7 @@ export interface ViewSimulator {
   description: string | null;
   image?: string;
   url: string;
+  contactUrl: Url | null;
   licenseUrl: Observable<string> | null;
   licenseName: Observable<string> | null;
   authors: ViewAuthor[];

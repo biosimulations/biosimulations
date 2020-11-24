@@ -101,6 +101,8 @@ export class SimulatorTableService {
                       simulationFormatIds: [...simulationFormatIds],
                       archiveFormats: value.archiveFormats,
                       archiveFormatIds: [...archiveFormatIds],
+                      interfaceTypes: simulator.interfaceTypes,
+                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages,
                       image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,
                     };

@@ -87,6 +87,7 @@ export class ViewSimulatorService {
       image: sim.image?.url || undefined,
       description: sim.description,
       url: sim.url,
+      contactUrl: sim.contactUrl,
       authors: this.getAuthors(sim),
       identifiers: sim?.references?.identifiers
         ?.map(this.makeIdentifier, this)
