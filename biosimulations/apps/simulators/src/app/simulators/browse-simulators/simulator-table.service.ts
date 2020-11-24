@@ -89,7 +89,7 @@ export class SimulatorTableService {
                       name: simulator.name,
                       latestVersion: simulator.version,
                       url: simulator.url,
-                      created: new Date(simulator.created),
+                      created: new Date(simulator.biosimulators.created),
                       licenseId: simulator.license ? simulator.license.id : null,
                       frameworks: value.frameworks,
                       frameworkIds: [...frameworkIds],

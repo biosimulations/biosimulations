@@ -18,7 +18,6 @@ import {
   AlgorithmParameterSchema,
 } from './algorithmParameter';
 import { CitationSchema } from './common';
-import { addValidationForNullableAttributes } from '@biosimulations/datamodel/common';
 
 @Schema({
   _id: false,
@@ -27,7 +26,7 @@ import { addValidationForNullableAttributes } from '@biosimulations/datamodel/co
   useNestedStrict: true,
 })
 export class Algorithm implements IAlgorithm {
-  @Prop({ type: KisaoOntologyIdSchema, required: true })
+  @Prop({ type: KisaoOntologyIdSchema, required: true, default: undefined })
   kisaoId!: IKisaoOntologyId;
 
   @Prop({ type: [AlgorithmParameterSchema], required: false, default: undefined })
@@ -36,6 +35,7 @@ export class Algorithm implements IAlgorithm {
   @Prop({
     type: String,
     required: true,
+    default: undefined,
     // required: false,
     // default: null,
   })
@@ -48,23 +48,20 @@ export class Algorithm implements IAlgorithm {
   })
   name!: string | null;
 
-  @Prop({ type: [SboOntologyIdSchema], _id: false, required: true })
+  @Prop({ type: [SboOntologyIdSchema], _id: false, required: true, default: undefined })
   modelingFrameworks!: ISboOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true })
+  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true, default: undefined })
   modelFormats!: IEdamOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true })
+  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true, default: undefined })
   simulationFormats!: IEdamOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true })
+  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true, default: undefined })
   archiveFormats!: IEdamOntologyId[];
 
-  @Prop({ type: [CitationSchema], _id: false, required: true })
+  @Prop({ type: [CitationSchema], _id: false, required: true, default: undefined })
   citations!: Citation[];
 }
 
 export const AlgorithmSchema = SchemaFactory.createForClass(Algorithm);
-
-addValidationForNullableAttributes(AlgorithmSchema);
-

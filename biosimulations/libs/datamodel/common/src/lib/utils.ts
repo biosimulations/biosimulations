@@ -1,6 +1,7 @@
 import { Schema, SchemaType } from 'mongoose';
 
 interface PathOptions {
+  readOnly: boolean;
   isRequired: any;
   defaultValue: any;
 }
@@ -16,23 +17,33 @@ function getSchemaUserPaths(schema: Schema): SchemaPaths {
     const schemaType = pathSchemaType[1];
 
     if (path === "_id" || path === "__v") {
+      userPaths[path] = {readOnly: true, isRequired: undefined, defaultValue: undefined};
       return;
     }
 
     const timestamps = schema.get('timestamps');
     const timestampPaths = timestamps === undefined ? null : Object.values(timestamps);
     if (timestampPaths && timestampPaths.includes(path)) {
+      userPaths[path] = {readOnly: true, isRequired: undefined, defaultValue: undefined};
       return;
     }
 
-    userPaths[path] = getSchemaTypeOptions(schemaType);
+    userPaths[path] = getSchemaTypeOptions(path, schemaType);
   });
   return userPaths;
 }
 
-function getSchemaTypeOptions(schemaType: SchemaType): PathOptions {
+function getSchemaTypeOptions(path: string, schemaType: SchemaType): PathOptions {
   let isRequired: any = undefined;
   let defaultValue: any = undefined;
+
+  if (!Object.keys(schemaType).includes("isRequired")) {
+    throw new Error(`'required' should be explicitly set for ${path}`);
+  }
+
+  if (!Object.keys(schemaType).includes("defaultValue")) {
+    throw new Error(`'default' should be explicitly set for ${path}`);
+  }
 
   Object.entries(schemaType).forEach((keyVal: [string, any]): void => {
     const key = keyVal[0];
@@ -45,15 +56,25 @@ function getSchemaTypeOptions(schemaType: SchemaType): PathOptions {
     }
   });
 
-  return { isRequired, defaultValue };
+  return { readOnly: false, isRequired, defaultValue };
 }
 
 export function addValidationForNullableAttributes(schema: Schema): void {
+  Object.entries(schema).forEach((keyVal: [string, any[]]): void => {
+    const key = keyVal[0];
+    const val = keyVal[1];
+    if (key === "childSchemas") {
+      val.forEach((childSchema: any): void => {
+        addValidationForNullableAttributes(childSchema.schema);
+      });
+    }
+  });
+
   Object.entries(getSchemaUserPaths(schema)).forEach((pathOptions: [string, PathOptions]): void => {
     const path = pathOptions[0];
     const options = pathOptions[1];
 
-    if (options.isRequired !== true && options.isRequired !== false) {
+    if (!options.readOnly && options.isRequired !== true && options.isRequired !== false) {
       throw new Error(`'required' should be explicitly set for '${path}'`);
     }
   });
@@ -63,18 +84,14 @@ export function addValidationForNullableAttributes(schema: Schema): void {
       const path = pathOptions[0];
       const options = pathOptions[1];
 
-      if (path === "recommendedRange") {
-        console.log(options.isRequired, options.isRequired === undefined)
-      }
-
-      if (options.isRequired === false) {
-        console.log(path)
-
-        if (this.get(path) === undefined) {
-          if (options.defaultValue === undefined) {
-            this.invalidate(path, `'${path}' attribute must be defined`);
-          } else {
-            this.set(path, options.defaultValue);
+      if (!options.readOnly) {
+        if (options.isRequired === false) {
+          if (this.get(path) === undefined) {
+            if (options.defaultValue === undefined) {
+              this.invalidate(path, `'${path}' attribute must be defined`);
+            } else {
+              this.set(path, options.defaultValue);
+            }
           }
         }
       }

@@ -2,7 +2,6 @@ import {
   ExternalReferences as IExternalReferences,
   Identifier,
   Citation as ICitation,
-  addValidationForNullableAttributes
 } from '@biosimulations/datamodel/common';
 
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
@@ -15,10 +14,10 @@ import { IdentifierSchema } from './ontologyId';
   useNestedStrict: true,
 })
 class Citation implements ICitation {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, default: undefined })
   authors!: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, default: undefined })
   title!: string;
 
   @Prop({ type: String, required: false, default: null })
@@ -31,7 +30,7 @@ class Citation implements ICitation {
   })
   volume!: string | null;
 
-  @Prop({ 
+  @Prop({
     type: String,
     required: false,
     default: null,
@@ -46,19 +45,19 @@ class Citation implements ICitation {
     min: 1500,
     max: new Date(Date.now()).getFullYear() + 1,
     required: true,
+    default: undefined,
   })
   year!: number;
 
   @Prop({
-    type: [IdentifierSchema], 
+    type: [IdentifierSchema],
     required: true,
+    default: undefined,
   })
   identifiers!: Identifier[];
 }
 
 export const CitationSchema = SchemaFactory.createForClass(Citation);
-
-addValidationForNullableAttributes(CitationSchema);
 
 @Schema({
   _id: false,
@@ -67,10 +66,10 @@ addValidationForNullableAttributes(CitationSchema);
   useNestedStrict: true,
 })
 export class ExternalReferences implements IExternalReferences {
-  @Prop({ type: [IdentifierSchema], required: true })
+  @Prop({ type: [IdentifierSchema], required: true, default: undefined })
   identifiers!: Identifier[];
 
-  @Prop({ type: [CitationSchema], required: true })
+  @Prop({ type: [CitationSchema], required: true, default: undefined })
   citations!: Citation[];
 }
 
@@ -85,17 +84,14 @@ export const ExternalReferencesSchema = SchemaFactory.createForClass(
   useNestedStrict: true,
 })
 class Person {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, default: undefined })
   firstName!: string;
 
   @Prop({ type: String, required: false, default: null })
   middleName!: string | null;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, default: undefined })
   lastName!: string;
 }
 
 export const PersonSchema = SchemaFactory.createForClass(Person);
-
-addValidationForNullableAttributes(PersonSchema);
-

@@ -107,8 +107,8 @@ export class ViewSimulatorService {
         .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
-      created: this.getDateStr(new Date(sim.created)),
-      updated: this.getDateStr(new Date(sim.updated)),
+      created: this.getDateStr(new Date(sim.biosimulators.created)),
+      updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
 
     const unresolvedAlgorithms = sim.algorithms.filter((alg: Algorithm) => { return !!alg.kisaoId; }).map(this.mapAlgorithms, this);

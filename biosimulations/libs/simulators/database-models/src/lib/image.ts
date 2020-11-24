@@ -12,7 +12,7 @@ import isUrl from 'is-url';
   strict: 'throw',
   useNestedStrict: true,
 })
-export class Image implements IImage {  
+export class Image implements IImage {
   @Prop({
     type: String,
     required: true,
@@ -22,6 +22,7 @@ export class Image implements IImage {
       },
       message: (props: any): string => `${props.value} is not a valid URL for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,
     }],
+    default: undefined,
   })
   url!: string;
 
@@ -34,6 +35,7 @@ export class Image implements IImage {
       },
       message: (props: any): string => `Format must be the Docker image format (EDAM:format_3973)`,
     }],
+    default: undefined,
   })
   format!: IEdamOntologyId;
 }

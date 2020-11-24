@@ -3,7 +3,7 @@ import {
   AlgorithmParameter as IAlgorithmParameter,
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
-import { IKisaoOntologyId, addValidationForNullableAttributes } from '@biosimulations/datamodel/common';
+import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({
@@ -13,12 +13,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
   useNestedStrict: true,
 })
 export class AlgorithmParameter implements IAlgorithmParameter {
-  @Prop({ type: KisaoOntologyIdSchema, required: true })
+  @Prop({ type: KisaoOntologyIdSchema, required: true, default: undefined })
   kisaoId!: IKisaoOntologyId;
 
   @Prop({
     type: String,
     required: true,
+    default: undefined,
     // required: false,
     // default: null,
   })
@@ -37,6 +38,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
       (k) => AlgorithmParameterType[k as AlgorithmParameterType]
     ),
     required: true,
+    default: undefined,
   })
   type!: AlgorithmParameterType;
 
@@ -50,5 +52,3 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 export const AlgorithmParameterSchema = SchemaFactory.createForClass(
   AlgorithmParameter
 );
-
-addValidationForNullableAttributes(AlgorithmParameterSchema);

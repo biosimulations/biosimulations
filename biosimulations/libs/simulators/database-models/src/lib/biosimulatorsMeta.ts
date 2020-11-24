@@ -35,9 +35,19 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   @Prop({ type: Object, required: false, default: null })
   meta: any;
 
-  @Prop({ type: Boolean, required: true })
+  @Prop({ type: Boolean, required: true, default: undefined })
   validated!: boolean;
+
+  created!: Date;
+
+  updated!: Date;
 }
+
 export const BiosimulatorsMetaSchema = SchemaFactory.createForClass(
   BiosimulatorsMeta
 );
+
+BiosimulatorsMetaSchema.set('timestamps', {
+  createdAt: 'created',
+  updatedAt: 'updated',
+});

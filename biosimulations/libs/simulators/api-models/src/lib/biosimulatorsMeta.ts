@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import {
   IBiosimulatorsMeta,
   imageVersions,
@@ -31,4 +31,20 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
       'Whether or not the image for the simulator has passed validation',
   })
   validated!: boolean;
+
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description:
+    //   'When the version of the simulator was catalogued in the BioSimulators registry',
+  })
+  created!: Date;
+
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description:
+    //  'When the version of the simulator catalogued in the BioSimulators registry was last updated',
+  })
+  updated!: Date;
 }

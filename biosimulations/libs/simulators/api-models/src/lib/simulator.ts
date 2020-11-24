@@ -52,10 +52,4 @@ export class Simulator {
 
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
-
-  @ApiResponseProperty({ format: 'date-time' })
-  created!: Date;
-
-  @ApiResponseProperty({ format: 'date-time' })
-  updated!: Date;
 }
