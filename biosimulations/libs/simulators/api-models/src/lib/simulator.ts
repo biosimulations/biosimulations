@@ -46,7 +46,7 @@ export class Simulator {
   @ApiProperty({ type: [Person] })
   authors!: Person[];
 
-  @ApiProperty({ type: Url, nullable: true, required: false, default: null })
+  @ApiProperty({ type: Url, nullable: true })
   contactUrl!: Url | null;
 
   @ApiProperty({ type: ExternalReferences })

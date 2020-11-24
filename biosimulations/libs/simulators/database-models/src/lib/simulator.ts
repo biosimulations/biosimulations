@@ -53,7 +53,7 @@ export class Simulator extends Document {
   @Prop({ type: [PersonSchema], required: true, default: undefined })
   authors!: Person[];
 
-  @Prop({ type: [UrlSchema], required: false, default: null })
+  @Prop({ type: [UrlSchema], required: false, default: undefined })
   contactUrl!: Url | null;
 
   @Prop({ type: ExternalReferencesSchema, required: true, default: undefined })
