@@ -58,12 +58,7 @@ class Citation implements ICitation {
 
 export const CitationSchema = SchemaFactory.createForClass(Citation);
 
-addValidationForNullableAttributes(CitationSchema, {
-  journal: null,
-  volume: null,
-  issue: null,
-  pages: null,
-});
+addValidationForNullableAttributes(CitationSchema);
 
 @Schema({
   _id: false,
@@ -102,6 +97,5 @@ class Person {
 
 export const PersonSchema = SchemaFactory.createForClass(Person);
 
-addValidationForNullableAttributes(PersonSchema, {
-  middleName: null,
-});
+addValidationForNullableAttributes(PersonSchema);
+

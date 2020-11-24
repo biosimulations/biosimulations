@@ -42,8 +42,6 @@ export class AlgorithmParameter implements IAlgorithmParameter {
     type: [String],
     example: ["22.7", "2270"],
     nullable: true,
-    required: false,
-    default: null,
   })
   recommendedRange!: string[] | null;
 }

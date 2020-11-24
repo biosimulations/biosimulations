@@ -44,7 +44,7 @@ export class Algorithm implements IAlgorithm {
   @Prop({
     type: String,
     required: false,
-    // default: null,
+    default: null,
   })
   name!: string | null;
 
@@ -66,9 +66,5 @@ export class Algorithm implements IAlgorithm {
 
 export const AlgorithmSchema = SchemaFactory.createForClass(Algorithm);
 
-addValidationForNullableAttributes(AlgorithmSchema, {
-  // id: null,
-  name: null,
-  parameters: undefined,
-});
+addValidationForNullableAttributes(AlgorithmSchema);
 

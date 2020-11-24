@@ -18,7 +18,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @Prop({
     type: String,
-    require: true,
+    required: true,
     // required: false,
     // default: null,
   })
@@ -27,7 +27,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   @Prop({
     type: String,
     required: false,
-    // default: null,
+    default: null,
   })
   name!: string | null;
 
@@ -51,9 +51,4 @@ export const AlgorithmParameterSchema = SchemaFactory.createForClass(
   AlgorithmParameter
 );
 
-addValidationForNullableAttributes(AlgorithmParameterSchema, {
-  // id: null,
-  name: null,
-  value: undefined,
-  recommendedRange: null,
-});
+addValidationForNullableAttributes(AlgorithmParameterSchema);
