@@ -84,14 +84,17 @@ export const ExternalReferencesSchema = SchemaFactory.createForClass(
   useNestedStrict: true,
 })
 class Person {
-  @Prop({ type: String, required: true, default: undefined })
-  firstName!: string;
+  @Prop({ type: String, required: false, default: null })
+  firstName!: string | null;
 
   @Prop({ type: String, required: false, default: null })
   middleName!: string | null;
 
   @Prop({ type: String, required: true, default: undefined })
   lastName!: string;
+
+  @Prop({ type: [IdentifierSchema], required: true, default: undefined })
+  identifiers!: Identifier[];
 }
 
 export const PersonSchema = SchemaFactory.createForClass(Person);

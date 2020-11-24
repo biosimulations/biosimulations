@@ -22,7 +22,15 @@
           <tbody>
             <tr *ngIf="simulator.authors?.length > 0">
               <th><biosimulations-icon icon="user"></biosimulations-icon></th>
-              <td>{{ simulator.authors }}</td>
+              <td>
+                <ul class="comma-separated">
+                  <li *ngFor="let author of simulator.authors">
+                    <a *ngIf="author.orcidUrl; else noOrcidUrl" [href]="author.orcidUrl" title="ORCID profile"
+                      >{{ author.name }} <biosimulations-icon icon="orcid"></biosimulations-icon></a>
+                    <ng-template #noOrcidUrl>{{ author.name }}</ng-template>
+                  </li>
+                </ul>
+              </td>
             </tr>
           </tbody>
 

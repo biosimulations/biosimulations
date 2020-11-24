@@ -11,6 +11,7 @@ import {
   ViewFormat,
   ViewParameter,
   ViewParameterObservable,
+  ViewAuthor,
   DescriptionFragment,
   DescriptionFragmentType,
 } from './view-simulator.interface';
@@ -22,6 +23,7 @@ import {
   IEdamOntologyId,
   ISboOntologyId,
   Identifier,
+  Person,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
@@ -36,13 +38,16 @@ export class ViewSimulatorService {
     private simService: SimulatorService,
     private ontService: OntologyService
   ) {}
+
   getVersions(simulatorId: string) {}
+
   getLatest(simulatorId: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
     );
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
   }
+
   getVersion(simulatorId: string, version: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getOneByVersion(
       simulatorId,
@@ -95,7 +100,7 @@ export class ViewSimulatorService {
           map((name: string) =>
             name.replace(/\bLicense\b/, '').replace('  ', ' ')
           )
-        ) 
+        )
         : null,
       licenseUrl: sim.license
         ? this.ontService
@@ -166,6 +171,7 @@ export class ViewSimulatorService {
         : [],
     };
   }
+
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
@@ -204,9 +210,11 @@ export class ViewSimulatorService {
   getFrameworks(value: ISboOntologyId): Observable<ViewFramework> {
     return this.ontService.getSboTerm(value.id);
   }
+
   getFormats(value: IEdamOntologyId): Observable<ViewFormat> {
     return this.ontService.getEdamTerm(value.id);
   }
+
   setVersionDate(value: Version): ViewVersion {
     return {
       label: value.version,
@@ -216,13 +224,10 @@ export class ViewSimulatorService {
       curationStatus: value.curationStatus,
     };
   }
-  getAuthors(simulator: Simulator): string | null {
-    const authors = simulator?.authors?.map(
-      (author: {
-        lastName: string;
-        middleName: string | null;
-        firstName: string;
-      }) => {
+
+  getAuthors(simulator: Simulator): ViewAuthor[] {
+    return simulator?.authors?.map(
+      (author: Person): ViewAuthor => {
         let name = author.lastName;
         if (author.middleName) {
           name = author.middleName + ' ' + name;
@@ -230,25 +235,19 @@ export class ViewSimulatorService {
         if (author.firstName) {
           name = author.firstName + ' ' + name;
         }
-        return name;
+
+        let orcidUrl: string | null = null;
+        for (const identifier of author.identifiers) {
+          if (identifier.namespace === "orcid") {
+            orcidUrl = identifier.url
+          }
+        }
+
+        return { name, orcidUrl };
       }
     );
-    if (!authors) {
-      return null;
-    }
-    switch (authors.length) {
-      case 0:
-        return null;
-
-      case 1:
-        return authors[0];
-
-      default:
-        return (
-          authors.slice(0, -1).join(', ') + ' & ' + authors[authors.length - 1]
-        );
-    }
   }
+
   formatKisaoDescription(value: string | null): DescriptionFragment[] | null {
     if (value == null) {
       return null;

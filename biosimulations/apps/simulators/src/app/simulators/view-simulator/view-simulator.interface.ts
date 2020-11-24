@@ -86,6 +86,11 @@ export interface ViewVersion {
   curationStatus: string;
 }
 
+export interface ViewAuthor {
+  name: string;
+  orcidUrl: string | null;
+}
+
 export interface ViewSimulator {
   _json: string;
   id: string;
@@ -96,7 +101,7 @@ export interface ViewSimulator {
   url: string;
   licenseUrl: Observable<string> | null;
   licenseName: Observable<string> | null;
-  authors: string | null;
+  authors: ViewAuthor[];
   identifiers: ViewIdentifier[];
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
