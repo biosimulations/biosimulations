@@ -145,7 +145,7 @@ export class ViewSimulatorService {
     const kisaoName = kisaoTerm.pipe(pluck('name'));
 
     return {
-      id: value.kisaoId.id,
+      kisaoId: value.kisaoId.id,
 
       name: kisaoName,
       heading: kisaoName.pipe(
@@ -155,7 +155,7 @@ export class ViewSimulatorService {
         pluck('description'),
         map(this.formatKisaoDescription)
       ),
-      url: kisaoTerm.pipe(pluck('url')),
+      kisaoUrl: kisaoTerm.pipe(pluck('url')),
       frameworks: value.modelingFrameworks.map(this.getFrameworks, this),
       modelFormats: value.modelFormats.map(this.getFormats, this),
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
@@ -170,7 +170,6 @@ export class ViewSimulatorService {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
     return {
-      id: parameter.id,
       name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
       value: this.parseParameterVal(parameter.type, parameter.value),

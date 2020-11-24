@@ -34,12 +34,10 @@ export class Algorithm implements IAlgorithm {
   
   @Prop({
     type: String,
-    required: true,
-    default: undefined,
-    // required: false,
-    // default: null,
+    required: false,
+    default: null,
   })
-  id!: string;
+  id!: string | null;
   
   @Prop({
     type: String,

@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
 
 export interface ViewAlgorithm {
-  id: string;
+  kisaoId: string;
   heading: string;
   name: string;
   description: DescriptionFragment[] | null;
-  url: string;
+  kisaoUrl: string;
   frameworks: ViewFramework[];
   modelFormats: ViewFormat[];
   simulationFormats: ViewFormat[];
@@ -15,11 +15,11 @@ export interface ViewAlgorithm {
 }
 
 export interface ViewAlgorithmObservable {
-  id: string;
+  kisaoId: string;
   heading: Observable<string>;
   name: Observable<string>;
   description: Observable<DescriptionFragment[]| null>;
-  url: Observable<string>;
+  kisaoUrl: Observable<string>;
   frameworks: Observable<ViewFramework>[];
   modelFormats: Observable<ViewFormat>[];
   simulationFormats: Observable<ViewFormat>[];
@@ -51,7 +51,6 @@ export interface ViewFormat {
 }
 
 export interface ViewParameter {
-  id: string;
   name: string;
   type: string;
   value: boolean | number | string | null;
@@ -61,7 +60,6 @@ export interface ViewParameter {
 }
 
 export interface ViewParameterObservable {
-  id: string;
   name: Observable<string>;
   type: string;
   value: boolean | number | string | Observable<string> | null;

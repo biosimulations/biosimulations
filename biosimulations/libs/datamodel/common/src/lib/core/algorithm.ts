@@ -16,7 +16,7 @@ import {
  * recommendedRange is a sensible value from the original that the parameter can be changed to
  */
 export interface AlgorithmParameter {
-  id: string;
+  id: string | null;
   name: string | null;
   type: AlgorithmParameterType;
   value: string | null;
@@ -26,7 +26,7 @@ export interface AlgorithmParameter {
 }
 
 export interface IAlgorithm {
-  id: string;
+  id: string | null;
   name: string | null;
   kisaoId: IKisaoOntologyId;
   modelingFrameworks: ISboOntologyId[];

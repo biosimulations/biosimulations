@@ -21,11 +21,11 @@ export class Algorithm implements IAlgorithm {
 
   @ApiProperty({
     type: String,
-    // nullable: true,
-    // required: false,
-    // default: null
+    nullable: true,
+    required: false,
+    default: null,
   })
-  id!: string;
+  id!: string | null;
 
   @ApiProperty({
     type: String,
