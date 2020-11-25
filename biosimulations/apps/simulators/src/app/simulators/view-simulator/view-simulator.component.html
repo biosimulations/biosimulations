@@ -23,9 +23,9 @@
             <tr *ngIf="simulator.authors?.length > 0">
               <th><biosimulations-icon icon="user"></biosimulations-icon></th>
               <td>
-                <ul class="comma-separated">
+                <ul class="comma-separated ampersand-separator">
                   <li *ngFor="let author of simulator.authors">
-                    <a *ngIf="author.orcidUrl; else noOrcidUrl" [href]="author.orcidUrl" title="ORCID profile"
+                    <a *ngIf="author.orcidUrl; else noOrcidUrl" [href]="author.orcidUrl" target="_blank" title="ORCID profile"
                       >{{ author.name }} <biosimulations-icon icon="orcid"></biosimulations-icon></a>
                     <ng-template #noOrcidUrl>{{ author.name }}</ng-template>
                   </li>
@@ -151,11 +151,19 @@
             <ul class="icon-list">
               <li>
                 <biosimulations-icon icon="home"></biosimulations-icon>
-                Home page: <a [href]="simulator.url" target="_blank" class="text">{{ simulator.url }}</a>
-              </li>
-              <li *ngIf="simulator.contactUrl">
+                <a [href]="simulator.url" target="_blank" class="text">{{ simulator.url }}</a>
+              </li>              
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator.contactUrl">
+          <h3>Contact info</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li>
                 <biosimulations-icon icon="contact"></biosimulations-icon>
-                Contact: <a [href]="simulator.contactUrl.url" target="_blank" class="text">{{ simulaor.contactInfo.title }}</a>
+                <a [href]="simulator.contactUrl.url" target="_blank" class="text">{{ simulator.contactUrl.title }}</a>
               </li>
             </ul>
           </div>
@@ -179,11 +187,11 @@
             <ul class="icon-list">
               <li>
                 <biosimulations-icon icon="date"></biosimulations-icon>
-                Created: {{ simulator.created }}
+                Registration: {{ simulator.created }}
               </li>
-              <li *ngIf="simulator.updated !== simulator.created">
+              <li>
                 <biosimulations-icon icon="date"></biosimulations-icon>
-                Updated: {{ simulator.updated }}
+                Last updated: {{ simulator.updated }}
               </li>
             </ul>
           </div>

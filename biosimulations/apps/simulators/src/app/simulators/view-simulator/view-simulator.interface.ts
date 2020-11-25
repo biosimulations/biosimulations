@@ -111,7 +111,7 @@ export interface ViewSimulator {
   identifiers: ViewIdentifier[];
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
-  interfaces: string[];
+  interfaceTypes: string[];
   supportedProgrammingLanguages: string[];
   versions: Observable<ViewVersion[]>;
   curationStatus: string;

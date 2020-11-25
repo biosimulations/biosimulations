@@ -21,5 +21,5 @@ export interface TableSimulator {
   url: string;
   license: string | null;
   licenseId: string | null;
-  created: Date;
+  updated: Date;
 }

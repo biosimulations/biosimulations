@@ -54,21 +54,28 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'name',
       heading: 'Name',
       key: 'name',
+      toolTipFormatter: (name: string): string => {
+        return name;
+      },
       showStacked: false,
-      minWidth: 250
+      minWidth: 234
     },
     {
       id: 'type',
       heading: 'Type',
       key: 'type',
+      minWidth: 66,
+      maxWidth: 66,
     },
     {
       id: 'value',
-      heading: 'Default value',
+      heading: 'Default',
       key: 'value',
       getter: (parameter: ViewParameter): string | null => {
         return this.formatParameterVal(parameter.type, parameter.value);
       },
+      minWidth: 66,
+      maxWidth: 66,
     },
     {
       id: 'range',
@@ -82,25 +89,39 @@ export class ViewSimulatorComponent implements OnInit {
         }
       },
       minWidth: 163,
+      maxWidth: 163,
       filterable: false,
     },
     {
       id: 'availableSoftwareInterfaceTypes',
       heading: 'Availability',
       key: 'availableSoftwareInterfaceTypes',
+      formatter: (interfaceTypes: string[] | string): string => {
+        let returnVal: string = '';
+        if (Array.isArray(interfaceTypes)) {
+          returnVal = interfaceTypes.join(', ');
+        } else {
+          returnVal = interfaceTypes;
+        }
+        return returnVal.substring(0, 1).toUpperCase() + returnVal.substring(1);
+      },
+      toolTipFormatter: (interfaceTypes: string[]): string => {
+        return interfaceTypes.join(', ');
+      },      
       minWidth: 163,
+      maxWidth: 163,
     },
     {
       id: 'kisaoId',
       heading: 'KiSAO id',
       key: 'kisaoId',
-      rightIcon: 'link',
-      rightAction: ColumnActionType.href,
-      rightHref: (parameter: ViewParameter): string => {
+      centerAction: ColumnActionType.href,
+      centerHref: (parameter: ViewParameter): string => {
         return parameter.kisaoUrl;
       },
       showStacked: true,
-      minWidth: 130,
+      minWidth: 110,
+      maxWidth: 110,
     },
   ];
 

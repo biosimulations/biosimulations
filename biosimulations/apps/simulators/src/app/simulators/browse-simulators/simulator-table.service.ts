@@ -90,7 +90,7 @@ export class SimulatorTableService {
                       name: simulator.name,
                       latestVersion: simulator.version,
                       url: simulator.url,
-                      created: new Date(simulator.biosimulators.created),
+                      updated: new Date(simulator.biosimulators.updated),
                       licenseId: simulator.license ? simulator.license.id : null,
                       frameworks: value.frameworks,
                       frameworkIds: [...frameworkIds],
@@ -102,11 +102,7 @@ export class SimulatorTableService {
                       simulationFormatIds: [...simulationFormatIds],
                       archiveFormats: value.archiveFormats,
                       archiveFormatIds: [...archiveFormatIds],
-                      interfaceTypes: simulator.interfaceTypes
-                        .map((interfaceType: SoftwareInterfaceType): string => {
-                          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
-                        })
-                        .sort(),
+                      interfaceTypes: simulator.interfaceTypes.sort(),
                       supportedProgrammingLanguages: simulator.supportedProgrammingLanguages.sort(),
                       image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,

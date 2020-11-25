@@ -168,6 +168,8 @@
           [ngStyle]="{
             'min-width.em':
               column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'max-width.em':
+              column.maxWidth !== undefined ? column.maxWidth / 14 : null,
             'justify-content': column.center !== undefined ? 'center' : null
           }"
         >
@@ -179,7 +181,9 @@
           *matCellDef="let element"
           [ngStyle]="{
             'min-width.em':
-              column.minWidth !== undefined ? column.minWidth / 14 : null
+              column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'max-width.em':
+              column.maxWidth !== undefined ? column.maxWidth / 14 : null
           }"
           [ngClass]="{'highlight-row': element?._highlight}"
         >

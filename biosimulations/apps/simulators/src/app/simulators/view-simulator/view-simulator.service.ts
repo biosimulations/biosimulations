@@ -113,9 +113,10 @@ export class ViewSimulatorService {
         .getVersions(sim.id)
         .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
-      interfaces: sim.interfaceTypes.map((interfaceType: SoftwareInterfaceType): string => {
-        return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
-      }).sort(),
+      interfaceTypes: sim.interfaceTypes
+        .map((interfaceType: SoftwareInterfaceType): string => {
+          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+        }).sort(),
       supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort(),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
@@ -196,9 +197,6 @@ export class ViewSimulatorService {
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
       availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
-        .map((interfaceType: SoftwareInterfaceType): string => {
-          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
-        })
         .sort(),
     };
   }
