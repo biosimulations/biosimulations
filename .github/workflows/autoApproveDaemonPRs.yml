@@ -1,4 +1,4 @@
-name: Auto approve
+name: Auto approve and merge
 on: pull_request
 
 jobs:
@@ -11,20 +11,10 @@ jobs:
         with:
           github-token: "${{secrets.GITHUB_TOKEN }}"
 
-  approve-sitemaps:
-    name: Auto-approve sitemaps PRs
-    if: github.ref == 'refs/heads/sitemaps'
+  auto-merge-auto-prs:
+    name: Automatically merge automatic PRs such as updates to sitemaps
     runs-on: ubuntu-latest
     steps:
-      - uses: hmarr/auto-approve-action@v2.0.0
-        with:
-          github-token: "${{secrets.GITHUB_TOKEN }}"
-
-  approve-dependency-licences-report:
-    name: Auto-approve dependency licenses report PRs
-    if: github.ref == 'refs/heads/dep-licenses'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hmarr/auto-approve-action@v2.0.0
-        with:
-          github-token: "${{secrets.GITHUB_TOKEN }}"
+      - uses: pascalgn/automerge-action@v0.12.0
+        env:
+          GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN }}"
