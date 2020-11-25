@@ -28,17 +28,18 @@ import { ResourceMetadata } from '../metadata.dto';
 
 export class ModelRelationships implements Relationships {
   [key: string]: RelationshipObject;
-  @ApiProperty()
+  @ApiProperty({ type: UserRelationshipObject })
   owner: UserRelationshipObject;
 
-  @ApiProperty()
+  @ApiProperty({ type: FileRelationshipObject })
   file: FileRelationshipObject;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: NullableFileRelationshipObject })
   image: NullableFileRelationshipObject;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: ModelRelationshipObject })
   parent: ModelRelationshipObject;
+
   constructor(
     owner: string,
     file: string,
@@ -59,19 +60,22 @@ export class ModelRelationshipIds {
   parent!: string | null;
 }
 export class ModelResource implements ResourceObject {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty({ enum: ['model'] })
+  @ApiProperty({ type: String, enum: ['model'] })
   type: ResourceType.model = ResourceType.model;
 
-  @ApiProperty()
+  @ApiProperty({ type: ModelAttributes })
   attributes: ModelAttributes;
-  @ApiProperty()
+
+  @ApiProperty({ type: ModelRelationships })
   relationships: ModelRelationships;
-  @ApiProperty()
+
+  @ApiProperty({ type: Object })
   links?: any;
-  @ApiProperty()
+
+  @ApiProperty({ type: ResourceMetadata })
   meta: ResourceMetadata;
 
   constructor(

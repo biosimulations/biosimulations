@@ -5,13 +5,13 @@ import { urls } from '@biosimulations/config/common';
 import { map, pluck, shareReplay } from 'rxjs/operators';
 //TODO set the api interface type
 import { Simulator } from '@biosimulations/simulators/api-models';
+import { UtilsService } from '@biosimulations/shared/services';
 
 export interface Version {
   version: string;
   created: Date;
   image?: string;
-  url?: string;
-  validated: boolean;
+  curationStatus: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -62,10 +62,9 @@ export class SimulatorService {
           if (sim.id === simId) {
             versions.push({
               version: sim.version,
-              image: sim.image || undefined,
-              created: sim.created,
-              url: sim.url,
-              validated: sim?.biosimulators?.validated,
+              image: sim.image?.url || undefined,
+              created: sim.biosimulators.created,
+              curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim), false),
             });
           }
         }

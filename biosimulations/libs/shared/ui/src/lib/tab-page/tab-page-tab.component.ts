@@ -19,6 +19,9 @@ export class TabPageTabComponent {
   @Input()
   disabled = false;
 
+  @Input()
+  loading = false;
+
   @ViewChild(MatTab) tab!: MatTab;
 
   constructor() {}

@@ -22,7 +22,15 @@
           <tbody>
             <tr *ngIf="simulator.authors?.length > 0">
               <th><biosimulations-icon icon="user"></biosimulations-icon></th>
-              <td>{{ simulator.authors }}</td>
+              <td>
+                <ul class="comma-separated ampersand-separator">
+                  <li *ngFor="let author of simulator.authors">
+                    <a *ngIf="author.orcidUrl; else noOrcidUrl" [href]="author.orcidUrl" target="_blank" title="ORCID profile"
+                      >{{ author.name }} <biosimulations-icon icon="orcid"></biosimulations-icon></a>
+                    <ng-template #noOrcidUrl>{{ author.name }}</ng-template>
+                  </li>
+                </ul>
+              </td>
             </tr>
           </tbody>
 
@@ -92,19 +100,38 @@
           </div>
         </div>
 
-        <div class="section">
-          <h3>Validation status</h3>
+        <div class="section" *ngIf="simulator.interfaceTypes?.length > 0">
+          <h3>Interfaces</h3>
           <div class="section-content">
             <ul class="icon-list">
-              <li>
-                <biosimulations-icon [icon]="simulator.validated ? 'valid' : 'invalid'"></biosimulations-icon>
-                {{ simulator.validated ? 'Validated' : 'Not validated' }}
+              <li *ngFor="let interfaceType of simulator.interfaceTypes">
+                <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                {{ interfaceType }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator.supportedProgrammingLanguages?.length > 0">
+          <h3>Supported programming languages</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
+                <biosimulations-icon icon="code"></biosimulations-icon>
+                {{ supportedProgrammingLanguage }}
               </li>
             </ul>
           </div>
         </div>
 
         <div class="section">
+          <h3>Curation status</h3>
+          <div class="section-content">
+            {{ simulator.curationStatus }}
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator.licenseName">
           <h3>License</h3>
           <div class="section-content">
             <ul class="icon-list">
@@ -118,15 +145,13 @@
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" *ngIf="simulator?.urls?.length > 0">
           <h3>More info</h3>
           <div class="section-content">
             <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                <a [href]="simulator.url" target="_blank" class="text">
-                  {{ simulator.url }}
-                </a>
+              <li *ngFor="let url of simulator.urls">
+                <biosimulations-icon icon="link"></biosimulations-icon>
+                <a [href]="url.url" target="_blank" class="text">{{ url.title || url.type }}</a>
               </li>
             </ul>
           </div>
@@ -150,11 +175,11 @@
             <ul class="icon-list">
               <li>
                 <biosimulations-icon icon="date"></biosimulations-icon>
-                Created: {{ simulator.created }}
+                Registration: {{ simulator.created }}
               </li>
-              <li *ngIf="simulator.updated !== simulator.created">
+              <li>
                 <biosimulations-icon icon="date"></biosimulations-icon>
-                Updated: {{ simulator.updated }}
+                Last updated: {{ simulator.updated }}
               </li>
             </ul>
           </div>
@@ -225,9 +250,9 @@
                 </p>
                 <ul
                   class="icon-list"
-                  *ngIf="algorithm?.frameworks.length > 0; else noFrameworksMessage"
+                  *ngIf="algorithm?.modelingFrameworks.length > 0; else noFrameworksMessage"
                 >
-                  <li *ngFor="let framework of algorithm.frameworks">
+                  <li *ngFor="let framework of algorithm.modelingFrameworks">
                     <ng-container *ngIf="framework as framework">
                       <biosimulations-icon icon="simulator"></biosimulations-icon>
                       <a [href]="framework.url" target="_blank">{{
@@ -238,7 +263,7 @@
                 </ul>
                 <ng-template #noFrameworksMessage>
                   <p class="info-message">
-                    This algorithm does not support any canonical modeling
+                    This implementation of this algorithm does not support any canonical modeling
                     frameworks.
                   </p>
                 </ng-template>
@@ -251,13 +276,13 @@
                   <li *ngFor="let format of algorithm.modelFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>
                 <ng-template #noModelFormatsMessage>
                   <p class="info-message">
-                    This algorithm does not support any standard model formats.
+                    This implementation of this algorithm does not support any standard model formats.
                   </p>
                 </ng-template>
 
@@ -269,13 +294,13 @@
                   <li *ngFor="let format of algorithm.simulationFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>
                 <ng-template #noSimulationFormatsMessage>
                   <p class="info-message">
-                    This algorithm does not support any standard simulation formats.
+                    This implementation of this algorithm does not support any standard simulation formats.
                   </p>
                 </ng-template>
 
@@ -287,13 +312,13 @@
                   <li *ngFor="let format of algorithm.archiveFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>
                 <ng-template #noArchiveFormatsMessage>
                   <p class="info-message">
-                    This algorithm does not support any standard archive formats.
+                    This implementation of this algorithm does not support any standard archive formats.
                   </p>
                 </ng-template>
 
@@ -323,10 +348,21 @@
                   </biosimulations-responsive-table>
                 </div>
                 <ng-template #noCuratedParametersMessage>                  
-                  <p class="info-message" *ngIf="algorithm.parameters == null; else zeroParametersMessage">The parameters for {{ algorithm.name }} have not been curated.</p>
+                  <p class="info-message" *ngIf="algorithm.parameters == null; else zeroParametersMessage">The parameters for this implementation of {{ algorithm.name }} have not been curated.</p>
                   <ng-template #zeroParametersMessage>
-                    <p class="info-message">{{ algorithm.name }} does not have any parameters.</p>
+                    <p class="info-message">This implementation of {{ algorithm.name }} does not have any parameters.</p>
                   </ng-template>
+                </ng-template>
+
+                <p class="subsection-heading no-bottom-margin">Availability</p>
+                <ul *ngIf="algorithm?.availableSoftwareInterfaceTypes?.length > 0; else noSupportedInterfaces" class="icon-list">
+                  <li *ngFor="let interfaceType of algorithm.availableSoftwareInterfaceTypes">
+                    <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                    {{ interfaceType }}
+                  </li>
+                </ul>
+                <ng-template #noSupportedInterfaces>
+                  <p class="info-message">Information about which interfaces support the algorithm is not available.</p>
                 </ng-template>
 
                 <ng-container *ngIf="algorithm?.citations?.length > 0">
@@ -351,8 +387,8 @@
                 <ul class="icon-list">
                   <li>
                     <biosimulations-icon icon="link"></biosimulations-icon>
-                    <a [href]="algorithm?.url" target="_blank">{{
-                      algorithm?.id
+                    <a [href]="algorithm?.kisaoUrl" target="_blank">{{
+                      algorithm?.kisaoId
                     }}</a>
                   </li>
                 </ul>
@@ -362,7 +398,7 @@
         </ng-container>
 
         <ng-template #noAlgorithms>
-          <p class="info-message">The algorithms supported by {{ simulator.id }} have not yet been curated.</p>
+          <p class="info-message">The algorithms implemented by {{ simulator.id }} have not yet been curated.</p>
         </ng-template>
       </ng-container>
     </ng-container>

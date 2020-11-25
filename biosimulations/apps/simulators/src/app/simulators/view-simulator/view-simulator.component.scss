@@ -1,7 +1,7 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-::ng-deep .mat-typography {
+biosimulations-tab-page ::ng-deep {
   h2, h3 {
     margin: 0;
   }

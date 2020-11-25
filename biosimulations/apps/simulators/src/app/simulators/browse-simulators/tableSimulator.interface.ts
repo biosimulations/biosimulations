@@ -1,3 +1,5 @@
+import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
+
 export interface TableSimulator {
   id: string;
   name: string;
@@ -13,9 +15,11 @@ export interface TableSimulator {
   archiveFormats: string[];
   archiveFormatIds: string[];
   latestVersion: string;
-  validated: boolean;
-  url: string;
-  license: string;
-  licenseId: string
-  created: Date;
+  interfaceTypes: string[];
+  supportedProgrammingLanguages: string[];
+  curationStatus: SimulatorCurationStatus;
+  url: string | null;
+  license: string | null;
+  licenseId: string | null;
+  updated: Date;
 }

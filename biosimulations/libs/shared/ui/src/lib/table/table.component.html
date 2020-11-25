@@ -114,6 +114,8 @@
                           (change)="
                             filterSetValue(column, value, checkbox.checked)
                           "
+                          ng-attr-title
+                          [attr.title]="column.showFilterItemToolTips === true ? value.formattedValue : null"
                         >
                           {{ value.formattedValue }}
                         </mat-checkbox>
@@ -166,6 +168,8 @@
           [ngStyle]="{
             'min-width.em':
               column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'max-width.em':
+              column.maxWidth !== undefined ? column.maxWidth / 14 : null,
             'justify-content': column.center !== undefined ? 'center' : null
           }"
         >
@@ -177,7 +181,9 @@
           *matCellDef="let element"
           [ngStyle]="{
             'min-width.em':
-              column.minWidth !== undefined ? column.minWidth / 14 : null
+              column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'max-width.em':
+              column.maxWidth !== undefined ? column.maxWidth / 14 : null
           }"
           [ngClass]="{'highlight-row': element?._highlight}"
         >
@@ -190,7 +196,7 @@
             }"
             [ngStyle]="{
               '-webkit-line-clamp': linesPerRow,
-              'height.px': 20 * linesPerRow
+              'height.px': 22 * linesPerRow - 2
             }"
           >
             <span [ngSwitch]="column.leftAction">
@@ -308,7 +314,7 @@
 
               <ng-template #centerTemplate>
                 <ng-container *ngIf="element._cache[column.id].value as value">
-                  {{ value }}
+                  <span [attr.title]="element._cache[column.id].toolTip">{{ value }}</span>
                 </ng-container>
               </ng-template>
             </span>

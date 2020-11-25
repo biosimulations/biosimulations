@@ -13,12 +13,12 @@ import { Citation } from './journal-reference';
 
 export class Algorithm {
   id: string;
-  name: string;
+  name: string | null;
   kisaoId: string;
   ontologyTerms: OntologyTerm[];
   modelingFrameworks: OntologyTerm[];
   modelFormats: Format[];
-  parameters: AlgorithmParameter[] = [];
+  parameters: AlgorithmParameter[] | null;
   simulationFormats: Format[];
   archiveFormats: Format[];
   references: Citation[];

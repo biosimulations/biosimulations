@@ -22,9 +22,10 @@ export interface Column {
   key?: string | string[];
   getter?: (rowData: any) => any;
   filterGetter?: (rowData: any) => any;
-  extraSearchGetter?: (rowData: any) => string;
+  extraSearchGetter?: (rowData: any) => string | null;
   passesFilter?: (rowData: any, filterValues: any[]) => boolean;
   formatter?: (cellValue: any) => any;
+  toolTipFormatter?: (cellValue: any) => any;
   stackedFormatter?: (cellValue: any) => any;
   filterFormatter?: (cellValue: any) => any;
   leftIcon?: string;
@@ -44,12 +45,16 @@ export interface Column {
   centerClick?: (rowData: any) => void;
   rightClick?: (rowData: any) => void;
   minWidth?: number;
+  maxWidth?: number;
   center?: boolean;
   filterable?: boolean;
   sortable?: boolean;
   comparator?: (a: any, b: any, sign: number) => number;
+  filterValues?: any[];
   filterComparator?: (a: any, b: any, sign: number) => number;
   filterType?: ColumnFilterType;
+  filterSortDirection?: ColumnSortDirection;
+  showFilterItemToolTips?: boolean;
   numericFilterStep?: number;
   show?: boolean;
   showStacked?: boolean;
@@ -63,9 +68,14 @@ export interface IdColumnMap {
   [id: string]: Column;
 }
 
-export interface Sort {
+export interface ColumnSort {
   active: string;
-  direction: string;
+  direction?: ColumnSortDirection;
+}
+
+export enum ColumnSortDirection {
+  asc = 'asc',
+  desc = 'desc',
 }
 
 export class RowService {
@@ -222,7 +232,7 @@ export class RowService {
     }
   }
 
-  static sortData(idToColumn: IdColumnMap, data: any[], sort: Sort): any[] {
+  static sortData(idToColumn: IdColumnMap, data: any[], sort: ColumnSort): any[] {
     if (sort === undefined) {
       return data;
     }
@@ -235,7 +245,7 @@ export class RowService {
     sortedData.sort((a: any, b: any): number => {
       let defaultKey: string | undefined = undefined;
       let column: Column | undefined = undefined;
-      if (sortDirection === '') {
+      if (sortDirection === undefined) {
         defaultKey = '_index';
       } else if (sortColumnId) {
         column = idToColumn[sortColumnId];
@@ -244,9 +254,9 @@ export class RowService {
       const aVal = RowService.getElementValue(a, column, defaultKey);
       const bVal = RowService.getElementValue(b, column, defaultKey);
 
-      const sign = sortDirection !== 'desc' ? 1 : -1;
+      const sign = sortDirection !== ColumnSortDirection.desc ? 1 : -1;
 
-      const comparator = RowService.getComparator(column, sortDirection === '');
+      const comparator = RowService.getComparator(column, sortDirection === undefined);
       return sign * comparator(aVal, bVal, sign);
     });
 
@@ -305,6 +315,14 @@ export class RowService {
     }
   }
 
+  static formatElementToolTip(value: any, column: Column): any {
+    if (column.toolTipFormatter !== undefined) {
+      return column.toolTipFormatter(value);
+    } else {
+      return null;
+    }
+  }
+
   static formatElementFilterValue(value: any, column: Column): any {
     if (column.filterFormatter !== undefined) {
       return column.filterFormatter(value);
@@ -326,9 +344,9 @@ export class RowService {
     if (column.extraSearchGetter !== undefined) {
       const extraSearchVal = column.extraSearchGetter(value);
       if (searchVal && extraSearchVal) {
-        searchVal += ' ' + extraSearchVal;
-      } else {
-        searchVal = extraSearchVal;
+        searchVal += ' ' + (extraSearchVal as string);
+      } else if (extraSearchVal) {
+        searchVal = extraSearchVal as string;
       }
     }
 

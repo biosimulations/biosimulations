@@ -55,7 +55,7 @@ function setupOpenApi(
     },
   };
   const customOptions: SwaggerCustomOptions = {
-    customSiteTitle: 'BioSimulations API Documentation',
+    customSiteTitle: 'BioSimulations API documentation',
 
     swaggerOptions: uiOptions,
     customCss: ' .swagger-ui .topbar { display: none }',
@@ -102,9 +102,10 @@ async function bootstrap() {
   const doc = new DocumentBuilder()
     .setTitle('BioSimulators API')
     .setDescription(
-      'A collection of standardized containers for running simulations'
+      'A collection of standardized Docker containers for executing biosimulations'
     )
-    .setVersion('0.1');
+    .setVersion('0.1')
+    .setContact('BioSimulators Team', 'https://biosimulators.org/help/about', 'info@biosimulators.org');
 
   setupOpenApi(
     app,

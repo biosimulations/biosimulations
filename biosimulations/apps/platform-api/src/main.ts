@@ -55,9 +55,10 @@ function setupOpenApi(app: INestApplication) {
       'https://auth.biosimulations.org/.well-known/openid-configuration',
   };
   const options = new DocumentBuilder()
-    .setTitle('BioSimulations Resource API')
-    .setDescription('The API to interact with the BioSimulations Database')
+    .setTitle('BioSimulations resource API')
+    .setDescription('The API to interact with the BioSimulations database')
     .setVersion('0.1')
+    .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org')
     .addTag('Models')
     .addTag('Projects')
     .addTag('Simulations')

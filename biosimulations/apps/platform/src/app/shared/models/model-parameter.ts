@@ -9,15 +9,15 @@ import { Identifier } from './identifier';
 
 export class ModelParameter implements BiomodelParameterDTO {
   id: string;
-  name: string;
-  value: number | string | boolean;
+  name: string | null;
+  value: string | null;
   units: string;
   group: string;
   target: string;
   description: string | null;
   identifiers: Identifier[];
   type: AlgorithmParameterType;
-  recommendedRange: (string | number | boolean)[];
+  recommendedRange: string[] | null;
 
   constructor(data: BiomodelParameterDTO) {
     this.id = data.id;

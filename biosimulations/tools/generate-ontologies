@@ -6,6 +6,9 @@ declare -A ONTOLOGY_URLS=( \
     ["edam"]="https://raw.githubusercontent.com/edamontology/edamontology/master/releases/EDAM.owl" \
     ["kisao"]="http://www.biomodels.net/kisao/KISAO" \
     ["sbo"]="http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl" \
+    ["sio"]="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl" \
+    ["spdx"]="https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json" \
+    ["gitHubLanguages"]="https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json" \
     )
 
 # list of ontologies that needs to be updated
@@ -35,17 +38,24 @@ do
     # print status
     echo "Updating ${ontology} ..."
 
-    # get URL for OWL version of ontology
+    # get URL for raw version of ontology
     ontology_url=${ONTOLOGY_URLS[$ontology]}
 
-    # create temp file for JSON version of ontology
-    temp_file="$(mktemp)"
+    filename=$(basename -- "$ontology_url")
+    extension="${filename##*.}"
 
-    # convert ontology from OWL to JSON
-    java -jar ${script_dir}/GenerateOntology.jar ${ontology_url} ${temp_file}
+    if [ "$extension" = "json" ]; then
+        wget ${ontology_url} -O ${script_dir}/../libs/ontology/sources/src/lib/${ontology}.json
+    else
+        # create temp file for JSON version of ontology
+        temp_file="$(mktemp)"
 
-    # move JSON version of ontology to repo
-    mv ${temp_file} ${script_dir}/../libs/ontology/sources/src/lib/${ontology}.json
+        # convert ontology from OWL to JSON
+        java -jar ${script_dir}/GenerateOntology.jar ${ontology_url} ${temp_file}
+
+        # move JSON version of ontology to repo
+        mv ${temp_file} ${script_dir}/../libs/ontology/sources/src/lib/${ontology}.json
+    fi
 
     # print status
     echo " done."

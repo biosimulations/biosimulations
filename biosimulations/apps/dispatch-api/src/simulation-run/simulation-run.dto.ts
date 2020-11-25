@@ -16,13 +16,14 @@ import { SimulationRunStatus } from './simulation-run.model';
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database
   file: never;
-  @ApiResponseProperty({ example: '5fab1cf714f9dd3dfbcfe51b' })
+  @ApiResponseProperty({ type: String, example: '5fab1cf714f9dd3dfbcfe51b' })
   id!: string;
 
-  @ApiProperty({ example: 'Kockout of gene A' })
+  @ApiProperty({ type: String, example: 'Kockout of gene A' })
   name!: string;
 
   @ApiProperty({
+    type: String,
     description: 'The name of a BioSimulators compliant simulator',
     examples: [
       'vcell',
@@ -40,31 +41,31 @@ export class SimulationRun {
   })
   simulator!: string;
 
-  @ApiProperty({ examples: ['latest', '2.1'], example: 'latest' })
+  @ApiProperty({ type: String, examples: ['latest', '2.1'], example: 'latest' })
   simulatorVersion!: string;
 
-  @ApiPropertyOptional({ format: 'email', example: 'info@biosimulations.org' })
+  @ApiPropertyOptional({ type: String, format: 'email', example: 'info@biosimulations.org' })
   email?: string;
 
   @ApiProperty({ type: Boolean, default: false })
   public: boolean;
 
-  @ApiResponseProperty({ enum: SimulationRunStatus })
+  @ApiResponseProperty({ type: String, enum: SimulationRunStatus })
   status: SimulationRunStatus;
 
-  @ApiResponseProperty({ example: 55 })
+  @ApiResponseProperty({ type: Number, example: 55 })
   duration?: number;
 
-  @ApiResponseProperty({ example: 1123 })
+  @ApiResponseProperty({ type: Number, example: 1123 })
   projectSize?: number;
 
-  @ApiResponseProperty({ example: 11234 })
+  @ApiResponseProperty({ type: Number, example: 11234 })
   resultsSize?: number;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ type: String, format: 'date-time' })
   submitted!: Date;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ type: String, format: 'date-time' })
   updated!: Date;
 
   constructor(
@@ -100,20 +101,22 @@ export class SimulationRun {
 export class SimulationUpload {
   @ApiProperty({ type: String, format: 'binary' })
   file!: string;
+
   @ApiProperty({ type: SimulationRun })
   simulationRun!: SimulationRun;
 }
+
 export class PatchSimulationRun {
   @ApiProperty({ type: Boolean })
   public!: boolean;
 
-  @ApiProperty({ enum: SimulationRunStatus })
+  @ApiProperty({ type: String, enum: SimulationRunStatus })
   status!: SimulationRunStatus;
 
-  @ApiProperty({ example: 55 })
+  @ApiProperty({ type: Number, example: 55 })
   duration!: number;
 
-  @ApiProperty({ example: 11234 })
+  @ApiProperty({ type: Number, example: 11234 })
   resultsSize!: number;
 }
 

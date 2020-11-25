@@ -2,8 +2,14 @@
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
+        <a [routerLink]="['/standards']">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Documentation for the BioSimulators standards
+        </a>
+      </div>
+      <div class="hanging-indent">
         <a [href]="config.apiUrl" target="_blank">
-          <biosimulations-icon icon="link"></biosimulations-icon>
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
           REST API documentation
         </a>
       </div>
@@ -31,11 +37,11 @@
         </li>
         <li>
           <b>Create one or more models:</b>
-          Create files which describe the models that you would like to simulate and save these files to the directory for the modeling project. Currently, the simulations tools in the BioSimulators collection support the BioNetGen Language <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (BNGL) and Systems Biology Markup Language <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SBML) formats. More information about BNGL and SBML is available from their websites. Alternatively, models can be obtained from BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and other model repositories.
+          Create files which describe the models that you would like to simulate and save these files to the directory for the modeling project. Currently, the simulations tools in the BioSimulators collection support several languages including the BioNetGen Language <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (BNGL) and Systems Biology Markup Language <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SBML) formats. More information about BNGL and SBML is available from their websites. Alternatively, models can be obtained from BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and other model repositories.
         </li>
         <li>
           <b>Create or more simulations:</b>
-          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the simulation tools support a subset of SED-ML including one step and timecourse simulations (<code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>), individual simulation tasks (<code>sedml:Task</code>), data generators for time and individual variables (<code>sedml:DataGenerator</code>), and report outputs (<code>sedml:Report</code>). Some of the simulation tools support the full SED-ML specification including steady-state simulations (<code>sedml:SteadyState</code>), repeated tasks (<code>sedml:RepeatedTask</code>), data generators for mathematical expressions (<code>sedml:DataGenerator</code>), and plot outputs (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the validated simulation tools support a subset of SED-ML including steady-state, one step, and timecourse simulations (<code>sedml:SteadyState</code>, <code>sedml:OneStep</code>, and <code>sedml:UniformTimeCourse</code>), individual simulation tasks (<code>sedml:Task</code>), data generators for time and individual variables (<code>sedml:DataGenerator</code>), and report outputs (<code>sedml:Report</code>). Some of the simulation tools support the full SED-ML specification including repeated tasks (<code>sedml:RepeatedTask</code>), data generators for mathematical expressions (<code>sedml:DataGenerator</code>), and plot outputs (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </li>
         <li>
           <b>Create an OMEX file which describes your model and simulation files and package them into a COMBINE archive file:</b>
@@ -81,7 +87,11 @@
     --archive /tmp/project/{{ '{' }} name-of-COMBINE-archive {{ '}' }} \
     --out-dir /tmp/results</code></pre>
 
-          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>. This will save your results to <code>path-to-save-results</code>. Reports will be saved in CSV format and plots will be saved in PDF format.</p>
+          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>.</p>
+
+          <p>The results will be saved to <code>path-to-save-results</code>. Reports will be saved in Comma-Separated Values (CSV) format and plots will be saved in Portable Document Format (PDF).</p>
+
+          <p>The columns of the reports will represent the data generators defined in the corresponding SED-ML file. The first row of each report will contain column headings that indicate the id of the data generator represented by each column. For steady-state and one-step simulations, the second row of each report will contain the predicted value of each data generator. For time course simulations, each subsequent row will represent a time point in the predicted time course; each cell (row, column) will represent the predicted value of the corresponding data generator (column) at the corresponding time point (row).</p>
         </li>
       </ol>
     </biosimulations-text-page-content-section>
@@ -99,12 +109,12 @@
     >
       <p>We welcome contributions of additional simulation tools!</p>
 
-      <p>All simulation tools submitted to BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.</p>
+      <p>All simulation tools submitted for validiation by BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.</p>
       <ul class="vertically-spaced">
         <li><b>Modeling languages.</b> Containers should support at least a subset of at least one modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
         <li><b>SED-ML.</b> Currently, containers should support at least the following features of SED-ML:
           <ul>
-            <li>One step and timecourse simulations: <code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>.</li>
+            <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:SteadyState</code>, <code>sedml:OneStep</code>, or <code>sedml:UniformTimeCourse</code>.</li>
             <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
             <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
             <li>Report outputs: <code>sedml:Report</code>.</li>
@@ -123,9 +133,9 @@
           <ul>
             <li><code>-i, --archive</code>: A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
             <li>
-              <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</p>
+              <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in Comma-Separate Values (CSV) format <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions <code>.csv</code> or <code>.pdf</code>.</p>
 
-              <p>The columns of the reports should correspond to the simulation outputs specified in the corresponding SED-ML document (e.g., time, specific species). For time course simulations, the rows should correspond to the predicted time points. The first row of each report table should describe the data represented by each column. Specifically, the first element of each column should be the id of the simulation output (e.g., time or species id) represented by the column.</p>
+              <p>The columns of the reports should correspond to the data generators specified in the corresponding SED-ML document (e.g., time, specific species). The first row of each report should contain column headings that indicate the id of the data generator represented by each column. For steady-state and one-step simulations, each report should contain a second row which contains the predicted value of each data generator. For time course simulations, the subsequent rows of each report should correspond to the time points of the predicted time course; each cell (row, column) should represent the predicted value of the corresponding data generator (column) at the corresponding time point (row).</p>
             </li>
           </ul>
 
@@ -223,13 +233,18 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      heading="Contributing a containerized biosimulation tool to BioSimulators"
+      heading="Contributing a biosimulation tool to BioSimulators"
       tocSection="Contributing simulation tools"
     >
-      <p>We welcome contributions of additional simulation tools! Please follow these steps to contribute a tool to BioSimulators:</p>
+      <p>We welcome contributions of additional simulation tools! We encourage developers to submit tools that support BioSimulators' standard containerized command-line interface. Supporting these standards makes it easier for other investigators to use simulators. However, BioSimulators also accepts simulation tools that are not available via standardized Docker images.</p>
+
+      <p>Please follow these steps to contribute a tool to BioSimulators:</p>
       <ol class="vertically-spaced">
         <li>
-          <b>Publish your image to a public repository</b> such as Docker Hub <a href="https://dockerhub.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub Container Registry <a href="https://github.com/features/packages" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or Quay <a href="https://quay.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
+          <b>Optionally, build a standardized command-line interface and Docker image for your simulator.</b> Such an image will make it easier for others to use your tool.
+        </li>
+        <li>
+          <b>Optionally, publish your image to a public repository</b> such as Docker Hub <a href="https://dockerhub.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub Container Registry <a href="https://github.com/features/packages" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or Quay <a href="https://quay.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
         </li>
         <li>
           <b>Submit an issue <a href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Submit+simulator&template=contribute-a-simulator.md&title=" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> to the BioSimulators GitHub repository that describes briefly describes the URL to the specifications of your tool. This will initiate an automated workflow which will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool which must be addressed. The first version of each simulation tool submitted to the BioSimulators registry will also be manually reviewed by the BioSimulators Team prior to incorporation into the BioSimulators registry.

@@ -39,6 +39,17 @@ const routes: Routes = [
     },
   },
   {
+    path: 'standards',
+    loadChildren: () => import('./standards/standards.module').then((m) => m.StandardsModule),
+    data: {
+      breadcrumb: 'Standards',
+      preload: {
+        preload: true,
+        delay: 1000,
+      },
+    },
+  },
+  {
     path: 'help',
     loadChildren: () => import('./help/help.module').then((m) => m.HelpModule),
     data: {
@@ -76,10 +87,11 @@ routes.forEach((route: Route): void => {
     SharedUiModule,
     RoutesModule,
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
-      scrollPositionRestoration: 'disabled',
-      preloadingStrategy: MARKED_PRELOADING_STRATEGY,
-    }),
+    initialNavigation: 'enabled',
+    scrollPositionRestoration: 'disabled',
+    preloadingStrategy: MARKED_PRELOADING_STRATEGY,
+    relativeLinkResolution: 'legacy'
+}),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

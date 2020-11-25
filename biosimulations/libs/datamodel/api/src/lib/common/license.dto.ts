@@ -5,14 +5,18 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LicenseInfo implements ILicenseInfo {
-  @ApiProperty({ enum: License })
+  @ApiProperty({ type: String, enum: License })
   value!: License;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   name!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   version!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: Number })
   swoId!: number;
-  @ApiProperty()
+
+  @ApiProperty({ type: String, format: 'url', })
   url!: string;
 }
