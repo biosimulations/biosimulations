@@ -115,8 +115,8 @@ export class ViewSimulatorService {
       algorithms: viewSimAlgorithms.asObservable(),
       interfaces: sim.interfaceTypes.map((interfaceType: SoftwareInterfaceType): string => {
         return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
-      }),
-      supportedProgrammingLanguages: sim.supportedProgrammingLanguages,
+      }).sort(),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort(),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
@@ -172,7 +172,11 @@ export class ViewSimulatorService {
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
       parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
-      availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes,
+      availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
+        .map((interfaceType: SoftwareInterfaceType): string => {
+          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+        })
+        .sort(),
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -191,7 +195,11 @@ export class ViewSimulatorService {
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
-      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes,
+      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
+        .map((interfaceType: SoftwareInterfaceType): string => {
+          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+        })
+        .sort(),
     };
   }
 

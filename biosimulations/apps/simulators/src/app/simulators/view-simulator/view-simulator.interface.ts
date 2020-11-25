@@ -13,7 +13,7 @@ export interface ViewAlgorithm {
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
   citations: ViewCitation[];
-  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewAlgorithmObservable {
@@ -28,7 +28,7 @@ export interface ViewAlgorithmObservable {
   archiveFormats: Observable<ViewFormat>[];
   parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
-  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export enum DescriptionFragmentType {
@@ -60,7 +60,7 @@ export interface ViewParameter {
   range: (boolean | number | string)[] | null;
   kisaoId: string;
   kisaoUrl: string;
-  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewParameterObservable {
@@ -70,7 +70,7 @@ export interface ViewParameterObservable {
   range: (boolean | number | string | Observable<string>)[] | null;
   kisaoId: string;
   kisaoUrl: string;
-  availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewIdentifier {
