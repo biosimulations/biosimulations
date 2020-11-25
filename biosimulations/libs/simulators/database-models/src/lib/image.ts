@@ -1,8 +1,8 @@
 import {
   IImage,
-  IEdamOntologyId,
+  IEdamOntologyIdVersion,
 } from '@biosimulations/datamodel/common';
-import { EdamOntologyIdSchema } from './ontologyId';
+import { EdamOntologyIdVersionSchema } from './ontologyId';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import isUrl from 'is-url';
 
@@ -27,7 +27,7 @@ export class Image implements IImage {
   url!: string;
 
   @Prop({
-    type: EdamOntologyIdSchema,
+    type: EdamOntologyIdVersionSchema,
     required: true,
     validate: [{
       validator: (value: any): boolean => {
@@ -37,7 +37,7 @@ export class Image implements IImage {
     }],
     default: undefined,
   })
-  format!: IEdamOntologyId;
+  format!: IEdamOntologyIdVersion;
 }
 
 export const ImageSchema = SchemaFactory.createForClass(

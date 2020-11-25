@@ -3,10 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Identifier } from './ontology.dto';
 
 export class Citation implements IJournalReference {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   authors!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   title!: string;
 
   @ApiProperty({
@@ -41,7 +41,7 @@ export class Citation implements IJournalReference {
   })
   pages!: string | null;
 
-  @ApiProperty({ example: 2020 })
+  @ApiProperty({ type: Number, example: 2020 })
   year!: number;
 
   @ApiProperty({

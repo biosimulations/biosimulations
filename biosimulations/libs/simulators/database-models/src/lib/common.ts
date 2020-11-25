@@ -2,10 +2,12 @@ import {
   ExternalReferences as IExternalReferences,
   Identifier,
   Citation as ICitation,
+  UrlType,
 } from '@biosimulations/datamodel/common';
 
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
 import { IdentifierSchema } from './ontologyId';
+import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -106,11 +108,29 @@ export const PersonSchema = SchemaFactory.createForClass(Person);
   useNestedStrict: true,
 })
 class Url {
-  @Prop({ type: String, required: true, default: undefined })
+  @Prop({
+    type: String,
+    required: true,
+    default: undefined,
+    validate: [{
+      validator: isUrl,
+      message: (props: any): string => `${props.value} is not a valid URL`,
+    }],
+  })
   url!: string;
 
-  @Prop({ type: String, required: true, default: undefined })
-  title!: string;
+  @Prop({ type: String, required: false, default: null })
+  title!: string | null;
+
+  @Prop({
+    type: String,
+    enum: Object.entries(UrlType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
+    required: true,
+    default: undefined,
+  })
+  type!: UrlType;
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);

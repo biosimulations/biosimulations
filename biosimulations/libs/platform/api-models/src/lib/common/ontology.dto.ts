@@ -6,13 +6,13 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 export class OntologyTerm implements IOntologyTerm {
-  @ApiProperty({ enum: Ontologies })
+  @ApiProperty({ type: String, enum: Ontologies })
   namespace!: Ontologies;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
   @ApiProperty({ type: String, nullable: true })
@@ -29,10 +29,10 @@ export class OntologyTerm implements IOntologyTerm {
 }
 
 export class Identifier implements IIdentifier {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   namespace!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id!: string;
 
   @ApiProperty({ type: String, format: 'url' })

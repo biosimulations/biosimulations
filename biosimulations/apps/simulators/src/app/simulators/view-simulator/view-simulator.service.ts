@@ -9,6 +9,7 @@ import {
   ViewAlgorithmObservable,
   ViewFramework,
   ViewFormat,
+  ViewFormatObservable,
   ViewParameter,
   ViewParameterObservable,
   ViewAuthor,
@@ -20,7 +21,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { map, pluck, tap } from 'rxjs/operators';
 import {
-  IEdamOntologyId,
+  IEdamOntologyIdVersion,
   ISboOntologyId,
   Identifier,
   Person,
@@ -30,6 +31,8 @@ import {
   AlgorithmParameter,
   AlgorithmParameterType,
   SoftwareInterfaceType,
+  Url,
+  sortUrls,
 } from '@biosimulations/datamodel/common';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
@@ -86,8 +89,7 @@ export class ViewSimulatorService {
       name: sim.name,
       image: sim.image?.url || undefined,
       description: sim.description,
-      url: sim.url,
-      contactUrl: sim.contactUrl,
+      urls: sim.urls.sort(sortUrls),
       authors: this.getAuthors(sim),
       identifiers: sim?.references?.identifiers
         ?.map(this.makeIdentifier, this)
@@ -130,7 +132,21 @@ export class ViewSimulatorService {
           algorithms.sort((a, b) => {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
           });
+          
           algorithms.forEach((algorithm: ViewAlgorithm): void => {
+            algorithm.modelingFrameworks.sort((a: ViewFramework, b: ViewFramework): number => {
+              return a.name.localeCompare(b.name, undefined, { numeric: true });
+            });           
+            algorithm.modelFormats.sort((a: ViewFormat, b: ViewFormat): number => {
+              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
+            });
+            algorithm.simulationFormats.sort((a: ViewFormat, b: ViewFormat): number => {
+              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
+            });
+            algorithm.archiveFormats.sort((a: ViewFormat, b: ViewFormat): number => {
+              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
+            });
+
             algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
                 parameter.type !== AlgorithmParameterType.boolean &&
@@ -168,7 +184,7 @@ export class ViewSimulatorService {
         map(this.formatKisaoDescription)
       ),
       kisaoUrl: kisaoTerm.pipe(pluck('url')),
-      frameworks: value.modelingFrameworks.map(this.getFrameworks, this),
+      modelingFrameworks: value.modelingFrameworks.map(this.getFrameworks, this),
       modelFormats: value.modelFormats.map(this.getFormats, this),
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
@@ -225,15 +241,17 @@ export class ViewSimulatorService {
     return this.ontService.getSboTerm(value.id);
   }
 
-  getFormats(value: IEdamOntologyId): Observable<ViewFormat> {
-    return this.ontService.getEdamTerm(value.id);
+  getFormats(value: IEdamOntologyIdVersion): ViewFormatObservable {
+    return {
+      term: this.ontService.getEdamTerm(value.id),
+      version: value.version,
+    };
   }
 
   setVersionDate(value: Version): ViewVersion {
     return {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
-      url: value.url,
       image: value.image || undefined,
       curationStatus: value.curationStatus,
     };

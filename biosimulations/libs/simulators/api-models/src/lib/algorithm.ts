@@ -5,7 +5,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import {
   Citation,
-  EdamOntologyId,
+  EdamOntologyIdVersion,
   KisaoOntologyId,
   SboOntologyId,
 } from '@biosimulations/datamodel/api';
@@ -14,7 +14,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
 export class Algorithm implements IAlgorithm {
-  @ApiProperty()
+  @ApiProperty({ type: KisaoOntologyId })
   kisaoId!: KisaoOntologyId;
 
   @ApiProperty({ type: [AlgorithmParameter], nullable: true })
@@ -41,17 +41,17 @@ export class Algorithm implements IAlgorithm {
   @ApiProperty({ type: [SboOntologyId] })
   modelingFrameworks!: SboOntologyId[];
 
-  @ApiProperty({ type: [EdamOntologyId] })
-  modelFormats!: EdamOntologyId[];
+  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  modelFormats!: EdamOntologyIdVersion[];
 
-  @ApiProperty({ type: [EdamOntologyId] })
-  simulationFormats!: EdamOntologyId[];
+  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  simulationFormats!: EdamOntologyIdVersion[];
 
-  @ApiProperty({ type: [EdamOntologyId] })
-  archiveFormats!: EdamOntologyId[];
+  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  archiveFormats!: EdamOntologyIdVersion[];
 
   @ApiProperty({
-    type: [SoftwareInterfaceType],
+    type: [String],
     enum: SoftwareInterfaceType,
     description: "List of software interfaces which support the parameter"
   })

@@ -2,7 +2,6 @@ import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import isUrl from 'is-url';
 
 import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
@@ -36,25 +35,14 @@ export class Simulator extends Document {
   @Prop({ type: String, text: true, required: true, default: undefined })
   description!: string;
 
-  @Prop({
-    type: String,
-    required: true,
-    validate: [{
-      validator: isUrl,
-      message: (props: any): string => `${props.value} is not a valid URL`,
-    }],
-    default: undefined,
-  })
-  url!: string;
+  @Prop({ type: [UrlSchema], required: true, default: undefined })
+  urls!: Url[];
 
   @Prop({ type: ImageSchema, required: false, default: undefined })
   image!: IImage | null;
 
   @Prop({ type: [PersonSchema], required: true, default: undefined })
   authors!: Person[];
-
-  @Prop({ type: UrlSchema, required: false, default: undefined })
-  contactUrl!: Url | null;
 
   @Prop({ type: ExternalReferencesSchema, required: true, default: undefined })
   references!: ExternalReferences;

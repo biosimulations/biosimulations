@@ -7,6 +7,7 @@ import {
 
 export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   @ApiProperty({
+    type: String,
     required: true,
     description:
       'The version of the BioSimulators simulator specifications format that the simulator specifications conforms to',

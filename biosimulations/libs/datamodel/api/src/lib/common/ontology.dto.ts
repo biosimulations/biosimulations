@@ -40,13 +40,13 @@ export class OntologyInfo implements IOntologyInfo {
 }
 
 export class OntologyTerm implements IOntologyTerm {
-  @ApiProperty({ enum: Ontologies })
+  @ApiProperty({ type: String, enum: Ontologies })
   namespace!: Ontologies;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
   @ApiProperty({ type: String, nullable: true })
@@ -63,7 +63,7 @@ export class OntologyTerm implements IOntologyTerm {
 }
 
 export class EdamTerm extends EdamOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
   @ApiProperty({ type: String, nullable: true })
@@ -80,10 +80,10 @@ export class EdamTerm extends EdamOntologyId {
 }
 
 export class KisaoTerm extends KisaoOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   description!: string | null;
 
   @ApiProperty({ type: String, format: 'url' })
@@ -97,10 +97,10 @@ export class KisaoTerm extends KisaoOntologyId {
 }
 
 export class SboTerm extends SboOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   description!: string | null;
 
   @ApiProperty({ type: String, format: 'url' })
@@ -114,10 +114,10 @@ export class SboTerm extends SboOntologyId {
 }
 
 export class SioTerm extends SioOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   description!: string | null;
 
   @ApiProperty({ type: String, format: 'url' })
@@ -131,13 +131,13 @@ export class SioTerm extends SioOntologyId {
 }
 
 export class SpdxTerm extends SpdxId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: typeof null, nullable: true })
   description!: null;
 
-  @ApiProperty()
+  @ApiProperty({ type: typeof null, nullable: true })
   iri!: null;
 
   @ApiProperty({ type: String, format: 'url' })
@@ -148,10 +148,10 @@ export class SpdxTerm extends SpdxId {
 }
 
 export class Identifier implements IIdentifier {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   namespace!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id!: string;
 
   @ApiProperty({ type: String, format: 'url' })

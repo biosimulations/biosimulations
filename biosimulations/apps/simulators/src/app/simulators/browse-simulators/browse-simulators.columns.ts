@@ -409,11 +409,11 @@ export const columns: Column[] = [
     id: 'moreInfo',
     heading: 'Docs',
     key: 'url',
-    formatter: (url: string): null => {
+    formatter: (url: string | null): null => {
       return null;
     },
-    stackedFormatter: (url: string): string => {
-      return url;
+    stackedFormatter: (url: string | null): string => {
+      return url || '';
     },
     rightIcon: 'tutorial',
     rightIconTitle: (element: TableSimulator): string => {
@@ -421,10 +421,10 @@ export const columns: Column[] = [
     },
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
-    centerHref: (element: TableSimulator): string => {
+    centerHref: (element: TableSimulator): string | null => {
       return element.url;
     },
-    rightHref: (element: TableSimulator): string => {
+    rightHref: (element: TableSimulator): string | null => {
       return element.url;
     },
     rightShowStacked: false,

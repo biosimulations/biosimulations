@@ -8,7 +8,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AlgorithmParameter implements IAlgorithmParameter {
-  @ApiProperty()
+  @ApiProperty({ type: KisaoOntologyId })
   kisaoId!: KisaoOntologyId;
 
   @ApiProperty({
@@ -30,6 +30,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   name!: string | null;
 
   @ApiProperty({
+    type: String,
     enum: AlgorithmParameterType,
   })
   type!: AlgorithmParameterType;
@@ -49,7 +50,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   recommendedRange!: string[] | null;
 
   @ApiProperty({
-    type: [SoftwareInterfaceType],
+    type: [String],
     enum: SoftwareInterfaceType,
     description: "List of software interfaces which support the parameter"
   })

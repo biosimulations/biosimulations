@@ -145,25 +145,13 @@
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" *ngIf="simulator?.urls?.length > 0">
           <h3>More info</h3>
           <div class="section-content">
             <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="home"></biosimulations-icon>
-                <a [href]="simulator.url" target="_blank" class="text">{{ simulator.url }}</a>
-              </li>              
-            </ul>
-          </div>
-        </div>
-
-        <div class="section" *ngIf="simulator.contactUrl">
-          <h3>Contact info</h3>
-          <div class="section-content">
-            <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="contact"></biosimulations-icon>
-                <a [href]="simulator.contactUrl.url" target="_blank" class="text">{{ simulator.contactUrl.title }}</a>
+              <li *ngFor="let url of simulator.urls">
+                <biosimulations-icon icon="link"></biosimulations-icon>
+                <a [href]="url.url" target="_blank" class="text">{{ url.title || url.type }}</a>
               </li>
             </ul>
           </div>
@@ -262,9 +250,9 @@
                 </p>
                 <ul
                   class="icon-list"
-                  *ngIf="algorithm?.frameworks.length > 0; else noFrameworksMessage"
+                  *ngIf="algorithm?.modelingFrameworks.length > 0; else noFrameworksMessage"
                 >
-                  <li *ngFor="let framework of algorithm.frameworks">
+                  <li *ngFor="let framework of algorithm.modelingFrameworks">
                     <ng-container *ngIf="framework as framework">
                       <biosimulations-icon icon="simulator"></biosimulations-icon>
                       <a [href]="framework.url" target="_blank">{{
@@ -288,7 +276,7 @@
                   <li *ngFor="let format of algorithm.modelFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>
@@ -306,7 +294,7 @@
                   <li *ngFor="let format of algorithm.simulationFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>
@@ -324,7 +312,7 @@
                   <li *ngFor="let format of algorithm.archiveFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>

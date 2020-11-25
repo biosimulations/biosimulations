@@ -2,13 +2,13 @@ import { Format as IFormat } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
 
 export class Format implements IFormat {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   version!: string;
 
   @ApiProperty({ type: String, nullable: true })

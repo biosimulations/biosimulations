@@ -2,6 +2,7 @@ import {
   IOntologyId,
   Ontologies,
   IEdamOntologyId,
+  IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
@@ -23,13 +24,14 @@ import isUrl from 'is-url';
   useNestedStrict: true,
 })
 class Identifier implements IIdentifier {
-  @Prop({ required: true, default: undefined })
+  @Prop({ type: String, required: true, default: undefined })
   namespace!: string;
 
-  @Prop({ required: true, default: undefined })
+  @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
   @Prop({
+    type: String,
     required: true,
     validate: [{
       validator: isUrl,
@@ -56,7 +58,7 @@ class OntologyId implements IOntologyId {
   })
   namespace!: Ontologies;
 
-  @Prop({ required: true, default: undefined })
+  @Prop({ type: String, required: true, default: undefined })
   id!: string;
 }
 export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
@@ -72,6 +74,7 @@ class EdamOntologyId implements IEdamOntologyId {
   namespace!: Ontologies.EDAM;
 
   @Prop({
+    type: String,
     required: true,
     validate: [
       {
@@ -87,8 +90,44 @@ class EdamOntologyId implements IEdamOntologyId {
   })
   id!: string;
 }
+
 export const EdamOntologyIdSchema = SchemaFactory.createForClass(
   EdamOntologyId
+);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
+  @Prop({ type: String, required: true, enum: [Ontologies.EDAM], default: undefined })
+  namespace!: Ontologies.EDAM;
+
+  @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: EdamFormatIdRegEx,
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
+      },
+      {
+        validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.EDAM, value),
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
+      },
+    ],
+    default: undefined,
+  })
+  id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  version!: string | null;
+}
+
+export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
+  EdamOntologyIdVersion
 );
 
 @Schema({
@@ -142,6 +181,7 @@ class SboOntologyId implements ISboOntologyId {
   namespace!: Ontologies.SBO;
 
   @Prop({
+    type: String,
     required: true,
     validate: [
       { 
@@ -170,6 +210,7 @@ class SioOntologyId implements ISioOntologyId {
   namespace!: Ontologies.SIO;
 
   @Prop({
+    type: String,
     required: true,
     validate: [
       { 

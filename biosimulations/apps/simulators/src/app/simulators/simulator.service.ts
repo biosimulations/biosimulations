@@ -11,7 +11,6 @@ export interface Version {
   version: string;
   created: Date;
   image?: string;
-  url?: string;
   curationStatus: string;
 }
 
@@ -65,7 +64,6 @@ export class SimulatorService {
               version: sim.version,
               image: sim.image?.url || undefined,
               created: sim.biosimulators.created,
-              url: sim.url,
               curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim), false),
             });
           }
