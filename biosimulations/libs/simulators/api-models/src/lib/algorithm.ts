@@ -14,7 +14,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
 export class Algorithm implements IAlgorithm {
-  @ApiProperty()
+  @ApiProperty({ type: KisaoOntologyId })
   kisaoId!: KisaoOntologyId;
 
   @ApiProperty({ type: [AlgorithmParameter], nullable: true })
@@ -51,7 +51,7 @@ export class Algorithm implements IAlgorithm {
   archiveFormats!: EdamOntologyId[];
 
   @ApiProperty({
-    type: [SoftwareInterfaceType],
+    type: [String],
     enum: SoftwareInterfaceType,
     description: "List of software interfaces which support the parameter"
   })

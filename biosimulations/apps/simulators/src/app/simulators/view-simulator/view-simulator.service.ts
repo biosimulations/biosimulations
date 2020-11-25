@@ -30,6 +30,8 @@ import {
   AlgorithmParameter,
   AlgorithmParameterType,
   SoftwareInterfaceType,
+  Url,
+  sortUrls,
 } from '@biosimulations/datamodel/common';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
@@ -86,8 +88,7 @@ export class ViewSimulatorService {
       name: sim.name,
       image: sim.image?.url || undefined,
       description: sim.description,
-      url: sim.url,
-      contactUrl: sim.contactUrl,
+      urls: sim.urls.sort(sortUrls),
       authors: this.getAuthors(sim),
       identifiers: sim?.references?.identifiers
         ?.map(this.makeIdentifier, this)
@@ -233,7 +234,6 @@ export class ViewSimulatorService {
     return {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
-      url: value.url,
       image: value.image || undefined,
       curationStatus: value.curationStatus,
     };

@@ -9,7 +9,7 @@ export class Person implements IPerson {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   middleName!: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   lastName!: string;
 
   @ApiProperty({ type: [Identifier] })

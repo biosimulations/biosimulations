@@ -1,4 +1,5 @@
 import { Schema, SchemaType } from 'mongoose';
+import { Url, UrlType } from './common/url';
 
 interface PathOptions {
   readOnly: boolean;
@@ -98,4 +99,28 @@ export function addValidationForNullableAttributes(schema: Schema): void {
     })
     next();
   });
+}
+
+export function sortUrls(a: Url, b: Url): number {
+  if (a.type === b.type) {
+    return 0;
+  }
+
+  let aVal: number = 0;
+  let bVal: number = 0;
+  for (const [val, label] of Object.entries(UrlType)) {
+    if (label === a.type) {
+      aVal = parseInt(val.substring(5));
+    }
+
+    if (label === b.type) {
+      bVal = parseInt(val.substring(5));
+    }
+  }
+
+  if (aVal < bVal) {
+    return -1;
+  } else {
+    return 1;
+  }
 }

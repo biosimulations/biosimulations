@@ -4,7 +4,7 @@ import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
 import { OntologyService } from '../ontology.service';
-import { SoftwareInterfaceType } from '@biosimulations/datamodel/common';
+import { SoftwareInterfaceType, sortUrls } from '@biosimulations/datamodel/common';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { UtilsService } from '@biosimulations/shared/services';
 
@@ -89,7 +89,7 @@ export class SimulatorTableService {
                       id: simulator.id,
                       name: simulator.name,
                       latestVersion: simulator.version,
-                      url: simulator.url,
+                      url: simulator.urls.sort(sortUrls)?.[0]?.url || null,
                       updated: new Date(simulator.biosimulators.updated),
                       licenseId: simulator.license ? simulator.license.id : null,
                       frameworks: value.frameworks,

@@ -15,18 +15,19 @@ import { AttributesMetadata, ResourceMetadata } from './metadata.dto';
 
 export class ModelParameter implements BiomodelParameter {
   @ApiProperty({
+    type: String,
     // tslint:disable-next-line: quotemark
     example: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='N' ",
   })
   target!: string;
 
-  @ApiProperty({ example: 'Species amounts/concentrations' })
+  @ApiProperty({ type: String, example: 'Species amounts/concentrations' })
   group!: string;
 
-  @ApiProperty({ example: 'N' })
+  @ApiProperty({ type: String, example: 'N' })
   id!: string;
 
-  @ApiProperty({ example: 'Nitrogen', nullable: true, required: false, default: null })
+  @ApiProperty({ type: String, example: 'Nitrogen', nullable: true, required: false, default: null })
   name!: string | null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null,
@@ -37,6 +38,7 @@ export class ModelParameter implements BiomodelParameter {
   identifiers!: Identifier[];
 
   @ApiProperty({
+    type: String,
     enum: ['string', 'boolean', 'integer', 'float'],
     enumName: 'AlgorithmParameterType',
     example: 'float',
@@ -59,18 +61,18 @@ export class ModelParameter implements BiomodelParameter {
   })
   recommendedRange!: string[] | null;
 
-  @ApiProperty({ example: 'mole / liter' })
+  @ApiProperty({ type: String, example: 'mole / liter' })
   units!: string;
 }
 
 export class ModelVariable implements BiomodelVariable {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   target!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   group!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id!: string;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
@@ -80,12 +82,13 @@ export class ModelVariable implements BiomodelVariable {
   description!: string | null;
 
   @ApiProperty({
-    enum: ['string', 'boolean', 'integer', 'float'],
+    type: String,
+    enum: AlgorithmParameterType,
     example: 'float',
   })
   type!: AlgorithmParameterType;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   units!: string;
 
   @ApiProperty({ type: [Identifier] })
@@ -102,12 +105,12 @@ export class ModelAttributes implements BiomodelAttributes {
   @ApiProperty({ type: [ModelVariable] })
   variables!: ModelVariable[];
 
-  @ApiProperty()
+  @ApiProperty({ type: OntologyTerm })
   framework!: OntologyTerm;
 
-  @ApiProperty()
+  @ApiProperty({ type: Format })
   format!: Format;
 
-  @ApiProperty()
+  @ApiProperty({ type: AttributesMetadata })
   metadata!: AttributesMetadata;
 }

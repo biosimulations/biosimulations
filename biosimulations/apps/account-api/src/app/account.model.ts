@@ -48,7 +48,7 @@ export class Profile {
   @IsString()
   summary: string | null = null;
 
-  @ApiProperty({})
+  @ApiProperty({ type: Array })
   externalProfiles: any[] | null = [];
 
   @ApiProperty({ type: [String], nullable: true })
@@ -71,12 +71,12 @@ export interface AccountDTO {
 export class Account {
   @ApiProperty({ type: String })
   @IsString()
-  @prop({ required: true })
+  @prop({ type: String, required: true })
   _id: string;
 
   @ApiProperty({ type: String })
   @IsString()
-  @prop({ required: true, unique: true })
+  @prop({ type: String, required: true, unique: true })
   username: string;
 
   @ApiProperty({ type: () => Profile, nullable: true })
@@ -86,11 +86,11 @@ export class Account {
   // The date that the terms were accepted in seconds from epoch
   @ApiProperty({ type: Number })
   @IsString()
-  @prop({ required: true })
+  @prop({ type: Number, required: true })
   termsAcceptedOn: number;
 
   @IsBoolean()
-  @prop({ required: true })
+  @prop({ type: Boolean, required: true })
   admin: boolean;
 
   constructor(account: AccountDTO) {

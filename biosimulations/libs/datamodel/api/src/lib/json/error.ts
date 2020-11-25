@@ -2,37 +2,47 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { MetaObject } from './meta';
 
 export class AboutLinksObject {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: String })
   about!: string;
 }
 export class ErrorSourceObject {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: String })
   pointer?: string;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: String })
   parameter?: string;
 }
 
 export class ErrorObject {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: String })
   id?: string;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: AboutLinksObject })
   links?: AboutLinksObject;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: String })
   status?: string;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: String })
   code?: string;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: String })
   title?: string;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: String })
   detail?: string;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: ErrorSourceObject })
   source?: ErrorSourceObject;
-  @ApiPropertyOptional()
+
+  @ApiPropertyOptional({ type: Object })
   meta?: MetaObject;
 }
+
 export class ErrorResponseDocument {
   @ApiProperty({ type: [ErrorObject] })
   error!: ErrorObject[];
-  @ApiProperty()
+
+  @ApiProperty({ type: Object })
   meta?: MetaObject;
 }
