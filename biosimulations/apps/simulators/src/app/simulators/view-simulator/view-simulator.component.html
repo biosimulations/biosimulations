@@ -250,9 +250,9 @@
                 </p>
                 <ul
                   class="icon-list"
-                  *ngIf="algorithm?.frameworks.length > 0; else noFrameworksMessage"
+                  *ngIf="algorithm?.modelingFrameworks.length > 0; else noFrameworksMessage"
                 >
-                  <li *ngFor="let framework of algorithm.frameworks">
+                  <li *ngFor="let framework of algorithm.modelingFrameworks">
                     <ng-container *ngIf="framework as framework">
                       <biosimulations-icon icon="simulator"></biosimulations-icon>
                       <a [href]="framework.url" target="_blank">{{
@@ -276,7 +276,7 @@
                   <li *ngFor="let format of algorithm.modelFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>
@@ -294,7 +294,7 @@
                   <li *ngFor="let format of algorithm.simulationFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>
@@ -312,7 +312,7 @@
                   <li *ngFor="let format of algorithm.archiveFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.url" target="_blank">{{ format.name }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
                     </ng-container>
                   </li>
                 </ul>

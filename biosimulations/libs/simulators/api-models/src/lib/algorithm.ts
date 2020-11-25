@@ -5,7 +5,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import {
   Citation,
-  EdamOntologyId,
+  EdamOntologyIdVersion,
   KisaoOntologyId,
   SboOntologyId,
 } from '@biosimulations/datamodel/api';
@@ -41,14 +41,14 @@ export class Algorithm implements IAlgorithm {
   @ApiProperty({ type: [SboOntologyId] })
   modelingFrameworks!: SboOntologyId[];
 
-  @ApiProperty({ type: [EdamOntologyId] })
-  modelFormats!: EdamOntologyId[];
+  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  modelFormats!: EdamOntologyIdVersion[];
 
-  @ApiProperty({ type: [EdamOntologyId] })
-  simulationFormats!: EdamOntologyId[];
+  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  simulationFormats!: EdamOntologyIdVersion[];
 
-  @ApiProperty({ type: [EdamOntologyId] })
-  archiveFormats!: EdamOntologyId[];
+  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  archiveFormats!: EdamOntologyIdVersion[];
 
   @ApiProperty({
     type: [String],

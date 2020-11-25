@@ -1,6 +1,6 @@
 import {
   IAlgorithm,
-  IEdamOntologyId,
+  IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
   SoftwareInterfaceType,
@@ -9,7 +9,7 @@ import { Citation } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import {
-  EdamOntologyIdSchema,
+  EdamOntologyIdVersionSchema,
   KisaoOntologyIdSchema,
   SboOntologyIdSchema,
 } from './ontologyId';
@@ -50,14 +50,14 @@ export class Algorithm implements IAlgorithm {
   @Prop({ type: [SboOntologyIdSchema], _id: false, required: true, default: undefined })
   modelingFrameworks!: ISboOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true, default: undefined })
-  modelFormats!: IEdamOntologyId[];
+  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  modelFormats!: IEdamOntologyIdVersion[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true, default: undefined })
-  simulationFormats!: IEdamOntologyId[];
+  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  simulationFormats!: IEdamOntologyIdVersion[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false, required: true, default: undefined })
-  archiveFormats!: IEdamOntologyId[];
+  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  archiveFormats!: IEdamOntologyIdVersion[];
 
   @Prop({
     type: [String],

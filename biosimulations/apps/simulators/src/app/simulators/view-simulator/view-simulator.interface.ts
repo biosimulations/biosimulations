@@ -7,7 +7,7 @@ export interface ViewAlgorithm {
   name: string;
   description: DescriptionFragment[] | null;
   kisaoUrl: string;
-  frameworks: ViewFramework[];
+  modelingFrameworks: ViewFramework[];
   modelFormats: ViewFormat[];
   simulationFormats: ViewFormat[];
   archiveFormats: ViewFormat[];
@@ -22,10 +22,10 @@ export interface ViewAlgorithmObservable {
   name: Observable<string>;
   description: Observable<DescriptionFragment[]| null>;
   kisaoUrl: Observable<string>;
-  frameworks: Observable<ViewFramework>[];
-  modelFormats: Observable<ViewFormat>[];
-  simulationFormats: Observable<ViewFormat>[];
-  archiveFormats: Observable<ViewFormat>[];
+  modelingFrameworks: Observable<ViewFramework>[];
+  modelFormats: ViewFormatObservable[];
+  simulationFormats: ViewFormatObservable[];
+  archiveFormats: ViewFormatObservable[];
   parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
@@ -48,6 +48,16 @@ export interface ViewFramework {
 }
 
 export interface ViewFormat {
+  term: ViewFormatTerm,
+  version: string | null;
+}
+
+export interface ViewFormatObservable {
+  term: Observable<ViewFormatTerm>,
+  version: string | null;
+}
+
+export interface ViewFormatTerm {
   id: string;
   name: string;
   url: string;

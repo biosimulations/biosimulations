@@ -2,6 +2,7 @@ import {
   IOntologyId,
   Ontologies,
   IEdamOntologyId,
+  IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
@@ -92,6 +93,41 @@ class EdamOntologyId implements IEdamOntologyId {
 
 export const EdamOntologyIdSchema = SchemaFactory.createForClass(
   EdamOntologyId
+);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
+  @Prop({ type: String, required: true, enum: [Ontologies.EDAM], default: undefined })
+  namespace!: Ontologies.EDAM;
+
+  @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: EdamFormatIdRegEx,
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
+      },
+      {
+        validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.EDAM, value),
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
+      },
+    ],
+    default: undefined,
+  })
+  id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  version!: string | null;
+}
+
+export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
+  EdamOntologyIdVersion
 );
 
 @Schema({

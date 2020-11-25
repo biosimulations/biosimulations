@@ -2,6 +2,7 @@ import {
   IOntologyId,
   Ontologies,
   IEdamOntologyId,
+  IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
@@ -23,6 +24,17 @@ export class EdamOntologyId implements IEdamOntologyId {
 
   @ApiProperty({ type: String, example: 'format_3973' })
   id!: string;
+}
+
+export class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
+  @ApiProperty({ type: String, enum: ['EDAM'] })
+  namespace!: Ontologies.EDAM;
+
+  @ApiProperty({ type: String, example: 'format_3973' })
+  id!: string;
+
+  @ApiProperty({ type: String, example: 'L3V2', nullable: true })
+  version!: string | null;
 }
 
 export class KisaoOntologyId implements IKisaoOntologyId {
