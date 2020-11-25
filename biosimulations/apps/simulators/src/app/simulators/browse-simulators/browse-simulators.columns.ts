@@ -58,7 +58,7 @@ export const columns: Column[] = [
       return names.join(', ');
     },
     filterFormatter: (name: string): string => {
-      return name;
+      return name.substring(0, 1).toUpperCase() + name.substring(1);
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
       return RowService.comparator(
@@ -277,15 +277,32 @@ export const columns: Column[] = [
     id: 'interfaceTypes',
     heading: 'Interfaces',
     key: 'interfaceTypes',
+    formatter: (value: string[] | string): string => {
+      if (Array.isArray(value)) {
+        return value.join(', ');
+      } else {
+        return value;
+      }
+    },
+    filterFormatter: (value: string): string => {
+      return value.substring(0, 1).toUpperCase() + value.substring(1);
+    },
     filterable: true,
     showFilterItemToolTips: false,
     show: false,
-    minWidth: 92,
+    minWidth: 180,
   },
   {
     id: 'supportedProgrammingLanguages',
     heading: 'Languages',
     key: 'supportedProgrammingLanguages',
+    formatter: (value: string[] | string): string => {
+      if (Array.isArray(value)) {
+        return value.join(', ');
+      } else {
+        return value;
+      }
+    },
     filterable: true,
     showFilterItemToolTips: false,
     show: false,
@@ -322,9 +339,9 @@ export const columns: Column[] = [
     showFilterItemToolTips: true,
   },
   {
-    id: 'created',
-    heading: 'Created',
-    key: 'created',
+    id: 'updated',
+    heading: 'Updated',
+    key: 'updated',
     formatter: (value: Date): string => {
       return (
         value.getFullYear().toString() +
