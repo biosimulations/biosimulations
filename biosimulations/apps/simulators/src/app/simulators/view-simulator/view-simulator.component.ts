@@ -85,6 +85,12 @@ export class ViewSimulatorComponent implements OnInit {
       filterable: false,
     },
     {
+      id: 'availableSoftwareInterfaceTypes',
+      heading: 'Availability',
+      key: 'availableSoftwareInterfaceTypes',
+      minWidth: 163,
+    },
+    {
       id: 'kisaoId',
       heading: 'KiSAO id',
       key: 'kisaoId',

@@ -1,31 +1,34 @@
 import { Observable } from 'rxjs';
+import { Url, SoftwareInterfaceType } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
-  id: string;
+  kisaoId: string;
   heading: string;
   name: string;
-  description: DescriptionFragment[];
-  url: string;
+  description: DescriptionFragment[] | null;
+  kisaoUrl: string;
   frameworks: ViewFramework[];
   modelFormats: ViewFormat[];
   simulationFormats: ViewFormat[];
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
   citations: ViewCitation[];
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewAlgorithmObservable {
-  id: string;
+  kisaoId: string;
   heading: Observable<string>;
   name: Observable<string>;
-  description: Observable<DescriptionFragment[]>;
-  url: Observable<string>;
+  description: Observable<DescriptionFragment[]| null>;
+  kisaoUrl: Observable<string>;
   frameworks: Observable<ViewFramework>[];
   modelFormats: Observable<ViewFormat>[];
   simulationFormats: Observable<ViewFormat>[];
   archiveFormats: Observable<ViewFormat>[];
   parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export enum DescriptionFragmentType {
@@ -51,28 +54,28 @@ export interface ViewFormat {
 }
 
 export interface ViewParameter {
-  id: string;
   name: string;
   type: string;
   value: boolean | number | string | null;
   range: (boolean | number | string)[] | null;
   kisaoId: string;
   kisaoUrl: string;
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewParameterObservable {
-  id: string;
   name: Observable<string>;
   type: string;
   value: boolean | number | string | Observable<string> | null;
   range: (boolean | number | string | Observable<string>)[] | null;
   kisaoId: string;
   kisaoUrl: string;
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewIdentifier {
   text: string;
-  url: string | null;
+  url: string;
 }
 
 export interface ViewCitation {
@@ -88,6 +91,11 @@ export interface ViewVersion {
   curationStatus: string;
 }
 
+export interface ViewAuthor {
+  name: string;
+  orcidUrl: string | null;
+}
+
 export interface ViewSimulator {
   _json: string;
   id: string;
@@ -96,12 +104,15 @@ export interface ViewSimulator {
   description: string | null;
   image?: string;
   url: string;
+  contactUrl: Url | null;
   licenseUrl: Observable<string> | null;
   licenseName: Observable<string> | null;
-  authors: string | null;
+  authors: ViewAuthor[];
   identifiers: ViewIdentifier[];
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
+  interfaces: string[];
+  supportedProgrammingLanguages: string[];
   versions: Observable<ViewVersion[]>;
   curationStatus: string;
   created: string;

@@ -11,6 +11,7 @@ import {
   ViewFormat,
   ViewParameter,
   ViewParameterObservable,
+  ViewAuthor,
   DescriptionFragment,
   DescriptionFragmentType,
 } from './view-simulator.interface';
@@ -21,11 +22,14 @@ import { map, pluck, tap } from 'rxjs/operators';
 import {
   IEdamOntologyId,
   ISboOntologyId,
+  Identifier,
+  Person,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
   AlgorithmParameter,
   AlgorithmParameterType,
+  SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
@@ -35,13 +39,16 @@ export class ViewSimulatorService {
     private simService: SimulatorService,
     private ontService: OntologyService
   ) {}
+
   getVersions(simulatorId: string) {}
+
   getLatest(simulatorId: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
     );
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
   }
+
   getVersion(simulatorId: string, version: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getOneByVersion(
       simulatorId,
@@ -80,6 +87,7 @@ export class ViewSimulatorService {
       image: sim.image?.url || undefined,
       description: sim.description,
       url: sim.url,
+      contactUrl: sim.contactUrl,
       authors: this.getAuthors(sim),
       identifiers: sim?.references?.identifiers
         ?.map(this.makeIdentifier, this)
@@ -94,7 +102,7 @@ export class ViewSimulatorService {
           map((name: string) =>
             name.replace(/\bLicense\b/, '').replace('  ', ' ')
           )
-        ) 
+        )
         : null,
       licenseUrl: sim.license
         ? this.ontService
@@ -105,9 +113,13 @@ export class ViewSimulatorService {
         .getVersions(sim.id)
         .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
+      interfaces: sim.interfaceTypes.map((interfaceType: SoftwareInterfaceType): string => {
+        return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+      }).sort(),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort(),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
-      created: this.getDateStr(new Date(sim.created)),
-      updated: this.getDateStr(new Date(sim.updated)),
+      created: this.getDateStr(new Date(sim.biosimulators.created)),
+      updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
 
     const unresolvedAlgorithms = sim.algorithms.filter((alg: Algorithm) => { return !!alg.kisaoId; }).map(this.mapAlgorithms, this);
@@ -144,7 +156,7 @@ export class ViewSimulatorService {
     const kisaoName = kisaoTerm.pipe(pluck('name'));
 
     return {
-      id: value.kisaoId.id,
+      kisaoId: value.kisaoId.id,
 
       name: kisaoName,
       heading: kisaoName.pipe(
@@ -154,22 +166,27 @@ export class ViewSimulatorService {
         pluck('description'),
         map(this.formatKisaoDescription)
       ),
-      url: kisaoTerm.pipe(pluck('url')),
+      kisaoUrl: kisaoTerm.pipe(pluck('url')),
       frameworks: value.modelingFrameworks.map(this.getFrameworks, this),
       modelFormats: value.modelFormats.map(this.getFormats, this),
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
       parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
+      availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
+        .map((interfaceType: SoftwareInterfaceType): string => {
+          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+        })
+        .sort(),
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
     };
   }
+
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
     return {
-      id: parameter.id,
       name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
       value: this.parseParameterVal(parameter.type, parameter.value),
@@ -178,6 +195,11 @@ export class ViewSimulatorService {
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
+      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
+        .map((interfaceType: SoftwareInterfaceType): string => {
+          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+        })
+        .sort(),
     };
   }
 
@@ -204,9 +226,11 @@ export class ViewSimulatorService {
   getFrameworks(value: ISboOntologyId): Observable<ViewFramework> {
     return this.ontService.getSboTerm(value.id);
   }
+
   getFormats(value: IEdamOntologyId): Observable<ViewFormat> {
     return this.ontService.getEdamTerm(value.id);
   }
+
   setVersionDate(value: Version): ViewVersion {
     return {
       label: value.version,
@@ -216,13 +240,10 @@ export class ViewSimulatorService {
       curationStatus: value.curationStatus,
     };
   }
-  getAuthors(simulator: Simulator): string | null {
-    const authors = simulator?.authors?.map(
-      (author: {
-        lastName: string;
-        middleName: string | null;
-        firstName: string;
-      }) => {
+
+  getAuthors(simulator: Simulator): ViewAuthor[] {
+    return simulator?.authors?.map(
+      (author: Person): ViewAuthor => {
         let name = author.lastName;
         if (author.middleName) {
           name = author.middleName + ' ' + name;
@@ -230,27 +251,25 @@ export class ViewSimulatorService {
         if (author.firstName) {
           name = author.firstName + ' ' + name;
         }
-        return name;
+
+        let orcidUrl: string | null = null;
+        for (const identifier of author.identifiers) {
+          if (identifier.namespace === "orcid") {
+            orcidUrl = identifier.url
+          }
+        }
+
+        return { name, orcidUrl };
       }
     );
-    if (!authors) {
+  }
+
+  formatKisaoDescription(value: string | null): DescriptionFragment[] | null {
+    if (value == null) {
       return null;
     }
-    switch (authors.length) {
-      case 0:
-        return null;
 
-      case 1:
-        return authors[0];
-
-      default:
-        return (
-          authors.slice(0, -1).join(', ') + ' & ' + authors[authors.length - 1]
-        );
-    }
-  }
-  formatKisaoDescription(value: string): DescriptionFragment[] {
-    const formattedValue = [];
+    const formattedValue: DescriptionFragment[] = [];
     let prevEnd = 0;
 
     const regExp = /\[(https?:\/\/.*?)\]/gi;
@@ -276,12 +295,14 @@ export class ViewSimulatorService {
     }
     return formattedValue;
   }
-  makeIdentifier(identifier: any): ViewIdentifier {
+
+  makeIdentifier(identifier: Identifier): ViewIdentifier {
     return {
       text: identifier.namespace + ':' + identifier.id,
       url: this.getIdentifierUrl(identifier),
     };
   }
+
   makeCitation(citation: any): ViewCitation {
     let text = citation.authors + '. ' + citation.title;
     if (citation.journal) {
@@ -309,28 +330,11 @@ export class ViewSimulatorService {
       url: url,
     };
   }
-  getIdentifierUrl(identifier: any): string | null {
-    const url = (identifier?.url as string) || null;
-    if (url) {
-      return url;
-    }
 
-    const namespace = identifier.namespace;
-    const id = identifier.id;
-    switch (namespace.toLowerCase()) {
-      case 'doi':
-        return 'https://doi.org/' + id;
-        break;
-      case 'isbn':
-        return 'https://isbndb.com/book/' + id;
-        break;
-      case 'url':
-        return id;
-        break;
-      default:
-        return 'https://identifiers.org/' + namespace + '/' + id;
-    }
+  getIdentifierUrl(identifier: Identifier): string {
+    return identifier.url;
   }
+
   getDateStr(date: Date): string {
     return (
       date.getFullYear().toString() +

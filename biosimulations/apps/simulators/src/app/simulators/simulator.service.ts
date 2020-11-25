@@ -64,7 +64,7 @@ export class SimulatorService {
             versions.push({
               version: sim.version,
               image: sim.image?.url || undefined,
-              created: sim.created,
+              created: sim.biosimulators.created,
               url: sim.url,
               curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim), false),
             });

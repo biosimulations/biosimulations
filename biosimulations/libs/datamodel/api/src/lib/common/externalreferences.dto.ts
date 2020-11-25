@@ -6,6 +6,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class ExternalReferences implements IExternalReferences {
   @ApiProperty({ type: [Identifier] })
   identifiers!: Identifier[];
+
   @ApiProperty({ type: [Citation] })
   citations!: Citation[];
 }

@@ -11,6 +11,7 @@ export type biosimulationsIcon =
   | 'help'
   | 'tutorial'
   | 'info'
+  | 'contact'
   | 'legal'
   | 'policy'
   | 'comment'
@@ -53,6 +54,7 @@ export type biosimulationsIcon =
   | 'format'
   | 'standard'
   | 'code'
+  | 'softwareInterface'
   | 'license'
   | 'id'
   | 'tag'
@@ -123,6 +125,7 @@ export class IconComponent implements OnInit {
     help: { type: 'fas', name: 'question-circle' },
     tutorial: { type: 'fas', name: 'book-open' },
     info: { type: 'fas', name: 'info-circle' },
+    contact: { type: 'fas', name: 'comment-dots' },
     legal: { type: 'fas', name: 'balance-scale' },
     policy: { type: 'fas', name: 'shield-alt' },
     comment: { type: 'fas', name: 'comment-dots' },
@@ -154,6 +157,7 @@ export class IconComponent implements OnInit {
     format: { type: 'far', name: 'file-alt' },
     standard: { type: 'fas', name: 'check-double' },
     code: { type: 'fas', name: 'code' },
+    softwareInterface: { type: 'fas', name: 'keyboard' },
     license: { type: 'fas', name: 'balance-scale' },
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },

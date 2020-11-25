@@ -4,10 +4,12 @@
     "version": "2.1.6",
     "description": "Tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.",
     "url": "http://tellurium.analogmachine.org/",
-    "image": "ghcr.io/biosimulators/biosimulators_tellurium/tellurium:2.1.6",
-    "format": {
-        "namespace": "EDAM",
-        "id": "format_3973"
+    "image": {
+        "url": "ghcr.io/biosimulators/biosimulators_tellurium/tellurium:2.1.6",
+        "format": {
+            "namespace": "EDAM",
+            "id": "format_3973"
+        }
     },
     "authors": [{
             "firstName": "Jayit",
@@ -475,7 +477,7 @@
         }
     ],
     "biosimulators": {
-        "schemaVersion": "1.0.0",
+        "specificationVersion": "1.0.0",
         "imageVersion": "1.0.0",
         "validated": false
     }

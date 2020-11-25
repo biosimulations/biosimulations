@@ -4,12 +4,12 @@ import { AlgorithmParameterType } from '@biosimulations/datamodel/common';
 
 export class AlgorithmParameter
   implements JsonSerializable<AlgorithmParameterDTO> {
-  name: string;
+  name: string | null;
   id: string;
-  value: number | boolean | string;
+  value: string | null;
   kisaoId: string | null;
   type: AlgorithmParameterType;
-  recommendedRange: (boolean | string | number)[] | null;
+  recommendedRange: string[] | null;
   constructor(data: AlgorithmParameterDTO) {
     this.name = data.name;
     this.id = data.id;

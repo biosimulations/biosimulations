@@ -12,12 +12,12 @@ export interface BiomodelParameter {
   target: string;
   group: string;
   id: string;
-  name: string;
+  name: string | null;
   description: string | null;
   identifiers: Identifier[];
   type: AlgorithmParameterType;
-  value: number | string | boolean;
-  recommendedRange: (boolean | string | number)[];
+  value: string | null;
+  recommendedRange: string[] | null;
   units: string;
 }
 
@@ -29,8 +29,8 @@ export interface BiomodelVariable {
   target: string;
   group: string;
   id: string;
-  name: string;
-  description: string;
+  name: string | null;
+  description: string | null;
   type: AlgorithmParameterType;
   units: string;
   identifiers: Identifier[];

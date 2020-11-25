@@ -4,6 +4,7 @@ import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
 import { OntologyService } from '../ontology.service';
+import { SoftwareInterfaceType } from '@biosimulations/datamodel/common';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { UtilsService } from '@biosimulations/shared/services';
 
@@ -89,7 +90,7 @@ export class SimulatorTableService {
                       name: simulator.name,
                       latestVersion: simulator.version,
                       url: simulator.url,
-                      created: new Date(simulator.created),
+                      created: new Date(simulator.biosimulators.created),
                       licenseId: simulator.license ? simulator.license.id : null,
                       frameworks: value.frameworks,
                       frameworkIds: [...frameworkIds],
@@ -101,6 +102,12 @@ export class SimulatorTableService {
                       simulationFormatIds: [...simulationFormatIds],
                       archiveFormats: value.archiveFormats,
                       archiveFormatIds: [...archiveFormatIds],
+                      interfaceTypes: simulator.interfaceTypes
+                        .map((interfaceType: SoftwareInterfaceType): string => {
+                          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+                        })
+                        .sort(),
+                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages.sort(),
                       image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,
                     };

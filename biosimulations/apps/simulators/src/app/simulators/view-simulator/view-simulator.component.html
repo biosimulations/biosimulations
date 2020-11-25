@@ -22,7 +22,15 @@
           <tbody>
             <tr *ngIf="simulator.authors?.length > 0">
               <th><biosimulations-icon icon="user"></biosimulations-icon></th>
-              <td>{{ simulator.authors }}</td>
+              <td>
+                <ul class="comma-separated">
+                  <li *ngFor="let author of simulator.authors">
+                    <a *ngIf="author.orcidUrl; else noOrcidUrl" [href]="author.orcidUrl" title="ORCID profile"
+                      >{{ author.name }} <biosimulations-icon icon="orcid"></biosimulations-icon></a>
+                    <ng-template #noOrcidUrl>{{ author.name }}</ng-template>
+                  </li>
+                </ul>
+              </td>
             </tr>
           </tbody>
 
@@ -92,6 +100,30 @@
           </div>
         </div>
 
+        <div class="section" *ngIf="simulator.interfaceTypes?.length > 0">
+          <h3>Interfaces</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li *ngFor="let interfaceType of simulator.interfaceTypes">
+                <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                {{ interfaceType }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator.supportedProgrammingLanguages?.length > 0">
+          <h3>Supported programming languages</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
+                <biosimulations-icon icon="code"></biosimulations-icon>
+                {{ supportedProgrammingLanguage }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="section">
           <h3>Curation status</h3>
           <div class="section-content">
@@ -118,10 +150,12 @@
           <div class="section-content">
             <ul class="icon-list">
               <li>
-                <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                <a [href]="simulator.url" target="_blank" class="text">
-                  {{ simulator.url }}
-                </a>
+                <biosimulations-icon icon="home"></biosimulations-icon>
+                Home page: <a [href]="simulator.url" target="_blank" class="text">{{ simulator.url }}</a>
+              </li>
+              <li *ngIf="simulator.contactUrl">
+                <biosimulations-icon icon="contact"></biosimulations-icon>
+                Contact: <a [href]="simulator.contactUrl.url" target="_blank" class="text">{{ simulaor.contactInfo.title }}</a>
               </li>
             </ul>
           </div>
@@ -324,6 +358,17 @@
                   </ng-template>
                 </ng-template>
 
+                <p class="subsection-heading no-bottom-margin">Availability</p>
+                <ul *ngIf="algorithm?.availableSoftwareInterfaceTypes?.length > 0; else noSupportedInterfaces" class="icon-list">
+                  <li *ngFor="let interfaceType of algorithm.availableSoftwareInterfaceTypes">
+                    <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                    {{ interfaceType }}
+                  </li>
+                </ul>
+                <ng-template #noSupportedInterfaces>
+                  <p class="info-message">Information about which interfaces support the algorithm is not available.</p>
+                </ng-template>
+
                 <ng-container *ngIf="algorithm?.citations?.length > 0">
                   <p class="subsection-heading no-bottom-margin">Citations</p>
                   <ul class="icon-list">
@@ -346,8 +391,8 @@
                 <ul class="icon-list">
                   <li>
                     <biosimulations-icon icon="link"></biosimulations-icon>
-                    <a [href]="algorithm?.url" target="_blank">{{
-                      algorithm?.id
+                    <a [href]="algorithm?.kisaoUrl" target="_blank">{{
+                      algorithm?.kisaoId
                     }}</a>
                   </li>
                 </ul>
