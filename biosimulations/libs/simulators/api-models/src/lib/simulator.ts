@@ -36,8 +36,6 @@ export class Simulator {
 
   @ApiProperty({
     type: [Url],
-    example: 'http://tellurium.analogmachine.org/',
-    format: 'url',
   })
   urls!: Url[];
 
