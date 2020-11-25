@@ -32,5 +32,7 @@ jobs:
           committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
           delete-branch: true
           author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
-          title: Update Dependecy Licenses
+          title: Update Dependency Licenses
           body: Updates the [LICENSE-DEPENENCIES file](https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE-DEPENDENCIES) with the latests versions and dependencies
+          labels: |
+            automerge

@@ -1,58 +1,71 @@
-import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
+import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
+import { SoftwareInterfaceType } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SpdxId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';
+import { gitHubLanguageTerms } from '@biosimulations/simulators/database-models';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator {
-  @ApiProperty()
+  @ApiProperty({ type: BiosimulatorsMeta })
   biosimulators!: BiosimulatorsMeta;
 
   @ApiProperty({
+    type: String,
     example: 'tellurium',
     name: 'id',
   })
   id!: string;
 
-  @ApiProperty({ example: 'Tellurium' })
+  @ApiProperty({ type: String, example: 'Tellurium' })
   name!: string;
 
   @ApiProperty({
+    type: String,
     example: '2.1.6',
   })
   version!: string;
 
   @ApiProperty({
+    type: String,
     example:
       'Tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.',
   })
   description!: string;
 
   @ApiProperty({
-    example: 'http://tellurium.analogmachine.org/',
-    format: 'url',
+    type: [Url],
   })
-  url!: string;
+  urls!: Url[];
 
   @ApiProperty({
     nullable: true,
-    required: true,
     type: Image,
   })
   image!: Image | null;
 
   @ApiProperty({ type: [Person] })
   authors!: Person[];
+
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
-  @ApiProperty({ type: SpdxId, required: true, nullable: true })
+
+  @ApiProperty({ type: SpdxId, nullable: true })
   license!: SpdxId | null;
+
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
 
-  @ApiResponseProperty({ format: 'date-time' })
-  created!: Date;
-  @ApiResponseProperty({ format: 'date-time' })
-  updated!: Date;
+  @ApiProperty({
+    type: [String],
+    enum: SoftwareInterfaceType,
+  })
+  interfaceTypes!: SoftwareInterfaceType[];
+
+  @ApiProperty({
+    type: [String],
+    enum: gitHubLanguageTerms,
+  })
+  supportedProgrammingLanguages!: string[];
 }

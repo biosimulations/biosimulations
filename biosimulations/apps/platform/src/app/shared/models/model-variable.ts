@@ -8,11 +8,11 @@ import { Identifier } from '@biosimulations/platform/api-models';
 export class ModelVariable implements BiomodelVariableDTO {
   target: string;
   group: string;
-  description: string;
+  description: string | null;
   type: AlgorithmParameterType;
   units: string;
   id: string;
-  name: string;
+  name: string | null;
   identifiers: Identifier[];
   constructor(data: BiomodelVariableDTO) {
     this.target = data.target;

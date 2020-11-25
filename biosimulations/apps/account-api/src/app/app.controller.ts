@@ -26,10 +26,12 @@ import {
 import { getUserId } from '@biosimulations/auth/common';
 
 class CreateAccountDTO {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   username!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   token!: string;
+
   @ApiPropertyOptional({ type: () => Profile })
   profile?: Profile;
 }

@@ -223,13 +223,34 @@ ul.comma-separated {
     }
 
     &:nth-last-child(2)::after {
-      content: " or";
+      content: ",";
       margin-right: 0.25rem;
     }
   }
 
   &.no-wrap li {
     white-space: nowrap;
+  }
+
+  &.ampersand-separator {
+    li:nth-last-child(2)::after {
+      content: " &";
+      margin-right: 0.25rem;
+    }
+  }
+
+  &.and-separator {
+    li:nth-last-child(2)::after {
+      content: " and";
+      margin-right: 0.25rem;
+    }
+  }
+
+  &.or-separator {
+    li:nth-last-child(2)::after {
+      content: " &";
+      margin-right: 0.25rem;
+    }
   }
 }
 

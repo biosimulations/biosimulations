@@ -1,14 +1,15 @@
 import {
   IAlgorithm,
-  IEdamOntologyId,
+  IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
+  SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import { Citation } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import {
-  EdamOntologyIdSchema,
+  EdamOntologyIdVersionSchema,
   KisaoOntologyIdSchema,
   SboOntologyIdSchema,
 } from './ontologyId';
@@ -26,29 +27,50 @@ import { CitationSchema } from './common';
   useNestedStrict: true,
 })
 export class Algorithm implements IAlgorithm {
-  @Prop({ type: KisaoOntologyIdSchema })
+  @Prop({ type: KisaoOntologyIdSchema, required: true, default: undefined })
   kisaoId!: IKisaoOntologyId;
 
-  @Prop({ type: [AlgorithmParameterSchema], required: true, default: null })
+  @Prop({ type: [AlgorithmParameterSchema], required: false, default: undefined })
   parameters!: AlgorithmParameter[] | null;
-  @Prop()
-  id!: string;
-  @Prop()
-  name!: string;
+  
+  @Prop({
+    type: String,
+    required: false,
+    default: null,
+  })
+  id!: string | null;
+  
+  @Prop({
+    type: String,
+    required: false,
+    default: null,
+  })
+  name!: string | null;
 
-  @Prop({ type: [SboOntologyIdSchema], _id: false })
+  @Prop({ type: [SboOntologyIdSchema], _id: false, required: true, default: undefined })
   modelingFrameworks!: ISboOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false })
-  modelFormats!: IEdamOntologyId[];
+  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  modelFormats!: IEdamOntologyIdVersion[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false })
-  simulationFormats!: IEdamOntologyId[];
+  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  simulationFormats!: IEdamOntologyIdVersion[];
 
-  @Prop({ type: [EdamOntologyIdSchema], _id: false })
-  archiveFormats!: IEdamOntologyId[];
+  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  archiveFormats!: IEdamOntologyIdVersion[];
 
-  @Prop({ type: [CitationSchema], _id: false })
+  @Prop({
+    type: [String],
+    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
+    required: true,
+    default: undefined,
+  })
+  availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
+
+  @Prop({ type: [CitationSchema], _id: false, required: true, default: undefined })
   citations!: Citation[];
 }
+
 export const AlgorithmSchema = SchemaFactory.createForClass(Algorithm);

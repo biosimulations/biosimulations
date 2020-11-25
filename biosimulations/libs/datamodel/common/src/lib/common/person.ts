@@ -1,5 +1,8 @@
+import { Identifier } from './ontology';
+
 export interface Person {
-  firstName: string;
+  firstName: string | null;
   middleName: string | null;
   lastName: string;
+  identifiers: Identifier[];
 }

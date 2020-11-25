@@ -1,5 +1,5 @@
 import { Ontologies, SioTerm, OntologyInfo } from '@biosimulations/datamodel/common';
-
+import isUrl from 'is-url';
 import sioJson from './sio.json';
 
 let sioVersion: string = '';
@@ -18,16 +18,24 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
                 const termIRI = jsonTerm["@id"];
                 const termNameSpace = Ontologies.SIO
                 const termId = jsonTerm["@id"].replace("http://semanticscience.org/resource/", "")
-                const termDescription = jsonTerm["rdfs:comment"]
+                const termDescription = jsonTerm["rdfs:comment"] || null;
                 const termName = jsonTerm["rdfs:label"]
                 const termUrl = encodeURI("https://www.ebi.ac.uk/ols/ontologies/sio/terms?iri=http%3A%2F%2Fsemanticscience.org%2Fresource%2F" + termId)
+                
+                let moreInfoUrl: string | null = null;
+                const seeAlso = jsonTerm["http://www.w3.org/2000/01/rdf-schema#seeAlso"];
+                if (seeAlso && seeAlso?.["@type"] === "xsd:anyURI" && seeAlso?.["@value"] && isUrl(seeAlso?.["@value"])) {
+                  moreInfoUrl = seeAlso?.["@value"];
+                }
+
                 const term: SioTerm = {
                     id: termId,
                     name: termName,
                     description: termDescription,
                     namespace: termNameSpace,
                     iri: termIRI,
-                    url: termUrl
+                    url: termUrl,
+                    moreInfoUrl: moreInfoUrl,
                 }
 
 

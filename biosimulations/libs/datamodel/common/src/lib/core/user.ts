@@ -1,4 +1,4 @@
-import { Person } from '../common';
+import { Person, Identifier } from '../common';
 import { Email } from '../common/alias';
 
 export enum ExternalSite {
@@ -34,9 +34,10 @@ export interface EmailInfo {
 }
 
 export interface User extends Person {
-  firstName: string;
-  middleName: string;
+  firstName: string | null;
+  middleName: string | null;
   lastName: string;
+  identifiers: Identifier[];
   userID: string;
   profile: Profile;
   emails: EmailInfo[];

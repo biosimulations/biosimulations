@@ -4,6 +4,7 @@ import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
 import { OntologyService } from '../ontology.service';
+import { SoftwareInterfaceType, sortUrls } from '@biosimulations/datamodel/common';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { UtilsService } from '@biosimulations/shared/services';
 
@@ -35,9 +36,9 @@ export class SimulatorTableService {
             const innerObservables: any = {
               frameworks: frameworks,
               algorithms: algorithms,
-              modelFormats: modelFormats,
-              simulationFormats: simulationFormats,
-              archiveFormats: archiveFormats,              
+              modelFormats: modelFormats.names,
+              simulationFormats: simulationFormats.names,
+              archiveFormats: archiveFormats.names,
             };
             if (license instanceof Observable) {
               innerObservables['license'] = license;
@@ -88,19 +89,21 @@ export class SimulatorTableService {
                       id: simulator.id,
                       name: simulator.name,
                       latestVersion: simulator.version,
-                      url: simulator.url,
-                      created: new Date(simulator.created),
+                      url: simulator.urls.sort(sortUrls)?.[0]?.url || null,
+                      updated: new Date(simulator.biosimulators.updated),
                       licenseId: simulator.license ? simulator.license.id : null,
                       frameworks: value.frameworks,
                       frameworkIds: [...frameworkIds],
                       algorithms: value.algorithms,
                       algorithmIds: [...algorithmIds],
-                      modelFormats: value.modelFormats,
+                      modelFormats: value.modelFormats.map((name: string, iFormat: number): string => name + modelFormats.versions[iFormat]),
                       modelFormatIds: [...modelFormatIds],
-                      simulationFormats: value.simulationFormats,
+                      simulationFormats: value.simulationFormats.map((name: string, iFormat: number): string => name + simulationFormats.versions[iFormat]),
                       simulationFormatIds: [...simulationFormatIds],
-                      archiveFormats: value.archiveFormats,
+                      archiveFormats: value.archiveFormats.map((name: string, iFormat: number): string => name + archiveFormats.versions[iFormat]),
                       archiveFormatIds: [...archiveFormatIds],
+                      interfaceTypes: simulator.interfaceTypes.sort(),
+                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages.sort(),
                       image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,
                     };
@@ -140,20 +143,28 @@ export class SimulatorTableService {
     }
   }
 
-  getFormats(simulator: any, formatType: string): Observable<string[]> {
+  getFormats(simulator: any, formatType: string): { names: Observable<string[]>, versions: string[] } {
     const formats: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
       for (const format of algorithm[formatType]) {
-        formats.add(format.id as string);
+        formats.add(format.id as string + '/' + (format.version ? ' ' + format.version : ''));
       }
     }
     const formatsArr: Observable<string>[] = [];
-    for (const id of formats) {
+    const versionsArr: string[] = [];
+    for (const idVersion of formats) {
+      const idVersionArr = idVersion.split('/')
+      const id = idVersionArr[0];
+      const version = idVersionArr[1];
       formatsArr.push(this.ontologyService.getEdamTerm(id).pipe(pluck('name')));
+      versionsArr.push(version);
     }
-    const obs = from(formatsArr).pipe(mergeAll(), toArray());
+    const formatsArrObs = from(formatsArr).pipe(mergeAll(), toArray());
 
-    return obs;
+    return {
+      names: formatsArrObs, 
+      versions: versionsArr,
+    };
   }
 
   getFrameworks(simulator: any): Observable<string[]> {

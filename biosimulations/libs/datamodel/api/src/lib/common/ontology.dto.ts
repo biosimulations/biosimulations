@@ -2,13 +2,9 @@ import {
   IOntologyTerm,
   Ontologies,
   Identifier as IIdentifier,
-  IKisaoOntologyId,
-  IEdamOntologyId,
-  ISboOntologyId,
-  ISioOntologyId,
   OntologyInfo as IOntologyInfo,
 } from '@biosimulations/datamodel/common';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   EdamOntologyId,
   KisaoOntologyId,
@@ -18,11 +14,11 @@ import {
 } from './ontologyId.dto';
 
 export class OntologyInfo implements IOntologyInfo {
-  @ApiProperty({ type: String })
-  id!: string;
+  @ApiProperty({ type: String, nullable: true })
+  id!: string | null;
 
-  @ApiProperty({ type: String })
-  acronym!: string;
+  @ApiProperty({ type: String, nullable: true })
+  acronym!: string | null;
 
   @ApiProperty({ type: String })
   name!: string;
@@ -31,88 +27,133 @@ export class OntologyInfo implements IOntologyInfo {
   description!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  bioportalId?: string | null;
+  bioportalId!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  olsId?: string | null;
+  olsId!: string | null;
 
-  @ApiProperty({ type: String })
-  version!: string;
+  @ApiProperty({ type: String, nullable: true })
+  version!: string | null;
 
   @ApiProperty({ type: String })
   source!: string;
 }
 
 export class OntologyTerm implements IOntologyTerm {
-  @ApiProperty({ enum: Ontologies })
+  @ApiProperty({ type: String, enum: Ontologies })
   namespace!: Ontologies;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   id!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   name!: string;
+
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
+
   @ApiProperty({ type: String, nullable: true, format: 'url' })
   iri!: string | null;
-  @ApiPropertyOptional({ type: String, format: 'url' })
-  url?: string | null;
+
+  @ApiProperty({ type: String, format: 'url' })
+  url!: string;
+
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
 
 export class EdamTerm extends EdamOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
+
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
+
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
+
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
+
 export class KisaoTerm extends KisaoOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   description!: string | null;
+
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
+
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
+
 export class SboTerm extends SboOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   description!: string | null;
+
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
+
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
+
 export class SioTerm extends SioOntologyId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   description!: string | null;
+
   @ApiProperty({ type: String, format: 'url' })
   iri!: string;
+
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
+
 export class SpdxTerm extends SpdxId {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name!: string;
-  @ApiProperty()
-  description!: string | null;
-  @ApiProperty()
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  description!: null;
+
+  @ApiProperty({ type: typeof null, nullable: true })
   iri!: null;
+
   @ApiProperty({ type: String, format: 'url' })
-  url?: string | null | undefined;
+  url!: string;
+
+  @ApiProperty({ type: String, format: 'url' })
+  moreInfoUrl!: string | null;
 }
+
 export class Identifier implements IIdentifier {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   namespace!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   id!: string;
-  @ApiPropertyOptional({ nullable: true, type: String, format: 'url' })
-  url?: string | null;
+
+  @ApiProperty({ type: String, format: 'url' })
+  url!: string;
 }
