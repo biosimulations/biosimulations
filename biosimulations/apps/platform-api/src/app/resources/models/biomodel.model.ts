@@ -93,6 +93,8 @@ export class BiomodelVariableDB implements BiomodelVariable {
   units!: string;
 }
 
+// TODO: add validation that `value` and elements of `recommendedRange` are instances of `type`;
+//       see other instances of ValueType for examples
 class BiomodelParameterDB implements BiomodelParameter {
   @prop()
   target!: string;
