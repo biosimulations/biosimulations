@@ -1,7 +1,7 @@
 import { KisaoOntologyId } from '@biosimulations/datamodel/api';
 import {
   AlgorithmParameter as IAlgorithmParameter,
-  AlgorithmParameterType,
+  ValueType,
   SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 
@@ -31,9 +31,9 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @ApiProperty({
     type: String,
-    enum: AlgorithmParameterType,
+    enum: ValueType,
   })
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @ApiProperty({
     type: String,

@@ -50,11 +50,13 @@ export interface ViewFramework {
 export interface ViewFormat {
   term: ViewFormatTerm,
   version: string | null;
+  supportedFeatures: string[];
 }
 
 export interface ViewFormatObservable {
   term: Observable<ViewFormatTerm>,
   version: string | null;
+  supportedFeatures: string[];
 }
 
 export interface ViewFormatTerm {
