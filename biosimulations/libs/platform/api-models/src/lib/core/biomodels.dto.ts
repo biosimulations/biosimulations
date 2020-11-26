@@ -39,7 +39,7 @@ export class ModelParameter implements BiomodelParameter {
 
   @ApiProperty({
     type: String,
-    enum: ['string', 'boolean', 'integer', 'float'],
+    enum: AlgorithmParameterType,
     enumName: 'AlgorithmParameterType',
     example: 'float',
   })
