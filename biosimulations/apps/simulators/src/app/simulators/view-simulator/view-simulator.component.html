@@ -277,6 +277,9 @@
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
                       <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
+                      <ul *ngIf="format.supportedFeatures.length > 0">
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
+                      </ul>
                     </ng-container>
                   </li>
                 </ul>
@@ -295,6 +298,9 @@
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
                       <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
+                      <ul *ngIf="format.supportedFeatures.length > 0">
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
+                      </ul>
                     </ng-container>
                   </li>
                 </ul>
@@ -313,6 +319,9 @@
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
                       <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
+                      <ul *ngIf="format.supportedFeatures.length > 0">
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
+                      </ul>
                     </ng-container>
                   </li>
                 </ul>

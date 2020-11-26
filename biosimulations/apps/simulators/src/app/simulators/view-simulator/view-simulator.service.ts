@@ -118,8 +118,13 @@ export class ViewSimulatorService {
       interfaceTypes: sim.interfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
           return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
-        }).sort(),
-      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort(),
+        })
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
@@ -193,7 +198,9 @@ export class ViewSimulatorService {
         .map((interfaceType: SoftwareInterfaceType): string => {
           return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
         })
-        .sort(),
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -213,7 +220,9 @@ export class ViewSimulatorService {
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
       availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
-        .sort(),
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
     };
   }
 
@@ -245,6 +254,9 @@ export class ViewSimulatorService {
     return {
       term: this.ontService.getEdamTerm(value.id),
       version: value.version,
+      supportedFeatures: value.supportedFeatures.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
     };
   }
 

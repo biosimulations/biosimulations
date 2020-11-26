@@ -124,6 +124,9 @@ class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
 
   @Prop({ type: String, required: false, default: undefined })
   version!: string | null;
+
+  @Prop({ type: [String], required: true, default: undefined })
+  supportedFeatures!: string[];
 }
 
 export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
