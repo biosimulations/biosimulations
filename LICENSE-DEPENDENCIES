@@ -789,13 +789,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/angular/angular-cli
 │  ├─ publisher: Angular Authors
 │  └─ licenseFile: @schematics/angular/LICENSE
-├─ @sindresorhus/is@4.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/is
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: https://sindresorhus.com
-│  └─ licenseFile: @sindresorhus/is/license
 ├─ @tootallnate/once@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/once
@@ -862,6 +855,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/express/LICENSE
+├─ @types/is-url@1.2.28
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+│  ├─ publisher: Ryota Murohoshi
+│  ├─ email: https://github.com/RyotaMurohoshi
+│  └─ licenseFile: @types/is-url/README.md
 ├─ @types/json-schema@7.0.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -4372,6 +4371,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: is-upper-case/LICENSE
+├─ is-url@1.2.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/segmentio/is-url
+│  └─ licenseFile: is-url/LICENSE-MIT
 ├─ is-utf8@0.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/wayfind/is-utf8
