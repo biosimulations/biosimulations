@@ -1,6 +1,6 @@
 import {
   Identifier,
-  AlgorithmParameterType,
+  ValueType,
   IOntologyTerm,
   Format,
 } from '../..';
@@ -15,7 +15,7 @@ export interface BiomodelParameter {
   name: string | null;
   description: string | null;
   identifiers: Identifier[];
-  type: AlgorithmParameterType;
+  type: ValueType;
   value: string | null;
   recommendedRange: string[] | null;
   units: string;
@@ -31,7 +31,7 @@ export interface BiomodelVariable {
   id: string;
   name: string | null;
   description: string | null;
-  type: AlgorithmParameterType;
+  type: ValueType;
   units: string;
   identifiers: Identifier[];
 }

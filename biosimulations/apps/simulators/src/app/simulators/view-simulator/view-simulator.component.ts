@@ -10,7 +10,7 @@ import {
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import {
-  AlgorithmParameterType,
+  ValueType,
 } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
@@ -128,9 +128,9 @@ export class ViewSimulatorComponent implements OnInit {
   formatParameterVal(type: string, value: boolean | number | string | null): string | null {
     if (value == null) {
       return value;
-    } else if (type === AlgorithmParameterType.boolean) {
+    } else if (type === ValueType.boolean) {
       return value.toString();
-    } else if (type === AlgorithmParameterType.integer || type === AlgorithmParameterType.float) {
+    } else if (type === ValueType.integer || type === ValueType.float) {
       if (value === 0) {
         return '0';
       } else if (value < 1e-3 || value > 1e3) {

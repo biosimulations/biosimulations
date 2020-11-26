@@ -29,7 +29,7 @@ import {
 import { UtilsService } from '@biosimulations/shared/services';
 import {
   AlgorithmParameter,
-  AlgorithmParameterType,
+  ValueType,
   SoftwareInterfaceType,
   Url,
   sortUrls,
@@ -118,8 +118,13 @@ export class ViewSimulatorService {
       interfaceTypes: sim.interfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
           return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
-        }).sort(),
-      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort(),
+        })
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
@@ -149,9 +154,9 @@ export class ViewSimulatorService {
 
             algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
-                parameter.type !== AlgorithmParameterType.boolean &&
-                parameter.type !== AlgorithmParameterType.integer &&
-                parameter.type !== AlgorithmParameterType.float &&
+                parameter.type !== ValueType.boolean &&
+                parameter.type !== ValueType.integer &&
+                parameter.type !== ValueType.float &&
                 parameter.range
               ) {
                 (parameter.range as string[]).sort((a: string, b: string) => {
@@ -193,7 +198,9 @@ export class ViewSimulatorService {
         .map((interfaceType: SoftwareInterfaceType): string => {
           return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
         })
-        .sort(),
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -213,7 +220,9 @@ export class ViewSimulatorService {
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
       availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
-        .sort(),
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
     };
   }
 
@@ -221,15 +230,15 @@ export class ViewSimulatorService {
     if (val == null || val === '') {
       return null;
     } else {
-      if (type === AlgorithmParameterType.kisaoId) {
+      if (type === ValueType.kisaoId) {
         return this.ontService
           .getKisaoTerm(val)
           .pipe(pluck('name'));
-      } else if (type === AlgorithmParameterType.boolean) {
+      } else if (type === ValueType.boolean) {
         return ['1', 'true'].includes(val.toLowerCase());
-      } else if (type === AlgorithmParameterType.integer) {
+      } else if (type === ValueType.integer) {
         return parseInt(val);
-      } else if (type === AlgorithmParameterType.float) {
+      } else if (type === ValueType.float) {
         return parseFloat(val);
       } else {
         return val;
@@ -245,6 +254,9 @@ export class ViewSimulatorService {
     return {
       term: this.ontService.getEdamTerm(value.id),
       version: value.version,
+      supportedFeatures: value?.supportedFeatures?.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
     };
   }
 

@@ -46,6 +46,7 @@ export interface IEdamOntologyIdVersion extends IEdamOntologyId {
   namespace: Ontologies.EDAM;
   id: string;
   version: string | null;
+  supportedFeatures: string[];
 }
 export interface IKisaoOntologyId extends IOntologyId {
   namespace: Ontologies.KISAO;

@@ -26,7 +26,7 @@ import {
   License,
   AccessLevel,
   Person,
-  AlgorithmParameterType,
+  ValueType,
   Identifier,
 } from '@biosimulations/datamodel/common';
 
@@ -87,12 +87,14 @@ export class BiomodelVariableDB implements BiomodelVariable {
   description!: string | null;
 
   @prop()
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @prop()
   units!: string;
 }
 
+// TODO: add validation that `value` and elements of `recommendedRange` are instances of `type`;
+//       see other instances of ValueType for examples
 class BiomodelParameterDB implements BiomodelParameter {
   @prop()
   target!: string;
@@ -113,7 +115,7 @@ class BiomodelParameterDB implements BiomodelParameter {
   identifiers!: Identifier[];
 
   @prop({ type: String })
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @prop({ type: String, required: false, default: null })
   value!: string | null;
