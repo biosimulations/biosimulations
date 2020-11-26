@@ -254,7 +254,7 @@ export class ViewSimulatorService {
     return {
       term: this.ontService.getEdamTerm(value.id),
       version: value.version,
-      supportedFeatures: value.supportedFeatures.sort((a: string, b: string) => {
+      supportedFeatures: value?.supportedFeatures?.sort((a: string, b: string) => {
         return a.localeCompare(b, undefined, { numeric: true });
       }),
     };

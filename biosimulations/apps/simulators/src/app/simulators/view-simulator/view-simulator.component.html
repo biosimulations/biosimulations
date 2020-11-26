@@ -270,18 +270,18 @@
 
                 <p class="subsection-heading no-bottom-margin">Model formats</p>
                 <ul
-                  class="icon-list"
+                  class="icon-list icon-list-format"
                   *ngIf="algorithm?.modelFormats?.length > 0; else noModelFormatsMessage"
                 >
                   <li *ngFor="let format of algorithm.modelFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
-                      <ul *ngIf="format.supportedFeatures.length > 0; else noSuportedModelFormatFeatures">
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>:
+                      <ul *ngIf="format.supportedFeatures?.length > 0; else noSuportedModelFormatFeatures" class="comma-separated and-separator">
                         <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
                       </ul>
                       <ng-template #noSuportedModelFormatFeatures>
-                        <br/><span class="info-message">Information about which features this algorithm supports is not available.</span>
+                        <span class="info-message">Information about which features this algorithm supports is not available.</span>
                       </ng-template>
                     </ng-container>
                   </li>
@@ -294,18 +294,18 @@
 
                 <p class="subsection-heading no-bottom-margin">Simulation formats</p>
                 <ul
-                  class="icon-list"
+                  class="icon-list icon-list-format"
                   *ngIf="algorithm?.simulationFormats?.length > 0; else noSimulationFormatsMessage"
                 >
                   <li *ngFor="let format of algorithm.simulationFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
-                      <ul *ngIf="format.supportedFeatures.length > 0; else noSuportedSimulationFormatFeatures">
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>:
+                      <ul *ngIf="format.supportedFeatures?.length > 0; else noSuportedSimulationFormatFeatures" class="comma-separated and-separator">
                         <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
                       </ul>
                       <ng-template #noSuportedSimulationFormatFeatures>
-                        <br/><span class="info-message">Information about which features this algorithm supports is not available.</span>
+                        <span class="info-message">Information about which features this algorithm supports is not available.</span>
                       </ng-template>
                     </ng-container>
                   </li>
@@ -318,18 +318,18 @@
 
                 <p class="subsection-heading no-bottom-margin">Archive formats</p>
                 <ul
-                  class="icon-list"
+                  class="icon-list icon-list-format"
                   *ngIf="algorithm?.archiveFormats?.length > 0; else noArchiveFormatsMessage"
                 >
                   <li *ngFor="let format of algorithm.archiveFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
-                      <ul *ngIf="format.supportedFeatures.length > 0; else noSuportedArchiveFormatFeatures">
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>:
+                      <ul *ngIf="format.supportedFeatures?.length > 0; else noSuportedArchiveFormatFeatures" class="comma-separated and-separator">
                         <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
                       </ul>
                       <ng-template #noSuportedArchiveFormatFeatures>
-                        <br/><span class="info-message">Information about which features this algorithm supports is not available.</span>
+                        <span class="info-message">Information about which features this algorithm supports is not available.</span>
                       </ng-template>
                     </ng-container>
                   </li>
