@@ -1,5 +1,5 @@
 import {
-  AlgorithmParameterType,
+  ValueType,
   AlgorithmParameter as IAlgorithmParameter,
   SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
@@ -33,13 +33,13 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @Prop({ 
     type: String,
-    enum: Object.keys(AlgorithmParameterType).map(
-      (k) => AlgorithmParameterType[k as AlgorithmParameterType]
+    enum: Object.keys(ValueType).map(
+      (k) => ValueType[k as ValueType]
     ),
     required: true,
     default: undefined,
   })
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @Prop({ type: String, required: false, default: undefined })
   value!: string | null;

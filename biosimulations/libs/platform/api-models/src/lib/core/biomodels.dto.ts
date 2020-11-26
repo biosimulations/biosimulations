@@ -1,6 +1,6 @@
 import {
   BiomodelParameter,
-  AlgorithmParameterType,
+  ValueType,
   BiomodelVariable,
   BiomodelAttributes,
 } from '@biosimulations/datamodel/common';
@@ -39,11 +39,11 @@ export class ModelParameter implements BiomodelParameter {
 
   @ApiProperty({
     type: String,
-    enum: AlgorithmParameterType,
-    enumName: 'AlgorithmParameterType',
+    enum: ValueType,
+    enumName: 'ValueType',
     example: 'float',
   })
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @ApiProperty({ 
     type: String,
@@ -83,10 +83,10 @@ export class ModelVariable implements BiomodelVariable {
 
   @ApiProperty({
     type: String,
-    enum: AlgorithmParameterType,
+    enum: ValueType,
     example: 'float',
   })
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @ApiProperty({ type: String })
   units!: string;

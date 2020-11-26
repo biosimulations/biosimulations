@@ -26,7 +26,7 @@ import {
   License,
   AccessLevel,
   Person,
-  AlgorithmParameterType,
+  ValueType,
   Identifier,
 } from '@biosimulations/datamodel/common';
 
@@ -87,7 +87,7 @@ export class BiomodelVariableDB implements BiomodelVariable {
   description!: string | null;
 
   @prop()
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @prop()
   units!: string;
@@ -113,7 +113,7 @@ class BiomodelParameterDB implements BiomodelParameter {
   identifiers!: Identifier[];
 
   @prop({ type: String })
-  type!: AlgorithmParameterType;
+  type!: ValueType;
 
   @prop({ type: String, required: false, default: null })
   value!: string | null;

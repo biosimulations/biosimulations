@@ -29,7 +29,7 @@ import {
 import { UtilsService } from '@biosimulations/shared/services';
 import {
   AlgorithmParameter,
-  AlgorithmParameterType,
+  ValueType,
   SoftwareInterfaceType,
   Url,
   sortUrls,
@@ -149,9 +149,9 @@ export class ViewSimulatorService {
 
             algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
-                parameter.type !== AlgorithmParameterType.boolean &&
-                parameter.type !== AlgorithmParameterType.integer &&
-                parameter.type !== AlgorithmParameterType.float &&
+                parameter.type !== ValueType.boolean &&
+                parameter.type !== ValueType.integer &&
+                parameter.type !== ValueType.float &&
                 parameter.range
               ) {
                 (parameter.range as string[]).sort((a: string, b: string) => {
@@ -221,15 +221,15 @@ export class ViewSimulatorService {
     if (val == null || val === '') {
       return null;
     } else {
-      if (type === AlgorithmParameterType.kisaoId) {
+      if (type === ValueType.kisaoId) {
         return this.ontService
           .getKisaoTerm(val)
           .pipe(pluck('name'));
-      } else if (type === AlgorithmParameterType.boolean) {
+      } else if (type === ValueType.boolean) {
         return ['1', 'true'].includes(val.toLowerCase());
-      } else if (type === AlgorithmParameterType.integer) {
+      } else if (type === ValueType.integer) {
         return parseInt(val);
-      } else if (type === AlgorithmParameterType.float) {
+      } else if (type === ValueType.float) {
         return parseFloat(val);
       } else {
         return val;
