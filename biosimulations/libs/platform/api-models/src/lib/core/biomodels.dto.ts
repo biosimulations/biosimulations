@@ -1,6 +1,6 @@
 import {
   BiomodelParameter,
-  AlgorithmParameterType,
+  ValueType,
   BiomodelVariable,
   BiomodelAttributes,
 } from '@biosimulations/datamodel/common';
@@ -15,56 +15,80 @@ import { AttributesMetadata, ResourceMetadata } from './metadata.dto';
 
 export class ModelParameter implements BiomodelParameter {
   @ApiProperty({
+    type: String,
     // tslint:disable-next-line: quotemark
     example: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='N' ",
   })
   target!: string;
-  @ApiProperty({ example: 'Species amounts/concentrations' })
+
+  @ApiProperty({ type: String, example: 'Species amounts/concentrations' })
   group!: string;
-  @ApiProperty({ example: 'N' })
+
+  @ApiProperty({ type: String, example: 'N' })
   id!: string;
-  @ApiProperty({ example: 'Nitrogen' })
-  name!: string;
-  @ApiProperty({ type: String, example: 'Initial concentration of Nitrogen' })
+
+  @ApiProperty({ type: String, example: 'Nitrogen', nullable: true, required: false, default: null })
+  name!: string | null;
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null,
+    example: 'Initial concentration of Nitrogen' })
   description!: string | null;
+
   @ApiProperty({ type: [Identifier] })
   identifiers!: Identifier[];
+
   @ApiProperty({
-    enum: ['string', 'boolean', 'integer', 'float'],
-    enumName: 'AlgorithmParameterType',
+    type: String,
+    enum: ValueType,
+    enumName: 'ValueType',
     example: 'float',
   })
-  type!: AlgorithmParameterType;
-  @ApiProperty({ type: String, example: 227 })
-  value!: string | number | boolean;
-  @ApiProperty({
-    type: [Number, String, Boolean],
-    maxItems: 2,
-    minItems: 2,
-    example: [22.7, 2270],
+  type!: ValueType;
+
+  @ApiProperty({ 
+    type: String,
+    nullable: true,
+    example: "227",
   })
-  recommendedRange!: (string | number | boolean)[];
-  @ApiProperty({ example: 'mole / liter' })
+  value!: string | null;
+
+  @ApiProperty({
+    type: [String],
+    example: ["22.7", "2270"],
+    nullable: true,
+    required: false,
+    default: null,
+  })
+  recommendedRange!: string[] | null;
+
+  @ApiProperty({ type: String, example: 'mole / liter' })
   units!: string;
 }
 
 export class ModelVariable implements BiomodelVariable {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   target!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   group!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   id!: string;
-  @ApiProperty()
-  name!: string;
-  @ApiProperty()
-  description!: string;
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  name!: string | null;
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  description!: string | null;
+
   @ApiProperty({
-    enum: ['string', 'boolean', 'integer', 'float'],
+    type: String,
+    enum: ValueType,
     example: 'float',
   })
-  type!: AlgorithmParameterType;
-  @ApiProperty()
+  type!: ValueType;
+
+  @ApiProperty({ type: String })
   units!: string;
 
   @ApiProperty({ type: [Identifier] })
@@ -74,14 +98,19 @@ export class ModelVariable implements BiomodelVariable {
 export class ModelAttributes implements BiomodelAttributes {
   @ApiProperty({ type: () => Taxon, nullable: true })
   taxon!: Taxon | null;
+
   @ApiProperty({ type: [ModelParameter] })
   parameters!: ModelParameter[];
+
   @ApiProperty({ type: [ModelVariable] })
   variables!: ModelVariable[];
-  @ApiProperty()
+
+  @ApiProperty({ type: OntologyTerm })
   framework!: OntologyTerm;
-  @ApiProperty()
+
+  @ApiProperty({ type: Format })
   format!: Format;
-  @ApiProperty()
+
+  @ApiProperty({ type: AttributesMetadata })
   metadata!: AttributesMetadata;
 }

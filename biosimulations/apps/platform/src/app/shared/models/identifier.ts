@@ -3,7 +3,7 @@ import { Identifier as IdentifierDTO } from '@biosimulations/datamodel/common';
 export class Identifier implements IdentifierDTO {
   namespace: string;
   id: string;
-  url: string | null;
+  url: string;
   constructor(data: IdentifierDTO) {
     this.namespace = data.namespace;
     this.id = data.id;
@@ -18,7 +18,7 @@ export class Identifier implements IdentifierDTO {
     };
   }
   getUrl(): string {
-    return this.url || `https://identifiers.org/${this.namespace}:${this.id}`;
+    return this.url;
   }
 
   getNamespaceName(): string {

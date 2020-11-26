@@ -27,38 +27,43 @@ export enum DispatchSimulationStatus {
 
 @modelOptions({ schemaOptions: { collection: 'dispatches' } })
 export class DispatchSimulationModelDB implements DispatchSimulationModel {
-  @ApiProperty()
-  @prop({ required: true })
+  @ApiProperty({ type: String })
+  @prop({ type: String, required: true })
   uuid!: string;
 
-  @ApiProperty()
-  @prop({ required: false })
+  @ApiProperty({ type: String })
+  @prop({ type: String, required: false })
   authorEmail!: string;
 
-  @ApiProperty()
-  @prop()
+  @ApiProperty({ type: String })
+  @prop({ type: String })
   nameOfSimulation!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String, format: 'date-time' })
   @prop()
   submittedTime!: Date;
 
-  @ApiProperty()
+  @ApiProperty({ type: String, format: 'date-time' })
   @prop()
   statusModifiedTime!: Date;
 
-  @ApiProperty()
-  @prop()
+  @ApiProperty({ type: String, enum: DispatchSimulationStatus })
+  @prop({
+    type: String, 
+    enum: Object.entries(DispatchSimulationStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
+  })
   currentStatus!: DispatchSimulationStatus;
 
-  @ApiProperty()
-  @prop()
+  @ApiProperty({ type: Number })
+  @prop({ type: Number })
   duration!: number;
 
-  @prop()
+  @prop({ type: Number })
   projectSize!: number;
 
-  @prop()
+  @prop({ type: Number })
   resultSize!: number;
 
   constructor(public model: DispatchSimulationModel) {

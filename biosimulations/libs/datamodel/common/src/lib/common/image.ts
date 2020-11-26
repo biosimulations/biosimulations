@@ -1,6 +1,6 @@
-import { IEdamOntologyId } from './ontology';
+import { IEdamOntologyIdVersion } from './ontology';
 
 export interface IImage {
   url: string;
-  format: IEdamOntologyId;
+  format: IEdamOntologyIdVersion;
 }

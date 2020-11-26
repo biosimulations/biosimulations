@@ -45,6 +45,7 @@ export interface Column {
   centerClick?: (rowData: any) => void;
   rightClick?: (rowData: any) => void;
   minWidth?: number;
+  maxWidth?: number;
   center?: boolean;
   filterable?: boolean;
   sortable?: boolean;

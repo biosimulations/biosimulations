@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 56.691002 56.708"
+   version="1.1"
+   id="svg4976"
+   sodipodi:docname="spdx.svg"
+   width="56.691002"
+   height="56.708"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata4980">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>SPDX_Logo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1112"
+     id="namedview4978"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.299"
+     inkscape:cx="100.29673"
+     inkscape:cy="166.17172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4976" />
+  <defs
+     id="defs4951">
+    <style
+       id="style4940">.cls-1{isolation:isolate;}.cls-2{fill:#231f20;}.cls-3{fill:none;}.cls-4{fill:#00416b;}.cls-5{opacity:0.8;mix-blend-mode:multiply;fill:url(#linear-gradient);}.cls-6{fill:#4197cb;}</style>
+    <linearGradient
+       id="linear-gradient"
+       x1="11.38853"
+       y1="6.3716698"
+       x2="36.972309"
+       y2="39.08004"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#fff"
+         stop-opacity="0"
+         id="stop4942" />
+      <stop
+         offset="0.34941"
+         stop-color="#cdcccc"
+         stop-opacity="0.22668"
+         id="stop4944" />
+      <stop
+         offset="0.889"
+         stop-color="#454142"
+         stop-opacity="0.84698"
+         id="stop4946" />
+      <stop
+         offset="1"
+         stop-color="#231f20"
+         id="stop4948" />
+    </linearGradient>
+  </defs>
+  <title
+     id="title4953">SPDX_Logo</title>
+  <polygon
+     class="cls-3"
+     points="17.855,49.983 48.918,18.985 17.855,18.985 "
+     id="polygon4963"
+     style="isolation:isolate;fill:none"
+     transform="translate(-5,-6.064)" />
+  <polygon
+     class="cls-4"
+     points="5,62.757 17.855,49.983 17.855,18.985 48.918,18.985 61.691,6.13 5,6.13 5,6.342 5,18.837 "
+     id="polygon4965"
+     style="isolation:isolate;fill:#00416b"
+     transform="translate(-5,-6.064)" />
+  <polygon
+     class="cls-5"
+     points="5,62.757 17.855,49.983 17.855,18.985 48.918,18.985 61.691,6.13 5,6.13 5,6.342 5,18.837 "
+     id="polygon4967"
+     style="opacity:0.8;isolation:isolate;mix-blend-mode:multiply;fill:url(#linear-gradient)"
+     transform="translate(-5,-6.064)" />
+  <polygon
+     class="cls-6"
+     points="35.129,39.552 35.129,36.259 38.487,36.259 50.119,36.259 61.643,24.785 61.643,18.985 61.643,6.064 48.918,18.985 17.855,49.983 5,62.772 17.855,62.772 23.726,62.772 35.129,51.187 "
+     id="polygon4969"
+     style="isolation:isolate;fill:#4197cb"
+     transform="translate(-5,-6.064)" />
+  <polygon
+     class="cls-6"
+     points="38.343,39.472 38.343,47.993 38.343,62.772 61.643,62.772 61.643,39.472 46.926,39.472 "
+     id="polygon4971"
+     style="isolation:isolate;fill:#4197cb"
+     transform="translate(-5,-6.064)" />
+</svg>

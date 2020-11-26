@@ -2,6 +2,7 @@ import {
   IOntologyId,
   Ontologies,
   IEdamOntologyId,
+  IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
@@ -14,7 +15,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import is from '@sindresorhus/is';
+import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -23,16 +24,20 @@ import is from '@sindresorhus/is';
   useNestedStrict: true,
 })
 class Identifier implements IIdentifier {
-  @Prop({ required: true })
+  @Prop({ type: String, required: true, default: undefined })
   namespace!: string;
-  @Prop({ required: true })
+
+  @Prop({ type: String, required: true, default: undefined })
   id!: string;
+
   @Prop({
+    type: String,
     required: true,
     validate: [{
-      validator: is.urlString,
+      validator: isUrl,
       message: (props: any): string => `${props.value} is not a valid URL`,
     }],
+    default: undefined,
   })
   url!: string;
 }
@@ -49,10 +54,11 @@ class OntologyId implements IOntologyId {
     type: String,
     required: true,
     enum: Object.keys(Ontologies).map((k) => Ontologies[k as Ontologies]),
+    default: undefined,
   })
   namespace!: Ontologies;
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true, default: undefined })
   id!: string;
 }
 export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
@@ -64,10 +70,11 @@ export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
   useNestedStrict: true,
 })
 class EdamOntologyId implements IEdamOntologyId {
-  @Prop({ type: String, required: true, enum: [Ontologies.EDAM] })
+  @Prop({ type: String, required: true, enum: [Ontologies.EDAM], default: undefined })
   namespace!: Ontologies.EDAM;
 
   @Prop({
+    type: String,
     required: true,
     validate: [
       {
@@ -79,11 +86,51 @@ class EdamOntologyId implements IEdamOntologyId {
         message: (props: any): string => `${props.value} is not an id of an EDAM term`,
       },
     ],
+    default: undefined,
   })
   id!: string;
 }
+
 export const EdamOntologyIdSchema = SchemaFactory.createForClass(
   EdamOntologyId
+);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
+  @Prop({ type: String, required: true, enum: [Ontologies.EDAM], default: undefined })
+  namespace!: Ontologies.EDAM;
+
+  @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: EdamFormatIdRegEx,
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
+      },
+      {
+        validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.EDAM, value),
+        message: (props: any): string => `${props.value} is not an id of an EDAM term`,
+      },
+    ],
+    default: undefined,
+  })
+  id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  version!: string | null;
+
+  @Prop({ type: [String], required: true, default: undefined })
+  supportedFeatures!: string[];
+}
+
+export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
+  EdamOntologyIdVersion
 );
 
 @Schema({
@@ -99,6 +146,7 @@ class KisaoOntologyId implements IKisaoOntologyId {
     uppercase: true,
     trim: true,
     validate: (val: string) => val === Ontologies.KISAO,
+    default: undefined,
   })
   namespace!: Ontologies.KISAO;
 
@@ -117,6 +165,7 @@ class KisaoOntologyId implements IKisaoOntologyId {
         message: (props: any): string => `${props.value} is not an id of a KiSAO term`,
       },
     ],
+    default: undefined,
   })
   id!: string;
 }
@@ -131,10 +180,11 @@ export const KisaoOntologyIdSchema = SchemaFactory.createForClass(
   useNestedStrict: true,
 })
 class SboOntologyId implements ISboOntologyId {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, default: undefined })
   namespace!: Ontologies.SBO;
 
   @Prop({
+    type: String,
     required: true,
     validate: [
       { 
@@ -146,6 +196,7 @@ class SboOntologyId implements ISboOntologyId {
         message: (props: any): string => `${props.value} is not an id of a SBO term`,
       },
     ],
+    default: undefined,
   })
   id!: string;
 }
@@ -158,10 +209,11 @@ export const SboOntologyIdSchema = SchemaFactory.createForClass(SboOntologyId);
   useNestedStrict: true,
 })
 class SioOntologyId implements ISioOntologyId {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, default: undefined })
   namespace!: Ontologies.SIO;
 
   @Prop({
+    type: String,
     required: true,
     validate: [
       { 
@@ -173,6 +225,7 @@ class SioOntologyId implements ISioOntologyId {
         message: (props: any): string => `${props.value} is not an id of a SIO term`,
       },
     ],
+    default: undefined,
   })
   id!: string;
 }
@@ -185,7 +238,7 @@ export const SioOntologyIdSchema = SchemaFactory.createForClass(SioOntologyId);
   useNestedStrict: true,
 })
 class SpdxId implements ISpdxId {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, default: undefined })
   namespace!: Ontologies.SPDX;
 
   @Prop({
@@ -194,7 +247,8 @@ class SpdxId implements ISpdxId {
     validate: [{
       validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.SPDX, value),
       message: (props: any): string => `${props.value} is not an id of a SPDX term`,
-    }]
+    }],
+    default: undefined,
   })
   id!: string;
 }

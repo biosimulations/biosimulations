@@ -38,3 +38,5 @@ jobs:
           delete-branch: true
           title: Update Ontologies
           body: Updates the JSON-LD files that contains the ontologies using the latest OWL file at the IRIs
+          labels: |
+            automerge
