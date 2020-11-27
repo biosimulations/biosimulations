@@ -40,8 +40,8 @@ export class TabPageComponent
 
   @Output() selectedTabChange: EventEmitter<any> = new EventEmitter();
 
-  private urlHashFragmentToITabMap!: { [urlHashFragment: string]: number } = {};
-  private iTabToUrlHashFragmentMap!: { [iTab: number]: string } = {};
+  private urlHashFragmentToITabMap: { [urlHashFragment: string]: number } = {};
+  private iTabToUrlHashFragmentMap: { [iTab: number]: string } = {};
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -50,7 +50,7 @@ export class TabPageComponent
     TabPageTabComponent
   >;
 
-  selectedTabIndex!: number = 0;
+  selectedTabIndex: number = 0;
 
   ngOnInit(): void {
   }
@@ -58,6 +58,7 @@ export class TabPageComponent
   ngAfterViewInit(): void {
     const baseTabs: MatTab[] = [];
     this.urlHashFragmentToITabMap = {};
+    this.iTabToUrlHashFragmentMap = {};
     this.tabs.toArray().forEach((tab: TabPageTabComponent, iTab: number): void => {
       baseTabs.push(tab.tab);
       if (tab.urlHashFragment) {
