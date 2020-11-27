@@ -3,10 +3,12 @@ import {
   Ontologies,
   IEdamOntologyId,
   IEdamOntologyIdVersion,
+  IFunderRegistryOntologyId,
+  ILinguistOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
-  ISpdxId,
+  ISpdxOntologyId,
   KisaoIdRegEx,
   SboIdRegEx,
   SioIdRegEx,
@@ -139,13 +141,59 @@ export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
   strict: 'throw',
   useNestedStrict: true,
 })
-class KisaoOntologyId implements IKisaoOntologyId {
+class FunderRegistryOntologyId implements IFunderRegistryOntologyId {
+  @Prop({ type: String, enum: [Ontologies.FunderRegistry], required: true, default: undefined })
+  namespace!: Ontologies.FunderRegistry;
+
   @Prop({
     type: String,
     required: true,
-    uppercase: true,
-    trim: true,
-    validate: (val: string) => val === Ontologies.KISAO,
+    validate: [{
+      validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.FunderRegistry, value),
+      message: (props: any): string => `${props.value} is not an id of a Funder Registry term`,
+    }],
+    default: undefined,
+  })
+  id!: string;
+}
+
+export const FunderRegistryOntologyIdSchema = SchemaFactory.createForClass(FunderRegistryOntologyId);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class LinguistOntologyId implements ILinguistOntologyId {
+  @Prop({ type: String, enum: [Ontologies.Linguist], required: true, default: undefined })
+  namespace!: Ontologies.Linguist;
+
+  @Prop({
+    type: String,
+    required: true,
+    validate: [{
+      validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.Linguist, value),
+      message: (props: any): string => `${props.value} is not an id of a Linguist term`,
+    }],
+    default: undefined,
+  })
+  id!: string;
+}
+
+export const LinguistOntologyIdSchema = SchemaFactory.createForClass(LinguistOntologyId);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class KisaoOntologyId implements IKisaoOntologyId {
+  @Prop({
+    type: String,
+    enum: [Ontologies.KISAO],
+    required: true,    
     default: undefined,
   })
   namespace!: Ontologies.KISAO;
@@ -153,8 +201,6 @@ class KisaoOntologyId implements IKisaoOntologyId {
   @Prop({
     type: String,
     required: true,
-    uppercase: true,
-    trim: true,
     validate: [
       { 
         validator: KisaoIdRegEx,
@@ -180,7 +226,7 @@ export const KisaoOntologyIdSchema = SchemaFactory.createForClass(
   useNestedStrict: true,
 })
 class SboOntologyId implements ISboOntologyId {
-  @Prop({ type: String, required: true, default: undefined })
+  @Prop({ type: String, enum: [Ontologies.SBO], required: true, default: undefined })
   namespace!: Ontologies.SBO;
 
   @Prop({
@@ -209,7 +255,7 @@ export const SboOntologyIdSchema = SchemaFactory.createForClass(SboOntologyId);
   useNestedStrict: true,
 })
 class SioOntologyId implements ISioOntologyId {
-  @Prop({ type: String, required: true, default: undefined })
+  @Prop({ type: String, enum: [Ontologies.SIO], required: true, default: undefined })
   namespace!: Ontologies.SIO;
 
   @Prop({
@@ -237,8 +283,8 @@ export const SioOntologyIdSchema = SchemaFactory.createForClass(SioOntologyId);
   strict: 'throw',
   useNestedStrict: true,
 })
-class SpdxId implements ISpdxId {
-  @Prop({ type: String, required: true, default: undefined })
+class SpdxOntologyId implements ISpdxOntologyId {
+  @Prop({ type: String, enum: [Ontologies.SPDX], required: true, default: undefined })
   namespace!: Ontologies.SPDX;
 
   @Prop({
@@ -252,4 +298,4 @@ class SpdxId implements ISpdxId {
   })
   id!: string;
 }
-export const SpdxIdSchema = SchemaFactory.createForClass(SpdxId);
+export const SpdxOntologyIdSchema = SchemaFactory.createForClass(SpdxOntologyId);

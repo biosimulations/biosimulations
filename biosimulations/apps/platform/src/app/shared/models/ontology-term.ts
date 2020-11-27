@@ -7,7 +7,7 @@ export class OntologyTerm implements JsonSerializable<OntologyTermDTO> {
   public name: string | null;
   public description: string | null;
   public iri: string | null;
-  public url: string;
+  public url: string | null;
   public moreInfoUrl: string | null;
   constructor(data: OntologyTermDTO) {
     this.ontology = data.ontology;

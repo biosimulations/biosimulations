@@ -13,6 +13,7 @@ import {
   ViewParameter,
   ViewParameterObservable,
   ViewAuthor,
+  ViewFunding,
   DescriptionFragment,
   DescriptionFragmentType,
 } from './view-simulator.interface';
@@ -22,9 +23,12 @@ import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { map, pluck, tap } from 'rxjs/operators';
 import {
   IEdamOntologyIdVersion,
+  ILinguistOntologyId,
   ISboOntologyId,
   Identifier,
   Person,
+  DependentPackage,
+  Funding,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
@@ -87,7 +91,7 @@ export class ViewSimulatorService {
       id: sim.id,
       version: sim.version,
       name: sim.name,
-      image: sim.image?.url || undefined,
+      image: sim.image,
       description: sim.description,
       urls: sim.urls.sort(sortUrls),
       authors: this.getAuthors(sim),
@@ -122,10 +126,14 @@ export class ViewSimulatorService {
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
-      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: string, b: string) => {
+      supportedOperatingSystemTypes: sim.supportedOperatingSystemTypes.sort((a: string, b: string) => {
         return a.localeCompare(b, undefined, { numeric: true });
       }),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: ILinguistOntologyId, b: ILinguistOntologyId) => {
+        return a.id.localeCompare(b.id, undefined, { numeric: true });
+      }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
+      funding: sim.funding.map(this.getFunding),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
@@ -201,6 +209,11 @@ export class ViewSimulatorService {
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
+      dependencies: value?.dependencies 
+        ? value?.dependencies?.sort((a: DependentPackage, b: DependentPackage) => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          })
+        : null,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -264,7 +277,7 @@ export class ViewSimulatorService {
     return {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
-      image: value.image || undefined,
+      image: value.image,
       curationStatus: value.curationStatus,
     };
   }
@@ -371,5 +384,14 @@ export class ViewSimulatorService {
       '-' +
       date.getDate().toString().padStart(2, '0')
     );
+  }
+
+  getFunding(funding: Funding): ViewFunding {
+    return {
+      funderName: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('name')),
+      funderUrl: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('url')),
+      grant: funding.grant,
+      url: funding.url,
+    }
   }
 }

@@ -16,6 +16,7 @@ export interface TableSimulator {
   archiveFormatIds: string[];
   latestVersion: string;
   interfaceTypes: string[];
+  supportedOperatingSystemTypes: string[];
   supportedProgrammingLanguages: string[];
   curationStatus: SimulatorCurationStatus;
   url: string | null;

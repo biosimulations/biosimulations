@@ -188,7 +188,10 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'image',
       heading: 'Image',
       key: 'image',
-      stackedFormatter: (image: string | undefined): string => {
+      getter: (version: ViewVersion): string | null => {
+        return version.image ? version.image.url : null;
+      },
+      stackedFormatter: (image: string | null): string => {
         if (image) {
           return image;
         } else {

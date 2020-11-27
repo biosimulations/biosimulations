@@ -12,7 +12,8 @@
         "format": {
             "namespace": "EDAM",
             "id": "format_", "version": null, "supportedFeatures": []
-        }
+        },
+        "operatingSystemType": "Linux"
     },
     "authors": [{
             "firstName": "Jayit",
@@ -273,7 +274,21 @@
                     "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
                 }
             ],
-            "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+            "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+            "dependencies": [{
+                "name": "libRoadRunner",
+                "version": null,
+                "required": true,
+                "freeNonCommericalLicense": true,
+                "url": "http://libroadrunner.org/"
+              },
+              {
+                "name": "SUNDIALS",
+                "version": null,
+                "required": true,
+                "freeNonCommericalLicense": true,
+                "url": "https://computing.llnl.gov/projects/sundials"
+              }]
         },
         {
             "id": "runge_kutta_4",
@@ -300,6 +315,13 @@
             }],
             "parameters": [],
             "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+            "dependencies": [{
+                "name": "libRoadRunner",
+                "version": null,
+                "required": true,
+                "freeNonCommericalLicense": true,
+                "url": "http://libroadrunner.org/"
+              }],
             "citations": []
         },
         {
@@ -360,6 +382,13 @@
                 }
             ],
             "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+            "dependencies": [{
+                "name": "libRoadRunner",
+                "version": null,
+                "required": true,
+                "freeNonCommericalLicense": true,
+                "url": "http://libroadrunner.org/"
+              }],
             "citations": []
         },
         {
@@ -430,8 +459,7 @@
                     "type": "float",
                     "value": null,
                     "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
-                },
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]              },
                 {
                     "kisaoId": {
                         "namespace": "KISAO",
@@ -455,7 +483,14 @@
                     "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
                 }
             ],
-            "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+            "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+            "dependencies": [{
+                "name": "libRoadRunner",
+                "version": null,
+                "required": true,
+                "freeNonCommericalLicense": true,
+                "url": "http://libroadrunner.org/"
+              }]
         },
         {
             "id": "nleq2",
@@ -538,11 +573,23 @@
                     "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
                 }
             ],
-            "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+            "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+            "dependencies": [{
+                "name": "libRoadRunner",
+                "version": null,
+                "required": true,
+                "freeNonCommericalLicense": true,
+                "url": "http://libroadrunner.org/"
+              }]
         }
     ],
     "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
-    "supportedProgrammingLanguages": ["Python"],
+    "supportedOperatingSystemTypes": ["platform-independent"],
+    "supportedProgrammingLanguages": [{
+        "namespace": "Linguist",
+        "id": "Python"
+    }],
+    "funding": [],
     "biosimulators": {
         "specificationVersion": "1.0.0",
         "imageVersion": "1.0.0",

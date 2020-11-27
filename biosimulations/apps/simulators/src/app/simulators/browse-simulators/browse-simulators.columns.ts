@@ -293,6 +293,22 @@ export const columns: Column[] = [
     minWidth: 180,
   },
   {
+    id: 'supportedOperatingSystemTypes',
+    heading: 'OSes',
+    key: 'supportedOperatingSystemTypes',
+    formatter: (value: string[] | string): string => {
+      if (Array.isArray(value)) {
+        return value.join(', ');
+      } else {
+        return value;
+      }
+    },
+    filterable: true,
+    showFilterItemToolTips: false,
+    show: false,
+    minWidth: 92,
+  },
+  {
     id: 'supportedProgrammingLanguages',
     heading: 'Languages',
     key: 'supportedProgrammingLanguages',

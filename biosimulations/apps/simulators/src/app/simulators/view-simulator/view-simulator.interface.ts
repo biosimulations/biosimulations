@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Url, SoftwareInterfaceType } from '@biosimulations/datamodel/common';
+import { Url, SoftwareInterfaceType, IImage, DependentPackage, ILinguistOntologyId } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -14,6 +14,7 @@ export interface ViewAlgorithm {
   parameters: ViewParameter[] | null;
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
+  dependencies: DependentPackage[] | null;
 }
 
 export interface ViewAlgorithmObservable {
@@ -29,6 +30,7 @@ export interface ViewAlgorithmObservable {
   parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
+  dependencies: DependentPackage[] | null;
 }
 
 export enum DescriptionFragmentType {
@@ -98,7 +100,7 @@ export interface ViewCitation {
 export interface ViewVersion {
   label: string;
   created: string;
-  image?: string;
+  image: IImage | null;
   curationStatus: string;
 }
 
@@ -107,13 +109,20 @@ export interface ViewAuthor {
   orcidUrl: string | null;
 }
 
+export interface ViewFunding {
+  funderName: Observable<string>;
+  funderUrl: Observable<string>;
+  grant: string | null;
+  url: string | null;
+}
+
 export interface ViewSimulator {
   _json: string;
   id: string;
   version: string;
   name: string;
   description: string | null;
-  image?: string;
+  image: IImage | null;
   urls: Url[];
   licenseUrl: Observable<string> | null;
   licenseName: Observable<string> | null;
@@ -122,9 +131,11 @@ export interface ViewSimulator {
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
   interfaceTypes: string[];
-  supportedProgrammingLanguages: string[];
-  versions: Observable<ViewVersion[]>;
+  supportedOperatingSystemTypes: string[];
+  supportedProgrammingLanguages: ILinguistOntologyId[];
+  versions: Observable<ViewVersion[]>;  
   curationStatus: string;
+  funding: ViewFunding[];
   created: string;
   updated: string;
 }
