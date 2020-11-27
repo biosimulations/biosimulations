@@ -54,7 +54,7 @@ LABEL \
     org.opencontainers.image.description="Docker image for the BioSimulations $app app" \
     org.opencontainers.image.url="https://biosimulations.org/" \
     org.opencontainers.image.documentation="https://biosimulations.org/help" \
-    org.opencontainers.image.source="https://github.com/biosimulations/biosimulations" \
+    org.opencontainers.image.source="https://github.com/biosimulations/Biosimulations" \
     org.opencontainers.image.authors="BioSimulations Team <info@biosimulations.org>" \
     org.opencontainers.image.vendor="BioSimulations Team" \
     org.opencontainers.image.licenses="MIT"
