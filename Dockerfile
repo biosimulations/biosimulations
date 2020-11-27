@@ -5,7 +5,7 @@ FROM node:15-alpine as base
 
 #The name of the app to build
 ARG app
-ENV APP=$app 
+ENV APP=$app
 RUN echo building ${APP}
 
 # Copy over dependency list
@@ -23,7 +23,7 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
-# install nrwl cli 
+# install nrwl cli
 RUN npm install -g @nrwl/cli
 
 # copy dependencies
@@ -49,7 +49,15 @@ RUN nx build ${APP} --prod
 
 # base image
 FROM base as prod
-LABEL org.opencontainers.image.source https://github.com/biosimulations/biosimulations
+LABEL \
+    org.opencontainers.image.title="BioSimulations $app" \
+    org.opencontainers.image.description="Docker image for the BioSimulations $app app" \
+    org.opencontainers.image.url="https://biosimulations.org/" \
+    org.opencontainers.image.documentation="https://biosimulations.org/help" \
+    org.opencontainers.image.source="https://github.com/biosimulations/biosimulations" \
+    org.opencontainers.image.authors="BioSimulations Team <info@biosimulations.org>" \
+    org.opencontainers.image.vendor="BioSimulations Team" \
+    org.opencontainers.image.licenses="MIT"
 
 WORKDIR /app
 # install the app and include only dependencies needed to run
