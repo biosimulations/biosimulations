@@ -7,10 +7,10 @@ export class Framework extends ViewModel implements IFramework {
   constructor(
     public namespace: Ontologies,
     public id: string,
-    public name: string,
+    public name: string | null,
     public description: string | null,
     public iri: string | null,
-    public url: string,
+    public url: string | null,
     public moreInfoUrl: string | null,
   ) {
     super();
@@ -28,6 +28,7 @@ export class Framework extends ViewModel implements IFramework {
       framework.moreInfoUrl,
     );
   }
+  
   getTooltip(): string {
     return 'Framework';
   }
@@ -39,12 +40,15 @@ export class Framework extends ViewModel implements IFramework {
       return '';
     }
   }
+  
   getIcon(): 'framework' {
     return 'framework';
   }
-  getLink(): string {
+  
+  getLink(): string | null {
     return this.url;
   }
+  
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');
   }

@@ -3,10 +3,11 @@ import {
   Ontologies,
   IEdamOntologyId,
   IEdamOntologyIdVersion,
+  ILinguistOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
-  ISpdxId,
+  ISpdxOntologyId,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -19,7 +20,7 @@ export class OntologyId implements IOntologyId {
 }
 
 export class EdamOntologyId implements IEdamOntologyId {
-  @ApiProperty({ type: String, enum: ['EDAM'] })
+  @ApiProperty({ type: String, enum: [Ontologies.EDAM] })
   namespace!: Ontologies.EDAM;
 
   @ApiProperty({ type: String, example: 'format_3973' })
@@ -27,7 +28,7 @@ export class EdamOntologyId implements IEdamOntologyId {
 }
 
 export class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
-  @ApiProperty({ type: String, enum: ['EDAM'] })
+  @ApiProperty({ type: String, enum: [Ontologies.EDAM] })
   namespace!: Ontologies.EDAM;
 
   @ApiProperty({ type: String, example: 'format_3973' })
@@ -40,8 +41,16 @@ export class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
   supportedFeatures!: string[];  
 }
 
+export class LinguistOntologyId implements ILinguistOntologyId {
+  @ApiProperty({ type: String, enum: [Ontologies.Linguist] })
+  namespace!: Ontologies.Linguist;
+
+  @ApiProperty({ type: String, example: 'Python' })
+  id!: string;
+}
+
 export class KisaoOntologyId implements IKisaoOntologyId {
-  @ApiProperty({ type: String, enum: ['KISAO'] })
+  @ApiProperty({ type: String, enum: [Ontologies.KISAO] })
   namespace!: Ontologies.KISAO;
 
   @ApiProperty({ type: String, example: 'KISAO_0000306' })
@@ -49,7 +58,7 @@ export class KisaoOntologyId implements IKisaoOntologyId {
 }
 
 export class SboOntologyId implements ISboOntologyId {
-  @ApiProperty({ type: String, enum: ['SBO'] })
+  @ApiProperty({ type: String, enum: [Ontologies.SBO] })
   namespace!: Ontologies.SBO;
 
   @ApiProperty({ type: String, example: 'SBO_0000004' })
@@ -57,15 +66,15 @@ export class SboOntologyId implements ISboOntologyId {
 }
 
 export class SioOntologyId implements ISioOntologyId {
-  @ApiProperty({ type: String, enum: ['SIO'] })
+  @ApiProperty({ type: String, enum: [Ontologies.SIO] })
   namespace!: Ontologies.SIO;
 
   @ApiProperty({ type: String, example: 'SIO_000004' })
   id!: string;
 }
 
-export class SpdxId implements ISpdxId {
-  @ApiProperty({ type: String, enum: ['SPDX'] })
+export class SpdxOntologyId implements ISpdxOntologyId {
+  @ApiProperty({ type: String, enum: [Ontologies.SPDX] })
   namespace!: Ontologies.SPDX;
 
   @ApiProperty({ type: String, example: '0BSD' })

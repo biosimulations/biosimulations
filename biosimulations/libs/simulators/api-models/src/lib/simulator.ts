@@ -1,10 +1,9 @@
 import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
 import { SoftwareInterfaceType, OperatingSystemType } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-import { SpdxId } from '@biosimulations/datamodel/api';
+import { LinguistOntologyId, SpdxOntologyId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';
-import { linguistTerms } from '@biosimulations/simulators/database-models';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator {
@@ -51,8 +50,8 @@ export class Simulator {
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
 
-  @ApiProperty({ type: SpdxId, nullable: true })
-  license!: SpdxId | null;
+  @ApiProperty({ type: SpdxOntologyId, nullable: true })
+  license!: SpdxOntologyId | null;
 
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
@@ -70,8 +69,7 @@ export class Simulator {
   supportedOperatingSystemTypes!: OperatingSystemType[];
 
   @ApiProperty({
-    type: [String],
-    enum: linguistTerms,
+    type: [LinguistOntologyId],
   })
-  supportedProgrammingLanguages!: string[];
+  supportedProgrammingLanguages!: LinguistOntologyId[];
 }

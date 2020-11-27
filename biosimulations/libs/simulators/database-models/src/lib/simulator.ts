@@ -5,16 +5,16 @@ import { Document } from 'mongoose';
 
 import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
-import { SpdxIdSchema } from './ontologyId';
+import { LinguistOntologyIdSchema, SpdxOntologyIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
 import {
   IImage,
-  ISpdxId,
+  ILinguistOntologyId,
+  ISpdxOntologyId,
   SoftwareInterfaceType,
   OperatingSystemType,
   addValidationForNullableAttributes,
 } from '@biosimulations/datamodel/common';
-import { linguistTerms } from './linguistTerms';
 
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
 import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
@@ -48,8 +48,8 @@ export class Simulator extends Document {
   @Prop({ type: ExternalReferencesSchema, required: true, default: undefined })
   references!: ExternalReferences;
 
-  @Prop({ type: SpdxIdSchema, required: false, default: undefined })
-  license!: ISpdxId | null;
+  @Prop({ type: SpdxOntologyIdSchema, required: false, default: undefined })
+  license!: ISpdxOntologyId | null;
 
   @Prop({
     type: [AlgorithmSchema],
@@ -80,12 +80,11 @@ export class Simulator extends Document {
   supportedOperatingSystemTypes!: OperatingSystemType[];
 
   @Prop({
-    type: [String],
-    enum: linguistTerms,
+    type: [LinguistOntologyIdSchema],
     required: true,
     default: undefined,
   })
-  supportedProgrammingLanguages!: string[];
+  supportedProgrammingLanguages!: ILinguistOntologyId[];
 }
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 

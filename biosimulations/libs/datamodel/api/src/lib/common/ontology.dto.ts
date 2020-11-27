@@ -7,10 +7,11 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import {
   EdamOntologyId,
+  LinguistOntologyId,
   KisaoOntologyId,
   SboOntologyId,
   SioOntologyId,
-  SpdxId,
+  SpdxOntologyId,
 } from './ontologyId.dto';
 
 export class OntologyInfo implements IOntologyInfo {
@@ -46,8 +47,8 @@ export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty({ type: String })
-  name!: string;
+  @ApiProperty({ type: String, nullable: true })
+  name!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
@@ -55,10 +56,10 @@ export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ type: String, nullable: true, format: 'url' })
   iri!: string | null;
 
-  @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  @ApiProperty({ type: String, nullable: true, format: 'url' })
+  url!: string | null;
 
-  @ApiProperty({ type: String, format: 'url' })
+  @ApiProperty({ type: String, nullable: true, format: 'url' })
   moreInfoUrl!: string | null;
 }
 
@@ -77,6 +78,23 @@ export class EdamTerm extends EdamOntologyId {
 
   @ApiProperty({ type: String, format: 'url' })
   moreInfoUrl!: string | null;
+}
+
+export class LinguistTerm extends LinguistOntologyId {
+  @ApiProperty({ type: typeof null, nullable: true })
+  name!: null;
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  description!: null;
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  iri!: null;
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  url!: null;
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  moreInfoUrl!: null;
 }
 
 export class KisaoTerm extends KisaoOntologyId {
@@ -130,7 +148,7 @@ export class SioTerm extends SioOntologyId {
   moreInfoUrl!: string | null;
 }
 
-export class SpdxTerm extends SpdxId {
+export class SpdxTerm extends SpdxOntologyId {
   @ApiProperty({ type: String })
   name!: string;
 

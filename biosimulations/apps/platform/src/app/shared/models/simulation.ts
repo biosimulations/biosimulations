@@ -10,7 +10,6 @@ import { Format } from './format';
 import { Identifier } from './identifier';
 import { Citation } from './journal-reference';
 import { Model } from './model';
-import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
 import { Project } from './project';
 import { RemoteFile } from './remote-file';

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Url, SoftwareInterfaceType, IImage, DependentPackage } from '@biosimulations/datamodel/common';
+import { Url, SoftwareInterfaceType, IImage, DependentPackage, ILinguistOntologyId } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -125,7 +125,7 @@ export interface ViewSimulator {
   algorithms: Observable<ViewAlgorithm[]>;
   interfaceTypes: string[];
   supportedOperatingSystemTypes: string[];
-  supportedProgrammingLanguages: string[];
+  supportedProgrammingLanguages: ILinguistOntologyId[];
   versions: Observable<ViewVersion[]>;
   curationStatus: string;
   created: string;

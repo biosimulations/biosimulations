@@ -43,9 +43,11 @@ export class Image implements IImage {
   @Prop({
     type: String,
     required: false,
-    enum: Object.entries(OperatingSystemType).map((keyVal: [string, string]): string => {
-      return keyVal[1];
-    }).concat([null]),
+    enum: (Object.entries(OperatingSystemType)
+      .map((keyVal: [string, string]): string => {
+        return keyVal[1];
+      }) as (string | null)[])
+      .concat([null]),
     default: undefined,
   })
   operatingSystemType!: OperatingSystemType | null;

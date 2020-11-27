@@ -585,7 +585,10 @@
     ],
     "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
     "supportedOperatingSystemTypes": ["platform-independent"],
-    "supportedProgrammingLanguages": ["Python"],
+    "supportedProgrammingLanguages": [{
+        "namespace": "Linguist",
+        "id": "Python"
+    }],
     "biosimulators": {
         "specificationVersion": "1.0.0",
         "imageVersion": "1.0.0",

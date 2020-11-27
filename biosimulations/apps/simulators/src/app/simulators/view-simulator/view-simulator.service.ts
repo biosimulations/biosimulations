@@ -22,6 +22,7 @@ import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
 import { map, pluck, tap } from 'rxjs/operators';
 import {
   IEdamOntologyIdVersion,
+  ILinguistOntologyId,
   ISboOntologyId,
   Identifier,
   Person,
@@ -126,8 +127,8 @@ export class ViewSimulatorService {
       supportedOperatingSystemTypes: sim.supportedOperatingSystemTypes.sort((a: string, b: string) => {
         return a.localeCompare(b, undefined, { numeric: true });
       }),
-      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: string, b: string) => {
-        return a.localeCompare(b, undefined, { numeric: true });
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: ILinguistOntologyId, b: ILinguistOntologyId) => {
+        return a.id.localeCompare(b.id, undefined, { numeric: true });
       }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
       created: this.getDateStr(new Date(sim.biosimulators.created)),

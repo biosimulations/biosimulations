@@ -1,4 +1,5 @@
 export enum Ontologies {
+  Linguist = 'Linguist',
   KISAO = 'KISAO',
   SBO = 'SBO',
   EDAM = 'EDAM',
@@ -34,20 +35,29 @@ export interface Identifier extends IdentifierBase {
   id: string;
   url: string;
 }
+
 export interface IOntologyId extends IdentifierBase {
   namespace: Ontologies;
   id: string;
 }
+
 export interface IEdamOntologyId extends IOntologyId {
   namespace: Ontologies.EDAM;
   id: string;
 }
+
 export interface IEdamOntologyIdVersion extends IEdamOntologyId {
   namespace: Ontologies.EDAM;
   id: string;
   version: string | null;
   supportedFeatures: string[];
 }
+
+export interface ILinguistOntologyId extends IOntologyId {
+  namespace: Ontologies.Linguist;
+  id: string;
+}
+
 export interface IKisaoOntologyId extends IOntologyId {
   namespace: Ontologies.KISAO;
   id: string;
@@ -62,27 +72,43 @@ export interface ISioOntologyId extends IOntologyId {
   namespace: Ontologies.SIO;
   id: string;
 }
-export interface ISpdxId extends IOntologyId {
+
+export interface ISpdxOntologyId extends IOntologyId {
   namespace: Ontologies.SPDX;
   id: string;
 }
+
 export interface IOntologyTerm extends IOntologyId {
   namespace: Ontologies;
   id: string;
   iri: string | null;
-  url: string;
+  url: string | null;
   moreInfoUrl: string | null;
-  name: string;
+  name: string | null;
   description: string | null;
 }
-export interface IdentifierTerm extends Identifier {
-  namespace: Ontologies;
+
+export interface EdamTerm extends IOntologyTerm {
+  namespace: Ontologies.EDAM;
   id: string;
   name: string;
-  description?: string | null;
+  description: string | null;
+  iri: string;
   url: string;
+  moreInfoUrl: string | null;
 }
-export interface KisaoTerm extends IKisaoOntologyId {
+
+export interface LinguistTerm extends IOntologyTerm {
+  namespace: Ontologies.Linguist;
+  id: string;
+  name: null;
+  description: null;
+  iri: null;
+  url: null;
+  moreInfoUrl: null;
+}
+
+export interface KisaoTerm extends IOntologyTerm {
   namespace: Ontologies.KISAO;
   id: string;
   name: string;
@@ -102,16 +128,6 @@ export interface SboTerm extends IOntologyTerm {
   moreInfoUrl: null;
 }
 
-export interface EdamTerm extends IOntologyTerm {
-  namespace: Ontologies.EDAM;
-  id: string;
-  name: string;
-  description: string | null;
-  iri: string;
-  url: string;
-  moreInfoUrl: string | null;
-}
-
 export interface SioTerm extends IOntologyTerm {
   namespace: Ontologies.SIO;
   id: string;
@@ -122,7 +138,7 @@ export interface SioTerm extends IOntologyTerm {
   moreInfoUrl: string | null;
 }
 
-export interface SpdxTerm extends IdentifierTerm {
+export interface SpdxTerm extends IOntologyTerm {
   namespace: Ontologies.SPDX;
   id: string;
   name: string;
