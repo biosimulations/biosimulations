@@ -28,8 +28,8 @@ docker build \
 echo "Pushing Docker image for $APP ..."
 docker login ghcr.io --username $GITHUB_ACTOR --password $GITHUB_TOKEN
 docker login docker.io --username $DOCKER_USERNAME --password DOCKER_PASSWORD
-docker push ghcr.io/biosimulations/Biosimulations/$APP:$COMMIT
-docker push ghcr.io/biosimulations/Biosimulations/$APP:$BRANCH
+docker push ghcr.io/biosimulations/biosimulations/$APP:$COMMIT
+docker push ghcr.io/biosimulations/biosimulations/$APP:$BRANCH
 docker push docker.io/biosimulations/$APP:$BRANCH
 
 # if [ "$BRANCH" = "dev" ]; then
