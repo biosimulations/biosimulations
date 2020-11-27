@@ -3,6 +3,7 @@ import {
   Ontologies,
   IEdamOntologyId,
   IEdamOntologyIdVersion,
+  IFunderRegistryOntologyId,
   ILinguistOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
@@ -134,6 +135,29 @@ export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
   EdamOntologyIdVersion
 );
 
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+class FunderRegistryOntologyId implements IFunderRegistryOntologyId {
+  @Prop({ type: String, enum: [Ontologies.FunderRegistry], required: true, default: undefined })
+  namespace!: Ontologies.FunderRegistry;
+
+  @Prop({
+    type: String,
+    required: true,
+    validate: [{
+      validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.FunderRegistry, value),
+      message: (props: any): string => `${props.value} is not an id of a Funder Registry term`,
+    }],
+    default: undefined,
+  })
+  id!: string;
+}
+
+export const FunderRegistryOntologyIdSchema = SchemaFactory.createForClass(FunderRegistryOntologyId);
 
 @Schema({
   _id: false,

@@ -7,6 +7,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import {
   EdamOntologyId,
+  FunderRegistryOntologyId,
   LinguistOntologyId,
   KisaoOntologyId,
   SboOntologyId,
@@ -78,6 +79,23 @@ export class EdamTerm extends EdamOntologyId {
 
   @ApiProperty({ type: String, format: 'url' })
   moreInfoUrl!: string | null;
+}
+
+export class FunderRegistryTerm extends FunderRegistryOntologyId {
+  @ApiProperty({ type: String })
+  name!: string;
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  description!: null;
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  iri!: null;
+
+  @ApiProperty({ type: String })
+  url!: string;
+
+  @ApiProperty({ type: typeof null, nullable: true })
+  moreInfoUrl!: null;
 }
 
 export class LinguistTerm extends LinguistOntologyId {

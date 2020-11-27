@@ -5,6 +5,7 @@ import {
   IOntologyTerm,
   Ontologies,
   EdamTerm,
+  FunderRegistryTerm,
   LinguistTerm,
   KisaoTerm,
   SboTerm,
@@ -17,6 +18,7 @@ import { urls } from '@biosimulations/config/common';
 @Injectable({ providedIn: 'root' })
 export class OntologyService {
   edamTerms: Observable<{ [id: string]: EdamTerm }>;
+  funderRegistryTerms: Observable<{ [id: string]: FunderRegistryTerm }>;
   linguistTerms: Observable<{ [id: string]: LinguistTerm }>;
   kisaoTerms: Observable<{ [id: string]: KisaoTerm }>;
   sboTerms: Observable<{ [id: string]: SboTerm }>;
@@ -26,6 +28,9 @@ export class OntologyService {
   constructor(private http: HttpClient) {
     this.edamTerms = this.fetchTerms<EdamTerm>(Ontologies.EDAM) as Observable<{ [id: string]: EdamTerm }>;
     this.edamTerms.subscribe();
+
+    this.funderRegistryTerms = this.fetchTerms<FunderRegistryTerm>(Ontologies.FunderRegistry) as Observable<{ [id: string]: FunderRegistryTerm }>;
+    this.funderRegistryTerms.subscribe();
 
     this.linguistTerms = this.fetchTerms<LinguistTerm>(Ontologies.Linguist) as Observable<{ [id: string]: LinguistTerm }>;
     this.linguistTerms.subscribe();
@@ -68,6 +73,7 @@ export class OntologyService {
   private getTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<{ [id: string]: T }> | null {
     switch (ontologyId) {
       case Ontologies.EDAM: return this.edamTerms as Observable<{ [id: string]: T }>;
+      case Ontologies.FunderRegistry: return this.funderRegistryTerms as Observable<{ [id: string]: T }>;
       case Ontologies.Linguist: return this.linguistTerms as Observable<{ [id: string]: T }>;
       case Ontologies.KISAO: return this.kisaoTerms as Observable<{ [id: string]: T }>;
       case Ontologies.SBO: return this.sboTerms as Observable<{ [id: string]: T }>;
@@ -109,6 +115,10 @@ export class OntologyService {
 
   getEdamTerm(id: string): Observable<EdamTerm> {
     return this.getTerm<EdamTerm>(Ontologies.EDAM, id);
+  }
+
+  getFunderRegistryTerm(id: string): Observable<FunderRegistryTerm> {
+    return this.getTerm<FunderRegistryTerm>(Ontologies.FunderRegistry, id);
   }
 
   getLinguistTerm(id: string): Observable<LinguistTerm> {

@@ -109,6 +109,13 @@ export interface ViewAuthor {
   orcidUrl: string | null;
 }
 
+export interface ViewFunding {
+  funderName: Observable<string>;
+  funderUrl: Observable<string>;
+  grant: string | null;
+  url: string | null;
+}
+
 export interface ViewSimulator {
   _json: string;
   id: string;
@@ -126,8 +133,9 @@ export interface ViewSimulator {
   interfaceTypes: string[];
   supportedOperatingSystemTypes: string[];
   supportedProgrammingLanguages: ILinguistOntologyId[];
-  versions: Observable<ViewVersion[]>;
+  versions: Observable<ViewVersion[]>;  
   curationStatus: string;
+  funding: ViewFunding[];
   created: string;
   updated: string;
 }

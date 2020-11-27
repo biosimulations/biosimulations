@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { 
   edamInfo,
+  funderRegistryInfo,
   linguistInfo,
   kisaoInfo,
   sboInfo,
@@ -8,6 +9,7 @@ import {
   spdxInfo,
   sboTerms,
   edamTerms,
+  funderRegistryTerms,
   linguistTerms,
   kisaoTerms,
   sioTerms,
@@ -24,6 +26,7 @@ export class OntologiesService {
   getInfo(ontologyId: Ontologies): OntologyInfo | null {
     switch (ontologyId) {      
       case Ontologies.EDAM: return edamInfo;
+      case Ontologies.FunderRegistry: return funderRegistryInfo;
       case Ontologies.Linguist: return linguistInfo;
       case Ontologies.KISAO: return kisaoInfo;
       case Ontologies.SBO: return sboInfo;
@@ -36,6 +39,7 @@ export class OntologiesService {
   static _getTerms(ontologyId: Ontologies): { [id: string]: IOntologyTerm } | null {
     switch (ontologyId) {      
       case Ontologies.EDAM: return edamTerms;
+      case Ontologies.FunderRegistry: return funderRegistryTerms;
       case Ontologies.Linguist: return linguistTerms;
       case Ontologies.KISAO: return kisaoTerms;
       case Ontologies.SBO: return sboTerms;

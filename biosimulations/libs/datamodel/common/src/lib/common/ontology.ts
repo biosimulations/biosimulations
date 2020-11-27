@@ -1,8 +1,9 @@
 export enum Ontologies {
-  Linguist = 'Linguist',
-  KISAO = 'KISAO',
-  SBO = 'SBO',
   EDAM = 'EDAM',
+  FunderRegistry = 'FunderRegistry',
+  KISAO = 'KISAO',
+  Linguist = 'Linguist',
+  SBO = 'SBO',
   SIO = 'SIO',
   SPDX = 'SPDX',
 }
@@ -53,6 +54,11 @@ export interface IEdamOntologyIdVersion extends IEdamOntologyId {
   supportedFeatures: string[];
 }
 
+export interface IFunderRegistryOntologyId extends IOntologyId {
+  namespace: Ontologies.FunderRegistry;
+  id: string;
+}
+
 export interface ILinguistOntologyId extends IOntologyId {
   namespace: Ontologies.Linguist;
   id: string;
@@ -96,6 +102,16 @@ export interface EdamTerm extends IOntologyTerm {
   iri: string;
   url: string;
   moreInfoUrl: string | null;
+}
+
+export interface FunderRegistryTerm extends IOntologyTerm {
+  namespace: Ontologies.FunderRegistry;
+  id: string;
+  name: string;
+  description: null;
+  iri: null;
+  url: string;
+  moreInfoUrl: null;
 }
 
 export interface LinguistTerm extends IOntologyTerm {

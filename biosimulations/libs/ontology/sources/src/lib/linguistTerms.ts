@@ -22,7 +22,7 @@ function getLinguistTerms(input: any): { [id: string]: LinguistTerm } {
 export const linguistTerms = getLinguistTerms(linguistJson);
 
 export const linguistInfo: OntologyInfo = {
-  id: 'Linguist',
+  id: Ontologies.Linguist,
   acronym: 'Linguist',
   name: 'Linguist programming languages',
   description: 'List of programming languages supported by Linguist.',

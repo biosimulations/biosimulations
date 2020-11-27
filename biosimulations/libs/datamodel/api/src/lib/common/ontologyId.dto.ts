@@ -3,6 +3,7 @@ import {
   Ontologies,
   IEdamOntologyId,
   IEdamOntologyIdVersion,
+  IFunderRegistryOntologyId,
   ILinguistOntologyId,
   IKisaoOntologyId,
   ISboOntologyId,
@@ -39,6 +40,14 @@ export class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
 
   @ApiProperty({ type: [String], description: "Supported features of the format", example: 'Plot2D' })
   supportedFeatures!: string[];  
+}
+
+export class FunderRegistryOntologyId implements IFunderRegistryOntologyId {
+  @ApiProperty({ type: String, enum: [Ontologies.FunderRegistry] })
+  namespace!: Ontologies.FunderRegistry;
+
+  @ApiProperty({ type: String, example: 'http://dx.doi.org/10.13039/100000001' })
+  id!: string;
 }
 
 export class LinguistOntologyId implements ILinguistOntologyId {

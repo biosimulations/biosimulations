@@ -7,6 +7,7 @@ import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
 import { LinguistOntologyIdSchema, SpdxOntologyIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
+import { FundingSchema } from './funding';
 import {
   IImage,
   ILinguistOntologyId,
@@ -14,6 +15,7 @@ import {
   SoftwareInterfaceType,
   OperatingSystemType,
   addValidationForNullableAttributes,
+  Funding,
 } from '@biosimulations/datamodel/common';
 
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
@@ -85,6 +87,13 @@ export class Simulator extends Document {
     default: undefined,
   })
   supportedProgrammingLanguages!: ILinguistOntologyId[];
+
+  @Prop({
+    type: [FundingSchema],
+    required: true,
+    default: undefined,
+  })
+  funding!: Funding[];
 }
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 

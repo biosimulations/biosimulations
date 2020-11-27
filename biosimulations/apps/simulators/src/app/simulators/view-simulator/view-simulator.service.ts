@@ -13,6 +13,7 @@ import {
   ViewParameter,
   ViewParameterObservable,
   ViewAuthor,
+  ViewFunding,
   DescriptionFragment,
   DescriptionFragmentType,
 } from './view-simulator.interface';
@@ -27,6 +28,7 @@ import {
   Identifier,
   Person,
   DependentPackage,
+  Funding,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
@@ -131,6 +133,7 @@ export class ViewSimulatorService {
         return a.id.localeCompare(b.id, undefined, { numeric: true });
       }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
+      funding: sim.funding.map(this.getFunding),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
@@ -381,5 +384,14 @@ export class ViewSimulatorService {
       '-' +
       date.getDate().toString().padStart(2, '0')
     );
+  }
+
+  getFunding(funding: Funding): ViewFunding {
+    return {
+      funderName: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('name')),
+      funderUrl: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('url')),
+      grant: funding.grant,
+      url: funding.url,
+    }
   }
 }

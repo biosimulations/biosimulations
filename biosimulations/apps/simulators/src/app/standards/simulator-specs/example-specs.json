@@ -589,6 +589,7 @@
         "namespace": "Linguist",
         "id": "Python"
     }],
+    "funding": [],
     "biosimulators": {
         "specificationVersion": "1.0.0",
         "imageVersion": "1.0.0",

@@ -12,3 +12,4 @@ export * from './image';
 export * from './software-interface-type';
 export * from './operating-system-type';
 export * from './url';
+export * from './funding';
