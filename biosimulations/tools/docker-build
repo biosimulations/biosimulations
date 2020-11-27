@@ -1,26 +1,42 @@
 #!/usr/bin/env bash
 COMMIT=$(git rev-parse HEAD)
 #COMMIT= $(git branch --show-current)
-:"${DOCKER_BUILD_CONTEXT=..}" "${DOCKER_BACKEND_PATH=../Dockerfile}" "${TAG:=$COMMIT}" "${APP:=simulators-api}"
+BRANCH=$(echo "${GITHUB_REF/refs\/heads\//}")
 
-DOCKER_PATH=$DOCKER_BACKEND_PATH
-DOCKER_HOST=ghcr.io
-DOCKER_NAMESPACE=biosimulations
+:"${DOCKER_BUILD_CONTEXT_PATH=..}" "${DOCKERFILE_PATH=../Dockerfile}"
 
-USAGE="$0 [-a <App Name> -t <Tag Name>]"
+USAGE="$0 -a <App name>"
 
- while getopts 'a:t:' opt
- do
-     case $opt in
-         a) APP=$OPTARG;;
-         t) TAG=$OPTARG;;
+while getopts 'a:' opt
+do
+    case $opt in
+        a) APP=$OPTARG;;
         \?) echo "ERROR: Invalid option: $USAGE"
             exit 1;;
-     esac
+    esac
 done
 
+echo "Building Docker image for $APP ..."
+docker build \
+    --file $DOCKERFILE_PATH \
+    --tag ghcr.io/biosimulations/Biosimulations/$APP:$COMMIT \
+    --tag ghcr.io/biosimulations/Biosimulations/$APP:$BRANCH \
+    --tag docker.io/biosimulations/$APP:$BRANCH \
+    --build-arg app=$APP \
+    $DOCKER_BUILD_CONTEXT_PATH
 
+echo "Pushing Docker image for $APP ..."
+docker login ghcr.io --username $GITHUB_ACTOR --password $GITHUB_TOKEN
+docker login docker.io --username $DOCKER_USERNAME --password DOCKER_PASSWORD
+docker push ghcr.io/biosimulations/Biosimulations/$APP:$COMMIT
+docker push ghcr.io/biosimulations/Biosimulations/$APP:$BRANCH
+docker push docker.io/biosimulations/$APP:$BRANCH
 
-DOCKER_IMAGE=$DOCKER_HOST/$DOCKER_NAMESPACE/$APP:$TAG
-echo "Building $DOCKER_IMAGE"
-docker build -f $DOCKER_PATH -t $DOCKER_IMAGE --build-arg app=$APP $DOCKER_BUILD_CONTEXT
+# if [ "$BRANCH" = "dev" ]; then
+#     echo "Deploying Docker image for $APP ..."
+#     GCLOUD_KEY_FILE=$(tempfile --suffix ".json")
+#     echo "$GCLOUD_KEY" > $GCLOUD_KEY_FILE
+#     gcloud auth activate-service-account $GCLOUD_EMAIL --key-file=$GCLOUD_KEY_FILE --project biosimulations
+#     gcloud container clusters get-credentials biosimulations --zone us-central1-c --project biosimulations
+#     kubectl rollout restart deployment $APP
+# fi
