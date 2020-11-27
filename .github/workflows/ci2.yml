@@ -225,4 +225,4 @@ jobs:
             DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
             GCLOUD_EMAIL: "${{ secrets.GCLOUD_EMAIL }}"
             GCLOUD_KEY: "${{ secrets.GCLOUD_KEY }}"
-        run: nx affected:apps --base=$NX_BASE --plain  | ./tools/affected-loop
+        run: nx affected:apps --base=$NX_BASE --plain  | ./tools/build-push-deploy-docker-images

@@ -5,7 +5,7 @@ do
 for app in $line; do
     __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     echo Building Docker image for $app ...
-    source ${__dir}/docker-build -a $app
+    source ${__dir}/build-push-deploy-docker-image -a $app
 done
 
 done < "${1:-/dev/stdin}"
