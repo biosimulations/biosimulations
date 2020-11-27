@@ -1,6 +1,7 @@
 import {
   IImage,
   IEdamOntologyIdVersion,
+  OperatingSystemType,
 } from '@biosimulations/datamodel/common';
 import { EdamOntologyIdVersionSchema } from './ontologyId';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
@@ -38,6 +39,16 @@ export class Image implements IImage {
     default: undefined,
   })
   format!: IEdamOntologyIdVersion;
+
+  @Prop({
+    type: String,
+    required: false,
+    enum: Object.entries(OperatingSystemType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }).concat([null]),
+    default: undefined,
+  })
+  operatingSystemType!: OperatingSystemType | null;
 }
 
 export const ImageSchema = SchemaFactory.createForClass(

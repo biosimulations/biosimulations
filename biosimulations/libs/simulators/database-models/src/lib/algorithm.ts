@@ -18,6 +18,12 @@ import {
   AlgorithmParameter,
   AlgorithmParameterSchema,
 } from './algorithmParameter';
+
+import {
+  DependentPackage,
+  DependentPackageSchema,
+} from './dependentPackage';
+
 import { CitationSchema } from './common';
 
 @Schema({
@@ -68,6 +74,9 @@ export class Algorithm implements IAlgorithm {
     default: undefined,
   })
   availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
+
+  @Prop({ type: [DependentPackageSchema], _id: false, required: false, default: undefined })
+  dependencies!: DependentPackage[] | null;
 
   @Prop({ type: [CitationSchema], _id: false, required: true, default: undefined })
   citations!: Citation[];

@@ -293,9 +293,9 @@ export const columns: Column[] = [
     minWidth: 180,
   },
   {
-    id: 'supportedOperatingSystems',
+    id: 'supportedOperatingSystemTypes',
     heading: 'OSes',
-    key: 'supportedOperatingSystems',
+    key: 'supportedOperatingSystemTypes',
     formatter: (value: string[] | string): string => {
       if (Array.isArray(value)) {
         return value.join(', ');

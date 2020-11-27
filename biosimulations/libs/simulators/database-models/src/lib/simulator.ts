@@ -11,7 +11,7 @@ import {
   IImage,
   ISpdxId,
   SoftwareInterfaceType,
-  OperatingSystem,
+  OperatingSystemType,
   addValidationForNullableAttributes,
 } from '@biosimulations/datamodel/common';
 import { gitHubLanguageTerms } from './gitHubLanguageTerms';
@@ -71,13 +71,13 @@ export class Simulator extends Document {
 
   @Prop({
     type: [String],
-    enum: Object.entries(OperatingSystem).map((keyVal: [string, string]): string => {
+    enum: Object.entries(OperatingSystemType).map((keyVal: [string, string]): string => {
       return keyVal[1];
     }),
     required: true,
     default: undefined,
   })
-  supportedOperatingSystems!: OperatingSystem[];
+  supportedOperatingSystemTypes!: OperatingSystemType[];
 
   @Prop({
     type: [String],

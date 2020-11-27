@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Url, SoftwareInterfaceType } from '@biosimulations/datamodel/common';
+import { Url, SoftwareInterfaceType, IImage, DependentPackage } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -14,6 +14,7 @@ export interface ViewAlgorithm {
   parameters: ViewParameter[] | null;
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
+  dependencies: DependentPackage[] | null;
 }
 
 export interface ViewAlgorithmObservable {
@@ -29,6 +30,7 @@ export interface ViewAlgorithmObservable {
   parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
+  dependencies: DependentPackage[] | null;
 }
 
 export enum DescriptionFragmentType {
@@ -98,7 +100,7 @@ export interface ViewCitation {
 export interface ViewVersion {
   label: string;
   created: string;
-  image?: string;
+  image: IImage | null;
   curationStatus: string;
 }
 
@@ -113,7 +115,7 @@ export interface ViewSimulator {
   version: string;
   name: string;
   description: string | null;
-  image?: string;
+  image: IImage | null;
   urls: Url[];
   licenseUrl: Observable<string> | null;
   licenseName: Observable<string> | null;
@@ -122,7 +124,7 @@ export interface ViewSimulator {
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
   interfaceTypes: string[];
-  supportedOperatingSystems: string[];
+  supportedOperatingSystemTypes: string[];
   supportedProgrammingLanguages: string[];
   versions: Observable<ViewVersion[]>;
   curationStatus: string;

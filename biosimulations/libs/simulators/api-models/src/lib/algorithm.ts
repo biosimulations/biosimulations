@@ -8,6 +8,7 @@ import {
   EdamOntologyIdVersion,
   KisaoOntologyId,
   SboOntologyId,
+  DependentPackage,
 } from '@biosimulations/datamodel/api';
 
 import { ApiProperty } from '@nestjs/swagger';
@@ -56,6 +57,9 @@ export class Algorithm implements IAlgorithm {
     description: "List of software interfaces which support the parameter"
   })
   availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
+
+  @ApiProperty({ type: [DependentPackage], nullable: true })
+  dependencies!: DependentPackage[] | null;
 
   @ApiProperty({ type: [Citation] })
   citations!: Citation[];

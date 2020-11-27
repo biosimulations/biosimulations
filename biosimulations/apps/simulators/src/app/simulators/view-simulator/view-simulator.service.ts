@@ -25,6 +25,7 @@ import {
   ISboOntologyId,
   Identifier,
   Person,
+  DependentPackage,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
@@ -87,7 +88,7 @@ export class ViewSimulatorService {
       id: sim.id,
       version: sim.version,
       name: sim.name,
-      image: sim.image?.url || undefined,
+      image: sim.image,
       description: sim.description,
       urls: sim.urls.sort(sortUrls),
       authors: this.getAuthors(sim),
@@ -122,7 +123,7 @@ export class ViewSimulatorService {
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
-      supportedOperatingSystems: sim.supportedOperatingSystems.sort((a: string, b: string) => {
+      supportedOperatingSystemTypes: sim.supportedOperatingSystemTypes.sort((a: string, b: string) => {
         return a.localeCompare(b, undefined, { numeric: true });
       }),
       supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: string, b: string) => {
@@ -204,6 +205,11 @@ export class ViewSimulatorService {
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
+      dependencies: value?.dependencies 
+        ? value?.dependencies?.sort((a: DependentPackage, b: DependentPackage) => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          })
+        : null,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -267,7 +273,7 @@ export class ViewSimulatorService {
     return {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
-      image: value.image || undefined,
+      image: value.image,
       curationStatus: value.curationStatus,
     };
   }

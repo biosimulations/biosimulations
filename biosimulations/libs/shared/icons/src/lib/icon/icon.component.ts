@@ -57,6 +57,8 @@ export type biosimulationsIcon =
   | 'operatingSystem'
   | 'softwareInterface'
   | 'license'
+  | 'free'
+  | 'paid'
   | 'id'
   | 'tag'
   | 'tags'
@@ -161,6 +163,8 @@ export class IconComponent implements OnInit {
     operatingSystem: { type: 'fas', name: 'cog' },
     softwareInterface: { type: 'fas', name: 'desktop' },
     license: { type: 'fas', name: 'balance-scale' },
+    free: { type: 'fas', name: 'lock-open' },
+    paid: { type: 'fas', name: 'lock' },
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },

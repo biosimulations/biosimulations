@@ -7,3 +7,4 @@ export * from './person.dto';
 export * from './externalreferences.dto';
 export * from './ontologyId.dto';
 export * from './url';
+export * from './dependentPackage';

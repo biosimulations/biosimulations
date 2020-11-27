@@ -106,7 +106,7 @@ export class SimulatorTableService {
                         .sort((a: string, b: string) => {
                           return a.localeCompare(b, undefined, { numeric: true });
                         }),
-                      supportedOperatingSystems: simulator.supportedOperatingSystems
+                      supportedOperatingSystemTypes: simulator.supportedOperatingSystemTypes
                         .sort((a: string, b: string) => {
                           return a.localeCompare(b, undefined, { numeric: true });
                         }),
