@@ -4,7 +4,7 @@ import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SpdxId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';
-import { gitHubLanguageTerms } from '@biosimulations/simulators/database-models';
+import { linguistTerms } from '@biosimulations/simulators/database-models';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator {
@@ -71,7 +71,7 @@ export class Simulator {
 
   @ApiProperty({
     type: [String],
-    enum: gitHubLanguageTerms,
+    enum: linguistTerms,
   })
   supportedProgrammingLanguages!: string[];
 }

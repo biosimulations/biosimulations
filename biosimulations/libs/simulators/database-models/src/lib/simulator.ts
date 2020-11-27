@@ -14,7 +14,7 @@ import {
   OperatingSystemType,
   addValidationForNullableAttributes,
 } from '@biosimulations/datamodel/common';
-import { gitHubLanguageTerms } from './gitHubLanguageTerms';
+import { linguistTerms } from './linguistTerms';
 
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
 import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
@@ -81,7 +81,7 @@ export class Simulator extends Document {
 
   @Prop({
     type: [String],
-    enum: gitHubLanguageTerms,
+    enum: linguistTerms,
     required: true,
     default: undefined,
   })

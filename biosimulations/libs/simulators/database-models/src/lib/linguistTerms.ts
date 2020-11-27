@@ -1,14 +1,14 @@
 import { OntologyInfo } from '@biosimulations/datamodel/common';
-import data from './gitHubLanguages.json';
+import data from './linguist.json';
 
-export const gitHubLanguageTerms: string[] = [];
+export const linguistTerms: string[] = [];
 data.forEach((language: any): void => {
   if (language?.type === "programming") {
-    gitHubLanguageTerms.push(language.name);
+    linguistTerms.push(language.name);
   }
 })
 
-export const gitHubLanguageInfo: OntologyInfo = {
+export const linguistInfo: OntologyInfo = {
   id: null,
   acronym: null,
   name: 'Git Hub languages',
