@@ -63,10 +63,7 @@
                 <biosimulations-icon icon="docker"></biosimulations-icon>
                 <a [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id" target="_blank" class="text">
                   ghcr.io/biosimulators/{{ simulator.id }}
-                </a>
-              </li>
-              <li *ngIf="simulator.image.operatingSystemType">
-                <biosimulations-icon icon="operatingSystem"></biosimulations-icon> OS: {{ simulator.image.operatingSystemType }}
+                </a><ng-container *ngIf="simulator.image.operatingSystemType"> (OS: {{ simulator.image.operatingSystemType }})</ng-container>
               </li>
             </ul>
           </div>
@@ -187,10 +184,10 @@
         <div class="section" *ngIf="simulator.funding?.length > 0">
           <h3>Funding</h3>
           <div class="section-content">
-            <ul class="icon-list">
+            <ul class="funding icon-list">
               <li *ngFor="let funding of simulator.funding">
                 <biosimulations-icon icon="funding"></biosimulations-icon>
-                <a [href]="funding.funderUrl" target="_blank">{{ funding.funderName }}</a><span *ngIf="funding.grant">: 
+                <a [href]="funding.funderUrl | async" target="_blank">{{ funding.funderName | async }}</a><span *ngIf="funding.grant">: 
                   <a [href]="funding.url" target="_blank" *ngIf="funding.url; else noGrantUrl">{{ funding.grant }}</a>
                   <ng-template #noGrantUrl>{{ funding.grant }}</ng-template>
                 </span>

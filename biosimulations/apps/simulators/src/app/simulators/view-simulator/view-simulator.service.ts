@@ -133,7 +133,7 @@ export class ViewSimulatorService {
         return a.id.localeCompare(b.id, undefined, { numeric: true });
       }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
-      funding: sim.funding.map(this.getFunding),
+      funding: sim.funding.map(this.getFunding, this),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
