@@ -112,6 +112,18 @@
           </div>
         </div>
 
+        <div class="section" *ngIf="simulator.supportedOperatingSystems?.length > 0">
+          <h3>Supported operating systems</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li *ngFor="let supportedOperatingSystem of simulator.supportedOperatingSystems">
+                <biosimulations-icon icon="operatingSystem"></biosimulations-icon>
+                {{ supportedOperatingSystem }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="section" *ngIf="simulator.supportedProgrammingLanguages?.length > 0">
           <h3>Supported programming languages</h3>
           <div class="section-content">

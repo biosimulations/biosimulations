@@ -54,6 +54,7 @@ export type biosimulationsIcon =
   | 'format'
   | 'standard'
   | 'code'
+  | 'operatingSystem'
   | 'softwareInterface'
   | 'license'
   | 'id'
@@ -157,6 +158,7 @@ export class IconComponent implements OnInit {
     format: { type: 'far', name: 'file-alt' },
     standard: { type: 'fas', name: 'check-double' },
     code: { type: 'fas', name: 'code' },
+    operatingSystem: { type: 'fas', name: 'cog' },
     softwareInterface: { type: 'fas', name: 'desktop' },
     license: { type: 'fas', name: 'balance-scale' },
     simulator: { type: 'fas', name: 'cog' },

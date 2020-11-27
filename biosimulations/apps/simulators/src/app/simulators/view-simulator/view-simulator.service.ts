@@ -122,6 +122,9 @@ export class ViewSimulatorService {
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
+      supportedOperatingSystems: sim.supportedOperatingSystems.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
       supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: string, b: string) => {
         return a.localeCompare(b, undefined, { numeric: true });
       }),

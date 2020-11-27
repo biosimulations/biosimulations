@@ -102,8 +102,18 @@ export class SimulatorTableService {
                       simulationFormatIds: [...simulationFormatIds],
                       archiveFormats: value.archiveFormats.map((name: string, iFormat: number): string => name + archiveFormats.versions[iFormat]),
                       archiveFormatIds: [...archiveFormatIds],
-                      interfaceTypes: simulator.interfaceTypes.sort(),
-                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages.sort(),
+                      interfaceTypes: simulator.interfaceTypes
+                        .sort((a: string, b: string) => {
+                          return a.localeCompare(b, undefined, { numeric: true });
+                        }),
+                      supportedOperatingSystems: simulator.supportedOperatingSystems
+                        .sort((a: string, b: string) => {
+                          return a.localeCompare(b, undefined, { numeric: true });
+                        }),
+                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages
+                        .sort((a: string, b: string) => {
+                          return a.localeCompare(b, undefined, { numeric: true });
+                        }),
                       image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,
                     };

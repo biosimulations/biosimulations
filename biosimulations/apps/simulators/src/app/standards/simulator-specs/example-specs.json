@@ -542,6 +542,7 @@
         }
     ],
     "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+    "supportedOperatingSystems": ["platform-independent"],
     "supportedProgrammingLanguages": ["Python"],
     "biosimulators": {
         "specificationVersion": "1.0.0",

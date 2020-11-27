@@ -1,5 +1,5 @@
 import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
-import { SoftwareInterfaceType } from '@biosimulations/datamodel/common';
+import { SoftwareInterfaceType, OperatingSystem } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SpdxId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
@@ -62,6 +62,12 @@ export class Simulator {
     enum: SoftwareInterfaceType,
   })
   interfaceTypes!: SoftwareInterfaceType[];
+
+  @ApiProperty({
+    type: [String],
+    enum: OperatingSystem,
+  })
+  supportedOperatingSystems!: OperatingSystem[];
 
   @ApiProperty({
     type: [String],

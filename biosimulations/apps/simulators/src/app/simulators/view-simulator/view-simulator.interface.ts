@@ -122,6 +122,7 @@ export interface ViewSimulator {
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
   interfaceTypes: string[];
+  supportedOperatingSystems: string[];
   supportedProgrammingLanguages: string[];
   versions: Observable<ViewVersion[]>;
   curationStatus: string;
