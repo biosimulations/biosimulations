@@ -417,7 +417,7 @@
                   <p class="subsection-heading no-bottom-margin">Dependencies</p>
                   <ul *ngIf="algorithm.dependencies.length > 0; else noDependencies" class="icon-list">
                     <li *ngFor="let dependency of algorithm.dependencies">
-                      <biosimulations-icon [icon]="dependency.freeNonCommericalLicense ? 'free' : 'paid'"></biosimulations-icon>
+                      <biosimulations-icon [icon]="dependency.freeNonCommercialLicense ? 'free' : 'paid'"></biosimulations-icon>
                       <a [href]="dependency.url" target="_blank" *ngIf="dependency.url; else noDependencyUrl">{{ dependency.name }}</a><ng-template #noDependencyUrl>{{ dependency.name }}</ng-template>{{ dependency.required ? '*' : '' }}{{ dependency.version ? ' ' + dependency.version : '' }}
                     </li>
                   </ul>

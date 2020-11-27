@@ -34,7 +34,7 @@ export class DependentPackage implements IDependentPackage {
     required: true,
     default: undefined,
   })
-  freeNonCommericalLicense!: boolean;
+  freeNonCommercialLicense!: boolean;
 
   @Prop({
     type: String,

@@ -14,7 +14,7 @@ export class DependentPackage implements IDependentPackage {
   required!: boolean;
 
   @ApiProperty({ type: Boolean })
-  freeNonCommericalLicense!: boolean;
+  freeNonCommercialLicense!: boolean;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   url!: string | null;
