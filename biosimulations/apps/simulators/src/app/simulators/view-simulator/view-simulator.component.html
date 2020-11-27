@@ -187,7 +187,7 @@
             <ul class="funding icon-list">
               <li *ngFor="let funding of simulator.funding">
                 <biosimulations-icon icon="funding"></biosimulations-icon>
-                <a [href]="funding.funderUrl | async" target="_blank">{{ funding.funderName | async }}</a><span *ngIf="funding.grant">: 
+                <a [href]="funding.funderUrl | async" target="_blank">{{ funding.funderName | async }}</a><span *ngIf="funding.grant">:
                   <a [href]="funding.url" target="_blank" *ngIf="funding.url; else noGrantUrl">{{ funding.grant }}</a>
                   <ng-template #noGrantUrl>{{ funding.grant }}</ng-template>
                 </span>
@@ -216,6 +216,7 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
+    urlHashFragment="algorithms"
     heading="Algorithms"
     icon="simulator"
     class="algorithms"
@@ -248,7 +249,7 @@
               </biosimulations-text-page-side-bar-section>
             </ng-container>
 
-            <ng-container id="content" tocSectionsContainer>        
+            <ng-container id="content" tocSectionsContainer>
               <biosimulations-text-page-content-section
                 *ngFor="let algorithm of algorithms"
                 [heading]="algorithm.heading"
@@ -392,7 +393,7 @@
                   >
                   </biosimulations-responsive-table>
                 </div>
-                <ng-template #noCuratedParametersMessage>                  
+                <ng-template #noCuratedParametersMessage>
                   <p class="info-message" *ngIf="algorithm.parameters == null; else zeroParametersMessage">The parameters for this implementation of {{ algorithm.name }} have not been curated.</p>
                   <ng-template #zeroParametersMessage>
                     <p class="info-message">This implementation of {{ algorithm.name }} does not have any parameters.</p>
@@ -453,7 +454,7 @@
                     }}</a>
                   </li>
                 </ul>
-              </biosimulations-text-page-content-section>      
+              </biosimulations-text-page-content-section>
             </ng-container>
           </biosimulations-text-page>
         </ng-container>
@@ -466,6 +467,7 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
+    urlHashFragment="versions"
     heading="Versions"
     icon="version"
     [partialWidth]="true"
@@ -492,6 +494,7 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
+    urlHashFragment="specifications"
     heading="Specifications (JSON)"
     icon="code"
     [partialWidth]="false"

@@ -2,7 +2,7 @@
 </biosimulations-full-page-spinner>
 
 <div [ngClass]="{hidden: loading}">
-  <mat-tab-group (selectedTabChange)="this.selectedTabChange.emit($event)" [(selectedIndex)]="selectedTabIndex">
+  <mat-tab-group (selectedTabChange)="tabChanged($event)" [(selectedIndex)]="selectedTabIndex">
     <ng-content></ng-content>
   </mat-tab-group>
 </div>

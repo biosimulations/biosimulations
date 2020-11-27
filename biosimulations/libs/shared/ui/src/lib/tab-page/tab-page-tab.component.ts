@@ -8,6 +8,9 @@ import { MatTab } from '@angular/material/tabs';
 })
 export class TabPageTabComponent {
   @Input()
+  urlHashFragment?: string;
+
+  @Input()
   heading!: string;
 
   @Input()

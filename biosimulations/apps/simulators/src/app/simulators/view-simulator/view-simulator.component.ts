@@ -107,7 +107,7 @@ export class ViewSimulatorComponent implements OnInit {
       },
       toolTipFormatter: (interfaceTypes: string[]): string => {
         return interfaceTypes.join(', ');
-      },      
+      },
       minWidth: 163,
       maxWidth: 163,
     },
