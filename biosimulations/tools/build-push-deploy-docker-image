@@ -26,8 +26,8 @@ docker build \
     $DOCKER_BUILD_CONTEXT_PATH
 
 echo "Pushing Docker image for $APP ..."
-docker login ghcr.io --username $GITHUB_ACTOR --password $GITHUB_TOKEN
-docker login docker.io --username $DOCKER_USERNAME --password DOCKER_PASSWORD
+echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
+echo $DOCKER_PASSWORD | docker login docker.io --username $DOCKER_USERNAME --password-stdin
 docker push ghcr.io/biosimulations/biosimulations/$APP:$COMMIT
 docker push ghcr.io/biosimulations/biosimulations/$APP:$BRANCH
 docker push docker.io/biosimulations/$APP:$BRANCH

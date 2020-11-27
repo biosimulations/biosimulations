@@ -220,7 +220,8 @@ jobs:
       - name: Build, push, and deploy Docker images
         working-directory: ./biosimulations
         env:
-            GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
             DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
             DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
             GCLOUD_EMAIL: "${{ secrets.GCLOUD_EMAIL }}"
