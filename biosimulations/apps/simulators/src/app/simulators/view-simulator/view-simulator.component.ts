@@ -19,9 +19,6 @@ import {
   ViewSimulator,
   ViewParameter,
   ViewVersion,
-  ViewCitation,
-  DescriptionFragment,
-  DescriptionFragmentType,
 } from './view-simulator.interface';
 
 @Component({
@@ -97,7 +94,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Availability',
       key: 'availableSoftwareInterfaceTypes',
       formatter: (interfaceTypes: string[] | string): string => {
-        let returnVal: string = '';
+        let returnVal = '';
         if (Array.isArray(interfaceTypes)) {
           returnVal = interfaceTypes.join(', ');
         } else {
@@ -171,7 +168,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Version',
       key: 'label',
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (version: ViewVersion) => {
+      centerRouterLink: (version: ViewVersion): string[] => {
         return ['/simulators', this.id, version.label];
       },
       minWidth: 73,
@@ -221,7 +218,7 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'run',
       heading: 'Run',
       key: 'label',
-      formatter: (label: string): null => {
+      formatter: (): null => {
         return null;
       },
       stackedFormatter: (label: string): string => {
@@ -279,14 +276,14 @@ export class ViewSimulatorComponent implements OnInit {
         return simulator;
       }),
 
-      tap((_) => {
+      tap(() => {
         this.loadingSubject.next(false);
         this.cd.detectChanges();
       })
     );
   }
 
-  processSimulator(simulator: ViewSimulator) {
+  processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.dispatchAppRunUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {

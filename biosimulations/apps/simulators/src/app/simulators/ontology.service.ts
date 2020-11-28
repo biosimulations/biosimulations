@@ -12,7 +12,7 @@ import {
   SioTerm,
   SpdxTerm,
 } from '@biosimulations/datamodel/common';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 @Injectable({ providedIn: 'root' })
@@ -87,25 +87,23 @@ export class OntologyService {
     ontologyId: Ontologies,
     term: string
   ): Observable<T> {
-    const terms = this.getTerms<T>(ontologyId) as Observable<{ [id: string]: T }>;
-    return terms.pipe(
-      map((value) => {
-        const setTerm = value[term];
+    const termsObservable = this.getTerms<T>(ontologyId) as Observable<{ [id: string]: T }>;
+    return termsObservable.pipe(
+      map((terms: { [id: string]: T }): T => {
+        const setTerm = terms[term];
 
         if (setTerm) {
           return setTerm;
         } else {
-          throw { term, value };
+          throw terms;
         }
       }),
-      catchError((err: any, caught: Observable<T>) => {
-        const value = JSON.parse(JSON.stringify(err.value)) as any;
-
+      catchError((terms: { [id: string]: T }): Observable<T> => {
         return of(({
-          namespace: (value[Object.keys(value)[0]] as any).namespace,
+          namespace: (terms[Object.keys(terms)[0]] as T).namespace,
           id: term,
           name: term,
-          description: 'Unknown Term',
+          description: 'Unknown term',
           url: '',
           iri: '',
         } as unknown) as T);

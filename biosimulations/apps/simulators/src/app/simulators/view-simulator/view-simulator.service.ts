@@ -18,9 +18,9 @@ import {
   DescriptionFragmentType,
 } from './view-simulator.interface';
 import { OntologyService } from '../ontology.service';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
-import { map, pluck, tap } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import {
   IEdamOntologyIdVersion,
   ILinguistOntologyId,
@@ -29,15 +29,15 @@ import {
   Person,
   DependentPackage,
   Funding,
-} from '@biosimulations/datamodel/common';
-import { UtilsService } from '@biosimulations/shared/services';
-import {
   AlgorithmParameter,
   ValueType,
   SoftwareInterfaceType,
-  Url,
   sortUrls,
 } from '@biosimulations/datamodel/common';
+import { UtilsService } from '@biosimulations/shared/services';
+import {
+  Citation
+} from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
@@ -46,8 +46,6 @@ export class ViewSimulatorService {
     private simService: SimulatorService,
     private ontService: OntologyService
   ) {}
-
-  getVersions(simulatorId: string) {}
 
   getLatest(simulatorId: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getLatestById(
@@ -344,7 +342,7 @@ export class ViewSimulatorService {
     };
   }
 
-  makeCitation(citation: any): ViewCitation {
+  makeCitation(citation: Citation): ViewCitation {
     let text = citation.authors + '. ' + citation.title;
     if (citation.journal) {
       text += '. <i>' + citation.journal + '</i>';

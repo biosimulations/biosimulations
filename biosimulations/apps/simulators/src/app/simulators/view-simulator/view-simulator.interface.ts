@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Url, SoftwareInterfaceType, IImage, DependentPackage, ILinguistOntologyId } from '@biosimulations/datamodel/common';
+import { Url, IImage, DependentPackage, ILinguistOntologyId } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;

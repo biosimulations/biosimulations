@@ -11,7 +11,6 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
-import * as mongoose from 'mongoose';
 
 import {
   AdminGuard,
@@ -38,7 +37,6 @@ import {
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @ApiTags('Simulators')
 @Controller('simulators')

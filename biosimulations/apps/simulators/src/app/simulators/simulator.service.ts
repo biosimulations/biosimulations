@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 //TODO set the api interface type
 import { IImage } from '@biosimulations/datamodel/common';
 import { Simulator } from '@biosimulations/simulators/api-models';

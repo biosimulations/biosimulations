@@ -56,10 +56,8 @@ jobs:
         working-directory: ./biosimulations
         run: |
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
-          echo ${appsArr[@]}
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
-          echo ${appsArr[@]}
-          appsJson=$(printf '{"app": "%s"}\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           echo $appsJson
           echo "::set-output name=apps::$appsJson"
 

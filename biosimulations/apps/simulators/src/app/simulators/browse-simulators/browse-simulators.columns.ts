@@ -25,7 +25,7 @@ export const columns: Column[] = [
     heading: 'Name',
     key: 'name',
     centerAction: ColumnActionType.routerLink,
-    centerRouterLink: (element: any): string[] => {
+    centerRouterLink: (element: TableSimulator): string[] => {
       return ['/simulators', element.id];
     },
     filterable: false,
@@ -230,7 +230,7 @@ export const columns: Column[] = [
     id: 'image',
     heading: 'Image',
     key: 'image',
-    formatter: (value: string | undefined): null => {
+    formatter: (): null => {
       return null;
     },
     stackedFormatter: (value: string | undefined): string => {
@@ -381,7 +381,7 @@ export const columns: Column[] = [
         return null;
       }
     },
-    formatter: (id: string | undefined): null => {
+    formatter: (): null => {
       return null;
     },
     stackedFormatter: (id: string | undefined): string => {
@@ -425,7 +425,7 @@ export const columns: Column[] = [
     id: 'moreInfo',
     heading: 'Docs',
     key: 'url',
-    formatter: (url: string | null): null => {
+    formatter: (): null => {
       return null;
     },
     stackedFormatter: (url: string | null): string => {
