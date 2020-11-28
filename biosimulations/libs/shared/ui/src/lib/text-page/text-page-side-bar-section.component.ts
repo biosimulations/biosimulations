@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -11,14 +10,10 @@ import {
   styleUrls: ['./text-page-side-bar-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextPageSideBarSectionComponent implements OnInit {
+export class TextPageSideBarSectionComponent {
   @Input()
   heading = '';
 
   @Input()
   highlight = false;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

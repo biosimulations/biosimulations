@@ -14,6 +14,4 @@ export class PageComponent {
 
   @Input()
   padded = true;
-
-  constructor() {}
 }

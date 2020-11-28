@@ -26,6 +26,4 @@ export class TabPageTabComponent {
   loading = false;
 
   @ViewChild(MatTab) tab!: MatTab;
-
-  constructor() {}
 }

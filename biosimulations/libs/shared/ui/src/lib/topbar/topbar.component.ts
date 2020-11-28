@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
@@ -11,14 +10,10 @@ import {
   styleUrls: ['./topbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopbarComponent implements OnInit {
+export class TopbarComponent {
   @Input()
   public showLogo = true;
 
   @Input()
   color = 'primary';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

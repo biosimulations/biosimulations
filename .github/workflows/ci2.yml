@@ -57,7 +57,7 @@ jobs:
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
           appsJson=$(printf '{"app": "%s"}\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
-          echo "::set-output name=apps::{\"include\": $appsJson}"
+          echo "::set-output name=apps::$appsJson"
 
   lint:
     name: Lint libraries and apps
@@ -65,7 +65,8 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix:
+        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -118,7 +119,8 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix:
+        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -171,7 +173,8 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix:
+        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -239,7 +242,8 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix:
+        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository

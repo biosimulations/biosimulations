@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -11,7 +10,7 @@ import {
   styleUrls: ['./topbar-menu-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopbarMenuItemComponent implements OnInit {
+export class TopbarMenuItemComponent {
   @Input()
   heading = '';
 
@@ -23,8 +22,4 @@ export class TopbarMenuItemComponent implements OnInit {
 
   @Input()
   disabled = false;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

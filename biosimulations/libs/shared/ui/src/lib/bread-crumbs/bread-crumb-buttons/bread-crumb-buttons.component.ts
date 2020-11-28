@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { IContextButton } from '../bread-crumbs.interface';
 
 @Component({
@@ -7,13 +7,7 @@ import { IContextButton } from '../bread-crumbs.interface';
   styleUrls: ['./bread-crumb-buttons.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BreadCrumbButtonsComponent implements OnInit {
-
+export class BreadCrumbButtonsComponent {
   @Input()
   buttons: IContextButton[] = []
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
