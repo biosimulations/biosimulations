@@ -113,7 +113,7 @@ jobs:
 
       - name: Lint library or app
         working-directory: ./biosimulations
-        run: ng run ${{ matrix.app }}:lint
+        run: nx run ${{ matrix.app }}:lint
 
   build:
     name: Build app
@@ -167,7 +167,7 @@ jobs:
 
       - name: Build app
         working-directory: ./biosimulations
-        run: ng run ${{ matrix.app }}:build --prod
+        run: nx run ${{ matrix.app }}:build --prod
 
   test:
     name: Test library or app
@@ -231,7 +231,7 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
-        run: ng run ${{ matrix.app }}:test --code-coverage --codeCoverage
+        run: nx run ${{ matrix.app }}:test --code-coverage --codeCoverage
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3

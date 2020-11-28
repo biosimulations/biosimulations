@@ -1,6 +1,6 @@
 import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
 import { SoftwareInterfaceType, OperatingSystemType } from '@biosimulations/datamodel/common';
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Funding, LinguistOntologyId, SpdxOntologyId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';

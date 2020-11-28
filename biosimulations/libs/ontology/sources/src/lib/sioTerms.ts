@@ -2,7 +2,7 @@ import { Ontologies, SioTerm, OntologyInfo } from '@biosimulations/datamodel/com
 import isUrl from 'is-url';
 import sioJson from './sio.json';
 
-let sioVersion: string = '';
+let sioVersion = '';
 function getSioTerms(input: any): { [id: string]: SioTerm } {
     const Terms: { [id: string]: SioTerm } = {};
 

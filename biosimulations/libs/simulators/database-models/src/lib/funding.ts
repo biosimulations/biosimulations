@@ -3,7 +3,6 @@ import {
   IFunderRegistryOntologyId,  
 } from '@biosimulations/datamodel/common';
 import { FunderRegistryOntologyIdSchema } from './ontologyId';
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import isUrl from 'is-url';
 

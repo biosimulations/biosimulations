@@ -1,5 +1,4 @@
 import {
-  Format as IFormat,
   IAlgorithm,
   SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';

@@ -2,7 +2,7 @@ import { Ontologies, KisaoTerm, OntologyInfo } from '@biosimulations/datamodel/c
 import kisaoJson from './kisao.json';
 import isUrl from 'is-url';
 
-let kisaoVersion: string = '';
+let kisaoVersion = '';
 function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
 
     const kisaoTerms: { [id: string]: KisaoTerm } = {}

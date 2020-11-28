@@ -34,7 +34,7 @@ export class Image implements IImage {
       validator: (value: any): boolean => {
         return value?.id === 'format_3973';
       },
-      message: (props: any): string => `Format must be the Docker image format (EDAM:format_3973)`,
+      message: (): string => `Format must be the Docker image format (EDAM:format_3973)`,
     }],
     default: undefined,
   })
