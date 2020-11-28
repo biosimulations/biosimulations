@@ -32,6 +32,11 @@ docker push ghcr.io/biosimulations/biosimulations/$APP:$COMMIT
 docker push ghcr.io/biosimulations/biosimulations/$APP:$BRANCH
 docker push docker.io/biosimulations/$APP:$BRANCH
 
+echo "Cleaning up Docker image for $APP ..."
+docker rmi ghcr.io/biosimulations/biosimulations/$APP:$COMMIT
+docker rmi ghcr.io/biosimulations/biosimulations/$APP:$BRANCH
+docker rmi docker.io/biosimulations/$APP:$BRANCH
+
 # if [ "$BRANCH" = "dev" ]; then
 #     echo "Deploying Docker image for $APP ..."
 #     GCLOUD_KEY_FILE=$(tempfile --suffix ".json")
