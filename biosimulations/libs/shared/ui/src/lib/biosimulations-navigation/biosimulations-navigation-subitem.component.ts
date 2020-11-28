@@ -18,6 +18,4 @@ export class BiosimulationsNavigationSubitemComponent {
 
   @Input()
   disabled = false;
-
-  constructor() {}
 }
