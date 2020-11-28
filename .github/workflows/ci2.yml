@@ -41,7 +41,6 @@ jobs:
 
       - id: get-affected-apps
         name: Determine affected apps
-        app: nx affected:apps --base=$NX_BASE --plain |
         run: |
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
