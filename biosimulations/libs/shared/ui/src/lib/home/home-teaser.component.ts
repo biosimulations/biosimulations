@@ -12,6 +12,4 @@ export class HomeTeaserComponent {
 
   @Input()
   banner = '';
-
-  constructor() {}
 }

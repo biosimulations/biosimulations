@@ -27,18 +27,18 @@ export class ErrorHandler implements BaseErrorHandler {
       errorState.code = 500;
       errorState.message = 'Server error';
 
-      if (url?.startsWith(config.platformApiUrl) || 
+      if (url?.startsWith(config.platformApiUrl) ||
           url?.startsWith(config.dispatchApiUrl) ||
           url?.startsWith(config.simulatorsApiUrl)
-      ) {        
+      ) {
         errorState.details = 'Something went wrong with our server.';
       } else {
         errorState.details = 'Something went wrong.';
       }
-    
+
     } else if (error instanceof BiosimulationsError) {
       const biosimulationsError = error as BiosimulationsError;
-      
+
       if (biosimulationsError.code === 404) {
         errorTemplate = '404';
       }

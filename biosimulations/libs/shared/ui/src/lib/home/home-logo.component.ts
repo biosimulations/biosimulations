@@ -15,6 +15,4 @@ export class HomeLogoComponent {
 
   @Input()
   href = '';
-
-  constructor() {}
 }

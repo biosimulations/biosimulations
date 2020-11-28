@@ -35,18 +35,30 @@ jobs:
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
 
-      - name: Install apps
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
         working-directory: ./biosimulations
         run: npm ci
+
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
       - id: get-affected-apps
         name: Determine affected apps
         run: |
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
-          appsJson=$(printf '%s\n' "${appsArr[@]}" | jq -R . | jq -s . | tr -d '\n')
+          appsJson=$(printf '{"app": "%s"}\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           appsJsonEscaped=$(echo $appsJson | sed 's/"/\\"/g')
-          echo "::set-output name=apps::$appsJsonEscaped"
+          echo "::set-output name=apps::{\\\"include\\\": $appsJsonEscaped}"
 
   lint:
     name: Lint libraries and apps
@@ -54,8 +66,7 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -108,8 +119,7 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -162,8 +172,7 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -231,8 +240,7 @@ jobs:
 
     needs: getAffectedApps
     strategy:
-      matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+      matrix: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -259,9 +267,21 @@ jobs:
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
 
-      - name: Install apps
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
         working-directory: ./biosimulations
         run: npm ci
+
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install Google Cloud CLI
         run: |

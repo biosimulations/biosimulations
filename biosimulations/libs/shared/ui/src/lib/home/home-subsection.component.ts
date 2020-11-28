@@ -18,6 +18,4 @@ export class HomeSubsectionComponent {
 
   @Input()
   icon = '';
-
-  constructor() {}
 }
