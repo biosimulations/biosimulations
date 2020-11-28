@@ -9,8 +9,6 @@ import { MatMenuTrigger } from '@angular/material/menu';
 export class HoverOpenMenuComponent {
   timedOutCloser: any = null;
 
-  constructor() { }
-
   openMenu(trigger: MatMenuTrigger): void {
     if (this.timedOutCloser) {
       clearTimeout(this.timedOutCloser);

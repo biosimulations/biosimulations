@@ -30,6 +30,4 @@ export class StepperButtonsComponent {
 
   @Output()
   previous = new EventEmitter();
-
-  constructor() {}
 }
