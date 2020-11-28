@@ -53,6 +53,7 @@ jobs:
 
       - id: get-affected-apps
         name: Determine affected apps
+        working-directory: ./biosimulations
         run: |
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
           echo ${appsArr[@]}
@@ -112,12 +113,12 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Lint libraries and apps
+      - name: Lint library or app
         working-directory: ./biosimulations
         run: ng run ${{ matrix.app }}:lint
 
   build:
-    name: Build apps
+    name: Build app
     runs-on: ubuntu-latest
 
     needs: getAffectedApps
@@ -166,12 +167,12 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Build apps
+      - name: Build app
         working-directory: ./biosimulations
         run: ng run ${{ matrix.app }}:build --prod
 
   test:
-    name: Test libraries and apps
+    name: Test library or app
     runs-on: ubuntu-latest
 
     needs: getAffectedApps
@@ -220,7 +221,7 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Test libraries and apps
+      - name: Test library or app
         working-directory: ./biosimulations
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
@@ -240,7 +241,7 @@ jobs:
           token: ${{secrets.CODECOV_TOKEN}}
 
   buildPushDeployDockerImages:
-    name: Build, push, and deploy Docker images for apps
+    name: Build, push, and deploy Docker image for app
     runs-on: ubuntu-latest
 
     needs: getAffectedApps
@@ -298,7 +299,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y google-cloud-sdk
 
-      - name: Kubernetes CLI
+      - name: Install Kubernetes CLI
         run: |
           sudo apt-get update -y
           sudo apt-get install -y apt-transport-https gnupg2 curl
@@ -307,7 +308,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y kubectl
 
-      - name: Build, push, and deploy Docker images
+      - name: Build, push, and deploy Docker image for app
         working-directory: ./biosimulations
         env:
             GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
