@@ -57,8 +57,9 @@ jobs:
         run: |
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
+          echo "Affected apps: ${appsArr[@]}"
+
           appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
-          echo $appsJson
           echo "::set-output name=apps::$appsJson"
 
   lint:
