@@ -5,9 +5,58 @@ on:
   - pull_request
 
 jobs:
+  get-affected-apps:
+    name: Determine affected apps
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{ steps.get-affected-apps.outputs.apps }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Configure base commit
+        run: |
+          if [[ $GITHUB_BASE_REF ]]
+            then
+              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+           else
+            echo NX_BASE=origin/deploy >>$GITHUB_ENV
+          fi
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+
+      - name: Install apps
+        working-directory: ./biosimulations
+        run: npm ci
+
+      - id: get-affected-apps
+        name: Determine affected apps
+        app: nx affected:apps --base=$NX_BASE --plain |
+        run: |
+          mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
+          appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
+          appsJson=$(printf '%s\n' "${appsArr[@]}" | jq -R . | jq -s . | tr -d '\n')
+          appsJsonEscaped=$(echo $appsJson | sed 's/"/\\"/g')
+          echo "::set-output name=apps::$appsJsonEscaped"
+
   lint:
     name: Lint libraries and apps
     runs-on: ubuntu-latest
+
+    needs: get-affected-apps
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.get-affected-apps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -52,11 +101,16 @@ jobs:
 
       - name: Lint libraries and apps
         working-directory: ./biosimulations
-        run: nx affected:lint --base=$NX_BASE
+        run: ng run ${{ matrix.app }}:lint --base=$NX_BASE
 
   build:
     name: Build apps
     runs-on: ubuntu-latest
+
+    needs: get-affected-apps
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.get-affected-apps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -101,11 +155,16 @@ jobs:
 
       - name: Build apps
         working-directory: ./biosimulations
-        run: nx affected:build --base=$NX_BASE --prod
+        run: ng run ${{ matrix.app }}:build --base=$NX_BASE --prod
 
   test:
     name: Test libraries and apps
     runs-on: ubuntu-latest
+
+    needs: get-affected-apps
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.get-affected-apps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -160,16 +219,22 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
-        run: nx affected:test --base=$NX_BASE --code-coverage
+        run: ng run ${{ matrix.app }}:test --base=$NX_BASE --code-coverage
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
 
-  Docker:
+  build-push-deploy-docker-images:
     name: Build, push, and deploy Docker images for apps
     runs-on: ubuntu-latest
+
+    needs: get-affected-apps
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.get-affected-apps.outputs.apps) }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
@@ -226,4 +291,4 @@ jobs:
             DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
             GCLOUD_EMAIL: "${{ secrets.GCLOUD_EMAIL }}"
             GCLOUD_KEY: "${{ secrets.GCLOUD_KEY }}"
-        run: nx affected:apps --base=$NX_BASE --plain  | ./tools/build-push-deploy-docker-images
+        run: ./tools/build-push-deploy-docker-image -a ${{ matrix.app }}
