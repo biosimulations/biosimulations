@@ -20,9 +20,9 @@ jobs:
       - name: Configure base commit
         run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
@@ -57,9 +57,16 @@ jobs:
         run: |
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
-          echo "Affected apps: ${appsArr[@]}"
 
-          appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          if [ -z "${appsArr[0]}" ]; then
+            echo "No libraries or apps have been affected"
+            unset arr[-1]
+            appsJson=[]
+          else
+            echo "Affected libraries and apps: ${appsArr[@]}"
+            appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          fi
+
           echo "::set-output name=apps::$appsJson"
 
   lint:
@@ -81,9 +88,9 @@ jobs:
       - name: Configure base commit
         run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
@@ -135,9 +142,9 @@ jobs:
       - name: Configure base commit
         run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
@@ -189,9 +196,9 @@ jobs:
       - name: Configure base commit
         run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
@@ -258,9 +265,9 @@ jobs:
       - name: Configure base commit
         run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
