@@ -1,15 +1,17 @@
-name: Lint, test, build, containerize, and deploy apps
+name: Lint, test, build, containerize, and deploy libraries and apps
 
 on:
   - push
   - pull_request
 
 jobs:
-  getAffectedApps:
-    name: Determine affected apps
+  getAffectedLibrariesApps:
+    name: Determine affected libraries and apps
     runs-on: ubuntu-latest
     outputs:
-      apps: ${{ steps.get-affected-apps.outputs.apps }}
+      libs: ${{ steps.get-affected-libs-apps.outputs.libs }}
+      apps: ${{ steps.get-affected-libs-apps.outputs.apps }}
+      libsApps: ${{ steps.get-affected-libs-apps.outputs.libsApps }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
@@ -51,32 +53,48 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
-      - id: get-affected-apps
-        name: Determine affected apps
+      - id: get-affected-libs-apps
+        name: Determine affected libraries and apps
         working-directory: ./biosimulations
         run: |
+          mapfile -d " " -t libsArr < <( nx affected:libs --base=$NX_BASE --plain )
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
+          libsArr[-1]=$(echo "${libsArr[-1]}" | xargs)
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
 
+          if [ -z "${libsArr[0]}" ]; then
+            unset libsArr[-1]
+            libsJson=[]
+          else
+            libsJson=$(printf '"%s"\n' "${libsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          fi
+
           if [ -z "${appsArr[0]}" ]; then
-            echo "No libraries or apps have been affected"
-            unset arr[-1]
+            unset appsArr[-1]
             appsJson=[]
           else
-            echo "Affected libraries and apps: ${appsArr[@]}"
             appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           fi
 
+          libsAppsArr=( "${libsArr[@]}" "${appsArr[@]}" )
+          if [ "${#libsAppsArr[@]}" = "0" ]; then
+            libsAppsJson=[]
+          else
+            libsAppsJson=$(printf '"%s"\n' "${libsAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          fi
+
+          echo "::set-output name=libs::$libsJson"
           echo "::set-output name=apps::$appsJson"
+          echo "::set-output name=libsApps::$libsAppsJson"
 
   lint:
     name: Lint libraries and apps
     runs-on: ubuntu-latest
 
-    needs: getAffectedApps
+    needs: getAffectedLibrariesApps
     strategy:
       matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
 
     steps:
       - name: Checkout repository
@@ -121,16 +139,16 @@ jobs:
 
       - name: Lint library or app
         working-directory: ./biosimulations
-        run: nx run ${{ matrix.app }}:lint
+        run: nx run ${{ matrix.libOrApp }}:lint
 
   build:
     name: Build app
     runs-on: ubuntu-latest
 
-    needs: getAffectedApps
+    needs: getAffectedLibrariesApps
     strategy:
       matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+        app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -181,10 +199,10 @@ jobs:
     name: Test library or app
     runs-on: ubuntu-latest
 
-    needs: getAffectedApps
+    needs: getAffectedLibrariesApps
     strategy:
       matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
 
     steps:
       - name: Checkout repository
@@ -239,7 +257,7 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
-        run: nx run ${{ matrix.app }}:test --code-coverage --codeCoverage
+        run: nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3
@@ -250,10 +268,10 @@ jobs:
     name: Build, push, and deploy Docker image for app
     runs-on: ubuntu-latest
 
-    needs: getAffectedApps
+    needs: getAffectedLibrariesApps
     strategy:
       matrix:
-        app: ${{ fromJson(needs.getAffectedApps.outputs.apps) }}
+        app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
