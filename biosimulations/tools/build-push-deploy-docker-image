@@ -19,8 +19,8 @@ done
 echo "Building Docker image for $APP ..."
 docker build \
     --file $DOCKERFILE_PATH \
-    --tag ghcr.io/biosimulations/biosimulations/$APP:$COMMIT \
-    --tag ghcr.io/biosimulations/biosimulations/$APP:$BRANCH \
+    --tag ghcr.io/biosimulations/$APP:$COMMIT \
+    --tag ghcr.io/biosimulations/$APP:$BRANCH \
     --tag docker.io/biosimulations/$APP:$BRANCH \
     --build-arg app=$APP \
     $DOCKER_BUILD_CONTEXT_PATH
@@ -28,13 +28,13 @@ docker build \
 echo "Pushing Docker image for $APP ..."
 echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
 echo $DOCKER_PASSWORD | docker login docker.io --username $DOCKER_USERNAME --password-stdin
-docker push ghcr.io/biosimulations/biosimulations/$APP:$COMMIT
-docker push ghcr.io/biosimulations/biosimulations/$APP:$BRANCH
+docker push ghcr.io/biosimulations/$APP:$COMMIT
+docker push ghcr.io/biosimulations/$APP:$BRANCH
 docker push docker.io/biosimulations/$APP:$BRANCH
 
 echo "Cleaning up Docker image for $APP ..."
-docker rmi ghcr.io/biosimulations/biosimulations/$APP:$COMMIT
-docker rmi ghcr.io/biosimulations/biosimulations/$APP:$BRANCH
+docker rmi ghcr.io/biosimulations/$APP:$COMMIT
+docker rmi ghcr.io/biosimulations/$APP:$BRANCH
 docker rmi docker.io/biosimulations/$APP:$BRANCH
 
 # if [ "$BRANCH" = "dev" ]; then
