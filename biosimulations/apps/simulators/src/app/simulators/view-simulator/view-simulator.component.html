@@ -63,7 +63,7 @@
                 <biosimulations-icon icon="docker"></biosimulations-icon>
                 <a [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id" target="_blank" class="text">
                   ghcr.io/biosimulators/{{ simulator.id }}
-                </a><ng-container *ngIf="simulator.image.operatingSystemType"> (OS: {{ simulator.image.operatingSystemType }})</ng-container>
+                </a><ng-container *ngIf="simulator.image.operatingSystemType"> ({{ simulator.image.operatingSystemType }})</ng-container>
               </li>
             </ul>
           </div>
