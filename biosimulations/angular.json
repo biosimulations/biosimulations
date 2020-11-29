@@ -215,9 +215,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/shared/assets/tsconfig.lib.json"
-            ],
+            "tsConfig": ["libs/shared/assets/tsconfig.lib.json"],
             "exclude": ["*"]
           }
         },
@@ -296,7 +294,22 @@
       "root": "libs/shared/styles",
       "sourceRoot": "libs/shared/styles/src",
       "prefix": "biosimulations",
-      "architect": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": ["libs/shared/styles/tsconfig.lib.json"],
+            "exclude": ["*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/styles/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
