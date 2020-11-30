@@ -291,7 +291,7 @@ jobs:
     name: Build, push, and deploy Docker image for app
     runs-on: ubuntu-latest
 
-    needs: [getAffectedLibrariesApps, lint, test, build]
+    needs: [getAffectedLibrariesApps]
     strategy:
       matrix:
         app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
@@ -303,40 +303,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - name: Configure base commit
-        run: |
-          if [[ $GITHUB_BASE_REF ]]
-          then
-            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-          else
-            echo NX_BASE=origin/deploy >>$GITHUB_ENV
-          fi
-
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "13.x"
-
-      - name: Install Nrwl CLI
-        working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        working-directory: ./biosimulations
-        run: npm ci
-
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-      
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -350,12 +316,13 @@ jobs:
           CONTEXT: ..
         run: |
           echo  Building Image for ${{ matrix.app }}
-          docker build \ 
+          docker build \
+            $CONTEXT 
           --file $FILE \
           --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA \
           --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH \
           --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH \
-          --build-arg app=$APP  $CONTEXT
+          --build-arg app=$APP  
       - name: Push Docker image for ${{matrix.app}}
         working-directory: ./biosimulations
         env:
