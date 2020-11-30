@@ -1,9 +1,12 @@
 name: Lint, test, build, containerize, and deploy libraries and apps
 
 on:
-  - push
-  - pull_request
-
+  push:
+    branches:
+      - dev
+      - stage
+      - deploy 
+  pull_request:
 jobs:
   getAffectedLibrariesApps:
     name: Determine affected libraries and apps
