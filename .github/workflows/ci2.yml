@@ -333,32 +333,39 @@ jobs:
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+      
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
 
-      - name: Install Google Cloud CLI
+      - name: Build Docker image for app
+        working-directory: ./biosimulations
         run: |
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          sudo apt-get update -y
-          sudo apt-get install -y curl apt-transport-https ca-certificates gnupg
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-          sudo apt-get update -y
-          sudo apt-get install -y google-cloud-sdk
-
-      - name: Install Kubernetes CLI
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y apt-transport-https gnupg2 curl
-          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-          sudo apt-get update -y
-          sudo apt-get install -y kubectl
-
-      - name: Build, push, and deploy Docker image for app
+          echo  Building Image for ${{ matrix.app }}
+          docker build \ 
+          --file $DOCKERFILE_PATH \
+          --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA \
+          --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH \
+          --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH \
+          --build-arg app=$APP \
+          ..
+      - name: Push Docker image for ${{matrix.app}}
         working-directory: ./biosimulations
         env:
             GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
             GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-            DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-            DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-            GCLOUD_EMAIL: "${{ secrets.GCLOUD_EMAIL }}"
-            GCLOUD_KEY: "${{ secrets.GCLOUD_KEY }}"
-        run: ./tools/build-push-deploy-docker-image -a ${{ matrix.app }}
+            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+           
+        run: |
+          if [[$GITHUB_EVENT_NAME = push && ($BRANCH = dev || $BRANCH=stage || $BRANCH=deploy)]]
+          then
+            echo "Pushing Docker image for $APP ..."
+            echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
+            echo $DOCKER_PASSWORD | docker login docker.io --username $DOCKER_USERNAME --password-stdin
+            docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
+            docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
+            docker push docker.io/biosimulations/$APP:$BRANCH
+          fi
+
+
