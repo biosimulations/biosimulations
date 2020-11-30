@@ -346,14 +346,16 @@ jobs:
         working-directory: ./biosimulations
         env: 
           BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          FILE: ../Dockerfile
+          CONTEXT: ..
         run: |
           echo  Building Image for ${{ matrix.app }}
           docker build \ 
-          --file ../Dockerfile \
+          --file $FILE \
           --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA \
           --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH \
           --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH \
-          --build-arg app=$APP ..
+          --build-arg app=$APP  $CONTEXT
       - name: Push Docker image for ${{matrix.app}}
         working-directory: ./biosimulations
         env:
