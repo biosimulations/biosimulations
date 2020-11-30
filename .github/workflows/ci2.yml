@@ -318,17 +318,20 @@ jobs:
           CONTEXT: ..
         run: |
           echo  Building Image for ${{ matrix.app }}
-          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=$APP $CONTEXT 
+          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --build-arg app=$APP $CONTEXT 
       - name: Push Docker image for ${{matrix.app}}
         working-directory: ./biosimulations
         env:
             GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
             GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
             BRANCH: ${{ steps.extract_branch.outputs.branch }}
+            FILE: ../Dockerfile
+            CONTEXT: ..
            
         run: |
           if [[$GITHUB_EVENT_NAME = push && ($BRANCH = dev || $BRANCH=stage || $BRANCH=deploy)]]
           then
+            docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=$APP $CONTEXT 
             echo "Pushing Docker image for $APP ..."
             echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
             echo $DOCKER_PASSWORD | docker login docker.io --username $DOCKER_USERNAME --password-stdin
