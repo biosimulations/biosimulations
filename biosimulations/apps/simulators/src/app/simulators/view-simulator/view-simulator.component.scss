@@ -88,6 +88,22 @@ biosimulations-tab-page ::ng-deep {
   }
 }
 
+.icon-list.icon-list-format li {
+  margin-left: calc(8px + 0.25rem);
+  text-indent: calc(-1 * (8px + 0.25rem));
+
+  .comma-separated {
+    display: inline;
+  }
+}
+
+.funding.icon-list {
+  li {
+    margin-left: calc(6.3px + 0.25rem);
+    text-indent: calc(-1 * (6.3px + 0.25rem));
+  }
+}
+
 .json {
   max-height: calc(100vh - 64px - 28px - 0.25rem - 32px - 2 * 2rem - 2 * 0.5rem);
 }

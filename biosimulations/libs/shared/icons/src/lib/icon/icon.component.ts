@@ -54,8 +54,11 @@ export type biosimulationsIcon =
   | 'format'
   | 'standard'
   | 'code'
+  | 'operatingSystem'
   | 'softwareInterface'
   | 'license'
+  | 'free'
+  | 'paid'
   | 'id'
   | 'tag'
   | 'tags'
@@ -87,7 +90,8 @@ export type biosimulationsIcon =
   | 'construction'
   | 'maintainence'
   | 'valid'
-  | 'invalid';
+  | 'invalid'
+  | 'funding';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -157,8 +161,11 @@ export class IconComponent implements OnInit {
     format: { type: 'far', name: 'file-alt' },
     standard: { type: 'fas', name: 'check-double' },
     code: { type: 'fas', name: 'code' },
+    operatingSystem: { type: 'fas', name: 'cog' },
     softwareInterface: { type: 'fas', name: 'desktop' },
     license: { type: 'fas', name: 'balance-scale' },
+    free: { type: 'fas', name: 'lock-open' },
+    paid: { type: 'fas', name: 'lock' },
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },
@@ -187,6 +194,7 @@ export class IconComponent implements OnInit {
     maintainence: { type: 'fas', name: 'tools' },
     valid: { type: 'fas', name: 'check' },
     invalid: { type: 'fas', name: 'times' },
+    funding: { type: 'fas', name: 'dollar-sign' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

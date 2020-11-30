@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+COMMIT=$(git rev-parse HEAD)
+#COMMIT= $(git branch --show-current)
+BRANCH=$(echo "${GITHUB_REF/refs\/heads\//}")
+DOCKER_BUILD_CONTEXT_PATH=.. 
+DOCKERFILE_PATH=../Dockerfile
+
+USAGE="$0 -a <App name>"
+
+while getopts 'a:' opt
+do
+    case $opt in
+        a) APP=$OPTARG;;
+        \?) echo "ERROR: Invalid option: $USAGE"
+            exit 1;;
+    esac
+done
+
+echo "Building Docker image for $APP ..."
+docker build \
+    --file $DOCKERFILE_PATH \
+    --tag ghcr.io/biosimulations/$APP:$COMMIT \
+    --tag ghcr.io/biosimulations/$APP:$BRANCH \
+    --tag docker.io/biosimulations/$APP:$BRANCH \
+    --build-arg app=$APP \
+    $DOCKER_BUILD_CONTEXT_PATH
+
+echo "Pushing Docker image for $APP ..."
+echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
+echo $DOCKER_PASSWORD | docker login docker.io --username $DOCKER_USERNAME --password-stdin
+docker push ghcr.io/biosimulations/$APP:$COMMIT
+docker push ghcr.io/biosimulations/$APP:$BRANCH
+docker push docker.io/biosimulations/$APP:$BRANCH
+
+echo "Cleaning up Docker image for $APP ..."
+docker rmi ghcr.io/biosimulations/$APP:$COMMIT
+docker rmi ghcr.io/biosimulations/$APP:$BRANCH
+docker rmi docker.io/biosimulations/$APP:$BRANCH
+
+# if [ "$BRANCH" = "dev" ]; then
+#     echo "Deploying Docker image for $APP ..."
+#     GCLOUD_KEY_FILE=$(tempfile --suffix ".json")
+#     echo "$GCLOUD_KEY" > $GCLOUD_KEY_FILE
+#     gcloud auth activate-service-account $GCLOUD_EMAIL --key-file=$GCLOUD_KEY_FILE --project biosimulations
+#     gcloud container clusters get-credentials biosimulations --zone us-central1-c --project biosimulations
+#     kubectl rollout restart deployment $APP
+# fi

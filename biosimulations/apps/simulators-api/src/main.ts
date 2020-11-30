@@ -69,8 +69,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get('server.port');
-  const host = configService.get('server.host');
-  const limit = configService.get('server.limit');
 
   // TODO intelligently allow origin based on production mode, abstract this
   const allowOrigin: CustomOrigin = (

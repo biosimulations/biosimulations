@@ -4,11 +4,12 @@
 # http://edamontology.org/EDAM.owl is not uptodate for 1.25 yet (2020 11 09)
 declare -A ONTOLOGY_URLS=( \
     ["edam"]="https://raw.githubusercontent.com/edamontology/edamontology/master/releases/EDAM.owl" \
+    ["funderRegistry"]="https://doi.crossref.org/funderNames?mode=list" \
     ["kisao"]="http://www.biomodels.net/kisao/KISAO" \
+    ["linguist"]="https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json" \
     ["sbo"]="http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl" \
     ["sio"]="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl" \
     ["spdx"]="https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json" \
-    ["gitHubLanguages"]="https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json" \
     )
 
 # list of ontologies that needs to be updated
@@ -44,7 +45,11 @@ do
     filename=$(basename -- "$ontology_url")
     extension="${filename##*.}"
 
-    if [ "$extension" = "json" ]; then
+    if [ "$ontology" = "funderRegistry" ]; then
+        temp_file="$(mktemp)"
+        wget ${ontology_url} -O ${temp_file}
+        csvjson ${temp_file} > ${script_dir}/../libs/ontology/sources/src/lib/${ontology}.json
+    elif [ "$extension" = "json" ]; then
         wget ${ontology_url} -O ${script_dir}/../libs/ontology/sources/src/lib/${ontology}.json
     else
         # create temp file for JSON version of ontology

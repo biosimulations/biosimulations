@@ -6,7 +6,8 @@ on:
       - labeled
       - edited
       - ready_for_review
-      - reopened pull_request_review:
+      - reopened
+  pull_request_review:
     types:
       - submitted
   check_suite:

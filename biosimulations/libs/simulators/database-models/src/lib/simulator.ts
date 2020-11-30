@@ -5,15 +5,18 @@ import { Document } from 'mongoose';
 
 import { ImageSchema } from './image';
 import { AlgorithmSchema } from './algorithm';
-import { SpdxIdSchema } from './ontologyId';
+import { LinguistOntologyIdSchema, SpdxOntologyIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
+import { FundingSchema } from './funding';
 import {
   IImage,
-  ISpdxId,
+  ILinguistOntologyId,
+  ISpdxOntologyId,
   SoftwareInterfaceType,
+  OperatingSystemType,
   addValidationForNullableAttributes,
+  Funding,
 } from '@biosimulations/datamodel/common';
-import { gitHubLanguageTerms } from './gitHubLanguageTerms';
 
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
 import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
@@ -47,8 +50,8 @@ export class Simulator extends Document {
   @Prop({ type: ExternalReferencesSchema, required: true, default: undefined })
   references!: ExternalReferences;
 
-  @Prop({ type: SpdxIdSchema, required: false, default: undefined })
-  license!: ISpdxId | null;
+  @Prop({ type: SpdxOntologyIdSchema, required: false, default: undefined })
+  license!: ISpdxOntologyId | null;
 
   @Prop({
     type: [AlgorithmSchema],
@@ -70,11 +73,27 @@ export class Simulator extends Document {
 
   @Prop({
     type: [String],
-    enum: gitHubLanguageTerms,
+    enum: Object.entries(OperatingSystemType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
-  supportedProgrammingLanguages!: string[];
+  supportedOperatingSystemTypes!: OperatingSystemType[];
+
+  @Prop({
+    type: [LinguistOntologyIdSchema],
+    required: true,
+    default: undefined,
+  })
+  supportedProgrammingLanguages!: ILinguistOntologyId[];
+
+  @Prop({
+    type: [FundingSchema],
+    required: true,
+    default: undefined,
+  })
+  funding!: Funding[];
 }
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 

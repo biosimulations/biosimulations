@@ -7,3 +7,4 @@ export * from './algorithm';
 export * from './simulation';
 export * from './user';
 export * from './simulator';
+export * from './dependent-package';

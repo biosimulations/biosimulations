@@ -13,27 +13,31 @@ import {
   ViewParameter,
   ViewParameterObservable,
   ViewAuthor,
+  ViewFunding,
   DescriptionFragment,
   DescriptionFragmentType,
 } from './view-simulator.interface';
 import { OntologyService } from '../ontology.service';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
-import { map, pluck, tap } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import {
   IEdamOntologyIdVersion,
+  ILinguistOntologyId,
   ISboOntologyId,
   Identifier,
   Person,
+  DependentPackage,
+  Funding,
+  AlgorithmParameter,
+  ValueType,
+  SoftwareInterfaceType,
+  sortUrls,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
-  AlgorithmParameter,
-  AlgorithmParameterType,
-  SoftwareInterfaceType,
-  Url,
-  sortUrls,
-} from '@biosimulations/datamodel/common';
+  Citation
+} from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
@@ -42,8 +46,6 @@ export class ViewSimulatorService {
     private simService: SimulatorService,
     private ontService: OntologyService
   ) {}
-
-  getVersions(simulatorId: string) {}
 
   getLatest(simulatorId: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getLatestById(
@@ -87,7 +89,7 @@ export class ViewSimulatorService {
       id: sim.id,
       version: sim.version,
       name: sim.name,
-      image: sim.image?.url || undefined,
+      image: sim.image,
       description: sim.description,
       urls: sim.urls.sort(sortUrls),
       authors: this.getAuthors(sim),
@@ -118,9 +120,18 @@ export class ViewSimulatorService {
       interfaceTypes: sim.interfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
           return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
-        }).sort(),
-      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort(),
+        })
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
+      supportedOperatingSystemTypes: sim.supportedOperatingSystemTypes.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: ILinguistOntologyId, b: ILinguistOntologyId) => {
+        return a.id.localeCompare(b.id, undefined, { numeric: true });
+      }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
+      funding: sim.funding.map(this.getFunding, this),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
@@ -149,9 +160,9 @@ export class ViewSimulatorService {
 
             algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
-                parameter.type !== AlgorithmParameterType.boolean &&
-                parameter.type !== AlgorithmParameterType.integer &&
-                parameter.type !== AlgorithmParameterType.float &&
+                parameter.type !== ValueType.boolean &&
+                parameter.type !== ValueType.integer &&
+                parameter.type !== ValueType.float &&
                 parameter.range
               ) {
                 (parameter.range as string[]).sort((a: string, b: string) => {
@@ -193,7 +204,14 @@ export class ViewSimulatorService {
         .map((interfaceType: SoftwareInterfaceType): string => {
           return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
         })
-        .sort(),
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
+      dependencies: value?.dependencies 
+        ? value?.dependencies?.sort((a: DependentPackage, b: DependentPackage) => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          })
+        : null,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
@@ -213,7 +231,9 @@ export class ViewSimulatorService {
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
       availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
-        .sort(),
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
     };
   }
 
@@ -221,15 +241,15 @@ export class ViewSimulatorService {
     if (val == null || val === '') {
       return null;
     } else {
-      if (type === AlgorithmParameterType.kisaoId) {
+      if (type === ValueType.kisaoId) {
         return this.ontService
           .getKisaoTerm(val)
           .pipe(pluck('name'));
-      } else if (type === AlgorithmParameterType.boolean) {
+      } else if (type === ValueType.boolean) {
         return ['1', 'true'].includes(val.toLowerCase());
-      } else if (type === AlgorithmParameterType.integer) {
+      } else if (type === ValueType.integer) {
         return parseInt(val);
-      } else if (type === AlgorithmParameterType.float) {
+      } else if (type === ValueType.float) {
         return parseFloat(val);
       } else {
         return val;
@@ -245,6 +265,9 @@ export class ViewSimulatorService {
     return {
       term: this.ontService.getEdamTerm(value.id),
       version: value.version,
+      supportedFeatures: value?.supportedFeatures?.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
     };
   }
 
@@ -252,7 +275,7 @@ export class ViewSimulatorService {
     return {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
-      image: value.image || undefined,
+      image: value.image,
       curationStatus: value.curationStatus,
     };
   }
@@ -319,7 +342,7 @@ export class ViewSimulatorService {
     };
   }
 
-  makeCitation(citation: any): ViewCitation {
+  makeCitation(citation: Citation): ViewCitation {
     let text = citation.authors + '. ' + citation.title;
     if (citation.journal) {
       text += '. <i>' + citation.journal + '</i>';
@@ -359,5 +382,14 @@ export class ViewSimulatorService {
       '-' +
       date.getDate().toString().padStart(2, '0')
     );
+  }
+
+  getFunding(funding: Funding): ViewFunding {
+    return {
+      funderName: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('name')),
+      funderUrl: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('url')),
+      grant: funding.grant,
+      url: funding.url,
+    }
   }
 }

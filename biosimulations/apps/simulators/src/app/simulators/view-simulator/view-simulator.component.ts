@@ -10,7 +10,7 @@ import {
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import {
-  AlgorithmParameterType,
+  ValueType,
 } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
@@ -19,9 +19,6 @@ import {
   ViewSimulator,
   ViewParameter,
   ViewVersion,
-  ViewCitation,
-  DescriptionFragment,
-  DescriptionFragmentType,
 } from './view-simulator.interface';
 
 @Component({
@@ -97,7 +94,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Availability',
       key: 'availableSoftwareInterfaceTypes',
       formatter: (interfaceTypes: string[] | string): string => {
-        let returnVal: string = '';
+        let returnVal = '';
         if (Array.isArray(interfaceTypes)) {
           returnVal = interfaceTypes.join(', ');
         } else {
@@ -107,7 +104,7 @@ export class ViewSimulatorComponent implements OnInit {
       },
       toolTipFormatter: (interfaceTypes: string[]): string => {
         return interfaceTypes.join(', ');
-      },      
+      },
       minWidth: 163,
       maxWidth: 163,
     },
@@ -128,9 +125,9 @@ export class ViewSimulatorComponent implements OnInit {
   formatParameterVal(type: string, value: boolean | number | string | null): string | null {
     if (value == null) {
       return value;
-    } else if (type === AlgorithmParameterType.boolean) {
+    } else if (type === ValueType.boolean) {
       return value.toString();
-    } else if (type === AlgorithmParameterType.integer || type === AlgorithmParameterType.float) {
+    } else if (type === ValueType.integer || type === ValueType.float) {
       if (value === 0) {
         return '0';
       } else if (value < 1e-3 || value > 1e3) {
@@ -171,7 +168,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Version',
       key: 'label',
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (version: ViewVersion) => {
+      centerRouterLink: (version: ViewVersion): string[] => {
         return ['/simulators', this.id, version.label];
       },
       minWidth: 73,
@@ -188,7 +185,10 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'image',
       heading: 'Image',
       key: 'image',
-      stackedFormatter: (image: string | undefined): string => {
+      getter: (version: ViewVersion): string | null => {
+        return version.image ? version.image.url : null;
+      },
+      stackedFormatter: (image: string | null): string => {
         if (image) {
           return image;
         } else {
@@ -218,7 +218,7 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'run',
       heading: 'Run',
       key: 'label',
-      formatter: (label: string): null => {
+      formatter: (): null => {
         return null;
       },
       stackedFormatter: (label: string): string => {
@@ -276,14 +276,14 @@ export class ViewSimulatorComponent implements OnInit {
         return simulator;
       }),
 
-      tap((_) => {
+      tap(() => {
         this.loadingSubject.next(false);
         this.cd.detectChanges();
       })
     );
   }
 
-  processSimulator(simulator: ViewSimulator) {
+  processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.dispatchAppRunUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {

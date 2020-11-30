@@ -2,7 +2,7 @@ import { Ontologies, SboTerm, OntologyInfo } from '@biosimulations/datamodel/com
 
 import sboJson from './sbo.json';
 
-let sboVersion: string = '';
+let sboVersion = '';
 function getSboTerms(input: any): { [id: string]: SboTerm } {
     const Terms: { [id: string]: SboTerm } = {};
 

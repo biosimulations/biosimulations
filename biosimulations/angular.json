@@ -228,7 +228,22 @@
       "root": "libs/shared/assets",
       "sourceRoot": "libs/shared/assets/src",
       "prefix": "biosimulations",
-      "architect": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": ["libs/shared/assets/tsconfig.lib.json"],
+            "exclude": ["*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
@@ -302,7 +317,22 @@
       "root": "libs/shared/styles",
       "sourceRoot": "libs/shared/styles/src",
       "prefix": "biosimulations",
-      "architect": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "tsConfig": ["libs/shared/styles/tsconfig.lib.json"],
+            "exclude": ["*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/styles/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"

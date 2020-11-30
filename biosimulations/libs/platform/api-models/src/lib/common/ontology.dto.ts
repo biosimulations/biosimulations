@@ -12,8 +12,8 @@ export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty({ type: String })
-  name!: string;
+  @ApiProperty({ type: String, nullable: true })
+  name!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
   description!: string | null;
@@ -22,7 +22,7 @@ export class OntologyTerm implements IOntologyTerm {
   iri!: string | null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
-  url!: string;
+  url!: string | null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
   moreInfoUrl!: string | null;

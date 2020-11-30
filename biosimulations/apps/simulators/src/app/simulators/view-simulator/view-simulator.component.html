@@ -63,7 +63,7 @@
                 <biosimulations-icon icon="docker"></biosimulations-icon>
                 <a [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id" target="_blank" class="text">
                   ghcr.io/biosimulators/{{ simulator.id }}
-                </a>
+                </a><ng-container *ngIf="simulator.image.operatingSystemType"> ({{ simulator.image.operatingSystemType }})</ng-container>
               </li>
             </ul>
           </div>
@@ -73,12 +73,12 @@
           <h3>Run simulations locally with Docker</h3>
           <div class="section-content copy-image">
             <biosimulations-icon icon="logs"></biosimulations-icon>
-            <div class="code">docker pull {{ simulator.image }}</div>
+            <div class="code">docker pull {{ simulator.image.url }}</div>
             <button
               mat-icon-button
               class="biosimulations-icon-button primary"
               title="Copy to clipboard"
-              (click)="copyDockerPullCmd(simulator.image)"
+              (click)="copyDockerPullCmd(simulator.image.url)"
             >
               <biosimulations-icon icon="copy"></biosimulations-icon>
             </button>
@@ -112,13 +112,25 @@
           </div>
         </div>
 
+        <div class="section" *ngIf="simulator.supportedOperatingSystemTypes?.length > 0">
+          <h3>Supported operating systems</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li *ngFor="let supportedOperatingSystemType of simulator.supportedOperatingSystemTypes">
+                <biosimulations-icon icon="operatingSystem"></biosimulations-icon>
+                {{ supportedOperatingSystemType }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="section" *ngIf="simulator.supportedProgrammingLanguages?.length > 0">
           <h3>Supported programming languages</h3>
           <div class="section-content">
             <ul class="icon-list">
               <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
                 <biosimulations-icon icon="code"></biosimulations-icon>
-                {{ supportedProgrammingLanguage }}
+                {{ supportedProgrammingLanguage.id }}
               </li>
             </ul>
           </div>
@@ -169,6 +181,21 @@
           </div>
         </div>
 
+        <div class="section" *ngIf="simulator.funding?.length > 0">
+          <h3>Funding</h3>
+          <div class="section-content">
+            <ul class="funding icon-list">
+              <li *ngFor="let funding of simulator.funding">
+                <biosimulations-icon icon="funding"></biosimulations-icon>
+                <a [href]="funding.funderUrl | async" target="_blank">{{ funding.funderName | async }}</a><span *ngIf="funding.grant">:
+                  <a [href]="funding.url" target="_blank" *ngIf="funding.url; else noGrantUrl">{{ funding.grant }}</a>
+                  <ng-template #noGrantUrl>{{ funding.grant }}</ng-template>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="section">
           <h3>Dates</h3>
           <div class="section-content">
@@ -189,6 +216,7 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
+    urlHashFragment="algorithms"
     heading="Algorithms"
     icon="simulator"
     class="algorithms"
@@ -221,7 +249,7 @@
               </biosimulations-text-page-side-bar-section>
             </ng-container>
 
-            <ng-container id="content" tocSectionsContainer>        
+            <ng-container id="content" tocSectionsContainer>
               <biosimulations-text-page-content-section
                 *ngFor="let algorithm of algorithms"
                 [heading]="algorithm.heading"
@@ -270,13 +298,19 @@
 
                 <p class="subsection-heading no-bottom-margin">Model formats</p>
                 <ul
-                  class="icon-list"
+                  class="icon-list icon-list-format"
                   *ngIf="algorithm?.modelFormats?.length > 0; else noModelFormatsMessage"
                 >
                   <li *ngFor="let format of algorithm.modelFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>:
+                      <ul *ngIf="format.supportedFeatures?.length > 0; else noSuportedModelFormatFeatures" class="comma-separated and-separator">
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
+                      </ul>
+                      <ng-template #noSuportedModelFormatFeatures>
+                        <span class="info-message">Information about which features this algorithm supports is not available.</span>
+                      </ng-template>
                     </ng-container>
                   </li>
                 </ul>
@@ -288,13 +322,19 @@
 
                 <p class="subsection-heading no-bottom-margin">Simulation formats</p>
                 <ul
-                  class="icon-list"
+                  class="icon-list icon-list-format"
                   *ngIf="algorithm?.simulationFormats?.length > 0; else noSimulationFormatsMessage"
                 >
                   <li *ngFor="let format of algorithm.simulationFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>:
+                      <ul *ngIf="format.supportedFeatures?.length > 0; else noSuportedSimulationFormatFeatures" class="comma-separated and-separator">
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
+                      </ul>
+                      <ng-template #noSuportedSimulationFormatFeatures>
+                        <span class="info-message">Information about which features this algorithm supports is not available.</span>
+                      </ng-template>
                     </ng-container>
                   </li>
                 </ul>
@@ -306,13 +346,19 @@
 
                 <p class="subsection-heading no-bottom-margin">Archive formats</p>
                 <ul
-                  class="icon-list"
+                  class="icon-list icon-list-format"
                   *ngIf="algorithm?.archiveFormats?.length > 0; else noArchiveFormatsMessage"
                 >
                   <li *ngFor="let format of algorithm.archiveFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>
+                      <a [href]="format.term.url" target="_blank">{{ format.term.name }}{{ format.version ? ' '  + format.version: '' }}</a>:
+                      <ul *ngIf="format.supportedFeatures?.length > 0; else noSuportedArchiveFormatFeatures" class="comma-separated and-separator">
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
+                      </ul>
+                      <ng-template #noSuportedArchiveFormatFeatures>
+                        <span class="info-message">Information about which features this algorithm supports is not available.</span>
+                      </ng-template>
                     </ng-container>
                   </li>
                 </ul>
@@ -347,7 +393,7 @@
                   >
                   </biosimulations-responsive-table>
                 </div>
-                <ng-template #noCuratedParametersMessage>                  
+                <ng-template #noCuratedParametersMessage>
                   <p class="info-message" *ngIf="algorithm.parameters == null; else zeroParametersMessage">The parameters for this implementation of {{ algorithm.name }} have not been curated.</p>
                   <ng-template #zeroParametersMessage>
                     <p class="info-message">This implementation of {{ algorithm.name }} does not have any parameters.</p>
@@ -363,6 +409,22 @@
                 </ul>
                 <ng-template #noSupportedInterfaces>
                   <p class="info-message">Information about which interfaces support the algorithm is not available.</p>
+                </ng-template>
+
+                <ng-container *ngIf="algorithm.dependencies; else unknownDependencies">
+                  <p class="subsection-heading no-bottom-margin">Dependencies</p>
+                  <ul *ngIf="algorithm.dependencies.length > 0; else noDependencies" class="icon-list">
+                    <li *ngFor="let dependency of algorithm.dependencies">
+                      <biosimulations-icon [icon]="dependency.freeNonCommercialLicense ? 'free' : 'paid'"></biosimulations-icon>
+                      <a [href]="dependency.url" target="_blank" *ngIf="dependency.url; else noDependencyUrl">{{ dependency.name }}</a><ng-template #noDependencyUrl>{{ dependency.name }}</ng-template>{{ dependency.required ? '*' : '' }}{{ dependency.version ? ' ' + dependency.version : '' }}
+                    </li>
+                  </ul>
+                  <ng-template #noDependencies>
+                    <p class="info-message">The implementation of this algorithm does not have any dependencies.</p>
+                  </ng-template>
+                </ng-container>
+                <ng-template #unknownDependencies>
+                  <p class="info-message">Information about the dependencies of the implementation of this algorithm is not available.</p>
                 </ng-template>
 
                 <ng-container *ngIf="algorithm?.citations?.length > 0">
@@ -392,7 +454,7 @@
                     }}</a>
                   </li>
                 </ul>
-              </biosimulations-text-page-content-section>      
+              </biosimulations-text-page-content-section>
             </ng-container>
           </biosimulations-text-page>
         </ng-container>
@@ -405,6 +467,7 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
+    urlHashFragment="versions"
     heading="Versions"
     icon="version"
     [partialWidth]="true"
@@ -431,6 +494,7 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
+    urlHashFragment="specifications"
     heading="Specifications (JSON)"
     icon="code"
     [partialWidth]="false"

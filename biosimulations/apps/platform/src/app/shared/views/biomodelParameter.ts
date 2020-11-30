@@ -2,7 +2,7 @@ import { ViewModel } from './view';
 
 import {
   BiomodelParameter as IParam,
-  AlgorithmParameterType,
+  ValueType,
   Identifier,
 } from '@biosimulations/datamodel/common';
 export class BiomodelParameter extends ViewModel {
@@ -12,7 +12,7 @@ export class BiomodelParameter extends ViewModel {
     public id: string,
     public name: string | null,
     public identifiers: Identifier[],
-    public type: AlgorithmParameterType,
+    public type: ValueType,
     public value: string | null,
     public recommendedRange: string[] | null,
     public units: string,

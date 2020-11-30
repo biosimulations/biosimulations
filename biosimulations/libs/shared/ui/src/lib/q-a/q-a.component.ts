@@ -9,6 +9,4 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 export class QAComponent {
   @Input()
   heading = '';
-
-  constructor() {}
 }

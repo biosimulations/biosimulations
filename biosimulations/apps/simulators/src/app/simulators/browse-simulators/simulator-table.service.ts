@@ -4,8 +4,8 @@ import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
 import { OntologyService } from '../ontology.service';
-import { SoftwareInterfaceType, sortUrls } from '@biosimulations/datamodel/common';
-import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
+import { sortUrls, ILinguistOntologyId } from '@biosimulations/datamodel/common';
+import { Simulator } from '@biosimulations/simulators/api-models';
 import { UtilsService } from '@biosimulations/shared/services';
 
 @Injectable()
@@ -77,7 +77,7 @@ export class SimulatorTableService {
                   frameworks: sourceValue.frameworks,                  
                   modelFormats: sourceValue.modelFormats,
                   simulationFormats: sourceValue.simulationFormats,
-                  archiveFormats: sourceValue.archiveFormats,                  
+                  archiveFormats: sourceValue.archiveFormats,
                 };
                 if (license instanceof Observable) {
                   innerInnerObservables['license'] = license;
@@ -85,7 +85,7 @@ export class SimulatorTableService {
                 return forkJoin(innerInnerObservables).pipe(
                   map((value: any) => {
                     // Table simulator
-                    const returnVal: any = {
+                    return {
                       id: simulator.id,
                       name: simulator.name,
                       latestVersion: simulator.version,
@@ -102,17 +102,25 @@ export class SimulatorTableService {
                       simulationFormatIds: [...simulationFormatIds],
                       archiveFormats: value.archiveFormats.map((name: string, iFormat: number): string => name + archiveFormats.versions[iFormat]),
                       archiveFormatIds: [...archiveFormatIds],
-                      interfaceTypes: simulator.interfaceTypes.sort(),
-                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages.sort(),
+                      interfaceTypes: simulator.interfaceTypes
+                        .sort((a: string, b: string) => {
+                          return a.localeCompare(b, undefined, { numeric: true });
+                        }),
+                      supportedOperatingSystemTypes: simulator.supportedOperatingSystemTypes
+                        .sort((a: string, b: string) => {
+                          return a.localeCompare(b, undefined, { numeric: true });
+                        }),
+                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages
+                        .map((supportedProgrammingLanguage: ILinguistOntologyId): string => {
+                          return supportedProgrammingLanguage.id;
+                        })
+                        .sort((a: string, b: string) => {
+                          return a.localeCompare(b, undefined, { numeric: true });
+                        }),
                       image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,
+                      license: license instanceof Observable ? value.license : license,
                     };
-                    if (license instanceof Observable) {
-                      returnVal['license'] = value.license;
-                    } else {
-                      returnVal['license'] = license;
-                    }
-                    return returnVal;
                   })
                 )
               })
@@ -132,7 +140,7 @@ export class SimulatorTableService {
     return data;
   }
 
-  getLicense(simulator: any): Observable<string> | null {
+  getLicense(simulator: Simulator): Observable<string> | null {
     if (simulator.license) {
       return this.ontologyService.getSpdxTerm(simulator.license.id).pipe(
         pluck('name'),
@@ -143,10 +151,10 @@ export class SimulatorTableService {
     }
   }
 
-  getFormats(simulator: any, formatType: string): { names: Observable<string[]>, versions: string[] } {
+  getFormats(simulator: Simulator, formatType: string): { names: Observable<string[]>, versions: string[] } {
     const formats: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
-      for (const format of algorithm[formatType]) {
+      for (const format of (algorithm as any)[formatType]) {
         formats.add(format.id as string + '/' + (format.version ? ' ' + format.version : ''));
       }
     }
@@ -167,7 +175,7 @@ export class SimulatorTableService {
     };
   }
 
-  getFrameworks(simulator: any): Observable<string[]> {
+  getFrameworks(simulator: Simulator): Observable<string[]> {
     const frameworks: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
       for (const framework of algorithm.modelingFrameworks) {
@@ -189,7 +197,7 @@ export class SimulatorTableService {
     return obs;
   }
 
-  getAlgorithms(simulator: any): Observable<string[]> {
+  getAlgorithms(simulator: Simulator): Observable<string[]> {
     const algorithms: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
       if (algorithm.kisaoId) {

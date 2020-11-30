@@ -1,5 +1,5 @@
-import { AlgorithmParameterType, SoftwareInterfaceType } from '../common/';
-import { IOntologyTerm, Format, Citation } from '../..';
+import { ValueType, SoftwareInterfaceType } from '../common/';
+import { Citation } from '../..';
 
 import {
   ISboOntologyId,
@@ -18,7 +18,7 @@ import {
 export interface AlgorithmParameter {
   id: string | null;
   name: string | null;
-  type: AlgorithmParameterType;
+  type: ValueType;
   value: string | null;
   // Todo make this a conditional type based on value
   recommendedRange: string[] | null;

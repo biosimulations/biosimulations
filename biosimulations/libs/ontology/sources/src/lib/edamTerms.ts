@@ -1,7 +1,7 @@
 import { Ontologies, EdamTerm, OntologyInfo } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import edamJson from './edam.json';
-let edamVersion: string = '';
+let edamVersion = '';
 function getEdamTerms(input: any): { [id: string]: EdamTerm } {
     const edamTerms: { [id: string]: EdamTerm } = {};
 

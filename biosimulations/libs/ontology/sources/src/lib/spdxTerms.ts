@@ -11,7 +11,7 @@ function getSpdxTerms(input: any): { [id: string]: SpdxTerm } {
             namespace: Ontologies.SPDX,
             name: license.name,
             iri: null,
-            url: license.detailsUrl,
+            url: `https://spdx.org/licenses/${license.licenseId}.html`,
             moreInfoUrl: seeAlso && isUrl(seeAlso) ? seeAlso : null,
             description: null,
         }

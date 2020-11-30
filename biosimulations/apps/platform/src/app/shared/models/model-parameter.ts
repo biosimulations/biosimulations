@@ -2,7 +2,7 @@ import {
   BiomodelParameter as BiomodelParameterDTO,
   isBiomodelParameter as isBiomodelParameterDTO,
   Identifier as IdentifierDTO,
-  AlgorithmParameterType,
+  ValueType,
 } from '@biosimulations/datamodel/common';
 import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { Identifier } from './identifier';
@@ -16,7 +16,7 @@ export class ModelParameter implements BiomodelParameterDTO {
   target: string;
   description: string | null;
   identifiers: Identifier[];
-  type: AlgorithmParameterType;
+  type: ValueType;
   recommendedRange: string[] | null;
 
   constructor(data: BiomodelParameterDTO) {

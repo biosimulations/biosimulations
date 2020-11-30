@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { 
   edamInfo,
+  funderRegistryInfo,
+  linguistInfo,
   kisaoInfo,
   sboInfo,
   sioInfo,
   spdxInfo,
   sboTerms,
-  kisaoTerms,
   edamTerms,
+  funderRegistryTerms,
+  linguistTerms,
+  kisaoTerms,
   sioTerms,
   spdxTerms,
  } from '@biosimulations/ontology/sources';
@@ -20,8 +24,10 @@ import {
 @Injectable()
 export class OntologiesService {
   getInfo(ontologyId: Ontologies): OntologyInfo | null {
-    switch (ontologyId) {
+    switch (ontologyId) {      
       case Ontologies.EDAM: return edamInfo;
+      case Ontologies.FunderRegistry: return funderRegistryInfo;
+      case Ontologies.Linguist: return linguistInfo;
       case Ontologies.KISAO: return kisaoInfo;
       case Ontologies.SBO: return sboInfo;
       case Ontologies.SIO: return sioInfo;
@@ -31,8 +37,10 @@ export class OntologiesService {
   }
 
   static _getTerms(ontologyId: Ontologies): { [id: string]: IOntologyTerm } | null {
-    switch (ontologyId) {
+    switch (ontologyId) {      
       case Ontologies.EDAM: return edamTerms;
+      case Ontologies.FunderRegistry: return funderRegistryTerms;
+      case Ontologies.Linguist: return linguistTerms;
       case Ontologies.KISAO: return kisaoTerms;
       case Ontologies.SBO: return sboTerms;
       case Ontologies.SIO: return sioTerms;

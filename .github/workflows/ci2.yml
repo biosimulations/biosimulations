@@ -1,30 +1,38 @@
-name: CI
+name: Lint, test, build, containerize, and deploy libraries and apps
 
 on:
   - push
   - pull_request
 
 jobs:
-  lint:
+  getAffectedLibrariesApps:
+    name: Determine affected libraries and apps
     runs-on: ubuntu-latest
-
+    outputs:
+      libs: ${{ steps.get-affected-libs-apps.outputs.libs }}
+      apps: ${{ steps.get-affected-libs-apps.outputs.apps }}
+      libsApps: ${{ steps.get-affected-libs-apps.outputs.libsApps }}
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - run: |
+      - name: Configure base commit
+        run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
-      - name: Use Node.js
+
+      - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
+
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
@@ -45,30 +53,134 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Lint
+      - id: get-affected-libs-apps
+        name: Determine affected libraries and apps
         working-directory: ./biosimulations
-        run: nx affected:lint --base=$NX_BASE
+        run: |
+          mapfile -d " " -t libsArr < <( nx affected:libs --base=$NX_BASE --plain )
+          mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
+          libsArr[-1]=$(echo "${libsArr[-1]}" | xargs)
+          appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
+
+          if [ -z "${libsArr[0]}" ]; then
+            unset libsArr[-1]
+            libsJson=[]
+          else
+            libsJson=$(printf '"%s"\n' "${libsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          fi
+
+          if [ -z "${appsArr[0]}" ]; then
+            unset appsArr[-1]
+            appsJson=[]
+          else
+            appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          fi
+
+          libsAppsArr=( "${libsArr[@]}" "${appsArr[@]}" )
+          if [ "${#libsAppsArr[@]}" = "0" ]; then
+            libsAppsJson=[]
+          else
+            libsAppsJson=$(printf '"%s"\n' "${libsAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          fi
+
+          echo "::set-output name=libs::$libsJson"
+          echo "::set-output name=apps::$appsJson"
+          echo "::set-output name=libsApps::$libsAppsJson"
+
+  lint:
+    name: Lint libraries and apps
+    runs-on: ubuntu-latest
+
+    needs: getAffectedLibrariesApps
+    strategy:
+      matrix:
+        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Configure base commit
+        run: |
+          if [[ $GITHUB_BASE_REF ]]
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
+            echo NX_BASE=origin/deploy >>$GITHUB_ENV
+          fi
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        working-directory: ./biosimulations
+        run: npm ci
+
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Lint library or app
+        working-directory: ./biosimulations
+        run: |
+          set -e
+          { ERROR_MSG=$(nx run ${{ matrix.libOrApp }}:lint 2>&1 1>&3-) ;} 3>&1
+          ERROR_CODE=$?
+          if [[ $ERROR_MSG =~ "An unhandled exception occurred: Project target does not exist." ]]; then
+              echo "Target does not exist"
+              exit 0
+          else
+              echo "$ERROR_MSG"
+              exit $ERROR_CODE
+          fi
 
   build:
+    name: Build app
     runs-on: ubuntu-latest
 
+    needs: getAffectedLibrariesApps
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
+
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - run: |
+      - name: Configure base commit
+        run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
-      - name: Use Node.js
+
+      - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
+
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
@@ -89,30 +201,40 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Build
+      - name: Build app
         working-directory: ./biosimulations
-        run: nx affected:build --base=$NX_BASE --prod
+        run: nx run ${{ matrix.app }}:build --prod
 
   test:
+    name: Test library or app
     runs-on: ubuntu-latest
 
+    needs: getAffectedLibrariesApps
+    strategy:
+      matrix:
+        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
+
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - run: |
+      - name: Configure base commit
+        run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
-      - name: Use Node.js
+
+      - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
+
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
@@ -133,7 +255,7 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Test
+      - name: Test library or app
         working-directory: ./biosimulations
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
@@ -145,38 +267,98 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
-        run: nx affected:test --base=$NX_BASE --code-coverage
-      - name: Upload coverage to Codecov
+        run: |
+          set -e
+          { ERROR_MSG=$(nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage 2>&1 1>&3-) ;} 3>&1
+          ERROR_CODE=$?
+          if [[ $ERROR_MSG =~ "An unhandled exception occurred: Project target does not exist." ]]; then
+              echo "Target does not exist"
+              exit 0
+          else
+              echo "$ERROR_MSG"
+              exit $ERROR_CODE
+          fi
+
+      - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
 
-  Docker:
+  buildPushDeployDockerImages:
+    name: Build, push, and deploy Docker image for app
     runs-on: ubuntu-latest
+
+    needs: [getAffectedLibrariesApps, lint, test, build]
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
+
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - run: |
+      - name: Configure base commit
+        run: |
           if [[ $GITHUB_BASE_REF ]]
-            then
-              echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-           else
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
-      - name: Use Node.js
+
+      - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
+
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
-      - name: Install apps
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
         working-directory: ./biosimulations
         run: npm ci
 
-      - name: Build Docker Images
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Google Cloud CLI
+        run: |
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          sudo apt-get update -y
+          sudo apt-get install -y curl apt-transport-https ca-certificates gnupg
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+          sudo apt-get update -y
+          sudo apt-get install -y google-cloud-sdk
+
+      - name: Install Kubernetes CLI
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y apt-transport-https gnupg2 curl
+          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+          sudo apt-get update -y
+          sudo apt-get install -y kubectl
+
+      - name: Build, push, and deploy Docker image for app
         working-directory: ./biosimulations
-        run: nx affected:apps --base=$NX_BASE --plain  | ./tools/affected-loop
+        env:
+            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+            DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+            DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+            GCLOUD_EMAIL: "${{ secrets.GCLOUD_EMAIL }}"
+            GCLOUD_KEY: "${{ secrets.GCLOUD_KEY }}"
+        run: ./tools/build-push-deploy-docker-image -a ${{ matrix.app }}

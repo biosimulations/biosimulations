@@ -36,7 +36,7 @@ export class OntologiesController {
   @ApiParam({
     name: 'ontologyId',
     required: true,
-    enum: Ontologies,
+    enum: Object.entries(Ontologies).map((idOntology: [string, Ontologies]): string => idOntology[1]).sort(),
   })
   @ApiOkResponse({ type: OntologyInfo })
   getInfo(@Param('ontologyId') ontologyId: Ontologies): OntologyInfo {
@@ -55,7 +55,7 @@ export class OntologiesController {
   @ApiParam({
     name: 'ontologyId',
     required: true,
-    enum: Ontologies,
+    enum: Object.entries(Ontologies).map((idOntology: [string, Ontologies]): string => idOntology[1]).sort(),
   })
   @ApiOkResponse({ type: [OntologyTerm] })
   getTerms(@Param('ontologyId') ontologyId: Ontologies) {
@@ -74,7 +74,7 @@ export class OntologiesController {
   @ApiParam({
     name: 'ontologyId',
     required: true,
-    enum: Ontologies,
+    enum: Object.entries(Ontologies).map((idOntology: [string, Ontologies]): string => idOntology[1]).sort(),
   })
   @ApiParam({
     name: 'termId',

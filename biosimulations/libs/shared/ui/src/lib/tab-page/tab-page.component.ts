@@ -10,9 +10,11 @@ import {
   ContentChildren,
   QueryList,
 } from '@angular/core';
-import { MatTab, MatTabGroup, MAT_TAB_GROUP } from '@angular/material/tabs';
+import { MatTab, MatTabGroup, MAT_TAB_GROUP, MatTabChangeEvent } from '@angular/material/tabs';
 import { TabPageTabComponent } from './tab-page-tab.component';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'biosimulations-tab-page',
@@ -32,36 +34,62 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TabPageComponent
   implements OnInit, AfterViewInit, AfterViewChecked {
+
   @Input()
   loading = false;
 
   @Output() selectedTabChange: EventEmitter<any> = new EventEmitter();
 
-  constructor(private route: ActivatedRoute) {}
+  private urlHashFragmentToITabMap: { [urlHashFragment: string]: number } = {};
+  private iTabToUrlHashFragmentMap: { [iTab: number]: string } = {};
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   @ViewChild(MatTabGroup) matTabGroup!: MatTabGroup;
   @ContentChildren(TabPageTabComponent, { descendants: true }) tabs!: QueryList<
     TabPageTabComponent
   >;
 
-  selectedTabIndex = 0;
+  selectedTabIndex: number = 0;
 
   ngOnInit(): void {
-    this.route.params.subscribe(() => {
-      this.selectedTabIndex = 0;
-    });
   }
 
   ngAfterViewInit(): void {
     const baseTabs: MatTab[] = [];
-    for (const tab of this.tabs.toArray()) {
+    this.urlHashFragmentToITabMap = {};
+    this.iTabToUrlHashFragmentMap = {};
+    this.tabs.toArray().forEach((tab: TabPageTabComponent, iTab: number): void => {
       baseTabs.push(tab.tab);
-    }
+      if (tab.urlHashFragment) {
+        this.urlHashFragmentToITabMap[tab.urlHashFragment] = iTab;
+        this.iTabToUrlHashFragmentMap[iTab] = tab.urlHashFragment;
+      }
+    });
     this.matTabGroup._tabs.reset(baseTabs);
     this.matTabGroup._tabs.notifyOnChanges();
+
+    combineLatest(this.route.paramMap, this.route.fragment)
+      .subscribe(([paramMap, fragment]: [ParamMap, string]): void => {
+        let selectedTabIndex: number = 0;
+        if (fragment && fragment in this.urlHashFragmentToITabMap) {
+          selectedTabIndex = this.urlHashFragmentToITabMap[fragment];
+        }
+        setTimeout(() => this.selectedTabIndex = selectedTabIndex, 0);
+      });
   }
 
   ngAfterViewChecked(): void {
     this.matTabGroup.realignInkBar();
+  }
+
+  tabChanged(event: MatTabChangeEvent): void {
+    this.selectedTabChange.emit(event);
+    if (this.selectedTabIndex in this.iTabToUrlHashFragmentMap) {
+      const urlHashFragment: string = this.iTabToUrlHashFragmentMap[this.selectedTabIndex];
+      this.router.navigate([], { fragment: urlHashFragment });
+    } else {
+      this.router.navigate([]);
+    }
   }
 }

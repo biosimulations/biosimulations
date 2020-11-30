@@ -1,10 +1,9 @@
 import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
-import { SoftwareInterfaceType } from '@biosimulations/datamodel/common';
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-import { SpdxId } from '@biosimulations/datamodel/api';
+import { SoftwareInterfaceType, OperatingSystemType } from '@biosimulations/datamodel/common';
+import { ApiProperty } from '@nestjs/swagger';
+import { Funding, LinguistOntologyId, SpdxOntologyId } from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';
-import { gitHubLanguageTerms } from '@biosimulations/simulators/database-models';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator {
@@ -51,8 +50,8 @@ export class Simulator {
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
 
-  @ApiProperty({ type: SpdxId, nullable: true })
-  license!: SpdxId | null;
+  @ApiProperty({ type: SpdxOntologyId, nullable: true })
+  license!: SpdxOntologyId | null;
 
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
@@ -65,7 +64,17 @@ export class Simulator {
 
   @ApiProperty({
     type: [String],
-    enum: gitHubLanguageTerms,
+    enum: OperatingSystemType,
   })
-  supportedProgrammingLanguages!: string[];
+  supportedOperatingSystemTypes!: OperatingSystemType[];
+
+  @ApiProperty({
+    type: [LinguistOntologyId],
+  })
+  supportedProgrammingLanguages!: LinguistOntologyId[];
+
+  @ApiProperty({
+    type: [Funding],
+  })
+  funding!: Funding[];
 }

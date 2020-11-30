@@ -30,7 +30,7 @@
     "gen-dependency-license-report": "tools/gen-dependency-license-report",
     "help": "nx help",
     "build-sitemaps": "tools/build-sitemaps/__main__.py",
-    "build-docker": "tools/docker-build"
+    "build-push-deploy-docker": "tools/build-push-deploy-docker-image"
   },
   "private": true,
   "dependencies": {
