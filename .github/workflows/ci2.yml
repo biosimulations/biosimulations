@@ -331,8 +331,6 @@ jobs:
             docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=${{ matrix.app }} $CONTEXT
             echo "Pushing Docker image for $APP ..."
             echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
-            echo $DOCKER_PASSWORD | docker login docker.io --username $DOCKER_USERNAME --password-stdin
             docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
             docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
-            docker push docker.io/biosimulations/$APP:$BRANCH
           fi
