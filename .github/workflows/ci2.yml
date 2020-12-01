@@ -336,5 +336,3 @@ jobs:
             docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
             docker push docker.io/biosimulations/$APP:$BRANCH
           fi
-
-
