@@ -25,7 +25,7 @@ export class Profile {
   @IsString()
   userName!: string;
 
-  @ApiProperty({ type: String, nullable: false })
+  @ApiProperty({ type: String, nullable: true })
   @IsString()
   organization: string | null = null;
 
