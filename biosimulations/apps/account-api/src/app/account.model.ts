@@ -1,9 +1,5 @@
 import { prop } from '@typegoose/typegoose';
-import {
-  IsString,
-  IsBoolean,
-  IsUrl,
-} from 'class-validator';
+import { IsString, IsBoolean, IsUrl } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -29,7 +25,7 @@ export class Profile {
   @IsString()
   userName!: string;
 
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: false })
   @IsString()
   organization: string | null = null;
 
