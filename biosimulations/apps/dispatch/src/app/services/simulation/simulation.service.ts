@@ -116,7 +116,7 @@ export class SimulationService {
           simulations.push({
             name: dispatchSim.nameOfSimulation,
             email: dispatchSim.authorEmail,
-            runtime: dispatchSim.duration,
+            runtime: dispatchSim.runtime,
             id: dispatchSim.uuid,
             status: (dispatchSim.currentStatus as unknown) as SimulationStatus,
             submitted: dispatchSim.submittedTime as Date,

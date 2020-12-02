@@ -8,7 +8,7 @@ export interface DispatchSimulationModel {
   submittedTime: Date;
   statusModifiedTime: Date;
   currentStatus: DispatchSimulationStatus;
-  duration: number;
+  runtime: number;
   resultSize: number;
   projectSize: number
 }
@@ -58,7 +58,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
 
   @ApiProperty({ type: Number })
   @prop({ type: Number })
-  duration!: number;
+  runtime!: number;
 
   @prop({ type: Number })
   projectSize!: number;
@@ -73,7 +73,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
     this.submittedTime = model.submittedTime;
     this.statusModifiedTime = model.statusModifiedTime;
     this.currentStatus = model.currentStatus;
-    this.duration = model.duration;
+    this.runtime = model.runtime;
     this.resultSize = model.resultSize;
     this.projectSize = model.projectSize;
   }

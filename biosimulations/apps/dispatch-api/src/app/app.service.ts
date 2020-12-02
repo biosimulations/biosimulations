@@ -38,7 +38,7 @@ export class AppService {
           submittedTime: currentDateTime,
           statusModifiedTime: currentDateTime,
           currentStatus: DispatchSimulationStatus.QUEUED,
-          duration: 0,
+          runtime: 0,
           projectSize: Buffer.byteLength(file.buffer),
           resultSize: 0
         };
