@@ -33,11 +33,11 @@ export class AppService {
         const currentDateTime = new Date();
         const dbModel: DispatchSimulationModel = {
           uuid: fileId,
-          authorEmail: simSpec.authorEmail,
-          nameOfSimulation: simSpec.nameOfSimulation,
-          submittedTime: currentDateTime,
-          statusModifiedTime: currentDateTime,
-          currentStatus: DispatchSimulationStatus.QUEUED,
+          email: simSpec.email,
+          name: simSpec.name,
+          submitted: currentDateTime,
+          updated: currentDateTime,
+          status: DispatchSimulationStatus.QUEUED,
           runtime: 0,
           projectSize: Buffer.byteLength(file.buffer),
           resultSize: 0
@@ -62,8 +62,8 @@ export class AppService {
     const omexSavePath = path.join(omexStorage, uniqueFilename);
     // Fill out info from file that will be lost after saving in central storage
     const simSpec: SimulationDispatchSpec = {
-      authorEmail: bodyData.authorEmail,
-      nameOfSimulation: bodyData.nameOfSimulation,
+      email: bodyData.email,
+      name: bodyData.name,
       simulator: bodyData.simulator.toLowerCase(),
       simulatorVersion: bodyData.simulatorVersion,
       filename: file.originalname,
@@ -78,7 +78,7 @@ export class AppService {
       data: {
         id: fileId,
         fileName: uniqueFilename,
-        simulationName: simSpec.nameOfSimulation,
+        name: simSpec.name,
         simulator: simSpec.simulator.toUpperCase(),
         simulatorVersion: simSpec.simulatorVersion,
       },
@@ -150,7 +150,7 @@ export class AppService {
     }
     switch (download) {
       case true: {
-        switch (simInfo.currentStatus) {
+        switch (simInfo.status) {
           case DispatchSimulationStatus.SUCCEEDED: {
             filePathOut = path.join(logPath, 'job.output');
             res.set('Content-Type', 'text/html');
@@ -171,7 +171,7 @@ export class AppService {
         break;
       }
       case false: {
-        switch (simInfo.currentStatus) {
+        switch (simInfo.status) {
           case DispatchSimulationStatus.SUCCEEDED ||DispatchSimulationStatus.FAILED: {
             filePathOut = path.join(logPath, 'job.output');
             filePathErr = path.join(logPath, 'job.error');

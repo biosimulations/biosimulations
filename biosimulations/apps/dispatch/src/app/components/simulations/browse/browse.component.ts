@@ -240,7 +240,7 @@ export class BrowseComponent implements OnInit {
         }
       },
       centerAction: ColumnActionType.href,
-      centerRouterLink: (simulation: Simulation): string | null => {
+      centerHref: (simulation: Simulation): string | null => {
         if (simulation.status === SimulationStatus.succeeded) {
           return `${urls.dispatchApi}/download/result/${simulation.id}`;
         } else {

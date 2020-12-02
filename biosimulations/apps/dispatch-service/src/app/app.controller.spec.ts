@@ -65,8 +65,8 @@ describe('AppController', () => {
           filename: '',
           uniqueFilename: '',
           filepathOnDataStore: '',
-          authorEmail: '',
-          nameOfSimulation: '',
+          author: '',
+          name: '',
         })
       ).toEqual({
         message: 'Unsupported simulator was provided!',

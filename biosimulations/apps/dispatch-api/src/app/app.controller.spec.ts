@@ -56,8 +56,8 @@ describe('AppController', () => {
             simulatorVersion: '',
             filename: '',
             uniqueFilename: '',
-            authorEmail: '',
-            nameOfSimulation: '',
+            email: '',
+            name: '',
           }
         )
       ).toEqual({

@@ -114,14 +114,14 @@ export class SimulationService {
           // console.log(sim);
           const dispatchSim: DispatchSimulationModelDB = sim;
           simulations.push({
-            name: dispatchSim.nameOfSimulation,
-            email: dispatchSim.authorEmail,
+            name: dispatchSim.name,
+            email: dispatchSim.email,
             runtime: dispatchSim.runtime,
             id: dispatchSim.uuid,
-            status: (dispatchSim.currentStatus as unknown) as SimulationStatus,
-            submitted: dispatchSim.submittedTime as Date,
+            status: (dispatchSim.status as unknown) as SimulationStatus,
+            submitted: dispatchSim.submitted as Date,
             submittedLocally: true,
-            updated: dispatchSim.statusModifiedTime as Date,
+            updated: dispatchSim.updated as Date,
             resultSize: dispatchSim.resultSize,
             projectSize: dispatchSim.projectSize
           })

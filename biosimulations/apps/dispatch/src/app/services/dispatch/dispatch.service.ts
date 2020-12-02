@@ -25,11 +25,8 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulator', selectedSimulator);
     formData.append('simulatorVersion', selectedVersion);
-    formData.append('authorEmail', email);
-    formData.append('nameOfSimulation', name);
-    // console.log(formData);
-    // formData.append('name', name);
-    // formData.append('email', email);
+    formData.append('email', email);
+    formData.append('name', name);
     return this.http.post(endpoint, formData);
   }
 

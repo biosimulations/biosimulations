@@ -3,11 +3,11 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export interface DispatchSimulationModel {
   uuid: string;
-  authorEmail: string;
-  nameOfSimulation: string;
-  submittedTime: Date;
-  statusModifiedTime: Date;
-  currentStatus: DispatchSimulationStatus;
+  email: string;
+  name: string;
+  submitted: Date;
+  updated: Date;
+  status: DispatchSimulationStatus;
   runtime: number;
   resultSize: number;
   projectSize: number
@@ -33,19 +33,19 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
 
   @ApiProperty({ type: String })
   @prop({ type: String, required: false })
-  authorEmail!: string;
+  email!: string;
 
   @ApiProperty({ type: String })
   @prop({ type: String })
-  nameOfSimulation!: string;
+  name!: string;
 
   @ApiProperty({ type: String, format: 'date-time' })
   @prop()
-  submittedTime!: Date;
+  submitted!: Date;
 
   @ApiProperty({ type: String, format: 'date-time' })
   @prop()
-  statusModifiedTime!: Date;
+  updated!: Date;
 
   @ApiProperty({ type: String, enum: DispatchSimulationStatus })
   @prop({
@@ -54,7 +54,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
       return keyVal[1];
     }),
   })
-  currentStatus!: DispatchSimulationStatus;
+  status!: DispatchSimulationStatus;
 
   @ApiProperty({ type: Number })
   @prop({ type: Number })
@@ -68,11 +68,11 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
 
   constructor(public model: DispatchSimulationModel) {
     this.uuid = model.uuid;
-    this.authorEmail = model.authorEmail;
-    this.nameOfSimulation = model.nameOfSimulation;
-    this.submittedTime = model.submittedTime;
-    this.statusModifiedTime = model.statusModifiedTime;
-    this.currentStatus = model.currentStatus;
+    this.email = model.email;
+    this.name = model.name;
+    this.submitted = model.submitted;
+    this.updated = model.updated;
+    this.status = model.status;
     this.runtime = model.runtime;
     this.resultSize = model.resultSize;
     this.projectSize = model.projectSize;
