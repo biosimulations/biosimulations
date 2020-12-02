@@ -22,8 +22,13 @@ export class BrowseComponent implements OnInit {
       id: 'id',
       heading: 'Id',
       key: 'id',
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id];
+      },
       minWidth: 34,
       filterable: false,
+      showStacked: false,
     },
     {
       id: 'name',
@@ -154,8 +159,12 @@ export class BrowseComponent implements OnInit {
       center: true,
       leftIcon: 'chart',
       leftAction: ColumnActionType.routerLink,
-      leftRouterLink: (simulation: Simulation): string[] => {
-        return ['/simulations', simulation.id];
+      leftRouterLink: (simulation: Simulation): string[] | null => {
+        if (simulation.status === SimulationStatus.succeeded) {
+          return ['/simulations', simulation.id];
+        } else {
+          return null;
+        }
       },
       minWidth: 66,
       filterable: false,
@@ -207,19 +216,12 @@ export class BrowseComponent implements OnInit {
     this.simulations = this.simulationService.simulations$;
   }
 
-  getStackedHeading(simulation: Simulation): string | null {
+  getStackedHeading(simulation: Simulation): string {
     return simulation.name + ' (' + simulation.id + ')';
   }
 
-  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] | null {
-    if (
-      simulation.status === SimulationStatus.succeeded ||
-      simulation.status === SimulationStatus.failed
-    ) {
-      return ['/simulations', simulation.id];
-    } else {
-      return null;
-    }
+  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] {
+    return ['/simulations', simulation.id];
   }
 
   exportSimulations() {
