@@ -1,16 +1,50 @@
 <biosimulations-tab-page (selectedTabChange)="selectedTabChange($event)">
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <p>
-      <b class="highlight-primary">Simulation #{{ uuid }}</b><br /><br/>
-      <strong>{{ name }}</strong>
+      <b class="highlight-primary">Simulation #{{ uuid }}</b><br />
+      {{ name }}
     </p>
+
+    <table class="icon-list">
+      <tr>
+        <th>
+          <biosimulations-icon icon="download"></biosimulations-icon>
+        </th>
+        <td>
+          <span class="heading">Project:</span>{{ ' '
+          }}<a [href]="projectUrl">COMBINE/OMEX archive ({{ projectSize }})</a>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <biosimulations-icon icon="simulator"></biosimulations-icon>
+        </th>
+        <td>
+          <span class="heading">Simulator:</span>{{ ' '
+          }}<a [href]="simulatorUrl" target="_blank">{{ simulator }} {{ simulatorVersion }}</a>
+        </td>
+      </tr>
+    </table>
+
+    <table class="icon-list">
+      <tr>
+        <th>
+          <biosimulations-icon icon="download"></biosimulations-icon>
+        </th>
+        <td>
+          <span class="heading">Results:</span>{{' '}}
+          <a [href]="resultsUrl" *ngIf="status === 'SUCCEEDED'; else noResults">CSV ({{ resultsSize }})</a>
+          <ng-template #noResults>N/A</ng-template>
+        </td>
+      </tr>
+    </table>
 
     <table class="icon-list">
       <tr>
         <th>
           <biosimulations-icon icon="status"></biosimulations-icon>
         </th>
-        <td><span class="heading">Status:</span> {{ status }}</td>
+        <td><span class="heading">Status:</span> {{ statusLabel }}</td>
       </tr>
       <tr>
         <th>
@@ -29,27 +63,6 @@
           <biosimulations-icon icon="date"></biosimulations-icon>
         </th>
         <td><span class="heading">Updated:</span> {{ updated }}</td>
-      </tr>
-    </table>
-
-    <table class="icon-list">
-      <tr>
-        <th>
-          <biosimulations-icon icon="download"></biosimulations-icon>
-        </th>
-        <td>
-          <span class="heading">Project:</span>{{ ' '
-          }}<a [href]="projectUrl">{{ projectSize }}</a>
-        </td>
-      </tr>
-      <tr *ngIf="status === 'SUCCEEDED' || status === 'FAILED'">
-        <th>
-          <biosimulations-icon icon="download"></biosimulations-icon>
-        </th>
-        <td>
-          <span class="heading">Results:</span>{{ ' '
-          }}<a [href]="resultsUrl">{{ resultsSize }}</a>
-        </td>
       </tr>
     </table>
   </biosimulations-tab-page-tab>

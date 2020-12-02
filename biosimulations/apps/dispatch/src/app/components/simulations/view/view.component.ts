@@ -13,6 +13,7 @@ import { VisualisationService } from '../../../services/visualisation/visualisat
 import { VisualisationComponent } from './visualisation/visualisation.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { urls } from '@biosimulations/config/common';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   templateUrl: './view.component.html',
@@ -23,7 +24,9 @@ export class ViewComponent implements OnInit {
   name = '';
   simulator = '';
   simulatorVersion = '';
+  simulatorUrl = '';
   status = '';
+  statusLabel = '';
   submitted = '';
   updated = '';
   runtime = '';
@@ -49,6 +52,7 @@ export class ViewComponent implements OnInit {
   @ViewChild('visualization') visualization!: VisualisationComponent;
 
   constructor(
+    private config: ConfigService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
@@ -144,12 +148,14 @@ export class ViewComponent implements OnInit {
     this.simulator = simulation.simulator;
     this.simulatorVersion = simulation.simulatorVersion;
     this.status = simulation.status;
-    this.runtime = `${(simulation.runtime ? simulation.runtime : 0).toString()} sec`;
+    this.statusLabel = simulation.status.substring(0, 1).toUpperCase() + simulation.status.substring(1).toLowerCase();
+    this.runtime = simulation.runtime ? `${Math.round(simulation.runtime).toString()} s` : 'N/A';
     this.submitted = new Date(simulation.submitted).toLocaleString();
     this.updated = new Date(simulation.updated).toLocaleString();
     this.resultsSize = `${((simulation.resultSize ? simulation.resultSize : 0) / 1024).toFixed(2).toString()} KB`;
     this.projectSize = `${((simulation.projectSize ? simulation.projectSize : 0) / 1024).toFixed(2).toString()} KB`;
-    this.projectUrl = `${urls.dispatchApi}/download/omex/${simulation.id}`;
-    this.resultsUrl = `${urls.dispatchApi}/download/result/${simulation.id}`;
+    this.projectUrl = `${urls.dispatchApi}download/omex/${simulation.id}`;
+    this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+    this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
   }
 }
