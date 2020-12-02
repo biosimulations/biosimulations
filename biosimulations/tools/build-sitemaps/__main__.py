@@ -67,24 +67,23 @@ def build_biosimulators_sitemap():
     simulatorLatestVersions = {}
     for simulator in simulators:
         urls.append(Url(
-            loc=simulator['id'] + '/' + simulator['version'],
-            last_mod=dateutil.parser.parse(simulator['updated']).date(),
+            loc='simulators' + '/' + simulator['id'] + '/' + simulator['version'],
+            last_mod=dateutil.parser.parse(simulator['biosimulators']['updated']).date(),
             change_freq=ChangeFreq.monthly),
         )
 
         if (simulator['id'] not in simulatorLatestVersions) or (simulator['version'] > simulatorLatestVersions[simulator['id']]['version']):
             simulatorLatestVersions[simulator['id']] = {
                 'version': simulator['version'],
-                'last_mod': dateutil.parser.parse(simulator['updated']).date(),
+                'last_mod': dateutil.parser.parse(simulator['biosimulators']['updated']).date(),
             }
 
     for id, val in simulatorLatestVersions.items():
         urls.append(Url(
-            loc=id,
+            loc='simulators' + '/' + id,
             last_mod=val['last_mod'],
             change_freq=ChangeFreq.monthly),
         )
-
     urls.sort(key=lambda url: (url.loc))
 
     render_sitemap('simulators', 'https://biosimulators.org/', urls)
