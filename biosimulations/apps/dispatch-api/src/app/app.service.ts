@@ -20,69 +20,14 @@ export class AppService {
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private httpService: HttpService,
     private modelsService: ModelsService,
-    private configService: ConfigService,
-  ) { }
+    private configService: ConfigService
+  ) {}
 
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
-  private logger = new Logger('AppService');
+  private logger = new Logger(AppService.name);
 
-  private async sendDispatchStartMessage(simSpec: SimulationDispatchSpec, fileId: string, file: OmexDispatchFile) {
-    this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
-      (res) => {
-        this.logger.log(JSON.stringify(res));
-        const currentDateTime = new Date();
-        const dbModel: DispatchSimulationModel = {
-          uuid: fileId,
-          authorEmail: simSpec.authorEmail,
-          nameOfSimulation: simSpec.nameOfSimulation,
-          submittedTime: currentDateTime,
-          statusModifiedTime: currentDateTime,
-          currentStatus: DispatchSimulationStatus.QUEUED,
-          duration: 0,
-          projectSize: Buffer.byteLength(file.buffer),
-          resultSize: 0
-        };
-        this.modelsService.createNewDispatchSimulationModel(dbModel);
-      },
-      (err) => {
-        this.logger.log('Error occured in dispatch service: ' + JSON.stringify(err));
-      }
-    );
-    this.logger.log('Dispatch message was sent successfully' + JSON.stringify(simSpec));
-  }
-  async uploadFile(file: OmexDispatchFile, bodyData: SimulationDispatchSpec) {
-    // TODO: Create the required folders automatically
-    const omexStorage = `${this.fileStorage}/OMEX/ID`;
-    if (bodyData.simulator === '') {
-      return { message: 'No Simulator was provided' };
-    }
-    // Get existing filetype and Generate a unique filename
-    const fileId = uuid();
-    const uniqueFilename = `${fileId}.omex`;
-    const omexSavePath = path.join(omexStorage, uniqueFilename);
-    // Fill out info from file that will be lost after saving in central storage
-    const simSpec: SimulationDispatchSpec = {
-      authorEmail: bodyData.authorEmail,
-      nameOfSimulation: bodyData.nameOfSimulation,
-      simulator: bodyData.simulator.toLowerCase(),
-      simulatorVersion: bodyData.simulatorVersion,
-      filename: file.originalname,
-      uniqueFilename,
-      filepathOnDataStore: omexSavePath,
-    };
-    // Save the file
-    await FileModifiers.writeFile(omexSavePath, file.buffer);
-    this.sendDispatchStartMessage(simSpec, fileId, file);
-    return {
-      message: 'File uploaded successfuly',
-      data: {
-        id: fileId,
-        fileName: uniqueFilename,
-        simulationName: simSpec.nameOfSimulation,
-        simulator: simSpec.simulator.toUpperCase(),
-        simulatorVersion: simSpec.simulatorVersion,
-      },
-    };
+  private async getJobCancel(uuid: string) {
+    this.messageClient.send(MQDispatch.SIM_HPC_CANCEL, uuid);
   }
 
   async getVisualizationData(
@@ -145,7 +90,7 @@ export class AppService {
     let filePathErr = '';
     download = String(download) === 'false' ? false : true;
     if (simInfo === null) {
-      res.send({ message: 'Cannot find the UUID specified' })
+      res.send({ message: 'Cannot find the UUID specified' });
       return;
     }
     switch (download) {
@@ -164,7 +109,9 @@ export class AppService {
             break;
           }
           case DispatchSimulationStatus.QUEUED: {
-            res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+            res.send({
+              message: "Can't fetch logs if the simulation is QUEUED",
+            });
             break;
           }
         }
@@ -172,23 +119,30 @@ export class AppService {
       }
       case false: {
         switch (simInfo.currentStatus) {
-          case DispatchSimulationStatus.SUCCEEDED ||DispatchSimulationStatus.FAILED: {
+          case DispatchSimulationStatus.SUCCEEDED ||
+            DispatchSimulationStatus.FAILED: {
             filePathOut = path.join(logPath, 'job.output');
             filePathErr = path.join(logPath, 'job.error');
-            const fileContentOut = (await FileModifiers.readFile(filePathOut)).toString();
-            const fileContentErr = (await FileModifiers.readFile(filePathErr)).toString();
+            const fileContentOut = (
+              await FileModifiers.readFile(filePathOut)
+            ).toString();
+            const fileContentErr = (
+              await FileModifiers.readFile(filePathErr)
+            ).toString();
             res.set('Content-Type', 'application/json');
             res.send({
               message: 'Logs fetched successfully',
               data: {
                 output: fileContentOut,
-                error: fileContentErr
-              }
+                error: fileContentErr,
+              },
             });
             break;
           }
           case DispatchSimulationStatus.QUEUED: {
-            res.send({ message: "Can't fetch logs if the simulation is QUEUED" });
+            res.send({
+              message: "Can't fetch logs if the simulation is QUEUED",
+            });
             break;
           }
         }
@@ -207,13 +161,8 @@ export class AppService {
   }
 
   downloadUserOmexArchive(uuid: string, res: any) {
-    const omexPath = path.join(
-      this.fileStorage,
-      'OMEX',
-      'ID',
-      `${uuid}.omex`
-    );
-      res.download(omexPath);
+    const omexPath = path.join(this.fileStorage, 'OMEX', 'ID', `${uuid}.omex`);
+    res.download(omexPath);
   }
 
   async getSimulators(simulatorName: string) {

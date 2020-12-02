@@ -71,7 +71,7 @@ export class AppController {
       data.id,
       data.simulator,
       data.version,
-      data.file
+      data.fileName
     );
 
     return new createdResponse();

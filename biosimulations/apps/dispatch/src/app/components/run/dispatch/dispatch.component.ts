@@ -65,8 +65,17 @@ export class DispatchComponent implements OnInit {
 
 
     this.dispatchService.getSimulatorsFromDb().subscribe((simDict: any) => {
-      this.simulators = Object.keys(simDict);
-      this.simulatorVersionsMap = simDict;
+      // this.simulators = Object.keys(simDict);
+      // this.simulatorVersionsMap = simDict;
+      //Note: Hardcoded available simulators, to make it dynamic uncomment above two lines and delete the hard-coded one
+      this.simulators = ['copasi', 'vcell', 'tellurium'];
+      this.simulatorVersionsMap = {
+        copasi: ['4.27.214', '4.28.226'],
+        vcell: ['7.3.0.0'],
+        tellurium: ['2.1.6']
+      }
+
+
     },
       (error: HttpErrorResponse) => {
         this.simulatorsError =
