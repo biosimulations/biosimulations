@@ -65,7 +65,10 @@ export class DispatchComponent implements OnInit {
 
 
     this.dispatchService.getSimulatorsFromDb().subscribe((simDict: any) => {
-      this.simulators = Object.keys(simDict);
+      this.simulators = Object.keys(simDict)
+        .sort((a: string, b: string): number => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        });
       this.simulatorVersionsMap = simDict;
     },
       (error: HttpErrorResponse) => {
