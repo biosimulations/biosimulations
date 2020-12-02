@@ -258,9 +258,9 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
-        
+
         run: nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
-        
+
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3
         with:
