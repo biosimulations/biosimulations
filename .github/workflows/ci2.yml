@@ -140,7 +140,7 @@ jobs:
 
       - name: Lint library or app
         working-directory: ./biosimulations
-        run: nx run ${{ matrix.libOrApp }}:lint --code-coverage --codeCoverage
+        run: nx run ${{ matrix.libOrApp }}:lint
 
   build:
     name: Build app
