@@ -17,7 +17,7 @@ export class HpcService {
     private sshService: SshService,
     private sbatchService: SbatchService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) {}
+  ) { }
 
   /**
    *
@@ -47,7 +47,7 @@ export class HpcService {
     );
     // TODO save the sbatch into simDirbase
     return this.sshService.execStringCommand(
-      `mkdir -p ${simDirBase}/in & mkdir -p ${simDirBase}/out & echo "${sbatchString}" > test.sbatch & chmod +x test.sbatch & sbatch test.sbatch`
+      `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/test.sbatch && chmod +x ${simDirBase}/in/test.sbatch && sbatch ${simDirBase}/in/test.sbatch`
     );
   }
 
@@ -67,7 +67,7 @@ export class HpcService {
       .catch((err) => {
         this.logger.error(
           'Failed to fetch results, updating the sim status as Pending, ' +
-            JSON.stringify(err)
+          JSON.stringify(err)
         );
         return { stdout: '\n\nPENDING' };
       });

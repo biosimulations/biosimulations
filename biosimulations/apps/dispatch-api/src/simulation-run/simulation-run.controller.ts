@@ -65,7 +65,7 @@ export class SimulationRunController {
   constructor(
     private service: SimulationRunService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) {}
+  ) { }
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
@@ -127,7 +127,7 @@ export class SimulationRunController {
     const message: DispatchCreatedPayload = {
       _message: DispatchMessage.created,
       id: run.id,
-      file: file.orgiginalname,
+      file: file.originalname,
       simulator: run.simulator,
       version: run.simulatorVersion,
     };

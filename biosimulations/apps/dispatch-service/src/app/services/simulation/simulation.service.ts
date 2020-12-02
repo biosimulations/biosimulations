@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HpcService } from '../hpc/hpc.service';
-import { MQDispatch } from '@biosimulations/messages';
+import { MQDispatch } from '@biosimulations/messages/messages';
 import { MessagePattern } from '@nestjs/microservices';
 
 @Injectable()

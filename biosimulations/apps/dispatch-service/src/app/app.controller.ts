@@ -36,7 +36,7 @@ export class AppController {
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
     private simulationService: SimulationService
-  ) {}
+  ) { }
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>(
     'hpc.fileStorage',
@@ -49,7 +49,7 @@ export class AppController {
    * @param data The payload sent for the created simulation run message
    */
   @MessagePattern(DispatchMessage.created)
-  async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
+  async uploadFile(data: any): Promise<createdResponse> {
     this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
 
@@ -176,7 +176,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
   async resultFinish(uuid: string) {
-    this.archiverService.createResultArchive(uuid).then(() => {});
+    this.archiverService.createResultArchive(uuid).then(() => { });
   }
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
