@@ -5,12 +5,19 @@ export interface DispatchSimulationModel {
   uuid: string;
   email: string;
   name: string;
+  simulator: string;
+  simulatorVersion: string;
   submitted: Date;
   updated: Date;
   status: DispatchSimulationStatus;
   runtime: number;
   resultSize: number;
-  projectSize: number
+  projectSize: number;
+}
+
+export interface DispatchSimulator {
+  id: string;
+  version: string;
 }
 
 export enum DispatchSimulationStatus {
@@ -38,6 +45,14 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   @ApiProperty({ type: String })
   @prop({ type: String })
   name!: string;
+
+  @ApiProperty({ type: String })
+  @prop({ type: String })
+  simulator!: string;
+
+  @ApiProperty({ type: String })
+  @prop({ type: String })
+  simulatorVersion!: string;
 
   @ApiProperty({ type: String, format: 'date-time' })
   @prop()
@@ -70,6 +85,8 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
     this.uuid = model.uuid;
     this.email = model.email;
     this.name = model.name;
+    this.simulator = model.simulator;
+    this.simulatorVersion = model.simulatorVersion;
     this.submitted = model.submitted;
     this.updated = model.updated;
     this.status = model.status;

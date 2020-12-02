@@ -121,6 +121,8 @@ export class SimulationService {
             status: (dispatchSim.status as unknown) as SimulationStatus,
             submitted: dispatchSim.submitted as Date,
             submittedLocally: true,
+            simulator: dispatchSim.simulator,
+            simulatorVersion: dispatchSim.simulatorVersion,
             updated: dispatchSim.updated as Date,
             resultSize: dispatchSim.resultSize,
             projectSize: dispatchSim.projectSize

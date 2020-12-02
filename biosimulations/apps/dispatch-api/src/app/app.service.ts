@@ -35,6 +35,8 @@ export class AppService {
           uuid: fileId,
           email: simSpec.email,
           name: simSpec.name,
+          simulator: simSpec.simulator,
+          simulatorVersion: simSpec.simulatorVersion,
           submitted: currentDateTime,
           updated: currentDateTime,
           status: DispatchSimulationStatus.QUEUED,

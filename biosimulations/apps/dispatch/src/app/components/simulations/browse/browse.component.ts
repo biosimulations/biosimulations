@@ -8,6 +8,7 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
+import { ConfigService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -35,6 +36,19 @@ export class BrowseComponent implements OnInit {
       heading: 'Name',
       key: 'name',
       minWidth: 34,
+    },
+    {
+      id: 'simulator',
+      heading: 'Simulator',
+      getter: (simulation: Simulation): string => {
+        return simulation.simulator + ' ' + simulation.simulatorVersion;
+      },
+      centerAction: ColumnActionType.href,
+      centerHref: (simulation: Simulation): string => {
+        return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+      },
+      minWidth: 34,
+      show: false,
     },
     {
       id: 'status',
@@ -326,7 +340,7 @@ export class BrowseComponent implements OnInit {
   ];
   simulations!: Observable<Simulation[]>;
 
-  constructor(private simulationService: SimulationService) {}
+  constructor(private config: ConfigService, private simulationService: SimulationService) {}
 
   ngOnInit() {
     this.simulations = this.simulationService.simulations$;

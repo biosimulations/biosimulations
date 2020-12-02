@@ -21,6 +21,8 @@ import { urls } from '@biosimulations/config/common';
 export class ViewComponent implements OnInit {
   uuid = '';
   name = '';
+  simulator = '';
+  simulatorVersion = '';
   status = '';
   submitted = '';
   updated = '';
@@ -139,6 +141,8 @@ export class ViewComponent implements OnInit {
     const simulation = await this.simulationService.getSimulationByUuid(this.uuid);
     console.log(simulation);
     this.name = simulation.name;
+    this.simulator = simulation.simulator;
+    this.simulatorVersion = simulation.simulatorVersion;
     this.status = simulation.status;
     this.runtime = `${(simulation.runtime ? simulation.runtime : 0).toString()} sec`;
     this.submitted = new Date(simulation.submitted).toLocaleString();

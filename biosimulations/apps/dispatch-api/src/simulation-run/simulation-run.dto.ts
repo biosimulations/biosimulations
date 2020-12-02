@@ -72,7 +72,7 @@ export class SimulationRun {
     id: string,
     name: string,
     simulator: string,
-    version: string,
+    simulatorVersion: string,
     status: SimulationRunStatus,
     isPublic: boolean,
     submitted: Date,
@@ -85,7 +85,7 @@ export class SimulationRun {
     this.id = id;
     this.name = name;
     this.simulator = simulator;
-    this.simulatorVersion = version;
+    this.simulatorVersion = simulatorVersion;
     this.status = status;
     this.public = isPublic;
     this.submitted = submitted;
