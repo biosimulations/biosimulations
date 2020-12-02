@@ -31,10 +31,7 @@ export class HpcService {
     version: string,
     fileName: string
   ) {
-    /**
-     * @todo Use this implementation to send job
-     * @body @gmarupilla Would something like be suffcient for replacing the other method and addresssing #1526?
-     */
+
     const simulatorString = `biosimulations_${simulator}_${version}`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
@@ -45,7 +42,6 @@ export class HpcService {
       urls.dispatchApi,
       id
     );
-    // TODO save the sbatch into simDirbase
     return this.sshService.execStringCommand(
       `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/test.sbatch && chmod +x ${simDirBase}/in/test.sbatch && sbatch ${simDirBase}/in/test.sbatch`
     );
