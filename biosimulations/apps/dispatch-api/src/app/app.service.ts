@@ -24,74 +24,7 @@ export class AppService {
   ) {}
 
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
-  private logger = new Logger('AppService');
-
-  private async sendDispatchStartMessage(
-    simSpec: SimulationDispatchSpec,
-    fileId: string,
-    file: OmexDispatchFile
-  ) {
-    this.messageClient.send(MQDispatch.SIM_DISPATCH_START, simSpec).subscribe(
-      (res) => {
-        this.logger.log(JSON.stringify(res));
-        const currentDateTime = new Date();
-        const dbModel: DispatchSimulationModel = {
-          uuid: fileId,
-          authorEmail: simSpec.authorEmail,
-          nameOfSimulation: simSpec.nameOfSimulation,
-          submittedTime: currentDateTime,
-          statusModifiedTime: currentDateTime,
-          currentStatus: DispatchSimulationStatus.QUEUED,
-          duration: 0,
-          projectSize: Buffer.byteLength(file.buffer),
-          resultSize: 0,
-        };
-        this.modelsService.createNewDispatchSimulationModel(dbModel);
-      },
-      (err) => {
-        this.logger.log(
-          'Error occured in dispatch service: ' + JSON.stringify(err)
-        );
-      }
-    );
-    this.logger.log(
-      'Dispatch message was sent successfully' + JSON.stringify(simSpec)
-    );
-  }
-  async uploadFile(file: OmexDispatchFile, bodyData: SimulationDispatchSpec) {
-    // TODO: Create the required folders automatically
-    const omexStorage = `${this.fileStorage}/OMEX/ID`;
-    if (bodyData.simulator === '') {
-      return { message: 'No Simulator was provided' };
-    }
-    // Get existing filetype and Generate a unique filename
-    const fileId = uuid();
-    const uniqueFilename = `${fileId}.omex`;
-    const omexSavePath = path.join(omexStorage, uniqueFilename);
-    // Fill out info from file that will be lost after saving in central storage
-    const simSpec: SimulationDispatchSpec = {
-      authorEmail: bodyData.authorEmail,
-      nameOfSimulation: bodyData.nameOfSimulation,
-      simulator: bodyData.simulator.toLowerCase(),
-      simulatorVersion: bodyData.simulatorVersion,
-      filename: file.originalname,
-      uniqueFilename,
-      filepathOnDataStore: omexSavePath,
-    };
-    // Save the file
-    await FileModifiers.writeFile(omexSavePath, file.buffer);
-    this.sendDispatchStartMessage(simSpec, fileId, file);
-    return {
-      message: 'File uploaded successfuly',
-      data: {
-        id: fileId,
-        fileName: uniqueFilename,
-        simulationName: simSpec.nameOfSimulation,
-        simulator: simSpec.simulator.toUpperCase(),
-        simulatorVersion: simSpec.simulatorVersion,
-      },
-    };
-  }
+  private logger = new Logger(AppService.name);
 
   private async getJobCancel(uuid: string) {
     this.messageClient.send(MQDispatch.SIM_HPC_CANCEL, uuid);
