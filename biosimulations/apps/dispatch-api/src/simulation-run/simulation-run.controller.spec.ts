@@ -7,6 +7,12 @@ import { SimulationRunController } from './simulation-run.controller';
 import { SimulationRunModel } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import {
+  Transport,
+  ClientProxyFactory,
+  NatsOptions
+} from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
 /**
  * @file Test file for controller
  * @author Bilal Shaikh
@@ -38,6 +44,17 @@ describe('SimulationRunsController', () => {
         {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,
+        },
+        {
+          provide: 'DISPATCH_MQ',
+          useFactory: (configService: ConfigService) => {
+          const natsServerConfig = configService.get('nats');
+          const natsOptions: NatsOptions = {};
+          natsOptions.transport = Transport.NATS;
+          natsOptions.options = natsServerConfig;
+          return ClientProxyFactory.create(natsOptions);
+        },
+        inject: [ConfigService],
         },
       ],
     }).compile();

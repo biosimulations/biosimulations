@@ -8,6 +8,7 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  Logger,
   MethodNotAllowedException,
   NotFoundException,
 } from '@nestjs/common';
@@ -20,6 +21,7 @@ import {
   SimulationRunModelReturnType,
   SimulationRunModelSchema,
   SimulationRunModelType,
+  SimulationRunStatus,
 } from './simulation-run.model';
 
 const toApi = <T extends SimulationRunModelType>(
@@ -32,6 +34,13 @@ const toApi = <T extends SimulationRunModelType>(
 
 @Injectable()
 export class SimulationRunService {
+  logger = new Logger(SimulationRunService.name);
+  setStatus(id: string, status: SimulationRunStatus) {
+    return this.simulationRunModel
+      .updateOne({ _id: id }, { status: status })
+      .then((value) => this.logger.log(`Changed ${id} to ${status}`))
+      .catch();
+  }
   /**
    * Download the OMEX file for the provided id. The omex file is a ref on the object
    * @param id The id of the simulation

@@ -41,7 +41,7 @@ export class AppController implements OnApplicationBootstrap {
   @ApiTags('Dispatch')
   @Post('dispatch')
   @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: 'Dispatch a simulation job' })
+  @ApiOperation({ deprecated: true, summary: 'Dispatch a simulation job' })
   @ApiResponse({
     status: 201,
     description: 'Dispatch status',
@@ -90,7 +90,7 @@ export class AppController implements OnApplicationBootstrap {
 
   @ApiTags('Downloads')
   @Get('download/result/:uuid')
-  @ApiOperation({ summary: 'Downloads result files' })
+  @ApiOperation({ deprecated: true, summary: 'Downloads result files' })
   @ApiResponse({
     status: 200,
     description: 'Download all results as zip archive',
@@ -102,7 +102,7 @@ export class AppController implements OnApplicationBootstrap {
 
   @ApiTags('Downloads')
   @Get('download/omex/:uuid')
-  @ApiOperation({ summary: 'Download omex file' })
+  @ApiOperation({ summary: 'Download omex file', deprecated: true })
   @ApiResponse({
     status: 200,
     description: 'Download omex file',

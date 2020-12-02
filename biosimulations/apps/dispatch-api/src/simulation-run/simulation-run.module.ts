@@ -8,6 +8,12 @@
 
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import {
+  Transport,
+  ClientProxyFactory,
+  NatsOptions
+} from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationFile, SimulationFileSchema } from './file.model';
 import { SimulationRunController } from './simulation-run.controller';
@@ -28,7 +34,21 @@ import { SimulationRunService } from './simulation-run.service';
         schema: SimulationFileSchema,
       },
     ]),
+    
   ],
-  providers: [SimulationRunService],
+  providers: [
+    SimulationRunService,
+    {
+      provide: 'DISPATCH_MQ',
+      useFactory: (configService: ConfigService) => {
+        const natsServerConfig = configService.get('nats');
+        const natsOptions: NatsOptions = {};
+        natsOptions.transport = Transport.NATS;
+        natsOptions.options = natsServerConfig;
+        return ClientProxyFactory.create(natsOptions);
+      },
+      inject: [ConfigService],
+    },
+  ],
 })
 export class SimulationRunModule {}

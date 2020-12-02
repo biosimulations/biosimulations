@@ -5,11 +5,18 @@
  * @license MIT
  */
 import {
+  createdResponse,
+  DispatchCreatedPayload,
+  DispatchMessage,
+  MQDispatch,
+} from '@biosimulations/messages/messages';
+import {
   AdminGuard,
   JwtGuard,
   permissions,
   PermissionsGuard,
 } from '@biosimulations/auth/nest';
+import { ClientProxy } from '@nestjs/microservices';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
@@ -17,6 +24,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   NotFoundException,
   Param,
   Patch,
@@ -46,11 +54,18 @@ import {
   UpdateSimulationRun,
 } from './simulation-run.dto';
 import { SimulationRunService } from './simulation-run.service';
+import {
+  SimulationRunModelReturnType,
+  SimulationRunStatus,
+} from './simulation-run.model';
 
 @ApiTags('Simulation Runs')
 @Controller('run')
 export class SimulationRunController {
-  constructor(private service: SimulationRunService) {}
+  constructor(
+    private service: SimulationRunService,
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+  ) {}
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
@@ -64,23 +79,7 @@ export class SimulationRunController {
   @Get()
   async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
-    return res.map(
-      (run) =>
-        new SimulationRun(
-          run.id,
-          run.name,
-          run.simulator,
-          run.simulatorVersion,
-          run.status,
-          run.public,
-          run.submitted,
-          run.updated,
-          run.duration,
-          run.projectSize,
-          run.resultsSize,
-          run.email
-        )
-    );
+    return res.map(this.makeSimulationRun);
   }
 
   @ApiOperation({
@@ -122,7 +121,34 @@ export class SimulationRunController {
     const parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
 
     const run = await this.service.createRun(parsedRun, file);
+    const response: SimulationRun = this.makeSimulationRun(run);
+    // Move to another layer?
+    // TODO add type checking here
+    const message: DispatchCreatedPayload = {
+      _message: DispatchMessage.created,
+      id: run.id,
+      file: file.orgiginalname,
+      simulator: run.simulator,
+      version: run.simulatorVersion,
+    };
 
+    // Create a custom method for this
+    this.messageClient
+      .send(DispatchMessage.created, message)
+      .subscribe((res: createdResponse) => {
+        if (res.okay) {
+          this.service.setStatus(response.id, SimulationRunStatus.QUEUED);
+        } else {
+          this.service.setStatus(response.id, SimulationRunStatus.FAILED);
+        }
+      });
+    return response;
+  }
+  /**
+   *  Creates the controllers return type SimulationRun
+   * @param run The value that is returned from the service.
+   */
+  makeSimulationRun(run: SimulationRunModelReturnType): SimulationRun {
     return new SimulationRun(
       run.id,
       run.name,
@@ -148,20 +174,7 @@ export class SimulationRunController {
   async getRun(@Param('id') id: string): Promise<SimulationRun> {
     const run = await this.service.get(id);
     if (run) {
-      return new SimulationRun(
-        run.id,
-        run.name,
-        run.simulator,
-        run.simulatorVersion,
-        run.status,
-        run.public,
-        run.submitted,
-        run.updated,
-        run.duration,
-        run.projectSize,
-        run.resultsSize,
-        run.email
-      );
+      this.makeSimulationRun(run);
     }
     throw new NotFoundException(`No Simulation Run with id ${id}`);
   }

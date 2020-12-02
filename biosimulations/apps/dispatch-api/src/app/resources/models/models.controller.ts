@@ -14,7 +14,10 @@ export class ModelsController {
   constructor(private modelsService: ModelsService) {}
 
   @Post('/jobinfo')
-  @ApiOperation({ summary: 'Fetches job information from Database' })
+  @ApiOperation({
+    summary: 'Fetches job information from Database',
+    deprecated: true,
+  })
   @ApiCreatedResponse({
     status: 200,
     description: 'Data fetched successfully',
