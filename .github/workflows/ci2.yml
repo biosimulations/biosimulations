@@ -102,7 +102,7 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Configure base commit
         run: |
@@ -166,7 +166,7 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Configure base commit
         run: |
@@ -220,7 +220,7 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Configure base commit
         run: |
@@ -299,7 +299,7 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Extract branch name
         shell: bash
