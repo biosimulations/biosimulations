@@ -30,12 +30,17 @@ export class DispatchPayload {
 }
 export class DispatchCreatedPayload extends DispatchPayload {
   _message: DispatchMessage = DispatchMessage.created;
-  file: string;
+  fileName: string;
   simulator: string;
   version: string;
-  constructor(id: string, file: string, simulator: string, version: string) {
+  constructor(
+    id: string,
+    fileName: string,
+    simulator: string,
+    version: string
+  ) {
     super(id);
-    this.file = file;
+    this.fileName = fileName;
     this.simulator = simulator;
     this.version = version;
   }
