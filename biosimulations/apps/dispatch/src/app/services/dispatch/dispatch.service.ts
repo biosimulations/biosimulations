@@ -35,35 +35,36 @@ export class DispatchService {
     if (simulatorName === undefined) {
       return this.http.get(endpoint) as Observable<string[]>;
     }
-    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<string[]>;
+    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<
+      string[]
+    >;
   }
 
   getSimulatorsFromDb() {
     const endpoint = `https://api.biosimulators.org/simulators`;
 
-    return this.http.get(endpoint).pipe(map((response: any) => {
+    return this.http.get(endpoint).pipe(
+      map((response: any) => {
+        // response to dict logic
+        const simulatorsInfo: any = {};
+        const simualtorsList: any = [];
+        const data = response;
 
-      // response to dict logic 
-      const simulatorsInfo: any = {};
-      const simualtorsList: any = [];
-      const data = response;
-
-      // this.logger.debug(data[2]['version']);
-      for (let index = 0; index < data.length; index++) {
-        simualtorsList.push(data[index]['id'])
-      }
-
-      for (let index = 0; index < simualtorsList.length; index++) {
-
-        if (simulatorsInfo[simualtorsList[index]] !== undefined) {
-
-          simulatorsInfo[simualtorsList[index]].push(data[index]['version']);
-        } else {
-          simulatorsInfo[simualtorsList[index]] = [data[index]['version']];
+        // this.logger.debug(data[2]['version']);
+        for (let index = 0; index < data.length; index++) {
+          simualtorsList.push(data[index]['id']);
         }
-      }
-      return simulatorsInfo;
-    }));
+
+        for (let index = 0; index < simualtorsList.length; index++) {
+          if (simulatorsInfo[simualtorsList[index]] !== undefined) {
+            simulatorsInfo[simualtorsList[index]].push(data[index]['version']);
+          } else {
+            simulatorsInfo[simualtorsList[index]] = [data[index]['version']];
+          }
+        }
+        return simulatorsInfo;
+      })
+    );
   }
 
   getSimulationLogs(uuid: string) {
@@ -71,5 +72,5 @@ export class DispatchService {
     return this.http.get(endpoint);
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 }
