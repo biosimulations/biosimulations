@@ -10,6 +10,7 @@ import {
   ApiResponse,
   ApiResponseProperty,
   PartialType,
+  PickType,
 } from '@nestjs/swagger';
 import { SimulationRunStatus } from './simulationRunStatus';
 
@@ -49,7 +50,7 @@ export class SimulationRun {
     format: 'email',
     example: 'info@biosimulations.org',
   })
-  email?: string;
+  email!: string | null;
 
   @ApiProperty({ type: Boolean, default: false })
   public: boolean;
@@ -98,16 +99,21 @@ export class SimulationRun {
     this.resultsSize = resultsSize;
 
     this.runtime = runtime;
-    this.email = email;
+    this.email = email || null;
   }
 }
-
+export class UploadSimulationRun extends PickType(SimulationRun, [
+  'name',
+  'email',
+  'simulator',
+  'simulatorVersion',
+]) {}
 export class SimulationUpload {
   @ApiProperty({ type: String, format: 'binary' })
   file!: string;
 
   @ApiProperty({ type: SimulationRun })
-  simulationRun!: SimulationRun;
+  simulationRun!: UploadSimulationRun;
 }
 
 export class PatchSimulationRun {
