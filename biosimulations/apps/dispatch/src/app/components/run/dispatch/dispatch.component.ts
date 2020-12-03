@@ -12,6 +12,7 @@ import { SimulationService } from '../../../services/simulation/simulation.servi
 import { environment } from '@biosimulations/shared/environments';
 import { SimulationStatus } from '../../../datamodel';
 import { map } from 'rxjs/operators';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -35,7 +36,7 @@ export class DispatchComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
-    private simulationService: SimulationService,
+    private simulationService: SimulationService
   ) {
     this.formGroup = formBuilder.group({
       projectFile: ['', [Validators.required]],
@@ -51,18 +52,13 @@ export class DispatchComponent implements OnInit {
       const simulator: string = params?.simulator;
       const simulatorVersion: string = params?.simulatorVersion;
       if (simulator) {
-        this.formGroup.controls.simulator.setValue(
-          simulator
-        );
+        this.formGroup.controls.simulator.setValue(simulator);
         this.onSimulatorChange({ value: simulator });
         if (simulatorVersion) {
-          this.formGroup.controls.simulatorVersion.setValue(
-            simulatorVersion
-          );
+          this.formGroup.controls.simulatorVersion.setValue(simulatorVersion);
         }
       }
     });
-
 
     this.dispatchService.getSimulatorsFromDb().subscribe((simDict: any) => {
       // this.simulators = Object.keys(simDict);
@@ -73,8 +69,8 @@ export class DispatchComponent implements OnInit {
       this.simulatorVersionsMap = {
         copasi: ['4.27.214', '4.28.226'],
         vcell: ['7.3.0.0'],
-        tellurium: ['2.1.6']
-      }
+        tellurium: ['2.1.6'],
+      };
 
       this.simulators.sort((a: string, b: string): number => {
         return a.localeCompare(b, undefined, { numeric: true });
@@ -106,35 +102,35 @@ export class DispatchComponent implements OnInit {
 
     this.dispatchService
       .submitJob(projectFile, simulator, simulatorVersion, name, email)
-      .subscribe(
-        (data: any) => {
-          if (!environment.production) {
-            console.log('Response from server: ', data);
-          }
-          const simulationId = data['data']['id'];
-          this.dispatchService.uuidsDispatched.push(simulationId);
-          this.dispatchService.uuidUpdateEvent.next(simulationId);
-          this.simulationId = simulationId;
+      .subscribe((data: any) => {
+        if (!environment.production) {
+          console.log('Response from server: ', data);
+        }
+        const simulationId = data['id'];
+        this.dispatchService.uuidsDispatched.push(simulationId);
+        this.dispatchService.uuidUpdateEvent.next(simulationId);
+        this.simulationId = simulationId;
 
-          this.simulationService.storeSimulation({
-            id: simulationId,
-            name: name,
-            email: email,
-            simulator: simulator,
-            simulatorVersion: simulatorVersion,
-            submittedLocally: true,
-            status: SimulationStatus.queued,
-            runtime: undefined,
-            submitted: new Date(),
-            updated: new Date(),
-          });
+        this.simulationService.storeSimulation({
+          id: simulationId,
+          name: name,
+          email: email,
+          simulator: simulator,
+          simulatorVersion: simulatorVersion,
+          submittedLocally: true,
+          status: SimulationStatus.queued,
+          runtime: undefined,
+          submitted: new Date(),
+          updated: new Date(),
         });
+      });
   }
 
   onSimulatorChange($event: any) {
-
     if (this.simulatorVersionsMap !== undefined) {
-      this.simulatorVersions = Array.from(this.simulatorVersionsMap[$event.value]);
+      this.simulatorVersions = Array.from(
+        this.simulatorVersionsMap[$event.value]
+      );
       this.simulatorVersionsError = undefined;
       this.formGroup.controls.simulatorVersion.enable();
       this.formGroup.controls.simulatorVersion.setValue(
