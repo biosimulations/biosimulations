@@ -21,8 +21,8 @@ import {
   SimulationRunModelReturnType,
   SimulationRunModelSchema,
   SimulationRunModelType,
+  SimulationRunStatus,
 } from './simulation-run.model';
-import { SimulationStatus } from '@biosimulations/datamodel/common';
 
 const toApi = <T extends SimulationRunModelType>(
   obj: T
@@ -35,7 +35,7 @@ const toApi = <T extends SimulationRunModelType>(
 @Injectable()
 export class SimulationRunService {
   logger = new Logger(SimulationRunService.name);
-  setStatus(id: string, status: SimulationStatus) {
+  setStatus(id: string, status: SimulationRunStatus) {
     return this.simulationRunModel
       .updateOne({ _id: id }, { status: status })
       .then((value) => this.logger.log(`Changed ${id} to ${status}`))

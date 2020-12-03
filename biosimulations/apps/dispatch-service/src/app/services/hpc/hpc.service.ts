@@ -2,7 +2,7 @@ import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { DispatchMessage, MQDispatch } from '@biosimulations/messages/messages';
-import { SimulationStatus } from '@biosimulations/datamodel/common';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 import path from 'path';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
@@ -57,7 +57,7 @@ export class HpcService {
     // Create a socket via SSH and stream the output file
   }
 
-  async saactJobStatus(jobId: string): Promise<SimulationStatus> {
+  async saactJobStatus(jobId: string) {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
@@ -73,20 +73,19 @@ export class HpcService {
     const saactDataOutputSplit = saactDataOutput.split('\n');
     const finalStatusList = saactDataOutputSplit[2].split(' ');
     const finalStatus = finalStatusList[finalStatusList.length - 2];
-    // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY, NODE_FAIL
+    // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
       case 'PENDING' || '':
-        return SimulationStatus.QUEUED;
+        return DispatchSimulationStatus.QUEUED;
       case 'RUNNING':
-        return SimulationStatus.RUNNING;
+        return DispatchSimulationStatus.RUNNING;
       case 'COMPLETED':
-        return SimulationStatus.SUCCEEDED;
+        return DispatchSimulationStatus.SUCCEEDED;
       // TODO: Implement Stop simulation functionality from user-end
       case 'CANCELLED':
-        return SimulationStatus.CANCELLED;
+        return DispatchSimulationStatus.CANCELLED;
       case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
-      default:
-        return SimulationStatus.FAILED;
+        return DispatchSimulationStatus.FAILED;
     }
   }
 }

@@ -1,14 +1,6 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import {
-  SimulationStatus,
-  isSimulationStatusRunning,
-  isSimulationStatusSucceeded,
-  isSimulationStatusFailed,
-  getSimulationStatusOrder,
-  getSimulationStatusMessage,
-} from '@biosimulations/datamodel/common';
-import { Simulation } from '../../../datamodel';
+import { Simulation, SimulationStatus } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import {
   TableComponent,
@@ -63,18 +55,35 @@ export class BrowseComponent implements OnInit {
       heading: 'Status',
       key: 'status',
       formatter: (value: SimulationStatus): string => {
-        return getSimulationStatusMessage(value, false);
+        if (value) {
+          return value.toLowerCase();
+        } else {
+          return value;
+        }
       },
       filterFormatter: (value: SimulationStatus): string => {
-        return getSimulationStatusMessage(value, true);
+        if (value) {
+          return value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+        } else {
+          return value;
+        }
       },
       comparator: (
         a: SimulationStatus,
         b: SimulationStatus,
         sign: number
       ): number => {
-        const aVal = getSimulationStatusOrder(a);
-        const bVal = getSimulationStatusOrder(b);
+        let aVal = 0;
+        if (a === SimulationStatus.queued) aVal = 0;
+        else if (a === SimulationStatus.started) aVal = 1;
+        else if (a === SimulationStatus.succeeded) aVal = 2;
+        else if (a === SimulationStatus.failed) aVal = 3;
+
+        let bVal = 0;
+        if (b === SimulationStatus.queued) bVal = 0;
+        else if (b === SimulationStatus.started) bVal = 1;
+        else if (b === SimulationStatus.succeeded) bVal = 2;
+        else if (b === SimulationStatus.failed) bVal = 3;
 
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
@@ -192,7 +201,7 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'chart',
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (isSimulationStatusSucceeded(simulation.status)) {
+        if (simulation.status === SimulationStatus.succeeded) {
           return ['/simulations', simulation.id];
         } else {
           return null;
@@ -200,7 +209,7 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
-        if (isSimulationStatusSucceeded(simulation.status)) {
+        if (simulation.status === SimulationStatus.succeeded) {
           return ['/simulations', simulation.id];
         } else {
           return null;
@@ -210,7 +219,7 @@ export class BrowseComponent implements OnInit {
         return null;
       },
       stackedFormatter: (status: SimulationStatus): string | null => {
-        if (isSimulationStatusSucceeded(status)) {
+        if (status === SimulationStatus.succeeded) {
           return 'visualize results';
         } else {
           return 'N/A';
@@ -223,8 +232,8 @@ export class BrowseComponent implements OnInit {
         b: SimulationStatus,
         sign: number
       ): number => {
-        const aVal = isSimulationStatusSucceeded(a) ? 0 : 1;
-        const bVal = isSimulationStatusSucceeded(b) ? 0 : 1;
+        let aVal = a === SimulationStatus.succeeded ? 0 : 1;
+        let bVal = b === SimulationStatus.succeeded ? 0 : 1;
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
         return 0;
@@ -238,7 +247,7 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'download',
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
-        if (isSimulationStatusSucceeded(simulation.status)) {
+        if (simulation.status === SimulationStatus.succeeded) {
           return `${urls.dispatchApi}/download/result/${simulation.id}`;
         } else {
           return null;
@@ -246,7 +255,7 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.href,
       centerHref: (simulation: Simulation): string | null => {
-        if (isSimulationStatusSucceeded(simulation.status)) {
+        if (simulation.status === SimulationStatus.succeeded) {
           return `${urls.dispatchApi}/download/result/${simulation.id}`;
         } else {
           return null;
@@ -256,7 +265,7 @@ export class BrowseComponent implements OnInit {
         return null;
       },
       stackedFormatter: (status: SimulationStatus): string | null => {
-        if (isSimulationStatusSucceeded(status)) {
+        if (status === SimulationStatus.succeeded) {
           return 'download results';
         } else {
           return 'N/A';
@@ -269,8 +278,8 @@ export class BrowseComponent implements OnInit {
         b: SimulationStatus,
         sign: number
       ): number => {
-        const aVal = isSimulationStatusSucceeded(a) ? 0 : 1;
-        const bVal = isSimulationStatusSucceeded(b) ? 0 : 1;
+        let aVal = a === SimulationStatus.succeeded ? 0 : 1;
+        let bVal = b === SimulationStatus.succeeded ? 0 : 1;
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
         return 0;
@@ -284,7 +293,10 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'logs',
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (!isSimulationStatusRunning(simulation.status)) {
+        if (
+          simulation.status === SimulationStatus.succeeded ||
+          simulation.status === SimulationStatus.failed
+        ) {
           return ['/simulations', simulation.id];
         } else {
           return null;
@@ -292,7 +304,10 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
-        if (!isSimulationStatusRunning(simulation.status)) {
+        if (
+          simulation.status === SimulationStatus.succeeded ||
+          simulation.status === SimulationStatus.failed
+        ) {
           return ['/simulations', simulation.id];
         } else {
           return null;
@@ -302,7 +317,7 @@ export class BrowseComponent implements OnInit {
         return null;
       },
       stackedFormatter: (status: SimulationStatus): string | null => {
-        if (!isSimulationStatusRunning(status)) {
+        if (status === SimulationStatus.succeeded || status === SimulationStatus.failed) {
           return 'view logs';
         } else {
           return 'N/A';
@@ -315,8 +330,8 @@ export class BrowseComponent implements OnInit {
         b: SimulationStatus,
         sign: number
       ): number => {
-        const aVal = !isSimulationStatusRunning(a) ? 0 : 1;
-        const bVal = !isSimulationStatusRunning(a) ? 0 : 1;
+        let aVal = (a === SimulationStatus.succeeded || a === SimulationStatus.failed) ? 0 : 1;
+        let bVal = (b === SimulationStatus.succeeded || a === SimulationStatus.failed) ? 0 : 1;
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
         return 0;

@@ -1,7 +1,7 @@
 import { urls } from '@biosimulations/config/common';
-import { SimulationStatus } from '@biosimulations/datamodel/common';
 import {
-  DispatchSimulationModel,  
+  DispatchSimulationModel,
+  DispatchSimulationStatus,
   OmexDispatchFile,
   SimulationDispatchSpec,
 } from '@biosimulations/dispatch/api-models';
@@ -96,25 +96,21 @@ export class AppService {
     switch (download) {
       case true: {
         switch (simInfo.status) {
-          case SimulationStatus.SUCCEEDED: {
+          case DispatchSimulationStatus.SUCCEEDED: {
             filePathOut = path.join(logPath, 'job.output');
             res.set('Content-Type', 'text/html');
             res.download(filePathOut);
             break;
           }
-          // TODO: are the other error states (CANCELLED) correctly handled?
-          case SimulationStatus.CANCELLED:
-          case SimulationStatus.FAILED: {
+          case DispatchSimulationStatus.FAILED: {
             filePathErr = path.join(logPath, 'job.error');
             res.set('Content-Type', 'text/html');
             res.download(filePathErr);
             break;
           }
-          case SimulationStatus.CREATED:
-          case SimulationStatus.QUEUED:
-          case SimulationStatus.RUNNING: {
+          case DispatchSimulationStatus.QUEUED: {
             res.send({
-              message: "Can't fetch logs because the simulation has not yet completed",
+              message: "Can't fetch logs if the simulation is QUEUED",
             });
             break;
           }
@@ -123,10 +119,8 @@ export class AppService {
       }
       case false: {
         switch (simInfo.status) {
-          // TODO: are the other error states (CANCELLED) correctly handled?
-          case SimulationStatus.SUCCEEDED:
-          case SimulationStatus.CANCELLED:
-          case SimulationStatus.FAILED: {
+          case DispatchSimulationStatus.SUCCEEDED ||
+            DispatchSimulationStatus.FAILED: {
             filePathOut = path.join(logPath, 'job.output');
             filePathErr = path.join(logPath, 'job.error');
             const fileContentOut = (
@@ -145,11 +139,9 @@ export class AppService {
             });
             break;
           }
-          case SimulationStatus.CREATED:
-          case SimulationStatus.QUEUED:
-          case SimulationStatus.RUNNING: {
+          case DispatchSimulationStatus.QUEUED: {
             res.send({
-              message: "Can't fetch logs because the simulation has not yet completed",
+              message: "Can't fetch logs if the simulation is QUEUED",
             });
             break;
           }

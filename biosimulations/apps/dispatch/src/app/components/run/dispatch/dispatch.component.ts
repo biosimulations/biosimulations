@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
-import { SimulationStatus } from '@biosimulations/datamodel/common';
+import { SimulationStatus } from '../../../datamodel';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -129,7 +129,7 @@ export class DispatchComponent implements OnInit {
             simulator: simulator,
             simulatorVersion: simulatorVersion,
             submittedLocally: true,
-            status: SimulationStatus.CREATED,
+            status: SimulationStatus.queued,
             runtime: undefined,
             submitted: new Date(),
             updated: new Date(),

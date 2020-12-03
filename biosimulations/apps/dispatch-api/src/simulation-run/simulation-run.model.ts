@@ -9,7 +9,6 @@ import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import * as EmailValidator from 'email-validator';
 import { SimulationFile, SimulationFileSchema } from './file.model';
-import { SimulationStatus } from '@biosimulations/datamodel/common';
 
 // TODO move this to common utils
 const omitPrivate = (doc: any, obj: any) => {
@@ -18,6 +17,20 @@ const omitPrivate = (doc: any, obj: any) => {
 
   return obj;
 };
+
+// TODO combine with already defined enum
+export enum SimulationRunStatus {
+  // The api has created the entry
+  CREATED = 'CREATED',
+  // The api has submitted the run and service has accepted
+  QUEUED = 'QUEUED',
+  // The service has starting the run
+  RUNNING = 'RUNNING',
+  // The run has finished
+  SUCCEEDED = 'SUCCEEDED',
+  // The run has failed
+  FAILED = 'FAILED',
+}
 
 @Schema({ collection: 'Simulation Runs', id: false })
 export class SimulationRunModel extends Document {
@@ -44,13 +57,13 @@ export class SimulationRunModel extends Document {
 
   @Prop({
     type: String,
-    enum: Object.keys(SimulationStatus).map(
-      (key) => SimulationStatus[key as SimulationStatus]
+    enum: Object.keys(SimulationRunStatus).map(
+      (key) => SimulationRunStatus[key as SimulationRunStatus]
     ),
 
-    default: SimulationStatus.CREATED,
+    default: SimulationRunStatus.CREATED,
   })
-  status!: SimulationStatus;
+  status!: SimulationRunStatus;
 
   @Prop()
   runtime!: number;

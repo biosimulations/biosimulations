@@ -11,7 +11,7 @@ import {
   ApiResponseProperty,
   PartialType,
 } from '@nestjs/swagger';
-import { SimulationStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus } from './simulation-run.model';
 
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database
@@ -50,8 +50,8 @@ export class SimulationRun {
   @ApiProperty({ type: Boolean, default: false })
   public: boolean;
 
-  @ApiResponseProperty({ type: String, enum: SimulationStatus })
-  status: SimulationStatus;
+  @ApiResponseProperty({ type: String, enum: SimulationRunStatus })
+  status: SimulationRunStatus;
 
   @ApiResponseProperty({ type: Number, example: 55 })
   runtime?: number;
@@ -73,7 +73,7 @@ export class SimulationRun {
     name: string,
     simulator: string,
     simulatorVersion: string,
-    status: SimulationStatus,
+    status: SimulationRunStatus,
     isPublic: boolean,
     submitted: Date,
     updated: Date,
@@ -110,8 +110,8 @@ export class PatchSimulationRun {
   @ApiProperty({ type: Boolean })
   public!: boolean;
 
-  @ApiProperty({ type: String, enum: SimulationStatus })
-  status!: SimulationStatus;
+  @ApiProperty({ type: String, enum: SimulationRunStatus })
+  status!: SimulationRunStatus;
 
   @ApiProperty({ type: Number, example: 55 })
   runtime!: number;
