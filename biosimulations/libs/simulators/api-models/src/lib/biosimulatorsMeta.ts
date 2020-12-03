@@ -1,4 +1,8 @@
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiPropertyOptional,
+  ApiResponseProperty,
+} from '@nestjs/swagger';
 import {
   IBiosimulatorsMeta,
   imageVersions,
@@ -32,6 +36,11 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
       'Whether or not the image for the simulator has passed validation',
   })
   validated!: boolean;
+  @ApiPropertyOptional({
+    type: Object,
+    description: 'Additional Metadata',
+  })
+  meta!: any;
 
   @ApiResponseProperty({
     type: String,
