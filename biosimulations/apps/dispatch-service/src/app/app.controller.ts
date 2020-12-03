@@ -1,19 +1,25 @@
 import { Controller, Logger, Inject } from '@nestjs/common';
-import { MessagePattern, ClientProxy } from '@nestjs/microservices';
+import {
+  MessagePattern,
+  ClientProxy,
+  EventPattern,
+} from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import {
-  DispatchSimulationStatus,
-  SimulationDispatchSpec,
-} from '@biosimulations/dispatch/api-models';
-import { v4 as uuid } from 'uuid';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+
 import path from 'path';
 import * as csv2Json from 'csv2json';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { MQDispatch } from '@biosimulations/messages';
+import {
+  createdResponse,
+  DispatchCreatedPayload,
+  DispatchMessage,
+  MQDispatch,
+} from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 import { SimulationService } from './services/simulation/simulation.service';
@@ -29,20 +35,28 @@ export class AppController {
     private schedulerRegistry: SchedulerRegistry,
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
-    private simulationService: SimulationService,
-  ) { }
+    private simulationService: SimulationService
+  ) {}
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>(
-    'hpc.fileStorage', '');
+    'hpc.fileStorage',
+    ''
+  );
 
-  @MessagePattern(MQDispatch.SIM_DISPATCH_START)
-  async uploadFile(data: SimulationDispatchSpec) {
+  /**
+   *The method responds to the message by calling the hpc service to start a job. It then sends a reply to the message.
+   *
+   * @param data The payload sent for the created simulation run message
+   */
+  @MessagePattern(DispatchMessage.created)
+  async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
     this.logger.log('Starting to dispatch simulation');
     this.logger.log('Data received: ' + JSON.stringify(data));
 
-    const sbatchStorage = `${this.fileStorage}/SBATCH/ID`;
-
-    // TODO: Hit simulator-api to get these simulator names
+    /**
+     * @todo Dont hardcode these
+     * @gmarupilla Lets remove these to a common service that is also used by the /simulators route
+     */
     if (
       data.simulator !== 'copasi' &&
       data.simulator !== 'vcell' &&
@@ -50,36 +64,17 @@ export class AppController {
       data.simulator !== 'cobrapy' &&
       data.simulator !== 'bionetgen'
     ) {
-      return { message: 'Unsupported simulator was provided!' };
+      return new createdResponse(false, 'invalid simulator');
     }
-
-    const omexPath = data.filepathOnDataStore;
-    const sbatchName = `${uuid()}.sbatch`;
-    const sbatchPath = path.join(sbatchStorage, sbatchName);
-
-    this.logger.log('SBatch path: ' + sbatchPath);
-
-    // Generate SBATCH script
-    const simulatorString = `biosimulations_${data.simulator}_${data.simulatorVersion}`;
-    const hpcTempDirPath = `${this.configService.get('hpc.hpcBaseDir')}/${data.uniqueFilename.split('.')[0]
-      }`;
-    const sbatchString = this.sbatchService.generateSbatch(
-      hpcTempDirPath,
-      simulatorString,
-      data.filename
-    );
-    await FileModifiers.writeFile(sbatchPath, sbatchString);
-
-    this.logger.log('HPC Temp basedir: ' + hpcTempDirPath);
-
-    this.hpcService.dispatchJob(
-      hpcTempDirPath,
-      sbatchPath,
-      omexPath,
-      data.filename
+    // TODO have this send back a status and adjust response accordingly
+    const response = await this.hpcService.execJob(
+      data.id,
+      data.simulator,
+      data.version,
+      data.fileName
     );
 
-    return { message: 'Simulation dispatch started.' };
+    return new createdResponse();
   }
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
@@ -153,10 +148,12 @@ export class AppController {
                       chartJsonPath,
                       JSON.stringify(chartResults)
                     ).then(() => {
-
                       fileCounter++;
                       dirCounter++;
-                      if ((fileCounter === fileLength) && (dirCounter === dirLength)) {
+                      if (
+                        fileCounter === fileLength &&
+                        dirCounter === dirLength
+                      ) {
                         this.messageClient.emit(
                           MQDispatch.SIM_RESULT_FINISH,
                           uuid
@@ -166,7 +163,9 @@ export class AppController {
                   });
                 })
                 .on('error', (err) => {
-                  return this.logger.log('Error occured in file writing' + JSON.stringify(err));
+                  return this.logger.log(
+                    'Error occured in file writing' + JSON.stringify(err)
+                  );
                 });
             }
           }
@@ -177,12 +176,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
   async resultFinish(uuid: string) {
-
-    this.archiverService
-      .createResultArchive(uuid)
-      .then(() => {
-
-      });
+    this.archiverService.createResultArchive(uuid).then(() => {});
   }
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
@@ -196,9 +190,9 @@ export class AppController {
 
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus = await this.simulationService.getSimulationStatus(
-        jobId
-      ) || DispatchSimulationStatus.QUEUED;
+      const jobStatus =
+        (await this.simulationService.getSimulationStatus(jobId)) ||
+        DispatchSimulationStatus.QUEUED;
       this.modelsService.updateStatus(uuid, jobStatus);
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:

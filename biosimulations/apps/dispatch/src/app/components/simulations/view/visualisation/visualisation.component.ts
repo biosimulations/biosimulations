@@ -11,6 +11,8 @@ export class VisualisationComponent implements OnInit {
   data: any;
   layout: any;
 
+  @ViewChild('plotParent', { static: true }) plotParent?: ElementRef;
+
   constructor(
     private visualisationService: VisualisationService,
   ) { }
@@ -18,10 +20,10 @@ export class VisualisationComponent implements OnInit {
   ngOnInit(): void {
     this.visualisationService.updateDataEvent.subscribe(
       (reports: any) => {
-        const res:any  = [];
+        const res: any = [];
         const keys = Object.keys(reports['data']);
         keys.forEach(element => {
-          res.push({...reports['data'][element], name: element});
+          res.push({ ...reports['data'][element], name: element });
         });
         this.data = res;
 
@@ -31,7 +33,7 @@ export class VisualisationComponent implements OnInit {
     );
   }
 
-  @ViewChild(PlotlyComponent, {read: ElementRef}) plot!: ElementRef;
+  @ViewChild(PlotlyComponent, { read: ElementRef }) plot!: ElementRef;
 
   @HostListener('window:resize')
   onResize() {
@@ -40,9 +42,10 @@ export class VisualisationComponent implements OnInit {
 
   setLayout() {
     const rect = this.plot.nativeElement.parentElement.parentElement.getBoundingClientRect();
+    const height = this.plotParent?.nativeElement.offsetHeight;
     this.layout = {
       width: rect.width,
-      height: rect.height,
+      height: height | rect.height,
     }
   }
 }

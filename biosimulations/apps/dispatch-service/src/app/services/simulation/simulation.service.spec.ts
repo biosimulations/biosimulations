@@ -8,6 +8,7 @@ import {
   NatsOptions,
   Transport,
 } from '@nestjs/microservices';
+import { SbatchService } from '../sbatch/sbatch.service';
 
 describe('Simulation Service', () => {
   let service: SimulationService;
@@ -19,6 +20,7 @@ describe('Simulation Service', () => {
         SimulationService,
         HpcService,
         SshService,
+        SbatchService,
         {
           provide: 'DISPATCH_MQ',
           useFactory: (configService: ConfigService) => {
