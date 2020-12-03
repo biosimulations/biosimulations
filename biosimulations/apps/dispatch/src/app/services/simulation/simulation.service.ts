@@ -91,7 +91,7 @@ export class SimulationService {
     // update status
     // TODO: connect with API
     // TODO: only get and update status of
-    const endpoint = `${urls.dispatchApi}/jobinfo`;
+    const endpoint = `${urls.dispatchApi}jobinfo`;
     const ids = this.simulations
       .filter((simulation: Simulation): boolean => {
         return SimulationStatusService.isSimulationStatusRunning(simulation.status);

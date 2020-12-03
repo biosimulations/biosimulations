@@ -11,7 +11,7 @@ export class VisualisationService {
   tasksPerSedml: any;
   updateDataEvent = new Subject<any>();
 
-  private resultsEndpoint = `${urls.dispatchApi}/result`;
+  private resultsEndpoint = `${urls.dispatchApi}result`;
   constructor(private http: HttpClient) {}
 
   getVisualisation(uuid: string, sedml: string, task: string) {
