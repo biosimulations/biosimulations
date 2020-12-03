@@ -125,7 +125,7 @@ export class SimulationService {
     setSimulations: Simulation[],
     getStatus = false
   ): void {
-    let newSimulations: Simulation[] = [...this.simulations];
+    const newSimulations: Simulation[] = [...this.simulations];
 
     const newSimulationIdToIndex: { [id: string]: number } = {};
     newSimulations.forEach(
