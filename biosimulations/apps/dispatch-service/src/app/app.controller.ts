@@ -36,51 +36,12 @@ export class AppController {
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
     private simulationService: SimulationService
-  ) { }
+  ) {}
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>(
     'hpc.fileStorage',
     ''
   );
-
-  /**
-   *The method responds to the message by calling the hpc service to start a job. It then sends a reply to the message.
-   *
-   * @param data The payload sent for the created simulation run message
-   */
-  @MessagePattern(DispatchMessage.created)
-  async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
-    this.logger.log('Starting to dispatch simulation');
-    this.logger.log('Data received: ' + JSON.stringify(data));
-
-    /**
-     * @todo Dont hardcode these
-     * @gmarupilla Lets remove these to a common service that is also used by the /simulators route
-     */
-    if (
-      data.simulator !== 'copasi' &&
-      data.simulator !== 'vcell' &&
-      data.simulator !== 'tellurium' &&
-      data.simulator !== 'cobrapy' &&
-      data.simulator !== 'bionetgen'
-    ) {
-      return new createdResponse(false, 'invalid simulator');
-    }
-    // TODO have this send back a status and adjust response accordingly
-    const response = await this.hpcService.execJob(
-      data.id,
-      data.simulator,
-      data.version,
-      data.fileName
-    );
-
-    this.messageClient.send(MQDispatch.SIM_DISPATCH_FINISH, { simId: data.id, ...response })
-      .subscribe(() => {
-        // Do something when execution of message method is done
-      });
-
-    return new createdResponse();
-  }
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
@@ -181,7 +142,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
   async resultFinish(uuid: string) {
-    this.archiverService.createResultArchive(uuid).then(() => { });
+    this.archiverService.createResultArchive(uuid).then(() => {});
   }
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
