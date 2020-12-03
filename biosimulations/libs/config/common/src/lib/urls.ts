@@ -55,8 +55,9 @@ const envUrls: { [key in envs]: urlMap } = {
   dev: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://run.biosimulations.dev/',
+    dispatchApi: '/dispatch-api',
     simulatorsApi: '/simulators-api',
+    ontologyApi: '/ontology-api',
     platformNewIssue:
       'https://github.com/biosimulations/Biosimulations/issues/new/choose',
     accountNewIssue:
@@ -73,7 +74,6 @@ const envUrls: { [key in envs]: urlMap } = {
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
-    ontologyApi: '/ontology-api',
     fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   stage: {

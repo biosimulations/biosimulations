@@ -9,6 +9,7 @@ import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import * as EmailValidator from 'email-validator';
 import { SimulationFile, SimulationFileSchema } from './file.model';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 
 // TODO move this to common utils
 const omitPrivate = (doc: any, obj: any) => {
@@ -17,20 +18,6 @@ const omitPrivate = (doc: any, obj: any) => {
 
   return obj;
 };
-
-// TODO combine with already defined enum
-export enum SimulationRunStatus {
-  // The api has created the entry
-  CREATED = 'CREATED',
-  // The api has submitted the run and service has accepted
-  QUEUED = 'QUEUED',
-  // The service has starting the run
-  RUNNING = 'RUNNING',
-  // The run has finished
-  SUCCEEDED = 'SUCCEEDED',
-  // The run has failed
-  FAILED = 'FAILED',
-}
 
 @Schema({ collection: 'Simulation Runs', id: false })
 export class SimulationRunModel extends Document {
@@ -46,12 +33,14 @@ export class SimulationRunModel extends Document {
     type: String,
     required: false,
     default: null,
-    validate: [{
-      validator: (value: any): boolean => {
-        return value == null || EmailValidator.validate(value);
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return value == null || EmailValidator.validate(value);
+        },
+        message: (props: any): string => `${props.value} is not a valid email`,
       },
-      message: (props: any): string => `${props.value} is not a valid email`,
-    }]
+    ],
   })
   email!: string;
 
