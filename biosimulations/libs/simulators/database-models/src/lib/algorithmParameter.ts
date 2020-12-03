@@ -34,11 +34,9 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   })
   name!: string | null;
 
-  @Prop({ 
+  @Prop({
     type: String,
-    enum: Object.keys(ValueType).map(
-      (k) => ValueType[k as ValueType]
-    ),
+    enum: Object.keys(ValueType).map((k) => ValueType[k as ValueType]),
     required: true,
     default: undefined,
   })
@@ -52,9 +50,11 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @Prop({
     type: [String],
-    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
-      return keyVal[1];
-    }),
+    enum: Object.entries(SoftwareInterfaceType).map(
+      (keyVal: [string, string]): string => {
+        return keyVal[1];
+      }
+    ),
     required: true,
     default: undefined,
   })
@@ -65,7 +65,10 @@ export const AlgorithmParameterSchema = SchemaFactory.createForClass(
   AlgorithmParameter
 );
 
-AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
+AlgorithmParameterSchema.post('validate', function (
+  doc: Document,
+  next: () => void
+): void {
   const type: ValueType = doc.get('type');
 
   const value: string | null = doc.get('value');
@@ -78,7 +81,10 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
     for (let iRange = 0; iRange < recommendedRange.length; iRange++) {
       const value = recommendedRange[iRange];
       if (!validateValue(value, type)) {
-        doc.invalidate(`recommendedRange/${iRange}`, `element of recommendedRange '${value}' must be an instance of ${type}`);
+        doc.invalidate(
+          `recommendedRange/${iRange}`,
+          `element of recommendedRange '${value}' must be an instance of ${type}`
+        );
       }
     }
   }
@@ -91,10 +97,10 @@ export function parseValue(value: string, type: ValueType): any {
   switch (type) {
     case ValueType.boolean: {
       const lowerValue = value.toLowerCase();
-      if (lowerValue === "true" || lowerValue === "1") {
+      if (lowerValue === 'true' || lowerValue === '1') {
         return true;
       }
-      if (lowerValue === "false" || lowerValue === "0") {
+      if (lowerValue === 'false' || lowerValue === '0') {
         return false;
       }
       throw new Error(`value '${value}' must be an instance of ${type}`);
@@ -131,14 +137,19 @@ export function parseValue(value: string, type: ValueType): any {
         } else {
           throw new Error(`value '${value}' must be an instance of ${type}`);
         }
-      } catch { 
+      } catch {
         throw new Error(`value '${value}' must be an instance of ${type}`);
       }
     }
     case ValueType.object: {
       try {
         parsedValue = JSON.parse(value);
-        if (parsedValue != null && typeof parsedValue !== 'string' && typeof parsedValue !== 'number' && !Array.isArray(parsedValue)) {
+        if (
+          parsedValue != null &&
+          typeof parsedValue !== 'string' &&
+          typeof parsedValue !== 'number' &&
+          !Array.isArray(parsedValue)
+        ) {
           return parsedValue;
         } else {
           throw new Error(`value '${value}' must be an instance of ${type}`);
@@ -165,7 +176,7 @@ export function validateValue(value: string, type: ValueType): boolean {
   let parsedValue: any;
   switch (type) {
     case ValueType.boolean: {
-      return ["true", "false", "1", "0"].includes(value.toLowerCase());
+      return ['true', 'false', '1', '0'].includes(value.toLowerCase());
     }
     case ValueType.integer: {
       parsedValue = parseInt(value);
@@ -190,7 +201,12 @@ export function validateValue(value: string, type: ValueType): boolean {
     case ValueType.object: {
       try {
         parsedValue = JSON.parse(value);
-        return parsedValue != null && typeof parsedValue !== 'string' && typeof parsedValue !== 'number' && !Array.isArray(parsedValue);
+        return (
+          parsedValue != null &&
+          typeof parsedValue !== 'string' &&
+          typeof parsedValue !== 'number' &&
+          !Array.isArray(parsedValue)
+        );
       } catch {
         return false;
       }
