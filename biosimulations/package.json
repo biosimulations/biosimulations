@@ -78,7 +78,7 @@
     "jwks-rsa": "^1.11.0",
     "localforage": "^1.5.0",
     "lunr": "^2.3.9",
-    "mongoose": "^5.11.2",
+    "mongoose": "^5.10.13",
     "nats": "^1.4.12",
     "nestjs-typegoose": "^7.1.38",
     "ngx-highlightjs": "^4.1.2",
