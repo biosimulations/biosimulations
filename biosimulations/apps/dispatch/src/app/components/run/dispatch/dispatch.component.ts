@@ -79,6 +79,14 @@ export class DispatchComponent implements OnInit {
       this.simulators.sort((a: string, b: string): number => {
         return a.localeCompare(b, undefined, { numeric: true });
       });
+
+      this.simulators.forEach((simulator: string): void => {
+        this.simulatorVersionsMap[simulator]
+          .sort((a: string, b: string): number => {
+            return a.localeCompare(b, undefined, { numeric: true });
+          })
+          .reverse();
+      });
     },
       (error: HttpErrorResponse) => {
         this.simulatorsError =
