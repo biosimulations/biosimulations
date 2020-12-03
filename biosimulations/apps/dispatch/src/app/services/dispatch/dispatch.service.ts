@@ -4,6 +4,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
+import { UploadSimulationRun } from '@biosimulations/dispatch/api-models';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,15 +19,19 @@ export class DispatchService {
     name: string,
     email: string
   ) {
-    const endpoint = `${urls.dispatchApi}dispatch`;
+    const endpoint = `${urls.dispatchApi}run/`;
 
-    // TODO: Create a datamodel to hold the schema for simulation spec for frontend
     const formData = new FormData();
+
+    const run: UploadSimulationRun = {
+      name: name,
+      email: email || null,
+      simulator: selectedSimulator,
+      simulatorVersion: selectedVersion,
+    };
     formData.append('file', fileToUpload, fileToUpload.name);
-    formData.append('simulator', selectedSimulator);
-    formData.append('simulatorVersion', selectedVersion);
-    formData.append('email', email);
-    formData.append('name', name);
+    formData.append('simulationRun', JSON.stringify(run));
+
     return this.http.post(endpoint, formData);
   }
 
