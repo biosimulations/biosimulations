@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 import { urls } from '@biosimulations/config/common';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+import { job } from 'cron';
 @Injectable()
 export class HpcService {
   private logger = new Logger(HpcService.name);
@@ -47,15 +48,6 @@ export class HpcService {
     );
   }
 
-  getOutputFiles(simId: string) {
-    // pack all files (zip)
-    // Get them on local
-    // Unpack them and save to mongo
-  }
-
-  getRealtimeOutput(simId: string) {
-    // Create a socket via SSH and stream the output file
-  }
 
   async saactJobStatus(jobId: string): Promise<DispatchSimulationStatus> {
     const saactData = await this.sshService
