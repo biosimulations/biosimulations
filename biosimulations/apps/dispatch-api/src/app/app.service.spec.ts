@@ -80,8 +80,8 @@ describe('AppService', () => {
             simulatorVersion: '',
             filename: '',
             uniqueFilename: '',
-            authorEmail: '',
-            nameOfSimulation: '',
+            email: '',
+            name: '',
           }
         )
       ).toEqual({

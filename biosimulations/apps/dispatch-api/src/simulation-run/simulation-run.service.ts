@@ -108,7 +108,7 @@ export class SimulationRunService {
   ): Promise<SimulationRunModelReturnType> {
     const model = await this.simulationRunModel.findById(id);
     if (model) {
-      model.duration = run.duration || model.duration;
+      model.runtime = run.runtime || model.runtime;
       model.resultsSize = run.resultsSize || model.resultsSize;
       model.status = run.status || model.status;
       return toApi(await model.save());

@@ -18,23 +18,20 @@ export class DispatchService {
     name: string,
     email: string
   ) {
-    const endpoint = `${urls.dispatchApi}/dispatch`;
+    const endpoint = `${urls.dispatchApi}dispatch`;
 
     // TODO: Create a datamodel to hold the schema for simulation spec for frontend
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulator', selectedSimulator);
     formData.append('simulatorVersion', selectedVersion);
-    formData.append('authorEmail', email);
-    formData.append('nameOfSimulation', name);
-    // console.log(formData);
-    // formData.append('name', name);
-    // formData.append('email', email);
+    formData.append('email', email);
+    formData.append('name', name);
     return this.http.post(endpoint, formData);
   }
 
   getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
-    const endpoint = `${urls.dispatchApi}/simulators`;
+    const endpoint = `${urls.dispatchApi}simulators`;
     if (simulatorName === undefined) {
       return this.http.get(endpoint) as Observable<string[]>;
     }
@@ -70,7 +67,7 @@ export class DispatchService {
   }
 
   getSimulationLogs(uuid: string) {
-    const endpoint = `${urls.dispatchApi}/logs/${uuid}?download=false`;
+    const endpoint = `${urls.dispatchApi}logs/${uuid}?download=false`;
     return this.http.get(endpoint);
   }
 
