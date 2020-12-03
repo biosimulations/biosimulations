@@ -11,7 +11,7 @@ export interface DispatchSimulationModel {
   updated: Date;
   status: DispatchSimulationStatus;
   runtime: number;
-  resultSize: number;
+  resultsSize: number;
   projectSize: number;
 }
 
@@ -79,7 +79,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   projectSize!: number;
 
   @prop({ type: Number })
-  resultSize!: number;
+  resultsSize!: number;
 
   constructor(public model: DispatchSimulationModel) {
     this.uuid = model.uuid;
@@ -91,7 +91,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
     this.updated = model.updated;
     this.status = model.status;
     this.runtime = model.runtime;
-    this.resultSize = model.resultSize;
+    this.resultsSize = model.resultsSize;
     this.projectSize = model.projectSize;
   }
 }

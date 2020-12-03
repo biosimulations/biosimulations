@@ -43,10 +43,10 @@ export class ModelsService {
     }
   }
 
-  async updateResultSize(uuid: string, size: number) {
+  async updateResultsSize(uuid: string, size: number) {
     const doc = await this.dispatchSimulationModel.findOne({ uuid });
     if (doc !== null) {
-      doc.resultSize = size;
+      doc.resultsSize = size;
       await doc.save();
     }
   }

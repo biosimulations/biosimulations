@@ -152,7 +152,7 @@ export class ViewComponent implements OnInit {
     this.runtime = simulation.runtime ? `${Math.round(simulation.runtime).toString()} s` : 'N/A';
     this.submitted = new Date(simulation.submitted).toLocaleString();
     this.updated = new Date(simulation.updated).toLocaleString();
-    this.resultsSize = `${((simulation.resultSize ? simulation.resultSize : 0) / 1024).toFixed(2).toString()} KB`;
+    this.resultsSize = `${((simulation.resultsSize ? simulation.resultsSize : 0) / 1024).toFixed(2).toString()} KB`;
     this.projectSize = `${((simulation.projectSize ? simulation.projectSize : 0) / 1024).toFixed(2).toString()} KB`;
     this.projectUrl = `${urls.dispatchApi}download/omex/${simulation.id}`;
     this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;

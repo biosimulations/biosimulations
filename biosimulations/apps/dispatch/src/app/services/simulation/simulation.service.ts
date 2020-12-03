@@ -124,7 +124,7 @@ export class SimulationService {
             simulator: dispatchSim.simulator,
             simulatorVersion: dispatchSim.simulatorVersion,
             updated: dispatchSim.updated as Date,
-            resultSize: dispatchSim.resultSize,
+            resultsSize: dispatchSim.resultsSize,
             projectSize: dispatchSim.projectSize
           })
         };
