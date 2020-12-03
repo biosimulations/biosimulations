@@ -1,9 +1,16 @@
 {
-  "/dispatch-api": {
+  "/dispatch-api-local": {
     "target": "http://localhost:3333/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": { "^/dispatch-api": "" }
+  },
+    "/dispatch-api": {
+    "target": "https://dispatch.biosimulations.dev/",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/dispatch-api": "/" }
   }
 }
