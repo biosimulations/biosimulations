@@ -1,6 +1,7 @@
 import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 import { Injectable } from '@angular/core';
-import { Simulation, SimulationStatus } from '../../datamodel';
+import { SimulationStatus, isSimulationStatusRunning } from '@biosimulations/datamodel/common';
+import { Simulation } from '../../datamodel';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -78,10 +79,7 @@ export class SimulationService {
     // no updates needed if no simulation is queued or running
     let activeSimulation = false;
     for (const simulation of this.simulations) {
-      if (
-        simulation.status !== SimulationStatus.failed &&
-        simulation.status !== SimulationStatus.succeeded
-      ) {
+      if (isSimulationStatusRunning(simulation.status)) {
         activeSimulation = true;
         break;
       }
@@ -96,10 +94,7 @@ export class SimulationService {
     const endpoint = `${urls.dispatchApi}/jobinfo`;
     const ids = this.simulations
       .filter((simulation: Simulation): boolean => {
-        return !(
-          simulation.status === SimulationStatus.succeeded ||
-          simulation.status === SimulationStatus.failed
-        );
+        return !isSimulationStatusRunning(simulation.status);
       })
       .map((simulation: Simulation): string => {
         return simulation.id;
@@ -118,13 +113,13 @@ export class SimulationService {
             email: dispatchSim.email,
             runtime: dispatchSim.runtime,
             id: dispatchSim.uuid,
-            status: (dispatchSim.status as unknown) as SimulationStatus,
+            status: dispatchSim.status,
             submitted: dispatchSim.submitted as Date,
             submittedLocally: true,
             simulator: dispatchSim.simulator,
             simulatorVersion: dispatchSim.simulatorVersion,
             updated: dispatchSim.updated as Date,
-            resultSize: dispatchSim.resultSize,
+            resultsSize: dispatchSim.resultsSize,
             projectSize: dispatchSim.projectSize
           })
         };

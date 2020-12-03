@@ -12,8 +12,15 @@ import { SimulationService } from '../../../services/simulation/simulation.servi
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 import { VisualisationComponent } from './visualisation/visualisation.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { Simulation } from '../../../datamodel';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
+import {
+  SimulationStatus,
+  isSimulationStatusRunning,
+  isSimulationStatusSucceeded,
+  getSimulationStatusMessage,
+} from '@biosimulations/datamodel/common';
 
 @Component({
   templateUrl: './view.component.html',
@@ -25,7 +32,8 @@ export class ViewComponent implements OnInit {
   simulator = '';
   simulatorVersion = '';
   simulatorUrl = '';
-  status = '';
+  statusRunning = false;
+  statusSucceeded = false;
   statusLabel = '';
   submitted = '';
   updated = '';
@@ -142,18 +150,19 @@ export class ViewComponent implements OnInit {
   }
 
   async setSimulationInfo() {
-    const simulation = await this.simulationService.getSimulationByUuid(this.uuid);
+    const simulation: Simulation = await this.simulationService.getSimulationByUuid(this.uuid);
     console.log(simulation);
     this.name = simulation.name;
     this.simulator = simulation.simulator;
     this.simulatorVersion = simulation.simulatorVersion;
-    this.status = simulation.status;
-    this.statusLabel = simulation.status.substring(0, 1).toUpperCase() + simulation.status.substring(1).toLowerCase();
-    this.runtime = simulation.runtime ? `${Math.round(simulation.runtime).toString()} s` : 'N/A';
+    this.statusRunning = isSimulationStatusRunning(simulation.status);
+    this.statusSucceeded = isSimulationStatusSucceeded(simulation.status);
+    this.statusLabel = getSimulationStatusMessage(simulation.status, true);
+    this.runtime = simulation.runtime !== undefined ? Math.round(simulation.runtime).toString() + ' s' : 'N/A';
     this.submitted = new Date(simulation.submitted).toLocaleString();
     this.updated = new Date(simulation.updated).toLocaleString();
-    this.resultsSize = `${((simulation.resultSize ? simulation.resultSize : 0) / 1024).toFixed(2).toString()} KB`;
-    this.projectSize = `${((simulation.projectSize ? simulation.projectSize : 0) / 1024).toFixed(2).toString()} KB`;
+    this.projectSize = ((simulation.projectSize as number) / 1024).toFixed(2) + ' KB';
+    this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
     this.projectUrl = `${urls.dispatchApi}download/omex/${simulation.id}`;
     this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
     this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;

@@ -1,7 +1,7 @@
 import { AccessLevel } from '@biosimulations/datamodel/common';
 import { License } from './license';
 import { SimulationResultsFormat } from '@biosimulations/datamodel/common';
-import { SimulationStatus } from './simulation-status';
+import { SimulationStatus } from '@biosimulations/datamodel/common';
 import { ParameterChange } from './parameter-change';
 import { Algorithm } from './algorithm';
 import { AlgorithmParameter } from './algorithm-parameter';

@@ -1,10 +1,4 @@
-export enum SimulationStatus {
-  queued = 'QUEUED',
-  started = 'STARTED',
-  succeeded = 'SUCCEEDED',
-  failed = 'FAILED',
-  running = 'RUNNING',
-}
+import { SimulationStatus } from '@biosimulations/datamodel/common';
 
 export interface Simulation {
   id: string;
@@ -17,6 +11,6 @@ export interface Simulation {
   runtime?: number;
   submitted: Date;
   updated: Date;
-  resultSize?: number;
+  resultsSize?: number;
   projectSize?: number;  
 }

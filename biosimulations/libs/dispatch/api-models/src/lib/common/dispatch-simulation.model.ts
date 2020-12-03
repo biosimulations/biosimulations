@@ -1,5 +1,6 @@
 import { modelOptions, prop } from '@typegoose/typegoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { SimulationStatus } from '@biosimulations/datamodel/common';
 
 export interface DispatchSimulationModel {
   uuid: string;
@@ -9,27 +10,15 @@ export interface DispatchSimulationModel {
   simulatorVersion: string;
   submitted: Date;
   updated: Date;
-  status: DispatchSimulationStatus;
+  status: SimulationStatus;
   runtime: number;
-  resultSize: number;
+  resultsSize: number;
   projectSize: number;
 }
 
 export interface DispatchSimulator {
   id: string;
   version: string;
-}
-
-export enum DispatchSimulationStatus {
-  QUEUED = 'QUEUED',
-  RUNNING = 'RUNNING',
-  SUCCEEDED = 'SUCCEEDED',
-  FAILED = 'FAILED',
-  // UNKNOWN = 'UNKNOWN',
-  CANCELLED = 'CANCELLED',
-  TIMEOUT = 'TIMEOUT',
-  OUT_OF_MEMORY = 'OUT-OF-MEMORY',
-  NODE_FAIL = 'NODE_FAIL',
 }
 
 @modelOptions({ schemaOptions: { collection: 'dispatches' } })
@@ -62,14 +51,14 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   @prop()
   updated!: Date;
 
-  @ApiProperty({ type: String, enum: DispatchSimulationStatus })
+  @ApiProperty({ type: String, enum: SimulationStatus })
   @prop({
     type: String, 
-    enum: Object.entries(DispatchSimulationStatus).map((keyVal: [string, string]): string => {
+    enum: Object.entries(SimulationStatus).map((keyVal: [string, string]): string => {
       return keyVal[1];
     }),
   })
-  status!: DispatchSimulationStatus;
+  status!: SimulationStatus;
 
   @ApiProperty({ type: Number })
   @prop({ type: Number })
@@ -79,7 +68,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
   projectSize!: number;
 
   @prop({ type: Number })
-  resultSize!: number;
+  resultsSize!: number;
 
   constructor(public model: DispatchSimulationModel) {
     this.uuid = model.uuid;
@@ -91,7 +80,7 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
     this.updated = model.updated;
     this.status = model.status;
     this.runtime = model.runtime;
-    this.resultSize = model.resultSize;
+    this.resultsSize = model.resultsSize;
     this.projectSize = model.projectSize;
   }
 }

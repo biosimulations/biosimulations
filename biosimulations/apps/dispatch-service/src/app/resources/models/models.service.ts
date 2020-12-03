@@ -5,8 +5,8 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import {
   DispatchSimulationModelDB as DSimMDB,
   DispatchSimulationModel as DSimModel,
-  DispatchSimulationStatus,
 } from '@biosimulations/dispatch/api-models';
+import { SimulationStatus } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class ModelsService {
@@ -32,7 +32,7 @@ export class ModelsService {
     return this.dispatchSimulationModel.deleteMany({});
   }
 
-  async updateStatus(uuid: string, status: DispatchSimulationStatus) {
+  async updateStatus(uuid: string, status: SimulationStatus) {
     const doc = await this.dispatchSimulationModel.findOne({ uuid });
     if (doc !== null) {
       doc.status = status;
@@ -43,10 +43,10 @@ export class ModelsService {
     }
   }
 
-  async updateResultSize(uuid: string, size: number) {
+  async updateResultsSize(uuid: string, size: number) {
     const doc = await this.dispatchSimulationModel.findOne({ uuid });
     if (doc !== null) {
-      doc.resultSize = size;
+      doc.resultsSize = size;
       await doc.save();
     }
   }

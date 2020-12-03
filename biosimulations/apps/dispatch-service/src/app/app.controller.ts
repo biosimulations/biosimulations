@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationStatus } from '@biosimulations/datamodel/common';
 
 import path from 'path';
 import * as csv2Json from 'csv2json';
@@ -190,22 +190,24 @@ export class AppController {
 
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus =
+      const jobStatus: SimulationStatus =
         (await this.simulationService.getSimulationStatus(jobId)) ||
-        DispatchSimulationStatus.QUEUED;
+        SimulationStatus.QUEUED;
       this.modelsService.updateStatus(uuid, jobStatus);
       switch (jobStatus) {
-        case DispatchSimulationStatus.SUCCEEDED:
+        case SimulationStatus.SUCCEEDED:
           // TODO: Change FINISH to SUCCEED
           this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;
         // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
-        case DispatchSimulationStatus.FAILED:
+        case SimulationStatus.CANCELLED:
+        case SimulationStatus.FAILED:
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;
-        case DispatchSimulationStatus.QUEUED:
-        case DispatchSimulationStatus.RUNNING:
+        case SimulationStatus.CREATED:
+        case SimulationStatus.QUEUED:
+        case SimulationStatus.RUNNING:
           break;
       }
     });

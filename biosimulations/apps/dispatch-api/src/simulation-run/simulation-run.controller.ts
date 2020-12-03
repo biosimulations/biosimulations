@@ -56,8 +56,8 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import {
   SimulationRunModelReturnType,
-  SimulationRunStatus,
 } from './simulation-run.model';
+import { SimulationStatus } from '@biosimulations/datamodel/common';
 
 @ApiTags('Simulation Runs')
 @Controller('run')
@@ -137,9 +137,9 @@ export class SimulationRunController {
       .send(DispatchMessage.created, message)
       .subscribe((res: createdResponse) => {
         if (res.okay) {
-          this.service.setStatus(response.id, SimulationRunStatus.QUEUED);
+          this.service.setStatus(response.id, SimulationStatus.QUEUED);
         } else {
-          this.service.setStatus(response.id, SimulationRunStatus.FAILED);
+          this.service.setStatus(response.id, SimulationStatus.FAILED);
         }
       });
     return response;

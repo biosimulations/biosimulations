@@ -2,7 +2,7 @@ import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { DispatchMessage, MQDispatch } from '@biosimulations/messages/messages';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationStatus } from '@biosimulations/datamodel/common';
 import path from 'path';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
@@ -57,7 +57,7 @@ export class HpcService {
     // Create a socket via SSH and stream the output file
   }
 
-  async saactJobStatus(jobId: string) {
+  async saactJobStatus(jobId: string): Promise<SimulationStatus> {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
@@ -73,19 +73,20 @@ export class HpcService {
     const saactDataOutputSplit = saactDataOutput.split('\n');
     const finalStatusList = saactDataOutputSplit[2].split(' ');
     const finalStatus = finalStatusList[finalStatusList.length - 2];
-    // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
+    // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY, NODE_FAIL
     switch (finalStatus) {
       case 'PENDING' || '':
-        return DispatchSimulationStatus.QUEUED;
+        return SimulationStatus.QUEUED;
       case 'RUNNING':
-        return DispatchSimulationStatus.RUNNING;
+        return SimulationStatus.RUNNING;
       case 'COMPLETED':
-        return DispatchSimulationStatus.SUCCEEDED;
+        return SimulationStatus.SUCCEEDED;
       // TODO: Implement Stop simulation functionality from user-end
       case 'CANCELLED':
-        return DispatchSimulationStatus.CANCELLED;
+        return SimulationStatus.CANCELLED;
       case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
-        return DispatchSimulationStatus.FAILED;
+      default:
+        return SimulationStatus.FAILED;
     }
   }
 }
