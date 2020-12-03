@@ -42,7 +42,6 @@ jobs:
         name: Get the list of apps
         working-directory: ./biosimulations
         run: |
-          
           mapfile -d " " -t appsArr < <( nx affected:apps --plain --all)
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
 
