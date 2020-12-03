@@ -81,9 +81,6 @@
       "@biosimulations/dispatch/api-models": [
         "libs/dispatch/api-models/src/index.ts"
       ],
-      "@biosimulations/messages": [
-        "libs/messages/src/index.ts"
-      ],
       "@biosimulations/ontology/sources": [
         "libs/ontology/sources/src/index.ts"
       ],
@@ -110,6 +107,9 @@
       ],
       "@biosimulations/datamodel/common": [
         "libs/datamodel/common/src/index.ts"
+      ],
+      "@biosimulations/messages/messages": [
+        "libs/messages/messages/src/index.ts"
       ]
     }
   },

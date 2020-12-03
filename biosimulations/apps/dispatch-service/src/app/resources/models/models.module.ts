@@ -1,6 +1,6 @@
 import { Module, CacheModule } from '@nestjs/common';
 import { ModelsService } from './models.service';
-import { ModelsController } from './models.controller';
+
 import { TypegooseModule } from 'nestjs-typegoose';
 import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 @Module({
@@ -9,7 +9,7 @@ import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
     CacheModule.register(),
   ],
   providers: [ModelsService],
-  controllers: [ModelsController],
+
   exports: [ModelsService],
 })
 export class ModelsModule {}

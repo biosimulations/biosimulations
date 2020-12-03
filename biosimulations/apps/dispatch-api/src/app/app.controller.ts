@@ -38,59 +38,9 @@ export class AppController implements OnApplicationBootstrap {
     private modelsService: ModelsService
   ) {}
 
-  @ApiTags('Dispatch')
-  @Post('dispatch')
-  @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: 'Dispatch a simulation job' })
-  @ApiResponse({
-    status: 201,
-    description: 'Dispatch status',
-    type: Object,
-  })
-  @ApiInternalServerErrorResponse({
-    status: 500,
-    description: 'Internal Server Error',
-  })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          description: 'Omex file to upload',
-          format: 'binary',
-        },
-        simulator: {
-          type: 'string',
-          description: 'Simulator to use like COPASI/VCELL, etc',
-        },
-        simulatorVersion: {
-          type: 'string',
-          description:
-            'Version of the selected simulator like 4.27.214/latest, etc',
-        },
-        authorEmail: {
-          description: 'Provide an email for notifications',
-          type: 'string',
-        },
-        nameOfSimulation: {
-          description: 'Define a name for your simulation project',
-          type: 'string',
-        },
-      },
-    },
-  })
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(
-    @UploadedFile() file: OmexDispatchFile,
-    @Body() bodyData: SimulationDispatchSpec
-  ): Promise<any> {
-    return this.appService.uploadFile(file, bodyData);
-  }
-
   @ApiTags('Downloads')
   @Get('download/result/:uuid')
-  @ApiOperation({ summary: 'Downloads result files' })
+  @ApiOperation({ deprecated: false, summary: 'Downloads result files' })
   @ApiResponse({
     status: 200,
     description: 'Download all results as zip archive',
@@ -102,7 +52,7 @@ export class AppController implements OnApplicationBootstrap {
 
   @ApiTags('Downloads')
   @Get('download/omex/:uuid')
-  @ApiOperation({ summary: 'Download omex file' })
+  @ApiOperation({ summary: 'Download omex file', deprecated: false })
   @ApiResponse({
     status: 200,
     description: 'Download omex file',

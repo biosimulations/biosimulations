@@ -1,9 +1,5 @@
 import { prop } from '@typegoose/typegoose';
-import {
-  IsString,
-  IsBoolean,
-  IsUrl,
-} from 'class-validator';
+import { IsString, IsBoolean, IsUrl } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 

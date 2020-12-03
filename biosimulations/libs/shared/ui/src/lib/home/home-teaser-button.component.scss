@@ -35,8 +35,14 @@
     &.mat-button-disabled {
         background: none;
         svg, svg.accent {
-            color: rgba(44, 44, 44, 0.12);
-        }
+            color: rgba(44, 44, 44, 0.4);
+            path.foreground {
+                fill: currentColor;
+                fill-opacity: 0.25;
+                stroke-opacity: 0.75;
+                stroke-dasharray: 2px 2px;
+            }
+        }        
     }
 
     &:not(.mat-button-disabled) {

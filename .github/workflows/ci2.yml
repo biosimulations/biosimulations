@@ -1,9 +1,11 @@
-name: Lint, test, build, containerize, and deploy libraries and apps
-
+name: Lint, test, build, and containerize libraries and apps
 on:
-  - push
-  - pull_request
-
+  push:
+    branches:
+      - dev
+      - stage
+      - deploy
+  pull_request:
 jobs:
   getAffectedLibrariesApps:
     name: Determine affected libraries and apps
@@ -14,11 +16,10 @@ jobs:
       libsApps: ${{ steps.get-affected-libs-apps.outputs.libsApps }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-
       - name: Configure base commit
         run: |
           if [[ $GITHUB_BASE_REF ]]
@@ -98,10 +99,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Configure base commit
         run: |
@@ -152,10 +153,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Configure base commit
         run: |
@@ -206,10 +207,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Configure base commit
         run: |
@@ -257,6 +258,7 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
+
         run: nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
 
       - name: Upload coverage data to Codecov
@@ -268,77 +270,48 @@ jobs:
     name: Build, push, and deploy Docker image for app
     runs-on: ubuntu-latest
 
-    needs: [lint, test, build]
+    needs: [getAffectedLibrariesApps, lint, test, build]
     strategy:
       matrix:
         app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Configure base commit
+      - name: Extract branch name
+        shell: bash
         run: |
-          if [[ $GITHUB_BASE_REF ]]
-          then
-            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-          else
-            echo NX_BASE=origin/deploy >>$GITHUB_ENV
-          fi
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo ${GITHUB_REF#refs/heads/}
+        id: extract_branch
 
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "13.x"
-
-      - name: Install Nrwl CLI
+      - name: Build Docker image for app
         working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        working-directory: ./biosimulations
-        run: npm ci
-
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install Google Cloud CLI
+        env: 
+          BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          FILE: ../Dockerfile
+          CONTEXT: ..
         run: |
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          sudo apt-get update -y
-          sudo apt-get install -y curl apt-transport-https ca-certificates gnupg
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-          sudo apt-get update -y
-          sudo apt-get install -y google-cloud-sdk
-
-      - name: Install Kubernetes CLI
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y apt-transport-https gnupg2 curl
-          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-          sudo apt-get update -y
-          sudo apt-get install -y kubectl
-
-      - name: Build, push, and deploy Docker image for app
+          echo  Building Image for ${{ matrix.app }}
+          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --build-arg app=${{ matrix.app }} $CONTEXT
+      - name: Push Docker image for ${{matrix.app}}
         working-directory: ./biosimulations
         env:
             GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
             GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-            DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-            DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-            GCLOUD_EMAIL: "${{ secrets.GCLOUD_EMAIL }}"
-            GCLOUD_KEY: "${{ secrets.GCLOUD_KEY }}"
-        run: ./tools/build-push-deploy-docker-image -a ${{ matrix.app }}
+            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+            FILE: ../Dockerfile
+            CONTEXT: ..
+        run: |
+          if [[ $GITHUB_EVENT_NAME = push && ($BRANCH = dev || $BRANCH=stage || $BRANCH=deploy) ]]
+          then
+            docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=${{ matrix.app }} $CONTEXT
+            echo "Pushing Docker image for $APP ..."
+            echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
+            docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
+          fi
