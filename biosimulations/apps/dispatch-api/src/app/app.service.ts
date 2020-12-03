@@ -102,15 +102,17 @@ export class AppService {
             res.download(filePathOut);
             break;
           }
+          // TODO: do other failed states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
           case DispatchSimulationStatus.FAILED: {
             filePathErr = path.join(logPath, 'job.error');
             res.set('Content-Type', 'text/html');
             res.download(filePathErr);
             break;
           }
+          // TODO: do other starting states need to be handled (RUNNING)?
           case DispatchSimulationStatus.QUEUED: {
             res.send({
-              message: "Can't fetch logs if the simulation is QUEUED",
+              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${simInfo.status} state.`,
             });
             break;
           }
@@ -119,8 +121,9 @@ export class AppService {
       }
       case false: {
         switch (simInfo.status) {
-          case DispatchSimulationStatus.SUCCEEDED ||
-            DispatchSimulationStatus.FAILED: {
+          // TODO: do other terminated states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
+          case DispatchSimulationStatus.SUCCEEDED:
+          case DispatchSimulationStatus.FAILED: {
             filePathOut = path.join(logPath, 'job.output');
             filePathErr = path.join(logPath, 'job.error');
             const fileContentOut = (
@@ -139,9 +142,10 @@ export class AppService {
             });
             break;
           }
+          // TODO: do other starting states need to be handled (RUNNING)?
           case DispatchSimulationStatus.QUEUED: {
             res.send({
-              message: "Can't fetch logs if the simulation is QUEUED",
+              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${simInfo.status} state.`,
             });
             break;
           }

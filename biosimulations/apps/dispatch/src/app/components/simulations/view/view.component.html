@@ -33,7 +33,7 @@
         </th>
         <td>
           <span class="heading">Results:</span>{{' '}}
-          <a [href]="resultsUrl" *ngIf="status === 'SUCCEEDED'; else noResults">CSV ({{ resultsSize }})</a>
+          <a [href]="resultsUrl" *ngIf="statusSucceeded; else noResults">CSV ({{ resultsSize }})</a>
           <ng-template #noResults>N/A</ng-template>
         </td>
       </tr>
@@ -67,12 +67,12 @@
     </table>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Log" icon="logs">
+  <biosimulations-tab-page-tab heading="Log" icon="logs" [disabled]="statusRunning">
     <pre><code style="color:black">{{ 'Output:-\n' + outLog }}</code></pre>
     <pre><code style="color:red">{{ 'Error:-\n' + errLog }}</code></pre>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Design chart" icon="write" [disabled]="sedmls === undefined">
+  <biosimulations-tab-page-tab heading="Design chart" icon="write" [disabled]="statusRunning || sedmls === undefined">
     <form [formGroup]="formGroup" class="design-visualization" *ngIf="sedmls !== undefined">
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>
@@ -107,7 +107,7 @@
     </form>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" [disabled]="sedmls === undefined">
+  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" [disabled]="statusRunning || sedmls === undefined">
     <div style="height: 100%;">
       <biosimulations-visualisation #visualization></biosimulations-visualisation >
     </div>

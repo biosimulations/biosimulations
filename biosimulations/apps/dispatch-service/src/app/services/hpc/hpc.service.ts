@@ -57,7 +57,7 @@ export class HpcService {
     // Create a socket via SSH and stream the output file
   }
 
-  async saactJobStatus(jobId: string) {
+  async saactJobStatus(jobId: string): Promise<DispatchSimulationStatus> {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
@@ -85,6 +85,7 @@ export class HpcService {
       case 'CANCELLED':
         return DispatchSimulationStatus.CANCELLED;
       case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
+      default:
         return DispatchSimulationStatus.FAILED;
     }
   }

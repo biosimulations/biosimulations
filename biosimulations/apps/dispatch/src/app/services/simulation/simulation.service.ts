@@ -1,6 +1,7 @@
 import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 import { Injectable } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../datamodel';
+import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -78,10 +79,7 @@ export class SimulationService {
     // no updates needed if no simulation is queued or running
     let activeSimulation = false;
     for (const simulation of this.simulations) {
-      if (
-        simulation.status !== SimulationStatus.failed &&
-        simulation.status !== SimulationStatus.succeeded
-      ) {
+      if (SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
         activeSimulation = true;
         break;
       }
@@ -96,10 +94,7 @@ export class SimulationService {
     const endpoint = `${urls.dispatchApi}/jobinfo`;
     const ids = this.simulations
       .filter((simulation: Simulation): boolean => {
-        return !(
-          simulation.status === SimulationStatus.succeeded ||
-          simulation.status === SimulationStatus.failed
-        );
+        return SimulationStatusService.isSimulationStatusRunning(simulation.status);
       })
       .map((simulation: Simulation): string => {
         return simulation.id;
