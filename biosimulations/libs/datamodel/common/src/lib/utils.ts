@@ -119,7 +119,7 @@ export function addValidationForNullableAttributes(schema: Schema): void {
         }
       }
     );
-    next();
+    next(null);
   });
 }
 
