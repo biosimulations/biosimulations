@@ -32,8 +32,8 @@ export class SimulatorsService {
     const all = this.simulator.find({}, { _id: 0, __v: 0 }).lean().exec();
     return all;
   }
-  async findById(id: string) {
-    return this.simulator.find({ id: id }, { _id: 0, __v: 0 }).lean().exec();
+  async findById(id: string): Promise<Simulator[]> {
+    return this.simulator.find({ id: id }, { _id: 0, __v: 0 }).exec();
   }
   async findByVersion(id: string, version: string): Promise<Simulator | null> {
     return this.simulator
