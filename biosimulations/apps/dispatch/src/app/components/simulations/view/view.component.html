@@ -67,12 +67,19 @@
     </table>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Log" icon="logs" [disabled]="statusRunning">
-    <pre><code style="color:black">{{ 'Output:-\n' + outLog }}</code></pre>
-    <pre><code style="color:red">{{ 'Error:-\n' + errLog }}</code></pre>
+  <biosimulations-tab-page-tab heading="Log" icon="logs" urlHashFragment="log" [fullHeight]="true" [disabled]="statusRunning">
+    <div class="subsection stdout">
+      <b>Standard output</b>
+      <pre><code>{{ outLog }}</code></pre>
+    </div>
+
+    <div class="subsection stderr">
+      <b>Standard error</b>
+      <pre><code>{{ errLog }}</code></pre>
+    </div>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Design chart" icon="write" [disabled]="statusRunning || sedmls === undefined">
+  <biosimulations-tab-page-tab heading="Design chart" icon="write" urlHashFragment="design-viz" [disabled]="statusRunning || sedmls === undefined">
     <form [formGroup]="formGroup" class="design-visualization" *ngIf="sedmls !== undefined">
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>
@@ -107,7 +114,7 @@
     </form>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" [disabled]="statusRunning || sedmls === undefined">
+  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" urlHashFragment="viz" [disabled]="statusRunning || sedmls === undefined">
     <div style="height: 100%;">
       <biosimulations-visualisation #visualization></biosimulations-visualisation >
     </div>
