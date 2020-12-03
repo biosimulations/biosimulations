@@ -4,6 +4,17 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
-    "pathRewrite": { "^/dispatch-api": "" }
+    "pathRewrite": {
+      "^/dispatch-api": ""
+    }
+  },
+  "/dispatch-api-dev": {
+    "target": "https://dispatch.biosimulations.dev/",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dispatch-api": "/"
+    }
   }
 }

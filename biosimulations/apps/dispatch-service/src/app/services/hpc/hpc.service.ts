@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 import { urls } from '@biosimulations/config/common';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+
 @Injectable()
 export class HpcService {
   private logger = new Logger(HpcService.name);
@@ -17,7 +18,7 @@ export class HpcService {
     private sshService: SshService,
     private sbatchService: SbatchService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) { }
+  ) {}
 
   /**
    *
@@ -25,13 +26,12 @@ export class HpcService {
    * @param sbatchString
    */
 
-  async execJob(
+  async submitJob(
     id: string,
     simulator: string,
     version: string,
     fileName: string
   ) {
-
     const simulatorString = `biosimulations_${simulator}_${version}`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
@@ -47,23 +47,13 @@ export class HpcService {
     );
   }
 
-  getOutputFiles(simId: string) {
-    // pack all files (zip)
-    // Get them on local
-    // Unpack them and save to mongo
-  }
-
-  getRealtimeOutput(simId: string) {
-    // Create a socket via SSH and stream the output file
-  }
-
   async saactJobStatus(jobId: string): Promise<DispatchSimulationStatus> {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
         this.logger.error(
           'Failed to fetch results, updating the sim status as Pending, ' +
-          JSON.stringify(err)
+            JSON.stringify(err)
         );
         return { stdout: '\n\nPENDING' };
       });
