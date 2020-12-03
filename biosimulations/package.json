@@ -123,7 +123,7 @@
     "@types/jest": "26.0.15",
     "@types/lunr": "^2.3.3",
     "@types/mongoose": "^5.7.37",
-    "@types/node": "^14.14.6",
+    "@types/node": "^14.14.10",
     "@types/passport-jwt": "^3.0.3",
     "@types/plotly.js": "^1.54.2",
     "@types/rimraf": "^3.0.0",
