@@ -75,7 +75,7 @@ export class DispatchComponent implements OnInit {
         vcell: ['7.3.0.0'],
         tellurium: ['2.1.6']
       }
-      
+
       this.simulators.sort((a: string, b: string): number => {
         return a.localeCompare(b, undefined, { numeric: true });
       });
@@ -87,21 +87,7 @@ export class DispatchComponent implements OnInit {
           })
           .reverse();
       });
-    },
-      (error: HttpErrorResponse) => {
-        this.simulatorsError =
-          'Sorry! We were not able to retrieve the available simulators.';
-        this.formGroup.controls.simulator.disable();
-        if (!environment.production) {
-          console.error(
-            'Error ' +
-            error.status.toString() +
-            ' while fetching simulators: ' +
-            error.message
-          );
-        }
-      }
-    );
+    });
   }
 
   onFormSubmit() {
@@ -142,19 +128,7 @@ export class DispatchComponent implements OnInit {
             submitted: new Date(),
             updated: new Date(),
           });
-        },
-        (error: HttpErrorResponse) => {
-          this.submitError = error.message;
-          if (!environment.production) {
-            console.error(
-              'Error ' +
-              error.status.toString() +
-              ' while submitting simulation: ' +
-              error.message
-            );
-          }
-        }
-      );
+        });
   }
 
   onSimulatorChange($event: any) {

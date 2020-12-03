@@ -74,9 +74,7 @@ export class ViewComponent implements OnInit {
       this.visualisationService
         .getResultStructure(this.uuid)
         .subscribe((data: any) => {
-          // data['data'].submittedLocally = false;
           this.setProjectResults(data['data']);
-          // this.simulationService.storeSimulation(data['data']);
         });
     }
 
@@ -111,10 +109,7 @@ export class ViewComponent implements OnInit {
     // const sedml = this.sedmls[0];
     // this.formGroup.controls.sedml.setValue(sedml);
 
-    this.setSimulationInfo().then(() => {
-
-      this.setSedml();
-    });
+    this.setSimulationInfo();
   }
 
   setSedml(): void {
@@ -148,22 +143,24 @@ export class ViewComponent implements OnInit {
     }
   }
 
-  async setSimulationInfo() {
-    const simulation: Simulation = await this.simulationService.getSimulationByUuid(this.uuid);
-    console.log(simulation);
-    this.name = simulation.name;
-    this.simulator = simulation.simulator;
-    this.simulatorVersion = simulation.simulatorVersion;
-    this.statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
-    this.statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
-    this.statusLabel = SimulationStatusService.getSimulationStatusMessage(simulation.status, true);
-    this.runtime = simulation.runtime !== undefined ? Math.round(simulation.runtime).toString() + ' s' : 'N/A';
-    this.submitted = new Date(simulation.submitted).toLocaleString();
-    this.updated = new Date(simulation.updated).toLocaleString();    
-    this.projectSize = ((simulation.projectSize as number) / 1024).toFixed(2) + ' KB';
-    this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
-    this.projectUrl = `${urls.dispatchApi}download/omex/${simulation.id}`;
-    this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
-    this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
+  setSimulationInfo(): void {
+    this.simulationService.getSimulationByUuid(this.uuid).subscribe((simulation: Simulation): void => {
+      this.name = simulation.name;
+      this.simulator = simulation.simulator;
+      this.simulatorVersion = simulation.simulatorVersion;
+      this.statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
+      this.statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
+      this.statusLabel = SimulationStatusService.getSimulationStatusMessage(simulation.status, true);
+      this.runtime = simulation.runtime !== undefined ? Math.round(simulation.runtime).toString() + ' s' : 'N/A';
+      this.submitted = new Date(simulation.submitted).toLocaleString();
+      this.updated = new Date(simulation.updated).toLocaleString();
+      this.projectSize = ((simulation.projectSize as number) / 1024).toFixed(2) + ' KB';
+      this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
+      this.projectUrl = `${urls.dispatchApi}download/omex/${simulation.id}`;
+      this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+      this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
+
+      this.setSedml();
+    });
   }
 }
