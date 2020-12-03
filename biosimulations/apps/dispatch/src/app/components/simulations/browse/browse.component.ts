@@ -231,7 +231,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return `${urls.dispatchApi}/download/result/${simulation.id}`;
+          return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
           return null;
         }
@@ -239,7 +239,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (simulation: Simulation): string | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return `${urls.dispatchApi}/download/result/${simulation.id}`;
+          return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
           return null;
         }
