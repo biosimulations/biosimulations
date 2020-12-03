@@ -52,12 +52,10 @@ import {
   SimulationRun,
   SimulationUpload,
   UpdateSimulationRun,
-} from './simulation-run.dto';
+} from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from './simulation-run.service';
-import {
-  SimulationRunModelReturnType,
-  SimulationRunStatus,
-} from './simulation-run.model';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRunModelReturnType } from './simulation-run.model';
 
 @ApiTags('Simulation Runs')
 @Controller('run')

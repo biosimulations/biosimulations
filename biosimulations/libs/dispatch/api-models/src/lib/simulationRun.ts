@@ -11,7 +11,7 @@ import {
   ApiResponseProperty,
   PartialType,
 } from '@nestjs/swagger';
-import { SimulationRunStatus } from './simulation-run.model';
+import { SimulationRunStatus } from './simulationRunStatus';
 
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database
@@ -44,7 +44,11 @@ export class SimulationRun {
   @ApiProperty({ type: String, examples: ['latest', '2.1'], example: 'latest' })
   simulatorVersion!: string;
 
-  @ApiPropertyOptional({ type: String, format: 'email', example: 'info@biosimulations.org' })
+  @ApiPropertyOptional({
+    type: String,
+    format: 'email',
+    example: 'info@biosimulations.org',
+  })
   email?: string;
 
   @ApiProperty({ type: Boolean, default: false })
