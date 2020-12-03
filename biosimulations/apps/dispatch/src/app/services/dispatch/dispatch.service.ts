@@ -4,7 +4,10 @@ import { environment } from '@biosimulations/shared/environments';
 import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
-import { UploadSimulationRun } from '@biosimulations/dispatch/api-models';
+import {
+  SimulationRun,
+  UploadSimulationRun,
+} from '@biosimulations/dispatch/api-models';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +21,7 @@ export class DispatchService {
     selectedVersion: string,
     name: string,
     email: string
-  ) {
+  ): Observable<SimulationRun> {
     const endpoint = `${urls.dispatchApi}run/`;
 
     const formData = new FormData();
@@ -32,7 +35,11 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    return this.http.post(endpoint, formData);
+    const response = this.http.post(endpoint, formData) as Observable<
+      SimulationRun
+    >;
+    // TODO catch errors here
+    return response;
   }
 
   getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
