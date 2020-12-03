@@ -103,9 +103,6 @@ export class DispatchComponent implements OnInit {
     this.dispatchService
       .submitJob(projectFile, simulator, simulatorVersion, name, email)
       .subscribe((data: any) => {
-        if (!environment.production) {
-          console.log('Response from server: ', data);
-        }
         const simulationId = data['id'];
         this.dispatchService.uuidsDispatched.push(simulationId);
         this.dispatchService.uuidUpdateEvent.next(simulationId);

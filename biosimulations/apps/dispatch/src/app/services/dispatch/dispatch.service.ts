@@ -38,7 +38,6 @@ export class DispatchService {
     const response = this.http.post(endpoint, formData) as Observable<
       SimulationRun
     >;
-    // TODO catch errors here
     return response;
   }
 
