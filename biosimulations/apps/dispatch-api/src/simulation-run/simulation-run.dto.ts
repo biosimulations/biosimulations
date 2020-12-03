@@ -54,7 +54,7 @@ export class SimulationRun {
   status: SimulationRunStatus;
 
   @ApiResponseProperty({ type: Number, example: 55 })
-  duration?: number;
+  runtime?: number;
 
   @ApiResponseProperty({ type: Number, example: 1123 })
   projectSize?: number;
@@ -72,12 +72,12 @@ export class SimulationRun {
     id: string,
     name: string,
     simulator: string,
-    version: string,
+    simulatorVersion: string,
     status: SimulationRunStatus,
     isPublic: boolean,
     submitted: Date,
     updated: Date,
-    duration?: number,
+    runtime?: number,
     projectSize?: number,
     resultsSize?: number,
     email?: string
@@ -85,7 +85,7 @@ export class SimulationRun {
     this.id = id;
     this.name = name;
     this.simulator = simulator;
-    this.simulatorVersion = version;
+    this.simulatorVersion = simulatorVersion;
     this.status = status;
     this.public = isPublic;
     this.submitted = submitted;
@@ -93,7 +93,7 @@ export class SimulationRun {
     this.projectSize = projectSize;
     this.resultsSize = resultsSize;
 
-    this.duration = duration;
+    this.runtime = runtime;
     this.email = email;
   }
 }
@@ -114,7 +114,7 @@ export class PatchSimulationRun {
   status!: SimulationRunStatus;
 
   @ApiProperty({ type: Number, example: 55 })
-  duration!: number;
+  runtime!: number;
 
   @ApiProperty({ type: Number, example: 11234 })
   resultsSize!: number;

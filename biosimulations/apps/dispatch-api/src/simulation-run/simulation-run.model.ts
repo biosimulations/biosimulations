@@ -66,7 +66,7 @@ export class SimulationRunModel extends Document {
   status!: SimulationRunStatus;
 
   @Prop()
-  duration!: number;
+  runtime!: number;
 
   @Prop()
   projectSize!: number;
@@ -97,7 +97,7 @@ export type SimulationRunModelType = Pick<
   | 'name'
   | 'email'
   | 'status'
-  | 'duration'
+  | 'runtime'
   | 'projectSize'
   | 'resultsSize'
   | 'simulator'

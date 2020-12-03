@@ -1,6 +1,6 @@
 export interface SimulationDispatchSpec {
-  nameOfSimulation: string;
-  authorEmail: string;
+  name: string;
+  email: string;
   simulator: string;
   simulatorVersion: string;
   filename: string;

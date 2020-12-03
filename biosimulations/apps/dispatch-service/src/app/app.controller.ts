@@ -190,7 +190,7 @@ export class AppController {
 
   async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus =
+      const jobStatus: DispatchSimulationStatus =
         (await this.simulationService.getSimulationStatus(jobId)) ||
         DispatchSimulationStatus.QUEUED;
       this.modelsService.updateStatus(uuid, jobStatus);
@@ -201,6 +201,7 @@ export class AppController {
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;
         // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
+        // TODO: do other failed states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
         case DispatchSimulationStatus.FAILED:
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;

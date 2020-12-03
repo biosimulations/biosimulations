@@ -11,10 +11,12 @@ export interface Simulation {
   name: string;
   email?: string;
   submittedLocally?: boolean;
+  simulator: string;
+  simulatorVersion: string;
   status: SimulationStatus;
   runtime?: number;
   submitted: Date;
   updated: Date;
-  resultSize?: number;
-  projectSize?: number;
+  resultsSize?: number;
+  projectSize?: number;  
 }

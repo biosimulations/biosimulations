@@ -67,7 +67,8 @@ export class DispatchComponent implements OnInit {
     this.dispatchService.getSimulatorsFromDb().subscribe((simDict: any) => {
       // this.simulators = Object.keys(simDict);
       // this.simulatorVersionsMap = simDict;
-      //Note: Hardcoded available simulators, to make it dynamic uncomment above two lines and delete the hard-coded one
+      // Note: Hardcoded available simulators, to make it dynamic uncomment above two lines and delete the hard-coded one
+      // TODO: Un-hardcode simulators
       this.simulators = ['copasi', 'vcell', 'tellurium'];
       this.simulatorVersionsMap = {
         copasi: ['4.27.214', '4.28.226'],
@@ -75,22 +76,18 @@ export class DispatchComponent implements OnInit {
         tellurium: ['2.1.6']
       }
 
+      this.simulators.sort((a: string, b: string): number => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      });
 
-    },
-      (error: HttpErrorResponse) => {
-        this.simulatorsError =
-          'Sorry! We were not able to retrieve the available simulators.';
-        this.formGroup.controls.simulator.disable();
-        if (!environment.production) {
-          console.error(
-            'Error ' +
-            error.status.toString() +
-            ' while fetching simulators: ' +
-            error.message
-          );
-        }
-      }
-    );
+      this.simulators.forEach((simulator: string): void => {
+        this.simulatorVersionsMap[simulator]
+          .sort((a: string, b: string): number => {
+            return a.localeCompare(b, undefined, { numeric: true });
+          })
+          .reverse();
+      });
+    });
   }
 
   onFormSubmit() {
@@ -123,25 +120,15 @@ export class DispatchComponent implements OnInit {
             id: simulationId,
             name: name,
             email: email,
+            simulator: simulator,
+            simulatorVersion: simulatorVersion,
             submittedLocally: true,
             status: SimulationStatus.queued,
             runtime: undefined,
             submitted: new Date(),
             updated: new Date(),
           });
-        },
-        (error: HttpErrorResponse) => {
-          this.submitError = error.message;
-          if (!environment.production) {
-            console.error(
-              'Error ' +
-              error.status.toString() +
-              ' while submitting simulation: ' +
-              error.message
-            );
-          }
-        }
-      );
+        });
   }
 
   onSimulatorChange($event: any) {

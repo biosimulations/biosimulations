@@ -36,10 +36,10 @@ export class ModelsService {
   async updateStatus(uuid: string, status: DispatchSimulationStatus) {
     const doc = await this.dispatchSimulationModel.findOne({ uuid });
     if (doc !== null) {
-      doc.currentStatus = status;
-      doc.statusModifiedTime = new Date();
-      doc.duration =
-        (doc.statusModifiedTime.getTime() - doc.submittedTime.getTime()) / 1000;
+      doc.status = status;
+      doc.updated = new Date();
+      doc.runtime =
+        (doc.updated.getTime() - doc.submitted.getTime()) / 1000;
       await doc.save();
     }
   }
@@ -55,7 +55,7 @@ export class ModelsService {
     const sixMonthsOldDate = now.setDate(now.getDate() - 180);
     return await this.dispatchSimulationModel.find(
       {
-        submittedTime: { $lt: new Date(sixMonthsOldDate) },
+        submitted: { $lt: new Date(sixMonthsOldDate) },
       },
       { uuid: 1, _id: 0 }
     );

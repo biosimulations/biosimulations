@@ -158,7 +158,7 @@ export class SimulationRunController {
       run.public,
       run.submitted,
       run.updated,
-      run.duration,
+      run.runtime,
       run.projectSize,
       run.resultsSize,
       run.email
