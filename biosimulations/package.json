@@ -140,7 +140,7 @@
     "jest": "26.2.2",
     "jest-preset-angular": "8.2.1",
     "license-checker": "^25.0.1",
-    "prettier": "2.1.2",
+    "prettier": "2.2.1",
     "ts-jest": "26.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.3",
