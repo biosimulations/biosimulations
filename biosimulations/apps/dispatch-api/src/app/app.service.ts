@@ -164,10 +164,5 @@ export class AppService {
     res.download(zipPath);
   }
 
-  downloadUserOmexArchive(uuid: string, res: any) {
-    const omexPath = path.join(this.fileStorage, 'OMEX', 'ID', `${uuid}.omex`);
-    res.download(omexPath);
-  }
-
 
 }

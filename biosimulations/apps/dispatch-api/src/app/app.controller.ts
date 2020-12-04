@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
 import {
@@ -35,8 +36,10 @@ export class AppController implements OnApplicationBootstrap {
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private appService: AppService,
-    private modelsService: ModelsService
+    private modelsService: ModelsService,
+    private configService: ConfigService
   ) {}
+  private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
 
   @ApiTags('Downloads')
   @Get('download/result/:uuid')
@@ -48,18 +51,6 @@ export class AppController implements OnApplicationBootstrap {
   })
   resultArchive(@Param('uuid') uId: string, @Res() res: any): void {
     return this.appService.downloadResultArchive(uId, res);
-  }
-
-  @ApiTags('Downloads')
-  @Get('download/omex/:uuid')
-  @ApiOperation({ summary: 'Download omex file', deprecated: false })
-  @ApiResponse({
-    status: 200,
-    description: 'Download omex file',
-    type: Object,
-  })
-  omexArchive(@Param('uuid') uId: string, @Res() res: any): void {
-    return this.appService.downloadUserOmexArchive(uId, res);
   }
 
   @ApiTags('Downloads')
@@ -127,7 +118,7 @@ export class AppController implements OnApplicationBootstrap {
     }
 
     for (const uuid of uuids) {
-      const filePath = process.env.FILE_STORAGE;
+      const filePath = this.fileStorage;
       const uuidPath = `${filePath}/simulations/${uuid}`;
       FileModifiers.rmrfDir(uuidPath);
     }
