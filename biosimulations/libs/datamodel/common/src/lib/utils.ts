@@ -13,7 +13,7 @@ interface SchemaPaths {
 
 function getSchemaUserPaths(schema: Schema): SchemaPaths {
   const userPaths: { [key: string]: PathOptions } = {};
-  Object.entries(schema.path).forEach(
+  Object.entries(schema.paths).forEach(
     (pathSchemaType: [string, SchemaType]): void => {
       const path = pathSchemaType[0];
       const schemaType = pathSchemaType[1];
