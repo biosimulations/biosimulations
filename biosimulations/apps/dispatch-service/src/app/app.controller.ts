@@ -1,4 +1,4 @@
-import { Controller, Logger, Inject } from '@nestjs/common';
+import { Controller, Logger, Inject, HttpService } from '@nestjs/common';
 import {
   MessagePattern,
   ClientProxy,
@@ -24,6 +24,7 @@ import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 import { SimulationService } from './services/simulation/simulation.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+import { urls } from 'libs/config/common/src/lib/urls';
 
 @Controller()
 export class AppController {
@@ -35,8 +36,9 @@ export class AppController {
     private schedulerRegistry: SchedulerRegistry,
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
-    private simulationService: SimulationService
-  ) {}
+    private simulationService: SimulationService,
+    private http: HttpService
+  ) { }
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>(
     'hpc.fileStorage',
@@ -142,7 +144,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
   async resultFinish(uuid: string) {
-    this.archiverService.createResultArchive(uuid).then(() => {});
+    this.archiverService.createResultArchive(uuid).then(() => { });
   }
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
@@ -154,13 +156,33 @@ export class AppController {
     this.jobMonitorCronJob(slurmjobId, simId, 10);
   }
 
+
   async jobMonitorCronJob(jobId: string, simId: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
       const jobStatus: DispatchSimulationStatus =
         (await this.simulationService.getSimulationStatus(jobId)) ||
         DispatchSimulationStatus.QUEUED;
       this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
-      this.modelsService.updateStatus(simId, jobStatus);
+
+      // Send the updated status to dispatchAPI
+      this.http.post(`${process.env.AUTH0_DOMAIN}oauth/token`, { "client_id": process.env.CLIENT_ID, "client_secret": process.env.CLIENT_SECRET, "audience": process.env.API_AUDIENCE, "grant_type": "client_credentials" }).subscribe((data: any) => {
+        this.http.patch(
+          `${urls.dispatchApi}run/${simId}`,
+          { status: jobStatus },
+          {
+            headers: {
+              'Authorization': `Bearer ${data.data.access_token}`
+            }
+          }
+        )
+          .subscribe(dat => {
+            // 
+          }, error => {
+            this.logger.error(`Cannot connect to dispatch API to update the simulation status for ID: ${simId} `);
+          })
+      })
+
+      //this.modelsService.updateStatus(simId, jobStatus);
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:
           // TODO: Change FINISH to SUCCEED

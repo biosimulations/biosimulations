@@ -1,4 +1,4 @@
-import { Module, CacheModule } from '@nestjs/common';
+import { Module, CacheModule, HttpModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
@@ -20,6 +20,7 @@ import { SubmissionController } from './submission.controller';
 
 @Module({
   imports: [
+    HttpModule,
     BiosimulationsConfigModule,
     ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
@@ -63,4 +64,4 @@ import { SubmissionController } from './submission.controller';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

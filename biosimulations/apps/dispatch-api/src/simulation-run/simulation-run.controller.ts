@@ -63,7 +63,7 @@ export class SimulationRunController {
   constructor(
     private service: SimulationRunService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) {}
+  ) { }
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
@@ -185,7 +185,7 @@ export class SimulationRunController {
   @permissions('write:SimulationRuns')
   @ApiOAuth2(['write:SimulationRuns'])
   @Patch(':id')
-  modfiyRun(@Param() id: string, @Body() body: UpdateSimulationRun) {
+  modfiyRun(@Body() body: UpdateSimulationRun, @Param('id') id: string) {
     const run = this.service.update(id, body);
   }
 
