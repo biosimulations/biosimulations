@@ -185,7 +185,7 @@ export class SimulationRunController {
   @permissions('write:SimulationRuns')
   @ApiOAuth2(['write:SimulationRuns'])
   @Patch(':id')
-  modfiyRun(@Param() id: string, @Body() body: UpdateSimulationRun) {
+  modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun) {
     const run = this.service.update(id, body);
   }
 
@@ -196,7 +196,7 @@ export class SimulationRunController {
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:SimulationRuns')
   @Delete(':id')
-  deleteRun(@Param() id: string, @Body() run: SimulationRun) {
+  deleteRun(@Param('id') id: string) {
     const res = this.service.delete(id);
     if (res) {
       return res;
@@ -213,7 +213,7 @@ export class SimulationRunController {
   @permissions('delete:SimulationRuns')
   @ApiOAuth2(['delete:SimulationRuns'])
   @Delete()
-  deleteAll(@Param() id: string, @Body() run: SimulationRun) {
+  deleteAll() {
     return this.service.deleteAll();
   }
 
