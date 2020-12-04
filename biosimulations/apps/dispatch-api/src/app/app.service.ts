@@ -33,7 +33,7 @@ export class AppService {
   async getVisualizationData(
     uId: string,
     sedml: string,
-    task: string,
+    report: string,
     chart: boolean
   ) {
     const jsonPath = path.join(
@@ -42,7 +42,7 @@ export class AppService {
       uId,
       'out',
       sedml,
-      task
+      report
     );
     chart = String(chart) === 'false' ? false : true;
     const filePath = chart ? `${jsonPath}_chart.json` : `${jsonPath}.json`;
@@ -67,12 +67,12 @@ export class AppService {
 
     for (const sedml of sedmls) {
       structure[sedml] = [];
-      const taskFiles = await FileModifiers.readDir(
+      const reportFiles = await FileModifiers.readDir(
         path.join(resultPath, sedml)
       );
-      taskFiles.forEach((taskFile: string) => {
-        if (taskFile.endsWith('.csv')) {
-          structure[sedml].push(taskFile.split('.csv')[0]);
+      reportFiles.forEach((reportFile: string) => {
+        if (reportFile.endsWith('.csv')) {
+          structure[sedml].push(reportFile.split('.csv')[0]);
         }
       });
     }

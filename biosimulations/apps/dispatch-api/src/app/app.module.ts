@@ -45,7 +45,6 @@ import {
       inject: [ConfigService],
     }),
     CacheModule.register(),
-
     SimulationRunModule,
     ResultsModule,
     SharedExceptionsModule,

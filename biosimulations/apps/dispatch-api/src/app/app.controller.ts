@@ -107,9 +107,9 @@ export class AppController implements OnApplicationBootstrap {
     @Param('uuid') uId: string,
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
-    @Query('task') task: string
+    @Query('report') report: string
   ): Promise<any> {
-    return this.appService.getVisualizationData(uId, sedml, task, chart);
+    return this.appService.getVisualizationData(uId, sedml, report, chart);
   }
 
 

@@ -24,9 +24,9 @@ export class ArchiverService {
     output.on('close', () => {
       const size = archive.pointer().toString();
       this.modelsService.updateResultsSize(uuid, parseInt(size));
-      this.logger.log(size + ' total bytes');
+      this.logger.verbose(`The resulting archive holds ${size} bytes in size`);
       this.logger.log(
-        'archiver has been finalized and the output file descriptor has closed.'
+        'Archiver has been finalized and the output file descriptor has closed.'
       );
     });
 
