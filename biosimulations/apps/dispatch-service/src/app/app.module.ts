@@ -16,6 +16,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsModule } from './resources/models/models.module';
 import { SimulationService } from './services/simulation/simulation.service';
+import { SubmissionController } from './submission.controller';
 
 @Module({
   imports: [
@@ -42,7 +43,7 @@ import { SimulationService } from './services/simulation/simulation.service';
     CacheModule.register(),
     ModelsModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, SubmissionController],
   providers: [
     HpcService,
     SbatchService,

@@ -35,18 +35,18 @@ export class ModelsService {
   async updateStatus(uuid: string, status: DispatchSimulationStatus) {
     const doc = await this.dispatchSimulationModel.findOne({ uuid });
     if (doc !== null) {
-      doc.currentStatus = status;
-      doc.statusModifiedTime = new Date();
-      doc.duration =
-        (doc.statusModifiedTime.getTime() - doc.submittedTime.getTime()) / 1000;
+      doc.status = status;
+      doc.updated = new Date();
+      doc.runtime =
+        (doc.updated.getTime() - doc.submitted.getTime()) / 1000;
       await doc.save();
     }
   }
 
-  async updateResultSize(uuid: string, size: number) {
+  async updateResultsSize(uuid: string, size: number) {
     const doc = await this.dispatchSimulationModel.findOne({ uuid });
     if (doc !== null) {
-      doc.resultSize = size;
+      doc.resultsSize = size;
       await doc.save();
     }
   }

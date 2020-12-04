@@ -52,12 +52,10 @@ import {
   SimulationRun,
   SimulationUpload,
   UpdateSimulationRun,
-} from './simulation-run.dto';
+} from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from './simulation-run.service';
-import {
-  SimulationRunModelReturnType,
-  SimulationRunStatus,
-} from './simulation-run.model';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRunModelReturnType } from './simulation-run.model';
 
 @ApiTags('Simulation Runs')
 @Controller('run')
@@ -158,7 +156,7 @@ export class SimulationRunController {
       run.public,
       run.submitted,
       run.updated,
-      run.duration,
+      run.runtime,
       run.projectSize,
       run.resultsSize,
       run.email
@@ -173,10 +171,12 @@ export class SimulationRunController {
   @Get(':id')
   async getRun(@Param('id') id: string): Promise<SimulationRun> {
     const run = await this.service.get(id);
+    console.log(run);
     if (run) {
-      this.makeSimulationRun(run);
+      return this.makeSimulationRun(run);
+    } else {
+      throw new NotFoundException(`No Simulation Run with id ${id}`);
     }
-    throw new NotFoundException(`No Simulation Run with id ${id}`);
   }
 
   @ApiOperation({

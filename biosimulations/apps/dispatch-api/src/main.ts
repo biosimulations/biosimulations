@@ -68,7 +68,11 @@ async function bootstrap() {
       'API to submit and manage simulations jobs to the runBioSimulations service'
     )
     .setVersion('0.1')
-    .setContact('runBioSimulations Team', 'https://run.biosimulations.org/help/about', 'info@biosimulations.org');
+    .setContact(
+      'runBioSimulations Team',
+      'https://run.biosimulations.org/help/about',
+      'info@biosimulations.org'
+    );
 
   for (const tag of tags) {
     builder.addTag(tag.name, tag.description);
@@ -83,7 +87,7 @@ async function bootstrap() {
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
   const openIdConnectUrl =
     'https://auth.biosimulations.org/.well-known/openid-configuration';
-  const clientId = 'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT';
+  const clientId = 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a';
 
   const oauthSchema: SecuritySchemeObject = {
     type: 'oauth2',

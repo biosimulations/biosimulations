@@ -3,14 +3,21 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export interface DispatchSimulationModel {
   uuid: string;
-  authorEmail: string;
-  nameOfSimulation: string;
-  submittedTime: Date;
-  statusModifiedTime: Date;
-  currentStatus: DispatchSimulationStatus;
-  duration: number;
-  resultSize: number;
-  projectSize: number
+  email: string;
+  name: string;
+  simulator: string;
+  simulatorVersion: string;
+  submitted: Date;
+  updated: Date;
+  status: DispatchSimulationStatus;
+  runtime: number;
+  resultsSize: number;
+  projectSize: number;
+}
+
+export interface DispatchSimulator {
+  id: string;
+  version: string;
 }
 
 export enum DispatchSimulationStatus {
@@ -33,19 +40,27 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
 
   @ApiProperty({ type: String })
   @prop({ type: String, required: false })
-  authorEmail!: string;
+  email!: string;
 
   @ApiProperty({ type: String })
   @prop({ type: String })
-  nameOfSimulation!: string;
+  name!: string;
+
+  @ApiProperty({ type: String })
+  @prop({ type: String })
+  simulator!: string;
+
+  @ApiProperty({ type: String })
+  @prop({ type: String })
+  simulatorVersion!: string;
 
   @ApiProperty({ type: String, format: 'date-time' })
   @prop()
-  submittedTime!: Date;
+  submitted!: Date;
 
   @ApiProperty({ type: String, format: 'date-time' })
   @prop()
-  statusModifiedTime!: Date;
+  updated!: Date;
 
   @ApiProperty({ type: String, enum: DispatchSimulationStatus })
   @prop({
@@ -54,27 +69,29 @@ export class DispatchSimulationModelDB implements DispatchSimulationModel {
       return keyVal[1];
     }),
   })
-  currentStatus!: DispatchSimulationStatus;
+  status!: DispatchSimulationStatus;
 
   @ApiProperty({ type: Number })
   @prop({ type: Number })
-  duration!: number;
+  runtime!: number;
 
   @prop({ type: Number })
   projectSize!: number;
 
   @prop({ type: Number })
-  resultSize!: number;
+  resultsSize!: number;
 
   constructor(public model: DispatchSimulationModel) {
     this.uuid = model.uuid;
-    this.authorEmail = model.authorEmail;
-    this.nameOfSimulation = model.nameOfSimulation;
-    this.submittedTime = model.submittedTime;
-    this.statusModifiedTime = model.statusModifiedTime;
-    this.currentStatus = model.currentStatus;
-    this.duration = model.duration;
-    this.resultSize = model.resultSize;
+    this.email = model.email;
+    this.name = model.name;
+    this.simulator = model.simulator;
+    this.simulatorVersion = model.simulatorVersion;
+    this.submitted = model.submitted;
+    this.updated = model.updated;
+    this.status = model.status;
+    this.runtime = model.runtime;
+    this.resultsSize = model.resultsSize;
     this.projectSize = model.projectSize;
   }
 }

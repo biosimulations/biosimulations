@@ -13,7 +13,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { SimulationRun, UpdateSimulationRun } from './simulation-run.dto';
+
 import { SimulationFile, SimulationFileSchema } from './file.model';
 import { Model, Mongoose } from 'mongoose';
 import {
@@ -21,8 +21,12 @@ import {
   SimulationRunModelReturnType,
   SimulationRunModelSchema,
   SimulationRunModelType,
-  SimulationRunStatus,
 } from './simulation-run.model';
+import {
+  SimulationRun,
+  SimulationRunStatus,
+  UpdateSimulationRun,
+} from '@biosimulations/dispatch/api-models';
 
 const toApi = <T extends SimulationRunModelType>(
   obj: T
@@ -108,7 +112,7 @@ export class SimulationRunService {
   ): Promise<SimulationRunModelReturnType> {
     const model = await this.simulationRunModel.findById(id);
     if (model) {
-      model.duration = run.duration || model.duration;
+      model.runtime = run.runtime || model.runtime;
       model.resultsSize = run.resultsSize || model.resultsSize;
       model.status = run.status || model.status;
       return toApi(await model.save());

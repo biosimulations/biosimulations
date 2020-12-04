@@ -1,19 +1,6 @@
-name: Auto approve and merge
+name: Auto approve robots
 on:
   pull_request:
-    types:
-      - opened
-      - labeled
-      - edited
-      - ready_for_review
-      - reopened
-  pull_request_review:
-    types:
-      - submitted
-  check_suite:
-    types:
-      - completed
-  status: {}
 
 jobs:
   approve-dependabot:
@@ -25,48 +12,11 @@ jobs:
         with:
           github-token: "${{secrets.GITHUB_TOKEN }}"
 
-  mark-dependabot-for-merging:
-    name: Label dependabot PRs for auto merging
-    if: startsWith(github.ref, 'refs/heads/dependabot/')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: pullreminders/label-when-approved-action@master
-        env:
-          APPROVALS: "2"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ADD_LABEL: "automerge"
-
-  approve-ontologies:
-    name: Auto-approve ontology PRs
-    if: github.ref == 'refs/heads/update-ontologies'
+  approve-daemon:
+    name: Auto-approve daemon PRs
+    if: github.actor == 'biosimulations-daemon'
     runs-on: ubuntu-latest
     steps:
       - uses: hmarr/auto-approve-action@v2.0.0
         with:
           github-token: "${{secrets.GITHUB_TOKEN }}"
-
-  approve-sitemaps:
-    name: Auto-approve sitemaps PRs
-    if: github.ref == 'refs/heads/sitemaps'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hmarr/auto-approve-action@v2.0.0
-        with:
-          github-token: "${{secrets.GITHUB_TOKEN }}"
-
-  approve-dependency-licences-report:
-    name: Auto-approve dependency licenses report PRs
-    if: github.ref == 'refs/heads/dep-licenses'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hmarr/auto-approve-action@v2.0.0
-        with:
-          github-token: "${{secrets.GITHUB_TOKEN }}"
-
-  merge-auto-prs:
-    name: Automatically merge automatic PRs such as updates to sitemaps
-    runs-on: ubuntu-latest
-    steps:
-      - uses: pascalgn/automerge-action@v0.12.0
-        env:
-          GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN }}"

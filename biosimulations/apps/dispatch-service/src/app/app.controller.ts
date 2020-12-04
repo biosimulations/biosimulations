@@ -43,40 +43,6 @@ export class AppController {
     ''
   );
 
-  /**
-   *The method responds to the message by calling the hpc service to start a job. It then sends a reply to the message.
-   *
-   * @param data The payload sent for the created simulation run message
-   */
-  @MessagePattern(DispatchMessage.created)
-  async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
-    this.logger.log('Starting to dispatch simulation');
-    this.logger.log('Data received: ' + JSON.stringify(data));
-
-    /**
-     * @todo Dont hardcode these
-     * @gmarupilla Lets remove these to a common service that is also used by the /simulators route
-     */
-    if (
-      data.simulator !== 'copasi' &&
-      data.simulator !== 'vcell' &&
-      data.simulator !== 'tellurium' &&
-      data.simulator !== 'cobrapy' &&
-      data.simulator !== 'bionetgen'
-    ) {
-      return new createdResponse(false, 'invalid simulator');
-    }
-    // TODO have this send back a status and adjust response accordingly
-    const response = await this.hpcService.execJob(
-      data.id,
-      data.simulator,
-      data.version,
-      data.fileName
-    );
-
-    return new createdResponse();
-  }
-
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
     this.logger.log('Simulation Finished on HPC');
@@ -181,26 +147,28 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
   async dispatchLog(data: any) {
-    const slurmjobId = data['hpcOutput']['stdout'].match(/\d+/)[0];
-    const simDirSplit = data['simDir'].split('/');
-    const uuid = simDirSplit[simDirSplit.length - 1];
+    const slurmjobId = data['stdout'].match(/\d+/)[0];
+    // const simDirSplit = data['simDir'].split('/');
+    const simId = data.simId;
     // TODO: research more for better duration
-    this.jobMonitorCronJob(slurmjobId, uuid, 30);
+    this.jobMonitorCronJob(slurmjobId, simId, 10);
   }
 
-  async jobMonitorCronJob(jobId: string, uuid: string, seconds: number) {
+  async jobMonitorCronJob(jobId: string, simId: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus =
+      const jobStatus: DispatchSimulationStatus =
         (await this.simulationService.getSimulationStatus(jobId)) ||
         DispatchSimulationStatus.QUEUED;
-      this.modelsService.updateStatus(uuid, jobStatus);
+      this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
+      this.modelsService.updateStatus(simId, jobStatus);
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:
           // TODO: Change FINISH to SUCCEED
-          this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, uuid);
+          this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, simId);
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;
         // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
+        // TODO: do other failed states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
         case DispatchSimulationStatus.FAILED:
           this.schedulerRegistry.getCronJob(jobId).stop();
           break;

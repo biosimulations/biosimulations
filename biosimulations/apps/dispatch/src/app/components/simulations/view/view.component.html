@@ -1,16 +1,50 @@
 <biosimulations-tab-page (selectedTabChange)="selectedTabChange($event)">
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <p>
-      <b class="highlight-primary">Simulation #{{ uuid }}</b><br /><br/>
-      <strong>{{ name }}</strong>
+      <b class="highlight-primary">Simulation #{{ uuid }}</b><br />
+      {{ name }}
     </p>
+
+    <table class="icon-list">
+      <tr>
+        <th>
+          <biosimulations-icon icon="download"></biosimulations-icon>
+        </th>
+        <td>
+          <span class="heading">Project:</span>{{ ' '
+          }}<a [href]="projectUrl">COMBINE/OMEX archive ({{ projectSize }})</a>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <biosimulations-icon icon="simulator"></biosimulations-icon>
+        </th>
+        <td>
+          <span class="heading">Simulator:</span>{{ ' '
+          }}<a [href]="simulatorUrl" target="_blank">{{ simulator }} {{ simulatorVersion }}</a>
+        </td>
+      </tr>
+    </table>
+
+    <table class="icon-list">
+      <tr>
+        <th>
+          <biosimulations-icon icon="download"></biosimulations-icon>
+        </th>
+        <td>
+          <span class="heading">Results:</span>{{' '}}
+          <a [href]="resultsUrl" *ngIf="statusSucceeded; else noResults">CSV ({{ resultsSize }})</a>
+          <ng-template #noResults>N/A</ng-template>
+        </td>
+      </tr>
+    </table>
 
     <table class="icon-list">
       <tr>
         <th>
           <biosimulations-icon icon="status"></biosimulations-icon>
         </th>
-        <td><span class="heading">Status:</span> {{ status }}</td>
+        <td><span class="heading">Status:</span> {{ statusLabel }}</td>
       </tr>
       <tr>
         <th>
@@ -31,35 +65,21 @@
         <td><span class="heading">Updated:</span> {{ updated }}</td>
       </tr>
     </table>
-
-    <table class="icon-list">
-      <tr>
-        <th>
-          <biosimulations-icon icon="download"></biosimulations-icon>
-        </th>
-        <td>
-          <span class="heading">Project:</span>{{ ' '
-          }}<a [href]="projectUrl">{{ projectSize }}</a>
-        </td>
-      </tr>
-      <tr *ngIf="status === 'SUCCEEDED' || status === 'FAILED'">
-        <th>
-          <biosimulations-icon icon="download"></biosimulations-icon>
-        </th>
-        <td>
-          <span class="heading">Results:</span>{{ ' '
-          }}<a [href]="resultsUrl">{{ resultsSize }}</a>
-        </td>
-      </tr>
-    </table>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Log" icon="logs">
-    <pre><code style="color:black">{{ 'Output:-\n' + outLog }}</code></pre>
-    <pre><code style="color:red">{{ 'Error:-\n' + errLog }}</code></pre>
+  <biosimulations-tab-page-tab heading="Log" icon="logs" urlHashFragment="log" [fullHeight]="true" [disabled]="statusRunning">
+    <div class="subsection stdout">
+      <b>Standard output</b>
+      <pre><code>{{ outLog }}</code></pre>
+    </div>
+
+    <div class="subsection stderr">
+      <b>Standard error</b>
+      <pre><code>{{ errLog }}</code></pre>
+    </div>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Design chart" icon="write" [disabled]="sedmls === undefined">
+  <biosimulations-tab-page-tab heading="Design chart" icon="write" urlHashFragment="design-viz" [disabled]="statusRunning || sedmls === undefined">
     <form [formGroup]="formGroup" class="design-visualization" *ngIf="sedmls !== undefined">
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>
@@ -94,7 +114,7 @@
     </form>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" [disabled]="sedmls === undefined">
+  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" urlHashFragment="viz" [disabled]="statusRunning || sedmls === undefined">
     <div style="height: 100%;">
       <biosimulations-visualisation #visualization></biosimulations-visualisation >
     </div>

@@ -20,6 +20,9 @@ export class TabPageTabComponent {
   partialWidth = false;
 
   @Input()
+  fullHeight = false;
+
+  @Input()
   disabled = false;
 
   @Input()
