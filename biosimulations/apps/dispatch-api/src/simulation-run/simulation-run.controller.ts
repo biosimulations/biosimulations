@@ -171,10 +171,12 @@ export class SimulationRunController {
   @Get(':id')
   async getRun(@Param('id') id: string): Promise<SimulationRun> {
     const run = await this.service.get(id);
+    console.log(run);
     if (run) {
-      this.makeSimulationRun(run);
+      return this.makeSimulationRun(run);
+    } else {
+      throw new NotFoundException(`No Simulation Run with id ${id}`);
     }
-    throw new NotFoundException(`No Simulation Run with id ${id}`);
   }
 
   @ApiOperation({
