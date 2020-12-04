@@ -24,7 +24,7 @@ import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 import { SimulationService } from './services/simulation/simulation.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
-import { urls } from 'libs/config/common/src/lib/urls';
+import { urls } from '@biosimulations/config/common';
 
 @Controller()
 export class AppController {
