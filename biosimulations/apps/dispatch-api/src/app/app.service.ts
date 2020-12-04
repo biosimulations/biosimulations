@@ -169,35 +169,5 @@ export class AppService {
     res.download(omexPath);
   }
 
-  async getSimulators(simulatorName: string) {
-    // Getting info of all available simulators from dockerhub
-    const simulatorsInfo: any = await this.httpService
-      .get(`${urls.fetchSimulatorsInfo}`)
-      .toPromise();
 
-    const allSimulators: any = [];
-
-    for (const simulatorInfo of simulatorsInfo['data']['results']) {
-      allSimulators.push(simulatorInfo['name']);
-    }
-
-    if (simulatorName === undefined) {
-      return allSimulators;
-    } else if (!allSimulators.includes(simulatorName)) {
-      return [
-        `Simulator ${simulatorName.toUpperCase()} is not supported, check for supported simulators on https://biosimulators.org/simulators.`,
-      ];
-    }
-    const simVersionRes = this.httpService.get(
-      `https://registry.hub.docker.com/v1/repositories/biosimulators/${simulatorName.toLowerCase()}/tags`
-    );
-
-    const dockerData: any = await simVersionRes.toPromise();
-    const simVersions: Array<string> = [];
-    dockerData.data.forEach((element: { layer: string; name: string }) => {
-      simVersions.push(element.name);
-    });
-
-    return simVersions;
-  }
 }

@@ -112,22 +112,6 @@ export class AppController implements OnApplicationBootstrap {
     return this.appService.getVisualizationData(uId, sedml, task, chart);
   }
 
-  @ApiTags('Simulators')
-  @Get('/simulators')
-  @ApiOperation({
-    summary: 'Gives Information about all simulators avialable from dockerHub',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Get all simulators and their versions',
-    type: Object,
-  })
-  @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(
-    @Query('name') simulatorName: string
-  ): Promise<string[]> {
-    return this.appService.getSimulators(simulatorName);
-  }
 
   // Enable cron when storage is out
   // @Cron('0 0 2 * * *')
