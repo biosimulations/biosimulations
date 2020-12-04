@@ -40,10 +40,9 @@ export class AppController {
     private http: HttpService
   ) { }
   private logger = new Logger(AppController.name);
-  private fileStorage: string = this.configService.get<string>(
-    'hpc.fileStorage',
-    ''
-  );
+  private fileStorage: string = this.configService.get<string>('hpc.fileStorage', '');
+  private authConfig: any = this.configService.get('auth', {});
+  
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
@@ -165,7 +164,13 @@ export class AppController {
       this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
 
       // Send the updated status to dispatchAPI
-      this.http.post(`${process.env.AUTH0_DOMAIN}oauth/token`, { "client_id": process.env.CLIENT_ID, "client_secret": process.env.CLIENT_SECRET, "audience": process.env.API_AUDIENCE, "grant_type": "client_credentials" }).subscribe((data: any) => {
+      this.http.post(
+        `${this.authConfig['auth0_domain']}oauth/token`, 
+            { "client_id": this.authConfig['client_id'],
+              "client_secret": this.authConfig['client_secret'],
+              "audience": this.authConfig['api_audience'],
+              "grant_type": "client_credentials" 
+            }).subscribe((data: any) => {
         this.http.patch(
           `${urls.dispatchApi}run/${simId}`,
           { status: jobStatus },
@@ -174,15 +179,12 @@ export class AppController {
               'Authorization': `Bearer ${data.data.access_token}`
             }
           }
-        )
-          .subscribe(dat => {
+        ).subscribe(dat => {
             // 
           }, error => {
             this.logger.error(`Cannot connect to dispatch API to update the simulation status for ID: ${simId} `);
           })
-      })
-
-      //this.modelsService.updateStatus(simId, jobStatus);
+      });
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:
           // TODO: Change FINISH to SUCCEED
