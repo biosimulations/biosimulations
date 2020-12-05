@@ -156,7 +156,7 @@ export class ViewComponent implements OnInit {
       this.updated = new Date(simulation.updated).toLocaleString();
       this.projectSize = ((simulation.projectSize as number) / 1024).toFixed(2) + ' KB';
       this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
-      this.projectUrl = `${urls.dispatchApi}download/omex/${simulation.id}`;
+      this.projectUrl = `${urls.dispatchApi}run/${simulation.id}/download`;
       this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
       this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
 
