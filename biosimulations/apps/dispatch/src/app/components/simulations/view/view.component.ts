@@ -74,7 +74,7 @@ export class ViewComponent implements OnInit {
       this.visualisationService
         .getResultStructure(this.uuid)
         .subscribe((data: any) => {
-          this.setProjectResults(data['data']);
+          this.setProjectResults(data);
         });
     }
 
@@ -101,11 +101,14 @@ export class ViewComponent implements OnInit {
 
   }
 
-  setProjectResults(projectStructure: any): void {
-    this.projectStructure = projectStructure;
+  setProjectResults(data: any): void {
+   if(data.message === 'OK') {
+     const projectStructure = data.data;
+     this.projectStructure = projectStructure;
 
-    this.sedmls = Object.keys(projectStructure);
-    this.selectedSedml = this.sedmls[0];
+     this.sedmls = Object.keys(projectStructure);
+     this.selectedSedml = this.sedmls[0];
+   }
     // const sedml = this.sedmls[0];
     // this.formGroup.controls.sedml.setValue(sedml);
 
@@ -160,7 +163,9 @@ export class ViewComponent implements OnInit {
       this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
       this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
 
-      this.setSedml();
+      if(this.statusSucceeded) {
+        this.setSedml();
+      }
     });
   }
 }

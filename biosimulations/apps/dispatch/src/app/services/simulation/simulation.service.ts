@@ -125,30 +125,6 @@ export class SimulationService {
 
       });
 
-    // this.httpClient.post(urls.dispatchApi + 'jobinfo', simulationIds.split(',')).subscribe(
-    //   (data: any) => {
-    //     // Reformatting simulations according to Simulation interface
-    //     const simulations: Simulation[] = [];
-    //     for (const sim of data.data) {
-    //       const dispatchSim: DispatchSimulationModelDB = sim;
-    //       simulations.push({
-    //         name: dispatchSim.name,
-    //         email: dispatchSim.email,
-    //         runtime: dispatchSim.runtime,
-    //         id: dispatchSim.uuid,
-    //         status: (dispatchSim.status as unknown) as SimulationStatus,
-    //         submitted: dispatchSim.submitted as Date,
-    //         submittedLocally: this.simulationsMap[dispatchSim.uuid].submittedLocally,
-    //         simulator: dispatchSim.simulator,
-    //         simulatorVersion: dispatchSim.simulatorVersion,
-    //         updated: dispatchSim.updated as Date,
-    //         resultsSize: dispatchSim.resultsSize,
-    //         projectSize: dispatchSim.projectSize
-    //       })
-    //     };
-    //     this.setSimulations(simulations, false);
-    //   }
-    // );
   }
 
   setSimulations(
