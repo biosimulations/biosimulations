@@ -17,7 +17,7 @@ export class VisualisationService {
   getVisualisation(uuid: string, sedml: string, task: string) {
     // TODO: Save the data to localstorage, return from local storage if exists, if not return obeservable to request
     return this.http.get(
-      `${this.resultsEndpoint}/${uuid}?chart=true&sedml=${sedml}&task=${task}`
+      `${this.resultsEndpoint}/${uuid}?chart=true&sedml=${sedml}&report=${task}`
     );
     // TODO: Update tasksPerSedml inside "tap" operator
   }

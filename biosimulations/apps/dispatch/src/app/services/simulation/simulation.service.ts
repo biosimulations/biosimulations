@@ -93,32 +93,62 @@ export class SimulationService {
       .map((simulation: Simulation): string => {
         return simulation.id;
       })
-      .join(',');
+      
 
-    this.httpClient.post(urls.dispatchApi + 'jobinfo', simulationIds.split(',')).subscribe(
-      (data: any) => {
-        // Reformatting simulations according to Simulation interface
+      const promises = [];
+      for(const simId of simulationIds) {
+        const promise = this.httpClient.get(`${urls.dispatchApi}run/${simId}`).toPromise();
+        promises.push(promise);
+      }
+
+      Promise.all(promises).then((data: any) => {
+
         const simulations: Simulation[] = [];
-        for (const sim of data.data) {
-          const dispatchSim: DispatchSimulationModelDB = sim;
+        for (const sim of data) {
+          const dispatchSim = sim;
           simulations.push({
             name: dispatchSim.name,
             email: dispatchSim.email,
-            runtime: dispatchSim.runtime,
-            id: dispatchSim.uuid,
+            //runtime: dispatchSim.runtime,
+            id: dispatchSim.id,
             status: (dispatchSim.status as unknown) as SimulationStatus,
             submitted: dispatchSim.submitted as Date,
-            submittedLocally: this.simulationsMap[dispatchSim.uuid].submittedLocally,
+            submittedLocally: this.simulationsMap[dispatchSim.id].submittedLocally,
             simulator: dispatchSim.simulator,
             simulatorVersion: dispatchSim.simulatorVersion,
             updated: dispatchSim.updated as Date,
-            resultsSize: dispatchSim.resultsSize,
+            //resultsSize: dispatchSim.resultsSize,
             projectSize: dispatchSim.projectSize
           })
         };
         this.setSimulations(simulations, false);
-      }
-    );
+
+      });
+
+    // this.httpClient.post(urls.dispatchApi + 'jobinfo', simulationIds.split(',')).subscribe(
+    //   (data: any) => {
+    //     // Reformatting simulations according to Simulation interface
+    //     const simulations: Simulation[] = [];
+    //     for (const sim of data.data) {
+    //       const dispatchSim: DispatchSimulationModelDB = sim;
+    //       simulations.push({
+    //         name: dispatchSim.name,
+    //         email: dispatchSim.email,
+    //         runtime: dispatchSim.runtime,
+    //         id: dispatchSim.uuid,
+    //         status: (dispatchSim.status as unknown) as SimulationStatus,
+    //         submitted: dispatchSim.submitted as Date,
+    //         submittedLocally: this.simulationsMap[dispatchSim.uuid].submittedLocally,
+    //         simulator: dispatchSim.simulator,
+    //         simulatorVersion: dispatchSim.simulatorVersion,
+    //         updated: dispatchSim.updated as Date,
+    //         resultsSize: dispatchSim.resultsSize,
+    //         projectSize: dispatchSim.projectSize
+    //       })
+    //     };
+    //     this.setSimulations(simulations, false);
+    //   }
+    // );
   }
 
   setSimulations(
@@ -165,21 +195,21 @@ export class SimulationService {
       return of(this.simulationsMap[uuid]);
     } else {
       const simulationSubject = new Subject<Simulation>();
-      this.httpClient.post(urls.dispatchApi + 'jobinfo', [uuid]).subscribe(
+      this.httpClient.get(`${urls.dispatchApi}run/${uuid}`).subscribe(
         (data: any) => {
-          const dispatchSimulation = data.data[0] as DispatchSimulationModelDB;
+          const dispatchSimulation = data;
           const simulation: Simulation = {
             name: dispatchSimulation.name,
             email: dispatchSimulation.email,
-            runtime: dispatchSimulation.runtime,
-            id: dispatchSimulation.uuid,
+           //runtime: dispatchSimulation.runtime,
+            id: dispatchSimulation.id,
             status: (dispatchSimulation.status as unknown) as SimulationStatus,
             submitted: dispatchSimulation.submitted as Date,
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,
             simulatorVersion: dispatchSimulation.simulatorVersion,
             updated: dispatchSimulation.updated as Date,
-            resultsSize: dispatchSimulation.resultsSize,
+            //resultsSize: dispatchSimulation.resultsSize,
             projectSize: dispatchSimulation.projectSize
           };
           simulationSubject.next(simulation)
