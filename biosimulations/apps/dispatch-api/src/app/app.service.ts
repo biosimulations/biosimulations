@@ -1,14 +1,17 @@
-import { urls } from '@biosimulations/config/common';
 import {
   DispatchSimulationModel,
   DispatchSimulationStatus,
   OmexDispatchFile,
   SimulationDispatchSpec,
 } from '@biosimulations/dispatch/api-models';
-import { HttpService, Inject, Injectable, Logger } from '@nestjs/common';
+import {
+  SimulationRunModel,
+} from './../simulation-run/simulation-run.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { HttpService, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import path from 'path';
 import { ModelsService } from './resources/models/models.service';
-import { v4 as uuid } from 'uuid';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
 import { MQDispatch } from '@biosimulations/messages/messages';
@@ -20,7 +23,9 @@ export class AppService {
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private httpService: HttpService,
     private modelsService: ModelsService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    @InjectModel(SimulationRunModel.name)
+    private simulationModel: Model<SimulationRunModel>
   ) {}
 
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
@@ -164,5 +169,19 @@ export class AppService {
     res.download(zipPath);
   }
 
+  async jobStatusFromDb(
+    id: string
+  ):Promise<string> {
+    const runModels: SimulationRunModel[] = await this.simulationModel.find(
+      { _id: id },
+      { status: 1, _id: 0}
+    ).exec();
+
+    if (runModels.length > 0) {
+      return runModels[0].status;
+    } else {
+      throw new NotFoundException(`No simulation with ID: ${id} found.`);
+    }
+  }
 
 }

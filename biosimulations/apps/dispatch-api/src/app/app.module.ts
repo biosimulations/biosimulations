@@ -1,3 +1,5 @@
+import { SimulationFile, SimulationFileSchema } from './../simulation-run/file.model';
+import { SimulationRunModelSchema } from './../simulation-run/simulation-run.model';
 import { Module, HttpModule, CacheModule } from '@nestjs/common';
 import {
   Transport,
@@ -20,11 +22,19 @@ import {
   AuthTestModule,
   BiosimulationsAuthModule,
 } from '@biosimulations/auth/nest';
+import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 @Module({
   imports: [
     BiosimulationsConfigModule,
     BiosimulationsAuthModule,
     HttpModule,
+    MongooseModule.forFeature([
+      { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
+      {
+        name: SimulationFile.name,
+        schema: SimulationFileSchema,
+      },
+    ]),
     ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],

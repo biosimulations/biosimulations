@@ -5,31 +5,19 @@ import {
   Controller,
   Inject,
   OnApplicationBootstrap,
-  Post,
-  UseInterceptors,
-  UploadedFile,
-  Body,
   Get,
   Param,
   Query,
   Res,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiOperation,
   ApiResponse,
-  ApiConsumes,
-  ApiBody,
-  ApiQuery,
   ApiTags,
-  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import {
-  SimulationDispatchSpec,
-  OmexDispatchFile,
-} from '@biosimulations/dispatch/api-models';
 import { ModelsService } from './resources/models/models.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
@@ -76,11 +64,45 @@ export class AppController implements OnApplicationBootstrap {
   @ApiOperation({ summary: 'Shows result structure' })
   @ApiResponse({
     status: 200,
-    description: 'Get results structure (SEDMLS and TASKS)',
+    description: `Get results structure (SED-ML'S and REPORTS)`,
     type: Object,
   })
   async getResultStructure(@Param('uuid') uId: string): Promise<any> {
-    return this.appService.getResultStructure(uId);
+    const jobStatus: string = await this.appService.jobStatusFromDb(uId);
+    
+    switch (jobStatus) {
+      case DispatchSimulationStatus.SUCCEEDED:
+        return this.appService.getResultStructure(uId);
+      case DispatchSimulationStatus.QUEUED:
+        return {
+          message: `Simulation with ${uId} is queued, check again after some time.`
+        }
+      case DispatchSimulationStatus.RUNNING:
+        return {
+          message: `Simulation with ${uId} is still running.`
+        }
+      case DispatchSimulationStatus.FAILED:
+        return {
+          message: `Simulation with ${uId} failed, check the error logs.`
+        }
+      case 'CANCELLED':
+        return {
+          message: `Simulation with ${uId} was cancelled.`
+        }
+      case 'TIMEOUT':
+        return {
+          message: `Simulation Timed Out on HPC with ID ${uId}`
+        }
+      case 'OUT_OF_MEMORY':
+        return {
+          message: `Simulation ran out of memory on HPC with ID ${uId}`
+        }
+      case 'NODE_FAIL':
+        return {
+          message: `Node failed on HPC for the simulation run with ID ${uId}`
+        }
+    }
+    
   }
 
   @ApiTags('Result')
@@ -100,8 +122,42 @@ export class AppController implements OnApplicationBootstrap {
     @Query('sedml') sedml: string,
     @Query('report') report: string
   ): Promise<any> {
-    return this.appService.getVisualizationData(uId, sedml, report, chart);
+    const jobStatus: string = await this.appService.jobStatusFromDb(uId);
+
+    switch (jobStatus) {
+      case DispatchSimulationStatus.SUCCEEDED:
+        return this.appService.getVisualizationData(uId, sedml, report, chart);
+      case DispatchSimulationStatus.QUEUED:
+        return {
+          message: `Simulation with ${uId} is queued, check again after some time.`
+        }
+      case DispatchSimulationStatus.RUNNING:
+        return {
+          message: `Simulation with ${uId} is still running.`
+        }
+      case DispatchSimulationStatus.FAILED:
+        return {
+          message: `Simulation with ${uId} failed, check the error logs.`
+        }
+      case 'CANCELLED':
+        return {
+          message: `Simulation with ${uId} was cancelled.`
+        }
+      case 'TIMEOUT':
+        return {
+          message: `Simulation Timed Out on HPC with ID ${uId}`
+        }
+      case 'OUT_OF_MEMORY':
+        return {
+          message: `Simulation ran out of memory on HPC with ID ${uId}`
+        }
+      case 'NODE_FAIL':
+        return {
+          message: `Node failed on HPC for the simulation run with ID ${uId}`
+        }
+    }
   }
+
 
 
   // Enable cron when storage is out
