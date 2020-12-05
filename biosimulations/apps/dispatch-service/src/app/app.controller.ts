@@ -162,13 +162,13 @@ export class AppController {
         (await this.simulationService.getSimulationStatus(jobId)) ||
         DispatchSimulationStatus.QUEUED;
       this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
-
+      
       // Send the updated status to dispatchAPI
       this.http.post(
-        `${this.authConfig['auth0_domain']}oauth/token`, 
-            { "client_id": this.authConfig['client_id'],
-              "client_secret": this.authConfig['client_secret'],
-              "audience": this.authConfig['api_audience'],
+        `${this.authConfig.auth0_domain}oauth/token`, 
+            { "client_id": this.authConfig.client_id,
+              "client_secret": this.authConfig.client_secret,
+              "audience": this.authConfig.api_audience,
               "grant_type": "client_credentials" 
             }).subscribe((data: any) => {
         this.http.patch(
