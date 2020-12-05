@@ -5,16 +5,28 @@ import {
   NatsOptions,
   Transport,
 } from '@nestjs/microservices';
+import { getModelToken } from 'nestjs-typegoose';
 import { ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/common';
 import { ModelsService } from './resources/models/models.service';
 import { AppService } from './app.service';
+import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
 describe('AppController', () => {
   let app: TestingModule;
 
   beforeAll(async () => {
     const mockService = {};
+    class mockFile {
+      data: any;
+      save: () => any;
+      constructor(body: any) {
+        this.data = body;
+        this.save = () => {
+          return this.data;
+        };
+      }
+    }
     app = await Test.createTestingModule({
       imports: [HttpModule],
       controllers: [AppController],
@@ -35,6 +47,10 @@ describe('AppController', () => {
         {
           provide: ModelsService,
           useValue: mockService,
+        },
+        {
+          provide: getModelToken(SimulationRunModel.name),
+          useClass: mockFile,
         },
       ],
     }).compile();

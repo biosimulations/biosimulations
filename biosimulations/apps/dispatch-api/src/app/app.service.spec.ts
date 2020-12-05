@@ -10,10 +10,22 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ModelsService } from './resources/models/models.service';
+import { getModelToken } from 'nestjs-typegoose';
+import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
 describe('AppService', () => {
   let app: TestingModule;
   const mockService = {};
+  class mockFile {
+    data: any;
+    save: () => any;
+    constructor(body: any) {
+      this.data = body;
+      this.save = () => {
+        return this.data;
+      };
+    }
+  }
   const mockFileStoragePath = new ConfigService({
     hpc: {
       fileStorage: './apps/dispatch-api/src/assets/fixtures/',
@@ -44,6 +56,10 @@ describe('AppService', () => {
           provide: ConfigService,
           useValue: mockFileStoragePath,
         },
+        {
+          provide: getModelToken(SimulationRunModel.name),
+          useClass: mockFile,
+        }
       ],
     }).compile();
   });
