@@ -86,16 +86,16 @@ export class ViewComponent implements OnInit {
           this.outLog = data.message;
           this.errLog = '';
         } else {
-          const out = data.data.output;
-          const err = data.data.error;
+          this.outLog = data.data.output;
+          this.errLog = data.data.error;
 
-          if (err !== "") {
-            this.outLog = 'Log not available';
-            this.errLog = err;
-          } else {
-            this.outLog = out;
-            this.errLog = '';
-          }
+          // if (err !== "") {
+          //   this.outLog = 'Log not available';
+          //   this.errLog = err;
+          // } else {
+          //   this.outLog = out;
+          //   this.errLog = '';
+          // }
         }
       })
 

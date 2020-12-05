@@ -90,17 +90,15 @@ export class AppService {
 
   async downloadLogFile(uId: string, download: boolean, res: any) {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
-    const simInfo = await this.modelsService.get(uId);
     let filePathOut = '';
     let filePathErr = '';
     download = String(download) === 'false' ? false : true;
-    if (simInfo === null) {
-      res.send({ message: 'Cannot find the UUID specified' });
-      return;
-    }
+
+    const jobStatus: string = await this.jobStatusFromDb(uId);
+    
     switch (download) {
       case true: {
-        switch (simInfo.status) {
+        switch (jobStatus) {
           case DispatchSimulationStatus.SUCCEEDED: {
             filePathOut = path.join(logPath, 'job.output');
             res.set('Content-Type', 'text/html');
@@ -117,7 +115,7 @@ export class AppService {
           // TODO: do other starting states need to be handled (RUNNING)?
           case DispatchSimulationStatus.QUEUED: {
             res.send({
-              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${simInfo.status} state.`,
+              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
             });
             break;
           }
@@ -125,7 +123,7 @@ export class AppService {
         break;
       }
       case false: {
-        switch (simInfo.status) {
+        switch (jobStatus) {
           // TODO: do other terminated states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
           case DispatchSimulationStatus.SUCCEEDED:
           case DispatchSimulationStatus.FAILED: {
@@ -150,7 +148,7 @@ export class AppService {
           // TODO: do other starting states need to be handled (RUNNING)?
           case DispatchSimulationStatus.QUEUED: {
             res.send({
-              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${simInfo.status} state.`,
+              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
             });
             break;
           }
