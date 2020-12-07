@@ -111,7 +111,6 @@ export class SimulationRunController {
     try {
       JSON.parse(body.simulationRun);
     } catch (e) {
-      console.log(e);
       throw new BadRequestException(
         'The provided input was not valid: ' + e.message
       );
@@ -171,7 +170,6 @@ export class SimulationRunController {
   @Get(':id')
   async getRun(@Param('id') id: string): Promise<SimulationRun> {
     const run = await this.service.get(id);
-    console.log(run);
     if (run) {
       return this.makeSimulationRun(run);
     } else {

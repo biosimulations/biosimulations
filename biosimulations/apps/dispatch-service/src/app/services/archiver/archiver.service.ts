@@ -5,12 +5,14 @@ import { Logger } from '@nestjs/common';
 import archiver from 'archiver';
 import * as fs from 'fs';
 import path from 'path';
+import { AppService } from '../../app.service';
 
 @Injectable()
 export class ArchiverService {
   constructor(
     private modelsService: ModelsService,
-    private configService: ConfigService,) { }
+    private configService: ConfigService,
+    private appService: AppService) { }
   private logger = new Logger('ArchiverService');
   private fileStorage: string = this.configService.get(
     'hpc.fileStorage', '');
@@ -23,7 +25,7 @@ export class ArchiverService {
 
     output.on('close', () => {
       const size = archive.pointer().toString();
-      this.modelsService.updateResultsSize(uuid, parseInt(size));
+      this.appService.updateSimulationInDb(uuid, {resultsSize: parseInt(size)})
       this.logger.verbose(`The resulting archive holds ${size} bytes in size`);
       this.logger.log(
         'Archiver has been finalized and the output file descriptor has closed.'

@@ -177,7 +177,7 @@ export class SimulationService {
           const simulation: Simulation = {
             name: dispatchSimulation.name,
             email: dispatchSimulation.email,
-           //runtime: dispatchSimulation.runtime,
+            runtime: dispatchSimulation.runtime,
             id: dispatchSimulation.id,
             status: (dispatchSimulation.status as unknown) as SimulationStatus,
             submitted: dispatchSimulation.submitted as Date,
@@ -185,7 +185,7 @@ export class SimulationService {
             simulator: dispatchSimulation.simulator,
             simulatorVersion: dispatchSimulation.simulatorVersion,
             updated: dispatchSimulation.updated as Date,
-            //resultsSize: dispatchSimulation.resultsSize,
+            resultsSize: dispatchSimulation.resultsSize,
             projectSize: dispatchSimulation.projectSize
           };
           simulationSubject.next(simulation)

@@ -89,13 +89,6 @@ export class ViewComponent implements OnInit {
           this.outLog = data.data.output;
           this.errLog = data.data.error;
 
-          // if (err !== "") {
-          //   this.outLog = 'Log not available';
-          //   this.errLog = err;
-          // } else {
-          //   this.outLog = out;
-          //   this.errLog = '';
-          // }
         }
       })
 

@@ -17,6 +17,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsModule } from './resources/models/models.module';
 import { SimulationService } from './services/simulation/simulation.service';
 import { SubmissionController } from './submission.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { SubmissionController } from './submission.controller';
   ],
   controllers: [AppController, SubmissionController],
   providers: [
+    AppService,
     HpcService,
     SbatchService,
     SshService,

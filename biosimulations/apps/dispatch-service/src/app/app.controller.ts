@@ -24,7 +24,8 @@ import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 import { SimulationService } from './services/simulation/simulation.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
-import { urls } from '@biosimulations/config/common';
+import { AppService } from './app.service';
+
 
 @Controller()
 export class AppController {
@@ -37,11 +38,11 @@ export class AppController {
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
     private simulationService: SimulationService,
-    private http: HttpService
+    private appService: AppService
   ) { }
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>('hpc.fileStorage', '');
-  private authConfig: any = this.configService.get('auth', {});
+  
   
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
@@ -163,33 +164,14 @@ export class AppController {
         DispatchSimulationStatus.QUEUED;
       this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
       
-      // Send the updated status to dispatchAPI
-      this.http.post(
-        `${this.authConfig.auth0_domain}oauth/token`, 
-            { "client_id": this.authConfig.client_id,
-              "client_secret": this.authConfig.client_secret,
-              "audience": this.authConfig.api_audience,
-              "grant_type": "client_credentials" 
-            }).subscribe((data: any) => {
-        this.http.patch(
-          `${urls.dispatchApi}run/${simId}`,
-          { status: jobStatus },
-          {
-            headers: {
-              'Authorization': `Bearer ${data.data.access_token}`
-            }
-          }
-        ).subscribe(dat => {
-            // 
-          }, error => {
-            this.logger.error(`Cannot connect to dispatch API to update the simulation status for ID: ${simId} `);
-          })
-      });
+      this.appService.updateSimulationInDb(simId, {status: jobStatus});
+      
       switch (jobStatus) {
         case DispatchSimulationStatus.SUCCEEDED:
           // TODO: Change FINISH to SUCCEED
           this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, simId);
           this.schedulerRegistry.getCronJob(jobId).stop();
+          this.appService.updateSimulationInDb(simId, {endTime: new Date().getTime()});
           break;
         // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
         // TODO: do other failed states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
