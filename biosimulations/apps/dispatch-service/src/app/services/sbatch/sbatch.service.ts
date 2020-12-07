@@ -13,7 +13,7 @@ export class SbatchService {
     simId: string
   ): string {
     const template = `#!/bin/bash
-#SBATCH --job-name=BioSimulations${simId}
+#SBATCH --job-name=BioSimulations_${simId}
 #SBATCH --time=10:00
 #SBATCH --output=${tempSimDir}/out/job.output
 #SBATCH --error=${tempSimDir}/out/job.error
