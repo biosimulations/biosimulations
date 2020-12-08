@@ -27,21 +27,21 @@
       heading="Overview"
       tocSection="Overview"
     >
-      <p>The BioSimulators format for the specifications of a simulation tool is a JSON-based format for describing the modeling framworks (e.g., logical, constraint-based), simulation algorithms (e.g., CVODE, SSA), and modeling formats (e.g., CellML, COMBINE/OMEX, SBML, SED-ML) that a simulation tool supports, as well as the parameters of each algorithm (e.g., random number generator seed), their data types, and their allowed and default values.</p>
+      <p>The BioSimulators format for the specifications of a simulation tool is a JSON schema for describing the modeling frameworks (e.g., logical, constraint-based), simulation algorithms (e.g., CVODE, SSA), and modeling formats (e.g., CellML, COMBINE/OMEX, SBML, SED-ML) that a simulation tool supports, as well as the parameters of each algorithm (e.g., random number generator seed), their data types, and their allowed and default values.</p>
 
-      <p>The format can also capture a variety of metadata about simulation tools including the</p>
+      <p>The format can also capture a metadata about each simulation tool including its</p>
       <ul>
-        <li>Name of the tool;</li>
-        <li>Version of the tool;</li>
-        <li>Description of the tool;</li>
+        <li>Name;</li>
+        <li>Version;</li>
+        <li>Description;</li>
         <li>URL for a standardized Docker image for the tool;</li>
         <li>URL for documentation about about the tool;</li>
         <li>Citations for the tool;</li>
         <li>Citations for each algorithm supported by the tool;</li>
-        <li>Other identifiers for the tool such as for bio.tools, CRAN, and PyPI;</li>
+        <li>Other identifiers for the tool such as for bio.tools, CRAN, or PyPI;</li>
         <li>License for the tool;</li>
         <li>The authors of the tool; and</li>
-        <li>Dates when the tool was created and last updated.</li>
+        <li>Dates when the tool was submitted to the BioSimulators registry and last updated.</li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -50,6 +50,16 @@
       tocSection="Schema"
     >
       <p>The schema for the format is available at <a [href]="openApiUrl" target="_blank">{{ openApiUrl }}</a>. Documentation for the schema is available at <a [href]="config.apiUrl" target="_blank">{{ config.apiUrl }}</a>.</p>
+
+      <p>The schema utilizes several ontologies:</p>
+      <ul>
+        <li>Funding agencies: Funder Registry <a href="https://www.crossref.org/services/funder-registry/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> terms such as the National Science Foundation (http://dx.doi.org/10.13039/100000001), the National Institutes of Health (http://dx.doi.org/10.13039/100000002)</li>
+        <li>Licenses: SPDX <a href="https://spdx.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> terms such as GNU General Public License v3.0 or later (GPL-3.0-or-later)</li>
+        <li>Modeling formats: EDAM <a href="https://edamontology.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> terms such as BGNL (format_3972), CellML (format_3240), SBML (format_2585), SED-ML (format_3685)</li>
+        <li>Modeling frameworks: SBO <a href="https://www.ebi.ac.uk/sbo/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> terms such as flux balance analysis framework (SBO:0000624), non-spatial continuous kinetic framework (SBO:0000293)</li>
+        <li>Programming languages: Linguist <a href="https://github.com/github/linguist" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> terms such as C++, Java, JavaScript, Python, R</li>
+        <li>Simulation algorithms: KiSAO <a href="http://co.mbine.org/standards/kisao" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> terms such as CVODE (KISAO_0000019), FBA (KISAO_0000029), SSA (KISAO_0000029)</li>
+      </ul>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
