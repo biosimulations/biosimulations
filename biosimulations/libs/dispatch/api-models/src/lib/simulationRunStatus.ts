@@ -9,4 +9,6 @@ export enum SimulationRunStatus {
   SUCCEEDED = 'SUCCEEDED',
   // The run has failed
   FAILED = 'FAILED',
+  //The run was cancelled
+  CANCELLED = 'CANCELLED',
 }

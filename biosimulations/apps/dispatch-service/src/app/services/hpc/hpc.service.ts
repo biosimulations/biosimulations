@@ -2,7 +2,10 @@ import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { DispatchMessage, MQDispatch } from '@biosimulations/messages/messages';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+import {
+  DispatchSimulationStatus,
+  SimulationRunStatus,
+} from '@biosimulations/dispatch/api-models';
 import path from 'path';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
@@ -47,7 +50,7 @@ export class HpcService {
     );
   }
 
-  async saactJobStatus(jobId: string): Promise<DispatchSimulationStatus> {
+  async getJobStatus(jobId: string): Promise<SimulationRunStatus> {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
@@ -66,17 +69,16 @@ export class HpcService {
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
       case 'PENDING' || '':
-        return DispatchSimulationStatus.QUEUED;
+        return SimulationRunStatus.QUEUED;
       case 'RUNNING':
-        return DispatchSimulationStatus.RUNNING;
+        return SimulationRunStatus.RUNNING;
       case 'COMPLETED':
-        return DispatchSimulationStatus.SUCCEEDED;
-      // TODO: Implement Stop simulation functionality from user-end
+        return SimulationRunStatus.SUCCEEDED;
       case 'CANCELLED':
-        return DispatchSimulationStatus.CANCELLED;
+        return SimulationRunStatus.CANCELLED;
       case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
       default:
-        return DispatchSimulationStatus.FAILED;
+        return SimulationRunStatus.FAILED;
     }
   }
 }

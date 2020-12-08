@@ -1,8 +1,15 @@
 export enum DispatchMessage {
+  // Job created on the satabase
   created = 'dispatch.created',
+  // Job submitted to the HPC
   submitted = 'dispatch.submitted',
+  // Job Queued by the hpc scheduler
+  queued = 'dispatch.queued',
+  // Job starting running on the HPC
   started = 'dispatch.started',
+  // Job done running
   finsihed = 'dispatch.finished',
+  // Job failed
   failed = 'dispatch.failed',
 }
 
@@ -43,5 +50,12 @@ export class DispatchCreatedPayload extends DispatchPayload {
     this.fileName = fileName;
     this.simulator = simulator;
     this.version = version;
+  }
+}
+
+export class DispatchSubmittedPayload extends DispatchPayload {
+  _message = DispatchMessage.submitted;
+  constructor(id: string) {
+    super(id);
   }
 }
