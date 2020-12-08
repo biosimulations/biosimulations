@@ -1,6 +1,5 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { VisualisationService } from '../../../../services/visualisation/visualisation.service';
-import { PlotlyComponent } from 'angular-plotly.js'
 
 @Component({
   selector: 'biosimulations-visualisation',
@@ -11,10 +10,9 @@ export class VisualisationComponent implements OnInit {
   data: any;
   layout: any;
 
-  @ViewChild('plotParent', { static: true }) plotParent?: ElementRef;
-
   constructor(
     private visualisationService: VisualisationService,
+    private hostElement: ElementRef,
   ) { }
 
   ngOnInit(): void {
@@ -33,19 +31,16 @@ export class VisualisationComponent implements OnInit {
     );
   }
 
-  @ViewChild(PlotlyComponent, { read: ElementRef }) plot!: ElementRef;
-
   @HostListener('window:resize')
   onResize() {
     this.setLayout();
   }
 
   setLayout() {
-    const rect = this.plot.nativeElement.parentElement.parentElement.getBoundingClientRect();
-    const height = this.plotParent?.nativeElement.offsetHeight;
+    const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
     this.layout = {
       width: rect.width,
-      height: height | rect.height,
+      height: rect.height,
     }
   }
 }

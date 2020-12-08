@@ -114,9 +114,13 @@
     </form>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Visualize chart" icon="chart" urlHashFragment="viz" [disabled]="statusRunning || sedmls === undefined">
-    <div style="height: 100%;">
-      <biosimulations-visualisation #visualization></biosimulations-visualisation >
-    </div>
+  <biosimulations-tab-page-tab
+    heading="Visualize chart"
+    icon="chart"
+    urlHashFragment="viz" 
+    [fullHeight]="true"
+    [disabled]="statusRunning || sedmls === undefined"
+  >
+    <biosimulations-visualisation #visualization></biosimulations-visualisation >
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>
