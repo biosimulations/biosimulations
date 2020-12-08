@@ -24,12 +24,10 @@ import { ModelsService } from './resources/models/models.service';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
-import { SimulationService } from './services/simulation/simulation.service';
 
 @Controller()
 export class SubmissionController {
   constructor(
-    private simulationService: SimulationService,
     private appService: AppService,
     private schedulerRegistry: SchedulerRegistry,
     private readonly configService: ConfigService,
@@ -93,9 +91,9 @@ export class SubmissionController {
 
   async startMonitoringCronJob(jobId: string, simId: string, seconds: number) {
     const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus: SimulationRunStatus =
-        (await this.simulationService.getSimulationStatus(jobId)) ||
-        SimulationRunStatus.QUEUED;
+      const jobStatus: SimulationRunStatus = await this.hpcService.getJobStatus(
+        jobId
+      );
 
       this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
 
@@ -111,9 +109,9 @@ export class SubmissionController {
           break;
 
         case SimulationRunStatus.RUNNING:
+          this.appService.updateSimulationInDb(simId, { status: jobStatus });
           break;
-        case SimulationRunStatus.QUEUED:
-          break;
+
         case SimulationRunStatus.SUCCEEDED:
           // TODO Remove this message when implmentation is finished
           this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, simId);
@@ -121,7 +119,7 @@ export class SubmissionController {
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           this.appService.updateSimulationInDb(simId, {
-            endTime: new Date().getTime(),
+            status: jobStatus,
           });
 
           break;

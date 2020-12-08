@@ -22,10 +22,9 @@ import {
 } from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
-import { SimulationService } from './services/simulation/simulation.service';
+
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 import { AppService } from './app.service';
-
 
 @Controller()
 export class AppController {
@@ -37,13 +36,14 @@ export class AppController {
     private schedulerRegistry: SchedulerRegistry,
     private archiverService: ArchiverService,
     private modelsService: ModelsService,
-    private simulationService: SimulationService,
+
     private appService: AppService
-  ) { }
+  ) {}
   private logger = new Logger(AppController.name);
-  private fileStorage: string = this.configService.get<string>('hpc.fileStorage', '');
-  
-  
+  private fileStorage: string = this.configService.get<string>(
+    'hpc.fileStorage',
+    ''
+  );
 
   @MessagePattern(MQDispatch.SIM_HPC_FINISH)
   async dispatchFinish(uuid: string) {
@@ -144,48 +144,7 @@ export class AppController {
 
   @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
   async resultFinish(uuid: string) {
-    this.archiverService.createResultArchive(uuid).then(() => { });
-  }
-
-  @MessagePattern(MQDispatch.SIM_DISPATCH_FINISH)
-  async dispatchLog(data: any) {
-    const slurmjobId = data['stdout'].match(/\d+/)[0];
-    // const simDirSplit = data['simDir'].split('/');
-    const simId = data.simId;
-    // TODO: research more for better duration
-    this.jobMonitorCronJob(slurmjobId, simId, 10);
-  }
-
-
-  async jobMonitorCronJob(jobId: string, simId: string, seconds: number) {
-    const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
-      const jobStatus: DispatchSimulationStatus =
-        (await this.simulationService.getSimulationStatus(jobId)) ||
-        DispatchSimulationStatus.QUEUED;
-      this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
-      
-      this.appService.updateSimulationInDb(simId, {status: jobStatus});
-      
-      switch (jobStatus) {
-        case DispatchSimulationStatus.SUCCEEDED:
-          // TODO: Change FINISH to SUCCEED
-          this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, simId);
-          this.schedulerRegistry.getCronJob(jobId).stop();
-          this.appService.updateSimulationInDb(simId, {endTime: new Date().getTime()});
-          break;
-        // TODO: Create another MQ function 'FAILED' to zip the failed simulation for troubleshooting
-        // TODO: do other failed states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
-        case DispatchSimulationStatus.FAILED:
-          this.schedulerRegistry.getCronJob(jobId).stop();
-          break;
-        case DispatchSimulationStatus.QUEUED:
-        case DispatchSimulationStatus.RUNNING:
-          break;
-      }
-    });
-
-    this.schedulerRegistry.addCronJob(jobId, job);
-    job.start();
+    this.archiverService.createResultArchive(uuid).then(() => {});
   }
 
   convertJsonDataToChartData(data: any) {
