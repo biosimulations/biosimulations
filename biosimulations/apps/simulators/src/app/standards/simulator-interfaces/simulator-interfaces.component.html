@@ -27,38 +27,42 @@
       heading="Overview"
       tocSection="Overview"
     >
-      <p>The BioSimulators standard for command-line interfaces for biosimulation tools is a set of requirements for the syntax and semantics of the inputs and outputs of biosimulation software tools. The standard ensures that simulation tools can be consistently executed with the same input arguments (paths to files that define models and simulations and paths to save simulation results) and that the simulation tools produce consistent outputs (reports and charts at consistent paths in consistent formats).</p>
+      <p>The BioSimulators standard for command-line interfaces for biosimulation tools is a set of requirements for the syntax and semantics of the inputs and outputs of biosimulation software tools. The standard ensures that simulation tools can be consistently executed with the same input arguments (a path to a COMBINE/OMEX archive that defines models and simulations and a path to save the outputs of the simulaton experiments defined in the archive) and that the simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats).</p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Specifications"
       tocSection="Specifications"
     >
+      <h3>Command-line arguments</h3>
       <p>Simulation tools which implement the BioSimulators command-line interface standard should support the following command-line arguments:</p>
 
       <ul class="vertically-spaced">
-        <li><b><code>-i, --archive</code>:</b> A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
-        <li><b><code>-o, --out-dir</code>:</b> A path to a directory where the outputs of the simulation tasks should be saved.</li>
-        <li><b><code>-h, --help</code>:</b> Optionally, this argument should instruct the command-line program to print help information about itself.</li>
-        <li><b><code>-v, --version</code>:</b> Optionally, this argument should instruct the command-line program to report its version and the versions of any critical dependencies.</li>
+        <li><b><code>-i, --archive</code>:</b> A path to a COMBINE/OMEX archive which contains descriptions of one or more simulation tasks.</li>
+        <li><b><code>-o, --out-dir</code>:</b> The path where the outputs (reports and plots) of the simulation tasks should be saved.</li>
+        <li><b><code>-h, --help</code>:</b> An optional argument that instructs the command-line program to print help information about itself.</li>
+        <li><b><code>-v, --version</code>:</b> An optional argument that instructs the command-line program to report its version and the versions of any critical dependencies.</li>
       </ul>
 
+      <h3>Execution behavior</h3>
       <p>Simulation tools which implement the BioSimulators command-line interface standard should also support the following conventions:</p>
       <ul class="vertically-spaced">
-        <li><b>Support at least one "standard" modeling language.</b> Interfaces to simulation tools should support at least a subset of at least one "standard" modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
+        <li><b>Support at least one "standard" modeling language.</b> Interfaces to simulation tools should support at least a subset of at least one community modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
         <li><b>Support the SED-ML format for describing simulation experiments.</b> Interfaces to simulation tools should support at least the following features of SED-ML:
           <ul>
-            <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:SteadyState</code>, <code>sedml:OneStep</code>, or <code>sedml:UniformTimeCourse</code>.</li>
-            <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
-            <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
-            <li>Report outputs: <code>sedml:Report</code>.</li>
+            <li>Models and model attribute changes: <code>sedml:model</code>, <code>sed:change</code></li>
+            <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or <code>sedml:uniformTimeCourse</code>.</li>
+            <li>Tasks to execute a single simulation of a single model: <code>sedml:task</code>.</li>
+            <li>Algorithms and their parameters: <code>sedml:algorithm</code>, <code>sedml:algorithmParameter</code>.</li>
+            <li>Data generators for individual variables: <code>sedml:dataGenerator</code></li>
+            <li>Report outputs: <code>sedml:report</code>.</li>
           </ul>
         <li><b>Use KiSAO to describe simulation algorithms and their parameters.</b> Interfaces to simulation tools should use KiSAO terms to indicate specific algorithms and algorithm parameters.</li>
         <li><b>Support the COMBINE/OMEX format for collections of models and simulations.</b> Interfaces to simulation tools should support the full COMBINE/OMEX specification.</li>
-        <li><b>Execute all simulations described in COMBINE/OMEX archives:</b> Simulation tools should execute all simulations (e.g., all tasks in all SED-ML files) defined inside COMBINE/OMEX archives.</li>
-        <li><b>Support the BioSimulators standard format for reports of simulation results:</b> Interfaces to simulation tools should save reports in the <a [routerLink]="['/standards', 'simulation-reports']">BioSimulators format for reports of simulation results</a>.</li>
-        <li><b>Save charts in Portable Document Format (PDF).</b></li>
-        <li><b>Save simulation results to standard file paths:</b> Reports and charts should be saved to the same directory relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the extension <code>.csv</code> for reports or <code>.pdf</code> for charts.</li>
+        <li><b>Execute all tasks described in the master file of the COMBINE/OMEX archive:</b> When a COMBINE/OMEX archive file contains a master SED-ML document, simulation tools should execute all tasks defined inside the master file. When an archive doesn't contain a master SED-ML file, simulation tools should execute all of the tasks defined in each SED-ML file in the archive.</li>
+        <li><b>Support the BioSimulators standard format for reports of simulation results:</b> Interfaces to simulation tools should save reports in the <a [routerLink]="['/standards', 'simulation-reports']">BioSimulators HDF5 format for reports of simulation results</a>. Within the HDF5 file, each report should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive and the id of the report.</li>
+        <li><b>Save plots in Portable Document Format (PDF) bundled into a zip archive.</b> Within the zip archive, each plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive, the id of the plot, and the extension <code>.pdf</code></li>
+        <li><b>Save simulation outputs to standard file paths:</b> Reports should be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/reports.h5</code>. Plots should be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/plots.zip</code>.</li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -70,7 +74,7 @@
 
       <pre><code>usage: tellurium [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
-BioSimulators-compliant command-line interface to the tellurium simulation program <http://tellurium.analogmachine.org>.
+BioSimulators-compliant command-line interface to the tellurium simulation program &lt;http://tellurium.analogmachine.org&gt;.
 
 optional arguments:
   -h, --help            show this help message and exit

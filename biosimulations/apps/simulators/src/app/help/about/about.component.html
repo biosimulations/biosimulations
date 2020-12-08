@@ -13,10 +13,10 @@
       tocSection="Motivation and goals"
     >
       <p>
-        More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as COMBINE/OMEX <a target="_blank" href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a target="_blank" href="http://sbml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and SED-ML <a target="_blank" href="https://www.sed-ml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of incompatible modeling formats and simulation tools.
+        More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as COMBINE/OMEX <a target="_blank" href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a target="_blank" href="http://sbml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and SED-ML <a target="_blank" href="https://www.sed-ml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of disparate modeling formats and simulation tools.
       </p>
       <p>
-        BioSimulators helps address this challenge by providing researchers a central guide to choosing a simulation tool for a specific model and a centralized collection of containerized biosimulation tools that provide consistent command-line interfaces. Together, this collection of simulation tools provides researchers access to a wide range of simulation algorithms for a broad range of modeling frameworks and formats.
+        BioSimulators helps address this challenge by providing researchers a central place for choosing a simulation tool for a specific model and a centralized collection of containerized biosimulation tools that provide consistent command-line interfaces. Together, this collection of simulation tools provides researchers access to a wide range of simulation algorithms for a broad range of modeling frameworks and formats.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -25,7 +25,7 @@
       tocSection="Supported frameworks &amp; formats"
     >
       <p>
-        The BioSimulators standards, web application, and database support all modeling frameworks, simulation algorithms, and model formats. Currrently, BioSimulators includes tools for logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) simulation of models that are described in using the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, CellML <a href="https://www.cellml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, NeuroML <a href="https://neuroml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, pharmML <a href="http://www.pharmml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Together, these tools support numerous simulation algorithms.
+        The BioSimulators standards, web application, and database support all modeling frameworks, simulation algorithms, and model formats. Currrently, BioSimulators includes tools for logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) simulation of models that are described in using the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, CellML <a href="https://www.cellml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, NeuroML <a href="https://neuroml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, pharmML <a href="http://www.pharmml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Together, these tools support numerous simulation algorithms.
       </p>
 
       <div class="logos">
@@ -159,7 +159,7 @@
       tocSection="Obtaining the simulators"
     >
       <p>
-        The containerized simulation software tools are available from DockerHub <a target="_blank" href="http://dockerhub.com/u/biosimulators"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        The containerized simulation software tools are available from the GitHub Container Registry <a target="_blank" href="https://github.com/orgs/biosimulators/packages"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -168,17 +168,17 @@
       tocSection="Obtaining the source code"
     >
       <p>
-        The BioSimulators source code is composed of the following open-source packages:
+        The BioSimulators source code is composed of multiple open-source packages:
       </p>
       <ul class="vertically-spaced">
         <li>
-          BioSimulations <a href="https://github.com/biosimulations/Biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Code for this website, the database of simulation tools, and the REST API for querying this database
+          BioSimulations <a href="https://github.com/biosimulations/Biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Code for this website, the database of simulation tools, and the REST API for querying this database.
         </li>
         <li>
           BioSimulators utils <a href="https://github.com/biosimulators/biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Utilities for building containerized simulation tools. This provides tools for building command-line interfaces and parsing COMBINE/OMEX and SED-ML files.
         </li>
         <li>
-          BioSimulators test suite <a href="https://github.com/biosimulators/biosimulators_test_suite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Tools for verifying the capabilities of simulation tools
+          BioSimulators test suite <a href="https://github.com/biosimulators/biosimulators_test_suite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>: Tools for verifying the capabilities of containerized simulation tools.
         </li>
       </ul>
     </biosimulations-text-page-content-section>

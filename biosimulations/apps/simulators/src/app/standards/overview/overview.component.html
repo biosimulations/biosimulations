@@ -27,14 +27,14 @@
       heading="Overview"
       tocSection="Overview"
     >
-      <p>The BioSimulators standards are set of formats and conventions for (a) describing the specifications of simulation tools (e.g., supported modeling frameworks, simulation algorithms, and modeling formats) and (b) the syntax and semantics of the inputs and outputs of biosimulation software tools. Collectively, the standards ensure that (a) investigators can communicate the specifications of simulation tools, (b) investigators can use this information to find simulation tools that have specific capabilities, (c) investigators can consistently use the same syntax to execute simulations with multiple simulation tools (e.g., same paths to the same files in the same formats), and (d) simulation tools produce consistent results (reports and charts at consistent paths in consistent formats).</p>
+      <p>The BioSimulators standards are a set of formats and conventions for (a) describing the specifications of simulation tools (e.g., supported modeling frameworks, simulation algorithms, and modeling formats) and (b) the syntax and semantics of the inputs and outputs of biosimulation software tools. Collectively, the standards ensure that (a) investigators can communicate the specifications of simulation tools, (b) investigators can use this information to find simulation tools that have specific capabilities, (c) investigators can consistently use the same syntax to execute simulations with multiple simulation tools (e.g., same paths to the same files in the same formats), and (d) simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats).</p>
 
       <p>The BioSimulators standards encompass four standards:</p>
       <ul class="vertically-spaced">
-        <li><b><a [routerLink]="['/standards', 'simulator-specs']">Format for describing the specifications of simulation tools</a>:</b> This format enables investigators to describe the modeling frameworks, simulation algorithms, and modeling formats supported by each simulation tool. The format also enables invesigators to describe the parameters of each algorithm, their data types, and their default values.</li>
-        <li><b><a [routerLink]="['/standards', 'simulator-interfaces']">Conventions for command-line interfaces for simulation tools</a>:</b> These conventions ensure that (a) simulation tools support consistent syntax for executing simulations and (b) simulation tools produce results at consistent locations in consistent formats.</li>
+        <li><b><a [routerLink]="['/standards', 'simulator-specs']">Format for describing the specifications of simulation tools</a>:</b> This format enables investigators to describe the modeling frameworks, simulation algorithms, and modeling formats supported by each simulation tool. The format also enables investigators to describe the parameters of each algorithm, their data types, and their default values.</li>
+        <li><b><a [routerLink]="['/standards', 'simulator-interfaces']">Conventions for command-line interfaces for simulation tools</a>:</b> These conventions ensure that (a) simulation tools support consistent syntax for executing simulations and (b) simulation tools produce outputs at consistent locations in consistent formats.</li>
         <li><b><a [routerLink]="['/standards', 'simulator-images']">Conventions for Docker images for simulation tools</a>:</b> These conventions ensure that the entry points of containerized simulation tools support consistent syntax for executing simulations and that containerized simulation tools provide consistent metadata.</li>
-        <li><b><a [routerLink]="['/standards', 'simulation-reports']">Format for reports of simulation results</a>:</b> This format ensures that simulation tools produce reports in a consistent format (e.g., CSV) with consistent columns (data generators) and rows (time points) that can be consistently visualized and interpreted.</li>
+        <li><b><a [routerLink]="['/standards', 'simulation-reports']">Format for reports (<code>sedml:report</code>) of simulation results</a>:</b> This format ensures that simulation tools produce reports in a consistent format (e.g., HDF5) with consistent shapes (e.g., rows: dataset (<code>sedml:dataset</code>), columns: time) that can be consistently visualized and interpreted.</li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -43,10 +43,10 @@
       tocSection="Use cases"
     >
       <ul class="vertically-spaced">
-        <li><b>Sharing modeling studies:</b> The standards make it easier for investigators to execute diverse simulations involved in collaborations with different colleagues and analyze their results.</li>
+        <li><b>Sharing modeling studies:</b> The standards make it easier for investigators to execute diverse simulations involved in collaborations with different colleagues and analyze their outputs.</li>
         <li><b>Reusing modeling studies:</b> Similarly, the standards make it easier for investigators to reuse published modeling studies.</li>
         <li><b>Peer reviewing modeling studies:</b> Similarly, the standards also make it easier for investigators to review modeling studies prior to publication in journal articles.</li>
-        <li><b>Comparing simulation tools:</b> By making it easier to execute multiple simulation tools, the standards make it easier to compare the results of multiple simulation tools. The ability to easily compare simulation tools, in turn, makes it easier to find errors in simulation tools, debug simulation tools, and drive standardization in the implementation of simulation algorithms across tool.</li>
+        <li><b>Comparing simulation tools:</b> By making it easier to execute multiple simulation tools, the standards make it easier to compare the outputs of multiple simulation tools. The ability to easily compare simulation tools, in turn, makes it easier to find errors in simulation tools, debug simulation tools, and drive standardization in the implementation of simulation algorithms across tools.</li>
       </ul>
     </biosimulations-text-page-content-section>
   </ng-container>
