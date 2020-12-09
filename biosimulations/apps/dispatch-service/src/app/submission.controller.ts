@@ -5,6 +5,7 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
+import { urls } from '@biosimulations/config/common';
 import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   DispatchMessage,
@@ -14,11 +15,12 @@ import {
   DispatchSubmittedPayload,
   DispatchPayload,
 } from '@biosimulations/messages/messages';
-import { Controller, Inject, Logger } from '@nestjs/common';
+import { Controller, HttpService, Inject, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
+import { stat } from 'fs';
 import { AppService } from './app.service';
 import { ModelsService } from './resources/models/models.service';
 import { ArchiverService } from './services/archiver/archiver.service';
@@ -32,6 +34,7 @@ export class SubmissionController {
     private schedulerRegistry: SchedulerRegistry,
     private readonly configService: ConfigService,
     private hpcService: HpcService,
+    private http: HttpService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
   ) {}
   private logger = new Logger(SubmissionController.name);
@@ -77,20 +80,18 @@ export class SubmissionController {
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
 
-      this.startMonitoringCronJob(slurmjobId, data.id, 10);
+      this.startMonitoringCronJob(slurmjobId.toString(), data.id, 5);
     }
 
-    // TODO Remove this call. Swithc over to defined messaging system
-    this.messageClient
-      .send(MQDispatch.SIM_DISPATCH_FINISH, { simId: data.id, ...response })
-      .subscribe(() => {
-        // Do something when execution of message method is done
-      });
     return new createdResponse();
   }
 
   async startMonitoringCronJob(jobId: string, simId: string, seconds: number) {
-    const job = new CronJob(`${seconds.toString()} * * * * *`, async () => {
+    this.logger.log(
+      `Starting to monitor job with id ${jobId} for simulation ${simId}`
+    );
+
+    const job = new CronJob(`*/${seconds.toString()} * * * * *`, async () => {
       const jobStatus: SimulationRunStatus = await this.hpcService.getJobStatus(
         jobId
       );
@@ -99,16 +100,21 @@ export class SubmissionController {
 
       switch (jobStatus) {
         case SimulationRunStatus.QUEUED:
-          this.appService.updateSimulationInDb(simId, { status: jobStatus });
           const message: DispatchPayload = {
             _message: DispatchMessage.queued,
             id: simId,
           };
           this.messageClient.emit(DispatchMessage.queued, message);
+          this.updateSimulationRunStatus(simId, jobStatus);
 
           break;
 
         case SimulationRunStatus.RUNNING:
+          const runningMessage: DispatchPayload = {
+            _message: DispatchMessage.started,
+            id: simId,
+          };
+          this.messageClient.emit(DispatchMessage.started, runningMessage);
           this.appService.updateSimulationInDb(simId, { status: jobStatus });
           break;
 
@@ -116,21 +122,38 @@ export class SubmissionController {
           // TODO Remove this message when implmentation is finished
           this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, simId);
 
+          this.updateSimulationRunStatus(simId, jobStatus);
+          const succeededMessage: DispatchPayload = {
+            _message: DispatchMessage.started,
+            id: simId,
+          };
+          this.messageClient.emit(DispatchMessage.finsihed, succeededMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
-
-          this.appService.updateSimulationInDb(simId, {
-            status: jobStatus,
-          });
 
           break;
 
         case SimulationRunStatus.FAILED:
+          this.logger.error(`Job with id ${jobId} failed`);
+          const update = this.updateSimulationRunStatus(
+            simId,
+            SimulationRunStatus.FAILED
+          );
+
+          const failedMessage: DispatchPayload = {
+            _message: DispatchMessage.started,
+            id: simId,
+          };
+          this.messageClient.emit(DispatchMessage.failed, failedMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           break;
 
         case SimulationRunStatus.CANCELLED:
+          this.appService.updateSimulationInDb(simId, {
+            status: jobStatus,
+          });
           this.schedulerRegistry.getCronJob(jobId).stop();
+
           break;
       }
     });
@@ -139,10 +162,18 @@ export class SubmissionController {
     job.start();
   }
 
-  updateSimulationRun(
-    id: string,
-    status: SimulationRunStatus,
-    runtime: number,
-    resultsSize: number
-  ) {}
+  async updateSimulationRunStatus(id: string, status: SimulationRunStatus) {
+    const token = await this.appService.getAuthTokenForAPI();
+    this.http
+      .patch(
+        `${urls.dispatchApi}run/${id}`,
+        { status: status },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .toPromise();
+  }
 }
