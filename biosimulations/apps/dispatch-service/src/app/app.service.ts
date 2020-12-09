@@ -30,16 +30,6 @@ export class AppService {
       finalData.resultsSize = data.resultsSize;
     }
 
-    if (
-      data?.status == SimulationRunStatus.SUCCEEDED ||
-      data?.status == SimulationRunStatus.FAILED
-    ) {
-      const simData: any = await this.getSimulationFromDB(simId);
-      const runDuration =
-        (Date.now() - new Date(simData.submitted).getTime()) / 1000;
-      finalData.runtime = runDuration;
-    }
-
     if (data.status) {
       finalData.status = data.status;
     }

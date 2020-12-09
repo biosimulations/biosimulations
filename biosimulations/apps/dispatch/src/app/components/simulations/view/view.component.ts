@@ -147,7 +147,7 @@ export class ViewComponent implements OnInit {
       this.statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
       this.statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
       this.statusLabel = SimulationStatusService.getSimulationStatusMessage(simulation.status, true);
-      this.runtime = simulation.runtime !== undefined ? Math.round(simulation.runtime).toString() + ' s' : 'N/A';
+      this.runtime = simulation.runtime !== undefined ? Math.round((simulation.runtime)/1000).toString() + ' s' : 'N/A';
       this.submitted = new Date(simulation.submitted).toLocaleString();
       this.updated = new Date(simulation.updated).toLocaleString();
       this.projectSize = ((simulation.projectSize as number) / 1024).toFixed(2) + ' KB';
