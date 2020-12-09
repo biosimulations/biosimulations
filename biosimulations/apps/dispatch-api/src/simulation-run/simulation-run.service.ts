@@ -112,9 +112,21 @@ export class SimulationRunService {
   ): Promise<SimulationRunModelReturnType> {
     const model = await this.simulationRunModel.findById(id);
     if (model) {
-      model.runtime = run.runtime || model.runtime;
-      model.resultsSize = run.resultsSize || model.resultsSize;
-      model.status = run.status || model.status;
+      if (run.status == SimulationRunStatus.SUCCEEDED || run.status == SimulationRunStatus.CANCELLED || run.status = SimulationRunStatus.FAILED) {
+        model.runtime = Date.now() - model.submitted.getTime();  
+        this.logger.log(`Set ${id}  runtime to ${model.runtime} `);
+      }
+      
+      if (run.public != undefined && run.public != null) {
+        model.public = run.public;
+        this.logger.log(`Set ${id} public  to ${model.public} `);
+      }
+
+      model.resultsSize = run?.resultsSize || model.resultsSize;
+      model.status = run?.status || model.status;
+      this.logger.log(`Set ${id} status to ${model.status} `);
+      this.logger.log(`Set ${id} resultsSize to ${model.resultsSize} `);
+
       return toApi(await model.save());
     } else {
       throw new NotFoundException(`Simulation Run with id ${id} was not found`);

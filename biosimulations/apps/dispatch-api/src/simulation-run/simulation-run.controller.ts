@@ -25,6 +25,7 @@ import {
   Delete,
   Get,
   Inject,
+  Logger,
   NotFoundException,
   Param,
   Patch,
@@ -60,10 +61,13 @@ import { SimulationRunModelReturnType } from './simulation-run.model';
 @ApiTags('Simulation Runs')
 @Controller('run')
 export class SimulationRunController {
+  logger: Logger;
   constructor(
     private service: SimulationRunService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) { }
+  ) {
+    this.logger = new Logger(SimulationRunController.name);
+  }
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
@@ -186,6 +190,7 @@ export class SimulationRunController {
   @ApiOAuth2(['write:SimulationRuns'])
   @Patch(':id')
   modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun) {
+    this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
     const run = this.service.update(id, body);
   }
 

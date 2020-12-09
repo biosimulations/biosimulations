@@ -117,17 +117,14 @@ export class SimulationUpload {
 }
 
 export class PatchSimulationRun {
-  @ApiProperty({ type: Boolean })
-  public!: boolean;
+  @ApiPropertyOptional({ type: Boolean })
+  public?: boolean;
 
-  @ApiProperty({ type: String, enum: SimulationRunStatus })
-  status!: SimulationRunStatus;
+  @ApiPropertyOptional({ type: String, enum: SimulationRunStatus })
+  status?: SimulationRunStatus;
 
-  @ApiProperty({ type: Number, example: 55 })
-  runtime!: number;
-
-  @ApiProperty({ type: Number, example: 11234 })
-  resultsSize!: number;
+  @ApiPropertyOptional({ type: Number, example: 11234 })
+  resultsSize?: number;
 }
 
 export class UpdateSimulationRun extends PartialType(PatchSimulationRun) {}

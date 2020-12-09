@@ -53,7 +53,7 @@ export class AppService {
       .toPromise();
   }
 
-  private async getAuthTokenForAPI(): Promise<string> {
+  async getAuthTokenForAPI(): Promise<string> {
     const res: any = await this.http
       .post(`${this.authConfig.auth0_domain}oauth/token`, {
         client_id: this.authConfig.client_id,
@@ -65,7 +65,7 @@ export class AppService {
     return res.data.access_token;
   }
 
-  private async getSimulationFromDB(simId: string) {
+  async getSimulationFromDB(simId: string) {
     const token = this.getAuthTokenForAPI();
     const simRes = await this.http
       .get(`${urls.dispatchApi}run/${simId}`, {
