@@ -1,23 +1,15 @@
-import { Controller, Logger, Inject,  } from '@nestjs/common';
-import {
-  MessagePattern,
-  ClientProxy,
-  ,
-} from '@nestjs/microservices';
+import { Controller, Logger, Inject } from '@nestjs/common';
+import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
 
-
 import path from 'path';
 import * as csv2Json from 'csv2json';
 import { SchedulerRegistry } from '@nestjs/schedule';
 
-import {
-
-  MQDispatch,
-} from '@biosimulations/messages/messages';
+import { MQDispatch } from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { ModelsService } from './resources/models/models.service';
 
@@ -56,7 +48,6 @@ export class AppController {
         allFilesInfo[index].name === 'job.output' ||
         allFilesInfo[index].name === 'job.error'
       ) {
-
       } else if (allFilesInfo[index].name.endsWith('.csv')) {
         // Getting only relative path
         allFiles.push(allFilesInfo[index].path.substring(resDir.length + 1));
@@ -71,7 +62,6 @@ export class AppController {
       filePathSplit.splice(filePathSplit.length - 1, 1);
       directoryList.push(filePathSplit.join('/'));
     }
-
 
     this.logger.log('Output directory: ' + resDir);
 
@@ -126,10 +116,10 @@ export class AppController {
                   });
                 })
                 .on('error', (err) => {
-                   this.logger.log(
+                  this.logger.log(
                     'Error occured in file writing' + JSON.stringify(err)
-                   );
-                  return
+                  );
+                  return;
                 });
             }
           }
