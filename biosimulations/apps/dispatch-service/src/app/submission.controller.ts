@@ -99,7 +99,7 @@ export class SubmissionController {
       this.logger.log(`SLURM status for job ${jobId}: ${jobStatus}`);
 
       switch (jobStatus) {
-        case SimulationRunStatus.QUEUED:
+        case SimulationRunStatus.QUEUED: {
           const message: DispatchPayload = {
             _message: DispatchMessage.queued,
             id: simId,
@@ -108,8 +108,9 @@ export class SubmissionController {
           this.updateSimulationRunStatus(simId, jobStatus);
 
           break;
+        }
 
-        case SimulationRunStatus.RUNNING:
+        case SimulationRunStatus.RUNNING: {
           const runningMessage: DispatchPayload = {
             _message: DispatchMessage.started,
             id: simId,
@@ -117,8 +118,9 @@ export class SubmissionController {
           this.messageClient.emit(DispatchMessage.started, runningMessage);
           this.appService.updateSimulationInDb(simId, { status: jobStatus });
           break;
+        }
 
-        case SimulationRunStatus.SUCCEEDED:
+        case SimulationRunStatus.SUCCEEDED: {
           // TODO Remove this message when implmentation is finished
           this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, simId);
 
@@ -131,8 +133,8 @@ export class SubmissionController {
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           break;
-
-        case SimulationRunStatus.FAILED:
+        }
+        case SimulationRunStatus.FAILED: {
           this.logger.error(`Job with id ${jobId} failed`);
           const update = this.updateSimulationRunStatus(
             simId,
@@ -147,14 +149,15 @@ export class SubmissionController {
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           break;
-
-        case SimulationRunStatus.CANCELLED:
+        }
+        case SimulationRunStatus.CANCELLED: {
           this.appService.updateSimulationInDb(simId, {
             status: jobStatus,
           });
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           break;
+        }
       }
     });
 
