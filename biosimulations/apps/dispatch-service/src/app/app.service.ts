@@ -54,16 +54,4 @@ export class AppService {
       .toPromise();
     return res.data.access_token;
   }
-
-  async getSimulationFromDB(simId: string) {
-    const token = this.getAuthTokenForAPI();
-    const simRes = await this.http
-      .get(`${urls.dispatchApi}run/${simId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .toPromise();
-    return simRes.data;
-  }
 }
