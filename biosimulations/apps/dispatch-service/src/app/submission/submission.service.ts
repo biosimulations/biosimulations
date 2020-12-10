@@ -11,8 +11,10 @@ import { HttpService, Inject, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { AuthService } from '../services/auth/auth.service';
+import { stat } from 'fs';
+
 import { HpcService } from '../services/hpc/hpc.service';
+import { SimulationRunService } from '../simulation-run/simulation-run.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +22,9 @@ import { HpcService } from '../services/hpc/hpc.service';
 export class SubmissionService {
   logger: Logger;
   constructor(
-    private auth: AuthService,
+    private service: SimulationRunService,
     private hpcService: HpcService,
     private schedulerRegistry: SchedulerRegistry,
-    private http: HttpService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
   ) {
     this.logger = new Logger(SubmissionService.name);
@@ -108,21 +109,10 @@ export class SubmissionService {
     job.start();
   }
 
-  private async updateSimulationRunStatus(
-    id: string,
-    status: SimulationRunStatus
+  async updateSimulationRunStatus(
+    simId: string,
+    simStatus: SimulationRunStatus
   ) {
-    const token = await this.auth.getToken();
-    this.http
-      .patch(
-        `${urls.dispatchApi}run/${id}`,
-        { status: status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .toPromise();
+    return this.service.updateSimulationRunStatus(simId, simStatus);
   }
 }

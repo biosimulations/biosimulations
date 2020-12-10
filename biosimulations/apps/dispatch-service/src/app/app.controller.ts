@@ -11,23 +11,17 @@ import { SchedulerRegistry } from '@nestjs/schedule';
 
 import { MQDispatch } from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
-import { ModelsService } from './resources/models/models.service';
 
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
-import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly configService: ConfigService,
-    private hpcService: HpcService,
-    private sbatchService: SbatchService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private schedulerRegistry: SchedulerRegistry,
-    private archiverService: ArchiverService,
-    private modelsService: ModelsService,
 
-    private appService: AppService
+    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
+
+    private archiverService: ArchiverService
   ) {}
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>(
@@ -48,7 +42,7 @@ export class AppController {
         allFilesInfo[index].name === 'job.output' ||
         allFilesInfo[index].name === 'job.error'
       ) {
-        // 
+        //
       } else if (allFilesInfo[index].name.endsWith('.csv')) {
         // Getting only relative path
         allFiles.push(allFilesInfo[index].path.substring(resDir.length + 1));

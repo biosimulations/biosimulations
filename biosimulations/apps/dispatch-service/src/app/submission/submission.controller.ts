@@ -16,15 +16,12 @@ import { Controller, Inject, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 
-import { AppService } from '../app.service';
-
 import { HpcService } from '../services/hpc/hpc.service';
 import { SubmissionService } from './submission.service';
 
 @Controller()
 export class SubmissionController {
   constructor(
-    private appService: AppService,
     private service: SubmissionService,
     private readonly configService: ConfigService,
     private hpcService: HpcService,
