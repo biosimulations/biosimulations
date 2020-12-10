@@ -1,12 +1,9 @@
-import { Injectable } from '@angular/core';
 import { urls } from '@biosimulations/config/common';
 import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
-import { HttpService } from '@nestjs/common';
+import { HttpService, Injectable } from '@nestjs/common';
 import { AuthService } from '../services/auth/auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({})
 export class SimulationRunService {
   constructor(private auth: AuthService, private http: HttpService) {}
 

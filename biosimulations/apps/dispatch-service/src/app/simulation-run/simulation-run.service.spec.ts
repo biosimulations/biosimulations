@@ -1,16 +1,18 @@
-import { TestBed } from '@angular/core/testing';
-
+import { Test, TestingModule } from '@nestjs/testing';
 import { SimulationRunService } from './simulation-run.service';
 
-describe('SimulationRunService', () => {
+describe('SimulationRunservice', () => {
   let service: SimulationRunService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SimulationRunService);
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [SimulationRunService],
+    }).compile();
+
+    service = module.get<SimulationRunService>(SimulationRunService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 });

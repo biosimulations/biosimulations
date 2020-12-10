@@ -1,19 +1,16 @@
-import { Injectable } from '@angular/core';
 import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
 } from '@biosimulations/messages/messages';
-import { Inject, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({})
 export class SubmissionService {
   logger: Logger;
   constructor(

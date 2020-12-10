@@ -1,10 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Logger, HttpService } from '@nestjs/common';
+import { Logger, HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({})
 export class AuthService {
   private authConfig: any = this.configService.get('auth', {});
   private logger = new Logger(AuthService.name);

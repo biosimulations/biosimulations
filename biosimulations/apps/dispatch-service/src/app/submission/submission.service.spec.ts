@@ -1,16 +1,18 @@
-import { TestBed } from '@angular/core/testing';
-
+import { Test, TestingModule } from '@nestjs/testing';
 import { SubmissionService } from './submission.service';
 
-describe('SubmissionService', () => {
+describe('Submissionservice', () => {
   let service: SubmissionService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SubmissionService);
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [SubmissionService],
+    }).compile();
+
+    service = module.get<SubmissionService>(SubmissionService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 });
