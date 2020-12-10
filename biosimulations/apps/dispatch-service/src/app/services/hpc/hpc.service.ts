@@ -67,9 +67,11 @@ export class HpcService {
         return SimulationRunStatus.RUNNING;
       case 'COMPLETED':
         return SimulationRunStatus.SUCCEEDED;
-      case 'CANCELLED':
-        return SimulationRunStatus.CANCELLED;
-      case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
+      case 'FAILED' ||
+        'OUT-OF-MEMORY' ||
+        'NODE_FAIL' ||
+        'TIMEOUT' ||
+        'CANCELLED':
       default:
         return SimulationRunStatus.FAILED;
     }

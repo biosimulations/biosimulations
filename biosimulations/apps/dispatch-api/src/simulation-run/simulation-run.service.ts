@@ -114,7 +114,6 @@ export class SimulationRunService {
     if (model) {
       if (
         run.status == SimulationRunStatus.SUCCEEDED ||
-        run.status == SimulationRunStatus.CANCELLED ||
         run.status == SimulationRunStatus.FAILED
       ) {
         model.runtime = Date.now() - model.submitted.getTime();

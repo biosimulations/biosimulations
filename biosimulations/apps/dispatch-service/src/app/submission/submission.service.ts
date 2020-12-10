@@ -90,12 +90,6 @@ export class SubmissionService {
 
           break;
         }
-        case SimulationRunStatus.CANCELLED: {
-          this.updateSimulationRunStatus(jobId, jobStatus);
-          this.schedulerRegistry.getCronJob(jobId).stop();
-
-          break;
-        }
       }
     });
     return job;
