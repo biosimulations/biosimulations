@@ -1,4 +1,4 @@
-import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { Injectable } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../datamodel';
 import { SimulationStatusService } from './simulation-status.service';
