@@ -74,7 +74,7 @@ export class ViewComponent implements OnInit {
       this.visualisationService
         .getResultStructure(this.uuid)
         .subscribe((data: any) => {
-          this.setProjectResults(data['data']);
+          this.setProjectResults(data);
         });
     }
 
@@ -86,26 +86,22 @@ export class ViewComponent implements OnInit {
           this.outLog = data.message;
           this.errLog = '';
         } else {
-          const out = data.data.output;
-          const err = data.data.error;
+          this.outLog = data.data.output;
+          this.errLog = data.data.error;
 
-          if (err !== "") {
-            this.outLog = 'Log not available';
-            this.errLog = err;
-          } else {
-            this.outLog = out;
-            this.errLog = '';
-          }
         }
       })
 
   }
 
-  setProjectResults(projectStructure: any): void {
-    this.projectStructure = projectStructure;
+  setProjectResults(data: any): void {
+   if(data.message === 'OK') {
+     const projectStructure = data.data;
+     this.projectStructure = projectStructure;
 
-    this.sedmls = Object.keys(projectStructure);
-    this.selectedSedml = this.sedmls[0];
+     this.sedmls = Object.keys(projectStructure);
+     this.selectedSedml = this.sedmls[0];
+   }
     // const sedml = this.sedmls[0];
     // this.formGroup.controls.sedml.setValue(sedml);
 
@@ -151,16 +147,18 @@ export class ViewComponent implements OnInit {
       this.statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
       this.statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
       this.statusLabel = SimulationStatusService.getSimulationStatusMessage(simulation.status, true);
-      this.runtime = simulation.runtime !== undefined ? Math.round(simulation.runtime).toString() + ' s' : 'N/A';
+      this.runtime = simulation.runtime !== undefined ? Math.round((simulation.runtime)/1000).toString() + ' s' : 'N/A';
       this.submitted = new Date(simulation.submitted).toLocaleString();
       this.updated = new Date(simulation.updated).toLocaleString();
       this.projectSize = ((simulation.projectSize as number) / 1024).toFixed(2) + ' KB';
       this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
-      this.projectUrl = `${urls.dispatchApi}download/omex/${simulation.id}`;
+      this.projectUrl = `${urls.dispatchApi}run/${simulation.id}/download`;
       this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
       this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
 
-      this.setSedml();
+      if(this.statusSucceeded) {
+        this.setSedml();
+      }
     });
   }
 }
