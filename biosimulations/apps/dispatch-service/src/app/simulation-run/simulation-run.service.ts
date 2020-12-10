@@ -23,12 +23,12 @@ export class SimulationRunService {
       .toPromise();
   }
 
-  async updateSimulationRunSize(id: string, size: number) {
+  async updateSimulationRunResultsSize(id: string, size: number) {
     const token = await this.auth.getToken();
     return this.http
       .patch(
         `${urls.dispatchApi}run/${id}`,
-        { status: status },
+        { resultsSize: size },
         {
           headers: {
             Authorization: `Bearer ${token}`,
