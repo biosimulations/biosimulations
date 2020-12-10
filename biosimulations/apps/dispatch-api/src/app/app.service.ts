@@ -113,7 +113,7 @@ export class AppService {
           res.download(filePathErr);
           break;
         }
-        // TODO: do other starting states need to be handled (RUNNING)?
+        case SimulationRunStatus.RUNNING:
         case SimulationRunStatus.QUEUED: {
           res.send({
             message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
@@ -143,7 +143,8 @@ export class AppService {
           });
           break;
         }
-        // TODO: do other starting states need to be handled (RUNNING)?
+
+        case SimulationRunStatus.RUNNING:
         case SimulationRunStatus.QUEUED: {
           res.send({
             message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
