@@ -2,16 +2,10 @@ import { Controller, Logger, Inject } from '@nestjs/common';
 import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
-import { HpcService } from './services/hpc/hpc.service';
-import { SbatchService } from './services/sbatch/sbatch.service';
-
 import path from 'path';
 import * as csv2Json from 'csv2json';
-import { SchedulerRegistry } from '@nestjs/schedule';
-
 import { MQDispatch } from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
-
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Controller()
