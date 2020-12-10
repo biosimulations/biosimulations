@@ -4,7 +4,11 @@ import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import path from 'path';
 import * as csv2Json from 'csv2json';
-import { MQDispatch } from '@biosimulations/messages/messages';
+import {
+  DispatchMessage,
+  DispatchPayload,
+  
+} from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
@@ -12,8 +16,6 @@ import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 export class AppController {
   constructor(
     private readonly configService: ConfigService,
-
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
 
     private archiverService: ArchiverService
   ) {}
@@ -23,8 +25,9 @@ export class AppController {
     ''
   );
 
-  @MessagePattern(MQDispatch.SIM_HPC_FINISH)
-  async dispatchFinish(uuid: string) {
+  @MessagePattern(DispatchMessage.finsihed)
+  async dispatchFinish(data: DispatchPayload) {
+    const uuid = data.id;
     this.logger.log('Simulation Finished on HPC');
     const resDir = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
@@ -96,10 +99,7 @@ export class AppController {
                         fileCounter === fileLength &&
                         dirCounter === dirLength
                       ) {
-                        this.messageClient.emit(
-                          MQDispatch.SIM_RESULT_FINISH,
-                          uuid
-                        );
+                        this.resultFinish(uuid);
                       }
                     });
                   });
@@ -117,7 +117,7 @@ export class AppController {
     }
   }
 
-  @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
+  
   async resultFinish(uuid: string) {
     this.archiverService.createResultArchive(uuid).then(() => {});
   }

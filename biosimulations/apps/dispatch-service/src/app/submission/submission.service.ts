@@ -4,7 +4,6 @@ import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
-  MQDispatch,
 } from '@biosimulations/messages/messages';
 import { HttpService, Inject, Logger } from '@nestjs/common';
 
@@ -61,12 +60,9 @@ export class SubmissionService {
         }
 
         case SimulationRunStatus.SUCCEEDED: {
-          // TODO Remove this message when implmentation is finished
-          this.messageClient.emit(MQDispatch.SIM_HPC_FINISH, simId);
-
           this.updateSimulationRunStatus(simId, jobStatus);
           const succeededMessage: DispatchPayload = {
-            _message: DispatchMessage.started,
+            _message: DispatchMessage.finsihed,
             id: simId,
           };
           this.messageClient.emit(DispatchMessage.finsihed, succeededMessage);
@@ -82,7 +78,7 @@ export class SubmissionService {
           );
 
           const failedMessage: DispatchPayload = {
-            _message: DispatchMessage.started,
+            _message: DispatchMessage.failed,
             id: simId,
           };
           this.messageClient.emit(DispatchMessage.failed, failedMessage);

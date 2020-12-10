@@ -13,7 +13,7 @@ import path from 'path';
 
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
-import { MQDispatch } from '@biosimulations/messages/messages';
+
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()
@@ -28,10 +28,6 @@ export class AppService {
 
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
   private logger = new Logger(AppService.name);
-
-  private async getJobCancel(uuid: string) {
-    this.messageClient.send(MQDispatch.SIM_HPC_CANCEL, uuid);
-  }
 
   async getVisualizationData(
     uId: string,
