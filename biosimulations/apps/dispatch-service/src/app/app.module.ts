@@ -20,6 +20,8 @@ import { SubmissionController } from './submission/submission.controller';
 import { AuthService } from './services/auth/auth.service';
 import { SubmissionService } from './submission/submission.service';
 import { SimulationRunService } from './simulation-run/simulation-run.service';
+import { ResultsController } from './results/results.controller';
+import { ResultsService } from './results/results.service';
 
 @Module({
   imports: [
@@ -46,7 +48,7 @@ import { SimulationRunService } from './simulation-run/simulation-run.service';
     }),
     CacheModule.register(),
   ],
-  controllers: [AppController, SubmissionController],
+  controllers: [AppController, SubmissionController, ResultsController],
   providers: [
     SimulationRunService,
     HpcService,
@@ -67,6 +69,8 @@ import { SimulationRunService } from './simulation-run/simulation-run.service';
       },
       inject: [ConfigService],
     },
+
+    ResultsService,
   ],
 })
 export class AppModule {}
