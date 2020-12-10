@@ -2,15 +2,11 @@ import { HttpService, Injectable, Logger } from '@nestjs/common';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
-
+import { AuthService } from './services/auth/auth.service';
+// TODO replace calls to this service with the submission service
 @Injectable()
 export class AppService {
-  private authConfig: any = this.configService.get('auth', {});
-  private logger = new Logger(AppService.name);
-  constructor(
-    private http: HttpService,
-    private readonly configService: ConfigService
-  ) {}
+  constructor(private http: HttpService, private auth: AuthService) {}
 
   async updateSimulationInDb(
     simId: string,
@@ -33,7 +29,7 @@ export class AppService {
     if (data.status) {
       finalData.status = data.status;
     }
-    const token = await this.getAuthTokenForAPI();
+    const token = await this.auth.getToken();
     return this.http
       .patch(`${urls.dispatchApi}run/${simId}`, finalData, {
         headers: {
@@ -41,17 +37,5 @@ export class AppService {
         },
       })
       .toPromise();
-  }
-
-  async getAuthTokenForAPI(): Promise<string> {
-    const res: any = await this.http
-      .post(`${this.authConfig.auth0_domain}oauth/token`, {
-        client_id: this.authConfig.client_id,
-        client_secret: this.authConfig.client_secret,
-        audience: this.authConfig.api_audience,
-        grant_type: 'client_credentials',
-      })
-      .toPromise();
-    return res.data.access_token;
   }
 }

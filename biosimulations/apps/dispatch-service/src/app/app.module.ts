@@ -16,8 +16,10 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsModule } from './resources/models/models.module';
 
-import { SubmissionController } from './submission.controller';
+import { SubmissionController } from './submission/submission.controller';
 import { AppService } from './app.service';
+import { AuthService } from './services/auth/auth.service';
+import { SubmissionService } from './submission/submission.service';
 
 @Module({
   imports: [
@@ -52,6 +54,8 @@ import { AppService } from './app.service';
     SbatchService,
     SshService,
     ArchiverService,
+    AuthService,
+    SubmissionService,
 
     {
       provide: 'DISPATCH_MQ',
