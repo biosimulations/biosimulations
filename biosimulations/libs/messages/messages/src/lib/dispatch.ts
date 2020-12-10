@@ -1,9 +1,9 @@
 export enum DispatchMessage {
-  // Job created on the satabase
+  // Job created on the database
   created = 'dispatch.created',
   // Job submitted to the HPC
   submitted = 'dispatch.submitted',
-  // Job Queued by the hpc scheduler
+  // Job queued by the hpc scheduler
   queued = 'dispatch.queued',
   // Job starting running on the HPC
   started = 'dispatch.started',

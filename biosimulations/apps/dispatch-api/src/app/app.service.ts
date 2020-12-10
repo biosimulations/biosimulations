@@ -1,8 +1,4 @@
-import {
-  SimulationRunStatus,
-  OmexDispatchFile,
-  SimulationDispatchSpec,
-} from '@biosimulations/dispatch/api-models';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { SimulationRunModel } from './../simulation-run/simulation-run.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
