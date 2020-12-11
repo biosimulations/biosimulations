@@ -3,31 +3,31 @@ import { SimulationStatus } from '../../datamodel';
 export class SimulationStatusService {
   static isSimulationStatusRunning(status: SimulationStatus): boolean {
     return (
-      status === SimulationStatus.queued ||
-      status === SimulationStatus.started ||
-      status === SimulationStatus.running
+      status === SimulationStatus.CREATED ||
+      status === SimulationStatus.QUEUED ||
+      status === SimulationStatus.RUNNING
     );
   }
 
   static isSimulationStatusSucceeded(status: SimulationStatus): boolean {
-    return status === SimulationStatus.succeeded;
+    return status === SimulationStatus.SUCCEEDED;
   }
 
   static isSimulationStatusFailed(status: SimulationStatus): boolean {
-    return status === SimulationStatus.failed;
+    return status === SimulationStatus.FAILED;
   }
 
   static getSimulationStatusOrder(status: SimulationStatus): number {
     switch (status) {
-      case SimulationStatus.succeeded:
+      case SimulationStatus.SUCCEEDED:
         return 0;
-      case SimulationStatus.running:
+      case SimulationStatus.RUNNING:
         return 1;
-      case SimulationStatus.started:
+      case SimulationStatus.QUEUED:
         return 2;
-      case SimulationStatus.queued:
+      case SimulationStatus.CREATED:
         return 3;
-      case SimulationStatus.failed:
+      case SimulationStatus.FAILED:
         return 4;
     }
     return NaN;

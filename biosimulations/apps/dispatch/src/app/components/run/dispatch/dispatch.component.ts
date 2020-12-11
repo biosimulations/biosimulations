@@ -115,7 +115,7 @@ export class DispatchComponent implements OnInit {
           simulator: simulator,
           simulatorVersion: simulatorVersion,
           submittedLocally: true,
-          status: SimulationStatus.queued,
+          status: SimulationStatus.QUEUED,
           runtime: undefined,
           submitted: new Date(),
           updated: new Date(),

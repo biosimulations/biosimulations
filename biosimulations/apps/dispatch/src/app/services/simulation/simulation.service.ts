@@ -112,7 +112,7 @@ export class SimulationService {
         simulations.push({
           name: dispatchSim.name,
           email: dispatchSim.email,
-          //runtime: dispatchSim.runtime,
+          runtime: dispatchSim.runtime,
           id: dispatchSim.id,
           status: (dispatchSim.status as unknown) as SimulationStatus,
           submitted: dispatchSim.submitted as Date,
@@ -121,7 +121,7 @@ export class SimulationService {
           simulator: dispatchSim.simulator,
           simulatorVersion: dispatchSim.simulatorVersion,
           updated: dispatchSim.updated as Date,
-          //resultsSize: dispatchSim.resultsSize,
+          resultsSize: dispatchSim.resultsSize,
           projectSize: dispatchSim.projectSize,
         });
       }
