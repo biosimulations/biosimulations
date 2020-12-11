@@ -106,7 +106,13 @@ export class RowService {
       };
     }
 
-    if (Array.isArray(routerLinkFragment)) {
+    if (routerLinkFragment == null) {
+      return {
+        routerLink: null,
+        fragment: null,
+      };
+
+    } else if (Array.isArray(routerLinkFragment)) {
       if (routerLinkFragment.length > 0 && routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) === '#') {
         return {
           routerLink: routerLinkFragment.slice(0, -1),
