@@ -30,6 +30,7 @@ export class UtilsService {
       if (unresolvedDatumVal instanceof Observable) {
         observablesToResolve.push(unresolvedDatumVal)
         slotsForResolvedObservables.push({parent: unresolvedDatum.resolvedParent, key: unresolvedDatum.key});
+
       } else if (Array.isArray(unresolvedDatumVal)) {
         const resolvedDatumVal: any[] = [];
         unresolvedDatum.resolvedParent[unresolvedDatum.key] = resolvedDatumVal;
@@ -37,7 +38,12 @@ export class UtilsService {
           resolvedDatumVal.push(undefined);
           unresolvedDataToCheck.push({unresolvedParent: unresolvedDatumVal, resolvedParent: resolvedDatumVal, val, key});
         });
-      } else if (unresolvedDatumVal != null && (typeof unresolvedDatumVal === "object" || typeof unresolvedDatumVal === "function")) {
+
+      } else if (
+        unresolvedDatumVal != null
+        && (typeof unresolvedDatumVal === "object" || typeof unresolvedDatumVal === "function")
+        && typeof unresolvedDatumVal.valueOf() === "object"
+      ) {
         const resolvedDatumVal: any = new unresolvedDatumVal.constructor();
         unresolvedDatum.resolvedParent[unresolvedDatum.key] = resolvedDatumVal;
         Object.keys(unresolvedDatumVal).forEach((key: any): void => {
@@ -45,6 +51,7 @@ export class UtilsService {
           const val = unresolvedDatumVal[key];
           unresolvedDataToCheck.push({unresolvedParent: unresolvedDatumVal, resolvedParent: resolvedDatumVal, val, key});
         });
+
       } else {
         const resolvedDatumVal = unresolvedDatumVal;
         unresolvedDatum.resolvedParent[unresolvedDatum.key] = resolvedDatumVal;

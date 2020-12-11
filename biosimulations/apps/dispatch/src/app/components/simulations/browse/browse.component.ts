@@ -100,19 +100,18 @@ export class BrowseComponent implements OnInit {
       heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
@@ -123,19 +122,18 @@ export class BrowseComponent implements OnInit {
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
@@ -308,8 +306,8 @@ export class BrowseComponent implements OnInit {
   }
 
   exportSimulations() {
-    const simulations = [...this.simulationService.getSimulations()] as any[];
-    simulations.forEach((simulation: any) => {
+    const simulations = [...this.simulationService.getSimulations()] as Simulation[];
+    simulations.forEach((simulation: Simulation): void => {
       simulation.submitted = simulation.submitted.getTime();
       simulation.updated = simulation.updated.getTime();
     });
