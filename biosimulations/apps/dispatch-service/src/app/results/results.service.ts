@@ -56,8 +56,11 @@ export class ResultsService {
     this.logger.warn(file_json);
   }
   async parseToJson(file: resultFile): Promise<string> {
+    this.logger.warn(file);
     const jsonArray = await csv().fromFile(file.path);
-    return JSON.stringify(jsonArray);
+    this.logger.warn(jsonArray);
+    //return JSON.stringify(jsonArray);
+    return jsonArray.toString();
   }
   static async getFilesRecursively(path: string) {
     // Get all the files and folders int the directory
