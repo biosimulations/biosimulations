@@ -78,43 +78,19 @@ export class BrowseComponent implements OnInit {
       id: 'runtime',
       heading: 'Runtime',
       key: 'runtime',
-      formatter: (value: number | null | undefined): string | null => {
-        if (value == null || value === undefined) {
+      //formatter: SimulationStatusService.formatRuntime.bind(null),
+      getter: (simulation: Simulation): number | null => {
+        if (simulation.runtime == null || simulation.runtime === undefined) {
           return null;
-        }
-
-        if (value > 7 * 24 * 60 * 60) {
-          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-        } else if (value > 24 * 60 * 60) {
-          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-        } else if (value > 60 * 60) {
-          return (value / (60 * 60)).toFixed(1) + ' h';
-        } else if (value > 60) {
-          return (value / 60).toFixed(1) + ' m';
-        } else if (value > 1) {
-          return value.toFixed(1) + ' s';
         } else {
-          return (value * 1000).toFixed(1) + ' ms';
+          return simulation.runtime / 1000;
         }
       },
-      stackedFormatter: (value: number | null | undefined): string => {
-        if (value == null || value === undefined) {
-          return 'N/A';
-        }
-
-        if (value > 7 * 24 * 60 * 60) {
-          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-        } else if (value > 24 * 60 * 60) {
-          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-        } else if (value > 60 * 60) {
-          return (value / (60 * 60)).toFixed(1) + ' h';
-        } else if (value > 60) {
-          return (value / 60).toFixed(1) + ' m';
-        } else if (value > 1) {
-          return value.toFixed(1) + ' s';
-        } else {
-          return (value * 1000).toFixed(1) + ' ms';
-        }
+      formatter: (valueSec: number | null): string | null => {
+        return SimulationStatusService.formatTime(null, valueSec);
+      },
+      stackedFormatter: (valueSec: number | null): string => {
+        return SimulationStatusService.formatTime('N/A', valueSec) as string;
       },
       filterType: ColumnFilterType.number,
       show: false,
