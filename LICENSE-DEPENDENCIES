@@ -2296,6 +2296,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Julien Fontanet
 │  ├─ email: julien.fontanet@isonoe.net
 │  └─ licenseFile: csv2json/README.md
+├─ csvtojson@2.0.10
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Keyang/node-csvtojson
+│  ├─ publisher: Keyang Xiang
+│  ├─ email: keyang.xiang@gmail.com
+│  └─ licenseFile: csvtojson/LICENSE
 ├─ cubic-hermite@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mikolalysenko/cubic-hermite
@@ -2451,13 +2457,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  └─ licenseFile: jwks-rsa/node_modules/debug/LICENSE
+│  └─ licenseFile: https-proxy-agent/node_modules/debug/LICENSE
 ├─ debug@4.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  └─ licenseFile: superagent/node_modules/debug/LICENSE
+│  └─ licenseFile: jwks-rsa/node_modules/debug/LICENSE
 ├─ decamelize@1.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/decamelize
@@ -4498,7 +4504,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Brian J. Brennan
 │  ├─ email: brianloveswords@gmail.com
 │  └─ licenseFile: jwa/LICENSE
-├─ jwks-rsa@1.11.0
+├─ jwks-rsa@1.12.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
@@ -5173,6 +5179,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zeit/ms
 │  └─ licenseFile: @cypress/webpack-preprocessor/node_modules/ms/license.md
+├─ ms@2.1.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/vercel/ms
+│  └─ licenseFile: jwks-rsa/node_modules/ms/license.md
 ├─ multer@1.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/multer
@@ -7053,6 +7063,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: strip-bom-stream/license
+├─ strip-bom@2.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/strip-bom
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  └─ licenseFile: csvtojson/node_modules/strip-bom/license
 ├─ strip-bom@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/strip-bom
