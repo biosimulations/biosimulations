@@ -306,12 +306,8 @@ export class BrowseComponent implements OnInit {
   }
 
   exportSimulations() {
-    const simulations = [...this.simulationService.getSimulations()] as Simulation[];
-    simulations.forEach((simulation: Simulation): void => {
-      simulation.submitted = simulation.submitted.getTime();
-      simulation.updated = simulation.updated.getTime();
-    });
-
+    const simulations = this.simulationService.getSimulations();
+    
     const blob = new Blob([JSON.stringify(simulations, null, 2)], {
       type: 'application/json',
     });
