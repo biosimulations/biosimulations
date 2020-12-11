@@ -83,7 +83,7 @@ export class UtilsService {
       if (parametersCurated) {
         curationStatus = SimulatorCurationStatus['Parameters curated'];
 
-        if (simulator.image && simulator.format) {
+        if (simulator.image) {
           curationStatus = SimulatorCurationStatus['Image available'];
 
           if (simulator?.biosimulators?.validated) {
