@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { Dirent, promises as fsPromises } from 'fs';
 import ospath from 'path';
 import path from 'path';
-import { report } from 'process';
 import csv from 'csvtojson';
 
 export interface resultFile {
@@ -49,7 +48,7 @@ export class ResultsService {
 
     this.uploadJSON(id, sedml, report, await file_json);
   }
-  uploadJSON(id: string, sedml: any, reeport: string, file_json: string) {
+  uploadJSON(id: string, sedml: any, report: string, file_json: string) {
     // TODO Complete implementation
     this.logger.warn(id);
     this.logger.warn(sedml);
