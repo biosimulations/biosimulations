@@ -4,7 +4,7 @@ import { Dirent, promises as fsPromises } from 'fs';
 import ospath from 'path';
 import path from 'path';
 import { report } from 'process';
-import * as csv from 'csvtojson';
+import csv from 'csvtojson';
 
 export interface resultFile {
   name: string;
