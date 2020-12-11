@@ -16,9 +16,7 @@ export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
   private simulationsMap: { [key: string]: Simulation } = {};
-  private simulationsSubject = new BehaviorSubject<Simulation[]>(
-    this.simulations
-  );
+  private simulationsSubject = new BehaviorSubject<Simulation[]>(this.simulations);
   public simulations$: Observable<
     Simulation[]
   > = this.simulationsSubject.asObservable();
@@ -36,10 +34,13 @@ export class SimulationService {
           this.storage.get(this.key).then((simulations): void => {
             this.simulations = simulations;
             this.simulationsMap = {};
-            this.simulations.forEach((simulation: Simulation): void => {
+            simulations.forEach((simulation: Simulation): void => {
+              if (simulation.id in this.simulationsMap) {
+                throw new Error('Simulations must have unique ids');
+              }
               this.simulationsMap[simulation.id] = simulation;
             });
-            this.simulationsSubject.next(simulations);
+            this.simulationsSubject.next(this.simulations);
             this.updateSimulations();
             this.refreshInterval = setInterval(
               () => this.updateSimulations(),
@@ -48,9 +49,9 @@ export class SimulationService {
           });
         } else {
           const simulations: Simulation[] = [];
-          this.simulations = simulations;
+          this.simulations = [];
           this.simulationsMap = {};
-          this.simulationsSubject.next(simulations);
+          this.simulationsSubject.next(this.simulations);
           this.refreshInterval = setInterval(
             () => this.updateSimulations(),
             config.appConfig?.simulationStatusRefreshIntervalSec * 1000
@@ -62,32 +63,16 @@ export class SimulationService {
 
   storeSimulation(simulation: Simulation): void {
     this.simulations.push(simulation);
+    if (simulation.id in this.simulationsMap) {
+      throw new Error('Simulations must have unique ids')
+    }
     this.simulationsMap[simulation.id] = simulation;
-    this.simulationsSubject.next(this.simulations);
     this.storage.set(this.key, this.simulations);
+    this.simulationsSubject.next(this.simulations);    
   }
 
   private updateSimulations(): void {
-    // no updates needed if no simulations
-    if (this.simulations.length === 0) {
-      return;
-    }
-
-    // no updates needed if no simulation is queued or running
-    let activeSimulation = false;
-    for (const simulation of this.simulations) {
-      if (
-        SimulationStatusService.isSimulationStatusRunning(simulation.status)
-      ) {
-        activeSimulation = true;
-        break;
-      }
-    }
-    if (!activeSimulation) {
-      return;
-    }
-
-    // update status of simulations that haven't completed
+    // determine ids of simulations whose status needs to be updated
     const simulationIds = this.simulations
       .filter((simulation: Simulation): boolean => {
         return SimulationStatusService.isSimulationStatusRunning(
@@ -97,7 +82,13 @@ export class SimulationService {
       .map((simulation: Simulation): string => {
         return simulation.id;
       });
+    
+    // stop if no simulations need to be updated
+    if (simulationIds.length === 0) {
+      return;
+    }
 
+    // get status of simulations
     const promises = [];
     for (const simId of simulationIds) {
       const promise = this.httpClient
@@ -106,6 +97,7 @@ export class SimulationService {
       promises.push(promise);
     }
 
+    // update status
     Promise.all(promises).then((data: any) => {
       const simulations: Simulation[] = [];
       for (const sim of data) {
@@ -131,31 +123,27 @@ export class SimulationService {
   }
 
   setSimulations(setSimulations: Simulation[], getStatus = false): void {
-    const newSimulations: Simulation[] = [...this.simulations];
-
-    const newSimulationIdToIndex: { [id: string]: number } = {};
-    newSimulations.forEach(
-      (newSimulation: Simulation, iSimulation: number): void => {
-        newSimulationIdToIndex[newSimulation.id] = iSimulation;
+    const oldSimulationIdToIndex: { [id: string]: number } = {};
+    this.simulations.forEach(
+      (oldSimulation: Simulation, iSimulation: number): void => {
+        if (oldSimulation.id in oldSimulationIdToIndex) {
+          throw new Error('Simulation ids must be unique');
+        }
+        oldSimulationIdToIndex[oldSimulation.id] = iSimulation;
       }
     );
 
     setSimulations.forEach((setSimulation: Simulation): void => {
       if (setSimulation.id in this.simulationsMap) {
-        newSimulations.splice(
-          newSimulationIdToIndex[setSimulation.id],
-          1,
-          setSimulation
-        );
+        Object.assign(this.simulations[oldSimulationIdToIndex[setSimulation.id]], setSimulation);
       } else {
-        newSimulations.push(setSimulation);
+        this.simulations.push(setSimulation);
+        this.simulationsMap[setSimulation.id] = setSimulation;
       }
-      this.simulationsMap[setSimulation.id] = setSimulation;
     });
 
-    this.simulations = newSimulations;
-    this.simulationsSubject.next(newSimulations);
-    this.storage.set(this.key, newSimulations);
+    this.simulationsSubject.next(this.simulations);
+    this.storage.set(this.key, this.simulations);
 
     if (getStatus) {
       this.updateSimulations();
