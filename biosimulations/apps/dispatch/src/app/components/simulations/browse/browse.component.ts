@@ -78,8 +78,8 @@ export class BrowseComponent implements OnInit {
       id: 'runtime',
       heading: 'Runtime',
       key: 'runtime',
-      formatter: (value: number): string | null => {
-        if (value === undefined) {
+      formatter: (value: number | null | undefined): string | null => {
+        if (value == null || value === undefined) {
           return null;
         }
 
@@ -97,8 +97,8 @@ export class BrowseComponent implements OnInit {
           return (value * 1000).toFixed(1) + ' ms';
         }
       },
-      stackedFormatter: (value: number): string => {
-        if (value === undefined) {
+      stackedFormatter: (value: number | null | undefined): string => {
+        if (value == null || value === undefined) {
           return 'N/A';
         }
 
