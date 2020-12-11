@@ -1,16 +1,10 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { DispatchMessage, MQDispatch } from '@biosimulations/messages/messages';
-import {
-  DispatchSimulationStatus,
-  SimulationRunStatus,
-} from '@biosimulations/dispatch/api-models';
-import path from 'path';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 import { urls } from '@biosimulations/config/common';
-import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()
 export class HpcService {
@@ -19,8 +13,7 @@ export class HpcService {
   constructor(
     private readonly configService: ConfigService,
     private sshService: SshService,
-    private sbatchService: SbatchService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+    private sbatchService: SbatchService
   ) {}
 
   /**
@@ -46,7 +39,7 @@ export class HpcService {
       id
     );
     return this.sshService.execStringCommand(
-      `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/test.sbatch && chmod +x ${simDirBase}/in/test.sbatch && sbatch ${simDirBase}/in/test.sbatch`
+      `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`
     );
   }
 
@@ -74,9 +67,11 @@ export class HpcService {
         return SimulationRunStatus.RUNNING;
       case 'COMPLETED':
         return SimulationRunStatus.SUCCEEDED;
-      case 'CANCELLED':
-        return SimulationRunStatus.CANCELLED;
-      case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
+      case 'FAILED' ||
+        'OUT-OF-MEMORY' ||
+        'NODE_FAIL' ||
+        'TIMEOUT' ||
+        'CANCELLED':
       default:
         return SimulationRunStatus.FAILED;
     }

@@ -10,21 +10,17 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import {
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import { ModelsService } from './resources/models/models.service';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private appService: AppService,
-    private modelsService: ModelsService,
+
     private configService: ConfigService
   ) {}
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
@@ -69,40 +65,23 @@ export class AppController implements OnApplicationBootstrap {
   })
   async getResultStructure(@Param('uuid') uId: string): Promise<any> {
     const jobStatus: string = await this.appService.jobStatusFromDb(uId);
-    
+
     switch (jobStatus) {
-      case DispatchSimulationStatus.SUCCEEDED:
+      case SimulationRunStatus.SUCCEEDED:
         return this.appService.getResultStructure(uId);
-      case DispatchSimulationStatus.QUEUED:
+      case SimulationRunStatus.QUEUED:
         return {
-          message: `Simulation with ${uId} is queued, check again after some time.`
-        }
-      case DispatchSimulationStatus.RUNNING:
+          message: `Simulation with ${uId} is queued, check again after some time.`,
+        };
+      case SimulationRunStatus.RUNNING:
         return {
-          message: `Simulation with ${uId} is still running.`
-        }
-      case DispatchSimulationStatus.FAILED:
+          message: `Simulation with ${uId} is still running.`,
+        };
+      case SimulationRunStatus.FAILED:
         return {
-          message: `Simulation with ${uId} failed, check the error logs.`
-        }
-      case 'CANCELLED':
-        return {
-          message: `Simulation with ${uId} was cancelled.`
-        }
-      case 'TIMEOUT':
-        return {
-          message: `Simulation Timed Out on HPC with ID ${uId}`
-        }
-      case 'OUT_OF_MEMORY':
-        return {
-          message: `Simulation ran out of memory on HPC with ID ${uId}`
-        }
-      case 'NODE_FAIL':
-        return {
-          message: `Node failed on HPC for the simulation run with ID ${uId}`
-        }
+          message: `Simulation with ${uId} failed, check the error logs.`,
+        };
     }
-    
   }
 
   @ApiTags('Result')
@@ -125,61 +104,21 @@ export class AppController implements OnApplicationBootstrap {
     const jobStatus: string = await this.appService.jobStatusFromDb(uId);
 
     switch (jobStatus) {
-      case DispatchSimulationStatus.SUCCEEDED:
+      case SimulationRunStatus.SUCCEEDED:
         return this.appService.getVisualizationData(uId, sedml, report, chart);
-      case DispatchSimulationStatus.QUEUED:
+      case SimulationRunStatus.QUEUED:
         return {
-          message: `Simulation with ${uId} is queued, check again after some time.`
-        }
-      case DispatchSimulationStatus.RUNNING:
+          message: `Simulation with ${uId} is queued, check again after some time.`,
+        };
+      case SimulationRunStatus.RUNNING:
         return {
-          message: `Simulation with ${uId} is still running.`
-        }
-      case DispatchSimulationStatus.FAILED:
+          message: `Simulation with ${uId} is still running.`,
+        };
+      case SimulationRunStatus.FAILED:
         return {
-          message: `Simulation with ${uId} failed, check the error logs.`
-        }
-      case 'CANCELLED':
-        return {
-          message: `Simulation with ${uId} was cancelled.`
-        }
-      case 'TIMEOUT':
-        return {
-          message: `Simulation Timed Out on HPC with ID ${uId}`
-        }
-      case 'OUT_OF_MEMORY':
-        return {
-          message: `Simulation ran out of memory on HPC with ID ${uId}`
-        }
-      case 'NODE_FAIL':
-        return {
-          message: `Node failed on HPC for the simulation run with ID ${uId}`
-        }
+          message: `Simulation with ${uId} failed, check the error logs.`,
+        };
     }
-  }
-
-
-
-  // Enable cron when storage is out
-  // @Cron('0 0 2 * * *')
-  async deleteSimData() {
-    const uuidObjects: {
-      uuid: string;
-    }[] = await this.modelsService.getOlderUuids();
-
-    const uuids: string[] = [];
-
-    for (const uuidObj of uuidObjects) {
-      uuids.push(uuidObj.uuid);
-    }
-
-    for (const uuid of uuids) {
-      const filePath = this.fileStorage;
-      const uuidPath = `${filePath}/simulations/${uuid}`;
-      FileModifiers.rmrfDir(uuidPath);
-    }
-
-    await this.modelsService.deleteSixOldData(uuids);
   }
 
   async onApplicationBootstrap() {

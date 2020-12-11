@@ -14,10 +14,14 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ModelsModule } from './resources/models/models.module';
 
-import { SubmissionController } from './submission.controller';
-import { AppService } from './app.service';
+import { SubmissionController } from './submission/submission.controller';
+
+import { AuthService } from './services/auth/auth.service';
+import { SubmissionService } from './submission/submission.service';
+import { SimulationRunService } from './simulation-run/simulation-run.service';
+import { ResultsController } from './results/results.controller';
+import { ResultsService } from './results/results.service';
 
 @Module({
   imports: [
@@ -43,15 +47,16 @@ import { AppService } from './app.service';
       inject: [ConfigService],
     }),
     CacheModule.register(),
-    ModelsModule,
   ],
-  controllers: [AppController, SubmissionController],
+  controllers: [AppController, SubmissionController, ResultsController],
   providers: [
-    AppService,
+    SimulationRunService,
     HpcService,
     SbatchService,
     SshService,
     ArchiverService,
+    AuthService,
+    SubmissionService,
 
     {
       provide: 'DISPATCH_MQ',
@@ -64,6 +69,8 @@ import { AppService } from './app.service';
       },
       inject: [ConfigService],
     },
+
+    ResultsService,
   ],
 })
 export class AppModule {}

@@ -2,32 +2,21 @@ import { Controller, Logger, Inject } from '@nestjs/common';
 import { MessagePattern, ClientProxy } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
-import { HpcService } from './services/hpc/hpc.service';
-import { SbatchService } from './services/sbatch/sbatch.service';
-
 import path from 'path';
 import * as csv2Json from 'csv2json';
-import { SchedulerRegistry } from '@nestjs/schedule';
-
-import { MQDispatch } from '@biosimulations/messages/messages';
+import {
+  DispatchMessage,
+  DispatchPayload,
+} from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
-import { ModelsService } from './resources/models/models.service';
-
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
-import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly configService: ConfigService,
-    private hpcService: HpcService,
-    private sbatchService: SbatchService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private schedulerRegistry: SchedulerRegistry,
-    private archiverService: ArchiverService,
-    private modelsService: ModelsService,
 
-    private appService: AppService
+    private archiverService: ArchiverService
   ) {}
   private logger = new Logger(AppController.name);
   private fileStorage: string = this.configService.get<string>(
@@ -35,8 +24,9 @@ export class AppController {
     ''
   );
 
-  @MessagePattern(MQDispatch.SIM_HPC_FINISH)
-  async dispatchFinish(uuid: string) {
+  @MessagePattern(DispatchMessage.finsihed)
+  async dispatchFinish(data: DispatchPayload) {
+    const uuid = data.id;
     this.logger.log('Simulation Finished on HPC');
     const resDir = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
@@ -48,7 +38,7 @@ export class AppController {
         allFilesInfo[index].name === 'job.output' ||
         allFilesInfo[index].name === 'job.error'
       ) {
-        // 
+        //
       } else if (allFilesInfo[index].name.endsWith('.csv')) {
         // Getting only relative path
         allFiles.push(allFilesInfo[index].path.substring(resDir.length + 1));
@@ -108,10 +98,7 @@ export class AppController {
                         fileCounter === fileLength &&
                         dirCounter === dirLength
                       ) {
-                        this.messageClient.emit(
-                          MQDispatch.SIM_RESULT_FINISH,
-                          uuid
-                        );
+                        this.resultFinish(uuid);
                       }
                     });
                   });
@@ -129,7 +116,6 @@ export class AppController {
     }
   }
 
-  @MessagePattern(MQDispatch.SIM_RESULT_FINISH)
   async resultFinish(uuid: string) {
     this.archiverService.createResultArchive(uuid).then(() => {});
   }

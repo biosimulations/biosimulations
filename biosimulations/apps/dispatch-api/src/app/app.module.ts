@@ -1,4 +1,7 @@
-import { SimulationFile, SimulationFileSchema } from './../simulation-run/file.model';
+import {
+  SimulationFile,
+  SimulationFileSchema,
+} from './../simulation-run/file.model';
 import { SimulationRunModelSchema } from './../simulation-run/simulation-run.model';
 import { Module, HttpModule, CacheModule } from '@nestjs/common';
 import {
@@ -12,12 +15,12 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ModelsModule } from './resources/models/models.module';
+
 import { AppService } from './app.service';
 import { SimulationRunModule } from '../simulation-run/simulation-run.module';
 import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
 import { ResultsModule } from '../results/results.module';
-import { ModelsController } from './resources/models/models.controller';
+
 import {
   AuthTestModule,
   BiosimulationsAuthModule,
@@ -58,7 +61,7 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
     SimulationRunModule,
     ResultsModule,
     SharedExceptionsModule,
-    ModelsModule,
+
     AuthTestModule,
   ],
 

@@ -1,4 +1,3 @@
-import { DispatchSimulationModelDB } from '@biosimulations/dispatch/api-models';
 import { Injectable } from '@angular/core';
 import { Simulation, SimulationStatus } from '../../datamodel';
 import { SimulationStatusService } from './simulation-status.service';
@@ -15,7 +14,7 @@ import { ConfigService } from '@biosimulations/shared/services';
 export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
-  private simulationsMap: {[key: string]: Simulation} = {};
+  private simulationsMap: { [key: string]: Simulation } = {};
   private simulationsSubject = new BehaviorSubject<Simulation[]>(
     this.simulations
   );
@@ -76,7 +75,9 @@ export class SimulationService {
     // no updates needed if no simulation is queued or running
     let activeSimulation = false;
     for (const simulation of this.simulations) {
-      if (SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+      if (
+        SimulationStatusService.isSimulationStatusRunning(simulation.status)
+      ) {
         activeSimulation = true;
         break;
       }
@@ -88,49 +89,47 @@ export class SimulationService {
     // update status of simulations that haven't completed
     const simulationIds = this.simulations
       .filter((simulation: Simulation): boolean => {
-        return SimulationStatusService.isSimulationStatusRunning(simulation.status);
+        return SimulationStatusService.isSimulationStatusRunning(
+          simulation.status
+        );
       })
       .map((simulation: Simulation): string => {
         return simulation.id;
-      })
-      
-
-      const promises = [];
-      for(const simId of simulationIds) {
-        const promise = this.httpClient.get(`${urls.dispatchApi}run/${simId}`).toPromise();
-        promises.push(promise);
-      }
-
-      Promise.all(promises).then((data: any) => {
-
-        const simulations: Simulation[] = [];
-        for (const sim of data) {
-          const dispatchSim = sim;
-          simulations.push({
-            name: dispatchSim.name,
-            email: dispatchSim.email,
-            //runtime: dispatchSim.runtime,
-            id: dispatchSim.id,
-            status: (dispatchSim.status as unknown) as SimulationStatus,
-            submitted: dispatchSim.submitted as Date,
-            submittedLocally: this.simulationsMap[dispatchSim.id].submittedLocally,
-            simulator: dispatchSim.simulator,
-            simulatorVersion: dispatchSim.simulatorVersion,
-            updated: dispatchSim.updated as Date,
-            //resultsSize: dispatchSim.resultsSize,
-            projectSize: dispatchSim.projectSize
-          })
-        };
-        this.setSimulations(simulations, false);
-
       });
 
+    const promises = [];
+    for (const simId of simulationIds) {
+      const promise = this.httpClient
+        .get(`${urls.dispatchApi}run/${simId}`)
+        .toPromise();
+      promises.push(promise);
+    }
+
+    Promise.all(promises).then((data: any) => {
+      const simulations: Simulation[] = [];
+      for (const sim of data) {
+        const dispatchSim = sim;
+        simulations.push({
+          name: dispatchSim.name,
+          email: dispatchSim.email,
+          //runtime: dispatchSim.runtime,
+          id: dispatchSim.id,
+          status: (dispatchSim.status as unknown) as SimulationStatus,
+          submitted: dispatchSim.submitted as Date,
+          submittedLocally: this.simulationsMap[dispatchSim.id]
+            .submittedLocally,
+          simulator: dispatchSim.simulator,
+          simulatorVersion: dispatchSim.simulatorVersion,
+          updated: dispatchSim.updated as Date,
+          //resultsSize: dispatchSim.resultsSize,
+          projectSize: dispatchSim.projectSize,
+        });
+      }
+      this.setSimulations(simulations, false);
+    });
   }
 
-  setSimulations(
-    setSimulations: Simulation[],
-    getStatus = false
-  ): void {
+  setSimulations(setSimulations: Simulation[], getStatus = false): void {
     const newSimulations: Simulation[] = [...this.simulations];
 
     const newSimulationIdToIndex: { [id: string]: number } = {};
@@ -171,8 +170,9 @@ export class SimulationService {
       return of(this.simulationsMap[uuid]);
     } else {
       const simulationSubject = new Subject<Simulation>();
-      this.httpClient.get(`${urls.dispatchApi}run/${uuid}`).subscribe(
-        (data: any) => {
+      this.httpClient
+        .get(`${urls.dispatchApi}run/${uuid}`)
+        .subscribe((data: any) => {
           const dispatchSimulation = data;
           const simulation: Simulation = {
             name: dispatchSimulation.name,
@@ -186,12 +186,11 @@ export class SimulationService {
             simulatorVersion: dispatchSimulation.simulatorVersion,
             updated: dispatchSimulation.updated as Date,
             resultsSize: dispatchSimulation.resultsSize,
-            projectSize: dispatchSimulation.projectSize
+            projectSize: dispatchSimulation.projectSize,
           };
-          simulationSubject.next(simulation)
+          simulationSubject.next(simulation);
           this.storeSimulation(simulation);
-        }
-      );
+        });
       return simulationSubject.asObservable();
     }
   }

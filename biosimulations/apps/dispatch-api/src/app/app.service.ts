@@ -1,28 +1,26 @@
-import {
-  DispatchSimulationModel,
-  DispatchSimulationStatus,
-  OmexDispatchFile,
-  SimulationDispatchSpec,
-} from '@biosimulations/dispatch/api-models';
-import {
-  SimulationRunModel,
-} from './../simulation-run/simulation-run.model';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRunModel } from './../simulation-run/simulation-run.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { HttpService, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  HttpService,
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import path from 'path';
-import { ModelsService } from './resources/models/models.service';
+
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
-import { MQDispatch } from '@biosimulations/messages/messages';
+
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()
 export class AppService {
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
-    private httpService: HttpService,
-    private modelsService: ModelsService,
+
     private configService: ConfigService,
     @InjectModel(SimulationRunModel.name)
     private simulationModel: Model<SimulationRunModel>
@@ -30,10 +28,6 @@ export class AppService {
 
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
   private logger = new Logger(AppService.name);
-
-  private async getJobCancel(uuid: string) {
-    this.messageClient.send(MQDispatch.SIM_HPC_CANCEL, uuid);
-  }
 
   async getVisualizationData(
     uId: string,
@@ -95,63 +89,59 @@ export class AppService {
     download = String(download) === 'false' ? false : true;
 
     const jobStatus: string = await this.jobStatusFromDb(uId);
-    
-    switch (download) {
-      case true: {
-        switch (jobStatus) {
-          case DispatchSimulationStatus.SUCCEEDED: {
-            filePathOut = path.join(logPath, 'job.output');
-            res.set('Content-Type', 'text/html');
-            res.download(filePathOut);
-            break;
-          }
-          // TODO: do other failed states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
-          case DispatchSimulationStatus.FAILED: {
-            filePathErr = path.join(logPath, 'job.error');
-            res.set('Content-Type', 'text/html');
-            res.download(filePathErr);
-            break;
-          }
-          // TODO: do other starting states need to be handled (RUNNING)?
-          case DispatchSimulationStatus.QUEUED: {
-            res.send({
-              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
-            });
-            break;
-          }
+
+    if (download) {
+      switch (jobStatus) {
+        case SimulationRunStatus.SUCCEEDED: {
+          filePathOut = path.join(logPath, 'job.output');
+          res.set('Content-Type', 'text/html');
+          res.download(filePathOut);
+          break;
         }
-        break;
+
+        case SimulationRunStatus.FAILED: {
+          filePathErr = path.join(logPath, 'job.error');
+          res.set('Content-Type', 'text/html');
+          res.download(filePathErr);
+          break;
+        }
+        case SimulationRunStatus.RUNNING:
+        case SimulationRunStatus.QUEUED: {
+          res.send({
+            message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
+          });
+          break;
+        }
       }
-      case false: {
-        switch (jobStatus) {
-          // TODO: do other terminated states need to be handled (CANCELLED, TIMEOUT, OUT_OF_MEMORY, NODE_FAIL)?
-          case DispatchSimulationStatus.SUCCEEDED:
-          case DispatchSimulationStatus.FAILED: {
-            filePathOut = path.join(logPath, 'job.output');
-            filePathErr = path.join(logPath, 'job.error');
-            const fileContentOut = (
-              await FileModifiers.readFile(filePathOut)
-            ).toString();
-            const fileContentErr = (
-              await FileModifiers.readFile(filePathErr)
-            ).toString();
-            res.set('Content-Type', 'application/json');
-            res.send({
-              message: 'Logs fetched successfully',
-              data: {
-                output: fileContentOut,
-                error: fileContentErr,
-              },
-            });
-            break;
-          }
-          // TODO: do other starting states need to be handled (RUNNING)?
-          case DispatchSimulationStatus.QUEUED: {
-            res.send({
-              message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
-            });
-            break;
-          }
+    } else {
+      switch (jobStatus) {
+        case SimulationRunStatus.SUCCEEDED:
+        case SimulationRunStatus.FAILED: {
+          filePathOut = path.join(logPath, 'job.output');
+          filePathErr = path.join(logPath, 'job.error');
+          const fileContentOut = (
+            await FileModifiers.readFile(filePathOut)
+          ).toString();
+          const fileContentErr = (
+            await FileModifiers.readFile(filePathErr)
+          ).toString();
+          res.set('Content-Type', 'application/json');
+          res.send({
+            message: 'Logs fetched successfully',
+            data: {
+              output: fileContentOut,
+              error: fileContentErr,
+            },
+          });
+          break;
+        }
+
+        case SimulationRunStatus.RUNNING:
+        case SimulationRunStatus.QUEUED: {
+          res.send({
+            message: `The logs cannot be fetched because the simulation has not yet completed. The simulation is in the ${jobStatus} state.`,
+          });
+          break;
         }
       }
     }
@@ -167,13 +157,10 @@ export class AppService {
     res.download(zipPath);
   }
 
-  async jobStatusFromDb(
-    id: string
-  ):Promise<string> {
-    const runModels: SimulationRunModel[] = await this.simulationModel.find(
-      { _id: id },
-      { status: 1, _id: 0}
-    ).exec();
+  async jobStatusFromDb(id: string): Promise<string> {
+    const runModels: SimulationRunModel[] = await this.simulationModel
+      .find({ _id: id }, { status: 1, _id: 0 })
+      .exec();
 
     if (runModels.length > 0) {
       return runModels[0].status;
@@ -181,5 +168,4 @@ export class AppService {
       throw new NotFoundException(`No simulation with ID: ${id} found.`);
     }
   }
-
 }
