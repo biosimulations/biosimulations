@@ -38,7 +38,8 @@ export interface SimulationRunAttributes {
   wallTime: number;
   outlog: LogItem[];
   errlog: LogItem[];
-  status: SimulationStatus;
+  status: SimulationRunStatus;
   metadata: PrimaryResourceMetaData;
 }
-export type SimulationStatus = 'done' | 'submitted' | 'failed';
+
+export type SimulationRunStatus = 'CREATED' | 'QUEUED' | 'RUNNING' | 'SUCCEEDED' | 'FAILED';
