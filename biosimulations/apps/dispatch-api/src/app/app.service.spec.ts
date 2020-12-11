@@ -9,7 +9,7 @@ import {
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ModelsService } from './resources/models/models.service';
+
 import { getModelToken } from 'nestjs-typegoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
@@ -48,10 +48,7 @@ describe('AppService', () => {
           },
           inject: [ConfigService],
         },
-        {
-          provide: ModelsService,
-          useValue: mockService,
-        },
+
         {
           provide: ConfigService,
           useValue: mockFileStoragePath,
@@ -59,7 +56,7 @@ describe('AppService', () => {
         {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,
-        }
+        },
       ],
     }).compile();
   });
