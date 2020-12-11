@@ -79,27 +79,51 @@ export enum ColumnSortDirection {
 }
 
 export class RowService {
-  static getElementRouterLink(element: any, column: Column, side: Side): any {
+  static getElementRouterLink(element: any, column: Column, side: Side): {routerLink: any, fragment: string | null} {
+    let routerLinkFragment: any;
     if (
       side == Side.left &&
       column.leftAction === ColumnActionType.routerLink &&
       column.leftRouterLink !== undefined
     ) {
-      return column.leftRouterLink(element);
+      routerLinkFragment = column.leftRouterLink(element);
     } else if (
       side == Side.center &&
       column.centerAction === ColumnActionType.routerLink &&
       column.centerRouterLink !== undefined
     ) {
-      return column.centerRouterLink(element);
+      routerLinkFragment = column.centerRouterLink(element);
     } else if (
       side == Side.right &&
       column.rightAction === ColumnActionType.routerLink &&
       column.rightRouterLink !== undefined
     ) {
-      return column.rightRouterLink(element);
+      routerLinkFragment = column.rightRouterLink(element);
     } else {
-      return null;
+      return {
+        routerLink: null,
+        fragment: null,
+      };
+    }
+
+    if (Array.isArray(routerLinkFragment)) {
+      if (routerLinkFragment.length > 0 && routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) === '#') {
+        return {
+          routerLink: routerLinkFragment.slice(0, -1),
+          fragment: routerLinkFragment[routerLinkFragment.length - 1].substring(1),
+        };
+      } else {
+        return {
+          routerLink: routerLinkFragment,
+          fragment: null,
+        };  
+      }
+    } else {
+      const tmp = routerLinkFragment.split('#');
+      return {
+        routerLink: tmp[0],
+        fragment: tmp.length > 0 ? tmp[1] : null,
+      };
     }
   }
 

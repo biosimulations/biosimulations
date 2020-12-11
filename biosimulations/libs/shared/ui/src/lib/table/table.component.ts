@@ -180,11 +180,13 @@ export class TableComponent implements OnInit, AfterViewInit {
         };
 
         if (column.leftAction === ColumnActionType.routerLink) {
-          cache[column.id].left['routerLink'] = RowService.getElementRouterLink(
+          const tmp = RowService.getElementRouterLink(
             datum,
             column,
             Side.left
           );
+          cache[column.id].left['routerLink'] = tmp.routerLink;
+          cache[column.id].left['fragment'] = tmp.fragment;
         } else if (column.leftAction === ColumnActionType.href) {
           cache[column.id].left['href'] = RowService.getElementHref(
             datum,
@@ -204,9 +206,9 @@ export class TableComponent implements OnInit, AfterViewInit {
         );
 
         if (column.centerAction === ColumnActionType.routerLink) {
-          cache[column.id].center[
-            'routerLink'
-          ] = RowService.getElementRouterLink(datum, column, Side.center);
+          const tmp = RowService.getElementRouterLink(datum, column, Side.center);
+          cache[column.id].center['routerLink'] = tmp.routerLink;
+          cache[column.id].center['fragment'] = tmp.fragment;
         } else if (column.centerAction === ColumnActionType.href) {
           cache[column.id].center['href'] = RowService.getElementHref(
             datum,
@@ -222,9 +224,9 @@ export class TableComponent implements OnInit, AfterViewInit {
         // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
 
         if (column.rightAction === ColumnActionType.routerLink) {
-          cache[column.id].right[
-            'routerLink'
-          ] = RowService.getElementRouterLink(datum, column, Side.right);
+          const tmp = RowService.getElementRouterLink(datum, column, Side.right);
+          cache[column.id].right['routerLink'] = tmp.routerLink;
+          cache[column.id].right['fragment'] = tmp.fragment;
         } else if (column.rightAction === ColumnActionType.href) {
           cache[column.id].right['href'] = RowService.getElementHref(
             datum,

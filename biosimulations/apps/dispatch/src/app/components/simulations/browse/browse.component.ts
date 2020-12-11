@@ -159,7 +159,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#design-viz"];
         } else {
           return null;
         }
@@ -167,7 +167,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#design-viz"];
         } else {
           return null;
         }
@@ -251,7 +251,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#log"];
         } else {
           return null;
         }
@@ -259,7 +259,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, '#log'];
         } else {
           return null;
         }
