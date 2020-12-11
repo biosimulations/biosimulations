@@ -206,6 +206,7 @@
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
                   [routerLink]="routerLink"
+                  [fragment]="element._cache[column.id].left.fragment"
                 >
                   <ng-container
                     *ngTemplateOutlet="
@@ -276,6 +277,7 @@
                     element._cache[column.id].center.routerLink as routerLink
                   "
                   [routerLink]="routerLink"
+                  [fragment]="element._cache[column.id].center.fragment"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
@@ -328,6 +330,7 @@
                     element._cache[column.id].right.routerLink as routerLink
                   "
                   [routerLink]="routerLink"
+                  [fragment]="element._cache[column.id].right.fragment"
                 >
                   <ng-container
                     *ngTemplateOutlet="

@@ -12,7 +12,7 @@
         </th>
         <td>
           <span class="heading">Project:</span>{{ ' '
-          }}<a [href]="projectUrl">COMBINE/OMEX archive ({{ projectSize }})</a>
+          }}<a [href]="projectUrl">COMBINE/OMEX archive<ng-container *ngIf="projectSize"> ({{ projectSize }})</ng-container></a>
         </td>
       </tr>
       <tr>

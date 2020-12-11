@@ -21,7 +21,8 @@
             <ng-template [ngSwitchCase]="'routerLink'">
               <a
                 *ngIf="row.columns[column.id]?.centerRouterLink as routerLink; else noRouterLink"
-                [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                [routerLink]="routerLink"
+                [fragment]="row.columns[column.id]?.centerFragment"
               >
                 <ng-container *ngTemplateOutlet="centerTemplate"
                 ></ng-container>
@@ -82,7 +83,8 @@
             <ng-template [ngSwitchCase]="'routerLink'">
               <a
                 *ngIf="row.columns[column.id]?.rightRouterLink as routerLink; else noRouterLink"
-                [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                [routerLink]="routerLink"
+                [fragment]="row.columns[column.id]?.rightFragment"
               >
                 <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
                 ></ng-container>

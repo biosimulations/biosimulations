@@ -70,14 +70,17 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
+    
     if (this.projectStructure === undefined) {
       this.visualisationService
         .getResultStructure(this.uuid)
         .subscribe((data: any) => {
-          this.setProjectResults(data);
+          if (data != null) {
+            this.setProjectResults(data);
+          }
+          this.setSimulationInfo();
         });
     }
-
 
     this.dispatchService.getSimulationLogs(this.uuid)
       .subscribe((data: any) => {
@@ -91,21 +94,18 @@ export class ViewComponent implements OnInit {
 
         }
       })
-
   }
 
   setProjectResults(data: any): void {
-   if(data.message === 'OK') {
-     const projectStructure = data.data;
-     this.projectStructure = projectStructure;
+    if(data.message === 'OK') {
+      const projectStructure = data.data;
+      this.projectStructure = projectStructure;
 
-     this.sedmls = Object.keys(projectStructure);
-     this.selectedSedml = this.sedmls[0];
-   }
+      this.sedmls = Object.keys(projectStructure);
+      this.selectedSedml = this.sedmls[0];
+    }
     // const sedml = this.sedmls[0];
     // this.formGroup.controls.sedml.setValue(sedml);
-
-    this.setSimulationInfo();
   }
 
   setSedml(): void {
@@ -150,7 +150,7 @@ export class ViewComponent implements OnInit {
       this.runtime = simulation.runtime !== undefined ? Math.round((simulation.runtime)/1000).toString() + ' s' : 'N/A';
       this.submitted = new Date(simulation.submitted).toLocaleString();
       this.updated = new Date(simulation.updated).toLocaleString();
-      this.projectSize = ((simulation.projectSize as number) / 1024).toFixed(2) + ' KB';
+      this.projectSize = simulation.projectSize !== undefined ? ((simulation.projectSize) / 1024).toFixed(2) + ' KB' : '';
       this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
       this.projectUrl = `${urls.dispatchApi}run/${simulation.id}/download`;
       this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;

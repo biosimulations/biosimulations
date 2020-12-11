@@ -112,16 +112,16 @@ export class SimulationService {
         simulations.push({
           name: dispatchSim.name,
           email: dispatchSim.email,
-          //runtime: dispatchSim.runtime,
+          runtime: dispatchSim.runtime,
           id: dispatchSim.id,
           status: (dispatchSim.status as unknown) as SimulationStatus,
-          submitted: dispatchSim.submitted as Date,
+          submitted: new Date(dispatchSim.submitted),
           submittedLocally: this.simulationsMap[dispatchSim.id]
             .submittedLocally,
           simulator: dispatchSim.simulator,
           simulatorVersion: dispatchSim.simulatorVersion,
-          updated: dispatchSim.updated as Date,
-          //resultsSize: dispatchSim.resultsSize,
+          updated: new Date(dispatchSim.updated),
+          resultsSize: dispatchSim.resultsSize,
           projectSize: dispatchSim.projectSize,
         });
       }
@@ -180,11 +180,11 @@ export class SimulationService {
             runtime: dispatchSimulation.runtime,
             id: dispatchSimulation.id,
             status: (dispatchSimulation.status as unknown) as SimulationStatus,
-            submitted: dispatchSimulation.submitted as Date,
+            submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,
             simulatorVersion: dispatchSimulation.simulatorVersion,
-            updated: dispatchSimulation.updated as Date,
+            updated: new Date(dispatchSimulation.updated),
             resultsSize: dispatchSimulation.resultsSize,
             projectSize: dispatchSimulation.projectSize,
           };

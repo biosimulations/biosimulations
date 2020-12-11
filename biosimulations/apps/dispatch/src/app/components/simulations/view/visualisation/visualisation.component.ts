@@ -8,6 +8,7 @@ import { VisualisationService } from '../../../../services/visualisation/visuali
 })
 export class VisualisationComponent implements OnInit {
   data: any;
+  visible = false;
   layout: any;
 
   constructor(
@@ -36,11 +37,14 @@ export class VisualisationComponent implements OnInit {
     this.setLayout();
   }
 
-  setLayout() {
-    const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
-    this.layout = {
-      width: rect.width,
-      height: rect.height,
+  setLayout(): void {
+    this.visible = this.hostElement.nativeElement.offsetParent != null;
+    if (this.visible) {
+      const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
+      this.layout = {
+        width: rect.width,
+        height: rect.height,
+      }
     }
   }
 }

@@ -74,6 +74,9 @@ export class TabPageComponent
         let selectedTabIndex: number = 0;
         if (fragment && fragment in this.urlHashFragmentToITabMap) {
           selectedTabIndex = this.urlHashFragmentToITabMap[fragment];
+          if (baseTabs[selectedTabIndex].disabled) {
+            selectedTabIndex = 0;
+          }
         }
         setTimeout(() => this.selectedTabIndex = selectedTabIndex, 0);
       });

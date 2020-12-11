@@ -78,43 +78,19 @@ export class BrowseComponent implements OnInit {
       id: 'runtime',
       heading: 'Runtime',
       key: 'runtime',
-      formatter: (value: number): string | null => {
-        if (value === undefined) {
+      //formatter: SimulationStatusService.formatRuntime.bind(null),
+      getter: (simulation: Simulation): number | null => {
+        if (simulation.runtime == null || simulation.runtime === undefined) {
           return null;
-        }
-
-        if (value > 7 * 24 * 60 * 60) {
-          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-        } else if (value > 24 * 60 * 60) {
-          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-        } else if (value > 60 * 60) {
-          return (value / (60 * 60)).toFixed(1) + ' h';
-        } else if (value > 60) {
-          return (value / 60).toFixed(1) + ' m';
-        } else if (value > 1) {
-          return value.toFixed(1) + ' s';
         } else {
-          return (value * 1000).toFixed(1) + ' ms';
+          return simulation.runtime / 1000;
         }
       },
-      stackedFormatter: (value: number): string => {
-        if (value === undefined) {
-          return 'N/A';
-        }
-
-        if (value > 7 * 24 * 60 * 60) {
-          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-        } else if (value > 24 * 60 * 60) {
-          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-        } else if (value > 60 * 60) {
-          return (value / (60 * 60)).toFixed(1) + ' h';
-        } else if (value > 60) {
-          return (value / 60).toFixed(1) + ' m';
-        } else if (value > 1) {
-          return value.toFixed(1) + ' s';
-        } else {
-          return (value * 1000).toFixed(1) + ' ms';
-        }
+      formatter: (valueSec: number | null): string | null => {
+        return SimulationStatusService.formatTime(null, valueSec);
+      },
+      stackedFormatter: (valueSec: number | null): string => {
+        return SimulationStatusService.formatTime('N/A', valueSec) as string;
       },
       filterType: ColumnFilterType.number,
       show: false,
@@ -124,19 +100,18 @@ export class BrowseComponent implements OnInit {
       heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
@@ -147,19 +122,18 @@ export class BrowseComponent implements OnInit {
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
@@ -185,7 +159,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#design-viz"];
         } else {
           return null;
         }
@@ -193,7 +167,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#design-viz"];
         } else {
           return null;
         }
@@ -277,7 +251,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#log"];
         } else {
           return null;
         }
@@ -285,7 +259,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, '#log'];
         } else {
           return null;
         }
@@ -332,12 +306,8 @@ export class BrowseComponent implements OnInit {
   }
 
   exportSimulations() {
-    const simulations = [...this.simulationService.getSimulations()] as any[];
-    simulations.forEach((simulation: any) => {
-      simulation.submitted = simulation.submitted.getTime();
-      simulation.updated = simulation.updated.getTime();
-    });
-
+    const simulations = this.simulationService.getSimulations();
+    
     const blob = new Blob([JSON.stringify(simulations, null, 2)], {
       type: 'application/json',
     });
