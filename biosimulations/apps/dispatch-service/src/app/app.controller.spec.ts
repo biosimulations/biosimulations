@@ -11,7 +11,7 @@ import {
   NatsOptions,
 } from '@nestjs/microservices';
 import { ArchiverService } from './services/archiver/archiver.service';
-import { ModelsService } from './resources/models/models.service';
+
 import { assert } from 'console';
 // TODO fix these tests
 describe('AppController', () => {

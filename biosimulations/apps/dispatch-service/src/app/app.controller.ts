@@ -7,7 +7,6 @@ import * as csv2Json from 'csv2json';
 import {
   DispatchMessage,
   DispatchPayload,
-  
 } from '@biosimulations/messages/messages';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
@@ -117,7 +116,6 @@ export class AppController {
     }
   }
 
-  
   async resultFinish(uuid: string) {
     this.archiverService.createResultArchive(uuid).then(() => {});
   }
