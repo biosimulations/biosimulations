@@ -1,40 +1,40 @@
-import { SimulationStatus } from '../../datamodel';
+import { SimulationRunStatus } from '../../datamodel';
 
 export class SimulationStatusService {
-  static isSimulationStatusRunning(status: SimulationStatus): boolean {
+  static isSimulationStatusRunning(status: SimulationRunStatus): boolean {
     return (
-      status === SimulationStatus.CREATED ||
-      status === SimulationStatus.QUEUED ||
-      status === SimulationStatus.RUNNING
+      status === SimulationRunStatus.CREATED ||
+      status === SimulationRunStatus.QUEUED ||
+      status === SimulationRunStatus.RUNNING
     );
   }
 
-  static isSimulationStatusSucceeded(status: SimulationStatus): boolean {
-    return status === SimulationStatus.SUCCEEDED;
+  static isSimulationStatusSucceeded(status: SimulationRunStatus): boolean {
+    return status === SimulationRunStatus.SUCCEEDED;
   }
 
-  static isSimulationStatusFailed(status: SimulationStatus): boolean {
-    return status === SimulationStatus.FAILED;
+  static isSimulationStatusFailed(status: SimulationRunStatus): boolean {
+    return status === SimulationRunStatus.FAILED;
   }
 
-  static getSimulationStatusOrder(status: SimulationStatus): number {
+  static getSimulationStatusOrder(status: SimulationRunStatus): number {
     switch (status) {
-      case SimulationStatus.SUCCEEDED:
+      case SimulationRunStatus.SUCCEEDED:
         return 0;
-      case SimulationStatus.RUNNING:
+      case SimulationRunStatus.RUNNING:
         return 1;
-      case SimulationStatus.QUEUED:
+      case SimulationRunStatus.QUEUED:
         return 2;
-      case SimulationStatus.CREATED:
+      case SimulationRunStatus.CREATED:
         return 3;
-      case SimulationStatus.FAILED:
+      case SimulationRunStatus.FAILED:
         return 4;
     }
     return NaN;
   }
 
   static getSimulationStatusMessage(
-    status: SimulationStatus,
+    status: SimulationRunStatus,
     upperCaseFirstLetter = false
   ): string {
     if (upperCaseFirstLetter) {

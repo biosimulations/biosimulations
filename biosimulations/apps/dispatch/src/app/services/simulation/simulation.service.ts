@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Simulation, SimulationStatus } from '../../datamodel';
+import { Simulation } from '../../datamodel';
+import { SimulationRunStatus } from '../../datamodel';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -114,7 +115,7 @@ export class SimulationService {
           email: dispatchSim.email,
           runtime: dispatchSim.runtime,
           id: dispatchSim.id,
-          status: (dispatchSim.status as unknown) as SimulationStatus,
+          status: (dispatchSim.status as unknown) as SimulationRunStatus,
           submitted: new Date(dispatchSim.submitted),
           submittedLocally: this.simulationsMap[dispatchSim.id]
             .submittedLocally,
@@ -179,7 +180,7 @@ export class SimulationService {
             email: dispatchSimulation.email,
             runtime: dispatchSimulation.runtime,
             id: dispatchSimulation.id,
-            status: (dispatchSimulation.status as unknown) as SimulationStatus,
+            status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
             submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,

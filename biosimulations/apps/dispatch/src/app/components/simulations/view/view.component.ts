@@ -13,7 +13,7 @@ import { SimulationStatusService } from '../../../services/simulation/simulation
 import { VisualisationService } from '../../../services/visualisation/visualisation.service';
 import { VisualisationComponent } from './visualisation/visualisation.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import { Simulation, SimulationStatus } from '../../../datamodel';
+import { Simulation } from '../../../datamodel';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 
