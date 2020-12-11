@@ -1,7 +1,6 @@
 import {
   BiomodelParameter,
   AlgorithmParameter,
-  SimulationRunAttributes,
   IAlgorithm,
 } from '.';
 

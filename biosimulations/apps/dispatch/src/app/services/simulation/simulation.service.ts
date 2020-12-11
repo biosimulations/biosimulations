@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Simulation, SimulationStatus } from '../../datamodel';
+import { Simulation } from '../../datamodel';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -38,7 +38,7 @@ export class SimulationService {
             this.simulations.forEach((simulation: Simulation): void => {
               this.simulationsMap[simulation.id] = simulation;
             });
-            this.simulationsSubject.next(simulations);
+            this.simulationsSubject.next([...simulations]);
             this.updateSimulations();
             this.refreshInterval = setInterval(
               () => this.updateSimulations(),
@@ -49,7 +49,7 @@ export class SimulationService {
           const simulations: Simulation[] = [];
           this.simulations = simulations;
           this.simulationsMap = {};
-          this.simulationsSubject.next(simulations);
+          this.simulationsSubject.next([...simulations]);
           this.refreshInterval = setInterval(
             () => this.updateSimulations(),
             config.appConfig?.simulationStatusRefreshIntervalSec * 1000
@@ -62,7 +62,7 @@ export class SimulationService {
   storeSimulation(simulation: Simulation): void {
     this.simulations.push(simulation);
     this.simulationsMap[simulation.id] = simulation;
-    this.simulationsSubject.next(this.simulations);
+    this.simulationsSubject.next([...this.simulations]);
     this.storage.set(this.key, this.simulations);
   }
 
@@ -114,7 +114,7 @@ export class SimulationService {
           email: dispatchSim.email,
           runtime: dispatchSim.runtime,
           id: dispatchSim.id,
-          status: (dispatchSim.status as unknown) as SimulationStatus,
+          status: dispatchSim.status,
           submitted: new Date(dispatchSim.submitted),
           submittedLocally: this.simulationsMap[dispatchSim.id]
             .submittedLocally,
@@ -141,11 +141,7 @@ export class SimulationService {
 
     setSimulations.forEach((setSimulation: Simulation): void => {
       if (setSimulation.id in this.simulationsMap) {
-        newSimulations.splice(
-          newSimulationIdToIndex[setSimulation.id],
-          1,
-          setSimulation
-        );
+        newSimulations[newSimulationIdToIndex[setSimulation.id]] = setSimulation;
       } else {
         newSimulations.push(setSimulation);
       }
@@ -153,7 +149,7 @@ export class SimulationService {
     });
 
     this.simulations = newSimulations;
-    this.simulationsSubject.next(newSimulations);
+    this.simulationsSubject.next([...newSimulations]);
     this.storage.set(this.key, newSimulations);
 
     if (getStatus) {
@@ -179,7 +175,7 @@ export class SimulationService {
             email: dispatchSimulation.email,
             runtime: dispatchSimulation.runtime,
             id: dispatchSimulation.id,
-            status: (dispatchSimulation.status as unknown) as SimulationStatus,
+            status: dispatchSimulation.status,
             submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,

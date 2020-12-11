@@ -26,19 +26,3 @@ export interface LogItem {
   type: string;
   message: string;
 }
-
-export interface SimulationRunAttributes {
-  simulation: BiosimulationsId;
-  simulator: BiosimulationsId;
-  inputFile: BiosimulationsId;
-  outputFile: BiosimulationsId;
-  submitDate: DateString;
-  runDate: DateString;
-  endDate: DateString;
-  wallTime: number;
-  outlog: LogItem[];
-  errlog: LogItem[];
-  status: SimulationStatus;
-  metadata: PrimaryResourceMetaData;
-}
-export type SimulationStatus = 'done' | 'submitted' | 'failed';

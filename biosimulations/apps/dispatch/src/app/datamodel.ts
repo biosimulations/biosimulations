@@ -1,10 +1,4 @@
-export enum SimulationStatus {
-  CREATED = 'CREATED',
-  QUEUED = 'QUEUED',
-  RUNNING = 'RUNNING',  
-  SUCCEEDED = 'SUCCEEDED',
-  FAILED = 'FAILED',  
-}
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 
 export interface Simulation {
   id: string;
@@ -13,7 +7,7 @@ export interface Simulation {
   submittedLocally?: boolean;
   simulator: string;
   simulatorVersion: string;
-  status: SimulationStatus;
+  status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;
   updated: Date;

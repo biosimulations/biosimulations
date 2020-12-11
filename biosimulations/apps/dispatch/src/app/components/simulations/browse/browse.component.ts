@@ -1,8 +1,9 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Simulation, SimulationStatus } from '../../../datamodel';
+import { Simulation } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   TableComponent,
   Column,
@@ -55,15 +56,15 @@ export class BrowseComponent implements OnInit {
       id: 'status',
       heading: 'Status',
       key: 'status',
-      formatter: (value: SimulationStatus): string => {
+      formatter: (value: SimulationRunStatus): string => {
         return SimulationStatusService.getSimulationStatusMessage(value, false);
       },
-      filterFormatter: (value: SimulationStatus): string => {
+      filterFormatter: (value: SimulationRunStatus): string => {
         return SimulationStatusService.getSimulationStatusMessage(value, true);
       },
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = SimulationStatusService.getSimulationStatusOrder(a);
@@ -172,10 +173,10 @@ export class BrowseComponent implements OnInit {
           return null;
         }
       },
-      formatter: (status: SimulationStatus): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationStatus): string | null => {
+      stackedFormatter: (status: SimulationRunStatus): string | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(status)) {
           return 'visualize results';
         } else {
@@ -185,8 +186,8 @@ export class BrowseComponent implements OnInit {
       minWidth: 66,
       filterable: false,
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = SimulationStatusService.isSimulationStatusSucceeded(a) ? 0 : 1;
@@ -218,10 +219,10 @@ export class BrowseComponent implements OnInit {
           return null;
         }
       },
-      formatter: (status: SimulationStatus): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationStatus): string | null => {
+      stackedFormatter: (status: SimulationRunStatus): string | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(status)) {
           return 'download results';
         } else {
@@ -231,8 +232,8 @@ export class BrowseComponent implements OnInit {
       minWidth: 66,
       filterable: false,
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = SimulationStatusService.isSimulationStatusSucceeded(a) ? 0 : 1;
@@ -264,10 +265,10 @@ export class BrowseComponent implements OnInit {
           return null;
         }
       },
-      formatter: (status: SimulationStatus): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationStatus): string | null => {
+      stackedFormatter: (status: SimulationRunStatus): string | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(status)) {
           return 'view logs';
         } else {
@@ -277,8 +278,8 @@ export class BrowseComponent implements OnInit {
       minWidth: 66,
       filterable: false,
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = !SimulationStatusService.isSimulationStatusRunning(a) ? 0 : 1;
