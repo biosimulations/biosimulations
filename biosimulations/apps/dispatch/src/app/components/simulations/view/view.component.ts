@@ -71,16 +71,7 @@ export class ViewComponent implements OnInit {
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
     
-    if (this.projectStructure === undefined) {
-      this.visualisationService
-        .getResultStructure(this.uuid)
-        .subscribe((data: any) => {
-          if (data != null) {
-            this.setProjectResults(data);
-          }
-          this.setSimulationInfo();
-        });
-    }
+    this.setSimulationInfo();
 
     this.dispatchService.getSimulationLogs(this.uuid)
       .subscribe((data: any) => {
@@ -93,16 +84,45 @@ export class ViewComponent implements OnInit {
           this.errLog = data.data.error;
 
         }
-      })
+      });
+
+    this.visualisationService
+      .getResultStructure(this.uuid)
+      .subscribe((data: any) => {
+        if (data != null) {
+          this.setProjectResults(data);
+        }
+      });
   }
 
-  setProjectResults(data: any): void {
+  private setSimulationInfo(): void {
+    this.simulationService.getSimulationByUuid(this.uuid).subscribe((simulation: Simulation): void => {
+      this.name = simulation.name;
+      this.simulator = simulation.simulator;
+      this.simulatorVersion = simulation.simulatorVersion;
+      this.statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
+      this.statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
+      this.statusLabel = SimulationStatusService.getSimulationStatusMessage(simulation.status, true);
+      this.runtime = simulation.runtime !== undefined ? Math.round((simulation.runtime)/1000).toString() + ' s' : 'N/A';
+      this.submitted = new Date(simulation.submitted).toLocaleString();
+      this.updated = new Date(simulation.updated).toLocaleString();
+      this.projectSize = simulation.projectSize !== undefined ? ((simulation.projectSize) / 1024).toFixed(2) + ' KB' : '';
+      this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
+      this.projectUrl = `${urls.dispatchApi}run/${simulation.id}/download`;
+      this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+      this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
+    });
+  }
+
+  private setProjectResults(data: any): void {
     if(data.message === 'OK') {
       const projectStructure = data.data;
       this.projectStructure = projectStructure;
 
       this.sedmls = Object.keys(projectStructure);
       this.selectedSedml = this.sedmls[0];
+
+      this.setSedml();
     }
     // const sedml = this.sedmls[0];
     // this.formGroup.controls.sedml.setValue(sedml);
@@ -137,28 +157,5 @@ export class ViewComponent implements OnInit {
     if ($event.index == 3) {
       this.visualization.setLayout();
     }
-  }
-
-  setSimulationInfo(): void {
-    this.simulationService.getSimulationByUuid(this.uuid).subscribe((simulation: Simulation): void => {
-      this.name = simulation.name;
-      this.simulator = simulation.simulator;
-      this.simulatorVersion = simulation.simulatorVersion;
-      this.statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
-      this.statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
-      this.statusLabel = SimulationStatusService.getSimulationStatusMessage(simulation.status, true);
-      this.runtime = simulation.runtime !== undefined ? Math.round((simulation.runtime)/1000).toString() + ' s' : 'N/A';
-      this.submitted = new Date(simulation.submitted).toLocaleString();
-      this.updated = new Date(simulation.updated).toLocaleString();
-      this.projectSize = simulation.projectSize !== undefined ? ((simulation.projectSize) / 1024).toFixed(2) + ' KB' : '';
-      this.resultsSize = simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A';
-      this.projectUrl = `${urls.dispatchApi}run/${simulation.id}/download`;
-      this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
-      this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
-
-      if(this.statusSucceeded) {
-        this.setSedml();
-      }
-    });
   }
 }

@@ -338,7 +338,7 @@ export class BrowseComponent implements OnInit {
           simulation.updated = new Date(simulation.updated);
           simulation.submittedLocally = false;
         });
-        this.simulationService.setSimulations(simulations, true);
+        this.simulationService.storeSimulations(simulations, true);
       };
       reader.readAsText(file);
     };

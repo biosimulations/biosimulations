@@ -20,55 +20,73 @@ export class SimulationService {
   public simulations$: Observable<
     Simulation[]
   > = this.simulationsSubject.asObservable();
+  private storageInitialized = false;
+  private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
 
   private refreshInterval!: any;
 
   constructor(
-    config: ConfigService,
+    private config: ConfigService,
     private storage: Storage,
     private httpClient: HttpClient
   ) {
     this.storage.ready().then(() => {
       this.storage.keys().then((keys) => {
         if (keys.includes(this.key)) {
-          this.storage.get(this.key).then((simulations): void => {
-            this.simulations = simulations;
-            this.simulationsMap = {};
-            simulations.forEach((simulation: Simulation): void => {
-              if (simulation.id in this.simulationsMap) {
-                throw new Error('Simulations must have unique ids');
-              }
-              this.simulationsMap[simulation.id] = simulation;
-            });
-            this.simulationsSubject.next(this.simulations);
-            this.updateSimulations();
-            this.refreshInterval = setInterval(
-              () => this.updateSimulations(),
-              config.appConfig?.simulationStatusRefreshIntervalSec * 1000
-            );
+          this.storage.get(this.key).then((simulations: Simulation[]): void => {
+            this.initSimulations(simulations);
           });
         } else {
-          const simulations: Simulation[] = [];
-          this.simulations = [];
-          this.simulationsMap = {};
-          this.simulationsSubject.next(this.simulations);
-          this.refreshInterval = setInterval(
-            () => this.updateSimulations(),
-            config.appConfig?.simulationStatusRefreshIntervalSec * 1000
-          );
+          this.initSimulations([]);
         }
       });
     });
   }
 
-  storeSimulation(simulation: Simulation): void {
-    this.simulations.push(simulation);
-    if (simulation.id in this.simulationsMap) {
-      throw new Error('Simulations must have unique ids')
+  private initSimulations(storedSimulations: Simulation[]): void {
+    const simulations = storedSimulations.concat(this.simulationsAddedBeforeStorageInitialized);
+    simulations.forEach((simulation: Simulation): void => {
+      if (!(simulation.id in this.simulationsMap)) {
+        this.simulations.push(simulation);
+        this.simulationsMap[simulation.id] = simulation;
+      }
+    });
+    this.simulationsSubject.next(this.simulations);
+    this.updateSimulations();
+    this.refreshInterval = setInterval(
+      () => this.updateSimulations(),
+      this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000
+    );
+    this.storageInitialized = true;
+    if (this.simulationsAddedBeforeStorageInitialized.length) {
+      this.storage.set(this.key, this.simulations);
     }
-    this.simulationsMap[simulation.id] = simulation;
-    this.storage.set(this.key, this.simulations);
-    this.simulationsSubject.next(this.simulations);    
+  }
+
+  storeSimulation(newSimulation: Simulation, getStatus = false): void {
+    this.storeSimulations([newSimulation], getStatus);
+  }
+
+  storeSimulations(newSimulations: Simulation[], getStatus = false): void {
+    if (this.storageInitialized) {
+      newSimulations.forEach((newSimulation: Simulation): void => {
+        if (newSimulation.id in this.simulationsMap) {
+          Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
+        } else {
+          this.simulations.push(newSimulation);
+          this.simulationsMap[newSimulation.id] = newSimulation;
+        }
+      });
+      this.simulationsSubject.next(this.simulations);
+      this.storage.set(this.key, this.simulations);
+      if (getStatus) {
+        this.updateSimulations();
+      }
+    } else {
+       newSimulations.forEach((newSimulation: Simulation): void => {
+        this.simulationsAddedBeforeStorageInitialized.push(newSimulation);
+      });
+    }
   }
 
   private updateSimulations(): void {
@@ -118,36 +136,8 @@ export class SimulationService {
           projectSize: dispatchSim.projectSize,
         });
       }
-      this.setSimulations(simulations, false);
+      this.storeSimulations(simulations, false);
     });
-  }
-
-  setSimulations(setSimulations: Simulation[], getStatus = false): void {
-    const oldSimulationIdToIndex: { [id: string]: number } = {};
-    this.simulations.forEach(
-      (oldSimulation: Simulation, iSimulation: number): void => {
-        if (oldSimulation.id in oldSimulationIdToIndex) {
-          throw new Error('Simulation ids must be unique');
-        }
-        oldSimulationIdToIndex[oldSimulation.id] = iSimulation;
-      }
-    );
-
-    setSimulations.forEach((setSimulation: Simulation): void => {
-      if (setSimulation.id in this.simulationsMap) {
-        Object.assign(this.simulations[oldSimulationIdToIndex[setSimulation.id]], setSimulation);
-      } else {
-        this.simulations.push(setSimulation);
-        this.simulationsMap[setSimulation.id] = setSimulation;
-      }
-    });
-
-    this.simulationsSubject.next(this.simulations);
-    this.storage.set(this.key, this.simulations);
-
-    if (getStatus) {
-      this.updateSimulations();
-    }
   }
 
   getSimulations(): Simulation[] {
