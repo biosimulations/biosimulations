@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
@@ -53,6 +53,7 @@ interface Logs {
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewComponent implements OnInit {
   private uuid = '';
@@ -69,17 +70,14 @@ export class ViewComponent implements OnInit {
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
 
-  private _sedmlLocations: string[] | undefined;
   private sedmlLocations = new BehaviorSubject<string[] | undefined>(undefined);
   sedmlLocations$ = this.sedmlLocations.asObservable()
 
-  private _reportIds: string[] | undefined;
   private reportIds = new BehaviorSubject<string[] | undefined>(undefined);
   reportIds$ = this.reportIds.asObservable();
 
   private selectedSedmlLocation: string | undefined;
 
-  private _selectedReportId: string | undefined;
   private selectedReportId = new BehaviorSubject<string | undefined>(undefined);
   selectedReportId$ = this.selectedReportId.asObservable()
 
@@ -91,7 +89,8 @@ export class ViewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
     private visualisationService: VisualisationService,
-    private dispatchService: DispatchService
+    private dispatchService: DispatchService,
+    private changeDetectionRef: ChangeDetectorRef
   ) {
     this.formGroup = formBuilder.group({
       sedmlLocation: ['', [Validators.required]],
@@ -101,6 +100,10 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
+
+    this.formGroup.controls.sedmlLocation.disable();
+    this.formGroup.controls.reportId.disable();
+
     this.setSimulation();
   }
 
@@ -126,17 +129,7 @@ export class ViewComponent implements OnInit {
         resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`,
       });
       this.statusRunning.next(statusRunning);
-
-      this.combineArchive = undefined;
-      this._sedmlLocations = undefined;
-      this.sedmlLocations.next(this._sedmlLocations);
-      this.selectedSedmlLocation = undefined;
-      this._reportIds = undefined;
-      this.reportIds.next(this._reportIds);
-      this._selectedReportId = undefined;
-      this.selectedReportId.next(this._selectedReportId);
-      this.formGroup.controls.sedmlLocation.disable();
-      this.formGroup.controls.reportId.disable();
+      this.changeDetectionRef.detectChanges();
 
       if (!statusRunning) {
         this.dispatchService.getSimulationLogs(this.uuid)
@@ -153,6 +146,7 @@ export class ViewComponent implements OnInit {
                 err: data.data.error,
               });
             }
+            this.changeDetectionRef.detectChanges();
           });
       }
 
@@ -177,15 +171,15 @@ export class ViewComponent implements OnInit {
   private setProjectOutputs(combineArchive: CombineArchive): void {
     this.combineArchive = combineArchive;
 
-    this._sedmlLocations = Object.keys(combineArchive);
-    this.sedmlLocations.next(this._sedmlLocations);
-    if (this._sedmlLocations?.length) {
+    const sedmlLocations = Object.keys(combineArchive);
+    this.sedmlLocations.next(sedmlLocations);
+    if (sedmlLocations?.length) {
       this.formGroup.controls.sedmlLocation.enable();
     } else {
       this.formGroup.controls.sedmlLocation.disable();
     }
 
-    const selectedSedmlLocation = this._sedmlLocations?.[0];
+    const selectedSedmlLocation = sedmlLocations?.[0];
     this.formGroup.controls.sedmlLocation.setValue(selectedSedmlLocation);
     this.selectSedmlLocation(selectedSedmlLocation);
   }
@@ -193,22 +187,21 @@ export class ViewComponent implements OnInit {
   selectSedmlLocation(selectedSedmlLocation?: string): void {
     this.selectedSedmlLocation = selectedSedmlLocation;
 
-    this._reportIds = this.combineArchive && selectedSedmlLocation ? this.combineArchive[selectedSedmlLocation] : undefined;
-    this.reportIds.next(this._reportIds);
-    if (this._reportIds?.length) {
+    const reportIds = this.combineArchive && selectedSedmlLocation ? this.combineArchive[selectedSedmlLocation] : undefined;
+    this.reportIds.next(reportIds);
+    if (reportIds?.length) {
       this.formGroup.controls.reportId.enable();
     } else {
       this.formGroup.controls.reportId.disable();
     }
 
-    const selectedReportId = this._reportIds?.[0];
+    const selectedReportId = reportIds?.[0];
     this.formGroup.controls.reportId.setValue(selectedReportId);
     this.selectReportId(selectedReportId);
   }
 
   selectReportId(selectedReportId?: string): void {
-    this._selectedReportId = selectedReportId;
-    this.selectedReportId.next(this._selectedReportId);
+    this.selectedReportId.next(selectedReportId);
 
     this.visualisationService.updateDataEvent.next(undefined);
 
@@ -222,11 +215,14 @@ export class ViewComponent implements OnInit {
           });
         });
     }
+
+    this.changeDetectionRef.detectChanges();
   }
 
   selectedTabChange($event: MatTabChangeEvent): void {
     if ($event.index == 3) {
       this.visualization.setLayout();
+      this.changeDetectionRef.detectChanges();
     }
   }
 }
