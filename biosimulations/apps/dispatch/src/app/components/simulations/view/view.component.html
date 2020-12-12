@@ -131,6 +131,7 @@
     [fullHeight]="true"
     [disabled]="(selectedReportId$ | async) === undefined"
   >
-    <biosimulations-visualisation #visualization></biosimulations-visualisation >
+    <biosimulations-visualisation #visualization [data]="vizData$ | async">
+    </biosimulations-visualisation >
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

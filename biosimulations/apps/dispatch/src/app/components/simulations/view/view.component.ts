@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
@@ -53,7 +53,6 @@ interface Logs {
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewComponent implements OnInit {
   private uuid = '';
@@ -81,6 +80,9 @@ export class ViewComponent implements OnInit {
   private selectedReportId = new BehaviorSubject<string | undefined>(undefined);
   selectedReportId$ = this.selectedReportId.asObservable()
 
+  private vizData = new BehaviorSubject<any[] | undefined>(undefined);
+  vizData$ = this.vizData.asObservable();
+
   @ViewChild('visualization') visualization!: VisualisationComponent;
 
   constructor(
@@ -90,7 +92,6 @@ export class ViewComponent implements OnInit {
     private simulationService: SimulationService,
     private visualisationService: VisualisationService,
     private dispatchService: DispatchService,
-    private changeDetectionRef: ChangeDetectorRef
   ) {
     this.formGroup = formBuilder.group({
       sedmlLocation: ['', [Validators.required]],
@@ -129,7 +130,6 @@ export class ViewComponent implements OnInit {
         resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`,
       });
       this.statusRunning.next(statusRunning);
-      this.changeDetectionRef.detectChanges();
 
       if (!statusRunning) {
         this.dispatchService.getSimulationLogs(this.uuid)
@@ -146,7 +146,6 @@ export class ViewComponent implements OnInit {
                 err: data.data.error,
               });
             }
-            this.changeDetectionRef.detectChanges();
           });
       }
 
@@ -203,26 +202,24 @@ export class ViewComponent implements OnInit {
   selectReportId(selectedReportId?: string): void {
     this.selectedReportId.next(selectedReportId);
 
-    this.visualisationService.updateDataEvent.next(undefined);
+    this.vizData.next(undefined);
 
     if (this.selectedSedmlLocation && selectedReportId) {
       this.visualisationService
         .getVisualisation(this.uuid, this.selectedSedmlLocation, selectedReportId)
         .subscribe((data: any) => {
-          this.visualisationService.updateDataEvent.next({
-            report: selectedReportId,
-            data: data.data,
+          const vizData: any[] = [];
+          Object.keys(data.data).forEach(element => {
+            vizData.push({...data.data[element], name: element });
           });
+          this.vizData.next(vizData);
         });
     }
-
-    this.changeDetectionRef.detectChanges();
   }
 
   selectedTabChange($event: MatTabChangeEvent): void {
     if ($event.index == 3) {
       this.visualization.setLayout();
-      this.changeDetectionRef.detectChanges();
     }
   }
 }
