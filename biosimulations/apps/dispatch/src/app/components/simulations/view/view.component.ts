@@ -17,6 +17,15 @@ import { Simulation } from '../../../datamodel';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 
+interface VizApiResponse {
+  message: string;
+  data: CombineArchive;
+}
+
+interface CombineArchive {
+  [id: string]: string[];
+}
+
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
@@ -37,20 +46,16 @@ export class ViewComponent implements OnInit {
   projectSize = '';
   resultsUrl = '';
   resultsSize = '';
-  sedmls!: Array<string>;
-  reports!: Array<string>;
-  outLog = ''
-  errLog = ''
+
+  outLog = '';
+  errLog = '';
 
   formGroup: FormGroup;
-
-  sedmlError!: string;
-  reportError!: string;
-
-  projectStructure!: any;
-
-  selectedSedml!: string;
-  selectedReport!: string;
+  combineArchive?: CombineArchive;
+  sedmlLocations?: string[];
+  selectedSedmlLocation?: string;
+  reportIds?: string[];
+  selectedReportId?: string;
 
   @ViewChild('visualization') visualization!: VisualisationComponent;
 
@@ -63,39 +68,14 @@ export class ViewComponent implements OnInit {
     private dispatchService: DispatchService
   ) {
     this.formGroup = formBuilder.group({
-      sedml: ['', [Validators.required]],
-      report: ['', [Validators.required]],
+      sedmlLocation: ['', [Validators.required]],
+      reportId: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    
-    this.setSimulationInfo();
 
-    this.dispatchService.getSimulationLogs(this.uuid)
-      .subscribe((data: any) => {
-        if (data.data === undefined) {
-          // TODO: should this be interpreted as an error message?
-          this.outLog = data.message;
-          this.errLog = '';
-        } else {
-          this.outLog = data.data.output;
-          this.errLog = data.data.error;
-
-        }
-      });
-
-    this.visualisationService
-      .getResultStructure(this.uuid)
-      .subscribe((data: any) => {
-        if (data != null) {
-          this.setProjectResults(data);
-        }
-      });
-  }
-
-  private setSimulationInfo(): void {
     this.simulationService.getSimulationByUuid(this.uuid).subscribe((simulation: Simulation): void => {
       this.name = simulation.name;
       this.simulator = simulation.simulator;
@@ -111,46 +91,86 @@ export class ViewComponent implements OnInit {
       this.projectUrl = `${urls.dispatchApi}run/${simulation.id}/download`;
       this.simulatorUrl = `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
       this.resultsUrl = `${urls.dispatchApi}download/result/${simulation.id}`;
+
+      this.combineArchive = undefined;
+      this.sedmlLocations = undefined;
+      this.selectedSedmlLocation = undefined;
+      this.reportIds = undefined;
+      this.selectedReportId = undefined;
+      this.formGroup.controls.sedmlLocation.disable();
+      this.formGroup.controls.reportId.disable();
+
+      if (!this.statusRunning) {
+        this.dispatchService.getSimulationLogs(this.uuid)
+          .subscribe((data: any) => {
+            if (data.data === undefined) {
+              // TODO: should this be interpreted as an error message?
+              this.outLog = data.message;
+              this.errLog = '';
+            } else {
+              this.outLog = data.data.output;
+              this.errLog = data.data.error;
+            }
+          });
+      }
+
+      if (this.statusSucceeded) {
+        this.visualisationService
+          .getResultStructure(this.uuid)
+          .subscribe((response: any): void => {
+            if (response != null && response.message === 'OK') {
+              this.setProjectOutputs(response.data as CombineArchive);
+            }
+          });
+      }
     });
   }
 
-  private setProjectResults(data: any): void {
-    if(data.message === 'OK') {
-      const projectStructure = data.data;
-      this.projectStructure = projectStructure;
+  private setProjectOutputs(combineArchive: CombineArchive): void {
+    this.combineArchive = combineArchive;
 
-      this.sedmls = Object.keys(projectStructure);
-      this.selectedSedml = this.sedmls[0];
-
-      this.setSedml();
+    this.sedmlLocations = Object.keys(combineArchive);
+    if (this.sedmlLocations?.length) {
+      this.formGroup.controls.sedmlLocation.enable();
+    } else {
+      this.formGroup.controls.sedmlLocation.disable();
     }
-    // const sedml = this.sedmls[0];
-    // this.formGroup.controls.sedml.setValue(sedml);
+
+    const selectedSedmlLocation = this.sedmlLocations?.[0];
+    this.formGroup.controls.sedmlLocation.setValue(selectedSedmlLocation);
+    this.selectSedmlLocation(selectedSedmlLocation);
   }
 
-  setSedml(): void {
-    // const sedml = this.formGroup.value.sedml;
-    // this.reports = Object.keys(this.projectResults[sedml]);
-    this.reports = this.projectStructure[this.selectedSedml];
-    this.selectedReport = this.reports[0];
-    // const report = this.reports[0];
-    // this.formGroup.controls.report.setValue(report);
-    this.setReport();
+  selectSedmlLocation(selectedSedmlLocation?: string): void {
+    this.selectedSedmlLocation = selectedSedmlLocation;
+
+    this.reportIds = this.combineArchive && selectedSedmlLocation ? this.combineArchive[selectedSedmlLocation] : undefined;
+    if (this.reportIds?.length) {
+      this.formGroup.controls.reportId.enable();
+    } else {
+      this.formGroup.controls.reportId.disable();
+    }
+
+    const selectedReportId = this.reportIds?.[0];
+    this.formGroup.controls.reportId.setValue(selectedReportId);
+    this.selectReportId(selectedReportId);
   }
 
-  setReport(): void {
-    // const sedml = this.formGroup.value.sedml;
-    // const report = this.formGroup.value.report;
-    // const reportResults = this.projectResults[sedml][report];
+  selectReportId(selectedReportId?: string): void {
+    this.selectedReportId = selectedReportId;
 
-    this.visualisationService
-      .getVisualisation(this.uuid, this.selectedSedml, this.selectedReport)
-      .subscribe((data: any) => {
-        this.visualisationService.updateDataEvent.next({
-          report: this.selectedReport,
-          data: data['data'],
+    this.visualisationService.updateDataEvent.next(undefined);
+
+    if (this.selectedSedmlLocation && selectedReportId) {
+      this.visualisationService
+        .getVisualisation(this.uuid, this.selectedSedmlLocation, selectedReportId)
+        .subscribe((data: any) => {
+          this.visualisationService.updateDataEvent.next({
+            report: selectedReportId,
+            data: data.data,
+          });
         });
-      });
+    }
   }
 
   selectedTabChange($event: MatTabChangeEvent): void {

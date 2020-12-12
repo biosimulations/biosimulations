@@ -1,4 +1,9 @@
+<div *ngIf="data === undefined" class="spinner-container">
+    <biosimulations-spinner>
+    </biosimulations-spinner>
+</div>
 <plotly-plot
+  *ngIf="data !== undefined"
   [data]="data"
   [layout]="layout"
   [useResizeHandler]="visible"
