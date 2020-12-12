@@ -101,6 +101,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
+        value = new Date(value);
         return (
           value.getFullYear().toString() +
           '-' +
@@ -123,6 +124,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
+        value = new Date(value);
         return (
           value.getFullYear().toString() +
           '-' +

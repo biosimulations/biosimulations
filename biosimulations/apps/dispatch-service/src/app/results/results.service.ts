@@ -39,6 +39,8 @@ export class ResultsService {
       this.uploadResultFile(id, file);
     });
   }
+
+
   async uploadResultFile(id: string, file: resultFile) {
     const file_json = this.parseToJson(file);
     const report = file.name.split('.csv')[0];
@@ -46,8 +48,10 @@ export class ResultsService {
     //apidomain/results/simulationID/report
     const sedml = encodeURI(file.path.split('/').slice(0, -1).join('/'));
 
-    this.uploadJSON(id, sedml, report, await file_json);
+    //this.uploadJSON(id, sedml, report, await file_json);
   }
+
+
   uploadJSON(id: string, sedml: any, report: string, file_json: string) {
     // TODO Complete implementation
     this.logger.warn(id);
@@ -55,6 +59,8 @@ export class ResultsService {
     this.logger.warn(report);
     this.logger.warn(file_json);
   }
+
+
   async parseToJson(file: resultFile): Promise<string> {
     this.logger.warn(file);
     const jsonArray = await csv().fromFile(file.path);
@@ -62,6 +68,8 @@ export class ResultsService {
     //return JSON.stringify(jsonArray);
     return jsonArray.toString();
   }
+
+
   static async getFilesRecursively(path: string) {
     // Get all the files and folders int the directory
     const entries = fsPromises.readdir(path, { withFileTypes: true });

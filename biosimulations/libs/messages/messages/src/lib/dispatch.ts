@@ -8,7 +8,7 @@ export enum DispatchMessage {
   // Job starting running on the HPC
   started = 'dispatch.started',
   // Job done running
-  finsihed = 'dispatch.finished',
+  finished = 'dispatch.finished',
   // Job failed
   failed = 'dispatch.failed',
 }

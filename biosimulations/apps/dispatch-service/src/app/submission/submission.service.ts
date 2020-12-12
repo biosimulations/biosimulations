@@ -13,6 +13,8 @@ import { SimulationRunService } from '../simulation-run/simulation-run.service';
 @Injectable({})
 export class SubmissionService {
   logger: Logger;
+
+
   constructor(
     private service: SimulationRunService,
     private hpcService: HpcService,
@@ -21,6 +23,8 @@ export class SubmissionService {
   ) {
     this.logger = new Logger(SubmissionService.name);
   }
+
+
   private createJob(jobId: string, simId: string, seconds: number) {
     const job = new CronJob(`*/${seconds.toString()} * * * * *`, async () => {
       const jobStatus: SimulationRunStatus = await this.hpcService.getJobStatus(
@@ -55,10 +59,10 @@ export class SubmissionService {
         case SimulationRunStatus.SUCCEEDED: {
           this.updateSimulationRunStatus(simId, jobStatus);
           const succeededMessage: DispatchPayload = {
-            _message: DispatchMessage.finsihed,
+            _message: DispatchMessage.finished,
             id: simId,
           };
-          this.messageClient.emit(DispatchMessage.finsihed, succeededMessage);
+          this.messageClient.emit(DispatchMessage.finished, succeededMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           break;
@@ -83,6 +87,8 @@ export class SubmissionService {
     });
     return job;
   }
+
+
   async startMonitoringCronJob(jobId: string, simId: string, seconds: number) {
     const job = this.createJob(jobId, simId, seconds);
     this.schedulerRegistry.addCronJob(jobId, job);

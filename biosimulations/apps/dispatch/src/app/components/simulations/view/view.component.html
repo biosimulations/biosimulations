@@ -38,7 +38,7 @@
           </th>
           <td>
             <span class="heading">Results:</span>{{' '}}
-            <a [href]="simulation.resultsUrl" *ngIf="statusSucceeded; else noResults">CSV ({{ simulation.resultsSize }})</a>
+            <a [href]="simulation.resultsUrl" *ngIf="simulation.statusSucceeded ; else noResults">CSV ({{ simulation.resultsSize }})</a>
             <ng-template #noResults>N/A</ng-template>
           </td>
         </tr>

@@ -24,9 +24,10 @@ export class AppController {
     ''
   );
 
-  @MessagePattern(DispatchMessage.finsihed)
+  @MessagePattern(DispatchMessage.finished)
   async dispatchFinish(data: DispatchPayload) {
     const uuid = data.id;
+    console.log('Simulation Finished with id: ', uuid);
     this.logger.log('Simulation Finished on HPC');
     const resDir = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const allFilesInfo = await FileModifiers.getFilesRecursive(resDir);
