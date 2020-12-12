@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Simulation, SimulationStatus } from '../../datamodel';
+import { Simulation } from '../../datamodel';
+import { SimulationRunStatus } from '../../datamodel';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -15,78 +16,81 @@ export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
   private simulationsMap: { [key: string]: Simulation } = {};
-  private simulationsSubject = new BehaviorSubject<Simulation[]>(
-    this.simulations
-  );
+  private simulationsSubject = new BehaviorSubject<Simulation[]>(this.simulations);
   public simulations$: Observable<
     Simulation[]
   > = this.simulationsSubject.asObservable();
+  private storageInitialized = false;
+  private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
 
   private refreshInterval!: any;
 
   constructor(
-    config: ConfigService,
+    private config: ConfigService,
     private storage: Storage,
     private httpClient: HttpClient
   ) {
     this.storage.ready().then(() => {
       this.storage.keys().then((keys) => {
         if (keys.includes(this.key)) {
-          this.storage.get(this.key).then((simulations): void => {
-            this.simulations = simulations;
-            this.simulationsMap = {};
-            this.simulations.forEach((simulation: Simulation): void => {
-              this.simulationsMap[simulation.id] = simulation;
-            });
-            this.simulationsSubject.next(simulations);
-            this.updateSimulations();
-            this.refreshInterval = setInterval(
-              () => this.updateSimulations(),
-              config.appConfig?.simulationStatusRefreshIntervalSec * 1000
-            );
+          this.storage.get(this.key).then((simulations: Simulation[]): void => {
+            this.initSimulations(simulations);
           });
         } else {
-          const simulations: Simulation[] = [];
-          this.simulations = simulations;
-          this.simulationsMap = {};
-          this.simulationsSubject.next(simulations);
-          this.refreshInterval = setInterval(
-            () => this.updateSimulations(),
-            config.appConfig?.simulationStatusRefreshIntervalSec * 1000
-          );
+          this.initSimulations([]);
         }
       });
     });
   }
 
-  storeSimulation(simulation: Simulation): void {
-    this.simulations.push(simulation);
-    this.simulationsMap[simulation.id] = simulation;
+  private initSimulations(storedSimulations: Simulation[]): void {
+    const simulations = storedSimulations.concat(this.simulationsAddedBeforeStorageInitialized);
+    simulations.forEach((simulation: Simulation): void => {
+      if (!(simulation.id in this.simulationsMap)) {
+        this.simulations.push(simulation);
+        this.simulationsMap[simulation.id] = simulation;
+      }
+    });
     this.simulationsSubject.next(this.simulations);
-    this.storage.set(this.key, this.simulations);
+    this.updateSimulations();
+    this.refreshInterval = setInterval(
+      () => this.updateSimulations(),
+      this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000
+    );
+    this.storageInitialized = true;
+    if (this.simulationsAddedBeforeStorageInitialized.length) {
+      this.storage.set(this.key, this.simulations);
+    }
+  }
+
+  storeSimulation(newSimulation: Simulation, getStatus = false): void {
+    this.storeSimulations([newSimulation], getStatus);
+  }
+
+  storeSimulations(newSimulations: Simulation[], getStatus = false): void {
+    if (this.storageInitialized) {
+      newSimulations.forEach((newSimulation: Simulation): void => {
+        if (newSimulation.id in this.simulationsMap) {
+          Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
+        } else {
+          this.simulations.push(newSimulation);
+          this.simulationsMap[newSimulation.id] = newSimulation;
+        }
+      });
+      this.simulationsSubject.next(this.simulations);
+      this.storage.set(this.key, this.simulations);
+      if (getStatus) {
+        this.updateSimulations();
+      }
+    } else {
+       newSimulations.forEach((newSimulation: Simulation): void => {
+        this.simulationsAddedBeforeStorageInitialized.push(newSimulation);
+      });
+    }
   }
 
   private updateSimulations(): void {
-    // no updates needed if no simulations
-    if (this.simulations.length === 0) {
-      return;
-    }
-
-    // no updates needed if no simulation is queued or running
-    let activeSimulation = false;
-    for (const simulation of this.simulations) {
-      if (
-        SimulationStatusService.isSimulationStatusRunning(simulation.status)
-      ) {
-        activeSimulation = true;
-        break;
-      }
-    }
-    if (!activeSimulation) {
-      return;
-    }
-
-    // update status of simulations that haven't completed
+    // determine ids of simulations whose status needs to be updated
     const simulationIds = this.simulations
       .filter((simulation: Simulation): boolean => {
         return SimulationStatusService.isSimulationStatusRunning(
@@ -96,7 +100,13 @@ export class SimulationService {
       .map((simulation: Simulation): string => {
         return simulation.id;
       });
+    
+    // stop if no simulations need to be updated
+    if (simulationIds.length === 0) {
+      return;
+    }
 
+    // get status of simulations
     const promises = [];
     for (const simId of simulationIds) {
       const promise = this.httpClient
@@ -105,6 +115,7 @@ export class SimulationService {
       promises.push(promise);
     }
 
+    // update status
     Promise.all(promises).then((data: any) => {
       const simulations: Simulation[] = [];
       for (const sim of data) {
@@ -114,7 +125,7 @@ export class SimulationService {
           email: dispatchSim.email,
           runtime: dispatchSim.runtime,
           id: dispatchSim.id,
-          status: (dispatchSim.status as unknown) as SimulationStatus,
+          status: (dispatchSim.status as unknown) as SimulationRunStatus,
           submitted: new Date(dispatchSim.submitted),
           submittedLocally: this.simulationsMap[dispatchSim.id]
             .submittedLocally,
@@ -125,40 +136,8 @@ export class SimulationService {
           projectSize: dispatchSim.projectSize,
         });
       }
-      this.setSimulations(simulations, false);
+      this.storeSimulations(simulations, false);
     });
-  }
-
-  setSimulations(setSimulations: Simulation[], getStatus = false): void {
-    const newSimulations: Simulation[] = [...this.simulations];
-
-    const newSimulationIdToIndex: { [id: string]: number } = {};
-    newSimulations.forEach(
-      (newSimulation: Simulation, iSimulation: number): void => {
-        newSimulationIdToIndex[newSimulation.id] = iSimulation;
-      }
-    );
-
-    setSimulations.forEach((setSimulation: Simulation): void => {
-      if (setSimulation.id in this.simulationsMap) {
-        newSimulations.splice(
-          newSimulationIdToIndex[setSimulation.id],
-          1,
-          setSimulation
-        );
-      } else {
-        newSimulations.push(setSimulation);
-      }
-      this.simulationsMap[setSimulation.id] = setSimulation;
-    });
-
-    this.simulations = newSimulations;
-    this.simulationsSubject.next(newSimulations);
-    this.storage.set(this.key, newSimulations);
-
-    if (getStatus) {
-      this.updateSimulations();
-    }
   }
 
   getSimulations(): Simulation[] {
@@ -179,7 +158,7 @@ export class SimulationService {
             email: dispatchSimulation.email,
             runtime: dispatchSimulation.runtime,
             id: dispatchSimulation.id,
-            status: (dispatchSimulation.status as unknown) as SimulationStatus,
+            status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
             submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,

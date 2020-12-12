@@ -9,7 +9,6 @@ import { urls } from '@biosimulations/config/common';
 })
 export class VisualisationService {
   tasksPerSedml: any;
-  updateDataEvent = new Subject<any>();
 
   private resultsEndpoint = `${urls.dispatchApi}result`;
   constructor(private http: HttpClient) {}

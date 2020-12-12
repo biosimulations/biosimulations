@@ -10,9 +10,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
-import { SimulationStatus } from '../../../datamodel';
+import { SimulationRunStatus } from '../../../datamodel';
 import { map } from 'rxjs/operators';
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -66,14 +65,14 @@ export class DispatchComponent implements OnInit {
       // Note: Hardcoded available simulators, to make it dynamic uncomment above two lines and delete the hard-coded one
       // TODO: Un-hardcode simulators
       this.simulators = [
-        'copasi',
+        // 'copasi',
         'vcell',
-        // 'tellurium',
+        'tellurium',
       ];
       this.simulatorVersionsMap = {
-        copasi: ['4.27.214', '4.28.226'],
+        // copasi: ['4.27.214', '4.28.226'],
         vcell: ['7.3.0.0'],
-        // tellurium: ['2.1.6'],
+        tellurium: ['2.1.6'],
       };
 
       this.simulators.sort((a: string, b: string): number => {
@@ -119,7 +118,7 @@ export class DispatchComponent implements OnInit {
           simulator: simulator,
           simulatorVersion: simulatorVersion,
           submittedLocally: true,
-          status: SimulationStatus.QUEUED,
+          status: SimulationRunStatus.QUEUED,
           runtime: undefined,
           submitted: new Date(),
           updated: new Date(),

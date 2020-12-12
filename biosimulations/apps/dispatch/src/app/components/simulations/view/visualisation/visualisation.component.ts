@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, Input, HostListener, ElementRef } from '@angular/core';
 import { VisualisationService } from '../../../../services/visualisation/visualisation.service';
 
 @Component({
@@ -6,8 +6,10 @@ import { VisualisationService } from '../../../../services/visualisation/visuali
   templateUrl: './visualisation.component.html',
   styleUrls: ['./visualisation.component.scss']
 })
-export class VisualisationComponent implements OnInit {
-  data: any;
+export class VisualisationComponent {
+  @Input()
+  data?: any[];
+
   visible = false;
   layout: any;
 
@@ -15,22 +17,6 @@ export class VisualisationComponent implements OnInit {
     private visualisationService: VisualisationService,
     private hostElement: ElementRef,
   ) { }
-
-  ngOnInit(): void {
-    this.visualisationService.updateDataEvent.subscribe(
-      (reports: any) => {
-        const res: any = [];
-        const keys = Object.keys(reports['data']);
-        keys.forEach(element => {
-          res.push({ ...reports['data'][element], name: element });
-        });
-        this.data = res;
-
-      },
-      (error) => {
-      }
-    );
-  }
 
   @HostListener('window:resize')
   onResize() {
