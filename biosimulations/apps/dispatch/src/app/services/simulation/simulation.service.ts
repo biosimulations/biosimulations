@@ -73,7 +73,7 @@ export class SimulationService {
         if (newSimulation.id in this.simulationsMap) {
           const submittedLocally = this.simulationsMap[newSimulation.id].submittedLocally;
           Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
-          this.simulationsMap[newSimulation.id] = submittedLocally;
+          this.simulationsMap[newSimulation.id].submittedLocally = submittedLocally;
         } else {
           this.simulations.push(newSimulation);
           this.simulationsMap[newSimulation.id] = newSimulation;
