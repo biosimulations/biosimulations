@@ -71,7 +71,9 @@ export class SimulationService {
     if (this.storageInitialized) {
       newSimulations.forEach((newSimulation: Simulation): void => {
         if (newSimulation.id in this.simulationsMap) {
+          const submittedLocally = this.simulationsMap[newSimulation.id].submittedLocally;
           Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
+          this.simulationsMap[newSimulation.id] = submittedLocally;
         } else {
           this.simulations.push(newSimulation);
           this.simulationsMap[newSimulation.id] = newSimulation;
