@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
@@ -53,6 +53,7 @@ interface Logs {
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewComponent implements OnInit {
   private uuid = '';
@@ -92,6 +93,7 @@ export class ViewComponent implements OnInit {
     private simulationService: SimulationService,
     private visualisationService: VisualisationService,
     private dispatchService: DispatchService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.formGroup = formBuilder.group({
       sedmlLocation: ['', [Validators.required]],
@@ -106,6 +108,7 @@ export class ViewComponent implements OnInit {
     this.formGroup.controls.reportId.disable();
 
     this.setSimulation();
+    setTimeout(() => this.changeDetectorRef.detectChanges());
   }
 
   private setSimulation(): void {
@@ -146,6 +149,7 @@ export class ViewComponent implements OnInit {
                 err: data.data.error,
               });
             }
+            setTimeout(() => this.changeDetectorRef.detectChanges());
           });
       }
 
@@ -213,6 +217,7 @@ export class ViewComponent implements OnInit {
             vizData.push({...data.data[element], name: element });
           });
           this.vizData.next(vizData);
+          setTimeout(() => this.changeDetectorRef.detectChanges());
         });
     }
   }
@@ -220,6 +225,7 @@ export class ViewComponent implements OnInit {
   selectedTabChange($event: MatTabChangeEvent): void {
     if ($event.index == 3) {
       this.visualization.setLayout();
+      this.changeDetectorRef.detectChanges();
     }
   }
 }
