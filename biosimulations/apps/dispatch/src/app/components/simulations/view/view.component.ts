@@ -56,9 +56,9 @@ interface Logs {
 })
 export class ViewComponent implements OnInit {
   private uuid = '';
-  
+
   private formattedSimulation = new BehaviorSubject<FormattedSimulation | undefined>(undefined);
-  formattedSimulation$ = this.formattedSimulation.asObservable();  
+  formattedSimulation$ = this.formattedSimulation.asObservable();
 
   private statusRunning = new BehaviorSubject<boolean>(true);
   statusRunning$ = this.statusRunning.asObservable();
@@ -68,17 +68,17 @@ export class ViewComponent implements OnInit {
 
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
-  
+
   private _sedmlLocations: string[] | undefined;
   private sedmlLocations = new BehaviorSubject<string[] | undefined>(undefined);
   sedmlLocations$ = this.sedmlLocations.asObservable()
-  
+
   private _reportIds: string[] | undefined;
   private reportIds = new BehaviorSubject<string[] | undefined>(undefined);
   reportIds$ = this.reportIds.asObservable();
 
-  private selectedSedmlLocation: string | undefined;  
-  
+  private selectedSedmlLocation: string | undefined;
+
   private _selectedReportId: string | undefined;
   private selectedReportId = new BehaviorSubject<string | undefined>(undefined);
   selectedReportId$ = this.selectedReportId.asObservable()
@@ -101,7 +101,10 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
+    this.setSimulation();
+  }
 
+  private setSimulation(): void {
     this.simulationService.getSimulationByUuid(this.uuid).subscribe((simulation: Simulation): void => {
       const statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
       const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
@@ -161,6 +164,12 @@ export class ViewComponent implements OnInit {
               this.setProjectOutputs(response.data as CombineArchive);
             }
           });
+      }
+
+      if (statusRunning) {
+        setTimeout(this.setSimulation.bind(this),
+          this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000
+        );
       }
     });
   }
