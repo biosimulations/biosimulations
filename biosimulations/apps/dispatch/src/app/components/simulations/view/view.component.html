@@ -99,7 +99,7 @@
             {{ sedmlLocation }}
           </mat-option>
         </mat-select>
-        <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
+        <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
         <mat-hint>Select one of the SED-ML files in the COMBINE/OMEX archive which
           describes one or more reports of one or more simulations.</mat-hint>
       </mat-form-field>
@@ -116,10 +116,91 @@
             {{ reportId }}
           </mat-option>
         </mat-select>
-        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+        <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
         <mat-hint>Select a report within the selected SED-ML file which describes the
           results of one or more simulations (e.g., in SED-ML format) of one or
           more models (e.g., in SBML format).</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select a data set for the x-axis</mat-label>
+        <mat-select
+          formControlName="xDataSetId"
+          required
+          (selectionChange)="buildVizData()"
+          disableOptionCentering
+        >
+          <mat-option *ngFor="let dataSet of (dataSetIdDisableds | async)" [value]="dataSet.id" [disabled]="dataSet.disabled">
+            {{ dataSet.id }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+        <mat-hint>Select a data set within the selected report such as "time".</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select data sets for the y-axis</mat-label>
+        <mat-select
+          formControlName="yDataSetIds"
+          multiple
+          required
+          (selectionChange)="buildVizData()"
+          disableOptionCentering
+        >
+          <mat-option *ngFor="let dataSet of (dataSetIdDisableds | async)" [value]="dataSet.id" [disabled]="dataSet.disabled">
+            {{ dataSet.id }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+        <mat-hint>Select one or more data sets within the selected report such as the concentrations of specific species (e.g., "ATP") or the fluxes of specific reactions (e.g., "AtpA").</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select a scale for the x-axis</mat-label>
+        <mat-select
+          formControlName="xAxisType"
+          required
+          (selectionChange)="buildVizData()"
+          disableOptionCentering
+        >
+          <mat-option *ngFor="let axisLabelType of axisLabelTypes" [value]="axisLabelType.type">
+            {{ axisLabelType.label }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon icon="visualization" matPrefix></biosimulations-icon>
+        <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select a scale for the y-axis</mat-label>
+        <mat-select
+          formControlName="yAxisType"
+          required
+          (selectionChange)="buildVizData()"
+          disableOptionCentering
+        >
+          <mat-option *ngFor="let axisLabelType of axisLabelTypes" [value]="axisLabelType.type">
+            {{ axisLabelType.label }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon icon="visualization" matPrefix></biosimulations-icon>
+        <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select a type of plot</mat-label>
+        <mat-select
+          formControlName="scatterTraceMode"
+          required
+          (selectionChange)="buildVizData()"
+          disableOptionCentering
+        >
+          <mat-option *ngFor="let scatterTraceModeLabel of scatterTraceModeLabels" [value]="scatterTraceModeLabel.mode">
+            {{ scatterTraceModeLabel.label }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon icon="visualization" matPrefix></biosimulations-icon>
+        <mat-hint>Select a type of plot such as "line" or "scatter".</mat-hint>
       </mat-form-field>
     </form>
   </biosimulations-tab-page-tab>
@@ -129,9 +210,9 @@
     icon="chart"
     urlHashFragment="viz"
     [fullHeight]="true"
-    [disabled]="(selectedReportId$ | async) === undefined"
+    [disabled]="!formGroup.controls.xDataSetId.value || formGroup.controls.yDataSetIds.value.length === 0"
   >
-    <biosimulations-visualisation #visualization [data]="vizData$ | async">
-    </biosimulations-visualisation >
+    <biosimulations-visualization #visualization [dataLayout]="vizDataLayout$ | async">
+    </biosimulations-visualization >
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>
