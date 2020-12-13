@@ -10,8 +10,8 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
-import { VisualisationService } from '../../../services/visualisation/visualisation.service';
-import { VisualisationComponent } from './visualisation/visualisation.component';
+import { VisualizationService } from '../../../services/visualization/visualization.service';
+import { VisualizationComponent } from './visualization/visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation } from '../../../datamodel';
 import { urls } from '@biosimulations/config/common';
@@ -84,14 +84,14 @@ export class ViewComponent implements OnInit {
   private vizData = new BehaviorSubject<any[] | undefined>(undefined);
   vizData$ = this.vizData.asObservable();
 
-  @ViewChild('visualization') visualization!: VisualisationComponent;
+  @ViewChild('visualization') visualization!: VisualizationComponent;
 
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
-    private visualisationService: VisualisationService,
+    private visualizationService: VisualizationService,
     private dispatchService: DispatchService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
@@ -154,7 +154,7 @@ export class ViewComponent implements OnInit {
       }
 
       if (statusSucceeded) {
-        this.visualisationService
+        this.visualizationService
           .getResultStructure(this.uuid)
           .subscribe((response: any): void => {
             if (response != null && response.message === 'OK') {
@@ -209,8 +209,8 @@ export class ViewComponent implements OnInit {
     this.vizData.next(undefined);
 
     if (this.selectedSedmlLocation && selectedReportId) {
-      this.visualisationService
-        .getVisualisation(this.uuid, this.selectedSedmlLocation, selectedReportId)
+      this.visualizationService
+        .getVisualization(this.uuid, this.selectedSedmlLocation, selectedReportId)
         .subscribe((data: any) => {
           const vizData: any[] = [];
           Object.keys(data.data).forEach(element => {

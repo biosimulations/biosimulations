@@ -1,17 +1,17 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { VisualisationService } from './visualisation.service';
+import { VisualizationService } from './visualization.service';
 import { Observable } from 'rxjs';
 
-describe('VisualisationService', () => {
-  let service: VisualisationService;
+describe('VisualizationService', () => {
+  let service: VisualizationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [HttpClient, HttpHandler],
     });
-    service = TestBed.inject(VisualisationService);
+    service = TestBed.inject(VisualizationService);
   });
 
   it('should be created', () => {
@@ -20,7 +20,7 @@ describe('VisualisationService', () => {
 
   describe('test getVisualization', () => {
     it('should return an observable containing the visualization data', () => {
-      const observable = service.getVisualisation('edb035bc50-sdcj-sdc38ak93n', 'VilarBMDB', 'task1');
+      const observable = service.getVisualization('edb035bc50-sdcj-sdc38ak93n', 'VilarBMDB', 'task1');
       expect(observable)
       .toEqual(observable);
     })

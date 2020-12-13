@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewComponent } from './view.component';
-import { VisualisationComponent } from './visualisation/visualisation.component';
+import { VisualizationComponent } from './visualization/visualization.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,7 @@ describe('ViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ViewComponent,
-        VisualisationComponent,
+        VisualizationComponent,
       ],
       imports: [RouterTestingModule, HttpClientTestingModule, 
         FormsModule,

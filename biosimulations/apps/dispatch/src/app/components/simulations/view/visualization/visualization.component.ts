@@ -1,12 +1,12 @@
 import { Component, Input, HostListener, ElementRef } from '@angular/core';
-import { VisualisationService } from '../../../../services/visualisation/visualisation.service';
+import { VisualizationService } from '../../../../services/visualization/visualization.service';
 
 @Component({
-  selector: 'biosimulations-visualisation',
-  templateUrl: './visualisation.component.html',
-  styleUrls: ['./visualisation.component.scss']
+  selector: 'biosimulations-visualization',
+  templateUrl: './visualization.component.html',
+  styleUrls: ['./visualization.component.scss']
 })
-export class VisualisationComponent {
+export class VisualizationComponent {
   @Input()
   data?: any[];
 
@@ -14,7 +14,7 @@ export class VisualisationComponent {
   layout: any;
 
   constructor(
-    private visualisationService: VisualisationService,
+    private visualizationService: VisualizationService,
     private hostElement: ElementRef,
   ) { }
 

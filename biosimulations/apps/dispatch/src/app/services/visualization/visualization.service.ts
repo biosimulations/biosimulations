@@ -7,13 +7,13 @@ import { urls } from '@biosimulations/config/common';
 @Injectable({
   providedIn: 'root',
 })
-export class VisualisationService {
+export class VisualizationService {
   tasksPerSedml: any;
 
   private resultsEndpoint = `${urls.dispatchApi}result`;
   constructor(private http: HttpClient) {}
 
-  getVisualisation(uuid: string, sedml: string, task: string) {
+  getVisualization(uuid: string, sedml: string, task: string) {
     // TODO: Save the data to localstorage, return from local storage if exists, if not return obeservable to request
     return this.http.get(
       `${this.resultsEndpoint}/${uuid}?chart=true&sedml=${sedml}&report=${task}`
