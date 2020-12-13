@@ -12,16 +12,16 @@ import { Dirent, promises as fsPromises } from 'fs';
 import ospath from 'path';
 import path from 'path';
 import csv from 'csvtojson';
-// TODO create typings or find alternate
-//import readline from 'readline-promise';
+
 import readline from 'readline';
 import fs from 'fs';
+import { SimulationRunReportData } from '@biosimulations/dispatch/api-models';
 
 export interface resultFile {
   name: string;
   path: string;
 }
-export type Result = { [key: string]: Array<any> };
+
 @Injectable()
 export class ResultsService {
   private logger = new Logger(ResultsService.name);
@@ -51,7 +51,7 @@ export class ResultsService {
       this.uploadResultFile(id, file, transpose);
     });
   }
-  private async readCSV(file: string): Promise<Result> {
+  private async readCSV(file: string): Promise<SimulationRunReportData> {
     // info https://nodejs.org/api/readline.html#readline_example_read_file_stream_line_by_line
 
     try {
@@ -60,7 +60,7 @@ export class ResultsService {
         input: fs.createReadStream(file),
         crlfDelay: Infinity,
       });
-      const resultObject: Result = {};
+      const resultObject: SimulationRunReportData = {};
 
       for await (const line of rlp) {
         const header = line.split(',')[0];
@@ -88,7 +88,7 @@ export class ResultsService {
     */
   }
   async uploadResultFile(id: string, file: resultFile, transpose: boolean) {
-    let file_json: Promise<Result>;
+    let file_json: Promise<SimulationRunReportData>;
 
     if (transpose) {
       file_json = this.parseToJson(file);
@@ -105,18 +105,24 @@ export class ResultsService {
 
     this.uploadJSON(id, sedml, await file_json);
   }
-  private uploadJSON(simId: string, resultId: string, result: Result) {
+  private uploadJSON(
+    simId: string,
+    resultId: string,
+    result: SimulationRunReportData
+  ) {
     // TODO Complete implementation
     this.logger.debug(simId);
     this.logger.debug(resultId);
     this.logger.debug(result);
-    this.logger.error("UPLOAD NOT IMPLEMENTED")
+    this.logger.error('UPLOAD NOT IMPLEMENTED');
   }
-  private async parseToJson(file: resultFile): Promise<Result> {
+  private async parseToJson(
+    file: resultFile
+  ): Promise<SimulationRunReportData> {
     const jsonArray = await csv().fromFile(file.path);
     this.logger.debug(jsonArray);
     const headers = Object.keys(jsonArray[0]);
-    const resultObject: Result = {};
+    const resultObject: SimulationRunReportData = {};
     headers.forEach((key) => {
       resultObject[key] = [];
     });

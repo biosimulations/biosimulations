@@ -4,13 +4,27 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
+import { omitPrivate } from '@biosimulations/datamodel/common';
+import {
+  SimulationRun,
+  SimulationRunReportData,
+} from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
-@Schema({ id: false })
+@Schema({ id: true })
 export class ResultsModel extends Document {
-  @Prop({ index: true, unique: true })
-  id!: string;
+  @Prop({ type: Types.ObjectId, ref: SimulationRun.name })
+  simId!: SimulationRun;
+
+  @Prop()
+  reportId!: string;
+
+  @Prop()
+  data!: SimulationRunReportData;
 }
 
 export const ResultsSchema = SchemaFactory.createForClass(ResultsModel);
+ResultsSchema.index({ simId: 1, reportId: 1 }, { unique: true });
+ResultsSchema.set('toObject', { transform: omitPrivate });
+ResultsSchema.set('toJSON', { transform: omitPrivate });
