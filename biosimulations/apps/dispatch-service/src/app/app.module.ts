@@ -1,4 +1,4 @@
-import { Module, CacheModule, HttpModule } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
@@ -8,12 +8,11 @@ import {
   ClientProxyFactory,
   Transport,
   NatsOptions,
+  ClientProxy,
 } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ArchiverService } from './services/archiver/archiver.service';
-import { TypegooseModule } from 'nestjs-typegoose';
-import { MongooseModule } from '@nestjs/mongoose';
 
 import { SubmissionController } from './submission/submission.controller';
 
@@ -37,7 +36,7 @@ import { ResultsService } from './results/results.service';
 
     {
       provide: 'DISPATCH_MQ',
-      useFactory: (configService: ConfigService) => {
+      useFactory: (configService: ConfigService): ClientProxy => {
         const natsServerConfig = configService.get('nats');
         const natsOptions: NatsOptions = {};
         natsOptions.transport = Transport.NATS;

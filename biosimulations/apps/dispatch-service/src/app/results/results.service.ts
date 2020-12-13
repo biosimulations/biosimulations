@@ -39,7 +39,7 @@ export class ResultsService {
       this.uploadResultFile(id, file, transpose);
     });
   }
-  readCSV(file: string): Result {
+  private readCSV(file: string): Result {
     throw new Error('Method not implemented.');
   }
   async uploadResultFile(id: string, file: resultFile, transpose: boolean) {
@@ -59,13 +59,13 @@ export class ResultsService {
 
     this.uploadJSON(id, sedml, await file_json);
   }
-  uploadJSON(simId: string, resultId: string, result: Result) {
+  private uploadJSON(simId: string, resultId: string, result: Result) {
     // TODO Complete implementation
     this.logger.debug(simId);
     this.logger.debug(resultId);
     this.logger.debug(result);
   }
-  async parseToJson(file: resultFile): Promise<Result> {
+  private async parseToJson(file: resultFile): Promise<Result> {
     const jsonArray = await csv().fromFile(file.path);
     this.logger.debug(jsonArray);
     const headers = Object.keys(jsonArray[0]);
@@ -81,7 +81,9 @@ export class ResultsService {
     this.logger.warn(resultObject);
     return resultObject;
   }
-  static async getFilesRecursively(path: string): Promise<resultFile[]> {
+  private static async getFilesRecursively(
+    path: string
+  ): Promise<resultFile[]> {
     // Get all the files and folders int the directory
     const entries = fsPromises.readdir(path, { withFileTypes: true });
 
