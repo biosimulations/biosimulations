@@ -28,7 +28,7 @@ export class HpcService {
     version: string,
     fileName: string
   ) {
-    const simulatorString = `biosimulations_${simulator}_${version}`;
+    const simulatorString = `biosimulations_${simulator}_${version}.img`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
     const sbatchString = this.sbatchService.generateSbatch(
