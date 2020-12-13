@@ -109,7 +109,7 @@ export class ResultsService {
     // TODO Complete implementation
     this.logger.debug(simId);
     this.logger.debug(resultId);
-    //this.logger.debug(result);
+    this.logger.debug(result);
     this.logger.error("UPLOAD NOT IMPLEMENTED")
   }
   private async parseToJson(file: resultFile): Promise<Result> {
