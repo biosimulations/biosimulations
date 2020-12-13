@@ -1,3 +1,11 @@
+/**
+ * @file results.service Uses teh mounted nfs to read the results file for a particular simulations
+ * Parses them into individual reports, and then uploads them to the dispatch api.
+ * @author Bilal Shaikh <bilalshaikh42@gmail.com>
+ * 2020-12-13
+ * @copyright Biosimulations Team 2020
+ * @license MIT
+ */
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Dirent, promises as fsPromises } from 'fs';
