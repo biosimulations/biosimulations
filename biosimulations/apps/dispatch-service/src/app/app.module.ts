@@ -24,30 +24,7 @@ import { ResultsController } from './results/results.controller';
 import { ResultsService } from './results/results.service';
 
 @Module({
-  imports: [
-    HttpModule,
-    BiosimulationsConfigModule,
-    ScheduleModule.forRoot(),
-    MongooseModule.forRootAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('database.uri') || '',
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }),
-      inject: [ConfigService],
-    }),
-    TypegooseModule.forRootAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('database.uri') || '',
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }),
-      inject: [ConfigService],
-    }),
-    CacheModule.register(),
-  ],
+  imports: [HttpModule, BiosimulationsConfigModule, ScheduleModule.forRoot()],
   controllers: [AppController, SubmissionController, ResultsController],
   providers: [
     SimulationRunService,

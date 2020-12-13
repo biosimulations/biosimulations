@@ -31,7 +31,7 @@ export class ResultsService {
     /* @todo Change this to hdf
      * @body change this to hdf files to implement changes needed for #1669
      */
-    let csvFileList = fileList.filter((value: resultFile) =>
+    const csvFileList = fileList.filter((value: resultFile) =>
       value.name.endsWith('.csv')
     );
 
