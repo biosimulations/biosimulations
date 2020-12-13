@@ -112,7 +112,6 @@ export class SimulationRunService {
   ): Promise<SimulationRunModelReturnType> {
     const model = await this.simulationRunModel.findById(id);
     if (model) {
-      /*
       if (
         run.status == SimulationRunStatus.SUCCEEDED ||
         run.status == SimulationRunStatus.FAILED
@@ -120,7 +119,6 @@ export class SimulationRunService {
         model.runtime = Date.now() - model.submitted.getTime();
         this.logger.debug(`Set ${id} runtime to ${model.runtime} `);
       }
-      */
 
       if (run.public != undefined && run.public != null) {
         model.public = run.public;
