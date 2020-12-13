@@ -1,3 +1,4 @@
+// TODO create a dispatch even class to distinguish between response/no response
 export enum DispatchMessage {
   // Job created on the database
   created = 'dispatch.created',
@@ -14,7 +15,6 @@ export enum DispatchMessage {
   // Job failed
   failed = 'dispatch.failed',
 }
-
 export class Response {
   okay: boolean;
   _message!: DispatchMessage;
