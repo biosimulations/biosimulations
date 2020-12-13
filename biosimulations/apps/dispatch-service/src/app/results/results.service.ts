@@ -110,6 +110,7 @@ export class ResultsService {
     this.logger.debug(simId);
     this.logger.debug(resultId);
     this.logger.debug(result);
+    this.logger.error("UPLOAD NOT IMPLEMENTED")
   }
   private async parseToJson(file: resultFile): Promise<Result> {
     const jsonArray = await csv().fromFile(file.path);
