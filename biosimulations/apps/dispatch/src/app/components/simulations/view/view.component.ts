@@ -285,7 +285,10 @@ export class ViewComponent implements OnInit {
     /* TODO: connect with new results API / App Service */
     Object.keys(data.data).forEach((element): void => {
       dataSetIdDisabledMap['Time'] = false;
-      dataSetIdDisabledMap[element] = data.data[element].y.length === 0 || Array.isArray(data.data[element].y[0]);
+      dataSetIdDisabledMap[element] = !(
+        data.data[element].y.length > 0 
+        && ['boolean', 'number'].includes(typeof data.data[element].y[0])
+        );
 
       dataSets['Time'] = data.data[element].x;
       dataSets[element] = data.data[element].y;
