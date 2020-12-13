@@ -8,17 +8,14 @@ import { urls } from '@biosimulations/config/common';
   providedIn: 'root',
 })
 export class VisualizationService {
-  tasksPerSedml: any;
-
   private resultsEndpoint = `${urls.dispatchApi}result`;
   constructor(private http: HttpClient) {}
 
-  getVisualization(uuid: string, sedml: string, task: string) {
+  getReport(uuid: string, sedml: string, report: string) {
     // TODO: Save the data to localstorage, return from local storage if exists, if not return obeservable to request
     return this.http.get(
-      `${this.resultsEndpoint}/${uuid}?chart=true&sedml=${sedml}&report=${task}`
+      `${this.resultsEndpoint}/${uuid}?chart=true&sedml=${sedml}&report=${report}`
     );
-    // TODO: Update tasksPerSedml inside "tap" operator
   }
 
   getResultStructure(uuid: string) {

@@ -18,9 +18,9 @@ describe('VisualizationService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('test getVisualization', () => {
+  describe('test getReport', () => {
     it('should return an observable containing the visualization data', () => {
-      const observable = service.getVisualization('edb035bc50-sdcj-sdc38ak93n', 'VilarBMDB', 'task1');
+      const observable = service.getReport('edb035bc50-sdcj-sdc38ak93n', 'VilarBMDB', 'task1');
       expect(observable)
       .toEqual(observable);
     })

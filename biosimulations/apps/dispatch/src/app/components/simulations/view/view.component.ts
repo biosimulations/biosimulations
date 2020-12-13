@@ -11,7 +11,15 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { VisualizationService } from '../../../services/visualization/visualization.service';
-import { VisualizationComponent } from './visualization/visualization.component';
+import {
+  VisualizationComponent,
+  AxisType,
+  ScatterTraceMode,
+  ScatterTrace,
+  Axis,
+  Layout,
+  DataLayout,
+} from './visualization/visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation } from '../../../datamodel';
 import { urls } from '@biosimulations/config/common';
@@ -50,6 +58,47 @@ interface Logs {
   err: string;
 }
 
+interface AxisLabelType {
+  label: string;
+  type: AxisType;
+}
+
+const AXIS_LABEL_TYPES: AxisLabelType[] = [
+  {
+    'label': 'Linear',
+    'type': AxisType.linear,
+  },
+  {
+    'label': 'Logarithmic',
+    'type': AxisType.log,
+  },
+];
+
+interface ScatterTraceModeLabel {
+  label: string;
+  mode: ScatterTraceMode;
+}
+
+const SCATTER_TRACE_MODEL_LABELS: ScatterTraceModeLabel[] = [
+  {
+    label: 'Line',
+    mode: ScatterTraceMode.lines,
+  },
+  {
+    label: 'Scatter',
+    mode: ScatterTraceMode.markers,
+  },
+];
+
+interface Report {
+  [id: string]: any[];
+}
+
+interface DataSetIdDisabled {
+  id: string;
+  disabled: boolean;
+}
+
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
@@ -78,11 +127,15 @@ export class ViewComponent implements OnInit {
 
   private selectedSedmlLocation: string | undefined;
 
-  private selectedReportId = new BehaviorSubject<string | undefined>(undefined);
-  selectedReportId$ = this.selectedReportId.asObservable()
+  private dataSets: Report = {};
+  private dataSetIdDisableds = new BehaviorSubject<DataSetIdDisabled[]>([]);
+  dataSetIdDisableds$ = this.dataSetIdDisableds.asObservable();
 
-  private vizData = new BehaviorSubject<any[] | undefined>(undefined);
-  vizData$ = this.vizData.asObservable();
+  axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
+  scatterTraceModeLabels: ScatterTraceModeLabel[] = SCATTER_TRACE_MODEL_LABELS;
+
+  private vizDataLayout = new BehaviorSubject<DataLayout | undefined>(undefined);
+  vizDataLayout$ = this.vizDataLayout.asObservable();
 
   @ViewChild('visualization') visualization!: VisualizationComponent;
 
@@ -91,13 +144,18 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
-    private visualizationService: VisualizationService,
+    private appService: VisualizationService,
     private dispatchService: DispatchService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.formGroup = formBuilder.group({
-      sedmlLocation: ['', [Validators.required]],
-      reportId: ['', [Validators.required]],
+      sedmlLocation: [undefined, [Validators.required]],
+      reportId: [undefined, [Validators.required]],
+      xDataSetId: [undefined, [Validators.required]],
+      yDataSetIds: [[], [Validators.required]],
+      xAxisType: [AxisType.linear, [Validators.required]],
+      yAxisType: [AxisType.linear, [Validators.required]],
+      scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]],
     });
   }
 
@@ -106,6 +164,8 @@ export class ViewComponent implements OnInit {
 
     this.formGroup.controls.sedmlLocation.disable();
     this.formGroup.controls.reportId.disable();
+    this.formGroup.controls.xDataSetId.disable();
+    this.formGroup.controls.yDataSetIds.disable();
 
     this.setSimulation();
     setTimeout(() => this.changeDetectorRef.detectChanges());
@@ -154,9 +214,10 @@ export class ViewComponent implements OnInit {
       }
 
       if (statusSucceeded) {
-        this.visualizationService
+        this.appService
           .getResultStructure(this.uuid)
           .subscribe((response: any): void => {
+            // TODO: connect with new AppService
             if (response != null && response.message === 'OK') {
               this.setProjectOutputs(response.data as CombineArchive);
             }
@@ -204,22 +265,109 @@ export class ViewComponent implements OnInit {
   }
 
   selectReportId(selectedReportId?: string): void {
-    this.selectedReportId.next(selectedReportId);
-
-    this.vizData.next(undefined);
+    this.formGroup.controls.xDataSetId.disable();
+    this.formGroup.controls.yDataSetIds.disable();
+    this.formGroup.controls.xDataSetId.setValue(undefined);
+    this.formGroup.controls.yDataSetIds.setValue([]);
+    this.buildVizData();
 
     if (this.selectedSedmlLocation && selectedReportId) {
-      this.visualizationService
-        .getVisualization(this.uuid, this.selectedSedmlLocation, selectedReportId)
-        .subscribe((data: any) => {
-          const vizData: any[] = [];
-          Object.keys(data.data).forEach(element => {
-            vizData.push({...data.data[element], name: element });
-          });
-          this.vizData.next(vizData);
-          setTimeout(() => this.changeDetectorRef.detectChanges());
-        });
+      this.appService
+        .getReport(this.uuid, this.selectedSedmlLocation, selectedReportId)
+        .subscribe((data: any) => this.setDataSets.bind(this));
     }
+  }
+
+  private setDataSets(data: any): void {
+    const dataSets: Report = {};
+    const dataSetIdDisabledMap: {[id: string]: boolean} = {};
+
+    /* TODO: connect with new results API / App Service */
+    Object.keys(data.data).forEach((element): void => {
+      dataSetIdDisabledMap['Time'] = false;
+      dataSetIdDisabledMap[element] = data.data[element].y.length === 0 || Array.isArray(data.data[element].y[0]);
+
+      dataSets['Time'] = data.data[element].x;
+      dataSets[element] = data.data[element].y;
+    });
+
+    this.dataSets = dataSets;
+    const dataSetIdDisabledArr = Object.keys(dataSetIdDisabledMap).sort().map((id: string): DataSetIdDisabled => {
+        return {id, disabled: dataSetIdDisabledMap[id]};
+    })
+    this.dataSetIdDisableds.next(dataSetIdDisabledArr);
+
+    let xDataSetId: string | undefined = undefined;
+    let yDataSetIds: string[] = [];
+
+    if (dataSetIdDisabledArr.length > 0) {
+      xDataSetId = 'Time';
+
+      if (dataSetIdDisabledArr[0].id === 'Time') {
+        yDataSetIds = [dataSetIdDisabledArr[1].id];
+      } else {
+        yDataSetIds = [dataSetIdDisabledArr[0].id];
+      }
+
+      this.formGroup.controls.xDataSetId.enable();
+      this.formGroup.controls.yDataSetIds.enable();
+    } else {
+      this.formGroup.controls.xDataSetId.disable();
+      this.formGroup.controls.yDataSetIds.disable();
+    }
+
+    this.formGroup.controls.xDataSetId.setValue(xDataSetId);
+    this.formGroup.controls.yDataSetIds.setValue(yDataSetIds);
+    this.buildVizData();
+  }
+
+  buildVizData(): void {
+    const xDataSetId: string | undefined = this.formGroup.controls['xDataSetId'].value;
+    const yDataSetIds: string[] = this.formGroup.controls['yDataSetIds'].value;
+
+    if (xDataSetId && yDataSetIds.length > 0) {
+      const xAxisTitle = xDataSetId;
+      const xData = this.dataSets[xDataSetId];
+
+      let yAxisTitle: string | undefined = undefined;
+      let showlegend: boolean = false;
+      if (yDataSetIds.length === 1) {
+        yAxisTitle = yDataSetIds[0];
+        showlegend = false;
+      } else {
+        yAxisTitle = undefined;
+        showlegend = true;
+      }
+
+      this.vizDataLayout.next({
+        data: yDataSetIds.map((yDataSetId: string): ScatterTrace => {
+          const yData = this.dataSets[yDataSetId];
+          return {
+            name: yDataSetId,
+            x: xData,
+            y: yData,
+            mode: this.formGroup.controls['scatterTraceMode'].value,
+          };
+        }),
+        layout: {
+          xaxis: {
+            title: xAxisTitle,
+            type: this.formGroup.controls['xAxisType'].value,
+          },
+          yaxis: {
+            title: yAxisTitle,
+            type: this.formGroup.controls['yAxisType'].value,
+          },
+          showlegend: showlegend,
+          width: undefined,
+          height: undefined,
+        },
+      });
+    } else {
+      this.vizDataLayout.next(undefined);
+    }
+
+    setTimeout(() => this.changeDetectorRef.detectChanges());
   }
 
   selectedTabChange($event: MatTabChangeEvent): void {
