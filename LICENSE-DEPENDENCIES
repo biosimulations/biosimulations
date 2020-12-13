@@ -694,7 +694,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mapped-types/README.md
-├─ @nestjs/microservices@7.5.1
+├─ @nestjs/microservices@7.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -709,7 +709,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@7.5.1
+├─ @nestjs/platform-express@7.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -887,7 +887,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/mongoose/LICENSE
-├─ @types/node@14.14.11
+├─ @types/node@14.14.12
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
