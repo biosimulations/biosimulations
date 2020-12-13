@@ -13,46 +13,60 @@ interface SchemaPaths {
 
 function getSchemaUserPaths(schema: Schema): SchemaPaths {
   const userPaths: { [key: string]: PathOptions } = {};
-  Object.entries(schema.paths).forEach((pathSchemaType: [string, SchemaType]): void => {
-    const path = pathSchemaType[0];
-    const schemaType = pathSchemaType[1];
+  Object.entries(schema.paths).forEach(
+    (pathSchemaType: [string, SchemaType]): void => {
+      const path = pathSchemaType[0];
+      const schemaType = pathSchemaType[1];
 
-    if (path === "_id" || path === "__v") {
-      userPaths[path] = {readOnly: true, isRequired: undefined, defaultValue: undefined};
-      return;
+      if (path === '_id' || path === '__v') {
+        userPaths[path] = {
+          readOnly: true,
+          isRequired: undefined,
+          defaultValue: undefined,
+        };
+        return;
+      }
+
+      const timestamps = schema.get('timestamps');
+      const timestampPaths =
+        timestamps === undefined ? null : Object.values(timestamps);
+      if (timestampPaths && timestampPaths.includes(path)) {
+        userPaths[path] = {
+          readOnly: true,
+          isRequired: undefined,
+          defaultValue: undefined,
+        };
+        return;
+      }
+
+      userPaths[path] = getSchemaTypeOptions(path, schemaType);
     }
-
-    const timestamps = schema.get('timestamps');
-    const timestampPaths = timestamps === undefined ? null : Object.values(timestamps);
-    if (timestampPaths && timestampPaths.includes(path)) {
-      userPaths[path] = {readOnly: true, isRequired: undefined, defaultValue: undefined};
-      return;
-    }
-
-    userPaths[path] = getSchemaTypeOptions(path, schemaType);
-  });
+  );
   return userPaths;
 }
 
-function getSchemaTypeOptions(path: string, schemaType: SchemaType): PathOptions {
+function getSchemaTypeOptions(
+  path: string,
+  schemaType: SchemaType
+): PathOptions {
   let isRequired: any = undefined;
   let defaultValue: any = undefined;
 
-  if (!Object.keys(schemaType).includes("isRequired")) {
+  if (!Object.keys(schemaType).includes('isRequired')) {
     throw new Error(`'required' should be explicitly set for ${path}`);
   }
 
-  if (!Object.keys(schemaType).includes("defaultValue")) {
+  if (!Object.keys(schemaType).includes('defaultValue')) {
     throw new Error(`'default' should be explicitly set for ${path}`);
   }
 
   Object.entries(schemaType).forEach((keyVal: [string, any]): void => {
     const key = keyVal[0];
     const val = keyVal[1];
-    if (key === "isRequired") {
+    if (key === 'isRequired') {
       isRequired = val;
     }
-    if (key === "defaultValue") {
+    if (key === 'defaultValue') {
       defaultValue = val;
     }
   });
@@ -64,39 +78,47 @@ export function addValidationForNullableAttributes(schema: Schema): void {
   Object.entries(schema).forEach((keyVal: [string, any[]]): void => {
     const key = keyVal[0];
     const val = keyVal[1];
-    if (key === "childSchemas") {
+    if (key === 'childSchemas') {
       val.forEach((childSchema: any): void => {
         addValidationForNullableAttributes(childSchema.schema);
       });
     }
   });
 
-  Object.entries(getSchemaUserPaths(schema)).forEach((pathOptions: [string, PathOptions]): void => {
-    const path = pathOptions[0];
-    const options = pathOptions[1];
-
-    if (!options.readOnly && options.isRequired !== true && options.isRequired !== false) {
-      throw new Error(`'required' should be explicitly set for '${path}'`);
-    }
-  });
-
-  schema.pre('validate', function (next): void {
-    Object.entries(getSchemaUserPaths(schema)).forEach((pathOptions: [string, PathOptions]): void => {
+  Object.entries(getSchemaUserPaths(schema)).forEach(
+    (pathOptions: [string, PathOptions]): void => {
       const path = pathOptions[0];
       const options = pathOptions[1];
 
-      if (!options.readOnly) {
-        if (options.isRequired === false) {
-          if (this.get(path) === undefined) {
-            if (options.defaultValue === undefined) {
-              this.invalidate(path, `'${path}' attribute must be defined`);
-            } else {
-              this.set(path, options.defaultValue);
+      if (
+        !options.readOnly &&
+        options.isRequired !== true &&
+        options.isRequired !== false
+      ) {
+        throw new Error(`'required' should be explicitly set for '${path}'`);
+      }
+    }
+  );
+
+  schema.pre('validate', function (next): void {
+    Object.entries(getSchemaUserPaths(schema)).forEach(
+      (pathOptions: [string, PathOptions]): void => {
+        const path = pathOptions[0];
+        const options = pathOptions[1];
+
+        if (!options.readOnly) {
+          if (options.isRequired === false) {
+            if (this.get(path) === undefined) {
+              if (options.defaultValue === undefined) {
+                this.invalidate(path, `'${path}' attribute must be defined`);
+              } else {
+                this.set(path, options.defaultValue);
+              }
             }
           }
         }
       }
-    })
+    );
     next();
   });
 }
@@ -124,3 +146,10 @@ export function sortUrls(a: Url, b: Url): number {
     return 1;
   }
 }
+
+export const omitPrivate = (doc: any, obj: any) => {
+  delete obj.__v;
+  delete obj._id;
+
+  return obj;
+};
