@@ -307,6 +307,28 @@ validateImage: true
           <b>Optionally, also submit your Dockerfile to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers image registry <a href="https://github.com/BioContainers/containers/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
         </li>
       </ol>
+
+      <p>A sample continuous integration workflow <a href="https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/.github/workflows/ci.yml.template" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for GitHub Actions is available in the template simulator repository. Instructions for setting up this workflow are in the README <a href="https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/README.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+      <p>Each time a commit is pushed to the repository, the workflow executes the following tasks:</p>
+      <ol>
+        <li>Clones the repository.</li>
+        <li>Installs the simulator and its dependencies.</li>
+        <li>Lints the code for the simulator.</li>
+        <li>Builds the Docker image for the simulator and tags the image <code>ghcr.io/&lt;owner&gt;/&lt;repo&gt;/&lt;simulator_id&gt;:&lt;simulator_version</code> and <code>ghcr.io/&lt;owner&gt;/&lt;repo&gt;/&lt;simulator_id&gt;:latest</code>.</li>
+        <li>Runs the unit tests for the simulator and saves the coverage data for the tests.</li>
+        <li>Uploads the coverage results to Codecov <a href="https://codecov.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</li>
+        <li>Compiles the documentation for the simulator.</li>
+      </ol>
+
+      <p>Each time the repository is tagged (<code>git tag ...; git push --tags</code>), the workflow also runs the above tasks. If the above tasks succeed, the workflow executes the follwing additional tasks:</p>
+      <ol>
+        <li>Creates a GitHub release for the tag.</li>
+        <li>Pushes the compiled documentation to the repository (e.g., so it can be served by GitHub pages).</li>
+        <li>Builds the simulator and submits it to a software repository such as PyPI <a href="https://pypi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</li>
+        <li>Pushes the Docker image to the GitHub Container Registry <a href="https://docs.github.com/en/free-pro-team@latest/packages/guides/about-github-container-registry" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> with the above tags.</li>
+        <li>Pushes the simulator to the BioSimulators Registry by using the GitHub API to create an issue to add a new version of the simulator to the BioSimulators database. This issue will then automatically use the BioSimulators test suite to validate the simulator and add a new version of the simulator to the database once the simulator passes the test suite.</li>
+      </ol>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
