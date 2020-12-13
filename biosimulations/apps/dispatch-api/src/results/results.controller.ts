@@ -5,55 +5,89 @@
  * @license MIT
  */
 import {
+  JwtGuard,
+  PermissionsGuard,
+  permissions,
+} from '@biosimulations/auth/nest';
+import {
   Body,
   Controller,
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   Post,
   Put,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOAuth2, ApiTags } from '@nestjs/swagger';
 import { ResultsService } from './results.service';
 
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
   constructor(private service: ResultsService) {}
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('read:SimulationRunResults')
+  @ApiOAuth2(['read:SimulationRunResults'])
   @Get()
   getResults() {
     return this.service.getResults();
   }
 
-  @Get(':id')
-  getResult(@Param('') id: string) {
-    return this.service.getResult(id);
-  }
-
-  @Get(':id/download')
-  downloadResult(@Param('id') id: string) {
-    return this.service.download(id);
-  }
-
-  @Post()
-  addResult(@Body() results: any) {
-    return this.service.addResults(results);
-  }
-  @Put(':id')
-  editResults(
-    @Param('id')
-    id: string,
-    @Body() results: any
+  @Get(':simId')
+  getResult(
+    @Param('simId') simId: string,
+    @Query('sparse', ParseBoolPipe) sparse = true
   ) {
-    return this.service.editResults(id, results);
+    return this.service.getResult(simId, sparse);
   }
 
+  @Get(':simId/download')
+  downloadResult(@Param('simId') simId: string) {
+    return this.service.download(simId);
+  }
+
+  @Get(':simId/:reportId')
+  getResultReport(
+    @Param('simId') simId: string,
+    @Param('reportId') reportId: string
+  ) {
+    return this.service.getResultReport(simId, reportId);
+  }
+
+  @Get(':simId/:reportId/download')
+  downloadResultReport(
+    @Param('simId') simId: string,
+    @Param('resportId') reportId: string
+  ) {
+    return this.service.downloadReport(simId, reportId);
+  }
+
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('delete:SimulationRunResults')
+  @ApiOAuth2(['delete:SimulationRunResults'])
   @Delete()
   deleteResults() {
     return this.service.deleteAll();
   }
-  @Delete(':id')
-  deleteResult(@Param('id') id: string) {
-    return this.service.delete(id);
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('delete:SimulationRunResults')
+  @ApiOAuth2(['delete:SimulationRunResults'])
+  @Delete(':simId')
+  deleteResult(@Param('simId') simId: string) {
+    return this.service.delete(simId);
+  }
+
+  @UseGuards(JwtGuard, PermissionsGuard)
+  @permissions('delete:SimulationRunResults')
+  @ApiOAuth2(['delete:SimulationRunResults'])
+  @Delete(':simId/:resultId')
+  deleteResultReport(
+    @Param('simId') simId: string,
+    @Param('reportId') reportId: string
+  ) {
+    return this.service.delete(simId);
   }
 }
