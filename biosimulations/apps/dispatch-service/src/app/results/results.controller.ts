@@ -1,4 +1,5 @@
 import {
+  DispatchFinishedPayload,
   DispatchMessage,
   DispatchPayload,
 } from '@biosimulations/messages/messages';
@@ -14,9 +15,10 @@ export class ResultsController {
   private logger = new Logger(ResultsController.name);
 
   @MessagePattern(DispatchMessage.finished)
-  async processResults(data: DispatchPayload) {
+  async processResults(data: DispatchFinishedPayload) {
     const id = data.id;
+    const transpose = data.transpose;
     this.logger.log(`Simulation ${id} Finished`);
-    this.service.createResults(id);
+    this.service.createResults(id, transpose);
   }
 }

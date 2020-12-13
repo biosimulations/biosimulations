@@ -18,7 +18,7 @@ export class ResultsService {
   );
   constructor(private readonly configService: ConfigService) {}
 
-  async createResults(id: string) {
+  async createResults(id: string, transpose: boolean) {
     const resultsDirectory = path.join(
       this.fileStorage,
       'simulations',
@@ -32,24 +32,37 @@ export class ResultsService {
     /* @todo Change this to hdf
      * @body change this to hdf files to implement changes needed for #1669
      */
-    const csvFileList = fileList.filter((value: resultFile) =>
+    let csvFileList = fileList.filter((value: resultFile) =>
       value.name.endsWith('.csv')
     );
+
     csvFileList.forEach((file: resultFile) => {
-      this.uploadResultFile(id, file);
+      this.uploadResultFile(id, file, transpose);
     });
   }
-  async uploadResultFile(id: string, file: resultFile) {
+  transpose(file: string): string {
+    throw new Error('Method not implemented.');
+  }
+  async uploadResultFile(id: string, file: resultFile, transpose: boolean) {
     const file_json = this.parseToJson(file);
     const report = file.name.split('.csv')[0];
 
     //apidomain/results/simulationID/report
     const sedml = encodeURI(file.path.split('/').slice(0, -1).join('/'));
 
-    this.uploadJSON(id, sedml, report, await file_json);
+    this.uploadJSON(id, sedml, report, await file_json, transpose);
   }
-  uploadJSON(id: string, sedml: any, report: string, file_json: string) {
+  uploadJSON(
+    id: string,
+    sedml: any,
+    report: string,
+    file_json: string,
+    transpose: boolean
+  ) {
     // TODO Complete implementation
+    if (transpose) {
+      file_json = this.transpose(file_json);
+    }
     this.logger.warn(id);
     this.logger.warn(sedml);
     this.logger.warn(report);

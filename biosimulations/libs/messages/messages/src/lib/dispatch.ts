@@ -9,6 +9,8 @@ export enum DispatchMessage {
   started = 'dispatch.started',
   // Job done running
   finished = 'dispatch.finished',
+  // Results process
+  processed = 'dispatch.processed',
   // Job failed
   failed = 'dispatch.failed',
 }
@@ -22,11 +24,10 @@ export class Response {
 }
 
 export class createdResponse extends Response {
-  constructor(ok: boolean = true, description?: string) {
+  constructor(ok: boolean = true, public description?: string) {
     super(ok);
   }
   _message = DispatchMessage.created;
-  description?: string;
 }
 export class DispatchPayload {
   _message!: DispatchMessage;
@@ -56,6 +57,15 @@ export class DispatchCreatedPayload extends DispatchPayload {
 export class DispatchSubmittedPayload extends DispatchPayload {
   _message = DispatchMessage.submitted;
   constructor(id: string) {
+    super(id);
+  }
+}
+
+// TODO remove transpose once all simulators follow row format
+export class DispatchFinishedPayload extends DispatchPayload {
+  _message = DispatchMessage.finished;
+
+  constructor(id: string, public readonly transpose: boolean) {
     super(id);
   }
 }

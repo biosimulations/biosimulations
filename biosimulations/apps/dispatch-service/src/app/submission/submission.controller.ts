@@ -69,8 +69,16 @@ export class SubmissionController {
       // Get the slurm id of the job
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
-
-      this.service.startMonitoringCronJob(slurmjobId.toString(), data.id, 5);
+      const transpose =
+        data.simulator == 'vcell' ||
+        data.simulator == 'tellurium' ||
+        data.simulator == 'bionetgen';
+      this.service.startMonitoringCronJob(
+        slurmjobId.toString(),
+        data.id,
+        5,
+        transpose
+      );
     }
 
     return new createdResponse();
