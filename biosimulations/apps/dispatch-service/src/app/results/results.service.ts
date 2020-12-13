@@ -50,8 +50,8 @@ export class ResultsService {
       file_json = this.readCSV(file.path);
     }
 
-    //apidomain/results/simulationID/report
-    const sedml = encodeURI(
+    // apidomain/results/simulationID/reportId
+    const sedml = encodeURIComponent(
       file.path
         .replace(this.getResultsDirectory(id) + '/', '')
         .replace('.csv', '')
