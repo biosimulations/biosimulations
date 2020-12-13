@@ -4,6 +4,11 @@ import { Dirent, promises as fsPromises } from 'fs';
 import ospath from 'path';
 import path from 'path';
 import csv from 'csvtojson';
+// TODO create typings or find alternate
+// @ts-ignore
+//import readline from 'readline-promise';
+import readline from 'readline';
+import fs from 'fs';
 
 export interface resultFile {
   name: string;
@@ -39,11 +44,45 @@ export class ResultsService {
       this.uploadResultFile(id, file, transpose);
     });
   }
-  private readCSV(file: string): Result {
-    throw new Error('Method not implemented.');
+  private async readCSV(file: string): Promise<Result> {
+    // info https://nodejs.org/api/readline.html#readline_example_read_file_stream_line_by_line
+
+    try {
+      const rlp = readline.createInterface({
+        terminal: false,
+        input: fs.createReadStream(file),
+        crlfDelay: Infinity,
+      });
+      const resultObject: Result = {};
+
+      for await (const line of rlp) {
+        const header = line.split(',')[0];
+        resultObject[header] = [];
+        const values = line.split(',').slice(1);
+        values.forEach((value) => resultObject[header].push(value));
+      }
+      return resultObject;
+    } catch (error) {
+      // TODO handle error
+      this.logger.error('ERROR reading results file');
+      this.logger.error(file);
+      this.logger.error(error);
+      throw error;
+    }
+    // This should be much faster way to do it @Todo investigate
+    /*    rlp.on('line', (input) => {
+      const header = input.split(',')[0];
+      resultObject[header] = [];
+      const values = input.split(',').slice(1);
+      values.forEach((value) => resultObject[header].push(value));
+    });
+    await once(rlp, 'close');
+    return resultsObject
+    */
   }
   async uploadResultFile(id: string, file: resultFile, transpose: boolean) {
-    let file_json;
+    let file_json: Promise<Result>;
+
     if (transpose) {
       file_json = this.parseToJson(file);
     } else {
