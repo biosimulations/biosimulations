@@ -5,7 +5,6 @@ import ospath from 'path';
 import path from 'path';
 import csv from 'csvtojson';
 // TODO create typings or find alternate
-// @ts-ignore
 //import readline from 'readline-promise';
 import readline from 'readline';
 import fs from 'fs';
