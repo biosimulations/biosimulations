@@ -9,6 +9,7 @@ export interface resultFile {
   name: string;
   path: string;
 }
+export type Result = { [key: string]: Array<any> };
 @Injectable()
 export class ResultsService {
   private logger = new Logger(ResultsService.name);
@@ -18,13 +19,11 @@ export class ResultsService {
   );
   constructor(private readonly configService: ConfigService) {}
 
+  private getResultsDirectory(id: string) {
+    return path.join(this.fileStorage, 'simulations', id, 'out');
+  }
   async createResults(id: string, transpose: boolean) {
-    const resultsDirectory = path.join(
-      this.fileStorage,
-      'simulations',
-      id,
-      'out'
-    );
+    const resultsDirectory = this.getResultsDirectory(id);
     const fileList: resultFile[] = await ResultsService.getFilesRecursively(
       resultsDirectory
     );
@@ -40,42 +39,49 @@ export class ResultsService {
       this.uploadResultFile(id, file, transpose);
     });
   }
-  transpose(file: string): string {
+  readCSV(file: string): Result {
     throw new Error('Method not implemented.');
   }
   async uploadResultFile(id: string, file: resultFile, transpose: boolean) {
-    const file_json = this.parseToJson(file);
-    const report = file.name.split('.csv')[0];
+    let file_json;
+    if (transpose) {
+      file_json = this.parseToJson(file);
+    } else {
+      file_json = this.readCSV(file.path);
+    }
 
     //apidomain/results/simulationID/report
-    const sedml = encodeURI(file.path.split('/').slice(0, -1).join('/'));
+    const sedml = encodeURI(
+      file.path
+        .replace(this.getResultsDirectory(id) + '/', '')
+        .replace('.csv', '')
+    );
 
-    this.uploadJSON(id, sedml, report, await file_json, transpose);
+    this.uploadJSON(id, sedml, await file_json);
   }
-  uploadJSON(
-    id: string,
-    sedml: any,
-    report: string,
-    file_json: string,
-    transpose: boolean
-  ) {
+  uploadJSON(simId: string, resultId: string, result: Result) {
     // TODO Complete implementation
-    if (transpose) {
-      file_json = this.transpose(file_json);
-    }
-    this.logger.warn(id);
-    this.logger.warn(sedml);
-    this.logger.warn(report);
-    this.logger.warn(file_json);
+    this.logger.debug(simId);
+    this.logger.debug(resultId);
+    this.logger.debug(result);
   }
-  async parseToJson(file: resultFile): Promise<string> {
-    this.logger.warn(file);
+  async parseToJson(file: resultFile): Promise<Result> {
     const jsonArray = await csv().fromFile(file.path);
-    this.logger.warn(jsonArray);
-    //return JSON.stringify(jsonArray);
-    return jsonArray.toString();
+    this.logger.debug(jsonArray);
+    const headers = Object.keys(jsonArray[0]);
+    const resultObject: Result = {};
+    headers.forEach((key) => {
+      resultObject[key] = [];
+    });
+    jsonArray.forEach((row) => {
+      headers.forEach((key) => {
+        resultObject[key].push(row[key]);
+      });
+    });
+    this.logger.warn(resultObject);
+    return resultObject;
   }
-  static async getFilesRecursively(path: string) {
+  static async getFilesRecursively(path: string): Promise<resultFile[]> {
     // Get all the files and folders int the directory
     const entries = fsPromises.readdir(path, { withFileTypes: true });
 

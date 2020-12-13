@@ -73,6 +73,9 @@ export class SubmissionController {
         data.simulator == 'vcell' ||
         data.simulator == 'tellurium' ||
         data.simulator == 'bionetgen';
+      this.logger.log(
+        `Simulator is ${data.simulator} Will transpose: ${transpose}`
+      );
       this.service.startMonitoringCronJob(
         slurmjobId.toString(),
         data.id,
