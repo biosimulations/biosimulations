@@ -13,7 +13,7 @@ export class ResultsController {
 
   private logger = new Logger(ResultsController.name);
 
-  @MessagePattern(DispatchMessage.finsihed)
+  @MessagePattern(DispatchMessage.finished)
   async processResults(data: DispatchPayload) {
     const id = data.id;
     this.logger.log(`Simulation ${id} Finished`);

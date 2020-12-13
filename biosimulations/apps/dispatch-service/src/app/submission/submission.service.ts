@@ -55,10 +55,10 @@ export class SubmissionService {
         case SimulationRunStatus.SUCCEEDED: {
           this.updateSimulationRunStatus(simId, jobStatus);
           const succeededMessage: DispatchPayload = {
-            _message: DispatchMessage.finsihed,
+            _message: DispatchMessage.finished,
             id: simId,
           };
-          this.messageClient.emit(DispatchMessage.finsihed, succeededMessage);
+          this.messageClient.emit(DispatchMessage.finished, succeededMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           break;

@@ -24,7 +24,7 @@ export class AppController {
     ''
   );
 
-  @MessagePattern(DispatchMessage.finsihed)
+  @MessagePattern(DispatchMessage.finished)
   async dispatchFinish(data: DispatchPayload) {
     const uuid = data.id;
     this.logger.log('Simulation Finished on HPC');
