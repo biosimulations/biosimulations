@@ -11,7 +11,8 @@ import { ResultsModel } from './results.model';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import {
   SimulationRunReport,
-  SimulationRunReportData
+  SimulationRunReportData,
+  SimulationRunResults
 } from '@biosimulations/dispatch/api-models';
 
 const result = {
@@ -136,21 +137,26 @@ export class ResultsService {
     );
   }
   async getResultReport(simId: string, reportId: string, sparse = false) {
-    const response = await this.resultModel.findOne({ simId, reportId });
+    let response = await this.resultModel.findOne({ simId, reportId });
     if (!response) {
       throw new NotFoundException();
     } else {
       if (sparse) {
-        const sparseResult:
-          | { [key: string]: boolean[] }
-          | { [key: string]: number[] } = {};
-        for (const key of Object.keys(response.data)) {
-          sparseResult[key] = [];
-        }
-        response['data'] = sparseResult;
+        response = this.makeSparse(response);
       }
       return response;
     }
+  }
+
+  private makeSparse(response: ResultsModel): ResultsModel {
+    const sparseResult:
+      | { [key: string]: boolean[] }
+      | { [key: string]: number[] } = {};
+    for (const key of Object.keys(response.data)) {
+      sparseResult[key] = [];
+    }
+    response['data'] = sparseResult;
+    return response;
   }
 
   getResults() {
@@ -160,18 +166,20 @@ export class ResultsService {
       'Sorry, this method is not yet available'
     );
   }
-  getResult(id: string, sparse: boolean) {
-    const response: any = {
-      simId: id,
-      created: Date.now(),
-      updated: Date.now(),
-      reports: []
-    };
-    console.log(sparse);
-    response['reports'] = [
-      this.getResultReport(id, 'report1', sparse),
-      this.getResultReport(id, 'report2', sparse)
-    ];
+  async getResult(
+    simId: string,
+    sparse: boolean
+  ): Promise<SimulationRunResults> {
+    let reports = await this.resultModel.find({ simId }).exec();
+
+    if (!reports.length) {
+      throw new NotFoundException();
+    }
+
+    if (sparse) {
+      reports = reports.map(this.makeSparse);
+    }
+    const response = { simId: simId, reports: reports };
     return response;
   }
   download(id: string) {

@@ -61,8 +61,6 @@ export class ResultsController {
     @Param('simId') simId: string,
     @Query('sparse', ParseBoolPipe) sparse = true
   ) {
-    console.log(simId);
-    console.log(sparse);
     return this.service.getResult(simId, sparse);
   }
 
