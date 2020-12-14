@@ -7,15 +7,36 @@
  */
 
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
-export type SimulationRunReportData = { [key: string]: Array<number> };
+export type SimulationRunReportData =
+  | { [key: string]: Array<number> }
+  | { [key: string]: Array<boolean> };
+
+export const SimulationRunReportDataArraySchema: SchemaObject = {
+  oneOf: [
+    { type: 'array', items: { type: 'number', format: 'float' } },
+    { type: 'array', items: { type: 'boolean' } }
+  ]
+};
+
+export const SimulationRunReportDataSchema: SchemaObject = {
+  type: 'object',
+  additionalProperties: SimulationRunReportDataArraySchema,
+  example: {
+    'property-1': [5.0, 2.3, 25.0],
+    'property-2': [true, true, false]
+  }
+};
 
 export class SimulationRunReport {
   @ApiProperty({ type: String })
   simId!: string;
   @ApiProperty({ type: String })
   reportId!: string;
-  @ApiProperty()
+  @ApiProperty({
+    type: SimulationRunReportDataSchema
+  })
   data!: SimulationRunReportData;
   @ApiResponseProperty({ type: String, format: 'date-time' })
   created!: Date;
@@ -23,7 +44,6 @@ export class SimulationRunReport {
   updated!: Date;
 }
 
-export type SimulationRunReports = { [key: string]: SimulationRunReportData };
 export class SimulationRunResults {
   @ApiResponseProperty({ type: String })
   simId!: string;
@@ -31,16 +51,6 @@ export class SimulationRunResults {
   created!: Date;
   @ApiResponseProperty({ type: String, format: 'date-time' })
   updated!: Date;
-  @ApiResponseProperty()
-  reports!: SimulationRunReports[];
-}
-export class SparseSimulationRunResults {
-  @ApiResponseProperty({ type: String })
-  simId!: string;
-  @ApiResponseProperty({ type: String, format: 'date-time' })
-  created!: Date;
-  @ApiResponseProperty({ type: String, format: 'date-time' })
-  updated!: Date;
-  @ApiResponseProperty()
-  reports!: String[];
+  @ApiResponseProperty({ type: [SimulationRunReport] })
+  reports!: SimulationRunReport[];
 }
