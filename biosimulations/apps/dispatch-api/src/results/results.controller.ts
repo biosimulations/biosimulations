@@ -31,8 +31,16 @@ import {
   UseGuards,
   ValidationPipe
 } from '@nestjs/common';
-import { ApiBody, ApiOAuth2, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { first } from 'rxjs/operators';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOAuth2,
+  ApiOkResponse,
+  ApiQuery,
+  ApiResponse,
+  ApiTags
+} from '@nestjs/swagger';
+
 import { ResultsService } from './results.service';
 
 @Controller('results')
@@ -83,6 +91,7 @@ export class ResultsController {
 
   @Post(':simId/:reportId')
   @ApiBody({ schema: SimulationRunReportDataSchema })
+  @ApiCreatedResponse({ type: () => SimulationRunReport })
   postResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,

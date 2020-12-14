@@ -21,7 +21,7 @@ export const SimulationRunReportDataArraySchema: SchemaObject = {
   ]
 };
 
-export const SimulationRunReportDataSchema: SchemaObject = {
+export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   type: 'object',
   additionalProperties: SimulationRunReportDataArraySchema,
   example: {
@@ -35,9 +35,7 @@ export class SimulationRunReport {
   simId!: string;
   @ApiProperty({ type: String })
   reportId!: string;
-  @ApiProperty({
-    type: SimulationRunReportDataSchema
-  })
+  @ApiProperty(SimulationRunReportDataSchema)
   data!: SimulationRunReportData;
   @ApiResponseProperty({ type: String, format: 'date-time' })
   created!: Date;
@@ -52,6 +50,6 @@ export class SimulationRunResults {
   created!: Date;
   @ApiResponseProperty({ type: String, format: 'date-time' })
   updated!: Date;
-  @ApiResponseProperty({ type: [SimulationRunReport] })
+  @ApiResponseProperty({ type: () => [SimulationRunReport] })
   reports!: SimulationRunReport[];
 }
