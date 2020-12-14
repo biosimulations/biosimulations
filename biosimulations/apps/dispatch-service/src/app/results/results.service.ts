@@ -15,7 +15,10 @@ import csv from 'csvtojson';
 
 import readline from 'readline';
 import fs from 'fs';
-import { SimulationRunReportData } from '@biosimulations/dispatch/api-models';
+import {
+  SimulationRunReportData,
+  SimulationRunReportDataStrings
+} from '@biosimulations/dispatch/api-models';
 
 export interface resultFile {
   name: string;
@@ -51,16 +54,16 @@ export class ResultsService {
       this.uploadResultFile(id, file, transpose);
     });
   }
-  private async readCSV(file: string): Promise<SimulationRunReportData> {
+  private async readCSV(file: string): Promise<SimulationRunReportDataStrings> {
     // info https://nodejs.org/api/readline.html#readline_example_read_file_stream_line_by_line
 
     try {
       const rlp = readline.createInterface({
         terminal: false,
         input: fs.createReadStream(file),
-        crlfDelay: Infinity,
+        crlfDelay: Infinity
       });
-      const resultObject: SimulationRunReportData = {};
+      const resultObject: SimulationRunReportDataStrings = {};
 
       for await (const line of rlp) {
         const header = line.split(',')[0];
@@ -88,7 +91,7 @@ export class ResultsService {
     */
   }
   async uploadResultFile(id: string, file: resultFile, transpose: boolean) {
-    let file_json: Promise<SimulationRunReportData>;
+    let file_json: Promise<SimulationRunReportDataStrings>;
 
     if (transpose) {
       file_json = this.parseToJson(file);
@@ -108,7 +111,7 @@ export class ResultsService {
   private uploadJSON(
     simId: string,
     resultId: string,
-    result: SimulationRunReportData
+    result: SimulationRunReportDataStrings
   ) {
     // TODO Complete implementation
     this.logger.debug(simId);
@@ -118,11 +121,11 @@ export class ResultsService {
   }
   private async parseToJson(
     file: resultFile
-  ): Promise<SimulationRunReportData> {
+  ): Promise<SimulationRunReportDataStrings> {
     const jsonArray = await csv().fromFile(file.path);
     this.logger.debug(jsonArray);
     const headers = Object.keys(jsonArray[0]);
-    const resultObject: SimulationRunReportData = {};
+    const resultObject: SimulationRunReportDataStrings = {};
     headers.forEach((key) => {
       resultObject[key] = [];
     });
@@ -145,7 +148,7 @@ export class ResultsService {
       .filter((value: Dirent) => !value.isDirectory())
       .map((file: Dirent) => ({
         name: file.name,
-        path: ospath.join(path, file.name),
+        path: ospath.join(path, file.name)
       }));
 
     //Filter out all the files
