@@ -7,21 +7,31 @@
 import {
   JwtGuard,
   PermissionsGuard,
-  permissions,
+  permissions
 } from '@biosimulations/auth/nest';
+import {
+  SimulationRunReportData,
+  SimulationRunReportDataSchema,
+  SimulationRunReportDataStrings
+} from '@biosimulations/dispatch/api-models';
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import {
   Body,
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   ParseBoolPipe,
+  ParseIntPipe,
   Post,
   Put,
   Query,
   UseGuards,
+  ValidationPipe
 } from '@nestjs/common';
-import { ApiOAuth2, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOAuth2, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { first } from 'rxjs/operators';
 import { ResultsService } from './results.service';
 
 @Controller('results')
@@ -68,6 +78,61 @@ export class ResultsController {
     @Param('resportId') reportId: string
   ) {
     return this.service.downloadReport(simId, reportId);
+  }
+
+  @Post(':simId/:reportId')
+  @ApiBody({ schema: SimulationRunReportDataSchema })
+  postResultReport(
+    @Param('simId') simId: string,
+    @Param('reportId') reportId: string,
+    @Body(ValidationPipe)
+    data: SimulationRunReportDataStrings
+  ) {
+    const report: SimulationRunReportData = {};
+    for (const key of Object.keys(data)) {
+      const arr = data[key];
+      const firstValue = String(arr[0]).toLowerCase().trim();
+
+      if (firstValue == 'true' || firstValue == 'false') {
+        const newArr = arr.map((value) => {
+          value = value.toLowerCase().trim();
+          if (value != 'true' && value != 'false') {
+            throw new BiosimulationsException(
+              HttpStatus.BAD_REQUEST,
+              'Parse Error',
+              `Inconsistent datatypes for key `,
+              undefined,
+              undefined,
+              `/${key}`
+            );
+          }
+          return Boolean(value);
+        });
+        report[key] = newArr;
+      } else {
+        const newArr = arr.map((value) => {
+          const num = Number(value);
+          if (isNaN(num)) {
+            throw new BiosimulationsException(
+              HttpStatus.BAD_REQUEST,
+              'Parse Error',
+              `Inconsistent datatypes for key `,
+              undefined,
+              undefined,
+              `/${key}`
+            );
+          }
+          return num;
+        });
+        report[key] = newArr;
+      }
+    }
+
+    return this.service.createReport(simId, reportId, report);
+  }
+  castFloat(arr: number[] | boolean[]) {}
+  castBool(arr: number[] | boolean[]) {
+    throw new Error('Method not implemented.');
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)

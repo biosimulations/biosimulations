@@ -7,14 +7,24 @@
 import { omitPrivate } from '@biosimulations/datamodel/common';
 import {
   SimulationRun,
-  SimulationRunReportData,
+  SimulationRunReportData
 } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document, isValidObjectId, Types } from 'mongoose';
 
-@Schema({ id: true })
+// No idea why this wrapper is needed, but providing isValidObjectId directly below fails
+// TODO move to utils
+const ObjectIdValidator = (id: any): boolean => {
+  return isValidObjectId(id);
+};
+
+@Schema({ collection: 'Results' })
 export class ResultsModel extends Document {
-  @Prop({ type: Types.ObjectId, ref: SimulationRun.name })
+  @Prop({
+    type: Types.ObjectId,
+    ref: SimulationRun.name,
+    validate: ObjectIdValidator
+  })
   simId!: SimulationRun;
 
   @Prop()

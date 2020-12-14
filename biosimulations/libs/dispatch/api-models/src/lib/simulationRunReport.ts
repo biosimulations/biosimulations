@@ -13,6 +13,7 @@ export type SimulationRunReportData =
   | { [key: string]: Array<number> }
   | { [key: string]: Array<boolean> };
 
+export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
 export const SimulationRunReportDataArraySchema: SchemaObject = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
