@@ -7,7 +7,8 @@
 import { omitPrivate } from '@biosimulations/datamodel/common';
 import {
   SimulationRun,
-  SimulationRunReportData
+  SimulationRunReportData,
+  SimulationRunResults
 } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, isValidObjectId, Types } from 'mongoose';
@@ -25,16 +26,26 @@ export class ResultsModel extends Document {
     ref: SimulationRun.name,
     validate: ObjectIdValidator
   })
-  simId!: SimulationRun;
+  simId!: string;
 
   @Prop()
   reportId!: string;
 
   @Prop()
   data!: SimulationRunReportData;
+
+  @Prop()
+  created!: Date;
+
+  @Prop()
+  updated!: Date;
 }
 
 export const ResultsSchema = SchemaFactory.createForClass(ResultsModel);
+ResultsSchema.set('timestamps', {
+  createdAt: 'created',
+  updatedAt: 'updated'
+});
 ResultsSchema.index({ simId: 1, reportId: 1 }, { unique: true });
 ResultsSchema.set('toObject', { transform: omitPrivate });
 ResultsSchema.set('toJSON', { transform: omitPrivate });

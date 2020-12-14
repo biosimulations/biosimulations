@@ -9,7 +9,10 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ResultsModel } from './results.model';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import { SimulationRunReportData } from '@biosimulations/dispatch/api-models';
+import {
+  SimulationRunReport,
+  SimulationRunReportData
+} from '@biosimulations/dispatch/api-models';
 
 const result = {
   data_set_time: [
@@ -111,12 +114,17 @@ export class ResultsService {
     @InjectModel(ResultsModel.name) private resultModel: Model<ResultsModel>
   ) {}
 
-  createReport(simId: string, reportId: string, data: SimulationRunReportData) {
+  createReport(
+    simId: string,
+    reportId: string,
+    data: SimulationRunReportData
+  ): Promise<SimulationRunReport> {
     const result = new this.resultModel({
       simId: simId,
       reportId: reportId,
       data: data
     });
+
     return result.save();
   }
 

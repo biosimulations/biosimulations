@@ -10,6 +10,7 @@ import {
   permissions
 } from '@biosimulations/auth/nest';
 import {
+  SimulationRunReport,
   SimulationRunReportData,
   SimulationRunReportDataSchema,
   SimulationRunReportDataStrings
@@ -87,7 +88,7 @@ export class ResultsController {
     @Param('reportId') reportId: string,
     @Body(ValidationPipe)
     data: SimulationRunReportDataStrings
-  ) {
+  ): Promise<SimulationRunReport> {
     const report: SimulationRunReportData = {};
     for (const key of Object.keys(data)) {
       const arr = data[key];
@@ -129,10 +130,6 @@ export class ResultsController {
     }
 
     return this.service.createReport(simId, reportId, report);
-  }
-  castFloat(arr: number[] | boolean[]) {}
-  castBool(arr: number[] | boolean[]) {
-    throw new Error('Method not implemented.');
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
