@@ -19,6 +19,7 @@ import {
   SimulationRunReportData,
   SimulationRunReportDataStrings
 } from '@biosimulations/dispatch/api-models';
+import { SimulationRunService } from '../simulation-run/simulation-run.service';
 
 export interface resultFile {
   name: string;
@@ -32,7 +33,10 @@ export class ResultsService {
     'hpc.fileStorage',
     ''
   );
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private submit: SimulationRunService
+  ) {}
 
   private getResultsDirectory(id: string) {
     return path.join(this.fileStorage, 'simulations', id, 'out');
@@ -113,11 +117,10 @@ export class ResultsService {
     resultId: string,
     result: SimulationRunReportDataStrings
   ) {
-    // TODO Complete implementation
     this.logger.debug(simId);
     this.logger.debug(resultId);
     this.logger.debug(result);
-    this.logger.error('UPLOAD NOT IMPLEMENTED');
+    this.submit.sendReport(simId, resultId, result);
   }
   private async parseToJson(
     file: resultFile

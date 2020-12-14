@@ -2,7 +2,7 @@ import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
-  DispatchFinishedPayload,
+  DispatchFinishedPayload
 } from '@biosimulations/messages/messages';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -41,7 +41,7 @@ export class SubmissionService {
         case SimulationRunStatus.QUEUED: {
           const message: DispatchPayload = {
             _message: DispatchMessage.queued,
-            id: simId,
+            id: simId
           };
           this.messageClient.emit(DispatchMessage.queued, message);
           this.updateSimulationRunStatus(simId, jobStatus);
@@ -52,7 +52,7 @@ export class SubmissionService {
         case SimulationRunStatus.RUNNING: {
           const runningMessage: DispatchPayload = {
             _message: DispatchMessage.started,
-            id: simId,
+            id: simId
           };
           this.messageClient.emit(DispatchMessage.started, runningMessage);
           this.updateSimulationRunStatus(simId, jobStatus);
@@ -64,7 +64,7 @@ export class SubmissionService {
           const succeededMessage: DispatchFinishedPayload = {
             _message: DispatchMessage.finished,
             id: simId,
-            transpose: transpose,
+            transpose: transpose
           };
           this.messageClient.emit(DispatchMessage.finished, succeededMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
@@ -80,7 +80,7 @@ export class SubmissionService {
 
           const failedMessage: DispatchPayload = {
             _message: DispatchMessage.failed,
-            id: simId,
+            id: simId
           };
           this.messageClient.emit(DispatchMessage.failed, failedMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
