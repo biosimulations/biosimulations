@@ -16,6 +16,7 @@ import {
   SimulationRunReportDataStrings
 } from '@biosimulations/dispatch/api-models';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+
 import {
   Body,
   Controller,
@@ -28,8 +29,7 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
-  ValidationPipe
+  UseGuards
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -93,7 +93,7 @@ export class ResultsController {
   postResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
-    @Body(ValidationPipe)
+    @Body()
     data: SimulationRunReportDataStrings
   ): Promise<SimulationRunReport> {
     const report: SimulationRunReportData = {};
