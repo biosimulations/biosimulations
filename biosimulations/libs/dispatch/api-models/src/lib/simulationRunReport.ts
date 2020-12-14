@@ -8,7 +8,7 @@
 
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 
-export type SimulationRunReportData = { [key: string]: Array<any> };
+export type SimulationRunReportData = { [key: string]: Array<number> };
 
 export class SimulationRunReport {
   @ApiProperty({ type: String })

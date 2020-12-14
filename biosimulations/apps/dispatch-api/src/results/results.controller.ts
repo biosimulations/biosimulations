@@ -21,7 +21,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOAuth2, ApiTags } from '@nestjs/swagger';
+import { ApiOAuth2, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ResultsService } from './results.service';
 
 @Controller('results')
@@ -37,10 +37,13 @@ export class ResultsController {
   }
 
   @Get(':simId')
+  @ApiQuery({ name: 'sparse', type: Boolean })
   getResult(
     @Param('simId') simId: string,
     @Query('sparse', ParseBoolPipe) sparse = true
   ) {
+    console.log(simId);
+    console.log(sparse);
     return this.service.getResult(simId, sparse);
   }
 
@@ -50,11 +53,13 @@ export class ResultsController {
   }
 
   @Get(':simId/:reportId')
+  @ApiQuery({ name: 'sparse', type: Boolean })
   getResultReport(
     @Param('simId') simId: string,
-    @Param('reportId') reportId: string
+    @Param('reportId') reportId: string,
+    @Query('sparse', ParseBoolPipe) sparse = true
   ) {
-    return this.service.getResultReport(simId, reportId);
+    return this.service.getResultReport(simId, reportId, sparse);
   }
 
   @Get(':simId/:reportId/download')

@@ -117,14 +117,24 @@ export class ResultsService {
       'Sorry, this method is not yet available'
     );
   }
-  getResultReport(simId: string, reportId: string) {
-    return {
+  getResultReport(simId: string, reportId: string, sparse: boolean = false) {
+    const response: any = {
       simId: simId,
       reportId: reportId,
       created: Date.now(),
       updated: Date.now(),
       data: result,
     };
+    if (sparse) {
+      const sparseResult: { [key: string]: any[] } = {};
+      for (let key of Object.keys(result)) {
+        sparseResult[key] = [];
+      }
+      response['data'] = sparseResult;
+    } else {
+      response['data'] = result;
+    }
+    return response;
   }
 
   getResults() {
@@ -142,17 +152,10 @@ export class ResultsService {
       reports: [],
     };
     console.log(sparse);
-    if (sparse) {
-      console.log(sparse);
-      console.log('incorrect');
-      response['reports'] = ['report1', 'report2'];
-    } else {
-      console.log('correct');
-      response['reports'] = [
-        this.getResultReport(id, 'report1'),
-        this.getResultReport(id, 'report2'),
-      ];
-    }
+    response['reports'] = [
+      this.getResultReport(id, 'report1', sparse),
+      this.getResultReport(id, 'report2', sparse),
+    ];
     return response;
   }
   download(id: string) {
