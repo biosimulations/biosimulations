@@ -34,6 +34,7 @@ export class MongoErrorFilter implements ExceptionFilter {
           err
         );
         errors.push(error);
+        break;
       }
       default: {
         const error = makeErrorObject(
