@@ -105,7 +105,7 @@ export class ResultsController {
 
       if (firstValue == 'true' || firstValue == 'false') {
         const newArr = arr.map((value) => {
-          value = value.toLowerCase().trim();
+          value = String(value).toLowerCase().trim();
           if (value != 'true' && value != 'false') {
             throw new BiosimulationsException(
               HttpStatus.BAD_REQUEST,

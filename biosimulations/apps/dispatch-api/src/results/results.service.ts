@@ -4,7 +4,7 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ResultsModel } from './results.model';
@@ -135,24 +135,22 @@ export class ResultsService {
       'Sorry, this method is not yet available'
     );
   }
-  getResultReport(simId: string, reportId: string, sparse = false) {
-    const response: any = {
-      simId: simId,
-      reportId: reportId,
-      created: Date.now(),
-      updated: Date.now(),
-      data: result
-    };
-    if (sparse) {
-      const sparseResult: { [key: string]: any[] } = {};
-      for (const key of Object.keys(result)) {
-        sparseResult[key] = [];
-      }
-      response['data'] = sparseResult;
+  async getResultReport(simId: string, reportId: string, sparse = false) {
+    const response = await this.resultModel.findOne({ simId, reportId });
+    if (!response) {
+      throw new NotFoundException();
     } else {
-      response['data'] = result;
+      if (sparse) {
+        const sparseResult:
+          | { [key: string]: boolean[] }
+          | { [key: string]: number[] } = {};
+        for (const key of Object.keys(response.data)) {
+          sparseResult[key] = [];
+        }
+        response['data'] = sparseResult;
+      }
+      return response;
     }
-    return response;
   }
 
   getResults() {
