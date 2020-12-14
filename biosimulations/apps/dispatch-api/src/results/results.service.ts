@@ -32,7 +32,7 @@ const result = {
     '0.185',
     '0.19',
     '0.195',
-    '0.2',
+    '0.2'
   ],
   data_set_BE: [
     '0.0007766381772963218',
@@ -55,7 +55,7 @@ const result = {
     '0.0012284640094393504',
     '0.001254941261025384',
     '0.0012814050676162323',
-    '0.0013078551149393962',
+    '0.0013078551149393962'
   ],
   data_set_BUD: [
     '0.0',
@@ -78,7 +78,7 @@ const result = {
     '0.0',
     '0.0',
     '0.0',
-    '0.0',
+    '0.0'
   ],
   data_set_Cdc20: [
     '1.1368510063392174',
@@ -101,8 +101,8 @@ const result = {
     '1.1060855594032253',
     '1.1042676459466376',
     '1.1024493412733827',
-    '1.1006307176652956',
-  ],
+    '1.1006307176652956'
+  ]
 };
 @Injectable()
 export class ResultsService {
@@ -117,17 +117,17 @@ export class ResultsService {
       'Sorry, this method is not yet available'
     );
   }
-  getResultReport(simId: string, reportId: string, sparse: boolean = false) {
+  getResultReport(simId: string, reportId: string, sparse = false) {
     const response: any = {
       simId: simId,
       reportId: reportId,
       created: Date.now(),
       updated: Date.now(),
-      data: result,
+      data: result
     };
     if (sparse) {
       const sparseResult: { [key: string]: any[] } = {};
-      for (let key of Object.keys(result)) {
+      for (const key of Object.keys(result)) {
         sparseResult[key] = [];
       }
       response['data'] = sparseResult;
@@ -145,16 +145,16 @@ export class ResultsService {
     );
   }
   getResult(id: string, sparse: boolean) {
-    let response: any = {
+    const response: any = {
       simId: id,
       created: Date.now(),
       updated: Date.now(),
-      reports: [],
+      reports: []
     };
     console.log(sparse);
     response['reports'] = [
       this.getResultReport(id, 'report1', sparse),
-      this.getResultReport(id, 'report2', sparse),
+      this.getResultReport(id, 'report2', sparse)
     ];
     return response;
   }
