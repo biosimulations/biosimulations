@@ -46,10 +46,7 @@ export class SimulationRunReport {
 export class SimulationRunResults {
   @ApiResponseProperty({ type: String })
   simId!: string;
-  @ApiResponseProperty({ type: String, format: 'date-time' })
-  created!: Date;
-  @ApiResponseProperty({ type: String, format: 'date-time' })
-  updated!: Date;
+
   @ApiResponseProperty({ type: () => [SimulationRunReport] })
   reports!: SimulationRunReport[];
 }
