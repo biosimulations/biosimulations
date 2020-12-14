@@ -1,13 +1,13 @@
 import {
   SimulationFile,
-  SimulationFileSchema,
+  SimulationFileSchema
 } from './../simulation-run/file.model';
 import { SimulationRunModelSchema } from './../simulation-run/simulation-run.model';
 import { Module, HttpModule, CacheModule } from '@nestjs/common';
 import {
   Transport,
   ClientProxyFactory,
-  NatsOptions,
+  NatsOptions
 } from '@nestjs/microservices';
 import { AppController } from './app.controller';
 import { ConfigService } from '@nestjs/config';
@@ -18,12 +18,12 @@ import { ScheduleModule } from '@nestjs/schedule';
 
 import { AppService } from './app.service';
 import { SimulationRunModule } from '../simulation-run/simulation-run.module';
-import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
+import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 import { ResultsModule } from '../results/results.module';
 
 import {
   AuthTestModule,
-  BiosimulationsAuthModule,
+  BiosimulationsAuthModule
 } from '@biosimulations/auth/nest';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 @Module({
@@ -35,8 +35,8 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
       {
         name: SimulationFile.name,
-        schema: SimulationFileSchema,
-      },
+        schema: SimulationFileSchema
+      }
     ]),
     ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
@@ -44,25 +44,25 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('database.uri') || '',
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true
       }),
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
     TypegooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('database.uri') || '',
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true
       }),
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
     CacheModule.register(),
     SimulationRunModule,
     ResultsModule,
-    SharedExceptionsModule,
+    SharedExceptionsFiltersModule,
 
-    AuthTestModule,
+    AuthTestModule
   ],
 
   controllers: [AppController],
@@ -77,8 +77,8 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
         natsOptions.options = natsServerConfig;
         return ClientProxyFactory.create(natsOptions);
       },
-      inject: [ConfigService],
-    },
-  ],
+      inject: [ConfigService]
+    }
+  ]
 })
 export class AppModule {}

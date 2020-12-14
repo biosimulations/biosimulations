@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { BiosimulationsExceptionFilter } from './biosimulations-exception.filter';
 import { DefaultFilter } from './default.filter';
 import { MongoErrorFilter } from './filters/Mongo/MongoError';
@@ -47,4 +47,4 @@ import { HttpExceptionFilter } from './http-exception.filter';
   ],
   exports: []
 })
-export class SharedExceptionsModule {}
+export class SharedExceptionsFiltersModule {}

@@ -90,6 +90,8 @@ export class ResultsController {
   @Post(':simId/:reportId')
   @ApiBody({ schema: SimulationRunReportDataSchema })
   @ApiCreatedResponse({ type: () => SimulationRunReport })
+  @permissions('write:Results')
+  @ApiOAuth2(['write:Results'])
   postResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
@@ -140,23 +142,23 @@ export class ResultsController {
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
-  @permissions('delete:SimulationRunResults')
-  @ApiOAuth2(['delete:SimulationRunResults'])
+  @permissions('delete:Results')
+  @ApiOAuth2(['delete:Results'])
   @Delete()
   deleteResults() {
     return this.service.deleteAll();
   }
   @UseGuards(JwtGuard, PermissionsGuard)
-  @permissions('delete:SimulationRunResults')
-  @ApiOAuth2(['delete:SimulationRunResults'])
+  @permissions('delete:Results')
+  @ApiOAuth2(['delete:Results'])
   @Delete(':simId')
   deleteResult(@Param('simId') simId: string) {
     return this.service.delete(simId);
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
-  @permissions('delete:SimulationRunResults')
-  @ApiOAuth2(['delete:SimulationRunResults'])
+  @permissions('delete:Results')
+  @ApiOAuth2(['delete:Results'])
   @Delete(':simId/:resultId')
   deleteResultReport(
     @Param('simId') simId: string,

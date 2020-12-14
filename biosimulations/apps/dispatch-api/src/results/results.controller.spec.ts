@@ -4,6 +4,8 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
@@ -25,13 +27,14 @@ describe('ResultsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResultsController],
+      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule],
       providers: [
         ResultsService,
         {
           provide: getModelToken(ResultsModel.name),
-          useClass: mockFile,
-        },
-      ],
+          useClass: mockFile
+        }
+      ]
     }).compile();
 
     controller = module.get<ResultsController>(ResultsController);

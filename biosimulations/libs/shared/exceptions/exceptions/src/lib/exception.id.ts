@@ -1,7 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
 
-import { StrictModeError } from './filters/Mongo/strict-mode-exception';
-
 // use this as a list of all the  errors that are defined/caught. This will provide the source of information for creating the error responses.
 const errors = {
   StrictModeError: {
