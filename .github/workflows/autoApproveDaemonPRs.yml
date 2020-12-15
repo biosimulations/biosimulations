@@ -1,5 +1,12 @@
 name: Auto approve robots
 on:
+  pull_request:
+    types: 
+      - opened
+      - labeled
+      - unlabeled
+      - synchronize
+      - edited
   workflow_run:
     workflows: ["Lint, test, build, and containerize libraries and apps"]
     types: 
