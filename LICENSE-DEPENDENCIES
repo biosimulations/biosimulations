@@ -674,7 +674,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Bryan Housel
 │  ├─ email: bryan@mapbox.com
 │  └─ licenseFile: @mapbox/whoots-js/LICENSE.md
-├─ @nestjs/common@7.5.1
+├─ @nestjs/common@7.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -3146,7 +3146,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Mathias Buus
 │  ├─ url: @mafintosh
 │  └─ licenseFile: flush-write-stream/LICENSE
-├─ follow-redirects@1.13.0
+├─ follow-redirects@1.13.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/follow-redirects/follow-redirects
 │  ├─ publisher: Ruben Verborgh
@@ -7727,7 +7727,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 ├─ uuid@8.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
-│  └─ licenseFile: @nestjs/common/node_modules/uuid/LICENSE.md
+│  └─ licenseFile: @nestjs/core/node_modules/uuid/LICENSE.md
 ├─ uuid@8.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
