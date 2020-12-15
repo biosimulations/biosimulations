@@ -66,8 +66,8 @@ export class DispatchComponent implements OnInit {
       // TODO: Un-hardcode simulators
       this.simulatorVersionsMap = {
         bionetgen: ['2.5.1'],
-        copasi: ['4.27.214', '4.28.226'],
-        gillespy2: ['1.5.6'],
+        copasi: ['4.28.226', '4.29.227'],
+        gillespy2: ['1.5.4', '1.5.5', '1.5.6'],
         vcell: ['7.3.0.0'],
         tellurium: ['2.1.6'],
       };
