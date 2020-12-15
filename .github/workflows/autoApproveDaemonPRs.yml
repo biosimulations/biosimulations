@@ -1,7 +1,9 @@
 name: Auto approve robots
 on:
-  pull_request:
-
+  workflow_run:
+    workflows: ["Lint, test, build, and containerize libraries and apps"]
+    types: 
+      - completed
 jobs:
   approve-dependabot:
     name: Auto-approve dependabot PRs
@@ -11,7 +13,12 @@ jobs:
       - uses: hmarr/auto-approve-action@v2.0.0
         with:
           github-token: "${{secrets.GITHUB_TOKEN }}"
-
+      - name: add label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: automerge
+          type: add
   approve-daemon:
     name: Auto-approve daemon PRs
     if: github.actor == 'biosimulations-daemon'
@@ -20,3 +27,43 @@ jobs:
       - uses: hmarr/auto-approve-action@v2.0.0
         with:
           github-token: "${{secrets.GITHUB_TOKEN }}"
+        
+      - name: add label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: automerge
+          type: add
+  merge-dependabot:
+    name: Merge Dependabot PRs
+    if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.12.0"
+        env:
+          GITHUB_TOKEN: "${{ secrets.AUTOMERGE_TOKEN }}"
+          MERGE_LABELS: "automerge,!work in progress"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-description"
+          MERGE_FORKS: "false"
+          MERGE_RETRIES: "5"
+          MERGE_RETRY_SLEEP: "6000000"
+          UPDATE_METHOD: "rebase"
+
+  merge-daemon:
+    name: Merge daemon PRs
+    if: github.actor == 'biosimulations-daemon'
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.12.0"
+        env:
+          GITHUB_TOKEN: "${{ secrets.AUTOMERGE_TOKEN }}"
+          MERGE_LABELS: "automerge,!work in progress"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-description"
+          MERGE_FORKS: "false"
+          MERGE_RETRIES: "5"
+          MERGE_RETRY_SLEEP: "6000000"
+          UPDATE_METHOD: "rebase"
