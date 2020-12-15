@@ -52,5 +52,3 @@ jobs:
           delete-branch: true
           title: Update Sitemaps
           body: Updates and builds the sitemaps for each app
-          labels: |
-            automerge
