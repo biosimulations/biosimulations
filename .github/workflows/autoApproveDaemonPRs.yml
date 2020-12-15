@@ -1,7 +1,13 @@
 name: Auto approve robots
 on:
   pull_request:
-
+    types:
+      - opened
+      - synchronize
+      - reopened 
+      - labeled 
+      - unlabeled
+      - edited
 jobs:
   approve-dependabot:
     name: Auto-approve dependabot PRs
