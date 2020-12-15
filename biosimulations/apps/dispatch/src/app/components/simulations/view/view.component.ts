@@ -1,10 +1,16 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
   FormControl,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -18,13 +24,14 @@ import {
   ScatterTrace,
   Axis,
   Layout,
-  DataLayout,
+  DataLayout
 } from './visualization/visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation } from '../../../datamodel';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 interface FormattedSimulation {
   id: string;
@@ -65,13 +72,13 @@ interface AxisLabelType {
 
 const AXIS_LABEL_TYPES: AxisLabelType[] = [
   {
-    'label': 'Linear',
-    'type': AxisType.linear,
+    label: 'Linear',
+    type: AxisType.linear
   },
   {
-    'label': 'Logarithmic',
-    'type': AxisType.log,
-  },
+    label: 'Logarithmic',
+    type: AxisType.log
+  }
 ];
 
 interface ScatterTraceModeLabel {
@@ -82,12 +89,12 @@ interface ScatterTraceModeLabel {
 const SCATTER_TRACE_MODEL_LABELS: ScatterTraceModeLabel[] = [
   {
     label: 'Line',
-    mode: ScatterTraceMode.lines,
+    mode: ScatterTraceMode.lines
   },
   {
     label: 'Scatter',
-    mode: ScatterTraceMode.markers,
-  },
+    mode: ScatterTraceMode.markers
+  }
 ];
 
 interface Report {
@@ -102,25 +109,27 @@ interface DataSetIdDisabled {
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit {
   private uuid = '';
 
-  private formattedSimulation = new BehaviorSubject<FormattedSimulation | undefined>(undefined);
+  private formattedSimulation = new BehaviorSubject<
+    FormattedSimulation | undefined
+  >(undefined);
   formattedSimulation$ = this.formattedSimulation.asObservable();
 
   private statusRunning = new BehaviorSubject<boolean>(true);
   statusRunning$ = this.statusRunning.asObservable();
 
-  private logs = new BehaviorSubject<Logs>({out: '', err: ''});
+  private logs = new BehaviorSubject<Logs>({ out: '', err: '' });
   logs$ = this.logs.asObservable();
 
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
 
   private sedmlLocations = new BehaviorSubject<string[] | undefined>(undefined);
-  sedmlLocations$ = this.sedmlLocations.asObservable()
+  sedmlLocations$ = this.sedmlLocations.asObservable();
 
   private reportIds = new BehaviorSubject<string[] | undefined>(undefined);
   reportIds$ = this.reportIds.asObservable();
@@ -134,7 +143,9 @@ export class ViewComponent implements OnInit {
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   scatterTraceModeLabels: ScatterTraceModeLabel[] = SCATTER_TRACE_MODEL_LABELS;
 
-  private vizDataLayout = new BehaviorSubject<DataLayout | undefined>(undefined);
+  private vizDataLayout = new BehaviorSubject<DataLayout | undefined>(
+    undefined
+  );
   vizDataLayout$ = this.vizDataLayout.asObservable();
 
   @ViewChild('visualization') visualization!: VisualizationComponent;
@@ -146,7 +157,7 @@ export class ViewComponent implements OnInit {
     private simulationService: SimulationService,
     private appService: VisualizationService,
     private dispatchService: DispatchService,
-    private changeDetectorRef: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.formGroup = formBuilder.group({
       sedmlLocation: [undefined, [Validators.required]],
@@ -155,7 +166,7 @@ export class ViewComponent implements OnInit {
       yDataSetIds: [[], [Validators.required]],
       xAxisType: [AxisType.linear, [Validators.required]],
       yAxisType: [AxisType.linear, [Validators.required]],
-      scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]],
+      scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]]
     });
   }
 
@@ -172,64 +183,84 @@ export class ViewComponent implements OnInit {
   }
 
   private setSimulation(): void {
-    this.simulationService.getSimulationByUuid(this.uuid).subscribe((simulation: Simulation): void => {
-      const statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
-      const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
-      this.formattedSimulation.next({
-        id: simulation.id,
-        name: simulation.name,
-        simulator: simulation.simulator,
-        simulatorVersion: simulation.simulatorVersion,
-        statusRunning: statusRunning,
-        statusSucceeded: statusSucceeded,
-        statusLabel: SimulationStatusService.getSimulationStatusMessage(simulation.status, true),
-        runtime: simulation.runtime !== undefined ? Math.round((simulation.runtime)/1000).toString() + ' s' : 'N/A',
-        submitted: new Date(simulation.submitted).toLocaleString(),
-        updated: new Date(simulation.updated).toLocaleString(),
-        projectSize: simulation.projectSize !== undefined ? ((simulation.projectSize) / 1024).toFixed(2) + ' KB' : '',
-        resultsSize: simulation.resultsSize !== undefined ? (simulation.resultsSize / 1024).toFixed(2) + ' KB' : 'N/A',
-        projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-        simulatorUrl: `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
-        resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`,
-      });
-      this.statusRunning.next(statusRunning);
-
-      if (!statusRunning) {
-        this.dispatchService.getSimulationLogs(this.uuid)
-          .subscribe((data: any) => {
-            if (data.data === undefined) {
-              // TODO: should this be interpreted as an error message?
-              this.logs.next({
-                out: data.message,
-                err: '',
-              });
-            } else {
-              this.logs.next({
-                out: data.data.output,
-                err: data.data.error,
-              });
-            }
-            setTimeout(() => this.changeDetectorRef.detectChanges());
-          });
-      }
-
-      if (statusSucceeded) {
-        this.appService
-          .getResultStructure(this.uuid)
-          .subscribe((response: any): void => {
-            // TODO: connect with new AppService
-            if (response != null && response.message === 'OK') {
-              this.setProjectOutputs(response.data as CombineArchive);
-            }
-          });
-      }
-
-      if (statusRunning) {
-        setTimeout(this.setSimulation.bind(this),
-          this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000
+    this.simulationService
+      .getSimulationByUuid(this.uuid)
+      .subscribe((simulation: Simulation): void => {
+        const statusRunning = SimulationStatusService.isSimulationStatusRunning(
+          simulation.status
         );
-      }
-    });
+        const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(
+          simulation.status
+        );
+        this.formattedSimulation.next({
+          id: simulation.id,
+          name: simulation.name,
+          simulator: simulation.simulator,
+          simulatorVersion: simulation.simulatorVersion,
+          statusRunning: statusRunning,
+          statusSucceeded: statusSucceeded,
+          statusLabel: SimulationStatusService.getSimulationStatusMessage(
+            simulation.status,
+            true
+          ),
+          runtime:
+            simulation.runtime !== undefined
+              ? Math.round(simulation.runtime / 1000).toString() + ' s'
+              : 'N/A',
+          submitted: new Date(simulation.submitted).toLocaleString(),
+          updated: new Date(simulation.updated).toLocaleString(),
+          projectSize:
+            simulation.projectSize !== undefined
+              ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
+              : '',
+          resultsSize:
+            simulation.resultsSize !== undefined
+              ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
+              : 'N/A',
+          projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+          simulatorUrl: `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
+          resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`
+        });
+        this.statusRunning.next(statusRunning);
+
+        if (!statusRunning) {
+          this.dispatchService
+            .getSimulationLogs(this.uuid)
+            .subscribe((data: any) => {
+              if (data.data === undefined) {
+                // TODO: should this be interpreted as an error message?
+                this.logs.next({
+                  out: data.message,
+                  err: ''
+                });
+              } else {
+                this.logs.next({
+                  out: data.data.output,
+                  err: data.data.error
+                });
+              }
+              setTimeout(() => this.changeDetectorRef.detectChanges());
+            });
+        }
+
+        if (statusSucceeded) {
+          this.appService
+            .getResultStructure(this.uuid)
+
+            .subscribe((response: any): void => {
+              
+
+              this.setProjectOutputs(response as CombineArchive);
+            });
+        }
+
+        if (statusRunning) {
+          setTimeout(
+            this.setSimulation.bind(this),
+            this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000
+          );
+        }
+      });
   }
 
   private setProjectOutputs(combineArchive: CombineArchive): void {
@@ -251,7 +282,10 @@ export class ViewComponent implements OnInit {
   selectSedmlLocation(selectedSedmlLocation?: string): void {
     this.selectedSedmlLocation = selectedSedmlLocation;
 
-    const reportIds = this.combineArchive && selectedSedmlLocation ? this.combineArchive[selectedSedmlLocation] : undefined;
+    const reportIds =
+      this.combineArchive && selectedSedmlLocation
+        ? this.combineArchive[selectedSedmlLocation]
+        : undefined;
     this.reportIds.next(reportIds);
     if (reportIds?.length) {
       this.formGroup.controls.reportId.enable();
@@ -274,43 +308,42 @@ export class ViewComponent implements OnInit {
     if (this.selectedSedmlLocation && selectedReportId) {
       this.appService
         .getReport(this.uuid, this.selectedSedmlLocation, selectedReportId)
-        .subscribe((data: any) => this.setDataSets.bind(this));
+        .subscribe((data: any) => this.setDataSets({ data }));
     }
   }
 
   private setDataSets(data: any): void {
     const dataSets: Report = {};
-    const dataSetIdDisabledMap: {[id: string]: boolean} = {};
+    const dataSetIdDisabledMap: { [id: string]: boolean } = {};
 
-    /* TODO: connect with new results API / App Service */
     Object.keys(data.data).forEach((element): void => {
-      dataSetIdDisabledMap['Time'] = false;
       dataSetIdDisabledMap[element] = !(
-        data.data[element].y.length > 0 
-        && ['boolean', 'number'].includes(typeof data.data[element].y[0])
-        );
+        data.data[element].length > 0 &&
+        ['boolean', 'number'].includes(typeof data.data[element][0])
+      );
 
-      dataSets['Time'] = data.data[element].x;
-      dataSets[element] = data.data[element].y;
+      /* @TODO Determine how to handle "Time "
+       * @body  @jonrkarr  not sure what the hardcoded time is for. In the example I am using (5fd811a37efd18fb32c90a21), the output already contains a lowercase "time"
+       */
+
+      dataSets[element] = data.data[element];
     });
 
     this.dataSets = dataSets;
-    const dataSetIdDisabledArr = Object.keys(dataSetIdDisabledMap).sort().map((id: string): DataSetIdDisabled => {
-        return {id, disabled: dataSetIdDisabledMap[id]};
-    })
+    const dataSetIdDisabledArr = Object.keys(dataSetIdDisabledMap)
+      .sort()
+      .map(
+        (id: string): DataSetIdDisabled => {
+          return { id, disabled: dataSetIdDisabledMap[id] };
+        }
+      );
     this.dataSetIdDisableds.next(dataSetIdDisabledArr);
 
-    let xDataSetId: string | undefined = undefined;
+    const xDataSetId: string | undefined = undefined;
     let yDataSetIds: string[] = [];
 
     if (dataSetIdDisabledArr.length > 0) {
-      xDataSetId = 'Time';
-
-      if (dataSetIdDisabledArr[0].id === 'Time') {
-        yDataSetIds = [dataSetIdDisabledArr[1].id];
-      } else {
-        yDataSetIds = [dataSetIdDisabledArr[0].id];
-      }
+      yDataSetIds = [dataSetIdDisabledArr[0].id];
 
       this.formGroup.controls.xDataSetId.enable();
       this.formGroup.controls.yDataSetIds.enable();
@@ -325,7 +358,8 @@ export class ViewComponent implements OnInit {
   }
 
   buildVizData(): void {
-    const xDataSetId: string | undefined = this.formGroup.controls['xDataSetId'].value;
+    const xDataSetId: string | undefined = this.formGroup.controls['xDataSetId']
+      .value;
     const yDataSetIds: string[] = this.formGroup.controls['yDataSetIds'].value;
 
     if (xDataSetId && yDataSetIds.length > 0) {
@@ -333,7 +367,7 @@ export class ViewComponent implements OnInit {
       const xData = this.dataSets[xDataSetId];
 
       let yAxisTitle: string | undefined = undefined;
-      let showlegend: boolean = false;
+      let showlegend = false;
       if (yDataSetIds.length === 1) {
         yAxisTitle = yDataSetIds[0];
         showlegend = false;
@@ -343,28 +377,30 @@ export class ViewComponent implements OnInit {
       }
 
       this.vizDataLayout.next({
-        data: yDataSetIds.map((yDataSetId: string): ScatterTrace => {
-          const yData = this.dataSets[yDataSetId];
-          return {
-            name: yDataSetId,
-            x: xData,
-            y: yData,
-            mode: this.formGroup.controls['scatterTraceMode'].value,
-          };
-        }),
+        data: yDataSetIds.map(
+          (yDataSetId: string): ScatterTrace => {
+            const yData = this.dataSets[yDataSetId];
+            return {
+              name: yDataSetId,
+              x: xData,
+              y: yData,
+              mode: this.formGroup.controls['scatterTraceMode'].value
+            };
+          }
+        ),
         layout: {
           xaxis: {
             title: xAxisTitle,
-            type: this.formGroup.controls['xAxisType'].value,
+            type: this.formGroup.controls['xAxisType'].value
           },
           yaxis: {
             title: yAxisTitle,
-            type: this.formGroup.controls['yAxisType'].value,
+            type: this.formGroup.controls['yAxisType'].value
           },
           showlegend: showlegend,
           width: undefined,
-          height: undefined,
-        },
+          height: undefined
+        }
       });
     } else {
       this.vizDataLayout.next(undefined);

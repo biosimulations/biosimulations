@@ -3,20 +3,21 @@ import { Simulation } from '../../datamodel';
 import { SimulationRunStatus } from '../../datamodel';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject, of } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
-import { environment } from '@biosimulations/shared/environments';
 import { ConfigService } from '@biosimulations/shared/services';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
   private simulationsMap: { [key: string]: Simulation } = {};
-  private simulationsSubject = new BehaviorSubject<Simulation[]>(this.simulations);
+  private simulationsSubject = new BehaviorSubject<Simulation[]>(
+    this.simulations
+  );
   public simulations$: Observable<
     Simulation[]
   > = this.simulationsSubject.asObservable();
@@ -44,7 +45,9 @@ export class SimulationService {
   }
 
   private initSimulations(storedSimulations: Simulation[]): void {
-    const simulations = storedSimulations.concat(this.simulationsAddedBeforeStorageInitialized);
+    const simulations = storedSimulations.concat(
+      this.simulationsAddedBeforeStorageInitialized
+    );
     simulations.forEach((simulation: Simulation): void => {
       if (!(simulation.id in this.simulationsMap)) {
         this.simulations.push(simulation);
@@ -71,9 +74,12 @@ export class SimulationService {
     if (this.storageInitialized) {
       newSimulations.forEach((newSimulation: Simulation): void => {
         if (newSimulation.id in this.simulationsMap) {
-          const submittedLocally = this.simulationsMap[newSimulation.id].submittedLocally;
+          const submittedLocally = this.simulationsMap[newSimulation.id]
+            .submittedLocally;
           Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
-          this.simulationsMap[newSimulation.id].submittedLocally = submittedLocally;
+          this.simulationsMap[
+            newSimulation.id
+          ].submittedLocally = submittedLocally;
         } else {
           this.simulations.push(newSimulation);
           this.simulationsMap[newSimulation.id] = newSimulation;
@@ -85,7 +91,7 @@ export class SimulationService {
         this.updateSimulations();
       }
     } else {
-       newSimulations.forEach((newSimulation: Simulation): void => {
+      newSimulations.forEach((newSimulation: Simulation): void => {
         this.simulationsAddedBeforeStorageInitialized.push(newSimulation);
       });
     }
@@ -102,7 +108,7 @@ export class SimulationService {
       .map((simulation: Simulation): string => {
         return simulation.id;
       });
-    
+
     // stop if no simulations need to be updated
     if (simulationIds.length === 0) {
       return;
@@ -135,7 +141,7 @@ export class SimulationService {
           simulatorVersion: dispatchSim.simulatorVersion,
           updated: new Date(dispatchSim.updated),
           resultsSize: dispatchSim.resultsSize,
-          projectSize: dispatchSim.projectSize,
+          projectSize: dispatchSim.projectSize
         });
       }
       this.storeSimulations(simulations, false);
@@ -167,7 +173,7 @@ export class SimulationService {
             simulatorVersion: dispatchSimulation.simulatorVersion,
             updated: new Date(dispatchSimulation.updated),
             resultsSize: dispatchSimulation.resultsSize,
-            projectSize: dispatchSimulation.projectSize,
+            projectSize: dispatchSimulation.projectSize
           };
           simulationSubject.next(simulation);
           this.storeSimulation(simulation);
