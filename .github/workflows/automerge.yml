@@ -4,20 +4,9 @@ on:
     types:
       - labeled
       - unlabeled
-      - synchronize
-      - opened
-      - edited
-      - ready_for_review
-      - reopened
-      - unlocked
   pull_request_review:
     types:
       - submitted
-  workflow_run:
-    workflows: ["Lint, test, build, and containerize libraries and apps"]
-    types: 
-      - completed
-
 jobs:
   automerge:
     runs-on: ubuntu-latest
@@ -31,6 +20,6 @@ jobs:
           MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: "pull-request-description"
           MERGE_FORKS: "false"
-          MERGE_RETRIES: "6"
-          MERGE_RETRY_SLEEP: "10000"
+          MERGE_RETRIES: "5"
+          MERGE_RETRY_SLEEP: "6000000"
           UPDATE_METHOD: "rebase"
