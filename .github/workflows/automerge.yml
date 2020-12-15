@@ -1,9 +1,6 @@
 name: automerge
 on:
-  check_suite:
-    types:
-      - completed
-  status: {success}
+  []
 jobs:
   automerge:
     runs-on: ubuntu-latest
