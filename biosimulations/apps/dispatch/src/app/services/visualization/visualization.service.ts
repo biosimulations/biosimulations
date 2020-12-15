@@ -16,10 +16,7 @@ export class VisualizationService {
     // TODO: Save the data to localstorage, return from local storage if exists, if not return obeservable to request
     return this.http
       .get(`${this.resultsEndpoint}/${uuid}/${report}?sparse=false`)
-      .pipe(
-        tap((x) => console.log(x)),
-        map((x: any) => x.data)
-      );
+      .pipe(map((x: any) => x.data));
   }
 
   getResultStructure(uuid: string) {
@@ -36,8 +33,7 @@ export class VisualizationService {
         taskNames.forEach((task: string) => {
           const report = task.split('/').reverse()[0];
           const sedMl = task.split('/').reverse().slice(1).reverse().join('/');
-          console.log(report);
-          console.log(sedMl);
+
           if (Object.keys(taskMap).includes(sedMl)) {
             taskMap[sedMl].push(report);
           } else {

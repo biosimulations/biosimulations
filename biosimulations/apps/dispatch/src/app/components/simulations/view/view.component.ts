@@ -246,9 +246,9 @@ export class ViewComponent implements OnInit {
         if (statusSucceeded) {
           this.appService
             .getResultStructure(this.uuid)
-            .pipe(tap((results) => console.log(results)))
+
             .subscribe((response: any): void => {
-              // TODO: connect with new AppService
+              
 
               this.setProjectOutputs(response as CombineArchive);
             });
@@ -317,7 +317,6 @@ export class ViewComponent implements OnInit {
     const dataSetIdDisabledMap: { [id: string]: boolean } = {};
 
     Object.keys(data.data).forEach((element): void => {
-      dataSetIdDisabledMap['Time'] = false;
       dataSetIdDisabledMap[element] = !(
         data.data[element].length > 0 &&
         ['boolean', 'number'].includes(typeof data.data[element][0])
@@ -326,7 +325,7 @@ export class ViewComponent implements OnInit {
       /* @TODO Determine how to handle "Time "
        * @body  @jonrkarr  not sure what the hardcoded time is for. In the example I am using (5fd811a37efd18fb32c90a21), the output already contains a lowercase "time"
        */
-      dataSets['Time'] = data.data[element];
+
       dataSets[element] = data.data[element];
     });
 
@@ -340,17 +339,11 @@ export class ViewComponent implements OnInit {
       );
     this.dataSetIdDisableds.next(dataSetIdDisabledArr);
 
-    let xDataSetId: string | undefined = undefined;
+    const xDataSetId: string | undefined = undefined;
     let yDataSetIds: string[] = [];
 
     if (dataSetIdDisabledArr.length > 0) {
-      xDataSetId = 'Time';
-
-      if (dataSetIdDisabledArr[0].id === 'Time') {
-        yDataSetIds = [dataSetIdDisabledArr[1].id];
-      } else {
-        yDataSetIds = [dataSetIdDisabledArr[0].id];
-      }
+      yDataSetIds = [dataSetIdDisabledArr[0].id];
 
       this.formGroup.controls.xDataSetId.enable();
       this.formGroup.controls.yDataSetIds.enable();
