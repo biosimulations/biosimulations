@@ -249,7 +249,7 @@ export class ViewComponent implements OnInit {
             .pipe(tap((results) => console.log(results)))
             .subscribe((response: any): void => {
               // TODO: connect with new AppService
-              
+
               this.setProjectOutputs(response as CombineArchive);
             });
         }
@@ -308,7 +308,7 @@ export class ViewComponent implements OnInit {
     if (this.selectedSedmlLocation && selectedReportId) {
       this.appService
         .getReport(this.uuid, this.selectedSedmlLocation, selectedReportId)
-        .subscribe((data: any) => this.setDataSets.bind(this));
+        .subscribe((data: any) => this.setDataSets({ data }));
     }
   }
 
@@ -316,16 +316,18 @@ export class ViewComponent implements OnInit {
     const dataSets: Report = {};
     const dataSetIdDisabledMap: { [id: string]: boolean } = {};
 
-    /* TODO: connect with new results API / App Service */
     Object.keys(data.data).forEach((element): void => {
       dataSetIdDisabledMap['Time'] = false;
       dataSetIdDisabledMap[element] = !(
-        data.data[element].y.length > 0 &&
-        ['boolean', 'number'].includes(typeof data.data[element].y[0])
+        data.data[element].length > 0 &&
+        ['boolean', 'number'].includes(typeof data.data[element][0])
       );
 
-      dataSets['Time'] = data.data[element].x;
-      dataSets[element] = data.data[element].y;
+      /* @TODO Determine how to handle "Time "
+       * @body  @jonrkarr  not sure what the hardcoded time is for. In the example I am using (5fd811a37efd18fb32c90a21), the output already contains a lowercase "time"
+       */
+      dataSets['Time'] = data.data[element];
+      dataSets[element] = data.data[element];
     });
 
     this.dataSets = dataSets;

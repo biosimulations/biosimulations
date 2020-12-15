@@ -12,25 +12,41 @@ export class VisualizationService {
   constructor(private http: HttpClient) {}
 
   getReport(uuid: string, sedml: string, report: string) {
+    report = encodeURIComponent(sedml + '/' + report);
     // TODO: Save the data to localstorage, return from local storage if exists, if not return obeservable to request
-    return this.http.get(
-      `${this.resultsEndpoint}/${uuid}?chart=true&sedml=${sedml}&report=${report}`
-    );
+    return this.http
+      .get(`${this.resultsEndpoint}/${uuid}/${report}?sparse=false`)
+      .pipe(
+        tap((x) => console.log(x)),
+        map((x: any) => x.data)
+      );
   }
 
-  /* @TODO The api does not keep track of higher level sedml file
-   *  @jonrkarr The api is setting an ID for each report produced, witouth keeeping track of the sedml file that it is from. The design chart form is expecting a top level sedml file name, and then names for each task under that. Should I change the api? *
-   */
   getResultStructure(uuid: string) {
     return this.http.get(`${this.resultsEndpoint}/${uuid}?sparse=true`).pipe(
       //tap((x) => console.log(x)),
       map((result: any) => result.reports),
       map((array: { [key: string]: string }[]) => {
         const taskNames: string[] = [];
+        const taskMap: { [key: string]: string[] } = {};
         array.forEach((item) => {
           taskNames.push(item.reportId);
         });
-        return { simulation: taskNames };
+
+        taskNames.forEach((task: string) => {
+          const report = task.split('/').reverse()[0];
+          const sedMl = task.split('/').reverse().slice(1).reverse().join('/');
+          console.log(report);
+          console.log(sedMl);
+          if (Object.keys(taskMap).includes(sedMl)) {
+            taskMap[sedMl].push(report);
+          } else {
+            taskMap[sedMl] = [];
+            taskMap[sedMl].push(report);
+          }
+        });
+
+        return taskMap;
       })
     );
   }
