@@ -1,5 +1,8 @@
 import { urls } from '@biosimulations/config/common';
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import {
+  SimulationRunReportDataStrings,
+  SimulationRunStatus
+} from '@biosimulations/dispatch/api-models';
 import { HttpService, Injectable } from '@nestjs/common';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -16,8 +19,8 @@ export class SimulationRunService {
         { status: status },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       )
       .toPromise();
@@ -31,10 +34,25 @@ export class SimulationRunService {
         { resultsSize: size },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       )
+      .toPromise();
+  }
+
+  async sendReport(
+    simId: string,
+    reportId: string,
+    data: SimulationRunReportDataStrings
+  ) {
+    const token = await this.auth.getToken();
+    return this.http
+      .post(`${urls.dispatchApi}results/${simId}/${reportId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .toPromise();
   }
 }

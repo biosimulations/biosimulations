@@ -1,6 +1,6 @@
 import {
+  DispatchFinishedPayload,
   DispatchMessage,
-  DispatchPayload,
 } from '@biosimulations/messages/messages';
 import { Controller, Logger } from '@nestjs/common';
 
@@ -13,10 +13,11 @@ export class ResultsController {
 
   private logger = new Logger(ResultsController.name);
 
-  @MessagePattern(DispatchMessage.finsihed)
-  async processResults(data: DispatchPayload) {
+  @MessagePattern(DispatchMessage.finished)
+  private async processResults(data: DispatchFinishedPayload): Promise<void> {
     const id = data.id;
+    const transpose = data.transpose;
     this.logger.log(`Simulation ${id} Finished`);
-    this.service.createResults(id);
+    this.service.createResults(id, transpose);
   }
 }

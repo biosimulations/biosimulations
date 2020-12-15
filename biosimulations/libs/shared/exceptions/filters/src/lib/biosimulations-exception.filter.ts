@@ -3,17 +3,14 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
-  HttpStatus,
+  HttpStatus
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import {
   ErrorObject,
-  ErrorResponseDocument,
+  ErrorResponseDocument
 } from '@biosimulations/datamodel/api';
-import {
-  BiosimulationsException,
-  isBiosimulationsException,
-} from './exception';
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @Catch(BiosimulationsException)
 export class BiosimulationsExceptionFilter implements ExceptionFilter {
@@ -30,7 +27,7 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
 
     resbody.meta = {
       time: Date.now(),
-      url: request.url,
+      url: request.url
     };
     const responseError: ErrorResponseDocument = { error: [resbody] };
     response.status(status).json(responseError);

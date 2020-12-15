@@ -1,7 +1,7 @@
 import {
   AboutLinksObject,
   ErrorObject,
-  ErrorSourceObject,
+  ErrorSourceObject
 } from '@biosimulations/datamodel/api';
 import { HttpException } from '@nestjs/common';
 
@@ -19,15 +19,14 @@ export class BiosimulationsException extends Error {
   ) {
     super(title);
     this.name = 'BiosimulationsError';
-    this.initFields();
+    //this.initFields();
     this.errorObject = this.createError();
   }
 
-  initFields() {}
   createError(): ErrorObject {
     const error: ErrorObject = {
       status: this.status.toString(),
-      title: this.title,
+      title: this.title
     };
     if (this.detail) {
       error.detail = this.detail;
@@ -37,7 +36,7 @@ export class BiosimulationsException extends Error {
     }
     if (this.link) {
       const linkObject: AboutLinksObject = {
-        about: this.link,
+        about: this.link
       };
       error.links = linkObject;
     }

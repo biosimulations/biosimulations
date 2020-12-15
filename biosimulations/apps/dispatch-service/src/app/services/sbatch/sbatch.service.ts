@@ -26,7 +26,7 @@ source /usr/share/Modules/init/bash
 module load singularity/3.1.1
 date
 wget ${apiDomain}run/${simId}/download -O ${tempSimDir}/in/${omexName}
-command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/biosimulations/singularity_images/${simulator}.img -i /root/in/${omexName} -o /root/out\\"
+command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/biosimulations/singularity_images/${simulator} -i /root/in/${omexName} -o /root/out\\"
 eval \\$command;`;
     return template;
   }

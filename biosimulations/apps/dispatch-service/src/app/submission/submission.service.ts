@@ -2,11 +2,13 @@ import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
+  DispatchFinishedPayload
 } from '@biosimulations/messages/messages';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
+import { version } from 'os';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 
@@ -21,7 +23,12 @@ export class SubmissionService {
   ) {
     this.logger = new Logger(SubmissionService.name);
   }
-  private createJob(jobId: string, simId: string, seconds: number) {
+  private createJob(
+    jobId: string,
+    simId: string,
+    seconds: number,
+    transpose: boolean
+  ) {
     const job = new CronJob(`*/${seconds.toString()} * * * * *`, async () => {
       const jobStatus: SimulationRunStatus = await this.hpcService.getJobStatus(
         jobId
@@ -34,7 +41,7 @@ export class SubmissionService {
         case SimulationRunStatus.QUEUED: {
           const message: DispatchPayload = {
             _message: DispatchMessage.queued,
-            id: simId,
+            id: simId
           };
           this.messageClient.emit(DispatchMessage.queued, message);
           this.updateSimulationRunStatus(simId, jobStatus);
@@ -45,7 +52,7 @@ export class SubmissionService {
         case SimulationRunStatus.RUNNING: {
           const runningMessage: DispatchPayload = {
             _message: DispatchMessage.started,
-            id: simId,
+            id: simId
           };
           this.messageClient.emit(DispatchMessage.started, runningMessage);
           this.updateSimulationRunStatus(simId, jobStatus);
@@ -54,11 +61,12 @@ export class SubmissionService {
 
         case SimulationRunStatus.SUCCEEDED: {
           this.updateSimulationRunStatus(simId, jobStatus);
-          const succeededMessage: DispatchPayload = {
-            _message: DispatchMessage.finsihed,
+          const succeededMessage: DispatchFinishedPayload = {
+            _message: DispatchMessage.finished,
             id: simId,
+            transpose: transpose
           };
-          this.messageClient.emit(DispatchMessage.finsihed, succeededMessage);
+          this.messageClient.emit(DispatchMessage.finished, succeededMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
 
           break;
@@ -72,7 +80,7 @@ export class SubmissionService {
 
           const failedMessage: DispatchPayload = {
             _message: DispatchMessage.failed,
-            id: simId,
+            id: simId
           };
           this.messageClient.emit(DispatchMessage.failed, failedMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
@@ -83,8 +91,13 @@ export class SubmissionService {
     });
     return job;
   }
-  async startMonitoringCronJob(jobId: string, simId: string, seconds: number) {
-    const job = this.createJob(jobId, simId, seconds);
+  async startMonitoringCronJob(
+    jobId: string,
+    simId: string,
+    seconds: number,
+    transpose: boolean
+  ) {
+    const job = this.createJob(jobId, simId, seconds, transpose);
     this.schedulerRegistry.addCronJob(jobId, job);
     this.logger.debug(
       `Starting to monitor job with id ${jobId} for simulation ${simId}`
