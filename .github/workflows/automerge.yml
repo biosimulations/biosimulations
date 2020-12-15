@@ -12,7 +12,7 @@ on:
       - unlocked
   pull_request_review:
     types:
-      - submittedon:
+      - submitted
   workflow_run:
     workflows: ["Lint, test, build, and containerize libraries and apps"]
     types: 
