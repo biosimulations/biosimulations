@@ -43,7 +43,7 @@ jobs:
       - name: Commit updated sitemaps to repository
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          token: ${{secrets.GITHUB_TOKEN }}
           branch: sitemaps
           base: dev
           commit-message: "Updated sitemaps"
