@@ -12,8 +12,12 @@ on:
       - unlocked
   pull_request_review:
     types:
-      - submitted
-  status: {}
+      - submittedon:
+  workflow_run:
+    workflows: ["Lint, test, build, and containerize libraries and apps"]
+    types: 
+      - completed
+
 jobs:
   automerge:
     runs-on: ubuntu-latest
