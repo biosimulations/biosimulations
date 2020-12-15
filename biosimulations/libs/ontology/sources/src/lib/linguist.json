@@ -901,6 +901,23 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "color": "#ffd539",
+    "filenames": [
+      ".browserslistrc",
+      "browserslist"
+    ],
+    "tmScope": "text.browserslist",
+    "aceMode": "text",
+    "languageId": 153503348,
+    "name": "Browserslist",
+    "aliases": [
+      "browserslist"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "color": "#555555",
     "extensions": [
@@ -6519,7 +6536,8 @@
   {
     "type": "data",
     "extensions": [
-      ".plist"
+      ".plist",
+      ".glyphs"
     ],
     "tmScope": "source.plist",
     "aceMode": "text",
