@@ -1,7 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@biosimulations/shared/environments';
-import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 @Injectable({
