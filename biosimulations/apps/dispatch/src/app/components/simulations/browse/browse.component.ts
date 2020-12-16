@@ -333,12 +333,7 @@ export class BrowseComponent implements OnInit {
         }
 
         const simulations = JSON.parse(e.target.result);
-        simulations.forEach((simulation: any) => {
-          simulation.submitted = new Date(simulation.submitted);
-          simulation.updated = new Date(simulation.updated);
-          simulation.submittedLocally = false;
-        });
-        this.simulationService.storeSimulations(simulations, true);
+        this.simulationService.storeExistingExternalSimulations(simulations);
       };
       reader.readAsText(file);
     };

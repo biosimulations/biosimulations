@@ -109,7 +109,7 @@ export class DispatchComponent implements OnInit {
         this.dispatchService.uuidUpdateEvent.next(simulationId);
         this.simulationId = simulationId;
 
-        this.simulationService.storeSimulation({
+        this.simulationService.storeNewLocalSimulation({
           id: simulationId,
           name: name,
           email: email,

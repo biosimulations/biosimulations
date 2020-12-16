@@ -66,11 +66,18 @@ export class SimulationService {
     }
   }
 
-  storeSimulation(newSimulation: Simulation, getStatus = false): void {
-    this.storeSimulations([newSimulation], getStatus);
+  storeNewLocalSimulation(simulation: Simulation): void {
+    this.storeSimulations([simulation]);
   }
 
-  storeSimulations(newSimulations: Simulation[], getStatus = false): void {
+  storeExistingExternalSimulations(simulations: Simulation[]): void {
+    simulations.forEach((simulation: any) => {
+      simulation.submittedLocally = false;
+    });
+    this.updateSimulations(simulations);
+  }
+
+  private storeSimulations(newSimulations: Simulation[]): void {
     if (this.storageInitialized) {
       newSimulations.forEach((newSimulation: Simulation): void => {
         if (newSimulation.id in this.simulationsMap) {
@@ -87,9 +94,6 @@ export class SimulationService {
       });
       this.simulationsSubject.next(this.simulations);
       this.storage.set(this.key, this.simulations);
-      if (getStatus) {
-        this.updateSimulations();
-      }
     } else {
       newSimulations.forEach((newSimulation: Simulation): void => {
         this.simulationsAddedBeforeStorageInitialized.push(newSimulation);
@@ -97,17 +101,26 @@ export class SimulationService {
     }
   }
 
-  private updateSimulations(): void {
+  private updateSimulations(newSimulations: Simulation[] = []): void {
     // determine ids of simulations whose status needs to be updated
-    const simulationIds = this.simulations
-      .filter((simulation: Simulation): boolean => {
-        return SimulationStatusService.isSimulationStatusRunning(
-          simulation.status
-        );
-      })
-      .map((simulation: Simulation): string => {
-        return simulation.id;
-      });
+    const simulationIds = Array.from(
+      new Set(
+        this.simulations
+          .filter((simulation: Simulation): boolean => {
+            return SimulationStatusService.isSimulationStatusRunning(
+              simulation.status
+            );
+          })
+          .map((simulation: Simulation): string => {
+            return simulation.id;
+          })
+          .concat(
+            newSimulations.map((simulation: Simulation): string => {
+              return simulation.id;
+            })
+          )
+      )
+    );
 
     // stop if no simulations need to be updated
     if (simulationIds.length === 0) {
@@ -135,8 +148,7 @@ export class SimulationService {
           id: dispatchSim.id,
           status: (dispatchSim.status as unknown) as SimulationRunStatus,
           submitted: new Date(dispatchSim.submitted),
-          submittedLocally: this.simulationsMap[dispatchSim.id]
-            .submittedLocally,
+          submittedLocally: this.simulationsMap?.[dispatchSim.id]?.submittedLocally || false,
           simulator: dispatchSim.simulator,
           simulatorVersion: dispatchSim.simulatorVersion,
           updated: new Date(dispatchSim.updated),
@@ -144,7 +156,7 @@ export class SimulationService {
           projectSize: dispatchSim.projectSize
         });
       }
-      this.storeSimulations(simulations, false);
+      this.storeSimulations(simulations);
     });
   }
 
@@ -176,7 +188,7 @@ export class SimulationService {
             projectSize: dispatchSimulation.projectSize
           };
           simulationSubject.next(simulation);
-          this.storeSimulation(simulation);
+          this.storeSimulations([simulation]);
         });
       return simulationSubject.asObservable();
     }
