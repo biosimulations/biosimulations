@@ -84,6 +84,19 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
+      heading="Additional recommended best practices for Docker images"
+      tocSection="Recommended best practices"
+    >
+      <p>To ensure that containerized simulation tools can be executed inside high-performance computing clusters where root access is typically not allowed and conversion to Singularity images is necessary, we recommend that developers also follow the best practices below for Dockerfiles. For more discusion, we recommend Syslab's best practice guide for Singularity images <a href="https://sylabs.io/guides/3.7/user-guide/singularity_and_docker.html#best-practices" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+      <ul>
+        <li><b>Installation locations of containerized simulation tools and their dependencies:</b> Because Docker images are typically run as root, <code>/root</code> should be be reserved for the home directory of the user which executes the image. Similarly, <code>/tmp</code> should be reserved for temporary files that must be created during the execution of the image. Consequently, the simulation tools inside containers and their dependencies should be installed to different directories other than <code>/root</code> and <code>/tmp</code>.</li>
+        <li><b>Environment variables:</b> All environment variables that the containerized simulation tool supports should be explicitly defined using the <code>ENV</code> directive.</li>
+        <li><b>User priviledges:</b> Do not use the <code>USER</code> directive.</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
       heading="Example Dockerfile for a simulator"
       tocSection="Example Dockerfile"
     >
