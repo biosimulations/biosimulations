@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 1
 
       - name: Install dependencies
-        run: apt-get install -y --no-install-recommends wget
+        run: sudo apt-get install -y --no-install-recommends wget
 
       - name: Install Python
         uses: actions/setup-python@v2

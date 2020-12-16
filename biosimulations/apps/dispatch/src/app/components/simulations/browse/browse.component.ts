@@ -1,6 +1,7 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Simulation, SimulationStatus } from '../../../datamodel';
+import { Simulation } from '../../../datamodel';
+import { SimulationRunStatus } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import {
@@ -11,6 +12,7 @@ import {
 } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
+import exampleSimulationsJson from './example-simulations.json';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -29,6 +31,7 @@ export class BrowseComponent implements OnInit {
         return ['/simulations', simulation.id];
       },
       minWidth: 34,
+      maxWidth: 100,
       filterable: false,
       showStacked: false,
     },
@@ -55,15 +58,22 @@ export class BrowseComponent implements OnInit {
       id: 'status',
       heading: 'Status',
       key: 'status',
-      formatter: (value: SimulationStatus): string => {
+      formatter: (value: SimulationRunStatus): string => {
         return SimulationStatusService.getSimulationStatusMessage(value, false);
       },
-      filterFormatter: (value: SimulationStatus): string => {
+      filterFormatter: (value: SimulationRunStatus): string => {
         return SimulationStatusService.getSimulationStatusMessage(value, true);
       },
+      rightIcon: (simulation: Simulation): string | null => {
+        if (SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+          return 'spinner';
+        } else {
+          return null;
+        }
+      },
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = SimulationStatusService.getSimulationStatusOrder(a);
@@ -72,49 +82,26 @@ export class BrowseComponent implements OnInit {
         if (aVal < bVal) return -1;
         return 0;
       },
-      minWidth: 77,
+      minWidth: 98,
+      maxWidth: 98,
     },
     {
       id: 'runtime',
       heading: 'Runtime',
       key: 'runtime',
-      formatter: (value: number): string | null => {
-        if (value === undefined) {
+      //formatter: SimulationStatusService.formatRuntime.bind(null),
+      getter: (simulation: Simulation): number | null => {
+        if (simulation.runtime == null || simulation.runtime === undefined) {
           return null;
-        }
-
-        if (value > 7 * 24 * 60 * 60) {
-          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-        } else if (value > 24 * 60 * 60) {
-          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-        } else if (value > 60 * 60) {
-          return (value / (60 * 60)).toFixed(1) + ' h';
-        } else if (value > 60) {
-          return (value / 60).toFixed(1) + ' m';
-        } else if (value > 1) {
-          return value.toFixed(1) + ' s';
         } else {
-          return (value * 1000).toFixed(1) + ' ms';
+          return simulation.runtime / 1000;
         }
       },
-      stackedFormatter: (value: number): string => {
-        if (value === undefined) {
-          return 'N/A';
-        }
-
-        if (value > 7 * 24 * 60 * 60) {
-          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-        } else if (value > 24 * 60 * 60) {
-          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-        } else if (value > 60 * 60) {
-          return (value / (60 * 60)).toFixed(1) + ' h';
-        } else if (value > 60) {
-          return (value / 60).toFixed(1) + ' m';
-        } else if (value > 1) {
-          return value.toFixed(1) + ' s';
-        } else {
-          return (value * 1000).toFixed(1) + ' ms';
-        }
+      formatter: (valueSec: number | null): string | null => {
+        return SimulationStatusService.formatTime(null, valueSec);
+      },
+      stackedFormatter: (valueSec: number | null): string => {
+        return SimulationStatusService.formatTime('N/A', valueSec) as string;
       },
       filterType: ColumnFilterType.number,
       show: false,
@@ -124,46 +111,46 @@ export class BrowseComponent implements OnInit {
       heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 140,
+      minWidth: 142,
+      maxWidth: 142,
     },
     {
       id: 'updated',
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 140,
+      minWidth: 142,
+      maxWidth: 142,
     },
     {
       id: 'submittedLocally',
@@ -178,14 +165,14 @@ export class BrowseComponent implements OnInit {
     },
     {
       id: 'visualize',
-      heading: 'Visualize',
+      heading: 'Viz',
       key: 'status',
       center: true,
       leftIcon: 'chart',
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#design-viz"];
         } else {
           return null;
         }
@@ -193,26 +180,27 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#design-viz"];
         } else {
           return null;
         }
       },
-      formatter: (status: SimulationStatus): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationStatus): string | null => {
+      stackedFormatter: (status: SimulationRunStatus): string | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(status)) {
           return 'visualize results';
         } else {
           return 'N/A';
         }
       },
-      minWidth: 66,
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = SimulationStatusService.isSimulationStatusSucceeded(a) ? 0 : 1;
@@ -224,7 +212,7 @@ export class BrowseComponent implements OnInit {
     },
     {
       id: 'download',
-      heading: 'Download',
+      heading: 'Export',
       key: 'status',
       center: true,
       leftIcon: 'download',
@@ -244,21 +232,22 @@ export class BrowseComponent implements OnInit {
           return null;
         }
       },
-      formatter: (status: SimulationStatus): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationStatus): string | null => {
+      stackedFormatter: (status: SimulationRunStatus): string | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(status)) {
           return 'download results';
         } else {
           return 'N/A';
         }
       },
-      minWidth: 66,
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = SimulationStatusService.isSimulationStatusSucceeded(a) ? 0 : 1;
@@ -277,7 +266,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, "#log"];
         } else {
           return null;
         }
@@ -285,26 +274,27 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
-          return ['/simulations', simulation.id];
+          return ['/simulations', simulation.id, '#log'];
         } else {
           return null;
         }
       },
-      formatter: (status: SimulationStatus): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationStatus): string | null => {
+      stackedFormatter: (status: SimulationRunStatus): string | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(status)) {
           return 'view logs';
         } else {
           return 'N/A';
         }
       },
-      minWidth: 66,
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
         const aVal = !SimulationStatusService.isSimulationStatusRunning(a) ? 0 : 1;
@@ -319,7 +309,7 @@ export class BrowseComponent implements OnInit {
 
   constructor(private config: ConfigService, private simulationService: SimulationService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.simulations = this.simulationService.simulations$;
   }
 
@@ -331,13 +321,9 @@ export class BrowseComponent implements OnInit {
     return ['/simulations', simulation.id];
   }
 
-  exportSimulations() {
-    const simulations = [...this.simulationService.getSimulations()] as any[];
-    simulations.forEach((simulation: any) => {
-      simulation.submitted = simulation.submitted.getTime();
-      simulation.updated = simulation.updated.getTime();
-    });
-
+  exportSimulations(): void {
+    const simulations = this.simulationService.getSimulations();
+    
     const blob = new Blob([JSON.stringify(simulations, null, 2)], {
       type: 'application/json',
     });
@@ -347,7 +333,7 @@ export class BrowseComponent implements OnInit {
     a.click();
   }
 
-  importSimulations() {
+  importSimulations(): void {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.onchange = () => {
@@ -362,15 +348,14 @@ export class BrowseComponent implements OnInit {
         }
 
         const simulations = JSON.parse(e.target.result);
-        simulations.forEach((simulation: any) => {
-          simulation.submitted = new Date(simulation.submitted);
-          simulation.updated = new Date(simulation.updated);
-          simulation.submittedLocally = false;
-        });
-        this.simulationService.setSimulations(simulations, true);
+        this.simulationService.storeExistingExternalSimulations(simulations);
       };
       reader.readAsText(file);
     };
     input.click();
+  }
+
+  loadExampleSimulations(): void {
+    this.simulationService.storeExistingExternalSimulations((exampleSimulationsJson as unknown) as Simulation[]);
   }
 }

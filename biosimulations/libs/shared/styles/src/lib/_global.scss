@@ -480,6 +480,15 @@ table {
     text-align: left;
   }
 
+  &.rotated {
+    th {
+      background: $theme-primary-lightest;
+    }
+    td:nth-child(even) {
+      background: $light-bg-lighter-5;
+    }
+  }
+
   .mat-icon-button {
     display: inline;
     white-space: normal;

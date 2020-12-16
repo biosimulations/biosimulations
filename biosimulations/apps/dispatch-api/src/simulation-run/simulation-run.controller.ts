@@ -8,7 +8,6 @@ import {
   createdResponse,
   DispatchCreatedPayload,
   DispatchMessage,
-  MQDispatch,
 } from '@biosimulations/messages/messages';
 import {
   AdminGuard,
@@ -25,6 +24,7 @@ import {
   Delete,
   Get,
   Inject,
+  Logger,
   NotFoundException,
   Param,
   Patch,
@@ -60,10 +60,13 @@ import { SimulationRunModelReturnType } from './simulation-run.model';
 @ApiTags('Simulation Runs')
 @Controller('run')
 export class SimulationRunController {
+  logger: Logger;
   constructor(
     private service: SimulationRunService,
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) {}
+  ) {
+    this.logger = new Logger(SimulationRunController.name);
+  }
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
@@ -111,7 +114,6 @@ export class SimulationRunController {
     try {
       JSON.parse(body.simulationRun);
     } catch (e) {
-      console.log(e);
       throw new BadRequestException(
         'The provided input was not valid: ' + e.message
       );
@@ -171,7 +173,6 @@ export class SimulationRunController {
   @Get(':id')
   async getRun(@Param('id') id: string): Promise<SimulationRun> {
     const run = await this.service.get(id);
-    console.log(run);
     if (run) {
       return this.makeSimulationRun(run);
     } else {
@@ -187,7 +188,8 @@ export class SimulationRunController {
   @permissions('write:SimulationRuns')
   @ApiOAuth2(['write:SimulationRuns'])
   @Patch(':id')
-  modfiyRun(@Param() id: string, @Body() body: UpdateSimulationRun) {
+  modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun) {
+    this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
     const run = this.service.update(id, body);
   }
 
@@ -198,7 +200,7 @@ export class SimulationRunController {
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:SimulationRuns')
   @Delete(':id')
-  deleteRun(@Param() id: string, @Body() run: SimulationRun) {
+  deleteRun(@Param('id') id: string) {
     const res = this.service.delete(id);
     if (res) {
       return res;
@@ -215,7 +217,7 @@ export class SimulationRunController {
   @permissions('delete:SimulationRuns')
   @ApiOAuth2(['delete:SimulationRuns'])
   @Delete()
-  deleteAll(@Param() id: string, @Body() run: SimulationRun) {
+  deleteAll() {
     return this.service.deleteAll();
   }
 

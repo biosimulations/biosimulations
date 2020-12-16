@@ -265,7 +265,7 @@ jobs:
         with:
           token: ${{secrets.CODECOV_TOKEN}}
 
-  buildPushDeployDockerImages:
+  buildPushDockerImages:
     name: Build, push, and deploy Docker image for app
     runs-on: ubuntu-latest
 
@@ -314,3 +314,11 @@ jobs:
             docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
             docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
           fi
+  markDone:
+    name: Mark CI as complete
+    needs: [getAffectedLibrariesApps, lint, test, build, buildPushDockerImages]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Done
+        run: echo "CI PASSED"
+

@@ -28,8 +28,8 @@ export interface Column {
   toolTipFormatter?: (cellValue: any) => any;
   stackedFormatter?: (cellValue: any) => any;
   filterFormatter?: (cellValue: any) => any;
-  leftIcon?: string;
-  rightIcon?: string;
+  leftIcon?: string | ((cellValue: any) => string | null);
+  rightIcon?: string | ((cellValue: any) => string | null);
   leftIconTitle?: (rowData: any) => string | null;
   rightIconTitle?: (rowData: any) => string | null;
   leftAction?: ColumnActionType;
@@ -79,27 +79,57 @@ export enum ColumnSortDirection {
 }
 
 export class RowService {
-  static getElementRouterLink(element: any, column: Column, side: Side): any {
+  static getElementRouterLink(element: any, column: Column, side: Side): {routerLink: any, fragment: string | null} {
+    let routerLinkFragment: any;
     if (
       side == Side.left &&
       column.leftAction === ColumnActionType.routerLink &&
       column.leftRouterLink !== undefined
     ) {
-      return column.leftRouterLink(element);
+      routerLinkFragment = column.leftRouterLink(element);
     } else if (
       side == Side.center &&
       column.centerAction === ColumnActionType.routerLink &&
       column.centerRouterLink !== undefined
     ) {
-      return column.centerRouterLink(element);
+      routerLinkFragment = column.centerRouterLink(element);
     } else if (
       side == Side.right &&
       column.rightAction === ColumnActionType.routerLink &&
       column.rightRouterLink !== undefined
     ) {
-      return column.rightRouterLink(element);
+      routerLinkFragment = column.rightRouterLink(element);
     } else {
-      return null;
+      return {
+        routerLink: null,
+        fragment: null,
+      };
+    }
+
+    if (routerLinkFragment == null) {
+      return {
+        routerLink: null,
+        fragment: null,
+      };
+
+    } else if (Array.isArray(routerLinkFragment)) {
+      if (routerLinkFragment.length > 0 && routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) === '#') {
+        return {
+          routerLink: routerLinkFragment.slice(0, -1),
+          fragment: routerLinkFragment[routerLinkFragment.length - 1].substring(1),
+        };
+      } else {
+        return {
+          routerLink: routerLinkFragment,
+          fragment: null,
+        };  
+      }
+    } else {
+      const tmp = routerLinkFragment.split('#');
+      return {
+        routerLink: tmp[0],
+        fragment: tmp.length > 0 ? tmp[1] : null,
+      };
     }
   }
 
@@ -179,6 +209,24 @@ export class RowService {
         return element[defaultKey];
       } else {
         return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  static getIcon(element: any, column: Column, side: Side): string | null {
+    if (side == Side.left && column.leftIcon !== undefined) {
+      if (typeof column.leftIcon === "string") {
+        return column.leftIcon;
+      } else {
+        return column.leftIcon(element);
+      }
+    } else if (side == Side.right && column.rightIcon !== undefined) {
+      if (typeof column.rightIcon === "string") {
+        return column.rightIcon;
+      } else {
+        return column.rightIcon(element);
       }
     } else {
       return null;

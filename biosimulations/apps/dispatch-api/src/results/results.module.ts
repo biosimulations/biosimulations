@@ -9,11 +9,18 @@ import { ResultsService } from './results.service';
 import { ResultsController } from './results.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ResultsModel, ResultsSchema } from './results.model';
+import {
+  SimulationRunModel,
+  SimulationRunModelSchema,
+} from '../simulation-run/simulation-run.model';
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 
 @Module({
   imports: [
+    BiosimulationsAuthModule,
     MongooseModule.forFeature([
       { name: ResultsModel.name, schema: ResultsSchema },
+      { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
     ]),
   ],
   providers: [ResultsService],

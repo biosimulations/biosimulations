@@ -37,16 +37,18 @@
         The <a [routerLink]="['/simulators']">simulators page</a> describes the algorithms that the available simulation tools support.
       </biosimulations-q-a>
 
-      <biosimulations-q-a heading="How can find a simulation tool for an alternative simulation algorithm?">
+      <biosimulations-q-a heading="How can I find a simulation tool for an alternative simulation algorithm?">
         Please submit an issue <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request support for another algorithm.
       </biosimulations-q-a>
 
       <biosimulations-q-a heading="Which SED-ML features does BioSimulators support?">
         <p class="no-bottom-margin">All of the simulation tools support the following features:</p>
         <ul>
-          <li>One step and timecourse simulations: <code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>.</li>
-          <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
-          <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
+          <li>Models and model attribute changes: <code>sedml:model</code>, <code>sedml:changeAttribute</code>.</li>
+          <li>At least one of steady-state, one step, and uniform time course simulations: <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or <code>sedml:uniformTimeCourse</code>.</li>
+          <li>Algorithms and their parameters: <code>sedml:algorithm</code>, <code>sedml:algorithmParameter</code>.</li>
+          <li>Tasks for the execution of individual simulations of individual models: <code>sedml:task</code>.</li>
+          <li>Data generators for individual variables: <code>sedml:DataGenerator</code></li>
           <li>Report outputs: <code>sedml:Report</code>.</li>
         </ul>
 
@@ -67,7 +69,7 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a heading="Do all of the simulators provide consistent Docker images?">
-        No, only the simulators that have a curation status of 5 starts provide Docker images that support the BioSimulators standards. Going forward, we aim to encourage the community to provide additional standardized Docker images.
+        No, only the simulators that have a curation status of 5 stars provide Docker images that support the BioSimulators standards. Going forward, we aim to encourage the community to provide additional standardized Docker images.
       </biosimulations-q-a>
 
       <biosimulations-q-a heading="Can I submit a simulation tool to the BioSimulators registry for which there is no Docker image, or for which there is a Docker image that is not consistent with the BioSimulators standards?">
@@ -82,59 +84,15 @@
       tocSection="Simulation outputs"
     >
       <biosimulations-q-a heading="Which formats does BioSimulators support?">
-        Currently, reports are saved in Comma-Separated Values (CSV) format and plots are saved in Portable Document Format (PDF).
+        Reports are saved in the PyTables dialect of HDF5. See the <a [routerLink]="['/standards', 'simulator-interfaces']">specifications for reports</a> for more information.
       </biosimulations-q-a>
 
-      <biosimulations-q-a heading="How are results encoded into CSV files?">
-        <p>The columns of reports correspond to the simulation outputs specified in the corresponding SED-ML document (e.g., time, specific species). For time course simulations, the rows of reports correspond to the predicted time points. The first row of each report table describes the data represented by each column. Specifically, the first element of each column is the id of the simulation output (e.g., time or species id) represented by the column. Below is a sample report in CSV format and a formatted version of the same report.</p>
+      <biosimulations-q-a heading="How are results encoded into HDF5 files?">
+        <p>Within HDF5 files, report tables (<code>sedml:report</code>) are saved to paths equal to a combination of the relative path of the parent SED-ML document within the parent COMBINE/OMEX archive and the id of the report.</p>
 
-        <p class="no-bottom-margin">Formatted sample report:</p>
-        <table class="biosimulations-table">
-          <thead>
-            <tr>
-              <th>time</th>
-              <th>metabolite-a</th>
-              <th>metabolite-b</th>
-              <th>protein-a</th>
-              <th>protein-b</th>
-              <th>flux-a</th>
-              <th>flux-b</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>0.0</td>
-              <td>4.0</td><td>9.0</td>
-              <td>6.0</td><td>7.0</td>
-              <td>2.0</td><td>7.0</td>
-            </tr>
-            <tr>
-              <td>1.0</td>
-              <td>8.0</td><td>3.0</td>
-              <td>9.0</td><td>1.0</td>
-              <td>3.0</td><td>2.0</td>
-            </tr>
-            <tr>
-              <td>2.0</td>
-              <td>9.0</td><td>6.0</td>
-              <td>5.0</td><td>6.0</td>
-              <td>4.0</td><td>5.0</td>
-            </tr>
-            <tr>
-              <td>...</td>
-              <td>...</td><td>...</td>
-              <td>...</td><td>...</td>
-              <td>...</td><td>...</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>The rows of report tables correspond to the datasets (<code>sedml:dataset</code>) specified in the SED-ML definition of the report. For time course simulations, the columns of reports correspond to the predicted time points. The heading of each row is the id of the corresponding dataset. Below is a sample report table.</p>    
 
-        <p class="no-bottom-margin">Sample report in CSV format:</p>
-        <pre><code>time,metabolite-a,metabolite-b,protein-a,protein-b,flux-a,flux-b
-0.0,4.0,9.0,6.0,7.0,2.0,7.0
-1.0,8.0,3.0,9.0,1.0,3.0,2.0
-2.0,9.0,6.0,5.0,6.0,4.0,5.0
-...,...,...,...,...,...,...</code></pre>
+        <p>See the <a [routerLink]="['/standards', 'simulator-interfaces']">specifications for reports</a> for more information and examples.</p>
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
@@ -143,7 +101,7 @@
       tocSection="Docker images/containers"
     >
       <biosimulations-q-a heading="What is a Docker image?">
-        A Docker image is a template for creating a Docker container. Typically, Docker images are containers for an operating system and additional programs. Docker images enable developers to encapsulate programs and their dependencies into a format which can be shared through online repositories such as Docker Hub and run on top of any operating system.
+        A Docker image is a template for creating a Docker container. Typically, Docker images are containers for an operating system and additional programs. Docker images enable developers to encapsulate programs and their dependencies into a format that can be shared through online repositories such as Docker Hub or the GitHub Container Registry and run on top of any operating system.
       </biosimulations-q-a>
 
       <biosimulations-q-a heading="What is a Docker container?">

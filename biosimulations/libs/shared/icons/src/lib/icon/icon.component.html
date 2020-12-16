@@ -16,6 +16,7 @@
     class="icon"
     *ngSwitchDefault
     [icon]="[iconInfo.type, iconInfo.name]"
+    [spin]="iconInfo?.spin === true"
     aria-hidden="true"
     [aria-label]="iconLabel"
   ></biosimulations-fa-icon>

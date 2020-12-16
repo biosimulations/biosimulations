@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
 
 import { SimulatorsModule } from '../simulators/simulators.module';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
-import { SharedExceptionsModule } from '@biosimulations/shared/exceptions';
+import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 // TODO create seperate auth environment for simulators-api
 import * as mongoose from 'mongoose';
 mongoose.set('strict', 'throw');
@@ -20,12 +20,12 @@ mongoose.set('strict', 'throw');
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('database.uri') || '',
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true
       }),
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
     SimulatorsModule,
-    SharedExceptionsModule,
-  ],
+    SharedExceptionsFiltersModule
+  ]
 })
 export class AppModule {}

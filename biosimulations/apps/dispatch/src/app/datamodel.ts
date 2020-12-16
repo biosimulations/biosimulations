@@ -1,9 +1,9 @@
-export enum SimulationStatus {
-  queued = 'QUEUED',
-  started = 'STARTED',
-  succeeded = 'SUCCEEDED',
-  failed = 'FAILED',
-  running = 'RUNNING',
+export enum SimulationRunStatus {
+  CREATED = 'CREATED',
+  QUEUED = 'QUEUED',
+  RUNNING = 'RUNNING',  
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',  
 }
 
 export interface Simulation {
@@ -13,7 +13,7 @@ export interface Simulation {
   submittedLocally?: boolean;
   simulator: string;
   simulatorVersion: string;
-  status: SimulationStatus;
+  status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;
   updated: Date;

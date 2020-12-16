@@ -10,14 +10,7 @@ import { Types } from 'mongoose';
 import * as EmailValidator from 'email-validator';
 import { SimulationFile, SimulationFileSchema } from './file.model';
 import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
-
-// TODO move this to common utils
-const omitPrivate = (doc: any, obj: any) => {
-  delete obj.__v;
-  delete obj._id;
-
-  return obj;
-};
+import { omitPrivate } from '@biosimulations/datamodel/common';
 
 @Schema({ collection: 'Simulation Runs', id: false })
 export class SimulationRunModel extends Document {

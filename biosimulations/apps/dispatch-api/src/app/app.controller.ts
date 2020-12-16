@@ -1,42 +1,29 @@
+import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
 import {
   Controller,
   Inject,
   OnApplicationBootstrap,
-  Post,
-  UseInterceptors,
-  UploadedFile,
-  Body,
   Get,
   Param,
   Query,
   Res,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import {
-  ApiOperation,
-  ApiResponse,
-  ApiConsumes,
-  ApiBody,
-  ApiQuery,
-  ApiTags,
-  ApiInternalServerErrorResponse,
-} from '@nestjs/swagger';
-import {
-  SimulationDispatchSpec,
-  OmexDispatchFile,
-} from '@biosimulations/dispatch/api-models';
-import { ModelsService } from './resources/models/models.service';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   constructor(
     @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
     private appService: AppService,
-    private modelsService: ModelsService
+
+    private configService: ConfigService
   ) {}
+  private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
 
   @ApiTags('Downloads')
   @Get('download/result/:uuid')
@@ -48,18 +35,6 @@ export class AppController implements OnApplicationBootstrap {
   })
   resultArchive(@Param('uuid') uId: string, @Res() res: any): void {
     return this.appService.downloadResultArchive(uId, res);
-  }
-
-  @ApiTags('Downloads')
-  @Get('download/omex/:uuid')
-  @ApiOperation({ summary: 'Download omex file', deprecated: false })
-  @ApiResponse({
-    status: 200,
-    description: 'Download omex file',
-    type: Object,
-  })
-  omexArchive(@Param('uuid') uId: string, @Res() res: any): void {
-    return this.appService.downloadUserOmexArchive(uId, res);
   }
 
   @ApiTags('Downloads')
@@ -85,11 +60,28 @@ export class AppController implements OnApplicationBootstrap {
   @ApiOperation({ summary: 'Shows result structure' })
   @ApiResponse({
     status: 200,
-    description: 'Get results structure (SEDMLS and TASKS)',
+    description: `Get results structure (SED-ML'S and REPORTS)`,
     type: Object,
   })
   async getResultStructure(@Param('uuid') uId: string): Promise<any> {
-    return this.appService.getResultStructure(uId);
+    const jobStatus: string = await this.appService.jobStatusFromDb(uId);
+
+    switch (jobStatus) {
+      case SimulationRunStatus.SUCCEEDED:
+        return this.appService.getResultStructure(uId);
+      case SimulationRunStatus.QUEUED:
+        return {
+          message: `Simulation with ${uId} is queued, check again after some time.`,
+        };
+      case SimulationRunStatus.RUNNING:
+        return {
+          message: `Simulation with ${uId} is still running.`,
+        };
+      case SimulationRunStatus.FAILED:
+        return {
+          message: `Simulation with ${uId} failed, check the error logs.`,
+        };
+    }
   }
 
   @ApiTags('Result')
@@ -107,48 +99,26 @@ export class AppController implements OnApplicationBootstrap {
     @Param('uuid') uId: string,
     @Query('chart') chart: boolean,
     @Query('sedml') sedml: string,
-    @Query('task') task: string
+    @Query('report') report: string
   ): Promise<any> {
-    return this.appService.getVisualizationData(uId, sedml, task, chart);
-  }
+    const jobStatus: string = await this.appService.jobStatusFromDb(uId);
 
-  @ApiTags('Simulators')
-  @Get('/simulators')
-  @ApiOperation({
-    summary: 'Gives Information about all simulators avialable from dockerHub',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Get all simulators and their versions',
-    type: Object,
-  })
-  @ApiQuery({ name: 'name', required: false })
-  async getAllSimulatorVersion(
-    @Query('name') simulatorName: string
-  ): Promise<string[]> {
-    return this.appService.getSimulators(simulatorName);
-  }
-
-  // Enable cron when storage is out
-  // @Cron('0 0 2 * * *')
-  async deleteSimData() {
-    const uuidObjects: {
-      uuid: string;
-    }[] = await this.modelsService.getOlderUuids();
-
-    const uuids: string[] = [];
-
-    for (const uuidObj of uuidObjects) {
-      uuids.push(uuidObj.uuid);
+    switch (jobStatus) {
+      case SimulationRunStatus.SUCCEEDED:
+        return this.appService.getVisualizationData(uId, sedml, report, chart);
+      case SimulationRunStatus.QUEUED:
+        return {
+          message: `Simulation with ${uId} is queued, check again after some time.`,
+        };
+      case SimulationRunStatus.RUNNING:
+        return {
+          message: `Simulation with ${uId} is still running.`,
+        };
+      case SimulationRunStatus.FAILED:
+        return {
+          message: `Simulation with ${uId} failed, check the error logs.`,
+        };
     }
-
-    for (const uuid of uuids) {
-      const filePath = process.env.FILE_STORAGE;
-      const uuidPath = `${filePath}/simulations/${uuid}`;
-      FileModifiers.rmrfDir(uuidPath);
-    }
-
-    await this.modelsService.deleteSixOldData(uuids);
   }
 
   async onApplicationBootstrap() {

@@ -146,9 +146,10 @@ export class StackedTableComponent {
         );
 
         if (column.centerAction === ColumnActionType.routerLink) {
-          derivedDatum[column.id][
-            'centerRouterLink'
-          ] = RowService.getElementRouterLink(datum, column, Side.center);
+          const tmp = RowService.getElementRouterLink(datum, column, Side.center);
+          derivedDatum[column.id]['centerRouterLink'] = tmp.routerLink;
+          derivedDatum[column.id]['centerFragment'] = tmp.fragment;
+
         } else if (column.centerAction === ColumnActionType.href) {
           derivedDatum[column.id]['centerHref'] = RowService.getElementHref(
             datum,
@@ -163,9 +164,10 @@ export class StackedTableComponent {
         }
 
         if (column.rightAction === ColumnActionType.routerLink) {
-          derivedDatum[column.id][
-            'rightRouterLink'
-          ] = RowService.getElementRouterLink(datum, column, Side.right);
+          const tmp = RowService.getElementRouterLink(datum, column, Side.right);
+          derivedDatum[column.id]['rightRouterLink'] = tmp.routerLink;
+          derivedDatum[column.id]['rightFragment'] = tmp.fragment;
+
         } else if (column.rightAction === ColumnActionType.href) {
           derivedDatum[column.id]['rightHref'] = RowService.getElementHref(
             datum,
@@ -178,6 +180,7 @@ export class StackedTableComponent {
             Side.right
           );
         }
+        derivedDatum[column.id]['rightIcon'] = RowService.getIcon(datum, column, Side.right);
         derivedDatum[column.id]['rightIconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
     });

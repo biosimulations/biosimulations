@@ -1,7 +1,5 @@
 import { environment } from '@biosimulations/shared/environments';
 
-const fetchSimulatorsURL =
-  'https://hub.docker.com/v2/repositories/biosimulators/?page_size=25&page=1&ordering=last_updated';
 
 export type appName =
   | 'platformApi'
@@ -20,8 +18,7 @@ export type appName =
   | 'account'
   | 'dispatch'
   | 'simulators'
-  | 'ontologyApi'
-  | 'fetchSimulatorsInfo';
+  | 'ontologyApi';
 
 export type envs = 'prod' | 'dev' | 'local' | 'stage';
 
@@ -50,7 +47,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
     ontologyApi: 'https://ontology.biosimulations.dev',
-    fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   dev: {
     platformApi: 'https://api.biosimulations.dev/',
@@ -74,7 +70,6 @@ const envUrls: { [key in envs]: urlMap } = {
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
-    fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   stage: {
     platformApi: 'https://api.biosimulations.dev/',
@@ -98,7 +93,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
     ontologyApi: 'https://ontology.biosimulations.dev',
-    fetchSimulatorsInfo: fetchSimulatorsURL,
   },
   local: {
     platformApi: '/api/', //proxies to localhost:3333 if using nx
@@ -122,7 +116,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org',
     ontologyApi: '/ontology-api',
-    fetchSimulatorsInfo: fetchSimulatorsURL,
   },
 };
 

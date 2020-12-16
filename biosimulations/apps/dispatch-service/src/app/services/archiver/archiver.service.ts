@@ -1,19 +1,19 @@
-import { ModelsService } from './../../resources/models/models.service';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@angular/core';
 import { Logger } from '@nestjs/common';
 import archiver from 'archiver';
 import * as fs from 'fs';
 import path from 'path';
+import { SimulationRunService } from '../../simulation-run/simulation-run.service';
 
 @Injectable()
 export class ArchiverService {
   constructor(
-    private modelsService: ModelsService,
-    private configService: ConfigService,) { }
+    private configService: ConfigService,
+    private service: SimulationRunService
+  ) {}
   private logger = new Logger('ArchiverService');
-  private fileStorage: string = this.configService.get(
-    'hpc.fileStorage', '');
+  private fileStorage: string = this.configService.get('hpc.fileStorage', '');
 
   async createResultArchive(uuid: string) {
     const resultPath = path.join(this.fileStorage, 'simulations', uuid, 'out');
@@ -23,10 +23,10 @@ export class ArchiverService {
 
     output.on('close', () => {
       const size = archive.pointer().toString();
-      this.modelsService.updateResultsSize(uuid, parseInt(size));
-      this.logger.log(size + ' total bytes');
+      this.service.updateSimulationRunResultsSize(uuid, parseInt(size));
+      this.logger.verbose(`The resulting archive holds ${size} bytes in size`);
       this.logger.log(
-        'archiver has been finalized and the output file descriptor has closed.'
+        'Archiver has been finalized and the output file descriptor has closed.'
       );
     });
 

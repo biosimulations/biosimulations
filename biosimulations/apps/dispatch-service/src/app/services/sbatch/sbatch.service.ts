@@ -13,7 +13,7 @@ export class SbatchService {
     simId: string
   ): string {
     const template = `#!/bin/bash
-#SBATCH --job-name=BioSimulations${simId}
+#SBATCH --job-name=BioSimulations_${simId}
 #SBATCH --time=10:00
 #SBATCH --output=${tempSimDir}/out/job.output
 #SBATCH --error=${tempSimDir}/out/job.error
@@ -26,7 +26,7 @@ source /usr/share/Modules/init/bash
 module load singularity/3.1.1
 date
 wget ${apiDomain}run/${simId}/download -O ${tempSimDir}/in/${omexName}
-command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/biosimulations/singularity_images/${simulator}.img -i /root/in/${omexName} -o /root/out\\"
+command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out /home/FCAM/crbmapi/nfs/biosimulations/singularity_images/${simulator} -i /root/in/${omexName} -o /root/out\\"
 eval \\$command;`;
     return template;
   }

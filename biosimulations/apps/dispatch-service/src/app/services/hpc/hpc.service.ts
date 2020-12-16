@@ -1,13 +1,10 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { DispatchMessage, MQDispatch } from '@biosimulations/messages/messages';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
-import path from 'path';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 import { urls } from '@biosimulations/config/common';
-import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()
 export class HpcService {
@@ -16,8 +13,7 @@ export class HpcService {
   constructor(
     private readonly configService: ConfigService,
     private sshService: SshService,
-    private sbatchService: SbatchService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+    private sbatchService: SbatchService
   ) {}
 
   /**
@@ -32,7 +28,7 @@ export class HpcService {
     version: string,
     fileName: string
   ) {
-    const simulatorString = `biosimulations_${simulator}_${version}`;
+    const simulatorString = `biosimulations_${simulator}_${version}.img`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
     const sbatchString = this.sbatchService.generateSbatch(
@@ -43,11 +39,11 @@ export class HpcService {
       id
     );
     return this.sshService.execStringCommand(
-      `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/test.sbatch && chmod +x ${simDirBase}/in/test.sbatch && sbatch ${simDirBase}/in/test.sbatch`
+      `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`
     );
   }
 
-  async saactJobStatus(jobId: string): Promise<DispatchSimulationStatus> {
+  async getJobStatus(jobId: string): Promise<SimulationRunStatus> {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
@@ -66,17 +62,18 @@ export class HpcService {
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
       case 'PENDING' || '':
-        return DispatchSimulationStatus.QUEUED;
+        return SimulationRunStatus.QUEUED;
       case 'RUNNING':
-        return DispatchSimulationStatus.RUNNING;
+        return SimulationRunStatus.RUNNING;
       case 'COMPLETED':
-        return DispatchSimulationStatus.SUCCEEDED;
-      // TODO: Implement Stop simulation functionality from user-end
-      case 'CANCELLED':
-        return DispatchSimulationStatus.CANCELLED;
-      case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
+        return SimulationRunStatus.SUCCEEDED;
+      case 'FAILED' ||
+        'OUT-OF-MEMORY' ||
+        'NODE_FAIL' ||
+        'TIMEOUT' ||
+        'CANCELLED':
       default:
-        return DispatchSimulationStatus.FAILED;
+        return SimulationRunStatus.FAILED;
     }
   }
 }

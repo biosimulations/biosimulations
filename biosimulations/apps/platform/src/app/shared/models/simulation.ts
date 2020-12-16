@@ -1,7 +1,7 @@
 import { AccessLevel } from '@biosimulations/datamodel/common';
 import { License } from './license';
 import { SimulationResultsFormat } from '@biosimulations/datamodel/common';
-import { SimulationStatus } from './simulation-status';
+import { SimulationRunStatus } from './simulation-run-status';
 import { ParameterChange } from './parameter-change';
 import { Algorithm } from './algorithm';
 import { AlgorithmParameter } from './algorithm-parameter';
@@ -41,7 +41,7 @@ export class Simulation extends TopLevelResource {
   numTimePoints?: number;
   parent?: Simulation;
   owner?: User;
-  status?: SimulationStatus;
+  status?: SimulationRunStatus;
   startDate?: Date; // date/time when simulation run started
   endDate?: Date; // date/time when simulation run finished
   wallTime?: number; // execution time in seconds

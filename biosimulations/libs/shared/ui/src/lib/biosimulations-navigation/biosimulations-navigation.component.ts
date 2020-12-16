@@ -21,6 +21,12 @@ export class BiosimulationsNavigationComponent {
   @Input()
   privacyPolicyVersion!: number;
 
+  @Input()
+  newsVersion!: number;
+
+  @Input()
+  showNews!: boolean;
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
