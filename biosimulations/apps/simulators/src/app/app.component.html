@@ -3,6 +3,8 @@
   [appNameParts]="config.appNameParts"
   [logo]="config.logo"
   [privacyPolicyVersion]="config.privacyPolicyVersion"
+  [newsVersion]="1"
+  [showNews]="false"
 >
   <biosimulations-topbar-menu>
     <biosimulations-topbar-menu-item
@@ -169,6 +171,9 @@
       >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
+  </ng-container>
+
+  <ng-container id="news">
   </ng-container>
 
   <router-outlet></router-outlet>

@@ -19,7 +19,7 @@ import { LogoTextComponent } from './logo-text/logo-text.component';
 import { LogoImageComponent } from './logo-image/logo-image.component';
 import { RouterLinkComponent } from './router-link/router-link.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons'
-import { PrivacyPolicyNoticeComponent } from './privacy-policy-notice/privacy-policy-notice.component';
+import { NoticeComponent } from './notice/notice.component';
 import { TableComponent } from './table/table.component';
 import { StackedTableComponent } from './table/stacked-table.component';
 import { ResponsiveTableComponent } from './table/responsive-table.component';
@@ -50,7 +50,8 @@ import { UnderMaintainenceComponent } from './error/under-maintainence.component
     HoverOpenMenuComponent, DropdownMenuItemComponent,
     StepperButtonsComponent,
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
-    HyperLinkComponent, SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
+    HyperLinkComponent, SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent,
+    NoticeComponent,
     TableComponent, StackedTableComponent, ResponsiveTableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,
@@ -65,7 +66,8 @@ import { UnderMaintainenceComponent } from './error/under-maintainence.component
     StepperButtonsComponent,
     BiosimulationsNavigationComponent, BiosimulationsNavigationItemComponent, BiosimulationsNavigationSubitemComponent,
     HyperLinkComponent,
-    SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent, PrivacyPolicyNoticeComponent,
+    SpinnerComponent, FullPageSpinnerComponent, LogoTextComponent, LogoImageComponent, RouterLinkComponent,
+    NoticeComponent,
     TableComponent, StackedTableComponent, ResponsiveTableComponent,
     PageComponent,
     TabPageComponent, TabPageTabComponent,
