@@ -27,7 +27,10 @@ export class HpcService {
     simulator: string,
     version: string,
     fileName: string
-  ) {
+  ): Promise<{
+    stdout: string;
+    stderr: string;
+  }> {
     const simulatorString = `biosimulations_${simulator}_${version}.img`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
