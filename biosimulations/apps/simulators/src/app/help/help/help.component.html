@@ -152,9 +152,12 @@
         <li><b>Create a Dockerfile which describes how to build an image for your simulation tool.</b>
           <ul>
             <li>Use the <code>FROM</code> directive to choose a base operating system such as Ubuntu.</li>
-            <li>Use the <code>RUN</code> directive to describe how to install your tool and any dependencies.</li>
+            <li>Use the <code>RUN</code> directive to describe how to install your tool and any dependencies. Because Docker images are typically run as root, reserve <code>/root</code> for the home directory of the user which executes the image. Similarly, reserve <code>/tmp</code> for temporary files that must be created during the execution of the image. Install your simulation tool into a different directory than <code>/root</code> and <code>/tmp</code> such as <code>/usr/local/bin</code>.</li>
+            <li>Ideally, the simulation tools inside images should be installed from internet sources so that the construction of an image is completely specified by its Dockerfile and, therefor, reproducible and portable. Additional files needed during the building of the image, such as licenses to commerical software, can be copied from a local directory such as <code>assets/</code>. These files can then be deleted and squashed out of the final image and injected again when the image is executed.</li>
             <li>Set the <code>ENTRYPOINT</code> directive to the path to your command-line interface.</li>
             <li>Set the <code>CMD</code> directive to <code>[]</code>.</li>
+            <li>Use the <code>ENV</code> directive to declare all environment variables that your simulation tool supports.</li>
+            <li>Do not use the <code>USER</code> directive to set the user which will execute the image so that the user can be set at execution time.</li>
             <li>
               <p class="no-bottom-margin">Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is also necessary to submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
               <ul>
