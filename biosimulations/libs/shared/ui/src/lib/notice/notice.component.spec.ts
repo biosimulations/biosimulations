@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrivacyPolicyNoticeComponent } from './privacy-policy-notice.component';
+import { NoticeComponent } from './notice.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicStorageModule } from '@ionic/storage';
 import { MaterialWrapperModule } from '../material-wrapper.module';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
-describe('PrivacyPolicyNoticeComponent', () => {
-  let component: PrivacyPolicyNoticeComponent;
-  let fixture: ComponentFixture<PrivacyPolicyNoticeComponent>;
+describe('NoticeComponent', () => {
+  let component: NoticeComponent;
+  let fixture: ComponentFixture<NoticeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PrivacyPolicyNoticeComponent],
+      declarations: [NoticeComponent],
       imports: [
         RouterTestingModule,
         IonicStorageModule.forRoot({
@@ -27,7 +27,7 @@ describe('PrivacyPolicyNoticeComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PrivacyPolicyNoticeComponent);
+    fixture = TestBed.createComponent(NoticeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

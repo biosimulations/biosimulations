@@ -322,10 +322,6 @@ export class ViewComponent implements OnInit {
         ['boolean', 'number'].includes(typeof data.data[element][0])
       );
 
-      /* @TODO Determine how to handle "Time "
-       * @body  @jonrkarr  not sure what the hardcoded time is for. In the example I am using (5fd811a37efd18fb32c90a21), the output already contains a lowercase "time"
-       */
-
       dataSets[element] = data.data[element];
     });
 
@@ -339,11 +335,14 @@ export class ViewComponent implements OnInit {
       );
     this.dataSetIdDisableds.next(dataSetIdDisabledArr);
 
-    const xDataSetId: string | undefined = undefined;
+    let xDataSetId: string | undefined = undefined;
     let yDataSetIds: string[] = [];
 
     if (dataSetIdDisabledArr.length > 0) {
-      yDataSetIds = [dataSetIdDisabledArr[0].id];
+      xDataSetId = dataSetIdDisabledArr[0].id
+      if (dataSetIdDisabledArr.length > 1) {
+        yDataSetIds = [dataSetIdDisabledArr[1].id];
+      }
 
       this.formGroup.controls.xDataSetId.enable();
       this.formGroup.controls.yDataSetIds.enable();

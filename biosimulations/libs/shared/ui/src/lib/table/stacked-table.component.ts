@@ -180,6 +180,7 @@ export class StackedTableComponent {
             Side.right
           );
         }
+        derivedDatum[column.id]['rightIcon'] = RowService.getIcon(datum, column, Side.right);
         derivedDatum[column.id]['rightIconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
     });

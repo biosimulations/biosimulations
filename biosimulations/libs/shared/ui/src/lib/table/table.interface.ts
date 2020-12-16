@@ -28,8 +28,8 @@ export interface Column {
   toolTipFormatter?: (cellValue: any) => any;
   stackedFormatter?: (cellValue: any) => any;
   filterFormatter?: (cellValue: any) => any;
-  leftIcon?: string;
-  rightIcon?: string;
+  leftIcon?: string | ((cellValue: any) => string | null);
+  rightIcon?: string | ((cellValue: any) => string | null);
   leftIconTitle?: (rowData: any) => string | null;
   rightIconTitle?: (rowData: any) => string | null;
   leftAction?: ColumnActionType;
@@ -209,6 +209,24 @@ export class RowService {
         return element[defaultKey];
       } else {
         return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  static getIcon(element: any, column: Column, side: Side): string | null {
+    if (side == Side.left && column.leftIcon !== undefined) {
+      if (typeof column.leftIcon === "string") {
+        return column.leftIcon;
+      } else {
+        return column.leftIcon(element);
+      }
+    } else if (side == Side.right && column.rightIcon !== undefined) {
+      if (typeof column.rightIcon === "string") {
+        return column.rightIcon;
+      } else {
+        return column.rightIcon(element);
       }
     } else {
       return null;
