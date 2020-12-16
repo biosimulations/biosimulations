@@ -12,6 +12,7 @@ import {
 } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
+import exampleSimulationsJson from './example-simulations.json';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -308,7 +309,7 @@ export class BrowseComponent implements OnInit {
 
   constructor(private config: ConfigService, private simulationService: SimulationService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.simulations = this.simulationService.simulations$;
   }
 
@@ -320,7 +321,7 @@ export class BrowseComponent implements OnInit {
     return ['/simulations', simulation.id];
   }
 
-  exportSimulations() {
+  exportSimulations(): void {
     const simulations = this.simulationService.getSimulations();
     
     const blob = new Blob([JSON.stringify(simulations, null, 2)], {
@@ -332,7 +333,7 @@ export class BrowseComponent implements OnInit {
     a.click();
   }
 
-  importSimulations() {
+  importSimulations(): void {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.onchange = () => {
@@ -352,5 +353,9 @@ export class BrowseComponent implements OnInit {
       reader.readAsText(file);
     };
     input.click();
+  }
+
+  loadExampleSimulations(): void {
+    this.simulationService.storeExistingExternalSimulations((exampleSimulationsJson as unknown) as Simulation[]);
   }
 }
