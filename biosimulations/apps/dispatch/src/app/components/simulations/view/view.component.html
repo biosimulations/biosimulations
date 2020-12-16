@@ -49,7 +49,9 @@
           <th>
             <biosimulations-icon icon="status"></biosimulations-icon>
           </th>
-          <td><span class="heading">Status:</span> {{ simulation.statusLabel }}</td>
+          <td><span class="heading">Status:</span> {{ simulation.statusLabel }}
+            <biosimulations-icon icon="spinner" *ngIf="statusRunning$ | async"></biosimulations-icon>
+          </td>
         </tr>
         <tr>
           <th>

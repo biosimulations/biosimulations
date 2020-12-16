@@ -63,11 +63,11 @@ export class BrowseComponent implements OnInit {
       filterFormatter: (value: SimulationRunStatus): string => {
         return SimulationStatusService.getSimulationStatusMessage(value, true);
       },
-      rightIcon: (value: SimulationRunStatus): string => {
-        if (SimulationStatusService.isSimulationStatusRunning(value)) {
+      rightIcon: (simulation: Simulation): string | null => {
+        if (SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
           return 'spinner';
         } else {
-          return 'spinner';
+          return null;
         }
       },
       comparator: (
