@@ -199,6 +199,11 @@ export class TableComponent implements OnInit, AfterViewInit {
             Side.left
           );
         }
+        cache[column.id].left['icon'] = RowService.getIcon(
+          datum,
+          column,
+          Side.left
+        );
         cache[column.id].left['iconTitle'] = RowService.getIconTitle(
           datum,
           column,
@@ -221,6 +226,7 @@ export class TableComponent implements OnInit, AfterViewInit {
             Side.center
           );
         }
+        // cache[column.id].center['icon'] = RowService.getIcon(datum, column, Side.center);
         // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
 
         if (column.rightAction === ColumnActionType.routerLink) {
@@ -239,6 +245,11 @@ export class TableComponent implements OnInit, AfterViewInit {
             Side.right
           );
         }
+        cache[column.id].right['icon'] = RowService.getIcon(
+          datum,
+          column,
+          Side.right
+        );
         cache[column.id].right['iconTitle'] = RowService.getIconTitle(
           datum,
           column,

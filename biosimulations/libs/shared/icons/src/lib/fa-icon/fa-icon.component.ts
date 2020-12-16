@@ -8,4 +8,7 @@ import { Component, Input } from '@angular/core';
 export class FaIconComponent {
   @Input()
   icon!: string;
+
+  @Input()
+  spin = false;
 }

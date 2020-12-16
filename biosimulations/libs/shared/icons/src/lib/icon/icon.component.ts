@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 interface IconInfo {
   type: 'mat' | 'fas' | 'fab' | 'far' | 'cc';
   name: string;
+  spin?: boolean;
 }
 
 export type biosimulationsIcon =
@@ -91,7 +92,8 @@ export type biosimulationsIcon =
   | 'maintainence'
   | 'valid'
   | 'invalid'
-  | 'funding';
+  | 'funding'
+  | 'spinner';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -195,6 +197,7 @@ export class IconComponent implements OnInit {
     valid: { type: 'fas', name: 'check' },
     invalid: { type: 'fas', name: 'times' },
     funding: { type: 'fas', name: 'dollar-sign' },
+    spinner: { type: 'fas', name: 'spinner', spin: true },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

@@ -241,6 +241,12 @@ biosimulations-icon {
   font-size: 125%;
 }
 
+mat-cell {
+    span:not(:last-child) {
+        margin-right: 0.25rem;
+    }
+}
+
 .controls-closed {
     .controls-container {
         height: 100%;

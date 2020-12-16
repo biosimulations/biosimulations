@@ -86,7 +86,7 @@
                 [routerLink]="routerLink"
                 [fragment]="row.columns[column.id]?.rightFragment"
               >
-                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
                 ></ng-container>
               </a>
 
@@ -102,7 +102,7 @@
                 [href]="isObservable(href) ? (href | async) : href"
                 target="_blank"
               >
-                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
                 ></ng-container>
               </a>
 
@@ -119,7 +119,7 @@
                 *ngIf="row.columns[column.id]?.rightClick as click; else noClick"
                 (click)="click(row.rawData)"
               >
-                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
                 ></ng-container>
               </button>
 
@@ -130,7 +130,7 @@
             </ng-template>
 
             <ng-template ngSwitchDefault>
-              <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+              <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
               ></ng-container>
             </ng-template>
 

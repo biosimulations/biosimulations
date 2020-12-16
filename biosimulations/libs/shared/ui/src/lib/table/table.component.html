@@ -199,7 +199,7 @@
               'height.px': 22 * linesPerRow - 2
             }"
           >
-            <span [ngSwitch]="column.leftAction">
+            <span [ngSwitch]="column.leftAction" *ngIf="element._cache[column.id].left.icon">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
@@ -211,7 +211,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       leftTemplate;
-                      context: { icon: column.leftIcon }
+                      context: { icon: element._cache[column.id].left.icon }
                     "
                   ></ng-container>
                 </a>
@@ -228,7 +228,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       leftTemplate;
-                      context: { icon: column.leftIcon }
+                      context: { icon: element._cache[column.id].left.icon }
                     "
                   ></ng-container>
                 </a>
@@ -244,7 +244,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       leftTemplate;
-                      context: { icon: column.leftIcon }
+                      context: { icon: element._cache[column.id].left.icon }
                     "
                   ></ng-container>
                 </button>
@@ -254,7 +254,7 @@
                 <ng-container
                   *ngTemplateOutlet="
                     leftTemplate;
-                    context: { icon: column.leftIcon }
+                    context: { icon: element._cache[column.id].left.icon }
                   "
                 ></ng-container>
               </ng-template>
@@ -268,7 +268,7 @@
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.centerAction">
+            <span [ngSwitch]="column.centerAction" *ngIf="element._cache[column.id].value">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
@@ -321,7 +321,7 @@
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.rightAction">
+            <span [ngSwitch]="column.rightAction" *ngIf="element._cache[column.id].right.icon">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
@@ -335,7 +335,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       rightTemplate;
-                      context: { icon: column.rightIcon }
+                      context: { icon: element._cache[column.id].right.icon }
                     "
                   ></ng-container>
                 </a>
@@ -352,7 +352,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       rightTemplate;
-                      context: { icon: column.rightIcon }
+                      context: { icon: element._cache[column.id].right.icon }
                     "
                   ></ng-container>
                 </a>
@@ -368,7 +368,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       rightTemplate;
-                      context: { icon: column.rightIcon }
+                      context: { icon: element._cache[column.id].right.icon }
                     "
                   ></ng-container>
                 </button>
@@ -378,7 +378,7 @@
                 <ng-container
                   *ngTemplateOutlet="
                     rightTemplate;
-                    context: { icon: column.rightIcon }
+                    context: { icon: element._cache[column.id].right.icon }
                   "
                 ></ng-container>
               </ng-template>

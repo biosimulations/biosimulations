@@ -30,6 +30,7 @@ export class BrowseComponent implements OnInit {
         return ['/simulations', simulation.id];
       },
       minWidth: 34,
+      maxWidth: 100,
       filterable: false,
       showStacked: false,
     },
@@ -62,6 +63,13 @@ export class BrowseComponent implements OnInit {
       filterFormatter: (value: SimulationRunStatus): string => {
         return SimulationStatusService.getSimulationStatusMessage(value, true);
       },
+      rightIcon: (value: SimulationRunStatus): string => {
+        if (SimulationStatusService.isSimulationStatusRunning(value)) {
+          return 'spinner';
+        } else {
+          return 'spinner';
+        }
+      },
       comparator: (
         a: SimulationRunStatus,
         b: SimulationRunStatus,
@@ -73,7 +81,8 @@ export class BrowseComponent implements OnInit {
         if (aVal < bVal) return -1;
         return 0;
       },
-      minWidth: 77,
+      minWidth: 98,
+      maxWidth: 98,
     },
     {
       id: 'runtime',
@@ -116,7 +125,8 @@ export class BrowseComponent implements OnInit {
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 140,
+      minWidth: 142,
+      maxWidth: 142,
     },
     {
       id: 'updated',
@@ -138,7 +148,8 @@ export class BrowseComponent implements OnInit {
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 140,
+      minWidth: 142,
+      maxWidth: 142,
     },
     {
       id: 'submittedLocally',
@@ -153,7 +164,7 @@ export class BrowseComponent implements OnInit {
     },
     {
       id: 'visualize',
-      heading: 'Visualize',
+      heading: 'Viz',
       key: 'status',
       center: true,
       leftIcon: 'chart',
@@ -183,7 +194,8 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 66,
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
       comparator: (
         a: SimulationRunStatus,
@@ -199,7 +211,7 @@ export class BrowseComponent implements OnInit {
     },
     {
       id: 'download',
-      heading: 'Download',
+      heading: 'Export',
       key: 'status',
       center: true,
       leftIcon: 'download',
@@ -229,7 +241,8 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 66,
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
       comparator: (
         a: SimulationRunStatus,
@@ -275,7 +288,8 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 66,
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
       comparator: (
         a: SimulationRunStatus,
