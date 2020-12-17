@@ -674,7 +674,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Bryan Housel
 │  ├─ email: bryan@mapbox.com
 │  └─ licenseFile: @mapbox/whoots-js/LICENSE.md
-├─ @nestjs/common@7.5.1
+├─ @nestjs/common@7.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -684,7 +684,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/README.md
-├─ @nestjs/core@7.5.1
+├─ @nestjs/core@7.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -759,9 +759,9 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/workspace/LICENSE
-├─ @nuxtjs/opencollective@0.2.2
+├─ @nuxtjs/opencollective@0.3.2
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/nuxt-community/opencollective
+│  ├─ repository: https://github.com/nuxt-contrib/opencollective
 │  └─ licenseFile: @nuxtjs/opencollective/LICENSE
 ├─ @plotly/d3-sankey-circular@0.33.1
 │  ├─ licenses: MIT
@@ -1161,7 +1161,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: ora/node_modules/ansi-styles/license
+│  └─ licenseFile: @nuxtjs/opencollective/node_modules/ansi-styles/license
 ├─ any-observable@0.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/any-observable
@@ -1738,7 +1738,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 ├─ chalk@4.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/chalk
-│  └─ licenseFile: ora/node_modules/chalk/license
+│  └─ licenseFile: @nuxtjs/opencollective/node_modules/chalk/license
 ├─ change-case@2.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/change-case
@@ -1922,7 +1922,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Qix-/color-convert
 │  ├─ publisher: Heather Arthur
 │  ├─ email: fayearthur@gmail.com
-│  └─ licenseFile: ora/node_modules/color-convert/LICENSE
+│  └─ licenseFile: @nuxtjs/opencollective/node_modules/color-convert/LICENSE
 ├─ color-id@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/colorjs/color-id
@@ -1940,7 +1940,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/colorjs/color-name
 │  ├─ publisher: DY
 │  ├─ email: dfcreative@gmail.com
-│  └─ licenseFile: ora/node_modules/color-name/LICENSE
+│  └─ licenseFile: @nuxtjs/opencollective/node_modules/color-name/LICENSE
 ├─ color-normalize@1.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/colorjs/color-normalize
@@ -3146,7 +3146,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Mathias Buus
 │  ├─ url: @mafintosh
 │  └─ licenseFile: flush-write-stream/LICENSE
-├─ follow-redirects@1.13.0
+├─ follow-redirects@1.13.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/follow-redirects/follow-redirects
 │  ├─ publisher: Ruben Verborgh
@@ -3751,7 +3751,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: ora/node_modules/has-flag/license
+│  └─ licenseFile: @nuxtjs/opencollective/node_modules/has-flag/license
 ├─ has-hover@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/dfcreative/has-hover
@@ -7146,7 +7146,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: ora/node_modules/supports-color/license
+│  └─ licenseFile: @nuxtjs/opencollective/node_modules/supports-color/license
 ├─ surface-nets@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mikolalysenko/surface-nets
@@ -7724,10 +7724,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
 │  └─ licenseFile: @nestjs/schedule/node_modules/uuid/LICENSE.md
-├─ uuid@8.3.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/uuidjs/uuid
-│  └─ licenseFile: @nestjs/common/node_modules/uuid/LICENSE.md
 ├─ uuid@8.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
