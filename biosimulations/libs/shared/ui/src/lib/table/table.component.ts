@@ -49,10 +49,10 @@ export class TableDataSource extends MatTableDataSource<any> {
 }
 
 interface ColumnFilterSearchState {
-  filter?: { [id: string]: any[] },
-  searchQuery?: string,
-  showColumns?: { [id: string]: boolean },
-  openControlPanelId?: number,
+  filter?: { [id: string]: any[] };
+  searchQuery?: string;
+  showColumns?: { [id: string]: boolean } | undefined;
+  openControlPanelId?: number;
 }
 
 @Component({
@@ -366,20 +366,20 @@ export class TableComponent implements OnInit, AfterViewInit {
             if (filter !== undefined) {
               this.filter = filter;
 
-              const columnIsFiltered: { [id: string]: boolean } = {};              
+              const columnIsFiltered: { [id: string]: boolean } = {};
               this.columns.forEach((column: Column): void => {
                 columnIsFiltered[column.id] = column.id in filter;
                 if (columnIsFiltered[column.id]) {
                   switch (column.filterType) {
                     case ColumnFilterType.number:
-                      if (filter[column.id][0] !== this.columnFilterData[column.id].minSelected) {
+                      if (filter[column.id][0] !== this.columnFilterData[column.id]?.minSelected) {
                         this.columnFilterData[column.id].minSelected = filter[column.id][0];
                         filterChanged = true;
                       }
-                      if (filter[column.id][1] !== this.columnFilterData[column.id].maxSelected) {
+                      if (filter[column.id][1] !== this.columnFilterData[column.id]?.maxSelected) {
                         this.columnFilterData[column.id].maxSelected = filter[column.id][1];
                         filterChanged = true;
-                      }                      
+                      }
                       break;
                     case ColumnFilterType.date: {
                       if (filter[column.id][0] != null) {
@@ -400,7 +400,7 @@ export class TableComponent implements OnInit, AfterViewInit {
                       break;
                     }
                     default:
-                      this.columnFilterData[column.id].forEach((val: any): void => {
+                      this.columnFilterData[column.id]?.forEach((val: any): void => {
                         const checked = filter[column.id].includes(val.value);
                         if (checked !== val.checked) {
                           val.checked = checked;
@@ -411,7 +411,7 @@ export class TableComponent implements OnInit, AfterViewInit {
                   }
                 }
               });
-              this.columnIsFiltered = columnIsFiltered;              
+              this.columnIsFiltered = columnIsFiltered;
             }
 
             if ((filter !== undefined || searchQuery !== undefined) && filterChanged) {
@@ -433,25 +433,37 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   buildFilterSearchQueryFragment(): string | undefined {
-    const opts = new URLSearchParams();
+    let opts = new URLSearchParams();
+    if (this.route.snapshot.fragment) {
+      opts = new URLSearchParams(this.route.snapshot.fragment);
+    }
 
+    if (opts.has('table.q')) {
+      opts.delete('table.q');
+    }
     if (this.searchQuery) {
-      opts.set('q', this.searchQuery);
+      opts.set('table.q', this.searchQuery);
     }
 
     this.columns.forEach((column: Column): void => {
+      if (opts.has('table.' + column.id)) {
+        opts.delete('table.' + column.id);
+      }
       if (column.id in this.filter) {
-        opts.set(column.id, JSON.stringify(this.filter[column.id]));
+        opts.set('table.' + column.id, JSON.stringify(this.filter[column.id]));
       }
     });
 
+    if (opts.has('table.c')) {
+      opts.delete('table.c');
+    }
     this.columns.forEach((column: Column): void => {
       if (this.showColumns[column.id]) {
-        opts.append('c', column.id);
+        opts.append('table.c', column.id);
       }
     });
 
-    opts.set('p', this.openControlPanelId.toString());
+    opts.set('table.p', this.openControlPanelId.toString());
 
     return opts.toString() || undefined;
   }
@@ -459,31 +471,38 @@ export class TableComponent implements OnInit, AfterViewInit {
   parseFilterSearchQueryFragment(value: string): ColumnFilterSearchState {
     const opts = new URLSearchParams(value);
 
-    const searchQuery = opts.get('q') || undefined;
+    const searchQuery = opts.get('table.q') || undefined;
 
     const filter: { [id: string]: any[] } = {};
     opts.forEach((val: string, key: string): void => {
-      if (key !== 'q' && key !== 'c' && key != 'p' && key in this.showColumns) {
+      if (key !== 'table.q' && key !== 'table.c' && key != 'table.p'
+        && key.startsWith('table.')
+        && key.replace('table.', '') in this.showColumns
+      ) {
         try {
-          filter[key] = JSON.parse(val);
+          filter[key.replace('table.', '')] = JSON.parse(val);
         } catch (e) {} // eslint-disable-line no-empty
       }
     });
 
-    const showColumns: {[id: string]: boolean} = {};
-    this.columns.forEach((column: Column): void => {
-      showColumns[column.id] = false;
-    });
-    opts.getAll('c').forEach((columnId: string): void => {
-      if (columnId in showColumns) {
-        showColumns[columnId] = true;
-      }
-    });
+    let showColumns: {[id: string]: boolean} | undefined = undefined;
+    if (opts.has('table.c')) {
+      const definedShowColumns: {[id: string]: boolean} = {};
+      this.columns.forEach((column: Column): void => {
+        definedShowColumns[column.id] = false;
+      });
+      opts.getAll('table.c').forEach((columnId: string): void => {
+        if (columnId in definedShowColumns) {
+          definedShowColumns[columnId] = true;
+        }
+      });
+      showColumns = definedShowColumns;
+    }
 
     let openControlPanelId: undefined | number = undefined;
-    if (opts.get('p') != null) {
+    if (opts.get('table.p') != null) {
       try {
-        openControlPanelId = parseInt(opts.get('p') as string);
+        openControlPanelId = parseInt(opts.get('table.p') as string);
       } catch (e) {} // eslint-disable-line no-empty
     }
 
