@@ -33,6 +33,7 @@ export type biosimulationsIcon =
   | 'project'
   | 'model'
   | 'simulation'
+  | 'experiment'
   | 'task'
   | 'chart'
   | 'visualization'
@@ -140,6 +141,7 @@ export class IconComponent implements OnInit {
     project: { type: 'fas', name: 'folder-open' },
     model: { type: 'fas', name: 'project-diagram' },
     simulation: { type: 'mat', name: 'timeline' },
+    experiment: { type: 'fas', name: 'flask' },
     task: { type: 'fas', name: 'tasks' },
     chart: { type: 'fas', name: 'chart-bar' },
     visualization: { type: 'fas', name: 'paint-brush' },
