@@ -68,13 +68,17 @@ export class TabPageComponent
     combineLatest(this.route.paramMap, this.route.fragment)
       .subscribe(([paramMap, fragment]: [ParamMap, string]): void => {
         let selectedTabIndex: number = 0;
-        if (fragment && fragment in this.urlHashFragmentToITabMap) {
-          selectedTabIndex = this.urlHashFragmentToITabMap[fragment];
-          /*
-          if (baseTabs[selectedTabIndex].disabled) {
-            selectedTabIndex = 0;
+        if (fragment) {
+          const params = new URLSearchParams(fragment);
+          const tab = params.get('tab');
+          if (tab && this.urlHashFragmentToITabMap?.[tab]) {
+            selectedTabIndex = this.urlHashFragmentToITabMap[tab];
+            /*
+            if (baseTabs[selectedTabIndex].disabled) {
+              selectedTabIndex = 0;
+            }
+            */
           }
-          */
         }
         setTimeout(() => this.selectedTabIndex = selectedTabIndex, 0);
       });
@@ -86,11 +90,16 @@ export class TabPageComponent
 
   tabChanged(event: MatTabChangeEvent): void {
     this.selectedTabChange.emit(event);
+    let params = new URLSearchParams();
+    if (this.route.snapshot.fragment) {
+      params = new URLSearchParams(this.route.snapshot.fragment);
+    }
     if (this.selectedTabIndex in this.iTabToUrlHashFragmentMap) {
       const urlHashFragment: string = this.iTabToUrlHashFragmentMap[this.selectedTabIndex];
-      this.router.navigate([], { fragment: urlHashFragment });
-    } else {
-      this.router.navigate([]);
+      params.set('tab', urlHashFragment);
+    } else if (params.has('tab')) {
+      params.delete('tab');
     }
+    this.router.navigate([], { fragment: params.toString() || undefined });
   }
 }
