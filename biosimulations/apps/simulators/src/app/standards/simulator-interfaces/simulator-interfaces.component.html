@@ -50,7 +50,7 @@
         <li><b>Support at least one "standard" modeling language.</b> Interfaces to simulation tools should support at least a subset of at least one community modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
         <li><b>Support the SED-ML format for describing simulation experiments.</b> Interfaces to simulation tools should support at least the following features of SED-ML:
           <ul>
-            <li>Models and model attribute changes: <code>sedml:model</code>, <code>sed:change</code></li>
+            <li>Models and model attribute changes: <code>sedml:model</code>, <code>sedml:change</code></li>
             <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or <code>sedml:uniformTimeCourse</code>.</li>
             <li>Tasks to execute a single simulation of a single model: <code>sedml:task</code>.</li>
             <li>Algorithms and their parameters: <code>sedml:algorithm</code>, <code>sedml:algorithmParameter</code>.</li>
@@ -63,6 +63,31 @@
         <li><b>Support the BioSimulators standard format for reports of simulation results:</b> Interfaces to simulation tools should save reports in the <a [routerLink]="['/standards', 'simulation-reports']">BioSimulators HDF5 format for reports of simulation results</a>. Within the HDF5 file, each report should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive and the id of the report.</li>
         <li><b>Save plots in Portable Document Format (PDF) bundled into a zip archive.</b> Within the zip archive, each plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive, the id of the plot, and the extension <code>.pdf</code></li>
         <li><b>Save simulation outputs to standard file paths:</b> Reports should be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/reports.h5</code>. Plots should be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/plots.zip</code>.</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="SED-ML conventions"
+      tocSection="SED-ML conventions"
+    >
+      <p>To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the following additional conventions for SED-ML.</p>
+
+      <ul class="vertically-spaced">
+        <li><b>Non-scalar algorithm parameter values:</b> Non-scalar values of algorithm parameters should encoded into SED-ML using JSON. For example, the value of the deterministic reactions partition (KISAO_0000534) of the Pahle hybrid discrete/continuous Fehlberg method (KISAO_0000563) is a list of the ids of the reactions which should be simulated by the Fehlberg sub-method. Its value should be encoded into SED-ML as <code>&lt;algorithmParameter kisaoID="KISAO:0000534" value='["ReactionId-1", "ReactionId-1", ...]' /&gt;</code>.</li>
+        <li><b>Variable targets (<code>sedml:Variable/@sedml:target</code>) for model objects that generate multiple predictions:</b> Some algorithms such as flux balance analysis (KISAO_0000437) and flux variability analysis (KISAO_0000526) generate multiple predictions for each model object. For example, flux variability analysis predicts upper and lower bounds for each reaction. Targets for such predictions should indicate the id of the desired prediction. BioSimulators recognizes the following ids:
+          <ul class="vertically-spaced">
+            <li>Flux balance analysis (KISAO_0000437):
+              fbc:objective/@value
+              <code>sbml:reaction/@fbc:flux</code>,
+              <code>sbml:reaction/@fbc:reducedCost</code>
+              <code>sbml:species/@fbc:shadowPrice</code>,
+            </li>
+            <li>Flux variability analysis (KISAO_0000526):
+              <code>sbml:reaction/@fbc:lowerBound</code>,
+              <code>sbml:reaction/@fbc:upperBound</code>
+            </li>
+          </ul>
+        </li>
       </ul>
     </biosimulations-text-page-content-section>
 
