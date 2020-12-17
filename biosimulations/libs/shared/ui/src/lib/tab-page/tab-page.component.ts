@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   AfterViewInit,
   AfterViewChecked,
   Input,
@@ -33,7 +32,7 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class TabPageComponent
-  implements OnInit, AfterViewInit, AfterViewChecked {
+  implements AfterViewInit, AfterViewChecked {
 
   @Input()
   loading = false;
@@ -51,9 +50,6 @@ export class TabPageComponent
   >;
 
   selectedTabIndex: number = 0;
-
-  ngOnInit(): void {
-  }
 
   ngAfterViewInit(): void {
     const baseTabs: MatTab[] = [];
@@ -74,9 +70,11 @@ export class TabPageComponent
         let selectedTabIndex: number = 0;
         if (fragment && fragment in this.urlHashFragmentToITabMap) {
           selectedTabIndex = this.urlHashFragmentToITabMap[fragment];
+          /*
           if (baseTabs[selectedTabIndex].disabled) {
             selectedTabIndex = 0;
           }
+          */
         }
         setTimeout(() => this.selectedTabIndex = selectedTabIndex, 0);
       });

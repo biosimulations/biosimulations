@@ -77,6 +77,8 @@
                           [min]="range.min"
                           [max]="range.max"
                           [step]="range.step"
+                          [minSelected]="range.minSelected"
+                          [maxSelected]="range.maxSelected"
                           (onChange)="filterNumberValue(column, range, $event)"
                         >
                         </npn-slider>
@@ -90,11 +92,13 @@
                           matStartDate
                           placeholder="Start date"
                           (dateChange)="filterStartDateValue(column, $event)"
+                          [value]="columnFilterData[column.id][0]"
                         />
                         <input
                           matEndDate
                           placeholder="End date"
                           (dateChange)="filterEndDateValue(column, $event)"
+                          [value]="columnFilterData[column.id][1]"
                         />
                       </mat-date-range-input>
                       <mat-datepicker-toggle
@@ -145,6 +149,7 @@
         <ng-template matExpansionPanelContent>
           <mat-form-field appearance="fill" class="search-field">
             <input #searchInput matInput type="text"
+              [value]="searchQuery || null"
               (keydown.enter)="searchRows(searchInput.value)"
               [placeholder]="searchPlaceHolder"
               [matTooltip]="searchToolTip"

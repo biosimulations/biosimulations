@@ -58,7 +58,7 @@ export class OntologyService {
   }
 
   private fetchTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<{ [id: string]: T }> {
-    return this.http.get<T[]>(this.endpoint + '/' + ontologyId + '/list').pipe(
+    return this.http.get<T[]>(this.endpoint  + ontologyId + '/list').pipe(
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: T } = {};
@@ -95,7 +95,7 @@ export class OntologyService {
         if (setTerm) {
           return setTerm;
         } else {
-          throw terms;
+          throw new Error(`Term with id ${term} not found in ontology ${ontologyId}`);
         }
       }),
       catchError((terms: { [id: string]: T }): Observable<T> => {
