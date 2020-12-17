@@ -68,7 +68,7 @@ export class DispatchComponent implements OnInit {
         bionetgen: ['2.5.1'],
         copasi: ['4.28.226', '4.29.227', '4.30.233'],
         gillespy2: ['1.5.4', '1.5.5', '1.5.6'],
-        vcell: ['7.3.0.0'],
+        vcell: ['7.3.0.0', '7.3.0.06'],
         tellurium: ['2.1.6'],
       };
       this.simulators = Object.keys(this.simulatorVersionsMap);
