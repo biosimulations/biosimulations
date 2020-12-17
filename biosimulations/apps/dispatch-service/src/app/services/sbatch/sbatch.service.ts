@@ -19,7 +19,7 @@ export class SbatchService {
 #SBATCH --error=${tempSimDir}/out/job.error
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=1000
-#SBATCH --partition=general
+#SBATCH --partition=crbm
 #SBATCH --qos=general\n
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
