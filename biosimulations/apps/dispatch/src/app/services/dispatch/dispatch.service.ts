@@ -57,22 +57,25 @@ export class DispatchService {
     return this.http.get(endpoint).pipe(
       map((response: any) => {
         // response to dict logic
-        const simulatorsInfo: any = {};
-        const simualtorsList: any = [];
-        const data = response;
+        const simulatorsInfo: {[id: string]: string[]} = {};
 
-        // this.logger.debug(data[2]['version']);
-        for (let index = 0; index < data.length; index++) {
-          simualtorsList.push(data[index]['id']);
-        }
-
-        for (let index = 0; index < simualtorsList.length; index++) {
-          if (simulatorsInfo[simualtorsList[index]] !== undefined) {
-            simulatorsInfo[simualtorsList[index]].push(data[index]['version']);
-          } else {
-            simulatorsInfo[simualtorsList[index]] = [data[index]['version']];
+        for (const simulator of response) {
+          if (simulator?.image && simulator?.biosimulators?.validated) {
+            if (!(simulator.id in simulatorsInfo)) {
+              simulatorsInfo[simulator.id] = [];
+            }
+            simulatorsInfo[simulator.id].push(simulator.version);
           }
         }
+
+        for (const versions of Object.values(simulatorsInfo)) {
+          versions
+            .sort((a: string, b: string): number => {
+              return a.localeCompare(b, undefined, { numeric: true });
+            })
+            .reverse();
+        }
+
         return simulatorsInfo;
       })
     );

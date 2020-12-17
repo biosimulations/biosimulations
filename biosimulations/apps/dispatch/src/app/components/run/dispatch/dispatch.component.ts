@@ -60,29 +60,21 @@ export class DispatchComponent implements OnInit {
     });
 
     this.dispatchService.getSimulatorsFromDb().subscribe((simDict: any) => {
-      // this.simulators = Object.keys(simDict);
       // this.simulatorVersionsMap = simDict;
       // Note: Hardcoded available simulators, to make it dynamic uncomment above two lines and delete the hard-coded ones
       // TODO: Un-hardcode simulators
       this.simulatorVersionsMap = {
+        amici: ['0.11.11'],
         bionetgen: ['2.5.1'],
-        copasi: ['4.28.226', '4.29.227', '4.30.233'],
-        gillespy2: ['1.5.4', '1.5.5', '1.5.6'],
-        vcell: ['7.3.0.0', '7.3.0.06'],
+        copasi: ['4.30.233', '4.29.227', '4.28.226'],
+        gillespy2: ['1.5.6', '1.5.5', '1.5.4'],
+        vcell: ['7.3.0.06', '7.3.0.0'],
         tellurium: ['2.1.6'],
       };
       this.simulators = Object.keys(this.simulatorVersionsMap);
 
       this.simulators.sort((a: string, b: string): number => {
         return a.localeCompare(b, undefined, { numeric: true });
-      });
-
-      this.simulators.forEach((simulator: string): void => {
-        this.simulatorVersionsMap[simulator]
-          .sort((a: string, b: string): number => {
-            return a.localeCompare(b, undefined, { numeric: true });
-          })
-          .reverse();
       });
     });
   }
