@@ -41,6 +41,13 @@
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
+          heading="Simulation experiments"
+          icon="experiment"
+          [routerLink]="['/standards', 'simulation-experiments']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           heading="Simulation reports"
           icon="report"
           [routerLink]="['/standards', 'simulation-reports']"
@@ -125,6 +132,13 @@
         heading="Simulator images"
         icon="docker"
         [route]="['/standards', 'simulator-images']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulation expts"
+        icon="experiment"
+        [route]="['/standards', 'simulation-experiments']"
       >
       </biosimulations-navigation-subitem>
 

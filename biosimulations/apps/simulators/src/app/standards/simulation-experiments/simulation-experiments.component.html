@@ -1,0 +1,74 @@
+<biosimulations-text-page heading="BioSimulators conventions for simulation experiments" [tocSections]="tocSections">
+  <ng-container id="sideBar">
+    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+      <div class="hanging-indent">
+        <a [routerLink]="['/help']">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Tutorial
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://sed-ml.org/" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          SED-ML documentation
+        </a>
+      </div>
+    </biosimulations-text-page-side-bar-section>
+
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-help-side-bar-section>
+
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-feedback-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content" tocSectionsContainer>
+    <biosimulations-text-page-content-section
+      heading="Overview"
+      tocSection="Overview"
+    >
+      <p>To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the additional conventions for SED-ML described below.</p>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Variable targets for model objects that generate multiple predictions"
+      tocSection="Variable targets"
+    >
+      <p>Some algorithms such as flux balance analysis (KISAO_0000437) and flux variability analysis (KISAO_0000526) generate multiple predictions for each model object. For example, flux variability analysis predicts upper and lower bounds for each reaction. Targets (<code>sedml:Variable/@sedml:target</code>) for such predictions should indicate the id of the desired prediction. To ensure portabilty of SED-ML files between simulation tools, BioSimulators defines the following ids. Please contact the BioSimulators Team to suggest additional ids for additional algorithms.</p>
+
+      <ul class="vertically-spaced">
+        <li>Flux balance analysis (KISAO_0000437):
+          fbc:objective/@value
+          <code>sbml:reaction/@fbc:flux</code>,
+          <code>sbml:reaction/@fbc:reducedCost</code>
+          <code>sbml:species/@fbc:shadowPrice</code>,
+        </li>
+        <li>Flux variability analysis (KISAO_0000526):
+          <code>sbml:reaction/@fbc:lowerBound</code>,
+          <code>sbml:reaction/@fbc:upperBound</code>
+        </li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Data types for model attribute changes and algorithm parameters"
+      tocSection="Data types"
+    >
+      <p>SED-ML specifies that the new values of model attribute changes (<code>sedml:changeAttribute/@sedml:newValue</code>) and values of algorithm parameters (<code>sedml:algorithmParameter/@sedml:value</code>) must be encoded into strings. To ensure that SED-ML files are portable across simulation tools, BioSimulators defines several data types for model attribute changes and algorithm parameters and outlines how each data type should be encoded into strings. The data type of each algorithm parameter should be defined in the specification of each simulation tool.</p>
+
+      <ul>
+        <li><code>boolean</code>: Represents Boolean values. Should be encoded into strings as <code>true</code>/<code>false</code> or <code>0</code>/<code>1</code>.</li>
+        <li><code>integer</code>: Represents integers. Should be encoded in decimal notation (e.g., <code>1234</code>).</li>
+        <li><code>float</code>: Represents floating point numbers. Should be encoded in decimal (e.g., <code>1234.567</code>) or scientific (e.g., <code>1.234567e3</code>) notation.</li>
+        <li><code>string</code>: Represents strings. Requires no additional encoding.</li>
+        <li><code>kisaoId</code>: Represents a KiSAO term. Should be encoding using the id of the term (e.g., <code>KISAO_0000029</code>).</li>
+        <li><code>list</code>: Represents a list of scalar values. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="['a', 'b', 'c']"></code> or <code [languages]="['json']" highlight="[1, 2, 3]"></code>). For example, the value of the deterministic reactions partition (KISAO_0000534) of the Pahle hybrid discrete/continuous Fehlberg method (KISAO_0000563) is a list of the ids of the reactions which should be simulated by the Fehlberg sub-method. Its value should be encoded into SED-ML as <code>&lt;algorithmParameter kisaoID="KISAO:0000534" value='["ReactionId-1", "ReactionId-1", ...]' /&gt;</code>.</li>
+        <li><code>object</code>: Represents key-value pairs. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="{a: 1, b: 2}"></code> or <code [languages]="['json']" highlight="{a: 'x', b: 'y'}"></code>).</li>
+        <li><code>any</code>: Represents any other data type. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="[{a: 1, b: 2}]"></code>).</li>
+      </ul>
+
+      <p>Enumerations for the value of an algorithm parameter values can be defined in the specification of a simulator using the <code>recommendedRange</code> attribute. This can be combined with any of the above data types.</p>
+    </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>
+
