@@ -122,7 +122,7 @@ jobs:
           curl --location --request POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' --header 'Authorization: Bearer ${{secrets.GHCR_TOKEN}}' --header 'Content-Type: application/json' \
           --data-raw '{"ref": "master",
           "inputs":{
-          "overlay": $BRANCH,
-          "tag": $GITHUB_SHA
+          "overlay": '"$BRANCH"',
+          "tag": '"$GITHUB_SHA"'
           }}'
     
