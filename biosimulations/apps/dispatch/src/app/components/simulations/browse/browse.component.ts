@@ -30,8 +30,8 @@ export class BrowseComponent implements OnInit {
       centerRouterLink: (simulation: Simulation): string[] => {
         return ['/simulations', simulation.id];
       },
-      minWidth: 34,
-      maxWidth: 100,
+      minWidth: 195,
+      maxWidth: 195,
       filterable: false,
       showStacked: false,
     },
@@ -151,6 +151,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.date,
       minWidth: 142,
       maxWidth: 142,
+      show: false,
     },
     {
       id: 'submittedLocally',
@@ -303,6 +304,32 @@ export class BrowseComponent implements OnInit {
         if (aVal < bVal) return -1;
         return 0;
       },
+    },
+    {
+      id: 'remove',
+      heading: 'Remove',
+      key: 'id',
+      center: true,
+      leftIcon: 'trash',
+      leftAction: ColumnActionType.click,
+      leftClick: (simulation: Simulation): void => {
+        this.simulationService.removeSimulation(simulation.id);
+      },
+      centerAction: ColumnActionType.click,
+      centerClick: (simulation: Simulation): void => {
+        this.simulationService.removeSimulation(simulation.id);
+      },
+      formatter: (id: string): null => {
+        return null;
+      },
+      stackedFormatter: (id: string): string => {
+        return 'Remove simulation';
+      },
+      minWidth: 61,
+      maxWidth: 61,
+      filterable: false,
+      sortable: false,
+      showStacked: false,
     },
   ];
   simulations!: Observable<Simulation[]>;

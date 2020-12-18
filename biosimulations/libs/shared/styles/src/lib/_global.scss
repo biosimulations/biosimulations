@@ -149,12 +149,12 @@ table.icon-list {
 }
 
 ul.key-value li {
-  a {
+  a, .mat-icon-button.biosimulations-icon-button.primary {
     color: $dark-primary-text;
-  }
 
-  a:hover {
-    color: mat-color($theme-primary);
+    &:hover {
+      color: mat-color($theme-primary);
+    }
   }
 }
 
@@ -564,9 +564,12 @@ table {
 
   .cell-content-container {
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    
+    &, & * {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     &.lines-one {
       height: 20px;

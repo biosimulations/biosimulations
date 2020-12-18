@@ -16,7 +16,7 @@
     >
       <ul class="key-value">
         <li *ngFor="let column of displayedColumns">
-          <b>{{ column.heading }}:</b>
+          <b>{{ column.heading }}:</b>{{' '}}
           <span [ngSwitch]="column.centerAction">
             <ng-template [ngSwitchCase]="'routerLink'">
               <a

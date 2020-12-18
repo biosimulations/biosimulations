@@ -94,7 +94,8 @@ export type biosimulationsIcon =
   | 'valid'
   | 'invalid'
   | 'funding'
-  | 'spinner';
+  | 'spinner'
+  | 'trash';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -200,6 +201,7 @@ export class IconComponent implements OnInit {
     invalid: { type: 'fas', name: 'times' },
     funding: { type: 'fas', name: 'dollar-sign' },
     spinner: { type: 'fas', name: 'spinner', spin: true },
+    trash: { type: 'fas', name: 'trash' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];
