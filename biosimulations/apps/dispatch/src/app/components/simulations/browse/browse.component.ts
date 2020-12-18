@@ -329,6 +329,7 @@ export class BrowseComponent implements OnInit {
       maxWidth: 61,
       filterable: false,
       sortable: false,
+      show: false,
       showStacked: false,
     },
   ];
