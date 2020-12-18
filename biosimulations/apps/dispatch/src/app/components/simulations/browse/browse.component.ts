@@ -305,6 +305,31 @@ export class BrowseComponent implements OnInit {
         return 0;
       },
     },
+    {
+      id: 'remove',
+      heading: 'Remove',
+      key: 'id',
+      center: true,
+      leftIcon: 'trash',
+      leftAction: ColumnActionType.click,
+      leftClick: (simulation: Simulation): void => {
+        this.simulationService.removeSimulation(simulation.id);
+      },
+      centerAction: ColumnActionType.click,
+      centerClick: (simulation: Simulation): void => {
+        this.simulationService.removeSimulation(simulation.id);
+      },
+      formatter: (id: string): null => {
+        return null;
+      },
+      stackedFormatter: (id: string): string => {
+        return 'Remove simulation';
+      },
+      minWidth: 61,
+      maxWidth: 61,
+      filterable: false,
+      sortable: false,
+    },
   ];
   simulations!: Observable<Simulation[]>;
 
