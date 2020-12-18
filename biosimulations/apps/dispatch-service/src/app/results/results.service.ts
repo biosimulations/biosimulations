@@ -120,7 +120,9 @@ export class ResultsService {
     this.logger.debug(simId);
     this.logger.debug(resultId);
     this.logger.debug(result);
-    this.submit.sendReport(simId, resultId, result);
+    this.submit
+      .sendReport(simId, resultId, result)
+      .catch((err) => this.logger.error(err));
   }
   private async parseToJson(
     file: resultFile

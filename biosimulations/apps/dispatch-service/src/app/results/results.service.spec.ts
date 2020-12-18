@@ -1,9 +1,13 @@
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ArchiverService } from '../services/archiver/archiver.service';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { ResultsService } from './results.service';
 class MockSimulationsRunService {
   async sendReport() {}
+}
+class mockArchiverService {
+  async createResultArchive() {}
 }
 
 describe('ResultsService', () => {
@@ -14,7 +18,8 @@ describe('ResultsService', () => {
       providers: [
         ResultsService,
         ConfigService,
-        { provide: SimulationRunService, useClass: MockSimulationsRunService }
+        { provide: SimulationRunService, useClass: MockSimulationsRunService },
+        { provide: ArchiverService, useClass: mockArchiverService }
       ]
     }).compile();
 
