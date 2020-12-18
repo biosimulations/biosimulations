@@ -117,12 +117,9 @@ jobs:
             GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
             GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
             BRANCH: ${{ steps.extract_branch.outputs.branch }}
-        
-        run: |
-          curl --location --request POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' --header 'Authorization: Bearer ${{secrets.GHCR_TOKEN}}' --header 'Content-Type: application/json' \
-          --data-raw '{\"ref\": \"master\",
-          \"inputs\":{
-          \"overlay\": \"$BRANCH\",
-          \"tag\": \"$GITHUB_SHA\"
-          }}'
-    
+            run: |
+              curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{secrets.GHCR_TOKEN}}' -H 'Content-Type: application/json' --data-raw '{"ref": "master",
+              "inputs":{
+                  "overlay": "$BRANCH",
+                  "tag": "$GITHUB_SHA"
+              }}'  
