@@ -91,7 +91,7 @@ jobs:
             BRANCH: ${{ steps.extract_branch.outputs.branch }}
             FILE: ../Dockerfile
             CONTEXT: ..
-        run:
+        run: |
             echo "Pushing Docker image for ${{ matrix.app }} ..."
             echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
             docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
