@@ -151,6 +151,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.date,
       minWidth: 142,
       maxWidth: 142,
+      show: false,
     },
     {
       id: 'submittedLocally',
