@@ -160,6 +160,14 @@ export class SimulationService {
     });
   }
 
+  removeSimulation(id: string): void {
+    const simulation: Simulation = this.simulationsMap[id];
+    const iSimulation = this.simulations.indexOf(simulation);
+    this.simulations.splice(iSimulation, 1);
+    delete this.simulationsMap[id];
+    this.storeSimulations([]);
+  }
+
   getSimulations(): Simulation[] {
     return this.simulations;
   }
