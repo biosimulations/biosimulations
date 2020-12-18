@@ -7,8 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import { SimulationService, SimulatorVersionsMap } from '../../../services/simulation/simulation.service';
+import { DispatchService, SimulatorVersionsMap } from '../../../services/dispatch/dispatch.service';
+import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
 import { SimulationRunStatus } from '../../../datamodel';
 import { combineLatest } from 'rxjs';

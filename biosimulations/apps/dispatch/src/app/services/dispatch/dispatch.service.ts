@@ -56,11 +56,11 @@ export class DispatchService {
     >;
   }
 
-  getSimulatorsFromDb(): SimulatorVersionsMap {
+  getSimulatorsFromDb(): Observable<SimulatorVersionsMap> {
     const endpoint = `https://api.biosimulators.org/simulators`;
 
     return this.http.get(endpoint).pipe(
-      map((response: any) => {
+      map((response: any): SimulatorVersionsMap => {
         // response to dict logic
         const simulatorVersionsMap: SimulatorVersionsMap = {};
 
