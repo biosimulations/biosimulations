@@ -8,6 +8,11 @@ import {
   SimulationRun,
   UploadSimulationRun,
 } from '@biosimulations/dispatch/api-models';
+
+export interface SimulatorVersionsMap {
+  [id: string]: string[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -51,24 +56,24 @@ export class DispatchService {
     >;
   }
 
-  getSimulatorsFromDb() {
+  getSimulatorsFromDb(): SimulatorVersionsMap {
     const endpoint = `https://api.biosimulators.org/simulators`;
 
     return this.http.get(endpoint).pipe(
       map((response: any) => {
         // response to dict logic
-        const simulatorsInfo: {[id: string]: string[]} = {};
+        const simulatorVersionsMap: SimulatorVersionsMap = {};
 
         for (const simulator of response) {
           if (simulator?.image && simulator?.biosimulators?.validated) {
-            if (!(simulator.id in simulatorsInfo)) {
-              simulatorsInfo[simulator.id] = [];
+            if (!(simulator.id in simulatorVersionsMap)) {
+              simulatorVersionsMap[simulator.id] = [];
             }
-            simulatorsInfo[simulator.id].push(simulator.version);
+            simulatorVersionsMap[simulator.id].push(simulator.version);
           }
         }
 
-        for (const versions of Object.values(simulatorsInfo)) {
+        for (const versions of Object.values(simulatorVersionsMap)) {
           versions
             .sort((a: string, b: string): number => {
               return a.localeCompare(b, undefined, { numeric: true });
@@ -76,7 +81,7 @@ export class DispatchService {
             .reverse();
         }
 
-        return simulatorsInfo;
+        return simulatorVersionsMap;
       })
     );
   }
