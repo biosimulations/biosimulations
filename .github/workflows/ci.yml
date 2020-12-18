@@ -269,7 +269,7 @@ jobs:
     name: Build, push, and deploy Docker image for app
     runs-on: ubuntu-latest
 
-    needs: [getAffectedLibrariesApps, lint, test, build]
+    needs: [getAffectedLibrariesApps]
     strategy:
       matrix:
         app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
@@ -297,23 +297,7 @@ jobs:
         run: |
           echo  Building Image for ${{ matrix.app }}
           docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --build-arg app=${{ matrix.app }} $CONTEXT
-      - name: Push Docker image for ${{matrix.app}}
-        working-directory: ./biosimulations
-        env:
-            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
-            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-            BRANCH: ${{ steps.extract_branch.outputs.branch }}
-            FILE: ../Dockerfile
-            CONTEXT: ..
-        run: |
-          if [[ $GITHUB_EVENT_NAME = push && ($BRANCH = dev || $BRANCH=stage || $BRANCH=deploy) ]]
-          then
-            docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --tag docker.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=${{ matrix.app }} $CONTEXT
-            echo "Pushing Docker image for $APP ..."
-            echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
-            docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
-            docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
-          fi
+
   markDone:
     name: Mark CI as complete
     needs: [getAffectedLibrariesApps, lint, test, build, buildPushDockerImages]
