@@ -105,6 +105,12 @@ jobs:
     steps: 
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Extract branch name
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo ${GITHUB_REF#refs/heads/}
+        id: extract_branch
       # Change this to trigger the action in the deployment repo
       - name: Call Webhook
         env:
