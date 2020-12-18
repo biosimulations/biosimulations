@@ -149,12 +149,12 @@ table.icon-list {
 }
 
 ul.key-value li {
-  a {
+  a, .mat-icon-button.biosimulations-icon-button.primary {
     color: $dark-primary-text;
-  }
 
-  a:hover {
-    color: mat-color($theme-primary);
+    &:hover {
+      color: mat-color($theme-primary);
+    }
   }
 }
 
