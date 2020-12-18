@@ -7,6 +7,9 @@ import { SimulationRunService } from '../simulation-run/simulation-run.service';
 class MockSimulationsRunService {
   async sendReport() {}
 }
+class MockResultsService {
+  async method() {}
+}
 describe('ResultsController', () => {
   let controller: ResultsController;
 
@@ -14,7 +17,7 @@ describe('ResultsController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResultsController],
       providers: [
-        ResultsService,
+        { provide: ResultsService, useClass: MockResultsService },
         ConfigService,
         { provide: SimulationRunService, useClass: MockSimulationsRunService }
       ]
