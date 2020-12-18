@@ -1,7 +1,7 @@
 name: Build, push, and deploy the docker images
 on: 
   push:
-    branches: [deploy]
+    branches: [deploy, dev]
 jobs:
   listApps:
     name: Get a list of all apps
@@ -107,5 +107,16 @@ jobs:
         uses: actions/checkout@v2
       # Change this to trigger the action in the deployment repo
       - name: Call Webhook
-        run:
-            echo $GITHUB_SHA
+        env:
+            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+        
+        run: |
+        curl --location --request POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' --header 'Authorization: Bearer ${{secrets.GHCR_TOKEN}}' --header 'Content-Type: application/json' \
+        --data-raw '{"ref": "master",
+"inputs":{
+    "overlay": "$BRANCH",
+    "tag": "$GITHUB_SHA"
+    }}'
+    
