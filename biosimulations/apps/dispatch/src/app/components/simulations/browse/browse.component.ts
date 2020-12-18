@@ -30,8 +30,8 @@ export class BrowseComponent implements OnInit {
       centerRouterLink: (simulation: Simulation): string[] => {
         return ['/simulations', simulation.id];
       },
-      minWidth: 34,
-      maxWidth: 100,
+      minWidth: 195,
+      maxWidth: 195,
       filterable: false,
       showStacked: false,
     },
