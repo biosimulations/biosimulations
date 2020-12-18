@@ -719,11 +719,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/schedule/README.md
-├─ @nestjs/swagger@4.7.4
+├─ @nestjs/swagger@4.7.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
-│  └─ licenseFile: @nestjs/swagger/README.md
+│  └─ licenseFile: @nestjs/swagger/LICENSE
 ├─ @nrwl/angular@10.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
@@ -5870,7 +5870,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/mikolalysenko/planar-graph-to-polyline
 │  ├─ publisher: Mikola Lysenko
 │  └─ licenseFile: planar-graph-to-polyline/LICENSE
-├─ plotly.js@1.58.2
+├─ plotly.js@1.58.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/plotly/plotly.js
 │  ├─ publisher: Plotly, Inc.
