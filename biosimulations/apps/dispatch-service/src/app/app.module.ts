@@ -8,7 +8,7 @@ import {
   ClientProxyFactory,
   Transport,
   NatsOptions,
-  ClientProxy,
+  ClientProxy
 } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -24,7 +24,7 @@ import { ResultsService } from './results/results.service';
 
 @Module({
   imports: [HttpModule, BiosimulationsConfigModule, ScheduleModule.forRoot()],
-  controllers: [AppController, SubmissionController, ResultsController],
+  controllers: [SubmissionController, ResultsController],
   providers: [
     SimulationRunService,
     HpcService,
@@ -43,10 +43,10 @@ import { ResultsService } from './results/results.service';
         natsOptions.options = natsServerConfig;
         return ClientProxyFactory.create(natsOptions);
       },
-      inject: [ConfigService],
+      inject: [ConfigService]
     },
 
-    ResultsService,
-  ],
+    ResultsService
+  ]
 })
 export class AppModule {}
