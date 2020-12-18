@@ -96,7 +96,7 @@ jobs:
             echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
             docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
             docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
-          fi
+          
 
   triggerDeployment:
     name: Trigger a new deployment of the latest images
