@@ -62,7 +62,7 @@
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.1",
     "@nestjs/schedule": "^0.4.1",
-    "@nestjs/swagger": "^4.7.4",
+    "@nestjs/swagger": "^4.7.7",
     "@nrwl/angular": "10.4.1",
     "@typegoose/typegoose": "^7.4.5",
     "@types/is-url": "^1.2.28",
