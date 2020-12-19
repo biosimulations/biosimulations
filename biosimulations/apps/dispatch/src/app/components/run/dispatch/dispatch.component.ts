@@ -6,7 +6,6 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { DispatchService, SimulatorVersionsMap } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
@@ -23,10 +22,6 @@ export class DispatchComponent implements OnInit {
   formGroup: FormGroup;
   simulators: string[] = [];
   simulatorVersions: string[] = [];
-
-  simulatorsError: string | undefined = undefined;
-  simulatorVersionsError: string | undefined = undefined;
-  submitError: string | undefined = undefined;
 
   simulatorVersionsMap: SimulatorVersionsMap | undefined = undefined;
 
@@ -90,7 +85,6 @@ export class DispatchComponent implements OnInit {
   }
 
   onFormSubmit() {
-    this.submitError = undefined;
     this.simulationId = undefined;
 
     if (!this.formGroup.valid) {
@@ -129,7 +123,6 @@ export class DispatchComponent implements OnInit {
   onSimulatorChange($event: any) {
     if (this.simulatorVersionsMap !== undefined) {
       this.simulatorVersions = this.simulatorVersionsMap[$event.value];
-      this.simulatorVersionsError = undefined;
       this.formGroup.controls.simulatorVersion.enable();
       this.formGroup.controls.simulatorVersion.setValue(
         this.simulatorVersions[0]
