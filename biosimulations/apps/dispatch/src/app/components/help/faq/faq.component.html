@@ -57,8 +57,18 @@
         To share results with a colleague, simply send your colleague the unique URL for the simulation.
       </biosimulations-q-a>
 
-      <biosimulations-q-a heading="How long does runBioSimulations store simulations?">
-        runBioSimulations stores simulations and their results for six months.
+      <biosimulations-q-a heading="Why did my simulation fail? How can I get my simulation to succeed?">
+        <p>There are several reasons why simulations can fail including:</p>
+
+        <ul class="vertically-spaced">
+          <li>The simulator that you selected is not capable of executing your archive. Because each simulator supports different modeling frameworks, simulation algorithms, and model formats, any given archive is only compatible with a subset of simulation tools. BioSimulators describes the modeling frameworks, simulation algorithms, and model formats that each simulation tool supports. We recommend using BioSimulators to determine which simulation tools are compatible with your archive. Note, that BioSimulators does not capture every detail about the capabilities of each simulation tool, in part, because BioSimulators relies on the community to curate simulation tools. For example, BioSimulators has limited information about which SBML elements (e.g., delays, events) most simulation tools support. As a result, to determine which tools are compatible with your archive, it may also be necessary to read the documentation for several potentially compatible simulation tools.</li>
+
+          <li>Your archive or one of the models or simulations inside your archive is invalid. In particular, because many modeling tools are just beginning to support SED-ML, some tools do not yet produce valid SED-ML files. We recommend creating simulations with tools that faithfully support SED-ML such as tellurium and VCell.</li>
+
+          <li>Your archive describes one or more simulations that can't be solved. For example, many algorithms may not be able to solve a stiff model up to the desired tolerance in the specified number of execution steps. In this case, we recommend using an alernative algorithm such as CVODE or LSODA for continuous kinetic models or restructuring your model.</li>
+
+          <li>Your archive generates very large outputs. runBioSimulations is architected to support arbitrarily large models and simulations. However, because runBioSimulations hasn't yet been hardened from years of use, users may still discover bugs in runBioSimulations. In this case, please help us improve runBioSimulations by using GitHub issues <a [href]="config.simulatorsNewIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to report problems to the BioSimulators team.</li>
+        </ul>
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
