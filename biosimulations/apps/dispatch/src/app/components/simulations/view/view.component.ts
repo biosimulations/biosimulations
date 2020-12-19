@@ -327,7 +327,7 @@ export class ViewComponent implements OnInit {
 
     this.dataSets = dataSets;
     const dataSetIdDisabledArr = Object.keys(dataSetIdDisabledMap)
-      .sort()
+      //.sort()
       .map(
         (id: string): DataSetIdDisabled => {
           return { id, disabled: dataSetIdDisabledMap[id] };
