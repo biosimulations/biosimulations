@@ -1,7 +1,7 @@
 <biosimulations-page heading="Run a simulation project">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
     <mat-form-field appearance="fill">
-      <mat-label>Select a simulation project</mat-label>
+      <mat-label>Select a simulation project (COMBINE/OMEX file)</mat-label>
       <ngx-mat-file-input
         formControlName="projectFile"
         accept=".omex"
@@ -11,23 +11,26 @@
       ></ngx-mat-file-input>
       <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
       <mat-hint
-        >Select a COMBINE/OMEX archive file which describes one or more
+        >
+        <p>Select a COMBINE/OMEX archive file which describes one or more
         simulations (e.g., in SED-ML format) of one or more models (e.g., in
-        SBML format). An example archive is available here
-        <a
-          href="https://github.com/biosimulators/Biosimulators_test_suite/raw/dev/biosimulators_test_suite/BIOMD0000000297.omex"
-          ><biosimulations-icon icon="download"></biosimulations-icon></a
-        >. Additional examples are available in the BioSimulators test suite
-        <a href="https://github.com/biosimulators/Biosimulators_test_suite" target="_blank"
-          ><biosimulations-icon icon="link"></biosimulations-icon></a
-        >. More information is available at the COMBINE/OMEX website
+        BNGL, SBML formats).</p>
+
+        <p>An example archive which can be executed by VCell is available here
+          <a
+            href="https://github.com/biosimulators/Biosimulators_test_suite/raw/dev/examples/sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
+            ><biosimulations-icon icon="download"></biosimulations-icon></a
+          >. Additional examples are available in the BioSimulators test suite
+          <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
+        </p>
+
+        <p>More information about COMBINE/OMEX archives is available at
         <a href="https://combinearchive.org/" target="_blank"
-          ><biosimulations-icon icon="link"></biosimulations-icon></a
-        >.</mat-hint
-      >
-      <mat-error *ngIf="formGroup.controls.projectFile.errors">
-        Please select a project file.
-      </mat-error>
+          >https://combinearchive.org</a
+        >.</p>
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -44,19 +47,28 @@
         </mat-option>
       </mat-select>
       <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
-      <mat-hint
-        >A guide to choosing a simulation tool which is compatible with your
-        simulation project is available at BioSimulators
+      <mat-hint>
+        <p>Select a simulation tool which is capable of executing your archive.
+        This tool must support all of the modeling frameworks (e.g., logical, FBA,
+        kinetic), simulation algorithms (e.g., ODE, SSA), and model formats
+        (e.g., BNGL, SED-ML) involved in your archive.</p>
+
+        <p>Note, because each tool supports a different set of frameworks, algorithms, and
+        formats, your archive is likely only compatible with a subset of the available simulation tools.</p>
+
+        <p>The README for the BioSimulators test suite <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          > outlines the simulator compatibility of several of the example archives in the test suite.</p>
+
+        <p>BioSimulators
         <a href="https://biosimulators.org" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
-        >. The guide describes the modeling frameworks (e.g., logical, FBA,
+        > describes the modeling frameworks (e.g., logical, FBA,
         kinetic), simulation algorithms (e.g., ODE, SSA), and modeling formats
         (e.g., COMBINE/OMEX, SBML, SED-ML) that each simulation tool
-        supports.</mat-hint
-      >
-      <mat-error *ngIf="formGroup.controls.simulator.errors">
-        Please select a simulator.
-      </mat-error>
+        supports. We recommend using BioSimulators to determine which tools are capable
+        of executing your archive.</p>
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -80,15 +92,12 @@
         <a href="https://biosimulators.org" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon
         ></a>
-        for information about each version of each simulation tool.</mat-hint
-      >
-      <mat-error *ngIf="formGroup.controls.simulatorVersion.errors">
-        Please select a version of the selected simulator.
-      </mat-error>
+        for information about each version of each simulation tool.
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Enter a name for your project</mat-label>
+      <mat-label>Enter a descriptive name to help you recall this project</mat-label>
       <input
         matInput
         formControlName="name"
@@ -98,11 +107,8 @@
       <biosimulations-icon icon="tag" matPrefix></biosimulations-icon>
       <mat-hint>
         Provide a name for your modeling project. If you execute multiple
-        projects, this name will help you identify this project.
+        projects, this name will help you identify this project among all of your projects.
       </mat-hint>
-      <mat-error *ngIf="formGroup.controls.name.errors">
-        Please select a name.
-      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" fxHide>
@@ -117,11 +123,8 @@
         >Optionally, enter your email address to receive notification of the
         completion of your simulation. After submitting your simulation, you
         will also receive a URL where you will be able to check the status of
-        your simulation and retrieve its results.</mat-hint
-      >
-      <mat-error *ngIf="formGroup.controls.email.errors">
-        Please enter a valid email address.
-      </mat-error>
+        your simulation and retrieve its results.
+      </mat-hint>
     </mat-form-field>
 
     <button mat-flat-button type="submit" [disabled]="!formGroup.valid">
@@ -135,14 +138,5 @@
       your results from the same page. Your simulation and its results will be
       available for six months.
     </div>
-    <mat-error *ngIf="simulatorsError" class="message">
-      {{ simulatorsError }}
-    </mat-error>
-    <mat-error *ngIf="simulatorVersionsError" class="message">
-      {{ simulatorVersionsError }}
-    </mat-error>
-    <mat-error *ngIf="submitError" class="message">
-      Sorry! We were unable to execute your simulation job.
-    </mat-error>
   </form>
 </biosimulations-page>

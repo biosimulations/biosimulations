@@ -563,16 +563,16 @@ table {
   }
 
   .cell-content-container {
-    width: 100%;
-    
-    &, & * {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    width: 100%;    
 
     &.lines-one {
       height: 20px;
+
+      &, & * {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     &.lines-multiple {

@@ -38,7 +38,7 @@
           </th>
           <td>
             <span class="heading">Results:</span>{{' '}}
-            <a [href]="simulation.resultsUrl" *ngIf="statusSucceeded; else noResults">CSV ({{ simulation.resultsSize }})</a>
+            <a [href]="simulation.resultsUrl" *ngIf="simulation.statusSucceeded; else noResults">Zip archive of CSVs ({{ simulation.resultsSize }})</a>
             <ng-template #noResults>N/A</ng-template>
           </td>
         </tr>
@@ -50,7 +50,7 @@
             <biosimulations-icon icon="status"></biosimulations-icon>
           </th>
           <td><span class="heading">Status:</span> {{ simulation.statusLabel }}
-            <biosimulations-icon icon="spinner" *ngIf="statusRunning$ | async"></biosimulations-icon>
+            <biosimulations-icon icon="spinner" *ngIf="simulation.statusRunning"></biosimulations-icon>
           </td>
         </tr>
         <tr>

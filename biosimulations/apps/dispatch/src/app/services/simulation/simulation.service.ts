@@ -109,7 +109,7 @@ export class SimulationService {
           .filter((simulation: Simulation): boolean => {
             return SimulationStatusService.isSimulationStatusRunning(
               simulation.status
-            );
+            ) || (simulation.status === SimulationRunStatus.SUCCEEDED && simulation.resultsSize === undefined);
           })
           .map((simulation: Simulation): string => {
             return simulation.id;
