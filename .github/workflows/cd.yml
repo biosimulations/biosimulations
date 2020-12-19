@@ -1,7 +1,7 @@
 name: Build, push, and deploy the docker images
 on: 
   push:
-    branches: [deploy]
+    branches: [deploy, dev]
 jobs:
   listApps:
     name: Get a list of all apps
@@ -91,12 +91,12 @@ jobs:
             BRANCH: ${{ steps.extract_branch.outputs.branch }}
             FILE: ../Dockerfile
             CONTEXT: ..
-        run:
+        run: |
             echo "Pushing Docker image for ${{ matrix.app }} ..."
             echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
             docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
             docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
-          fi
+          
 
   triggerDeployment:
     name: Trigger a new deployment of the latest images
@@ -105,7 +105,21 @@ jobs:
     steps: 
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Extract branch name
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo ${GITHUB_REF#refs/heads/}
+        id: extract_branch
       # Change this to trigger the action in the deployment repo
       - name: Call Webhook
-        run:
-            echo $GITHUB_SHA
+        env:
+            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+        
+        run: |
+          echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
+          curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
+          
+

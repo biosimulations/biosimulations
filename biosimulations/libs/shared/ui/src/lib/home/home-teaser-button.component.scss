@@ -8,9 +8,9 @@
 
     svg {
         width: 100%;
-        color: darken(mat-color($theme-primary, lighter), 25%);
+        color: mat-color($theme-primary);
         &.accent {
-            color: darken(mat-color($theme-accent, lighter), 25%);
+            color: mat-color($theme-accent);
 
             path.foreground {
                 fill: currentColor;
@@ -48,18 +48,18 @@
     &:not(.mat-button-disabled) {
         &:hover {
             svg {
-                color: mat-color($theme-primary);
+                color: darken(mat-color($theme-primary), 8%);
             }
             svg.accent {
-                color: mat-color($theme-accent);
+                color: darken(mat-color($theme-accent), 12.5%);
             }
         }
         &:active {
             svg {
-                color: mat-color($theme-primary, darker);
+                color: darken(mat-color($theme-primary), 16%);
             }
             svg.accent {
-                color: mat-color($theme-accent, darker);
+                color: darken(mat-color($theme-accent), 25%);
             }
         }
     }
