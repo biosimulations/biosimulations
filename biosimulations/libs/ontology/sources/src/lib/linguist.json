@@ -3440,6 +3440,7 @@
       ".workflow"
     ],
     "aliases": [
+      "HashiCorp Configuration Language",
       "terraform",
       "hcl"
     ],
