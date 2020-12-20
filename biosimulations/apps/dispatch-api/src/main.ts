@@ -8,11 +8,12 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { ConfigService } from '@nestjs/config';
+import { json } from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -38,7 +39,7 @@ async function bootstrap() {
       'https://biosimulations.dev',
       'https://biosimulations.org',
       'https://run.biosimulations.dev',
-      'https://run.biosimulations.org',
+      'https://run.biosimulations.org'
     ];
     const allow = allowedOrigins.includes(requestOrigin);
     const error = null;
@@ -53,13 +54,13 @@ async function bootstrap() {
     {
       name: 'Simulation Runs',
       description:
-        'Operations for submitting a Simulation Run, checking its status, modifying details, and canceling the run.',
+        'Operations for submitting a Simulation Run, checking its status, modifying details, and canceling the run.'
     },
     {
       name: 'Results',
       description:
-        ' Operations for viewing and retrieving the results of a Simulation Run',
-    },
+        ' Operations for viewing and retrieving the results of a Simulation Run'
+    }
   ];
   const builder = new DocumentBuilder()
     .setTitle('runBioSimulations API')
@@ -80,7 +81,7 @@ async function bootstrap() {
   const scopes = [
     'read:SimulationRuns',
     'write:SimulationRuns',
-    'delete:SimulationsRuns',
+    'delete:SimulationsRuns'
   ];
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
@@ -93,16 +94,16 @@ async function bootstrap() {
     flows: {
       implicit: {
         authorizationUrl: authorizationUrl,
-        scopes: scopes,
-      },
-    },
+        scopes: scopes
+      }
+    }
   };
 
   builder.addOAuth2(oauthSchema);
 
   const openIDSchema: SecuritySchemeObject = {
     type: 'openIdConnect',
-    openIdConnectUrl: openIdConnectUrl,
+    openIdConnectUrl: openIdConnectUrl
   };
 
   builder.addSecurity('OpenIdc', openIDSchema);
@@ -116,10 +117,13 @@ async function bootstrap() {
     customCss: removeIcon,
     swaggerOptions: {
       oauth: {
-        clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a',
-      },
-    },
+        clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a'
+      }
+    }
   });
+  const configService = app.get(ConfigService);
+  const limit = configService.get('server.limit');
+  app.use(json({ limit }));
 
   await app.listen(port, () => {
     logger.log('Listening at http://localhost:' + port);

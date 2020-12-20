@@ -293,7 +293,7 @@ validateImage: true
   -u jonrkarr:********* \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/biosimulators/Biosimulators/issues \
-  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\nvalidateImage: true\n\n---"{{ '}' }}'</code></pre>
+  -d '{{ '{' }}"labels": ["Validate/submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\nvalidateImage: true\n\n---"{{ '}' }}'</code></pre>
 
           <p>The above is implemented by the Python method <code>biosimulators_utils.simulator_registry.submit.submit_simulator_to_biosimulators_registry</code>. See the documentation <a href="https://biosimulators.github.io/Biosimulators_utils"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
         </li>
