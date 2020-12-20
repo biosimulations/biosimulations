@@ -1,7 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+
+interface TaskMap {
+  [key: string]: string[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,9 +27,9 @@ export class VisualizationService {
     return this.http.get(`${this.resultsEndpoint}/${uuid}?sparse=true`).pipe(
       //tap((x) => console.log(x)),
       map((result: any) => result.reports),
-      map((array: { [key: string]: string }[]) => {
+      map((array: { [key: string]: string }[]): TaskMap => {
         const taskNames: string[] = [];
-        const taskMap: { [key: string]: string[] } = {};
+        const taskMap: TaskMap = {};
         array.forEach((item) => {
           taskNames.push(item.reportId);
         });
@@ -41,7 +47,15 @@ export class VisualizationService {
         });
 
         return taskMap;
-      })
+      }),
+      catchError((error: HttpErrorResponse): Observable<TaskMap> => {
+        if (error instanceof HttpErrorResponse && error.status === 404) {
+          const taskMap: TaskMap = {};
+          return of<TaskMap>(taskMap);
+        } else {
+          throw error;
+        }
+      }),      
     );
   }
 }

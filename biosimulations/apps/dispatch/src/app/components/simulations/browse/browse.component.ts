@@ -164,15 +164,24 @@ export class BrowseComponent implements OnInit {
       center: true,
       show: false,
     },
+    /*
     {
       id: 'visualize',
       heading: 'Viz',
       key: 'status',
+      getter: (simulation: Simulation): boolean => {
+        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0);
+      },
       center: true,
       leftIcon: 'chart',
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
           return ['/simulations', simulation.id, "#tab=design-viz"];
         } else {
           return null;
@@ -180,17 +189,20 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
           return ['/simulations', simulation.id, "#tab=design-viz"];
         } else {
           return null;
         }
       },
-      formatter: (status: SimulationRunStatus): null => {
+      formatter: (hasReports: boolean): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationRunStatus): string | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(status)) {
+      stackedFormatter: (hasReports: boolean): string | null => {
+        if (hasReports) {
           return 'visualize results';
         } else {
           return 'N/A';
@@ -200,26 +212,33 @@ export class BrowseComponent implements OnInit {
       maxWidth: 61,
       filterable: false,
       comparator: (
-        a: SimulationRunStatus,
-        b: SimulationRunStatus,
+        a: boolean,
+        b: boolean,
         sign: number
       ): number => {
-        const aVal = SimulationStatusService.isSimulationStatusSucceeded(a) ? 0 : 1;
-        const bVal = SimulationStatusService.isSimulationStatusSucceeded(b) ? 0 : 1;
-        if (aVal > bVal) return 1;
-        if (aVal < bVal) return -1;
+        if (a > b) return -1;
+        if (a < b) return 1;
         return 0;
       },
     },
+    */
     {
       id: 'download',
       heading: 'Export',
       key: 'status',
+      getter: (simulation: Simulation): boolean => {
+        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0);
+      },
       center: true,
       leftIcon: 'download',
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
           return null;
@@ -227,17 +246,20 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.href,
       centerHref: (simulation: Simulation): string | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)) {
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
           return null;
         }
       },
-      formatter: (status: SimulationRunStatus): null => {
+      formatter: (hasReports: boolean): null => {
         return null;
       },
-      stackedFormatter: (status: SimulationRunStatus): string | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(status)) {
+      stackedFormatter: (hasReports: boolean): string | null => {
+        if (hasReports) {
           return 'download results';
         } else {
           return 'N/A';
@@ -247,14 +269,12 @@ export class BrowseComponent implements OnInit {
       maxWidth: 61,
       filterable: false,
       comparator: (
-        a: SimulationRunStatus,
-        b: SimulationRunStatus,
+        a: boolean,
+        b: boolean,
         sign: number
       ): number => {
-        const aVal = SimulationStatusService.isSimulationStatusSucceeded(a) ? 0 : 1;
-        const bVal = SimulationStatusService.isSimulationStatusSucceeded(b) ? 0 : 1;
-        if (aVal > bVal) return 1;
-        if (aVal < bVal) return -1;
+        if (a > b) return -1;
+        if (a < b) return 1;
         return 0;
       },
     },
