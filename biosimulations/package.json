@@ -114,7 +114,7 @@
     "@nrwl/jest": "10.4.1",
     "@nrwl/nest": "10.4.1",
     "@nrwl/node": "10.4.1",
-    "@nrwl/nx-cloud": "^10.1.8",
+    "@nrwl/nx-cloud": "^10.1.10",
     "@nrwl/workspace": "10.4.1",
     "@types/archiver": "^3.1.1",
     "@types/auth0": "^2.20.11",
