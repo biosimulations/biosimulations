@@ -108,9 +108,9 @@
 
       <ol class="vertically-spaced">
         <li><b>Install Singularity:</b> Instructions are available at <a href="https://sylabs.io/docs/" target="_blank">https://sylabs.io/docs/</a>.</li>
-        <li><b>Pull the Docker image</b> by executing <code>docker pull ghcr.io/biosimulators/{ id }:{ version }</code>.</li>
-        <li><b>Convert the Docker image to a Singularity image</b> by executing <code>singularity pull { /path/to/save/singularity-image.sif } docker://ghcr.io/biosimulators/{ id }:{ version }</code>.</li>
-        <li><b>Run the Singularity image</b> by executing <code>singularity run { /path/to/save/singularity-image.sif } ...</code>.</li>
+        <li><b>Pull the Docker image</b> by executing <code>docker pull ghcr.io/biosimulators/{{ '{' }} id {{ '}' }}:{{ '{' }} version {{ '}' }}</code>.</li>
+        <li><b>Convert the Docker image to a Singularity image</b> by executing <code>singularity pull {{ '{' }} /path/to/save/singularity-image.sif {{ '}' }} docker://ghcr.io/biosimulators/{{ '{' }} id {{ '}' }}:{{ '{' }} version {{ '}' }}</code>.</li>
+        <li><b>Run the Singularity image</b> by executing <code>singularity run {{ '{' }} /path/to/save/singularity-image.sif {{ '}' }} ...</code>.</li>
       </ol>
     </biosimulations-text-page-content-section>
 
