@@ -97,6 +97,24 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
+      heading="Using containerized simulation tools to execute simulations in HPC environments without root access"
+      tocSection="Executing simulations in HPC"
+    >
+      <p>The BioSimulators simulation tools can also be running in high-performance computing (HPC) environments where root access is not available by first converting the Docker images for the tools into Singularity images <a href="https://sylabs.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+      <p>All of the validated images for simulation tools are compatible with Singularity. As part of the validation process, we check that each Docker image can be converted into a Singularity image.</p>
+
+      <p>The steps below illustrate how Singularity can be used to execute the simulation tools in HPC environments.</p>
+
+      <ol class="vertically-spaced">
+        <li><b>Install Singularity:</b> Instructions are available at <a href="https://sylabs.io/docs/" target="_blank">https://sylabs.io/docs/</a>.</li>
+        <li><b>Pull the Docker image</b> by executing <code>docker pull ghcr.io/biosimulators/{ id }:{ version }</code>.</li>
+        <li><b>Convert the Docker image to a Singularity image</b> by executing <code>singularity pull { /path/to/save/singularity-image.sif } docker://ghcr.io/biosimulators/{ id }:{ version }</code>.</li>
+        <li><b>Run the Singularity image</b> by executing <code>singularity run { /path/to/save/singularity-image.sif } ...</code>.</li>
+      </ol>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
       heading="Programmatically retrieving information about simulation tools via the REST API"
       tocSection="REST API"
     >
