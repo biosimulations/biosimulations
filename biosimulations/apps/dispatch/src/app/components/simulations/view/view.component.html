@@ -37,8 +37,8 @@
             <biosimulations-icon icon="download"></biosimulations-icon>
           </th>
           <td>
-            <span class="heading">Results:</span>{{' '}}
-            <a [href]="simulation.resultsUrl" *ngIf="simulation.statusSucceeded; else noResults">Zip archive of CSVs ({{ simulation.resultsSize }})</a>
+            <span class="heading">Outputs:</span>{{' '}}
+            <a [href]="simulation.resultsUrl" *ngIf="simulation.statusSucceeded && simulation.resultsSize !== 'N/A'; else noResults">Zip archive ({{ simulation.resultsSize }})</a>
             <ng-template #noResults>N/A</ng-template>
           </td>
         </tr>
@@ -87,7 +87,7 @@
     </div>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Design chart" icon="write" urlHashFragment="design-viz" [disabled]="(sedmlLocations$ | async) === undefined">
+  <biosimulations-tab-page-tab heading="Design chart" icon="write" urlHashFragment="design-viz" [disabled]="!((sedmlLocations$ | async)?.length > 0)">
     <form [formGroup]="formGroup" class="design-visualization" *ngIf="(sedmlLocations$ | async) !== undefined">
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>

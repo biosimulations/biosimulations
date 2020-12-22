@@ -17,7 +17,7 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experimements'},
+                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
             ]
         }
@@ -30,8 +30,8 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
+                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experimements'},
             ]
         }
     },
@@ -43,8 +43,8 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
+                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experimements'},
             ]
         }
     },
@@ -56,8 +56,8 @@ const routes: Routes = [
             contextButtons: [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
+                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experimements'},
             ]
         }
     },
@@ -65,7 +65,7 @@ const routes: Routes = [
         path: 'simulation-experiments',
         component: SimulationExperimentsComponent,
         data: {
-            breadcrumb: 'Simulation experimements',
+            breadcrumb: 'Simulation experiments',
             contextButtons: [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
@@ -83,11 +83,11 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experimements'},
+                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
             ]
         }
     },
-    
+
 ];
 
 @NgModule({
