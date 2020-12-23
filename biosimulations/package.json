@@ -93,7 +93,7 @@
     "rxjs": "~6.6.3",
     "save": "^2.4.0",
     "ssh2": "^0.8.9",
-    "swagger-ui-express": "^4.1.4",
+    "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2",
     "zone.js": "^0.10.2"
   },
