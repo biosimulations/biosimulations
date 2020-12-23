@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://run.biosimulations.org/sitemap-static.xml</loc>
-  </sitemap>
-  <sitemap>
-    <loc>https://run.biosimulations.org/sitemap-dynamic.xml</loc>
-  </sitemap>
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
+  <url>
+    <loc>https://run.biosimulators.org/</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/help</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/help/faq</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/help/about</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/help/terms</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/help/privacy</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/run</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/simulations</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+</urlset>

@@ -1,3 +1,9 @@
+/
+/help
+/help/about
+/help/faq
+/help/privacy
+/help/terms
 /simulators/amici
 /simulators/amici/0.11.11
 /simulators/bionetgen
@@ -70,3 +76,9 @@
 /simulators/vcell
 /simulators/vcell/7.3.0.0
 /simulators/vcell/7.3.0.06
+/standards
+/standards/simulation-experiments
+/standards/simulations-reports
+/standards/simulator-images
+/standards/simulator-interfaces
+/standards/simulator-specs

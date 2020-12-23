@@ -40,78 +40,99 @@ class Url(object):
         self.last_mod = last_mod
         self.change_freq = change_freq
 
+
 def get_common_static_urls():
     help = [Url(
-        loc="/",
+        loc="",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.weekly
     ),
+
         Url(
-        loc="/help",
+        loc="help",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/help",
+        loc="help/faq",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/help/faq",
+        loc="help/about",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/help/about",
+        loc="help/terms",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/help/terms",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="/help/privacy",
+        loc="help/privacy",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
     ]
 
     return help
+
+
+def get_biosimulations_static_urls():
+    landings = [Url(loc="models",
+                    last_mod=datetime.datetime(2020, 12, 23),
+                    change_freq=ChangeFreq.monthly)]
+    return get_common_static_urls() + landings
+
+
+def get_runbiosimulations_static_urls():
+    simulators = [
+        Url(loc="run",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+            ),
+        Url(loc="simulations",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+            )
+    ]
+    return get_common_static_urls() + simulators
+
+
 def get_simulator_static_urls():
     help = get_common_static_urls()
     standards = [Url(
-        loc="/standards",
+        loc="standards",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/standards/simulator-specs",
+        loc="standards/simulator-specs",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/standards/simulator-interfaces",
+        loc="standards/simulator-interfaces",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/standards/simulator-images",
+        loc="standards/simulator-images",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/standards/simulation-experiments",
+        loc="standards/simulation-experiments",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="/standards/simulations-reports",
+        loc="standards/simulations-reports",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     )
     ]
+
     return help+standards
 
 
@@ -145,7 +166,7 @@ def render_sitemap(app_name, base_url, urls):
         template = jinja2.Template(file.read())
 
     # render sitemap to XML file
-    with open(os.path.join(os.path.dirname(__file__), '..', '..', 'apps', app_name, 'src', 'sitemap-dynamic.xml'), 'w') as file:
+    with open(os.path.join(os.path.dirname(__file__), '..', '..', 'apps', app_name, 'src', 'sitemap.xml'), 'w') as file:
         file.write(template.render(base_url=base_url, urls=urls))
 
 
@@ -176,6 +197,8 @@ def build_biosimulators_sitemap():
             last_mod=val['last_mod'],
             change_freq=ChangeFreq.monthly),
         )
+    urls = urls + get_simulator_static_urls()
+
     urls.sort(key=lambda url: (url.loc))
 
     render_sitemap('simulators', 'https://biosimulators.org/', urls)
@@ -184,12 +207,14 @@ def build_biosimulators_sitemap():
 
 def build_runbiosimulations_sitemap():
     urls = []
+    urls = urls + get_runbiosimulations_static_urls()
     render_sitemap('dispatch', 'https://run.biosimulators.org/', urls)
     render_url_list('dispatch', urls)
 
 
 def build_biosimulations_sitemap():
     urls = []
+    urls = urls + get_biosimulations_static_urls()
     render_sitemap('platform', 'https://biosimulations.org/', urls)
     render_url_list('platform', urls)
 
