@@ -42,7 +42,7 @@ class Url(object):
 
 
 def get_common_static_urls():
-    help = [Url(
+    help_route = [Url(
         loc="",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.weekly
@@ -75,7 +75,7 @@ def get_common_static_urls():
     ),
     ]
 
-    return help
+    return help_route
 
 
 def get_biosimulations_static_urls():
@@ -100,7 +100,7 @@ def get_runbiosimulations_static_urls():
 
 
 def get_simulator_static_urls():
-    help = get_common_static_urls()
+    help_route = get_common_static_urls()
     standards = [Url(
         loc="standards",
         last_mod=datetime.datetime(2020, 12, 23),
@@ -133,7 +133,7 @@ def get_simulator_static_urls():
     )
     ]
 
-    return help+standards
+    return help_route+standards
 
 
 def render_url_list(app_name, urls):
