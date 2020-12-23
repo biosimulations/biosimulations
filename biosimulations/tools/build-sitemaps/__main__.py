@@ -40,9 +40,79 @@ class Url(object):
         self.last_mod = last_mod
         self.change_freq = change_freq
 
+def get_common_static_urls():
+    help = [Url(
+        loc="/",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.weekly
+    ),
+        Url(
+        loc="/help",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/help",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/help/faq",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/help/about",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/help/terms",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/help/privacy",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+    ]
 
+    return help
 def get_simulator_static_urls():
-    return []
+    help = get_common_static_urls()
+    standards = [Url(
+        loc="/standards",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/standards/simulator-specs",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/standards/simulator-interfaces",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/standards/simulator-images",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/standards/simulation-experiments",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="/standards/simulations-reports",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    )
+    ]
+    return help+standards
 
 
 def render_url_list(app_name, urls):
