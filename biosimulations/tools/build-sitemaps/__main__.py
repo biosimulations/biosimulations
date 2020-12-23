@@ -40,8 +40,10 @@ class Url(object):
         self.last_mod = last_mod
         self.change_freq = change_freq
 
+
 def get_simulator_static_urls():
     return []
+
 
 def render_url_list(app_name, urls):
     """ Render sitemap to url list for use in prerendering 
@@ -50,13 +52,14 @@ def render_url_list(app_name, urls):
         urls (:obj:`list` of obj:`Url`): list of URLs
 
     """
-   
+
     # render sitemap to text file
     with open(os.path.join(os.path.dirname(__file__), '..', '..', 'apps', app_name, 'routes.txt'), 'w') as file:
         for url in urls:
             file.write("/")
             file.write(url.loc)
             file.write("\n")
+
 
 def render_sitemap(app_name, base_url, urls):
     """ Render sitemap to XML file
@@ -84,8 +87,10 @@ def build_biosimulators_sitemap():
     simulatorLatestVersions = {}
     for simulator in simulators:
         urls.append(Url(
-            loc='simulators' + '/' + simulator['id'] + '/' + simulator['version'],
-            last_mod=dateutil.parser.parse(simulator['biosimulators']['updated']).date(),
+            loc='simulators' + '/' +
+                simulator['id'] + '/' + simulator['version'],
+            last_mod=dateutil.parser.parse(
+                simulator['biosimulators']['updated']).date(),
             change_freq=ChangeFreq.monthly),
         )
 
@@ -107,15 +112,16 @@ def build_biosimulators_sitemap():
     render_url_list('simulators', urls)
 
 
-
 def build_runbiosimulations_sitemap():
     urls = []
     render_sitemap('dispatch', 'https://run.biosimulators.org/', urls)
+    render_url_list('dispatch', urls)
 
 
 def build_biosimulations_sitemap():
     urls = []
     render_sitemap('platform', 'https://biosimulations.org/', urls)
+    render_url_list('platform', urls)
 
 
 def main(apps=None, verbose=False):
@@ -128,9 +134,11 @@ def main(apps=None, verbose=False):
 
     apps = set(apps) or set([])
 
-    undefined_apps = set(apps).difference(set(['simulators', 'dispatch', 'platform']))
+    undefined_apps = set(apps).difference(
+        set(['simulators', 'dispatch', 'platform']))
     if undefined_apps:
-        raise ValueError('The following apps are not defined: {}'.format(", ".join("'{}'".format(app) for app in sorted(undefined_apps))))
+        raise ValueError('The following apps are not defined: {}'.format(
+            ", ".join("'{}'".format(app) for app in sorted(undefined_apps))))
 
     if not apps or 'simulators' in apps:
         if verbose:
@@ -158,9 +166,12 @@ if __name__ == '__main__':
     * List of arguments which are the ids of apps: build sitemaps for the specified apps
     * Single argument with a comma-separated list of ids of apps: build sitemaps for the specified apps
     """
-    parser = argparse.ArgumentParser(description='Build sitemaps or one or more apps')
-    parser.add_argument('apps', type=str, nargs='*', help='App id (e.g., simulators)')
-    parser.add_argument('-v', '--verbose', action='store_true', help='Display debugging information')
+    parser = argparse.ArgumentParser(
+        description='Build sitemaps or one or more apps')
+    parser.add_argument('apps', type=str, nargs='*',
+                        help='App id (e.g., simulators)')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='Display debugging information')
     args = parser.parse_args()
 
     apps = []
