@@ -40,6 +40,23 @@ class Url(object):
         self.last_mod = last_mod
         self.change_freq = change_freq
 
+def get_simulator_static_urls():
+    return []
+
+def render_url_list(app_name, urls):
+    """ Render sitemap to url list for use in prerendering 
+    Args:
+        app_name (:obj:`str`): application name (e.g., `simulators`
+        urls (:obj:`list` of obj:`Url`): list of URLs
+
+    """
+   
+    # render sitemap to text file
+    with open(os.path.join(os.path.dirname(__file__), '..', '..', 'apps', app_name, 'routes.txt'), 'w') as file:
+        for url in urls:
+            file.write("/")
+            file.write(url.loc)
+            file.write("\n")
 
 def render_sitemap(app_name, base_url, urls):
     """ Render sitemap to XML file
@@ -87,6 +104,8 @@ def build_biosimulators_sitemap():
     urls.sort(key=lambda url: (url.loc))
 
     render_sitemap('simulators', 'https://biosimulators.org/', urls)
+    render_url_list('simulators', urls)
+
 
 
 def build_runbiosimulations_sitemap():
