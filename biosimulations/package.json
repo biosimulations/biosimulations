@@ -54,7 +54,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@ionic/storage": "^2.3.1",
-    "@nestjs/common": "^7.6.1",
+    "@nestjs/common": "^7.6.4",
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.6.3",
     "@nestjs/microservices": "^7.6.1",
