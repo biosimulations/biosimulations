@@ -77,6 +77,14 @@
 
         <p>Note, BioSimulators can only validate simulation tools that support these standards. Consequently, when creating GitHub issues to submit simulation tools that do not support the BioSimulators standards, set <code>validateImage</code> to <code>false</code> to decline validation of the Docker image (or lack thereof) for your simulation tool. The validation status of your simulation tool (passed or skipped) will be communicated to BioSimulators users.</p>
       </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Can the Docker images be run on high-performance computing systems without root access?">
+        <p>Yes! The Docker images can be run on high-performance computing (HPC) systems where root access is not available by first converting the images to Singularity <a href="https://sylabs.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> images. All of the validated images are compatible with Singularity.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Can the Docker images for simulators be converted to Singularity images for use for high-performance computing systems?">
+        <p>Yes! All of the validated images are compatible with Singularity <a href="https://sylabs.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. As part of the validation process, we check that each Docker image can be converted into a Singularity image.</p>
+      </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
