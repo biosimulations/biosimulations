@@ -674,7 +674,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Bryan Housel
 │  ├─ email: bryan@mapbox.com
 │  └─ licenseFile: @mapbox/whoots-js/LICENSE.md
-├─ @nestjs/common@7.6.1
+├─ @nestjs/common@7.6.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -709,7 +709,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@7.6.3
+├─ @nestjs/platform-express@7.6.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -719,7 +719,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/schedule/README.md
-├─ @nestjs/swagger@4.7.7
+├─ @nestjs/swagger@4.7.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
@@ -7171,11 +7171,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Dima Yv
 │  ├─ email: df.creative@gmail.com
 │  └─ licenseFile: svg-path-sdf/readme.md
-├─ swagger-ui-dist@3.32.4
+├─ swagger-ui-dist@3.38.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/swagger-api/swagger-ui
 │  └─ licenseFile: swagger-ui-dist/README.md
-├─ swagger-ui-express@4.1.4
+├─ swagger-ui-express@4.1.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/scottie1984/swagger-ui-express
 │  ├─ publisher: Stephen Scott
