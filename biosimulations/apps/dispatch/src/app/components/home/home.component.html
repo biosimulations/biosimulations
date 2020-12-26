@@ -21,15 +21,15 @@
         <p>@runBioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
-    <biosimulations-home-teaser-button [href]="config.platformAppUrl" width="180px" color="accent">
-      <ng-container id="title">Share simulations</ng-container>
+    <biosimulations-home-teaser-button [href]="config.platformAppUrl" width="180px" color="accent" [disabled]="true">
+      <ng-container id="title">Share and reuse biomodeling studies</ng-container>
       <ng-container id="text">
         <p>@BioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
   </ng-container>
   <ng-container id="description">
-    runBioSimulations is a free tool for executing a wide range of simulations. runBioSimulations provides the same simulation capabilities as BioSimulations via a simpler interface that doesn't require an account. runBioSimulations supports a broad range of frameworks (e.g., logical, kinetic), simulation Algorithms (e.g., FBA, SSA), formats (e.g., SBML, SED-ML), and simulation tools (e.g., COBRApy, COPASI).
+    runBioSimulations is a free tool for executing a wide range of simulations. runBioSimulations supports a broad range of modeling frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), modeling formats (e.g., SBML, SED-ML), and simulation tools (e.g., COBRApy, COPASI).
   </ng-container>
 </biosimulations-home-teaser>
 
@@ -46,16 +46,16 @@
     subheading="Execute many formalisms &amp; algorithms"
     icon="simulator"
   >
-    runBioSimulations provides a central place for executing simulations of a broad range of modeling frameworks, simulation algorithms, model formats, and simulation tools.
+    runBioSimulations is a central application for executing simulations of a broad range of frameworks, algorithms, and formats.
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
     id="subsection"
-    heading="Visualize simulation results"
+    heading="Vis simulation results"
     subheading="Analyze predicted trajectories"
     icon="chart"
   >
-    runBioSimulations provides a simple web interface for interactively plotting the results of simulations as time series charts.
+    runBioSimulations provides a simple web interface for interactively plotting the results of simulations.
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
@@ -64,7 +64,7 @@
     subheading="Evaluate new hypotheses"
     icon="reuse"
   >
-    By making it easier to execute simulations, runBioSimulations makes it easier for investigators to reuse published simulations and for peer reviewers to evaluate simulations.
+    By making it easier to execute simulations, runBioSimulations makes it easier to reuse simulations, including for peer review.
   </biosimulations-home-subsection>
 </biosimulations-home-section>
 
@@ -84,6 +84,27 @@
       title="BNGL"
       src="assets/images/about/partners/bionetgen.png"
       href="https://www.bionetgen.org"
+    >
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo
+      title="CellML"
+      src="assets/images/about/partners/cellml.svg"
+      href="https://www.cellml.org/"
+    >
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo
+      title="NeuroML"
+      src="assets/images/about/partners/neuroml.svg"
+      href="https://neuroml.org/"
+    >
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo
+      title="pharmML"
+      src="assets/images/about/partners/pharmml.svg"
+      href="http://www.pharmml.org/"
     >
     </biosimulations-home-logo>
 
@@ -128,7 +149,7 @@
   <biosimulations-home-subsection
     id="subsection"
     heading="Algorithms &amp; simulators"
-    subheading="runBioSimulations supports many simulation algorithms and tools"
+    subheading="Through BioSimulators, runBioSimulations supports many simulation algorithms and tools"
     subheadingSize="small"
     icon="simulator"
   >
@@ -218,10 +239,10 @@
     <div class="about-content">
       <div class="text">
         <p>
-          runBioSimulations was developed by the Center for Reproducible Biomedical Modeling <a href="https://reproduciblebiomodels.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, the Karr Lab at the Icahn School of Medicine at Mount Sinai <a href="https://www.karrlab.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and the Moraru Lab at the University of Connecticut Health Center <a href="https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> with support from the National Institutes of Health and the National Science Foundation.
+          runBioSimulations was developed by the Center for Reproducible Biomedical Modeling <a href="https://reproduciblebiomodels.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, the Karr Lab at the Icahn School of Medicine at Mount Sinai <a href="https://www.karrlab.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and the Center for Cell Analysis & Modeling at the University of Connecticut Health Center <a href="https://health.uconn.edu/cell-analysis-modeling/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> with support from the National Institutes of Health and the National Science Foundation.
         </p>
         <p>
-          runBioSimulations is implemented using several open-source tools and cloud platforms. The models, simulations, and visualizations are available under the licenses specified for each resource. The code is openly available under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          runBioSimulations is implemented using several open-source tools and cloud platforms. The runBioSimulations code is openly available under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The simulation tools provided through runBioSimulations are available under the licenses specified for each simulation tool at BioSimulators <a [href]="config.simulatorsAppUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </p>
         <p>
           Please see the <a [routerLink]="['/help', 'about']">About page</a> for more information.
@@ -301,6 +322,27 @@
           </biosimulations-home-logo>
 
           <biosimulations-home-logo
+            title="CellML"
+            src="assets/images/about/partners/cellml.svg"
+            href="https://www.cellml.org/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="NeuroML"
+            src="assets/images/about/partners/neuroml.svg"
+            href="https://neuroml.org/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="pharmML"
+            src="assets/images/about/partners/pharmml.svg"
+            href="http://www.pharmml.org/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
             title="SBML"
             src="assets/images/about/partners/sbml.svg"
             href="http://sbml.org"
@@ -308,9 +350,23 @@
           </biosimulations-home-logo>
 
           <biosimulations-home-logo
+            title="SBO"
+            src="assets/images/about/partners/sbo.png"
+            href="http://www.ebi.ac.uk/sbo/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
             title="SED-ML"
             src="assets/images/about/partners/sed-ml.svg"
             href="https://sed-ml.org/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="KiSAO"
+            src="assets/images/about/partners/kisao.svg"
+            href="http://co.mbine.org/standards/kisao"
           >
           </biosimulations-home-logo>
 
@@ -410,13 +466,6 @@
           </biosimulations-home-logo>
 
           <biosimulations-home-logo
-            title="Bruit.io"
-            src="assets/images/about/tech/bruit-io.svg"
-            href="https://www.bruit.io/"
-          >
-          </biosimulations-home-logo>
-
-          <biosimulations-home-logo
             title="Docker"
             src="assets/images/about/tech/docker.svg"
             href="http://www.docker.com/"
@@ -490,6 +539,27 @@
             title="OpenAPI"
             src="assets/images/about/tech/openapi.svg"
             href="https://www.openapis.org/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="Plotly"
+            src="assets/images/about/tech/plotly.svg"
+            href="https://plotly.com/javascript/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="SPDX"
+            src="assets/images/about/tech/spdx.svg"
+            href="http://spdx.org/"
+          >
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="Swagger"
+            src="assets/images/about/tech/swagger.svg"
+            href="https://swagger.io/"
           >
           </biosimulations-home-logo>
         </p>

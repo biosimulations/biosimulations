@@ -1,29 +1,36 @@
-.design-visualization {
-  max-width: 600px;
-}
-
-::ng-deep #mat-tab-content-0-3 {
-  .mat-tab-body-content {
-    width: calc(100vw - 2 * 2rem);
-    height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
-    min-width: calc(100vw - 2 * 2rem);
-    min-height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
-    max-width: calc(100vw - 2 * 2rem);
-    max-height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
-    overflow: visible;
-  }
+.spinner-container {
+  display: flex;
+  height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 959px) {
-  ::ng-deep #mat-tab-content-0-3 {
-    .mat-tab-body-content {
-      width: calc(100vw - 2 * 1rem);
-      height: calc(100vh - 56px - 32px - 2 * 1rem);
-      min-width: calc(100vw - 2 * 1rem);
-      min-height: calc(100vh - 56px - 32px - 2 * 1rem);
-      max-width: calc(100vw - 2 * 1rem);
-      max-height: calc(100vh - 56px - 32px - 2 * 1rem);
-      overflow: visible;
-    }
+  .spinner-container {
+    height: calc(100vh - 56px - 32px - 2 * 1rem);
   }
+}
+
+.stdout {
+  margin-bottom: 1rem;
+}
+.stderr {
+  margin-top: 1rem;
+}
+
+.stdout, .stderr {
+  height: calc((100% - 1.25rem) / 2);
+  pre {
+    height: calc(100% - 16px - 2 * 0.5rem);
+  }
+}
+
+/*
+.stderr code {
+  color: red;
+}
+*/
+
+.design-visualization {
+  max-width: 600px;
 }

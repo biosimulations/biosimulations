@@ -1,0 +1,16 @@
+<div class="container" *ngIf="open">
+  <div class="message">
+    <ng-content></ng-content>
+  </div>
+  <div class="close">
+    <button
+        type="button"
+        aria-label="Close notice"
+        mat-icon-button
+        class="biosimulations-icon-button text"
+        (click)="close()"
+    >
+      <mat-icon aria-label="Close icon">close</mat-icon>
+    </button>
+  </div>
+</div>

@@ -149,12 +149,12 @@ table.icon-list {
 }
 
 ul.key-value li {
-  a {
+  a, .mat-icon-button.biosimulations-icon-button.primary {
     color: $dark-primary-text;
-  }
 
-  a:hover {
-    color: mat-color($theme-primary);
+    &:hover {
+      color: mat-color($theme-primary);
+    }
   }
 }
 
@@ -223,13 +223,34 @@ ul.comma-separated {
     }
 
     &:nth-last-child(2)::after {
-      content: " or";
+      content: ",";
       margin-right: 0.25rem;
     }
   }
 
   &.no-wrap li {
     white-space: nowrap;
+  }
+
+  &.ampersand-separator {
+    li:nth-last-child(2)::after {
+      content: " &";
+      margin-right: 0.25rem;
+    }
+  }
+
+  &.and-separator {
+    li:nth-last-child(2)::after {
+      content: " and";
+      margin-right: 0.25rem;
+    }
+  }
+
+  &.or-separator {
+    li:nth-last-child(2)::after {
+      content: " &";
+      margin-right: 0.25rem;
+    }
   }
 }
 
@@ -324,7 +345,7 @@ code, code.hljs {
 
 code, code.hljs, pre {
   font-size: 90%;
-  background: $light-background;
+  background: $light-bg-lighter-5;
   color: $dark-primary-text;
 }
 
@@ -458,6 +479,20 @@ table {
     padding-right: 0.25rem;
     text-align: left;
   }
+
+  &.rotated {
+    th {
+      background: $theme-primary-lightest;
+    }
+    td:nth-child(even) {
+      background: $light-bg-lighter-5;
+    }
+  }
+
+  .mat-icon-button {
+    display: inline;
+    white-space: normal;
+  }
 }
 
 .mat-table.biosimulations-table {
@@ -529,19 +564,10 @@ table {
 
   .cell-content-container {
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 
-    &.lines-one {
-      height: 20px;
-    }
-
-    &.lines-multiple {
-      white-space: unset;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-    }
+    white-space: unset;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 
     &.center {
       text-align: center;

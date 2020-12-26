@@ -59,13 +59,26 @@ import {
   faCopy,
   faCode,
   faCodeBranch,
+  faKeyboard,
+  faDesktop,
   faQuestion,
   faUserCheck,
   faPlusCircle,
   faTools,
+  faCheck,
+  faTimes,
+  faStar,
+  faMedal,
+  faCheckDouble,
+  faLock,
+  faLockOpen,
+  faDollarSign,
+  faSpinner,
+  faFlask,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare, faOsi } from '@fortawesome/free-brands-svg-icons';
-import { far, faFile, faFileAlt as farFileAlt } from '@fortawesome/free-regular-svg-icons';
+import { far, faFile, faFileAlt as farFileAlt, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { MatIconComponent } from './mat-icon/mat-icon.component';
 import { CCIconComponent } from './cc-icon/cc-icon.component';
 export { biosimulationsIcon } from './icon/icon.component'
@@ -114,6 +127,18 @@ export class BiosimulationsIconsModule {
       faList,
       faPlusCircle,
       faTools,
+      faCheck,
+      faTimes,
+      faStar,
+      faCertificate,
+      faMedal,
+      faCheckDouble,
+      faLock,
+      faLockOpen,
+      faDollarSign,
+      faSpinner,
+      faFlask,
+      faTrash,
       faTable,
       faDownload,
       faUpload,
@@ -124,7 +149,6 @@ export class BiosimulationsIconsModule {
       faSyncAlt,
       faDna,
       faCalculator,
-      faCertificate,
       faCog,
       faCogs,
       faDatabase,
@@ -137,6 +161,8 @@ export class BiosimulationsIconsModule {
       faCopy,
       faCode,
       faCodeBranch,
+      faKeyboard,
+      faDesktop,
       faGitAlt,
       faQuestion,
       faGithub,
@@ -150,6 +176,7 @@ export class BiosimulationsIconsModule {
       faCreativeCommonsSa,
       faCreativeCommonsShare,
       farFileAlt,
+      farStar,
       faOsi,
     )
 

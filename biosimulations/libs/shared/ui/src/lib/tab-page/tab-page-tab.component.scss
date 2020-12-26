@@ -1,0 +1,9 @@
+.full-height {
+  height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
+}
+
+@media screen and (max-width: 959px) {
+  .full-height {
+    height: calc(100vh - 64px - 32px - 2 * 1rem);
+  }
+}

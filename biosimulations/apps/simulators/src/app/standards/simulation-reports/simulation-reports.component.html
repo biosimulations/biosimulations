@@ -1,0 +1,171 @@
+<biosimulations-text-page heading="BioSimulators format for reports of simulation results" [tocSections]="tocSections">
+  <ng-container id="sideBar">
+    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+      <div class="hanging-indent">
+        <a [routerLink]="['/help']">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Tutorial
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a [href]="config.apiUrl" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          REST API documentation
+        </a>
+      </div>
+    </biosimulations-text-page-side-bar-section>
+
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-help-side-bar-section>
+
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-feedback-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content" tocSectionsContainer>   
+    <biosimulations-text-page-content-section
+      heading="Overview"
+      tocSection="Overview"
+    >
+      The BioSimulators format for reports of simulation results outlines how simulation results should be encoded into HDF5 files including the path at which each result should be stored and the shape of each report (e.g., rows: datasets (<code>sedml:dataset</code>), columns: time).
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Specifications"
+      tocSection="Specifications"
+    >
+      <p>Reports of simulation results should be saved in the PyTables dialect <a href="https://www.pytables.org/usersguide/file_format.html" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> of the HDF5 format <a href="https://www.hdfgroup.org/solutions/hdf5/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> according to the following conventions:</p>
+
+      <ul class="vertically-spaced">
+        <li><b>Report paths:</b> Within the HDF5 file, each report should be saved to a path equal to the combination of (a) the relative path of parent SED-ML document within the parent COMBINE/OMEX archive and (b) the id of the report. For example a report with id <code>time_course_results</code> in a SED-ML file located at <code>./path/to/experiment.sedml</code> should be saved to the path <code>path/to/experiment.sedml/time_course_results</code>.</li>
+        <li><b>Table shape:</b> The rows of each table should correspond to the datasets (<code>sedml:dataset</code>) specified in the SED-ML definition of the report (e.g., time symbol, specific model varibles).
+          <ul class="vertically-spaced">
+            <li><b>Steady-state simulations:</b> Tables should contain a single column of the predicted steady-state of each dataset.</li>
+            <li><b>One step simulations:</b> Tables should contain two columns of the predicted start and end points of each dataset.</li>
+            <li><b>Time course simulations:</b> Tables should contain number of points + 1 columns for each time point of the predicted time course.</li>
+            <li><b>Simulations of non-spatial models:</b> Tables should not contain additional dimensions.</li>
+            <li><b>Simulations of spatial models:</b> Tables should contain additional dimensions which represents the spatial axes of simulations.</li>
+          </ul>
+        </li>
+        <li><b>Row headings:</b> The heading of each row should be the id of the corresponding dataset.</li>
+        <li><b>Headings of other dimensions:</b> We encourage developers to provide semantically-meaningful headings for each dimension of each report table.</li>        
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Example report table"
+      tocSection="Example report table"
+    >
+      <table class="biosimulations-table rotated">
+        <tr>
+          <th>time</th>
+          <td>0.0</td>
+          <td>1.0</td>
+          <td>2.0</td>
+          <td>3.0</td>
+          <td>4.0</td>
+          <td>5.0</td>
+          <td>6.0</td>
+          <td>7.0</td>
+          <td>8.0</td>
+          <td>9.0</td>
+          <td>10.0</td>
+          <td>11.0</td>
+          <td>12.0</td>
+          <td>13.0</td>
+          <td>&#8230;</td>
+        </tr>
+        <tr>
+          <th>metabolite_a</th>
+          <td>4.0</td>
+          <td>8.0</td>
+          <td>9.0</td>
+          <td>4.0</td>
+          <td>8.0</td>
+          <td>9.0</td>
+          <td>4.0</td>
+          <td>8.0</td>
+          <td>9.0</td>
+          <td>4.0</td>
+          <td>8.0</td>
+          <td>9.0</td>
+          <td>4.0</td>
+          <td>4.0</td>
+          <td>&#8230;</td>
+        </tr>
+        <tr>
+          <th>metabolite_b</th>
+          <td>3.0</td>
+          <td>1.0</td>
+          <td>5.0</td>
+          <td>4.0</td>
+          <td>3.0</td>
+          <td>6.0</td>
+          <td>7.0</td>
+          <td>5.0</td>
+          <td>4.0</td>
+          <td>3.0</td>
+          <td>6.0</td>
+          <td>1.0</td>
+          <td>1.0</td>
+          <td>1.0</td>
+          <td>&#8230;</td>
+        </tr>
+        <tr>
+          <th>sum_protein_a_b</th>
+          <td>7.0</td>
+          <td>4.0</td>
+          <td>3.0</td>
+          <td>3.0</td>
+          <td>3.0</td>
+          <td>4.0</td>
+          <td>5.0</td>
+          <td>6.0</td>
+          <td>6.0</td>
+          <td>6.0</td>
+          <td>5.0</td>
+          <td>5.0</td>
+          <td>4.0</td>
+          <td>5.0</td>
+          <td>&#8230;</td>
+        </tr>
+        <tr>
+          <th>ratio_flux_a_b</th>
+          <td>1.0</td>
+          <td>6.0</td>
+          <td>5.0</td>
+          <td>5.0</td>
+          <td>5.0</td>
+          <td>5.0</td>
+          <td>6.0</td>
+          <td>6.0</td>
+          <td>6.0</td>
+          <td>5.0</td>
+          <td>5.0</td>
+          <td>5.0</td>
+          <td>4.0</td>
+          <td>4.0</td>
+          <td>&#8230;</td>
+        </tr>
+        <tr>
+          <th>&#8230;</th>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+          <td>&#8230;</td>
+        </tr>
+      </table>
+    </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>

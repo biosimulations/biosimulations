@@ -29,6 +29,4 @@ export class BiosimulationsNavigationItemComponent {
 
   @Input()
   disabled = false;
-
-  constructor() {}
 }

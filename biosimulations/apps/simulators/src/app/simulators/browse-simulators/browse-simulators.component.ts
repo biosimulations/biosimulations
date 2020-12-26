@@ -4,15 +4,11 @@ import {
   ViewChild,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   TableComponent,
-  Column,
-  ColumnActionType,
-  ColumnFilterType,
 } from '@biosimulations/shared/ui';
 
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { columns } from './browse-simulators.columns';
 import { SimulatorTableService } from './simulator-table.service';
 import { TableSimulator } from './tableSimulator.interface';

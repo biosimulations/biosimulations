@@ -11,7 +11,6 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
-import * as mongoose from 'mongoose';
 
 import {
   AdminGuard,
@@ -38,7 +37,6 @@ import {
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -63,19 +61,19 @@ export class SimulatorsController {
     description: 'Not Found',
   })
   @ApiOperation({
-    summary: 'Get the latest version of each simulator',
+    summary: 'Get the latest version of each simulator, or of a particular simulator',
     description:
-      'Returns a list of the specifications of the latest version of each simulator.',
+      'Returns a list of the specifications of the latest version of each simulator, ' + 
+      'or a list with one element which is the specifications of the latest version of a particular simulator.',
   })
   @ApiQuery({
     name: 'id',
     required: false,
     type: String,
   })
-  async getLatestSimulators(@Query('id') id: string): Promise<Simulator[]> {
+  async getLatestSimulators(@Query('id') id?: string): Promise<Simulator[]> {
     const allSims = await this.service.findAll();
     const latest = new Map<string, Simulator>();
-    console.log(allSims);
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id);
       if (latestSim) {
@@ -85,11 +83,9 @@ export class SimulatorsController {
           latest.set(element.id, element);
         }
       } else {
-        console.log(`adding ${element.id} to ${element.version}`);
         latest.set(element.id, element);
       }
     });
-    console.log(latest);
     const results = Array.from(latest.values());
     if (id) {
       return results.filter((value) => value.id === id);
@@ -97,6 +93,7 @@ export class SimulatorsController {
       return results;
     }
   }
+
   @Get(':id')
   @ApiOperation({
     summary: 'Get the versions of a simulator',
@@ -143,6 +140,7 @@ export class SimulatorsController {
   ): Promise<Simulator> {
     return this.getSimulatorByVersion(id, version);
   }
+
   private async getSimulatorById(id: string) {
     const res = await this.service.findById(id);
     if (!res?.length) {
@@ -150,6 +148,7 @@ export class SimulatorsController {
     }
     return res;
   }
+
   private async getSimulatorByVersion(id: string, version: string) {
     const res = await this.service.findByVersion(id, version);
     if (!res) {
@@ -164,6 +163,7 @@ export class SimulatorsController {
 
     return res;
   }
+
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('write:Simulators')
   @ApiOAuth2([])

@@ -24,6 +24,4 @@ export class ConfigEnvironment {
   simulatorsApiUrl = urls.simulatorsApi;
   simulatorsNewIssueUrl = urls.simulatorsNewIssue;
   simulatorsNewPullUrl = urls.simulatorsNewPull;
-
-  constructor() {}
 }

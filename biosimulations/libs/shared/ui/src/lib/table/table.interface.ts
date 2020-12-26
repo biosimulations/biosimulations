@@ -22,13 +22,14 @@ export interface Column {
   key?: string | string[];
   getter?: (rowData: any) => any;
   filterGetter?: (rowData: any) => any;
-  extraSearchGetter?: (rowData: any) => string;
+  extraSearchGetter?: (rowData: any) => string | null;
   passesFilter?: (rowData: any, filterValues: any[]) => boolean;
   formatter?: (cellValue: any) => any;
+  toolTipFormatter?: (cellValue: any) => any;
   stackedFormatter?: (cellValue: any) => any;
   filterFormatter?: (cellValue: any) => any;
-  leftIcon?: string;
-  rightIcon?: string;
+  leftIcon?: string | ((cellValue: any) => string | null);
+  rightIcon?: string | ((cellValue: any) => string | null);
   leftIconTitle?: (rowData: any) => string | null;
   rightIconTitle?: (rowData: any) => string | null;
   leftAction?: ColumnActionType;
@@ -44,12 +45,16 @@ export interface Column {
   centerClick?: (rowData: any) => void;
   rightClick?: (rowData: any) => void;
   minWidth?: number;
+  maxWidth?: number;
   center?: boolean;
   filterable?: boolean;
   sortable?: boolean;
   comparator?: (a: any, b: any, sign: number) => number;
+  filterValues?: any[];
   filterComparator?: (a: any, b: any, sign: number) => number;
   filterType?: ColumnFilterType;
+  filterSortDirection?: ColumnSortDirection;
+  showFilterItemToolTips?: boolean;
   numericFilterStep?: number;
   show?: boolean;
   showStacked?: boolean;
@@ -63,33 +68,68 @@ export interface IdColumnMap {
   [id: string]: Column;
 }
 
-export interface Sort {
+export interface ColumnSort {
   active: string;
-  direction: string;
+  direction?: ColumnSortDirection;
+}
+
+export enum ColumnSortDirection {
+  asc = 'asc',
+  desc = 'desc',
 }
 
 export class RowService {
-  static getElementRouterLink(element: any, column: Column, side: Side): any {
+  static getElementRouterLink(element: any, column: Column, side: Side): {routerLink: any, fragment: string | null} {
+    let routerLinkFragment: any;
     if (
       side == Side.left &&
       column.leftAction === ColumnActionType.routerLink &&
       column.leftRouterLink !== undefined
     ) {
-      return column.leftRouterLink(element);
+      routerLinkFragment = column.leftRouterLink(element);
     } else if (
       side == Side.center &&
       column.centerAction === ColumnActionType.routerLink &&
       column.centerRouterLink !== undefined
     ) {
-      return column.centerRouterLink(element);
+      routerLinkFragment = column.centerRouterLink(element);
     } else if (
       side == Side.right &&
       column.rightAction === ColumnActionType.routerLink &&
       column.rightRouterLink !== undefined
     ) {
-      return column.rightRouterLink(element);
+      routerLinkFragment = column.rightRouterLink(element);
     } else {
-      return null;
+      return {
+        routerLink: null,
+        fragment: null,
+      };
+    }
+
+    if (routerLinkFragment == null) {
+      return {
+        routerLink: null,
+        fragment: null,
+      };
+
+    } else if (Array.isArray(routerLinkFragment)) {
+      if (routerLinkFragment.length > 0 && routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) === '#') {
+        return {
+          routerLink: routerLinkFragment.slice(0, -1),
+          fragment: routerLinkFragment[routerLinkFragment.length - 1].substring(1),
+        };
+      } else {
+        return {
+          routerLink: routerLinkFragment,
+          fragment: null,
+        };  
+      }
+    } else {
+      const tmp = routerLinkFragment.split('#');
+      return {
+        routerLink: tmp[0],
+        fragment: tmp.length > 0 ? tmp[1] : null,
+      };
     }
   }
 
@@ -175,6 +215,24 @@ export class RowService {
     }
   }
 
+  static getIcon(element: any, column: Column, side: Side): string | null {
+    if (side == Side.left && column.leftIcon !== undefined) {
+      if (typeof column.leftIcon === "string") {
+        return column.leftIcon;
+      } else {
+        return column.leftIcon(element);
+      }
+    } else if (side == Side.right && column.rightIcon !== undefined) {
+      if (typeof column.rightIcon === "string") {
+        return column.rightIcon;
+      } else {
+        return column.rightIcon(element);
+      }
+    } else {
+      return null;
+    }
+  }
+
   static getIconTitle(element: any, column: Column, side: Side): string | null {
     if (side == Side.left && column.leftIconTitle !== undefined) {
       return column.leftIconTitle(element);
@@ -222,7 +280,7 @@ export class RowService {
     }
   }
 
-  static sortData(idToColumn: IdColumnMap, data: any[], sort: Sort): any[] {
+  static sortData(idToColumn: IdColumnMap, data: any[], sort: ColumnSort): any[] {
     if (sort === undefined) {
       return data;
     }
@@ -235,7 +293,7 @@ export class RowService {
     sortedData.sort((a: any, b: any): number => {
       let defaultKey: string | undefined = undefined;
       let column: Column | undefined = undefined;
-      if (sortDirection === '') {
+      if (sortDirection === undefined) {
         defaultKey = '_index';
       } else if (sortColumnId) {
         column = idToColumn[sortColumnId];
@@ -244,9 +302,9 @@ export class RowService {
       const aVal = RowService.getElementValue(a, column, defaultKey);
       const bVal = RowService.getElementValue(b, column, defaultKey);
 
-      const sign = sortDirection !== 'desc' ? 1 : -1;
+      const sign = sortDirection !== ColumnSortDirection.desc ? 1 : -1;
 
-      const comparator = RowService.getComparator(column, sortDirection === '');
+      const comparator = RowService.getComparator(column, sortDirection === undefined);
       return sign * comparator(aVal, bVal, sign);
     });
 
@@ -305,6 +363,14 @@ export class RowService {
     }
   }
 
+  static formatElementToolTip(value: any, column: Column): any {
+    if (column.toolTipFormatter !== undefined) {
+      return column.toolTipFormatter(value);
+    } else {
+      return null;
+    }
+  }
+
   static formatElementFilterValue(value: any, column: Column): any {
     if (column.filterFormatter !== undefined) {
       return column.filterFormatter(value);
@@ -326,9 +392,9 @@ export class RowService {
     if (column.extraSearchGetter !== undefined) {
       const extraSearchVal = column.extraSearchGetter(value);
       if (searchVal && extraSearchVal) {
-        searchVal += ' ' + extraSearchVal;
-      } else {
-        searchVal = extraSearchVal;
+        searchVal += ' ' + (extraSearchVal as string);
+      } else if (extraSearchVal) {
+        searchVal = extraSearchVal as string;
       }
     }
 

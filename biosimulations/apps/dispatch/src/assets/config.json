@@ -22,6 +22,6 @@
     "simulatorsNewIssueUrl": "https://github.com/biosimulators/Biosimulators/issues/new/choose",
     "simulatorsNewPullUrl": "https://github.com/biosimulators/Biosimulators/compare",
     "appConfig": {
-        "simulationStatusRefreshIntervalSec": 300
+        "simulationStatusRefreshIntervalSec": 5
     }
 }

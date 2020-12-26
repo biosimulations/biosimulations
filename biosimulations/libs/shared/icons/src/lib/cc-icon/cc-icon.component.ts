@@ -9,7 +9,6 @@ export class CCIconComponent implements OnInit {
   @Input()
   icon!: string;
   iconList!: string[];
-  constructor() {}
 
   ngOnInit(): void {
     this.iconList = this.icon.split('_');

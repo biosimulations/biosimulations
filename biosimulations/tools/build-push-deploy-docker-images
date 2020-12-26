@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+while read line
+do
+for app in $line; do
+    __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    echo Building, pushing, and deploying Docker image for $app ...
+    ${__dir}/build-push-deploy-docker-image -a $app
+done
+
+done < "${1:-/dev/stdin}"

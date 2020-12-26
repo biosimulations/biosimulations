@@ -1,57 +1,80 @@
-import { ExternalReferences, Person } from '@biosimulations/datamodel/api';
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-import { EdamOntologyId, SpdxId } from '@biosimulations/datamodel/api';
+import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
+import { SoftwareInterfaceType, OperatingSystemType } from '@biosimulations/datamodel/common';
+import { ApiProperty } from '@nestjs/swagger';
+import { Funding, LinguistOntologyId, SpdxOntologyId } from '@biosimulations/datamodel/api';
+import { Image } from './image';
 import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
 
 export class Simulator {
-  @ApiProperty()
+  @ApiProperty({ type: BiosimulatorsMeta })
   biosimulators!: BiosimulatorsMeta;
 
   @ApiProperty({
+    type: String,
     example: 'tellurium',
     name: 'id',
   })
   id!: string;
 
-  @ApiProperty({ example: 'Tellurium' })
+  @ApiProperty({ type: String, example: 'Tellurium' })
   name!: string;
 
   @ApiProperty({
+    type: String,
     example: '2.1.6',
   })
   version!: string;
 
   @ApiProperty({
+    type: String,
     example:
       'Tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.',
   })
   description!: string;
 
   @ApiProperty({
-    example: 'http://tellurium.analogmachine.org/',
+    type: [Url],
   })
-  url!: string;
+  urls!: Url[];
 
   @ApiProperty({
-    example: 'ghcr.io/biosimulators/tellurium:2.1.6',
+    nullable: true,
+    type: Image,
   })
-  image!: string;
-
-  @ApiProperty({ type: EdamOntologyId })
-  format!: EdamOntologyId;
+  image!: Image | null;
 
   @ApiProperty({ type: [Person] })
   authors!: Person[];
+
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
-  @ApiProperty({ type: SpdxId })
-  license!: SpdxId;
+
+  @ApiProperty({ type: SpdxOntologyId, nullable: true })
+  license!: SpdxOntologyId | null;
+
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
 
-  @ApiResponseProperty({})
-  created!: Date;
-  @ApiResponseProperty({})
-  updated!: Date;
+  @ApiProperty({
+    type: [String],
+    enum: SoftwareInterfaceType,
+  })
+  interfaceTypes!: SoftwareInterfaceType[];
+
+  @ApiProperty({
+    type: [String],
+    enum: OperatingSystemType,
+  })
+  supportedOperatingSystemTypes!: OperatingSystemType[];
+
+  @ApiProperty({
+    type: [LinguistOntologyId],
+  })
+  supportedProgrammingLanguages!: LinguistOntologyId[];
+
+  @ApiProperty({
+    type: [Funding],
+  })
+  funding!: Funding[];
 }

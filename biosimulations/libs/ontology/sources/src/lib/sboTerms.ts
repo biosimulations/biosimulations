@@ -1,30 +1,34 @@
-import { Ontologies, SBOTerm } from '@biosimulations/datamodel/common';
+import { Ontologies, SboTerm, OntologyInfo } from '@biosimulations/datamodel/common';
 
 import sboJson from './sbo.json';
 
-function getSboTerms(input: any): { [id: string]: SBOTerm } {
-    const Terms: { [id: string]: SBOTerm } = {};
+let sboVersion = '';
+function getSboTerms(input: any): { [id: string]: SboTerm } {
+    const Terms: { [id: string]: SboTerm } = {};
 
 
     const jsonParse = input["@graph"]
     jsonParse.forEach(
         (jsonTerm: any) => {
-            if (jsonTerm["@id"].startsWith("http://biomodels.net/SBO/")) {
+            if (jsonTerm["@id"] === "http://biomodels.net/SBO/") {
+                sboVersion = jsonTerm["owl:versionInfo"];
+            } else if (jsonTerm["@id"].startsWith("http://biomodels.net/SBO/")) {
 
 
                 const termIRI = jsonTerm["@id"];
                 const termNameSpace = Ontologies.SBO
                 const termId = jsonTerm["@id"].replace("http://biomodels.net/SBO/", "")
-                const termDescription = jsonTerm["rdfs:comment"]
+                const termDescription = jsonTerm["rdfs:comment"] || null;
                 const termName = jsonTerm["rdfs:label"]
                 const termUrl = encodeURI("https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2F" + termId)
-                const term: SBOTerm = {
+                const term: SboTerm = {
                     id: termId,
                     name: termName,
                     description: termDescription,
                     namespace: termNameSpace,
                     iri: termIRI,
-                    url: termUrl
+                    url: termUrl,
+                    moreInfoUrl: null,
                 }
 
 
@@ -39,4 +43,15 @@ function getSboTerms(input: any): { [id: string]: SBOTerm } {
 
 }
 
-export const sboTerms = getSboTerms(sboJson)
+export const sboTerms = getSboTerms(sboJson);
+
+export const sboInfo: OntologyInfo = {
+  id: Ontologies.SBO,
+  acronym: Ontologies.SBO,
+  name: 'Systems Biology Ontology',
+  description: 'Terms commonly used in Systems Biology, and in particular in computational modeling.',
+  bioportalId: 'SBO',
+  olsId: 'sbo',
+  version: sboVersion,
+  source: 'http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl',
+};

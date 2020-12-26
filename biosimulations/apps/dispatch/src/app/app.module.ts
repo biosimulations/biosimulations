@@ -10,14 +10,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
-import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
+import {
+  ErrorHandler as BiosimulationsErrorHandler,
+  errorRoutes,
+  Error404Component
+} from '@biosimulations/shared/ui';
 
 import config from '../assets/config.json';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: HomeComponent
   },
   {
     path: 'run',
@@ -30,7 +34,9 @@ const routes: Routes = [
   {
     path: 'simulations',
     loadChildren: () =>
-      import('./components/simulations/simulations.module').then((m) => m.SimulationsModule),
+      import('./components/simulations/simulations.module').then(
+        (m) => m.SimulationsModule
+      ),
     data: {
       breadcrumb: 'Your simulations'
     }
@@ -45,12 +51,12 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    children: errorRoutes,
+    children: errorRoutes
   },
   {
     path: '**',
-    component: Error404Component,
-  },
+    component: Error404Component
+  }
 ];
 routes.forEach((route: Route): void => {
   if (route.data) {
@@ -61,10 +67,7 @@ routes.forEach((route: Route): void => {
 });
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     SharedUiModule,
@@ -74,18 +77,19 @@ routes.forEach((route: Route): void => {
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
       scrollPositionRestoration: 'disabled',
+      relativeLinkResolution: 'legacy'
     }),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage']
-    }),
+    })
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    // { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
+    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler }
   ],
   bootstrap: [AppComponent],
-  schemas: [],
+  schemas: []
 })
-export class AppModule { }
+export class AppModule {}

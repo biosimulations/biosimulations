@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install Node.js
         uses: actions/setup-node@v1
@@ -25,9 +25,14 @@ jobs:
         id: create_pull_request
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          token: ${{ secrets.AUTOMERGE_TOKEN }}
           branch: dep-licenses
           base: dev
           commit-message: "Updated licenses of dependencies"
           committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          delete-branch: true
           author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          title: Update Dependency Licenses
+          body: Updates the [LICENSE-DEPENENCIES file](https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE-DEPENDENCIES) with the latests versions and dependencies
+          labels: |
+            automerge

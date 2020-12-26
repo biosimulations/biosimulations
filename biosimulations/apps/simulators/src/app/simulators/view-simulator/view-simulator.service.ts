@@ -9,24 +9,35 @@ import {
   ViewAlgorithmObservable,
   ViewFramework,
   ViewFormat,
+  ViewFormatObservable,
   ViewParameter,
   ViewParameterObservable,
+  ViewAuthor,
+  ViewFunding,
   DescriptionFragment,
   DescriptionFragmentType,
 } from './view-simulator.interface';
 import { OntologyService } from '../ontology.service';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
-import { map, pluck, tap } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import {
-  IEdamOntologyId,
+  IEdamOntologyIdVersion,
+  ILinguistOntologyId,
   ISboOntologyId,
+  Identifier,
+  Person,
+  DependentPackage,
+  Funding,
+  AlgorithmParameter,
+  ValueType,
+  SoftwareInterfaceType,
+  sortUrls,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
-  AlgorithmParameter,
-  AlgorithmParameterType,
-} from '@biosimulations/datamodel/common';
+  Citation
+} from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
@@ -35,13 +46,14 @@ export class ViewSimulatorService {
     private simService: SimulatorService,
     private ontService: OntologyService
   ) {}
-  getVersions(simulatorId: string) {}
+
   getLatest(simulatorId: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getLatestById(
       simulatorId
     );
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
   }
+
   getVersion(simulatorId: string, version: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getOneByVersion(
       simulatorId,
@@ -79,7 +91,7 @@ export class ViewSimulatorService {
       name: sim.name,
       image: sim.image,
       description: sim.description,
-      url: sim.url,
+      urls: sim.urls.sort(sortUrls),
       authors: this.getAuthors(sim),
       identifiers: sim?.references?.identifiers
         ?.map(this.makeIdentifier, this)
@@ -88,38 +100,72 @@ export class ViewSimulatorService {
         }),
       citations: sim?.references?.citations?.map(this.makeCitation, this),
 
-      licenseName: this.ontService.getSpdxTerm(sim.license.id).pipe(
-        pluck('name'),
-        map((name: string) =>
-          name.replace(/\bLicense\b/, '').replace('  ', ' ')
+      licenseName: sim.license
+        ? this.ontService.getSpdxTerm(sim.license.id).pipe(
+          pluck('name'),
+          map((name: string) =>
+            name.replace(/\bLicense\b/, '').replace('  ', ' ')
+          )
         )
-      ),
-      licenseUrl: this.ontService
-        .getSpdxTerm(sim.license.id)
-        .pipe(pluck('url')),
+        : null,
+      licenseUrl: sim.license
+        ? this.ontService
+          .getSpdxTerm(sim.license.id)
+          .pipe(pluck('url'))
+        : null,
       versions: this.simService
         .getVersions(sim.id)
-        .pipe(map((value: Version[]) => value.map(this.setVersionDate))),
+        .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
+      interfaceTypes: sim.interfaceTypes
+        .map((interfaceType: SoftwareInterfaceType): string => {
+          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+        })
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
+      supportedOperatingSystemTypes: sim.supportedOperatingSystemTypes.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: ILinguistOntologyId, b: ILinguistOntologyId) => {
+        return a.id.localeCompare(b.id, undefined, { numeric: true });
+      }),
+      curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
+      funding: sim.funding.map(this.getFunding, this),
+      created: this.getDateStr(new Date(sim.biosimulators.created)),
+      updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
 
-    const unresolvedAlgorithms = sim.algorithms.map(this.mapAlgorithms, this);
+    const unresolvedAlgorithms = sim.algorithms.filter((alg: Algorithm) => { return !!alg.kisaoId; }).map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
       (algorithms: ViewAlgorithm[] | undefined) => {
         if (algorithms !== undefined) {
           algorithms.sort((a, b) => {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
           });
+          
           algorithms.forEach((algorithm: ViewAlgorithm): void => {
-            algorithm.parameters.forEach((parameter: ViewParameter): void => {
+            algorithm.modelingFrameworks.sort((a: ViewFramework, b: ViewFramework): number => {
+              return a.name.localeCompare(b.name, undefined, { numeric: true });
+            });           
+            algorithm.modelFormats.sort((a: ViewFormat, b: ViewFormat): number => {
+              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
+            });
+            algorithm.simulationFormats.sort((a: ViewFormat, b: ViewFormat): number => {
+              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
+            });
+            algorithm.archiveFormats.sort((a: ViewFormat, b: ViewFormat): number => {
+              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
+            });
+
+            algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
-                parameter.type !==
-                  AlgorithmParameterType[AlgorithmParameterType.integer] &&
-                parameter.type !==
-                  AlgorithmParameterType[AlgorithmParameterType.float] &&
-                Array.isArray(parameter.range)
+                parameter.type !== ValueType.boolean &&
+                parameter.type !== ValueType.integer &&
+                parameter.type !== ValueType.float &&
+                parameter.range
               ) {
-                parameter.range.sort((a, b) => {
+                (parameter.range as string[]).sort((a: string, b: string) => {
                   return a.localeCompare(b, undefined, { numeric: true });
                 });
               }
@@ -138,7 +184,7 @@ export class ViewSimulatorService {
     const kisaoName = kisaoTerm.pipe(pluck('name'));
 
     return {
-      id: value.kisaoId.id,
+      kisaoId: value.kisaoId.id,
 
       name: kisaoName,
       heading: kisaoName.pipe(
@@ -148,79 +194,95 @@ export class ViewSimulatorService {
         pluck('description'),
         map(this.formatKisaoDescription)
       ),
-      url: kisaoTerm.pipe(pluck('url')),
-      frameworks: value.modelingFrameworks.map(this.getFrameworks, this),
-      formats: value.modelFormats.map(this.getFormats, this),
-      parameters: value.parameters.map(this.getParameters, this),
+      kisaoUrl: kisaoTerm.pipe(pluck('url')),
+      modelingFrameworks: value.modelingFrameworks.map(this.getFrameworks, this),
+      modelFormats: value.modelFormats.map(this.getFormats, this),
+      simulationFormats: value.simulationFormats.map(this.getFormats, this),
+      archiveFormats: value.archiveFormats.map(this.getFormats, this),
+      parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
+      availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
+        .map((interfaceType: SoftwareInterfaceType): string => {
+          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+        })
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
+      dependencies: value?.dependencies 
+        ? value?.dependencies?.sort((a: DependentPackage, b: DependentPackage) => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          })
+        : null,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
         : [],
     };
   }
+
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
-    let value;
-    if (parameter.type === 'kisaoId') {
-      value = this.ontService
-        .getKisaoTerm(parameter.value.toString())
-        .pipe(pluck('name'));
-    } else {
-      value = parameter.value;
-    }
-
     return {
-      id: parameter.id,
       name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
-      value,
+      value: this.parseParameterVal(parameter.type, parameter.value),
       range: parameter.recommendedRange
-        ? parameter.recommendedRange.map((val: { toString: () => string }):
-            | string
-            | Observable<string> => {
-            const strVal = val.toString();
-
-            if (parameter.type === 'kisaoId') {
-              return this.ontService.getKisaoTerm(strVal).pipe(pluck('name'));
-            } else {
-              return strVal;
-            }
-          })
+        ? parameter.recommendedRange.map(this.parseParameterVal.bind(this, parameter.type)) as (boolean | number | string | Observable<string>)[]
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
+      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
+        .sort((a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        }),
     };
   }
+
+  parseParameterVal(type: string, val: string | null): boolean | number | string | Observable<string> | null {
+    if (val == null || val === '') {
+      return null;
+    } else {
+      if (type === ValueType.kisaoId) {
+        return this.ontService
+          .getKisaoTerm(val)
+          .pipe(pluck('name'));
+      } else if (type === ValueType.boolean) {
+        return ['1', 'true'].includes(val.toLowerCase());
+      } else if (type === ValueType.integer) {
+        return parseInt(val);
+      } else if (type === ValueType.float) {
+        return parseFloat(val);
+      } else {
+        return val;
+      }
+    }
+  }
+
   getFrameworks(value: ISboOntologyId): Observable<ViewFramework> {
     return this.ontService.getSboTerm(value.id);
   }
-  getFormats(value: IEdamOntologyId): Observable<ViewFormat> {
-    return this.ontService.getEdamTerm(value.id);
-  }
-  setVersionDate(value: Version): ViewVersion {
-    let created: Date = value.date;
-    created = new Date(created);
-    const date =
-      created.getFullYear().toString() +
-      '-' +
-      (created.getMonth() + 1).toString().padStart(2, '0') +
-      '-' +
-      created.getDate().toString().padStart(2, '0');
 
+  getFormats(value: IEdamOntologyIdVersion): ViewFormatObservable {
     return {
-      label: value.version,
-      date: date,
-      url: value.url,
-      image: value.image,
+      term: this.ontService.getEdamTerm(value.id),
+      version: value.version,
+      supportedFeatures: value?.supportedFeatures?.sort((a: string, b: string) => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      }),
     };
   }
-  getAuthors(simulator: Simulator): string | null {
-    const authors = simulator?.authors?.map(
-      (author: {
-        lastName: string;
-        middleName: string | null;
-        firstName: string;
-      }) => {
+
+  setVersionDate(value: Version): ViewVersion {
+    return {
+      label: value.version,
+      created: this.getDateStr(new Date(value.created as Date)),
+      image: value.image,
+      curationStatus: value.curationStatus,
+    };
+  }
+
+  getAuthors(simulator: Simulator): ViewAuthor[] {
+    return simulator?.authors?.map(
+      (author: Person): ViewAuthor => {
         let name = author.lastName;
         if (author.middleName) {
           name = author.middleName + ' ' + name;
@@ -228,27 +290,25 @@ export class ViewSimulatorService {
         if (author.firstName) {
           name = author.firstName + ' ' + name;
         }
-        return name;
+
+        let orcidUrl: string | null = null;
+        for (const identifier of author.identifiers) {
+          if (identifier.namespace === "orcid") {
+            orcidUrl = identifier.url
+          }
+        }
+
+        return { name, orcidUrl };
       }
     );
-    if (!authors) {
+  }
+
+  formatKisaoDescription(value: string | null): DescriptionFragment[] | null {
+    if (value == null) {
       return null;
     }
-    switch (authors.length) {
-      case 0:
-        return null;
 
-      case 1:
-        return authors[0];
-
-      default:
-        return (
-          authors.slice(0, -1).join(', ') + ' & ' + authors[authors.length - 1]
-        );
-    }
-  }
-  formatKisaoDescription(value: string): DescriptionFragment[] {
-    const formattedValue = [];
+    const formattedValue: DescriptionFragment[] = [];
     let prevEnd = 0;
 
     const regExp = /\[(https?:\/\/.*?)\]/gi;
@@ -274,13 +334,15 @@ export class ViewSimulatorService {
     }
     return formattedValue;
   }
-  makeIdentifier(identifier: any): ViewIdentifier {
+
+  makeIdentifier(identifier: Identifier): ViewIdentifier {
     return {
       text: identifier.namespace + ':' + identifier.id,
       url: this.getIdentifierUrl(identifier),
     };
   }
-  makeCitation(citation: any): ViewCitation {
+
+  makeCitation(citation: Citation): ViewCitation {
     let text = citation.authors + '. ' + citation.title;
     if (citation.journal) {
       text += '. <i>' + citation.journal + '</i>';
@@ -307,26 +369,27 @@ export class ViewSimulatorService {
       url: url,
     };
   }
-  getIdentifierUrl(identifier: any): string | null {
-    const url = (identifier?.url as string) || null;
-    if (url) {
-      return url;
-    }
 
-    const namespace = identifier.namespace;
-    const id = identifier.id;
-    switch (namespace.toLowerCase()) {
-      case 'doi':
-        return 'https://doi.org/' + id;
-        break;
-      case 'isbn':
-        return 'https://isbndb.com/book/' + id;
-        break;
-      case 'url':
-        return id;
-        break;
-      default:
-        return 'https://identifiers.org/' + namespace + '/' + id;
+  getIdentifierUrl(identifier: Identifier): string {
+    return identifier.url;
+  }
+
+  getDateStr(date: Date): string {
+    return (
+      date.getFullYear().toString() +
+      '-' +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
+      '-' +
+      date.getDate().toString().padStart(2, '0')
+    );
+  }
+
+  getFunding(funding: Funding): ViewFunding {
+    return {
+      funderName: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('name')),
+      funderUrl: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('url')),
+      grant: funding.grant,
+      url: funding.url,
     }
   }
 }

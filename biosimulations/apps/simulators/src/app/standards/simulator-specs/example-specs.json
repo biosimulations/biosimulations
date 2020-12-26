@@ -1,0 +1,722 @@
+{
+  "id": "tellurium",
+  "name": "tellurium",
+  "version": "2.1.6",
+  "description": "Tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.",
+  "urls": [{
+      "type": "Home page",
+      "url": "http://tellurium.analogmachine.org/"
+    },
+    {
+      "type": "Discussion forum",
+      "url": "https://groups.google.com/d/forum/tellurium-discuss"
+    },
+    {
+      "type": "Tutorial",
+      "url": "https://tellurium.readthedocs.io/en/latest/quickstart.html"
+    },
+    {
+      "type": "Installation instructions",
+      "url": "https://github.com/sys-bio/tellurium#installation-instructions"
+    },
+    {
+      "type": "Documentation",
+      "url": "https://tellurium.readthedocs.io/"
+    },
+    {
+      "type": "Source repository",
+      "url": "https://github.com/sys-bio/tellurium"
+    },
+    {
+      "type": "Guide to contributing",
+      "url": "https://github.com/sys-bio/tellurium/blob/develop/CONTRIBUTING.rst"
+    },
+    {
+      "type": "Issue tracker",
+      "url": "https://github.com/sys-bio/tellurium/issues"
+    },
+    {
+      "type": "License",
+      "url": "https://github.com/sys-bio/tellurium/blob/develop/LICENSE.txt"
+    },
+    {
+      "type": "Release notes",
+      "url": "http://tellurium.analogmachine.org/news/"
+    }
+  ],
+  "image": {
+    "url": "ghcr.io/biosimulators/biosimulators_tellurium/tellurium:2.1.6",
+    "format": {
+      "namespace": "EDAM",
+      "id": "format_3973",
+      "version": "1.2.0",
+      "supportedFeatures": []
+    },
+    "operatingSystemType": "Linux"
+  },
+  "authors": [{
+      "firstName": "Jayit",
+      "lastName": "Biswas",
+      "identifiers": []
+    },
+    {
+      "firstName": "Kiri",
+      "lastName": "Choi",
+      "identifiers": [{
+        "namespace": "orcid",
+        "id": "0000-0002-0156-8410",
+        "url": "https://orcid.org/0000-0002-0156-8410"
+      }]
+    },
+    {
+      "firstName": "Wilbert",
+      "lastName": "Copeland",
+      "identifiers": []
+    },
+    {
+      "firstName": "Caroline",
+      "lastName": "Cannistra",
+      "identifiers": []
+    },
+    {
+      "firstName": "Alex",
+      "lastName": "Darling",
+      "identifiers": []
+    },
+    {
+      "firstName": "Nasir",
+      "lastName": "Elmi",
+      "identifiers": []
+    },
+    {
+      "firstName": "Michal",
+      "lastName": "Galdzicki",
+      "identifiers": [{
+        "namespace": "orcid",
+        "id": "0000-0002-8392-8183",
+        "url": "https://orcid.org/0000-0002-8392-8183"
+      }]
+    },
+    {
+      "firstName": "Stanley",
+      "lastName": "Gu",
+      "identifiers": []
+    },
+    {
+      "firstName": "Totte",
+      "lastName": "Karlsson",
+      "identifiers": []
+    },
+    {
+      "firstName": "Matthias",
+      "lastName": "König",
+      "identifiers": [{
+        "namespace": "orcid",
+        "id": "0000-0003-1725-179X",
+        "url": "https://orcid.org/0000-0003-1725-179X"
+      }]
+    },
+    {
+      "firstName": "J",
+      "middleName": "Kyle",
+      "lastName": "Medley",
+      "identifiers": [{
+        "namespace": "orcid",
+        "id": "0000-0002-9135-0844",
+        "url": "https://orcid.org/0000-0002-9135-0844"
+      }]
+    },
+    {
+      "firstName": "Herbert",
+      "middleName": "M.",
+      "lastName": "Sauro",
+      "identifiers": [{
+        "namespace": "orcid",
+        "id": "0000-0002-3659-6817",
+        "url": "https://orcid.org/0000-0002-3659-6817"
+      }]
+    },
+    {
+      "firstName": "Andy",
+      "lastName": "Somogyi",
+      "identifiers": []
+    },
+    {
+      "firstName": "Lucian",
+      "lastName": "Smith",
+      "identifiers": [{
+        "namespace": "orcid",
+        "id": "0000-0001-7002-6386",
+        "url": "https://orcid.org/0000-0001-7002-6386"
+      }]
+    },
+    {
+      "firstName": "Kaylene",
+      "lastName": "Stocking",
+      "identifiers": []
+    }
+  ],
+  "references": {
+    "identifiers": [{
+        "namespace": "pypi",
+        "id": "tellurium",
+        "url": "https://pypi.org/project/tellurium/"
+      },
+      {
+        "namespace": "pypi",
+        "id": "biosimulators-tellurium",
+        "url": "https://pypi.org/project/biosimulators-tellurium/"
+      },
+      {
+        "namespace": "nanohub.resource",
+        "id": "tellurium",
+        "url": "https://nanohub.org/resources/tellurium"
+      }
+    ],
+    "citations": [{
+      "title": "Tellurium: an extensible Python-based modeling environment for systems and synthetic biology",
+      "authors": "Kiri Choi, J. Kyle Medley, Matthias König, Kaylene Stocking, Lucian Smith, Stanley Gua & Herbert M. Sauro",
+      "journal": "BioSystems",
+      "volume": 171,
+      "pages": "74-79",
+      "year": 2018,
+      "identifiers": [{
+        "namespace": "doi",
+        "id": "10.1016/j.biosystems.2018.07.006",
+        "url": "https://doi.org/10.1016/j.biosystems.2018.07.006"
+      }]
+    }]
+  },
+  "license": {
+    "namespace": "SPDX",
+    "id": "Apache-2.0"
+  },
+  "algorithms": [{
+      "id": "cvode",
+      "name": "C-language Variable-coefficient Ordinary Differential Equation solver",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000019"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000293"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585",
+        "version": "L3V2",
+        "supportedFeatures": []
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686",
+        "version": "1",
+        "supportedFeatures": []
+      }],
+      "citations": [{
+        "title": "CVODE, a stiff/nonstiff ODE solver in C",
+        "authors": "Scott D. Cohen, Alan C. Hindmarsh & Paul F. Dubois",
+        "journal": "Computers in Physics",
+        "volume": 10,
+        "issue": 2,
+        "pages": "138-143",
+        "year": 1996,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1063/1.4822377",
+          "url": "https://doi.org/10.1063/1.4822377"
+        }]
+      }],
+      "parameters": [{
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000209"
+          },
+          "id": "relative_tolerance",
+          "name": "Relative tolerance",
+          "type": "float",
+          "value": "0.000001",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000211"
+          },
+          "id": "absolute_tolerance",
+          "name": "Absolute tolerance",
+          "type": "float",
+          "value": "1e-12",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000220"
+          },
+          "id": "maximum_bdf_order",
+          "name": "Maximum Backward Differentiation Formula (BDF) order",
+          "type": "integer",
+          "value": "5",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000219"
+          },
+          "id": "maximum_adams_order",
+          "name": "Maximum Adams order",
+          "type": "integer",
+          "value": "12",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000415"
+          },
+          "id": "maximum_num_steps",
+          "name": "Maximum number of steps",
+          "type": "integer",
+          "value": "20000",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000467"
+          },
+          "id": "maximum_time_step",
+          "name": "Maximum time step",
+          "type": "float",
+          "value": null,
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000485"
+          },
+          "id": "minimum_time_step",
+          "name": "Minimum time step",
+          "type": "float",
+          "value": null,
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000332"
+          },
+          "id": "initial_time_step",
+          "name": "Initial time step",
+          "type": "float",
+          "value": null,
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000107"
+          },
+          "id": "variable_step_size",
+          "name": "Adaptive time steps",
+          "type": "boolean",
+          "value": "false",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        }
+      ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
+      "dependencies": [{
+          "name": "libRoadRunner",
+          "version": null,
+          "required": true,
+          "freeNonCommercialLicense": true,
+          "url": "http://libroadrunner.org/"
+        },
+        {
+          "name": "SUNDIALS",
+          "version": null,
+          "required": true,
+          "freeNonCommercialLicense": true,
+          "url": "https://computing.llnl.gov/projects/sundials"
+        }
+      ]
+    },
+    {
+      "id": "runge_kutta_4",
+      "name": "Runge-Kutta fourth order method",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000032"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000293"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585",
+        "version": "L3V2",
+        "supportedFeatures": []
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686",
+        "version": "1",
+        "supportedFeatures": []
+      }],
+      "parameters": [],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
+      "dependencies": [{
+        "name": "libRoadRunner",
+        "version": null,
+        "required": true,
+        "freeNonCommercialLicense": true,
+        "url": "http://libroadrunner.org/"
+      }],
+      "citations": []
+    },
+    {
+      "id": "runge_kutta_45",
+      "name": "Fehlberg method",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000086"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000293"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585",
+        "version": "L3V2",
+        "supportedFeatures": []
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686",
+        "version": "1",
+        "supportedFeatures": []
+      }],
+      "parameters": [{
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000107"
+          },
+          "name": "Adaptive time steps",
+          "type": "boolean",
+          "value": "true",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000485"
+          },
+          "name": "Minimum time step",
+          "type": "float",
+          "value": "1e-12",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000467"
+          },
+          "name": "Maximum time step",
+          "type": "float",
+          "value": "1.0",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        }
+      ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
+      "dependencies": [{
+        "name": "libRoadRunner",
+        "version": null,
+        "required": true,
+        "freeNonCommercialLicense": true,
+        "url": "http://libroadrunner.org/"
+      }],
+      "citations": []
+    },
+    {
+      "id": "gillespie_direct_ssa",
+      "name": "Gillespie direct method of the Stochastic Simulation Algorithm (SSA)",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000029"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000295"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585",
+        "version": "L3V2",
+        "supportedFeatures": []
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686",
+        "version": "1",
+        "supportedFeatures": []
+      }],
+      "citations": [{
+        "title": "Exact stochastic simulation of coupled chemical reactions",
+        "authors": "Daniel T. Gillespie",
+        "journal": "Journal of Physical Chemistry",
+        "volume": 81,
+        "issue": 25,
+        "pages": "2340-2361",
+        "year": 1977,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1021/j100540a008",
+          "url": "https://doi.org/10.1021/j100540a008"
+        }]
+      }],
+      "parameters": [{
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000488"
+          },
+          "name": "Random number generator seed",
+          "type": "integer",
+          "value": "0",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000107"
+          },
+          "name": "Adaptive time steps",
+          "type": "boolean",
+          "value": "true",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000332"
+          },
+          "name": "Initial time step",
+          "type": "float",
+          "value": null,
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000485"
+          },
+          "name": "Minimum time step",
+          "type": "float",
+          "value": null,
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000467"
+          },
+          "name": "Maximum time step",
+          "type": "float",
+          "value": null,
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        }
+      ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
+      "dependencies": [{
+        "name": "libRoadRunner",
+        "version": null,
+        "required": true,
+        "freeNonCommercialLicense": true,
+        "url": "http://libroadrunner.org/"
+      }]
+    },
+    {
+      "id": "nleq2",
+      "name": "Newton-type method for solveing non-linear (NL) equations (EQ)",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000408"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000293"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585",
+        "version": "L3V2",
+        "supportedFeatures": []
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686",
+        "version": "1",
+        "supportedFeatures": []
+      }],
+      "citations": [{
+          "title": "A family of Newton codes for systems of highly nonlinear equations - algorithm, implementation, application",
+          "authors": "Ulrich Nowak & Lutz Weimann",
+          "journal": "Konrad-Zuse-Zentrum für Informationstechnik Berlin",
+          "volume": "91-10",
+          "year": 1991,
+          "identifiers": [{
+            "namespace": "citeseerx",
+            "id": "10.1.1.43.3751",
+            "url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.3751"
+          }]
+        },
+        {
+          "title": "Newton methods for nonlinear problems",
+          "authors": "Peter Deuflhard",
+          "journal": "Affine Invariance and Adaptive Algorithms",
+          "year": 2004,
+          "identifiers": [{
+            "namespace": "doi",
+            "id": "10.1007/978-3-642-23899-4",
+            "url": "https://doi.org/10.1007/978-3-642-23899-4"
+          }]
+        }
+      ],
+      "parameters": [{
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000209"
+          },
+          "name": "Relative tolerance",
+          "type": "float",
+          "value": "1e-12",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000486"
+          },
+          "name": "Maximum number of iterations",
+          "type": "integer",
+          "value": "100",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000487"
+          },
+          "name": "Minimum damping factor",
+          "type": "float",
+          "value": "1e-20",
+          "recommendedRange": null,
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        }
+      ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
+      "dependencies": [{
+        "name": "libRoadRunner",
+        "version": null,
+        "required": true,
+        "freeNonCommercialLicense": true,
+        "url": "http://libroadrunner.org/"
+      }]
+    }
+  ],
+  "interfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
+  "supportedOperatingSystemTypes": ["platform-independent"],
+  "supportedProgrammingLanguages": [{
+      "namespace": "Linguist",
+      "id": "Python"
+    },
+    {
+      "namespace": "Linguist",
+      "id": "C"
+    },
+    {
+      "namespace": "Linguist",
+      "id": "C++"
+    },
+    {
+      "namespace": "Linguist",
+      "id": "C#"
+    }
+  ],
+  "funding": [{
+      "funder": {
+        "namespace": "FunderRegistry",
+        "id": "100000057"
+      },
+      "grant": "R01-GM123032",
+      "url": "https://grantome.com/grant/NIH/R01-GM123032"
+    },
+    {
+      "funder": {
+        "namespace": "FunderRegistry",
+        "id": "100000057"
+      },
+      "grant": "R01-GM081070",
+      "url": "https://grantome.com/grant/NIH/R01-GM081070"
+    }
+  ],
+  "biosimulators": {
+    "specificationVersion": "1.0.0",
+    "imageVersion": "1.0.0",
+    "validated": false
+  }
+}

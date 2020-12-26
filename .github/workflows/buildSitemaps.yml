@@ -23,7 +23,7 @@ jobs:
       
       - name: Install Python 3.7 and pip
         run: |
-          sudo apt-get update
+          sudo apt-get update -y
           sudo apt-get install -y --no-install-recommends software-properties-common
           sudo add-apt-repository -y ppa:deadsnakes/ppa
           sudo apt-get install -y --no-install-recommends \
@@ -43,9 +43,12 @@ jobs:
       - name: Commit updated sitemaps to repository
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          token: ${{secrets.GITHUB_TOKEN }}
           branch: sitemaps
           base: dev
           commit-message: "Updated sitemaps"
           committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
           author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          delete-branch: true
+          title: Update Sitemaps
+          body: Updates and builds the sitemaps for each app

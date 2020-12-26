@@ -5,7 +5,6 @@ import {
   Body,
   Param,
   UseGuards,
-  Req,
   Delete,
 } from '@nestjs/common';
 
@@ -14,7 +13,6 @@ import { Account, Profile } from './account.model';
 import {
   ApiProperty,
   ApiPropertyOptional,
-  ApiSecurity,
   ApiOAuth2,
 } from '@nestjs/swagger';
 
@@ -26,10 +24,12 @@ import {
 import { getUserId } from '@biosimulations/auth/common';
 
 class CreateAccountDTO {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   username!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   token!: string;
+
   @ApiPropertyOptional({ type: () => Profile })
   profile?: Profile;
 }

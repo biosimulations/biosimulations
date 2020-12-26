@@ -1,27 +1,36 @@
 import { Observable } from 'rxjs';
+import { Url, IImage, DependentPackage, ILinguistOntologyId } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
-  id: string;
+  kisaoId: string;
   heading: string;
   name: string;
-  description: DescriptionFragment[];
-  url: string;
-  frameworks: ViewFramework[];
-  formats: ViewFormat[];
-  parameters: ViewParameter[];
+  description: DescriptionFragment[] | null;
+  kisaoUrl: string;
+  modelingFrameworks: ViewFramework[];
+  modelFormats: ViewFormat[];
+  simulationFormats: ViewFormat[];
+  archiveFormats: ViewFormat[];
+  parameters: ViewParameter[] | null;
   citations: ViewCitation[];
+  availableSoftwareInterfaceTypes: string[];
+  dependencies: DependentPackage[] | null;
 }
 
 export interface ViewAlgorithmObservable {
-  id: string;
+  kisaoId: string;
   heading: Observable<string>;
   name: Observable<string>;
-  description: Observable<DescriptionFragment[]>;
-  url: Observable<string>;
-  frameworks: Observable<ViewFramework>[];
-  formats: Observable<ViewFormat>[];
-  parameters: ViewParameterObservable[];
+  description: Observable<DescriptionFragment[]| null>;
+  kisaoUrl: Observable<string>;
+  modelingFrameworks: Observable<ViewFramework>[];
+  modelFormats: ViewFormatObservable[];
+  simulationFormats: ViewFormatObservable[];
+  archiveFormats: ViewFormatObservable[];
+  parameters: ViewParameterObservable[] | null;
   citations: ViewCitation[];
+  availableSoftwareInterfaceTypes: string[];
+  dependencies: DependentPackage[] | null;
 }
 
 export enum DescriptionFragmentType {
@@ -41,34 +50,46 @@ export interface ViewFramework {
 }
 
 export interface ViewFormat {
+  term: ViewFormatTerm,
+  version: string | null;
+  supportedFeatures: string[];
+}
+
+export interface ViewFormatObservable {
+  term: Observable<ViewFormatTerm>,
+  version: string | null;
+  supportedFeatures: string[];
+}
+
+export interface ViewFormatTerm {
   id: string;
   name: string;
   url: string;
 }
 
 export interface ViewParameter {
-  id: string;
   name: string;
   type: string;
-  value: boolean | number | string;
-  range: string[] | null;
+  value: boolean | number | string | null;
+  range: (boolean | number | string)[] | null;
   kisaoId: string;
   kisaoUrl: string;
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewParameterObservable {
-  id: string;
   name: Observable<string>;
   type: string;
-  value: boolean | number | string | Observable<string>;
-  range: (string | Observable<string>)[] | null;
+  value: boolean | number | string | Observable<string> | null;
+  range: (boolean | number | string | Observable<string>)[] | null;
   kisaoId: string;
   kisaoUrl: string;
+  availableSoftwareInterfaceTypes: string[];
 }
 
 export interface ViewIdentifier {
   text: string;
-  url: string | null;
+  url: string;
 }
 
 export interface ViewCitation {
@@ -78,9 +99,21 @@ export interface ViewCitation {
 
 export interface ViewVersion {
   label: string;
-  date: string;
-  image: string;
-  url?: string;
+  created: string;
+  image: IImage | null;
+  curationStatus: string;
+}
+
+export interface ViewAuthor {
+  name: string;
+  orcidUrl: string | null;
+}
+
+export interface ViewFunding {
+  funderName: Observable<string>;
+  funderUrl: Observable<string>;
+  grant: string | null;
+  url: string | null;
 }
 
 export interface ViewSimulator {
@@ -89,13 +122,20 @@ export interface ViewSimulator {
   version: string;
   name: string;
   description: string | null;
-  image: string;
-  url: string;
-  licenseUrl: Observable<string>;
-  licenseName: Observable<string>;
-  authors: string | null;
+  image: IImage | null;
+  urls: Url[];
+  licenseUrl: Observable<string> | null;
+  licenseName: Observable<string> | null;
+  authors: ViewAuthor[];
   identifiers: ViewIdentifier[];
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
-  versions: Observable<ViewVersion[]>;
+  interfaceTypes: string[];
+  supportedOperatingSystemTypes: string[];
+  supportedProgrammingLanguages: ILinguistOntologyId[];
+  versions: Observable<ViewVersion[]>;  
+  curationStatus: string;
+  funding: ViewFunding[];
+  created: string;
+  updated: string;
 }

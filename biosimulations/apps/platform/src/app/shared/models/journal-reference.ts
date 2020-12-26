@@ -7,7 +7,6 @@ export interface JournalReferenceSerialized {
   number?: number;
   pages?: string;
   year?: number;
-  doi?: string;
 }
 interface Names {
   firstName: string;
@@ -22,7 +21,6 @@ export class Citation {
   public num: number | string | null;
   public pages: string | null;
   public year: number;
-  public doi: string | null;
   serialize(): JournalReferenceDTO {
     const json = {
       authors: this.authors,

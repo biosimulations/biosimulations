@@ -1,5 +1,4 @@
-name: Update JSON versions of ontologies
-
+name: Ontology Update
 on:
   schedule:
     - cron: '0 0 * * 0' # weekly
@@ -21,6 +20,18 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Install dependencies
+        run: sudo apt-get install -y --no-install-recommends wget
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: Install Python packages
+        run: |
+          python -m pip install -r ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies-requirements.txt
+
       - name: Update ontologies
         run: ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
 
@@ -33,3 +44,8 @@ jobs:
           commit-message: "Updated ontologies"
           committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
           author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
+          delete-branch: true
+          title: Update Ontologies
+          body: Updates the JSON-LD files that contains the ontologies using the latest OWL file at the IRIs
+          labels: |
+            automerge

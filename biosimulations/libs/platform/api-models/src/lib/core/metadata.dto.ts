@@ -5,28 +5,38 @@ import { License, AccessLevel } from '@biosimulations/datamodel/common';
 import { Person, ExternalReferences } from '../common/index';
 
 export class AttributesMetadata {
-  @ApiProperty({ enum: () => License })
+  @ApiProperty({ type: String, enum: () => License })
   license!: License;
+
   @ApiProperty({ type: () => [Person] })
   authors!: Person[];
+
   @ApiProperty({ type: () => ExternalReferences })
   references!: ExternalReferences;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   summary!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   description!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: [String] })
   tags!: string[];
-  @ApiProperty({ enum: () => AccessLevel })
+
+  @ApiProperty({ type: String, enum: () => AccessLevel })
   accessLevel!: AccessLevel;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   name!: string;
 }
+
 export class ResourceMetadata {
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   created!: number;
-  @ApiProperty()
+
+  @ApiProperty({ type: Number })
   updated!: number;
-  @ApiProperty()
+
+  @ApiProperty({ type: Number })
   version!: number;
 }

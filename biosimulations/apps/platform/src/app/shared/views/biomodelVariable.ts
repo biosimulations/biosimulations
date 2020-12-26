@@ -1,7 +1,7 @@
 import { ViewModel } from './view';
 import {
   BiomodelVariable as IBP,
-  AlgorithmParameterType,
+  ValueType,
   Identifier,
 } from '@biosimulations/datamodel/common';
 
@@ -22,10 +22,10 @@ export class BiomodelVariable extends ViewModel implements IBP {
     public target: string,
     public group: string,
     public id: string,
-    public name: string,
-    public description: string,
+    public name: string | null,
+    public description: string | null,
     public identifiers: Identifier[],
-    public type: AlgorithmParameterType,
+    public type: ValueType,
 
     public units: string
   ) {

@@ -4,9 +4,9 @@ export interface Citation {
   authors: string;
   title: string;
   journal: string | null;
-  volume: string | number | null;
-  issue: string | number | null;
+  volume: string | null;
+  issue: string | null;
   pages: string | null;
   year: number;
-  identifiers: Identifier[] | null;
+  identifiers: Identifier[];
 }

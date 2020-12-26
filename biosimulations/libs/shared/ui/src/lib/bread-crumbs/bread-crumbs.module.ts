@@ -7,8 +7,6 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BreadCrumbsComponent } from './bread-crumbs.component';
 import { BreadCrumbsButtonComponent } from './bread-crumbs-button/bread-crumbs-button.component';
 
-
-
 @NgModule({
   declarations: [BreadCrumbButtonsComponent, BreadCrumbsComponent, BreadCrumbsButtonComponent],
   imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule

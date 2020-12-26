@@ -8,6 +8,9 @@ import { MatTab } from '@angular/material/tabs';
 })
 export class TabPageTabComponent {
   @Input()
+  urlHashFragment?: string;
+
+  @Input()
   heading!: string;
 
   @Input()
@@ -17,9 +20,13 @@ export class TabPageTabComponent {
   partialWidth = false;
 
   @Input()
+  fullHeight = false;
+
+  @Input()
   disabled = false;
 
-  @ViewChild(MatTab) tab!: MatTab;
+  @Input()
+  loading = false;
 
-  constructor() {}
+  @ViewChild(MatTab) tab!: MatTab;
 }

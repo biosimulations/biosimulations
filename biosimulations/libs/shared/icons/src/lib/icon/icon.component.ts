@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 interface IconInfo {
   type: 'mat' | 'fas' | 'fab' | 'far' | 'cc';
   name: string;
+  spin?: boolean;
 }
 
 export type biosimulationsIcon =
@@ -11,6 +12,7 @@ export type biosimulationsIcon =
   | 'help'
   | 'tutorial'
   | 'info'
+  | 'contact'
   | 'legal'
   | 'policy'
   | 'comment'
@@ -31,6 +33,7 @@ export type biosimulationsIcon =
   | 'project'
   | 'model'
   | 'simulation'
+  | 'experiment'
   | 'task'
   | 'chart'
   | 'visualization'
@@ -51,8 +54,13 @@ export type biosimulationsIcon =
   | 'taxon'
   | 'framework'
   | 'format'
+  | 'standard'
   | 'code'
+  | 'operatingSystem'
+  | 'softwareInterface'
   | 'license'
+  | 'free'
+  | 'paid'
   | 'id'
   | 'tag'
   | 'tags'
@@ -82,7 +90,12 @@ export type biosimulationsIcon =
   | 'toTop'
   | 'more'
   | 'construction'
-  | 'maintainence';
+  | 'maintainence'
+  | 'valid'
+  | 'invalid'
+  | 'funding'
+  | 'spinner'
+  | 'trash';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -120,6 +133,7 @@ export class IconComponent implements OnInit {
     help: { type: 'fas', name: 'question-circle' },
     tutorial: { type: 'fas', name: 'book-open' },
     info: { type: 'fas', name: 'info-circle' },
+    contact: { type: 'fas', name: 'comment-dots' },
     legal: { type: 'fas', name: 'balance-scale' },
     policy: { type: 'fas', name: 'shield-alt' },
     comment: { type: 'fas', name: 'comment-dots' },
@@ -128,6 +142,7 @@ export class IconComponent implements OnInit {
     project: { type: 'fas', name: 'folder-open' },
     model: { type: 'fas', name: 'project-diagram' },
     simulation: { type: 'mat', name: 'timeline' },
+    experiment: { type: 'fas', name: 'flask' },
     task: { type: 'fas', name: 'tasks' },
     chart: { type: 'fas', name: 'chart-bar' },
     visualization: { type: 'fas', name: 'paint-brush' },
@@ -149,8 +164,13 @@ export class IconComponent implements OnInit {
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
     format: { type: 'far', name: 'file-alt' },
+    standard: { type: 'fas', name: 'check-double' },
     code: { type: 'fas', name: 'code' },
+    operatingSystem: { type: 'fas', name: 'cog' },
+    softwareInterface: { type: 'fas', name: 'desktop' },
     license: { type: 'fas', name: 'balance-scale' },
+    free: { type: 'fas', name: 'lock-open' },
+    paid: { type: 'fas', name: 'lock' },
     simulator: { type: 'fas', name: 'cog' },
     simulators: { type: 'fas', name: 'cogs' },
     repository: { type: 'fas', name: 'database' },
@@ -177,6 +197,11 @@ export class IconComponent implements OnInit {
     fork: { type: 'fas', name: 'code-branch' },
     construction: { type: 'fas', name: 'tools' },
     maintainence: { type: 'fas', name: 'tools' },
+    valid: { type: 'fas', name: 'check' },
+    invalid: { type: 'fas', name: 'times' },
+    funding: { type: 'fas', name: 'dollar-sign' },
+    spinner: { type: 'fas', name: 'spinner', spin: true },
+    trash: { type: 'fas', name: 'trash' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

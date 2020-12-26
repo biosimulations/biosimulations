@@ -1,0 +1,109 @@
+<biosimulations-text-page heading="BioSimulators standard for Docker images of simulators" [tocSections]="tocSections">
+  <ng-container id="sideBar">
+    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+      <div class="hanging-indent">
+        <a [routerLink]="['/help']">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Tutorial
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a [href]="config.apiUrl" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          REST API documentation
+        </a>
+      </div>
+    </biosimulations-text-page-side-bar-section>
+
+    <biosimulations-text-page-help-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-help-side-bar-section>
+
+    <biosimulations-text-page-feedback-side-bar-section fxShow fxHide.lt-md>
+    </biosimulations-text-page-feedback-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content" tocSectionsContainer>
+    <biosimulations-text-page-content-section
+      heading="Overview"
+      tocSection="Overview"
+    >
+      The BioSimulators standard for Docker images of biosimulation software tools outlines the syntax and semantics of the entry points of Docker images of biosimulators. This standard ensures that containerized simulation tools can be consistently executed with the same input arguments (a path to a COMBINE/OMEX archive that defines models and simulations and a path to save the outputs of the simulaton experiments defined in the archive) and that simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats). The standard also specifies how images of biosimulation software tools should use Docker labels to capture metadata about themselves.
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Specifications for entry points"
+      tocSection="Specifications for entry points"
+    >
+      <p>Simulation tools which implement the BioSimulators Docker image standard should provide an entry point that maps to a command-line interface that implements the <a [routerLink]="['/standards', 'simulator-interfaces']">BioSimulators standard for command-line interfaces for biosimulation tools</a>:</p>
+
+      <ul class="vertically-spaced">
+        <li>The entry point should map to a command-line interface for a biosimulator (<code>ENTRYPOINT ["simulator-standard-interface"]</code>).</li>
+        <li>The default arguments for the entry point should be an empty list (<code>CMD []</code>).</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Specifications for labels"
+      tocSection="Specifications for labels"
+    >
+      <p>Simulation tools which implement the BioSimulators Docker image standard should use labels to provide metadata consistent with the Open Containers Initiative <a href="https://opencontainers.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+      <p>Specifically, images should provide the following labels:</p>
+      <ul class="vertically-spaced">
+        <li>Open Containers Initiative labels:
+          <ul>
+            <li><code>org.opencontainers.image.title</code>: Human-readable title of the image.</li>
+            <li><code>org.opencontainers.image.version</code>: Version of the software in the image.</li>
+            <li><code>org.opencontainers.image.revision</code>: Source control revision identifier of the software in the image.</li>
+            <li><code>org.opencontainers.image.description</code>: Human-readable description of the software in the image.</li>
+            <li><code>org.opencontainers.image.url</code>: URL to find more information about the image.</li>
+            <li><code>org.opencontainers.image.documentation</code>: URL to get documentation about the image.</li>
+            <li><code>org.opencontainers.image.source</code>: URL to get the Dockerfile for building the image.</li>
+            <li><code>org.opencontainers.image.authors</code>: Contact details of the people or organization responsible for the image.</li>
+            <li><code>org.opencontainers.image.vendor</code>: Name of the entity, organization or individual which distributes the image.</li>
+            <li><code>org.opencontainers.image.licenses</code>: SPDX expression which describes the license(s) under which the software in the image is distributed.</li>
+            <li><code>org.opencontainers.image.created</code>: Date and time when the image was built (RFC 3339).</li>
+          </ul>
+        </li>
+        <li>BioContainers labels:
+          <ul>
+            <li><code>version</code>: Version of the image (e.g., <code>1.0.0</code>)</li>
+            <li><code>software</code>: Simulation program wrapped into the image (e.g., <code>BioNetGen</code>).</li>
+            <li><code>software.version</code>: Version of the simulation program wrapped into the image (e.g., <code>2.5.0</code>).</li>
+            <li><code>about.summary</code>: Short description of the simulation program (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
+            <li><code>about.home</code>: URL for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+            <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+            <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
+            <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
+            <li><code>about.tags</code>: Comma-separated list of tags which describe the simulation program (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Please include the tag <code>BioSimulators</code>.</li>
+            <li><code>extra.identifiers.biotools</code>: Optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request identifiers for simulation programs.</li>
+            <li><code>maintainer</code>: Name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+          </ul>
+        </li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Additional recommended best practices for Docker images"
+      tocSection="Recommended best practices"
+    >
+      <p>To ensure that containerized simulation tools can be executed inside high-performance computing clusters where root access is typically not allowed and conversion to Singularity images is necessary, we recommend that developers also follow the best practices below for Dockerfiles. For more discusion, we recommend Syslab's best practice guide for Singularity images <a href="https://sylabs.io/guides/3.7/user-guide/singularity_and_docker.html#best-practices" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+      <ul>
+        <li><b>Sources of containerized simulation tools and their dependencies:</b> To ensure that the construction of Docker images is reproducible and portable, the simulation tools inside images should be installed from internet sources rather than the local file system. One exception is licenses that are needed to install commerical software. These can be copied from a local directory such as <code>assets/</code>, deleted and squashed out of the final image, and injected again when the image is executed.</li>
+        <li><b>Installation locations of containerized simulation tools and their dependencies:</b> Because Docker images are typically run as root, <code>/root</code> should be be reserved for the home directory of the user which executes the image. Similarly, <code>/tmp</code> should be reserved for temporary files that must be created during the execution of the image. Consequently, the simulation tools inside containers and their dependencies should be installed to different directories other than <code>/root</code> and <code>/tmp</code>.</li>
+        <li><b>Environment variables:</b> All environment variables that the containerized simulation tool supports should be explicitly defined using the <code>ENV</code> directive.</li>
+        <li><b>User priviledges:</b> Do not use the <code>USER</code> directive.</li>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Example Dockerfile for a simulator"
+      tocSection="Example Dockerfile"
+    >
+    <p>An an example, below is a portion of the Dockerfile for an image for tellurium <a href="http://tellurium.analogmachine.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+    <pre><code [languages]="['dockerfile']" [highlight]="exampleDockerfile"></code></pre>
+  </biosimulations-text-page-content-section>
+  </ng-container>
+</biosimulations-text-page>

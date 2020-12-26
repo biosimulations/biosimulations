@@ -4,7 +4,6 @@ import {
   ExecutionContext,
   ForbiddenException,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
 
@@ -12,10 +11,10 @@ import { IdToken } from '@biosimulations/auth/common';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  constructor() {}
   isAdmin(user: IdToken): boolean {
     return user?.['https://biosimulations.org/roles']?.includes('admin');
   }
+
   canActivate(context: ExecutionContext): boolean {
     const request: Request = context.switchToHttp().getRequest();
 

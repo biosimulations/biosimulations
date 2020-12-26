@@ -12,7 +12,7 @@ import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
 import {
   MARKED_PRELOADING_STRATEGY,
@@ -35,6 +35,17 @@ const routes: Routes = [
       preload: {
         preload: true,
         delay: 500,
+      },
+    },
+  },
+  {
+    path: 'standards',
+    loadChildren: () => import('./standards/standards.module').then((m) => m.StandardsModule),
+    data: {
+      breadcrumb: 'Standards',
+      preload: {
+        preload: true,
+        delay: 1000,
       },
     },
   },
@@ -76,10 +87,11 @@ routes.forEach((route: Route): void => {
     SharedUiModule,
     RoutesModule,
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
-      scrollPositionRestoration: 'disabled',
-      preloadingStrategy: MARKED_PRELOADING_STRATEGY,
-    }),
+    initialNavigation: 'enabled',
+    scrollPositionRestoration: 'disabled',
+    preloadingStrategy: MARKED_PRELOADING_STRATEGY,
+    relativeLinkResolution: 'legacy'
+}),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

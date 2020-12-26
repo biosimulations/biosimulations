@@ -1,14 +1,18 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Simulation, SimulationStatus } from '../../../datamodel';
+import { Simulation } from '../../../datamodel';
+import { SimulationRunStatus } from '../../../datamodel';
 import { SimulationService } from '../../../services/simulation/simulation.service';
+import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import {
   TableComponent,
   Column,
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
+import { ConfigService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
+import exampleSimulationsJson from './example-simulations.json';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -22,8 +26,14 @@ export class BrowseComponent implements OnInit {
       id: 'id',
       heading: 'Id',
       key: 'id',
-      minWidth: 34,
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id];
+      },
+      minWidth: 195,
+      maxWidth: 195,
       filterable: false,
+      showStacked: false,
     },
     {
       id: 'name',
@@ -32,61 +42,66 @@ export class BrowseComponent implements OnInit {
       minWidth: 34,
     },
     {
+      id: 'simulator',
+      heading: 'Simulator',
+      getter: (simulation: Simulation): string => {
+        return simulation.simulator + ' ' + simulation.simulatorVersion;
+      },
+      centerAction: ColumnActionType.href,
+      centerHref: (simulation: Simulation): string => {
+        return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+      },
+      minWidth: 34,
+      show: false,
+    },
+    {
       id: 'status',
       heading: 'Status',
       key: 'status',
-      formatter: (value: SimulationStatus): string => {
-        if (value) {
-          return value.substring(0, 1).toUpperCase() + value.substring(1);
+      formatter: (value: SimulationRunStatus): string => {
+        return SimulationStatusService.getSimulationStatusMessage(value, false);
+      },
+      filterFormatter: (value: SimulationRunStatus): string => {
+        return SimulationStatusService.getSimulationStatusMessage(value, true);
+      },
+      rightIcon: (simulation: Simulation): string | null => {
+        if (SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+          return 'spinner';
         } else {
-          return value;
+          return null;
         }
       },
       comparator: (
-        a: SimulationStatus,
-        b: SimulationStatus,
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
         sign: number
       ): number => {
-        let aVal = 0;
-        if (a === SimulationStatus.queued) aVal = 0;
-        else if (a === SimulationStatus.started) aVal = 1;
-        else if (a === SimulationStatus.succeeded) aVal = 2;
-        else if (a === SimulationStatus.failed) aVal = 3;
-
-        let bVal = 0;
-        if (b === SimulationStatus.queued) bVal = 0;
-        else if (b === SimulationStatus.started) bVal = 1;
-        else if (b === SimulationStatus.succeeded) bVal = 2;
-        else if (b === SimulationStatus.failed) bVal = 3;
-
+        const aVal = SimulationStatusService.getSimulationStatusOrder(a);
+        const bVal = SimulationStatusService.getSimulationStatusOrder(b);
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
         return 0;
       },
-      minWidth: 77,
+      minWidth: 98,
+      maxWidth: 98,
     },
     {
       id: 'runtime',
       heading: 'Runtime',
       key: 'runtime',
-      formatter: (value: number): string | null => {
-        if (value === undefined) {
+      //formatter: SimulationStatusService.formatRuntime.bind(null),
+      getter: (simulation: Simulation): number | null => {
+        if (simulation.runtime == null || simulation.runtime === undefined) {
           return null;
-        }
-
-        if (value > 7 * 24 * 60 * 60) {
-          return (value / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-        } else if (value > 24 * 60 * 60) {
-          return (value / (24 * 60 * 60)).toFixed(1) + ' d';
-        } else if (value > 60 * 60) {
-          return (value / (60 * 60)).toFixed(1) + ' h';
-        } else if (value > 60) {
-          return (value / 60).toFixed(1) + ' m';
-        } else if (value > 1) {
-          return value.toFixed(1) + ' s';
         } else {
-          return (value * 1000).toFixed(1) + ' ms';
+          return simulation.runtime / 1000;
         }
+      },
+      formatter: (valueSec: number | null): string | null => {
+        return SimulationStatusService.formatTime(null, valueSec);
+      },
+      stackedFormatter: (valueSec: number | null): string => {
+        return SimulationStatusService.formatTime('N/A', valueSec) as string;
       },
       filterType: ColumnFilterType.number,
       show: false,
@@ -96,46 +111,47 @@ export class BrowseComponent implements OnInit {
       heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 140,
+      minWidth: 142,
+      maxWidth: 142,
     },
     {
       id: 'updated',
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
-        const dateVal = new Date(value);
         return (
-          dateVal.getFullYear().toString() +
+          value.getFullYear().toString() +
           '-' +
-          (dateVal.getMonth() + 1).toString().padStart(2, '0') +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          dateVal.getDate().toString().padStart(2, '0') +
+          value.getDate().toString().padStart(2, '0') +
           ' ' +
-          dateVal.getHours().toString().padStart(2, '0') +
+          value.getHours().toString().padStart(2, '0') +
           ':' +
-          dateVal.getMinutes().toString().padStart(2, '0') +
+          value.getMinutes().toString().padStart(2, '0') +
           ':' +
-          dateVal.getSeconds().toString().padStart(2, '0')
+          value.getSeconds().toString().padStart(2, '0')
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 140,
+      minWidth: 142,
+      maxWidth: 142,
+      show: false,
     },
     {
       id: 'submittedLocally',
@@ -148,87 +164,214 @@ export class BrowseComponent implements OnInit {
       center: true,
       show: false,
     },
+    /*
     {
       id: 'visualize',
-      heading: 'Visualize',
+      heading: 'Viz',
+      key: 'status',
+      getter: (simulation: Simulation): boolean => {
+        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0);
+      },
       center: true,
       leftIcon: 'chart',
       leftAction: ColumnActionType.routerLink,
-      leftRouterLink: (simulation: Simulation): string[] => {
-        return ['/simulations', simulation.id];
+      leftRouterLink: (simulation: Simulation): string[] | null => {
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
+          return ['/simulations', simulation.id, "#tab=design-viz"];
+        } else {
+          return null;
+        }
       },
-      minWidth: 66,
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (simulation: Simulation): string[] | null => {
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
+          return ['/simulations', simulation.id, "#tab=design-viz"];
+        } else {
+          return null;
+        }
+      },
+      formatter: (hasReports: boolean): null => {
+        return null;
+      },
+      stackedFormatter: (hasReports: boolean): string | null => {
+        if (hasReports) {
+          return 'visualize results';
+        } else {
+          return 'N/A';
+        }
+      },
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
-      sortable: false,
+      comparator: (
+        a: boolean,
+        b: boolean,
+        sign: number
+      ): number => {
+        if (a > b) return -1;
+        if (a < b) return 1;
+        return 0;
+      },
     },
+    */
     {
       id: 'download',
-      heading: 'Download',
+      heading: 'Export',
+      key: 'status',
+      getter: (simulation: Simulation): boolean => {
+        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0);
+      },
       center: true,
       leftIcon: 'download',
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
-        if (simulation.status === SimulationStatus.succeeded) {
-          return `${urls.dispatchApi}/download/result/${simulation.id}`;
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
+          return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
           return null;
         }
       },
-      minWidth: 66,
+      centerAction: ColumnActionType.href,
+      centerHref: (simulation: Simulation): string | null => {
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+            && simulation.resultsSize !== undefined
+            && simulation.resultsSize > 0
+        ) {
+          return `${urls.dispatchApi}download/result/${simulation.id}`;
+        } else {
+          return null;
+        }
+      },
+      formatter: (hasReports: boolean): null => {
+        return null;
+      },
+      stackedFormatter: (hasReports: boolean): string | null => {
+        if (hasReports) {
+          return 'download results';
+        } else {
+          return 'N/A';
+        }
+      },
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
-      sortable: false,
+      comparator: (
+        a: boolean,
+        b: boolean,
+        sign: number
+      ): number => {
+        if (a > b) return -1;
+        if (a < b) return 1;
+        return 0;
+      },
     },
     {
       id: 'log',
       heading: 'Log',
+      key: 'status',
       center: true,
       leftIcon: 'logs',
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (
-          simulation.status === SimulationStatus.succeeded ||
-          simulation.status === SimulationStatus.failed
-        ) {
-          return ['/simulations', simulation.id];
+        if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+          return ['/simulations', simulation.id, "#tab=log"];
         } else {
           return null;
         }
       },
-      minWidth: 66,
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (simulation: Simulation): string[] | null => {
+        if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+          return ['/simulations', simulation.id, '#tab=log'];
+        } else {
+          return null;
+        }
+      },
+      formatter: (status: SimulationRunStatus): null => {
+        return null;
+      },
+      stackedFormatter: (status: SimulationRunStatus): string | null => {
+        if (!SimulationStatusService.isSimulationStatusRunning(status)) {
+          return 'view logs';
+        } else {
+          return 'N/A';
+        }
+      },
+      minWidth: 61,
+      maxWidth: 61,
+      filterable: false,
+      comparator: (
+        a: SimulationRunStatus,
+        b: SimulationRunStatus,
+        sign: number
+      ): number => {
+        const aVal = !SimulationStatusService.isSimulationStatusRunning(a) ? 0 : 1;
+        const bVal = !SimulationStatusService.isSimulationStatusRunning(b) ? 0 : 1;
+        if (aVal > bVal) return 1;
+        if (aVal < bVal) return -1;
+        return 0;
+      },
+    },
+    {
+      id: 'remove',
+      heading: 'Remove',
+      key: 'id',
+      center: true,
+      leftIcon: 'trash',
+      leftAction: ColumnActionType.click,
+      leftClick: (simulation: Simulation): void => {
+        this.simulationService.removeSimulation(simulation.id);
+      },
+      centerAction: ColumnActionType.click,
+      centerClick: (simulation: Simulation): void => {
+        this.simulationService.removeSimulation(simulation.id);
+      },
+      formatter: (id: string): null => {
+        return null;
+      },
+      stackedFormatter: (id: string): string => {
+        return 'Remove simulation';
+      },
+      minWidth: 61,
+      maxWidth: 61,
       filterable: false,
       sortable: false,
+      show: false,
+      showStacked: false,
     },
   ];
   simulations!: Observable<Simulation[]>;
 
-  constructor(private simulationService: SimulationService) {}
+  constructor(private config: ConfigService, private simulationService: SimulationService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.simulations = this.simulationService.simulations$;
   }
 
-  getStackedHeading(simulation: Simulation): string | null {
+  getStackedHeading(simulation: Simulation): string {
     return simulation.name + ' (' + simulation.id + ')';
   }
 
-  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] | null {
-    if (
-      simulation.status === SimulationStatus.succeeded ||
-      simulation.status === SimulationStatus.failed
-    ) {
-      return ['/simulations', simulation.id];
-    } else {
-      return null;
-    }
+  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] {
+    return ['/simulations', simulation.id];
   }
 
-  exportSimulations() {
-    const simulations = [...this.simulationService.getSimulations()] as any[];
-    simulations.forEach((simulation: any) => {
-      simulation.submitted = simulation.submitted.getTime();
-      simulation.updated = simulation.updated.getTime();
-    });
-
+  exportSimulations(): void {
+    const simulations = this.simulationService.getSimulations();
+    
     const blob = new Blob([JSON.stringify(simulations, null, 2)], {
       type: 'application/json',
     });
@@ -238,7 +381,7 @@ export class BrowseComponent implements OnInit {
     a.click();
   }
 
-  importSimulations() {
+  importSimulations(): void {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.onchange = () => {
@@ -253,15 +396,14 @@ export class BrowseComponent implements OnInit {
         }
 
         const simulations = JSON.parse(e.target.result);
-        simulations.forEach((simulation: any) => {
-          simulation.submitted = new Date(simulation.submitted);
-          simulation.updated = new Date(simulation.updated);
-          simulation.submittedLocally = false;
-        });
-        this.simulationService.setSimulations(simulations, true, false);
+        this.simulationService.storeExistingExternalSimulations(simulations);
       };
       reader.readAsText(file);
     };
     input.click();
+  }
+
+  loadExampleSimulations(): void {
+    this.simulationService.storeExistingExternalSimulations((exampleSimulationsJson as unknown) as Simulation[]);
   }
 }

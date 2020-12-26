@@ -5,16 +5,27 @@ import {
   NatsOptions,
   Transport,
 } from '@nestjs/microservices';
+import { getModelToken } from 'nestjs-typegoose';
 import { ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/common';
-import { ModelsService } from './resources/models/models.service';
 import { AppService } from './app.service';
+import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
 describe('AppController', () => {
   let app: TestingModule;
 
   beforeAll(async () => {
     const mockService = {};
+    class mockFile {
+      data: any;
+      save: () => any;
+      constructor(body: any) {
+        this.data = body;
+        this.save = () => {
+          return this.data;
+        };
+      }
+    }
     app = await Test.createTestingModule({
       imports: [HttpModule],
       controllers: [AppController],
@@ -32,39 +43,19 @@ describe('AppController', () => {
           },
           inject: [ConfigService],
         },
+
         {
-          provide: ModelsService,
-          useValue: mockService,
+          provide: getModelToken(SimulationRunModel.name),
+          useClass: mockFile,
         },
       ],
     }).compile();
   });
 
-  describe('test uploadFile', () => {
-    it('should return "No Simulator was provided" when no simulator is provided', async () => {
+  describe('Compiles', () => {
+    it('Should be truthy', async () => {
       const appController = app.get<AppController>(AppController);
-      expect(
-        await appController.uploadFile(
-          {
-            // tslint:disable-next-line: deprecation
-            buffer: Buffer.alloc(1, ''),
-            originalname: '',
-          },
-          {
-            filepathOnDataStore: '',
-            simulator: '',
-            simulatorVersion: '',
-            filename: '',
-            uniqueFilename: '',
-            authorEmail: '',
-            nameOfSimulation: '',
-          }
-        )
-      ).toEqual({
-        message: 'No Simulator was provided',
-      });
+      expect(await appController).toBeTruthy();
     });
   });
-
-  
 });

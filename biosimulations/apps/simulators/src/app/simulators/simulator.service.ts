@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 //TODO set the api interface type
+import { IImage } from '@biosimulations/datamodel/common';
 import { Simulator } from '@biosimulations/simulators/api-models';
+import { UtilsService } from '@biosimulations/shared/services';
 
 export interface Version {
   version: string;
-  date: Date;
-  image: string;
-  url?: string;
+  created: Date;
+  image: IImage | null;
+  curationStatus: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -62,8 +64,8 @@ export class SimulatorService {
             versions.push({
               version: sim.version,
               image: sim.image,
-              date: sim.created,
-              url: sim.url,
+              created: sim.biosimulators.created,
+              curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim), false),
             });
           }
         }

@@ -2,8 +2,14 @@
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
+        <a [routerLink]="['/standards']">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Documentation for the BioSimulators standards
+        </a>
+      </div>
+      <div class="hanging-indent">
         <a [href]="config.apiUrl" target="_blank">
-          <biosimulations-icon icon="link"></biosimulations-icon>
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
           REST API documentation
         </a>
       </div>
@@ -22,7 +28,7 @@
       tocSection="Creating modeling projects"
     >
       <p>
-        The containerized biosimulation tools in the BioSimulators registry require modeling projects (one or more simulations of one or more models) to be described by an OMEX file and packaged into a COMBINE archive. Please follow these steps to create OMEX and COMBINE files. Alternatively, COMBINE/OMEX files which describe modeling projects can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        The containerized biosimulation tools in the BioSimulators registry require modeling projects (one or more simulations of one or more models) to be described by an OMEX file and packaged into a COMBINE archive. Please follow these steps to create OMEX and COMBINE files. Alternatively, COMBINE/OMEX files that describe modeling projects can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
 
       <ol class="vertically-spaced">
@@ -31,15 +37,15 @@
         </li>
         <li>
           <b>Create one or more models:</b>
-          Create files which describe the models that you would like to simulate and save these files to the directory for the modeling project. Currently, the simulations tools in the BioSimulators collection support the BioNetGen Language <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (BNGL) and Systems Biology Markup Language <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SBML) formats. More information about BNGL and SBML is available from their websites. Alternatively, models can be obtained from BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and other model repositories.
+          Create files that describe the models that you would like to simulate and save these files to the directory for the modeling project. Currently, the simulation tools in the BioSimulators collection support several languages, including the BioNetGen Language <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (BNGL) and Systems Biology Markup Language <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SBML) formats. More information about BNGL and SBML is available from their websites. Alternatively, models can be obtained from BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and other model repositories.
         </li>
         <li>
           <b>Create or more simulations:</b>
-          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the simulation tools support a subset of SED-ML including one step and timecourse simulations (<code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>), individual simulation tasks (<code>sedml:Task</code>), data generators for time and individual variables (<code>sedml:DataGenerator</code>), and report outputs (<code>sedml:Report</code>). Some of the simulation tools support the full SED-ML specification including steady-state simulations (<code>sedml:SteadyState</code>), repeated tasks (<code>sedml:RepeatedTask</code>), data generators for mathematical expressions (<code>sedml:DataGenerator</code>), and plot outputs (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the validated simulation tools support a subset of SED-ML L1V3 including models (<code>sedml:model</code>) and model attribute changes (<code>sedml:changeAttribute</code>, steady-state, one step, and timecourse simulations (<code>sedml:steadyState</code>, <code>sedml:oneStep</code>, and <code>sedml:uniformTimeCourse</code>), tasks for the execution of individual simulations of individual models (<code>sedml:task</code>), algorithms (<code>sedml:algorithm</code>) and algorithm parameters (<code>sedml:algorithmParameter</code>), data generators for individual variables (<code>sedml:dataGenerator</code>, <code>sedml:variable</code>), and report outputs (<code>sedml:report</code>). Some of the simulation tools support the full SED-ML specification, including repeated tasks (<code>sedml:repeatedTask</code>), data generators for mathematical expressions (<code>sedml:dataGenerator/@math</code>), and plot outputs (<code>sedml:plot2D</code> and <code>sedml:plot3D</code>). Save this file to the directory for your modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </li>
         <li>
           <b>Create an OMEX file which describes your model and simulation files and package them into a COMBINE archive file:</b>
-          OMEX is a format for describing a collection of modeling files, and a COMBINE archive is a zip file which contains an OMEX file and all of the other files which comprise the modeling project. Several example COMBINE archives are available in the BioSimulators test suite <a href="Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. More information about the OMEX and COMBINE formats is available at the COMBINE website <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The COMBINE website lists several software tools for creating COMBINE archives including COMBINE Archive <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and COMBINE Archive Web <a href="https://cat.bio.informatik.uni-rostock.de/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          OMEX is a format for describing a collection of modeling files, and a COMBINE archive is a zip file which contains an OMEX file and all of the other files which comprise the modeling project. Several example COMBINE archives are available in the BioSimulators test suite <a href="https://github.com/biosimulators/Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. More information about the OMEX and COMBINE formats is available at the COMBINE website <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The COMBINE website lists several software tools for creating COMBINE archives, including COMBINE Archive <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and COMBINE Archive Web <a href="https://cat.bio.informatik.uni-rostock.de/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </li>
       </ol>
     </biosimulations-text-page-content-section>
@@ -48,14 +54,14 @@
       heading="Finding a simulation tool that is capable of executing a modeling project"
       tocSection="Finding simulation tools"
     >
-      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The <a [routerLink]="['/simulators']">simulators page</a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool which is capable of executing your modeling project.
+      The simulation tools in the BioSimulators collection support different modeling frameworks, different simulation algorithms, and different model formats. The <a [routerLink]="['/simulators']">simulators page</a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this page to identify a simulation tool that is capable of executing your modeling project.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Using a containerized simulation tool to execute a simulation"
       tocSection="Executing simulations"
     >
-      <p>Two web applications are available for using the BioSimulators simulation tools to execute simulations. runBioSimulations <a href="https://run.biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a simple application that uses BioSimulators to execute modeling studies. BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a platform for publishing modeling studies that also uses BioSimulators to executed published modeling studies.</p>
+      <p>Two web applications are available for using the BioSimulators simulation tools to execute simulations. runBioSimulations <a href="https://run.biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a simple application that uses BioSimulators to execute modeling studies. BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a platform for publishing modeling studies that also uses BioSimulators to execute published modeling studies.</p>
 
       <p>The BioSimulators simulation tools can also be used to execute simulations on your own machine. Please follow these steps to use a containerized simulation tool to execute a modeling study on your own machine.</p>
 
@@ -81,8 +87,30 @@
     --archive /tmp/project/{{ '{' }} name-of-COMBINE-archive {{ '}' }} \
     --out-dir /tmp/results</code></pre>
 
-          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>. This will save your results to <code>path-to-save-results</code>. Reports will be saved in CSV format and plots will be saved in PDF format.</p>
+          <p>Your COMBINE archive should be located at <code>path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive</code>.</p>
+
+          <p>The results will be saved to <code>path-to-save-results</code>. Reports will be saved in Hierarchical Data Format 5 (HDF5) format and plots will be saved in Portable Document Format (PDF) and bundled into a single zip archive.</p>
+
+          <p>The rows of each report table will represent the datasets (<code>sedml:dataset</code>) outlined in the SED-ML definition of the report. The heading of each row will be the id of the corresponding dataset. Report tables of steady-state simulations will have a single column of the steady-state predictions of each dataset. Report tables of one step simulations will have two columns that represent the predicted start and end states of each dataset. Report tables of time course simulations will have multiple columns that represent the predicted time course of each dataset. Report tables of non-spatial simulations will not have additional dimensions. Report tables of spatial simulations will have additional dimensions that represent the spatial axes of the simulation.</p>
         </li>
+      </ol>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Using containerized simulation tools to execute simulations in HPC environments without root access"
+      tocSection="Executing simulations in HPC"
+    >
+      <p>The BioSimulators simulation tools can also be running in high-performance computing (HPC) environments where root access is not available by first converting the Docker images for the tools into Singularity images <a href="https://sylabs.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+      <p>All of the validated images for simulation tools are compatible with Singularity. As part of the validation process, we check that each Docker image can be converted into a Singularity image.</p>
+
+      <p>The steps below illustrate how Singularity can be used to execute the simulation tools in HPC environments.</p>
+
+      <ol class="vertically-spaced">
+        <li><b>Install Singularity:</b> Instructions are available at <a href="https://sylabs.io/docs/" target="_blank">https://sylabs.io/docs/</a>.</li>
+        <li><b>Pull the Docker image</b> by executing <code>docker pull ghcr.io/biosimulators/{{ '{' }} id {{ '}' }}:{{ '{' }} version {{ '}' }}</code>.</li>
+        <li><b>Convert the Docker image to a Singularity image</b> by executing <code>singularity pull {{ '{' }} /path/to/save/singularity-image.sif {{ '}' }} docker://ghcr.io/biosimulators/{{ '{' }} id {{ '}' }}:{{ '{' }} version {{ '}' }}</code>.</li>
+        <li><b>Run the Singularity image</b> by executing <code>singularity run {{ '{' }} /path/to/save/singularity-image.sif {{ '}' }} ...</code>.</li>
       </ol>
     </biosimulations-text-page-content-section>
 
@@ -99,15 +127,17 @@
     >
       <p>We welcome contributions of additional simulation tools!</p>
 
-      <p>All simulation tools submitted to BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.</p>
+      <p>All simulation tools submitted for validation by BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.</p>
       <ul class="vertically-spaced">
         <li><b>Modeling languages.</b> Containers should support at least a subset of at least one modeling language such as BGNL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
-        <li><b>SED-ML.</b> Currently, containers should support at least the following features of SED-ML:
+        <li><b>SED-ML.</b> Currently, containers should support at least the following features of SED-ML L1V3:
           <ul>
-            <li>One step and timecourse simulations: <code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>.</li>
-            <li>Individual simulation tasks: <code>sedml:Task</code>.</li>
-            <li>Gata generators for time and individual variables: <code>sedml:DataGenerator</code></li>
-            <li>Report outputs: <code>sedml:Report</code>.</li>
+            <li>Model and model attribute changes: <code>sedml:model</code>, <code>sedml:changeAttribute</code>.</li>
+            <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or <code>sedml:uniformTimeCourse</code>.</li>
+            <li>Tasks for the execution of individual simulations of individual models: <code>sedml:task</code>.</li>
+            <li>Algorithms and algorithm parameters: <code>sedml:algorithm</code>, <code>sedml:algorithmParameter</code>.</li>
+            <li>Data generators for individual variables: <code>sedml:dataGenerator</code>, <code>sedml:variable</code></li>
+            <li>Report outputs: <code>sedml:report</code>.</li>
           </ul>
         <li><b>KiSAO.</b> SED-ML documents interpreted by containers should use KiSAO terms to indicate algorithms and algorithm parameters. As necessary, use the KiSAO issue tracker <a href="https://sourceforge.net/p/kisao/feature-requests/new/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request terms for additional algorithms and algorithm parameters.</li>
         <li><b>COMBINE/OMEX.</b> Containers should support the full COMBINE/OMEX specification.</li>
@@ -115,14 +145,20 @@
 
       <p>Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the BioSimulators GitHub organization <a href="https://github.com/biosimulations/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. A template repository with template Python code for a command-line interface and a template for a Dockerfile is available here <a href="https://github.com/biosimulators/Biosimulators_simulator_template" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
       </p>
-    
+
       <ol class="vertically-spaced">
         <li><b>Optionally, create a Git repository for your command-line interface and Dockerfile.</b></li>
         <li>
           <p><b>Implement a BioSimulators-compliant command-line interface to your simulation tool.</b> The interface should accept two keyword arguments:</p>
           <ul>
-            <li><code>-i, --archive</code>: A path to a COMBINE archive which contains descriptions of one or more simulation tasks.</li>
-            <li><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in CSV format and plots should be saved in PDF format. The simulator should create a directory to contain the output of each SED-ML document. This should have the same path relative to the top-level output directory as the SED-ML file to the root of the archive. The file name of each output should be the id of the output plus the one of the extensions .csv or .pdf.</li>
+            <li><code>-i, --archive</code>: A path to a COMBINE archive that contains descriptions of one or more simulation tasks.</li>
+            <li>
+              <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in the PyTables dialect <a href="https://www.pytables.org/usersguide/file_format.html" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> of the HDF5 format <a href="https://www.hdfgroup.org/solutions/hdf5/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> bundled into a single zip archive. Reports should be saved to <code>{{ '{ ' }}out-dir{{ ' }' }}/reports.h5</code> and plots should be saved to <code>{{ '{ ' }}out-dir/plots.zip{{ ' }' }}</code>. Within the HDF5 file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent SED-ML documents within the parent COMBINE/OMEX archive and the id of the report/plot. </p>
+
+              <p>The rows of the report tables should correspond to the datasets (<code>sedml:dataset</code>) specified in the SED-ML definition of the report (e.g., time, specific species). The heading of each row should be the id of the corresponding dataset. Report tables of steady-state simulations should have a single column of the steady-state predictions of each dataset. Report tables of one step simulations should have two columns that represent the predicted start and end states of each dataset. Report tables of time course simulations should have multiple columns that represent the predicted time course of each dataset. Report tables of non-spatial simulations should not have additional dimensions. Report tables of spatial simulations should have additional dimensions that represent the spatial axes of the simulation.</p>
+
+              <p>See the <a [routerLink]="['/standards', 'simulator-interfaces']">specifications for reports</a> for more information.</p>
+            </li>
           </ul>
 
           <p>In addition, we recommend providing optional arguments for reporting help and version information about your simulator:</p>
@@ -134,38 +170,71 @@
         <li><b>Create a Dockerfile which describes how to build an image for your simulation tool.</b>
           <ul>
             <li>Use the <code>FROM</code> directive to choose a base operating system such as Ubuntu.</li>
-            <li>Use the <code>RUN</code> directive to describe how install your tool and any dependencies.</li>
+            <li>Use the <code>RUN</code> directive to describe how to install your tool and any dependencies. Because Docker images are typically run as root, reserve <code>/root</code> for the home directory of the user which executes the image. Similarly, reserve <code>/tmp</code> for temporary files that must be created during the execution of the image. Install your simulation tool into a different directory than <code>/root</code> and <code>/tmp</code> such as <code>/usr/local/bin</code>.</li>
+            <li>Ideally, the simulation tools inside images should be installed from internet sources so that the construction of an image is completely specified by its Dockerfile and, therefor, reproducible and portable. Additional files needed during the building of the image, such as licenses to commerical software, can be copied from a local directory such as <code>assets/</code>. These files can then be deleted and squashed out of the final image and injected again when the image is executed.</li>
             <li>Set the <code>ENTRYPOINT</code> directive to the path to your command-line interface.</li>
             <li>Set the <code>CMD</code> directive to <code>[]</code>.</li>
+            <li>Use the <code>ENV</code> directive to declare all environment variables that your simulation tool supports.</li>
+            <li>Do not use the <code>USER</code> directive to set the user which will execute the image so that the user can be set at execution time.</li>
             <li>
-              <p>Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is necessary to also submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
+              <p class="no-bottom-margin">Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is also necessary to submit your image to BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a broad registry of images for biological research.</p>
               <ul>
-                <li><code>version</code>: the version of your image (e.g., <code>1.0.0</code>)</li>
-                <li><code>software</code>: the simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
-                <li><code>software.version</code>: the version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
-                <li><code>about.summary</code>: short description of the simulation tool (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
-                <li><code>about.home</code>: URL for the simulation tool (e.g., <code>https://bionetgen.org/</code>).</li>
-                <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
-                <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
-                <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.dev/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
-                <li><code>about.tags</code>: comma-separated list of tags which describe the simulation tool (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Plese include the tag <code>BioSimulators</code>.</li>
-                <li><code>extra.identifiers.biotools</code>: optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
-                <li><code>maintainer</code>: the name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+                <li>Open Containers Initiative <a href="https://opencontainers.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> labels
+                  <ul>
+                    <li><code>org.opencontainers.image.title</code>: Human-readable title of the image.</li>
+                    <li><code>org.opencontainers.image.version</code>: Version of the software in the image.</li>
+                    <li><code>org.opencontainers.image.revision</code>: Source control revision identifier of the software in the image.</li>
+                    <li><code>org.opencontainers.image.description</code>: Human-readable description of the software in the image.</li>
+                    <li><code>org.opencontainers.image.url</code>: URL to find more information about the image.</li>
+                    <li><code>org.opencontainers.image.documentation</code>: URL to get documentation about the image.</li>
+                    <li><code>org.opencontainers.image.source</code>: URL to get the Dockerfile for building the image.</li>
+                    <li><code>org.opencontainers.image.authors</code>: Contact details of the people or organization responsible for the image.</li>
+                    <li><code>org.opencontainers.image.vendor</code>: Name of the entity, organization or individual which distributes the image.</li>
+                    <li><code>org.opencontainers.image.licenses</code>: SPDX expression that describes the license(s) under which the software in the image is distributed.</li>
+                    <li><code>org.opencontainers.image.created</code>: Date and time when the image was built (RFC 3339).</li>
+                  </ul>
+                </li>
+                <li>BioContainers labels:
+                  <ul>
+                    <li><code>version</code>: Version of your image (e.g., <code>1.0.0</code>)</li>
+                    <li><code>software</code>: Simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</li>
+                    <li><code>software.version</code>: Version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</li>
+                    <li><code>about.summary</code>: Short description of the simulation program (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</li>
+                    <li><code>about.home</code>: URL for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+                    <li><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</li>
+                    <li><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</li>
+                    <li><code>about.license</code>: SPDX license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See SPDX <a href="https://spdx.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for a list of licenses and their ids.</li>
+                    <li><code>about.tags</code>: Comma-separated list of tags which describe the simulation program (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Please include the tag <code>BioSimulators</code>.</li>
+                    <li><code>extra.identifiers.biotools</code>: Optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit bio.tools <a href="https://bio.tools/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to request an identifier for your simulation program.</li>
+                    <li><code>maintainer</code>: Name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</li>
+                  </ul>
+                </li>
               </ul>
 
               <p>Below is an example of metadata for the BioNetGen image.</p>
-              <pre><code [languages]="['dockerfile']" highlight="LABEL base_image=&quot;ubuntu:18.04&quot;
-LABEL version=&quot;1.0.0&quot;
-LABEL software=&quot;BioNetGen&quot;
-LABEL software.version=&quot;2.5.0&quot;
-LABEL about.summary=&quot;Package for rule-based modeling of complex biochemical systems&quot;
-LABEL about.home=&quot;https://bionetgen.org/&quot;
-LABEL about.documentation=&quot;https://bionetgen.org/&quot;
-LABEL about.license_file=&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;
-LABEL about.license=&quot;SPDX:MIT&quot;
-LABEL about.tags=&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;
-LABEL extra.identifiers.biotools=&quot;bionetgen&quot;
-LABEL maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
+              <pre><code [languages]="['dockerfile']" highlight="LABEL \
+  org.opencontainers.image.title=&quot;BioNetGen&quot; \
+  org.opencontainers.image.version=&quot;2.5.0&quot; \
+  org.opencontainers.image.description=&quot;Package for rule-based modeling of complex biochemical systems&quot; \
+  org.opencontainers.image.url=&quot;https://bionetgen.org/&quot; \
+  org.opencontainers.image.documentation=&quot;https://bionetgen.org/&quot; \
+  org.opencontainers.image.source=&quot;https://github.com/biosimulators/biosimulators_bionetgen&quot; \
+  org.opencontainers.image.authors=&quot;BioSimulators Team &lt;info@biosimulators.org&gt;&quot; \
+  org.opencontainers.image.vendor=&quot;BioSimulators Team&quot; \
+  org.opencontainers.image.licenses=&quot;MIT&quot; \
+  \
+  base_image=&quot;ubuntu:18.04&quot;
+  version=&quot;1.0.0&quot;
+  software=&quot;BioNetGen&quot;
+  software.version=&quot;2.5.0&quot;
+  about.summary=&quot;Package for rule-based modeling of complex biochemical systems&quot;
+  about.home=&quot;https://bionetgen.org/&quot;
+  about.documentation=&quot;https://bionetgen.org/&quot;
+  about.license_file=&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;
+  about.license=&quot;SPDX:MIT&quot;
+  about.tags=&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;
+  extra.identifiers.biotools=&quot;bionetgen&quot;
+  maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
           </ul>
         </li>
         <li>
@@ -177,11 +246,11 @@ LABEL maintainer=&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;"></code></pre>
   .</code></pre>
         </li>
         <li>
-          <p><b>Create a JSON-formatted file which specifies the capabilities of your simulation tool.</b> This file should adhere to the schema described in the BioSimulators API <a href="https://api.biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+          <p><b>Create a JSON-encoded file that specifies the capabilities of your simulation tool.</b> This file should adhere to the schema described in the BioSimulators API <a href="https://api.biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
           <p>Use SBO, KiSAO, and EDAM to describe the modeling frameworks, simulation algorithms, and modeling formats that your simulation tool supports. As necessary, use the following issue trackers to request additional SBO <a href="https://sourceforge.net/p/sbo/term-request/"><biosimulations-icon icon="link"></biosimulations-icon></a>, KiSAO <a href="https://sourceforge.net/p/kisao/feature-requests/new/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and EDAM <a href="https://github.com/edamontology/edamontology/issues/new?template=new-format.md"><biosimulations-icon icon="link"></biosimulations-icon></a> terms. As necessary, also use the SED-ML issue tracker <a href="https://github.com/SED-ML/sed-ml/issues/new"><biosimulations-icon icon="link"></biosimulations-icon></a> to request URNs for additional modeling languages. Currently, there is no process to request additional model format specification URLs for using COMBINE with additional model formats.</p>
         </li>
         <li>
-          <p><b>Use the BioSimulators test suite to validate your image and its specificiations.</b> This will check that the image provides a BioSimulators-compliant Docker structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.</p>
+          <p><b>Use the BioSimulators test suite to validate your image and its specifications.</b> This will check that the image provides a BioSimulators-compliant Docker structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.</p>
           <pre><code>pip install biosimulators-test-suite
 biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }} image-id {{ '}' }} {{ '{' }} path-to-specifications.json {{ '}' }}</code></pre>
         </li>
@@ -189,16 +258,21 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      heading="Contributing a containerized biosimulation tool to BioSimulators"
+      heading="Contributing a biosimulation tool to BioSimulators"
       tocSection="Contributing simulation tools"
     >
-      <p>We welcome contributions of additional simulation tools! Please follow these steps to contribute a tool to BioSimulators:</p>
+      <p>We welcome contributions of additional simulation tools! We encourage developers to submit tools that support BioSimulators' standard containerized command-line interface. Supporting these standards makes it easier for other investigators to use simulators. However, BioSimulators also accepts simulation tools that are not available via standardized Docker images.</p>
+
+      <p>Please follow these steps to contribute a tool to BioSimulators:</p>
       <ol class="vertically-spaced">
         <li>
-          <b>Publish your image to a public repository</b> such as Docker Hub <a href="https://dockerhub.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub Container Registry <a href="https://github.com/features/packages" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or Quay <a href="https://quay.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
+          <b>Optionally, build a standardized command-line interface and Docker image for your simulator.</b> Such an image will make it easier for others to use your tool.
         </li>
         <li>
-          <b>Submit an issue <a href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Submit+simulator&template=contribute-a-simulator.md&title=" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> to the BioSimulators GitHub repository that describes briefly describes the URL to the specifications of your tool. This will initiate an automated workflow which will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool which must be addressed. The first version of each simulation tool submitted to the BioSimulators registry will also be manually reviewed by the BioSimulators Team prior to incorporation into the BioSimulators registry.
+          <b>Optionally, publish your image to a public repository</b> such as Docker Hub <a href="https://dockerhub.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub Container Registry <a href="https://github.com/features/packages" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or Quay <a href="https://quay.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
+        </li>
+        <li>
+          <b>Submit an issue <a href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Submit+simulator&template=contribute-a-simulator.md&title=" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> to the BioSimulators GitHub repository that describes briefly describes the URL to the specifications of your tool. This will initiate an automated workflow that will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool that must be addressed. The first version of each simulation tool submitted to the BioSimulators registry will also be manually reviewed by the BioSimulators Team prior to incorporation into the BioSimulators registry.
         </li>
         <li>
           <p><b>Optionally, set up your continuous integration workflow to automatically push each release to BioSimulators.</b> Within your continuous integration workflow (e.g., CircleCI, GitHub actions, Jenkins, Travis), use the GitHub REST API to automatically create issues that submit versions of your simulator to BioSimulators.</p>
@@ -209,7 +283,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li>Endpoint: <code>http://api.github.com/repos/biosimulators/Biosimulators/issues</code></li>
             <li>Method: <code>POST</code></li>
             <li>Auth: <code>{{ '{' }} github-username {{ '}' }}:{{ '{' }} github-person-access-token {{ '}' }}</code></li>
-            <li>Headers: 
+            <li>Headers:
               <ul>
                 <li>Accept: <code>application/vnd.github.v3+json</code></li>
               </ul>
@@ -221,8 +295,12 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
 name: {{ '{' }} simulator-name {{ '}' }}
 version: {{ '{' }} simulator-version {{ '}' }}
 specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
+specificationsPatch: 
+  version: {{ '{' }} simulator-version {{ '}' }}
+validateImage: true
 
 ---</code></pre>
+                  To skip the validation of your Docker image, or to submit a simulation tool for which there is no Docker image that provides a BioSimulators-compliant command-line entrypoint, set <code>validateImage</code> to <code>false</code>.
                 </li>
               </ul>
             </li>
@@ -235,9 +313,9 @@ specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
   -u jonrkarr:********* \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/biosimulators/Biosimulators/issues \
-  -d '{{ '{' }}"labels": ["Submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\n\n---"{{ '}' }}'</code></pre>
+  -d '{{ '{' }}"labels": ["Validate/submit simulator"], "title": "Submit tellurium 2.1.6", "body": "---\nname: tellurium\nversion: 2.1.6\nspecificationsUrl: https://raw.githubusercontent.com/biosimulators/Biosimulators_tellurium/2.1.6/biosimulators.json\nvalidateImage: true\ncommitSimulator: true\n\n---"{{ '}' }}'</code></pre>
 
-          <p>The above is implemented by the Python method <code>Biosimulations_utils.simulator.submit_to_biosimulators.submit_simulator_to_biosimulators</code>. See the documentation <a href="https://biosimulations-utils.readthedocs.io/"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
+          <p>The above is implemented by the Python method <code>biosimulators_utils.simulator_registry.submit.submit_simulator_to_biosimulators_registry</code>. See the documentation <a href="https://biosimulators.github.io/Biosimulators_utils"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.</p>
         </li>
         <li>
           <b>Optionally, also publish the source code for your simulation tool to a repository</b> such as BitBucket <a href="https://bitbucket.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub <a href="https://github.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or GitLab <a href="https://gitlab.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
@@ -251,6 +329,28 @@ specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
         <li>
           <b>Optionally, also submit your Dockerfile to BioContainers.</b> BioContainers accepts contributions via pull requests. See the BioContainers image registry <a href="https://github.com/BioContainers/containers/pulls" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
         </li>
+      </ol>
+
+      <p>A sample continuous integration workflow <a href="https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/.github/workflows/ci.yml.template" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for GitHub Actions is available in the template simulator repository. Instructions for setting up this workflow are in the README <a href="https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/README.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+      <p>Each time a commit is pushed to the repository, the workflow executes the following tasks:</p>
+      <ol>
+        <li>Clones the repository.</li>
+        <li>Installs the simulator and its dependencies.</li>
+        <li>Lints the code for the simulator.</li>
+        <li>Builds the Docker image for the simulator and tags the image <code>ghcr.io/&lt;owner&gt;/&lt;repo&gt;/&lt;simulator_id&gt;:&lt;simulator_version</code> and <code>ghcr.io/&lt;owner&gt;/&lt;repo&gt;/&lt;simulator_id&gt;:latest</code>.</li>
+        <li>Runs the unit tests for the simulator and saves the coverage data for the tests.</li>
+        <li>Uploads the coverage results to Codecov <a href="https://codecov.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</li>
+        <li>Compiles the documentation for the simulator.</li>
+      </ol>
+
+      <p>Each time the repository is tagged (<code>git tag ...; git push --tags</code>), the workflow also runs the above tasks. If the above tasks succeed, the workflow executes the follwing additional tasks:</p>
+      <ol>
+        <li>Creates a GitHub release for the tag.</li>
+        <li>Pushes the compiled documentation to the repository (e.g., so it can be served by GitHub pages).</li>
+        <li>Builds the simulator and submits it to a software repository such as PyPI <a href="https://pypi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</li>
+        <li>Pushes the Docker image to the GitHub Container Registry <a href="https://docs.github.com/en/free-pro-team@latest/packages/guides/about-github-container-registry" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> with the above tags.</li>
+        <li>Pushes the simulator to the BioSimulators Registry by using the GitHub API to create an issue to add a new version of the simulator to the BioSimulators database. This issue will then automatically use the BioSimulators test suite to validate the simulator and add a new version of the simulator to the database once the simulator passes the test suite.</li>
       </ol>
     </biosimulations-text-page-content-section>
 

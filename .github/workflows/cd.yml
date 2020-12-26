@@ -1,0 +1,125 @@
+name: Build, push, and deploy the docker images
+on: 
+  push:
+    branches: [deploy, dev]
+jobs:
+  listApps:
+    name: Get a list of all apps
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{steps.get-all-apps.outputs.apps}}
+    steps: 
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with: 
+          node-version: 15.x
+
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        working-directory: ./biosimulations
+        run: npm ci
+
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+
+      - id: get-all-apps
+        name: Get the list of apps
+        working-directory: ./biosimulations
+        run: |
+          mapfile -d " " -t appsArr < <( nx affected:apps --plain --all)
+          appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
+
+          if [ -z "${appsArr[0]}" ]; then
+            unset appsArr[-1]
+            appsJson=[]
+          else
+            appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          fi
+
+          echo "::set-output name=apps::$appsJson"
+
+  buildPushDockerImages:
+    name: Build, push, and deploy Docker image for app
+    runs-on: ubuntu-latest
+
+    needs: [listApps]
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.listApps.outputs.apps) }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Extract branch name
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo ${GITHUB_REF#refs/heads/}
+        id: extract_branch
+
+      - name: Build Docker image for app
+        working-directory: ./biosimulations
+        env: 
+          BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          FILE: ../Dockerfile
+          CONTEXT: ..
+        run: |
+          echo  Building Image for ${{ matrix.app }}
+          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=${{ matrix.app }} $CONTEXT
+      - name: Push Docker image for ${{matrix.app}}
+        working-directory: ./biosimulations
+        env:
+            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+            FILE: ../Dockerfile
+            CONTEXT: ..
+        run: |
+            echo "Pushing Docker image for ${{ matrix.app }} ..."
+            echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
+            docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
+          
+
+  triggerDeployment:
+    name: Trigger a new deployment of the latest images
+    runs-on: ubuntu-latest
+    needs: [buildPushDockerImages]
+    steps: 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Extract branch name
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo ${GITHUB_REF#refs/heads/}
+        id: extract_branch
+      # Change this to trigger the action in the deployment repo
+      - name: Call Webhook
+        env:
+            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+        
+        run: |
+          echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
+          curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
+          
+

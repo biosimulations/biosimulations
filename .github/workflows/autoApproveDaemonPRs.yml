@@ -1,0 +1,40 @@
+name: Auto approve robots
+on:
+  pull_request:
+    types: 
+      - opened
+      - synchronize
+      - edited
+jobs:
+  approve-dependabot:
+    name: Auto-approve dependabot PRs
+    if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@v2.0.0
+        with:
+          github-token: "${{secrets.GITHUB_TOKEN }}"
+ 
+      - name: add label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: automerge
+          type: add
+ 
+  approve-daemon:
+    name: Auto-approve daemon PRs
+    if: github.actor == 'biosimulations-daemon'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@v2.0.0
+        with:
+          github-token: "${{secrets.GITHUB_TOKEN }}"
+        
+      - name: add label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: automerge
+          type: add
+

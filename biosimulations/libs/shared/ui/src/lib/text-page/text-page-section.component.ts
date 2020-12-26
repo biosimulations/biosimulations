@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -11,7 +10,7 @@ import {
   styleUrls: ['./text-page-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextPageSectionComponent implements OnInit {
+export class TextPageSectionComponent {
   @Input()
   heading = '';
 
@@ -29,8 +28,4 @@ export class TextPageSectionComponent implements OnInit {
 
   @Input()
   highlight = false;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

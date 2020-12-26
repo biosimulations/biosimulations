@@ -22,12 +22,12 @@
       </button>
     </biosimulations-topbar>
     <div class="sidenav-menu-container">
-      <ng-content select="#sidenav-menu"></ng-content>      
+      <ng-content select="#sidenav-menu"></ng-content>
     </div>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
-      <biosimulations-topbar [(showLogo)]="!drawer.opened">        
+      <biosimulations-topbar [(showLogo)]="!drawer.opened">
         <button
           id="leftContent"
           class="biosimulations-icon-button white topbar-left-button"
@@ -54,11 +54,21 @@
       ></biosimulations-bread-crumbs>
     </div>
     <div class="content">
-      <ng-content select="router-outlet"> </ng-content>
+      <ng-content select="router-outlet"></ng-content>
     </div>
-    <biosimulations-privacy-policy-notice
+    <biosimulations-notice *ngIf="showNews"
       [appName]="appName"
-      [policyVersion]="privacyPolicyVersion"
-    ></biosimulations-privacy-policy-notice>
+      type="news"
+      [version]="newsVersion"
+    >
+      <ng-content select="#news"></ng-content>
+    </biosimulations-notice>
+    <biosimulations-notice
+      [appName]="appName"
+      type="privacy"
+      [version]="privacyPolicyVersion"
+    >
+      {{ appName }} collects limited personal data to credit authors and improve the platform. By using this site, you agree to our <a [routerLink]="['/help', 'terms']">terms of service</a> and <a [routerLink]="['/help', 'privacy']">privacy policy</a>.
+    </biosimulations-notice>
   </mat-sidenav-content>
 </mat-sidenav-container>

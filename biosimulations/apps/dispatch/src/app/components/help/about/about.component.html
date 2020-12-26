@@ -16,10 +16,10 @@
         More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as COMBINE/OMEX <a target="_blank" href="https://combinearchive.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a target="_blank" href="http://sbml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a>, and SED-ML <a target="_blank" href="https://www.sed-ml.org/"><biosimulations-icon icon="link"></biosimulations-icon></a> and repositories such as BioModels, it is still often difficult to reuse models and simulations. One challenge to sharing and reusing models is the disparate formats and simulation tools for different types of models. The proliferation of numerous similar formats and tools makes it difficult, especially for non-experts, to find an appropriate simulation tool for each model.
       </p>
       <p>
-        runBioSimulations addresses this challenge by providing researhcers a simple web interface for reusing any model. This is achieved using BioSimulators, a collection of Docker images that abstract the details of multiple modeling frameworks, simulation algorithms, model formats, and simulation tools.
+        runBioSimulations addresses this challenge by providing researchers a simple web interface for executing a wide range of models that use a wide range of modeling frameworks, simulation algorithms, and modeling formats. This is achieved using BioSimulators, a collection of Docker images that provide standardized access to a variety of simulation tools that collectively support multiple modeling frameworks, simulation algorithms, and modeling formats.
       </p>
       <p>
-        runBioSimulations provides basic capabilities for executing simulations and visualizing their results. In addition to these features, the full-featured BioSimulations web application <a [href]="config.appUrl" target="_blank" ><biosimulations-icon icon="link"></biosimulations-icon></a> enables authors to publish models, simulations, and visualizations and provides users a central place to find and reuse published models, simulations, and visualizations. runBioSimulations is ideal for investigators who wish to execute simulations privately during the course of their research. The full-featured application is ideal for investigators who want to publish modeling studies or reuse published studies.
+        runBioSimulations provides basic capabilities for executing simulations and visualizing their results. In addition to these features, the full-featured BioSimulations web application <a [href]="config.appUrl" target="_blank" ><biosimulations-icon icon="link"></biosimulations-icon></a> enables authors to publish models, simulations, and visualizations. BioSimulations also provides users a central place to find and reuse published models, simulations, and visualizations. runBioSimulations is ideal for investigators who wish to execute simulations privately during the course of their research. The full-featured application is ideal for investigators who want to publish modeling studies or reuse published studies.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -28,32 +28,41 @@
       tocSection="Supported frameworks &amp; formats"
     >
       <p>
-        runBioSimulations can simulate logical, Flux Balance Analysis (FBA), continous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models that are described in using the BioNetGen Language (BNGL) <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or the Systems Biology Markup Language (SBML) <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
-      </p>
-      <p>
-        runBioSimulations uses the BioSimulators collection of simulations tools to simulate models. Through BioSimulators, runBioSimulations supports a numerous algorithms for simulating logical, FBA, and kinetic models. BioSimulators builds upon Docker <a href="https://docker.com" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and BioContainers <a href="https://biocontainers.pro" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about supported modeling frameworks, simulation algorithms, model formats, and simulation software tools.
+        runBioSimulations can execute a broad range of modeling frameworks, simulation algorithms, and modeling formats. runBioSimulations uses the BioSimulators collection of simulation tools to execute modeling projects. Through BioSimulators, runBioSimulations supports numerous algorithms for simulating logical, FBA, and kinetic models. BioSimulators builds upon Docker images <a href="https://docker.com" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information about the supported modeling frameworks, simulation algorithms, modeling formats, and simulation software tools.
       </p>
 
       <div class="logos">
         <div class="logos-row">
+          <a href="https://www.bionetgen.org" target="_blank" title="BNGL">
+            <img class="zoom" src="assets/images/about/partners/bionetgen.png" />
+          </a>
+
+          <a href="https://www.cellml.org/" target="_blank" title="CellML">
+            <img class="zoom" src="assets/images/about/partners/cellml.svg" />
+          </a>
+
+          <a href="https://neuroml.org/" target="_blank" title="NeuroML">
+            <img class="zoom" src="assets/images/about/partners/neuroml.svg" />
+          </a>
+
+          <a href="http://www.pharmml.org/" target="_blank" title="pharmML">
+            <img class="zoom" src="assets/images/about/partners/pharmml.svg" />
+          </a>
+
           <a href="http://sbml.org" target="_blank" title="SBML">
             <img class="zoom" src="assets/images/about/partners/sbml.svg" />
+          </a>
+
+          <a href="http://www.ebi.ac.uk/sbo/" target="_blank" title="SBO">
+            <img class="zoom" src="assets/images/about/partners/sbo.png" />
           </a>
 
           <a href="https://sed-ml.org/" target="_blank" title="SED-ML">
             <img class="zoom" src="assets/images/about/partners/sed-ml.svg" />
           </a>
 
-          <a href="https://vega.github.io/vega/" target="_blank" title="Vega">
-            <img class="zoom" src="assets/images/about/partners/vega.svg" />
-          </a>
-
-          <a
-            href="https://vega.github.io/vega-lite/"
-            target="_blank"
-            title="Vega-lite"
-          >
-            <img class="zoom" src="assets/images/about/partners/vegalite.svg" />
+          <a href="http://co.mbine.org/standards/kisao" target="_blank" title="KiSAO">
+            <img class="zoom" src="assets/images/about/partners/kisao.svg" />
           </a>
 
           <a
@@ -165,10 +174,6 @@
             <img class="zoom" src="assets/images/about/tech/angular.svg" />
           </a>
 
-          <a href="https://bruit.io/" target="_blank" title="Bruit.io">
-            <img class="zoom" src="assets/images/about/tech/bruit-io.svg" />
-          </a>
-
           <a href="https://www.docker.com/" target="_blank" title="Docker">
             <img class="zoom" src="assets/images/about/tech/docker.svg" />
           </a>
@@ -192,9 +197,7 @@
           <a href="https://www.github.com/" target="_blank" title="GitHub">
             <img class="zoom" src="assets/images/about/tech/github.svg" />
           </a>
-        </div>
 
-        <div class="logos-row">
           <a href="https://kubernetes.io/" target="_blank" title="Kubernetes">
             <img class="zoom" src="assets/images/about/tech/kubernetes.svg" />
           </a>
@@ -221,6 +224,12 @@
             <img class="zoom" src="assets/images/about/tech/netlify.svg" /></a>
           <a target="_blank" href="https://www.openapis.org/" title="OpenAPI" >
             <img class="zoom" src="assets/images/about/tech/openapi.svg" /></a>
+          <a target="_blank" href="https://plotly.com/javascript/" title="Plotly" >
+            <img class="zoom" src="assets/images/about/tech/plotly.svg" /></a>
+          <a target="_blank" href="https://spdx.org" title="SPDX" >
+            <img class="zoom" src="assets/images/about/tech/spdx.svg" /></a>
+          <a target="_blank" href="https://swagger.io" title="Swagger" >
+            <img class="zoom" src="assets/images/about/tech/swagger.svg" /></a>          
         </div>
       </div>
     </biosimulations-text-page-content-section>
@@ -247,9 +256,9 @@
       heading="License"
       tocSection="License"
     >
-      <p>The source code is provided under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE" target="_blank">
+      <p>The source code is provided under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
-        </a>. The licenses for runBioSimulations' third-party dependencies are summarized here <a href="https://github.com/biosimulations/Biosimulations/blob/master/LICENSE-THIRD-PARTY" target="_blank">
+        </a>. The licenses for runBioSimulations' third-party dependencies are summarized here <a href="https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE-THIRD-PARTY" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
         </a>. The simulator images are provided under the open-source licenses documented for each image. Please see BioSimulators <a target="_blank" href="https://biosimulators.org"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
       </p>
@@ -258,7 +267,7 @@
     <biosimulations-text-page-content-section
 
       heading="runBioSimulations Team"
-      shortHeading="runBioSimulations Team"
+      tocSection="runBioSimulations Team"
 
     >
       <p>
@@ -365,7 +374,7 @@
 
       <ul class="vertically-spaced">
         <li><b>Containerized simulators</b> can be contributed by submitting GitHub issues <a [href]="config.simulatorsNewIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see BioSimulators <a href="https://biosimulators.org/help" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about the required format, a guide to building simulator images, and examples.</li>
-        <li><b>runBioSimulations software</b>: We welcome contributions by GitHub pull requests <a [href]="config.newPullUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see the Guide to Contributing <a href="https://github.com/biosimulations/Biosimulations/blob/master/CONTRIBUTING.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about how to get started. Please also contact the developers <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to coordinate potential contributions.</li>
+        <li><b>runBioSimulations software</b>: We welcome contributions by GitHub pull requests <a [href]="config.newPullUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Please see the Guide to Contributing <a href="https://github.com/biosimulations/Biosimulations/blob/dev/CONTRIBUTING.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about how to get started. Please also contact the developers <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to coordinate potential contributions.</li>
       </ul>
     </biosimulations-text-page-content-section>
 

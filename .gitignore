@@ -62,7 +62,8 @@ typings/
 .next
 
 #vscode
-.vscode/
+.vscode/*
+!**/.vscode/extensions.json
 
 #config file
 **/config.json

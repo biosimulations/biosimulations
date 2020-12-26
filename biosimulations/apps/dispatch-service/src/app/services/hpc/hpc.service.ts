@@ -1,155 +1,82 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { MQDispatch } from '@biosimulations/messages';
-import { DispatchSimulationStatus } from '@biosimulations/dispatch/api-models';
-import path from 'path';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { ConfigService } from '@nestjs/config';
+import { SbatchService } from '../sbatch/sbatch.service';
+import { urls } from '@biosimulations/config/common';
 
 @Injectable()
 export class HpcService {
   private logger = new Logger(HpcService.name);
 
   constructor(
-    // private readonly configService: ConfigService,
+    private readonly configService: ConfigService,
     private sshService: SshService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) { }
+    private sbatchService: SbatchService
+  ) {}
 
-  dispatchJob(
-    simDirBase: string,
-    sbatchPath: string,
-    omexPath: string,
-    omexName: string
-  ) {
-    const sbatchName = 'run.sbatch';
+  /**
+   *
+   * @param id
+   * @param sbatchString
+   */
 
-    this.logger.log('Omex name: ' + JSON.stringify(omexName));
+  async submitJob(
+    id: string,
+    simulator: string,
+    version: string,
+    fileName: string
+  ): Promise<{
+    stdout: string;
+    stderr: string;
+  }> {
+    const simulatorString = `biosimulations_${simulator}_${version}.img`;
+    const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
-    // get remote InDir and OutDir from config (ideally indir name should be simId)
-    this.sshService
-      .execStringCommand(`mkdir -p ${simDirBase}/in`)
-      .then((value) => {
-        this.logger.log(
-          'Simdirectory created on HPC: ' + JSON.stringify(value)
-        );
+    const sbatchString = this.sbatchService.generateSbatch(
+      simDirBase,
+      simulatorString,
+      fileName,
+      urls.dispatchApi,
+      id
+    );
+    return this.sshService.execStringCommand(
+      `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`
+    );
+  }
 
-        this.sshService
-          .putFile(omexPath, `${simDirBase}/in/${omexName}`)
-          .then((val) => {
-            this.logger.log(
-              'Omex copying to HPC successful: ' + JSON.stringify(val)
-            );
-          })
-          .catch((omexErr) => {
-            this.logger.log(
-              'Could not copy omex to HPC: ' + JSON.stringify(omexErr)
-            );
-          });
-
-        this.sshService
-          .putFile(sbatchPath, `${simDirBase}/in/${sbatchName}`)
-          .then((res) => {
-            this.logger.log(
-              'SBATCH copying to HPC successful: ' + JSON.stringify(res)
-            );
-            this.sshService
-              .execStringCommand(`chmod +x ${simDirBase}/in/${sbatchName}`)
-              .then((resp) => {
-                this.logger.log(
-                  'Sbatch made executable: ' + JSON.stringify(resp)
-                );
-
-                this.sshService
-                  .execStringCommand(`sbatch ${simDirBase}/in/${sbatchName}`)
-                  .then((result) => {
-                    this.logger.log(
-                      'Execution of sbatch was successful: ' +
-                      JSON.stringify(result)
-                    );
-                    this.messageClient.emit(MQDispatch.SIM_DISPATCH_FINISH, {
-                      simDir: simDirBase,
-                      hpcOutput: result,
-                    });
-                  })
-                  .catch((error) => {
-                    this.logger.log(
-                      'Could not execute SBATCH: ' + JSON.stringify(error)
-                    );
-                  });
-              })
-              .catch((err) => {
-                this.logger.log(
-                  'Error occured whiled changing permission: ' +
-                  JSON.stringify(err)
-                );
-              });
-          })
-          .catch((err) => {
-            this.logger.log(
-              'Could not copy SBATCH to HPC: ' + JSON.stringify(err)
-            );
-          });
-      })
+  async getJobStatus(jobId: string): Promise<SimulationRunStatus> {
+    const saactData = await this.sshService
+      .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
-        this.logger.log(
-          'Error occured while creating simdirectory: ' + JSON.stringify(err)
+        this.logger.error(
+          'Failed to fetch results, updating the sim status as Pending, ' +
+            JSON.stringify(err)
         );
+        return { stdout: '\n\nPENDING' };
       });
-
-    this.sshService
-      .execStringCommand(`mkdir -p ${simDirBase}/out`)
-      .then((value) => {
-        this.logger.log(
-          'Output directory for simulation created: ' + JSON.stringify(value)
-        );
-      })
-      .catch((err) => {
-        this.logger.log(
-          'Could not create output directory for simulation: ' +
-          JSON.stringify(err)
-        );
-      });
-  }
-
-  getOutputFiles(simId: string) {
-    // pack all files (zip)
-    // Get them on local
-    // Unpack them and save to mongo
-  }
-
-  getRealtimeOutput(simId: string) {
-    // Create a socket via SSH and stream the output file
-  }
-
-
-  async saactJobStatus(jobId: string) {
-
-    const saactData = await this.sshService.execStringCommand(
-      `sacct -X -j ${jobId} -o state%20`
-    ).catch((err) => {
-      this.logger.error('Failed to fetch results, updating the sim status as Pending, ' + JSON.stringify(err));
-      return { stdout: '\n\nPENDING' }
-    });
 
     const saactDataOutput = saactData.stdout;
     // const saactDataError = saactData.stderr;
-    const saactDataOutputSplit = saactDataOutput.split("\n");
-    const finalStatusList = saactDataOutputSplit[2].split(" ");
-    const finalStatus = finalStatusList[finalStatusList.length - 2]
+    const saactDataOutputSplit = saactDataOutput.split('\n');
+    const finalStatusList = saactDataOutputSplit[2].split(' ');
+    const finalStatus = finalStatusList[finalStatusList.length - 2];
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
       case 'PENDING' || '':
-        return DispatchSimulationStatus.QUEUED;
+        return SimulationRunStatus.QUEUED;
       case 'RUNNING':
-        return DispatchSimulationStatus.RUNNING;
+        return SimulationRunStatus.RUNNING;
       case 'COMPLETED':
-        return DispatchSimulationStatus.SUCCEEDED;
-      // TODO: Implement Stop simulation functionality from user-end
-      case 'CANCELLED':
-        return DispatchSimulationStatus.CANCELLED;
-      case 'FAILED' || 'OUT-OF-MEMORY' || 'NODE_FAIL' || 'TIMEOUT':
-        return DispatchSimulationStatus.FAILED;
+        return SimulationRunStatus.SUCCEEDED;
+      case 'FAILED' ||
+        'OUT-OF-MEMORY' ||
+        'NODE_FAIL' ||
+        'TIMEOUT' ||
+        'CANCELLED':
+      default:
+        return SimulationRunStatus.FAILED;
     }
-
   }
 }

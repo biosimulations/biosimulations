@@ -8,9 +8,9 @@
 
     svg {
         width: 100%;
-        color: darken(mat-color($theme-primary, lighter), 25%);
+        color: mat-color($theme-primary);
         &.accent {
-            color: darken(mat-color($theme-accent, lighter), 25%);
+            color: mat-color($theme-accent);
 
             path.foreground {
                 fill: currentColor;
@@ -35,25 +35,31 @@
     &.mat-button-disabled {
         background: none;
         svg, svg.accent {
-            color: rgba(44, 44, 44, 0.12);
-        }
+            color: rgba(44, 44, 44, 0.4);
+            path.foreground {
+                fill: currentColor;
+                fill-opacity: 0.25;
+                stroke-opacity: 0.75;
+                stroke-dasharray: 2px 2px;
+            }
+        }        
     }
 
     &:not(.mat-button-disabled) {
         &:hover {
             svg {
-                color: mat-color($theme-primary);
+                color: darken(mat-color($theme-primary), 8%);
             }
             svg.accent {
-                color: mat-color($theme-accent);
+                color: darken(mat-color($theme-accent), 12.5%);
             }
         }
         &:active {
             svg {
-                color: mat-color($theme-primary, darker);
+                color: darken(mat-color($theme-primary), 16%);
             }
             svg.accent {
-                color: mat-color($theme-accent, darker);
+                color: darken(mat-color($theme-accent), 25%);
             }
         }
     }
@@ -77,7 +83,7 @@
                 margin-bottom: 0.25rem;
             }
         }
-        
+
         .text ::ng-deep p:not(:last-child) {
             margin-bottom: 0.25rem;
         }

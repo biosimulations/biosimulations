@@ -55,7 +55,7 @@ function setupOpenApi(
     },
   };
   const customOptions: SwaggerCustomOptions = {
-    customSiteTitle: 'BioSimulations API Documentation',
+    customSiteTitle: 'BioSimulations API documentation',
 
     swaggerOptions: uiOptions,
     customCss: ' .swagger-ui .topbar { display: none }',
@@ -69,8 +69,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get('server.port');
-  const host = configService.get('server.host');
-  const limit = configService.get('server.limit');
 
   // TODO intelligently allow origin based on production mode, abstract this
   const allowOrigin: CustomOrigin = (
@@ -102,14 +100,15 @@ async function bootstrap() {
   const doc = new DocumentBuilder()
     .setTitle('BioSimulators API')
     .setDescription(
-      'A collection of standardized containers for running simulations'
+      'A collection of standardized Docker containers for executing biosimulations'
     )
-    .setVersion('0.1');
+    .setVersion('0.1')
+    .setContact('BioSimulators Team', 'https://biosimulators.org/help/about', 'info@biosimulators.org');
 
   setupOpenApi(
     app,
     doc,
-    'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org',
+    'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
     'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT'
   );

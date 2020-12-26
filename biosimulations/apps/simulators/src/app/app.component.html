@@ -3,6 +3,8 @@
   [appNameParts]="config.appNameParts"
   [logo]="config.logo"
   [privacyPolicyVersion]="config.privacyPolicyVersion"
+  [newsVersion]="1"
+  [showNews]="false"
 >
   <biosimulations-topbar-menu>
     <biosimulations-topbar-menu-item
@@ -11,6 +13,48 @@
       [route]="['/simulators']"
     >
     </biosimulations-topbar-menu-item>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Simulator standards" icon="standard" id="trigger" [route]="['/standards']">
+      </biosimulations-topbar-menu-item>
+
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Simulator specs"
+          icon="browse"
+          [routerLink]="['/standards', 'simulator-specs']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulator CLIs"
+          icon="logs"
+          [routerLink]="['/standards', 'simulator-interfaces']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulator images"
+          icon="docker"
+          [routerLink]="['/standards', 'simulator-images']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulation experiments"
+          icon="experiment"
+          [routerLink]="['/standards', 'simulation-experiments']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulation reports"
+          icon="report"
+          [routerLink]="['/standards', 'simulation-reports']"
+        >
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger">
@@ -60,6 +104,53 @@
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item
+      heading="Simulator standards"
+      icon="standard"
+    >
+      <biosimulations-navigation-subitem
+        heading="Overview"
+        icon="standard"
+        [route]="['/standards']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulator specs"
+        icon="browse"
+        [route]="['/standards', 'simulator-specs']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulators CLIs"
+        icon="logs"
+        [route]="['/standards', 'simulator-interfaces']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulator images"
+        icon="docker"
+        [route]="['/standards', 'simulator-images']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulation expts"
+        icon="experiment"
+        [route]="['/standards', 'simulation-experiments']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulation reports"
+        icon="report"
+        [route]="['/standards', 'simulation-reports']"
+      >
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
+
+    <biosimulations-navigation-item
       heading="Help"
       icon="help"
     >
@@ -94,6 +185,9 @@
       >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
+  </ng-container>
+
+  <ng-container id="news">
   </ng-container>
 
   <router-outlet></router-outlet>

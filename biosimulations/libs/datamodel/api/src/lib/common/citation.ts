@@ -1,31 +1,51 @@
 import { Citation as IJournalReference } from '@biosimulations/datamodel/common';
-import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Identifier } from './ontology.dto';
 
 export class Citation implements IJournalReference {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   authors!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   title!: string;
-  @ApiProperty()
-  journal!: string;
+
   @ApiProperty({
-    oneOf: [{ type: 'string' }, { type: 'number' }],
+    type: String,
     nullable: true,
+    required: false,
+    default: null,
   })
-  volume!: string | number | null;
+  journal!: string | null;
+
   @ApiProperty({
-    oneOf: [{ type: 'string' }, { type: 'number' }],
+    type: String,
     nullable: true,
+    required: false,
+    default: null,
   })
-  issue!: string | number | null;
+  volume!: string | null;
+
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null,
+  })
+  issue!: string | null;
+
   @ApiProperty({
     type: 'string',
     nullable: true,
+    required: false,
+    default: null,
   })
   pages!: string | null;
-  @ApiProperty({ example: 2020 })
+
+  @ApiProperty({ type: Number, example: 2020 })
   year!: number;
-  @ApiProperty({ type: [Identifier], nullable: true })
-  identifiers!: Identifier[] | null;
+
+  @ApiProperty({
+    type: [Identifier],
+  })
+  identifiers!: Identifier[];
 }

@@ -11,44 +11,60 @@
       [tocSection]="isObservable(row.heading) ? (row.heading | async) : row.heading"
       [icon]="row.icon"
       [iconActionType]="row.iconActionType"
-      [iconAction]="row.iconAction"      
+      [iconAction]="row.iconAction"
       [highlight]="row?.highlight"
     >
       <ul class="key-value">
         <li *ngFor="let column of displayedColumns">
-          <b>{{ column.heading }}:</b>
+          <b>{{ column.heading }}:</b>{{' '}}
           <span [ngSwitch]="column.centerAction">
             <ng-template [ngSwitchCase]="'routerLink'">
               <a
-                *ngIf="row.columns[column.id]?.centerRouterLink as routerLink"
-                [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                *ngIf="row.columns[column.id]?.centerRouterLink as routerLink; else noRouterLink"
+                [routerLink]="routerLink"
+                [fragment]="row.columns[column.id]?.centerFragment"
               >
                 <ng-container *ngTemplateOutlet="centerTemplate"
                 ></ng-container>
               </a>
+
+              <ng-template #noRouterLink>
+                <ng-container *ngTemplateOutlet="centerTemplate">
+                </ng-container>
+              </ng-template>
             </ng-template>
 
             <ng-template [ngSwitchCase]="'href'">
               <a
-                *ngIf="row.columns[column.id]?.centerHref as href"
+                *ngIf="row.columns[column.id]?.centerHref as href; else noHref"
                 [href]="isObservable(href) ? (href | async) : href"
                 target="_blank"
               >
                 <ng-container *ngTemplateOutlet="centerTemplate"
                 ></ng-container>
               </a>
+
+              <ng-template #noHref>
+                <ng-container *ngTemplateOutlet="centerTemplate">
+                </ng-container>
+              </ng-template>
             </ng-template>
 
             <ng-template [ngSwitchCase]="'click'">
               <button
                 mat-icon-button
                 class="biosimulations-icon-button primary"
-                *ngIf="row.columns[column.id]?.centerClick as click"
+                *ngIf="row.columns[column.id]?.centerClick as click; else noClick"
                 (click)="click(row.rawData)"
               >
                 <ng-container *ngTemplateOutlet="centerTemplate"
                 ></ng-container>
               </button>
+
+              <ng-template #noClick>
+                <ng-container *ngTemplateOutlet="centerTemplate">
+                </ng-container>
+              </ng-template>
             </ng-template>
 
             <ng-template ngSwitchDefault>
@@ -66,45 +82,61 @@
           <span [ngSwitch]="column.rightAction" *ngIf="column.rightShowStacked !== false">
             <ng-template [ngSwitchCase]="'routerLink'">
               <a
-                *ngIf="row.columns[column.id]?.rightRouterLink as routerLink"
-                [routerLink]="isObservable(routerLink) ? (routerLink | async) : routerLink"
+                *ngIf="row.columns[column.id]?.rightRouterLink as routerLink; else noRouterLink"
+                [routerLink]="routerLink"
+                [fragment]="row.columns[column.id]?.rightFragment"
               >
-                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
                 ></ng-container>
               </a>
+
+              <ng-template #noRouterLink>
+                <ng-container *ngTemplateOutlet="rightTemplate">
+                </ng-container>
+              </ng-template>
             </ng-template>
 
             <ng-template [ngSwitchCase]="'href'">
               <a
-                *ngIf="row.columns[column.id]?.rightHref as href"
+                *ngIf="row.columns[column.id]?.rightHref as href; else noHref"
                 [href]="isObservable(href) ? (href | async) : href"
                 target="_blank"
               >
-                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
                 ></ng-container>
               </a>
+
+              <ng-template #noHref>
+                <ng-container *ngTemplateOutlet="rightTemplate">
+                </ng-container>
+              </ng-template>
             </ng-template>
 
             <ng-template [ngSwitchCase]="'click'">
               <button
                 mat-icon-button
                 class="biosimulations-icon-button primary"
-                *ngIf="row.columns[column.id]?.rightClick as click"
+                *ngIf="row.columns[column.id]?.rightClick as click; else noClick"
                 (click)="click(row.rawData)"
               >
-                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+                <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
                 ></ng-container>
               </button>
+
+              <ng-template #noClick>
+                <ng-container *ngTemplateOutlet="rightTemplate">
+                </ng-container>
+              </ng-template>
             </ng-template>
 
             <ng-template ngSwitchDefault>
-              <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: column.rightIcon }"
+              <ng-container *ngTemplateOutlet="rightTemplate; context: { icon: row.columns[column.id]?.rightIcon }"
               ></ng-container>
             </ng-template>
 
             <ng-template #rightTemplate let-icon="icon">
               <biosimulations-icon
-                *ngIf="icon"
+                *ngIf="icon && row.columns[column.id]?.rightIconTitle"
                 [icon]="icon"
                 [title]="row.columns[column.id]?.rightIconTitle"
               ></biosimulations-icon>

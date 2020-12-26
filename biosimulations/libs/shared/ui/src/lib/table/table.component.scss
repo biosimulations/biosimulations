@@ -174,9 +174,11 @@
             width: 100%;
             .mat-checkbox-label {
                 width: 100%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+                &, & * {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
         }
         ::ng-deep .mat-checkbox-inner-container {
@@ -239,6 +241,12 @@
 
 biosimulations-icon {
   font-size: 125%;
+}
+
+mat-cell {
+    span:not(:last-child) {
+        margin-right: 0.25rem;
+    }
 }
 
 .controls-closed {

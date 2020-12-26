@@ -22,10 +22,12 @@ import {
   IdColumnMap,
   Side,
   RowService,
-  Sort as ISort,
+  ColumnSort,
+  ColumnSortDirection,
 } from './table.interface';
 import { UtilsService } from '@biosimulations/shared/services';
 import lunr from 'lunr';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // TODO fix datasource / loading functionality
 @Injectable()
@@ -44,6 +46,13 @@ export class TableDataSource extends MatTableDataSource<any> {
   }
 
   refresh(): void {}
+}
+
+interface ColumnFilterSearchState {
+  filter?: { [id: string]: any[] };
+  searchQuery?: string;
+  showColumns?: { [id: string]: boolean } | undefined;
+  openControlPanelId?: number;
 }
 
 @Component({
@@ -66,12 +75,13 @@ export class TableComponent implements OnInit, AfterViewInit {
   private isLoaded!: Observable<boolean>;
   private filter: { [id: string]: any[] } = {};
   columnIsFiltered: { [id: string]: boolean } = {};
+  columnFilterChanging = false;
 
   private fullTextIndex!: any;
   private fullTextMatches!: { [index: number]: boolean };
 
   @Input()
-  defaultSort!: ISort;
+  defaultSort!: ColumnSort;
 
   @Input()
   linesPerRow = 1;
@@ -163,9 +173,14 @@ export class TableComponent implements OnInit, AfterViewInit {
       datum['_cache'] = cache;
 
       this.columns.forEach((column: Column): void => {
+        const value = RowService.getElementValue(datum, column)
         cache[column.id] = {
           value: RowService.formatElementValue(
-            RowService.getElementValue(datum, column),
+            value,
+            column
+          ),
+          toolTip: RowService.formatElementToolTip(
+            value,
             column
           ),
           left: {},
@@ -174,11 +189,13 @@ export class TableComponent implements OnInit, AfterViewInit {
         };
 
         if (column.leftAction === ColumnActionType.routerLink) {
-          cache[column.id].left['routerLink'] = RowService.getElementRouterLink(
+          const tmp = RowService.getElementRouterLink(
             datum,
             column,
             Side.left
           );
+          cache[column.id].left['routerLink'] = tmp.routerLink;
+          cache[column.id].left['fragment'] = tmp.fragment;
         } else if (column.leftAction === ColumnActionType.href) {
           cache[column.id].left['href'] = RowService.getElementHref(
             datum,
@@ -191,6 +208,11 @@ export class TableComponent implements OnInit, AfterViewInit {
             Side.left
           );
         }
+        cache[column.id].left['icon'] = RowService.getIcon(
+          datum,
+          column,
+          Side.left
+        );
         cache[column.id].left['iconTitle'] = RowService.getIconTitle(
           datum,
           column,
@@ -198,9 +220,9 @@ export class TableComponent implements OnInit, AfterViewInit {
         );
 
         if (column.centerAction === ColumnActionType.routerLink) {
-          cache[column.id].center[
-            'routerLink'
-          ] = RowService.getElementRouterLink(datum, column, Side.center);
+          const tmp = RowService.getElementRouterLink(datum, column, Side.center);
+          cache[column.id].center['routerLink'] = tmp.routerLink;
+          cache[column.id].center['fragment'] = tmp.fragment;
         } else if (column.centerAction === ColumnActionType.href) {
           cache[column.id].center['href'] = RowService.getElementHref(
             datum,
@@ -213,12 +235,13 @@ export class TableComponent implements OnInit, AfterViewInit {
             Side.center
           );
         }
+        // cache[column.id].center['icon'] = RowService.getIcon(datum, column, Side.center);
         // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
 
         if (column.rightAction === ColumnActionType.routerLink) {
-          cache[column.id].right[
-            'routerLink'
-          ] = RowService.getElementRouterLink(datum, column, Side.right);
+          const tmp = RowService.getElementRouterLink(datum, column, Side.right);
+          cache[column.id].right['routerLink'] = tmp.routerLink;
+          cache[column.id].right['fragment'] = tmp.fragment;
         } else if (column.rightAction === ColumnActionType.href) {
           cache[column.id].right['href'] = RowService.getElementHref(
             datum,
@@ -231,6 +254,11 @@ export class TableComponent implements OnInit, AfterViewInit {
             Side.right
           );
         }
+        cache[column.id].right['icon'] = RowService.getIcon(
+          datum,
+          column,
+          Side.right
+        );
         cache[column.id].right['iconTitle'] = RowService.getIconTitle(
           datum,
           column,
@@ -248,6 +276,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           );
           break;
         case ColumnFilterType.date:
+          this.columnFilterData[column.id] = this.filter?.[column.id] || [null, null];
           break;
         default:
           this.columnFilterData[column.id] = this.getTextColumnValues(
@@ -282,9 +311,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     // set data for table
     this.dataSource.data = sortedData;
     this.dataSource.isLoading.next(false);
+
+    // set filtering
+    this.setDataSourceFilter();
   }
 
-  constructor(public dataSource: TableDataSource) {}
+  constructor(public dataSource: TableDataSource, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.isLoading = this.dataSource.isLoading$();
@@ -306,10 +338,180 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.filterPredicate = this.filterData.bind(this);
     this.dataSource.sort = this.sort;
     this.dataSource.sortData = (data: any[], sort: Sort) => {
-      return RowService.sortData(this.idToColumn, data, sort);
+      const columnSort: ColumnSort = {
+        active: sort.active,
+        direction: sort.direction ? ColumnSortDirection[sort.direction] : undefined,
+      }
+      return RowService.sortData(this.idToColumn, data, columnSort);
     };
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+
+    this.route.fragment
+      .subscribe((fragment: string): void => {
+        if (fragment != null && !this.columnFilterChanging) {
+          const state = this.parseFilterSearchQueryFragment(fragment);
+          const searchQuery = state?.searchQuery;
+          const filter = state?.filter;
+          const showColumns = state?.showColumns;
+          const openControlPanelId = state?.openControlPanelId;
+
+          setTimeout(() => {
+
+            if (searchQuery !== undefined) {
+              this.searchQuery = searchQuery;
+            }
+
+            let filterChanged = false;
+            if (filter !== undefined) {
+              this.filter = filter;
+
+              const columnIsFiltered: { [id: string]: boolean } = {};
+              this.columns.forEach((column: Column): void => {
+                columnIsFiltered[column.id] = column.id in filter;
+                if (columnIsFiltered[column.id]) {
+                  switch (column.filterType) {
+                    case ColumnFilterType.number:
+                      if (filter[column.id][0] !== this.columnFilterData[column.id]?.minSelected) {
+                        this.columnFilterData[column.id].minSelected = filter[column.id][0];
+                        filterChanged = true;
+                      }
+                      if (filter[column.id][1] !== this.columnFilterData[column.id]?.maxSelected) {
+                        this.columnFilterData[column.id].maxSelected = filter[column.id][1];
+                        filterChanged = true;
+                      }
+                      break;
+                    case ColumnFilterType.date: {
+                      if (filter[column.id][0] != null) {
+                        const date = new Date(filter[column.id][0]);
+                        if (date !== filter[column.id][0]) {
+                          filter[column.id][0] = date;
+                          filterChanged = true;
+                        }
+                      }
+                      if (filter[column.id][1] != null) {
+                        const date = new Date(filter[column.id][1]);
+                        if (date !== filter[column.id][1]) {
+                          filter[column.id][1] = date;
+                          filterChanged = true;
+                        }
+                      }
+                      this.columnFilterData[column.id] = filter[column.id];
+                      break;
+                    }
+                    default:
+                      this.columnFilterData[column.id]?.forEach((val: any): void => {
+                        const checked = filter[column.id].includes(val.value);
+                        if (checked !== val.checked) {
+                          val.checked = checked;
+                          filterChanged = true;
+                        }
+                      });
+                      break;
+                  }
+                }
+              });
+              this.columnIsFiltered = columnIsFiltered;
+            }
+
+            if ((filter !== undefined || searchQuery !== undefined) && filterChanged) {
+              this.setDataSourceFilter();
+            }
+
+            if (showColumns !== undefined) {
+              this.showColumns = showColumns;
+              this.setColumnsToShow();
+            }
+
+            if (openControlPanelId !== undefined) {
+              this.openControlPanelId = openControlPanelId;
+            }
+          });
+        }
+        this.columnFilterChanging = false;
+      });
+  }
+
+  buildFilterSearchQueryFragment(): string | undefined {
+    let opts = new URLSearchParams();
+    if (this.route.snapshot.fragment) {
+      opts = new URLSearchParams(this.route.snapshot.fragment);
+    }
+
+    if (opts.has('table.q')) {
+      opts.delete('table.q');
+    }
+    if (this.searchQuery) {
+      opts.set('table.q', this.searchQuery);
+    }
+
+    this.columns.forEach((column: Column): void => {
+      if (opts.has('table.' + column.id)) {
+        opts.delete('table.' + column.id);
+      }
+      if (column.id in this.filter) {
+        opts.set('table.' + column.id, JSON.stringify(this.filter[column.id]));
+      }
+    });
+
+    if (opts.has('table.c')) {
+      opts.delete('table.c');
+    }
+    this.columns.forEach((column: Column): void => {
+      if (this.showColumns[column.id]) {
+        opts.append('table.c', column.id);
+      }
+    });
+
+    opts.set('table.p', this.openControlPanelId.toString());
+
+    return opts.toString() || undefined;
+  }
+
+  parseFilterSearchQueryFragment(value: string): ColumnFilterSearchState {
+    const opts = new URLSearchParams(value);
+
+    const searchQuery = opts.get('table.q') || undefined;
+
+    const filter: { [id: string]: any[] } = {};
+    opts.forEach((val: string, key: string): void => {
+      if (key !== 'table.q' && key !== 'table.c' && key != 'table.p'
+        && key.startsWith('table.')
+        && key.replace('table.', '') in this.showColumns
+      ) {
+        try {
+          filter[key.replace('table.', '')] = JSON.parse(val);
+        } catch (e) {} // eslint-disable-line no-empty
+      }
+    });
+
+    let showColumns: {[id: string]: boolean} | undefined = undefined;
+    if (opts.has('table.c')) {
+      const definedShowColumns: {[id: string]: boolean} = {};
+      this.columns.forEach((column: Column): void => {
+        definedShowColumns[column.id] = false;
+      });
+      opts.getAll('table.c').forEach((columnId: string): void => {
+        if (columnId in definedShowColumns) {
+          definedShowColumns[columnId] = true;
+        }
+      });
+      showColumns = definedShowColumns;
+    }
+
+    let openControlPanelId: undefined | number = undefined;
+    if (opts.get('table.p') != null) {
+      try {
+        openControlPanelId = parseInt(opts.get('table.p') as string);
+      } catch (e) {} // eslint-disable-line no-empty
+    }
+
+    return {
+      searchQuery,
+      filter,
+      showColumns,
+      openControlPanelId,
+    }
   }
 
   setRowHighlighting(rows: any[]) {
@@ -323,15 +525,19 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getTextColumnValues(data: any[], column: Column): any[] {
-    const values: any = {};
-    for (const datum of data) {
-      const value: any = RowService.getElementFilterValue(datum, column);
+    const values: any[] = column.filterValues
+      ? column.filterValues
+      : data.map((datum: any): any => RowService.getElementFilterValue(datum, column));
 
+    const formattedValuesMap: any = {};
+    const allValues = new Set<any>();
+    for (const value of values) {
       if (Array.isArray(value)) {
         for (const v of value) {
           const formattedV = RowService.formatElementFilterValue(v, column);
           if (formattedV != null && formattedV !== '') {
-            values[v] = formattedV;
+            formattedValuesMap[v] = formattedV;
+            allValues.add(v);
           }
         }
       } else {
@@ -340,37 +546,47 @@ export class TableComponent implements OnInit, AfterViewInit {
           column
         );
         if (formattedValue != null && formattedValue !== '') {
-          values[value] = formattedValue;
+          formattedValuesMap[value] = formattedValue;
+          allValues.add(value);
         }
       }
     }
 
     const comparator = RowService.getFilterComparator(column);
-    const arrValues = Object.keys(values).map((key: any): any => {
-      return {
-        value: key,
-        formattedValue: values[key],
-        checked: false,
+    const formattedValuesArr = [];
+    for (const value of allValues) {
+      const formattedValue = {
+        value: value,
+        formattedValue: formattedValuesMap[value],
+        checked: this.filter?.[column.id]?.includes(value) || false,
       };
-    });
-    arrValues.sort((a: any, b: any): number => {
+      formattedValuesArr.push(formattedValue);
+    }
+    formattedValuesArr.sort((a: any, b: any): number => {
       return comparator(a.value, b.value);
     });
-    return arrValues;
+
+    if (column.filterSortDirection === ColumnSortDirection.desc) {
+      formattedValuesArr.reverse();
+    }
+
+    return formattedValuesArr;
   }
 
   getNumericColumnRange(data: any[], column: Column): any {
     if (data.length === 0) {
-      return { min: null, max: null, step: null };
+      return { min: null, max: null, step: null, minSelected: null, maxSelected: null };
     }
 
     const range: any = {
       min: null,
       max: null,
       step: null,
+      minSelected: null,
+      maxSelected: null,
     };
 
-    for (const datum of this.dataSource.data) {
+    for (const datum of data) {
       const value = RowService.getElementFilterValue(datum, column);
       if (value == null || value === undefined) {
         continue;
@@ -389,6 +605,11 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
+    if (range.min != null) {
+      range.min = Math.floor(range.min);
+      range.max = Math.ceil(range.max);
+    }
+
     if (column.numericFilterStep !== undefined) {
       range.step = column.numericFilterStep;
     } else if (range.max === range.min) {
@@ -398,6 +619,15 @@ export class TableComponent implements OnInit, AfterViewInit {
         10,
         Math.floor(Math.log10((range.max - range.min) / 1000))
       );
+    }
+    range.step = Math.max(1, range.step);
+
+    if (column.id in this.filter) {
+      range.minSelected = this.filter[column.id][0];
+      range.maxSelected = this.filter[column.id][1];
+    } else {
+      range.minSelected = range.min;
+      range.maxSelected = range.max;
     }
 
     return range;
@@ -421,6 +651,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     value.checked = show;
     this.columnIsFiltered[column.id] = column.id in this.filter;
 
+    this.columnFilterChanging = true;
+    this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
+
     this.setDataSourceFilter();
   }
 
@@ -441,6 +674,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
     this.columnIsFiltered[column.id] = column.id in this.filter;
 
+    this.columnFilterData[column.id].minSelected = selectedRange[0];
+    this.columnFilterData[column.id].maxSelected = selectedRange[1];
+    this.columnFilterChanging = true;
+    this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
     this.setDataSourceFilter();
   }
 
@@ -448,12 +685,15 @@ export class TableComponent implements OnInit, AfterViewInit {
     column: Column,
     event: MatDatepickerInputEvent<Date>
   ): void {
+    let min: any = null;
+    let max: any = null;
     if (event.value == null) {
       if (column.id in this.filter) {
         if (this.filter[column.id][1] == null) {
           delete this.filter[column.id];
         } else {
           this.filter[column.id][0] = null;
+          max = this.filter[column.id][1];
         }
       }
     } else {
@@ -462,9 +702,13 @@ export class TableComponent implements OnInit, AfterViewInit {
       } else {
         this.filter[column.id] = [event.value, null];
       }
+      min = this.filter[column.id][0];
+      max = this.filter[column.id][1];
     }
     this.columnIsFiltered[column.id] = column.id in this.filter;
-
+    this.columnFilterData[column.id] = [min, max];
+    this.columnFilterChanging = true;
+    this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
     this.setDataSourceFilter();
   }
 
@@ -472,6 +716,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     column: Column,
     event: MatDatepickerInputEvent<Date>
   ): void {
+    let min: any = null;
+    let max: any = null;
     if (event.value == null) {
       if (column.id in this.filter) {
         if (this.filter[column.id][0] == null) {
@@ -479,6 +725,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         } else {
           this.filter[column.id][1] = null;
         }
+        min = this.filter[column.id][0];
       }
     } else {
       if (column.id in this.filter) {
@@ -486,9 +733,13 @@ export class TableComponent implements OnInit, AfterViewInit {
       } else {
         this.filter[column.id] = [null, event.value];
       }
+      min = this.filter[column.id][0];
+      max = this.filter[column.id][1];
     }
     this.columnIsFiltered[column.id] = column.id in this.filter;
-
+    this.columnFilterData[column.id] = [min, max];
+    this.columnFilterChanging = true;
+    this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
     this.setDataSourceFilter();
   }
 
@@ -601,12 +852,16 @@ export class TableComponent implements OnInit, AfterViewInit {
       val.checked = false;
     }
     this.columnIsFiltered[column.id] = false;
+    this.columnFilterChanging = true;
+    this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
     this.setDataSourceFilter();
   }
 
   toggleColumn(column: Column): void {
     this.showColumns[column.id] = this.showColumns[column.id] === false;
     this.setColumnsToShow();
+    this.columnFilterChanging = true;
+    this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
   }
 
   setColumnsToShow(): void {
@@ -635,7 +890,11 @@ export class TableComponent implements OnInit, AfterViewInit {
   openControlPanelId = 3;
 
   openControlPanel(id: number): void {
-    this.openControlPanelId = id;
+    if (id != this.openControlPanelId) {
+      this.openControlPanelId = id;
+      this.columnFilterChanging = true;
+      this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
+    }
   }
 
   @Input()
@@ -648,6 +907,8 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   searchRows(query: string): void {
     this.searchQuery = query.toLowerCase();
+    this.columnFilterChanging = true;
+    this.router.navigate([], { fragment: this.buildFilterSearchQueryFragment() });
     this.setDataSourceFilter();
   }
 }

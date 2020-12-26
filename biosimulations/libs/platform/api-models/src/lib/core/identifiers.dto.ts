@@ -3,29 +3,36 @@ import { ResourceIdentifier } from './jsonApi';
 import { ResourceType } from '@biosimulations/datamodel/common';
 
 export class UserIdentifier implements ResourceIdentifier {
-  @ApiProperty({ enum: ['user'] })
+  @ApiProperty({ type: String, enum: ['user'] })
   type: ResourceType.user = ResourceType.user;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   id: string;
+
   constructor(id: string) {
     this.id = id;
   }
 }
+
 export class FileIdentifier implements ResourceIdentifier {
-  @ApiProperty({ enum: ['file'] })
+  @ApiProperty({ type: String, enum: ['file'] })
   type: ResourceType.file = ResourceType.file;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   id: string;
+
   constructor(id: string) {
     this.id = id;
   }
 }
 
 export class ModelIdentifier implements ResourceIdentifier {
-  @ApiProperty({ enum: ['model'] })
+  @ApiProperty({ type: String, enum: ['model'] })
   type: ResourceType.model = ResourceType.model;
-  @ApiProperty()
+
+  @ApiProperty({ type: String })
   id: string;
+
   constructor(id: string) {
     this.id = id;
   }

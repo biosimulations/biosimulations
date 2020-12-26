@@ -7,6 +7,4 @@ import { Component, Input } from '@angular/core';
 })
 export class RouterLinkComponent {
   @Input() routerLink: string | number | (string | number)[] | undefined;
-
-  constructor() { }
 }

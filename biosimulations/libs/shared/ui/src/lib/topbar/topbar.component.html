@@ -1,7 +1,7 @@
 <mat-toolbar [ngStyle]="{ background: color }" [color]="color" class="topbar">
   <ng-content select="#leftContent"></ng-content>
   <a [routerLink]="['/']" class="logo" *ngIf="showLogo" fxLayout="row" fxLayoutAlign="center center">
-    <ng-content select="#logo" fxFlex></ng-content>  
+    <ng-content select="#logo" fxFlex></ng-content>
   </a>
   <ng-content select="#rightContent"></ng-content>
 </mat-toolbar>

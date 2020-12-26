@@ -15,7 +15,7 @@ export class AuthConfigService {
     }),
 
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    audience: this.config.get('auth.auth0_audience'),
+    audience: this.config.get('auth.api_audience'),
     issuer: this.config.get('auth.auth0_domain'),
     algorithms: ['RS256'],
   };

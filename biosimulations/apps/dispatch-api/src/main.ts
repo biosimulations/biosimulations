@@ -1,14 +1,19 @@
 /**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
+ * @file  The main file to run the server. Largley based on the template. Contains the express middlewares that need to be loaded such as CORS. Also provides the Open API document base that is filled in by the NestJS/swagger module.
+ * @author Bilal Shaikh
+ * @author Akhil Marupilla
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
  */
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { ConfigService } from '@nestjs/config';
+import { json } from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -34,9 +39,8 @@ async function bootstrap() {
       'https://biosimulations.dev',
       'https://biosimulations.org',
       'https://run.biosimulations.dev',
-      'https://run.biosimulations.org',
+      'https://run.biosimulations.org'
     ];
-    // console.log(requestOrigin);
     const allow = allowedOrigins.includes(requestOrigin);
     const error = null;
     callback(error, allow);
@@ -46,23 +50,80 @@ async function bootstrap() {
     'https://github.com/biosimulations/Biosimulations/raw/dev/biosimulations/libs/shared/assets/src/assets/icons/favicon-32x32.png';
   const removeIcon = ' .swagger-ui .topbar { display: none }';
   // Swagger doc
-  const tags = ['Dispatch', 'Simulators', 'Database'];
+  const tags = [
+    {
+      name: 'Simulation Runs',
+      description:
+        'Operations for submitting a Simulation Run, checking its status, modifying details, and canceling the run.'
+    },
+    {
+      name: 'Results',
+      description:
+        ' Operations for viewing and retrieving the results of a Simulation Run'
+    }
+  ];
   const builder = new DocumentBuilder()
-    .setTitle('Simulation dispatch')
+    .setTitle('runBioSimulations API')
     .setDescription(
-      'Dispatch API allows dispatching of simulation jobs to UConn HPC'
+      'API to submit and manage simulations jobs to the runBioSimulations service'
     )
-    .setVersion('0.1');
+    .setVersion('0.1')
+    .setContact(
+      'runBioSimulations Team',
+      'https://run.biosimulations.org/help/about',
+      'info@biosimulations.org'
+    );
+
   for (const tag of tags) {
-    builder.addTag(tag);
+    builder.addTag(tag.name, tag.description);
   }
+
+  const scopes = [
+    'read:SimulationRuns',
+    'write:SimulationRuns',
+    'delete:SimulationsRuns'
+  ];
+  const authorizationUrl =
+    'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
+  const openIdConnectUrl =
+    'https://auth.biosimulations.org/.well-known/openid-configuration';
+  const clientId = 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a';
+
+  const oauthSchema: SecuritySchemeObject = {
+    type: 'oauth2',
+    flows: {
+      implicit: {
+        authorizationUrl: authorizationUrl,
+        scopes: scopes
+      }
+    }
+  };
+
+  builder.addOAuth2(oauthSchema);
+
+  const openIDSchema: SecuritySchemeObject = {
+    type: 'openIdConnect',
+    openIdConnectUrl: openIdConnectUrl
+  };
+
+  builder.addSecurity('OpenIdc', openIDSchema);
+
   const options = builder.build();
   const document = SwaggerModule.createDocument(app, options);
+
   SwaggerModule.setup('', app, document, {
     customfavIcon: favIcon,
-    customSiteTitle: 'Dispatch API BioSimulations',
+    customSiteTitle: 'runBioSimulations API',
     customCss: removeIcon,
+    swaggerOptions: {
+      oauth: {
+        clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a'
+      }
+    }
   });
+  const configService = app.get(ConfigService);
+  const limit = configService.get('server.limit');
+  app.use(json({ limit }));
 
   await app.listen(port, () => {
     logger.log('Listening at http://localhost:' + port);

@@ -9,6 +9,4 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 export class HomeSectionComponent {
   @Input()
   columns = 3;
-
-  constructor() {}
 }

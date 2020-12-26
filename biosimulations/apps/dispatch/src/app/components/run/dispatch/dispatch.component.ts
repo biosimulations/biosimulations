@@ -6,11 +6,11 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { DispatchService, SimulatorVersionsMap } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
-import { SimulationStatus } from '../../../datamodel';
+import { SimulationRunStatus } from '../../../datamodel';
+import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -20,12 +20,10 @@ import { map } from 'rxjs/operators';
 })
 export class DispatchComponent implements OnInit {
   formGroup: FormGroup;
-  simulators: Array<string> = [];
-  simulatorVersions: Array<string> = [];
+  simulators: string[] = [];
+  simulatorVersions: string[] = [];
 
-  simulatorsError: string | undefined = undefined;
-  simulatorVersionsError: string | undefined = undefined;
-  submitError: string | undefined = undefined;
+  simulatorVersionsMap: SimulatorVersionsMap | undefined = undefined;
 
   simulationId: string | undefined = undefined;
 
@@ -33,7 +31,7 @@ export class DispatchComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
-    private simulationService: SimulationService,
+    private simulationService: SimulationService
   ) {
     this.formGroup = formBuilder.group({
       projectFile: ['', [Validators.required]],
@@ -45,46 +43,48 @@ export class DispatchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params: Params): void => {
-      const simulator: string = params?.simulator;
-      const simulatorVersion: string = params?.simulatorVersion;
-      if (simulator) {
-        this.formGroup.controls.simulator.setValue(
-            simulator
-        );
-        this.onSimulatorChange({value: simulator});
-        if (simulatorVersion) {
-          this.formGroup.controls.simulatorVersion.setValue(
-              simulatorVersion
-          );
-        }
-      }
-    });
+    this.formGroup.controls.simulator.disable();
+    this.formGroup.controls.simulatorVersion.disable();
 
-    this.dispatchService.getAllSimulatorInfo().subscribe(
-      (simulators: string[]) => {
-        this.simulators = simulators;
-        this.simulatorsError = undefined;
+    combineLatest([this.dispatchService.getSimulatorsFromDb(), this.route.queryParams])
+      .subscribe((observerableValues: [SimulatorVersionsMap, Params]): void => {
+        const simulatorVersionsMap = observerableValues[0];
+        const params = observerableValues[1];
+
+        // this.simulatorVersionsMap = simulatorVersionsMap;
+        // Note: Hardcoded available simulators, to make it dynamic uncomment above two lines and delete the hard-coded ones
+        // TODO: Un-hardcode simulators
+        this.simulatorVersionsMap = {
+          amici: ['0.11.11'],
+          bionetgen: ['2.5.1'],
+          copasi: ['4.30.233', '4.29.227', '4.28.226'],
+          gillespy2: ['1.5.7', '1.5.6', '1.5.5', '1.5.4'],
+          vcell: ['7.3.0.07', '7.3.0.06', '7.3.0.0'],
+          tellurium: ['2.1.6'],
+        };
+        this.simulators = Object.keys(this.simulatorVersionsMap);
+
+        this.simulators.sort((a: string, b: string): number => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        });
+
         this.formGroup.controls.simulator.enable();
-      },
-      (error: HttpErrorResponse) => {
-        this.simulatorsError =
-          'Sorry! We were not able to retrieve the available simulators.';
-        this.formGroup.controls.simulator.disable();
-        if (!environment.production) {
-          console.error(
-            'Error ' +
-              error.status.toString() +
-              ' while fetching simulators: ' +
-              error.message
-          );
+
+        // process query arguments
+        const simulator: string = params?.simulator?.toLowerCase();
+        const simulatorVersion: string = params?.simulatorVersion;
+        if (simulator) {
+          this.formGroup.controls.simulator.setValue(simulator);
+          this.onSimulatorChange({ value: simulator });
+          if (simulatorVersion) {
+            this.formGroup.controls.simulatorVersion.setValue(simulatorVersion);
+          }
         }
       }
     );
   }
 
   onFormSubmit() {
-    this.submitError = undefined;
     this.simulationId = undefined;
 
     if (!this.formGroup.valid) {
@@ -99,64 +99,34 @@ export class DispatchComponent implements OnInit {
 
     this.dispatchService
       .submitJob(projectFile, simulator, simulatorVersion, name, email)
-      .subscribe(
-        (data: any) => {
-          if (!environment.production) {
-            console.log('Response from server: ', data);
-          }
-          const simulationId = data['data']['id'];
-          this.dispatchService.uuidsDispatched.push(simulationId);
-          this.dispatchService.uuidUpdateEvent.next(simulationId);
-          this.simulationId = simulationId;
+      .subscribe((data: any) => {
+        const simulationId = data['id'];
+        this.dispatchService.uuidsDispatched.push(simulationId);
+        this.dispatchService.uuidUpdateEvent.next(simulationId);
+        this.simulationId = simulationId;
 
-          this.simulationService.storeSimulation({
-            id: simulationId,
-            name: name,
-            email: email,
-            submittedLocally: true,
-            status: SimulationStatus.queued,
-            runtime: undefined,
-            submitted: new Date(),
-            updated: new Date(),
-          });
-        },
-        (error: HttpErrorResponse) => {
-          this.submitError = error.message;
-          if (!environment.production) {
-            console.error(
-              'Error ' +
-                error.status.toString() +
-                ' while submitting simulation: ' +
-                error.message
-            );
-          }
-        }
-      );
+        this.simulationService.storeNewLocalSimulation({
+          id: simulationId,
+          name: name,
+          email: email,
+          simulator: simulator,
+          simulatorVersion: simulatorVersion,
+          submittedLocally: true,
+          status: SimulationRunStatus.QUEUED,
+          runtime: undefined,
+          submitted: new Date(),
+          updated: new Date(),
+        });
+      });
   }
 
   onSimulatorChange($event: any) {
-    this.dispatchService.getAllSimulatorInfo($event.value).subscribe(
-      (simulatorVersions: string[]) => {
-        this.simulatorVersions = simulatorVersions;
-        this.simulatorVersionsError = undefined;
-        this.formGroup.controls.simulatorVersion.enable();
-        this.formGroup.controls.simulatorVersion.setValue(
-          this.simulatorVersions[0]
-        );
-      },
-      (error: HttpErrorResponse) => {
-        this.simulatorVersionsError =
-          'Sorry! We were not able to retrieve the available simulation versions.';
-        this.formGroup.controls.simulatorVersion.disable();
-        if (!environment.production) {
-          console.error(
-            'Error ' +
-              error.status.toString() +
-              ' while fetching simulator versions: ' +
-              error.message
-          );
-        }
-      }
-    );
+    if (this.simulatorVersionsMap !== undefined) {
+      this.simulatorVersions = this.simulatorVersionsMap[$event.value];
+      this.formGroup.controls.simulatorVersion.enable();
+      this.formGroup.controls.simulatorVersion.setValue(
+        this.simulatorVersions[0]
+      );
+    }
   }
 }

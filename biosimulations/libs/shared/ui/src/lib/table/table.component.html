@@ -77,6 +77,8 @@
                           [min]="range.min"
                           [max]="range.max"
                           [step]="range.step"
+                          [minSelected]="range.minSelected"
+                          [maxSelected]="range.maxSelected"
                           (onChange)="filterNumberValue(column, range, $event)"
                         >
                         </npn-slider>
@@ -90,11 +92,13 @@
                           matStartDate
                           placeholder="Start date"
                           (dateChange)="filterStartDateValue(column, $event)"
+                          [value]="columnFilterData[column.id][0]"
                         />
                         <input
                           matEndDate
                           placeholder="End date"
                           (dateChange)="filterEndDateValue(column, $event)"
+                          [value]="columnFilterData[column.id][1]"
                         />
                       </mat-date-range-input>
                       <mat-datepicker-toggle
@@ -114,13 +118,15 @@
                           (change)="
                             filterSetValue(column, value, checkbox.checked)
                           "
+                          ng-attr-title
+                          [attr.title]="column.showFilterItemToolTips === true ? value.formattedValue : null"
                         >
                           {{ value.formattedValue }}
                         </mat-checkbox>
                       </mat-list-item>
                     </mat-list>
                     <button mat-icon-button class="biosimulations-icon-button text filter-set-clear-all" (click)="clearFilter(column)">
-                      Clear filter 
+                      Clear filter
                     </button>
                   </ng-container>
                 </ng-template>
@@ -143,6 +149,7 @@
         <ng-template matExpansionPanelContent>
           <mat-form-field appearance="fill" class="search-field">
             <input #searchInput matInput type="text"
+              [value]="searchQuery || null"
               (keydown.enter)="searchRows(searchInput.value)"
               [placeholder]="searchPlaceHolder"
               [matTooltip]="searchToolTip"
@@ -166,6 +173,8 @@
           [ngStyle]="{
             'min-width.em':
               column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'max-width.em':
+              column.maxWidth !== undefined ? column.maxWidth / 14 : null,
             'justify-content': column.center !== undefined ? 'center' : null
           }"
         >
@@ -177,34 +186,35 @@
           *matCellDef="let element"
           [ngStyle]="{
             'min-width.em':
-              column.minWidth !== undefined ? column.minWidth / 14 : null
+              column.minWidth !== undefined ? column.minWidth / 14 : null,
+            'max-width.em':
+              column.maxWidth !== undefined ? column.maxWidth / 14 : null
           }"
           [ngClass]="{'highlight-row': element?._highlight}"
         >
           <div
             class="cell-content-container"
             [ngClass]="{
-              'lines-one': linesPerRow === 1,
-              'lines-multiple': linesPerRow > 1,
               center: column.center === true
             }"
             [ngStyle]="{
               '-webkit-line-clamp': linesPerRow,
-              'height.px': 20 * linesPerRow
+              'height.px': 22 * linesPerRow - 2
             }"
           >
-            <span [ngSwitch]="column.leftAction">
+            <span [ngSwitch]="column.leftAction" *ngIf="element._cache[column.id].left.icon">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
                   class="biosimulations-icon-button primary"
                   *ngIf="element._cache[column.id].left.routerLink as routerLink"
                   [routerLink]="routerLink"
+                  [fragment]="element._cache[column.id].left.fragment"
                 >
                   <ng-container
                     *ngTemplateOutlet="
                       leftTemplate;
-                      context: { icon: column.leftIcon }
+                      context: { icon: element._cache[column.id].left.icon }
                     "
                   ></ng-container>
                 </a>
@@ -221,7 +231,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       leftTemplate;
-                      context: { icon: column.leftIcon }
+                      context: { icon: element._cache[column.id].left.icon }
                     "
                   ></ng-container>
                 </a>
@@ -237,7 +247,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       leftTemplate;
-                      context: { icon: column.leftIcon }
+                      context: { icon: element._cache[column.id].left.icon }
                     "
                   ></ng-container>
                 </button>
@@ -247,21 +257,21 @@
                 <ng-container
                   *ngTemplateOutlet="
                     leftTemplate;
-                    context: { icon: column.leftIcon }
+                    context: { icon: element._cache[column.id].left.icon }
                   "
                 ></ng-container>
               </ng-template>
 
               <ng-template #leftTemplate let-icon="icon">
                 <biosimulations-icon
-                  *ngIf="icon"
+                  *ngIf="icon && element._cache[column.id].left.iconTitle"
                   [icon]="icon"
                   [title]="element._cache[column.id].left.iconTitle"
                 ></biosimulations-icon>
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.centerAction">
+            <span [ngSwitch]="column.centerAction" *ngIf="element._cache[column.id].value">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
@@ -270,6 +280,7 @@
                     element._cache[column.id].center.routerLink as routerLink
                   "
                   [routerLink]="routerLink"
+                  [fragment]="element._cache[column.id].center.fragment"
                 >
                   <ng-container *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
@@ -308,12 +319,12 @@
 
               <ng-template #centerTemplate>
                 <ng-container *ngIf="element._cache[column.id].value as value">
-                  {{ value }}
+                  <span [attr.title]="element._cache[column.id].toolTip">{{ value }}</span>
                 </ng-container>
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.rightAction">
+            <span [ngSwitch]="column.rightAction" *ngIf="element._cache[column.id].right.icon">
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
@@ -322,11 +333,12 @@
                     element._cache[column.id].right.routerLink as routerLink
                   "
                   [routerLink]="routerLink"
+                  [fragment]="element._cache[column.id].right.fragment"
                 >
                   <ng-container
                     *ngTemplateOutlet="
                       rightTemplate;
-                      context: { icon: column.rightIcon }
+                      context: { icon: element._cache[column.id].right.icon }
                     "
                   ></ng-container>
                 </a>
@@ -343,7 +355,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       rightTemplate;
-                      context: { icon: column.rightIcon }
+                      context: { icon: element._cache[column.id].right.icon }
                     "
                   ></ng-container>
                 </a>
@@ -359,7 +371,7 @@
                   <ng-container
                     *ngTemplateOutlet="
                       rightTemplate;
-                      context: { icon: column.rightIcon }
+                      context: { icon: element._cache[column.id].right.icon }
                     "
                   ></ng-container>
                 </button>
@@ -369,14 +381,14 @@
                 <ng-container
                   *ngTemplateOutlet="
                     rightTemplate;
-                    context: { icon: column.rightIcon }
+                    context: { icon: element._cache[column.id].right.icon }
                   "
                 ></ng-container>
               </ng-template>
 
               <ng-template #rightTemplate let-icon="icon">
                 <biosimulations-icon
-                  *ngIf="icon"
+                  *ngIf="icon && element._cache[column.id].right.iconTitle"
                   [icon]="icon"
                   [title]="element._cache[column.id].right.iconTitle"
                 ></biosimulations-icon>

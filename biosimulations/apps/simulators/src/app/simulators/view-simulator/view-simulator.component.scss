@@ -1,7 +1,7 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-::ng-deep .mat-typography {
+biosimulations-tab-page ::ng-deep {
   h2, h3 {
     margin: 0;
   }
@@ -39,6 +39,11 @@
 }
 
 .icon-list {
+  li {
+    margin-left: calc(16px + 0.25rem);
+    text-indent: calc(-1 * (16px + 0.25rem));
+  }
+
   a {
     color: $dark-primary-text;
     &:hover {
@@ -80,6 +85,22 @@
     top: -0.15rem;
     float: left;
     font-size: 125%;
+  }
+}
+
+.icon-list.icon-list-format li {
+  margin-left: calc(8px + 0.25rem);
+  text-indent: calc(-1 * (8px + 0.25rem));
+
+  .comma-separated {
+    display: inline;
+  }
+}
+
+.funding.icon-list {
+  li {
+    margin-left: calc(6.3px + 0.25rem);
+    text-indent: calc(-1 * (6.3px + 0.25rem));
   }
 }
 

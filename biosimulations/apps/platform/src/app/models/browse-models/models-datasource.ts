@@ -2,7 +2,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription, BehaviorSubject, Observable, merge, of } from 'rxjs';
 import {
   BiomodelAttributes,
-  IOntologyTerm,
   UserId,
   Person,
 } from '@biosimulations/datamodel/common';

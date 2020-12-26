@@ -9,7 +9,9 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-
+import {
+  ValueType,
+} from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 
@@ -17,9 +19,6 @@ import {
   ViewSimulator,
   ViewParameter,
   ViewVersion,
-  ViewCitation,
-  DescriptionFragment,
-  DescriptionFragmentType,
 } from './view-simulator.interface';
 
 @Component({
@@ -52,46 +51,28 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'name',
       heading: 'Name',
       key: 'name',
+      toolTipFormatter: (name: string): string => {
+        return name;
+      },
       showStacked: false,
-      minWidth: 250
+      minWidth: 234
     },
     {
       id: 'type',
       heading: 'Type',
       key: 'type',
+      minWidth: 66,
+      maxWidth: 66,
     },
     {
       id: 'value',
-      heading: 'Default value',
+      heading: 'Default',
       key: 'value',
       getter: (parameter: ViewParameter): string | null => {
-        const value = parameter.value;
-        if (value == null || value === undefined) {
-          return null;
-        } else if (typeof value === 'string') {
-          return value;
-        } else if (value === true || value === false) {
-          return value.toString();
-        } else if (value === 0) {
-          return '0';
-        } else if (value < 1e-3 || value > 1e3) {
-          const exp = Math.floor(Math.log10(value as number));
-          const val = (value as number) / Math.pow(10, exp);
-          let valStr: string;
-          if (Math.abs((val * 1e0 - Math.round(val * 1e0)) / (val * 1e0)) < 1e-12) {
-            valStr = val.toFixed(0);
-          } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
-            valStr = val.toFixed(1);
-          } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
-            valStr = val.toFixed(2);
-          } else {
-            valStr = val.toFixed(3);
-          }
-          return `${valStr}e${exp}`;
-        } else {
-          return value.toString();
-        }
+        return this.formatParameterVal(parameter.type, parameter.value);
       },
+      minWidth: 66,
+      maxWidth: 66,
     },
     {
       id: 'range',
@@ -99,26 +80,77 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'range',
       getter: (parameter: ViewParameter): string | null => {
         if (parameter.range) {
-          return parameter.range.join(', ');
+          return parameter.range.map(this.formatParameterVal.bind(this, parameter.type)).join(', ');
         } else {
           return null;
         }
       },
       minWidth: 163,
+      maxWidth: 163,
+      filterable: false,
+    },
+    {
+      id: 'availableSoftwareInterfaceTypes',
+      heading: 'Availability',
+      key: 'availableSoftwareInterfaceTypes',
+      formatter: (interfaceTypes: string[] | string): string => {
+        let returnVal = '';
+        if (Array.isArray(interfaceTypes)) {
+          returnVal = interfaceTypes.join(', ');
+        } else {
+          returnVal = interfaceTypes;
+        }
+        return returnVal.substring(0, 1).toUpperCase() + returnVal.substring(1);
+      },
+      toolTipFormatter: (interfaceTypes: string[]): string => {
+        return interfaceTypes.join(', ');
+      },
+      minWidth: 163,
+      maxWidth: 163,
     },
     {
       id: 'kisaoId',
       heading: 'KiSAO id',
       key: 'kisaoId',
-      rightIcon: 'link',
-      rightAction: ColumnActionType.href,
-      rightHref: (parameter: ViewParameter): string => {
+      centerAction: ColumnActionType.href,
+      centerHref: (parameter: ViewParameter): string => {
         return parameter.kisaoUrl;
       },
       showStacked: true,
-      minWidth: 130,
+      minWidth: 110,
+      maxWidth: 110,
     },
   ];
+
+  formatParameterVal(type: string, value: boolean | number | string | null): string | null {
+    if (value == null) {
+      return value;
+    } else if (type === ValueType.boolean) {
+      return value.toString();
+    } else if (type === ValueType.integer || type === ValueType.float) {
+      if (value === 0) {
+        return '0';
+      } else if (value < 1e-3 || value > 1e3) {
+        const exp = Math.floor(Math.log10(value as number));
+        const val = (value as number) / Math.pow(10, exp);
+        let valStr: string;
+        if (Math.abs((val * 1e0 - Math.round(val * 1e0)) / (val * 1e0)) < 1e-12) {
+          valStr = val.toFixed(0);
+        } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
+          valStr = val.toFixed(1);
+        } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
+          valStr = val.toFixed(2);
+        } else {
+          valStr = val.toFixed(3);
+        }
+        return `${valStr}e${exp}`;
+      } else {
+        return value.toString();
+      }
+    } else {
+      return value as string;
+    }
+  }
 
   getParameterStackedHeading(parameter: ViewParameter): string {
     return parameter.name;
@@ -136,7 +168,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Version',
       key: 'label',
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (version: ViewVersion) => {
+      centerRouterLink: (version: ViewVersion): string[] => {
         return ['/simulators', this.id, version.label];
       },
       minWidth: 73,
@@ -145,7 +177,7 @@ export class ViewSimulatorComponent implements OnInit {
     {
       id: 'date',
       heading: 'Date',
-      key: 'date',
+      key: 'created',
       filterType: ColumnFilterType.date,
       minWidth: 80,
     },
@@ -153,21 +185,40 @@ export class ViewSimulatorComponent implements OnInit {
       id: 'image',
       heading: 'Image',
       key: 'image',
-      rightIcon: 'copy',
-      rightIconTitle: (): string => {
-        return 'Copy to clipboard';
+      getter: (version: ViewVersion): string | null => {
+        return version.image ? version.image.url : null;
       },
-      rightAction: ColumnActionType.click,
-      rightClick: (version: ViewVersion): void => {
-        this.copyDockerPullCmd(version.image);
+      stackedFormatter: (image: string | null): string => {
+        if (image) {
+          return image;
+        } else {
+          return 'Not available';
+        }
+      },
+      centerAction: ColumnActionType.href,
+      centerHref: (version: ViewVersion): string | null => {
+        if (version.image) {
+          return 'https://github.com/orgs/biosimulators/packages/container/package/' + this.id;
+        } else {
+          return null;
+        }
       },
       minWidth: 610,
+    },
+    {
+      id: 'curationStatus',
+      heading: 'Curation',
+      key: 'curationStatus',
+      show: true,
+      center: true,
+      minWidth: 74,
+      filterable: true,
     },
     {
       id: 'run',
       heading: 'Run',
       key: 'label',
-      formatter: (label: string): null => {
+      formatter: (): null => {
         return null;
       },
       stackedFormatter: (label: string): string => {
@@ -220,19 +271,19 @@ export class ViewSimulatorComponent implements OnInit {
           simulator = this.simService.getVersion(id, version);
         } else {
           simulator = this.simService.getLatest(id);
-        }        
+        }
         simulator.subscribe(this.processSimulator.bind(this));
         return simulator;
       }),
 
-      tap((_) => {
+      tap(() => {
         this.loadingSubject.next(false);
         this.cd.detectChanges();
       })
     );
   }
 
-  processSimulator(simulator: ViewSimulator) {
+  processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.dispatchAppRunUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {
@@ -240,66 +291,15 @@ export class ViewSimulatorComponent implements OnInit {
     };
   }
 
-  formatKisaoDescription(value: string): DescriptionFragment[] {
-    const formattedValue = [];
-    let prevEnd = 0;
-
-    const regExp = /\[(https?:\/\/.*?)\]/gi;
-    let match;
-    while ((match = regExp.exec(value)) !== null) {
-      if (match.index > 0) {
-        formattedValue.push({
-          type: DescriptionFragmentType.text,
-          value: value.substring(prevEnd, match.index),
-        });
-      }
-      prevEnd = match.index + match[0].length;
-      formattedValue.push({
-        type: DescriptionFragmentType.href,
-        value: match[1],
-      });
-    }
-    if (prevEnd < value?.length) {
-      formattedValue.push({
-        type: DescriptionFragmentType.text,
-        value: value.substring(prevEnd),
-      });
-    }
-    return formattedValue;
-  }
-
-  makeCitation(citation: any): ViewCitation {
-    let text =
-      citation.authors +
-      '. ' +
-      citation.title +
-      '. <i>' +
-      citation.journal +
-      '</i>';
-    if (citation.volume) {
-      text += ' ' + citation.volume;
-    }
-    if (citation.issue) {
-      text += ' (' + citation.issue + ')';
-    }
-    if (citation.pages) {
-      text += ', ' + citation.pages;
-    }
-    text += ' (' + citation.year + ').';
-
-    return {
-      url: citation.identifiers[0].url as string,
-      text: text,
-    };
-  }
-
   tocSections!: Observable<TocSection[]>;
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
-    setTimeout(() => {
-      this.tocSections = container.sections$;
-    });
+    if (container) {
+      setTimeout(() => {
+        this.tocSections = container.sections$;
+      });
+    }
   }
 
   copyDockerPullCmd(image = '{ image }'): void {

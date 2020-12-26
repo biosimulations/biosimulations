@@ -1,7 +1,7 @@
 import { AccessLevel } from '@biosimulations/datamodel/common';
 import { License } from './license';
 import { SimulationResultsFormat } from '@biosimulations/datamodel/common';
-import { SimulationStatus } from './simulation-status';
+import { SimulationRunStatus } from './simulation-run-status';
 import { ParameterChange } from './parameter-change';
 import { Algorithm } from './algorithm';
 import { AlgorithmParameter } from './algorithm-parameter';
@@ -10,7 +10,6 @@ import { Format } from './format';
 import { Identifier } from './identifier';
 import { Citation } from './journal-reference';
 import { Model } from './model';
-import { OntologyTerm } from './ontology-term';
 import { Person } from './person';
 import { Project } from './project';
 import { RemoteFile } from './remote-file';
@@ -36,13 +35,13 @@ export class Simulation extends TopLevelResource {
   startTime?: number; // in seconds
   endTime?: number; // in seconds
   length?: number; // in seconds
-  algorithm?: Algorithm; // KISAO modeling and simulation algorithm
-  algorithmParameterChanges?: ParameterChange[] = []; // KISAO modeling and simulation algorithm parameter
+  algorithm?: Algorithm; // KiSAO modeling and simulation algorithm
+  algorithmParameterChanges?: ParameterChange[] = []; // KiSAO modeling and simulation algorithm parameter
   simulator?: Simulator;
   numTimePoints?: number;
   parent?: Simulation;
   owner?: User;
-  status?: SimulationStatus;
+  status?: SimulationRunStatus;
   startDate?: Date; // date/time when simulation run started
   endDate?: Date; // date/time when simulation run finished
   wallTime?: number; // execution time in seconds

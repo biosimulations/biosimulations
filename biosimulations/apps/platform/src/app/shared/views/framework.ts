@@ -9,7 +9,9 @@ export class Framework extends ViewModel implements IFramework {
     public id: string,
     public name: string | null,
     public description: string | null,
-    public iri: string | null
+    public iri: string | null,
+    public url: string | null,
+    public moreInfoUrl: string | null,
   ) {
     super();
     this.init();
@@ -21,9 +23,12 @@ export class Framework extends ViewModel implements IFramework {
       framework.id,
       framework.name,
       framework.description,
-      framework.iri
+      framework.iri,
+      framework.url,
+      framework.moreInfoUrl,
     );
   }
+  
   getTooltip(): string {
     return 'Framework';
   }
@@ -35,12 +40,15 @@ export class Framework extends ViewModel implements IFramework {
       return '';
     }
   }
+  
   getIcon(): 'framework' {
     return 'framework';
   }
+  
   getLink(): string | null {
-    return this.iri;
+    return this.url;
   }
+  
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');
   }

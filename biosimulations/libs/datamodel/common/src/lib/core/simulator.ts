@@ -9,4 +9,5 @@ export enum imageVersions {
 export interface IBiosimulatorsMeta {
   specificationVersion: specificationVersions;
   imageVersion: imageVersions;
+  validated: boolean;
 }

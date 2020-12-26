@@ -36,9 +36,10 @@ import { CommonModule } from '@angular/common';
         { path: '', redirectTo: 'register', pathMatch: 'full' },
       ],
       {
-        initialNavigation: 'enabled',
-        scrollPositionRestoration: 'disabled',
-      },
+    initialNavigation: 'enabled',
+    scrollPositionRestoration: 'disabled',
+    relativeLinkResolution: 'legacy'
+},
     ),
     SharedUiModule,
 

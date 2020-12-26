@@ -25,6 +25,4 @@ export class ConfigService {
   simulatorsNewIssueUrl!: string;
   simulatorsNewPullUrl!: string;
   appConfig!: any;
-
-  constructor() {}
 }

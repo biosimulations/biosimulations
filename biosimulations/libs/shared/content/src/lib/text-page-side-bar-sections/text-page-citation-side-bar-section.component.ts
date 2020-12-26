@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./text-page-citation-side-bar-section.component.scss'],
 })
 export class TextPageCitationSideBarSectionComponent {  
-  constructor() {}
 }
