@@ -183,6 +183,9 @@
     },
     "shared-exceptions-exceptions": {
       "tags": ["scope:shared", "type:util", "platform:server"]
+    },
+    "mail-service-client": {
+      "tags": ["scope:mail-service", "type:util", "platform:server"]
     }
   }
 }

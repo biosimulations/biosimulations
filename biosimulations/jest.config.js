@@ -39,5 +39,6 @@ module.exports = {
     '<rootDir>/libs/datamodel/api',
     '<rootDir>/libs/datamodel/common',
     '<rootDir>/libs/shared/exceptions//exceptions',
+    '<rootDir>/libs/mail-service/client',
   ],
 };
