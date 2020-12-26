@@ -102,7 +102,7 @@
       <biosimulations-q-a heading="How are results encoded into HDF5 files?">
         <p>Within HDF5 files, report tables (<code>sedml:report</code>) are saved to paths equal to a combination of the relative path of the parent SED-ML document within the parent COMBINE/OMEX archive and the id of the report.</p>
 
-        <p>The rows of report tables correspond to the datasets (<code>sedml:dataset</code>) specified in the SED-ML definition of the report. For time course simulations, the columns of reports correspond to the predicted time points. The heading of each row is the id of the corresponding dataset. Below is a sample report table.</p>    
+        <p>The rows of report tables correspond to the data sets (<code>sedml:dataSet</code>) specified in the SED-ML definition of the report. For time course simulations, the columns of reports correspond to the predicted time points. The heading of each row is the label of the corresponding data set. Below is a sample report table.</p>    
 
         <p>See the <a [routerLink]="['/standards', 'simulator-interfaces']">specifications for reports</a> for more information and examples.</p>
       </biosimulations-q-a>
