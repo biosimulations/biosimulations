@@ -13,16 +13,13 @@ import { MailClientService } from '@biosimulations/mail-service/client'
 import { AppService } from './app.service';
 import { DispatchFinishedPayload, DispatchMessage, DispatchProcessedPayload } from '@biosimulations/messages/messages'
 import { SimulationRun } from '@biosimulations/dispatch/api-models'
-class dataInput {
-  hello!: string;
-}
+
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private emailClient: MailClientService,
     private simService: SimulationRunService,
-    @Inject('Nats_Client') private client: ClientProxy
   ) { }
 
   logger = new Logger(AppController.name)
@@ -34,19 +31,9 @@ export class AppController {
 
       if (email) {
         this.logger.error(email)
-
         this.emailClient.sendNotificationEmail(email, `Simulation ${data.id} completed`, "The simulation is complete", "<p>The simulation is complete<p>")
-
       }
     })
-
-
-
   }
 
-
-  log(@Payload() data: dataInput, @Ctx() context: NatsContext) {
-    console.log(data);
-    console.log(context);
-  }
 }
