@@ -25,12 +25,11 @@ export class AppController {
   logger = new Logger(AppController.name)
   @MessagePattern(DispatchMessage.processed)
   sendEmail(@Payload() data: DispatchProcessedPayload, @Ctx() context: NatsContext) {
-    this.logger.error(data.id)
     this.simService.getJob(data.id).subscribe((job: SimulationRun) => {
       const email = job.email
 
       if (email) {
-        this.logger.error(email)
+
         this.emailClient.sendNotificationEmail(email, `Simulation ${data.id} completed`, "The simulation is complete", "<p>The simulation is complete<p>")
       }
     })
