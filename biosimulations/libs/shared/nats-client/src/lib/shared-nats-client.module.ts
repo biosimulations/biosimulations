@@ -23,6 +23,6 @@ import {
       inject: [ConfigService]
     }
   ],
-  exports: [],
+  exports: ['NATS_CLIENT'],
 })
 export class SharedNatsClientModule { }

@@ -21,9 +21,9 @@ import { SubmissionService } from './submission/submission.service';
 import { SimulationRunService } from './simulation-run/simulation-run.service';
 import { ResultsController } from './results/results.controller';
 import { ResultsService } from './results/results.service';
-
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
 @Module({
-  imports: [HttpModule, BiosimulationsConfigModule, ScheduleModule.forRoot()],
+  imports: [HttpModule, BiosimulationsConfigModule, SharedNatsClientModule, ScheduleModule.forRoot()],
   controllers: [SubmissionController, ResultsController],
   providers: [
     SimulationRunService,
@@ -33,20 +33,7 @@ import { ResultsService } from './results/results.service';
     ArchiverService,
     AuthService,
     SubmissionService,
-
-    {
-      provide: 'DISPATCH_MQ',
-      useFactory: (configService: ConfigService): ClientProxy => {
-        const natsServerConfig = configService.get('nats');
-        const natsOptions: NatsOptions = {};
-        natsOptions.transport = Transport.NATS;
-        natsOptions.options = natsServerConfig;
-        return ClientProxyFactory.create(natsOptions);
-      },
-      inject: [ConfigService]
-    },
-
     ResultsService
   ]
 })
-export class AppModule {}
+export class AppModule { }
