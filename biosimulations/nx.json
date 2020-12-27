@@ -324,7 +324,7 @@
       "tags": [
         "scope:dispatch",
         "type:util",
-        "platform:any"
+        "platform:server"
       ]
     },
     "simulators-database-models": {
@@ -357,9 +357,10 @@
     },
     "messages-messages": {
       "tags": [
-        "scope:shared",
+        "scope:mesages",
         "type:datamodel",
-        "platform:server"
+        "platform:server",
+        "shared:true"
       ]
     },
     "shared-exceptions-filters": {
@@ -385,16 +386,18 @@
     },
     "dispatch-nest-client": {
       "tags": [
-        "scope:shared",
+        "scope:dispatch",
         "type:client",
-        "platform:server"
+        "platform:server",
+        "shared:true"
       ]
     },
     "shared-nats-client": {
       "tags": [
-        "scope:shared",
+        "scope:messages",
         "type:client",
-        "platform:server"
+        "platform:server",
+        "shared:true"
       ]
     }
   }

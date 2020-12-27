@@ -136,6 +136,14 @@
                 ]
               },
               {
+                "sourceTag": "scope:messages",
+                "onlyDependOnLibsWithTags": [
+                  "scope:messages",
+                  "scope:shared",
+                  "shared:true"
+                ]
+              },
+              {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": [
                   "*"
