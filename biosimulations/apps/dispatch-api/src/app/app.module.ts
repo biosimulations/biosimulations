@@ -31,13 +31,6 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
     BiosimulationsConfigModule,
     BiosimulationsAuthModule,
     HttpModule,
-    MongooseModule.forFeature([
-      { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
-      {
-        name: SimulationFile.name,
-        schema: SimulationFileSchema
-      }
-    ]),
     ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
@@ -48,16 +41,8 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
       }),
       inject: [ConfigService]
     }),
-    TypegooseModule.forRootAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('database.uri') || '',
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      }),
-      inject: [ConfigService]
-    }),
-    CacheModule.register(),
+
+
     SimulationRunModule,
     ResultsModule,
     SharedExceptionsFiltersModule,
@@ -81,4 +66,4 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
     }
   ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -5,7 +5,6 @@
  * @license MIT
  */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { prop } from '@typegoose/typegoose';
 import { Document } from 'mongoose';
 import { Schema as SchemaType } from 'mongoose';
 
