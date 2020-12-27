@@ -188,9 +188,10 @@ export class SimulationRunController {
   @permissions('write:SimulationRuns')
   @ApiOAuth2(['write:SimulationRuns'])
   @Patch(':id')
-  modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun) {
+  async modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun): Promise<SimulationRun> {
     this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
-    const run = this.service.update(id, body);
+    const run = await this.service.update(id, body);
+    return this.makeSimulationRun(run)
   }
 
   @ApiOperation({

@@ -1,4 +1,4 @@
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRun, SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
@@ -108,7 +108,7 @@ export class SubmissionService {
   async updateSimulationRunStatus(
     simId: string,
     simStatus: SimulationRunStatus
-  ) {
+  ): Promise<SimulationRun> {
     return this.service.updateSimulationRunStatus(simId, simStatus);
   }
 }
