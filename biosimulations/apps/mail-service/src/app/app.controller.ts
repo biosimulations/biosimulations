@@ -1,4 +1,4 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, Inject, Logger } from '@nestjs/common';
 import {
   ClientProxy,
   Ctx,
@@ -8,8 +8,11 @@ import {
   NatsContext,
   Payload,
 } from '@nestjs/microservices';
-
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client'
+import { MailClientService } from '@biosimulations/mail-service/client'
 import { AppService } from './app.service';
+import { DispatchFinishedPayload, DispatchMessage, DispatchProcessedPayload } from '@biosimulations/messages/messages'
+import { SimulationRun } from '@biosimulations/dispatch/api-models'
 class dataInput {
   hello!: string;
 }
@@ -17,31 +20,31 @@ class dataInput {
 export class AppController {
   constructor(
     private readonly appService: AppService,
+    private emailClient: MailClientService,
+    private simService: SimulationRunService,
     @Inject('Nats_Client') private client: ClientProxy
-  ) {}
+  ) { }
 
-  @EventPattern('test.ping')
-  async getData(@Payload() payload: any, @Ctx() context: NatsContext) {
-    console.log('Staring Routine 1. Sending Message');
-    this.client
-      .send('test.echo', { hello: 'world' })
-      .subscribe((reply) => console.log('Got reply'));
+  logger = new Logger(AppController.name)
+  @MessagePattern(DispatchMessage.processed)
+  sendEmail(@Payload() data: DispatchProcessedPayload, @Ctx() context: NatsContext) {
+    this.logger.error(data.id)
+    this.simService.getJob(data.id).subscribe((job: SimulationRun) => {
+      const email = job.email
 
-    return this.appService.getData();
+      if (email) {
+        this.logger.error(email)
+
+        this.emailClient.sendNotificationEmail(email, `Simulation ${data.id} completed`, "The simulation is complete", "<p>The simulation is complete<p>")
+
+      }
+    })
+
+
+
   }
 
-  @MessagePattern('test.echo')
-  echoData(@Payload() data: dataInput, @Ctx() context: NatsContext) {
-    console.log('Starting Routine 2');
 
-    return data;
-  }
-  @MessagePattern('test.context')
-  echoContext(@Payload() data: any, @Ctx() context: NatsContext) {
-    return context;
-  }
-
-  @EventPattern('>')
   log(@Payload() data: dataInput, @Ctx() context: NatsContext) {
     console.log(data);
     console.log(context);

@@ -8,6 +8,7 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../services/auth/auth.service';
 import { pluck, retry, } from 'rxjs/operators'
+import { Observable } from 'rxjs';
 @Injectable({})
 export class SimulationRunService {
   constructor(private auth: AuthService, private http: HttpService) { }
@@ -44,7 +45,7 @@ export class SimulationRunService {
       )
       .pipe(pluck('data')).toPromise();
   }
-  async getJob(simId: String) {
+  getJob(simId: String): Observable<SimulationRun> {
     return this.http.get<SimulationRun>(
       `${this.endpoint}/runs/${simId}`
     ).pipe(pluck('data'))

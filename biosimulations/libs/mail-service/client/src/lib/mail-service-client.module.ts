@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MailServiceClientService } from './mail-service-client.service';
-
+import { MailClientService } from './mail-service-client.service';
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest'
 @Module({
   controllers: [],
-  providers: [MailServiceClientService],
-  exports: [MailServiceClientService],
+  imports: [BiosimulationsConfigModule],
+  providers: [MailClientService],
+  exports: [MailClientService],
 })
-export class MailServiceClientModule {}
+export class MailServiceClientModule { }
