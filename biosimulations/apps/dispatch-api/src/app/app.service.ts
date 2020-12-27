@@ -1,33 +1,18 @@
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
-import { SimulationRunModel } from './../simulation-run/simulation-run.model';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import {
-  HttpService,
-  Inject,
   Injectable,
-  Logger,
-  NotFoundException,
 } from '@nestjs/common';
 import path from 'path';
 
 import { ConfigService } from '@nestjs/config';
-import { ClientProxy } from '@nestjs/microservices';
-
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()
 export class AppService {
   constructor(
-    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
 
     private configService: ConfigService,
-
-
   ) { }
-
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
-  private logger = new Logger(AppService.name);
 
   async downloadLogFile(uId: string, download: boolean, res: any) {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
@@ -35,17 +20,11 @@ export class AppService {
     let filePathErr = '';
     download = String(download) === 'false' ? false : true;
 
-
-
     if (download) {
-
 
       filePathErr = path.join(logPath, 'job.error');
       res.set('Content-Type', 'text/html');
       res.download(filePathErr);
-
-
-
 
     } else {
 
@@ -66,10 +45,6 @@ export class AppService {
         },
       });
 
-
-
-
-
     }
   }
 
@@ -82,6 +57,4 @@ export class AppService {
     );
     res.download(zipPath);
   }
-
-
 }
