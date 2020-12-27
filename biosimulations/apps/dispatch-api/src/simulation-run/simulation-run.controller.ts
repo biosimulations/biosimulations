@@ -63,7 +63,7 @@ export class SimulationRunController {
   logger: Logger;
   constructor(
     private service: SimulationRunService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy
   ) {
     this.logger = new Logger(SimulationRunController.name);
   }

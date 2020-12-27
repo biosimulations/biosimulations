@@ -39,7 +39,7 @@ export class ResultsService {
   constructor(
     private readonly configService: ConfigService,
     private submit: SimulationRunService,
-    @Inject('DISPATCH_MQ') private client: ClientProxy
+    @Inject('NATS_CLIENT') private client: ClientProxy
   ) { }
 
   private getResultsDirectory(id: string) {

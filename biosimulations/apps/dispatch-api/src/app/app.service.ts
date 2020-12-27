@@ -19,7 +19,7 @@ import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 @Injectable()
 export class AppService {
   constructor(
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
 
     private configService: ConfigService,
 

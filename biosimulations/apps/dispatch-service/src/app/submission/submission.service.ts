@@ -19,7 +19,7 @@ export class SubmissionService {
     private service: SimulationRunService,
     private hpcService: HpcService,
     private schedulerRegistry: SchedulerRegistry,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy
   ) {
     this.logger = new Logger(SubmissionService.name);
   }

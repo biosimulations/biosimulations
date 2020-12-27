@@ -16,7 +16,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 @Controller()
 export class AppController implements OnApplicationBootstrap {
   constructor(
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy,
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
     private appService: AppService,
 
     private configService: ConfigService

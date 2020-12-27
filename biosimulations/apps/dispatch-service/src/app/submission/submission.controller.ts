@@ -25,8 +25,8 @@ export class SubmissionController {
     private service: SubmissionService,
     private readonly configService: ConfigService,
     private hpcService: HpcService,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
-  ) {}
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy
+  ) { }
   private logger = new Logger(SubmissionController.name);
   private fileStorage: string = this.configService.get<string>(
     'hpc.fileStorage',
@@ -64,7 +64,7 @@ export class SubmissionController {
       };
       this.messageClient
         .emit(DispatchMessage.submitted, message)
-        .subscribe(() => {});
+        .subscribe(() => { });
 
       // Get the slurm id of the job
       // Expected output of the response is " Submitted batch job <ID> /n"
