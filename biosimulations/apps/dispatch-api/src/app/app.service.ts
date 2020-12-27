@@ -13,7 +13,7 @@ export class AppService {
     private configService: ConfigService,
   ) { }
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
-
+  // TODO use the database for logs, remove the connection to nfs
   async downloadLogFile(uId: string, download: boolean, res: any) {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
     let filePathOut = '';
