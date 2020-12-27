@@ -41,5 +41,6 @@ module.exports = {
     '<rootDir>/libs/shared/exceptions//exceptions',
     '<rootDir>/libs/mail-service/client',
     '<rootDir>/libs/dispatch/nest-client',
+    '<rootDir>/libs/shared/nats-client',
   ],
 };

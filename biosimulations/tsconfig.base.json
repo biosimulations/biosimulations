@@ -84,6 +84,9 @@
       ],
       "@biosimulations/dispatch/nest-client": [
         "libs/dispatch/nest-client/src/index.ts"
+      ],
+      "@biosimulations/shared/nats-client": [
+        "libs/shared/nats-client/src/index.ts"
       ]
     }
   },

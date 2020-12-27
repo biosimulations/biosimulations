@@ -189,6 +189,9 @@
     },
     "dispatch-nest-client": {
       "tags": ["scope:shared", "type:client", "platform: server"]
+    },
+    "shared-nats-client": {
+      "tags": ["scope:shared", "type:client", "platform:server"]
     }
   }
 }
