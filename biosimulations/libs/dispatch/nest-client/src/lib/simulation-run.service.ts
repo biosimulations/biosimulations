@@ -44,7 +44,7 @@ export class SimulationRunService {
             )
             .pipe(pluck('data')).toPromise();
     }
-    getJob(simId: String): Observable<SimulationRun> {
+    getJob(simId: string): Observable<SimulationRun> {
         console.log(`${this.endpoint}run/${simId}`)
         return this.http.get<SimulationRun>(
             `${this.endpoint}run/${simId}`

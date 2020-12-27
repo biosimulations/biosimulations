@@ -1,5 +1,8 @@
 {
-  "extends": "../../../.eslintrc",
+  "extends": "../../../.eslintrc.json",
   "rules": {},
-  "ignorePatterns": ["!**/*", "**/*.spec.ts"]
+  "ignorePatterns": [
+    "!**/*",
+    "**/*.spec.ts"
+  ]
 }
