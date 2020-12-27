@@ -35,6 +35,7 @@ export class HpcService {
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
     const endpoint = this.configService.get('urls.dispatchApi')
+
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,

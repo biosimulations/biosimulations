@@ -91,6 +91,8 @@ async function bootstrap() {
       'http://localhost:4202',
       'https://biosimulators.org',
       'https://www.biosimulators.org',
+      'https://biosimulators.dev',
+      'https://www.biosimulators.dev',
       'https://run.biosimulations.dev',
       'https://run.biosimulations.org',
     ];
