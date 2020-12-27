@@ -40,5 +40,6 @@ module.exports = {
     '<rootDir>/libs/datamodel/common',
     '<rootDir>/libs/shared/exceptions//exceptions',
     '<rootDir>/libs/mail-service/client',
+    '<rootDir>/libs/dispatch/nest-client',
   ],
 };

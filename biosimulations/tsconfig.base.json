@@ -81,6 +81,9 @@
       ],
       "@biosimulations/mail-service/client": [
         "libs/mail-service/client/src/index.ts"
+      ],
+      "@biosimulations/dispatch/nest-client": [
+        "libs/dispatch/nest-client/src/index.ts"
       ]
     }
   },

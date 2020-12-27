@@ -186,6 +186,9 @@
     },
     "mail-service-client": {
       "tags": ["scope:mail-service", "type:util", "platform:server"]
+    },
+    "dispatch-nest-client": {
+      "tags": ["scope:shared", "type:client", "platform: server"]
     }
   }
 }
