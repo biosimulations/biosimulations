@@ -405,13 +405,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pysces</loc>
-    <lastmod>2020-12-10</lastmod>
+    <lastmod>2020-12-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/pysces/0.9.8</loc>
-    <lastmod>2020-12-10</lastmod>
+    <loc>https://biosimulators.org/simulators/pysces/0.9.9</loc>
+    <lastmod>2020-12-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
