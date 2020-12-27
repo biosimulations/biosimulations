@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { urls } from '@biosimulations/config/common';
+import { urls, staticUrls } from '@biosimulations/config/common';
 @Injectable()
 export class ConfigEnvironment {
   appName!: string;
@@ -14,14 +14,14 @@ export class ConfigEnvironment {
   newPullUrl!: string;
   platformAppUrl = urls.platform;
   platformApiUrl = urls.platformApi;
-  platformNewIssueUrl = urls.platformNewIssue;
-  platformNewPullUrl = urls.platformNewPull;
+  platformNewIssueUrl = staticUrls.platformNewIssue;
+  platformNewPullUrl = staticUrls.platformNewPull;
   dispatchAppUrl = urls.dispatch;
   dispatchApiUrl = urls.dispatchApi;
-  dispatchNewIssueUrl = urls.dispatchNewIssue;
-  dispatchNewPullUrl = urls.dispatchNewPull;
+  dispatchNewIssueUrl = staticUrls.dispatchNewIssue;
+  dispatchNewPullUrl = staticUrls.dispatchNewPull;
   simulatorsAppUrl = urls.simulators;
   simulatorsApiUrl = urls.simulatorsApi;
-  simulatorsNewIssueUrl = urls.simulatorsNewIssue;
-  simulatorsNewPullUrl = urls.simulatorsNewPull;
+  simulatorsNewIssueUrl = staticUrls.simulatorsNewIssue;
+  simulatorsNewPullUrl = staticUrls.simulatorsNewPull;
 }

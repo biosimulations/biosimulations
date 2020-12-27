@@ -11,9 +11,8 @@ import { pluck, retry, } from 'rxjs/operators'
 import { Observable } from 'rxjs';
 @Injectable({})
 export class SimulationRunService {
-    constructor(private auth: AuthService, private http: HttpService) { }
-    // TODO use config service
-    endpoint = process.env.DISPATCH_URL;
+    constructor(private auth: AuthService, private http: HttpService, private configService: ConfigService) { }
+    endpoint = this.configService.get('urls').dispatchApi
     // TODO Change this over to observable to allow for chaining/error handling
     async updateSimulationRunStatus(id: string, status: SimulationRunStatus): Promise<SimulationRun> {
         const token = await this.auth.getToken();
