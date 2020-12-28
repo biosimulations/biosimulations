@@ -63,7 +63,7 @@ export class ResultsService {
     });
     Promise.all(resultPromises).then((_) => {
       const data: DispatchProcessedPayload = { _message: DispatchMessage.processed, id: id }
-      this.client.emit(DispatchMessage.processed, {})
+      this.client.emit(DispatchMessage.processed, data)
     })
   }
   private async readCSV(file: string): Promise<SimulationRunReportDataStrings> {
