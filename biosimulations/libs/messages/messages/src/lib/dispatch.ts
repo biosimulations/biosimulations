@@ -69,3 +69,10 @@ export class DispatchFinishedPayload extends DispatchPayload {
     super(id);
   }
 }
+export class DispatchProcessedPayload extends DispatchPayload {
+  _message = DispatchMessage.finished;
+
+  constructor(id: string) {
+    super(id);
+  }
+}

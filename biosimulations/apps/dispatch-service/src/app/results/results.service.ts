@@ -6,7 +6,7 @@
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Dirent, promises as fsPromises } from 'fs';
 import ospath from 'path';
@@ -16,10 +16,13 @@ import csv from 'csvtojson';
 import readline from 'readline';
 import fs from 'fs';
 import {
+  SimulationRunReport,
   SimulationRunReportData,
   SimulationRunReportDataStrings
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
+import { DispatchProcessedPayload, DispatchMessage } from '@biosimulations/messages/messages';
+import { ClientProxy } from '@nestjs/microservices';
 
 export interface resultFile {
   name: string;
@@ -35,8 +38,9 @@ export class ResultsService {
   );
   constructor(
     private readonly configService: ConfigService,
-    private submit: SimulationRunService
-  ) {}
+    private submit: SimulationRunService,
+    @Inject('NATS_CLIENT') private client: ClientProxy
+  ) { }
 
   private getResultsDirectory(id: string) {
     return path.join(this.fileStorage, 'simulations', id, 'out');
@@ -53,10 +57,14 @@ export class ResultsService {
     const csvFileList = fileList.filter((value: resultFile) =>
       value.name.endsWith('.csv')
     );
-
+    const resultPromises: Promise<void>[] = []
     csvFileList.forEach((file: resultFile) => {
-      this.uploadResultFile(id, file, transpose);
+      resultPromises.push(this.uploadResultFile(id, file, transpose));
     });
+    Promise.all(resultPromises).then((_) => {
+      const data: DispatchProcessedPayload = { _message: DispatchMessage.processed, id: id }
+      this.client.emit(DispatchMessage.processed, {})
+    })
   }
   private async readCSV(file: string): Promise<SimulationRunReportDataStrings> {
     // info https://nodejs.org/api/readline.html#readline_example_read_file_stream_line_by_line
@@ -94,7 +102,7 @@ export class ResultsService {
     return resultsObject
     */
   }
-  async uploadResultFile(id: string, file: resultFile, transpose: boolean) {
+  async uploadResultFile(id: string, file: resultFile, transpose: boolean): Promise<void> {
     let file_json: Promise<SimulationRunReportDataStrings>;
 
     if (transpose) {

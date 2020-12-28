@@ -5,14 +5,6 @@ export type appName =
   | 'accountApi'
   | 'dispatchApi'
   | 'simulatorsApi'
-  | 'platformNewIssue'
-  | 'accountNewIssue'
-  | 'dispatchNewIssue'
-  | 'simulatorsNewIssue'
-  | 'platformNewPull'
-  | 'accountNewPull'
-  | 'dispatchNewPull'
-  | 'simulatorsNewPull'
   | 'platform'
   | 'account'
   | 'dispatch'
@@ -30,18 +22,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatchApi: 'https://run.api.biosimulations.org/',
     ontologyApi: 'https://ontology.api.biosimulations.org/',
     simulatorsApi: 'https://api.biosimulators.org/',
-    platformNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue:
-      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
-    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.org',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.org',
@@ -57,18 +37,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatchApi: '/dispatch-api',
     simulatorsApi: '/simulators-api',
     ontologyApi: '/ontology-api',
-    platformNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue:
-      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
-    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -80,18 +48,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatchApi: 'https://run.api.biosimulations.dev/',
     simulatorsApi: 'https://api.biosimulators.dev/',
     ontologyApi: 'https://ontology.api.biosimulations.dev/',
-    platformNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue:
-      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
-    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -103,23 +59,36 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatchApi: '/api/',
     simulatorsApi: '/simulators-api/',
     ontologyApi: '/ontology-api/',
-    platformNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    accountNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    dispatchNewIssue:
-      'https://github.com/biosimulations/Biosimulations/issues/new/choose',
-    simulatorsNewIssue:
-      'https://github.com/biosimulators/Biosimulators/issues/new/choose',
-    platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-    simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
     simulators: 'https://biosimulators.org'
   }
 };
+export type staticUrlNames =
+  'platformNewIssue'
+  | 'accountNewIssue'
+  | 'dispatchNewIssue'
+  | 'simulatorsNewIssue'
+  | 'platformNewPull'
+  | 'accountNewPull'
+  | 'dispatchNewPull'
+  | 'simulatorsNewPull'
+export type staticUrlMap = { [key in staticUrlNames]: string }
 
+export const staticUrls: staticUrlMap = {
+  platformNewIssue:
+    'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+  accountNewIssue:
+    'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+  dispatchNewIssue:
+    'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+  simulatorsNewIssue:
+    'https://github.com/biosimulators/Biosimulators/issues/new/choose',
+  platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+  accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+  dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+  simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
+
+}
 export const urls: urlMap = envUrls[environment.env as envs];

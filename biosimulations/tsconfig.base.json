@@ -78,6 +78,15 @@
       ],
       "@biosimulations/shared/exceptions": [
         "libs/shared/exceptions/exceptions/src/index.ts"
+      ],
+      "@biosimulations/mail-service/client": [
+        "libs/mail-service/client/src/index.ts"
+      ],
+      "@biosimulations/dispatch/nest-client": [
+        "libs/dispatch/nest-client/src/index.ts"
+      ],
+      "@biosimulations/shared/nats-client": [
+        "libs/shared/nats-client/src/index.ts"
       ]
     }
   },

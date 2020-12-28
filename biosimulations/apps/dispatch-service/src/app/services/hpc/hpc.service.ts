@@ -33,8 +33,9 @@ export class HpcService {
   }> {
     const simulatorString = `biosimulations_${simulator}_${version}.img`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
-    // TODO use config service
-    const endpoint = process.env.DISPATCH_URL as string;
+
+    const endpoint = this.configService.get('urls.dispatchApi')
+
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,
