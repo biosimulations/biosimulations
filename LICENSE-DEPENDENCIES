@@ -789,6 +789,27 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/angular/angular-cli
 │  ├─ publisher: Angular Authors
 │  └─ licenseFile: @schematics/angular/LICENSE
+├─ @sendgrid/client@7.4.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
+│  ├─ publisher: Twilio SendGrid
+│  ├─ email: help@twilio.com
+│  ├─ url: sendgrid.com
+│  └─ licenseFile: @sendgrid/client/LICENSE
+├─ @sendgrid/helpers@7.4.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
+│  ├─ publisher: Twilio SendGrid
+│  ├─ email: help@twilio.com
+│  ├─ url: sendgrid.com
+│  └─ licenseFile: @sendgrid/helpers/LICENSE
+├─ @sendgrid/mail@7.4.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
+│  ├─ publisher: Twilio SendGrid
+│  ├─ email: help@twilio.com
+│  ├─ url: sendgrid.com
+│  └─ licenseFile: @sendgrid/mail/LICENSE
 ├─ @tootallnate/once@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/once
@@ -2489,6 +2510,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TehShrike/deepmerge
 │  └─ licenseFile: deepmerge/license.txt
+├─ deepmerge@4.2.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/TehShrike/deepmerge
+│  └─ licenseFile: @sendgrid/helpers/node_modules/deepmerge/license.txt
 ├─ defaults@1.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/tmpvar/defaults
