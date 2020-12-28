@@ -73,7 +73,7 @@ routes.forEach((route: Route): void => {
   if (route.data) {
     route.data.config = config;
   } else {
-    route.data = {config};
+    route.data = { config };
   }
 });
 
@@ -87,11 +87,11 @@ routes.forEach((route: Route): void => {
     SharedUiModule,
     RoutesModule,
     RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled',
-    scrollPositionRestoration: 'disabled',
-    preloadingStrategy: MARKED_PRELOADING_STRATEGY,
-    relativeLinkResolution: 'legacy'
-}),
+      initialNavigation: 'enabled',
+      scrollPositionRestoration: 'disabled',
+      preloadingStrategy: MARKED_PRELOADING_STRATEGY,
+      relativeLinkResolution: 'legacy'
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
@@ -106,12 +106,17 @@ routes.forEach((route: Route): void => {
     ScrollService,
     { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
     {
+      // Requires type declarations provided in the highlight.d.ts file in src
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
-        fullLibraryLoader: () => import('highlight.js'),
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          json: () => import('highlight.js/lib/languages/json'),
+
+        }
       }
     },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
