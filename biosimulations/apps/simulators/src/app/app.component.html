@@ -48,6 +48,13 @@
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
+          heading="Execution status"
+          icon="progress"
+          [routerLink]="['/standards', 'status']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           heading="Simulation reports"
           icon="report"
           [routerLink]="['/standards', 'simulation-reports']"
@@ -139,6 +146,13 @@
         heading="Simulation expts"
         icon="experiment"
         [route]="['/standards', 'simulation-experiments']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Execution status"
+        icon="progress"
+        [route]="['/standards', 'status']"
       >
       </biosimulations-navigation-subitem>
 
