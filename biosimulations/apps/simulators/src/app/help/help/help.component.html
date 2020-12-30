@@ -91,7 +91,7 @@
 
           <p>The results will be saved to <code>path-to-save-results</code>. Reports will be saved in Hierarchical Data Format 5 (HDF5) format and plots will be saved in Portable Document Format (PDF) and bundled into a single zip archive.</p>
 
-          <p>The rows of each report table will represent the datasets (<code>sedml:dataset</code>) outlined in the SED-ML definition of the report. The heading of each row will be the id of the corresponding dataset. Report tables of steady-state simulations will have a single column of the steady-state predictions of each dataset. Report tables of one step simulations will have two columns that represent the predicted start and end states of each dataset. Report tables of time course simulations will have multiple columns that represent the predicted time course of each dataset. Report tables of non-spatial simulations will not have additional dimensions. Report tables of spatial simulations will have additional dimensions that represent the spatial axes of the simulation.</p>
+          <p>The rows of each report table will represent the data sets (<code>sedml:dataSet</code>) outlined in the SED-ML definition of the report. The heading of each row will be the label of the corresponding data set. Report tables of steady-state simulations will have a single column of the steady-state predictions of each data set. Report tables of one step simulations will have two columns that represent the predicted start and end states of each data set. Report tables of time course simulations will have multiple columns that represent the predicted time course of each data set. Report tables of non-spatial simulations will not have additional dimensions. Report tables of spatial simulations will have additional dimensions that represent the spatial axes of the simulation.</p>
         </li>
       </ol>
     </biosimulations-text-page-content-section>
@@ -155,7 +155,7 @@
             <li>
               <p><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Reports should be saved in the PyTables dialect <a href="https://www.pytables.org/usersguide/file_format.html" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> of the HDF5 format <a href="https://www.hdfgroup.org/solutions/hdf5/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and plots should be saved in Portable Document Format (PDF) <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> bundled into a single zip archive. Reports should be saved to <code>{{ '{ ' }}out-dir{{ ' }' }}/reports.h5</code> and plots should be saved to <code>{{ '{ ' }}out-dir/plots.zip{{ ' }' }}</code>. Within the HDF5 file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent SED-ML documents within the parent COMBINE/OMEX archive and the id of the report/plot. </p>
 
-              <p>The rows of the report tables should correspond to the datasets (<code>sedml:dataset</code>) specified in the SED-ML definition of the report (e.g., time, specific species). The heading of each row should be the id of the corresponding dataset. Report tables of steady-state simulations should have a single column of the steady-state predictions of each dataset. Report tables of one step simulations should have two columns that represent the predicted start and end states of each dataset. Report tables of time course simulations should have multiple columns that represent the predicted time course of each dataset. Report tables of non-spatial simulations should not have additional dimensions. Report tables of spatial simulations should have additional dimensions that represent the spatial axes of the simulation.</p>
+              <p>The rows of the report tables should correspond to the data sets (<code>sedml:dataSet</code>) specified in the SED-ML definition of the report (e.g., time, specific species). The heading of each row should be the label of the corresponding data set. Report tables of steady-state simulations should have a single column of the steady-state predictions of each data set. Report tables of one step simulations should have two columns that represent the predicted start and end states of each data set. Report tables of time course simulations should have multiple columns that represent the predicted time course of each data set. Report tables of non-spatial simulations should not have additional dimensions. Report tables of spatial simulations should have additional dimensions that represent the spatial axes of the simulation.</p>
 
               <p>See the <a [routerLink]="['/standards', 'simulator-interfaces']">specifications for reports</a> for more information.</p>
             </li>
@@ -265,8 +265,21 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
 
       <p>Please follow these steps to contribute a tool to BioSimulators:</p>
       <ol class="vertically-spaced">
+        <li>Annotate the capabilities of your simulation tool (e.g., supported modeling frameworks, simulation algorithms, model formats) using the <a [routerLink]="['/standards', 'simulator-specs']">BioSimulators format for the specifications of simulation tools</a>.</li>
         <li>
-          <b>Optionally, build a standardized command-line interface and Docker image for your simulator.</b> Such an image will make it easier for others to use your tool.
+          <p><b>Optionally, build a standardized command-line interface for your simulator.</b> This interface should support the following standards and conventions:</p>
+          <ul>
+            <li>The command-line interface should support the arguments outlined in <b><a [routerLink]="['/standards', 'simulator-interfaces']">BioSimulators' specifications for command-line interfaces for simulation tools</a></b>.</li>
+            <li><b>COMBINE/OMEX archives</b> should be used as the format for inputs to your simulator.</li>
+            <li>A format such as BNGL, CellML, NeuroML, or SBML should be used to describe models.</li>
+            <li><b>SED-ML and the <a [routerLink]="['/standards', 'simulation-experiments']">BioSimulators SED-ML conventions</a></b> should be used to describe simulation experiments.</li>
+            <li>Optionally, the execution status of COMBINE/OMEX archives should be reported using <b><a [routerLink]="['/standards', 'status']">BioSimulators' format for the execution status of COMBINE/OMEX archives</a></b>.</li>
+            <li>Reports of simulation results should be saved according to the <b><a [routerLink]="['/standards', 'simulation-reports']">BioSimulators format for reports of simulation results</a></b>.</li>
+          </ul>
+          <p>BioSimulators utils <a href="https://github.com/biosimulators/Biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides tools for implementing these standards. A detailed template for using BioSimulators utils to build a command-line interface for a simulator is available <a href="https://github.com/biosimulators/Biosimulators_simulator_template" target="_blank">here</a>.</p>
+        </li>
+        <li>
+          <b>Optionally, containerize the command-line interface for your simulator.</b> Such an image will make it easier for others to use your tool. Containerized simulation tools should follow <a [routerLink]="['/standards', 'simulator-images']">BioSimulators' standard for Docker images for simulation tools</a>.
         </li>
         <li>
           <b>Optionally, publish your image to a public repository</b> such as Docker Hub <a href="https://dockerhub.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, GitHub Container Registry <a href="https://github.com/features/packages" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or Quay <a href="https://quay.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by executing <code>docker push {{ '{' }} image-url {{ '}' }}</code>. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
@@ -295,7 +308,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
 name: {{ '{' }} simulator-name {{ '}' }}
 version: {{ '{' }} simulator-version {{ '}' }}
 specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
-specificationsPatch: 
+specificationsPatch:
   version: {{ '{' }} simulator-version {{ '}' }}
 validateImage: true
 
