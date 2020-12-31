@@ -111,8 +111,10 @@ routes.forEach((route: Route): void => {
       useValue: {
         coreLibraryLoader: () => import('highlight.js/lib/core'),
         languages: {
-          json: () => import('highlight.js/lib/languages/json'),
           dockerfile: () => import('highlight.js/lib/languages/dockerfile'),
+          json: () => import('highlight.js/lib/languages/json'),
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          yaml: () => import('highlight.js/lib/languages/yaml'),
         }
       }
     },
