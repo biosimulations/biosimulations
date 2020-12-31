@@ -1,7 +1,7 @@
 <div class="partial-width" [ngClass]="{'padded': padded}">
-  <div class="heading" fxShow fxHide.lt-md>
-    <h1 *ngIf="heading">
-      {{ heading }}    
+  <div class="heading" fxShow fxHide.lt-md *ngIf="heading">
+    <h1>
+      {{ heading }}
       <div class="buttons">
         <ng-content select="#buttons"></ng-content>
       </div>
