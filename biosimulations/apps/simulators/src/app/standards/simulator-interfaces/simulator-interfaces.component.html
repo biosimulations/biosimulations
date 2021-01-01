@@ -93,11 +93,28 @@ optional arguments:
       <ul class="vertically-spaced">
         <li>
           <p><b><code>ALGORITHM_SUBSTITUTION_POLICY</code></b>: This environment variable enables users to control if and how the simulator substitutes algorithms with other mathematically-equivalent or similar algorithms.</p>
-          <p>We recommend that simulation tools use <code>SAME_FRAMEWORK</code> as the default value for <code>ALGORITHM_SUBSTITUTION_POLICY</code>.</p>
+
+          <p>BioSimulators recognizes the increasing levels of substitution listed below. Simulation tools are encouraged to use <code>SIMILAR_VARIABLES</code> as the default value for <code>ALGORITHM_SUBSTITUTION_POLICY</code>.</p>
+          
           <ul>
             <li><code>NONE</code>: Tools should strictly interpret SED-ML simulations, and raise errors on the execution of SED-ML files that involve unsupported algorithms. For example, a simulation tool that only supports the Stochastic Simulation Algorithm (SSA, KISAO_0000029) should raise errors on SED-ML files that request simulations with the Next Reaction Method (NRM< KISAO_0000027).</li>
+
+            <li><code>SAME_METHOD</code>: Algorithms can be substituted with different realizations of the same method. For example, GLPK's implementation of the Simplex method could be substituted with SciPy's implementation.</li>
+
             <li><code>SAME_MATH</code>: Tools should execute simulations with alternative mathematically-equivalent algorithms, and raise errors on the execution of SED-ML files which request algorithms that are mathematically distinct from those implemented by the tool. When tools execute alternative mathematically-equivalent algorithms, they should issue warnings to this effect. For example, a simulation tool that only supports SSA should execute simulations that request NRM with a warning, and raise an error on SED-ML files that request the tau-leaping method (KISAO_0000039).</li>
-            <li><code>SAME_FRAMEWORK</code> (recommended default): Tools should execute simulations with alternative algorithms, including algorithms that are not mathematically equivalent, and issue warnings when alternative algorithms are executed.</li>
+
+            <li><code>SIMILAR_APPROXIMATIONS</code>: Algorithms can be substituted with others that make similar approximations to the same mathematics. For example, CVODE could be substituted with LSODA or the Fehlberg method. Tau leaping could be substituted with partitioned tau leaping.</li>
+
+            <li><code>DISTINCT_APPROXIMATIONS</code>: Algorithms can be substituted with others that make distinct approximations to the same math. For example, SSA could be substituted with tau leaping or the Pahle hybrid method.</li>
+
+            <li><code>DISTINCT_SCALES</code>: Algorithms can be substituted with others that make distinct approximations to the same math that substantially differ in their scales. For example, SSA could be substituted with CVODE.</li>
+
+            <li><code>SAME_VARIABLES</code>: Algorithms that predict the same dependent variables can be substituted. For example, FBA could be substituted with parsimonious FBA.</li>
+
+            <li><code>SIMILAR_VARIABLES</code> (recommended default): Algorithms that predict similar dependent variables can be substituted. For example, FBA could be substituted with geometric FBA.</li>
+
+            <li><code>SAME_FRAMEWORK</code>: Tools should execute simulations with alternative algorithms, including algorithms that are not mathematically equivalent, and issue warnings when alternative algorithms are executed.</li>
+
             <li><code>ANY</code>: Tools can execute simulations with any alternative algorithm. Note, switching to any other algorithm can substantially change the interpretation of a simulation (e.g., switching SSA to CVODE loses all information about the variance of a simulation).</li>
           </ul>
         </li>
