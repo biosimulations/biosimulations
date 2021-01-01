@@ -57,6 +57,7 @@ export class DispatchComponent implements OnInit {
         this.simulatorVersionsMap = {
           amici: ['0.11.11'],
           bionetgen: ['2.5.1'],
+          cobrapy: ['0.20.0'],
           copasi: ['4.30.233', '4.29.227', '4.28.226'],
           gillespy2: ['1.5.7', '1.5.6', '1.5.5', '1.5.4'],
           pysces: ['0.9.9'],
