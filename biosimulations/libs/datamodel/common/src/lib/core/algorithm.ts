@@ -26,6 +26,11 @@ export interface AlgorithmParameter {
   kisaoId: IKisaoOntologyId;
 }
 
+export interface IDependentVariableTargetPattern {
+  variables: string;
+  targetPattern: string;
+}
+
 export interface IAlgorithm {
   id: string | null;
   name: string | null;
@@ -33,6 +38,7 @@ export interface IAlgorithm {
   modelingFrameworks: ISboOntologyId[];
   modelFormats: IEdamOntologyId[];
   parameters: AlgorithmParameter[] | null;
+  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   simulationFormats: IEdamOntologyId[];
   archiveFormats: IEdamOntologyId[];
   availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
