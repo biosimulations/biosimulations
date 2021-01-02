@@ -95,7 +95,7 @@ optional arguments:
           <p><b><code>ALGORITHM_SUBSTITUTION_POLICY</code></b>: This environment variable enables users to control if and how the simulator substitutes algorithms with other mathematically-equivalent or similar algorithms.</p>
 
           <p>BioSimulators recognizes the increasing levels of substitution listed below. Simulation tools are encouraged to use <code>SIMILAR_VARIABLES</code> as the default value for <code>ALGORITHM_SUBSTITUTION_POLICY</code>.</p>
-          
+
           <ul>
             <li><code>NONE</code>: Tools should strictly interpret SED-ML simulations, and raise errors on the execution of SED-ML files that involve unsupported algorithms. For example, a simulation tool that only supports the Stochastic Simulation Algorithm (SSA, KISAO_0000029) should raise errors on SED-ML files that request simulations with the Next Reaction Method (NRM< KISAO_0000027).</li>
 
