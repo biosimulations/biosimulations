@@ -4,6 +4,7 @@ import {
   IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
+  ISioOntologyId,
   SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import { Citation } from '@biosimulations/datamodel/api';
@@ -13,6 +14,7 @@ import {
   EdamOntologyIdVersionSchema,
   KisaoOntologyIdSchema,
   SboOntologyIdSchema,
+  SioOntologyIdSchema
 } from './ontologyId';
 
 import {
@@ -56,16 +58,19 @@ export class Algorithm implements IAlgorithm {
   @Prop({ type: [AlgorithmParameterSchema], required: false, default: undefined })
   parameters!: AlgorithmParameter[] | null;
 
+  @Prop({ type: [SioOntologyIdSchema], required: false, default: undefined })
+  dependentDimensions!: ISioOntologyId[] | null;
+
   @Prop({ type: [DependentVariableTargetPatternSchema], required: true, default: undefined })
   dependentVariableTargetPatterns!: DependentVariableTargetPattern[];
-  
+
   @Prop({
     type: String,
     required: false,
     default: null,
   })
   id!: string | null;
-  
+
   @Prop({
     type: String,
     required: false,

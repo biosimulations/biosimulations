@@ -400,6 +400,23 @@
                   </ng-template>
                 </ng-template>
 
+                <p class="subsection-heading no-bottom-margin">Dependent dimensions</p>
+                <ul
+                  *ngIf="algorithm?.dependentDimensions?.length > 0; else noDependentDimensionsMessage"
+                >
+                  <li *ngFor="let dependentDimension of algorithm.dependentDimensions">
+                    {{ dependentDimension.name }} (<a [href]="dependentDimension.url" target="_blank">{{ dependentDimension.id }}</a>)
+                  </li>
+                </ul>
+                <ng-template #noDependentDimensionsMessage>
+                  <p class="info-message" *ngIf="algorithm?.dependentDimensions?.length === 0; else dependentDimensionsNotCurated">
+                    The outputs of {{ algorithm.name }} have no dimensionality.
+                  </p>
+                  <ng-template #dependentDimensionsNotCurated>
+                    <p class="info-message">The dimensions of this implementation of {{ algorithm.name }} have not been curated.</p>
+                  </ng-template>
+                </ng-template>
+
                 <p class="subsection-heading no-bottom-margin">Dependent variables</p>
                 <div
                   class="table-container"
@@ -558,7 +575,7 @@
                   <li>Passed: {{ validationTests.numTestsPassed }}</li>
                   <li>Skipped: {{ validationTests.numTestsSkipped }}</li>
                   <li>Failed: {{ validationTests.numTestsFailed }}</li>
-                </ul>                
+                </ul>
               </ul>
             </biosimulations-text-page-side-bar-section>
 
@@ -601,7 +618,7 @@
             <biosimulations-text-page-content-section
               *ngFor="let result of validationTests.results"
               [heading]="result.case.id"
-            >                
+            >
               <p class="subsection-heading no-bottom-margin">Description</p>
               <p [innerHTML]="result.case.description"></p>
 
@@ -611,7 +628,7 @@
                 <a [href]="result.caseUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
               </p>
 
-              <ng-container *ngIf="result.caseArchive">                
+              <ng-container *ngIf="result.caseArchive">
                 <p class="subsection-heading no-bottom-margin">Test COMBINE/OMEX archive</p>
                 <p>
                   <code>{{ result.caseArchive }}.omex</code>{{ ' ' }}
@@ -654,9 +671,9 @@
           </ng-container>
         </biosimulations-text-page>
       </ng-container>
-      <ng-template #noValidationTestResults>        
+      <ng-template #noValidationTestResults>
         <p class="info-message" *ngIf="!simulator.validated; else testResultsNotRecorded">No test results are available because {{ simulator.name }} has not been validated.</p>
-        <ng-template #testResultsNotRecorded>        
+        <ng-template #testResultsNotRecorded>
           <p class="info-message">Test results are not available because {{ simulator.name }} was validated before we began logging the results of the validation tests.</p>
         </ng-template>
       </ng-template>

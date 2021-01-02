@@ -12,6 +12,7 @@ import {
   ViewFormatObservable,
   ViewParameter,
   ViewParameterObservable,
+  ViewSioId,
   ViewAuthor,
   ViewFunding,
   DescriptionFragment,
@@ -27,6 +28,7 @@ import {
   IEdamOntologyIdVersion,
   ILinguistOntologyId,
   ISboOntologyId,
+  ISioOntologyId,
   Identifier,
   Person,
   DependentPackage,
@@ -220,11 +222,11 @@ export class ViewSimulatorService {
           algorithms.sort((a, b) => {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
           });
-          
+
           algorithms.forEach((algorithm: ViewAlgorithm): void => {
             algorithm.modelingFrameworks.sort((a: ViewFramework, b: ViewFramework): number => {
               return a.name.localeCompare(b.name, undefined, { numeric: true });
-            });           
+            });
             algorithm.modelFormats.sort((a: ViewFormat, b: ViewFormat): number => {
               return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
             });
@@ -277,6 +279,9 @@ export class ViewSimulatorService {
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
       parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
+      dependentDimensions: value?.dependentDimensions
+        ? value?.dependentDimensions?.map(this.getDependentDimensions, this) as Observable<ViewSioId>[]
+        : null,
       dependentVariableTargetPatterns: value?.dependentVariableTargetPatterns || [],
       availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
@@ -285,7 +290,7 @@ export class ViewSimulatorService {
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
-      dependencies: value?.dependencies 
+      dependencies: value?.dependencies
         ? value?.dependencies?.sort((a: DependentPackage, b: DependentPackage) => {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
           })
@@ -333,6 +338,10 @@ export class ViewSimulatorService {
         return val;
       }
     }
+  }
+
+  getDependentDimensions(value: ISioOntologyId): Observable<ViewSioId> {
+    return this.ontService.getSioTerm(value.id);
   }
 
   getFrameworks(value: ISboOntologyId): Observable<ViewFramework> {

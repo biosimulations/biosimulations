@@ -8,6 +8,7 @@ import {
   EdamOntologyIdVersion,
   KisaoOntologyId,
   SboOntologyId,
+  SioOntologyId,
   DependentPackage,
 } from '@biosimulations/datamodel/api';
 
@@ -28,6 +29,9 @@ export class Algorithm implements IAlgorithm {
 
   @ApiProperty({ type: [AlgorithmParameter], nullable: true })
   parameters!: AlgorithmParameter[] | null;
+
+  @ApiProperty({ type: [SioOntologyId], nullable: true })
+  dependentDimensions!: SioOntologyId[] | null;
 
   @ApiProperty({ type: [DependentVariableTargetPattern], required: true })
   dependentVariableTargetPatterns!: DependentVariableTargetPattern[];

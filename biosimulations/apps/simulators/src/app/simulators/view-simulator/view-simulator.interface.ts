@@ -21,6 +21,7 @@ export interface ViewAlgorithm {
   simulationFormats: ViewFormat[];
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
+  dependentDimensions: ViewSioId[] | null;
   dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
@@ -38,6 +39,7 @@ export interface ViewAlgorithmObservable {
   simulationFormats: ViewFormatObservable[];
   archiveFormats: ViewFormatObservable[];
   parameters: ViewParameterObservable[] | null;
+  dependentDimensions: Observable<ViewSioId>[] | null;
   dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
@@ -96,6 +98,12 @@ export interface ViewParameterObservable {
   kisaoId: string;
   kisaoUrl: string;
   availableSoftwareInterfaceTypes: string[];
+}
+
+export interface ViewSioId {
+  id: string;
+  name: string;
+  url: string;
 }
 
 export interface ViewIdentifier {
@@ -172,7 +180,7 @@ export interface ViewSimulator {
   interfaceTypes: string[];
   supportedOperatingSystemTypes: string[];
   supportedProgrammingLanguages: ILinguistOntologyId[];
-  versions: Observable<ViewVersion[]>;  
+  versions: Observable<ViewVersion[]>;
   curationStatus: string;
   funding: ViewFunding[];
   created: string;
