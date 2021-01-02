@@ -33,6 +33,7 @@ import {
   ValueType,
   SoftwareInterfaceType,
   sortUrls,
+  IDependentVariableTargetPattern,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
@@ -200,6 +201,7 @@ export class ViewSimulatorService {
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
       parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
+      dependentVariableTargetPatterns: value?.dependentVariableTargetPatterns || [],
       availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
           return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);

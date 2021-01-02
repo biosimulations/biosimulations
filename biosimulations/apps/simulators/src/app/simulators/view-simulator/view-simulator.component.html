@@ -400,6 +400,32 @@
                   </ng-template>
                 </ng-template>
 
+                <p class="subsection-heading no-bottom-margin">Dependent variables</p>
+                <div
+                  class="table-container"
+                  *ngIf="
+                    algorithm?.dependentVariableTargetPatterns?.length > 0;
+                    else noCuratedDependentVariablesMessage
+                  "
+                >
+                  <biosimulations-responsive-table
+                    [columns]="dependentVariablesColumns"
+                    [singleLineHeadings]="true"
+                    [data]="algorithm.dependentVariableTargetPatterns"
+                    [sortable]="true"
+                    [controls]="false"
+                    searchPlaceHolder="Query (e.g., tol)"
+                    searchToolTip="Enter a query such as 'tol'. By default, your query will be searched over all columns. This search supports the features of the Lunr search engine. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) (e.g., 'kisao-id: KISAO_0000211')."
+                    stackedContentsHeading="Dependent variables"
+                    [getStackedHeading]="getDependentVariablesStackedHeading"
+                    [defaultSort]="{ active: 'name', direction: 'asc' }"
+                  >
+                  </biosimulations-responsive-table>
+                </div>
+                <ng-template #noCuratedDependentVariablesMessage>
+                  <p class="info-message">The dependent variables for this implementation of {{ algorithm.name }} have not been curated.</p>
+                </ng-template>
+
                 <p class="subsection-heading no-bottom-margin">Availability</p>
                 <ul *ngIf="algorithm?.availableSoftwareInterfaceTypes?.length > 0; else noSupportedInterfaces" class="icon-list">
                   <li *ngFor="let interfaceType of algorithm.availableSoftwareInterfaceTypes">

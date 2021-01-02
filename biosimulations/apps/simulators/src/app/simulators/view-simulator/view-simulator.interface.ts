@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Url, IImage, DependentPackage, ILinguistOntologyId } from '@biosimulations/datamodel/common';
+import { Url, IImage, DependentPackage, ILinguistOntologyId, IDependentVariableTargetPattern } from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -12,6 +12,7 @@ export interface ViewAlgorithm {
   simulationFormats: ViewFormat[];
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
+  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
   dependencies: DependentPackage[] | null;
@@ -28,6 +29,7 @@ export interface ViewAlgorithmObservable {
   simulationFormats: ViewFormatObservable[];
   archiveFormats: ViewFormatObservable[];
   parameters: ViewParameterObservable[] | null;
+  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
   dependencies: DependentPackage[] | null;

@@ -11,6 +11,7 @@ import {
 } from '@biosimulations/shared/ui';
 import {
   ValueType,
+  IDependentVariableTargetPattern,
 } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
@@ -160,6 +161,31 @@ export class ViewSimulatorComponent implements OnInit {
     parameter: ViewParameter
   ): string {
     return parameter.kisaoUrl;
+  }
+
+  dependentVariablesColumns: Column[] = [
+    {
+      id: 'variables',
+      heading: 'Description',
+      key: 'variables',
+      toolTipFormatter: (value: string): string => {
+        return value;
+      },
+      minWidth: 200,
+    },
+    {
+      id: 'targetPattern',
+      heading: 'Target pattern',
+      key: 'targetPattern',
+      toolTipFormatter: (value: string): string => {
+        return value;
+      },
+      minWidth: 600,
+    },
+  ];
+
+  getDependentVariablesStackedHeading(dependentVariableTargetPattern: IDependentVariableTargetPattern): string {
+    return dependentVariableTargetPattern.variables;
   }
 
   versionsColumns: Column[] = [
