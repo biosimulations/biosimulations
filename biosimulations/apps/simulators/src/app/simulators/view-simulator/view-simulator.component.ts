@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -11,6 +11,7 @@ import {
 } from '@biosimulations/shared/ui';
 import {
   ValueType,
+  IDependentVariableTargetPattern,
 } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
@@ -162,6 +163,31 @@ export class ViewSimulatorComponent implements OnInit {
     return parameter.kisaoUrl;
   }
 
+  dependentVariablesColumns: Column[] = [
+    {
+      id: 'variables',
+      heading: 'Description',
+      key: 'variables',
+      toolTipFormatter: (value: string): string => {
+        return value;
+      },
+      minWidth: 200,
+    },
+    {
+      id: 'targetPattern',
+      heading: 'Target pattern',
+      key: 'targetPattern',
+      toolTipFormatter: (value: string): string => {
+        return value;
+      },
+      minWidth: 600,
+    },
+  ];
+
+  getDependentVariablesStackedHeading(dependentVariableTargetPattern: IDependentVariableTargetPattern): string {
+    return dependentVariableTargetPattern.variables;
+  }
+
   versionsColumns: Column[] = [
     {
       id: 'label',
@@ -291,13 +317,14 @@ export class ViewSimulatorComponent implements OnInit {
     };
   }
 
-  tocSections!: Observable<TocSection[]>;
+  algorithmsTocSections!: Observable<TocSection[]>;
+  testResultsTocSections = of(null);
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     if (container) {
       setTimeout(() => {
-        this.tocSections = container.sections$;
+        this.algorithmsTocSections = container.sections$;
       });
     }
   }

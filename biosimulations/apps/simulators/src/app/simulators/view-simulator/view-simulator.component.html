@@ -228,7 +228,7 @@
             contentsHeading="Algorithms"
             [padded]="false"
             alwaysFixed="calc(64px + 32px + 32px + 2rem)"
-            [tocSections]="tocSections"
+            [tocSections]="algorithmsTocSections"
             [tocScrollSectionScrollOffset]="128"
           >
             <ng-container id="sideBar">
@@ -400,6 +400,49 @@
                   </ng-template>
                 </ng-template>
 
+                <p class="subsection-heading no-bottom-margin">Dependent dimensions</p>
+                <ul
+                  *ngIf="algorithm?.dependentDimensions?.length > 0; else noDependentDimensionsMessage"
+                >
+                  <li *ngFor="let dependentDimension of algorithm.dependentDimensions">
+                    {{ dependentDimension.name }} (<a [href]="dependentDimension.url" target="_blank">{{ dependentDimension.id }}</a>)
+                  </li>
+                </ul>
+                <ng-template #noDependentDimensionsMessage>
+                  <p class="info-message" *ngIf="algorithm?.dependentDimensions?.length === 0; else dependentDimensionsNotCurated">
+                    The outputs of {{ algorithm.name }} have no dimensionality.
+                  </p>
+                  <ng-template #dependentDimensionsNotCurated>
+                    <p class="info-message">The dimensions of this implementation of {{ algorithm.name }} have not been curated.</p>
+                  </ng-template>
+                </ng-template>
+
+                <p class="subsection-heading no-bottom-margin">Dependent variables</p>
+                <div
+                  class="table-container"
+                  *ngIf="
+                    algorithm?.dependentVariableTargetPatterns?.length > 0;
+                    else noCuratedDependentVariablesMessage
+                  "
+                >
+                  <biosimulations-responsive-table
+                    [columns]="dependentVariablesColumns"
+                    [singleLineHeadings]="true"
+                    [data]="algorithm.dependentVariableTargetPatterns"
+                    [sortable]="true"
+                    [controls]="false"
+                    searchPlaceHolder="Query (e.g., tol)"
+                    searchToolTip="Enter a query such as 'tol'. By default, your query will be searched over all columns. This search supports the features of the Lunr search engine. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) (e.g., 'kisao-id: KISAO_0000211')."
+                    stackedContentsHeading="Dependent variables"
+                    [getStackedHeading]="getDependentVariablesStackedHeading"
+                    [defaultSort]="{ active: 'name', direction: 'asc' }"
+                  >
+                  </biosimulations-responsive-table>
+                </div>
+                <ng-template #noCuratedDependentVariablesMessage>
+                  <p class="info-message">The dependent variables for this implementation of {{ algorithm.name }} have not been curated.</p>
+                </ng-template>
+
                 <p class="subsection-heading no-bottom-margin">Availability</p>
                 <ul *ngIf="algorithm?.availableSoftwareInterfaceTypes?.length > 0; else noSupportedInterfaces" class="icon-list">
                   <li *ngFor="let interfaceType of algorithm.availableSoftwareInterfaceTypes">
@@ -500,5 +543,140 @@
     [partialWidth]="false"
   >
     <pre *ngIf="simulator | async as simulator" class="json"><code [languages]="['json']" [highlight]="simulator._json"></code></pre>
+  </biosimulations-tab-page-tab>
+
+  <biosimulations-tab-page-tab
+    urlHashFragment="validation"
+    heading="Validation test results"
+    icon="task"
+    [partialWidth]="false"
+  >
+    <ng-container *ngIf="simulator | async as simulator">
+      <ng-container *ngIf="simulator?.validationTests as validationTests; else noValidationTestResults">
+        <biosimulations-text-page
+          contentsHeading=""
+          [padded]="false"
+          alwaysFixed="calc(64px + 32px + 32px + 2rem)"
+          [tocSections]="testResultsTocSections"
+          [tocScrollSectionScrollOffset]="128"
+        >
+          <ng-container id="sideBar">
+            <biosimulations-text-page-side-bar-section
+              heading="Summary"
+              fxShow
+              fxHide.lt-md
+            >
+              <ul>
+                <li>
+                  Test suite version: <a [href]="validationTests.testSuiteVersionUrl">{{ validationTests.testSuiteVersion }}</a>
+                </li>
+                <li>Tests: {{ validationTests.numTests }}</li>
+                <ul>
+                  <li>Passed: {{ validationTests.numTestsPassed }}</li>
+                  <li>Skipped: {{ validationTests.numTestsSkipped }}</li>
+                  <li>Failed: {{ validationTests.numTestsFailed }}</li>
+                </ul>
+              </ul>
+            </biosimulations-text-page-side-bar-section>
+
+            <biosimulations-text-page-side-bar-section
+              heading="More info"
+              fxShow
+              fxHide.lt-md
+            >
+              <div class="hanging-indent">
+                <a
+                  [href]="validationTests.ghIssueUrl"
+                  target="_blank"
+                >
+                  <biosimulations-icon icon="link"></biosimulations-icon>
+                  GitHub issue for validation
+                </a>
+              </div>
+              <div class="hanging-indent">
+                <a
+                  [href]="validationTests.ghActionRunUrl"
+                  target="_blank"
+                >
+                  <biosimulations-icon icon="link"></biosimulations-icon>
+                  GitHub action run for validation
+                </a>
+              </div>
+              <div class="hanging-indent">
+                <a
+                  href="https://biosimulators.github.io/Biosimulators_test_suite/"
+                  target="_blank"
+                >
+                  <biosimulations-icon icon="link"></biosimulations-icon>
+                  Test suite
+                </a>
+              </div>
+            </biosimulations-text-page-side-bar-section>
+          </ng-container>
+
+          <ng-container id="content">
+            <biosimulations-text-page-content-section
+              *ngFor="let result of validationTests.results"
+              [heading]="result.case.id"
+            >
+              <p class="subsection-heading no-bottom-margin">Description</p>
+              <p [innerHTML]="result.case.description"></p>
+
+              <p class="subsection-heading no-bottom-margin">Implementation</p>
+              <p>
+                <code>{{ result.caseClass }}</code>{{ ' ' }}
+                <a [href]="result.caseUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
+              </p>
+
+              <ng-container *ngIf="result.caseArchive">
+                <p class="subsection-heading no-bottom-margin">Test COMBINE/OMEX archive</p>
+                <p>
+                  <code>{{ result.caseArchive }}.omex</code>{{ ' ' }}
+                  <a [href]="result.caseArchiveUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
+                </p>
+              </ng-container>
+
+              <p class="subsection-heading no-bottom-margin">Result</p>
+              <p>{{ result.resultType }} ({{ result.duration }} s)</p>
+
+              <ng-container *ngIf="result.skipReason as skipReason">
+                <p class="subsection-heading no-bottom-margin">Reason why test was skipped</p>
+                <p>Category: <code>{{ skipReason.category }}</code></p>
+                <p class="no-bottom-margin">Message</p>
+                <pre><code>{{ skipReason.message }}</code></pre>
+              </ng-container>
+
+              <ng-container *ngIf="result.exception as exception">
+                <p class="subsection-heading no-bottom-margin">Reason why the test failed</p>
+                <p>Category: <code>{{ exception.category }}</code></p>
+                <p class="no-bottom-margin">Message</p>
+                <pre><code>{{ exception.message }}</code></pre>
+              </ng-container>
+
+              <ng-container *ngIf="result.warnings?.length > 0">
+                <p class="subsection-heading no-bottom-margin">Warnings</p>
+                <ul class="vertically-spaced">
+                  <li *ngFor="let warning of result.warnings">
+                    <p>Category: <code>{{ warning.category }}</code></p>
+                    <p class="no-bottom-margin">Message</p>
+                    <pre><code>{{ warning.message }}</code></pre>
+                  </li>
+                </ul>
+              </ng-container>
+
+              <p class="subsection-heading no-bottom-margin">Log</p>
+              <pre *ngIf="result.log as log; else noLog"><code>{{ log }}</code></pre>
+              <ng-template #noLog><p class="info-message">The test did not produce any output.</p></ng-template>
+            </biosimulations-text-page-content-section>
+          </ng-container>
+        </biosimulations-text-page>
+      </ng-container>
+      <ng-template #noValidationTestResults>
+        <p class="info-message" *ngIf="!simulator.validated; else testResultsNotRecorded">No test results are available because {{ simulator.name }} has not been validated.</p>
+        <ng-template #testResultsNotRecorded>
+          <p class="info-message">Test results are not available because {{ simulator.name }} was validated before we began logging the results of the validation tests.</p>
+        </ng-template>
+      </ng-template>
+    </ng-container>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

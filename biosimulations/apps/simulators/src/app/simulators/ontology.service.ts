@@ -49,7 +49,7 @@ export class OntologyService {
   }
 
   endpoint = urls.ontologyApi;
-  
+
   getKisaoUrl(id: string): string {
     return (
       'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
@@ -124,25 +124,14 @@ export class OntologyService {
   }
 
   getKisaoTerm(id: string): Observable<KisaoTerm> {
-    if (id.startsWith('KISAO:')) {
-      id = id.replace('KISAO:', 'KISAO_');
-    } else if (!id.startsWith('KISAO_')) {
-      id = 'KISAO_' + id;
-    }
     return this.getTerm<KisaoTerm>(Ontologies.KISAO, id);
   }
 
   getSboTerm(id: string): Observable<SboTerm> {
-    if (!id.startsWith('SBO_')) {
-      id = 'SBO_' + id;
-    }
     return this.getTerm<SboTerm>(Ontologies.SBO, id);
   }
 
   getSioTerm(id: string): Observable<SioTerm> {
-    if (!id.startsWith('SBO_')) {
-      id = 'SBO_' + id;
-    }
     return this.getTerm<SioTerm>(Ontologies.SIO, id);
   }
 

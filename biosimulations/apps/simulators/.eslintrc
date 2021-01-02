@@ -13,7 +13,7 @@
         "@angular-eslint/template/cyclomatic-complexity": [
           "error",
           {
-            "maxComplexity": 65
+            "maxComplexity": 80
           }
         ]
       }

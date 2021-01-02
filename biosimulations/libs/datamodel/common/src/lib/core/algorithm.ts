@@ -6,6 +6,7 @@ import {
   IOntologyId,
   IKisaoOntologyId,
   IEdamOntologyId,
+  ISioOntologyId,
   KisaoTerm,
 } from '../common';
 
@@ -26,6 +27,11 @@ export interface AlgorithmParameter {
   kisaoId: IKisaoOntologyId;
 }
 
+export interface IDependentVariableTargetPattern {
+  variables: string;
+  targetPattern: string;
+}
+
 export interface IAlgorithm {
   id: string | null;
   name: string | null;
@@ -33,6 +39,8 @@ export interface IAlgorithm {
   modelingFrameworks: ISboOntologyId[];
   modelFormats: IEdamOntologyId[];
   parameters: AlgorithmParameter[] | null;
+  dependentDimensions: ISioOntologyId[] | null;
+  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   simulationFormats: IEdamOntologyId[];
   archiveFormats: IEdamOntologyId[];
   availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
