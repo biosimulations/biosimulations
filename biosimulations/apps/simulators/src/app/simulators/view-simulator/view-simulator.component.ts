@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -317,13 +317,14 @@ export class ViewSimulatorComponent implements OnInit {
     };
   }
 
-  tocSections!: Observable<TocSection[]>;
+  algorithmsTocSections!: Observable<TocSection[]>;
+  testResultsTocSections = of(null);
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
     if (container) {
       setTimeout(() => {
-        this.tocSections = container.sections$;
+        this.algorithmsTocSections = container.sections$;
       });
     }
   }

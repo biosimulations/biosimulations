@@ -16,6 +16,8 @@ import {
   ViewFunding,
   DescriptionFragment,
   DescriptionFragmentType,
+  ViewValidationTests,
+  ViewTestCaseResult,
 } from './view-simulator.interface';
 import { OntologyService } from '../ontology.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -34,6 +36,9 @@ import {
   SoftwareInterfaceType,
   sortUrls,
   IDependentVariableTargetPattern,
+  IValidationTests,
+  ITestCaseResult,
+  TestCaseResultType,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import {
@@ -85,6 +90,75 @@ export class ViewSimulatorService {
     }
 
     const viewSimAlgorithms = new BehaviorSubject<ViewAlgorithm[]>([]);
+
+    let viewValidationTests: ViewValidationTests | null = null;
+    if (sim?.biosimulators?.validationTests) {
+      const validationTests: IValidationTests = sim.biosimulators.validationTests;
+
+      let numTestsPassed = 0;
+      let numTestsSkipped = 0;
+      let numTestsFailed = 0;
+      validationTests.results.forEach((result: ITestCaseResult): void => {
+        if (result.resultType == TestCaseResultType.passed) {
+          numTestsPassed += 1;
+        } else if (result.resultType == TestCaseResultType.skipped) {
+          numTestsSkipped += 1;
+        } else{
+          numTestsFailed += 1;
+        }
+      });
+
+      const viewResults = validationTests.results.map((result: ITestCaseResult): ViewTestCaseResult => {
+        const caseArchive = result.case.id.split('/')?.[1] || null;
+
+        return {
+          case: {
+            id: result.case.id,
+            description: result.case.description.replace('\n', '<br/>'),
+          },
+          caseUrl: (
+              'https://github.com/biosimulators/Biosimulators_test_suite/blob/'
+              + validationTests.testSuiteVersion
+              + '/biosimulators_test_suite/test_case/'
+              + result.case.id.split('.')[0]
+              + '.py'
+          ),
+          caseClass: result.case.id.split(':')[0],
+          caseArchive: caseArchive,
+          caseArchiveUrl: caseArchive ? (
+              'https://github.com/biosimulators/Biosimulators_test_suite/raw/'
+              + validationTests.testSuiteVersion
+              + '/examples/'
+              + result.case.id.split(':')[1]
+              + '.omex'
+          ) : null,
+          resultType: result.resultType.substring(0, 1).toUpperCase() + result.resultType.substring(1),
+          duration: result.duration.toFixed(1),
+          exception: result.exception,
+          warnings: result.warnings,
+          skipReason: result.skipReason,
+          log: result.log,
+        };
+      })
+      .sort((a, b) => {
+        return a.case.id.localeCompare(b.case.id, undefined, { numeric: true });
+      });
+
+      viewValidationTests = {
+        testSuiteVersion: validationTests.testSuiteVersion,
+        testSuiteVersionUrl: 'https://github.com/biosimulators/Biosimulators_test_suite/releases/tag/' + validationTests.testSuiteVersion,
+        numTests: validationTests.results.length,
+        numTestsPassed: numTestsPassed,
+        numTestsSkipped: numTestsSkipped,
+        numTestsFailed: numTestsFailed,
+        results: viewResults,
+        ghIssue: validationTests.ghIssue,
+        ghIssueUrl: `https://github.com/biosimulators/Biosimulators/issues/${validationTests.ghIssue}`,
+        ghActionRun: validationTests.ghActionRun,
+        ghActionRunUrl: `https://github.com/biosimulators/Biosimulators/actions/runs/${validationTests.ghActionRun}`,
+      };
+    }
+
     const viewSim: ViewSimulator = {
       _json: JSON.stringify(sim, null, 2),
       id: sim.id,
@@ -132,6 +206,8 @@ export class ViewSimulatorService {
         return a.id.localeCompare(b.id, undefined, { numeric: true });
       }),
       curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
+      validated: sim?.biosimulators?.validated || false,
+      validationTests: viewValidationTests,
       funding: sim.funding.map(this.getFunding, this),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
