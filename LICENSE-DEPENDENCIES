@@ -674,7 +674,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Bryan Housel
 │  ├─ email: bryan@mapbox.com
 │  └─ licenseFile: @mapbox/whoots-js/LICENSE.md
-├─ @nestjs/common@7.6.4
+├─ @nestjs/common@7.6.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -709,7 +709,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@7.6.4
+├─ @nestjs/platform-express@7.6.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -719,7 +719,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/schedule/README.md
-├─ @nestjs/swagger@4.7.8
+├─ @nestjs/swagger@4.7.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
@@ -841,7 +841,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Turfjs/turf
 │  ├─ publisher: Turf Authors
 │  └─ licenseFile: @turf/meta/LICENSE
-├─ @typegoose/typegoose@7.4.5
+├─ @typegoose/typegoose@7.4.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typegoose/typegoose
 │  ├─ publisher: Akos Szokodi
@@ -908,7 +908,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/mongoose/LICENSE
-├─ @types/node@14.14.16
+├─ @types/node@14.14.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -1393,7 +1393,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
-├─ axios@0.21.0
+├─ axios@0.21.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
@@ -4529,7 +4529,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Brian J. Brennan
 │  ├─ email: brianloveswords@gmail.com
 │  └─ licenseFile: jwa/LICENSE
-├─ jwks-rsa@1.12.0
+├─ jwks-rsa@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
