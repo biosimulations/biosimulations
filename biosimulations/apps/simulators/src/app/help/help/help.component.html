@@ -310,6 +310,8 @@ version: {{ '{' }} simulator-version {{ '}' }}
 specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
 specificationsPatch:
   version: {{ '{' }} simulator-version {{ '}' }}
+  image:
+    url: {{ '{' }} docker-image-repo-url {{ '}' }}:{{ '{' }} simulator-version {{ '}' }}
 validateImage: true
 
 ---</code></pre>
