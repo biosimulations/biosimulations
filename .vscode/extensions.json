@@ -5,7 +5,6 @@
         "aaron-bond.better-comments",
         "ms-kubernetes-tools.vscode-kubernetes-tools",
         "nrwl.angular-console",
-        "rvest.vs-code-prettier-eslint",
         "msjsdiag.debugger-for-chrome",
         "firefox-devtools.vscode-firefox-debug"
     ]
