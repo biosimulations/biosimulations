@@ -71,7 +71,6 @@ export class SubmissionController {
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
       const transpose =
         data.simulator == 'vcell' ||
-        data.simulator == 'tellurium' ||
         data.simulator == 'bionetgen';
       this.logger.log(
         `Simulator is ${data.simulator} Will transpose: ${transpose}`
