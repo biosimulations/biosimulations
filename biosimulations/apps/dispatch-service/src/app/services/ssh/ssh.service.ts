@@ -51,6 +51,9 @@ export class SshService {
                   stderr += data.toString('utf8');
                 });
             });
+          }).on("error", err => {
+            this.logger.error(err)
+            reject(err)
           })
           .connect(this.sshConfig);
       }
