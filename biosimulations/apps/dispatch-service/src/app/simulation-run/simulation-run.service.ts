@@ -7,14 +7,14 @@ import {
 import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../services/auth/auth.service';
-import { pluck, retry, } from 'rxjs/operators'
-import { Observable } from 'rxjs';
+import { catchError, pluck, retry, } from 'rxjs/operators'
+import { Observable, of } from 'rxjs';
 @Injectable({})
 export class SimulationRunService {
   constructor(private auth: AuthService, private http: HttpService, private configService: ConfigService) { }
   endpoint = this.configService.get('urls').dispatchApi
   // TODO Change this over to observable to allow for chaining/error handling
-  async updateSimulationRunStatus(id: string, status: SimulationRunStatus): Promise<SimulationRun> {
+  async updateSimulationRunStatus(id: string, status: SimulationRunStatus): Promise<SimulationRun | void> {
     const token = await this.auth.getToken();
 
     return this.http
@@ -27,7 +27,10 @@ export class SimulationRunService {
           }
         }
       )
-      .pipe(pluck('data')).toPromise();
+      .pipe(pluck('data')).toPromise().catch(err => {
+        console.error("Failed to update status")
+        return
+      });
   }
 
   async updateSimulationRunResultsSize(id: string, size: number): Promise<SimulationRun> {
