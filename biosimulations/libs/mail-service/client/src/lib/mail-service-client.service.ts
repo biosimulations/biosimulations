@@ -21,11 +21,13 @@ export class MailClientService {
      */
     public sendSuccessEmail(to: string, id: string, name: string, date: Date) {
 
-        const message: SendGrid.MailDataRequired = {
+        const message: MailData = {
             to, templateId: this.successTemplate, dynamicTemplateData: {
                 id, name, date:
                     date.toLocaleString()
-            }, from: "notifications@biosimulations.org"
+            }, from: "notifications@biosimulations.org", asm: {
+                groupId: 14634
+            }
         }
         this.sendEmail(message)
     }
@@ -39,11 +41,14 @@ export class MailClientService {
      */
     public sendFailureEmail(to: string, id: string, name: string, date: Date) {
 
-        const message: SendGrid.MailDataRequired = {
+        const message: MailData = {
             to, templateId: this.failureTemplate, dynamicTemplateData: {
                 id, name, date:
                     date.toLocaleString()
-            }, from: "notifications@biosimulations.org"
+            }, from: "notifications@biosimulations.org",
+            asm: {
+                groupId: 14634
+            }
         }
         this.sendEmail(message)
     }
@@ -53,4 +58,11 @@ interface DynamicTemplateData {
     id: string,
     name: string,
     date: string
+}
+type MailData = SendGrid.MailDataRequired & {
+    to: string,
+    templateId: string,
+    dynamicTemplateData: DynamicTemplateData,
+    from: string,
+    asm: { groupId: number }
 }
