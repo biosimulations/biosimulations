@@ -41,6 +41,117 @@ class Url(object):
         self.change_freq = change_freq
 
 
+def get_common_static_urls():
+    help_route = [Url(
+        loc="",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.weekly
+    ),
+
+        Url(
+        loc="help",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="help/faq",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="help/about",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="help/terms",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="help/privacy",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+    ]
+
+    return help_route
+
+
+def get_biosimulations_static_urls():
+    landings = [Url(loc="models",
+                    last_mod=datetime.datetime(2020, 12, 23),
+                    change_freq=ChangeFreq.monthly)]
+    return get_common_static_urls() + landings
+
+
+def get_runbiosimulations_static_urls():
+    simulators = [
+        Url(loc="run",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+            ),
+        Url(loc="simulations",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+            )
+    ]
+    return get_common_static_urls() + simulators
+
+
+def get_simulator_static_urls():
+    help_route = get_common_static_urls()
+    standards = [Url(
+        loc="standards",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="standards/simulator-specs",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="standards/simulator-interfaces",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="standards/simulator-images",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="standards/simulation-experiments",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    ),
+        Url(
+        loc="standards/simulations-reports",
+        last_mod=datetime.datetime(2020, 12, 23),
+        change_freq=ChangeFreq.monthly
+    )
+    ]
+
+    return help_route+standards
+
+
+def render_url_list(app_name, urls):
+    """ Render sitemap to url list for use in prerendering 
+    Args:
+        app_name (:obj:`str`): application name (e.g., `simulators`
+        urls (:obj:`list` of obj:`Url`): list of URLs
+
+    """
+
+    # render sitemap to text file
+    with open(os.path.join(os.path.dirname(__file__), '..', '..', 'apps', app_name, 'routes.txt'), 'w') as file:
+        for url in urls:
+            file.write("/")
+            file.write(url.loc)
+            file.write("\n")
+
+
 def render_sitemap(app_name, base_url, urls):
     """ Render sitemap to XML file
 
@@ -55,7 +166,7 @@ def render_sitemap(app_name, base_url, urls):
         template = jinja2.Template(file.read())
 
     # render sitemap to XML file
-    with open(os.path.join(os.path.dirname(__file__), '..', '..', 'apps', app_name, 'src', 'sitemap-dynamic.xml'), 'w') as file:
+    with open(os.path.join(os.path.dirname(__file__), '..', '..', 'apps', app_name, 'src', 'sitemap.xml'), 'w') as file:
         file.write(template.render(base_url=base_url, urls=urls))
 
 
@@ -67,8 +178,10 @@ def build_biosimulators_sitemap():
     simulatorLatestVersions = {}
     for simulator in simulators:
         urls.append(Url(
-            loc='simulators' + '/' + simulator['id'] + '/' + simulator['version'],
-            last_mod=dateutil.parser.parse(simulator['biosimulators']['updated']).date(),
+            loc='simulators' + '/' +
+                simulator['id'] + '/' + simulator['version'],
+            last_mod=dateutil.parser.parse(
+                simulator['biosimulators']['updated']).date(),
             change_freq=ChangeFreq.monthly),
         )
 
@@ -84,19 +197,26 @@ def build_biosimulators_sitemap():
             last_mod=val['last_mod'],
             change_freq=ChangeFreq.monthly),
         )
+    urls = urls + get_simulator_static_urls()
+
     urls.sort(key=lambda url: (url.loc))
 
     render_sitemap('simulators', 'https://biosimulators.org/', urls)
+    render_url_list('simulators', urls)
 
 
 def build_runbiosimulations_sitemap():
     urls = []
+    urls = urls + get_runbiosimulations_static_urls()
     render_sitemap('dispatch', 'https://run.biosimulators.org/', urls)
+    render_url_list('dispatch', urls)
 
 
 def build_biosimulations_sitemap():
     urls = []
+    urls = urls + get_biosimulations_static_urls()
     render_sitemap('platform', 'https://biosimulations.org/', urls)
+    render_url_list('platform', urls)
 
 
 def main(apps=None, verbose=False):
@@ -109,9 +229,11 @@ def main(apps=None, verbose=False):
 
     apps = set(apps) or set([])
 
-    undefined_apps = set(apps).difference(set(['simulators', 'dispatch', 'platform']))
+    undefined_apps = set(apps).difference(
+        set(['simulators', 'dispatch', 'platform']))
     if undefined_apps:
-        raise ValueError('The following apps are not defined: {}'.format(", ".join("'{}'".format(app) for app in sorted(undefined_apps))))
+        raise ValueError('The following apps are not defined: {}'.format(
+            ", ".join("'{}'".format(app) for app in sorted(undefined_apps))))
 
     if not apps or 'simulators' in apps:
         if verbose:
@@ -139,9 +261,12 @@ if __name__ == '__main__':
     * List of arguments which are the ids of apps: build sitemaps for the specified apps
     * Single argument with a comma-separated list of ids of apps: build sitemaps for the specified apps
     """
-    parser = argparse.ArgumentParser(description='Build sitemaps or one or more apps')
-    parser.add_argument('apps', type=str, nargs='*', help='App id (e.g., simulators)')
-    parser.add_argument('-v', '--verbose', action='store_true', help='Display debugging information')
+    parser = argparse.ArgumentParser(
+        description='Build sitemaps or one or more apps')
+    parser.add_argument('apps', type=str, nargs='*',
+                        help='App id (e.g., simulators)')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='Display debugging information')
     args = parser.parse_args()
 
     apps = []

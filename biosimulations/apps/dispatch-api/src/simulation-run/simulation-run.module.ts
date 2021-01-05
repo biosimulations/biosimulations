@@ -22,11 +22,12 @@ import {
   SimulationRunModelSchema,
 } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
-
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
 @Module({
   controllers: [SimulationRunController],
   imports: [
     BiosimulationsAuthModule,
+    SharedNatsClientModule,
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
       {
@@ -34,21 +35,10 @@ import { SimulationRunService } from './simulation-run.service';
         schema: SimulationFileSchema,
       },
     ]),
-    
+
   ],
   providers: [
     SimulationRunService,
-    {
-      provide: 'DISPATCH_MQ',
-      useFactory: (configService: ConfigService) => {
-        const natsServerConfig = configService.get('nats');
-        const natsOptions: NatsOptions = {};
-        natsOptions.transport = Transport.NATS;
-        natsOptions.options = natsServerConfig;
-        return ClientProxyFactory.create(natsOptions);
-      },
-      inject: [ConfigService],
-    },
   ],
 })
-export class SimulationRunModule {}
+export class SimulationRunModule { }

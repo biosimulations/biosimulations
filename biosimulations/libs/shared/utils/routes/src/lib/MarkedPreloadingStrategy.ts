@@ -9,7 +9,7 @@ import { flatMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class MarkedPreloadingStrategy implements PreloadingStrategy {
-  preload(route: Route, load: Function): Observable<any> {
+  preload(route: Route, load: () => any): Observable<any> {
     const loadRoute = (delay: number) =>
       delay ? timer(delay).pipe(flatMap((_) => load())) : load();
     return route?.data?.preload?.preload

@@ -1,5 +1,6 @@
 import {
   IAlgorithm,
+  IDependentVariableTargetPattern,
   SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import {
@@ -7,11 +8,20 @@ import {
   EdamOntologyIdVersion,
   KisaoOntologyId,
   SboOntologyId,
+  SioOntologyId,
   DependentPackage,
 } from '@biosimulations/datamodel/api';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
+
+export class DependentVariableTargetPattern implements IDependentVariableTargetPattern {
+  @ApiProperty({ type: String, required: true })
+  variables!: string;
+
+  @ApiProperty({ type: String, required: true })
+  targetPattern!: string;
+}
 
 export class Algorithm implements IAlgorithm {
   @ApiProperty({ type: KisaoOntologyId })
@@ -19,6 +29,12 @@ export class Algorithm implements IAlgorithm {
 
   @ApiProperty({ type: [AlgorithmParameter], nullable: true })
   parameters!: AlgorithmParameter[] | null;
+
+  @ApiProperty({ type: [SioOntologyId], nullable: true })
+  dependentDimensions!: SioOntologyId[] | null;
+
+  @ApiProperty({ type: [DependentVariableTargetPattern], required: true })
+  dependentVariableTargetPatterns!: DependentVariableTargetPattern[];
 
   @ApiProperty({
     description: "Id of the algorithm within the simulator such as the name of the function which implements the algorithm. The scope of this id is typically limited to the individual simulator.",

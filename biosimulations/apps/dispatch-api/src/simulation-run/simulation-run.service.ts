@@ -201,5 +201,5 @@ export class SimulationRunService {
     @InjectModel(SimulationFile.name) private fileModel: Model<SimulationFile>,
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>
-  ) {}
+  ) { }
 }

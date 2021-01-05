@@ -8,6 +8,7 @@ import { TextPageSideBarSectionComponent } from './text-page-side-bar-section.co
 import { TextPageTocItemComponent } from './text-page-toc-item.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { ScrollService } from '@biosimulations/shared/services';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 describe('TextPageComponent', () => {
   let component: TextPageComponent;
@@ -16,7 +17,7 @@ describe('TextPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PageComponent, TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageTocItemComponent],
-      imports: [RouterTestingModule, BiosimulationsIconsModule],
+      imports: [RouterTestingModule, BiosimulationsIconsModule, FlexLayoutModule],
       providers: [ScrollService],
     }).compileComponents();
   }));

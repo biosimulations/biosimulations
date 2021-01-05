@@ -14,7 +14,7 @@ export class HpcService {
     private readonly configService: ConfigService,
     private sshService: SshService,
     private sbatchService: SbatchService
-  ) {}
+  ) { }
 
   /**
    *
@@ -34,11 +34,13 @@ export class HpcService {
     const simulatorString = `biosimulations_${simulator}_${version}.img`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
+    const endpoint = this.configService.get('urls.dispatchApi')
+
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,
       fileName,
-      urls.dispatchApi,
+      endpoint,
       id
     );
     return this.sshService.execStringCommand(
@@ -52,7 +54,7 @@ export class HpcService {
       .catch((err) => {
         this.logger.error(
           'Failed to fetch results, updating the sim status as Pending, ' +
-            JSON.stringify(err)
+          JSON.stringify(err)
         );
         return { stdout: '\n\nPENDING' };
       });

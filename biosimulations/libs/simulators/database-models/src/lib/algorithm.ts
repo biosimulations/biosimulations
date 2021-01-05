@@ -1,8 +1,10 @@
 import {
   IAlgorithm,
+  IDependentVariableTargetPattern,
   IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
+  ISioOntologyId,
   SoftwareInterfaceType,
 } from '@biosimulations/datamodel/common';
 import { Citation } from '@biosimulations/datamodel/api';
@@ -12,6 +14,7 @@ import {
   EdamOntologyIdVersionSchema,
   KisaoOntologyIdSchema,
   SboOntologyIdSchema,
+  SioOntologyIdSchema
 } from './ontologyId';
 
 import {
@@ -32,20 +35,42 @@ import { CitationSchema } from './common';
   strict: 'throw',
   useNestedStrict: true,
 })
+export class DependentVariableTargetPattern implements IDependentVariableTargetPattern {
+  @Prop({ type: String, required: true, default: undefined })
+  variables!: string;
+
+  @Prop({ type: String, required: true, default: undefined })
+  targetPattern!: string;
+}
+
+export const DependentVariableTargetPatternSchema = SchemaFactory.createForClass(DependentVariableTargetPattern);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
 export class Algorithm implements IAlgorithm {
   @Prop({ type: KisaoOntologyIdSchema, required: true, default: undefined })
   kisaoId!: IKisaoOntologyId;
 
   @Prop({ type: [AlgorithmParameterSchema], required: false, default: undefined })
   parameters!: AlgorithmParameter[] | null;
-  
+
+  @Prop({ type: [SioOntologyIdSchema], required: false, default: undefined })
+  dependentDimensions!: ISioOntologyId[] | null;
+
+  @Prop({ type: [DependentVariableTargetPatternSchema], required: true, default: undefined })
+  dependentVariableTargetPatterns!: DependentVariableTargetPattern[];
+
   @Prop({
     type: String,
     required: false,
     default: null,
   })
   id!: string | null;
-  
+
   @Prop({
     type: String,
     required: false,

@@ -1,19 +1,25 @@
 {
-  "extends": "../../.eslintrc",
+  "extends": "../../.eslintrc.json",
   "overrides": [
     {
-      "files": ["**/*.component.html"],
+      "files": [
+        "**/*.component.html"
+      ],
       "parser": "@angular-eslint/template-parser",
-      "plugins": ["@angular-eslint/template"],
+      "plugins": [
+        "@angular-eslint/template"
+      ],
       "rules": {
         "@angular-eslint/template/cyclomatic-complexity": [
           "error",
           {
-            "maxComplexity": 65
+            "maxComplexity": 80
           }
         ]
       }
     }
   ],
-  "ignorePatterns": ["!**/*"]
+  "ignorePatterns": [
+    "!**/*"
+  ]
 }

@@ -5,13 +5,13 @@ import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { SubmissionService } from './submission.service';
 
 class MockSimulationService {
-  updateSimulationRunStatus(id: string, size: number) {}
+  updateSimulationRunStatus(id: string, size: number) { }
 }
 class mockHPCService {
-  getJobStatus(id: string) {}
+  getJobStatus(id: string) { }
 }
 class mockClient {
-  emit(message: any) {}
+  emit(message: any) { }
 }
 describe('Submissionservice', () => {
   let service: SubmissionService;
@@ -26,7 +26,7 @@ describe('Submissionservice', () => {
           useClass: mockHPCService,
         },
         SchedulerRegistry,
-        { provide: 'DISPATCH_MQ', useClass: mockClient },
+        { provide: 'NATS_CLIENT', useClass: mockClient },
       ],
     }).compile();
 

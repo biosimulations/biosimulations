@@ -1,18 +1,25 @@
 {
-  "extends": "../../.eslintrc",
-
-  "ignorePatterns": ["!**/*", "**/*.spec.ts"],
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": [
+    "!**/*",
+    "**/*.spec.ts"
+  ],
   "overrides": [
     {
-      "files": ["**/*.component.html"],
+      "files": [
+        "**/*.component.html"
+      ],
       "parser": "@angular-eslint/template-parser",
-      "plugins": ["@angular-eslint/template"],
-
+      "plugins": [
+        "@angular-eslint/template"
+      ],
       "rules": {
         "@angular-eslint/template/banana-in-a-box": "error",
         "@angular-eslint/template/cyclomatic-complexity": [
           "error",
-          { "maxComplexity": 15 }
+          {
+            "maxComplexity": 15
+          }
         ],
         "@angular-eslint/template/no-call-expression": "error",
         "@angular-eslint/template/no-negated-async": "error"

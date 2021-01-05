@@ -54,6 +54,10 @@
 
         <p>Some of the simulation tools, such as tellurium, support the full SED-ML specification.</p>
       </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Which versions of SED-ML does BioSimulators support?">
+        <p>Simulation tools are encouraged to support SED-ML L1V3 or later. The <a [routerLink]="['/simulators']">simulators page</a> contains more information about the version of SED-ML supported by each tool.</p>
+      </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -77,6 +81,14 @@
 
         <p>Note, BioSimulators can only validate simulation tools that support these standards. Consequently, when creating GitHub issues to submit simulation tools that do not support the BioSimulators standards, set <code>validateImage</code> to <code>false</code> to decline validation of the Docker image (or lack thereof) for your simulation tool. The validation status of your simulation tool (passed or skipped) will be communicated to BioSimulators users.</p>
       </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Can the Docker images be run on high-performance computing systems without root access?">
+        <p>Yes! The Docker images can be run on high-performance computing (HPC) systems where root access is not available by first converting the images to Singularity <a href="https://sylabs.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> images. All of the validated images are compatible with Singularity.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a heading="Can the Docker images for simulators be converted to Singularity images for use for high-performance computing systems?">
+        <p>Yes! All of the validated images are compatible with Singularity <a href="https://sylabs.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. As part of the validation process, we check that each Docker image can be converted into a Singularity image.</p>
+      </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -90,7 +102,7 @@
       <biosimulations-q-a heading="How are results encoded into HDF5 files?">
         <p>Within HDF5 files, report tables (<code>sedml:report</code>) are saved to paths equal to a combination of the relative path of the parent SED-ML document within the parent COMBINE/OMEX archive and the id of the report.</p>
 
-        <p>The rows of report tables correspond to the datasets (<code>sedml:dataset</code>) specified in the SED-ML definition of the report. For time course simulations, the columns of reports correspond to the predicted time points. The heading of each row is the id of the corresponding dataset. Below is a sample report table.</p>    
+        <p>The rows of report tables correspond to the data sets (<code>sedml:dataSet</code>) specified in the SED-ML definition of the report. For time course simulations, the columns of reports correspond to the predicted time points. The heading of each row is the label of the corresponding data set. Below is a sample report table.</p>    
 
         <p>See the <a [routerLink]="['/standards', 'simulator-interfaces']">specifications for reports</a> for more information and examples.</p>
       </biosimulations-q-a>

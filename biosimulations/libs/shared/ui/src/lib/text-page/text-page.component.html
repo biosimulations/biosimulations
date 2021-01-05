@@ -7,7 +7,7 @@
       <div class="sections-container"
         [ngStyle]="sideBarStyle$ | async"
       >
-        <biosimulations-text-page-side-bar-section [heading]="contentsHeading">
+        <biosimulations-text-page-side-bar-section [heading]="contentsHeading" [fxHide]="!contentsHeading">
           <ul>
             <biosimulations-text-page-toc-item *ngFor="let section of (tocSections | async)"
               [heading]="section.heading | async"

@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://biosimulations.org/sitemap-static.xml</loc>
-  </sitemap>
-  <sitemap>
-    <loc>https://biosimulations.org/sitemap-dynamic.xml</loc>
-  </sitemap>
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
+  <url>
+    <loc>https://biosimulations.org/</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/help</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/help/faq</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/help/about</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/help/terms</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/help/privacy</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/models</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+</urlset>

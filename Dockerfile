@@ -50,8 +50,8 @@ RUN nx build ${APP} --prod
 # base image
 FROM base as prod
 LABEL \
-    org.opencontainers.image.title="BioSimulations $app" \
-    org.opencontainers.image.description="Docker image for the BioSimulations $app app" \
+    org.opencontainers.image.title="BioSimulations ${APP}" \
+    org.opencontainers.image.description="Docker image for the BioSimulations ${APP} app" \
     org.opencontainers.image.url="https://biosimulations.org/" \
     org.opencontainers.image.documentation="https://biosimulations.org/help" \
     org.opencontainers.image.source="https://github.com/biosimulations/Biosimulations" \
@@ -62,7 +62,6 @@ LABEL \
 WORKDIR /app
 # install the app and include only dependencies needed to run
 RUN npm ci --only=production --silent
-
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
 COPY --from=build /app/dist/apps/${APP}/ .

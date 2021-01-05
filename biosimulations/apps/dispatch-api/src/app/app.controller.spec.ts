@@ -10,7 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
 describe('AppController', () => {
   let app: TestingModule;
 
@@ -27,23 +27,11 @@ describe('AppController', () => {
       }
     }
     app = await Test.createTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, SharedNatsClientModule],
       controllers: [AppController],
       providers: [
         ConfigService,
         AppService,
-        {
-          provide: 'DISPATCH_MQ',
-          useFactory: (configService: ConfigService) => {
-            const natsServerConfig = configService.get('nats');
-            const natsOptions: NatsOptions = {};
-            natsOptions.transport = Transport.NATS;
-            natsOptions.options = natsServerConfig;
-            return ClientProxyFactory.create(natsOptions);
-          },
-          inject: [ConfigService],
-        },
-
         {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,

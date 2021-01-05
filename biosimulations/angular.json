@@ -454,9 +454,7 @@
               },
               "apps/dispatch/src/manifest.webmanifest",
               "apps/dispatch/src/browserconfig.xml",
-              "apps/dispatch/src/sitemap.xml",
-              "apps/dispatch/src/sitemap-static.xml",
-              "apps/dispatch/src/sitemap-dynamic.xml"
+              "apps/dispatch/src/sitemap.xml"
             ],
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
@@ -990,9 +988,7 @@
               },
               "apps/platform/src/manifest.webmanifest",
               "apps/platform/src/browserconfig.xml",
-              "apps/platform/src/sitemap.xml",
-              "apps/platform/src/sitemap-static.xml",
-              "apps/platform/src/sitemap-dynamic.xml"
+              "apps/platform/src/sitemap.xml"
             ],
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/marked/lib/marked.js"],
@@ -1177,9 +1173,7 @@
               },
               "apps/simulators/src/manifest.webmanifest",
               "apps/simulators/src/browserconfig.xml",
-              "apps/simulators/src/sitemap.xml",
-              "apps/simulators/src/sitemap-static.xml",
-              "apps/simulators/src/sitemap-dynamic.xml"
+              "apps/simulators/src/sitemap.xml"
             ],
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/marked/lib/marked.js"],
@@ -1814,6 +1808,69 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/exceptions/exceptions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mail-service-client": {
+      "root": "libs/mail-service/client",
+      "sourceRoot": "libs/mail-service/client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/mail-service/client/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/mail-service/client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dispatch-nest-client": {
+      "root": "libs/dispatch/nest-client",
+      "sourceRoot": "libs/dispatch/nest-client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/dispatch/nest-client/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dispatch/nest-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-nats-client": {
+      "root": "libs/shared/nats-client",
+      "sourceRoot": "libs/shared/nats-client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/nats-client/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/nats-client/jest.config.js",
             "passWithNoTests": true
           }
         }

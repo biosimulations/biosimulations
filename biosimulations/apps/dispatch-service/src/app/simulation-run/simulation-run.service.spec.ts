@@ -1,4 +1,6 @@
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { HttpService } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from '../services/auth/auth.service';
 import { SimulationRunService } from './simulation-run.service';
@@ -9,15 +11,17 @@ class mockAuthService {
   }
 }
 class mockHttpSerivice {
-  post(url: string, body: any) {}
+  post(url: string, body: any) { }
 }
 describe('SimulationRunservice', () => {
   let service: SimulationRunService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [BiosimulationsConfigModule],
       providers: [
         SimulationRunService,
+
         { provide: AuthService, useClass: mockAuthService },
         { provide: HttpService, useClass: mockHttpSerivice },
       ],

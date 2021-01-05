@@ -4,12 +4,17 @@ import { ArchiverService } from '../services/archiver/archiver.service';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { ResultsService } from './results.service';
 class MockSimulationsRunService {
-  async sendReport() {}
+  async sendReport() { }
 }
 class mockArchiverService {
-  async createResultArchive() {}
+  async createResultArchive() { }
 }
 
+class MockClient {
+  emit() {
+
+  }
+}
 describe('ResultsService', () => {
   let service: ResultsService;
 
@@ -18,6 +23,7 @@ describe('ResultsService', () => {
       providers: [
         ResultsService,
         ConfigService,
+        { provide: "NATS_CLIENT", useClass: MockClient },
         { provide: SimulationRunService, useClass: MockSimulationsRunService },
         { provide: ArchiverService, useClass: mockArchiverService }
       ]

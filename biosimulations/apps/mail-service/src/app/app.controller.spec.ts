@@ -1,24 +1,33 @@
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { MailClientService } from '@biosimulations/mail-service/client';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+class MockMailClient {
+  sendEmail() {
 
+  }
+}
+class MockAppService {
+  getJob() {
+
+  }
+}
 describe('AppController', () => {
   let app: TestingModule;
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [{ provide: SimulationRunService, useValue: MockAppService }, { provide: AppService, useClass: MockAppService }, { provide: MailClientService, useClass: MockMailClient }],
     }).compile();
   });
 
   describe('getData', () => {
-    it('should return "Welcome to mail-service!"', () => {
+    it('should build', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({
-        message: 'Welcome to mail-service!',
-      });
+      expect(appController).toBeTruthy()
     });
   });
 });

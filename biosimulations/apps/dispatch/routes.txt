@@ -1,0 +1,8 @@
+/
+/help
+/help/faq
+/help/about
+/help/terms
+/help/privacy
+/run
+/simulations

@@ -57,10 +57,13 @@ export class DispatchComponent implements OnInit {
         this.simulatorVersionsMap = {
           amici: ['0.11.11'],
           bionetgen: ['2.5.1'],
+          cbmpy: ['0.7.25'],
+          cobrapy: ['0.20.0'],
           copasi: ['4.30.233', '4.29.227', '4.28.226'],
-          gillespy2: ['1.5.7', '1.5.6', '1.5.5', '1.5.4'],
-          vcell: ['7.3.0.06', '7.3.0.0'],
+          gillespy2: ['1.5.7'],
+          pysces: ['0.9.9'],
           tellurium: ['2.1.6'],
+          vcell: ['7.3.0.07', '7.3.0.06', '7.3.0.0'],
         };
         this.simulators = Object.keys(this.simulatorVersionsMap);
 

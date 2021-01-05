@@ -2,11 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HpcService } from './hpc.service';
 import { SshService } from '../ssh/ssh.service';
 import { ConfigService } from '@nestjs/config';
-import {
-  ClientProxyFactory,
-  Transport,
-  NatsOptions,
-} from '@nestjs/microservices';
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
 import { SbatchService } from '../sbatch/sbatch.service';
 
 describe('HpcService', () => {
@@ -14,22 +10,13 @@ describe('HpcService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [SharedNatsClientModule],
       providers: [
         HpcService,
         SshService,
         ConfigService,
         SbatchService,
-        {
-          provide: 'DISPATCH_MQ',
-          useFactory: (configService: ConfigService) => {
-            const natsServerConfig = configService.get('nats');
-            const natsOptions: NatsOptions = {};
-            natsOptions.transport = Transport.NATS;
-            natsOptions.options = natsServerConfig;
-            return ClientProxyFactory.create(natsOptions);
-          },
-          inject: [ConfigService],
-        },
+
       ],
     }).compile();
 

@@ -1,5 +1,14 @@
 import { Observable } from 'rxjs';
-import { Url, IImage, DependentPackage, ILinguistOntologyId } from '@biosimulations/datamodel/common';
+import {
+  Url,
+  IImage,
+  DependentPackage,
+  ILinguistOntologyId,
+  IDependentVariableTargetPattern,
+  ITestCase,
+  TestCaseResultType,
+  ITestCaseException,
+} from '@biosimulations/datamodel/common';
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -12,6 +21,8 @@ export interface ViewAlgorithm {
   simulationFormats: ViewFormat[];
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
+  dependentDimensions: ViewSioId[] | null;
+  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
   dependencies: DependentPackage[] | null;
@@ -28,6 +39,8 @@ export interface ViewAlgorithmObservable {
   simulationFormats: ViewFormatObservable[];
   archiveFormats: ViewFormatObservable[];
   parameters: ViewParameterObservable[] | null;
+  dependentDimensions: Observable<ViewSioId>[] | null;
+  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
   dependencies: DependentPackage[] | null;
@@ -87,6 +100,12 @@ export interface ViewParameterObservable {
   availableSoftwareInterfaceTypes: string[];
 }
 
+export interface ViewSioId {
+  id: string;
+  name: string;
+  url: string;
+}
+
 export interface ViewIdentifier {
   text: string;
   url: string;
@@ -116,6 +135,34 @@ export interface ViewFunding {
   url: string | null;
 }
 
+export interface ViewTestCaseResult {
+  case: ITestCase;
+  caseUrl: string;
+  caseClass: string;
+  caseArchive: string | null;
+  caseArchiveUrl: string | null;
+  resultType: string;
+  duration: string;
+  exception: ITestCaseException | null;
+  warnings: ITestCaseException[];
+  skipReason: ITestCaseException | null;
+  log: string;
+}
+
+export interface ViewValidationTests {
+  testSuiteVersion: string;
+  testSuiteVersionUrl: string;
+  numTests: number;
+  numTestsPassed: number;
+  numTestsSkipped: number;
+  numTestsFailed: number;
+  results: ViewTestCaseResult[];
+  ghIssue: number;
+  ghIssueUrl: string;
+  ghActionRun: number;
+  ghActionRunUrl: string;
+}
+
 export interface ViewSimulator {
   _json: string;
   id: string;
@@ -133,9 +180,11 @@ export interface ViewSimulator {
   interfaceTypes: string[];
   supportedOperatingSystemTypes: string[];
   supportedProgrammingLanguages: ILinguistOntologyId[];
-  versions: Observable<ViewVersion[]>;  
+  versions: Observable<ViewVersion[]>;
   curationStatus: string;
   funding: ViewFunding[];
   created: string;
   updated: string;
+  validated: boolean;
+  validationTests: ViewValidationTests | null;
 }

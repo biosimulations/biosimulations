@@ -1,4 +1,4 @@
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRun, SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
@@ -19,7 +19,7 @@ export class SubmissionService {
     private service: SimulationRunService,
     private hpcService: HpcService,
     private schedulerRegistry: SchedulerRegistry,
-    @Inject('DISPATCH_MQ') private messageClient: ClientProxy
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy
   ) {
     this.logger = new Logger(SubmissionService.name);
   }
@@ -108,7 +108,7 @@ export class SubmissionService {
   async updateSimulationRunStatus(
     simId: string,
     simStatus: SimulationRunStatus
-  ) {
+  ): Promise<SimulationRun> {
     return this.service.updateSimulationRunStatus(simId, simStatus);
   }
 }

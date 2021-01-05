@@ -6,5 +6,9 @@
     "strict": true,
     "resolveJsonModule": true,
   },
-  "files": ["src/main.ts", "src/polyfills.ts"]
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
+    "src/highlight.d.ts"
+  ]
 }
