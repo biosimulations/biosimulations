@@ -8,7 +8,6 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { version } from 'os';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 
