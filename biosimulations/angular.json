@@ -48,8 +48,12 @@
                 "output": "assets"
               }
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -106,13 +110,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/account/tsconfig.app.json",
-              "apps/account/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/account/**/*"]
+            "lintFilePatterns": [
+              "apps/account/**/*.ts",
+              "apps/account/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -143,10 +146,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["apps/account-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/account-e2e/**/*"]
+            "lintFilePatterns": [
+              "apps/account-e2e/**/*.ts"
+            ]
           }
         }
       }
@@ -164,7 +168,9 @@
             "outputPath": "dist/apps/account-api",
             "main": "apps/account-api/src/main.ts",
             "tsConfig": "apps/account-api/tsconfig.app.json",
-            "assets": ["apps/account-api/src/assets"]
+            "assets": [
+              "apps/account-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -187,13 +193,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/account-api/tsconfig.app.json",
-              "apps/account-api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/account-api/**/*"]
+            "lintFilePatterns": [
+              "apps/account-api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -212,10 +216,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["libs/shared/assets/tsconfig.lib.json"],
-            "exclude": ["*"]
+            "lintFilePatterns": [
+              "libs/shared/assets/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -239,13 +244,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/content/tsconfig.lib.json",
-              "libs/shared/content/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/content/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/content/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -269,13 +272,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/services/tsconfig.lib.json",
-              "libs/shared/services/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/services/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/services/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -295,10 +296,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["libs/shared/styles/tsconfig.lib.json"],
-            "exclude": ["*"]
+            "lintFilePatterns": [
+              "libs/shared/styles/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -322,13 +324,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/ui/tsconfig.lib.json",
-              "libs/shared/ui/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/ui/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/ui/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -352,13 +352,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/icons/tsconfig.lib.json",
-              "libs/shared/icons/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/icons/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/icons/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -382,13 +380,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/debug/tsconfig.lib.json",
-              "libs/shared/debug/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/debug/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/debug/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -455,8 +451,12 @@
               "apps/dispatch/src/browserconfig.xml",
               "apps/dispatch/src/sitemap.xml"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/plotly.js/dist/plotly.min.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -514,21 +514,20 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/dispatch/tsconfig.app.json",
-              "apps/dispatch/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/dispatch/**/*"]
+            "lintFilePatterns": [
+              "apps/dispatch/**/*.ts",
+              "apps/dispatch/**/*.html"
+            ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/dispatch/jest.config.js",
-            "passWithNoTests": true
-          }
+        }
+      },
+      "test": {
+        "builder": "@nrwl/jest:jest",
+        "options": {
+          "jestConfig": "apps/dispatch/jest.config.js",
+          "passWithNoTests": true
         }
       }
     },
@@ -551,10 +550,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["apps/dispatch-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/dispatch-e2e/**/*"]
+            "lintFilePatterns": [
+              "apps/dispatch-e2e/**/*.ts"
+            ]
           }
         }
       }
@@ -566,13 +566,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/auth/common/tsconfig.lib.json",
-              "libs/auth/common/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/auth/common/**/*"]
+            "lintFilePatterns": [
+              "libs/auth/common/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -591,13 +589,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/auth/angular/tsconfig.lib.json",
-              "libs/auth/angular/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/auth/angular/**/*"]
+            "lintFilePatterns": [
+              "libs/auth/angular/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -621,13 +617,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/auth/nest/tsconfig.lib.json",
-              "libs/auth/nest/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/auth/nest/**/*"]
+            "lintFilePatterns": [
+              "libs/auth/nest/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -646,13 +640,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/config/common/tsconfig.lib.json",
-              "libs/config/common/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/config/common/**/*"]
+            "lintFilePatterns": [
+              "libs/config/common/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -671,13 +663,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/config/nest/tsconfig.lib.json",
-              "libs/config/nest/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/config/nest/**/*"]
+            "lintFilePatterns": [
+              "libs/config/nest/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -696,13 +686,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/config/angular/tsconfig.lib.json",
-              "libs/config/angular/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/config/angular/**/*"]
+            "lintFilePatterns": [
+              "libs/config/angular/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -732,7 +720,9 @@
             "outputPath": "dist/apps/platform-api",
             "main": "apps/platform-api/src/main.ts",
             "tsConfig": "apps/platform-api/tsconfig.app.json",
-            "assets": ["apps/platform-api/src/assets"]
+            "assets": [
+              "apps/platform-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -755,13 +745,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/platform-api/tsconfig.app.json",
-              "apps/platform-api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/platform-api/**/*"]
+            "lintFilePatterns": [
+              "apps/platform-api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -780,13 +768,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/platform/api-models/tsconfig.lib.json",
-              "libs/platform/api-models/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/platform/api-models/**/*"]
+            "lintFilePatterns": [
+              "libs/platform/api-models/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -805,15 +791,10 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/platform/database-models/tsconfig.lib.json",
-              "libs/platform/database-models/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/platform/database-models/**/*"
+            "lintFilePatterns": [
+              "libs/platform/database-models/**/*.ts"
             ]
           }
         },
@@ -839,7 +820,9 @@
             "outputPath": "dist/apps/dispatch-service",
             "main": "apps/dispatch-service/src/main.ts",
             "tsConfig": "apps/dispatch-service/tsconfig.app.json",
-            "assets": ["apps/dispatch-service/src/assets"]
+            "assets": [
+              "apps/dispatch-service/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -864,13 +847,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/dispatch-service/tsconfig.app.json",
-              "apps/dispatch-service/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/dispatch-service/**/*"]
+            "lintFilePatterns": [
+              "apps/dispatch-service/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -895,7 +876,9 @@
             "outputPath": "dist/apps/dispatch-api",
             "main": "apps/dispatch-api/src/main.ts",
             "tsConfig": "apps/dispatch-api/tsconfig.app.json",
-            "assets": ["apps/dispatch-api/src/assets"]
+            "assets": [
+              "apps/dispatch-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -920,13 +903,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/dispatch-api/tsconfig.app.json",
-              "apps/dispatch-api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/dispatch-api/**/*"]
+            "lintFilePatterns": [
+              "apps/dispatch-api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -988,8 +969,12 @@
               "apps/platform/src/browserconfig.xml",
               "apps/platform/src/sitemap.xml"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -1047,13 +1032,22 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/platform/**/*.ts",
+              "apps/platform/**/*.html"
+            ]
+          },
           "options": {
             "tsConfig": [
               "apps/platform/tsconfig.app.json",
               "apps/platform/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/platform/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/platform/**/*"
+            ]
           }
         },
         "test": {
@@ -1084,10 +1078,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["apps/platform-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/platform-e2e/**/*"]
+            "lintFilePatterns": [
+              "apps/platform-e2e/**/*.ts"
+            ]
           }
         }
       }
@@ -1099,13 +1094,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/platform/view/tsconfig.lib.json",
-              "libs/platform/view/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/platform/view/**/*"]
+            "lintFilePatterns": [
+              "libs/platform/view/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1172,8 +1165,12 @@
               "apps/simulators/src/browserconfig.xml",
               "apps/simulators/src/sitemap.xml"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -1231,13 +1228,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/simulators/tsconfig.app.json",
-              "apps/simulators/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/simulators/**/*"]
+            "lintFilePatterns": [
+              "apps/simulators/**/*.ts",
+              "apps/simulators/**/*.html"
+            ]
           }
         },
         "test": {
@@ -1268,10 +1264,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["apps/simulators-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/simulators-e2e/**/*"]
+            "lintFilePatterns": [
+              "apps/simulators-e2e/**/*.ts"
+            ]
           }
         }
       }
@@ -1289,7 +1286,9 @@
             "outputPath": "dist/apps/simulators-api",
             "main": "apps/simulators-api/src/main.ts",
             "tsConfig": "apps/simulators-api/tsconfig.app.json",
-            "assets": ["apps/simulators-api/src/assets"]
+            "assets": [
+              "apps/simulators-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -1312,13 +1311,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/simulators-api/tsconfig.app.json",
-              "apps/simulators-api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/simulators-api/**/*"]
+            "lintFilePatterns": [
+              "apps/simulators-api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1337,15 +1334,10 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/simulators/api-models/tsconfig.lib.json",
-              "libs/simulators/api-models/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/simulators/api-models/**/*"
+            "lintFilePatterns": [
+              "libs/simulators/api-models/**/*.ts"
             ]
           }
         },
@@ -1365,13 +1357,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/environments/tsconfig.lib.json",
-              "libs/shared/environments/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/environments/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/enviroonments/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1395,13 +1385,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/dispatch/api-models/tsconfig.lib.json",
-              "libs/dispatch/api-models/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/dispatch/api-models/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/api-models/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1426,7 +1414,9 @@
             "outputPath": "dist/apps/mail-service",
             "main": "apps/mail-service/src/main.ts",
             "tsConfig": "apps/mail-service/tsconfig.app.json",
-            "assets": ["apps/mail-service/src/assets"]
+            "assets": [
+              "apps/mail-service/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -1449,13 +1439,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/mail-service/tsconfig.app.json",
-              "apps/mail-service/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/mail-service/**/*"]
+            "lintFilePatterns": [
+              "apps/mail-service/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1480,7 +1468,9 @@
             "outputPath": "dist/apps/ontology-api",
             "main": "apps/ontology-api/src/main.ts",
             "tsConfig": "apps/ontology-api/tsconfig.app.json",
-            "assets": ["apps/ontology-api/src/assets"]
+            "assets": [
+              "apps/ontology-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -1503,13 +1493,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/ontology-api/tsconfig.app.json",
-              "apps/ontology-api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/ontology-api/**/*"]
+            "lintFilePatterns": [
+              "apps/ontology-api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1528,13 +1516,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/ontology/sources/tsconfig.lib.json",
-              "libs/ontology/sources/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/ontology/sources/**/*"]
+            "lintFilePatterns": [
+              "libs/ontology/sources/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1553,13 +1539,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/ontology/ontologies/tsconfig.lib.json",
-              "libs/ontology/ontologies/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/ontology/ontologies/**/*"]
+            "lintFilePatterns": [
+              "libs/ontology/ontologies/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1578,13 +1562,11 @@
       "prefix": "biosimulations",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/utils/routes/tsconfig.lib.json",
-              "libs/shared/utils/routes/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/utils/routes/**/*"]
+            "lintFilePatterns": [
+              "libs/shared/utils/routes/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1608,15 +1590,10 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/dispatch/file-modifiers/tsconfig.lib.json",
-              "libs/dispatch/file-modifiers/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/dispatch/file-modifiers/**/*"
+            "lintFilePatterns": [
+              "libs/dispatch/file-modifiers/**/*.ts"
             ]
           }
         },
@@ -1672,7 +1649,10 @@
               "libs/datamodel/database/tsconfig.lib.json",
               "libs/datamodel/database/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/database/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/database/**/*"
+            ]
           }
         },
         "test": {
@@ -1691,13 +1671,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/datamodel/api/tsconfig.lib.json",
-              "libs/datamodel/api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/api/**/*"]
+            "lintFilePatterns": [
+              "libs/datamodel/api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1716,13 +1694,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/datamodel/common/tsconfig.lib.json",
-              "libs/datamodel/common/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/common/**/*"]
+            "lintFilePatterns": [
+              "libs/datamodel/common/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1741,13 +1717,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/messages/messages/tsconfig.lib.json",
-              "libs/messages/messages/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/messages/messages/**/*"]
+            "lintFilePatterns": [
+              "libs/messages/messages/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1797,7 +1771,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/exceptions/exceptions/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/exceptions/exceptions/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1818,7 +1794,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/mail-service/client/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/mail-service/client/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1839,7 +1817,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/dispatch/nest-client/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/dispatch/nest-client/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1860,7 +1840,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/nats-client/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/nats-client/**/*.ts"
+            ]
           }
         },
         "test": {
