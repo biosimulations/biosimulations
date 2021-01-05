@@ -11,7 +11,7 @@ import {
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client'
 import { MailClientService } from '@biosimulations/mail-service/client'
 import { AppService } from './app.service';
-import { DispatchFinishedPayload, DispatchMessage, DispatchProcessedPayload } from '@biosimulations/messages/messages'
+import { DispatchMessage, DispatchProcessedPayload } from '@biosimulations/messages/messages'
 import { SimulationRun } from '@biosimulations/dispatch/api-models'
 
 @Controller()
@@ -28,11 +28,23 @@ export class AppController {
     this.simService.getJob(data.id).subscribe((job: SimulationRun) => {
       const email = job.email
 
+      //const status = job.status  use the status to determine which email to send?
       if (email) {
 
-        this.emailClient.sendNotificationEmail(email, `Simulation ${data.id} completed`, "The simulation is complete", "<p>The simulation is complete<p>")
+        this.emailClient.sendSuccessEmail(email, job.id, job.name, new Date(job.submitted))
       }
     })
   }
 
+  @MessagePattern(DispatchMessage.failed)
+  sendFailedEmail(@Payload() data: DispatchProcessedPayload, @Ctx() context: NatsContext) {
+    this.simService.getJob(data.id).subscribe((job: SimulationRun) => {
+      const email = job.email
+      //const status = job.status  use the status to determine which email to send?
+      if (email) {
+
+        this.emailClient.sendFailureEmail(email, job.id, job.name, new Date(job.submitted))
+      }
+    })
+  }
 }
