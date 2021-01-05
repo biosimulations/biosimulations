@@ -43,9 +43,15 @@ export class HpcService {
       endpoint,
       id
     );
-    return this.sshService.execStringCommand(
-      `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`
-    );
+
+    const command = `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`
+
+    const res = this.sshService.execStringCommand(command)
+
+    return res.catch(err => {
+      console.error("Job Submission Failed")
+      return { stdout: "", stderr: "Failed to submit job" + err }
+    });
   }
 
   async getJobStatus(jobId: string): Promise<SimulationRunStatus> {

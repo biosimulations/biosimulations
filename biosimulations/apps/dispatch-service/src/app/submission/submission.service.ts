@@ -73,11 +73,7 @@ export class SubmissionService {
         }
         case SimulationRunStatus.FAILED: {
           this.logger.error(`Job with id ${jobId} failed`);
-          const update = this.updateSimulationRunStatus(
-            simId,
-            SimulationRunStatus.FAILED
-          );
-
+          this.updateSimulationRunStatus(simId, jobStatus);
           const failedMessage: DispatchPayload = {
             _message: DispatchMessage.failed,
             id: simId
@@ -108,7 +104,7 @@ export class SubmissionService {
   async updateSimulationRunStatus(
     simId: string,
     simStatus: SimulationRunStatus
-  ): Promise<SimulationRun> {
+  ): Promise<SimulationRun | void> {
     return this.service.updateSimulationRunStatus(simId, simStatus);
   }
 }
