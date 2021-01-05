@@ -49,6 +49,8 @@
 /simulators/jsim/2.20
 /simulators/jwsonline
 /simulators/jwsonline/2.0
+/simulators/libsbmlsim
+/simulators/libsbmlsim/1.4.0
 /simulators/maboss
 /simulators/maboss/2.0
 /simulators/metanetx
@@ -57,6 +59,8 @@
 /simulators/mlxm/1.1
 /simulators/mlxr
 /simulators/mlxr/4.1.3
+/simulators/morpheus
+/simulators/morpheus/2.2.0-rc1
 /simulators/opencor
 /simulators/opencor/0.6
 /simulators/optflux
@@ -76,6 +80,8 @@
 /simulators/vcell
 /simulators/vcell/7.3.0.0
 /simulators/vcell/7.3.0.06
+/simulators/winbestkit
+/simulators/winbestkit/2.0.9
 /standards
 /standards/simulation-experiments
 /standards/simulations-reports
