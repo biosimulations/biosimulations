@@ -1,8 +1,8 @@
 {
   "id": "tellurium",
   "name": "tellurium",
-  "version": "2.1.6",
-  "description": "Tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.",
+  "version": "2.2.0",
+  "description": "tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.",
   "urls": [{
       "type": "Home page",
       "url": "http://tellurium.analogmachine.org/"
@@ -45,7 +45,7 @@
     }
   ],
   "image": {
-    "url": "ghcr.io/biosimulators/biosimulators_tellurium/tellurium:2.1.6",
+    "url": "ghcr.io/biosimulators/biosimulators_tellurium/tellurium:2.2.0",
     "format": {
       "namespace": "EDAM",
       "id": "format_3973",
@@ -174,7 +174,7 @@
       }
     ],
     "citations": [{
-      "title": "Tellurium: an extensible Python-based modeling environment for systems and synthetic biology",
+      "title": "tellurium: an extensible Python-based modeling environment for systems and synthetic biology",
       "authors": "Kiri Choi, J. Kyle Medley, Matthias König, Kaylene Stocking, Lucian Smith, Stanley Gua & Herbert M. Sauro",
       "journal": "BioSystems",
       "volume": 171,
@@ -343,6 +343,20 @@
           "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
         }
       ],
+      "dependentDimensions": [{
+        "namespace": "SIO",
+        "id": "SIO_000418"
+      }],
+      "dependentVariableTargetPatterns": [
+        {
+          "variables": "species concentrations",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "variables": "parameter values",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+        }
+      ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
       "dependencies": [{
           "name": "libRoadRunner",
@@ -390,6 +404,20 @@
         "supportedFeatures": []
       }],
       "parameters": [],
+      "dependentDimensions": [{
+        "namespace": "SIO",
+        "id": "SIO_000418"
+      }],
+      "dependentVariableTargetPatterns": [
+        {
+          "variables": "species concentrations",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "variables": "parameter values",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+        }
+      ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
       "dependencies": [{
         "name": "libRoadRunner",
@@ -461,6 +489,20 @@
           "value": "1.0",
           "recommendedRange": null,
           "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
+        }
+      ],
+      "dependentDimensions": [{
+        "namespace": "SIO",
+        "id": "SIO_000418"
+      }],
+      "dependentVariableTargetPatterns": [
+        {
+          "variables": "species concentrations",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "variables": "parameter values",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
         }
       ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
@@ -572,6 +614,20 @@
           "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
         }
       ],
+      "dependentDimensions": [{
+        "namespace": "SIO",
+        "id": "SIO_000418"
+      }],
+      "dependentVariableTargetPatterns": [
+        {
+          "variables": "species counts",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "variables": "parameter values",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+        }
+      ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
       "dependencies": [{
         "name": "libRoadRunner",
@@ -668,6 +724,17 @@
           "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"]
         }
       ],
+      "dependentDimensions": [],
+      "dependentVariableTargetPatterns": [
+        {
+          "variables": "species concentrations",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "variables": "parameter values",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+        }
+      ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "desktop application", "BioSimulators Docker image"],
       "dependencies": [{
         "name": "libRoadRunner",
@@ -717,6 +784,7 @@
   "biosimulators": {
     "specificationVersion": "1.0.0",
     "imageVersion": "1.0.0",
-    "validated": false
+    "validated": false,
+    "validationTests": null
   }
 }
