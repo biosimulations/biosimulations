@@ -17,7 +17,7 @@ export class Simulator {
   })
   id!: string;
 
-  @ApiProperty({ type: String, example: 'Tellurium' })
+  @ApiProperty({ type: String, example: 'tellurium' })
   name!: string;
 
   @ApiProperty({
@@ -29,7 +29,7 @@ export class Simulator {
   @ApiProperty({
     type: String,
     example:
-      'Tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.',
+      'tellurium is a Python-based environment for model building, simulation, and analysis that facilitates reproducibility of models in systems and synthetic biology.',
   })
   description!: string;
 
