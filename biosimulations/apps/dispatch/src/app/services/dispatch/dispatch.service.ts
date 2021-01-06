@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@biosimulations/shared/environments';
 import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
@@ -91,5 +90,5 @@ export class DispatchService {
     return this.http.get(endpoint);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 }
