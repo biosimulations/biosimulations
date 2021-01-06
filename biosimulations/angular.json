@@ -1360,7 +1360,7 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/shared/enviroonments/**/*.ts"
+              "libs/shared/environments/**/*.ts"
             ]
           }
         },
@@ -1388,7 +1388,7 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/shared/api-models/**/*.ts"
+              "libs/dispatch/api-models/**/*.ts"
             ]
           }
         },
