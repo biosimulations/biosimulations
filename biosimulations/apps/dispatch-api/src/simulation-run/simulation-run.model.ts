@@ -75,7 +75,6 @@ export class SimulationRunModel extends Document {
 export type SimulationRunModelType = Pick<
   SimulationRunModel,
   | 'id'
-  | 'file'
   | 'name'
   | 'email'
   | 'status'
@@ -93,7 +92,7 @@ export type SimulationRunModelType = Pick<
 export type TestType = Exclude<SimulationRunModel, Document>;
 export type SimulationRunModelReturnType = Omit<
   SimulationRunModelType,
-  '__v' | '_id'
+  '__v' | '_id' | 'file'
 > & { _id: never; __v: never };
 export const SimulationRunModelSchema = SchemaFactory.createForClass(
   SimulationRunModel
