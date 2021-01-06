@@ -1038,16 +1038,6 @@
               "apps/platform/**/*.ts",
               "apps/platform/**/*.html"
             ]
-          },
-          "options": {
-            "tsConfig": [
-              "apps/platform/tsconfig.app.json",
-              "apps/platform/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/platform/**/*"
-            ]
           }
         },
         "test": {
