@@ -4,8 +4,9 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
+import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getModelToken } from 'nestjs-typegoose';
+
 import { SimulationFile } from './file.model';
 import { SimulationRunModel } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';

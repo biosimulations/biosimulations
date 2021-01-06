@@ -31,7 +31,7 @@ export class ResultsModel extends Document {
   @Prop()
   reportId!: string;
 
-  @Prop()
+  @Prop({ type: Object })
   data!: SimulationRunReportData;
 
   @Prop()
