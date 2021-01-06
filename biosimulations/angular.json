@@ -521,13 +521,13 @@
               "apps/dispatch/**/*.html"
             ]
           }
-        }
-      },
-      "test": {
-        "builder": "@nrwl/jest:jest",
-        "options": {
-          "jestConfig": "apps/dispatch/jest.config.js",
-          "passWithNoTests": true
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dispatch/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
