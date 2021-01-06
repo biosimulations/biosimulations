@@ -70,8 +70,7 @@ export class SubmissionController {
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
       const transpose =
-        data.simulator == 'vcell' ||
-        data.simulator == 'bionetgen';
+        data.simulator == 'vcell';
       this.logger.log(
         `Simulator is ${data.simulator} Will transpose: ${transpose}`
       );
