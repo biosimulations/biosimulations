@@ -287,7 +287,7 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
-          return ['/simulations', simulation.id, "#tab=log"];
+          return ['/simulations', simulation.id, '#tab=log'];
         } else {
           return null;
         }
