@@ -380,7 +380,7 @@ export class ViewSimulatorService {
 
         let orcidUrl: string | null = null;
         for (const identifier of author.identifiers) {
-          if (identifier.namespace === "orcid") {
+          if (identifier.namespace === 'orcid') {
             orcidUrl = identifier.url
           }
         }

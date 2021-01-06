@@ -334,7 +334,7 @@ export const columns: Column[] = [
     stackedFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
     filterFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
     filterable: true,
-    filterValues: Object.values(SimulatorCurationStatus).filter((value: number | string): boolean => typeof value === "number"),
+    filterValues: Object.values(SimulatorCurationStatus).filter((value: number | string): boolean => typeof value === 'number'),
     filterSortDirection: ColumnSortDirection.desc,
     showFilterItemToolTips: true,
     show: true,

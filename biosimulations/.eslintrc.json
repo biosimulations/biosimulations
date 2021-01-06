@@ -1,60 +1,12 @@
 {
   "root": true,
   "ignorePatterns": [
-    "**/*.spec.ts"
+    "**/*"
   ],
   "plugins": [
-    "@nrwl/nx",
-    "@angular-eslint/eslint-plugin"
+    "@nrwl/nx"
   ],
   "overrides": [
-    {
-      "files": [
-        "**/*.component.html"
-      ],
-      "parser": "@angular-eslint/template-parser",
-      "plugins": [
-        "@angular-eslint/template"
-      ],
-      "rules": {
-        "@angular-eslint/template/banana-in-a-box": "error",
-        "@angular-eslint/template/cyclomatic-complexity": "error",
-        "@angular-eslint/template/no-call-expression": "error",
-        "@angular-eslint/template/no-negated-async": "error"
-      }
-    },
-    {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/typescript",
-        "prettier"
-      ],
-      "parserOptions": {
-        "project": "./tsconfig.*?.json"
-      },
-      "rules": {
-        "@typescript-eslint/explicit-member-accessibility": "warn",
-        "@typescript-eslint/explicit-function-return-type": "warn",
-        "@typescript-eslint/no-parameter-properties": "warn",
-        "@typescript-eslint/no-empty-function": "warn",
-        "@typescript-eslint/no-inferrable-types": "warn",
-        "@typescript-eslint/interface-name-prefix": "off",
-        "@typescript-eslint/no-unused-vars": "warn"
-      }
-    },
-    {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
-      "rules": {}
-    },
     {
       "files": [
         "*.ts",
@@ -66,7 +18,7 @@
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependency": true,
+            "enforceBuildableLibDependency": false,
             "allow": [],
             "depConstraints": [
               {
@@ -153,6 +105,39 @@
           }
         ]
       }
+    },
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nrwl/nx/typescript"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.*?.json"
+      },
+      "rules": {
+        "@typescript-eslint/explicit-member-accessibility": "warn",
+        "@typescript-eslint/explicit-function-return-type": "warn",
+        "@typescript-eslint/no-parameter-properties": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/member-ordering": "warn",
+        "max-len": "warn"
+      }
+    },
+    {
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nrwl/nx/javascript"
+      ],
+      "rules": {}
     }
   ]
 }

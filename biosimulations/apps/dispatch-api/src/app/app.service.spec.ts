@@ -10,9 +10,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { getModelToken } from 'nestjs-typegoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
+import { getModelToken } from '@nestjs/mongoose';
 describe('AppService', () => {
   let app: TestingModule;
   const mockService = {};

@@ -139,8 +139,10 @@ export class SimulationRunService {
     const res = await this.simulationRunModel
       .find()
       .lean()
-      .map((sims) => {
-        return sims.map((sim) => {
+      .map(sims => {
+        // This assertion is true unless only one simulation run is in the database
+        const data = sims as unknown as SimulationRunModel[]
+        return data.map((sim) => {
           return toApi({ ...sim, id: sim._id });
         });
       });
