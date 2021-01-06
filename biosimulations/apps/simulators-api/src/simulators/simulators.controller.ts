@@ -41,7 +41,7 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 @ApiTags('Simulators')
 @Controller('simulators')
 export class SimulatorsController {
-  constructor(private service: SimulatorsService) {}
+  constructor(private service: SimulatorsService) { }
 
   @Get()
   @ApiOperation({
@@ -63,7 +63,7 @@ export class SimulatorsController {
   @ApiOperation({
     summary: 'Get the latest version of each simulator, or of a particular simulator',
     description:
-      'Returns a list of the specifications of the latest version of each simulator, ' + 
+      'Returns a list of the specifications of the latest version of each simulator, ' +
       'or a list with one element which is the specifications of the latest version of a particular simulator.',
   })
   @ApiQuery({
@@ -193,7 +193,7 @@ export class SimulatorsController {
     type: ErrorResponseDocument,
     description: 'Conflict with existing entry',
   })
-  async create(@Body() doc: Simulator): Promise<Simulator[]> {
+  async create(@Body() doc: Simulator): Promise<Simulator> {
     return this.service.new(doc);
   }
 

@@ -17,7 +17,7 @@ export class SimulatorsService {
   }
   constructor(
     @InjectModel(Simulator.name) private simulator: Model<Simulator>
-  ) {}
+  ) { }
 
   async findAll(): Promise<Simulator[]> {
     const results = await this.simulator
@@ -41,11 +41,11 @@ export class SimulatorsService {
       .exec();
   }
 
-  async new(doc: APISimulator): Promise<Simulator[]> {
+  async new(doc: APISimulator): Promise<Simulator> {
     const sim = new this.simulator(doc);
-    let res: Simulator[];
+    let res: Simulator;
     try {
-      res = (await sim.save()).toJSON({ versionKey: false });
+      res = (await sim.save()).toJSON({ versionKey: false }) as Simulator;
     } catch (e) {
       if (e.name == 'MongoError' && e.code == 11000) {
         throw new ConflictException(

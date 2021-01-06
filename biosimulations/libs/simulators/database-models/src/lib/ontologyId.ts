@@ -18,6 +18,7 @@ import {
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import isUrl from 'is-url';
+import { SchemaDefinition } from 'mongoose';
 
 @Schema({
   _id: false,
@@ -77,7 +78,7 @@ class EdamOntologyId implements IEdamOntologyId {
 
   @Prop({
     type: String,
-    required: true,
+    required: () => true,
     validate: [
       {
         validator: EdamFormatIdRegEx,
@@ -88,7 +89,7 @@ class EdamOntologyId implements IEdamOntologyId {
         message: (props: any): string => `${props.value} is not an id of an EDAM term`,
       },
     ],
-    default: undefined,
+    default: () => undefined,
   })
   id!: string;
 }
@@ -109,7 +110,7 @@ class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
 
   @Prop({
     type: String,
-    required: true,
+    required: () => true,
     validate: [
       {
         validator: EdamFormatIdRegEx,
@@ -120,7 +121,7 @@ class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
         message: (props: any): string => `${props.value} is not an id of an EDAM term`,
       },
     ],
-    default: undefined,
+    default: () => undefined,
   })
   id!: string;
 
@@ -193,25 +194,25 @@ class KisaoOntologyId implements IKisaoOntologyId {
   @Prop({
     type: String,
     enum: [Ontologies.KISAO],
-    required: true,    
+    required: true,
     default: undefined,
   })
   namespace!: Ontologies.KISAO;
 
   @Prop({
     type: String,
-    required: true,
+    required: () => true,
     validate: [
-      { 
+      {
         validator: KisaoIdRegEx,
         message: (props: any): string => `${props.value} is not an id of a KiSAO term`,
       },
-      { 
+      {
         validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.KISAO, value),
         message: (props: any): string => `${props.value} is not an id of a KiSAO term`,
       },
     ],
-    default: undefined,
+    default: () => undefined,
   })
   id!: string;
 }
@@ -231,18 +232,18 @@ class SboOntologyId implements ISboOntologyId {
 
   @Prop({
     type: String,
-    required: true,
+    required: () => true,
     validate: [
-      { 
+      {
         validator: SboIdRegEx,
         message: (props: any): string => `${props.value} is not an id of a SBO term`,
       },
-      { 
+      {
         validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.SBO, value),
         message: (props: any): string => `${props.value} is not an id of a SBO term`,
       },
     ],
-    default: undefined,
+    default: () => undefined,
   })
   id!: string;
 }
@@ -260,18 +261,18 @@ class SioOntologyId implements ISioOntologyId {
 
   @Prop({
     type: String,
-    required: true,
+    required: () => true,
     validate: [
-      { 
+      {
         validator: SioIdRegEx,
         message: (props: any): string => `${props.value} is not an id of a SIO term`,
       },
-      { 
+      {
         validator: (value: any): boolean => OntologiesService.isTermId(Ontologies.SIO, value),
         message: (props: any): string => `${props.value} is not an id of a SIO term`,
       },
     ],
-    default: undefined,
+    default: () => undefined,
   })
   id!: string;
 }

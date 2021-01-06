@@ -69,6 +69,7 @@ export class ValidationTests implements IValidationTests {
 }
 
 export class BiosimulatorsMeta implements IBiosimulatorsMeta {
+  meta: any
   @ApiProperty({
     type: String,
     required: true,
