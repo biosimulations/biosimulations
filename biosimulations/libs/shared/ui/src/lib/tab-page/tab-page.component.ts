@@ -49,7 +49,7 @@ export class TabPageComponent
     TabPageTabComponent
   >;
 
-  selectedTabIndex: number = 0;
+  selectedTabIndex = 0;
 
   ngAfterViewInit(): void {
     const baseTabs: MatTab[] = [];
@@ -67,7 +67,7 @@ export class TabPageComponent
 
     combineLatest(this.route.paramMap, this.route.fragment)
       .subscribe(([paramMap, fragment]: [ParamMap, string]): void => {
-        let selectedTabIndex: number = 0;
+        let selectedTabIndex = 0;
         if (fragment) {
           const params = new URLSearchParams(fragment);
           const tab = params.get('tab');
