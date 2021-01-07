@@ -67,7 +67,7 @@
     "@types/is-url": "^1.2.28",
     "angular-plotly.js": "^3.0.0",
     "archiver": "^5.0.2",
-    "auth0": "^2.31.0",
+    "auth0": "^2.31.1",
     "cache-manager": "^3.4.0",
     "class-validator": "^0.12.2",
     "cron": "^1.8.2",
