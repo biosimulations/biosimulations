@@ -9,7 +9,7 @@ import {
 import { DispatchService, SimulatorVersionsMap } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
-import { SimulationRunStatus } from '../../../datamodel';
+import { SimulationRunStatus, Simulation } from '../../../datamodel';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';
@@ -129,7 +129,7 @@ export class DispatchComponent implements OnInit {
         this.dispatchService.uuidUpdateEvent.next(simulationId);
         this.simulationId = simulationId;
 
-        this.simulationService.storeNewLocalSimulation({
+        const simulation: Simulation = {
           id: simulationId,
           name: name,
           email: email,
@@ -140,7 +140,8 @@ export class DispatchComponent implements OnInit {
           runtime: undefined,
           submitted: new Date(),
           updated: new Date(),
-        });
+        };
+        this.simulationService.storeNewLocalSimulation(simulation);
       });
   }
 
