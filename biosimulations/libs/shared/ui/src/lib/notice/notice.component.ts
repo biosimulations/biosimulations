@@ -53,14 +53,26 @@ export class NoticeComponent {
       return;
     }
 
-    this.storageKey = 'notice-' + this._appName + '-' + this._type + '-' + this._version.toString() + '-dismissed';
-
     this.storage.ready().then((): void => {
-      this.storage.keys().then((keys): void => {
-        if (keys.includes(this.storageKey as string)) {
-          this.open = false;
-        }
-      });
+      this.storageKey = [
+        'notice',
+        this._appName as string,
+        this._type as string,
+        (this._version as number).toString(),
+        'dismissed',
+      ].join('-');
+
+      if (this.open) {
+        this.storage.get(this.storageKey).then(
+          (value: boolean | null): void => {
+            if (value === true) {
+              this.open = false;
+            }
+          }
+        );
+      } else {
+        this.storage.set(this.storageKey, true);
+      }
     });
   }
 
