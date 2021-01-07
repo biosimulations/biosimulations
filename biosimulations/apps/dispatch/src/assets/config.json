@@ -22,6 +22,12 @@
     "simulatorsNewIssueUrl": "https://github.com/biosimulators/Biosimulators/issues/new/choose",
     "simulatorsNewPullUrl": "https://github.com/biosimulators/Biosimulators/compare",
     "appConfig": {
-        "simulationStatusRefreshIntervalSec": 5
+        "simulationStatusRefreshIntervalSec": 5,
+        "exampleCombineArchives": {
+            "repoOwnerName": "biosimulators/Biosimulators_test_suite",
+            "repoRef": "ad221ff6c1d741815b5554c46f0a7d92555373df",
+            "repoPath": "examples/",
+            "examplePath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
+        }
     }
 }

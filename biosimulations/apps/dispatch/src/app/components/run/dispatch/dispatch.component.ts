@@ -12,6 +12,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { SimulationRunStatus } from '../../../datamodel';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -27,7 +28,11 @@ export class DispatchComponent implements OnInit {
 
   simulationId: string | undefined = undefined;
 
+  exampleCombineArchiveUrl: string;
+  exampleCombineArchivesUrl: string;
+
   constructor(
+    private config: ConfigService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
@@ -40,6 +45,22 @@ export class DispatchComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['', [Validators.email]],
     });
+
+    this.exampleCombineArchivesUrl = (
+      'https://github.com/'
+      + config.appConfig.exampleCombineArchives.repoOwnerName
+      + '/tree'
+      + '/' + config.appConfig.exampleCombineArchives.repoRef
+      + '/' + config.appConfig.exampleCombineArchives.repoPath
+      );
+    this.exampleCombineArchiveUrl = (
+      'https://github.com/'
+      + config.appConfig.exampleCombineArchives.repoOwnerName
+      + '/raw'
+      + '/' + config.appConfig.exampleCombineArchives.repoRef
+      + '/' + config.appConfig.exampleCombineArchives.repoPath
+      + config.appConfig.exampleCombineArchives.examplePath
+      );
   }
 
   ngOnInit(): void {
@@ -56,7 +77,7 @@ export class DispatchComponent implements OnInit {
         // TODO: Un-hardcode simulators
         this.simulatorVersionsMap = {
           amici: ['0.11.11'],
-          bionetgen: ['2.5.2'],
+          bionetgen: ['2.5.1'],
           cbmpy: ['0.7.25'],
           cobrapy: ['0.20.0'],
           copasi: ['4.30.233', '4.29.227', '4.28.226'],
