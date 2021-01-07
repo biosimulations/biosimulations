@@ -35,6 +35,16 @@ export class SimulationService {
       this.storage.keys().then((keys: string[]): void => {
         if (keys.includes(this.key)) {
           this.storage.get(this.key).then((simulations: Simulation[]): void => {
+            // type case dates to `Date` -- necessary for WebSQL which converts dates to strings
+            simulations.forEach((simulation: Simulation): void => {
+              if (typeof simulation.submitted === "string") {
+                simulation.submitted = new Date(simulation.submitted);
+              }
+              if (typeof simulation.updated === "string") {
+                simulation.updated = new Date(simulation.updated);
+              }
+            });
+
             this.initSimulations(simulations);
           });
         } else {
