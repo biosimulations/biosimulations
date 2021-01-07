@@ -101,7 +101,7 @@
     "@angular-eslint/eslint-plugin": "^1.0.0",
     "@angular-eslint/eslint-plugin-template": "^1.0.0",
     "@angular-eslint/template-parser": "^1.0.0",
-    "@angular/cli": "~11.0.5",
+    "@angular/cli": "~11.0.6",
     "@angular/compiler-cli": "^11.0.0",
     "@angular/language-service": "^11.0.5",
     "@nestjs/schematics": "^7.2.6",
