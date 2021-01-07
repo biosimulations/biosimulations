@@ -11,6 +11,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService } from '@biosimulations/shared/services';
+import config from '../../../../assets/config.json';
 
 describe('DispatchComponent', () => {
   let component: DispatchComponent;
@@ -33,7 +34,11 @@ describe('DispatchComponent', () => {
         }),
       ],
       declarations: [DispatchComponent],
-      providers: [HttpClient, HttpHandler, ConfigService],
+      providers: [
+        HttpClient,
+        HttpHandler, 
+        { provide: ConfigService, useValue: config },
+      ],
     }).compileComponents();
   }));
 
