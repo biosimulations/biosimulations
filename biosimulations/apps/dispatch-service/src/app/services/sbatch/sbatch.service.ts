@@ -30,8 +30,8 @@ source /usr/share/Modules/init/bash
 module load singularity
 export XDG_RUNTIME_DIR=${homeDir}/singularityXDG/
 date
-\`wget ${apiDomain}run/${simId}/download -O \"${tempSimDir}/in/${omexName}\" 1>\"${tempSimDir}/out/job.output\" 2>&1\`
-command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i \'/root/in/${omexName}\' -o /root/out\\"
+\`wget ${apiDomain}run/${simId}/download -O "${tempSimDir}/in/${omexName}" 1>"${tempSimDir}/out/job.output" 2>&1\`
+command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o /root/out\\"
 eval \\$command;`;
     console.log(template)
     return template;
