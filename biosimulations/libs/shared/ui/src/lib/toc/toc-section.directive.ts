@@ -27,4 +27,8 @@ export class TocSectionDirective {
     };
     sectionsContainer.addToc(this.section);
   }
+
+  ngOnDestroy() {
+   this.sectionsContainer.removeToc(this.section);
+  }
 }

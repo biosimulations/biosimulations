@@ -16,4 +16,12 @@ export class TocSectionsContainerDirective {
     this._sections.push(section);
     this.sections.next(this._sections);
   }
+
+  public removeToc(section: TocSection) {
+    const iSection = this._sections.indexOf(section);
+    if (iSection > -1) {
+        this._sections.splice(iSection, 1);
+        this.sections.next(this._sections);
+    }
+  }
 }
