@@ -32,7 +32,7 @@ export class SimulationService {
     private httpClient: HttpClient
   ) {
     this.storage.ready().then(() => {
-      this.storage.keys().then((keys) => {
+      this.storage.keys().then((keys: string[]): void => {
         if (keys.includes(this.key)) {
           this.storage.get(this.key).then((simulations: Simulation[]): void => {
             this.initSimulations(simulations);
