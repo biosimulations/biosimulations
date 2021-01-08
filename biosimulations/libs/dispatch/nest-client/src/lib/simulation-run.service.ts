@@ -47,7 +47,7 @@ export class SimulationRunService {
             )
             .pipe(pluck('data')).toPromise();
     }
-    async getJob(simId: string): Promise<Observable<SimulationRun>> {
+    async getJob(simId: string): Promise<SimulationRun> {
         const token = await this.auth.getToken();
         return this.http.get<SimulationRun>(
             `${this.endpoint}/runs/${simId}`,
@@ -56,7 +56,7 @@ export class SimulationRunService {
                     Authorization: `Bearer ${token}`
                 }
             }
-        ).pipe(pluck('data'))
+        ).pipe(pluck('data')).toPromise()
     }
     async sendReport(
         simId: string,

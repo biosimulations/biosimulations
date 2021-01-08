@@ -25,9 +25,8 @@ export class AppController {
   logger = new Logger(AppController.name)
   @MessagePattern(DispatchMessage.processed)
   sendEmail(@Payload() data: DispatchProcessedPayload, @Ctx() context: NatsContext) {
-    this.simService.getJob(data.id).subscribe((job: SimulationRun) => {
+    this.simService.getJob(data.id).then((job: SimulationRun) => {
       const email = job.email
-
       //const status = job.status  use the status to determine which email to send?
       if (email) {
 
@@ -38,11 +37,10 @@ export class AppController {
 
   @MessagePattern(DispatchMessage.failed)
   sendFailedEmail(@Payload() data: DispatchProcessedPayload, @Ctx() context: NatsContext) {
-    this.simService.getJob(data.id).subscribe((job: SimulationRun) => {
+    this.simService.getJob(data.id).then((job: SimulationRun) => {
       const email = job.email
       //const status = job.status  use the status to determine which email to send?
       if (email) {
-
         this.emailClient.sendFailureEmail(email, job.id, job.name, new Date(job.submitted))
       }
     })
