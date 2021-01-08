@@ -52,7 +52,7 @@ export class DispatchComponent implements OnInit {
       + '/tree'
       + '/' + config.appConfig.exampleCombineArchives.repoRef
       + '/' + config.appConfig.exampleCombineArchives.repoPath
-      );
+    );
     this.exampleCombineArchiveUrl = (
       'https://github.com/'
       + config.appConfig.exampleCombineArchives.repoOwnerName
@@ -60,7 +60,7 @@ export class DispatchComponent implements OnInit {
       + '/' + config.appConfig.exampleCombineArchives.repoRef
       + '/' + config.appConfig.exampleCombineArchives.repoPath
       + config.appConfig.exampleCombineArchives.examplePath
-      );
+    );
   }
 
   ngOnInit(): void {
@@ -105,7 +105,7 @@ export class DispatchComponent implements OnInit {
           }
         }
       }
-    );
+      );
   }
 
   onFormSubmit() {
