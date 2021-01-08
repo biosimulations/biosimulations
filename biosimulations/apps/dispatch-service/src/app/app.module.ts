@@ -22,8 +22,9 @@ import { SimulationRunService } from './simulation-run/simulation-run.service';
 import { ResultsController } from './results/results.controller';
 import { ResultsService } from './results/results.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
+import { AuthClientModule } from '@biosimulations/auth/client';
 @Module({
-  imports: [HttpModule, BiosimulationsConfigModule, SharedNatsClientModule, ScheduleModule.forRoot()],
+  imports: [HttpModule, BiosimulationsConfigModule, AuthClientModule, SharedNatsClientModule, ScheduleModule.forRoot()],
   controllers: [SubmissionController, ResultsController],
   providers: [
     SimulationRunService,
@@ -31,7 +32,6 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
     SbatchService,
     SshService,
     ArchiverService,
-    AuthService,
     SubmissionService,
     ResultsService
   ]

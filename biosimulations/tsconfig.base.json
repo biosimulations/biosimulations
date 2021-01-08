@@ -87,7 +87,8 @@
       ],
       "@biosimulations/shared/nats-client": [
         "libs/shared/nats-client/src/index.ts"
-      ]
+      ],
+      "@biosimulations/auth/client": ["libs/auth/client/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
