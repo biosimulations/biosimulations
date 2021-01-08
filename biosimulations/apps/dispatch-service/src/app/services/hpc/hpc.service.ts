@@ -39,7 +39,6 @@ export class HpcService {
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,
-      fileName,
       endpoint,
       id
     );
