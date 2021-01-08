@@ -1,11 +1,12 @@
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from './auth.service';
+
 import { SimulationRunService } from './simulation-run.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest'
 import { HttpService } from '@nestjs/common';
+import { AuthClientService } from '@biosimulations/auth/client';
 class MockAuthService {
-  getToken() {
+  getToken(audience = "audience") {
     return "Token String"
   }
 }
@@ -16,7 +17,7 @@ describe('SimulationRunServiceService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [BiosimulationsConfigModule],
-      providers: [SimulationRunService, { provide: AuthService, useClass: MockAuthService }, { provide: HttpService, useClass: MockAuthService }],
+      providers: [SimulationRunService, { provide: AuthClientService, useClass: MockAuthService }, { provide: HttpService, useClass: MockAuthService }],
     }).compile();
 
     service = module.get<SimulationRunService>(SimulationRunService);

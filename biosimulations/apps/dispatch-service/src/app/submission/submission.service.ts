@@ -9,7 +9,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
 import { HpcService } from '../services/hpc/hpc.service';
-import { SimulationRunService } from '../simulation-run/simulation-run.service';
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 
 @Injectable({})
 export class SubmissionService {

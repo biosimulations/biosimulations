@@ -3,11 +3,10 @@ import { ArchiverService } from './archiver.service';
 import { ConfigService } from '@nestjs/config';
 
 import { HttpService } from '@nestjs/common';
-import { SimulationRunService } from '../../simulation-run/simulation-run.service';
-import { AuthService } from '../auth/auth.service';
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 
 class MockSimulationService {
-  updateSimulationRunResultsSize(id: string, size: number) {}
+  updateSimulationRunResultsSize(id: string, size: number) { }
 }
 describe('ArchiverService', () => {
   let service: ArchiverService;
