@@ -6,15 +6,15 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AuthService } from './auth.service';
-import { pluck, retry, } from 'rxjs/operators'
-import { Observable } from 'rxjs';
+import { AuthClientService } from '@biosimulations/auth/client'
+import { catchError, pluck, retry, } from 'rxjs/operators'
+import { Observable, of } from 'rxjs';
 @Injectable({})
 export class SimulationRunService {
-    constructor(private auth: AuthService, private http: HttpService, private configService: ConfigService) { }
+    constructor(private auth: AuthClientService, private http: HttpService, private configService: ConfigService) { }
     endpoint = this.configService.get('urls').dispatchApi
-    // TODO Change this over to observable to allow for chaining/error handling
-    async updateSimulationRunStatus(id: string, status: SimulationRunStatus): Promise<SimulationRun> {
+
+    async updateSimulationRunStatus(id: string, status: SimulationRunStatus): Promise<SimulationRun | void> {
         const token = await this.auth.getToken();
 
         return this.http
@@ -27,7 +27,10 @@ export class SimulationRunService {
                     }
                 }
             )
-            .pipe(pluck('data')).toPromise();
+            .pipe(pluck('data')).toPromise().catch(err => {
+                console.error("Failed to update status")
+                return
+            });
     }
 
     async updateSimulationRunResultsSize(id: string, size: number): Promise<SimulationRun> {
@@ -44,11 +47,16 @@ export class SimulationRunService {
             )
             .pipe(pluck('data')).toPromise();
     }
-    getJob(simId: string): Observable<SimulationRun> {
-        console.log(`${this.endpoint}run/${simId}`)
+    async getJob(simId: string): Promise<SimulationRun> {
+        const token = await this.auth.getToken();
         return this.http.get<SimulationRun>(
-            `${this.endpoint}run/${simId}`
-        ).pipe(pluck('data'))
+            `${this.endpoint}/runs/${simId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        ).pipe(pluck('data')).toPromise()
     }
     async sendReport(
         simId: string,
@@ -61,7 +69,7 @@ export class SimulationRunService {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).pipe(pluck("data"))
+            })
             .toPromise();
     }
 }

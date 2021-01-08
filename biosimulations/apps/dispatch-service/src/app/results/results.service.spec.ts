@@ -1,7 +1,8 @@
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ArchiverService } from '../services/archiver/archiver.service';
-import { SimulationRunService } from '../simulation-run/simulation-run.service';
+
 import { ResultsService } from './results.service';
 class MockSimulationsRunService {
   async sendReport() { }

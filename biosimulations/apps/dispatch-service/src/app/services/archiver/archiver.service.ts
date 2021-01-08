@@ -4,14 +4,14 @@ import { Logger } from '@nestjs/common';
 import archiver from 'archiver';
 import * as fs from 'fs';
 import path from 'path';
-import { SimulationRunService } from '../../simulation-run/simulation-run.service';
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 
 @Injectable()
 export class ArchiverService {
   constructor(
     private configService: ConfigService,
     private service: SimulationRunService
-  ) {}
+  ) { }
   private logger = new Logger('ArchiverService');
   private fileStorage: string = this.configService.get('hpc.fileStorage', '');
 

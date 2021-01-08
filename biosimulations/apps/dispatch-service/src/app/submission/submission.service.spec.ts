@@ -1,7 +1,8 @@
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HpcService } from '../services/hpc/hpc.service';
-import { SimulationRunService } from '../simulation-run/simulation-run.service';
+
 import { SubmissionService } from './submission.service';
 
 class MockSimulationService {

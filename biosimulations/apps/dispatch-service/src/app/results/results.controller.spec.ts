@@ -2,17 +2,18 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
 import { ConfigService } from '@nestjs/config';
 import { ResultsService } from './results.service';
-import { SimulationRunService } from '../simulation-run/simulation-run.service';
+
 import { ArchiverService } from '../services/archiver/archiver.service';
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 
 class MockSimulationsRunService {
-  async sendReport() {}
+  async sendReport() { }
 }
 class MockResultsService {
-  async method() {}
+  async method() { }
 }
 class mockArchiverService {
-  async method() {}
+  async method() { }
 }
 
 describe('ResultsController', () => {
