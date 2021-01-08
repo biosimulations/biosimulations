@@ -235,7 +235,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Dmitry Yv
 │  ├─ email: df.creative@gmail.com
 │  └─ licenseFile: @plotly/point-cluster/license.md
-├─ @sendgrid/client@7.4.0
+├─ @sendgrid/client@7.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
@@ -249,7 +249,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/helpers/LICENSE
-├─ @sendgrid/mail@7.4.0
+├─ @sendgrid/mail@7.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
@@ -459,7 +459,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Chris Talkington
 │  ├─ url: http://christalkington.com/
 │  └─ licenseFile: archiver-utils/LICENSE
-├─ archiver@5.1.0
+├─ archiver@5.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/archiverjs/node-archiver
 │  ├─ publisher: Chris Talkington
@@ -552,16 +552,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hughskennedy@gmail.com
 │  ├─ url: http://hughsk.io/
 │  └─ licenseFile: string-to-arraybuffer/node_modules/atob-lite/LICENSE.md
-├─ auth0@2.31.0
+├─ auth0@2.31.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ axios@0.19.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/axios/axios
-│  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: @sendgrid/client/node_modules/axios/LICENSE
 ├─ axios@0.21.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
@@ -1194,7 +1189,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  └─ licenseFile: @sendgrid/client/node_modules/debug/LICENSE
+│  └─ licenseFile: mquery/node_modules/debug/LICENSE
 ├─ debug@3.2.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
@@ -1593,13 +1588,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: ruben@verborgh.org
 │  ├─ url: https://ruben.verborgh.org/
 │  └─ licenseFile: follow-redirects/LICENSE
-├─ follow-redirects@1.5.10
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/follow-redirects/follow-redirects
-│  ├─ publisher: Ruben Verborgh
-│  ├─ email: ruben@verborgh.org
-│  ├─ url: https://ruben.verborgh.org/
-│  └─ licenseFile: @sendgrid/client/node_modules/follow-redirects/LICENSE
 ├─ font-atlas@2.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/hughsk/font-atlas
