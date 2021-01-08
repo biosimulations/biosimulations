@@ -27,7 +27,7 @@ export class SbatchService {
 #SBATCH --qos=general\n
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
-module load singularity
+module load singularity/3.1.1
 export XDG_RUNTIME_DIR=${homeDir}/singularityXDG/
 date
 \`wget ${apiDomain}run/${simId}/download -O "${tempSimDir}/in/${omexName}" 1>"${tempSimDir}/out/job.output" 2>&1\`
