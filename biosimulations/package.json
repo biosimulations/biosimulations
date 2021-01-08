@@ -112,7 +112,7 @@
         "@nrwl/eslint-plugin-nx": "^11.0.20",
         "@nrwl/jest": "11.0.20",
         "@nrwl/nest": "11.0.20",
-        "@nrwl/node": "11.0.20",
+        "@nrwl/node": "11.1.1",
         "@nrwl/nx-cloud": "^10.1.10",
         "@nrwl/tao": "^11.0.20",
         "@nrwl/workspace": "11.0.20",
