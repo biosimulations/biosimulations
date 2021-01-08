@@ -25,7 +25,7 @@
         "simulationStatusRefreshIntervalSec": 5,
         "exampleCombineArchives": {
             "repoOwnerName": "biosimulators/Biosimulators_test_suite",
-            "repoRef": "ad221ff6c1d741815b5554c46f0a7d92555373df",
+            "repoRef": "deploy",
             "repoPath": "examples/",
             "examplePath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
         }
