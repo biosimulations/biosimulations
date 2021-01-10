@@ -1603,16 +1603,14 @@
       ".cps"
     ],
     "tmScope": "source.pascal",
-    "aliases": [
-      "delphi",
-      "objectpascal",
-      "component pascal"
-    ],
     "aceMode": "pascal",
     "codemirrorMode": "pascal",
     "codemirrorMimeType": "text/x-pascal",
     "languageId": 67,
     "name": "Component Pascal",
+    "aliases": [
+      "component pascal"
+    ],
     "wrap": "false",
     "searchable": "true"
   },
@@ -3053,6 +3051,7 @@
     ],
     "extensions": [
       ".gbr",
+      ".cmp",
       ".gbl",
       ".gbo",
       ".gbp",
@@ -3065,6 +3064,7 @@
       ".gto",
       ".gtp",
       ".gts",
+      ".ncl",
       ".sol"
     ],
     "interpreters": [
@@ -6845,6 +6845,11 @@
   {
     "type": "programming",
     "color": "#E3F171",
+    "aliases": [
+      "delphi",
+      "objectpascal",
+      "pascal"
+    ],
     "extensions": [
       ".pas",
       ".dfm",
@@ -6863,9 +6868,6 @@
     "codemirrorMimeType": "text/x-pascal",
     "languageId": 281,
     "name": "Pascal",
-    "aliases": [
-      "pascal"
-    ],
     "wrap": "false",
     "searchable": "true"
   },
