@@ -39,445 +39,427 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/amici</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/amici/0.11.11</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/bionetgen</loc>
-    <lastmod>2020-12-29</lastmod>
+    <lastmod>2021-01-06</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/bionetgen/2.5.1</loc>
-    <lastmod>2020-12-29</lastmod>
+    <loc>https://biosimulators.org/simulators/bionetgen/2.5.2</loc>
+    <lastmod>2021-01-06</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/biouml</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/biouml/2019.4</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/boolnet</loc>
-    <lastmod>2020-12-10</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/boolnet/2.1.5</loc>
-    <lastmod>2020-12-10</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cbmpy</loc>
-    <lastmod>2020-12-10</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cbmpy/0.7.25</loc>
-    <lastmod>2020-12-10</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cellcollective</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cellcollective/3.0.11</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cellnetanalyzer</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cellnetanalyzer/2020.3</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobrapy</loc>
-    <lastmod>2021-01-01</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobrapy/0.20.0</loc>
-    <lastmod>2021-01-01</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobratoolbox</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobratoolbox/3.1</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi</loc>
-    <lastmod>2021-01-01</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi/4.28.226</loc>
-    <lastmod>2020-12-23</lastmod>
+    <lastmod>2021-01-04</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi/4.29.227</loc>
-    <lastmod>2020-12-23</lastmod>
+    <lastmod>2021-01-04</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi/4.30.233</loc>
-    <lastmod>2021-01-01</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/ecell4</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/ecell4/1.1.2</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/escher-fba</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/escher-fba/1.1.1</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/flexflux</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/flexflux/2.2.1</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/fluxer</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/fluxer/25</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/gillespy2</loc>
-    <lastmod>2020-12-31</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/simulators/gillespy2/1.5.4</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/simulators/gillespy2/1.5.5</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/simulators/gillespy2/1.5.6</loc>
-    <lastmod>2020-12-23</lastmod>
+    <lastmod>2021-01-04</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/gillespy2/1.5.7</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-04</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/ginsim</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/ginsim/3.0.0b</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/ibiosim</loc>
-    <lastmod>2020-12-10</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/ibiosim/3.1.0</loc>
-    <lastmod>2020-12-10</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml/0.8.5</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jsim</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jsim/2.20</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jwsonline</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jwsonline/2.0</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/libsbmlsim</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/libsbmlsim/1.4.0</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/maboss</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/maboss/2.0</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/metanetx</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/metanetx/4.1</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/mlxm</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/mlxm/1.1</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/mlxr</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/mlxr/4.1.3</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/morpheus</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/morpheus/2.2.0-rc1</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/opencor</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/opencor/0.6</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/optflux</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/optflux/3.4.0</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml/0.3.15</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pysb</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pysb/1.11.0</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pysces</loc>
-    <lastmod>2021-01-02</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pysces/0.9.9</loc>
-    <lastmod>2021-01-02</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/raven</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/raven/2.4.0</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/sbscl</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/sbscl/1.5</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/tellurium</loc>
-    <lastmod>2020-12-14</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/tellurium/2.1.6</loc>
-    <lastmod>2020-12-14</lastmod>
+    <loc>https://biosimulators.org/simulators/tellurium/2.2.0</loc>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell</loc>
-    <lastmod>2020-12-23</lastmod>
+    <lastmod>2021-01-08</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -489,19 +471,25 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell/7.3.0.06</loc>
-    <lastmod>2020-12-23</lastmod>
+    <lastmod>2021-01-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/vcell/7.3.0.07</loc>
+    <lastmod>2021-01-08</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/winbestkit</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/winbestkit/2.0.9</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
