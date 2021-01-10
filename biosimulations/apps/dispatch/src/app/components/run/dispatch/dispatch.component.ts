@@ -72,20 +72,7 @@ export class DispatchComponent implements OnInit {
         const simulatorVersionsMap = observerableValues[0];
         const params = observerableValues[1];
 
-        // this.simulatorVersionsMap = simulatorVersionsMap;
-        // Note: Hardcoded available simulators, to make it dynamic uncomment above two lines and delete the hard-coded ones
-        // TODO: Un-hardcode simulators
-        this.simulatorVersionsMap = {
-          amici: ['0.11.11'],
-          bionetgen: ['2.5.2'],
-          cbmpy: ['0.7.25'],
-          cobrapy: ['0.20.0'],
-          copasi: ['4.30.233', '4.29.227', '4.28.226'],
-          gillespy2: ['1.5.7'],
-          pysces: ['0.9.9'],
-          tellurium: ['2.2.0'],
-          vcell: ['7.3.0.07', '7.3.0.06', '7.3.0.0'],
-        };
+        this.simulatorVersionsMap = simulatorVersionsMap;
         this.simulators = Object.keys(this.simulatorVersionsMap);
 
         this.simulators.sort((a: string, b: string): number => {
