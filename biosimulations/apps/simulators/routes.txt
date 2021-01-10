@@ -7,7 +7,7 @@
 /simulators/amici
 /simulators/amici/0.11.11
 /simulators/bionetgen
-/simulators/bionetgen/2.5.1
+/simulators/bionetgen/2.5.2
 /simulators/biouml
 /simulators/biouml/2019.4
 /simulators/boolnet
@@ -35,9 +35,6 @@
 /simulators/fluxer
 /simulators/fluxer/25
 /simulators/gillespy2
-/simulators/gillespy2/1.5.4
-/simulators/gillespy2/1.5.5
-/simulators/gillespy2/1.5.6
 /simulators/gillespy2/1.5.7
 /simulators/ginsim
 /simulators/ginsim/3.0.0b
@@ -76,10 +73,11 @@
 /simulators/sbscl
 /simulators/sbscl/1.5
 /simulators/tellurium
-/simulators/tellurium/2.1.6
+/simulators/tellurium/2.2.0
 /simulators/vcell
 /simulators/vcell/7.3.0.0
 /simulators/vcell/7.3.0.06
+/simulators/vcell/7.3.0.07
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
 /standards
