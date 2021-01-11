@@ -40,8 +40,8 @@ export class SubmissionController {
    */
   @MessagePattern(DispatchMessage.created)
   async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
-    this.logger.log('Starting to dispatch simulation');
-    this.logger.log('Data received: ' + JSON.stringify(data));
+
+    this.logger.log('Starting Submission:' + JSON.stringify(data));
 
     const response = await this.hpcService.submitJob(
       data.id,
@@ -49,14 +49,11 @@ export class SubmissionController {
       data.version,
       data.fileName
     );
-
     if (response.stderr != '') {
       // There was an error with submission of the job
       this.logger.error(response.stderr);
       return new createdResponse(false, response.stderr);
     } else if (response.stdout != null) {
-      // The job submissions worked
-
       //Create and emit message
       const message: DispatchSubmittedPayload = {
         _message: DispatchMessage.submitted,
@@ -67,13 +64,15 @@ export class SubmissionController {
         .subscribe(() => { });
 
       // Get the slurm id of the job
+      // TODO add the slurm id to the database for internal use only 
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
       const transpose =
         data.simulator == 'vcell';
-      this.logger.log(
+      this.logger.debug(
         `Simulator is ${data.simulator} Will transpose: ${transpose}`
       );
+
       this.service.startMonitoringCronJob(
         slurmjobId.toString(),
         data.id,
