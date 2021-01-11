@@ -54,7 +54,7 @@ export class SubmissionService {
             id: simId
           };
           this.messageClient.emit(DispatchMessage.started, runningMessage);
-          this.updateSimulationRunStatus(simId, jobStatus);
+          this.updateSimulationRunStatus(simId, jobStatus)
           break;
         }
 
@@ -104,6 +104,11 @@ export class SubmissionService {
     simId: string,
     simStatus: SimulationRunStatus
   ): Promise<SimulationRun | void> {
-    return this.service.updateSimulationRunStatus(simId, simStatus);
+    return this.service.updateSimulationRunStatus(simId, simStatus).toPromise().then(val => {
+      this.logger.log("Successfully updated simulation")
+    }).catch(err => {
+      this.logger.error("Failed to update status")
+      return
+    });;
   }
 }
