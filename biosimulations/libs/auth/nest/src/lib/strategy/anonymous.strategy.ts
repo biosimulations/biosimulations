@@ -11,6 +11,6 @@ export class AnonymousStrategy extends PassportStrategy(Strategy, 'anonymous') {
     }
 
     authenticate() {
-        return this.success(null)
+        return this.success({})
     }
 }
