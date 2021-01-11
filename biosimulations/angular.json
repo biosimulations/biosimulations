@@ -1746,6 +1746,27 @@
           }
         }
       }
+    },
+    "account-management": {
+      "root": "libs/account/management",
+      "sourceRoot": "libs/account/management/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/account/management/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/account/management"],
+          "options": {
+            "jestConfig": "libs/account/management/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

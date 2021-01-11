@@ -43,5 +43,6 @@ module.exports = {
     '<rootDir>/libs/dispatch/nest-client',
     '<rootDir>/libs/shared/nats-client',
     '<rootDir>/libs/auth/client',
+    '<rootDir>/libs/account/management',
   ],
 };

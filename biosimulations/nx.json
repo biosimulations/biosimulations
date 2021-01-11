@@ -210,6 +210,9 @@
     },
     "auth-client": {
       "tags": ["scope:auth", "type:util", "shared:true", "platform:server"]
+    },
+    "account-management": {
+      "tags": []
     }
   }
 }
