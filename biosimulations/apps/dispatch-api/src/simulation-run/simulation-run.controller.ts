@@ -59,10 +59,16 @@ import { SimulationRunService } from './simulation-run.service';
 import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
+import { timeout, catchError, retry } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 @ApiTags('Simulation Runs')
 @Controller('run')
 export class SimulationRunController {
+
+  TIMEOUT_INTERVAL: number = 10000
+  RETRY_COUNT: number = 2
   logger: Logger;
   constructor(
     private service: SimulationRunService,
@@ -133,15 +139,29 @@ export class SimulationRunController {
     };
 
     // Create a custom method for this
+
     this.messageClient
-      .send(DispatchMessage.created, message)
-      .subscribe((res: createdResponse) => {
-        if (res.okay) {
-          this.service.setStatus(response.id, SimulationRunStatus.QUEUED);
-        } else {
-          this.service.setStatus(response.id, SimulationRunStatus.FAILED);
-        }
-      });
+      .send(DispatchMessage.created, message).pipe(
+        // Wait up to ten seconds for a response
+        timeout(this.TIMEOUT_INTERVAL),
+        // Retry sending the message 3 times
+        retry(this.RETRY_COUNT),
+        // If error, just return a response that is "not okay"
+        catchError((err, caught) => {
+          this.logger.error(` Error submitting Simulation ${message.id}: ${err}`)
+          return of({
+            okay: false,
+            id: message.id,
+            _message: DispatchMessage.created
+          })
+        })).subscribe((res: createdResponse) => {
+          if (res.okay) {
+            this.service.setStatus(response.id, SimulationRunStatus.QUEUED);
+          } else {
+            this.service.setStatus(response.id, SimulationRunStatus.FAILED);
+          }
+        });
+
     return response;
   }
   /**

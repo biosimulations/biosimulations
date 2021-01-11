@@ -42,7 +42,7 @@ export class SimulationRunService {
   setStatus(id: string, status: SimulationRunStatus) {
     return this.simulationRunModel
       .updateOne({ _id: id }, { status: status })
-      .then((value) => this.logger.log(`Changed ${value.id} to ${value.status}`))
+      .then((value) => this.logger.log(`Changed ${id} to ${status}`))
       .catch();
   }
   /**
