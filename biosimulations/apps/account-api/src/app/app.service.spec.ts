@@ -4,7 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { Account } from './account.model';
-import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
+
+import { AccountManagementModule } from '@biosimulations/account/management';
 
 describe('AppService', () => {
   let service: AppService;
@@ -23,7 +24,7 @@ describe('AppService', () => {
           inject: [ConfigService],
         }),
         TypegooseModule.forFeature([Account]),
-        BiosimulationsAuthModule,
+        AccountManagementModule,
       ],
       providers: [AppService],
     }).compile();
