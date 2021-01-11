@@ -35,7 +35,7 @@ export class SimulationRunModel extends Document {
       },
     ],
   })
-  email!: string;
+  email!: string | null;
 
   @Prop({
     type: String,

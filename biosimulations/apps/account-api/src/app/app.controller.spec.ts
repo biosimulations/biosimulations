@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { Account } from './account.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { AppService } from './app.service';
+import { AccountManagementModule } from '@biosimulations/account/management';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -26,6 +27,7 @@ describe('AppController', () => {
         }),
         TypegooseModule.forFeature([Account]),
         BiosimulationsAuthModule,
+        AccountManagementModule,
       ],
       providers: [AppService],
       controllers: [AppController],
@@ -33,6 +35,6 @@ describe('AppController', () => {
   });
 
   describe('createUser', () => {
-    it('should return username of created user', () => {});
+    it('should return username of created user', () => { });
   });
 });

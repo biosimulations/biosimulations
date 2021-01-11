@@ -85,7 +85,7 @@ export class SimulationRun {
     runtime?: number,
     projectSize?: number,
     resultsSize?: number,
-    email?: string
+    email?: string | null
   ) {
     this.id = id;
     this.name = name;
@@ -107,7 +107,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'email',
   'simulator',
   'simulatorVersion',
-]) {}
+]) { }
 export class SimulationUpload {
   @ApiProperty({ type: String, format: 'binary' })
   file!: string;
@@ -127,4 +127,4 @@ export class PatchSimulationRun {
   resultsSize?: number;
 }
 
-export class UpdateSimulationRun extends PartialType(PatchSimulationRun) {}
+export class UpdateSimulationRun extends PartialType(PatchSimulationRun) { }

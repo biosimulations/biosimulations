@@ -19,7 +19,7 @@ export class PermissionsGuard {
   constructor(
     private readonly reflector: Reflector,
     private admin: AdminGuard
-  ) {}
+  ) { }
 
   canActivate(
     context: ExecutionContext
@@ -30,16 +30,18 @@ export class PermissionsGuard {
     );
 
     const user: AuthToken = context.getArgs()[0].user;
-    const userPermissions = user['https://biosimulations.org/permissions'];
+    let userPermissions = user['https://biosimulations.org/permissions'];
+    const autoPerimissions = user['permissions'] || []
+    userPermissions = userPermissions.concat(autoPerimissions)
 
     const hasPermission = () =>
       routePermissions.every((routePermission) =>
         userPermissions?.includes(routePermission)
       );
 
-    const isAdmin = this.admin.isAdmin(user);
+    //const isAdmin = this.admin.isAdmin(user);
 
-    if (hasPermission() || isAdmin) {
+    if (hasPermission()) {
       return true;
     } else {
       throw new ForbiddenException(

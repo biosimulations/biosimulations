@@ -12,6 +12,7 @@ import {
 import {
   AdminGuard,
   JwtGuard,
+  OptionalAuth,
   permissions,
   PermissionsGuard,
 } from '@biosimulations/auth/nest';
@@ -30,6 +31,7 @@ import {
   Patch,
   Post,
   Put,
+  Req,
   Res,
   UploadedFile,
   UseGuards,
@@ -47,7 +49,7 @@ import {
   ApiPayloadTooLargeResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import {
   SimulationRun,
   SimulationUpload,
@@ -56,6 +58,7 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { SimulationRunModelReturnType } from './simulation-run.model';
+import { AuthToken } from '@biosimulations/auth/common';
 
 @ApiTags('Simulation Runs')
 @Controller('run')
@@ -74,9 +77,7 @@ export class SimulationRunController {
       'Returns an array of all the Simulation Run objects in the database',
   })
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
-  @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('read:SimulationRuns')
-  @ApiOAuth2(['read:SimulationRuns'])
   @Get()
   async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
@@ -122,7 +123,6 @@ export class SimulationRunController {
 
     const run = await this.service.createRun(parsedRun, file);
     const response: SimulationRun = this.makeSimulationRun(run);
-    // Move to another layer?
 
     const message: DispatchCreatedPayload = {
       _message: DispatchMessage.created,
@@ -171,9 +171,18 @@ export class SimulationRunController {
   })
   @ApiOkResponse({ type: SimulationRun })
   @Get(':id')
-  async getRun(@Param('id') id: string): Promise<SimulationRun> {
+  @OptionalAuth()
+  async getRun(@Param('id') id: string, @Req() req: Request): Promise<SimulationRun> {
+
+    const user = req?.user as AuthToken
+    let permission = false
+    if (user) {
+      user.permissions = user.permissions || []
+      permission = user.permissions.includes("read:Email")
+    }
     const run = await this.service.get(id);
     if (run) {
+      permission ? null : run.email = null
       return this.makeSimulationRun(run);
     } else {
       throw new NotFoundException(`No Simulation Run with id ${id}`);
@@ -184,9 +193,7 @@ export class SimulationRunController {
     summary: 'Modify a simulation run',
     description: 'Change the status or information of a simulation run',
   })
-  @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('write:SimulationRuns')
-  @ApiOAuth2(['write:SimulationRuns'])
   @Patch(':id')
   async modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun): Promise<SimulationRun> {
     this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
@@ -198,25 +205,25 @@ export class SimulationRunController {
     summary: 'Delete a simulation run',
     description: 'Delete a simulation run',
   })
-  @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:SimulationRuns')
   @Delete(':id')
   deleteRun(@Param('id') id: string) {
+
     const res = this.service.delete(id);
-    if (res) {
-      return res;
-    } else {
+
+    if (!res) {
       throw new NotFoundException(`No Simulation Run with id ${id} found`);
     }
+
+    return res;
+
   }
 
   @ApiOperation({
     summary: 'Delete all simulation runs',
     description: 'Delete all simulation runs',
   })
-  @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:SimulationRuns')
-  @ApiOAuth2(['delete:SimulationRuns'])
   @Delete()
   deleteAll() {
     return this.service.deleteAll();
