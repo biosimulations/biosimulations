@@ -79,6 +79,7 @@ export class ResultsService {
         const values = line.split(',').slice(1);
         values.forEach((value) => resultObject[header].push(value));
       }
+
       return resultObject;
     } catch (error) {
       // TODO handle error
@@ -106,7 +107,7 @@ export class ResultsService {
     } else {
       file_json = this.readCSV(file.path);
     }
-
+    this.logger.log("Read CSV")
     // apidomain/results/simulationID/reportId
     const sedml = encodeURIComponent(
       file.path
@@ -121,18 +122,17 @@ export class ResultsService {
     resultId: string,
     result: SimulationRunReportDataStrings
   ) {
-    this.logger.debug(simId);
-    this.logger.debug(resultId);
-    this.logger.debug(result);
+
     this.submit
-      .sendReport(simId, resultId, result)
+      .sendReport(simId, resultId, result).then(value =>
+        this.logger.log(`Successfully uploaded report ${resultId} for simulation ${simId}`))
       .catch((err) => this.logger.error(err));
   }
   private async parseToJson(
     file: resultFile
   ): Promise<SimulationRunReportDataStrings> {
     const jsonArray = await csv().fromFile(file.path);
-    this.logger.debug(jsonArray);
+
     const headers = Object.keys(jsonArray[0]);
     const resultObject: SimulationRunReportDataStrings = {};
     headers.forEach((key) => {
@@ -143,7 +143,7 @@ export class ResultsService {
         resultObject[key].push(row[key]);
       });
     });
-    this.logger.warn(resultObject);
+
     return resultObject;
   }
   private static async getFilesRecursively(
