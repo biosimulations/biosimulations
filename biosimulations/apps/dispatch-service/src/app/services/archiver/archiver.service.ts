@@ -1,6 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { Injectable } from '@angular/core';
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import archiver from 'archiver';
 import * as fs from 'fs';
 import path from 'path';
