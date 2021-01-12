@@ -31,6 +31,8 @@ export class ResultsController {
       this.archiverService.createResultArchive(id),
       this.resultsService.createResults(id, transpose)])
 
-    this.simService.updateSimulationRunStatus(id, SimulationRunStatus.SUCCEEDED)
+    this.simService.updateSimulationRunStatus(id, SimulationRunStatus.SUCCEEDED).subscribe(
+      (run) => this.logger.log(`Updated Simulation ${run.id} to complete`)
+    )
   }
 }
