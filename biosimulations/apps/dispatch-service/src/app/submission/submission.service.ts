@@ -1,4 +1,4 @@
-import { SimulationRun, SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
@@ -10,6 +10,7 @@ import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 @Injectable({})
 export class SubmissionService {
