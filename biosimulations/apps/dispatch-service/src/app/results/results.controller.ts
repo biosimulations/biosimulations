@@ -6,7 +6,7 @@ import {
 import { Controller, Logger } from '@nestjs/common';
 
 import { MessagePattern } from '@nestjs/microservices';
-import { SimulationRunStatus } from 'libs/dispatch/api-models/src/lib/simulationRunStatus';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { ArchiverService } from '../services/archiver/archiver.service';
 import { ResultsService } from './results.service';
 

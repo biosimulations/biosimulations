@@ -15,11 +15,7 @@ import csv from 'csvtojson';
 
 import readline from 'readline';
 import fs from 'fs';
-import {
-  SimulationRunReport,
-  SimulationRunReportData,
-  SimulationRunReportDataStrings
-} from '@biosimulations/dispatch/api-models';
+import { SimulationRunReportDataStrings } from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { DispatchProcessedPayload, DispatchMessage } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
