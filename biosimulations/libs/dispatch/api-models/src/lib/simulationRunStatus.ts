@@ -5,6 +5,8 @@ export enum SimulationRunStatus {
   QUEUED = 'QUEUED',
   // The service has starting the run
   RUNNING = 'RUNNING',
+  // The simulation is finished running, and results are being created
+  PROCESSING = 'PROCESSING',
   // The run has finished
   SUCCEEDED = 'SUCCEEDED',
   // The run has failed
