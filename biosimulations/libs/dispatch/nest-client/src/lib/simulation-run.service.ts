@@ -2,13 +2,14 @@ import {
     SimulationRun,
     SimulationRunReport,
     SimulationRunReportDataStrings,
-    SimulationRunStatus
+
 } from '@biosimulations/dispatch/api-models';
 import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthClientService } from '@biosimulations/auth/client'
 import { catchError, pluck, retry, map, flatMap, mergeMap } from 'rxjs/operators'
 import { from, Observable, of, } from 'rxjs';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 @Injectable({})
 export class SimulationRunService {
     constructor(private auth: AuthClientService, private http: HttpService, private configService: ConfigService) { }
