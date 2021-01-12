@@ -121,9 +121,7 @@ export class ResultsService {
     resultId: string,
     result: SimulationRunReportDataStrings
   ) {
-    this.logger.debug(simId);
-    this.logger.debug(resultId);
-    this.logger.debug(result);
+
     this.submit
       .sendReport(simId, resultId, result)
       .catch((err) => this.logger.error(err));
@@ -143,7 +141,7 @@ export class ResultsService {
         resultObject[key].push(row[key]);
       });
     });
-    this.logger.warn(resultObject);
+
     return resultObject;
   }
   private static async getFilesRecursively(
