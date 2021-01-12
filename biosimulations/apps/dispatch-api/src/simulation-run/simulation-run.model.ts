@@ -9,7 +9,7 @@ import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import * as EmailValidator from 'email-validator';
 import { SimulationFile, SimulationFileSchema } from './file.model';
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common'
 import { omitPrivate } from '@biosimulations/datamodel/common';
 
 @Schema({ collection: 'Simulation Runs', id: false })

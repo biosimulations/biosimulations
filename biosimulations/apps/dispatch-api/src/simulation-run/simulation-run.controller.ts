@@ -56,7 +56,7 @@ import {
   UpdateSimulationRun,
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from './simulation-run.service';
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common'
 import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { timeout, catchError, retry } from 'rxjs/operators';
