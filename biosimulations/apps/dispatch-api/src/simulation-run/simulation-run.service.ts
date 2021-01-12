@@ -24,9 +24,10 @@ import {
 } from './simulation-run.model';
 import {
   SimulationRun,
-  SimulationRunStatus,
+
   UpdateSimulationRun,
 } from '@biosimulations/dispatch/api-models';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 const toApi = <T extends SimulationRunModelType>(
   obj: T
