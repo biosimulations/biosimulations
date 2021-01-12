@@ -1,8 +1,9 @@
 export enum ImageMessage {
-    refresh = 'refresh'
+    refresh = 'image.refresh'
 }
 
 export class ImageMessagePayload {
+    _message: ImageMessage = ImageMessage.refresh
     simulator: string
     version: string
     url: string
@@ -14,5 +15,15 @@ export class ImageMessagePayload {
             this.force = force
             this.url = `docker://ghcr.io/biosimulators/${this.simulator}:${this.version}`
         }
+    }
+}
+
+export class ImageMessageResponse {
+    _message: ImageMessage = ImageMessage.refresh
+    okay: boolean
+    description: string | undefined
+    constructor(okay: boolean, description?: string) {
+        this.okay = okay
+        this.description = description
     }
 }
