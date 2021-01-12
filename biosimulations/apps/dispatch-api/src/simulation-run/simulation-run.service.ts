@@ -15,7 +15,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 
 import { SimulationFile, SimulationFileSchema } from './file.model';
-import { Model, Mongoose } from 'mongoose';
+import { Model } from 'mongoose';
 import {
   SimulationRunModel,
   SimulationRunModelReturnType,
@@ -38,6 +38,7 @@ const toApi = <T extends SimulationRunModelType>(
 
 @Injectable()
 export class SimulationRunService {
+
   logger = new Logger(SimulationRunService.name);
   setStatus(id: string, status: SimulationRunStatus) {
     return this.simulationRunModel
@@ -110,7 +111,14 @@ export class SimulationRunService {
     id: string,
     run: UpdateSimulationRun
   ): Promise<SimulationRunModelReturnType> {
-    const model = await this.simulationRunModel.findById(id);
+    const model = await this.simulationRunModel.findById(id).catch(
+      err => {
+        if (err.name == "CastError") {
+          throw new NotFoundException()
+        }
+      }
+
+    );
     if (model) {
       if (
         run.status == SimulationRunStatus.SUCCEEDED ||
@@ -150,7 +158,15 @@ export class SimulationRunService {
   }
 
   async get(id: string): Promise<SimulationRunModelReturnType | null> {
-    const run = await this.simulationRunModel.findById(id).lean().exec();
+    const run = await this.simulationRunModel.findById(id).lean().exec().catch(
+      err => {
+        if (err.name == "CastError") {
+          throw new NotFoundException()
+        }
+      }
+
+    );
+
     let res = null;
     if (run) {
       res = toApi({ ...run, id: run._id });
