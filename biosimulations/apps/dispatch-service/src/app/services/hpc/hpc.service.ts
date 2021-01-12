@@ -77,7 +77,7 @@ export class HpcService {
       case 'RUNNING':
         return SimulationRunStatus.RUNNING;
       case 'COMPLETED':
-        return SimulationRunStatus.SUCCEEDED;
+        return SimulationRunStatus.PROCESSING;
       case 'FAILED' ||
         'OUT-OF-MEMORY' ||
         'NODE_FAIL' ||
