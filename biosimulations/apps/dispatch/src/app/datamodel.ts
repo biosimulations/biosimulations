@@ -1,4 +1,4 @@
-import { SimulationRunStatus } from "@biosimulations/datamodel/common";
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 
 export interface Simulation {
