@@ -41,5 +41,5 @@ export interface SimulationRunAttributes {
   status: SimulationRunStatus;
   metadata: PrimaryResourceMetaData;
 }
-
-export type SimulationRunStatus = 'CREATED' | 'QUEUED' | 'RUNNING' | 'SUCCEEDED' | 'FAILED';
+// TODO Merge with type in api-datamodel. This should not be defined here
+export type SimulationRunStatus = 'CREATED' | 'QUEUED' | 'RUNNING' | 'SUCCEEDED' | 'FAILED' | 'PROCESSING';

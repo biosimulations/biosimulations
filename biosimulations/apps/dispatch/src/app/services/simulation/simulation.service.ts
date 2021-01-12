@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Simulation } from '../../datamodel';
-import { SimulationRunStatus } from '../../datamodel';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models'
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';

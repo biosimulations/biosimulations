@@ -60,7 +60,7 @@ import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { timeout, catchError, retry } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 
 @ApiTags('Simulation Runs')
@@ -147,7 +147,7 @@ export class SimulationRunController {
         // Retry sending the message 3 times
         retry(this.RETRY_COUNT),
         // If error, just return a response that is "not okay"
-        catchError((err, caught) => {
+        catchError((err, caught): Observable<createdResponse> => {
           this.logger.error(` Error submitting Simulation ${message.id}: ${err}`)
           return of({
             okay: false,
