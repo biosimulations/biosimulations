@@ -9,7 +9,8 @@ import {
 import { DispatchService, SimulatorVersionsMap } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { environment } from '@biosimulations/shared/environments';
-import { SimulationRunStatus, Simulation } from '../../../datamodel';
+import { Simulation } from '../../../datamodel';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models'
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';

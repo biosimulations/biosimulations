@@ -1,4 +1,4 @@
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models';
 
 
 export interface Simulation {

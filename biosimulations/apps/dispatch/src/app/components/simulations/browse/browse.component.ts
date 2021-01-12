@@ -1,7 +1,7 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Simulation } from '../../../datamodel';
-import { SimulationRunStatus } from '../../../datamodel';
+import { SimulationRunStatus } from '@biosimulations/dispatch/api-models'
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import {
@@ -227,17 +227,17 @@ export class BrowseComponent implements OnInit {
       heading: 'Export',
       key: 'status',
       getter: (simulation: Simulation): boolean => {
-        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
-            && simulation.resultsSize !== undefined
-            && simulation.resultsSize > 0);
+        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+          && simulation.resultsSize !== undefined
+          && simulation.resultsSize > 0);
       },
       center: true,
       leftIcon: 'download',
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
-            && simulation.resultsSize !== undefined
-            && simulation.resultsSize > 0
+        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
+          && simulation.resultsSize !== undefined
+          && simulation.resultsSize > 0
         ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
@@ -247,8 +247,8 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (simulation: Simulation): string | null => {
         if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
-            && simulation.resultsSize !== undefined
-            && simulation.resultsSize > 0
+          && simulation.resultsSize !== undefined
+          && simulation.resultsSize > 0
         ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
@@ -355,7 +355,7 @@ export class BrowseComponent implements OnInit {
   ];
   simulations!: Observable<Simulation[]>;
 
-  constructor(private config: ConfigService, private simulationService: SimulationService) {}
+  constructor(private config: ConfigService, private simulationService: SimulationService) { }
 
   ngOnInit(): void {
     this.simulations = this.simulationService.simulations$;
@@ -371,7 +371,7 @@ export class BrowseComponent implements OnInit {
 
   exportSimulations(): void {
     const simulations = this.simulationService.getSimulations();
-    
+
     const blob = new Blob([JSON.stringify(simulations, null, 2)], {
       type: 'application/json',
     });
