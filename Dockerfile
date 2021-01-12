@@ -7,19 +7,13 @@ FROM node:15-alpine as base
 ARG app
 ENV APP=$app
 RUN echo building ${APP}
-
-# Copy over dependency list
-COPY biosimulations/tsconfig.base.json /app/tsconfig.base.json
-COPY biosimulations/package.json /app/package.json
-COPY biosimulations/package-lock.json /app/package-lock.json
 #############
 ### build ###
 #############
 FROM base as build
 
-# set working directory
-WORKDIR /app
 
+WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
@@ -27,13 +21,18 @@ ENV PATH /app/node_modules/.bin:$PATH
 RUN npm install -g @nrwl/cli
 
 # copy dependencies
-COPY biosimulations/nx.json  /app/nx.json
-COPY biosimulations/angular.json /app/angular.json
+# Copy over dependency list
+COPY biosimulations/tsconfig.base.json /app/tsconfig.base.json
+COPY biosimulations/package.json /app/package.json
+COPY biosimulations/package-lock.json /app/package-lock.json
 
+# set working directory
 
 # install the app, including the dev dependencies
 RUN npm ci --silent
 
+COPY biosimulations/nx.json  /app/nx.json	
+COPY biosimulations/angular.json /app/angular.json
 #copy source
 COPY biosimulations/libs /app/libs
 COPY biosimulations/apps /app/apps
@@ -60,8 +59,11 @@ LABEL \
     org.opencontainers.image.licenses="MIT"
 
 WORKDIR /app
+
+#Copy over dependency list
+COPY biosimulations/package.json /app/package.json
 # install the app and include only dependencies needed to run
-RUN npm ci --only=production --silent
+RUN npm install --only=production --silent --legacy-peer-deps
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
 COPY --from=build /app/dist/apps/${APP}/ .
