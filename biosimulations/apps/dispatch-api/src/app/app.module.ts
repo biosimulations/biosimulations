@@ -12,11 +12,13 @@ import {
   AuthTestModule,
   BiosimulationsAuthModule
 } from '@biosimulations/auth/nest';
+import { ImagesModule } from '../images/images.module';
 
 @Module({
   imports: [
     BiosimulationsConfigModule,
     BiosimulationsAuthModule,
+    ImagesModule,
     HttpModule,
     MongooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule,],
