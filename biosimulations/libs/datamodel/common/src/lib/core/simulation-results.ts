@@ -27,19 +27,3 @@ export interface LogItem {
   message: string;
 }
 
-export interface SimulationRunAttributes {
-  simulation: BiosimulationsId;
-  simulator: BiosimulationsId;
-  inputFile: BiosimulationsId;
-  outputFile: BiosimulationsId;
-  submitDate: DateString;
-  runDate: DateString;
-  endDate: DateString;
-  wallTime: number;
-  outlog: LogItem[];
-  errlog: LogItem[];
-  status: SimulationRunStatus;
-  metadata: PrimaryResourceMetaData;
-}
-// TODO Merge with type in api-datamodel. This should not be defined here
-export type SimulationRunStatus = 'CREATED' | 'QUEUED' | 'RUNNING' | 'SUCCEEDED' | 'FAILED' | 'PROCESSING';

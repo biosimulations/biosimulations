@@ -1,7 +1,7 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Simulation } from '../../../datamodel';
-import { SimulationRunStatus } from '@biosimulations/dispatch/api-models'
+import { SimulationRunStatus } from '@biosimulations/datamodel/common'
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import {

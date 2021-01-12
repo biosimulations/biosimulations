@@ -12,7 +12,8 @@ import {
   PartialType,
   PickType,
 } from '@nestjs/swagger';
-import { SimulationRunStatus } from './simulationRunStatus';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+
 
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database

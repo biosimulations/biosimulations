@@ -5,7 +5,7 @@ import {
   BiomodelAttributes,
   SimulationAttributes,
   VisualizationAttributes,
-  SimulationRunAttributes,
+
   BiomodelRelationships,
 } from '../core';
 import { BiosimulationsId } from '../common';
@@ -34,7 +34,3 @@ export interface VisualizationResource {
   attributes: VisualizationAttributes;
 }
 
-export interface SimulationRunResource {
-  type: ResourceType.simulationRun;
-  attributes: SimulationRunAttributes;
-}
