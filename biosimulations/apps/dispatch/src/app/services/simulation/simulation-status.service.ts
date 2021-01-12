@@ -1,11 +1,13 @@
-import { SimulationRunStatus } from '../../datamodel';
+import { SimulationRunStatus } from "@biosimulations/dispatch/api-models";
+
 
 export class SimulationStatusService {
   static isSimulationStatusRunning(status: SimulationRunStatus): boolean {
     return (
       status === SimulationRunStatus.CREATED ||
       status === SimulationRunStatus.QUEUED ||
-      status === SimulationRunStatus.RUNNING
+      status === SimulationRunStatus.RUNNING ||
+      status === SimulationRunStatus.PROCESSING
     );
   }
 
@@ -21,14 +23,16 @@ export class SimulationStatusService {
     switch (status) {
       case SimulationRunStatus.SUCCEEDED:
         return 0;
-      case SimulationRunStatus.RUNNING:
+      case SimulationRunStatus.PROCESSING:
         return 1;
-      case SimulationRunStatus.QUEUED:
+      case SimulationRunStatus.RUNNING:
         return 2;
-      case SimulationRunStatus.CREATED:
+      case SimulationRunStatus.QUEUED:
         return 3;
-      case SimulationRunStatus.FAILED:
+      case SimulationRunStatus.CREATED:
         return 4;
+      case SimulationRunStatus.FAILED:
+        return 5;
     }
     return NaN;
   }
