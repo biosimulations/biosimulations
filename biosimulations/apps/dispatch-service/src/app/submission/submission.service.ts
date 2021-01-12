@@ -36,6 +36,8 @@ export class SubmissionService {
         `Checking status for job with id ${jobId} for simulation ${simId}: Status is ${jobStatus}`
       );
 
+      this.updateSimulationRunStatus(simId, jobStatus);
+
       switch (jobStatus) {
         case SimulationRunStatus.QUEUED: {
           const message: DispatchPayload = {
@@ -43,7 +45,7 @@ export class SubmissionService {
             id: simId
           };
           this.messageClient.emit(DispatchMessage.queued, message);
-          this.updateSimulationRunStatus(simId, jobStatus);
+
 
           break;
         }
@@ -54,12 +56,12 @@ export class SubmissionService {
             id: simId
           };
           this.messageClient.emit(DispatchMessage.started, runningMessage);
-          this.updateSimulationRunStatus(simId, jobStatus)
+
           break;
         }
 
-        case SimulationRunStatus.SUCCEEDED: {
-          this.updateSimulationRunStatus(simId, jobStatus);
+        case SimulationRunStatus.PROCESSING: {
+
           const succeededMessage: DispatchFinishedPayload = {
             _message: DispatchMessage.finished,
             id: simId,
@@ -67,12 +69,11 @@ export class SubmissionService {
           };
           this.messageClient.emit(DispatchMessage.finished, succeededMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
-
           break;
         }
         case SimulationRunStatus.FAILED: {
           this.logger.error(`Job with id ${jobId} failed`);
-          this.updateSimulationRunStatus(simId, jobStatus);
+
           const failedMessage: DispatchPayload = {
             _message: DispatchMessage.failed,
             id: simId
