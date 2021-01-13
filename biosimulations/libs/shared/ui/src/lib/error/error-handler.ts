@@ -34,7 +34,7 @@ export class ErrorHandler implements BaseErrorHandler {
       const reportedError = new Error(httpError.message)
 
       // Error status defaults to "okay", but error can never be okay
-      const errorText = (httpError.statusText == "ok") ? null : httpError.statusText
+      const errorText = (httpError.statusText == "OK") ? null : httpError.statusText
       reportedError.name = errorText || httpError.name + httpError.status
       if (environment.production) {
         this.errorHandler.report(reportedError)
