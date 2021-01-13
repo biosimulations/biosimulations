@@ -56,7 +56,7 @@ const envUrls: { [key in envs]: urlMap } = {
   local: {
     platformApi: '/api/', //proxies to localhost:3333 if using nx
     accountApi: '/api/',
-    dispatchApi: '/api/',
+    dispatchApi: '/dispatch-api/',
     simulatorsApi: '/simulators-api/',
     ontologyApi: '/ontology-api/',
     platform: 'https://biosimulations.dev',
