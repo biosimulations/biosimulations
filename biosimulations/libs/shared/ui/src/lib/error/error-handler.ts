@@ -32,15 +32,18 @@ export class ErrorHandler implements BaseErrorHandler {
 
       // The error library cannot handle HttpErrorResponses, so we convert to a regular Error with a meaninful
       const reportedError = new Error(httpError.message)
-      reportedError.name = httpError.statusText || httpError.name + httpError.status
-      this.errorHandler.report(reportedError)
-
+      // Error status defaults to "okay", but error can never be okay
+      const errorText = (httpError.statusText == "ok") ? null : httpError.statusText
+      reportedError.name = errorText || httpError.name + httpError.status
+      if (environment.production) {
+        this.errorHandler.report(reportedError)
+      }
 
       const config = this.getConfig(this.activatedRoute);
       const url = error.url;
 
       errorState.code = httpError.status || 500;
-      errorState.message = httpError.statusText || "Error"
+      errorState.message = errorText || "Error"
 
 
       if (url?.startsWith(config.platformApiUrl) ||
@@ -53,12 +56,15 @@ export class ErrorHandler implements BaseErrorHandler {
       }
       if (errorState.code == 404) {
         errorTemplate = "404"
-        errorState.details = "The requested resource was not found"
+        errorState.message = "Not Found"
+        errorState.details = "The requested resource was not found."
       }
 
     } else if (error instanceof BiosimulationsError) {
       const biosimulationsError = error as BiosimulationsError;
-      this.errorHandler.report(error)
+      if (environment.production) {
+        this.errorHandler.report(error)
+      }
       if (biosimulationsError.code === 404) {
         errorTemplate = '404';
       }
@@ -67,7 +73,9 @@ export class ErrorHandler implements BaseErrorHandler {
       errorState.message = biosimulationsError.message;
       errorState.details = biosimulationsError.details;
     } else {
-      this.errorHandler.report(error)
+      if (environment.production) {
+        this.errorHandler.report(error)
+      }
       errorState.code = '';
       errorState.message = 'Runtime error';
     }
@@ -89,11 +97,5 @@ export class ErrorHandler implements BaseErrorHandler {
     return undefined;
   }
 
-  private reportError(err: any) {
-    const key = "AIzaSyBoUe5xMNiF1_1UmIfMk9LSwAztcOSzRIU"
-    const projectId = "biosimulations"
 
-    const baseAPIUrl = 'https://clouderrorreporting.googleapis.com/v1beta1/projects/';
-
-  }
 }
