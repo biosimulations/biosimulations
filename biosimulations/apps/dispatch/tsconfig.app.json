@@ -5,5 +5,9 @@
     "types": [],
     "resolveJsonModule": true,
   },
-  "files": ["src/main.ts", "src/polyfills.ts"]
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
+    "../../declarations.d.ts"
+  ]
 }

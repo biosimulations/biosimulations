@@ -9,6 +9,6 @@
   "files": [
     "src/main.ts",
     "src/polyfills.ts",
-    "src/highlight.d.ts"
+    "../../declarations.d.ts"
   ]
 }
