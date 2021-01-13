@@ -25,7 +25,7 @@ RUN npm install -g @nrwl/cli
 COPY biosimulations/tsconfig.base.json /app/tsconfig.base.json
 COPY biosimulations/package.json /app/package.json
 COPY biosimulations/package-lock.json /app/package-lock.json
-
+COPY biosimulations/declarations.d.ts /app/declarations.d.ts
 # set working directory
 
 # install the app, including the dev dependencies
