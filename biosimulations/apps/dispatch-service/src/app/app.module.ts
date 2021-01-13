@@ -16,8 +16,9 @@ import { ResultsService } from './results/results.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
 import { AuthClientModule } from '@biosimulations/auth/client';
 import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
+import { ImagesModule } from '../images/images.module';
 @Module({
-  imports: [HttpModule, BiosimulationsConfigModule, AuthClientModule, SharedNatsClientModule, DispatchNestClientModule, ScheduleModule.forRoot()],
+  imports: [HttpModule, ImagesModule, BiosimulationsConfigModule, AuthClientModule, SharedNatsClientModule, DispatchNestClientModule, ScheduleModule.forRoot()],
   controllers: [SubmissionController, ResultsController],
   providers: [
     HpcService,
