@@ -18,7 +18,8 @@ import finalFailedDocLevelLog from './final-failed-doc-level-log.json';
 export class SimulationLogsComponent {
   tocSections!: Observable<TocSection[]>;
 
-  dispatchOpenApiUrl: string;
+  openApiSpecsUrl: string;
+  jsonSchemaUrl: string;
 
   initElementLevelLog: string;
   finalSucceededElementLevelLog: string;
@@ -33,7 +34,8 @@ export class SimulationLogsComponent {
   }
 
   constructor(public config: ConfigService) {
-    this.dispatchOpenApiUrl = config.dispatchApiUrl + 'openapi.json';
+    this.openApiSpecsUrl = config.dispatchApiUrl + 'openapi.json';
+    this.jsonSchemaUrl = config.dispatchApiUrl + 'schema/CombineArchiveLog.json';
 
     this.initElementLevelLog = JSON.stringify(initElementLevelLog, null, 2);
     this.finalSucceededElementLevelLog = JSON.stringify(finalSucceededElementLevelLog, null, 2);
