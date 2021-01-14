@@ -6,6 +6,7 @@ export * from './project';
 export * from './algorithm';
 export * from './simulation';
 export * from './simulationRun';
+export * from './simulationRunLog';
 export * from './user';
 export * from './simulator';
 export * from './dependent-package';
