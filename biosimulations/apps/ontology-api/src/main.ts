@@ -107,7 +107,10 @@ async function bootstrap() {
     .setDescription(
       'An API to get information about ontologies and terms used in BioSimulations and BioSimulators'
     )
-    .setVersion('0.1').setLicense("MIT", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
+    .setVersion('0.1')
+    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
+    .setTermsOfService("https://biosimulations.org/help/terms")
+    .setExternalDoc('API specifications (Open API JSON)', 'https://ontology.api.biosimulations.org/openapi.json')
     .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org');
 
   setupOpenApi(
