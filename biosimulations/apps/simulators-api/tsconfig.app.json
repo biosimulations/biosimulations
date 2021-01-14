@@ -8,5 +8,8 @@
     "resolveJsonModule": true,
   },
   "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "files": [
+    "../../declarations.d.ts"
+  ]
 }

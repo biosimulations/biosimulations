@@ -84,8 +84,8 @@ function setupOpenApi(app: INestApplication) {
     customCss: ' .swagger-ui .topbar { display: none }',
   };
   SwaggerModule.setup('', app, document, customOptions);
-  const httpAdapter = app.getHttpAdapter();
-  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
+  
+  return document;
 }
 
 async function bootstrap() {
@@ -99,7 +99,10 @@ async function bootstrap() {
   // TODO intelligently allow origin based on production mode, abstract this
   app.enableCors({ origin: allowOrigin });
   app.use(json({ limit }));
-  setupOpenApi(app);
+  const document = setupOpenApi(app);
+
+  const httpAdapter = app.getHttpAdapter();
+  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
 
   await app.listen(port, () => {
     console.log('Listening at ' + host);

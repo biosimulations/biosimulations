@@ -14,6 +14,9 @@ import {
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { Resolver } from "@stoplight/json-ref-resolver";
+import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
+
 function setupOpenApi(
   app: INestApplication,
   documentBuilder: DocumentBuilder,
@@ -61,9 +64,10 @@ function setupOpenApi(
     customCss: ' .swagger-ui .topbar { display: none }',
   };
   SwaggerModule.setup(uiPath, app, document, customOptions);
-  const httpAdapter = app.getHttpAdapter();
-  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
+
+  return document;
 }
+
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);
 
@@ -110,13 +114,22 @@ async function bootstrap() {
     .setExternalDoc('API specifications (Open API JSON)', 'https://api.biosimulators.org/openapi.json')
     .setContact('BioSimulators Team', 'https://biosimulators.org/help/about', 'info@biosimulators.org');
 
-  setupOpenApi(
+  const document = setupOpenApi(
     app,
     doc,
     'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
     'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT'
   );
+
+  const httpAdapter = app.getHttpAdapter();
+
+  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
+
+  const resolver = new Resolver();
+  const resolvedDocument = await resolver.resolve(document);
+  const schema = resolvedDocument.result.components.schemas.Simulator;
+  httpAdapter.get('/schema/Simulator.json', (req, res) => res.json(toJsonSchema(schema)));
 
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/');

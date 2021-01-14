@@ -16,6 +16,7 @@ import {
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+
 function setupOpenApi(
   app: INestApplication,
   documentBuilder: DocumentBuilder,
@@ -62,10 +63,11 @@ function setupOpenApi(
     swaggerOptions: uiOptions,
     customCss: ' .swagger-ui .topbar { display: none }',
   };
-  SwaggerModule.setup(uiPath, app, document, customOptions);
-  const httpAdapter = app.getHttpAdapter();
-  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
+  SwaggerModule.setup(uiPath, app, document, customOptions);  
+
+  return document;
 }
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
@@ -113,7 +115,7 @@ async function bootstrap() {
     .setExternalDoc('API specifications (Open API JSON)', 'https://ontology.api.biosimulations.org/openapi.json')
     .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org');
 
-  setupOpenApi(
+  const document = setupOpenApi(
     app,
     doc,
     'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org',
@@ -121,8 +123,8 @@ async function bootstrap() {
     'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT'
   );
 
-
-
+  const httpAdapter = app.getHttpAdapter();
+  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
 
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/');
