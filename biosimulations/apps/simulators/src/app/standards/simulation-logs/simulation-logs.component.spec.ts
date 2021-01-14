@@ -2,16 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ProjectExecStatusComponent } from './project-exec-status.component';
+import { SimulationLogsComponent } from './simulation-logs.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-describe('ProjectExecStatusComponent', () => {
-  let component: ProjectExecStatusComponent;
-  let fixture: ComponentFixture<ProjectExecStatusComponent>;
+describe('SimulationLogsComponent', () => {
+  let component: SimulationLogsComponent;
+  let fixture: ComponentFixture<SimulationLogsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,12 +27,12 @@ describe('ProjectExecStatusComponent', () => {
           }
         }
       ],
-      declarations: [ProjectExecStatusComponent],
+      declarations: [SimulationLogsComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectExecStatusComponent);
+    fixture = TestBed.createComponent(SimulationLogsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

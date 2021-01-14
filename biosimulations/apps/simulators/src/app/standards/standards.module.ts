@@ -12,7 +12,7 @@ import { SimulatorSpecsComponent } from './simulator-specs/simulator-specs.compo
 import { SimulatorInterfacesComponent } from './simulator-interfaces/simulator-interfaces.component';
 import { SimulatorImagesComponent } from './simulator-images/simulator-images.component';
 import { SimulationExperimentsComponent } from './simulation-experiments/simulation-experiments.component';
-import { ProjectExecStatusComponent } from './project-exec-status/project-exec-status.component';
+import { SimulationLogsComponent } from './simulation-logs/simulation-logs.component';
 import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
 
 import { HighlightModule } from 'ngx-highlightjs';
@@ -24,7 +24,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     SimulatorInterfacesComponent,
     SimulatorImagesComponent,
     SimulationExperimentsComponent,
-    ProjectExecStatusComponent,
+    SimulationLogsComponent,
     SimulationReportsComponent,
   ],
   imports: [

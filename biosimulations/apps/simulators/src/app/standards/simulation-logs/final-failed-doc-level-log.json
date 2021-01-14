@@ -1,0 +1,21 @@
+{
+   "status": "FAILED",
+   "exception": null,
+   "skipReason": null,
+   "output": null,
+   "duration": 6.0,
+   "sedDocuments": {
+      "doc_1.sedml": {
+         "status": "FAILED",
+         "exception": {
+          "type": "FileNotFoundError",
+          "message": "Model `model2.xml` does not exist."
+         },
+         "skipReason": null,
+         "output": "Reading model ... done\nInitializing simulation ... done\nExecuting simulation ... done\n",
+         "duration": 5.0,
+         "tasks": null,
+         "outputs": null
+      }
+   }
+}

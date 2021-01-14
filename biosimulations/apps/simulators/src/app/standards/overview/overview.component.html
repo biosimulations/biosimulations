@@ -35,7 +35,20 @@
         <li><b><a [routerLink]="['/standards', 'simulator-interfaces']">Conventions for command-line interfaces for simulation tools</a>:</b> These conventions ensure that (a) simulation tools support consistent syntax for executing simulations and (b) simulation tools produce outputs at consistent locations in consistent formats.</li>
         <li><b><a [routerLink]="['/standards', 'simulator-images']">Conventions for Docker images for simulation tools</a>:</b> These conventions ensure that the entry points of containerized simulation tools support consistent syntax for executing simulations and that containerized simulation tools provide consistent metadata.</li>
         <li><b><a [routerLink]="['/standards', 'simulation-experiments']">Conventions for targets and data types</a>:</b> These conventions ensure that the community consistently encodes simulation experiments into SED-ML. This includes conventions for targets for implicit elements of models which are not directly defined in models (e.g., reduced costs of FBA reactions, shadow prices of FBA species). This also delineates how to encode the values of model attribute changes and algorithm parameters into SED-ML, including encoding enumerated values, lists, dictionaries, and other complex data structures.</li>
-        <li><b><a [routerLink]="['/standards', 'status']">Format for the execution staus of COMBINE/OMEX archives</a>:</b> This format enables simulation tools to communicate their progress in the execution of COMBINE/OMEX archives, such as which tasks have been executed, which tasks are queued for execution, and which tasks will be skipped because, for example, they require features of SED-ML that the simulation tool does not support.</li>
+        <li>
+          <p><b><a [routerLink]="['/standards', 'simulation-logs']">Format for logs of the execution of COMBINE/OMEX archives</a>:</b> This format enables simulation tools to communicate their progress in the execution of COMBINE/OMEX archives, such as which tasks have been executed, which tasks are queued for execution, and which tasks will be skipped because, for example, they require features of SED-ML that the simulation tool does not support.</p>
+
+          <p>This format enables simulation tools to communicate the following information:</p>
+
+          <ul class="vertically-spaced">
+            <li>The status and outcome of the COMBINE archive and each SED document, task, and output (queued, running, succeeded, skipped, or failed).</li>
+            <li>Information about the simulation function that was used and the arguments that were used.</li>
+            <li>The standard output/error produced by the COMBINE archive and each SED document, task, and output.</li>
+            <li>The walltime of the execution of the COMBINE archive and each SED document, task, and output.</li>
+            <li>The reason for each SED document, task or output that was skipped.</li>
+            <li>The reason for any failed SED documents, tasks, or outputs.</li>
+          </ul>
+        </li>
         <li><b><a [routerLink]="['/standards', 'simulation-reports']">Format for reports (<code>sedml:report</code>) of simulation results</a>:</b> This format ensures that simulation tools produce reports in a consistent format (e.g., HDF5) with consistent shapes (e.g., rows: data set (<code>sedml:dataSet</code>), columns: time) that can be consistently visualized and interpreted.</li>
       </ul>
     </biosimulations-text-page-content-section>

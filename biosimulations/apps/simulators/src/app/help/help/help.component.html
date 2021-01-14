@@ -273,7 +273,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li><b>COMBINE/OMEX archives</b> should be used as the format for inputs to your simulator.</li>
             <li>A format such as BNGL, CellML, NeuroML, or SBML should be used to describe models.</li>
             <li><b>SED-ML and the <a [routerLink]="['/standards', 'simulation-experiments']">BioSimulators SED-ML conventions</a></b> should be used to describe simulation experiments.</li>
-            <li>Optionally, the execution status of COMBINE/OMEX archives should be reported using <b><a [routerLink]="['/standards', 'status']">BioSimulators' format for the execution status of COMBINE/OMEX archives</a></b>.</li>
+            <li>Optionally, the process of executing COMBINE/OMEX archives can be logged using <b><a [routerLink]="['/standards', 'simulation-logs']">BioSimulators' format for logs of the execution of COMBINE/OMEX archives</a></b>.</li>
             <li>Reports of simulation results should be saved according to the <b><a [routerLink]="['/standards', 'simulation-reports']">BioSimulators format for reports of simulation results</a></b>.</li>
           </ul>
           <p>BioSimulators utils <a href="https://github.com/biosimulators/Biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides tools for implementing these standards. A detailed template for using BioSimulators utils to build a command-line interface for a simulator is available <a href="https://github.com/biosimulators/Biosimulators_simulator_template" target="_blank">here</a>.</p>

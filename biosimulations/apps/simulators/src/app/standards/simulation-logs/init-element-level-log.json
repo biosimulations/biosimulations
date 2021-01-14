@@ -1,0 +1,59 @@
+{
+   "status": "QUEUED",
+   "exception": null,
+   "skipReason": null,
+   "output": null,
+   "duration": null,
+   "sedDocuments": {
+      "doc_1.sedml": {
+         "status": "QUEUED",
+         "exception": null,
+         "skipReason": null,
+         "output": null,
+         "duration": null,
+         "tasks": {
+            "task_1_ss": {
+               "status": "QUEUED",
+               "exception": null,
+               "skipReason": null,
+               "output": null,
+               "duration": null,
+               "algorithm": null,
+               "simulatorDetails": null
+            },
+            "task_2_time_course": {
+               "status": "QUEUED",
+               "exception": null,
+               "skipReason": null,
+               "output": null,
+               "duration": null,
+               "algorithm": null,
+               "simulatorDetails": null
+            }
+         },
+         "outputs": {
+            "report_1": {
+               "status": "QUEUED",
+               "exception": null,
+               "skipReason": null,
+               "output": null,
+               "duration": null,
+               "dataSets": {
+                  "dataset_1": "QUEUED",
+                  "dataset_2": "QUEUED"
+               }
+            },
+            "plot_1": {
+               "status": "QUEUED",
+               "exception": null,
+               "skipReason": null,
+               "output": null,
+               "duration": null,
+               "curves": {
+                  "curve_1": "QUEUED"
+               }
+            }
+         }
+      }
+   }
+}

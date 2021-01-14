@@ -6,12 +6,24 @@ import {
 } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
 
+import initElementLevelLog from './init-element-level-log.json';
+import finalSucceededElementLevelLog from './final-succeeded-element-level-log.json';
+import finalFailedElementLevelLog from './final-failed-element-level-log.json';
+import finalFailedDocLevelLog from './final-failed-doc-level-log.json';
+
 @Component({
-  templateUrl: './project-exec-status.component.html',
-  styleUrls: ['./project-exec-status.component.sass'],
+  templateUrl: './simulation-logs.component.html',
+  styleUrls: ['./simulation-logs.component.sass'],
 })
-export class ProjectExecStatusComponent {
+export class SimulationLogsComponent {
   tocSections!: Observable<TocSection[]>;
+
+  dispatchOpenApiUrl: string;
+
+  initElementLevelLog: string;
+  finalSucceededElementLevelLog: string;
+  finalFailedElementLevelLog: string;
+  finalFailedDocLevelLog: string;
 
   @ViewChild(TocSectionsContainerDirective)
   set tocSectionsContainer(container: TocSectionsContainerDirective) {
@@ -21,5 +33,11 @@ export class ProjectExecStatusComponent {
   }
 
   constructor(public config: ConfigService) {
+    this.dispatchOpenApiUrl = config.dispatchApiUrl + 'openapi.json';
+
+    this.initElementLevelLog = JSON.stringify(initElementLevelLog, null, 2);
+    this.finalSucceededElementLevelLog = JSON.stringify(finalSucceededElementLevelLog, null, 2);
+    this.finalFailedElementLevelLog = JSON.stringify(finalFailedElementLevelLog, null, 2);
+    this.finalFailedDocLevelLog = JSON.stringify(finalFailedDocLevelLog, null, 2);
   }
 }
