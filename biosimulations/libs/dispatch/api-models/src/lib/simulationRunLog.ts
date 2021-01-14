@@ -118,9 +118,9 @@ export type SedOutputLogMap = { [id: string]: SedReportLog | SedPlot2DLog | SedP
 export const SedTaskLogMapArraySchema: SchemaObject = { type: 'array', items: { type: 'SedTaskLog' } };
 export const SedOutputLogMapArraySchema: SchemaObject = { 
     oneOf: [
-        type: 'array', items: { type: 'SedReportLog' },
-        type: 'array', items: { type: 'SedPlot2DLog' },
-        type: 'array', items: { type: 'SedPlot3DLog' },
+        {type: 'array', items: { type: 'SedReportLog' }},
+        {type: 'array', items: { type: 'SedPlot2DLog' }},
+        {type: 'array', items: { type: 'SedPlot3DLog' }},
     ],
 };
 export const SedTaskLogMapSchema: Omit<SchemaObject, 'required'> = {
