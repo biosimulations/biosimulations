@@ -121,6 +121,8 @@ async function bootstrap() {
       }
     }
   });
+  const httpAdapter = app.getHttpAdapter();
+  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
   const configService = app.get(ConfigService);
   const limit = configService.get('server.limit');
   app.use(json({ limit }));
