@@ -21,11 +21,13 @@ export class SimulatorSpecsComponent {
     });
   }
 
-  openApiUrl: string;
+  openApiSpecsUrl: string;
+  jsonSchemaUrl: string;
   exampleSpecs: string;
 
   constructor(public config: ConfigService) {
-    this.openApiUrl = config.apiUrl + 'openapi.json';
+    this.openApiSpecsUrl = config.apiUrl + 'openapi.json';
+    this.jsonSchemaUrl = config.apiUrl + 'schema/Simulator.json';
     this.exampleSpecs = JSON.stringify(exampleSpecs, null, 2);
   }
 }
