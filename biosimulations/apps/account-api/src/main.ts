@@ -9,6 +9,7 @@ import { AppModule } from './app/app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+
 function setupOpenApi(app: INestApplication) {
   // TODO abstract this to shared library
   const oauthSchema: SecuritySchemeObject = {
@@ -40,13 +41,17 @@ function setupOpenApi(app: INestApplication) {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('', app, document);
-  
+ 
+  return document;
 }
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  setupOpenApi(app);
+  const document = setupOpenApi(app);
+
+  const httpAdapter = app.getHttpAdapter();
+  httpAdapter.get('/openapi.json', (req, res) => res.json(document));
 
   const port = process.env.port || 3333;
   await app.listen(port, () => {
