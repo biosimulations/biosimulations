@@ -42,7 +42,7 @@
     "@nestjs/platform-express": "^7.6.5",
     "@nestjs/schedule": "^0.4.1",
     "@nestjs/swagger": "^4.7.9",
-    "@sendgrid/mail": "^7.4.1",
+    "@sendgrid/mail": "^7.4.2",
     "@typegoose/typegoose": "^7.4.6",
     "archiver": "^5.2.0",
     "auth0": "^2.31.1",
