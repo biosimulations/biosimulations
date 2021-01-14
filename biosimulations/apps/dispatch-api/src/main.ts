@@ -68,6 +68,9 @@ async function bootstrap() {
       'API to submit and manage simulations jobs to the runBioSimulations service'
     )
     .setVersion('0.1')
+    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
+    .setTermsOfService("https://run.biosimulations.org/help/terms")
+    .setExternalDoc('API specifications (Open API JSON)', 'https://run.api.biosimulations.org/openapi.json')
     .setContact(
       'runBioSimulations Team',
       'https://run.biosimulations.org/help/about',

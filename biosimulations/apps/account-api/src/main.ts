@@ -31,12 +31,16 @@ function setupOpenApi(app: INestApplication) {
     .setTitle('BioSimulations accounts API')
     .setDescription('The API to manage user accounts')
     .setVersion('0.1')
+    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
+    .setTermsOfService("https://biosimulations.org/help/terms")
+    .setExternalDoc('API specifications (Open API JSON)', 'https://account.api.biosimulations.org/openapi.json')
     .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org')
     .addSecurity('OpenIdc', openIDSchema)
     .addOAuth2(oauthSchema)
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('', app, document);
+  
 }
 
 async function bootstrap() {

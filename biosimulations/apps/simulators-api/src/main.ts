@@ -105,6 +105,9 @@ async function bootstrap() {
       'A collection of standardized Docker containers for executing biosimulations'
     )
     .setVersion('0.1')
+    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
+    .setTermsOfService("https://biosimulators.org/help/terms")
+    .setExternalDoc('API specifications (Open API JSON)', 'https://api.biosimulators.org/openapi.json')
     .setContact('BioSimulators Team', 'https://biosimulators.org/help/about', 'info@biosimulators.org');
 
   setupOpenApi(
