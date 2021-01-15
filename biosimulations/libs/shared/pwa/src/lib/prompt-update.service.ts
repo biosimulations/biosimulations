@@ -1,10 +1,10 @@
-import { ApplicationRef, Injectable } from "@angular/core";
-import { SwUpdate } from "@angular/service-worker"
-import { interval, concat, } from "rxjs";
-import { first } from "rxjs/operators";
+import { ApplicationRef, Injectable } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker'
+import { interval, concat, } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: "root"
+    providedIn: 'root'
 })
 export class UpdateService {
     constructor(private updates: SwUpdate, private appRef: ApplicationRef) {
