@@ -13,9 +13,7 @@ export class AppComponent implements AfterViewInit {
 
   constructor(public config: ConfigService, private scrollService: ScrollService, private update: UpdateService) { }
 
-  ngOnInit() {
-    this.update.update()
-  }
+
   ngAfterViewInit(): void {
     this.scrollService.init();
 
