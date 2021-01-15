@@ -44,5 +44,6 @@ module.exports = {
     '<rootDir>/libs/shared/nats-client',
     '<rootDir>/libs/auth/client',
     '<rootDir>/libs/account/management',
+    '<rootDir>/libs/shared/pwa',
   ],
 };

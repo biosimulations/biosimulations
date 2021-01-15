@@ -1,14 +1,9 @@
 {
   "npmScope": "biosimulations",
-  "affected": {
-    "defaultBase": "dev"
-  },
+  "affected": { "defaultBase": "dev" },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
@@ -18,12 +13,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "NzI5NWRhNWYtZWM4OC00YjhjLWFmNzMtZTIyMTc3YjhkZmJkfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -31,271 +21,100 @@
   },
   "projects": {
     "account": {
-      "tags": [
-        "scope:account",
-        "platform:web",
-        "type:frontend"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:account", "platform:web", "type:frontend"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "account-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "account"
-      ]
-    },
-    "shared-assets": {
-      "tags": [
-        "scope:shared",
-        "type:assets"
-      ]
-    },
+    "account-e2e": { "tags": [], "implicitDependencies": ["account"] },
+    "shared-assets": { "tags": ["scope:shared", "type:assets"] },
     "shared-content": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "shared-services": {
-      "tags": [
-        "scope:shared",
-        "type:service",
-        "platform:any"
-      ],
+      "tags": ["scope:shared", "type:service", "platform:any"],
       "implicitDependencies": []
     },
     "shared-styles": {
-      "tags": [
-        "scope:shared",
-        "type:styles",
-        "platform:web"
-      ]
+      "tags": ["scope:shared", "type:styles", "platform:web"]
     },
     "shared-ui": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "shared-icons": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ]
-    },
-    "shared-debug": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ]
-    },
+    "shared-icons": { "tags": ["scope:shared", "type:ui", "platform:web"] },
+    "shared-debug": { "tags": ["scope:shared", "type:ui", "platform:web"] },
     "dispatch": {
-      "tags": [
-        "scope:dispatch",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:dispatch", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "dispatch-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "dispatch"
-      ]
-    },
+    "dispatch-e2e": { "tags": [], "implicitDependencies": ["dispatch"] },
     "account-api": {
-      "tags": [
-        "scope:account",
-        "platform:server",
-        "type:api"
-      ],
+      "tags": ["scope:account", "platform:server", "type:api"],
       "implicitDependencies": []
     },
     "auth-common": {
-      "tags": [
-        "scope:auth",
-        "platform:any",
-        "type:datamodel",
-        "shared:true"
-      ]
+      "tags": ["scope:auth", "platform:any", "type:datamodel", "shared:true"]
     },
     "auth-angular": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "platform:web",
-        "shared:true"
-      ]
+      "tags": ["scope:auth", "type:util", "platform:web", "shared:true"]
     },
     "auth-nest": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "platform:server",
-        "shared:true"
-      ]
+      "tags": ["scope:auth", "type:util", "platform:server", "shared:true"]
     },
     "config-common": {
-      "tags": [
-        "scope:config",
-        "type:datamodel",
-        "platform:any",
-        "shared:true"
-      ]
+      "tags": ["scope:config", "type:datamodel", "platform:any", "shared:true"]
     },
     "config-nest": {
-      "tags": [
-        "scope:config",
-        "type:config",
-        "platform:server",
-        "shared:true"
-      ]
+      "tags": ["scope:config", "type:config", "platform:server", "shared:true"]
     },
     "config-angular": {
-      "tags": [
-        "scope:config",
-        "type:config",
-        "shared:true",
-        "platform:web"
-      ]
+      "tags": ["scope:config", "type:config", "shared:true", "platform:web"]
     },
     "platform-api": {
-      "tags": [
-        "scope:platform",
-        "type:api",
-        "platform:server"
-      ],
+      "tags": ["scope:platform", "type:api", "platform:server"],
       "implicitDependencies": []
     },
     "platform-api-models": {
-      "tags": [
-        "scope:platform",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:platform", "type:datamodel", "platform:any"]
     },
     "platform-database-models": {
-      "tags": [
-        "scope:platform",
-        "type:datamodel",
-        "platform:server"
-      ]
+      "tags": ["scope:platform", "type:datamodel", "platform:server"]
     },
     "dispatch-service": {
-      "tags": [
-        "scope:dispatch",
-        "type:service",
-        "platform:server"
-      ],
+      "tags": ["scope:dispatch", "type:service", "platform:server"],
       "implicitDependencies": []
     },
     "dispatch-api": {
-      "tags": [
-        "scope:dispatch",
-        "type:api",
-        "platform:server"
-      ]
+      "tags": ["scope:dispatch", "type:api", "platform:server"]
     },
     "platform": {
-      "tags": [
-        "scope:platform",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:platform", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "platform-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "platform"
-      ]
-    },
-    "platform-view": {
-      "tags": [
-        "scope:platform",
-        "type:ui",
-        "platform:web"
-      ]
-    },
+    "platform-e2e": { "tags": [], "implicitDependencies": ["platform"] },
+    "platform-view": { "tags": ["scope:platform", "type:ui", "platform:web"] },
     "simulators": {
-      "tags": [
-        "scope:simulators",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:simulators", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "simulators-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "simulators"
-      ]
-    },
+    "simulators-e2e": { "tags": [], "implicitDependencies": ["simulators"] },
     "simulators-api": {
-      "tags": [
-        "scope:simulators",
-        "type:api",
-        "platform:server"
-      ]
+      "tags": ["scope:simulators", "type:api", "platform:server"]
     },
     "simulators-api-models": {
-      "tags": [
-        "scope:simulators",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:simulators", "type:datamodel", "platform:any"]
     },
     "shared-environments": {
-      "tags": [
-        "scope:shared",
-        "type:environments",
-        "platform:any"
-      ]
+      "tags": ["scope:shared", "type:environments", "platform:any"]
     },
     "dispatch-api-models": {
-      "tags": [
-        "scope:dispatch",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
     },
     "mail-service": {
-      "tags": [
-        "scope:mail",
-        "type:service",
-        "platform:server"
-      ]
+      "tags": ["scope:mail", "type:service", "platform:server"]
     },
     "ontology-api": {
-      "tags": [
-        "scope:ontology",
-        "type:api",
-        "platform:server"
-      ]
+      "tags": ["scope:ontology", "type:api", "platform:server"]
     },
     "ontology-sources": {
       "tags": [
@@ -314,46 +133,22 @@
       ]
     },
     "shared-utils-routes": {
-      "tags": [
-        "scope:shared",
-        "type:utils",
-        "platform:web"
-      ]
+      "tags": ["scope:shared", "type:utils", "platform:web"]
     },
     "dispatch-file-modifiers": {
-      "tags": [
-        "scope:dispatch",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:dispatch", "type:util", "platform:server"]
     },
     "simulators-database-models": {
-      "tags": [
-        "scope:simulators",
-        "type:datamodel",
-        "platform:server"
-      ]
+      "tags": ["scope:simulators", "type:datamodel", "platform:server"]
     },
     "datamodel-database": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
     },
     "datamodel-api": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
     },
     "datamodel-common": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
     },
     "messages-messages": {
       "tags": [
@@ -364,25 +159,13 @@
       ]
     },
     "shared-exceptions-filters": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "shared-exceptions-exceptions": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "mail-service-client": {
-      "tags": [
-        "scope:mail",
-        "type:client",
-        "platform:server"
-      ]
+      "tags": ["scope:mail", "type:client", "platform:server"]
     },
     "dispatch-nest-client": {
       "tags": [
@@ -401,19 +184,11 @@
       ]
     },
     "auth-client": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "shared:true",
-        "platform:server"
-      ]
+      "tags": ["scope:auth", "type:util", "shared:true", "platform:server"]
     },
     "account-management": {
-      "tags": [
-        "scope:account",
-        "type:util",
-        "platform:server"
-      ]
-    }
+      "tags": ["scope:account", "type:util", "platform:server"]
+    },
+    "shared-pwa": { "tags": ["scope:shared", "type:util", "platform:web"] }
   }
 }
