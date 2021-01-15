@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PromptUpdateService } from './prompt-update.service';
+import { UpdateService } from './prompt-update.service';
 
 @NgModule({
   imports: [CommonModule],
-  providers: [PromptUpdateService]
+  providers: [UpdateService],
+  exports: [UpdateService]
 })
 export class PwaModule { }
