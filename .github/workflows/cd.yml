@@ -82,7 +82,7 @@ jobs:
           CONTEXT: ..
         run: |
           echo  Building Image for ${{ matrix.app }}
-          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=${{ matrix.app }} $CONTEXT
+          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=${{ matrix.app }} --network host $CONTEXT
       - name: Push Docker image for ${{matrix.app}}
         working-directory: ./biosimulations
         env:
