@@ -422,7 +422,8 @@
               },
               "apps/dispatch/src/manifest.webmanifest",
               "apps/dispatch/src/browserconfig.xml",
-              "apps/dispatch/src/sitemap.xml"
+              "apps/dispatch/src/sitemap.xml",
+              "apps/dispatch/src/manifest.webmanifest"
             ],
             "styles": ["libs/shared/styles/src/index.scss"],
             "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
@@ -460,7 +461,8 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "ngswConfigPath": "apps/dispatch/ngsw-config.json"
             }
           }
         },
@@ -1767,6 +1769,31 @@
           }
         }
       }
+    },
+    "shared-pwa": {
+      "projectType": "library",
+      "root": "libs/shared/pwa",
+      "sourceRoot": "libs/shared/pwa/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/pwa/src/**/*.ts",
+              "libs/shared/pwa/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/pwa"],
+          "options": {
+            "jestConfig": "libs/shared/pwa/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -1820,6 +1847,9 @@
       "strict": true,
       "style": "scss",
       "linter": "eslint"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   },
   "defaultProject": "platform"

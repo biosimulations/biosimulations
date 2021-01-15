@@ -11,67 +11,34 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "paths": {
-      "@biosimulations/shared/assets": [
-        "libs/shared/assets/src/index.ts"
-      ],
-      "@biosimulations/shared/content": [
-        "libs/shared/content/src/index.ts"
-      ],
-      "@biosimulations/shared/services": [
-        "libs/shared/services/src/index.ts"
-      ],
-      "@biosimulations/shared/styles": [
-        "libs/shared/styles/src/index.ts"
-      ],
-      "@biosimulations/shared/ui": [
-        "libs/shared/ui/src/index.ts"
-      ],
-      "@biosimulations/shared/icons": [
-        "libs/shared/icons/src/index.ts"
-      ],
-      "@biosimulations/shared/debug": [
-        "libs/shared/debug/src/index.ts"
-      ],
-      "@biosimulations/auth/common": [
-        "libs/auth/common/src/index.ts"
-      ],
-      "@biosimulations/auth/angular": [
-        "libs/auth/angular/src/index.ts"
-      ],
-      "@biosimulations/auth/nest": [
-        "libs/auth/nest/src/index.ts"
-      ],
-      "@biosimulations/config/common": [
-        "libs/config/common/src/index.ts"
-      ],
-      "@biosimulations/config/nest": [
-        "libs/config/nest/src/index.ts"
-      ],
-      "@biosimulations/config/angular": [
-        "libs/config/angular/src/index.ts"
-      ],
+      "@biosimulations/shared/assets": ["libs/shared/assets/src/index.ts"],
+      "@biosimulations/shared/content": ["libs/shared/content/src/index.ts"],
+      "@biosimulations/shared/services": ["libs/shared/services/src/index.ts"],
+      "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@biosimulations/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@biosimulations/shared/icons": ["libs/shared/icons/src/index.ts"],
+      "@biosimulations/shared/debug": ["libs/shared/debug/src/index.ts"],
+      "@biosimulations/auth/common": ["libs/auth/common/src/index.ts"],
+      "@biosimulations/auth/angular": ["libs/auth/angular/src/index.ts"],
+      "@biosimulations/auth/nest": ["libs/auth/nest/src/index.ts"],
+      "@biosimulations/config/common": ["libs/config/common/src/index.ts"],
+      "@biosimulations/config/nest": ["libs/config/nest/src/index.ts"],
+      "@biosimulations/config/angular": ["libs/config/angular/src/index.ts"],
       "@biosimulations/platform/api-models": [
         "libs/platform/api-models/src/index.ts"
       ],
       "@biosimulations/platform/database-models": [
         "libs/platform/database-models/src/index.ts"
       ],
-      "@biosimulations/platform/view": [
-        "libs/platform/view/src/index.ts"
-      ],
+      "@biosimulations/platform/view": ["libs/platform/view/src/index.ts"],
       "@biosimulations/simulators/api-models": [
         "libs/simulators/api-models/src/index.ts"
       ],
@@ -99,9 +66,7 @@
       "@biosimulations/datamodel-database": [
         "libs/datamodel/database/src/index.ts"
       ],
-      "@biosimulations/datamodel/api": [
-        "libs/datamodel/api/src/index.ts"
-      ],
+      "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
       "@biosimulations/datamodel/common": [
         "libs/datamodel/common/src/index.ts"
       ],
@@ -123,16 +88,12 @@
       "@biosimulations/shared/nats-client": [
         "libs/shared/nats-client/src/index.ts"
       ],
-      "@biosimulations/auth/client": [
-        "libs/auth/client/src/index.ts"
-      ],
+      "@biosimulations/auth/client": ["libs/auth/client/src/index.ts"],
       "@biosimulations/account/management": [
         "libs/account/management/src/index.ts"
-      ]
+      ],
+      "@biosimulations/shared/pwa": ["libs/shared/pwa/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

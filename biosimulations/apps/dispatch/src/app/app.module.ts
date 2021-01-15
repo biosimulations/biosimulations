@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { PwaModule } from '@biosimulations/shared/pwa'
 import {
   ErrorHandler as BiosimulationsErrorHandler,
   errorRoutes,
@@ -17,6 +18,8 @@ import {
 } from '@biosimulations/shared/ui';
 
 import config from '../assets/config.json';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '@biosimulations/shared/environments';
 
 const routes: Routes = [
   {
@@ -74,6 +77,7 @@ routes.forEach((route: Route): void => {
     BiosimulationsIconsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    PwaModule,
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
       scrollPositionRestoration: 'disabled',
@@ -81,7 +85,8 @@ routes.forEach((route: Route): void => {
     }),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage']
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
@@ -92,4 +97,4 @@ routes.forEach((route: Route): void => {
   bootstrap: [AppComponent],
   schemas: []
 })
-export class AppModule {}
+export class AppModule { }

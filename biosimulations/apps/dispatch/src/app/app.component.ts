@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { UpdateService } from '@biosimulations/shared/pwa';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'biosimulations-root',
@@ -9,9 +11,14 @@ import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 export class AppComponent implements AfterViewInit {
   title = 'dispatch';
 
-  constructor(public config: ConfigService, private scrollService: ScrollService) {}
+  constructor(public config: ConfigService, private scrollService: ScrollService, private update: UpdateService) { }
+
 
   ngAfterViewInit(): void {
     this.scrollService.init();
+
+
+
+
   }
 }
