@@ -14,7 +14,7 @@
 
       <biosimulations-text-page-side-bar-section heading="Raw Log" fxShow fxHide.lt-md>
         <ul class="vertically-spaced">
-          <li>Raw standard output and error for the entire job</li>
+          <li><a (click)="scrollToElement('log')">Raw standard output and error for the entire job</a></li>
         </ul>
       </biosimulations-text-page-side-bar-section>
     </ng-container>
@@ -28,7 +28,7 @@
 
       <biosimulations-text-page-side-bar-section heading="Combined log" fxShow fxHide.lt-md>
         <ul>
-          <li>Combined log of the entire job</li>
+          <li><a (click)="scrollToElement('log')">Combined log of the entire job</a></li>
         </ul>
       </biosimulations-text-page-side-bar-section>
     </ng-container>
@@ -50,7 +50,12 @@
       <biosimulations-text-page-side-bar-section heading="Experiments" fxShow fxHide.lt-md>
         <ul>
           <li *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-            <span [class]="['status-label', docIdLog.value.status]">{{ docIdLog.key }} ({{ docIdLog.value.status | slice : 0 : 1 }})</span>
+            <a
+              [class]="['status-label', docIdLog.value.status]"
+              (click)="scrollToElement('log=' + docIdLog.key)"
+            >
+              {{ docIdLog.key }} ({{ docIdLog.value.status | slice : 0 : 1 }})
+            </a>
           </li>
         </ul>
       </biosimulations-text-page-side-bar-section>
@@ -125,9 +130,12 @@
               <ul>
                 <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
                   <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator">
-                    <span [class]="['status-label', taskIdLog.value.status]">
+                    <a
+                      [class]="['status-label', taskIdLog.value.status]"
+                      (click)="scrollToElement('log=task-' + docIdLog.key + '/' + taskIdLog.key)"
+                    >
                       {{ docIdLog.key }} :: {{ taskIdLog.key }} ({{ taskIdLog.value.status | slice : 0 : 1 }})
-                    </span>
+                    </a>
                   </li>
                 </ng-container>
               </ul>
@@ -144,9 +152,12 @@
                 <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
                   <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
                     <li *ngIf="outputIdLog.value?.dataSets">
-                      <span [class]="['status-label', outputIdLog.value.status]">
+                      <a
+                        [class]="['status-label', outputIdLog.value.status]"
+                        (click)="scrollToElement('log=output-' + docIdLog.key + '/' + outputIdLog.key)"
+                      >
                         {{ docIdLog.key }} :: {{ outputIdLog.key }} ({{ outputIdLog.value.status | slice : 0 : 1 }})
-                      </span>
+                      </a>
                     </li>
                   </ng-container>
                 </ng-container>
@@ -164,9 +175,12 @@
                 <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
                   <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
                     <li *ngIf="!outputIdLog.value?.dataSets">
-                      <span [class]="['status-label', outputIdLog.value.status]">
+                      <a
+                        [class]="['status-label', outputIdLog.value.status]"
+                        (click)="scrollToElement('log=output-' + docIdLog.key + '/' + outputIdLog.key)"
+                      >
                         {{ docIdLog.key }} :: {{ outputIdLog.key }} ({{ outputIdLog.value.status | slice : 0 : 1 }})
-                      </span>
+                      </a>
                     </li>
                   </ng-container>
                 </ng-container>
@@ -214,6 +228,7 @@
       <biosimulations-raw-simulation-log
         [status]="status"
         [log]="rawLog"
+        id="log"
       >
       </biosimulations-raw-simulation-log>
     </ng-container>
@@ -223,6 +238,7 @@
         [log]="structuredLog"
         elementId="entire job"
         elementType="Combined log of the"
+        id="log"
       >
       </biosimulations-structured-simulation-log-element>
     </ng-container>
@@ -233,6 +249,7 @@
         [elementId]="docIdLog.key"
         elementType="Simulation experiment"
         [log]="docIdLog.value"
+        [id]="'log=' + docIdLog.key"
       >
       </biosimulations-structured-simulation-log-element>
     </ng-container>
@@ -244,6 +261,7 @@
           [elementId]="docIdLog.key + ' :: ' + taskIdLog.key"
           elementType="Task"
           [log]="taskIdLog.value"
+          [id]="'log=task-' + docIdLog.key + '/' + taskIdLog.key"
         >
         </biosimulations-structured-simulation-log-element>
       </ng-container>
@@ -255,6 +273,7 @@
             [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
             elementType="Report"
             [log]="outputIdLog.value"
+            [id]="'log=output-' + docIdLog.key + '/' + outputIdLog.key"
           >
           </biosimulations-structured-simulation-log-element>
         </ng-container>
@@ -267,6 +286,7 @@
             [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
             elementType="Plot"
             [log]="outputIdLog.value"
+            [id]="'log=output-' + docIdLog.key + '/' + outputIdLog.key"
           >
           </biosimulations-structured-simulation-log-element>
         </ng-container>

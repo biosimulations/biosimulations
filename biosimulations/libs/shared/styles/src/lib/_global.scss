@@ -625,22 +625,100 @@ table {
 .status-label {
   &.CREATED, &.QUEUED {
     color: mat-color($theme-primary);
+    &a:hover {
+      color: darken(mat-color($theme-primary), 10%);
+    }
+    &a:active {
+      color: darken(mat-color($theme-primary), 20%);
+    }
   }
 
   &.RUNNING, &.PROCESSING {
     color: mat-color($theme-tertiary);
+    &a:hover {
+      color: darken(mat-color($theme-tertiary), 8%);
+      text-decoration-line: underline;
+    }
+    &a:active {
+      color: darken(mat-color($theme-tertiary), 16%);
+    }
   }
 
   &.SUCCEEDED {
     color: $dark-primary-text;
+    &a:hover {
+      color: darken($dark-primary-text, 10%);
+    }
+    &a:active {
+      color: darken($dark-primary-text, 20%);
+    }
   }
 
   &.SKIPPED {
     color: mat-color($theme-accent);
+    &a:hover {
+      color: darken(mat-color($theme-accent), 10%);
+    }
+    &a:active {
+      color: darken(mat-color($theme-accent), 20%);
+    }
   }
 
   &.FAILED {
     color: mat-color($theme-warn);
+    &a:hover {
+      color: darken(mat-color($theme-warn), 10%);
+    }
+    &a:active {
+      color: darken(mat-color($theme-warn), 20%);
+    }
+  }
+}
+
+a.status-label {
+  &.CREATED, &.QUEUED {
+    &:hover {
+      color: darken(mat-color($theme-primary), 10%);
+    }
+    &:active {
+      color: darken(mat-color($theme-primary), 20%);
+    }
+  }
+
+  &.RUNNING, &.PROCESSING {
+    &:hover {
+      color: darken(mat-color($theme-tertiary), 8%);
+    }
+    &:active {
+      color: darken(mat-color($theme-tertiary), 16%);
+    }
+  }
+
+  &.SUCCEEDED {
+    &:hover {
+      color: darken(#333333, 15%);
+    }
+    &:active {
+      color: darken(#333333, 30%);
+    }
+  }
+
+  &.SKIPPED {
+    &:hover {
+      color: darken(mat-color($theme-accent), 7%);
+    }
+    &:active {
+      color: darken(mat-color($theme-accent), 14%);
+    }
+  }
+
+  &.FAILED {
+    &:hover {
+      color: darken(mat-color($theme-warn), 15%);
+    }
+    &:active {
+      color: darken(mat-color($theme-warn), 30%);
+    }
   }
 }
 

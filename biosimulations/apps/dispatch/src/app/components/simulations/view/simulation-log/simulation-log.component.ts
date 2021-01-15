@@ -15,6 +15,7 @@ import {
 } from '../../../../simulation-logs-datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common'
 import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
+import { ScrollService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
 
 interface StatusCount {
@@ -31,6 +32,8 @@ type StatusCountsMap = Map<SimulationStatus | null, StatusCount>;
   styleUrls: ['./simulation-log.component.scss'],
 })
 export class SimulationLogComponent {
+  constructor(private scrollService: ScrollService) { }
+
   @Input()
   status!: SimulationRunStatus;
 
@@ -232,6 +235,13 @@ export class SimulationLogComponent {
         this.tocSections = container.sections$;
       });
     }
+  }
+
+  private scrollOffset = 64 + 32 + 32;
+
+  scrollToElement(id: string): void {
+    const scrollTarget = document.getElementById(id) as HTMLElement;
+    this.scrollService.scrollToElement(scrollTarget, this.scrollOffset);
   }
 
   downloadRawLog(): void {
