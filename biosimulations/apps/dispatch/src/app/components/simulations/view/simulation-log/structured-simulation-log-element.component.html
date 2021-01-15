@@ -41,7 +41,7 @@
       <p class="info-message">No details were provided.</p>
     </ng-template>
   </ng-container>
-  
+
   <ng-container *ngIf="log?.exception as exception">
     <h3>Exception: {{ exception.category }}</h3>
     <pre *ngIf="exception.message; else noExceptionMessage"><code>{{ exception.message }}</code></pre>

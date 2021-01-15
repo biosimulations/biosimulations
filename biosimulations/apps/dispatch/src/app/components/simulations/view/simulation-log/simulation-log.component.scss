@@ -3,11 +3,11 @@
 biosimulations-text-page-side-bar-section ::ng-deep {
   .mat-icon-button {
     white-space: normal;
-    font-weight: normal; 
+    font-weight: normal;
     text-align: left;
     text-indent: -1.25rem;
     margin-left: 1.25rem;
-    
+
     biosimulations-icon {
       position: relative;
       top: -3px;
@@ -59,7 +59,7 @@ biosimulations-structured-simulation-log-element {
 
 biosimulations-raw-simulation-log,
 biosimulations-structured-simulation-log-element {
-  ::ng-deep { 
+  ::ng-deep {
     pre.stdout {
       &, & > code {
         max-height: 600px;

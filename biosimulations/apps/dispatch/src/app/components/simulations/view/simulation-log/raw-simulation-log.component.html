@@ -1,6 +1,6 @@
 <biosimulations-text-page-content-section
   [heading]="heading"
-  [ngClass]="{    
+  [ngClass]="{
     'queued': status === SimulationRunStatus.CREATED || status === SimulationRunStatus.QUEUED,
     'running': status === SimulationRunStatus.RUNNING || status === SimulationRunStatus.PROCESSING,
     'succeeded': status === SimulationRunStatus.SUCCEEDED,

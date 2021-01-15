@@ -225,7 +225,7 @@ export class ViewComponent implements OnInit {
         if (!statusRunning) {
           this.dispatchService
             .getSimulationLogs(this.uuid)
-            .subscribe((logs: SimulationLogs) => {              
+            .subscribe((logs: SimulationLogs) => {
               this.logs.next(logs);
               setTimeout(() => this.changeDetectorRef.detectChanges());
             });
@@ -236,7 +236,7 @@ export class ViewComponent implements OnInit {
             .getResultStructure(this.uuid)
 
             .subscribe((response: any): void => {
-              
+
 
               this.setProjectOutputs(response as CombineArchive);
             });

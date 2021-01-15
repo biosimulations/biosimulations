@@ -30,9 +30,11 @@ export class SimulationLogComponent {
   private _structuredLog: CombineArchiveLog | undefined = undefined;
   structuredLogLevel: StructuredLogLevel | undefined = undefined;
   archiveHasTasks = false;
-  archiveHasOutputs = false;
+  archiveHasReports = false;
+  archiveHasPlots = false;
   logHasTasks = false;
-  logHasOutputs = false;
+  logHasReports = false;
+  logHasPlots = false;
 
   @Input()
   set structuredLog(value: CombineArchiveLog | undefined) {
@@ -58,55 +60,57 @@ export class SimulationLogComponent {
         for (const docLog of Object.values(log.sedDocuments)) {
           level = StructuredLogLevel.SedDocument;
 
-          if (level < StructuredLogLevel.SedTaskOutput && docLog?.tasks) {
-            this.logHasTasks = true;
-            for (const taskLog of Object.values(docLog.tasks)) {
-              level = StructuredLogLevel.SedTaskOutput;
-              this.archiveHasTasks = true;
-              break;
+          if (level < StructuredLogLevel.SedTaskOutput) {
+            if (docLog?.tasks) {
+              this.logHasTasks = true;
+              for (const taskLog of Object.values(docLog.tasks)) {
+                level = StructuredLogLevel.SedTaskOutput;
+                this.archiveHasTasks = true;
+                break;
+              }
             }
-          }
 
-          if (level < StructuredLogLevel.SedTaskOutput && docLog?.outputs) {
-            this.logHasOutputs = true;
+            if (docLog?.outputs) {
+              this.logHasReports = true;
+              this.logHasPlots = true;
 
-            for (const outputLog of Object.values(docLog.outputs)) {
-              level = StructuredLogLevel.SedTaskOutput;
-              this.archiveHasOutputs = true;
+              for (const outputLog of Object.values(docLog.outputs)) {
+                level = StructuredLogLevel.SedTaskOutput;
 
-              if (level < StructuredLogLevel.SedDataSetCurveSurface
-                && outputLog
-                && 'dataSets' in outputLog
-                && (outputLog as SedReportLog).dataSets
-              ) {
-                const dataSetLogs = (outputLog as SedReportLog).dataSets as DataSetLogs;
-                for (const dataSetLog of Object.values(dataSetLogs)) {
-                  level = StructuredLogLevel.SedDataSetCurveSurface;                  
-                  break;
+                if (outputLog
+                  && 'dataSets' in outputLog
+                  && (outputLog as SedReportLog).dataSets
+                ) {
+                  this.archiveHasReports = true;
+                  const dataSetLogs = (outputLog as SedReportLog).dataSets as DataSetLogs;
+                  for (const dataSetLog of Object.values(dataSetLogs)) {
+                    level = StructuredLogLevel.SedDataSetCurveSurface;
+                    break;
+                  }
                 }
-              }
 
-              if (level < StructuredLogLevel.SedDataSetCurveSurface
-                && outputLog
-                && 'curves' in outputLog
-                && (outputLog as SedPlot2DLog).curves
-              ) {
-                const curveLogs = (outputLog as SedPlot2DLog).curves as CurveLogs;
-                for (const curveLog of Object.values(curveLogs)) {
-                  level = StructuredLogLevel.SedDataSetCurveSurface;
-                  break;
+                if (outputLog
+                  && 'curves' in outputLog
+                  && (outputLog as SedPlot2DLog).curves
+                ) {
+                  this.archiveHasPlots = true;
+                  const curveLogs = (outputLog as SedPlot2DLog).curves as CurveLogs;
+                  for (const curveLog of Object.values(curveLogs)) {
+                    level = StructuredLogLevel.SedDataSetCurveSurface;
+                    break;
+                  }
                 }
-              }
 
-              if (level < StructuredLogLevel.SedDataSetCurveSurface
-                && outputLog
-                && 'surfaces' in outputLog
-                && (outputLog as SedPlot3DLog).surfaces
-              ) {
-                const surfaceLogs = (outputLog as SedPlot3DLog).surfaces as SurfaceLogs;
-                for (const surfaceLog of Object.values(surfaceLogs)) {
-                  level = StructuredLogLevel.SedDataSetCurveSurface;
-                  break;
+                if (outputLog
+                  && 'surfaces' in outputLog
+                  && (outputLog as SedPlot3DLog).surfaces
+                ) {
+                  this.archiveHasPlots = true;
+                  const surfaceLogs = (outputLog as SedPlot3DLog).surfaces as SurfaceLogs;
+                  for (const surfaceLog of Object.values(surfaceLogs)) {
+                    level = StructuredLogLevel.SedDataSetCurveSurface;
+                    break;
+                  }
                 }
               }
             }

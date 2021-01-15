@@ -37,7 +37,7 @@ export class StructuredSimulationLogElementComponent {
 
   @Input()
   elementType!: string;
-  
+
   heading!: string;
 
   private _log!: logTypes;
@@ -89,11 +89,11 @@ export class StructuredSimulationLogElementComponent {
     const duration = this.log?.duration;
 
     return (
-      this.elementType 
+      this.elementType
       + ' '
       + this.elementId
       + ' '
-      + '(' 
+      + '('
       + this.log.status.toLowerCase()
       + (typeof duration === 'number' ? ', ' + duration.toFixed(1) + ' s' : '')
       + ')'

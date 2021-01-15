@@ -38,20 +38,35 @@
                 <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator">{{ docIdLog.key }} :: {{ taskIdLog.key }}</li>
               </ng-container>
             </ul
-            ><ng-template #noTaskLogs>: 
+            ><ng-template #noTaskLogs>:
               <span *ngIf="!archiveHasTasks" class="info-message">None</span>
               <span *ngIf="archiveHasTasks" class="info-message">N/A</span>
             </ng-template>
           </li>
-          <li>Outputs<ul
-           *ngIf="logHasOutputs; else noOutputLogs">
+          <li>Reports<ul
+           *ngIf="logHasReports; else noReportLogs">
               <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-                <li *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
+                <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+                  <li *ngIf="outputIdLog.value?.dataSets">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
+                </ng-container>
               </ng-container>
             </ul
-            ><ng-template #noOutputLogs>: 
-              <span *ngIf="!archiveHasOutputs" class="info-message">None</span>
-              <span *ngIf="archiveHasOutputs" class="info-message">N/A</span>
+            ><ng-template #noReportLogs>:
+              <span *ngIf="!archiveHasReports" class="info-message">None</span>
+              <span *ngIf="archiveHasReports" class="info-message">N/A</span>
+            </ng-template>
+          </li>
+          <li>Plots<ul
+           *ngIf="logHasPlots; else noPlotLogs">
+              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+                <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+                  <li *ngIf="!outputIdLog.value?.dataSets">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
+                </ng-container>
+              </ng-container>
+            </ul
+            ><ng-template #noPlotLogs>:
+              <span *ngIf="!archiveHasPlots" class="info-message">None</span>
+              <span *ngIf="archiveHasPlots" class="info-message">N/A</span>
             </ng-template>
           </li>
         </ul>
@@ -107,7 +122,7 @@
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <biosimulations-structured-simulation-log-element
-        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator"        
+        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator"
         [elementId]="docIdLog.key"
         elementType="Simulation experiment"
         [log]="docIdLog.value"
@@ -124,14 +139,30 @@
           [log]="taskIdLog.value"
         >
         </biosimulations-structured-simulation-log-element>
+      </ng-container>
 
-        <biosimulations-structured-simulation-log-element
-          *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator"
-          [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
-          elementType="Output"
-          [log]="outputIdLog.value"
-        >
-        </biosimulations-structured-simulation-log-element>
+      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+          <biosimulations-structured-simulation-log-element
+            *ngIf="outputIdLog.value?.dataSets"
+            [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
+            elementType="Report"
+            [log]="outputIdLog.value"
+          >
+          </biosimulations-structured-simulation-log-element>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+          <biosimulations-structured-simulation-log-element
+            *ngIf="!outputIdLog.value?.dataSets"
+            [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
+            elementType="Plot"
+            [log]="outputIdLog.value"
+          >
+          </biosimulations-structured-simulation-log-element>
+        </ng-container>
       </ng-container>
     </ng-container>
   </ng-container>

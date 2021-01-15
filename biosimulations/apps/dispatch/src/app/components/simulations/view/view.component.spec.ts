@@ -23,7 +23,7 @@ describe('ViewComponent', () => {
         ViewComponent,
         VisualizationComponent,
       ],
-      imports: [RouterTestingModule, HttpClientTestingModule, 
+      imports: [RouterTestingModule, HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
