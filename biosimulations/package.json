@@ -80,7 +80,7 @@
     "@angular-eslint/template-parser": "1.0.0",
     "@angular/cli": "~11.0.7",
     "@angular/compiler-cli": "^11.0.0",
-    "@angular/language-service": "^11.0.6",
+    "@angular/language-service": "^11.0.9",
     "@angular-material-components/file-input": "^5.0.0",
     "@angular/animations": "^11.0.0",
     "@angular/cdk": "^11.0.0",
