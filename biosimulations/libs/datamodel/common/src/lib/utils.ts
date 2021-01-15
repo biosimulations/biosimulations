@@ -74,7 +74,7 @@ function getSchemaTypeOptions(
   return { readOnly: false, isRequired, defaultValue };
 }
 
-export function addValidationForNullableAttributes(schema: Schema): void {
+export function addValidationForNullableAttributes(schema: Schema<any>): void {
   Object.entries(schema).forEach((keyVal: [string, any[]]): void => {
     const key = keyVal[0];
     const val = keyVal[1];
