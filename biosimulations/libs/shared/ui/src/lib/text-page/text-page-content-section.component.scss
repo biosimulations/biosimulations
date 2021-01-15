@@ -21,5 +21,9 @@ biosimulations-text-page-section ::ng-deep h3 {
   padding: 0 0.5rem;
   border-radius: 4px;
   background: $light-background;
-  margin-top: 1.5rem;
+  margin-block-start: 1rem;
+
+  &:not(:first-child) {
+    margin-block-start: 1.5rem;
+  }
 }

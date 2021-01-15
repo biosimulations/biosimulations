@@ -147,6 +147,7 @@ $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 $theme-accent-main: #2196f3;
 $theme-accent-lighter: #9bcff9; // 55%
+$theme-accent-lightest: #d2eafc; // 80%
 $theme-accent-darker: #1479ed; // 5%
 
 body {
@@ -173,8 +174,81 @@ $mat-accent: (
 );
 $theme-accent: mat-palette($mat-accent, main, lighter, darker);
 
+$theme-tertiary-main: #38cc00;
+$theme-tertiary-lighter: #9bff75; // 55%
+$theme-tertiary-lightest: #ddffd1; // 80%
+$theme-tertiary-darker: #35c100; // 5%
+
+body {
+  --tertiary-color: #{$theme-tertiary-main};
+  --tertiary-lighter-color: #{$theme-tertiary-lighter};
+  --tertiary-darker-color: #{$theme-tertiary-darker};
+  --text-tertiary-color: #{$dark-primary-text};
+  --text-tertiary-lighter-color: #{$dark-primary-text};
+  --text-tertiary-darker-color: #{$dark-primary-text};
+}
+
+$mat-tertiary: (
+  main: $theme-tertiary-main,
+  lighter: $theme-tertiary-lighter,
+  darker: $theme-tertiary-darker,
+  200: $theme-tertiary-main,
+  // For slide toggle,
+    contrast:
+    (
+      main: $dark-primary-text,
+      lighter: $dark-primary-text,
+      darker: $dark-primary-text,
+    ),
+);
+$theme-tertiary: mat-palette($mat-tertiary, main, lighter, darker);
+
+$theme-quartenary-main: #951ed9;
+$theme-quartenary-lighter: #d097f0; // 55%
+$theme-quartenary-lightest: #efdcfa; // 85%
+$theme-quartenary-darker: #8d1cce; // 5%
+
+body {
+  --quartenary-color: #{$theme-quartenary-main};
+  --quartenary-lighter-color: #{$theme-quartenary-lighter};
+  --quartenary-darker-color: #{$theme-quartenary-darker};
+  --text-quartenary-color: #{$dark-primary-text};
+  --text-quartenary-lighter-color: #{$dark-primary-text};
+  --text-quartenary-darker-color: #{$dark-primary-text};
+}
+
+$mat-quartenary: (
+  main: $theme-quartenary-main,
+  lighter: $theme-quartenary-lighter,
+  darker: $theme-quartenary-darker,
+  200: $theme-quartenary-main,
+  // For slide toggle,
+    contrast:
+    (
+      main: $dark-primary-text,
+      lighter: $dark-primary-text,
+      darker: $dark-primary-text,
+    ),
+);
+$theme-quartenary: mat-palette($mat-quartenary, main, lighter, darker);
+
 $theme-warn-main: #f44336;
-$theme-warn-lighter: #fcc7c3;
+$theme-warn-lighter: #fcc7c3; // 75%
+$theme-warn-lightest: #fde2e0; // 85%
+$theme-warn-darker: #ef2c22;
+
+body {
+  --warn-color: #{$theme-warn-main};
+  --warn-lighter-color: #{$theme-warn-lighter};
+  --warn-darker-color: #{$theme-warn-darker};
+  --text-warn-color: #{$light-primary-text};
+  --text-warn-lighter-color: #{$dark-primary-text};
+  --text-warn-darker-color: #{$light-primary-text};
+}
+
+$theme-warn-main: #f44336;
+$theme-warn-lighter: #fcc7c3; // 75%
+$theme-warn-lightest: #fde2e0; // 85%
 $theme-warn-darker: #ef2c22;
 
 body {

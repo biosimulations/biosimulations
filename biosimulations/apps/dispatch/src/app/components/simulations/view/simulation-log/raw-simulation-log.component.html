@@ -1,0 +1,14 @@
+<biosimulations-text-page-content-section
+  [heading]="heading"
+  [ngClass]="{    
+    'queued': status === SimulationRunStatus.CREATED || status === SimulationRunStatus.QUEUED,
+    'running': status === SimulationRunStatus.RUNNING || status === SimulationRunStatus.PROCESSING,
+    'succeeded': status === SimulationRunStatus.SUCCEEDED,
+    'failed': status === SimulationRunStatus.FAILED
+  }"
+>
+  <pre *ngIf="formattedLog; else noOutput"><code [innerHTML]="formattedLog"></code></pre>
+  <ng-template #noOutput>
+    <p class="info-message">No output was produced.</p>
+  </ng-template>
+</biosimulations-text-page-content-section>

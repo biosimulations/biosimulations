@@ -1,0 +1,62 @@
+@import 'biosimulations-colors';
+
+biosimulations-text-page-side-bar-section ::ng-deep {
+  .mat-icon-button {
+    white-space: normal;
+    font-weight: normal; 
+    text-align: left;
+    text-indent: -1.25rem;
+    margin-left: 1.25rem;
+    
+    biosimulations-icon {
+      position: relative;
+      top: -3px;
+    }
+
+    &:hover {
+      color: mat-color($theme-primary);
+    }
+
+    &:active {
+      color: mat-color($theme-primary, darker);
+    }
+
+    &.mat-button-disabled {
+      pointer-events: none;
+    }
+  }
+}
+
+biosimulations-raw-simulation-log,
+biosimulations-structured-simulation-log-element {
+  ::ng-deep {
+    .queued h2 {
+      color: mat-color($theme-accent);
+      background: $theme-accent-lightest;
+    }
+
+    .running h2 {
+      color: mat-color($theme-tertiary);
+      background: $theme-tertiary-lightest;
+    }
+
+    .succeeded h2 {
+      color: mat-color($theme-primary);
+      background: $theme-primary-lightest;
+    }
+
+    .skipped h2 {
+      color: mat-color($theme-quartenary);
+      background: $theme-quartenary-lightest;
+    }
+
+    .failed h2 {
+      color: mat-color($theme-warn);
+      background: $theme-warn-lightest;
+    }
+  }
+}
+
+#content ::ng-deep pre {
+  max-height: 600px;
+}

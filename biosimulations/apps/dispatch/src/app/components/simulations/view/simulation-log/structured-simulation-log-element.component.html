@@ -1,0 +1,43 @@
+<biosimulations-text-page-content-section
+  [heading]="heading"
+  [ngClass]="{
+    'queued': log.status === SimulationStatus.QUEUED,
+    'running': log.status === SimulationStatus.RUNNING,
+    'succeeded': log.status === SimulationStatus.SUCCEEDED,
+    'skipped': log.status === SimulationStatus.SKIPPED,
+    'failed': log.status === SimulationStatus.FAILED
+  }"
+>
+  <!--
+  <ng-container *ngIf="log?.simulatorDetails as simulatorDetails">
+    <h3>Simulator details</h3>
+    <ul class="vertically-spaced">
+      <li *ngFor="let keyValue of simulatorDetails | keyvalue">
+        <b>{{ keyValue.key }}:</b> {{ keyValue.value }}
+      </li>
+    </ul>
+  </ng-container>
+-->
+
+  <ng-container *ngIf="log?.skipReason as skipReason">
+    <h3>Reason why it was skipped: {{ skipReason.category }}</h3>
+    <pre *ngIf="skipReason.message; else noSkipMessage"><code>{{ skipReason.message }}</code></pre>
+    <ng-template #noSkipMessage>
+      <p class="info-message">No details were provided.</p>
+    </ng-template>
+  </ng-container>
+  
+  <ng-container *ngIf="log?.exception as exception">
+    <h3>Exception: {{ exception.category }}</h3>
+    <pre *ngIf="exception.message; else noExceptionMessage"><code>{{ exception.message }}</code></pre>
+    <ng-template #noExceptionMessage>
+      <p class="info-message">No details were provided.</p>
+    </ng-template>
+  </ng-container>
+
+  <h3>Standard output and standard error</h3>
+  <pre *ngIf="formattedOutput; else noOutput"><code [innerHTML]="formattedOutput"></code></pre>
+  <ng-template #noOutput>
+    <p class="info-message">No output was produced.</p>
+  </ng-template>
+</biosimulations-text-page-content-section>

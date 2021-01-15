@@ -1,6 +1,5 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
-
 export interface Simulation {
   id: string;
   name: string;

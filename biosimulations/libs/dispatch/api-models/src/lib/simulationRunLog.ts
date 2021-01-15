@@ -111,6 +111,12 @@ export class SedTaskLog {
 
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
+
+  @ApiProperty({ type: String, example: 'KISAO_0000019', nullable: true })
+  algorithm: string | null;
+  
+  @ApiProperty({ type: Object, example: {method: 'simulator.cvode', arguments: {relTol: 1e-6, absTol: 1e-8}}, nullable: true })  
+  simulatorDetails: {[key: string]: any} | nullable;
 }
 
 export type SedTaskLogMap = { [id: string]: SedTaskLog };

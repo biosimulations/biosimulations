@@ -13,6 +13,7 @@ import { SimulationsRoutingModule } from './simulations-routing.module';
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 import { VisualizationComponent } from './view/visualization/visualization.component';
+import { SimulationLogModule } from './view/simulation-log/simulation-log.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { VisualizationComponent } from './view/visualization/visualization.compo
     SharedUiModule,
     BiosimulationsIconsModule,
     PlotlyViaWindowModule,
-  ]
+    SimulationLogModule,
+  ],
 })
 export class SimulationsModule { }

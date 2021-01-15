@@ -1,0 +1,138 @@
+<biosimulations-text-page
+  contentsHeading=""
+  [padded]="false"
+  alwaysFixed="calc(64px + 32px + 32px + 2rem)"
+  [tocScrollSectionScrollOffset]="128"
+>
+  <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
+    <ng-container *ngSwitchCase="StructuredLogLevel.None">
+      <biosimulations-text-page-side-bar-section heading="Raw Log" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li>Raw standard output and error for the entire job</li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
+      <biosimulations-text-page-side-bar-section heading="Combined log" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li>Combined log of the entire job</li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
+      <biosimulations-text-page-side-bar-section heading="SED document logs" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">{{ docIdLog.key }}</li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <biosimulations-text-page-side-bar-section heading="SED task &amp; output logs" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li>Tasks<ul
+            *ngIf="logHasTasks; else noTaskLogs">
+              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">
+                <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue">{{ docIdLog.key }} :: {{ taskIdLog.key }}</li>
+              </ng-container>
+            </ul
+            ><ng-template #noTaskLogs>: 
+              <span *ngIf="!archiveHasTasks" class="info-message">None</span>
+              <span *ngIf="archiveHasTasks" class="info-message">N/A</span>
+            </ng-template>
+          </li>
+          <li>Outputs<ul
+           *ngIf="logHasOutputs; else noOutputLogs">
+              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">
+                <li *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
+              </ng-container>
+            </ul
+            ><ng-template #noOutputLogs>: 
+              <span *ngIf="!archiveHasOutputs" class="info-message">None</span>
+              <span *ngIf="archiveHasOutputs" class="info-message">N/A</span>
+            </ng-template>
+          </li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <biosimulations-text-page-side-bar-section heading="Download logs" fxShow fxHide.lt-md>
+      <ul class="icon-list">
+        <li>
+          <button
+            mat-icon-button
+            class="biosimulations-icon-button"
+            title="Download raw log"
+            (click)="downloadStructuredLog()"
+            [disabled]="structuredLog === undefined"
+          >
+            <biosimulations-icon icon="download"></biosimulations-icon>
+            Structured log of the entire run
+          </button>
+        </li>
+        <li>
+          <button
+            mat-icon-button
+            class="biosimulations-icon-button"
+            title="Download raw log"
+            (click)="downloadRawLog()"
+          >
+            <biosimulations-icon icon="download"></biosimulations-icon>
+            Raw standard output and error log of the entire run
+          </button>
+        </li>
+      </ul>
+    </biosimulations-text-page-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content" [ngSwitch]="structuredLogLevel">
+    <ng-container *ngSwitchCase="StructuredLogLevel.None">
+      <biosimulations-raw-simulation-log
+        [status]="status"
+        [log]="rawLog"
+      >
+      </biosimulations-raw-simulation-log>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
+      <biosimulations-structured-simulation-log-element
+        [log]="structuredLog"
+        elementId="entire job"
+        elementType="Combined log of the"
+      >
+      </biosimulations-structured-simulation-log-element>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
+      <biosimulations-structured-simulation-log-element
+        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue"        
+        [elementId]="docIdLog.key"
+        elementType="Simulation experiment"
+        [log]="docIdLog.value"
+      >
+      </biosimulations-structured-simulation-log-element>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">
+        <biosimulations-structured-simulation-log-element
+          *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue"
+          [elementId]="docIdLog.key + ' :: ' + taskIdLog.key"
+          elementType="Task"
+          [log]="taskIdLog.value"
+        >
+        </biosimulations-structured-simulation-log-element>
+
+        <biosimulations-structured-simulation-log-element
+          *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue"
+          [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
+          elementType="Output"
+          [log]="outputIdLog.value"
+        >
+        </biosimulations-structured-simulation-log-element>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</biosimulations-text-page>

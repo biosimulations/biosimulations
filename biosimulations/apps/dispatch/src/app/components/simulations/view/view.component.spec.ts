@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewComponent } from './view.component';
 import { VisualizationComponent } from './visualization/visualization.component';
+import { SimulationLogModule } from './simulation-log/simulation-log.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,6 +33,7 @@ describe('ViewComponent', () => {
         IonicStorageModule.forRoot({
           driverOrder: ['indexeddb', 'websql', 'localstorage']
         }),
+        SimulationLogModule,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

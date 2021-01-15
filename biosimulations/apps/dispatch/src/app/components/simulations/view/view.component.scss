@@ -11,26 +11,6 @@
   }
 }
 
-.stdout {
-  margin-bottom: 1rem;
-}
-.stderr {
-  margin-top: 1rem;
-}
-
-.stdout, .stderr {
-  height: calc((100% - 1.25rem) / 2);
-  pre {
-    height: calc(100% - 16px - 2 * 0.5rem);
-  }
-}
-
-/*
-.stderr code {
-  color: red;
-}
-*/
-
 .design-visualization {
   max-width: 600px;
 }
