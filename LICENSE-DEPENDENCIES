@@ -59,21 +59,21 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/openapi-contrib/openapi-schema-to-json-schema
 │  ├─ publisher: OpenAPI Contrib
 │  └─ licenseFile: @openapi-contrib/openapi-schema-to-json-schema/README.md
-├─ @sendgrid/client@7.4.1
+├─ @sendgrid/client@7.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/client/LICENSE
-├─ @sendgrid/helpers@7.4.0
+├─ @sendgrid/helpers@7.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/helpers/LICENSE
-├─ @sendgrid/mail@7.4.1
+├─ @sendgrid/mail@7.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
