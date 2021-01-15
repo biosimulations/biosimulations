@@ -3,6 +3,7 @@
   [padded]="false"
   alwaysFixed="calc(64px + 32px + 32px + 2rem)"
   [tocScrollSectionScrollOffset]="128"
+  *ngIf="structuredLogLevel !== undefined"
 >
   <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
