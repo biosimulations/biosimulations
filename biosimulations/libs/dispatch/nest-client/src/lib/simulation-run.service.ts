@@ -49,7 +49,7 @@ export class SimulationRunService {
     async getJob(simId: string): Promise<SimulationRun> {
         const token = await this.auth.getToken();
         return this.http.get<SimulationRun>(
-            `${this.endpoint}/runs/${simId}`,
+            `${this.endpoint}/run/${simId}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
