@@ -74,7 +74,7 @@ export class StructuredSimulationLogElementComponent {
           const value = keyValue[1];
           return {
             key: keyValue[0],
-            value: typeof value === "object" ? JSON.stringify(value, null, 2) : value.toString(),
+            value: typeof value === 'object' ? JSON.stringify(value, null, 2) : value.toString(),
           }
         }
       );
