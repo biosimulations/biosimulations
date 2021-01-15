@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN}}
 
       - name: Install Node.js
         uses: actions/setup-node@v1
@@ -31,4 +33,4 @@ jobs:
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo
-          GITHUB_TOKEN: ${{ secrets.GHCR_TOKEN}} # Leave this line unchanged       
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged       
