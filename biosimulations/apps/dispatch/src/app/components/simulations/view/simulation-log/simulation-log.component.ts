@@ -118,6 +118,10 @@ export class SimulationLogComponent {
     return level;
   }
 
+  naturalComparator(a: string, b: string): number {
+    return a.key.localeCompare(b.key, undefined, { numeric: true });
+  }
+
   tocSections!: Observable<TocSection[]>;
 
   @ViewChild(TocSectionsContainerDirective)

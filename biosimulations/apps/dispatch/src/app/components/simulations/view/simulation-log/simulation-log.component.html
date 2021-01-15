@@ -24,7 +24,7 @@
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <biosimulations-text-page-side-bar-section heading="SED document logs" fxShow fxHide.lt-md>
         <ul class="vertically-spaced">
-          <li *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">{{ docIdLog.key }}</li>
+          <li *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">{{ docIdLog.key }}</li>
         </ul>
       </biosimulations-text-page-side-bar-section>
     </ng-container>
@@ -34,8 +34,8 @@
         <ul class="vertically-spaced">
           <li>Tasks<ul
             *ngIf="logHasTasks; else noTaskLogs">
-              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">
-                <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue">{{ docIdLog.key }} :: {{ taskIdLog.key }}</li>
+              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+                <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator">{{ docIdLog.key }} :: {{ taskIdLog.key }}</li>
               </ng-container>
             </ul
             ><ng-template #noTaskLogs>: 
@@ -45,8 +45,8 @@
           </li>
           <li>Outputs<ul
            *ngIf="logHasOutputs; else noOutputLogs">
-              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">
-                <li *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
+              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+                <li *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
               </ng-container>
             </ul
             ><ng-template #noOutputLogs>: 
@@ -107,7 +107,7 @@
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <biosimulations-structured-simulation-log-element
-        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue"        
+        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator"        
         [elementId]="docIdLog.key"
         elementType="Simulation experiment"
         [log]="docIdLog.value"
@@ -116,9 +116,9 @@
     </ng-container>
 
     <ng-container *ngSwitchDefault>
-      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue">
+      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
         <biosimulations-structured-simulation-log-element
-          *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue"
+          *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator"
           [elementId]="docIdLog.key + ' :: ' + taskIdLog.key"
           elementType="Task"
           [log]="taskIdLog.value"
@@ -126,7 +126,7 @@
         </biosimulations-structured-simulation-log-element>
 
         <biosimulations-structured-simulation-log-element
-          *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue"
+          *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator"
           [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
           elementType="Output"
           [log]="outputIdLog.value"
