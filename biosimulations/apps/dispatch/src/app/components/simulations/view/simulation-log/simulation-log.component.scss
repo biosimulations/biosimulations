@@ -30,42 +30,8 @@ biosimulations-text-page-side-bar-section ::ng-deep {
 biosimulations-raw-simulation-log,
 biosimulations-structured-simulation-log-element {
   ::ng-deep {
-    .queued h2 {
-      color: mat-color($theme-accent);
-      background: $theme-accent-lightest;
-    }
-
-    .running h2 {
-      color: mat-color($theme-tertiary);
-      background: $theme-tertiary-lightest;
-    }
-
-    .succeeded h2 {
-      color: mat-color($theme-primary);
-      background: $theme-primary-lightest;
-    }
-
-    .skipped h2 {
-      color: mat-color($theme-quartenary);
-      background: $theme-quartenary-lightest;
-    }
-
-    .failed h2 {
-      color: mat-color($theme-warn);
-      background: $theme-warn-lightest;
-    }
-  }
-}
-
-biosimulations-raw-simulation-log,
-biosimulations-structured-simulation-log-element {
-  ::ng-deep {
     pre.stdout {
-      &, & > code {
-        max-height: 600px;
-        background: $dark-background;
-        color: $light-text;
-      }
+      max-height: 600px;
     }
   }
 }

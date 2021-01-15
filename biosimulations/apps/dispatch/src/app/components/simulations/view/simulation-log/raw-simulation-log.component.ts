@@ -10,8 +10,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./raw-simulation-log.component.scss'],
 })
 export class RawSimulationLogComponent {
-  SimulationRunStatus = SimulationRunStatus;
-
   constructor(private sanitizer: DomSanitizer){}
 
   heading!: string;

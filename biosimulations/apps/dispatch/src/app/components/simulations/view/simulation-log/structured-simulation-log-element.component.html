@@ -1,12 +1,6 @@
 <biosimulations-text-page-content-section
   [heading]="heading"
-  [ngClass]="{
-    'queued': log.status === SimulationStatus.QUEUED,
-    'running': log.status === SimulationStatus.RUNNING,
-    'succeeded': log.status === SimulationStatus.SUCCEEDED,
-    'skipped': log.status === SimulationStatus.SKIPPED,
-    'failed': log.status === SimulationStatus.FAILED
-  }"
+  [class]="['status-section', log.status]"
 >
   <ng-container *ngIf="algorithmKisaoTerm | async as algorithm">
     <h3>Executed algorithm: {{ algorithm.name }} (<a [href]="algorithm.url" target="_blank">{{ algorithm.id }}</a>)</h3>
@@ -50,9 +44,11 @@
     </ng-template>
   </ng-container>
 
-  <h3>Standard output and standard error</h3>
-  <pre *ngIf="formattedOutput; else noOutput" class="stdout"><code [innerHTML]="formattedOutput"></code></pre>
-  <ng-template #noOutput>
-    <p class="info-message">No output was produced.</p>
-  </ng-template>
+  <ng-container *ngIf="!queued">
+    <h3>Standard output and standard error</h3>
+    <pre *ngIf="formattedOutput; else noOutput" class="stdout dark"><code [innerHTML]="formattedOutput"></code></pre>
+    <ng-template #noOutput>
+      <p class="info-message">{{ noOutputMessage }}</p>
+    </ng-template>
+  </ng-container>
 </biosimulations-text-page-content-section>

@@ -349,6 +349,13 @@ code, code.hljs, pre {
   color: $dark-primary-text;
 }
 
+pre.dark {
+  &, code {
+    background: $dark-background;
+    color: $light-text;
+  }
+}
+
 .code {
   font-family: monospace;
 }
@@ -611,5 +618,57 @@ table {
 .ragged-columns {
   .column {
     height: max-content;
+  }
+}
+
+/* status colors */
+.status-label {
+  &.CREATED, &.QUEUED {
+    color: mat-color($theme-primary);
+  }
+
+  &.RUNNING, &.PROCESSING {
+    color: mat-color($theme-tertiary);
+  }
+
+  &.SUCCEEDED {
+    color: $dark-primary-text;
+  }
+
+  &.SKIPPED {
+    color: mat-color($theme-accent);
+  }
+
+  &.FAILED {
+    color: mat-color($theme-warn);
+  }
+}
+
+.status-section {
+  &.CREATED h2,
+  &.QUEUED h2 {
+    color: mat-color($theme-primary);
+    background: $theme-primary-lightest;
+  }
+
+  &.RUNNING h2,
+  &.PROCESSING h2 {
+    color: mat-color($theme-tertiary);
+    background: $theme-tertiary-lightest;
+  }
+
+  &.SUCCEEDED h2 {
+    color: $dark-primary-text;
+    background: $light-background;
+  }
+
+  &.SKIPPED h2 {
+    color: mat-color($theme-accent);
+    background: $theme-accent-lightest;
+  }
+
+  &.FAILED h2 {
+    color: mat-color($theme-warn);
+    background: $theme-warn-lightest;
   }
 }

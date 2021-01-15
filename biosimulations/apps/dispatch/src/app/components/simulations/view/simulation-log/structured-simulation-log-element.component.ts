@@ -28,8 +28,6 @@ interface SimulatorDetail {
   styleUrls: ['./structured-simulation-log-element.component.scss'],
 })
 export class StructuredSimulationLogElementComponent {
-  SimulationStatus = SimulationStatus;
-
   constructor(private sanitizer: DomSanitizer, private ontologyService: OntologyService){}
 
   @Input()
@@ -42,6 +40,8 @@ export class StructuredSimulationLogElementComponent {
 
   private _log!: logTypes;
 
+  queued = true;
+  noOutputMessage = '';
   formattedOutput!: SafeHtml | undefined;
 
   algorithmKisaoTerm: Observable<KisaoTerm> | undefined;
@@ -52,6 +52,21 @@ export class StructuredSimulationLogElementComponent {
   set log(value: logTypes) {
     this._log = value;
     this.heading = this.getHeading();
+
+    switch (value.status) {
+      case SimulationStatus.QUEUED:
+        this.queued = true;
+        this.noOutputMessage = '';
+        break;
+      case SimulationStatus.RUNNING:
+        this.queued = false;
+        this.noOutputMessage = 'Output is not yet available.';
+        break;
+      default:
+        this.queued = false;
+        this.noOutputMessage = 'No output was produced.';
+        break;
+    }
 
     const convert = new Convert();
     this.formattedOutput = value?.output ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value.output)) : undefined;

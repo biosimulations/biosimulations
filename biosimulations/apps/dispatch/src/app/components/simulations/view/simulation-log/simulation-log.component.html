@@ -6,6 +6,12 @@
 >
   <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+        <ul>
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
       <biosimulations-text-page-side-bar-section heading="Raw Log" fxShow fxHide.lt-md>
         <ul class="vertically-spaced">
           <li>Raw standard output and error for the entire job</li>
@@ -14,59 +20,160 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+        <ul>
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
       <biosimulations-text-page-side-bar-section heading="Combined log" fxShow fxHide.lt-md>
-        <ul class="vertically-spaced">
+        <ul>
           <li>Combined log of the entire job</li>
         </ul>
       </biosimulations-text-page-side-bar-section>
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
-      <biosimulations-text-page-side-bar-section heading="SED document logs" fxShow fxHide.lt-md>
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
         <ul class="vertically-spaced">
-          <li *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">{{ docIdLog.key }}</li>
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+          <li>Simulation experiments ({{ numSedDocuments }})
+            <ul>
+              <li *ngFor="let statusCount of sedDocumentStatusCounts">
+                <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
+      <biosimulations-text-page-side-bar-section heading="Experiments" fxShow fxHide.lt-md>
+        <ul>
+          <li *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+            <span [class]="['status-label', docIdLog.value.status]">{{ docIdLog.key }} ({{ docIdLog.value.status | slice : 0 : 1 }})</span>
+          </li>
         </ul>
       </biosimulations-text-page-side-bar-section>
     </ng-container>
 
     <ng-container *ngSwitchDefault>
-      <biosimulations-text-page-side-bar-section heading="SED task &amp; output logs" fxShow fxHide.lt-md>
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
         <ul class="vertically-spaced">
-          <li>Tasks<ul
-            *ngIf="logHasTasks; else noTaskLogs">
-              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-                <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator">{{ docIdLog.key }} :: {{ taskIdLog.key }}</li>
-              </ng-container>
-            </ul
-            ><ng-template #noTaskLogs>:
-              <span *ngIf="!archiveHasTasks" class="info-message">None</span>
-              <span *ngIf="archiveHasTasks" class="info-message">N/A</span>
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+
+          <li>Simulation experiments ({{ numSedDocuments }})
+            <ul>
+              <li *ngFor="let statusCount of sedDocumentStatusCounts">
+                <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+              </li>
+            </ul>
+          </li>
+
+          <li>Tasks<ng-container
+            *ngIf="logHasTasks; else logNotAvailable"
+            >
+              ({{ numTasks }})
+              <ul>
+                <li *ngFor="let statusCount of taskStatusCounts">
+                  <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
             </ng-template>
           </li>
-          <li>Reports<ul
-           *ngIf="logHasReports; else noReportLogs">
-              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-                <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
-                  <li *ngIf="outputIdLog.value?.dataSets">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
-                </ng-container>
-              </ng-container>
-            </ul
-            ><ng-template #noReportLogs>:
-              <span *ngIf="!archiveHasReports" class="info-message">None</span>
-              <span *ngIf="archiveHasReports" class="info-message">N/A</span>
+
+          <li>Reports<ng-container
+            *ngIf="logHasReports; else logNotAvailable"
+            >
+              ({{ numReports }})
+              <ul>
+                <li *ngFor="let statusCount of reportStatusCounts">
+                  <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
             </ng-template>
           </li>
-          <li>Plots<ul
-           *ngIf="logHasPlots; else noPlotLogs">
-              <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-                <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
-                  <li *ngIf="!outputIdLog.value?.dataSets">{{ docIdLog.key }} :: {{ outputIdLog.key }}</li>
+
+          <li>Plots<ng-container
+            *ngIf="logHasPlots; else logNotAvailable"
+            >
+              ({{ numPlots }})
+              <ul>
+                <li *ngFor="let statusCount of plotStatusCounts">
+                  <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
+      <biosimulations-text-page-side-bar-section heading="Tasks, reports &amp; plots" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li>Tasks<ng-container
+            *ngIf="logHasTasks; else logNotAvailable"
+            >
+              ({{ numTasks }})
+              <ul>
+                <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+                  <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator">
+                    <span [class]="['status-label', taskIdLog.value.status]">
+                      {{ docIdLog.key }} :: {{ taskIdLog.key }} ({{ taskIdLog.value.status | slice : 0 : 1 }})
+                    </span>
+                  </li>
                 </ng-container>
-              </ng-container>
-            </ul
-            ><ng-template #noPlotLogs>:
-              <span *ngIf="!archiveHasPlots" class="info-message">None</span>
-              <span *ngIf="archiveHasPlots" class="info-message">N/A</span>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+          <li>Reports<ng-container
+              *ngIf="logHasReports; else logNotAvailable"
+            >
+              ({{ numReports }})
+              <ul>
+                <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+                  <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+                    <li *ngIf="outputIdLog.value?.dataSets">
+                      <span [class]="['status-label', outputIdLog.value.status]">
+                        {{ docIdLog.key }} :: {{ outputIdLog.key }} ({{ outputIdLog.value.status | slice : 0 : 1 }})
+                      </span>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+          <li>Plots<ng-container
+            *ngIf="logHasPlots; else logNotAvailable"
+            >
+              ({{ numPlots }})
+              <ul>
+                <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+                  <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+                    <li *ngIf="!outputIdLog.value?.dataSets">
+                      <span [class]="['status-label', outputIdLog.value.status]">
+                        {{ docIdLog.key }} :: {{ outputIdLog.key }} ({{ outputIdLog.value.status | slice : 0 : 1 }})
+                      </span>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
             </ng-template>
           </li>
         </ul>
