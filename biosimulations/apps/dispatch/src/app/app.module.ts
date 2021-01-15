@@ -17,6 +17,8 @@ import {
 } from '@biosimulations/shared/ui';
 
 import config from '../assets/config.json';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '@biosimulations/shared/environments';
 
 const routes: Routes = [
   {
@@ -81,7 +83,8 @@ routes.forEach((route: Route): void => {
     }),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage']
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
@@ -92,4 +95,4 @@ routes.forEach((route: Route): void => {
   bootstrap: [AppComponent],
   schemas: []
 })
-export class AppModule {}
+export class AppModule { }
