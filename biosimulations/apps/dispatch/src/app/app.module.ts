@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { PwaModule } from '@biosimulations/shared/pwa'
 import {
   ErrorHandler as BiosimulationsErrorHandler,
   errorRoutes,
@@ -76,6 +77,7 @@ routes.forEach((route: Route): void => {
     BiosimulationsIconsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    PwaModule,
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
       scrollPositionRestoration: 'disabled',
