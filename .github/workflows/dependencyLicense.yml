@@ -21,18 +21,14 @@ jobs:
           npm ci
           npm run gen-dependency-license-report
 
-      - name: Create pull request for updated license report
-        id: create_pull_request
-        uses: peter-evans/create-pull-request@v3
+      - name: Commit Changes 
+        uses: EndBug/add-and-commit@v5 # You can change this to use a specific version
         with:
-          token: ${{ secrets.AUTOMERGE_TOKEN }}
-          branch: dep-licenses
-          base: dev
-          commit-message: "Updated licenses of dependencies"
-          committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
-          delete-branch: true
-          author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
-          title: Update Dependency Licenses
-          body: Updates the [LICENSE-DEPENENCIES file](https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE-DEPENDENCIES) with the latests versions and dependencies
-          labels: |
-            automerge
+          author_name: Biosimulations-Daemon
+          author_email: biosimulationsdaemon@gmail.com
+          branch: dev
+          message: 'Updated dependency licences'
+          signoff: true
+        env:
+          # This is necessary in order to push a commit to the repo
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged       
