@@ -1,7 +1,26 @@
 import { Component, Input } from '@angular/core';
-import { StructuredSimulationLog, SimulationStatus } from '../../../../simulation-logs-datamodel';
+import {
+  SedDocumentLog,
+  SedTaskLog,
+  SedReportLog,
+  SedPlot2DLog,
+  SedPlot3DLog,
+  SimulationStatus,
+  AlgorithmKisaoDescriptionFragment,
+} from '../../../../simulation-logs-datamodel';
 import * as Convert from 'ansi-to-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { map, pluck } from 'rxjs/operators';
+import { OntologyService } from '../../../../services/ontology/ontology.service';
+import { KisaoTerm } from '@biosimulations/datamodel/common';
+
+type logTypes = SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog;
+
+interface SimulatorDetail {
+  key: string;
+  value: string;
+}
 
 @Component({
   selector: 'biosimulations-structured-simulation-log-element',
@@ -11,7 +30,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class StructuredSimulationLogElementComponent {
   SimulationStatus = SimulationStatus;
 
-  constructor(private sanitizer: DomSanitizer){}
+  constructor(private sanitizer: DomSanitizer, private ontologyService: OntologyService){}
 
   @Input()
   elementId!: string;
@@ -21,20 +40,48 @@ export class StructuredSimulationLogElementComponent {
   
   heading!: string;
 
-  private _log!: StructuredSimulationLog;
+  private _log!: logTypes;
 
-  formattedOutput!: SafeHtml | null;
+  formattedOutput!: SafeHtml | undefined;
+
+  algorithmKisaoTerm: Observable<KisaoTerm> | undefined;
+  algorithmKisaoTermDescription: Observable<AlgorithmKisaoDescriptionFragment[] | undefined> | undefined;
+  formattedSimulatorDetails: SimulatorDetail[] | undefined;
 
   @Input()
-  set log(value: StructuredSimulationLog) {
+  set log(value: logTypes) {
     this._log = value;
     this.heading = this.getHeading();
 
     const convert = new Convert();
-    this.formattedOutput = value?.output ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value.output)) : null;
+    this.formattedOutput = value?.output ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value.output)) : undefined;
+
+    if ('algorithm' in value && value.algorithm) {
+      this.algorithmKisaoTerm = this.ontologyService.getKisaoTerm(value.algorithm);
+      this.algorithmKisaoTermDescription = this.algorithmKisaoTerm.pipe(
+        pluck('description'),
+        map(this.ontologyService.formatKisaoDescription)
+      );
+    } else {
+      this.algorithmKisaoTerm = undefined;
+      this.algorithmKisaoTermDescription = undefined;
+    }
+
+    if ('simulatorDetails' in value && value.simulatorDetails && Object.keys(value.simulatorDetails).length) {
+      this.formattedSimulatorDetails = Object.entries(value.simulatorDetails).map(
+        (keyValue: [string, any]): SimulatorDetail => {
+          const key = keyValue[0];
+          const value = keyValue[1];
+          return {
+            key: keyValue[0],
+            value: typeof value === "object" ? JSON.stringify(value, null, 2) : value.toString(),
+          }
+        }
+      );
+    }
   }
 
-  get log(): StructuredSimulationLog {
+  get log(): logTypes {
     return this._log;
   }
 

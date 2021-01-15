@@ -57,6 +57,15 @@ biosimulations-structured-simulation-log-element {
   }
 }
 
-#content ::ng-deep pre {
-  max-height: 600px;
+biosimulations-raw-simulation-log,
+biosimulations-structured-simulation-log-element {
+  ::ng-deep { 
+    pre.stdout {
+      &, & > code {
+        max-height: 600px;
+        background: $dark-background;
+        color: $light-text;
+      }
+    }
+  }
 }

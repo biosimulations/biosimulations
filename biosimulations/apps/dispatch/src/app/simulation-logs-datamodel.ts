@@ -112,3 +112,14 @@ export interface SimulationLogs {
   raw: RawSimulationLog;
   structured: CombineArchiveLog | undefined;
 }
+
+/* Descriptions of KiSAO terms */
+export enum AlgorithmKisaoDescriptionFragmentType {
+  text = 'text',
+  href = 'href',
+}
+
+export interface AlgorithmKisaoDescriptionFragment {
+  type: AlgorithmKisaoDescriptionFragmentType;
+  value: string;
+}

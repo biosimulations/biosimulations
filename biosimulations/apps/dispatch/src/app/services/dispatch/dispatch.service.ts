@@ -107,7 +107,7 @@ export class DispatchService {
         }
 
         // get structured log
-        const structuredLog = undefined;        
+        const structuredLog = undefined;
 
         // return combineed log
         return {

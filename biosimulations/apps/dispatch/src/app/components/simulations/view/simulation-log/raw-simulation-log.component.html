@@ -7,7 +7,7 @@
     'failed': status === SimulationRunStatus.FAILED
   }"
 >
-  <pre *ngIf="formattedLog; else noOutput"><code [innerHTML]="formattedLog"></code></pre>
+  <pre *ngIf="formattedLog; else noOutput" class="stdout"><code [innerHTML]="formattedLog"></code></pre>
   <ng-template #noOutput>
     <p class="info-message">No output was produced.</p>
   </ng-template>
