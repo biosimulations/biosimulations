@@ -60,6 +60,9 @@ export class TextPageComponent {
   });
   sideBarStyle$: Observable<SideBarStyle> = this.sideBarStyle.asObservable();
 
+  @Input()
+  compact = false;
+
   constructor(
     breakpointObserver: BreakpointObserver,
     private changeRef: ChangeDetectorRef,

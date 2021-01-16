@@ -9,6 +9,7 @@ export enum IconActionType {
   scrollToTop = 'scrollToTop',
   routerLink = 'routerLink',
   href = 'href',
+  toggle = 'toggle',
 }
 
 @Component({
@@ -21,17 +22,8 @@ export class TextPageContentSectionComponent {
   @Input()
   heading = '';
 
-  _icon = 'toTop';
-
   @Input()
-  set icon(icon: string) {
-    this._icon = icon;
-    this.setIconAction();
-  }
-
-  get icon(): string {
-    return this._icon;
-  }
+  icon = 'toTop';
 
   _iconAction!: any;
   _iconActionType = IconActionType.scrollToTop;
@@ -73,11 +65,26 @@ export class TextPageContentSectionComponent {
       this.iconRouterLink = null;
       this.iconHref = this._iconAction;
       this.iconClick = () => {};
+    } else if (this._iconActionType === IconActionType.toggle) {
+      this.icon = 'open';
+      this.closed = true;
+      this.iconRouterLink = null;
+      this.iconHref = null;
+      this.iconClick = () => {
+        this.closed = !this.closed;
+        this.icon = this.closed ? 'open' : 'close';
+      };
     }
   }
 
   @Input()
   highlight = false;
+
+  @Input()
+  compact = false;
+
+  @Input()
+  closed = false;
 
   constructor(private scrollService: ScrollService) {
   }

@@ -96,7 +96,9 @@ export type biosimulationsIcon =
   | 'funding'
   | 'spinner'
   | 'trash'
-  | 'progress';
+  | 'progress'
+  | 'open'
+  | 'close';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -204,6 +206,8 @@ export class IconComponent implements OnInit {
     spinner: { type: 'fas', name: 'spinner', spin: true },
     trash: { type: 'fas', name: 'trash' },
     progress: { type: 'fas', name: 'tasks' },
+    open: { type: 'fas', name: 'chevron-down' },
+    close: { type: 'fas', name: 'chevron-up' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

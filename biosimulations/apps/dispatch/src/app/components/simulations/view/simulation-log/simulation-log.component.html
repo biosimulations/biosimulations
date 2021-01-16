@@ -4,6 +4,7 @@
   alwaysFixed="calc(64px + 32px + 32px + 2rem)"
   [tocScrollSectionScrollOffset]="128"
   *ngIf="structuredLogLevel !== undefined"
+  [compact]="structuredLogLevel && structuredLogLevel >= StructuredLogLevel.SedDocument"
 >
   <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
@@ -246,48 +247,56 @@
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <biosimulations-structured-simulation-log-element
-        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator"
+        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc"
         [elementId]="docIdLog.key"
         elementType="Simulation experiment"
         [log]="docIdLog.value"
         [id]="'log=' + docIdLog.key"
+        [compact]="true"
+        iconActionType="toggle"
       >
       </biosimulations-structured-simulation-log-element>
     </ng-container>
 
     <ng-container *ngSwitchDefault>
-      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc">
         <biosimulations-structured-simulation-log-element
-          *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator"
+          *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator; index as iTask"
           [elementId]="docIdLog.key + ' :: ' + taskIdLog.key"
           elementType="Task"
           [log]="taskIdLog.value"
           [id]="'log=task-' + docIdLog.key + '/' + taskIdLog.key"
+          [compact]="true"
+          iconActionType="toggle"
         >
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc">
+        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator; index as iReport">
           <biosimulations-structured-simulation-log-element
             *ngIf="outputIdLog.value?.dataSets"
             [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
             elementType="Report"
             [log]="outputIdLog.value"
             [id]="'log=output-' + docIdLog.key + '/' + outputIdLog.key"
+            [compact]="true"
+            iconActionType="toggle"
           >
           </biosimulations-structured-simulation-log-element>
         </ng-container>
       </ng-container>
 
-      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
+      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc">
+        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator; index as iPlot">
           <biosimulations-structured-simulation-log-element
             *ngIf="!outputIdLog.value?.dataSets"
             [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
             elementType="Plot"
             [log]="outputIdLog.value"
             [id]="'log=output-' + docIdLog.key + '/' + outputIdLog.key"
+            [compact]="true"
+            iconActionType="toggle"
           >
           </biosimulations-structured-simulation-log-element>
         </ng-container>

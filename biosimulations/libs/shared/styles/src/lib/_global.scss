@@ -625,53 +625,22 @@ table {
 .status-label {
   &.CREATED, &.QUEUED {
     color: mat-color($theme-primary);
-    &a:hover {
-      color: darken(mat-color($theme-primary), 10%);
-    }
-    &a:active {
-      color: darken(mat-color($theme-primary), 20%);
-    }
   }
 
   &.RUNNING, &.PROCESSING {
     color: mat-color($theme-tertiary);
-    &a:hover {
-      color: darken(mat-color($theme-tertiary), 8%);
-      text-decoration-line: underline;
-    }
-    &a:active {
-      color: darken(mat-color($theme-tertiary), 16%);
-    }
   }
 
   &.SUCCEEDED {
     color: $dark-primary-text;
-    &a:hover {
-      color: darken($dark-primary-text, 10%);
-    }
-    &a:active {
-      color: darken($dark-primary-text, 20%);
-    }
   }
 
   &.SKIPPED {
     color: mat-color($theme-accent);
-    &a:hover {
-      color: darken(mat-color($theme-accent), 10%);
-    }
-    &a:active {
-      color: darken(mat-color($theme-accent), 20%);
-    }
   }
 
   &.FAILED {
     color: mat-color($theme-warn);
-    &a:hover {
-      color: darken(mat-color($theme-warn), 10%);
-    }
-    &a:active {
-      color: darken(mat-color($theme-warn), 20%);
-    }
   }
 }
 
@@ -727,26 +696,71 @@ a.status-label {
   &.QUEUED h2 {
     color: mat-color($theme-primary);
     background: $theme-primary-lightest;
+
+    .mat-icon-button.biosimulations-icon-button {
+      &:hover {
+        color: darken(mat-color($theme-primary), 10%) !important;
+      }
+      &:active {
+        color: darken(mat-color($theme-primary), 20%) !important;
+      }
+    }
   }
 
   &.RUNNING h2,
   &.PROCESSING h2 {
     color: mat-color($theme-tertiary);
     background: $theme-tertiary-lightest;
+
+    .mat-icon-button.biosimulations-icon-button {
+      &:hover {
+        color: darken(mat-color($theme-tertiary), 8%) !important;
+      }
+      &:active {
+        color: darken(mat-color($theme-tertiary), 16%) !important;
+      }
+    }
   }
 
   &.SUCCEEDED h2 {
     color: $dark-primary-text;
     background: $light-background;
+
+    .mat-icon-button.biosimulations-icon-button {
+      &:hover {
+        color: darken(#333333, 15%) !important;
+      }
+      &:active {
+        color: darken(#333333, 30%) !important;
+      }
+    }
   }
 
   &.SKIPPED h2 {
     color: mat-color($theme-accent);
     background: $theme-accent-lightest;
+
+    .mat-icon-button.biosimulations-icon-button {
+      &:hover {
+        color: darken(mat-color($theme-accent), 7%) !important;
+      }
+      &:active {
+        color: darken(mat-color($theme-accent), 14%) !important;
+      }
+    }
   }
 
   &.FAILED h2 {
     color: mat-color($theme-warn);
     background: $theme-warn-lightest;
+
+    .mat-icon-button.biosimulations-icon-button {
+      &:hover {
+        color: darken(mat-color($theme-warn), 15%) !important;
+      }
+      &:active {
+        color: darken(mat-color($theme-warn), 30%) !important;
+      }
+    }
   }
 }

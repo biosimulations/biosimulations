@@ -76,6 +76,8 @@ import {
   faSpinner,
   faFlask,
   faTrash,
+  faChevronUp,
+  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare, faOsi } from '@fortawesome/free-brands-svg-icons';
 import { far, faFile, faFileAlt as farFileAlt, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
@@ -139,6 +141,8 @@ export class BiosimulationsIconsModule {
       faSpinner,
       faFlask,
       faTrash,
+      faChevronUp,
+      faChevronDown,
       faTable,
       faDownload,
       faUpload,

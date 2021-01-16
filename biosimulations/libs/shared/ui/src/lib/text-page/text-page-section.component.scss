@@ -102,3 +102,40 @@ h2 {
     }
   }
 }
+
+/* compact */
+.compact {
+  margin-top: 0;
+  border-radius: 0;
+  border-top: 1px solid #eee;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+
+  h2 {
+    border-radius: 0;
+  }
+
+  .content {
+    padding: 0.5rem;    
+
+    ::ng-deep {
+      h3 {
+        margin-block-start: 0;
+        margin-bottom: 0.25rem;
+        padding: 0 0.25rem;
+      }
+
+      pre {
+        padding: 0 0.25rem;
+      }
+    }
+  }
+}
+
+
+/* closed */
+.closed {
+  .content {
+    display: none;
+  }
+}

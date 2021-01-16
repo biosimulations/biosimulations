@@ -114,4 +114,10 @@ export class StructuredSimulationLogElementComponent {
       + ')'
     );
   }
+
+  @Input()
+  compact = false;
+
+  @Input()
+  iconActionType = 'scrollToTop';
 }

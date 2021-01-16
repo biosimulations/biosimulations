@@ -1,15 +1,37 @@
-<div class="container" [ngClass]="{'highlight-container': highlight}">
+<div
+  class="container"
+  [ngClass]="{ 'highlight-container': highlight, 'compact': compact, 'closed': closed }"
+>
   <h2>
     <div class="heading">{{ heading }}</div>
-    <a *ngIf="icon"
-        mat-icon-button
-        class="icon-container biosimulations-icon-button"
-        [routerLink]="iconRouterLink"
-        [href]="iconHref" [target]="iconHref != null ? '_blank' : null"
-        (click)="iconClick()"
-    >
-      <biosimulations-icon [icon]="icon"></biosimulations-icon>
-    </a>
+    <ng-container *ngIf="icon">
+      <a *ngIf="iconRouterLink; else noRouterLink"
+          mat-icon-button
+          class="icon-container biosimulations-icon-button"
+          [routerLink]="iconRouterLink"
+      >
+        <biosimulations-icon [icon]="icon"></biosimulations-icon>
+      </a>
+
+      <ng-template #noRouterLink>
+        <a *ngIf="iconHref; else noRouterHref"
+            mat-icon-button
+            class="icon-container biosimulations-icon-button"
+            [href]="iconHref" target="_blank"
+        >
+          <biosimulations-icon [icon]="icon"></biosimulations-icon>
+        </a>
+
+        <ng-template #noRouterHref>
+          <a mat-icon-button
+            class="icon-container biosimulations-icon-button"
+            (click)="iconClick()"
+          >
+            <biosimulations-icon [icon]="icon"></biosimulations-icon>
+          </a>
+        </ng-template>
+      </ng-template>
+    </ng-container>
     <div class="clear-float"></div>
   </h2>
   <div class="content">
