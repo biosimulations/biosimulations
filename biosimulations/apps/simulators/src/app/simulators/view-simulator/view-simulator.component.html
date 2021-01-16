@@ -572,7 +572,11 @@
                 </li>
                 <li>Tests: {{ validationTests.numTests }}</li>
                 <ul>
-                  <li>Passed: {{ validationTests.numTestsPassed }}</li>
+                  <li>Passed: {{ validationTests.numTestsPassed }}
+                    <ul>
+                      <li>With warnings: {{ validationTests.numTestPassedWithWarnings }}</li>
+                    </ul>
+                  </li>
                   <li>Skipped: {{ validationTests.numTestsSkipped }}</li>
                   <li>Failed: {{ validationTests.numTestsFailed }}</li>
                 </ul>
@@ -618,6 +622,9 @@
             <biosimulations-text-page-content-section
               *ngFor="let result of validationTests.results"
               [heading]="result.case.id"
+              [class]="['status-section', result.resultType === 'Passed' && result.warnings?.length > 0 ? 'Warned' : result.resultType]"
+              [compact]="true"
+              iconActionType="toggle"
             >
               <p class="subsection-heading no-bottom-margin">Description</p>
               <p [innerHTML]="result.case.description"></p>

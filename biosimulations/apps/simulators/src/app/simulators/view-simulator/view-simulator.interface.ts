@@ -154,6 +154,7 @@ export interface ViewValidationTests {
   testSuiteVersionUrl: string;
   numTests: number;
   numTestsPassed: number;
+  numTestPassedWithWarnings: number;
   numTestsSkipped: number;
   numTestsFailed: number;
   results: ViewTestCaseResult[];
