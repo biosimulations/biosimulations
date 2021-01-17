@@ -6,7 +6,7 @@
    "duration": 6.0,
    "sedDocuments": [
       {
-         "id": "doc_1.sedml",
+         "location": "doc_1.sedml",
          "status": "SUCCEEDED",
          "exception": null,
          "skipReason": null,

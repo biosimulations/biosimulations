@@ -90,7 +90,7 @@ export class SimulationLogComponent {
       if (log?.sedDocuments) {
         this.logHasSedDocuments = true;
         this.numSedDocuments = log.sedDocuments.length;
-        log.sedDocuments.sort(this.naturalComparator);
+        log.sedDocuments.sort(this.locationComparator);
 
         for (const docLog of log.sedDocuments) {
           level = Math.max(level, StructuredLogLevel.SedDocument);
@@ -99,7 +99,7 @@ export class SimulationLogComponent {
           if (docLog?.tasks) {
             this.logHasTasks = true;
             this.numTasks += docLog.tasks.length;
-            docLog.tasks.sort(this.naturalComparator);
+            docLog.tasks.sort(this.idComparator);
 
             for (const taskLog of docLog.tasks) {
               level = Math.max(level, StructuredLogLevel.SedTaskOutput);
@@ -111,7 +111,7 @@ export class SimulationLogComponent {
           if (docLog?.outputs) {
             this.logHasReports = true;
             this.logHasPlots = true;
-            docLog.outputs.sort(this.naturalComparator);
+            docLog.outputs.sort(this.idComparator);
 
             for (const outputLog of docLog.outputs) {
               level = Math.max(level, StructuredLogLevel.SedTaskOutput);
@@ -260,7 +260,11 @@ export class SimulationLogComponent {
     return array;
   }
 
-  naturalComparator(a: any, b: any): number {
+  locationComparator(a: any, b: any): number {
+    return a.location.localeCompare(b.location, undefined, { numeric: true });
+  }
+
+  idComparator(a: any, b: any): number {
     return a.id.localeCompare(b.id, undefined, { numeric: true });
   }
 

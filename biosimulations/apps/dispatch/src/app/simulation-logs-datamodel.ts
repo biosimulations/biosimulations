@@ -102,7 +102,7 @@ export interface SedTaskLog extends StructuredSimulationLog {
 }
 
 export interface SedDocumentLog extends StructuredSimulationLog {
-  id: string;
+  location: string;
   status: SimulationStatus;
   exception: Exception | null;
   skipReason: Exception | null;
