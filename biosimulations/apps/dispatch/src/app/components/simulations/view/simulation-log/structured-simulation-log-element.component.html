@@ -4,6 +4,8 @@
   [class]="['status-section', log.status]"
   [compact]="compact"
   [iconActionType]="iconActionType"
+  [first]="first"
+  [last]="last"
 >
   <ng-container *ngIf="algorithmKisaoTerm | async as algorithm">
     <h3>Executed algorithm: {{ algorithm.name }} (<a [href]="algorithm.url" target="_blank">{{ algorithm.id }}</a>)</h3>

@@ -86,6 +86,12 @@ export class TextPageContentSectionComponent {
   compact = false;
 
   @Input()
+  first = false;
+
+  @Input()
+  last = false;
+
+  @Input()
   closed = false;
 
   constructor(private scrollService: ScrollService) {

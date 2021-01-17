@@ -1,6 +1,12 @@
 <div
   class="container"
-  [ngClass]="{ 'highlight-container': highlight, 'compact': compact, 'closed': closed }"
+  [ngClass]="{
+    'highlight-container': highlight,
+    'compact': compact,
+    'first': first,
+    'last': last,
+    'closed': closed
+  }"
 >
   <h2>
     <div class="heading">{{ heading }}</div>

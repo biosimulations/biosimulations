@@ -121,4 +121,10 @@ export class StructuredSimulationLogElementComponent {
 
   @Input()
   iconActionType = 'scrollToTop';
+
+  @Input()
+  first = false;
+
+  @Input()
+  last = false;
 }

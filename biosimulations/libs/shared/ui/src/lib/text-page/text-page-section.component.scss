@@ -88,7 +88,7 @@ h2 {
 .highlight-container {
   border: 1px solid mat-color($theme-primary);
   border-radius: 4px;
-  
+
   h2 {
     background: mat-color($theme-primary);
     color: $light-text;
@@ -112,6 +112,10 @@ h2 {
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
 
+  &:not(.last) {
+    border-bottom: 1px solid $dark-disabled-text;
+  }
+
   h2 {
     border-radius: 0;
     @include mat-typography-level-to-styles($fontConfig, body-2);
@@ -119,7 +123,7 @@ h2 {
   }
 
   .content {
-    padding: 0.5rem;    
+    padding: 0.5rem;
 
     ::ng-deep {
       h3 {

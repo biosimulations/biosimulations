@@ -2,6 +2,8 @@ import { Component, Input, ViewChild } from '@angular/core';
 import {
   RawSimulationLog,
   CombineArchiveLog,
+  SedDocumentLog,
+  SedTaskLog,
   SedReportLog,
   SedPlot2DLog,
   SedPlot3DLog,
@@ -50,6 +52,10 @@ export class SimulationLogComponent {
   logHasTasks = false;
   logHasReports = false;
   logHasPlots = false;
+
+  structuredLogElements: (SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | undefined = undefined;
+  firstStructuredLogElement: SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog | undefined = undefined;
+  lastStructuredLogElement: SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog | undefined = undefined;
 
   @Input()
   set structuredLog(value: CombineArchiveLog | undefined) {
@@ -115,7 +121,7 @@ export class SimulationLogComponent {
                 && (outputLog as SedReportLog).dataSets
               ) {
                 const reportLog = outputLog as SedReportLog;
-                this.numReports++;                
+                this.numReports++;
                 (reportStatusCountsMap.get(reportLog.status) as StatusCount).count++;
                 if (reportLog.dataSets) {
                   level = Math.max(level, StructuredLogLevel.SedDataSetCurveSurface);
@@ -149,6 +155,42 @@ export class SimulationLogComponent {
           }
         }
       }
+    }
+
+    if (level === StructuredLogLevel.SedDocument) {
+      this.structuredLogElements = log?.sedDocuments as SedDocumentLog[];
+
+    } else if (level >= StructuredLogLevel.SedTaskOutput) {
+      const tasks: SedTaskLog[] = [];
+      const reports: SedReportLog[] = [];
+      const plots: (SedPlot2DLog | SedPlot3DLog)[] = [];
+
+      log?.sedDocuments?.forEach((docLog: SedDocumentLog): void => {
+        docLog?.tasks?.forEach((taskLog: SedTaskLog): void => {
+          tasks.push(taskLog);
+        });
+
+        docLog?.outputs?.forEach((outputLog: SedReportLog | SedPlot2DLog | SedPlot3DLog): void => {
+          if ('dataSets' in outputLog) {
+            reports.push(outputLog);
+          } else {
+            plots.push(outputLog);
+          }
+        });
+      });
+
+      this.structuredLogElements = [...tasks, ...reports, ...plots];
+
+    } else {
+      this.structuredLogElements = undefined;
+    }
+
+    if (this.structuredLogElements && this.structuredLogElements?.length > 0) {
+      this.firstStructuredLogElement = this.structuredLogElements[0];
+      this.lastStructuredLogElement = this.structuredLogElements[this.structuredLogElements.length - 1];
+    } else {
+      this.firstStructuredLogElement = undefined;
+      this.lastStructuredLogElement = undefined;
     }
 
     this.sedDocumentStatusCounts = this.convertStatusCountsMapToArray(sedDocumentStatusCountsMap);

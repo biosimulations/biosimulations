@@ -33,5 +33,11 @@ export class TextPageSectionComponent {
   compact = false;
 
   @Input()
+  first = false;
+
+  @Input()
+  last = false;
+
+  @Input()
   closed = false;
 }
