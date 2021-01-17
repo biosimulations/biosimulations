@@ -32,6 +32,7 @@ export interface StructuredSimulationLog {
 }
 
 export interface SedOutputLog extends StructuredSimulationLog {
+  id: string;
   status: SimulationStatus;
   exception: Exception | null;
   skipReason: Exception | null;
@@ -39,63 +40,76 @@ export interface SedOutputLog extends StructuredSimulationLog {
   duration: number | null;
 }
 
-export type DataSetLogs = {
-  [dataSetId: string]: SimulationStatus;
+export interface DataSetLog {
+  id: string;
+  status: SimulationStatus;
 };
 
-export type CurveLogs = {
-  [curveId: string]: SimulationStatus;
-};
+export interface CurveLog {
+  id: string;
+  status: SimulationStatus;
+}
 
-export type SurfaceLogs = {
-  [surfaceId: string]: SimulationStatus;
-};
+export interface SurfaceLog {
+  id: string;
+  status: SimulationStatus;
+}
 
 export interface SedReportLog extends SedOutputLog {
+  id: string;
   status: SimulationStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
-  dataSets: DataSetLogs | null;
+  dataSets: DataSetLog[] | null;
 }
 
 export interface SedPlot2DLog extends SedOutputLog {
+  id: string;
   status: SimulationStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
-  curves: CurveLogs | null;
+  curves: CurveLog[] | null;
 }
 
 export interface SedPlot3DLog extends SedOutputLog {
+  id: string;
   status: SimulationStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
-  surfaces: SurfaceLogs | null;
+  surfaces: SurfaceLog[] | null;
+}
+
+export interface SimulatorDetail {
+  key: string;
+  value: any;
 }
 
 export interface SedTaskLog extends StructuredSimulationLog {
+  id: string;
   status: SimulationStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
-  algorithm: string;
-  simulatorDetails: {[key: string]: any}
+  algorithm: string | null;
+  simulatorDetails: SimulatorDetail[] | null;
 }
 
 export interface SedDocumentLog extends StructuredSimulationLog {
+  id: string;
   status: SimulationStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
-  tasks: {[taskId: string]: SedTaskLog} | null;
-  outputs: {[outputId: string]: SedOutputLog | null} | null;
+  tasks: SedTaskLog[] | null;
+  outputs: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null;
 }
 
 export interface CombineArchiveLog extends StructuredSimulationLog {
@@ -104,7 +118,7 @@ export interface CombineArchiveLog extends StructuredSimulationLog {
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
-  sedDocuments: {[sedDocumentId: string]: SedDocumentLog} | null;
+  sedDocuments: SedDocumentLog[] | null;
 }
 
 /* Logs */

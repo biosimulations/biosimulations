@@ -4,8 +4,9 @@
    "skipReason": null,
    "output": null,
    "duration": 6.0,
-   "sedDocuments": {
-      "doc_1.sedml": {
+   "sedDocuments": [
+      {
+         "id": "doc_1.sedml",
          "status": "FAILED",
          "exception": {
           "type": "FileNotFoundError",
@@ -17,5 +18,5 @@
          "tasks": null,
          "outputs": null
       }
-   }
+   ]
 }

@@ -6,6 +6,7 @@ import {
   SedPlot2DLog,
   SedPlot3DLog,
   SimulationStatus,
+  SimulatorDetail,
   AlgorithmKisaoDescriptionFragment,
 } from '../../../../simulation-logs-datamodel';
 import * as Convert from 'ansi-to-html';
@@ -17,7 +18,7 @@ import { KisaoTerm } from '@biosimulations/datamodel/common';
 
 type logTypes = SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog;
 
-interface SimulatorDetail {
+interface FormattedSimulatorDetail {
   key: string;
   value: string;
 }
@@ -46,7 +47,7 @@ export class StructuredSimulationLogElementComponent {
 
   algorithmKisaoTerm: Observable<KisaoTerm> | undefined;
   algorithmKisaoTermDescription: Observable<AlgorithmKisaoDescriptionFragment[] | undefined> | undefined;
-  formattedSimulatorDetails: SimulatorDetail[] | undefined;
+  formattedSimulatorDetails: FormattedSimulatorDetail[] | undefined;
 
   @Input()
   set log(value: logTypes) {
@@ -82,13 +83,13 @@ export class StructuredSimulationLogElementComponent {
       this.algorithmKisaoTermDescription = undefined;
     }
 
-    if ('simulatorDetails' in value && value.simulatorDetails && Object.keys(value.simulatorDetails).length) {
-      this.formattedSimulatorDetails = Object.entries(value.simulatorDetails).map(
-        (keyValue: [string, any]): SimulatorDetail => {
-          const key = keyValue[0];
-          const value = keyValue[1];
+    if ('simulatorDetails' in value && value?.simulatorDetails?.length) {
+      this.formattedSimulatorDetails = value.simulatorDetails.map(
+        (keyValue: SimulatorDetail): FormattedSimulatorDetail => {
+          const key = keyValue.key;
+          const value = keyValue.value;
           return {
-            key: keyValue[0],
+            key: key,
             value: typeof value === 'object' ? JSON.stringify(value, null, 2) : value.toString(),
           }
         }

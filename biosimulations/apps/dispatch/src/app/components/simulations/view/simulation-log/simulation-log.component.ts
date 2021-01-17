@@ -2,14 +2,9 @@ import { Component, Input, ViewChild } from '@angular/core';
 import {
   RawSimulationLog,
   CombineArchiveLog,
-  SedDocumentLog,
-  SedTaskLog,
   SedReportLog,
   SedPlot2DLog,
   SedPlot3DLog,
-  DataSetLogs,
-  CurveLogs,
-  SurfaceLogs,
   SimulationStatus,
   StructuredLogLevel,
 } from '../../../../simulation-logs-datamodel';
@@ -59,14 +54,14 @@ export class SimulationLogComponent {
   @Input()
   set structuredLog(value: CombineArchiveLog | undefined) {
     this._structuredLog = value;
-    this.getStructuredLogLevel(value);
+    this.procssStructuredLog(value);
   }
 
   get structuredLog(): CombineArchiveLog | undefined {
     return this._structuredLog;
   }
 
-  private getStructuredLogLevel(log: CombineArchiveLog | undefined) {
+  private procssStructuredLog(log: CombineArchiveLog | undefined) {
     let level: StructuredLogLevel = StructuredLogLevel.None;
     this.numSedDocuments = 0;
     this.numTasks = 0;
@@ -88,18 +83,21 @@ export class SimulationLogComponent {
 
       if (log?.sedDocuments) {
         this.logHasSedDocuments = true;
+        this.numSedDocuments = log.sedDocuments.length;
+        log.sedDocuments.sort(this.naturalComparator);
 
-        for (const docLog of Object.values(log.sedDocuments)) {
+        for (const docLog of log.sedDocuments) {
           level = Math.max(level, StructuredLogLevel.SedDocument);
-          this.numSedDocuments++;
-          (sedDocumentStatusCountsMap.get((docLog as SedDocumentLog).status) as StatusCount).count++;
+          (sedDocumentStatusCountsMap.get(docLog.status) as StatusCount).count++;
 
           if (docLog?.tasks) {
             this.logHasTasks = true;
-            for (const taskLog of Object.values(docLog.tasks)) {
+            this.numTasks += docLog.tasks.length;
+            docLog.tasks.sort(this.naturalComparator);
+
+            for (const taskLog of docLog.tasks) {
               level = Math.max(level, StructuredLogLevel.SedTaskOutput);
-              this.numTasks++;
-              (taskStatusCountsMap.get((taskLog as SedTaskLog).status) as StatusCount).count++;
+              (taskStatusCountsMap.get(taskLog.status) as StatusCount).count++;
               break;
             }
           }
@@ -107,20 +105,20 @@ export class SimulationLogComponent {
           if (docLog?.outputs) {
             this.logHasReports = true;
             this.logHasPlots = true;
+            docLog.outputs.sort(this.naturalComparator);
 
-            for (const outputLog of Object.values(docLog.outputs)) {
+            for (const outputLog of docLog.outputs) {
               level = Math.max(level, StructuredLogLevel.SedTaskOutput);
 
               if (outputLog
                 && 'dataSets' in outputLog
                 && (outputLog as SedReportLog).dataSets
               ) {
-                this.numReports++;
-                (reportStatusCountsMap.get((outputLog as SedReportLog).status) as StatusCount).count++;
-                const dataSetLogs = (outputLog as SedReportLog).dataSets as DataSetLogs;
-                for (const dataSetLog of Object.values(dataSetLogs)) {
+                const reportLog = outputLog as SedReportLog;
+                this.numReports++;                
+                (reportStatusCountsMap.get(reportLog.status) as StatusCount).count++;
+                if (reportLog.dataSets) {
                   level = Math.max(level, StructuredLogLevel.SedDataSetCurveSurface);
-                  break;
                 }
               }
 
@@ -129,11 +127,10 @@ export class SimulationLogComponent {
                 && (outputLog as SedPlot2DLog).curves
               ) {
                 this.numPlots++;
-                (plotStatusCountsMap.get((outputLog as SedPlot2DLog).status) as StatusCount).count++;
-                const curveLogs = (outputLog as SedPlot2DLog).curves as CurveLogs;
-                for (const curveLog of Object.values(curveLogs)) {
+                const plot2dLog = outputLog as SedPlot2DLog;
+                (plotStatusCountsMap.get(plot2dLog.status) as StatusCount).count++;
+                if (plot2dLog.curves) {
                   level = Math.max(level, StructuredLogLevel.SedDataSetCurveSurface);
-                  break;
                 }
               }
 
@@ -142,11 +139,10 @@ export class SimulationLogComponent {
                 && (outputLog as SedPlot3DLog).surfaces
               ) {
                 this.numPlots++;
-                (plotStatusCountsMap.get((outputLog as SedPlot3DLog).status) as StatusCount).count++;
-                const surfaceLogs = (outputLog as SedPlot3DLog).surfaces as SurfaceLogs;
-                for (const surfaceLog of Object.values(surfaceLogs)) {
+                const plot3dLog = outputLog as SedPlot3DLog;
+                (plotStatusCountsMap.get(plot3dLog.status) as StatusCount).count++;
+                if (plot3dLog.surfaces) {
                   level = Math.max(level, StructuredLogLevel.SedDataSetCurveSurface);
-                  break;
                 }
               }
             }
@@ -222,8 +218,8 @@ export class SimulationLogComponent {
     return array;
   }
 
-  naturalComparator(a: {key: string, value: any}, b: {key: string, value: any}): number {
-    return a.key.localeCompare(b.key, undefined, { numeric: true });
+  naturalComparator(a: any, b: any): number {
+    return a.id.localeCompare(b.id, undefined, { numeric: true });
   }
 
   tocSections!: Observable<TocSection[]>;

@@ -10,9 +10,7 @@ import {
 import {
   SimulationLogs,
   RawSimulationLog,
-  SedReportLog,
-  SedPlot2DLog,
-  SedPlot3DLog,
+  CombineArchiveLog,
   SimulationStatus,
 } from '../../simulation-logs-datamodel';
 
@@ -107,7 +105,7 @@ export class DispatchService {
         }
 
         // get structured log
-        const structuredLog = undefined;
+        const structuredLog: CombineArchiveLog | undefined = undefined;
 
         // return combineed log
         return {

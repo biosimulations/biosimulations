@@ -51,12 +51,12 @@
 
       <biosimulations-text-page-side-bar-section heading="Experiments" fxShow fxHide.lt-md>
         <ul>
-          <li *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
+          <li *ngFor="let docLog of structuredLog.sedDocuments">
             <a
-              [class]="['status-label', docIdLog.value.status]"
-              (click)="scrollToElement('log=' + docIdLog.key)"
+              [class]="['status-label', docLog.status]"
+              (click)="scrollToElement('log=' + docLog.id)"
             >
-              {{ docIdLog.key }} ({{ docIdLog.value.status | slice : 0 : 1 }})
+              {{ docLog.id }} ({{ docLog.status | slice : 0 : 1 }})
             </a>
           </li>
         </ul>
@@ -130,13 +130,13 @@
             >
               ({{ numTasks }})
               <ul>
-                <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-                  <li *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator">
+                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                  <li *ngFor="let taskLog of docLog.tasks">
                     <a
-                      [class]="['status-label', taskIdLog.value.status]"
-                      (click)="scrollToElement('log=task-' + docIdLog.key + '/' + taskIdLog.key)"
+                      [class]="['status-label', taskLog.status]"
+                      (click)="scrollToElement('log=task-' + docLog.id + '/' + taskLog.id)"
                     >
-                      {{ docIdLog.key }} :: {{ taskIdLog.key }} ({{ taskIdLog.value.status | slice : 0 : 1 }})
+                      {{ docLog.id }} :: {{ taskLog.id }} ({{ taskLog.status | slice : 0 : 1 }})
                     </a>
                   </li>
                 </ng-container>
@@ -151,14 +151,14 @@
             >
               ({{ numReports }})
               <ul>
-                <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-                  <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
-                    <li *ngIf="outputIdLog.value?.dataSets">
+                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                  <ng-container *ngFor="let outputLog of docLog.outputs">
+                    <li *ngIf="outputLog?.dataSets">
                       <a
-                        [class]="['status-label', outputIdLog.value.status]"
-                        (click)="scrollToElement('log=output-' + docIdLog.key + '/' + outputIdLog.key)"
+                        [class]="['status-label', outputLog.status]"
+                        (click)="scrollToElement('log=output-' + docLog.id + '/' + outputLog.id)"
                       >
-                        {{ docIdLog.key }} :: {{ outputIdLog.key }} ({{ outputIdLog.value.status | slice : 0 : 1 }})
+                        {{ docLog.id }} :: {{ outputLog.id }} ({{ outputLog.status | slice : 0 : 1 }})
                       </a>
                     </li>
                   </ng-container>
@@ -174,14 +174,14 @@
             >
               ({{ numPlots }})
               <ul>
-                <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator">
-                  <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator">
-                    <li *ngIf="!outputIdLog.value?.dataSets">
+                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                  <ng-container *ngFor="let outputLog of docLog.outputs">
+                    <li *ngIf="!outputLog?.dataSets">
                       <a
-                        [class]="['status-label', outputIdLog.value.status]"
-                        (click)="scrollToElement('log=output-' + docIdLog.key + '/' + outputIdLog.key)"
+                        [class]="['status-label', outputLog.status]"
+                        (click)="scrollToElement('log=output-' + docLog.id + '/' + outputLog.id)"
                       >
-                        {{ docIdLog.key }} :: {{ outputIdLog.key }} ({{ outputIdLog.value.status | slice : 0 : 1 }})
+                        {{ docLog.id }} :: {{ outputLog.id }} ({{ outputLog.status | slice : 0 : 1 }})
                       </a>
                     </li>
                   </ng-container>
@@ -247,11 +247,11 @@
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <biosimulations-structured-simulation-log-element
-        *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc"
-        [elementId]="docIdLog.key"
+        *ngFor="let docLog of structuredLog.sedDocuments; index as iDoc"
+        [elementId]="docLog.id"
         elementType="Simulation experiment"
-        [log]="docIdLog.value"
-        [id]="'log=' + docIdLog.key"
+        [log]="docLog"
+        [id]="'log=' + docLog.id"
         [compact]="true"
         iconActionType="toggle"
       >
@@ -259,27 +259,27 @@
     </ng-container>
 
     <ng-container *ngSwitchDefault>
-      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc">
+      <ng-container *ngFor="let docLog of structuredLog.sedDocuments; index as iDoc">
         <biosimulations-structured-simulation-log-element
-          *ngFor="let taskIdLog of docIdLog.value.tasks | keyvalue : naturalComparator; index as iTask"
-          [elementId]="docIdLog.key + ' :: ' + taskIdLog.key"
+          *ngFor="let taskLog of docLog.tasks; index as iTask"
+          [elementId]="docLog.id + ' :: ' + taskLog.id"
           elementType="Task"
-          [log]="taskIdLog.value"
-          [id]="'log=task-' + docIdLog.key + '/' + taskIdLog.key"
+          [log]="taskLog"
+          [id]="'log=task-' + docLog.id + '/' + taskLog.id"
           [compact]="true"
           iconActionType="toggle"
         >
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc">
-        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator; index as iReport">
+      <ng-container *ngFor="let docLog of structuredLog.sedDocuments; index as iDoc">
+        <ng-container *ngFor="let outputLog of docLog.outputs; index as iReport">
           <biosimulations-structured-simulation-log-element
-            *ngIf="outputIdLog.value?.dataSets"
-            [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
+            *ngIf="outputLog?.dataSets"
+            [elementId]="docLog.id + ' :: ' + outputLog.id"
             elementType="Report"
-            [log]="outputIdLog.value"
-            [id]="'log=output-' + docIdLog.key + '/' + outputIdLog.key"
+            [log]="outputLog"
+            [id]="'log=output-' + docLog.id + '/' + outputLog.id"
             [compact]="true"
             iconActionType="toggle"
           >
@@ -287,14 +287,14 @@
         </ng-container>
       </ng-container>
 
-      <ng-container *ngFor="let docIdLog of structuredLog.sedDocuments | keyvalue : naturalComparator; index as iDoc">
-        <ng-container *ngFor="let outputIdLog of docIdLog.value.outputs | keyvalue : naturalComparator; index as iPlot">
+      <ng-container *ngFor="let docLog of structuredLog.sedDocuments; index as iDoc">
+        <ng-container *ngFor="let outputLog of docLog.outputs; index as iPlot">
           <biosimulations-structured-simulation-log-element
-            *ngIf="!outputIdLog.value?.dataSets"
-            [elementId]="docIdLog.key + ' :: ' + outputIdLog.key"
+            *ngIf="!outputLog?.dataSets"
+            [elementId]="docLog.id + ' :: ' + outputLog.id"
             elementType="Plot"
-            [log]="outputIdLog.value"
-            [id]="'log=output-' + docIdLog.key + '/' + outputIdLog.key"
+            [log]="outputLog"
+            [id]="'log=output-' + docLog.id + '/' + outputLog.id"
             [compact]="true"
             iconActionType="toggle"
           >

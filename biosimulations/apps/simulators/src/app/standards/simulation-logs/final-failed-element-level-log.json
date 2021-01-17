@@ -4,15 +4,17 @@
    "skipReason": null,
    "output": null,
    "duration": 6.0,
-   "sedDocuments": {
-      "doc_1.sedml": {
+   "sedDocuments": [
+      {
+         "id": "doc_1.sedml",
          "status": "FAILED",
          "exception": null,
          "skipReason": null,
          "output": null,
          "duration": 5.0,
-         "tasks": {
-            "task_1_ss": {
+         "tasks": [
+            {
+               "id": "task_1_ss",
                "status": "SUCCEEDED",
                "exception": null,
                "skipReason": null,
@@ -21,7 +23,8 @@
                "algorithm": null,
                "simulatorDetails": null
             },
-            "task_2_time_course": {
+            {
+               "id": "task_2_time_course",
                "status": "FAILED",
                "exception": {
                 "type": "FileNotFoundError",
@@ -33,20 +36,22 @@
                "algorithm": null,
                "simulatorDetails": null
             }
-         },
-         "outputs": {
-            "report_1": {
+         ],
+         "outputs": [
+            {
+               "id": "report_1",
                "status": "SUCCEEDED",
                "exception": null,
                "skipReason": null,
                "output": null,
                "duration": 0.1,
-               "dataSets": {
-                  "dataset_1": "SUCCEEDED",
-                  "dataset_2": "SUCCEEDED"
-               }
+               "dataSets": [
+                  {"id": "dataset_1", "status": "SUCCEEDED"},
+                  {"id": "dataset_2", "status": "SUCCEEDED"}
+               ]
             },
-            "plot_1": {
+            {
+               "id": "plot_1",
                "status": "SKIPPED",
                "exception": null,
                "skipReason": {
@@ -55,11 +60,11 @@
                },
                "output": null,
                "duration": 0.01,
-               "curves": {
-                  "curve_1": "SKIPPED"
-               }
+               "curves": [
+                  {"id": "curve_1", "status": "SKIPPED"}
+               ]
             }
-         }
+         ]
       }
-   }
+   ]
 }
