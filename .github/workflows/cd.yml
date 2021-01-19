@@ -77,19 +77,16 @@ jobs:
         
       - name: Build and Push Image
         uses: whoan/docker-build-with-cache-action@v5
-        env:
-          BRANCH: ${{ steps.extract_branch.outputs.branch }}
-          APP: ${{matrix.app}}
         with:
           username: "${{ secrets.GHCR_USERNAME }}"
           password: "${{ secrets.GHCR_TOKEN }}"
-          image_name: biosimulations/$APP
-          image_tag: $BRANCH
+          image_name: biosimulations/${{matrix.app}}
+          image_tag: ${{ steps.extract_branch.outputs.branch }}
           push_git_tag: true
           registry: ghcr.io
           context: ..
-          dockerfile: ../Dockerfile
-          build_extra_args: "--compress=true --build-arg app=$APP"          
+          dockerfile: Dockerfile
+          build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"          
   
   triggerDeployment:
     name: Trigger a new deployment of the latest images
