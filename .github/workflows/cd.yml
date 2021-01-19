@@ -64,40 +64,33 @@ jobs:
         app: ${{ fromJson(needs.listApps.outputs.apps) }}
 
     steps:
+  
       - name: Checkout repository
         uses: actions/checkout@v2
-
+        
       - name: Extract branch name
         shell: bash
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo ${GITHUB_REF#refs/heads/}
         id: extract_branch
-
-      - name: Build Docker image for app
-        working-directory: ./biosimulations
-        env: 
-          BRANCH: ${{ steps.extract_branch.outputs.branch }}
-          FILE: ../Dockerfile
-          CONTEXT: ..
-        run: |
-          echo  Building Image for ${{ matrix.app }}
-          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --tag ghcr.io/biosimulations/${{matrix.app}}:$BRANCH --build-arg app=${{ matrix.app }} --network host $CONTEXT
-      - name: Push Docker image for ${{matrix.app}}
-        working-directory: ./biosimulations
+        
+      - name: Build and Push Image
+        uses: whoan/docker-build-with-cache-action@v5
         env:
-            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
-            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-            BRANCH: ${{ steps.extract_branch.outputs.branch }}
-            FILE: ../Dockerfile
-            CONTEXT: ..
-        run: |
-            echo "Pushing Docker image for ${{ matrix.app }} ..."
-            echo $GHCR_TOKEN | docker login ghcr.io --username $GHCR_USERNAME --password-stdin
-            docker push ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA
-            docker push ghcr.io/biosimulations/${{matrix.app}}:$BRANCH
-          
-
+          BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          APP: ${{matrix.app}}
+        with:
+          username: "${{ secrets.GHCR_USERNAME }}"
+          password: "${{ secrets.GHCR_TOKEN }}"
+          image_name: biosimulations/$APP
+          image_tag: $BRANCH
+          push_git_tag: true
+          registry: ghcr.io
+          context: ..
+          dockerfile: ../Dockerfile
+          build_extra_args: "--compress=true --build-arg app=$APP"          
+  
   triggerDeployment:
     name: Trigger a new deployment of the latest images
     runs-on: ubuntu-latest
@@ -111,7 +104,7 @@ jobs:
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo ${GITHUB_REF#refs/heads/}
         id: extract_branch
-      # Change this to trigger the action in the deployment repo
+     
       - name: Call Webhook
         env:
             GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
