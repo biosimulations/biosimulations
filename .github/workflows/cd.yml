@@ -42,7 +42,7 @@ jobs:
         name: Get the list of apps
         working-directory: ./biosimulations
         run: |
-          mapfile -d " " -t appsArr < <( nx affected:apps --plain --all)
+          mapfile -d " " -t appsArr < <( nx affected:apps --plain --all | sed  's/simulators //; s/dispatch //;  s/account$//;  s/platform //')
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
 
           if [ -z "${appsArr[0]}" ]; then
