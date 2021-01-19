@@ -4265,24 +4265,6 @@
   },
   {
     "type": "programming",
-    "group": "JavaScript",
-    "extensions": [
-      ".jsx"
-    ],
-    "tmScope": "source.js.jsx",
-    "aceMode": "javascript",
-    "codemirrorMode": "jsx",
-    "codemirrorMimeType": "text/jsx",
-    "languageId": 178,
-    "name": "JSX",
-    "aliases": [
-      "jsx"
-    ],
-    "wrap": "false",
-    "searchable": "true"
-  },
-  {
-    "type": "programming",
     "aceMode": "java",
     "extensions": [
       ".j"
@@ -4377,6 +4359,7 @@
       ".jsfl",
       ".jsm",
       ".jss",
+      ".jsx",
       ".mjs",
       ".njs",
       ".pac",
@@ -9498,6 +9481,7 @@
     "wrap": true,
     "aliases": [
       "fundamental",
+      "plain text",
       "text"
     ],
     "extensions": [
