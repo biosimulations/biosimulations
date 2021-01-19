@@ -289,22 +289,18 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 1
 
-      - name: Extract branch name
-        shell: bash
-        run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo ${GITHUB_REF#refs/heads/}
-        id: extract_branch
-
-      - name: Build Docker image for app
-        working-directory: ./biosimulations
-        env: 
-          BRANCH: ${{ steps.extract_branch.outputs.branch }}
-          FILE: ../Dockerfile
-          CONTEXT: ..
-        run: |
-          echo  Building Image for ${{ matrix.app }}
-          docker build --file $FILE --tag ghcr.io/biosimulations/${{matrix.app}}:$GITHUB_SHA --build-arg app=${{ matrix.app }} --network host $CONTEXT
+      - name: Build Image
+        uses: whoan/docker-build-with-cache-action@v5
+        with:
+          username: "${{ secrets.GHCR_USERNAME }}"
+          password: "${{ secrets.GHCR_TOKEN }}"
+          image_name: biosimulations/${{matrix.app}}
+          image_tag: ${{github.sha}}
+          push_image_and_stages: false
+          registry: ghcr.io
+          context: .
+          dockerfile: Dockerfile
+          build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
 
   markDone:
     name: Mark CI as complete
