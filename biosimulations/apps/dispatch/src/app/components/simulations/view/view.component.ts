@@ -32,8 +32,8 @@ import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common'
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 interface FormattedSimulation {
   id: string;
@@ -110,7 +110,15 @@ interface DataSetIdDisabled {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit {
+
+
+  // Refactored Variables Start
   private uuid = '';
+  logs$: Observable<SimulationLogs | null> = of(null)
+  statusRunning2$: Observable<boolean> = of(true)
+  statusSuceeded$: Observable<boolean> = of(false)
+  // Refactored Variables End
+
 
   private formattedSimulation = new BehaviorSubject<
     FormattedSimulation | undefined
@@ -120,8 +128,6 @@ export class ViewComponent implements OnInit {
   private statusRunning = new BehaviorSubject<boolean>(true);
   statusRunning$ = this.statusRunning.asObservable();
 
-  private logs = new BehaviorSubject<SimulationLogs | null>(null);
-  logs$ = this.logs.asObservable();
 
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
@@ -175,6 +181,8 @@ export class ViewComponent implements OnInit {
     this.formGroup.controls.reportId.disable();
     this.formGroup.controls.xDataSetId.disable();
     this.formGroup.controls.yDataSetIds.disable();
+    const Simulation$ = this.simulationService.getSimulationByUuid(this.uuid)
+    this.statusRunning2$ = Simulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
 
     this.setSimulation();
     setTimeout(() => this.changeDetectorRef.detectChanges());
@@ -223,12 +231,8 @@ export class ViewComponent implements OnInit {
         this.statusRunning.next(statusRunning);
 
         if (!statusRunning) {
-          this.dispatchService
-            .getSimulationLogs(this.uuid)
-            .subscribe((logs: SimulationLogs) => {
-              this.logs.next(logs);
-              setTimeout(() => this.changeDetectorRef.detectChanges());
-            });
+          this.logs$ = this.dispatchService.getSimulationLogs(this.uuid)
+
         }
 
         if (statusSucceeded) {
