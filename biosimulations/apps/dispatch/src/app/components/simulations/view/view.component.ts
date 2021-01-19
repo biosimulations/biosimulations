@@ -33,7 +33,7 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common'
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { concatAll, map, shareReplay, tap } from 'rxjs/operators';
 
 interface FormattedSimulation {
   id: string;
@@ -115,18 +115,13 @@ export class ViewComponent implements OnInit {
   // Refactored Variables Start
   private uuid = '';
   logs$: Observable<SimulationLogs | null> = of(null)
-  statusRunning2$: Observable<boolean> = of(true)
+  statusRunning$: Observable<boolean> = of(true)
   statusSuceeded$: Observable<boolean> = of(false)
+  formattedSimulation$: Observable<FormattedSimulation | null> = of(null);
   // Refactored Variables End
 
 
-  private formattedSimulation = new BehaviorSubject<
-    FormattedSimulation | undefined
-  >(undefined);
-  formattedSimulation$ = this.formattedSimulation.asObservable();
 
-  private statusRunning = new BehaviorSubject<boolean>(true);
-  statusRunning$ = this.statusRunning.asObservable();
 
 
   formGroup: FormGroup;
@@ -153,6 +148,7 @@ export class ViewComponent implements OnInit {
   vizDataLayout$ = this.vizDataLayout.asObservable();
 
   @ViewChild('visualization') visualization!: VisualizationComponent;
+
 
   constructor(
     private config: ConfigService,
@@ -181,11 +177,63 @@ export class ViewComponent implements OnInit {
     this.formGroup.controls.reportId.disable();
     this.formGroup.controls.xDataSetId.disable();
     this.formGroup.controls.yDataSetIds.disable();
-    const Simulation$ = this.simulationService.getSimulationByUuid(this.uuid)
-    this.statusRunning2$ = Simulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
+    const Simulation$ = this.simulationService.getSimulationByUuid(this.uuid).pipe(shareReplay(1))
+    this.statusRunning$ = Simulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
+    this.statusSuceeded$ = Simulation$.pipe(map(value => SimulationStatusService.isSimulationStatusSucceeded(value.status)))
+    this.formattedSimulation$ = Simulation$.pipe(map<Simulation, FormattedSimulation>(this.formatSimulation.bind(this)))
+    this.logs$ = this.statusRunning$.pipe(map(running => {
+      return running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid)
+    }), concatAll())
+
+    // TODO Refactor
+    this.statusSuceeded$.subscribe(suceeded => {
+      suceeded ? this.appService.getResultStructure(this.uuid).subscribe(
+        response => {
+          this.setProjectOutputs(response as CombineArchive);
+        }) : null
+    }
+    )
 
     this.setSimulation();
     setTimeout(() => this.changeDetectorRef.detectChanges());
+  }
+  private formatSimulation(simulation: Simulation): FormattedSimulation {
+
+    const statusRunning = SimulationStatusService.isSimulationStatusRunning(
+      simulation.status
+    );
+    const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(
+      simulation.status);
+    return {
+      id: simulation.id,
+      name: simulation.name,
+      simulator: simulation.simulator,
+      simulatorVersion: simulation.simulatorVersion,
+      status: simulation.status,
+      statusRunning: statusRunning,
+      statusSucceeded: statusSucceeded,
+      statusLabel: SimulationStatusService.getSimulationStatusMessage(
+        simulation.status,
+        true
+      ),
+      runtime:
+        simulation.runtime !== undefined
+          ? Math.round(simulation.runtime / 1000).toString() + ' s'
+          : 'N/A',
+      submitted: new Date(simulation.submitted).toLocaleString(),
+      updated: new Date(simulation.updated).toLocaleString(),
+      projectSize:
+        simulation.projectSize !== undefined
+          ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
+          : '',
+      resultsSize:
+        simulation.resultsSize !== undefined
+          ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
+          : 'N/A',
+      projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+      simulatorUrl: `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
+      resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`
+    }
   }
 
   private setSimulation(): void {
@@ -198,53 +246,7 @@ export class ViewComponent implements OnInit {
         const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(
           simulation.status
         );
-        this.formattedSimulation.next({
-          id: simulation.id,
-          name: simulation.name,
-          simulator: simulation.simulator,
-          simulatorVersion: simulation.simulatorVersion,
-          status: simulation.status,
-          statusRunning: statusRunning,
-          statusSucceeded: statusSucceeded,
-          statusLabel: SimulationStatusService.getSimulationStatusMessage(
-            simulation.status,
-            true
-          ),
-          runtime:
-            simulation.runtime !== undefined
-              ? Math.round(simulation.runtime / 1000).toString() + ' s'
-              : 'N/A',
-          submitted: new Date(simulation.submitted).toLocaleString(),
-          updated: new Date(simulation.updated).toLocaleString(),
-          projectSize:
-            simulation.projectSize !== undefined
-              ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
-              : '',
-          resultsSize:
-            simulation.resultsSize !== undefined
-              ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
-              : 'N/A',
-          projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-          simulatorUrl: `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
-          resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`
-        });
-        this.statusRunning.next(statusRunning);
 
-        if (!statusRunning) {
-          this.logs$ = this.dispatchService.getSimulationLogs(this.uuid)
-
-        }
-
-        if (statusSucceeded) {
-          this.appService
-            .getResultStructure(this.uuid)
-
-            .subscribe((response: any): void => {
-
-
-              this.setProjectOutputs(response as CombineArchive);
-            });
-        }
 
         if (statusRunning) {
           setTimeout(
