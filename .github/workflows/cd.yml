@@ -81,7 +81,7 @@ jobs:
           username: "${{ secrets.GHCR_USERNAME }}"
           password: "${{ secrets.GHCR_TOKEN }}"
           image_name: biosimulations/${{matrix.app}}
-          image_tag: ${{ steps.extract_branch.outputs.branch }}, $GITHUB_SHA
+          image_tag: ${{ steps.extract_branch.outputs.branch }}, ${{github.sha}}
           push_git_tag: true
           registry: ghcr.io
           context: .
