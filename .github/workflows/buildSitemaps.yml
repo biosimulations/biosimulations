@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
+          token: ${{ secrets.GH_ACCESS_TOKEN}} 
       
       - name: Install Python 3.7 and pip
         run: |
@@ -40,15 +41,14 @@ jobs:
       - name: Build sitemap(s)
         run: python3.7 ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps ${{ github.event.inputs.apps }}
       
-      - name: Commit updated sitemaps to repository
-        uses: peter-evans/create-pull-request@v3
+      - name: Commit Changes 
+        uses: EndBug/add-and-commit@v5 # You can change this to use a specific version
         with:
-          token: ${{secrets.GITHUB_TOKEN }}
-          branch: sitemaps
-          base: dev
-          commit-message: "Updated sitemaps"
-          committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
-          author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
-          delete-branch: true
-          title: Update Sitemaps
-          body: Updates and builds the sitemaps for each app
+          author_name: Biosimulations-Daemon
+          author_email: biosimulationsdaemon@gmail.com
+          branch: dev
+          message: 'Updated sitemaps'
+          signoff: true
+        env:
+          # This is necessary in order to push a commit to the repo
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged      
