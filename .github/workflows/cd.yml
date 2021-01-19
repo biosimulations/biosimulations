@@ -80,7 +80,7 @@ jobs:
         with:
           username: "${{ secrets.GHCR_USERNAME }}"
           password: "${{ secrets.GHCR_TOKEN }}"
-          image_name: ghcr.io/biosimulations/${{matrix.app}}
+          image_name: biosimulations/${{matrix.app}}
           image_tag: ${{ steps.extract_branch.outputs.branch }}
           push_git_tag: true
           registry: ghcr.io
