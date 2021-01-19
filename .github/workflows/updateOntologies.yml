@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
+          token: ${{ secrets.GH_ACCESS_TOKEN}}
 
       - name: Install dependencies
         run: sudo apt-get install -y --no-install-recommends wget
@@ -34,18 +35,15 @@ jobs:
 
       - name: Update ontologies
         run: ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
-
-      - name: Commit updated ontologies to repository
-        uses: peter-evans/create-pull-request@v3
+        
+      - name: Commit Changes 
+        uses: EndBug/add-and-commit@v5 # You can change this to use a specific version
         with:
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
-          branch: update-ontologies
-          base: dev
-          commit-message: "Updated ontologies"
-          committer: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
-          author: BioSimulations Daemon <biosimulationsdaemon@gmail.com>
-          delete-branch: true
-          title: Update Ontologies
-          body: Updates the JSON-LD files that contains the ontologies using the latest OWL file at the IRIs
-          labels: |
-            automerge
+          author_name: Biosimulations-Daemon
+          author_email: biosimulationsdaemon@gmail.com
+          branch: dev
+          message: 'Updated Ontologies'
+          signoff: true
+        env:
+          # This is necessary in order to push a commit to the repo
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged   
