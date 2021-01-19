@@ -7,6 +7,12 @@ import {
   SimulationRun,
   UploadSimulationRun,
 } from '@biosimulations/dispatch/api-models';
+import {
+  SimulationLogs,
+  RawSimulationLog,
+  CombineArchiveLog,
+  SimulationStatus,
+} from '../../simulation-logs-datamodel';
 
 export interface SimulatorVersionsMap {
   [id: string]: string[];
@@ -85,9 +91,30 @@ export class DispatchService {
     );
   }
 
-  getSimulationLogs(uuid: string) {
+  getSimulationLogs(uuid: string): Observable<SimulationLogs> {
     const endpoint = `${urls.dispatchApi}logs/${uuid}?download=false`;
-    return this.http.get(endpoint);
+    return this.http.get(endpoint).pipe(
+      map((response: any): SimulationLogs => {
+        // get raw log
+        let rawLog: RawSimulationLog = '';
+        if (response.data === undefined) {
+          // TODO: should this be interpreted as an error message?
+          rawLog = response.message;
+        } else {
+          rawLog = response.data.output + response.data.error;
+        }
+
+        // get structured log
+        const structuredLog: CombineArchiveLog | undefined = undefined;
+
+        // return combineed log
+        return {
+          raw: rawLog,
+          structured: structuredLog,
+        };
+      })
+    );
+
   }
 
   constructor(private http: HttpClient) { }

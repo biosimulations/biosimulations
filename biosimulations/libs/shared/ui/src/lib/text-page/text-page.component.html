@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div #sectionsContainer class="sections-container content-container">
+    <div #sectionsContainer class="sections-container content-container" [ngClass]="{'compact': compact}">
       <ng-content select="#content"></ng-content>
     </div>
   </div>

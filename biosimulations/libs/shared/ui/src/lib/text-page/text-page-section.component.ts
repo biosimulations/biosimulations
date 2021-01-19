@@ -28,4 +28,16 @@ export class TextPageSectionComponent {
 
   @Input()
   highlight = false;
+
+  @Input()
+  compact = false;
+
+  @Input()
+  first = false;
+
+  @Input()
+  last = false;
+
+  @Input()
+  closed = false;
 }

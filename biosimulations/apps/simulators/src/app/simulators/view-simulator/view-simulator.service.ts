@@ -98,15 +98,19 @@ export class ViewSimulatorService {
       const validationTests: IValidationTests = sim.biosimulators.validationTests;
 
       let numTestsPassed = 0;
+      let numTestPassedWithWarnings = 0;
       let numTestsSkipped = 0;
       let numTestsFailed = 0;
       validationTests.results.forEach((result: ITestCaseResult): void => {
         if (result.resultType == TestCaseResultType.passed) {
-          numTestsPassed += 1;
+          numTestsPassed++;
+          if (result.warnings?.length > 0) {
+            numTestPassedWithWarnings++;
+          }
         } else if (result.resultType == TestCaseResultType.skipped) {
-          numTestsSkipped += 1;
+          numTestsSkipped++;
         } else{
-          numTestsFailed += 1;
+          numTestsFailed++;
         }
       });
 
@@ -151,6 +155,7 @@ export class ViewSimulatorService {
         testSuiteVersionUrl: 'https://github.com/biosimulators/Biosimulators_test_suite/releases/tag/' + validationTests.testSuiteVersion,
         numTests: validationTests.results.length,
         numTestsPassed: numTestsPassed,
+        numTestPassedWithWarnings: numTestPassedWithWarnings,
         numTestsSkipped: numTestsSkipped,
         numTestsFailed: numTestsFailed,
         results: viewResults,

@@ -5,3 +5,4 @@ declare module 'highlight.js/lib/languages/typescript';
 declare module 'highlight.js/lib/languages/yaml';
 declare module 'highlight.js/lib/core';
 declare module '@openapi-contrib/openapi-schema-to-json-schema';
+declare module 'ansi-to-html';

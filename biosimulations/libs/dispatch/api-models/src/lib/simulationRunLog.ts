@@ -1,16 +1,7 @@
 import {
   ApiProperty,
 } from '@nestjs/swagger';
-import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { SimulationRunLogStatus as Status } from '@biosimulations/datamodel/common';
-
-export type SedOutputElementStatusMap = { [id: string]: Status };
-export const SedOutputElementStatusMapArraySchema: SchemaObject = { type: 'array', items: { type: 'Status' } };
-export const SedOutputElementStatusMapSchema: Omit<SchemaObject, 'required'> = {
-  type: 'object',
-  additionalProperties: SedOutputElementStatusMapArraySchema,
-  nullable: true,
-};
 
 export class Exception {
   @ApiProperty({ type: String, example: 'FileNotFoundError' })
@@ -20,7 +11,18 @@ export class Exception {
   message!: string;
 }
 
+export class SedOutputElementLog {
+  @ApiProperty({ type: String })
+  id!: string;
+
+  @ApiProperty({ type: String, enum: Status })
+  status!: Status;
+}
+
 export class SedReportLog {
+  @ApiProperty({ type: String })
+  id!: string;
+
   @ApiProperty({ type: String, enum: Status })
   status!: Status;
 
@@ -40,11 +42,14 @@ export class SedReportLog {
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
 
-  @ApiProperty(SedOutputElementStatusMapSchema)
-  dataSets!: SedOutputElementStatusMap | null;
+  @ApiProperty({ type: [SedOutputElementLog], nullable: true })
+  dataSets!: SedOutputElementLog[] | null;
 }
 
 export class SedPlot2DLog {
+  @ApiProperty({ type: String })
+  id!: string;
+
   @ApiProperty({ type: String, enum: Status })
   status!: Status;
 
@@ -64,11 +69,14 @@ export class SedPlot2DLog {
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
 
-  @ApiProperty(SedOutputElementStatusMapSchema)
-  curves!: SedOutputElementStatusMap | null;
+  @ApiProperty({ type: [SedOutputElementLog], nullable: true })
+  curves!: SedOutputElementLog[] | null;
 }
 
 export class SedPlot3DLog {
+  @ApiProperty({ type: String })
+  id!: string;
+
   @ApiProperty({ type: String, enum: Status })
   status!: Status;
 
@@ -88,11 +96,22 @@ export class SedPlot3DLog {
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
 
-  @ApiProperty(SedOutputElementStatusMapSchema)
-  surfaces!: SedOutputElementStatusMap | null;
+  @ApiProperty({ type: [SedOutputElementLog], nullable: true })
+  surfaces!: SedOutputElementLog[] | null;
+}
+
+export class SimulatorDetail {
+  @ApiProperty({ type: String, example: 'arguments' })
+  key!: string;
+
+  @ApiProperty({ type: Object, example: {relTol: 1e-6, absTol: 1e-8} })
+  value!: any;
 }
 
 export class SedTaskLog {
+  @ApiProperty({ type: String })
+  id!: string;
+
   @ApiProperty({ type: String, enum: Status })
   status!: Status;
 
@@ -111,30 +130,18 @@ export class SedTaskLog {
 
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
-}
 
-export type SedTaskLogMap = { [id: string]: SedTaskLog };
-export type SedOutputLogMap = { [id: string]: SedReportLog | SedPlot2DLog | SedPlot3DLog };
-export const SedTaskLogMapArraySchema: SchemaObject = { type: 'array', items: { type: 'SedTaskLog' } };
-export const SedOutputLogMapArraySchema: SchemaObject = { 
-    oneOf: [
-        {type: 'array', items: { type: 'SedReportLog' }},
-        {type: 'array', items: { type: 'SedPlot2DLog' }},
-        {type: 'array', items: { type: 'SedPlot3DLog' }},
-    ],
-};
-export const SedTaskLogMapSchema: Omit<SchemaObject, 'required'> = {
-  type: 'object',
-  additionalProperties: SedTaskLogMapArraySchema,
-  nullable: true,
-};
-export const SedOutputLogMapSchema: Omit<SchemaObject, 'required'> = {
-  type: 'object',
-  additionalProperties: SedOutputLogMapArraySchema,
-  nullable: true,
-};
+  @ApiProperty({ type: String, example: 'KISAO_0000019', nullable: true })
+  algorithm: string | null;
+
+  @ApiProperty({ type: [SimulatorDetail], nullable: true })
+  simulatorDetails: SimulatorDetail[] | null;
+}
 
 export class SedDocumentLog {
+  @ApiProperty({ type: String })
+  location!: string;
+
   @ApiProperty({ type: String, enum: Status })
   status!: Status;
 
@@ -154,20 +161,22 @@ export class SedDocumentLog {
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
 
-  @ApiProperty(SedTaskLogMapSchema)
-  tasks!: SedTaskLogMap | null;
+  @ApiProperty({ type: [SedTaskLog], nullable: true })
+  tasks!: SedTaskLog[] | null;
 
-  @ApiProperty(SedOutputLogMapSchema)
-  outputs!: SedOutputLogMap | null;
+  @ApiProperty({
+    type: 'array',
+    items: {
+      oneOf: [
+        { type: SedReportLog },
+        { type: SedPlot2DLog },
+        { type: SedPlot3DLog },
+      ],
+    },
+    nullable: true
+  })
+  outputs!: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null;
 }
-
-export type SedDocumentLogMap = { [id: string]: SedDocumentLog };
-export const SedDocumentLogMapArraySchema: SchemaObject = { type: 'array', items: { type: 'SedDocumentLog' } };
-export const SedDocumentLogMapSchema: Omit<SchemaObject, 'required'> = {
-  type: 'object',
-  additionalProperties: SedDocumentLogMapArraySchema,
-  nullable: true,
-};
 
 export class CombineArchiveLog {
   @ApiProperty({ type: String, enum: Status })
@@ -189,6 +198,6 @@ export class CombineArchiveLog {
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
 
-  @ApiProperty(SedDocumentLogMapSchema)
-  sedDocuments!: SedDocumentLogMap | null;
+  @ApiProperty({ type: [SedDocumentLog], nullable: true })
+  sedDocuments!: SedDocumentLog[] | null;
 }

@@ -28,6 +28,8 @@ import {
 } from './visualization/visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation } from '../../../datamodel';
+import { SimulationLogs } from '../../../simulation-logs-datamodel';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common'
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject } from 'rxjs';
@@ -39,6 +41,7 @@ interface FormattedSimulation {
   simulator: string;
   simulatorVersion: string;
   simulatorUrl: string;
+  status: SimulationRunStatus;
   statusRunning: boolean;
   statusSucceeded: boolean;
   statusLabel: string;
@@ -58,11 +61,6 @@ interface VizApiResponse {
 
 interface CombineArchive {
   [id: string]: string[];
-}
-
-interface Logs {
-  out: string;
-  err: string;
 }
 
 interface AxisLabelType {
@@ -122,7 +120,7 @@ export class ViewComponent implements OnInit {
   private statusRunning = new BehaviorSubject<boolean>(true);
   statusRunning$ = this.statusRunning.asObservable();
 
-  private logs = new BehaviorSubject<Logs>({ out: '', err: '' });
+  private logs = new BehaviorSubject<SimulationLogs | null>(null);
   logs$ = this.logs.asObservable();
 
   formGroup: FormGroup;
@@ -197,6 +195,7 @@ export class ViewComponent implements OnInit {
           name: simulation.name,
           simulator: simulation.simulator,
           simulatorVersion: simulation.simulatorVersion,
+          status: simulation.status,
           statusRunning: statusRunning,
           statusSucceeded: statusSucceeded,
           statusLabel: SimulationStatusService.getSimulationStatusMessage(
@@ -226,19 +225,8 @@ export class ViewComponent implements OnInit {
         if (!statusRunning) {
           this.dispatchService
             .getSimulationLogs(this.uuid)
-            .subscribe((data: any) => {
-              if (data.data === undefined) {
-                // TODO: should this be interpreted as an error message?
-                this.logs.next({
-                  out: data.message,
-                  err: ''
-                });
-              } else {
-                this.logs.next({
-                  out: data.data.output,
-                  err: data.data.error
-                });
-              }
+            .subscribe((logs: SimulationLogs) => {
+              this.logs.next(logs);
               setTimeout(() => this.changeDetectorRef.detectChanges());
             });
         }
@@ -248,7 +236,7 @@ export class ViewComponent implements OnInit {
             .getResultStructure(this.uuid)
 
             .subscribe((response: any): void => {
-              
+
 
               this.setProjectOutputs(response as CombineArchive);
             });
@@ -409,7 +397,7 @@ export class ViewComponent implements OnInit {
   }
 
   selectedTabChange($event: MatTabChangeEvent): void {
-    if ($event.index == 3) {
+    if ($event.index == 2) {
       this.visualization.setLayout();
       this.changeDetectorRef.detectChanges();
     }

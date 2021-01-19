@@ -1,0 +1,9 @@
+<biosimulations-text-page-content-section
+  [heading]="heading"
+  [class]="['status-section', status]"
+>
+  <pre *ngIf="formattedLog; else noOutput" class="stdout dark"><code [innerHTML]="formattedLog"></code></pre>
+  <ng-template #noOutput>
+    <p class="info-message">No output was produced.</p>
+  </ng-template>
+</biosimulations-text-page-content-section>

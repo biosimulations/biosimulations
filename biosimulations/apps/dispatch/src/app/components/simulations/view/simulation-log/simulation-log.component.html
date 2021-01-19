@@ -1,0 +1,314 @@
+<biosimulations-text-page
+  contentsHeading=""
+  [padded]="false"
+  alwaysFixed="calc(64px + 32px + 32px + 2rem)"
+  [tocScrollSectionScrollOffset]="128"
+  *ngIf="structuredLogLevel !== undefined"
+  [compact]="structuredLogLevel && structuredLogLevel >= StructuredLogLevel.SedDocument"
+>
+  <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
+    <ng-container *ngSwitchCase="StructuredLogLevel.None">
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+        <ul>
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
+      <biosimulations-text-page-side-bar-section heading="Raw Log" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li><a (click)="scrollToElement('log')">Raw standard output and error for the entire job</a></li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+        <ul>
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
+      <biosimulations-text-page-side-bar-section heading="Combined log" fxShow fxHide.lt-md>
+        <ul>
+          <li><a (click)="scrollToElement('log')">Combined log of the entire job</a></li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+          <li>Simulation experiments ({{ numSedDocuments }})
+            <ul>
+              <li *ngFor="let statusCount of sedDocumentStatusCounts">
+                <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
+      <biosimulations-text-page-side-bar-section heading="Experiments" fxShow fxHide.lt-md>
+        <ul>
+          <li *ngFor="let docLog of structuredLog.sedDocuments">
+            <a
+              [class]="['status-label', docLog.status]"
+              (click)="scrollToElement('log=' + docLog.location)"
+            >
+              {{ docLog.location }} ({{ docLog.status | slice : 0 : 1 }})
+            </a>
+          </li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li>Status: <span [class]="['status-label', status]">{{ status | titlecase }}</span></li>
+
+          <li>Simulation experiments ({{ numSedDocuments }})
+            <ul>
+              <li *ngFor="let statusCount of sedDocumentStatusCounts">
+                <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+              </li>
+            </ul>
+          </li>
+
+          <li>Tasks<ng-container
+            *ngIf="logHasTasks; else logNotAvailable"
+            >
+              ({{ numTasks }})
+              <ul>
+                <li *ngFor="let statusCount of taskStatusCounts">
+                  <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+
+          <li>Reports<ng-container
+            *ngIf="logHasReports; else logNotAvailable"
+            >
+              ({{ numReports }})
+              <ul>
+                <li *ngFor="let statusCount of reportStatusCounts">
+                  <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+
+          <li>Plots<ng-container
+            *ngIf="logHasPlots; else logNotAvailable"
+            >
+              ({{ numPlots }})
+              <ul>
+                <li *ngFor="let statusCount of plotStatusCounts">
+                  <span [class]="['status-label', statusCount.color ]">{{ statusCount.label }}: {{  statusCount.count }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+
+      <biosimulations-text-page-side-bar-section heading="Tasks, reports &amp; plots" fxShow fxHide.lt-md>
+        <ul class="vertically-spaced">
+          <li>Tasks<ng-container
+            *ngIf="logHasTasks; else logNotAvailable"
+            >
+              ({{ numTasks }})
+              <ul>
+                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                  <li *ngFor="let taskLog of docLog.tasks">
+                    <a
+                      [class]="['status-label', taskLog.status]"
+                      (click)="scrollToElement('log=task-' + docLog.location + '/' + taskLog.id)"
+                    >
+                      {{ docLog.location }} :: {{ taskLog.id }} ({{ taskLog.status | slice : 0 : 1 }})
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+          <li>Reports<ng-container
+              *ngIf="logHasReports; else logNotAvailable"
+            >
+              ({{ numReports }})
+              <ul>
+                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                  <ng-container *ngFor="let outputLog of docLog.outputs">
+                    <li *ngIf="outputLog?.dataSets">
+                      <a
+                        [class]="['status-label', outputLog.status]"
+                        (click)="scrollToElement('log=output-' + docLog.location + '/' + outputLog.id)"
+                      >
+                        {{ docLog.location }} :: {{ outputLog.id }} ({{ outputLog.status | slice : 0 : 1 }})
+                      </a>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+          <li>Plots<ng-container
+            *ngIf="logHasPlots; else logNotAvailable"
+            >
+              ({{ numPlots }})
+              <ul>
+                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                  <ng-container *ngFor="let outputLog of docLog.outputs">
+                    <li *ngIf="!outputLog?.dataSets">
+                      <a
+                        [class]="['status-label', outputLog.status]"
+                        (click)="scrollToElement('log=output-' + docLog.location + '/' + outputLog.id)"
+                      >
+                        {{ docLog.location }} :: {{ outputLog.id }} ({{ outputLog.status | slice : 0 : 1 }})
+                      </a>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ul>
+            </ng-container>
+            <ng-template #logNotAvailable>
+              <span class="info-message">: N/A</span>
+            </ng-template>
+          </li>
+        </ul>
+      </biosimulations-text-page-side-bar-section>
+    </ng-container>
+
+    <biosimulations-text-page-side-bar-section heading="Download logs" fxShow fxHide.lt-md>
+      <ul class="icon-list">
+        <li>
+          <button
+            mat-icon-button
+            class="biosimulations-icon-button"
+            title="Download raw log"
+            (click)="downloadStructuredLog()"
+            [disabled]="structuredLog === undefined"
+          >
+            <biosimulations-icon icon="download"></biosimulations-icon>
+            Structured log of the entire run
+          </button>
+        </li>
+        <li>
+          <button
+            mat-icon-button
+            class="biosimulations-icon-button"
+            title="Download raw log"
+            (click)="downloadRawLog()"
+          >
+            <biosimulations-icon icon="download"></biosimulations-icon>
+            Raw standard output and error log of the entire run
+          </button>
+        </li>
+      </ul>
+    </biosimulations-text-page-side-bar-section>
+  </ng-container>
+
+  <ng-container id="content" [ngSwitch]="structuredLogLevel">
+    <ng-container *ngSwitchCase="StructuredLogLevel.None">
+      <biosimulations-raw-simulation-log
+        [status]="status"
+        [log]="rawLog"
+        id="log"
+      >
+      </biosimulations-raw-simulation-log>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
+      <biosimulations-structured-simulation-log-element
+        [log]="structuredLog"
+        elementId="entire job"
+        elementType="Combined log of the"
+        id="log"
+      >
+      </biosimulations-structured-simulation-log-element>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
+      <biosimulations-structured-simulation-log-element
+        *ngFor="let docLog of structuredLog.sedDocuments"
+        [elementId]="docLog.location"
+        elementType="Simulation experiment"
+        [log]="docLog"
+        [id]="'log=' + docLog.location"
+        [compact]="true"
+        iconActionType="toggle"
+        [first]="docLog === firstStructuredLogElement"
+        [last]="docLog === lastStructuredLogElement"
+      >
+      </biosimulations-structured-simulation-log-element>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+        <biosimulations-structured-simulation-log-element
+          *ngFor="let taskLog of docLog.tasks"
+          [elementId]="docLog.location + ' :: ' + taskLog.id"
+          elementType="Task"
+          [log]="taskLog"
+          [id]="'log=task-' + docLog.location + '/' + taskLog.id"
+          [compact]="true"
+          iconActionType="toggle"
+          [first]="taskLog === firstStructuredLogElement"
+          [last]="taskLog === lastStructuredLogElement"
+        >
+        </biosimulations-structured-simulation-log-element>
+      </ng-container>
+
+      <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+        <ng-container *ngFor="let outputLog of docLog.outputs">
+          <biosimulations-structured-simulation-log-element
+            *ngIf="outputLog?.dataSets"
+            [elementId]="docLog.location + ' :: ' + outputLog.id"
+            elementType="Report"
+            [log]="outputLog"
+            [id]="'log=output-' + docLog.location + '/' + outputLog.id"
+            [compact]="true"
+            iconActionType="toggle"
+            [first]="outputLog === firstStructuredLogElement"
+            [last]="outputLog === lastStructuredLogElement"
+          >
+          </biosimulations-structured-simulation-log-element>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+        <ng-container *ngFor="let outputLog of docLog.outputs">
+          <biosimulations-structured-simulation-log-element
+            *ngIf="!outputLog?.dataSets"
+            [elementId]="docLog.location + ' :: ' + outputLog.id"
+            elementType="Plot"
+            [log]="outputLog"
+            [id]="'log=output-' + docLog.location + '/' + outputLog.id"
+            [compact]="true"
+            iconActionType="toggle"
+            [first]="outputLog === firstStructuredLogElement"
+            [last]="outputLog === lastStructuredLogElement"
+          >
+          </biosimulations-structured-simulation-log-element>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</biosimulations-text-page>

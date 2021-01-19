@@ -1,0 +1,37 @@
+@import 'biosimulations-colors';
+
+biosimulations-text-page-side-bar-section ::ng-deep {
+  .mat-icon-button {
+    white-space: normal;
+    font-weight: normal;
+    text-align: left;
+    text-indent: -1.25rem;
+    margin-left: 1.25rem;
+
+    biosimulations-icon {
+      position: relative;
+      top: -3px;
+    }
+
+    &:hover {
+      color: mat-color($theme-primary);
+    }
+
+    &:active {
+      color: mat-color($theme-primary, darker);
+    }
+
+    &.mat-button-disabled {
+      pointer-events: none;
+    }
+  }
+}
+
+biosimulations-raw-simulation-log,
+biosimulations-structured-simulation-log-element {
+  ::ng-deep {
+    pre.stdout {
+      max-height: 600px;
+    }
+  }
+}

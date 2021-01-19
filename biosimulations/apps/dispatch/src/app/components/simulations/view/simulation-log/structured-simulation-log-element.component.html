@@ -1,0 +1,59 @@
+<biosimulations-text-page-content-section
+  *ngIf="log"
+  [heading]="heading"
+  [class]="['status-section', log.status]"
+  [compact]="compact"
+  [iconActionType]="iconActionType"
+  [first]="first"
+  [last]="last"
+>
+  <ng-container *ngIf="algorithmKisaoTerm | async as algorithm">
+    <h3>Executed algorithm: {{ algorithm.name }} (<a [href]="algorithm.url" target="_blank">{{ algorithm.id }}</a>)</h3>
+    <p *ngIf="algorithmKisaoTermDescription && (algorithmKisaoTermDescription | async)">
+      <ng-template ngFor let-fragment [ngForOf]="algorithmKisaoTermDescription | async">
+        <span *ngIf="fragment.type == 'text'; else descriptionLink">
+          {{ fragment.value }}
+        </span>
+        <ng-template #descriptionLink>
+          <a [href]="fragment.value" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+        </ng-template>
+      </ng-template>
+    </p>
+  </ng-container>
+
+  <ng-container *ngIf="formattedSimulatorDetails">
+    <h3>Simulator details</h3>
+    <ul class="vertically-spaced key-value">
+      <li *ngFor="let detail of formattedSimulatorDetails">
+        <p class="key">{{ detail.key }}</p>
+        <pre><code>{{ detail.value }}</code></pre>
+      </li>
+    </ul>
+  </ng-container>
+
+  <ng-container *ngIf="log?.skipReason as skipReason">
+    <h3>Reason why it was skipped: {{ skipReason.category }}</h3>
+    <pre *ngIf="skipReason.message; else noSkipMessage"><code>{{ skipReason.message }}</code></pre>
+    <ng-template #noSkipMessage>
+      <p class="info-message">No details were provided.</p>
+    </ng-template>
+  </ng-container>
+
+  <ng-container *ngIf="log?.exception as exception">
+    <h3>Exception: {{ exception.category }}</h3>
+    <pre *ngIf="exception.message; else noExceptionMessage"><code>{{ exception.message }}</code></pre>
+    <ng-template #noExceptionMessage>
+      <p class="info-message">No details were provided.</p>
+    </ng-template>
+  </ng-container>
+
+  <ng-container *ngIf="!queued">
+    <h3>Standard output and standard error</h3>
+    <pre *ngIf="formattedOutput; else noOutput" class="stdout dark"><code [innerHTML]="formattedOutput"></code></pre>
+    <ng-template #noOutput>
+      <p class="info-message">{{ noOutputMessage }}</p>
+    </ng-template>
+  </ng-container>
+</biosimulations-text-page-content-section>
