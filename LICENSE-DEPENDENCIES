@@ -223,6 +223,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: ansi-styles/license
+├─ ansi-to-html@0.6.14
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/rburns/ansi-to-html
+│  ├─ publisher: Rob Burns
+│  ├─ email: rburns@paiges.net
+│  ├─ url: http://rburns.paiges.net/
+│  └─ licenseFile: ansi-to-html/LICENSE-MIT.txt
 ├─ append-field@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/LinusU/node-append-field
@@ -698,6 +705,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Mathias Buus
 │  ├─ email: mathiasbuus@gmail.com
 │  └─ licenseFile: end-of-stream/LICENSE
+├─ entities@1.1.2
+│  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/fb55/entities
+│  ├─ publisher: Felix Boehm
+│  ├─ email: me@feedic.com
+│  └─ licenseFile: ansi-to-html/node_modules/entities/LICENSE
 ├─ error-stack-parser@2.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stacktracejs/error-stack-parser
