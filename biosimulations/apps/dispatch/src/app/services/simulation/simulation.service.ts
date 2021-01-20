@@ -9,6 +9,7 @@ import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
 import { concatAll, debounce, debounceTime, delay, shareReplay, tap, timeout } from 'rxjs/operators';
+import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 @Injectable({
   providedIn: 'root'
@@ -187,12 +188,12 @@ export class SimulationService {
 
   private getSimulationHttp(uuid: string): Observable<Simulation> {
     return this.httpClient
-      .get(`${urls.dispatchApi}run/${uuid}`).pipe(
-        map((data: any) => {
+      .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`).pipe(
+        map((data: SimulationRun) => {
           const dispatchSimulation = data;
           const simulation: Simulation = {
             name: dispatchSimulation.name,
-            email: dispatchSimulation.email,
+            email: dispatchSimulation.email || undefined,
             runtime: dispatchSimulation.runtime,
             id: dispatchSimulation.id,
             status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
@@ -209,6 +210,7 @@ export class SimulationService {
         )
       )
   }
+
   private updateSimulation(uuid: string) {
     const current = this.getSimulationFromCache(uuid).pipe(delay(this.config.appConfig.simulationStatusRefreshIntervalSec * 1000))
     current.subscribe(
@@ -252,6 +254,7 @@ export class SimulationService {
     }
   }
 
+  // !Deprecated
   getSimulationByUuid(uuid: string): Observable<Simulation> {
     if (uuid in this.simulationsMap) {
       return of(this.simulationsMap[uuid]);
