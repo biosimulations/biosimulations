@@ -3,17 +3,15 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+import { TaskMap } from '../../datamodel'
 
-interface TaskMap {
-  [key: string]: string[];
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class VisualizationService {
   private resultsEndpoint = `${urls.dispatchApi}results`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getReport(uuid: string, sedml: string, report: string) {
     report = encodeURIComponent(sedml + '/' + report);
@@ -23,7 +21,7 @@ export class VisualizationService {
       .pipe(map((x: any) => x.data));
   }
 
-  getResultStructure(uuid: string) {
+  getResultStructure(uuid: string): Observable<TaskMap> {
     return this.http.get(`${this.resultsEndpoint}/${uuid}?sparse=true`).pipe(
       //tap((x) => console.log(x)),
       map((result: any) => result.reports),
@@ -55,7 +53,7 @@ export class VisualizationService {
         } else {
           throw error;
         }
-      }),      
+      }),
     );
   }
 }
