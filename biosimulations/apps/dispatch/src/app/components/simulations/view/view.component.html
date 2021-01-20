@@ -2,7 +2,7 @@
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <div
       class="spinner-container"
-      *ngIf="(formattedSimulation$ | async) === undefined"
+      *ngIf="(formattedSimulation$ | async) === null"
     >
       <biosimulations-spinner> </biosimulations-spinner>
     </div>
@@ -299,7 +299,10 @@
     [disabled]="(statusRunning$ | async) || (logs$ | async) === null"
   >
     <biosimulations-simulation-log
-      *ngIf="logs$ | async as logs"
+      *ngIf="
+        (formattedSimulation$ | async)?.status != null &&
+        (logs$ | async) as logs
+      "
       [status]="(formattedSimulation$ | async)?.status"
       [rawLog]="logs.raw"
       [structuredLog]="logs.structured"

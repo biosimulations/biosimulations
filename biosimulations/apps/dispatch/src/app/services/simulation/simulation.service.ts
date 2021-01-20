@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject, of } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
+import { map } from 'rxjs/internal/operators/map';
+import { concatAll, debounce, debounceTime, delay, shareReplay, tap, timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ import { ConfigService } from '@biosimulations/shared/services';
 export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
+  private simulationsMap$: { [key: string]: BehaviorSubject<Simulation> } = {}
   private simulationsMap: { [key: string]: Simulation } = {};
   private simulationsSubject = new BehaviorSubject<Simulation[]>(
     this.simulations
@@ -180,6 +183,73 @@ export class SimulationService {
 
   getSimulations(): Simulation[] {
     return this.simulations;
+  }
+
+  private getSimulationHttp(uuid: string): Observable<Simulation> {
+    return this.httpClient
+      .get(`${urls.dispatchApi}run/${uuid}`).pipe(
+        map((data: any) => {
+          const dispatchSimulation = data;
+          const simulation: Simulation = {
+            name: dispatchSimulation.name,
+            email: dispatchSimulation.email,
+            runtime: dispatchSimulation.runtime,
+            id: dispatchSimulation.id,
+            status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
+            submitted: new Date(dispatchSimulation.submitted),
+            submittedLocally: false,
+            simulator: dispatchSimulation.simulator,
+            simulatorVersion: dispatchSimulation.simulatorVersion,
+            updated: new Date(dispatchSimulation.updated),
+            resultsSize: dispatchSimulation.resultsSize,
+            projectSize: dispatchSimulation.projectSize
+          };
+          return simulation
+        }
+        )
+      )
+  }
+  private updateSimulation(uuid: string) {
+    const current = this.getSimulationFromCache(uuid).pipe(delay(this.config.appConfig.simulationStatusRefreshIntervalSec * 1000))
+    current.subscribe(
+      currentSim => {
+        console.log(currentSim.status)
+        if (SimulationStatusService.isSimulationStatusRunning(currentSim.status)) {
+          const sim = this.getSimulationHttp(uuid).subscribe(
+            newSim => this.simulationsMap$[uuid].next(newSim)
+
+          )
+        }
+      }
+    )
+  }
+
+  private getSimulationFromCache(uuid: string): Observable<Simulation> {
+    return this.simulationsMap$[uuid].asObservable().pipe()
+  }
+
+  // TODO integrate with local storage
+  getSimulation(uuid: string): Observable<Simulation> {
+    if (uuid in this.simulationsMap$) {
+      return this.getSimulationFromCache(uuid).pipe()
+    } else {
+      console.log("returning new")
+      const sim = this.getSimulationHttp(uuid).pipe(
+
+        map(
+          (value: Simulation) => {
+            console.log("setting")
+            const simSubject = new BehaviorSubject<Simulation>(value)
+            this.simulationsMap$[uuid] = simSubject
+            //this.updateSimulation(uuid)
+            return this.getSimulationFromCache(uuid).pipe()
+          }
+        ),
+        concatAll()
+      )
+
+      return sim
+    }
   }
 
   getSimulationByUuid(uuid: string): Observable<Simulation> {

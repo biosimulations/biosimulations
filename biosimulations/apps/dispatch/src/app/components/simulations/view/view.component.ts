@@ -29,84 +29,17 @@ import {
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { concatAll, map, shareReplay, tap } from 'rxjs/operators';
-
-interface FormattedSimulation {
-  id: string;
-  name: string;
-  simulator: string;
-  simulatorVersion: string;
-  simulatorUrl: string;
-  status: SimulationRunStatus;
-  statusRunning: boolean;
-  statusSucceeded: boolean;
-  statusLabel: string;
-  submitted: string;
-  updated: string;
-  runtime: string;
-  projectUrl: string;
-  projectSize: string;
-  resultsUrl: string;
-  resultsSize: string;
-}
-
-interface VizApiResponse {
-  message: string;
-  data: CombineArchive;
-}
-
-interface CombineArchive {
-  [id: string]: string[];
-}
-
-interface AxisLabelType {
-  label: string;
-  type: AxisType;
-}
-
-const AXIS_LABEL_TYPES: AxisLabelType[] = [
-  {
-    label: 'Linear',
-    type: AxisType.linear
-  },
-  {
-    label: 'Logarithmic',
-    type: AxisType.log
-  }
-];
-
-interface ScatterTraceModeLabel {
-  label: string;
-  mode: ScatterTraceMode;
-}
-
-const SCATTER_TRACE_MODEL_LABELS: ScatterTraceModeLabel[] = [
-  {
-    label: 'Line',
-    mode: ScatterTraceMode.lines
-  },
-  {
-    label: 'Scatter',
-    mode: ScatterTraceMode.markers
-  }
-];
-
-interface Report {
-  [id: string]: any[];
-}
-
-interface DataSetIdDisabled {
-  id: string;
-  disabled: boolean;
-}
+import { BehaviorSubject, interval, Observable, of, Subject } from 'rxjs';
+import { concatAll, flatMap, map, repeat, shareReplay, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import { AxisLabelType, AXIS_LABEL_TYPES, CombineArchive, DataSetIdDisabled, FormattedSimulation, Report, ScatterTraceModeLabel, SCATTER_TRACE_MODEL_LABELS } from './view.model'
 
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
+  //this seems to be required oddly
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit {
@@ -114,10 +47,11 @@ export class ViewComponent implements OnInit {
 
   // Refactored Variables Start
   private uuid = '';
-  logs$: Observable<SimulationLogs | null> = of(null)
-  statusRunning$: Observable<boolean> = of(true)
-  statusSuceeded$: Observable<boolean> = of(false)
-  formattedSimulation$: Observable<FormattedSimulation | null> = of(null);
+  logs$!: Observable<SimulationLogs | null>
+  statusRunning$!: Observable<boolean>
+  statusSuceeded$!: Observable<boolean>
+  formattedSimulation$?: Observable<FormattedSimulation>
+  Simulation$!: Observable<Simulation>
   // Refactored Variables End
 
 
@@ -150,6 +84,7 @@ export class ViewComponent implements OnInit {
   @ViewChild('visualization') visualization!: VisualizationComponent;
 
 
+
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
@@ -177,26 +112,34 @@ export class ViewComponent implements OnInit {
     this.formGroup.controls.reportId.disable();
     this.formGroup.controls.xDataSetId.disable();
     this.formGroup.controls.yDataSetIds.disable();
-    const Simulation$ = this.simulationService.getSimulationByUuid(this.uuid).pipe(shareReplay(1))
-    this.statusRunning$ = Simulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
-    this.statusSuceeded$ = Simulation$.pipe(map(value => SimulationStatusService.isSimulationStatusSucceeded(value.status)))
-    this.formattedSimulation$ = Simulation$.pipe(map<Simulation, FormattedSimulation>(this.formatSimulation.bind(this)))
+    //const interval$ = interval(this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000)
+    //const SimulationBase$: Observable<Simulation> = this.simulationService.getSimulation(this.uuid).pipe(repeat(), takeWhile(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
+    //const Simulation$ = interval$.pipe(tap(x => console.log(x)), flatMap(_ => SimulationBase$), takeWhile(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
+    this.Simulation$ = this.simulationService.getSimulation(this.uuid).pipe(shareReplay(1))
+    //const Simulation$ = SimulationBase$;
+    this.formattedSimulation$ = this.Simulation$.pipe(map<Simulation, FormattedSimulation>(this.formatSimulation.bind(this)))
+    this.statusRunning$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
+    this.statusSuceeded$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusSucceeded(value.status)))
     this.logs$ = this.statusRunning$.pipe(map(running => {
       return running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid)
     }), concatAll())
 
     // TODO Refactor
     this.statusSuceeded$.subscribe(suceeded => {
-      suceeded ? this.appService.getResultStructure(this.uuid).subscribe(
-        response => {
-          this.setProjectOutputs(response as CombineArchive);
-        }) : null
-    }
-    )
+      if (suceeded) {
+        this.appService.getResultStructure(this.uuid).subscribe(
+          response => {
+            this.setProjectOutputs(response as CombineArchive);
+          }
+        )
+      }
+    })
 
+    // TODO Remove once polling is working
     this.setSimulation();
-    setTimeout(() => this.changeDetectorRef.detectChanges());
+
   }
+
   private formatSimulation(simulation: Simulation): FormattedSimulation {
 
     const statusRunning = SimulationStatusService.isSimulationStatusRunning(
