@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChild,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -32,7 +33,7 @@ import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, interval, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Observable, of, Subject, Subscription } from 'rxjs';
 import { concatAll, flatMap, map, repeat, shareReplay, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { AxisLabelType, AXIS_LABEL_TYPES, CombineArchive, DataSetIdDisabled, FormattedSimulation, Report, ScatterTraceModeLabel, SCATTER_TRACE_MODEL_LABELS } from './view.model'
 
@@ -42,8 +43,7 @@ import { AxisLabelType, AXIS_LABEL_TYPES, CombineArchive, DataSetIdDisabled, For
   //this seems to be required oddly
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewComponent implements OnInit {
-
+export class ViewComponent implements OnInit, OnDestroy {
 
   // Refactored Variables Start
   private uuid = '';
@@ -52,11 +52,8 @@ export class ViewComponent implements OnInit {
   statusSuceeded$!: Observable<boolean>
   formattedSimulation$?: Observable<FormattedSimulation>
   Simulation$!: Observable<Simulation>
+  subs: Subscription[] = []
   // Refactored Variables End
-
-
-
-
 
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
@@ -112,11 +109,8 @@ export class ViewComponent implements OnInit {
     this.formGroup.controls.reportId.disable();
     this.formGroup.controls.xDataSetId.disable();
     this.formGroup.controls.yDataSetIds.disable();
-    //const interval$ = interval(this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000)
-    //const SimulationBase$: Observable<Simulation> = this.simulationService.getSimulation(this.uuid).pipe(repeat(), takeWhile(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
-    //const Simulation$ = interval$.pipe(tap(x => console.log(x)), flatMap(_ => SimulationBase$), takeWhile(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
+
     this.Simulation$ = this.simulationService.getSimulation(this.uuid).pipe(shareReplay(1))
-    //const Simulation$ = SimulationBase$;
     this.formattedSimulation$ = this.Simulation$.pipe(map<Simulation, FormattedSimulation>(this.formatSimulation.bind(this)))
     this.statusRunning$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
     this.statusSuceeded$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusSucceeded(value.status)))
@@ -125,19 +119,21 @@ export class ViewComponent implements OnInit {
     }), concatAll())
 
     // TODO Refactor
-    this.statusSuceeded$.subscribe(suceeded => {
+    const statusSub = this.statusSuceeded$.subscribe(suceeded => {
       if (suceeded) {
-        this.appService.getResultStructure(this.uuid).subscribe(
+        const resultsub = this.appService.getResultStructure(this.uuid).subscribe(
           response => {
             this.setProjectOutputs(response as CombineArchive);
           }
         )
+        this.subs.push(resultsub)
       }
     })
+    this.subs.push(statusSub)
+  }
 
-    // TODO Remove once polling is working
-    this.setSimulation();
-
+  ngOnDestroy(): void {
+    this.subs.forEach(subscription => subscription.unsubscribe())
   }
 
   private formatSimulation(simulation: Simulation): FormattedSimulation {
@@ -179,26 +175,6 @@ export class ViewComponent implements OnInit {
     }
   }
 
-  private setSimulation(): void {
-    this.simulationService
-      .getSimulationByUuid(this.uuid)
-      .subscribe((simulation: Simulation): void => {
-        const statusRunning = SimulationStatusService.isSimulationStatusRunning(
-          simulation.status
-        );
-        const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(
-          simulation.status
-        );
-
-
-        if (statusRunning) {
-          setTimeout(
-            this.setSimulation.bind(this),
-            this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000
-          );
-        }
-      });
-  }
 
   private setProjectOutputs(combineArchive: CombineArchive): void {
     this.combineArchive = combineArchive;
