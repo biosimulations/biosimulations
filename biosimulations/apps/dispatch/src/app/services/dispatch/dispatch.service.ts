@@ -3,23 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
-import {
-  SimulationRun,
-  UploadSimulationRun,
-} from '@biosimulations/dispatch/api-models';
-import {
-  SimulationLogs,
-  RawSimulationLog,
-  CombineArchiveLog,
-  SimulationStatus,
-} from '../../simulation-logs-datamodel';
+import { SimulationRun, UploadSimulationRun } from '@biosimulations/dispatch/api-models';
+import { SimulationLogs, RawSimulationLog, CombineArchiveLog, SimulationStatus } from '../../simulation-logs-datamodel';
 
 export interface SimulatorVersionsMap {
   [id: string]: string[];
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class DispatchService {
   uuidUpdateEvent = new Subject<string>();
@@ -40,14 +32,12 @@ export class DispatchService {
       name: name,
       email: email || null,
       simulator: selectedSimulator,
-      simulatorVersion: selectedVersion,
+      simulatorVersion: selectedVersion
     };
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post(endpoint, formData) as Observable<
-      SimulationRun
-    >;
+    const response = this.http.post(endpoint, formData) as Observable<SimulationRun>;
     return response;
   }
 
@@ -56,66 +46,61 @@ export class DispatchService {
     if (simulatorName === undefined) {
       return this.http.get(endpoint) as Observable<string[]>;
     }
-    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<
-      string[]
-    >;
+    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<string[]>;
   }
 
   getSimulatorsFromDb(): Observable<SimulatorVersionsMap> {
     const endpoint = `https://api.biosimulators.org/simulators`;
 
     return this.http.get(endpoint).pipe(
-      map((response: any): SimulatorVersionsMap => {
-        // response to dict logic
-        const simulatorVersionsMap: SimulatorVersionsMap = {};
+      map(
+        (response: any): SimulatorVersionsMap => {
+          // response to dict logic
+          const simulatorVersionsMap: SimulatorVersionsMap = {};
 
-        for (const simulator of response) {
-          if (simulator?.image && simulator?.biosimulators?.validated) {
-            if (!(simulator.id in simulatorVersionsMap)) {
-              simulatorVersionsMap[simulator.id] = [];
+          for (const simulator of response) {
+            if (simulator?.image && simulator?.biosimulators?.validated) {
+              if (!(simulator.id in simulatorVersionsMap)) {
+                simulatorVersionsMap[simulator.id] = [];
+              }
+              simulatorVersionsMap[simulator.id].push(simulator.version);
             }
-            simulatorVersionsMap[simulator.id].push(simulator.version);
           }
-        }
 
-        for (const versions of Object.values(simulatorVersionsMap)) {
-          versions
-            .sort((a: string, b: string): number => {
-              return a.localeCompare(b, undefined, { numeric: true });
-            })
-            .reverse();
-        }
+          for (const versions of Object.values(simulatorVersionsMap)) {
+            versions
+              .sort((a: string, b: string): number => {
+                return a.localeCompare(b, undefined, { numeric: true });
+              })
+              .reverse();
+          }
 
-        return simulatorVersionsMap;
-      })
+          return simulatorVersionsMap;
+        }
+      )
     );
   }
 
   getSimulationLogs(uuid: string): Observable<SimulationLogs> {
-    const endpoint = `${urls.dispatchApi}logs/${uuid}?download=false`;
-    return this.http.get(endpoint).pipe(
-      map((response: any): SimulationLogs => {
-        // get raw log
-        let rawLog: RawSimulationLog = '';
-        if (response.data === undefined) {
-          // TODO: should this be interpreted as an error message?
-          rawLog = response.message;
-        } else {
-          rawLog = response.data.output + response.data.error;
+    const endpoint = `${urls.dispatchApi}logs/v2/${uuid}?download=false`;
+    return this.http.get<CombineArchiveLog>(endpoint).pipe(
+      map(
+        (response: CombineArchiveLog): SimulationLogs => {
+          // get raw log
+          const rawLog: RawSimulationLog = response.output || '';
+
+          // get structured log
+          const structuredLog: CombineArchiveLog | undefined = response;
+
+          // return combineed log
+          return {
+            raw: rawLog,
+            structured: structuredLog
+          };
         }
-
-        // get structured log
-        const structuredLog: CombineArchiveLog | undefined = undefined;
-
-        // return combineed log
-        return {
-          raw: rawLog,
-          structured: structuredLog,
-        };
-      })
+      )
     );
-
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 }
