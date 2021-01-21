@@ -36,7 +36,7 @@ export class AppController implements OnApplicationBootstrap {
   }
 
   @ApiTags('Downloads')
-  @Get('logs/:uuid')
+  @Get('logs/v1/:uuid')
   @ApiOperation({
     summary: 'Log file',
   })
