@@ -7,7 +7,7 @@ export enum StructuredLogLevel {
   CombineArchive = 1,
   SedDocument = 2,
   SedTaskOutput = 3,
-  SedDataSetCurveSurface = 4,
+  SedDataSetCurveSurface = 4
 }
 
 export enum SimulationStatus {
@@ -15,7 +15,7 @@ export enum SimulationStatus {
   RUNNING = 'RUNNING',
   SUCCEEDED = 'SUCCEEDED',
   SKIPPED = 'SKIPPED',
-  FAILED = 'FAILED',
+  FAILED = 'FAILED'
 }
 
 export interface Exception {
@@ -43,7 +43,7 @@ export interface SedOutputLog extends StructuredSimulationLog {
 export interface DataSetLog {
   id: string;
   status: SimulationStatus;
-};
+}
 
 export interface CurveLog {
   id: string;
@@ -130,7 +130,7 @@ export interface SimulationLogs {
 /* Descriptions of KiSAO terms */
 export enum AlgorithmKisaoDescriptionFragmentType {
   text = 'text',
-  href = 'href',
+  href = 'href'
 }
 
 export interface AlgorithmKisaoDescriptionFragment {
