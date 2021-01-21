@@ -1,12 +1,15 @@
 <biosimulations-tab-page (selectedTabChange)="selectedTabChange($event)">
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
-    <div class="spinner-container" *ngIf="(formattedSimulation$ | async) === undefined">
-      <biosimulations-spinner>
-      </biosimulations-spinner>
+    <div
+      class="spinner-container"
+      *ngIf="(formattedSimulation$ | async) === null"
+    >
+      <biosimulations-spinner> </biosimulations-spinner>
     </div>
-    <ng-container *ngIf="(formattedSimulation$ | async) as simulation">
+    <ng-container *ngIf="formattedSimulation$ | async as simulation">
       <p>
-        <b class="highlight-primary">Simulation #{{ simulation.id }}</b><br />
+        <b class="highlight-primary">Simulation #{{ simulation.id }}</b
+        ><br />
         {{ simulation.name }}
       </p>
 
@@ -17,7 +20,11 @@
           </th>
           <td>
             <span class="heading">Project:</span>{{ ' '
-            }}<a [href]="simulation.projectUrl">COMBINE/OMEX archive<ng-container *ngIf="simulation.projectSize"> ({{ simulation.projectSize }})</ng-container></a>
+            }}<a [href]="simulation.projectUrl"
+              >COMBINE/OMEX archive<ng-container *ngIf="simulation.projectSize">
+                ({{ simulation.projectSize }})</ng-container
+              ></a
+            >
           </td>
         </tr>
         <tr>
@@ -26,7 +33,9 @@
           </th>
           <td>
             <span class="heading">Simulator:</span>{{ ' '
-            }}<a [href]="simulation.simulatorUrl" target="_blank">{{ simulation.simulator }} {{ simulation.simulatorVersion }}</a>
+            }}<a [href]="simulation.simulatorUrl" target="_blank"
+              >{{ simulation.simulator }} {{ simulation.simulatorVersion }}</a
+            >
           </td>
         </tr>
       </table>
@@ -37,8 +46,15 @@
             <biosimulations-icon icon="download"></biosimulations-icon>
           </th>
           <td>
-            <span class="heading">Outputs:</span>{{' '}}
-            <a [href]="simulation.resultsUrl" *ngIf="simulation.statusSucceeded && simulation.resultsSize !== 'N/A'; else noResults">Zip archive ({{ simulation.resultsSize }})</a>
+            <span class="heading">Outputs:</span>{{ ' ' }}
+            <a
+              [href]="simulation.resultsUrl"
+              *ngIf="
+                simulation.statusSucceeded && simulation.resultsSize !== 'N/A';
+                else noResults
+              "
+              >Zip archive ({{ simulation.resultsSize }})</a
+            >
             <ng-template #noResults>N/A</ng-template>
           </td>
         </tr>
@@ -49,34 +65,53 @@
           <th>
             <biosimulations-icon icon="status"></biosimulations-icon>
           </th>
-          <td><span class="heading">Status:</span> {{ simulation.statusLabel }}
-            <biosimulations-icon icon="spinner" *ngIf="simulation.statusRunning"></biosimulations-icon>
+          <td>
+            <span class="heading">Status:</span> {{ simulation.statusLabel }}
+            <biosimulations-icon
+              icon="spinner"
+              *ngIf="simulation.statusRunning"
+            ></biosimulations-icon>
           </td>
         </tr>
         <tr>
           <th>
             <biosimulations-icon icon="duration"></biosimulations-icon>
           </th>
-          <td><span class="heading">Runtime:</span> {{ simulation.runtime }}</td>
+          <td>
+            <span class="heading">Runtime:</span> {{ simulation.runtime }}
+          </td>
         </tr>
         <tr>
           <th>
             <biosimulations-icon icon="date"></biosimulations-icon>
           </th>
-          <td><span class="heading">Submitted</span>: {{ simulation.submitted }}</td>
+          <td>
+            <span class="heading">Submitted</span>: {{ simulation.submitted }}
+          </td>
         </tr>
         <tr>
           <th>
             <biosimulations-icon icon="date"></biosimulations-icon>
           </th>
-          <td><span class="heading">Updated:</span> {{ simulation.updated }}</td>
+          <td>
+            <span class="heading">Updated:</span> {{ simulation.updated }}
+          </td>
         </tr>
       </table>
     </ng-container>
   </biosimulations-tab-page-tab>
 
-  <biosimulations-tab-page-tab heading="Design chart" icon="write" urlHashFragment="design-viz" [disabled]="!((sedmlLocations$ | async)?.length > 0)">
-    <form [formGroup]="formGroup" class="design-visualization" *ngIf="(sedmlLocations$ | async) !== undefined">
+  <biosimulations-tab-page-tab
+    heading="Design chart"
+    icon="write"
+    urlHashFragment="design-viz"
+    [disabled]="!((sedmlLocations$ | async)?.length > 0)"
+  >
+    <form
+      [formGroup]="formGroup"
+      class="design-visualization"
+      *ngIf="(sedmlLocations$ | async) !== undefined"
+    >
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>
         <mat-select
@@ -85,31 +120,43 @@
           (selectionChange)="selectSedmlLocation($event.value)"
           disableOptionCentering
         >
-          <mat-option *ngFor="let sedmlLocation of (sedmlLocations$ | async)" [value]="sedmlLocation">
+          <mat-option
+            *ngFor="let sedmlLocation of sedmlLocations$ | async"
+            [value]="sedmlLocation"
+          >
             {{ sedmlLocation }}
           </mat-option>
         </mat-select>
         <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-        <mat-hint>Select one of the SED-ML files in the COMBINE/OMEX archive which
-          describes one or more reports of one or more simulations.</mat-hint>
+        <mat-hint
+          >Select one of the SED-ML files in the COMBINE/OMEX archive which
+          describes one or more reports of one or more simulations.</mat-hint
+        >
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Select a report of the results of one or more simulations</mat-label>
+        <mat-label
+          >Select a report of the results of one or more simulations</mat-label
+        >
         <mat-select
           formControlName="reportId"
           required
           (selectionChange)="selectReportId($event.value)"
           disableOptionCentering
         >
-          <mat-option *ngFor="let reportId of (reportIds | async)" [value]="reportId">
+          <mat-option
+            *ngFor="let reportId of reportIds | async"
+            [value]="reportId"
+          >
             {{ reportId }}
           </mat-option>
         </mat-select>
         <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
-        <mat-hint>Select a report within the selected SED-ML file which describes the
+        <mat-hint
+          >Select a report within the selected SED-ML file which describes the
           results of one or more simulations (e.g., in SED-ML format) of one or
-          more models (e.g., in SBML format).</mat-hint>
+          more models (e.g., in SBML format).</mat-hint
+        >
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -120,12 +167,19 @@
           (selectionChange)="buildVizData()"
           disableOptionCentering
         >
-          <mat-option *ngFor="let dataSet of (dataSetIdDisableds | async)" [value]="dataSet.id" [disabled]="dataSet.disabled">
+          <mat-option
+            *ngFor="let dataSet of dataSetIdDisableds | async"
+            [value]="dataSet.id"
+            [disabled]="dataSet.disabled"
+          >
             {{ dataSet.id }}
           </mat-option>
         </mat-select>
         <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-        <mat-hint>Select a data set within the selected report such as "time".</mat-hint>
+        <mat-hint
+          >Select a data set within the selected report such as
+          "time".</mat-hint
+        >
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -137,12 +191,20 @@
           (selectionChange)="buildVizData()"
           disableOptionCentering
         >
-          <mat-option *ngFor="let dataSet of (dataSetIdDisableds | async)" [value]="dataSet.id" [disabled]="dataSet.disabled">
+          <mat-option
+            *ngFor="let dataSet of dataSetIdDisableds | async"
+            [value]="dataSet.id"
+            [disabled]="dataSet.disabled"
+          >
             {{ dataSet.id }}
           </mat-option>
         </mat-select>
         <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-        <mat-hint>Select one or more data sets within the selected report such as the concentrations of specific species (e.g., "ATP") or the fluxes of specific reactions (e.g., "AtpA").</mat-hint>
+        <mat-hint
+          >Select one or more data sets within the selected report such as the
+          concentrations of specific species (e.g., "ATP") or the fluxes of
+          specific reactions (e.g., "AtpA").</mat-hint
+        >
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -153,11 +215,17 @@
           (selectionChange)="buildVizData()"
           disableOptionCentering
         >
-          <mat-option *ngFor="let axisLabelType of axisLabelTypes" [value]="axisLabelType.type">
+          <mat-option
+            *ngFor="let axisLabelType of axisLabelTypes"
+            [value]="axisLabelType.type"
+          >
             {{ axisLabelType.label }}
           </mat-option>
         </mat-select>
-        <biosimulations-icon icon="visualization" matPrefix></biosimulations-icon>
+        <biosimulations-icon
+          icon="visualization"
+          matPrefix
+        ></biosimulations-icon>
         <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
       </mat-form-field>
 
@@ -169,11 +237,17 @@
           (selectionChange)="buildVizData()"
           disableOptionCentering
         >
-          <mat-option *ngFor="let axisLabelType of axisLabelTypes" [value]="axisLabelType.type">
+          <mat-option
+            *ngFor="let axisLabelType of axisLabelTypes"
+            [value]="axisLabelType.type"
+          >
             {{ axisLabelType.label }}
           </mat-option>
         </mat-select>
-        <biosimulations-icon icon="visualization" matPrefix></biosimulations-icon>
+        <biosimulations-icon
+          icon="visualization"
+          matPrefix
+        ></biosimulations-icon>
         <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
       </mat-form-field>
 
@@ -185,11 +259,17 @@
           (selectionChange)="buildVizData()"
           disableOptionCentering
         >
-          <mat-option *ngFor="let scatterTraceModeLabel of scatterTraceModeLabels" [value]="scatterTraceModeLabel.mode">
+          <mat-option
+            *ngFor="let scatterTraceModeLabel of scatterTraceModeLabels"
+            [value]="scatterTraceModeLabel.mode"
+          >
             {{ scatterTraceModeLabel.label }}
           </mat-option>
         </mat-select>
-        <biosimulations-icon icon="visualization" matPrefix></biosimulations-icon>
+        <biosimulations-icon
+          icon="visualization"
+          matPrefix
+        ></biosimulations-icon>
         <mat-hint>Select a type of plot such as "line" or "scatter".</mat-hint>
       </mat-form-field>
     </form>
@@ -200,20 +280,29 @@
     icon="chart"
     urlHashFragment="viz"
     [fullHeight]="true"
-    [disabled]="!formGroup.controls.xDataSetId.value || formGroup.controls.yDataSetIds.value.length === 0"
+    [disabled]="
+      !formGroup.controls.xDataSetId.value ||
+      formGroup.controls.yDataSetIds.value.length === 0
+    "
   >
-    <biosimulations-visualization #visualization [dataLayout]="vizDataLayout$ | async">
-    </biosimulations-visualization >
+    <biosimulations-visualization
+      #visualization
+      [dataLayout]="vizDataLayout$ | async"
+    >
+    </biosimulations-visualization>
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
     heading="Log"
     icon="logs"
     urlHashFragment="log"
-    [disabled]="(statusRunning$ | async) || ((logs$ | async) === null)"
+    [disabled]="(statusRunning$ | async) || (logs$ | async) === null"
   >
     <biosimulations-simulation-log
-      *ngIf="logs$ | async as logs"
+      *ngIf="
+        (formattedSimulation$ | async)?.status != null &&
+        (logs$ | async) as logs
+      "
       [status]="(formattedSimulation$ | async)?.status"
       [rawLog]="logs.raw"
       [structuredLog]="logs.structured"

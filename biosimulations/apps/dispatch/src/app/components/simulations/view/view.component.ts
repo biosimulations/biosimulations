@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChild,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -29,99 +30,30 @@ import {
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
-interface FormattedSimulation {
-  id: string;
-  name: string;
-  simulator: string;
-  simulatorVersion: string;
-  simulatorUrl: string;
-  status: SimulationRunStatus;
-  statusRunning: boolean;
-  statusSucceeded: boolean;
-  statusLabel: string;
-  submitted: string;
-  updated: string;
-  runtime: string;
-  projectUrl: string;
-  projectSize: string;
-  resultsUrl: string;
-  resultsSize: string;
-}
-
-interface VizApiResponse {
-  message: string;
-  data: CombineArchive;
-}
-
-interface CombineArchive {
-  [id: string]: string[];
-}
-
-interface AxisLabelType {
-  label: string;
-  type: AxisType;
-}
-
-const AXIS_LABEL_TYPES: AxisLabelType[] = [
-  {
-    label: 'Linear',
-    type: AxisType.linear
-  },
-  {
-    label: 'Logarithmic',
-    type: AxisType.log
-  }
-];
-
-interface ScatterTraceModeLabel {
-  label: string;
-  mode: ScatterTraceMode;
-}
-
-const SCATTER_TRACE_MODEL_LABELS: ScatterTraceModeLabel[] = [
-  {
-    label: 'Line',
-    mode: ScatterTraceMode.lines
-  },
-  {
-    label: 'Scatter',
-    mode: ScatterTraceMode.markers
-  }
-];
-
-interface Report {
-  [id: string]: any[];
-}
-
-interface DataSetIdDisabled {
-  id: string;
-  disabled: boolean;
-}
-
+import { BehaviorSubject, interval, Observable, of, Subject, Subscription } from 'rxjs';
+import { concatAll, flatMap, map, repeat, shareReplay, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import { AxisLabelType, AXIS_LABEL_TYPES, CombineArchive, DataSetIdDisabled, FormattedSimulation, Report, ScatterTraceModeLabel, SCATTER_TRACE_MODEL_LABELS } from './view.model'
+import { ViewService } from './view.service'
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
+  //this seems to be required oddly
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnDestroy {
+
+  // Refactored Variables Start
   private uuid = '';
-
-  private formattedSimulation = new BehaviorSubject<
-    FormattedSimulation | undefined
-  >(undefined);
-  formattedSimulation$ = this.formattedSimulation.asObservable();
-
-  private statusRunning = new BehaviorSubject<boolean>(true);
-  statusRunning$ = this.statusRunning.asObservable();
-
-  private logs = new BehaviorSubject<SimulationLogs | null>(null);
-  logs$ = this.logs.asObservable();
+  logs$!: Observable<SimulationLogs | null>
+  statusRunning$!: Observable<boolean>
+  statusSuceeded$!: Observable<boolean>
+  formattedSimulation$?: Observable<FormattedSimulation>
+  Simulation$!: Observable<Simulation>
+  subs: Subscription[] = []
+  // Refactored Variables End
 
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
@@ -148,9 +80,12 @@ export class ViewComponent implements OnInit {
 
   @ViewChild('visualization') visualization!: VisualizationComponent;
 
+
+
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
+    private service: ViewService,
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
     private appService: VisualizationService,
@@ -176,80 +111,33 @@ export class ViewComponent implements OnInit {
     this.formGroup.controls.xDataSetId.disable();
     this.formGroup.controls.yDataSetIds.disable();
 
-    this.setSimulation();
-    setTimeout(() => this.changeDetectorRef.detectChanges());
+    this.Simulation$ = this.simulationService.getSimulation(this.uuid).pipe(shareReplay(1))
+    this.formattedSimulation$ = this.Simulation$.pipe(map<Simulation, FormattedSimulation>(this.service.formatSimulation))
+    this.statusRunning$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
+    this.statusSuceeded$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusSucceeded(value.status)))
+    this.logs$ = this.statusRunning$.pipe(map(running => {
+      return running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid)
+    }), concatAll())
+
+    // TODO Refactor
+    const statusSub = this.statusSuceeded$.subscribe(suceeded => {
+      if (suceeded) {
+        const resultsub = this.appService.getResultStructure(this.uuid).subscribe(
+          response => {
+            this.setProjectOutputs(response as CombineArchive);
+          }
+        )
+        this.subs.push(resultsub)
+      }
+    })
+    this.subs.push(statusSub)
   }
 
-  private setSimulation(): void {
-    this.simulationService
-      .getSimulationByUuid(this.uuid)
-      .subscribe((simulation: Simulation): void => {
-        const statusRunning = SimulationStatusService.isSimulationStatusRunning(
-          simulation.status
-        );
-        const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(
-          simulation.status
-        );
-        this.formattedSimulation.next({
-          id: simulation.id,
-          name: simulation.name,
-          simulator: simulation.simulator,
-          simulatorVersion: simulation.simulatorVersion,
-          status: simulation.status,
-          statusRunning: statusRunning,
-          statusSucceeded: statusSucceeded,
-          statusLabel: SimulationStatusService.getSimulationStatusMessage(
-            simulation.status,
-            true
-          ),
-          runtime:
-            simulation.runtime !== undefined
-              ? Math.round(simulation.runtime / 1000).toString() + ' s'
-              : 'N/A',
-          submitted: new Date(simulation.submitted).toLocaleString(),
-          updated: new Date(simulation.updated).toLocaleString(),
-          projectSize:
-            simulation.projectSize !== undefined
-              ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
-              : '',
-          resultsSize:
-            simulation.resultsSize !== undefined
-              ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
-              : 'N/A',
-          projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-          simulatorUrl: `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
-          resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`
-        });
-        this.statusRunning.next(statusRunning);
-
-        if (!statusRunning) {
-          this.dispatchService
-            .getSimulationLogs(this.uuid)
-            .subscribe((logs: SimulationLogs) => {
-              this.logs.next(logs);
-              setTimeout(() => this.changeDetectorRef.detectChanges());
-            });
-        }
-
-        if (statusSucceeded) {
-          this.appService
-            .getResultStructure(this.uuid)
-
-            .subscribe((response: any): void => {
-
-
-              this.setProjectOutputs(response as CombineArchive);
-            });
-        }
-
-        if (statusRunning) {
-          setTimeout(
-            this.setSimulation.bind(this),
-            this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000
-          );
-        }
-      });
+  ngOnDestroy(): void {
+    this.subs.forEach(subscription => subscription.unsubscribe())
   }
+
+
 
   private setProjectOutputs(combineArchive: CombineArchive): void {
     this.combineArchive = combineArchive;

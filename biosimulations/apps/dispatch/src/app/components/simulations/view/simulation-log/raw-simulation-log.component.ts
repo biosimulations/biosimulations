@@ -10,7 +10,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./raw-simulation-log.component.scss'],
 })
 export class RawSimulationLogComponent {
-  constructor(private sanitizer: DomSanitizer){}
+  constructor(private sanitizer: DomSanitizer) { }
 
   heading!: string;
 
@@ -18,6 +18,7 @@ export class RawSimulationLogComponent {
 
   @Input()
   set status(value: SimulationRunStatus) {
+
     this.heading = 'Raw standard output and error for the entire job (' + value.toLowerCase() + ')';
     this._status = value;
   }

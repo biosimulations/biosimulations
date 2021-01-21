@@ -14,3 +14,6 @@ export interface Simulation {
   resultsSize?: number;
   projectSize?: number;
 }
+export interface TaskMap {
+  [key: string]: string[];
+}

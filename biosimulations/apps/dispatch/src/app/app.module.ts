@@ -92,7 +92,7 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler }
+    //{ provide: ErrorHandler, useClass: BiosimulationsErrorHandler }
   ],
   bootstrap: [AppComponent],
   schemas: []
