@@ -106,14 +106,15 @@ h2 {
 
 /* compact */
 .compact {
+  $border-color: $dark-dividers;
   margin-top: 0;
   border-radius: 0;
-  border-top: 1px solid #eee;
-  border-left: 1px solid #eee;
-  border-right: 1px solid #eee;
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
 
-  &:not(.last) {
-    border-bottom: 1px solid $dark-disabled-text;
+  &.first {
+    border-top: 1px solid $border-color;
   }
 
   h2 {
