@@ -6,6 +6,7 @@
         "ms-kubernetes-tools.vscode-kubernetes-tools",
         "nrwl.angular-console",
         "msjsdiag.debugger-for-chrome",
-        "firefox-devtools.vscode-firefox-debug"
+        "firefox-devtools.vscode-firefox-debug",
+        "rvest.vs-code-prettier-eslint"
     ]
 }
