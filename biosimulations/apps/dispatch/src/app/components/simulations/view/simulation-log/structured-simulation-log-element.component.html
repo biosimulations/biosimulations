@@ -49,7 +49,7 @@
     </ng-template>
   </ng-container>
 
-  <ng-container *ngIf="!queued">
+  <ng-container *ngIf="formattedOutput || noOutputMessage">
     <h3>Standard output and standard error</h3>
     <pre *ngIf="formattedOutput; else noOutput" class="stdout dark"><code [innerHTML]="formattedOutput"></code></pre>
     <ng-template #noOutput>

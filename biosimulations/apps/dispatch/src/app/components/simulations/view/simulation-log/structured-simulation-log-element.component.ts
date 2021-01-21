@@ -41,7 +41,6 @@ export class StructuredSimulationLogElementComponent {
 
   private _log!: logTypes;
 
-  queued = true;
   noOutputMessage = '';
   formattedOutput!: SafeHtml | undefined;
 
@@ -56,15 +55,12 @@ export class StructuredSimulationLogElementComponent {
 
     switch (value.status) {
       case SimulationStatus.QUEUED:
-        this.queued = true;
-        this.noOutputMessage = '';
+        this.noOutputMessage = `The output of the ${this.elementId} will be available here once the ${this.elementId} completes.`;
         break;
       case SimulationStatus.RUNNING:
-        this.queued = false;
         this.noOutputMessage = 'Output is not yet available.';
         break;
       default:
-        this.queued = false;
         this.noOutputMessage = 'No output was produced.';
         break;
     }
