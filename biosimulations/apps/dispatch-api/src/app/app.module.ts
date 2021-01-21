@@ -13,6 +13,7 @@ import {
   BiosimulationsAuthModule
 } from '@biosimulations/auth/nest';
 import { ImagesModule } from '../images/images.module';
+import { LogsModule } from '../logs/logs.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ImagesModule } from '../images/images.module';
     BiosimulationsAuthModule,
     ImagesModule,
     HttpModule,
+    LogsModule,
     MongooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule,],
       useFactory: async (configService: ConfigService) => ({
