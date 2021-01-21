@@ -28,7 +28,7 @@ import {
   DataLayout
 } from './visualization/visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import { Simulation } from '../../../datamodel';
+import { Simulation, TaskMap } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { urls } from '@biosimulations/config/common';
@@ -52,7 +52,14 @@ export class ViewComponent implements OnInit, OnDestroy {
   statusSuceeded$!: Observable<boolean>
   formattedSimulation$?: Observable<FormattedSimulation>
   Simulation$!: Observable<Simulation>
+  results$!: Observable<TaskMap | undefined>;
   subs: Subscription[] = []
+
+  // Form Controller Values 
+  sedmlLocationForm$!: Observable<any>;
+  reportdIdForm$!: Observable<any>;
+  xDataSetIdForm$!: Observable<any>;
+  yDataSetIdsForm$!: Observable<any>;
   // Refactored Variables End
 
   formGroup: FormGroup;
@@ -79,6 +86,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   vizDataLayout$ = this.vizDataLayout.asObservable();
 
   @ViewChild('visualization') visualization!: VisualizationComponent;
+
+
+
 
 
 
@@ -111,13 +121,17 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.formGroup.controls.xDataSetId.disable();
     this.formGroup.controls.yDataSetIds.disable();
 
+    this.sedmlLocationForm$ = this.formGroup.controls.sedmlLocation.valueChanges
+    this.reportdIdForm$ = this.formGroup.controls.reportId.valueChanges
+    this.xDataSetIdForm$ = this.formGroup.controls.xDataSetId.valueChanges
+    this.yDataSetIdsForm$ = this.formGroup.controls.yDataSetIds.valueChanges
+
     this.Simulation$ = this.simulationService.getSimulation(this.uuid).pipe(shareReplay(1))
     this.formattedSimulation$ = this.Simulation$.pipe(map<Simulation, FormattedSimulation>(this.service.formatSimulation))
     this.statusRunning$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
     this.statusSuceeded$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusSucceeded(value.status)))
-    this.logs$ = this.statusRunning$.pipe(map(running => {
-      return running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid)
-    }), concatAll())
+    this.logs$ = this.statusRunning$.pipe(map(running => running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid)), concatAll())
+    this.results$ = this.statusSuceeded$.pipe(map(succeeded => succeeded ? this.appService.getResultStructure(this.uuid) : of(undefined)), concatAll())
 
     // TODO Refactor
     const statusSub = this.statusSuceeded$.subscribe(suceeded => {
@@ -165,6 +179,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.reportIds.next(reportIds);
     if (reportIds?.length) {
       this.formGroup.controls.reportId.enable();
+
     } else {
       this.formGroup.controls.reportId.disable();
     }
