@@ -68,7 +68,6 @@ export class ModelsController {
   @CacheTTL(3600)
   @Get()
   async getAll(): Promise<ModelsDocument> {
-    console.log('searching...');
     const result = this.service.search().then((models: Model[] | null) => {
       if (models) {
         const response = models.map(dbToApi);
