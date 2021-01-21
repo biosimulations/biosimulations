@@ -15,6 +15,7 @@ export class ErrorReporter {
             const underlying = error.error
 
         } else if (error instanceof BiosimulationsError) {
+            message = error.stack || new Error().stack || ""
 
         } else {
             message = error.stack || new Error().stack || ""
