@@ -196,7 +196,6 @@ export class SimulationService {
 
     const current = this.getSimulationFromCache(uuid).pipe(debounceTime(this.config.appConfig.simulationStatusRefreshIntervalSec * 1000));
     current.subscribe((currentSim) => {
-      console.log(currentSim.status);
       if (SimulationStatusService.isSimulationStatusRunning(currentSim.status)) {
         this.getSimulationHttp(uuid).pipe().subscribe((newSim) => this.simulationsMap$[uuid].next(newSim));
       }
@@ -215,7 +214,6 @@ export class SimulationService {
     } else {
       const sim = this.getSimulationHttp(uuid).pipe(
         map((value: Simulation) => {
-          console.log('setting');
           const simSubject = new BehaviorSubject<Simulation>(value);
           this.simulationsMap$[uuid] = simSubject;
           this.updateSimulation(uuid)
