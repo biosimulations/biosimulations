@@ -46,7 +46,7 @@ export class LogsController {
       console.error('Can not read logs');
     }
 
-    structLogs.output = rawLogs.error + rawLogs.output;
+    structLogs.output = rawLogs.output + rawLogs.error;
     return structLogs;
   }
 
