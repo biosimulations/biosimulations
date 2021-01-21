@@ -28,11 +28,49 @@
       tocSection="Overview"
     >
       <p>Simulators should support SED-ML L1V3 or later. To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the additional conventions for SED-ML described below, as well as the conventions for executing SED-ML documents described with the <a [routerLink]="['/standards', 'simulator-interfaces']">standard for command-line interfaces for simulation tools</a>.</p>
+    </biosimulations-text-page-content-section>    
+
+    <biosimulations-text-page-content-section
+      heading="Concrete XPATH targets for changes to XML-encoded models"
+      tocSection="XPATH targets for model changes"
+    >
+      <p>SED-ML enables investigators to use XPATHs to specify changes to models that are encoded in XML files. This encompasses models described using CellML, SBML, and other languages. SED-ML documents should use valid XPATHs that resolve to XML elements. For example, <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']/@initialConcentration</code> could be used to indicate a change to the initial condition of a species.</p>
+
+      <p>Note, the SED-ML specifications suggest that incomplete XPATHs such as <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']</code> should be used to indicate changes to model elements. BioSimulators discourages this convention of partial XPATHs because these XPATHs do not point to the attribute that is intended to be changed.</p>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Namespaces for NewXML elements of changes to XML-encoded models"
+      tocSection="Namespaces for NewXML objects"
+    >
+      <p>SED-ML documents can use <code>NewXML</code> elements of <code>AddXML</code> and <code>ChangeXML</code> elements to specify objects that should be added to models or replaced in models. SED-ML documents should define the namespace(s) of the content of these <code>NewXML</code> elements. For example, a parameter that should be added to a SBML model could be described as <code>&lt;sbml:parameter xmlns:sbml="http://www.sbml.org/sbml/level3/version1" id="NewParameter" value="10.0" /&gt;</code>.</p>
+
+      <p>Note, the SED-ML specifications suggest that namespaces don't need to be defined for the content of <code>NewXML</code> elements. BioSimulators discourages this convention because XML files which embrace this convention are not consistent with SED-ML's XML schema.</p>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Data types for model attribute changes and algorithm parameters"
+      tocSection="Types for model &amp; algorithm changes"
+    >
+      <p>SED-ML specifies that the new values of model attribute changes (<code>sedml:changeAttribute/@sedml:newValue</code>) and values of algorithm parameters (<code>sedml:algorithmParameter/@sedml:value</code>) must be encoded into strings. To ensure that SED-ML files are portable across simulation tools, BioSimulators defines several data types for model attribute changes and algorithm parameters and outlines how each data type should be encoded into strings. The data type of each algorithm parameter should be defined in the specification of each simulation tool.</p>
+
+      <ul>
+        <li><code>boolean</code>: Represents Boolean values. Should be encoded into strings as <code>true</code>/<code>false</code> or <code>0</code>/<code>1</code>.</li>
+        <li><code>integer</code>: Represents integers. Should be encoded in decimal notation (e.g., <code>1234</code>).</li>
+        <li><code>float</code>: Represents floating point numbers. Should be encoded in decimal (e.g., <code>1234.567</code>) or scientific (e.g., <code>1.234567e3</code>) notation.</li>
+        <li><code>string</code>: Represents strings. Requires no additional encoding.</li>
+        <li><code>kisaoId</code>: Represents a KiSAO term. Should be encoding using the id of the term (e.g., <code>KISAO_0000029</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000029" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>).</li>
+        <li><code>list</code>: Represents a list of scalar values. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="['a', 'b', 'c']"></code> or <code [languages]="['json']" highlight="[1, 2, 3]"></code>). For example, the value of the deterministic reactions partition (<code>KISAO_0000534</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000534" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>) of the Pahle hybrid discrete/continuous Fehlberg method (<code>KISAO_0000563</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000563" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>) is a list of the ids of the reactions which should be simulated by the Fehlberg sub-method. Its value should be encoded into SED-ML as <code>&lt;algorithmParameter kisaoID="KISAO:0000534" value='["ReactionId-1", "ReactionId-1", ...]' /&gt;</code>.</li>
+        <li><code>object</code>: Represents key-value pairs. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="{a: 1, b: 2}"></code> or <code [languages]="['json']" highlight="{a: 'x', b: 'y'}"></code>).</li>
+        <li><code>any</code>: Represents any other data type. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="[{a: 1, b: 2}]"></code>).</li>
+      </ul>
+
+      <p>Enumerations for the value of an algorithm parameter values can be defined in the specification of a simulator using the <code>recommendedRange</code> attribute. This can be combined with any of the above data types.</p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Variable targets for model objects that generate multiple predictions"
-      tocSection="Variable targets"
+      tocSection="Targets for variables"
     >
       <p>Some algorithms such as flux balance analysis (FBA, <code>KISAO_0000437</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000437" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>) and flux variability analysis (FVA, <code>KISAO_0000526</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000526" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>) generate multiple predictions for each model object. For example, flux variability analysis predicts minimum and maximum fluxes for each reaction. Targets (<code>sedml:Variable/@sedml:target</code>) for such predictions should indicate the id of the desired prediction. To ensure portability of SED-ML files between simulation tools, BioSimulators defines the following ids. Please use GitHub issues to suggest additional ids for additional predictions of other algorithms <a [href]="config.newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
 
@@ -52,26 +90,6 @@
           </ul>
         </li>
       </ul>
-    </biosimulations-text-page-content-section>
-
-    <biosimulations-text-page-content-section
-      heading="Data types for model attribute changes and algorithm parameters"
-      tocSection="Data types"
-    >
-      <p>SED-ML specifies that the new values of model attribute changes (<code>sedml:changeAttribute/@sedml:newValue</code>) and values of algorithm parameters (<code>sedml:algorithmParameter/@sedml:value</code>) must be encoded into strings. To ensure that SED-ML files are portable across simulation tools, BioSimulators defines several data types for model attribute changes and algorithm parameters and outlines how each data type should be encoded into strings. The data type of each algorithm parameter should be defined in the specification of each simulation tool.</p>
-
-      <ul>
-        <li><code>boolean</code>: Represents Boolean values. Should be encoded into strings as <code>true</code>/<code>false</code> or <code>0</code>/<code>1</code>.</li>
-        <li><code>integer</code>: Represents integers. Should be encoded in decimal notation (e.g., <code>1234</code>).</li>
-        <li><code>float</code>: Represents floating point numbers. Should be encoded in decimal (e.g., <code>1234.567</code>) or scientific (e.g., <code>1.234567e3</code>) notation.</li>
-        <li><code>string</code>: Represents strings. Requires no additional encoding.</li>
-        <li><code>kisaoId</code>: Represents a KiSAO term. Should be encoding using the id of the term (e.g., <code>KISAO_0000029</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000029" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>).</li>
-        <li><code>list</code>: Represents a list of scalar values. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="['a', 'b', 'c']"></code> or <code [languages]="['json']" highlight="[1, 2, 3]"></code>). For example, the value of the deterministic reactions partition (<code>KISAO_0000534</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000534" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>) of the Pahle hybrid discrete/continuous Fehlberg method (<code>KISAO_0000563</code> <a href="https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000563" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>) is a list of the ids of the reactions which should be simulated by the Fehlberg sub-method. Its value should be encoded into SED-ML as <code>&lt;algorithmParameter kisaoID="KISAO:0000534" value='["ReactionId-1", "ReactionId-1", ...]' /&gt;</code>.</li>
-        <li><code>object</code>: Represents key-value pairs. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="{a: 1, b: 2}"></code> or <code [languages]="['json']" highlight="{a: 'x', b: 'y'}"></code>).</li>
-        <li><code>any</code>: Represents any other data type. Should be encoding using JSON (e.g., <code [languages]="['json']" highlight="[{a: 1, b: 2}]"></code>).</li>
-      </ul>
-
-      <p>Enumerations for the value of an algorithm parameter values can be defined in the specification of a simulator using the <code>recommendedRange</code> attribute. This can be combined with any of the above data types.</p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
