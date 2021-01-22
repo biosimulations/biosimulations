@@ -53,7 +53,7 @@ jobs:
             appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           fi
           frontendAppsArr=('account' 'platform' 'simulators' 'dispatch')
-          fronendAppsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          frontendAppsJson=$(printf '"%s"\n' "${frontendAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           echo "::set-output name=apps::$appsJson"
           echo "::set-output name=frontendApps::$frontendAppsJson"
           
