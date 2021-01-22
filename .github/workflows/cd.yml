@@ -200,7 +200,7 @@ jobs:
     environment: dev_environment
     strategy:
       matrix:
-        app: ${{ fromJson(needs.listApps.outputs.apps) }} 
+        app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
     steps:    
     - name: Install Node.js
       uses: actions/setup-node@v1
@@ -222,7 +222,7 @@ jobs:
     environment: prod_environment
     strategy:
       matrix:
-        app: ${{ fromJson(needs.listApps.outputs.apps) }} 
+        app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
     steps:    
     - name: Install Node.js
       uses: actions/setup-node@v1
@@ -236,6 +236,14 @@ jobs:
       uses: actions/download-artifact@v2
       with:
        name: ${{matrix.app}}-prod
+       
+    - name: Push App
+      env:
+        idKey: ${{matrix.app}}_site_id
+        NETLIFY_SITE_ID: ${{secrets.${{matrix.app}}_site_id}} # Not sure if this will work
+        NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+      run: netlify deploy
+        
        
   triggerDevDeployment:
     name: Trigger a new deployment of the latest images
