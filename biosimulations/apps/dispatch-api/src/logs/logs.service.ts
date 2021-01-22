@@ -3,17 +3,32 @@ import {
   SimulationRunLogStatus,
   SimulationRunStatus
 } from '@biosimulations/datamodel/common';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 import path from 'path';
+import { InjectModel } from '@nestjs/mongoose';
+import { SimulationRunLog } from './logs.model';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class LogsService {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    @InjectModel(SimulationRunLog.name)
+    private logModel: Model<SimulationRunLog>
+  ) {}
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
 
-  getLog(id: string): CombineArchiveLog {
+  async getLog(id: string): Promise<CombineArchiveLog> {
+    const log = await this.logModel.findOne({ simId: id }).exec();
+    if (log) {
+      return log.log;
+    } else {
+      throw new NotFoundException();
+    }
+  }
+  getMockLog(id: string): CombineArchiveLog {
     const structuredLog = {
       status: SimulationRunLogStatus.QUEUED,
       exception: null,

@@ -4,20 +4,18 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import { omitPrivate } from '@biosimulations/datamodel/common';
+import {
+  omitPrivate,
+  ObjectIdValidator
+} from '@biosimulations/datamodel/common';
+
 import {
   SimulationRun,
   SimulationRunReportData,
   SimulationRunResults
 } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, isValidObjectId, Types } from 'mongoose';
-
-// No idea why this wrapper is needed, but providing isValidObjectId directly below fails
-// TODO move to utils
-const ObjectIdValidator = (id: any): boolean => {
-  return isValidObjectId(id);
-};
+import { Document, Types } from 'mongoose';
 
 @Schema({ collection: 'Results' })
 export class ResultsModel extends Document {

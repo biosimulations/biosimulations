@@ -1,4 +1,4 @@
-import { Schema, SchemaType } from 'mongoose';
+import { isValidObjectId, Schema, SchemaType } from 'mongoose';
 import { Url, UrlType } from './common/url';
 
 interface PathOptions {
@@ -22,7 +22,7 @@ function getSchemaUserPaths(schema: Schema): SchemaPaths {
         userPaths[path] = {
           readOnly: true,
           isRequired: undefined,
-          defaultValue: undefined,
+          defaultValue: undefined
         };
         return;
       }
@@ -34,7 +34,7 @@ function getSchemaUserPaths(schema: Schema): SchemaPaths {
         userPaths[path] = {
           readOnly: true,
           isRequired: undefined,
-          defaultValue: undefined,
+          defaultValue: undefined
         };
         return;
       }
@@ -128,8 +128,8 @@ export function sortUrls(a: Url, b: Url): number {
     return 0;
   }
 
-  let aVal: number = 0;
-  let bVal: number = 0;
+  let aVal = 0;
+  let bVal = 0;
   for (const [val, label] of Object.entries(UrlType)) {
     if (label === a.type) {
       aVal = parseInt(val.substring(5));
@@ -152,4 +152,7 @@ export const omitPrivate = (doc: any, obj: any) => {
   delete obj._id;
 
   return obj;
+};
+export const ObjectIdValidator = (id: any): boolean => {
+  return isValidObjectId(id);
 };
