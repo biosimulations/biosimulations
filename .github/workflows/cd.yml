@@ -51,8 +51,70 @@ jobs:
           else
             appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           fi
-
+          frontendAppsArr=('account' 'platform' 'simulators' 'dispatch')
+          fronendAppsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           echo "::set-output name=apps::$appsJson"
+          echo "::set-output name=frontendApps::$frontendAppsJson"
+          
+  buildFrontEnds:
+    name: Build front end apps
+    runs-on: ubuntu-latest
+
+    needs: [listApps]
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
+
+    steps:
+  
+      - name: Checkout repository
+        uses: actions/checkout@v2
+    
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with: 
+          node-version: 15.x
+
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        working-directory: ./biosimulations
+        run: npm ci
+
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+      
+     
+      - name: Build dev app
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}}
+        
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.app}}-dev
+          path: dist/apps/${{matrix.app}}
+          retention-days: 5
+      
+      - name: Build prod app
+        run: nx build --prod ${{matrix.app}}
+                
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.app}}-prod
+          path: dist/apps/${{matrix.app}}
+          retention-days: 5
 
   buildPushDockerImages:
     name: Build, push, and deploy Docker image for app
