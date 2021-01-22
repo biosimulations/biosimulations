@@ -1,4 +1,4 @@
-<biosimulations-text-page heading="BioSimulators conventions for simulation experiments" [tocSections]="tocSections">
+<biosimulations-text-page heading="Conventions for describing reproducible and reusable simulation experiments with SED-ML" [tocSections]="tocSections">
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
@@ -10,7 +10,19 @@
       <div class="hanging-indent">
         <a href="https://sed-ml.org/" target="_blank">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
-          SED-ML documentation
+          SED-ML
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://github.com/fbergmann/libSEDML" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          libSED-ML
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          BioSimulators utils
         </a>
       </div>
     </biosimulations-text-page-side-bar-section>
@@ -28,7 +40,7 @@
       tocSection="Overview"
     >
       <p>Simulators should support SED-ML L1V3 or later. To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the additional conventions for SED-ML described below, as well as the conventions for executing SED-ML documents described with the <a [routerLink]="['/standards', 'simulator-interfaces']">standard for command-line interfaces for simulation tools</a>.</p>
-    </biosimulations-text-page-content-section>    
+    </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Concrete XPATH targets for changes to XML-encoded models"
@@ -98,6 +110,18 @@
     >
       <p>To facilitate automated interpretation of simulation results, the data sets within a report should have unique labels (<code>sedml:dataSet/@label</code>). Note, the same label can be used within multiple reports.</p>
     </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Recommended resources for implementing the execution of simulation experiments"
+      tocSection="Recommended resources"
+    >
+    <p>Below are helpful tools for implementing the execution of simulation experiments described with SED-ML:</p>
+
+    <ul>
+      <li><b>BioSimulators utils <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library which provides functions implementing command-line interfaces to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation plots, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.</li>
+      <li><b>libSED-ML <a href="https://github.com/fbergmann/libSEDML" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several langauges.</li>
+    </ul>
+  </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>
 

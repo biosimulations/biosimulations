@@ -1,4 +1,4 @@
-<biosimulations-text-page heading="BioSimulators format for reports of simulation results" [tocSections]="tocSections">
+<biosimulations-text-page heading="Format for reports of the results of simulation experiments described with SED-ML" [tocSections]="tocSections">
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
@@ -8,9 +8,21 @@
         </a>
       </div>
       <div class="hanging-indent">
-        <a [href]="config.apiUrl" target="_blank">
+        <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
-          REST API documentation
+          BioSimulators utils
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://www.h5py.org/" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          h5py
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://www.hdfgroup.org/solutions/hdf5/" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          HDF5
         </a>
       </div>
     </biosimulations-text-page-side-bar-section>
@@ -65,9 +77,13 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      heading="Example HDF5 dataset for a SED report with id 'report-1' in 'simulation.sedml'"
-      tocSection="Example SED report"
+      heading="Example HDF5 report files"
+      tocSection="Example report files"
     >
+      <p>Several example reports are available <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples" target="_blank">here</a>.</p>
+
+      <p>Below is a graphical illustration of the organization of a HDF5 file for a SED report with id <code>report-1</code> defined in a SED-ML file located at <code>simulation.sedml</code> within a COMBINE/OMEX archive.</p>
+
       <h3>Path of the HDF5 dataset for the SED report</h3>
       <code>simulation.sedml/report-1</code>
 
@@ -219,5 +235,18 @@
         </li>
       </ul>
     </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Recommended resources for building reports of simulation results"
+      tocSection="Recommended resources"
+    >
+    <p>Below are helpful tools for building reports of simulation results:</p>
+
+    <ul>
+      <li><b>BioSimulators utils <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library which provides functions for generating reports to the above specifications.</li>
+      <li><b>h5py <a href="https://www.h5py.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a high-level Python library for reading and writing HDF5 files.</li>
+      <li><b>HDF5 libraries <a href="https://www.hdfgroup.org/downloads/hdf5" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> for C, C++, and Java.</li>
+    </ul>
+  </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>

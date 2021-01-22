@@ -19,8 +19,8 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
                 {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
+                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
             ]
         }
     },
@@ -33,8 +33,8 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
                 {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
+                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
             ]
         }
     },
@@ -47,8 +47,8 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
                 {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
+                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
             ]
         }
     },
@@ -61,8 +61,8 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
+                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
             ]
         }
     },
@@ -75,8 +75,8 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
                 {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
+                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
             ]
         }
     },
@@ -103,8 +103,8 @@ const routes: Routes = [
                 {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
                 {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
                 {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
                 {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
+                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
             ]
         }
     },

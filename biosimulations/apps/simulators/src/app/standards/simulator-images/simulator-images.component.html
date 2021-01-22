@@ -1,4 +1,4 @@
-<biosimulations-text-page heading="BioSimulators standard for Docker images of simulators" [tocSections]="tocSections">
+<biosimulations-text-page heading="Guidelines for Docker images for biosimulation tools" [tocSections]="tocSections">
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
@@ -8,9 +8,21 @@
         </a>
       </div>
       <div class="hanging-indent">
-        <a [href]="config.apiUrl" target="_blank">
+        <a href="https://www.docker.com/" target="_blank">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
-          REST API documentation
+          Docker
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://github.com/opencontainers/image-spec/blob/master/annotations.md" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          Open Containers Initiative labels
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://biocontainers-edu.readthedocs.io/en/latest/what_is_biocontainers.html#create-a-dockerfile-recipe" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          BioContainers labels
         </a>
       </div>
     </biosimulations-text-page-side-bar-section>
