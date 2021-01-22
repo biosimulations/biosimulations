@@ -93,11 +93,12 @@ jobs:
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: node_modules/.cache
+          path: biosimulations/node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
       
      
       - name: Build dev app
+        working-directory: ./biosimulations
         run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}}
         
       - name: Upload build
@@ -108,13 +109,15 @@ jobs:
           retention-days: 5
       
       - name: Build prod app
+        working-directory: ./biosimulations
         run: nx build --prod ${{matrix.app}}
                 
       - name: Upload build
+        
         uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.app}}-prod
-          path: dist/apps/${{matrix.app}}
+          path: biosimulations/dist/apps/${{matrix.app}}
           retention-days: 5
 
   buildPushDockerImages:
