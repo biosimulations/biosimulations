@@ -226,9 +226,10 @@ jobs:
     - name: Push App
       env:
         idKey: ${{matrix.app}}_site_id
-        NETLIFY_SITE_ID: ${{secrets.${idKey}}} # Not sure if this will work
         NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
-      run: netlify deploy
+      run: |
+            export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
+            netlify deploy
       
   deployProdFrontend:
     name: Publish the prod front end 
