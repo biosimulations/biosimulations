@@ -1,4 +1,4 @@
-<biosimulations-text-page heading="BioSimulators standard for simulator command-line interfaces" [tocSections]="tocSections">
+<biosimulations-text-page heading="Standard command-line interface for biosimulation tools" [tocSections]="tocSections">
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
@@ -8,9 +8,21 @@
         </a>
       </div>
       <div class="hanging-indent">
-        <a [href]="config.apiUrl" target="_blank">
+        <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
-          REST API documentation
+          BioSimulators utils
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://github.com/sbmlteam/libCombine" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          libCOMBINE
+        </a>
+      </div>
+      <div class="hanging-indent">
+        <a href="https://github.com/fbergmann/libSEDML" target="_blank">
+          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+          libSED-ML
         </a>
       </div>
     </biosimulations-text-page-side-bar-section>
@@ -125,8 +137,8 @@ optional arguments:
           <p>BioSimulators recognizes the following values.</p>
 
           <ul>
-            <li><code>0</code>, <code>false</code> (any case)</li> 
-            <li><code>1</code>, <code>true</code> (any case)</li> 
+            <li><code>0</code>, <code>false</code> (any case)</li>
+            <li><code>1</code>, <code>true</code> (any case)</li>
           </ul>
         </li>
 
@@ -171,5 +183,19 @@ optional arguments:
         </li>
       </ul>
     </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Recommended resources for implementing command-line interfaces"
+      tocSection="Recommended resources"
+    >
+    <p>Below are helpful tools for implementing command-line interfaces to the above specifications:</p>
+
+    <ul>
+      <li><b>BioSimulators utils <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library which provides functions implementing command-line interfaces to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation plots, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.</li>
+      <li><b>libCOMBINE <a href="https://github.com/sbmlteam/libCombine" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a library for creating and unpacking COMBINE/OMEX archives. libCOMBINE provides bindings for several langauges.</li>
+      <li><b>libSED-ML <a href="https://github.com/fbergmann/libSEDML" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several langauges.</li>
+      <li><b>Cement <a href="https://builtoncement.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library for implementing command-line applications.</li>
+    </ul>
+  </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>

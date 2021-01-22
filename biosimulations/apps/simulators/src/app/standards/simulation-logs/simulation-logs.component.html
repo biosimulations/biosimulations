@@ -1,4 +1,4 @@
-<biosimulations-text-page heading="Format for logs of the execution of COMBINE/OMEX archives" [tocSections]="tocSections">
+<biosimulations-text-page heading="Format for logs of the execution of simulation experiments captured in COMBINE/OMEX archives" [tocSections]="tocSections">
   <ng-container id="sideBar">
     <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
       <div class="hanging-indent">
@@ -8,9 +8,9 @@
         </a>
       </div>
       <div class="hanging-indent">
-        <a href="https://sed-ml.org/" target="_blank">
+        <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
-          SED-ML documentation
+          BioSimulators utils
         </a>
       </div>
     </biosimulations-text-page-side-bar-section>
@@ -91,6 +91,18 @@
 
       <p>By the end of the execution of a COMBINE/OMEX archive, the status of each SED document, task, report, plot, data set, curve, and surface should be one of <code>SUCCEEDED</code>, <code>SKIPPED</code>, or <code>FAILED</code>.</p>
     </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Recommended resources for building logs of the execution of COMBINE/OMEX archives"
+      tocSection="Recommended resources"
+    >
+    <p>Below are helpful tools for building logs of the execution of COMBINE/OMEX archives:</p>
+
+    <ul>
+      <li><b>BioSimulators utils <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library which provides functions for generating reports to the above specifications.</li>
+      <li><b>capturer <a href="https://pypi.org/project/capturer/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library for capturing standard ouput and standard error streams.</li>
+    </ul>
+  </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>
 

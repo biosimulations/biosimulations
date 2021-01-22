@@ -6,6 +6,7 @@ import {
 } from '../simulation-run/simulation-run.model';
 import { LogsController } from './logs.controller';
 import { SimulationRunLog } from './logs.model';
+
 import { LogsService } from './logs.service';
 
 @Module({
@@ -16,6 +17,7 @@ import { LogsService } from './logs.service';
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema }
     ])
   ],
+
   providers: [LogsService]
 })
 export class LogsModule {}

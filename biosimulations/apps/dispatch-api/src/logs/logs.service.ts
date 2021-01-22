@@ -29,6 +29,7 @@ export class LogsService {
     }
   }
   getMockLog(id: string): CombineArchiveLog {
+
     const structuredLog = {
       status: SimulationRunLogStatus.QUEUED,
       exception: null,
