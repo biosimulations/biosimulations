@@ -229,6 +229,8 @@ jobs:
         NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
       run: |
             export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
+            export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
+            netlify status
             netlify deploy
       
   deployProdFrontend:
