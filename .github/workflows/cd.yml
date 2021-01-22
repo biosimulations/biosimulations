@@ -220,10 +220,6 @@ jobs:
             export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
             netlify status  
             
-    - name: Test download
-      run: | 
-            tree
-          
     - name: Push App
       env:
         idKey: ${{matrix.app}}_site_id
