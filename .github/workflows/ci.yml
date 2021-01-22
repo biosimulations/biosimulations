@@ -1,4 +1,4 @@
-name: Lint, test, build, and containerize libraries and apps
+name: Continuous Integration
 on:
   push:
   pull_request:
