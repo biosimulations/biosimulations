@@ -17,4 +17,4 @@ jobs:
           # The message to post on the issue when closing it. If none provided, will not comment when closing an issue.
           close-issue-message: Closed as stale. If needed, can be reopened
           # Only issues or pull requests with all of these labels are checked if stale. Defaults to `[]` (disabled) and can be a comma-separated list of labels.
-          only-labels: todo
+          only-labels: "todo :spiral_notepad:"
