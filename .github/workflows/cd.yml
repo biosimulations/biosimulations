@@ -121,8 +121,6 @@ jobs:
     steps: 
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Extract branch name
-        shell: bash
      
       - name: Call Webhook
         env:
