@@ -88,10 +88,11 @@ jobs:
           dockerfile: Dockerfile
           build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"          
   
-  triggerDeployment:
+  triggerDevDeployment:
     name: Trigger a new deployment of the latest images
     runs-on: ubuntu-latest
     needs: [buildPushDockerImages]
+    environment: dev_environment
     steps: 
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -106,10 +107,30 @@ jobs:
         env:
             GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
             GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+            BRANCH: ${{ secrets.NAME }}
         
         run: |
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
-          
+         
+  triggerProdDeployment:
+    name: Trigger a new deployment of the production environment
+    runs-on: ubuntu-latest
+    needs: [buildPushDockerImages]
+    environment: prod_environment
+    steps: 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Extract branch name
+        shell: bash
+     
+      - name: Call Webhook
+        env:
+            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+            BRANCH: ${{ secrets.NAME }}
+        
+        run: |
+          echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
+          curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data
 
