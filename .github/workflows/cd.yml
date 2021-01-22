@@ -215,6 +215,21 @@ jobs:
       with:
        name: ${{matrix.app}}-dev
  
+    - name: Install Netlify CLI
+      run: npm install -g netlify-cli
+      
+    - name: Download Build for app
+      uses: actions/download-artifact@v2
+      with:
+       name: ${{matrix.app}}-prod
+       
+    - name: Push App
+      env:
+        idKey: ${{matrix.app}}_site_id
+        NETLIFY_SITE_ID: ${{secrets.${idKey}}} # Not sure if this will work
+        NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+      run: netlify deploy
+      
   deployProdFrontend:
     name: Publish the prod front end 
     runs-on: ubuntu-latest
@@ -229,20 +244,6 @@ jobs:
       with: 
         node-version: 15.x
 
-    - name: Install Netlify CLI
-      run: npm install -g netlify-cli
-      
-    - name: Download Build for app
-      uses: actions/download-artifact@v2
-      with:
-       name: ${{matrix.app}}-prod
-       
-    - name: Push App
-      env:
-        idKey: ${{matrix.app}}_site_id
-        NETLIFY_SITE_ID: ${{secrets.${{matrix.app}}_site_id}} # Not sure if this will work
-        NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
-      run: netlify deploy
         
        
   triggerDevDeployment:
