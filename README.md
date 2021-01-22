@@ -1,5 +1,6 @@
 ![Logo](https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/biosimulations/libs/shared/assets/src/assets/images/biosimulations-logo/logo-white.svg)
 
+![Continuous Integration](https://github.com/biosimulations/Biosimulations/workflows/Continuous%20Integration/badge.svg)                                ![Continuous Deployment](https://github.com/biosimulations/Biosimulations/workflows/Continuous%20Deployment/badge.svg)
 # BioSimulations
 
 More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as [COMBINE/OMEX](https://combinearchive.org/), [SBML](http://sbml.org), and [SED-ML](https://sed-ml.org), it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of incompatible modeling formats and simulation tools.
@@ -30,7 +31,7 @@ This package was developed by the [Karr Lab](https://www.karrlab.org) at the Ica
 - [Bilal Shaikh](https://www.bshaikh.com)
 - [Jonathan Karr](https://www.karrlab.org)
 - Akhil Marupilla
-- [Mike Wilson](https://www.linkedin.com/in/mike-wilson-08b3324/)
+- [Mike Wilson](https://www.linkedin.com/in/mike-wilson-08b3324/)	 
 - [Ion Moraru](https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion)
 
 ## Funding
