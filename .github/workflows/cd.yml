@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       apps: ${{steps.get-all-apps.outputs.apps}}
+      frontendApps:  ${{steps.get-all-apps.outputs.frontendApps}}
     steps: 
 
       - name: Checkout Repository
