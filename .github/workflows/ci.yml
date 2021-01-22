@@ -1,9 +1,6 @@
 name: Lint, test, build, and containerize libraries and apps
 on:
   push:
-    branches:
-      - dev
-      - stage
   pull_request:
 jobs:
   getAffectedLibrariesApps:
@@ -26,7 +23,7 @@ jobs:
           then
             echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
           else
-            echo NX_BASE=origin/deploy >>$GITHUB_ENV
+            echo NX_BASE=${{ github.event.before }} >>$GITHUB_ENV
           fi
 
       - name: Install Node.js
