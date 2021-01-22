@@ -1,4 +1,4 @@
-name: Build and deploy the latest changes
+name: Continuous Deployment
 on: 
   push:
     branches: [dev]
