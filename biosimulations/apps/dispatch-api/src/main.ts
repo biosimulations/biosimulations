@@ -116,6 +116,18 @@ async function bootstrap() {
   const options = builder.build();
   const document = SwaggerModule.createDocument(app, options);
 
+  const components = document.components as any;
+  const unsortedSchemas = components.schemas;
+  if (unsortedSchemas) {
+    const schemaNames = Object.keys(unsortedSchemas).sort();
+
+    const schemas: {[name: string]: any} = {};
+    for (const schemaName of schemaNames) {
+      schemas[schemaName] = unsortedSchemas?.[schemaName];
+    }
+    components.schemas = schemas;
+  }
+
   SwaggerModule.setup('', app, document, {
     customfavIcon: favIcon,
     customSiteTitle: 'runBioSimulations API',
@@ -123,7 +135,9 @@ async function bootstrap() {
     swaggerOptions: {
       oauth: {
         clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a'
-      }
+      },
+      //tagsSorter: 'alpha',
+      operationsSorter: 'alpha',
     }
   });
 

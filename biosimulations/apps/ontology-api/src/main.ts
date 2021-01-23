@@ -52,10 +52,24 @@ function setupOpenApi(
   const options = documentBuilder.build();
   const document = SwaggerModule.createDocument(app, options);
 
+  const components = document.components as any;
+  const unsortedSchemas = components.schemas;
+  if (unsortedSchemas) {
+    const schemaNames = Object.keys(unsortedSchemas).sort();
+
+    const schemas: {[name: string]: any} = {};
+    for (const schemaName of schemaNames) {
+      schemas[schemaName] = unsortedSchemas?.[schemaName];
+    }
+    components.schemas = schemas;
+  }
+
   const uiOptions = {
     oauth: {
       clientId: clientId,
     },
+    //tagsSorter: 'alpha',
+    operationsSorter: 'alpha',
   };
   const customOptions: SwaggerCustomOptions = {
     customSiteTitle: 'BioSimulations API Documentation',
