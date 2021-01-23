@@ -53,9 +53,9 @@ export class SimulationLogComponent {
   logHasReports = false;
   logHasPlots = false;
 
-  structuredLogElements: (SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | undefined = undefined;
-  firstStructuredLogElement: SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog | undefined = undefined;
-  lastStructuredLogElement: SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog | undefined = undefined;
+  taskLogs: {doc: SedDocumentLog, task: SedTaskLog}[] = [];
+  reportLogs: {doc: SedDocumentLog, report: SedReportLog}[] = [];
+  plotLogs: {doc: SedDocumentLog, plot: (SedPlot2DLog | SedPlot3DLog)}[] = [];
 
   @Input()
   set structuredLog(value: CombineArchiveLog | undefined) {
@@ -157,40 +157,33 @@ export class SimulationLogComponent {
       }
     }
 
-    if (level === StructuredLogLevel.SedDocument) {
-      this.structuredLogElements = log?.sedDocuments as SedDocumentLog[];
-
-    } else if (level >= StructuredLogLevel.SedTaskOutput) {
-      const tasks: SedTaskLog[] = [];
-      const reports: SedReportLog[] = [];
-      const plots: (SedPlot2DLog | SedPlot3DLog)[] = [];
+    if (level >= StructuredLogLevel.SedTaskOutput) {
+      const tasks: {doc: SedDocumentLog, task: SedTaskLog}[] = [];
+      const reports: {doc: SedDocumentLog, report: SedReportLog}[] = [];
+      const plots: {doc: SedDocumentLog, plot: (SedPlot2DLog | SedPlot3DLog)}[] = [];
 
       log?.sedDocuments?.forEach((docLog: SedDocumentLog): void => {
         docLog?.tasks?.forEach((taskLog: SedTaskLog): void => {
-          tasks.push(taskLog);
+          tasks.push({doc: docLog, task: taskLog});
         });
 
         docLog?.outputs?.forEach((outputLog: SedReportLog | SedPlot2DLog | SedPlot3DLog): void => {
           if ('dataSets' in outputLog) {
-            reports.push(outputLog);
+            reports.push({doc: docLog, report: outputLog});
           } else {
-            plots.push(outputLog);
+            plots.push({doc: docLog, plot: outputLog});
           }
         });
       });
 
-      this.structuredLogElements = [...tasks, ...reports, ...plots];
+      this.taskLogs = tasks;
+      this.reportLogs = reports;
+      this.plotLogs = plots;
 
     } else {
-      this.structuredLogElements = undefined;
-    }
-
-    if (this.structuredLogElements && this.structuredLogElements?.length > 0) {
-      this.firstStructuredLogElement = this.structuredLogElements[0];
-      this.lastStructuredLogElement = this.structuredLogElements[this.structuredLogElements.length - 1];
-    } else {
-      this.firstStructuredLogElement = undefined;
-      this.lastStructuredLogElement = undefined;
+      this.taskLogs = [];
+      this.reportLogs = [];
+      this.plotLogs = [];
     }
 
     this.sedDocumentStatusCounts = this.convertStatusCountsMapToArray(sedDocumentStatusCountsMap);

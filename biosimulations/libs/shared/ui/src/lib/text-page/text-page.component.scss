@@ -13,7 +13,14 @@
   }
 }
 
+/* compact */
 .sections-container.compact {
   margin-top: 0;
   border-radius: 4px;
+}
+
+@media screen and (max-width: 959px) {
+ .side-bar .sections-container {
+   margin-top: 0;
+  }
 }
