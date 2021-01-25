@@ -11,6 +11,12 @@ describe('LogsController', () => {
         output: null
       };
     },
+    getMockLog(id: string) {
+      return {
+        data: 'Mock log',
+        output: null
+      };
+    },
     getOldLogs(id: string) {
       return {
         output: 'oldOut',
@@ -33,7 +39,7 @@ describe('LogsController', () => {
   it(' should get logs from service', async () => {
     const log = await controller.getLogs('testId');
     //@ts-ignore
-    expect(log.message).toBe('Sample log for testId');
+    expect(log.output).toBe('oldOutoldErr');
   });
 
   it(' should get older logs from service', async () => {

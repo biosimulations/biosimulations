@@ -11,7 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ResultsModel, ResultsSchema } from './results.model';
 import {
   SimulationRunModel,
-  SimulationRunModelSchema,
+  SimulationRunModelSchema
 } from '../simulation-run/simulation-run.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 
@@ -20,10 +20,10 @@ import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
     BiosimulationsAuthModule,
     MongooseModule.forFeature([
       { name: ResultsModel.name, schema: ResultsSchema },
-      { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
-    ]),
+      { name: SimulationRunModel.name, schema: SimulationRunModelSchema }
+    ])
   ],
   providers: [ResultsService],
-  controllers: [ResultsController],
+  controllers: [ResultsController]
 })
 export class ResultsModule {}
