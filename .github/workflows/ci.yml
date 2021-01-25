@@ -23,7 +23,12 @@ jobs:
           then
             echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
           else
+          if [  ${{github.event.before}} == 0000000000000000000000000000000000000000 ]
+          then
+            echo NX_BASE=origin/dev >>$GITHUB_ENV
+          else
             echo NX_BASE=${{ github.event.before }} >>$GITHUB_ENV
+          fi
           fi
 
       - name: Install Node.js
