@@ -2,10 +2,8 @@ name: Continuous Integration
 on:
   push:
   pull_request:
-  
 jobs:
   getAffectedLibrariesApps:
-    if: 
     name: Determine affected libraries and apps
     runs-on: ubuntu-latest
     outputs:
