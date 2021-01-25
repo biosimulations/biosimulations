@@ -1,3 +1,4 @@
 todo:
   keyword: "TODO"
   autoAssign: true
+  exclude: .github/workflows/closeStaleTodos.yml

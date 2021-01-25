@@ -1,0 +1,20 @@
+name: Close stale Todo issues
+on:
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+  workflow_dispatch:
+ 
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    name: close-issues
+    steps:
+      - name: Close Stale Issues
+        uses: actions/stale@v3.0.15
+        with:
+          # The message to post on the issue when tagging it. If none provided, will not mark issues stale.
+          stale-issue-message: Closed as stale. If needed, can be reopened
+          # The message to post on the issue when closing it. If none provided, will not comment when closing an issue.
+          close-issue-message: Closed as stale. If needed, can be reopened
+          # Only issues or pull requests with all of these labels are checked if stale. Defaults to `[]` (disabled) and can be a comma-separated list of labels.
+          only-labels: "todo :spiral_notepad:"

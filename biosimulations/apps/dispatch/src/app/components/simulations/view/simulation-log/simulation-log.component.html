@@ -247,67 +247,66 @@
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <biosimulations-structured-simulation-log-element
-        *ngFor="let docLog of structuredLog.sedDocuments"
+        *ngFor="let docLog of structuredLog.sedDocuments; let iDoc = index"
         [elementId]="docLog.location"
         elementType="Simulation experiment"
         [log]="docLog"
         [id]="'log=' + docLog.location"
         [compact]="true"
         iconActionType="toggle"
-        [first]="docLog === firstStructuredLogElement"
-        [last]="docLog === lastStructuredLogElement"
+        [first]="iDoc === 0"
+        [last]="iDoc === (structuredLog.sedDocuments.length - 1)"
       >
       </biosimulations-structured-simulation-log-element>
     </ng-container>
 
     <ng-container *ngSwitchDefault>
-      <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+      <ng-container *ngIf="numTasks > 0">
+        <h2>Tasks</h2>
         <biosimulations-structured-simulation-log-element
-          *ngFor="let taskLog of docLog.tasks"
-          [elementId]="docLog.location + ' :: ' + taskLog.id"
+          *ngFor="let docTaskLog of taskLogs; let iTask = index"
+          [elementId]="docTaskLog.doc.location + ' :: ' + docTaskLog.task.id"
           elementType="Task"
-          [log]="taskLog"
-          [id]="'log=task-' + docLog.location + '/' + taskLog.id"
+          [log]="docTaskLog.task"
+          [id]="'log=task-' + docTaskLog.doc.location + '/' + docTaskLog.task.id"
           [compact]="true"
           iconActionType="toggle"
-          [first]="taskLog === firstStructuredLogElement"
-          [last]="taskLog === lastStructuredLogElement"
+          [first]="iTask === 0"
+          [last]="iTask === (taskLogs.length - 1)"
         >
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
-        <ng-container *ngFor="let outputLog of docLog.outputs">
-          <biosimulations-structured-simulation-log-element
-            *ngIf="outputLog?.dataSets"
-            [elementId]="docLog.location + ' :: ' + outputLog.id"
-            elementType="Report"
-            [log]="outputLog"
-            [id]="'log=output-' + docLog.location + '/' + outputLog.id"
-            [compact]="true"
-            iconActionType="toggle"
-            [first]="outputLog === firstStructuredLogElement"
-            [last]="outputLog === lastStructuredLogElement"
-          >
-          </biosimulations-structured-simulation-log-element>
-        </ng-container>
+      <ng-container *ngIf="numReports > 0">
+        <h2>Reports</h2>
+        <biosimulations-structured-simulation-log-element
+          *ngFor="let docOutputLog of reportLogs; let iReport = index"
+          [elementId]="docOutputLog.doc.location + ' :: ' + docOutputLog.report.id"
+          elementType="Report"
+          [log]="docOutputLog.report"
+          [id]="'log=output-' + docOutputLog.doc.location + '/' + docOutputLog.report.id"
+          [compact]="true"
+          iconActionType="toggle"
+          [first]="iReport === 0"
+          [last]="iReport === (reportLogs.length - 1)"
+        >
+        </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
-        <ng-container *ngFor="let outputLog of docLog.outputs">
-          <biosimulations-structured-simulation-log-element
-            *ngIf="!outputLog?.dataSets"
-            [elementId]="docLog.location + ' :: ' + outputLog.id"
-            elementType="Plot"
-            [log]="outputLog"
-            [id]="'log=output-' + docLog.location + '/' + outputLog.id"
-            [compact]="true"
-            iconActionType="toggle"
-            [first]="outputLog === firstStructuredLogElement"
-            [last]="outputLog === lastStructuredLogElement"
-          >
-          </biosimulations-structured-simulation-log-element>
-        </ng-container>
+      <ng-container *ngIf="numPlots > 0">
+        <h2>Plots</h2>
+        <biosimulations-structured-simulation-log-element
+          *ngFor="let docOutputLog of plotLogs; let iPlot = index"
+          [elementId]="docOutputLog.doc.location + ' :: ' + docOutputLog.plot.id"
+          elementType="Plot"
+          [log]="docOutputLog.plot"
+          [id]="'log=output-' + docOutputLog.doc.location + '/' + docOutputLog.plot.id"
+          [compact]="true"
+          iconActionType="toggle"
+          [first]="iPlot === 0"
+          [last]="iPlot === (plotLogs.length - 1)"
+        >
+        </biosimulations-structured-simulation-log-element>
       </ng-container>
     </ng-container>
   </ng-container>

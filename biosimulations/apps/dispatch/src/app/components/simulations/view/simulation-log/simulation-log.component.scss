@@ -27,6 +27,30 @@ biosimulations-text-page-side-bar-section ::ng-deep {
   }
 }
 
+h2 {
+  color: mat-color($theme-primary);
+  background: $theme-primary-lightest;
+
+  margin-block-start: 0;
+  margin-block-end: 0;  
+  margin-bottom: 0.5rem;
+
+  padding: 0 0.5rem;
+  border-radius: 4px;
+
+  &:not(:first-child) {
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 959px) {
+  h2 {
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+  }
+}
+
 biosimulations-raw-simulation-log,
 biosimulations-structured-simulation-log-element {
   ::ng-deep {
