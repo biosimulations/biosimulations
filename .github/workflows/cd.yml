@@ -188,7 +188,7 @@ jobs:
   deployDevFrontend:
     name: Publish the development frontend 
     runs-on: ubuntu-latest
-    needs: [listApps, buildDevFrontEnds]
+    needs: [listApps, buildDevFrontEnds, buildPushDockerImages]
     environment: dev_environment
     strategy:
       matrix:
