@@ -205,3 +205,10 @@ export class CombineArchiveLog {
   @ApiProperty({ type: [SedDocumentLog], nullable: true })
   sedDocuments!: SedDocumentLog[] | null;
 }
+
+export class CreateSimulationRunLogBody {
+  @ApiProperty()
+  simId!: string;
+  @ApiProperty()
+  log!: CombineArchiveLog;
+}

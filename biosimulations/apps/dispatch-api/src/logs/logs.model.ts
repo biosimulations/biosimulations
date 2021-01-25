@@ -32,8 +32,10 @@ export class SimulationRunLog extends Document {
   @Prop()
   updated!: Date;
 }
-export const LogSchema = SchemaFactory.createForClass(SimulationRunLog);
-LogSchema.set('timestamps', {
+export const SimulationRunLogSchema = SchemaFactory.createForClass(
+  SimulationRunLog
+);
+SimulationRunLogSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated'
 });

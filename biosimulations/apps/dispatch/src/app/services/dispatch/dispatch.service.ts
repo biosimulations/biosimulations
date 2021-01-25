@@ -4,7 +4,8 @@ import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
 import { SimulationRun, UploadSimulationRun } from '@biosimulations/dispatch/api-models';
-import { SimulationLogs, RawSimulationLog, CombineArchiveLog, SimulationStatus } from '../../simulation-logs-datamodel';
+import { SimulationLogs, RawSimulationLog, CombineArchiveLog } from '../../simulation-logs-datamodel';
+import { SimulationRunLogStatus, SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 export interface SimulatorVersionsMap {
   [id: string]: string[];
@@ -86,12 +87,13 @@ export class DispatchService {
     return this.http.get<CombineArchiveLog>(endpoint).pipe(
       map(
         (response: CombineArchiveLog): SimulationLogs => {
-          // get raw log
-          const rawLog: RawSimulationLog = response.output || '';
-
           // get structured log
-          const structuredLog: CombineArchiveLog | undefined = response;
+          let structuredLog: CombineArchiveLog | undefined = response;
 
+          const rawLog = response.output || structuredLog?.exception?.message || '';
+          if (structuredLog.status == SimulationRunLogStatus.UNKNOWN) {
+            structuredLog = undefined;
+          }
           // return combineed log
           return {
             raw: rawLog,
