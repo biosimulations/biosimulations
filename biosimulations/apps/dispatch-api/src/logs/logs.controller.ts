@@ -35,7 +35,6 @@ export class LogsController {
   })
   @Get(':id')
   async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
-
     const structLogs = this.service.getMockLog(id);
     let rawLogs = {
       error: 'Sample Error',
