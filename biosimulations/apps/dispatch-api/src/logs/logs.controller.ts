@@ -77,8 +77,11 @@ export class LogsController {
   }
 
   @Post()
-  async createLogs(@Body() body: CreateSimulationRunLogBody) {
-    await this.service.createLog(body.simId, body.log);
+  async createLogs(
+    @Body() body: CreateSimulationRunLogBody
+  ): Promise<CombineArchiveLog> {
+    const logs = await this.service.createLog(body.simId, body.log);
+    return logs.log;
   }
 
   @Delete(':id')
