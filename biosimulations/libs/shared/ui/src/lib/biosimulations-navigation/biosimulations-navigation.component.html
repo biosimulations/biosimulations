@@ -1,4 +1,7 @@
-<mat-sidenav-container class="sidenav-container mat-typography">
+<mat-sidenav-container
+  class="sidenav-container mat-typography mat-app-background"
+  [ngClass]="{ 'theme-alternate': darkMode }"
+>
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -8,7 +11,10 @@
     [opened]="false"
   >
     <biosimulations-topbar color="#666">
-      <biosimulations-logo-text id="logo" [appNameParts]="appNameParts"></biosimulations-logo-text>
+      <biosimulations-logo-text
+        id="logo"
+        [appNameParts]="appNameParts"
+      ></biosimulations-logo-text>
       <button
         id="rightContent"
         class="biosimulations-icon-button white sidenav-topbar-right-button"
@@ -56,7 +62,8 @@
     <div class="content">
       <ng-content select="router-outlet"></ng-content>
     </div>
-    <biosimulations-notice *ngIf="showNews"
+    <biosimulations-notice
+      *ngIf="showNews"
       [appName]="appName"
       type="news"
       [version]="newsVersion"
@@ -68,7 +75,10 @@
       type="privacy"
       [version]="privacyPolicyVersion"
     >
-      {{ appName }} collects limited personal data to credit authors and improve the platform. By using this site, you agree to our <a [routerLink]="['/help', 'terms']">terms of service</a> and <a [routerLink]="['/help', 'privacy']">privacy policy</a>.
+      {{ appName }} collects limited personal data to credit authors and improve
+      the platform. By using this site, you agree to our
+      <a [routerLink]="['/help', 'terms']">terms of service</a> and
+      <a [routerLink]="['/help', 'privacy']">privacy policy</a>.
     </biosimulations-notice>
   </mat-sidenav-content>
 </mat-sidenav-container>
