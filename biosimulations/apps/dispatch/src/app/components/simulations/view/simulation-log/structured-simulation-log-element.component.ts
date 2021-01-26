@@ -5,16 +5,15 @@ import {
   SedReportLog,
   SedPlot2DLog,
   SedPlot3DLog,
-  SimulationStatus,
   SimulatorDetail,
-  AlgorithmKisaoDescriptionFragment,
+  AlgorithmKisaoDescriptionFragment
 } from '../../../../simulation-logs-datamodel';
 import * as Convert from 'ansi-to-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 import { OntologyService } from '../../../../services/ontology/ontology.service';
-import { KisaoTerm } from '@biosimulations/datamodel/common';
+import { KisaoTerm, SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
 type logTypes = SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog;
 
@@ -26,10 +25,10 @@ interface FormattedSimulatorDetail {
 @Component({
   selector: 'biosimulations-structured-simulation-log-element',
   templateUrl: './structured-simulation-log-element.component.html',
-  styleUrls: ['./structured-simulation-log-element.component.scss'],
+  styleUrls: ['./structured-simulation-log-element.component.scss']
 })
 export class StructuredSimulationLogElementComponent {
-  constructor(private sanitizer: DomSanitizer, private ontologyService: OntologyService){}
+  constructor(private sanitizer: DomSanitizer, private ontologyService: OntologyService) {}
 
   @Input()
   elementId!: string;
@@ -54,10 +53,10 @@ export class StructuredSimulationLogElementComponent {
     this.heading = this.getHeading();
 
     switch (value.status) {
-      case SimulationStatus.QUEUED:
+      case SimulationRunLogStatus.QUEUED:
         this.noOutputMessage = `The output of the ${this.elementId} will be available here once the ${this.elementId} completes.`;
         break;
-      case SimulationStatus.RUNNING:
+      case SimulationRunLogStatus.RUNNING:
         this.noOutputMessage = 'Output is not yet available.';
         break;
       default:
@@ -86,8 +85,8 @@ export class StructuredSimulationLogElementComponent {
           const value = keyValue.value;
           return {
             key: key,
-            value: typeof value === 'object' ? JSON.stringify(value, null, 2) : value.toString(),
-          }
+            value: typeof value === 'object' ? JSON.stringify(value, null, 2) : value.toString()
+          };
         }
       );
     }
@@ -101,14 +100,14 @@ export class StructuredSimulationLogElementComponent {
     const duration = this.log?.duration;
 
     return (
-      this.elementType
-      + ' '
-      + this.elementId
-      + ' '
-      + '('
-      + this.log.status.toLowerCase()
-      + (typeof duration === 'number' ? ', ' + duration.toFixed(1) + ' s' : '')
-      + ')'
+      this.elementType +
+      ' ' +
+      this.elementId +
+      ' ' +
+      '(' +
+      this.log.status.toLowerCase() +
+      (typeof duration === 'number' ? ', ' + duration.toFixed(1) + ' s' : '') +
+      ')'
     );
   }
 

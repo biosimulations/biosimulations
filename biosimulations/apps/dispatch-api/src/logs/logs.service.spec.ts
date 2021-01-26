@@ -1,6 +1,7 @@
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Server } from 'http';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { SimulationRunLog } from './logs.model';
 import { LogsService } from './logs.service';
@@ -8,14 +9,13 @@ import { LogsService } from './logs.service';
 describe('LogsService', () => {
   let service: LogsService;
   class mockLogModel {
-    data: any;
-    save: () => any;
-    constructor(body: any) {
-      this.data = body;
-      this.save = () => {
-        return this.data;
-      };
-    }
+    constructor(private data: any) {}
+    static save = jest.fn().mockResolvedValue('test');
+    save = mockLogModel.save;
+    static find = jest.fn().mockResolvedValue({});
+    static findOne = jest.fn().mockResolvedValue({});
+    static findOneAndUpdate = jest.fn().mockResolvedValue({});
+    static deleteOne = jest.fn().mockResolvedValue(true);
   }
 
   beforeEach(async () => {
@@ -24,7 +24,7 @@ describe('LogsService', () => {
         LogsService,
         {
           provide: getModelToken(SimulationRunLog.name),
-          useClass: mockLogModel
+          useValue: mockLogModel
         }
       ],
       imports: [BiosimulationsConfigModule]
@@ -35,5 +35,15 @@ describe('LogsService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('should save to database', () => {
+    //@ts-ignore
+    const spy = jest.spyOn(service.logModel, 'save');
+
+    //@ts-ignore
+    service.createLog('testId', { data: test });
+
+    expect(spy).toHaveBeenCalled();
   });
 });

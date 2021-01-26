@@ -16,5 +16,14 @@
     "pathRewrite": {
       "^/dispatch-api": "/"
     }
-  }
+  },
+    "/ontology-api": {
+    "target": "https://ontology.api.biosimulations.dev",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/ontology-api": ""
+    }
+    }
 }

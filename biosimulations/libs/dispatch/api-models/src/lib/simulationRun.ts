@@ -109,6 +109,11 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'simulator',
   'simulatorVersion',
 ]) { }
+export class UploadSimulationRunUrl extends UploadSimulationRun {
+  @ApiProperty({type: String, format:'url'})
+  url!: string
+}
+
 export class SimulationUpload {
   @ApiProperty({ type: String, format: 'binary' })
   file!: string;

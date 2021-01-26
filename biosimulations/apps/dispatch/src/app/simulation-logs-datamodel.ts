@@ -1,3 +1,5 @@
+import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+
 /* Raw log */
 export type RawSimulationLog = string;
 
@@ -10,21 +12,13 @@ export enum StructuredLogLevel {
   SedDataSetCurveSurface = 4
 }
 
-export enum SimulationStatus {
-  QUEUED = 'QUEUED',
-  RUNNING = 'RUNNING',
-  SUCCEEDED = 'SUCCEEDED',
-  SKIPPED = 'SKIPPED',
-  FAILED = 'FAILED'
-}
-
 export interface Exception {
   category: string;
   message: string;
 }
 
 export interface StructuredSimulationLog {
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
@@ -33,7 +27,7 @@ export interface StructuredSimulationLog {
 
 export interface SedOutputLog extends StructuredSimulationLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
@@ -42,22 +36,21 @@ export interface SedOutputLog extends StructuredSimulationLog {
 
 export interface DataSetLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
 }
 
 export interface CurveLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
 }
-
 export interface SurfaceLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
 }
 
 export interface SedReportLog extends SedOutputLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
@@ -67,7 +60,7 @@ export interface SedReportLog extends SedOutputLog {
 
 export interface SedPlot2DLog extends SedOutputLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
@@ -77,7 +70,7 @@ export interface SedPlot2DLog extends SedOutputLog {
 
 export interface SedPlot3DLog extends SedOutputLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
@@ -92,7 +85,7 @@ export interface SimulatorDetail {
 
 export interface SedTaskLog extends StructuredSimulationLog {
   id: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
@@ -103,7 +96,7 @@ export interface SedTaskLog extends StructuredSimulationLog {
 
 export interface SedDocumentLog extends StructuredSimulationLog {
   location: string;
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;
@@ -113,7 +106,7 @@ export interface SedDocumentLog extends StructuredSimulationLog {
 }
 
 export interface CombineArchiveLog extends StructuredSimulationLog {
-  status: SimulationStatus;
+  status: SimulationRunLogStatus;
   exception: Exception | null;
   skipReason: Exception | null;
   output: string | null;

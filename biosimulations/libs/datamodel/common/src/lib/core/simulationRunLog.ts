@@ -4,4 +4,5 @@ export enum SimulationRunLogStatus {
   SKIPPED = 'SKIPPED',
   SUCCEEDED = 'SUCCEEDED',
   FAILED = 'FAILED',
+  UNKNOWN = 'UNKNOWN'
 }

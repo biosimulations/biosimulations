@@ -52,7 +52,6 @@
     "cache-manager": "^3.4.0",
     "class-validator": "^0.12.2",
     "cron": "^1.8.2",
-    "csv2json": "^2.0.2",
     "csvtojson": "^2.0.10",
     "email-validator": "^2.0.4",
     "is-url": "^1.2.4",
@@ -72,6 +71,7 @@
     "stackdriver-errors-js": "^0.8.0",
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2",
+    "yaml": "^1.10.0",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {

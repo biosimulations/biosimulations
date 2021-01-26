@@ -5,7 +5,7 @@ import {
   SimulationRunModelSchema
 } from '../simulation-run/simulation-run.model';
 import { LogsController } from './logs.controller';
-import { SimulationRunLog } from './logs.model';
+import { SimulationRunLog, SimulationRunLogSchema } from './logs.model';
 
 import { LogsService } from './logs.service';
 
@@ -13,7 +13,7 @@ import { LogsService } from './logs.service';
   controllers: [LogsController],
   imports: [
     MongooseModule.forFeature([
-      { name: SimulationRunLog.name, schema: SimulationRunModelSchema },
+      { name: SimulationRunLog.name, schema: SimulationRunLogSchema },
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema }
     ])
   ],

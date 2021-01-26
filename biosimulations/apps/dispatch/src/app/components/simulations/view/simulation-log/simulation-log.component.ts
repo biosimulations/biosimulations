@@ -7,10 +7,9 @@ import {
   SedReportLog,
   SedPlot2DLog,
   SedPlot3DLog,
-  SimulationStatus,
-  StructuredLogLevel,
+  StructuredLogLevel
 } from '../../../../simulation-logs-datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+import { SimulationRunLogStatus, SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { TocSection, TocSectionsContainerDirective } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
@@ -21,18 +20,18 @@ interface StatusCount {
   count: number;
 }
 
-type StatusCountsMap = Map<SimulationStatus | null, StatusCount>;
+type StatusCountsMap = Map<SimulationRunLogStatus | null, StatusCount>;
 
 @Component({
   selector: 'biosimulations-simulation-log',
   templateUrl: './simulation-log.component.html',
-  styleUrls: ['./simulation-log.component.scss'],
+  styleUrls: ['./simulation-log.component.scss']
 })
 export class SimulationLogComponent {
-  constructor(private scrollService: ScrollService) { }
+  constructor(private scrollService: ScrollService) {}
 
   @Input()
-  status!: SimulationRunStatus;
+  status!: SimulationRunLogStatus;
 
   @Input()
   rawLog!: RawSimulationLog;
@@ -53,9 +52,9 @@ export class SimulationLogComponent {
   logHasReports = false;
   logHasPlots = false;
 
-  taskLogs: {doc: SedDocumentLog, task: SedTaskLog}[] = [];
-  reportLogs: {doc: SedDocumentLog, report: SedReportLog}[] = [];
-  plotLogs: {doc: SedDocumentLog, plot: (SedPlot2DLog | SedPlot3DLog)}[] = [];
+  taskLogs: { doc: SedDocumentLog; task: SedTaskLog }[] = [];
+  reportLogs: { doc: SedDocumentLog; report: SedReportLog }[] = [];
+  plotLogs: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
 
   @Input()
   set structuredLog(value: CombineArchiveLog | undefined) {
@@ -116,10 +115,7 @@ export class SimulationLogComponent {
             for (const outputLog of docLog.outputs) {
               level = Math.max(level, StructuredLogLevel.SedTaskOutput);
 
-              if (outputLog
-                && 'dataSets' in outputLog
-                && (outputLog as SedReportLog).dataSets
-              ) {
+              if (outputLog && 'dataSets' in outputLog && (outputLog as SedReportLog).dataSets) {
                 const reportLog = outputLog as SedReportLog;
                 this.numReports++;
                 (reportStatusCountsMap.get(reportLog.status) as StatusCount).count++;
@@ -128,10 +124,7 @@ export class SimulationLogComponent {
                 }
               }
 
-              if (outputLog
-                && 'curves' in outputLog
-                && (outputLog as SedPlot2DLog).curves
-              ) {
+              if (outputLog && 'curves' in outputLog && (outputLog as SedPlot2DLog).curves) {
                 this.numPlots++;
                 const plot2dLog = outputLog as SedPlot2DLog;
                 (plotStatusCountsMap.get(plot2dLog.status) as StatusCount).count++;
@@ -140,10 +133,7 @@ export class SimulationLogComponent {
                 }
               }
 
-              if (outputLog
-                && 'surfaces' in outputLog
-                && (outputLog as SedPlot3DLog).surfaces
-              ) {
+              if (outputLog && 'surfaces' in outputLog && (outputLog as SedPlot3DLog).surfaces) {
                 this.numPlots++;
                 const plot3dLog = outputLog as SedPlot3DLog;
                 (plotStatusCountsMap.get(plot3dLog.status) as StatusCount).count++;
@@ -158,20 +148,20 @@ export class SimulationLogComponent {
     }
 
     if (level >= StructuredLogLevel.SedTaskOutput) {
-      const tasks: {doc: SedDocumentLog, task: SedTaskLog}[] = [];
-      const reports: {doc: SedDocumentLog, report: SedReportLog}[] = [];
-      const plots: {doc: SedDocumentLog, plot: (SedPlot2DLog | SedPlot3DLog)}[] = [];
+      const tasks: { doc: SedDocumentLog; task: SedTaskLog }[] = [];
+      const reports: { doc: SedDocumentLog; report: SedReportLog }[] = [];
+      const plots: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
 
       log?.sedDocuments?.forEach((docLog: SedDocumentLog): void => {
         docLog?.tasks?.forEach((taskLog: SedTaskLog): void => {
-          tasks.push({doc: docLog, task: taskLog});
+          tasks.push({ doc: docLog, task: taskLog });
         });
 
         docLog?.outputs?.forEach((outputLog: SedReportLog | SedPlot2DLog | SedPlot3DLog): void => {
           if ('dataSets' in outputLog) {
-            reports.push({doc: docLog, report: outputLog});
+            reports.push({ doc: docLog, report: outputLog });
           } else {
-            plots.push({doc: docLog, plot: outputLog});
+            plots.push({ doc: docLog, plot: outputLog });
           }
         });
       });
@@ -179,7 +169,6 @@ export class SimulationLogComponent {
       this.taskLogs = tasks;
       this.reportLogs = reports;
       this.plotLogs = plots;
-
     } else {
       this.taskLogs = [];
       this.reportLogs = [];
@@ -195,56 +184,62 @@ export class SimulationLogComponent {
   }
 
   private initStatusCountsMap(): StatusCountsMap {
-    const statusCounts: StatusCountsMap = new Map<SimulationStatus | null, StatusCount>();
-    statusCounts.set(SimulationStatus.QUEUED, {
-      color: SimulationStatus.QUEUED,
+    const statusCounts: StatusCountsMap = new Map<SimulationRunLogStatus | null, StatusCount>();
+    statusCounts.set(SimulationRunLogStatus.QUEUED, {
+      color: SimulationRunLogStatus.QUEUED,
       label: 'Queued',
-      count: 0,
+      count: 0
     });
-    statusCounts.set(SimulationStatus.RUNNING, {
-      color: SimulationStatus.RUNNING,
+    statusCounts.set(SimulationRunLogStatus.RUNNING, {
+      color: SimulationRunLogStatus.RUNNING,
       label: 'Running',
-      count: 0,
+      count: 0
     });
-    statusCounts.set(SimulationStatus.SUCCEEDED, {
-      color: SimulationStatus.SUCCEEDED,
+    statusCounts.set(SimulationRunLogStatus.SUCCEEDED, {
+      color: SimulationRunLogStatus.SUCCEEDED,
       label: 'Succeeded',
-      count: 0,
+      count: 0
     });
-    statusCounts.set(SimulationStatus.SKIPPED, {
-      color: SimulationStatus.SKIPPED,
+    statusCounts.set(SimulationRunLogStatus.SKIPPED, {
+      color: SimulationRunLogStatus.SKIPPED,
       label: 'Skipped',
-      count: 0,
+      count: 0
     });
-    statusCounts.set(SimulationStatus.FAILED, {
-      color: SimulationStatus.FAILED,
+    statusCounts.set(SimulationRunLogStatus.FAILED, {
+      color: SimulationRunLogStatus.FAILED,
       label: 'Failed',
-      count: 0,
+      count: 0
+    });
+    statusCounts.set(SimulationRunLogStatus.UNKNOWN, {
+      color: SimulationRunLogStatus.SUCCEEDED,
+      label: 'Unknown',
+      count: 0
     });
     statusCounts.set(null, {
-      color: SimulationStatus.SUCCEEDED,
+      color: SimulationRunLogStatus.SUCCEEDED,
       label: 'Unknown',
-      count: 0,
+      count: 0
     });
     return statusCounts;
   }
 
   private convertStatusCountsMapToArray(map: StatusCountsMap): StatusCount[] {
     const order = [
-      SimulationStatus.QUEUED,
-      SimulationStatus.RUNNING,
-      SimulationStatus.SUCCEEDED,
-      SimulationStatus.SKIPPED,
-      SimulationStatus.FAILED,
-      null,
+      SimulationRunLogStatus.QUEUED,
+      SimulationRunLogStatus.RUNNING,
+      SimulationRunLogStatus.SUCCEEDED,
+      SimulationRunLogStatus.SKIPPED,
+      SimulationRunLogStatus.FAILED,
+      SimulationRunLogStatus.UNKNOWN,
+      null
     ];
 
     const array: StatusCount[] = [];
 
-    order.forEach((key: SimulationStatus | null): void => {
+    order.forEach((key: SimulationRunLogStatus | null): void => {
       const statusCount = map.get(key) as StatusCount;
       if (statusCount.count === 0) {
-        statusCount.color = SimulationStatus.SUCCEEDED;
+        statusCount.color = SimulationRunLogStatus.SUCCEEDED;
       } else {
         array.push(statusCount);
       }

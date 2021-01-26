@@ -9,7 +9,7 @@ import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import * as EmailValidator from 'email-validator';
 import { SimulationFile, SimulationFileSchema } from './file.model';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel/common';
 
 @Schema({ collection: 'Simulation Runs', id: false })
@@ -31,9 +31,9 @@ export class SimulationRunModel extends Document {
         validator: (value: any): boolean => {
           return value == null || EmailValidator.validate(value);
         },
-        message: (props: any): string => `${props.value} is not a valid email`,
-      },
-    ],
+        message: (props: any): string => `${props.value} is not a valid email`
+      }
+    ]
   })
   email!: string | null;
 
@@ -43,7 +43,7 @@ export class SimulationRunModel extends Document {
       (key) => SimulationRunStatus[key as SimulationRunStatus]
     ),
 
-    default: SimulationRunStatus.CREATED,
+    default: SimulationRunStatus.CREATED
   })
   status!: SimulationRunStatus;
 
@@ -70,6 +70,9 @@ export class SimulationRunModel extends Document {
 
   @Prop({ type: Boolean, default: false })
   public!: boolean;
+
+  @Prop({ type: Number, default: 0 })
+  refreshCount!: number;
 }
 
 export type SimulationRunModelType = Pick<
@@ -83,6 +86,7 @@ export type SimulationRunModelType = Pick<
   | 'resultsSize'
   | 'simulator'
   | 'simulatorVersion'
+  | 'refreshCount'
   | 'submitted'
   | 'updated'
   | 'public'
@@ -99,7 +103,7 @@ export const SimulationRunModelSchema = SchemaFactory.createForClass(
 );
 SimulationRunModelSchema.set('timestamps', {
   createdAt: 'submitted',
-  updatedAt: 'updated',
+  updatedAt: 'updated'
 });
 SimulationRunModelSchema.set('toObject', { transform: omitPrivate });
 SimulationRunModelSchema.set('toJSON', { transform: omitPrivate });
