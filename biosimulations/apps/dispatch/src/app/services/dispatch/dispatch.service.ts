@@ -102,11 +102,12 @@ export class DispatchService {
           let structuredLog: CombineArchiveLog | undefined = response;
 
           const rawLog =
-            response.output || structuredLog?.exception?.message || '';
+            response.output || structuredLog?.output || '';
           if (structuredLog.status == SimulationRunLogStatus.UNKNOWN) {
             structuredLog = undefined;
           }
-          // return combineed log
+
+          // return combined log
           return {
             raw: rawLog,
             structured: structuredLog,
