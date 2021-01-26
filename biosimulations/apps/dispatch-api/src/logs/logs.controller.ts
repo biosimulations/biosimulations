@@ -25,8 +25,8 @@ import { LogsService } from './logs.service';
 import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
-  @Controller('logs')
-  @ApiTags('Logs')
+@Controller('logs')
+@ApiTags('Logs')
 export class LogsController {
   logger = new Logger(LogsController.name);
   constructor(private service: LogsService) {}
@@ -56,7 +56,7 @@ export class LogsController {
         exception = {
           category: 'Old Simulation',
           message:
-            'This simulation does not have a log available due to its running date. Please re-run the simulation'
+            'This simulation does not have a log available. Please re-run the simulation'
         };
       }
       const log = await this.service.createLog(id, {
