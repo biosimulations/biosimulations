@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()

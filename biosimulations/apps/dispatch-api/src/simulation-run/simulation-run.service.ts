@@ -5,21 +5,18 @@
  * @license MIT
  */
 import {
-  BadRequestException,
   Injectable,
   InternalServerErrorException,
   Logger,
-  MethodNotAllowedException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { SimulationFile, SimulationFileSchema } from './file.model';
+import { SimulationFile } from './file.model';
 import { Model } from 'mongoose';
 import {
   SimulationRunModel,
   SimulationRunModelReturnType,
-  SimulationRunModelSchema,
   SimulationRunModelType,
 } from './simulation-run.model';
 import {

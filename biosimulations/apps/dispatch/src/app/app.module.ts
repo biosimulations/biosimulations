@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -12,7 +12,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
 import {
-  ErrorHandler as BiosimulationsErrorHandler,
   errorRoutes,
   Error404Component,
 } from '@biosimulations/shared/ui';

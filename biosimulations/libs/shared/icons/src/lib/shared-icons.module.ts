@@ -8,7 +8,6 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { FaIconComponent } from './fa-icon/fa-icon.component';
 import {
-  fas,
   faHome,
   faLink,
   faExternalLinkAlt,
@@ -80,7 +79,6 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import {
-  fab,
   faGitAlt,
   faGithub,
   faDocker,
@@ -95,8 +93,6 @@ import {
   faOsi,
 } from '@fortawesome/free-brands-svg-icons';
 import {
-  far,
-  faFile,
   faFileAlt as farFileAlt,
   faStar as farStar,
 } from '@fortawesome/free-regular-svg-icons';

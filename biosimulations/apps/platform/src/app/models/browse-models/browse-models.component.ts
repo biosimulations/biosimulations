@@ -6,12 +6,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ModelData, ModelDataSource } from './models-datasource';
-import { ModelHttpService } from '../services/model-http.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'biosimulations-browse-models',

@@ -1,9 +1,6 @@
-import { Controller, Get, Inject, Logger } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import {
-  ClientProxy,
   Ctx,
-  EventPattern,
-  JsonSocket,
   MessagePattern,
   NatsContext,
   Payload,

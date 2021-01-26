@@ -11,7 +11,6 @@ import {
   Taxon,
   BiomodelAttributes,
   BiomodelRelationships,
-  PrimaryResourceMetaData,
 } from '@biosimulations/datamodel/common';
 
 export class Model {

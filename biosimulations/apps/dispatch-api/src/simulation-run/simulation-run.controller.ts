@@ -10,11 +10,8 @@ import {
   DispatchMessage,
 } from '@biosimulations/messages/messages';
 import {
-  AdminGuard,
-  JwtGuard,
   OptionalAuth,
   permissions,
-  PermissionsGuard,
 } from '@biosimulations/auth/nest';
 import { ClientProxy } from '@nestjs/microservices';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
@@ -30,11 +27,9 @@ import {
   Param,
   Patch,
   Post,
-  Put,
   Req,
   Res,
   UploadedFile,
-  UseGuards,
   UseInterceptors,
   Headers,
   NotImplementedException,
@@ -43,12 +38,9 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBadRequestResponse,
-  ApiBody,
-  ApiConsumes,
   ApiCreatedResponse,
   ApiExtraModels,
   ApiNotImplementedResponse,
-  ApiOAuth2,
   ApiOkResponse,
   ApiOperation,
   ApiPayloadTooLargeResponse,

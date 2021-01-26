@@ -6,7 +6,6 @@ import {
   ILinguistOntologyId,
   IDependentVariableTargetPattern,
   ITestCase,
-  TestCaseResultType,
   ITestCaseException,
 } from '@biosimulations/datamodel/common';
 

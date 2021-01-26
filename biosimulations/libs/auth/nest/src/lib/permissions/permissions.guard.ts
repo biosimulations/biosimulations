@@ -3,14 +3,12 @@
  */
 
 import {
-  CanActivate,
   ExecutionContext,
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { JwtGuard } from '../jwt/jwt.guard';
 import { AuthToken } from '@biosimulations/auth/common';
 import { AdminGuard } from '../admin/admin.guard';
 

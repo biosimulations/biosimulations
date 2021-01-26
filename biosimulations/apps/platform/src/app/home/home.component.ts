@@ -1,6 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AuthService } from '@biosimulations/auth/angular';
-import { Observable } from 'rxjs';
 import { StatsService } from './stats.service';
 import { ConfigService } from '@biosimulations/shared/services';
 

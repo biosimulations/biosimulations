@@ -9,12 +9,10 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import {
   SimulationLogs,
-  RawSimulationLog,
   CombineArchiveLog,
 } from '../../simulation-logs-datamodel';
 import {
   SimulationRunLogStatus,
-  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 
 export interface SimulatorVersionsMap {

@@ -129,9 +129,9 @@ export class UtilsService {
 
   static getSimulatorCurationStatusMessage(
     status: SimulatorCurationStatus,
-    showLabel: boolean = true,
+    showLabel = true,
   ): string {
-    let label: string = '';
+    let label = '';
     if (showLabel) {
       for (const [key, val] of Object.entries(SimulatorCurationStatus)) {
         if (typeof key === 'string' && val === status) {

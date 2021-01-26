@@ -6,12 +6,9 @@ import {
 } from '@biosimulations/datamodel/common';
 import {
   ApiProperty,
-  ApiExtraModels,
-  OmitType,
-  IntersectionType,
 } from '@nestjs/swagger';
 import { Identifier, Taxon, Format, OntologyTerm } from '../common';
-import { AttributesMetadata, ResourceMetadata } from './metadata.dto';
+import { AttributesMetadata } from './metadata.dto';
 
 export class ModelParameter implements BiomodelParameter {
   @ApiProperty({

@@ -18,7 +18,6 @@ import {
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import isUrl from 'is-url';
-import { SchemaDefinition } from 'mongoose';
 
 @Schema({
   _id: false,

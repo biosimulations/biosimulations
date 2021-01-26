@@ -8,11 +8,10 @@ import { Owner } from '../../shared/views/owner';
 import {
   Person,
   IOntologyTerm,
-  UserId,
 } from '@biosimulations/datamodel/common';
 import { ModelHttpService } from './model-http.service';
 import { map } from 'rxjs/operators';
-import { Observable, throwError, never } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { LicenseModel } from '../../shared/views/license';
 import { BiomodelVariable } from '../../shared/views/biomodelVariable';
 import { BiomodelParameter } from '../../shared/views/biomodelParameter';

@@ -5,7 +5,6 @@ import {
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document } from 'mongoose';
 import {
-  omitPrivate,
   ObjectIdValidator,
 } from '@biosimulations/datamodel/common';
 

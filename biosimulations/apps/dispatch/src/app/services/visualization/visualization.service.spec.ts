@@ -2,7 +2,6 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
 import { VisualizationService } from './visualization.service';
-import { Observable } from 'rxjs';
 
 describe('VisualizationService', () => {
   let service: VisualizationService;

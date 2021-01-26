@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { UpdateService } from '@biosimulations/shared/pwa';
-import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'biosimulations-root',

@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Logger,
-  NotFoundException,
   NotImplementedException,
   Param,
   Patch,
@@ -28,23 +27,25 @@ import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 @Controller('logs')
 @ApiTags('Logs')
 export class LogsController {
-  logger = new Logger(LogsController.name);
-  constructor(private service: LogsService) {}
+  private logger = new Logger(LogsController.name);
+  
+  // eslint-disable-next-line @typescript-eslint/no-parameter-properties
+  public constructor(private service: LogsService) {}
 
   @Get()
-  getAllLogs() {
+  public getAllLogs():void {
     throw new NotImplementedException('Not Implemented');
   }
   @Delete()
-  deleteAllLogs() {
+  public deleteAllLogs():void {
     throw new NotImplementedException('Not Implemented');
   }
   @ApiResponse({
     type: CombineArchiveLog,
   })
   @Get(':id')
-  async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
-    const structLogs = await this.service.getLog(id);
+  public async  getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
+  const structLogs = await this.service.getLog(id);
 
     if (!structLogs) {
       let logString = '';
@@ -56,7 +57,8 @@ export class LogsController {
         exception = {
           category: 'Old Simulation',
           message:
-            'This simulation does not have a log available. Please re-run the simulation',
+            'This simulation does not have a log available.\
+             Please re-run the simulation',
         };
       }
       const log = await this.service.createLog(id, {
@@ -75,12 +77,12 @@ export class LogsController {
   }
 
   @Get(':id/download')
-  downloadLogs(@Param() id: string) {
+  public downloadLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 
   @Post()
-  async createLogs(
+  public async createLogs(
     @Body() body: CreateSimulationRunLogBody,
   ): Promise<CombineArchiveLog> {
     this.logger.error('Creating Log');
@@ -89,17 +91,17 @@ export class LogsController {
   }
 
   @Delete(':id')
-  deleteLogs(@Param() id: string) {
+ public deleteLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 
   @Patch(':id')
-  editLogs() {
+  public editLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
 
   @Put(':id')
-  replaceLogs() {
+  public replaceLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
 }

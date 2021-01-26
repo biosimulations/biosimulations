@@ -4,7 +4,7 @@
  */
 
 import { NestFactory } from '@nestjs/core';
-import { NatsOptions, ServerNats, Transport } from '@nestjs/microservices';
+import { NatsOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 
 import { ConfigService } from '@nestjs/config';

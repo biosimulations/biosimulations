@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Controller,
   Get,
   ImATeapotException,
@@ -7,7 +6,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
-  ApiBadGatewayResponse,
   ApiOAuth2,
   ApiOperation,
   ApiResponse,

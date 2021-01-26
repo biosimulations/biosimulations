@@ -18,7 +18,6 @@ import {
 import { TabPageTabComponent } from './tab-page-tab.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'biosimulations-tab-page',

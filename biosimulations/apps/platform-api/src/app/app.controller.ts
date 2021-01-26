@@ -5,8 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import { ApiTags, ApiOAuth2 } from '@nestjs/swagger';
 import {
   JwtGuard,
-  PermissionsGuard,
-  permissions,
   AdminGuard,
 } from '@biosimulations/auth/nest';
 import { AuthToken } from '@biosimulations/auth/common';

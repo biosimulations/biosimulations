@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
-  FormControl,
   Validators,
 } from '@angular/forms';
 import {
@@ -11,11 +10,9 @@ import {
   SimulatorVersionsMap,
 } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { environment } from '@biosimulations/shared/environments';
 import { Simulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({

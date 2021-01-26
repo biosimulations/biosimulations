@@ -1,8 +1,5 @@
 import {
-  AboutLinksObject,
   ErrorObject,
-  ErrorResponseDocument,
-  MetaObject,
 } from '@biosimulations/datamodel/api';
 import { HttpException, HttpStatus } from '@nestjs/common';
 

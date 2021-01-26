@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Host } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { TocSection } from './toc-section';
 import { TocSectionsContainerDirective } from './toc-sections-container.directive';
 

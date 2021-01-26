@@ -12,7 +12,6 @@ import {
 import {
   SimulationRun,
   SimulationRunReportData,
-  SimulationRunResults,
 } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';

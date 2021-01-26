@@ -37,7 +37,6 @@ import {
   ValueType,
   SoftwareInterfaceType,
   sortUrls,
-  IDependentVariableTargetPattern,
   IValidationTests,
   ITestCaseResult,
   TestCaseResultType,

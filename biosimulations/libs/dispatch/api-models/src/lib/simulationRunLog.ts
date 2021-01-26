@@ -1,4 +1,4 @@
-import { ApiExtraModels, ApiProperty, getSchemaPath } from '@nestjs/swagger';
+import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { SimulationRunLogStatus as Status } from '@biosimulations/datamodel/common';
 
 export class Exception {

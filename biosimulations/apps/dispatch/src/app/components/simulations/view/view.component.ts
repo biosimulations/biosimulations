@@ -10,10 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
-  FormControl,
   Validators,
 } from '@angular/forms';
-import { MatSelectChange } from '@angular/material/select';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
@@ -23,33 +21,23 @@ import {
   AxisType,
   ScatterTraceMode,
   ScatterTrace,
-  Axis,
-  Layout,
   DataLayout,
 } from './visualization/visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation, TaskMap } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
-import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import {
   BehaviorSubject,
-  interval,
   Observable,
   of,
-  Subject,
   Subscription,
 } from 'rxjs';
 import {
   concatAll,
-  flatMap,
   map,
-  repeat,
   shareReplay,
-  takeUntil,
-  takeWhile,
-  tap,
 } from 'rxjs/operators';
 import {
   AxisLabelType,

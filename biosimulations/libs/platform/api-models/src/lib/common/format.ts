@@ -1,5 +1,5 @@
 import { Format as IFormat } from '@biosimulations/datamodel/common';
-import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class Format implements IFormat {
   @ApiProperty({ type: String })

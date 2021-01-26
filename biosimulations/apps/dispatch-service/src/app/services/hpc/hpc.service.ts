@@ -1,6 +1,5 @@
-import { Injectable, Logger, Inject } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
-import { ClientProxy } from '@nestjs/microservices';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';

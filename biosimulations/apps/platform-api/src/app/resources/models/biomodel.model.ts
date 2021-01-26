@@ -3,26 +3,18 @@ import isUrl from 'is-url';
 
 import {
   IsString,
-  IsBoolean,
-  IsJSON,
-  IsUrl,
-  IsEmail,
   IsObject,
   IsMongoId,
 } from 'class-validator';
 import mongoose from 'mongoose';
 
 import {
-  BiomodelResource,
-  ResourceType,
   BiomodelAttributes,
-  PrimaryResourceMetaData,
   Taxon,
   BiomodelParameter,
   BiomodelVariable,
   IOntologyTerm,
   Format,
-  BiomodelRelationships,
   License,
   AccessLevel,
   Person,

@@ -54,11 +54,11 @@ export class ScrollService {
     this.scrollContainer.scrollTo(arg);
   }
 
-  scrollToTop(offset: number = 0): void {
+  scrollToTop(offset = 0): void {
     this.scrollTo({ top: 64 + 1 + offset, behavior: 'smooth' });
   }
 
-  scrollToElement(target: Element, offset: number = 0): void {
+  scrollToElement(target: Element, offset = 0): void {
     const y = target.getBoundingClientRect().top + this.getScrollTop() - offset;
     this.scrollTo({ top: y, behavior: 'smooth' });
   }

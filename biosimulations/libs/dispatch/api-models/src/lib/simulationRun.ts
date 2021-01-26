@@ -7,7 +7,6 @@
 import {
   ApiProperty,
   ApiPropertyOptional,
-  ApiResponse,
   ApiResponseProperty,
   PartialType,
   PickType,

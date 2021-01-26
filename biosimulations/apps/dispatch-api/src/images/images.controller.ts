@@ -7,17 +7,12 @@ import {
 import {
   Body,
   Controller,
-  Get,
-  HttpCode,
-  HttpException,
-  HttpStatus,
   Inject,
   InternalServerErrorException,
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { map, pluck } from 'rxjs/operators';
 import { refreshImageBody } from './image.dto';
 
 @Controller('images')

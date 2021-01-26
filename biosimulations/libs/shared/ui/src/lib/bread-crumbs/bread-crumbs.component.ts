@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';

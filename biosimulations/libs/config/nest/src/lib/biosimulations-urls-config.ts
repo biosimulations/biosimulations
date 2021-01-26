@@ -1,5 +1,5 @@
 import { registerAs } from '@nestjs/config';
-import { urls, appName, urlMap } from '@biosimulations/config/common';
+import { urls, urlMap } from '@biosimulations/config/common';
 export default registerAs('urls', () => {
   const config: urlMap = {
     dispatchApi: process.env.DISPATCH_URL || urls.dispatchApi,

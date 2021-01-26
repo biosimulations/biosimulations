@@ -5,9 +5,8 @@ import {
   ModelDocument,
   ModelResource,
 } from '@biosimulations/platform/api-models';
-import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, pluck, tap, catchError } from 'rxjs/operators';
-import { Model } from '../model';
 
 @Injectable({
   providedIn: 'root',

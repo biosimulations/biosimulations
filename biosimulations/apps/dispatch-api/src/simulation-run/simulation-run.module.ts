@@ -8,12 +8,8 @@
 
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import {
-  Transport,
-  ClientProxyFactory,
-  NatsOptions,
-} from '@nestjs/microservices';
+
+
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationFile, SimulationFileSchema } from './file.model';
 import { SimulationRunController } from './simulation-run.controller';

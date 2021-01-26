@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { ModelsRoutingModule } from './models-routing.module';
 import { ModelsComponent } from './models.component';
@@ -12,8 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSortModule } from '@angular/material/sort';
-import { ModelService } from './services/model.service';
-import { ModelHttpService } from './services/model-http.service';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';

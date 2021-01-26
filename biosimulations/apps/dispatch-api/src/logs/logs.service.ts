@@ -1,9 +1,7 @@
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
-import {
-  SimulationRunLogStatus,
-  SimulationRunStatus,
-} from '@biosimulations/datamodel/common';
-import { Injectable, NotFoundException } from '@nestjs/common';
+
+
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 import path from 'path';

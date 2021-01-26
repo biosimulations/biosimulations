@@ -1,5 +1,4 @@
 import {
-  NgModule,
   Injectable,
   ErrorHandler as BaseErrorHandler,
   NgZone,

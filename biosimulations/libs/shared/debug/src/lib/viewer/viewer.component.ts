@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, Optional } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Router, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'biosimulations-debug-viewer',

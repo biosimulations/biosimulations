@@ -13,7 +13,6 @@ import { MatSort } from '@angular/material/sort';
 import { Sort } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   Column,

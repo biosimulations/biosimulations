@@ -8,7 +8,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import * as EmailValidator from 'email-validator';
-import { SimulationFile, SimulationFileSchema } from './file.model';
+import { SimulationFile } from './file.model';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel/common';
 

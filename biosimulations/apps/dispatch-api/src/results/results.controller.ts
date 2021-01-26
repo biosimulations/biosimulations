@@ -25,9 +25,7 @@ import {
   HttpStatus,
   Param,
   ParseBoolPipe,
-  ParseIntPipe,
   Post,
-  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -35,9 +33,7 @@ import {
   ApiBody,
   ApiCreatedResponse,
   ApiOAuth2,
-  ApiOkResponse,
   ApiQuery,
-  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 

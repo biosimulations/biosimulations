@@ -9,16 +9,12 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthClientService } from '@biosimulations/auth/client';
 import {
-  catchError,
   pluck,
-  retry,
   map,
-  flatMap,
   mergeMap,
 } from 'rxjs/operators';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import {
-  SimulationRunLogStatus,
   SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 @Injectable({})

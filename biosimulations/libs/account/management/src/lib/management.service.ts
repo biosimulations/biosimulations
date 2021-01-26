@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ManagementClient, User } from 'auth0';
+import { ManagementClient } from 'auth0';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()

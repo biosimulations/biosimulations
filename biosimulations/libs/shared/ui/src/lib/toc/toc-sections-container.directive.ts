@@ -1,5 +1,5 @@
-import { Directive, ElementRef } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Directive } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { TocSection } from './toc-section';
 
