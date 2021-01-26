@@ -54,11 +54,12 @@ export class LogsController {
         const oldLog = await this.service.getOldLogs(id);
         logString = oldLog.output + oldLog.error;
       } catch (e) {
+        logString =
+          'This simulation does not have a log available.\
+             Please re-run the simulation';
         exception = {
           category: 'Old Simulation',
-          message:
-            'This simulation does not have a log available.\
-             Please re-run the simulation',
+          message: logString,
         };
       }
       const log = await this.service.createLog(id, {
