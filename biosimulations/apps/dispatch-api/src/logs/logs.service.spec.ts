@@ -24,10 +24,10 @@ describe('LogsService', () => {
         LogsService,
         {
           provide: getModelToken(SimulationRunLog.name),
-          useValue: mockLogModel
-        }
+          useValue: mockLogModel,
+        },
       ],
-      imports: [BiosimulationsConfigModule]
+      imports: [BiosimulationsConfigModule],
     }).compile();
 
     service = module.get<LogsService>(LogsService);

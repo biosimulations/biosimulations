@@ -15,7 +15,7 @@ export class BiomodelVariable extends ViewModel implements IBP {
       dto.description,
       dto.identifiers,
       dto.type,
-      dto.units
+      dto.units,
     );
   }
   constructor(
@@ -27,7 +27,7 @@ export class BiomodelVariable extends ViewModel implements IBP {
     public identifiers: Identifier[],
     public type: ValueType,
 
-    public units: string
+    public units: string,
   ) {
     super();
     this.init();

@@ -22,7 +22,7 @@ mat-toolbar {
     float: left;
   }
   li:not(:last-child)::after {
-    content: "»";
+    content: '»';
     margin-left: 0.25rem;
     margin-right: 0.25rem;
     color: mat-color($theme-primary);

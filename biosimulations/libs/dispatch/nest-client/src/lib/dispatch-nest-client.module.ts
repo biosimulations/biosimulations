@@ -8,4 +8,4 @@ import { SimulationRunService } from './simulation-run.service';
   providers: [SimulationRunService],
   exports: [SimulationRunService],
 })
-export class DispatchNestClientModule { }
+export class DispatchNestClientModule {}

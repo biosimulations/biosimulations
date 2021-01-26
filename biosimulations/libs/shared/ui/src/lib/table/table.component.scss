@@ -2,241 +2,247 @@
 @import 'biosimulations-typography';
 
 .loading {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .controls-container {
+  display: flex;
+  flex-direction: row;
+
+  .title {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border: 1px solid $light-bg-darker-20;
+    background: $light-bg-darker-10;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    cursor: pointer;
 
-    .title {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-        border: 1px solid $light-bg-darker-20;
-        background: $light-bg-darker-10;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 22px;
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
-        cursor: pointer;
-
-        &:hover {
-            background: $light-bg-darker-20;
-            border: 1px solid $light-bg-darker-30;
-        }
-
-        &:active {
-            background: $light-bg-darker-30;
-            border: 1px solid $light-bg-darker-40;
-        }
-
-        biosimulations-icon {
-            transform: rotate(-90deg);
-        }
-
-        .title-inner {
-            writing-mode: vertical-lr;
-            text-orientation: mixed;
-            font-weight: bold;
-            transform: rotate(180deg);
-        }
+    &:hover {
+      background: $light-bg-darker-20;
+      border: 1px solid $light-bg-darker-30;
     }
 
-    .controls {
-        width: calc(16rem - 22px);
-    }
-
-    .filter-set-clear-all {
-        margin-top: 0.5rem;
-    }
-
-    .search-field {
-        ::ng-deep .mat-form-field-wrapper {
-            padding-bottom: 0;
-        }
-
-        ::ng-deep .mat-form-field-flex {
-            padding: 0.25rem 0 0 0.25rem;
-        }
-
-        ::ng-deep .mat-form-field-infix {
-            padding: 0;
-            border-top: none;
-        }
-
-        ::ng-deep &.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
-            height: auto;
-            width: auto;
-            position: relative;
-            top: -0.125rem;
-        }
-
-        &.mat-form-field-appearance-fill ::ng-deep .mat-form-field-subscript-wrapper {
-            display: none;
-        }
-    }
-}
-
-::ng-deep .mat-accordion {
-    .mat-expansion-panel {
-        border-left: 1px solid $light-bg-darker-10;
-        border-right: 1px solid $light-bg-darker-10;
-        border-top: 1px solid $light-bg-darker-10;
-        border-radius: 0;
-    }
-    .mat-expansion-panel:last-child,
-    .mat-expansion-panel.mat-expanded {
-        border-bottom: 1px solid $light-bg-darker-10;
-    }
-
-    .mat-expansion-panel:first-of-type {
-        border-top-right-radius: 4px;
-        border-top-left-radius: 0;
-    }
-    .mat-expansion-panel:last-of-type {
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 0;
-    }
-
-    .mat-expansion-panel-spacing {
-        margin: 0;
-    }
-
-    .mat-expansion-panel:not([class*=mat-elevation-z]) {
-        box-shadow: none;
-    }
-
-    .mat-expansion-panel-header {
-        background: $light-bg-darker-5;
-        padding: 0 0.5rem;
-        @include mat-typography-level-to-styles($fontConfig, body-1);
-        font-weight: 500;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-
-        &.mat-expanded:focus {
-            background: $light-bg-darker-5;
-        }
-
-        &[aria-disabled=true] {
-            color: unset;
-        }
-    }
-
-    .mat-expansion-panel {
-        .mat-expansion-panel-header {
-            background: $light-bg-darker-5;
-        }
-        .mat-expansion-panel-header:hover {
-            background: $light-bg-darker-10;
-        }
-
-        .mat-expansion-panel-header:active:not([aria-disabled=true]) {
-            background: $light-bg-darker-20;
-        }
+    &:active {
+      background: $light-bg-darker-30;
+      border: 1px solid $light-bg-darker-40;
     }
 
     biosimulations-icon {
-        margin-right: 0.25rem;
-        margin-top: -0.0625rem;
+      transform: rotate(-90deg);
     }
 
-    .mat-expansion-panel-body {
-        padding: 0.5rem;
+    .title-inner {
+      writing-mode: vertical-lr;
+      text-orientation: mixed;
+      font-weight: bold;
+      transform: rotate(180deg);
+    }
+  }
+
+  .controls {
+    width: calc(16rem - 22px);
+  }
+
+  .filter-set-clear-all {
+    margin-top: 0.5rem;
+  }
+
+  .search-field {
+    ::ng-deep .mat-form-field-wrapper {
+      padding-bottom: 0;
     }
 
-    .mat-list-base {
+    ::ng-deep .mat-form-field-flex {
+      padding: 0.25rem 0 0 0.25rem;
+    }
+
+    ::ng-deep .mat-form-field-infix {
+      padding: 0;
+      border-top: none;
+    }
+
+    ::ng-deep
+      &.mat-form-field:not(.mat-form-field-appearance-legacy)
+      .mat-form-field-suffix
+      .mat-icon-button {
+      height: auto;
+      width: auto;
+      position: relative;
+      top: -0.125rem;
+    }
+
+    &.mat-form-field-appearance-fill
+      ::ng-deep
+      .mat-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+}
+
+::ng-deep .mat-accordion {
+  .mat-expansion-panel {
+    border-left: 1px solid $light-bg-darker-10;
+    border-right: 1px solid $light-bg-darker-10;
+    border-top: 1px solid $light-bg-darker-10;
+    border-radius: 0;
+  }
+  .mat-expansion-panel:last-child,
+  .mat-expansion-panel.mat-expanded {
+    border-bottom: 1px solid $light-bg-darker-10;
+  }
+
+  .mat-expansion-panel:first-of-type {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 0;
+  }
+  .mat-expansion-panel:last-of-type {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 0;
+  }
+
+  .mat-expansion-panel-spacing {
+    margin: 0;
+  }
+
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+  }
+
+  .mat-expansion-panel-header {
+    background: $light-bg-darker-5;
+    padding: 0 0.5rem;
+    @include mat-typography-level-to-styles($fontConfig, body-1);
+    font-weight: 500;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &.mat-expanded:focus {
+      background: $light-bg-darker-5;
+    }
+
+    &[aria-disabled='true'] {
+      color: unset;
+    }
+  }
+
+  .mat-expansion-panel {
+    .mat-expansion-panel-header {
+      background: $light-bg-darker-5;
+    }
+    .mat-expansion-panel-header:hover {
+      background: $light-bg-darker-10;
+    }
+
+    .mat-expansion-panel-header:active:not([aria-disabled='true']) {
+      background: $light-bg-darker-20;
+    }
+  }
+
+  biosimulations-icon {
+    margin-right: 0.25rem;
+    margin-top: -0.0625rem;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0.5rem;
+  }
+
+  .mat-list-base {
+    padding: 0;
+    margin-top: -0.25rem;
+    margin-bottom: -0.25rem;
+
+    .mat-list-item {
+      height: 24px;
+      @include mat-typography-level-to-styles($fontConfig, body-1);
+
+      .mat-list-item-content {
         padding: 0;
-        margin-top: -0.25rem;
-        margin-bottom: -0.25rem;
-
-        .mat-list-item {
-            height: 24px;
-            @include mat-typography-level-to-styles($fontConfig, body-1);
-
-            .mat-list-item-content {
-                padding: 0;
-            }
-        }
+      }
     }
+  }
 
-    .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-        background-color: mat-color($theme-primary);
-    }
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: mat-color($theme-primary);
+  }
 
-    .mat-checkbox {
+  .mat-checkbox {
+    width: 100%;
+    ::ng-deep .mat-checkbox-layout {
+      width: 100%;
+      .mat-checkbox-label {
         width: 100%;
-        ::ng-deep .mat-checkbox-layout {
-            width: 100%;
-            .mat-checkbox-label {
-                width: 100%;
-                &, & * {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                }
-            }
+        &,
+        & * {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
-        ::ng-deep .mat-checkbox-inner-container {
-            margin-right: 0.25rem;
-        }
-        .mat-checkbox-ripple {
-            display: none;
-        }
-
-        &:hover {
-            color: rgba(#000000, 0.9);
-            ::ng-deep .mat-checkbox-frame {
-                border-color: rgba(0, 0, 0, 0.72);
-            }
-        }
-
-        &:active {
-            color: rgba(#000000, 1.0);
-            ::ng-deep .mat-checkbox-frame {
-                border-color: rgba(0, 0, 0, 0.82);
-            }
-        }
+      }
+    }
+    ::ng-deep .mat-checkbox-inner-container {
+      margin-right: 0.25rem;
+    }
+    .mat-checkbox-ripple {
+      display: none;
     }
 
-    .mat-form-field-type-mat-date-range-input.mat-form-field-appearance-fill {
-        .mat-form-field-wrapper {
-            padding-bottom: 0;
-        }
-
-        .mat-form-field-subscript-wrapper {
-            display: none;
-        }
-
-        .mat-form-field-flex {
-            padding: 0.25em 0.5em 0;
-        }
-
-        .mat-form-field-infix {
-            padding: 0.25em 0;
-        }
+    &:hover {
+      color: rgba(#000000, 0.9);
+      ::ng-deep .mat-checkbox-frame {
+        border-color: rgba(0, 0, 0, 0.72);
+      }
     }
+
+    &:active {
+      color: rgba(#000000, 1);
+      ::ng-deep .mat-checkbox-frame {
+        border-color: rgba(0, 0, 0, 0.82);
+      }
+    }
+  }
+
+  .mat-form-field-type-mat-date-range-input.mat-form-field-appearance-fill {
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-form-field-flex {
+      padding: 0.25em 0.5em 0;
+    }
+
+    .mat-form-field-infix {
+      padding: 0.25em 0;
+    }
+  }
 }
 
 .table-container {
-    width: 100%;
-    height: max-content;
-    overflow-x: auto;
+  width: 100%;
+  height: max-content;
+  overflow-x: auto;
 }
 
 .single-line-headings {
-    mat-header-cell {
-        white-space: nowrap;
-    }
+  mat-header-cell {
+    white-space: nowrap;
+  }
 }
 
 .column-filter-icon {
-    margin-left: 0.25rem;
-    opacity: 0.54;
+  margin-left: 0.25rem;
+  opacity: 0.54;
 }
 
 biosimulations-icon {
@@ -244,27 +250,27 @@ biosimulations-icon {
 }
 
 mat-cell {
-    span:not(:last-child) {
-        margin-right: 0.25rem;
-    }
+  span:not(:last-child) {
+    margin-right: 0.25rem;
+  }
 }
 
 .controls-closed {
-    .controls-container {
-        height: 100%;
+  .controls-container {
+    height: 100%;
 
-        .title {
-            // border-top-right-radius: 4px;
-            // border-bottom-right-radius: 4px;
-        }
-
-        .controls {
-            display: none;
-        }
+    .title {
+      // border-top-right-radius: 4px;
+      // border-bottom-right-radius: 4px;
     }
 
-    .mat-table.biosimulations-table {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+    .controls {
+      display: none;
     }
+  }
+
+  .mat-table.biosimulations-table {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }

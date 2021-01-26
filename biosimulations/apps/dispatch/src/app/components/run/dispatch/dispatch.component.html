@@ -10,15 +10,16 @@
         required
       ></ngx-mat-file-input>
       <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-      <mat-hint
-        >
-        <p>Select a COMBINE/OMEX archive file which describes one or more
-        simulations (e.g., in SED-ML format) of one or more models (e.g., in
-        BNGL, SBML formats).</p>
+      <mat-hint>
+        <p>
+          Select a COMBINE/OMEX archive file which describes one or more
+          simulations (e.g., in SED-ML format) of one or more models (e.g., in
+          BNGL, SBML formats).
+        </p>
 
-        <p>An example archive which can be executed by VCell is available here
-          <a
-            [href]="exampleCombineArchiveUrl"
+        <p>
+          An example archive which can be executed by VCell is available here
+          <a [href]="exampleCombineArchiveUrl"
             ><biosimulations-icon icon="download"></biosimulations-icon></a
           >. Additional examples are available in the BioSimulators test suite
           <a [href]="exampleCombineArchivesUrl" target="_blank"
@@ -26,10 +27,12 @@
           >.
         </p>
 
-        <p>More information about COMBINE/OMEX archives is available at
-        <a href="https://combinearchive.org/" target="_blank"
-          >https://combinearchive.org</a
-        >.</p>
+        <p>
+          More information about COMBINE/OMEX archives is available at
+          <a href="https://combinearchive.org/" target="_blank"
+            >https://combinearchive.org</a
+          >.
+        </p>
       </mat-hint>
     </mat-form-field>
 
@@ -48,26 +51,39 @@
       </mat-select>
       <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
       <mat-hint>
-        <p>Select a simulation tool which is capable of executing your archive.
-        This tool must support all of the modeling frameworks (e.g., logical, FBA,
-        kinetic), simulation algorithms (e.g., ODE, SSA), and model formats
-        (e.g., BNGL, SED-ML) involved in your archive.</p>
+        <p>
+          Select a simulation tool which is capable of executing your archive.
+          This tool must support all of the modeling frameworks (e.g., logical,
+          FBA, kinetic), simulation algorithms (e.g., ODE, SSA), and model
+          formats (e.g., BNGL, SED-ML) involved in your archive.
+        </p>
 
-        <p>Note, because each tool supports a different set of frameworks, algorithms, and
-        formats, your archive is likely only compatible with a subset of the available simulation tools.</p>
+        <p>
+          Note, because each tool supports a different set of frameworks,
+          algorithms, and formats, your archive is likely only compatible with a
+          subset of the available simulation tools.
+        </p>
 
-        <p>The README for the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          > outlines the simulator compatibility of several of the example archives in the test suite.</p>
+        <p>
+          The README for the BioSimulators test suite
+          <a [href]="exampleCombineArchivesUrl" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          outlines the simulator compatibility of several of the example
+          archives in the test suite.
+        </p>
 
-        <p>BioSimulators
-        <a href="https://biosimulators.org" target="_blank"
-          ><biosimulations-icon icon="link"></biosimulations-icon></a
-        > describes the modeling frameworks (e.g., logical, FBA,
-        kinetic), simulation algorithms (e.g., ODE, SSA), and modeling formats
-        (e.g., COMBINE/OMEX, SBML, SED-ML) that each simulation tool
-        supports. We recommend using BioSimulators to determine which tools are capable
-        of executing your archive.</p>
+        <p>
+          BioSimulators
+          <a href="https://biosimulators.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          describes the modeling frameworks (e.g., logical, FBA, kinetic),
+          simulation algorithms (e.g., ODE, SSA), and modeling formats (e.g.,
+          COMBINE/OMEX, SBML, SED-ML) that each simulation tool supports. We
+          recommend using BioSimulators to determine which tools are capable of
+          executing your archive.
+        </p>
       </mat-hint>
     </mat-form-field>
 
@@ -97,7 +113,9 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Enter a descriptive name to help you recall this project</mat-label>
+      <mat-label
+        >Enter a descriptive name to help you recall this project</mat-label
+      >
       <input
         matInput
         formControlName="name"
@@ -107,7 +125,8 @@
       <biosimulations-icon icon="tag" matPrefix></biosimulations-icon>
       <mat-hint>
         Provide a name for your modeling project. If you execute multiple
-        projects, this name will help you identify this project among all of your projects.
+        projects, this name will help you identify this project among all of
+        your projects.
       </mat-hint>
     </mat-form-field>
 
@@ -133,10 +152,11 @@
     <div *ngIf="simulationId" class="message success">
       Your simulation #{{ simulationId }} was submitted! You can view the status
       of your simulation at
-      <a [routerLink]="['/simulations', simulationId]">this page</a
-      > or from the <a [routerLink]="['/simulations']">Your simulations page</a>. When your simulation completes, you will able to retrieve and visualize
-      your results from the same page. Your simulation and its results will be
-      available for six months.
+      <a [routerLink]="['/simulations', simulationId]">this page</a> or from the
+      <a [routerLink]="['/simulations']">Your simulations page</a>. When your
+      simulation completes, you will able to retrieve and visualize your results
+      from the same page. Your simulation and its results will be available for
+      six months.
     </div>
   </form>
 </biosimulations-page>

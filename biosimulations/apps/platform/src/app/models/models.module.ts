@@ -50,4 +50,4 @@ const routes: Routes = [{ path: '', component: ModelsComponent }];
   ],
   providers: [],
 })
-export class ModelsModule { }
+export class ModelsModule {}

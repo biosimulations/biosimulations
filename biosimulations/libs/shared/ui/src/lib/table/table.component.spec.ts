@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NpnSliderModule } from "npn-slider";
+import { NpnSliderModule } from 'npn-slider';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { TableComponent } from './table.component';

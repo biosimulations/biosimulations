@@ -6,7 +6,7 @@ import { map, shareReplay } from 'rxjs/operators';
 @Component({
   selector: 'biosimulations-navigation',
   templateUrl: './biosimulations-navigation.component.html',
-  styleUrls: ['./biosimulations-navigation.component.scss']
+  styleUrls: ['./biosimulations-navigation.component.scss'],
 })
 export class BiosimulationsNavigationComponent {
   @Input()
@@ -34,7 +34,7 @@ export class BiosimulationsNavigationComponent {
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) => result.matches),
-      shareReplay()
+      shareReplay(),
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}

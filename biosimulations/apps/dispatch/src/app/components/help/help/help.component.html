@@ -1,10 +1,15 @@
 <biosimulations-text-page heading="Tutorial" [tocSections]="tocSections">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+    <biosimulations-text-page-side-bar-section
+      heading="Related resources"
+      fxShow
+      fxHide.lt-md
+    >
       <div class="hanging-indent">
         <a href="https://biosimulators.org" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
-          Documentation about modeling frameworks, simulation algorithms, model formats, and simulation tools
+          Documentation about modeling frameworks, simulation algorithms, model
+          formats, and simulation tools
         </a>
       </div>
 
@@ -29,7 +34,15 @@
       tocSection="Creating modeling projects"
     >
       <p>
-        runBioSimulations requires modeling projects (one or more simulations of one or more models) to be described by an OMEX file and packaged into a COMBINE archive. Please follow these steps to create OMEX and COMBINE files. Alternatively, COMBINE/OMEX files which describe modeling projects can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        runBioSimulations requires modeling projects (one or more simulations of
+        one or more models) to be described by an OMEX file and packaged into a
+        COMBINE archive. Please follow these steps to create OMEX and COMBINE
+        files. Alternatively, COMBINE/OMEX files which describe modeling
+        projects can be obtained from the BioSimulations repository of modeling
+        projects
+        <a href="https://biosimulations.org" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
       </p>
 
       <ol class="vertically-spaced">
@@ -38,15 +51,81 @@
         </li>
         <li>
           <b>Create one or more models:</b>
-          Create files which describe the models that you would like to simulate and save these files to the directory for the modeling project. For example, the BioNetGen Language <a href="https://bionetgen.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (BNGL) and Systems Biology Markup Language <a href="http://sbml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SBML) formats can be used to represent models of biochemical networks. More information about BNGL and SBML is available from their websites. Alternatively, models can be obtained from BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioSimulations <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and other model repositories.
+          Create files which describe the models that you would like to simulate
+          and save these files to the directory for the modeling project. For
+          example, the BioNetGen Language
+          <a href="https://bionetgen.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          (BNGL) and Systems Biology Markup Language
+          <a href="http://sbml.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          (SBML) formats can be used to represent models of biochemical
+          networks. More information about BNGL and SBML is available from their
+          websites. Alternatively, models can be obtained from BioModels
+          <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, BioSimulations
+          <a href="https://biosimulations.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, and other model repositories.
         </li>
         <li>
           <b>Create or more simulations:</b>
-          Create a Simulation Experiment Description Markup Language <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> (SED-ML) file which describes the simulations that you would like to execute and the simulation results that you would like to record. Currently, all of the simulation tools support a subset of SED-ML including one step and timecourse simulations (<code>sedml:OneStep</code> and <code>sedml:UniformTimeCourse</code>), individual simulation tasks (<code>sedml:Task</code>), data generators for time and individual variables (<code>sedml:DataGenerator</code>), and report outputs (<code>sedml:Report</code>). Some of the simulation tools support the full SED-ML specification including steady-state simulations (<code>sedml:SteadyState</code>), repeated tasks (<code>sedml:RepeatedTask</code>), data generators for mathematical expressions (<code>sedml:DataGenerator</code>), and plot outputs (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these files to the directory for the modeling project. More information about SED-ML is available from the SED-ML website. Alternatively, simulations can be obtained from the BioSimulations repository of modeling projects <a href="https://biosimulations.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          Create a Simulation Experiment Description Markup Language
+          <a href="https://sed-ml.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          (SED-ML) file which describes the simulations that you would like to
+          execute and the simulation results that you would like to record.
+          Currently, all of the simulation tools support a subset of SED-ML
+          including one step and timecourse simulations (<code
+            >sedml:OneStep</code
+          >
+          and <code>sedml:UniformTimeCourse</code>), individual simulation tasks
+          (<code>sedml:Task</code>), data generators for time and individual
+          variables (<code>sedml:DataGenerator</code>), and report outputs
+          (<code>sedml:Report</code>). Some of the simulation tools support the
+          full SED-ML specification including steady-state simulations
+          (<code>sedml:SteadyState</code>), repeated tasks
+          (<code>sedml:RepeatedTask</code>), data generators for mathematical
+          expressions (<code>sedml:DataGenerator</code>), and plot outputs
+          (<code>sedml:Plot2d</code> and <code>sedml:Plot3d</code>). Save these
+          files to the directory for the modeling project. More information
+          about SED-ML is available from the SED-ML website. Alternatively,
+          simulations can be obtained from the BioSimulations repository of
+          modeling projects
+          <a href="https://biosimulations.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
         </li>
         <li>
-          <b>Create an OMEX file which describes your model and simulation files and package them into a COMBINE archive file:</b>
-          OMEX is a format for describing a collection of modeling files, and a COMBINE archive is a zip file which contains an OMEX file and all of the other files which comprise the modeling project. Several example COMBINE archives are available in the BioSimulators test suite <a href="https://github.com/biosimulators/Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. More information about the OMEX and COMBINE formats is available at the COMBINE website <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. The COMBINE website lists several software tools for creating COMBINE archives including COMBINE Archive <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and COMBINE Archive Web <a href="https://cat.bio.informatik.uni-rostock.de/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          <b
+            >Create an OMEX file which describes your model and simulation files
+            and package them into a COMBINE archive file:</b
+          >
+          OMEX is a format for describing a collection of modeling files, and a
+          COMBINE archive is a zip file which contains an OMEX file and all of
+          the other files which comprise the modeling project. Several example
+          COMBINE archives are available in the BioSimulators test suite
+          <a
+            href="https://github.com/biosimulators/Biosimulators_test_suite"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >. More information about the OMEX and COMBINE formats is available at
+          the COMBINE website
+          <a href="https://combinearchive.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >. The COMBINE website lists several software tools for creating
+          COMBINE archives including COMBINE Archive
+          <a href="https://combinearchive.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          and COMBINE Archive Web
+          <a href="https://cat.bio.informatik.uni-rostock.de/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
         </li>
       </ol>
     </biosimulations-text-page-content-section>
@@ -55,7 +134,18 @@
       heading="Finding a simulation tool that is capable of executing a modeling project"
       tocSection="Finding simulation tools"
     >
-      runBioSimulations uses the BioSimulators collection of simulation tools. These tools each support different modeling frameworks, different simulation algorithms, and different model formats. The BioSimulators website <a href="https://biosimulators.org/simulators"><biosimulations-icon icon="link"></biosimulations-icon></a> outlines the modeling frameworks, simulation algorithms, and model formats supported by each tool. After determining the framework and format of your model and the simulation algorithm which you would like to execute, use this website to identify a simulation tool which is capable of executing your modeling project.
+      runBioSimulations uses the BioSimulators collection of simulation tools.
+      These tools each support different modeling frameworks, different
+      simulation algorithms, and different model formats. The BioSimulators
+      website
+      <a href="https://biosimulators.org/simulators"
+        ><biosimulations-icon icon="link"></biosimulations-icon
+      ></a>
+      outlines the modeling frameworks, simulation algorithms, and model formats
+      supported by each tool. After determining the framework and format of your
+      model and the simulation algorithm which you would like to execute, use
+      this website to identify a simulation tool which is capable of executing
+      your modeling project.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -65,13 +155,30 @@
       <p>Please follow these steps to execute a modeling project:</p>
 
       <ol class="vertically-spaced">
-        <li>Open the <a [routerLink]="['/run']">project submission form</a>.</li>
+        <li>
+          Open the <a [routerLink]="['/run']">project submission form</a>.
+        </li>
         <li>Select a COMBINE/OMEX file to execute.</li>
         <li>Select a simulation tool and a specific version of that tool.</li>
-        <li>Enter a name for your project. We recommend choosing a descriptive name that will help you recall the purpose of your project. These names will be particularly helpful if you run multiple projects.</li>
-        <li>Optionally, enter your email address to receive notification when your project has completed and is ready for your analysis.</li>
-        <li>Click the "Run" button. After you click the "Run" button, you will receive a URL where you will be able to view the status of your project and retrieve and visualize its results. If you provided an email address, you will be notified by email when your project has completed. This email will contain the same URL.</li>
-        <li>Your simulation and its results will be available for six months.</li>
+        <li>
+          Enter a name for your project. We recommend choosing a descriptive
+          name that will help you recall the purpose of your project. These
+          names will be particularly helpful if you run multiple projects.
+        </li>
+        <li>
+          Optionally, enter your email address to receive notification when your
+          project has completed and is ready for your analysis.
+        </li>
+        <li>
+          Click the "Run" button. After you click the "Run" button, you will
+          receive a URL where you will be able to view the status of your
+          project and retrieve and visualize its results. If you provided an
+          email address, you will be notified by email when your project has
+          completed. This email will contain the same URL.
+        </li>
+        <li>
+          Your simulation and its results will be available for six months.
+        </li>
       </ol>
     </biosimulations-text-page-content-section>
 
@@ -84,7 +191,10 @@
       <ol class="vertically-spaced">
         <li>Open the URL provided after you submitted your project.</li>
         <li>Click the "Overview" tab to view the status of the project.</li>
-        <li>Once the project has completed, click the "Log" tab to view the console log for the execution of the project.</li>
+        <li>
+          Once the project has completed, click the "Log" tab to view the
+          console log for the execution of the project.
+        </li>
       </ol>
     </biosimulations-text-page-content-section>
 
@@ -92,10 +202,17 @@
       heading="Retrieving simulation results"
       tocSection="Retrieving simulation results"
     >
-      <p>After your project has completed, please follow these steps to retrieve its results:</p>
+      <p>
+        After your project has completed, please follow these steps to retrieve
+        its results:
+      </p>
       <ol class="vertically-spaced">
         <li>Open the URL provided after you submitted your project.</li>
-        <li>Click the results icon to download the results of the project as a zip archive. This archive will contain a file for each report specified in each SED-ML file in the COMBINE/OMEX archive for your project.</li>        
+        <li>
+          Click the results icon to download the results of the project as a zip
+          archive. This archive will contain a file for each report specified in
+          each SED-ML file in the COMBINE/OMEX archive for your project.
+        </li>
       </ol>
 
       <p>Your simulation results will be available for six months.</p>
@@ -105,14 +222,27 @@
       heading="Visualizing simulation results"
       tocSection="Visualizing simulation results"
     >
-      <p>After your project has completed, please follow these steps to visualize its results:</p>
+      <p>
+        After your project has completed, please follow these steps to visualize
+        its results:
+      </p>
 
       <ol class="vertically-spaced">
         <li>Open the URL provided after you submitted your project.</li>
-        <li>Click the "Design chart" tab to open a form for choosing which results to visualize.</li>
+        <li>
+          Click the "Design chart" tab to open a form for choosing which results
+          to visualize.
+        </li>
         <li>Select one of the SED-ML files in your project.</li>
-        <li>Select one of the reports in the selected SED-ML file. This will display a time series chart of the selected report.</li>
-        <li>Use the controls in the chart to customize the chart. For example, the controls can be used to view specific variables or zoom into the chart.</li>
+        <li>
+          Select one of the reports in the selected SED-ML file. This will
+          display a time series chart of the selected report.
+        </li>
+        <li>
+          Use the controls in the chart to customize the chart. For example, the
+          controls can be used to view specific variables or zoom into the
+          chart.
+        </li>
       </ol>
 
       <p>Your simulation results will be available for six months.</p>
@@ -122,14 +252,29 @@
       heading="Programmatically executing projects with the REST API"
       tocSection="REST API"
     >
-      In addition to this web application, a REST API for executing projects is available at <a [href]="config.dispatchApiUrl" target="_blank">{{ config.dispatchApiUrl }}</a>. This API supports the same simulation tools as this web application.
+      In addition to this web application, a REST API for executing projects is
+      available at
+      <a [href]="config.dispatchApiUrl" target="_blank">{{
+        config.dispatchApiUrl
+      }}</a
+      >. This API supports the same simulation tools as this web application.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Contributing to the runBioSimulations platform"
       tocSection="Contributing to the platform"
     >
-      <p>We welcome contributions to the runBioSimulations platform (e.g., web application, REST API, database, simulation services)! Please see the Guide to Contributing <a href="https://github.com/biosimulations/Biosimulations/blob/dev/CONTRIBUTING.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about how to contribute to the runBioSimulations.</p>
+      <p>
+        We welcome contributions to the runBioSimulations platform (e.g., web
+        application, REST API, database, simulation services)! Please see the
+        Guide to Contributing
+        <a
+          href="https://github.com/biosimulations/Biosimulations/blob/dev/CONTRIBUTING.md"
+          target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon
+        ></a>
+        for information about how to contribute to the runBioSimulations.
+      </p>
     </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>

@@ -6,10 +6,10 @@ export default registerAs('server', () => {
   const env = process.env.ENV || 'dev';
 
   // The name of the running app
-  const app:appName = process.env.APP as appName || 'platformApi';
-  
-  const host = process.env.HOST || urls[app]
-  
+  const app: appName = (process.env.APP as appName) || 'platformApi';
+
+  const host = process.env.HOST || urls[app];
+
   const port = process.env.PORT || 3333;
 
   const limit = process.env.LIMIT || '50mb';

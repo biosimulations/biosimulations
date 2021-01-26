@@ -1,5 +1,4 @@
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
-
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 export class SimulationStatusService {
   static isSimulationStatusRunning(status: SimulationRunStatus): boolean {
@@ -39,7 +38,7 @@ export class SimulationStatusService {
 
   static getSimulationStatusMessage(
     status: SimulationRunStatus,
-    upperCaseFirstLetter = false
+    upperCaseFirstLetter = false,
   ): string {
     if (upperCaseFirstLetter) {
       return (
@@ -50,7 +49,10 @@ export class SimulationStatusService {
     }
   }
 
-  static formatTime(nullFormattedValue: string | null, valueSec: number | null | undefined): string | null {
+  static formatTime(
+    nullFormattedValue: string | null,
+    valueSec: number | null | undefined,
+  ): string | null {
     if (valueSec == null || valueSec === undefined) {
       return nullFormattedValue;
     }

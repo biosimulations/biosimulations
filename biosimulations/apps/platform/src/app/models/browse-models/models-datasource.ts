@@ -42,8 +42,8 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         map((value: ModelResource[]) =>
           value.map((model: ModelResource) => {
             return ModelDataSource.toDataModel(model);
-          })
-        )
+          }),
+        ),
       )
       .subscribe((value: ModelData[]) => (this.data = value));
     modelHttp
@@ -66,7 +66,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
       framework:
         Framework.fromDTO(model.attributes.framework).name?.replace(
           ' framework',
-          ''
+          '',
         ) || '',
       format: new Format(
         format.id,
@@ -77,7 +77,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         format.url,
         format.mimetype,
         format.extension,
-        format.sedUrn
+        format.sedUrn,
       ),
       authors: model.attributes.metadata.authors.map((person: Person) => {
         return new Author(person.firstName, person.lastName, person.middleName);

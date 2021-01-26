@@ -15,7 +15,8 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
-export class DependentVariableTargetPattern implements IDependentVariableTargetPattern {
+export class DependentVariableTargetPattern
+  implements IDependentVariableTargetPattern {
   @ApiProperty({ type: String, required: true })
   variables!: string;
 
@@ -37,7 +38,8 @@ export class Algorithm implements IAlgorithm {
   dependentVariableTargetPatterns!: DependentVariableTargetPattern[];
 
   @ApiProperty({
-    description: "Id of the algorithm within the simulator such as the name of the function which implements the algorithm. The scope of this id is typically limited to the individual simulator.",
+    description:
+      'Id of the algorithm within the simulator such as the name of the function which implements the algorithm. The scope of this id is typically limited to the individual simulator.',
     type: String,
     nullable: true,
     required: false,
@@ -46,11 +48,12 @@ export class Algorithm implements IAlgorithm {
   id!: string | null;
 
   @ApiProperty({
-    description: "Name of the algorithm within the simulator. The scope of this name is typically limited to the individual simulator.",
+    description:
+      'Name of the algorithm within the simulator. The scope of this name is typically limited to the individual simulator.',
     type: String,
     nullable: true,
     required: false,
-    default: null
+    default: null,
   })
   name!: string | null;
 
@@ -69,7 +72,7 @@ export class Algorithm implements IAlgorithm {
   @ApiProperty({
     type: [String],
     enum: SoftwareInterfaceType,
-    description: "List of software interfaces which support the parameter"
+    description: 'List of software interfaces which support the parameter',
   })
   availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 

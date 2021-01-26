@@ -4,11 +4,7 @@ import { PoliciesModule } from './policies/policies.module';
 import { TextPageSideBarSectionsModule } from './text-page-side-bar-sections/text-page-side-bar-sections.module';
 @NgModule({
   imports: [CommonModule, PoliciesModule, TextPageSideBarSectionsModule],
-  exports: [    
-    PoliciesModule,
-    TextPageSideBarSectionsModule,
-  ],
-  declarations: [
-  ],
+  exports: [PoliciesModule, TextPageSideBarSectionsModule],
+  declarations: [],
 })
-export class SharedContentModule { }
+export class SharedContentModule {}

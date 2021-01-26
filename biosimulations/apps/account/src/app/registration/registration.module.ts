@@ -43,4 +43,4 @@ const routes: Routes = [{ path: '', component: RegistrationComponent }];
   ],
   declarations: [RegistrationComponent, AgreementComponent],
 })
-export class RegistrationModule { }
+export class RegistrationModule {}

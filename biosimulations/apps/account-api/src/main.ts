@@ -32,10 +32,20 @@ function setupOpenApi(app: INestApplication) {
     .setTitle('BioSimulations accounts API')
     .setDescription('The API to manage user accounts')
     .setVersion('0.1')
-    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
-    .setTermsOfService("https://biosimulations.org/help/terms")
-    .setExternalDoc('API specifications (Open API JSON)', 'https://account.api.biosimulations.org/openapi.json')
-    .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org')
+    .setLicense(
+      'MIT License',
+      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+    )
+    .setTermsOfService('https://biosimulations.org/help/terms')
+    .setExternalDoc(
+      'API specifications (Open API JSON)',
+      'https://account.api.biosimulations.org/openapi.json',
+    )
+    .setContact(
+      'BioSimulations Team',
+      'https://biosimulations.org/help/about',
+      'info@biosimulations.org',
+    )
     .addSecurity('OpenIdc', openIDSchema)
     .addOAuth2(oauthSchema)
     .build();
@@ -46,15 +56,15 @@ function setupOpenApi(app: INestApplication) {
   if (unsortedSchemas) {
     const schemaNames = Object.keys(unsortedSchemas).sort();
 
-    const schemas: {[name: string]: any} = {};
+    const schemas: { [name: string]: any } = {};
     for (const schemaName of schemaNames) {
       schemas[schemaName] = unsortedSchemas?.[schemaName];
     }
     components.schemas = schemas;
   }
-  
+
   SwaggerModule.setup('', app, document);
- 
+
   return document;
 }
 

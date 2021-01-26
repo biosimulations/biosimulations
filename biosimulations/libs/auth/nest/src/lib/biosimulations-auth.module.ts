@@ -9,8 +9,7 @@ import { AuthConfigService } from './strategy/strategy.config';
 import { AnonymousStrategy } from './strategy/anonymous.strategy';
 
 @Module({
-  imports: [PassportModule.register({ defaultStrategy: 'jwt' }),
-  ],
+  imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
   providers: [
     JwtStrategy,
     SecretStrategy,
@@ -22,4 +21,4 @@ import { AnonymousStrategy } from './strategy/anonymous.strategy';
   ],
   exports: [PermissionsGuard, JwtGuard, AdminGuard],
 })
-export class BiosimulationsAuthModule { }
+export class BiosimulationsAuthModule {}

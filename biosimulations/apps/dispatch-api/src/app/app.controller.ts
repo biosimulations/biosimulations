@@ -8,7 +8,7 @@ import {
   Get,
   Param,
   Query,
-  Res
+  Res,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -18,7 +18,7 @@ export class AppController implements OnApplicationBootstrap {
     @Inject('NATS_CLIENT') private messageClient: ClientProxy,
     private appService: AppService,
 
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {}
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
 
@@ -28,7 +28,7 @@ export class AppController implements OnApplicationBootstrap {
   @ApiResponse({
     status: 200,
     description: 'Download all results as zip archive',
-    type: Object
+    type: Object,
   })
   resultArchive(@Param('uuid') uId: string, @Res() res: any): void {
     return this.appService.downloadResultArchive(uId, res);
@@ -37,17 +37,17 @@ export class AppController implements OnApplicationBootstrap {
   @ApiTags('Downloads')
   @Get('logs/v1/:uuid')
   @ApiOperation({
-    summary: 'Log file'
+    summary: 'Log file',
   })
   @ApiResponse({
     status: 200,
     description: 'Download or get response for log files',
-    type: Object
+    type: Object,
   })
   async downloadLogFile(
     @Param('uuid') uId: string,
     @Query('download') download: boolean,
-    @Res() res: any
+    @Res() res: any,
   ): Promise<void> {
     return this.appService.downloadLogFile(uId, download, res);
   }

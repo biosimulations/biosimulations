@@ -51,7 +51,7 @@ const dbToApi = (dbModel: Model): ModelResource => {
       created: dbModel.created,
       updated: dbModel.updated,
       version: dbModel.version,
-    }
+    },
   );
 
   return returnModel;
@@ -76,7 +76,7 @@ export class ModelsController {
         return { data: [] };
       }
     });
-    return result
+    return result;
   }
 
   @ApiOkResponse({
@@ -110,7 +110,7 @@ export class ModelsController {
   @Post()
   async create(
     @Req() req: Request,
-    @Body() body: CreateModelDocument
+    @Body() body: CreateModelDocument,
   ): Promise<ModelDocument> {
     const user: AuthToken = req.user as any;
     const data = body.data;

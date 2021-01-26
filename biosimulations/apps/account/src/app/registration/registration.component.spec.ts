@@ -21,11 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChangeDetectorRef, Component } from '@angular/core';
 
 describe('RegistrationComponent', () => {
-
-
   it('should create', () => {
-
     expect(true).toBeTruthy();
-  })
-
+  });
 });

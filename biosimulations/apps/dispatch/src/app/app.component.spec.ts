@@ -17,14 +17,11 @@ describe('AppComponent', () => {
         RouterTestingModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
       ],
       declarations: [AppComponent],
-      providers: [
-        ConfigService,
-        ScrollService,
-      ],
+      providers: [ConfigService, ScrollService],
     }).compileComponents();
   }));
 

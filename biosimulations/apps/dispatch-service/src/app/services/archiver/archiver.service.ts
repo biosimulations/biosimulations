@@ -9,8 +9,8 @@ import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 export class ArchiverService {
   constructor(
     private configService: ConfigService,
-    private service: SimulationRunService
-  ) { }
+    private service: SimulationRunService,
+  ) {}
   private logger = new Logger('ArchiverService');
   private fileStorage: string = this.configService.get('hpc.fileStorage', '');
 
@@ -25,7 +25,7 @@ export class ArchiverService {
       this.service.updateSimulationRunResultsSize(uuid, parseInt(size));
       this.logger.verbose(`The resulting archive holds ${size} bytes in size`);
       this.logger.log(
-        'Archiver has been finalized and the output file descriptor has closed.'
+        'Archiver has been finalized and the output file descriptor has closed.',
       );
     });
 

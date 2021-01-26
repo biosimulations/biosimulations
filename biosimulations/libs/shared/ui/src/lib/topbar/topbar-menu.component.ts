@@ -1,7 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-topbar-menu',
@@ -9,5 +6,4 @@ import {
   styleUrls: ['./topbar-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopbarMenuComponent {
-}
+export class TopbarMenuComponent {}

@@ -4,7 +4,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'biosimulations-spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpinnerComponent {
-}
+export class SpinnerComponent {}

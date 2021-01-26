@@ -6,23 +6,15 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PlatformTermsOfServiceComponent } from './platform-terms-of-service.component';
 
-describe('PlatformTermsOfServiceComponent', () => {let component: PlatformTermsOfServiceComponent;
+describe('PlatformTermsOfServiceComponent', () => {
+  let component: PlatformTermsOfServiceComponent;
   let fixture: ComponentFixture<PlatformTermsOfServiceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        PlatformTermsOfServiceComponent,
-      ],
-      imports: [
-        RouterTestingModule,
-        SharedUiModule,
-        BiosimulationsIconsModule,
-      ],
-      providers: [
-        ConfigService,
-        ScrollService,
-      ],
+      declarations: [PlatformTermsOfServiceComponent],
+      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
+      providers: [ConfigService, ScrollService],
     }).compileComponents();
   }));
 

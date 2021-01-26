@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { BrowseModelsComponent } from './browse-models.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { MatExpansionModule } from '@angular/material/expansion'
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
@@ -17,7 +17,7 @@ describe('BrowseModelsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         SharedUiModule,
         BiosimulationsIconsModule,
         MatExpansionModule,
@@ -29,9 +29,8 @@ describe('BrowseModelsComponent', () => {
         RouterTestingModule,
         NoopAnimationsModule,
       ],
-      declarations: [ BrowseModelsComponent,]
-    })
-    .compileComponents();
+      declarations: [BrowseModelsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

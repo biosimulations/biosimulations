@@ -1,12 +1,12 @@
 import {
   CombineArchiveLog,
-  SimulationRun
+  SimulationRun,
 } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document } from 'mongoose';
 import {
   omitPrivate,
-  ObjectIdValidator
+  ObjectIdValidator,
 } from '@biosimulations/datamodel/common';
 
 @Schema({ collection: 'Simulation Run Logs' })
@@ -16,7 +16,7 @@ export class SimulationRunLog extends Document {
     ref: SimulationRun.name,
     validate: ObjectIdValidator,
     unique: true,
-    index: true
+    index: true,
   })
   simId!: string;
 
@@ -33,9 +33,9 @@ export class SimulationRunLog extends Document {
   updated!: Date;
 }
 export const SimulationRunLogSchema = SchemaFactory.createForClass(
-  SimulationRunLog
+  SimulationRunLog,
 );
 SimulationRunLogSchema.set('timestamps', {
   createdAt: 'created',
-  updatedAt: 'updated'
+  updatedAt: 'updated',
 });

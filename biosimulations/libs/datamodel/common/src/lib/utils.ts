@@ -22,7 +22,7 @@ function getSchemaUserPaths(schema: Schema): SchemaPaths {
         userPaths[path] = {
           readOnly: true,
           isRequired: undefined,
-          defaultValue: undefined
+          defaultValue: undefined,
         };
         return;
       }
@@ -34,20 +34,20 @@ function getSchemaUserPaths(schema: Schema): SchemaPaths {
         userPaths[path] = {
           readOnly: true,
           isRequired: undefined,
-          defaultValue: undefined
+          defaultValue: undefined,
         };
         return;
       }
 
       userPaths[path] = getSchemaTypeOptions(path, schemaType);
-    }
+    },
   );
   return userPaths;
 }
 
 function getSchemaTypeOptions(
   path: string,
-  schemaType: SchemaType
+  schemaType: SchemaType,
 ): PathOptions {
   let isRequired: any = undefined;
   let defaultValue: any = undefined;
@@ -97,7 +97,7 @@ export function addValidationForNullableAttributes(schema: Schema<any>): void {
       ) {
         throw new Error(`'required' should be explicitly set for '${path}'`);
       }
-    }
+    },
   );
 
   schema.pre('validate', function (next): void {
@@ -117,7 +117,7 @@ export function addValidationForNullableAttributes(schema: Schema<any>): void {
             }
           }
         }
-      }
+      },
     );
     next();
   });

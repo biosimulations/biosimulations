@@ -20,6 +20,5 @@ export class SimulationExperimentsComponent {
     });
   }
 
-  constructor(public config: ConfigService) {
-  }
+  constructor(public config: ConfigService) {}
 }

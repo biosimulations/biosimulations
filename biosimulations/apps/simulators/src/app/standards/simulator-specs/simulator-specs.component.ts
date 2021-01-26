@@ -30,6 +30,7 @@ export class SimulatorSpecsComponent {
     this.openApiSpecsUrl = config.apiUrl + 'openapi.json';
     this.jsonSchemaUrl = config.apiUrl + 'schema/Simulator.json';
     this.exampleSpecs = JSON.stringify(exampleSpecs, null, 2);
-    this.validatorUrl = config.apiUrl + '#/Simulators/SimulatorsController_validateSimulator';
+    this.validatorUrl =
+      config.apiUrl + '#/Simulators/SimulatorsController_validateSimulator';
   }
 }

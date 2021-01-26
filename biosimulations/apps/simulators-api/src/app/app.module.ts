@@ -20,12 +20,12 @@ mongoose.set('strict', 'throw');
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('database.uri') || '',
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     SimulatorsModule,
-    SharedExceptionsFiltersModule
-  ]
+    SharedExceptionsFiltersModule,
+  ],
 })
 export class AppModule {}

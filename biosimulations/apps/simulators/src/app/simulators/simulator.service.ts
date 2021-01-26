@@ -34,7 +34,7 @@ export class SimulatorService {
     return this.getLatest().pipe(
       map((value: Simulator[]) => {
         return value.filter((simulator: Simulator) => simulator.id === id)[0];
-      })
+      }),
     );
   }
   getOneByVersion(id: string, version: string): Observable<Simulator> {
@@ -42,16 +42,16 @@ export class SimulatorService {
       map((value: Simulator[]) => {
         return value.filter(
           (simulator: Simulator) =>
-            simulator.id === id && simulator.version === version
+            simulator.id === id && simulator.version === version,
         )[0];
-      })
+      }),
     );
   }
   getAllById(id: string): Observable<Simulator[]> {
     return this.getAll().pipe(
       map((sims: Simulator[]) => {
         return sims.filter((simulator: Simulator) => simulator.id == id);
-      })
+      }),
     );
   }
 
@@ -65,12 +65,15 @@ export class SimulatorService {
               version: sim.version,
               image: sim.image,
               created: sim.biosimulators.created,
-              curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim), false),
+              curationStatus: UtilsService.getSimulatorCurationStatusMessage(
+                UtilsService.getSimulatorCurationStatus(sim),
+                false,
+              ),
             });
           }
         }
         return versions;
-      })
+      }),
     );
   }
   constructor(private http: HttpClient) {}

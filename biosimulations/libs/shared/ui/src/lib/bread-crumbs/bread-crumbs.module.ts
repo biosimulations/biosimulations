@@ -8,9 +8,17 @@ import { BreadCrumbsComponent } from './bread-crumbs.component';
 import { BreadCrumbsButtonComponent } from './bread-crumbs-button/bread-crumbs-button.component';
 
 @NgModule({
-  declarations: [BreadCrumbButtonsComponent, BreadCrumbsComponent, BreadCrumbsButtonComponent],
-  imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule
+  declarations: [
+    BreadCrumbButtonsComponent,
+    BreadCrumbsComponent,
+    BreadCrumbsButtonComponent,
   ],
-  exports: [BreadCrumbsComponent]
+  imports: [
+    CommonModule,
+    MaterialWrapperModule,
+    RouterModule,
+    BiosimulationsIconsModule,
+  ],
+  exports: [BreadCrumbsComponent],
 })
-export class BreadCrumbsModule { }
+export class BreadCrumbsModule {}

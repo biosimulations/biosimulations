@@ -28,7 +28,7 @@ export class Framework extends ViewModel implements IFramework {
       framework.moreInfoUrl,
     );
   }
-  
+
   getTooltip(): string {
     return 'Framework';
   }
@@ -40,15 +40,15 @@ export class Framework extends ViewModel implements IFramework {
       return '';
     }
   }
-  
+
   getIcon(): 'framework' {
     return 'framework';
   }
-  
+
   getLink(): string | null {
     return this.url;
   }
-  
+
   match(predicate: any): boolean {
     throw new Error('Method not implemented.');
   }

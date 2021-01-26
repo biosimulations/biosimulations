@@ -7,10 +7,10 @@ import { AppService } from './app.service';
 import { SimulationRunModule } from '../simulation-run/simulation-run.module';
 import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 import { ResultsModule } from '../results/results.module';
-import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import {
   AuthTestModule,
-  BiosimulationsAuthModule
+  BiosimulationsAuthModule,
 } from '@biosimulations/auth/nest';
 import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
@@ -23,23 +23,21 @@ import { LogsModule } from '../logs/logs.module';
     HttpModule,
     LogsModule,
     MongooseModule.forRootAsync({
-      imports: [BiosimulationsConfigModule,],
+      imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('database.uri') || '',
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     SimulationRunModule,
     ResultsModule,
     SharedExceptionsFiltersModule,
     AuthTestModule,
-    SharedNatsClientModule
+    SharedNatsClientModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-  ]
+  providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

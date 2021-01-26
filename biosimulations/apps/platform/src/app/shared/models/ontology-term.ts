@@ -16,7 +16,7 @@ export class OntologyTerm implements JsonSerializable<OntologyTermDTO> {
     this.description = data.name;
     this.iri = data.iri;
     this.url = data.url;
-    this.moreInfoUrl = data.moreInfoUrl
+    this.moreInfoUrl = data.moreInfoUrl;
   }
   serialize(): OntologyTermDTO {
     return {

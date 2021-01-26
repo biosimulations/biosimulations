@@ -11,9 +11,7 @@ describe('VisualizationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        VisualizationComponent,
-      ],
+      declarations: [VisualizationComponent],
       imports: [HttpClientTestingModule, RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

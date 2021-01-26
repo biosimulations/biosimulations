@@ -1,7 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
@@ -13,8 +13,8 @@ export class HpcService {
   constructor(
     private readonly configService: ConfigService,
     private sshService: SshService,
-    private sbatchService: SbatchService
-  ) { }
+    private sbatchService: SbatchService,
+  ) {}
 
   /**
    *
@@ -26,7 +26,7 @@ export class HpcService {
     id: string,
     simulator: string,
     version: string,
-    fileName: string
+    fileName: string,
   ): Promise<{
     stdout: string;
     stderr: string;
@@ -34,23 +34,23 @@ export class HpcService {
     const simulatorString = `docker://ghcr.io/biosimulators/${simulator}:${version}`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
-    const endpoint = this.configService.get('urls.dispatchApi')
+    const endpoint = this.configService.get('urls.dispatchApi');
 
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,
       fileName,
       endpoint,
-      id
+      id,
     );
 
-    const command = `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`
+    const command = `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`;
 
-    const res = this.sshService.execStringCommand(command)
+    const res = this.sshService.execStringCommand(command);
 
-    return res.catch(err => {
-      console.error("Job Submission Failed")
-      return { stdout: "", stderr: "Failed to submit job" + err }
+    return res.catch((err) => {
+      console.error('Job Submission Failed');
+      return { stdout: '', stderr: 'Failed to submit job' + err };
     });
   }
 
@@ -60,7 +60,7 @@ export class HpcService {
       .catch((err) => {
         this.logger.error(
           'Failed to fetch results, updating the sim status as Pending, ' +
-          JSON.stringify(err)
+            JSON.stringify(err),
         );
         return { stdout: '\n\nPENDING' };
       });

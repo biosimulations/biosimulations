@@ -1,8 +1,22 @@
 <ng-container *ngIf="model$ | async as model; else notPresent">
-  <biosimulations-resource-view [name]="model.name" [authors]="model.authors" [owner]="model.owner" [tags]="model.tags"
-    [description]="model.description" [summary]="model.summary" [imageUrl]="model.imageUrl"
-    [attributes]="[model.taxon, model.framework, model.format, model.license, model.owner]"
-    [variables]="model.variables" [parameters]="model.parameters">
+  <biosimulations-resource-view
+    [name]="model.name"
+    [authors]="model.authors"
+    [owner]="model.owner"
+    [tags]="model.tags"
+    [description]="model.description"
+    [summary]="model.summary"
+    [imageUrl]="model.imageUrl"
+    [attributes]="[
+      model.taxon,
+      model.framework,
+      model.format,
+      model.license,
+      model.owner
+    ]"
+    [variables]="model.variables"
+    [parameters]="model.parameters"
+  >
   </biosimulations-resource-view>
 </ng-container>
 

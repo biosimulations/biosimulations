@@ -16,7 +16,7 @@ export class BiomodelParameter extends ViewModel {
     public value: string | null,
     public recommendedRange: string[] | null,
     public units: string,
-    public descrption: string | null
+    public descrption: string | null,
   ) {
     super();
     this.init();
@@ -33,7 +33,7 @@ export class BiomodelParameter extends ViewModel {
       param.value,
       param.recommendedRange,
       param.units,
-      param.description
+      param.description,
     );
   }
 

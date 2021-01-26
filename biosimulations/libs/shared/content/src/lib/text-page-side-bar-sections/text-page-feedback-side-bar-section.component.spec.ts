@@ -11,16 +11,9 @@ describe('TextPageFeedbackSideBarSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TextPageFeedbackSideBarSectionComponent,
-      ],
-      imports: [
-        SharedUiModule,
-        BiosimulationsIconsModule,
-      ],
-      providers: [
-        ConfigService,
-      ],
+      declarations: [TextPageFeedbackSideBarSectionComponent],
+      imports: [SharedUiModule, BiosimulationsIconsModule],
+      providers: [ConfigService],
     }).compileComponents();
   }));
 

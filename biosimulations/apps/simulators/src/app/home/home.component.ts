@@ -10,4 +10,3 @@ import { ConfigService } from '@biosimulations/shared/services';
 export class HomeComponent {
   constructor(public config: ConfigService) {}
 }
-

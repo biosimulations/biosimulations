@@ -1,19 +1,19 @@
 .about-content {
-    .text {
-        margin-bottom: 0.75rem;
-    }
-    .logos {
-        text-align: center;
-    }
+  .text {
+    margin-bottom: 0.75rem;
+  }
+  .logos {
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 959px) {
-    .about-content {
-        .text {
-            text-align: left;
-        }
-        .logos p {
-            display: inline;
-        }
+  .about-content {
+    .text {
+      text-align: left;
     }
+    .logos p {
+      display: inline;
+    }
+  }
 }

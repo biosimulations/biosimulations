@@ -10,13 +10,8 @@ describe('HomeTeaserButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        HomeTeaserButtonComponent,
-      ],
-      imports: [
-        RouterTestingModule,
-        MatButtonModule,
-      ],
+      declarations: [HomeTeaserButtonComponent],
+      imports: [RouterTestingModule, MatButtonModule],
     }).compileComponents();
   }));
 

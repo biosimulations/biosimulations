@@ -6,9 +6,7 @@ import { SwaggerModule } from '@nestjs/swagger';
 import { OntologiesController } from './ontologies.controller';
 @Module({
   imports: [OntologiesModule, SwaggerModule, BiosimulationsConfigModule],
-  controllers: [
-    OntologiesController,
-  ],
+  controllers: [OntologiesController],
   providers: [],
 })
 export class AppModule {}

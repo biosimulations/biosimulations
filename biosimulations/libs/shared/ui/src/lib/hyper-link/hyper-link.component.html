@@ -1,10 +1,10 @@
 <ng-template [ngIf]="href" [ngIfElse]="nolink">
-    <a [href]="href" target="_blank">
-        <ng-container *ngTemplateOutlet="content"></ng-container>
-    </a>
+  <a [href]="href" target="_blank">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
 </ng-template>
 <ng-template #nolink>
-    <ng-container *ngTemplateOutlet="content"></ng-container>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
 </ng-template>
 
 <ng-template #content><ng-content></ng-content></ng-template>

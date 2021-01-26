@@ -34,7 +34,7 @@ export class SedReportLog {
     type: String,
     example:
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true
+    nullable: true,
   })
   output!: string | null;
 
@@ -62,7 +62,7 @@ export class SedPlot2DLog {
     type: String,
     example:
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true
+    nullable: true,
   })
   output!: string | null;
 
@@ -90,7 +90,7 @@ export class SedPlot3DLog {
     type: String,
     example:
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true
+    nullable: true,
   })
   output!: string | null;
 
@@ -126,7 +126,7 @@ export class SedTaskLog {
     type: String,
     example:
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true
+    nullable: true,
   })
   output!: string | null;
 
@@ -157,7 +157,7 @@ export class SedDocumentLog {
     type: String,
     example:
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true
+    nullable: true,
   })
   output!: string | null;
 
@@ -173,10 +173,10 @@ export class SedDocumentLog {
       oneOf: [
         { $ref: getSchemaPath(SedReportLog) },
         { $ref: getSchemaPath(SedPlot2DLog) },
-        { $ref: getSchemaPath(SedPlot3DLog) }
-      ]
+        { $ref: getSchemaPath(SedPlot3DLog) },
+      ],
     },
-    nullable: true
+    nullable: true,
   })
   outputs!: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null;
 }
@@ -195,7 +195,7 @@ export class CombineArchiveLog {
     type: String,
     example:
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true
+    nullable: true,
   })
   output!: string | null;
 

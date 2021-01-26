@@ -14,7 +14,12 @@ describe('PrivacyPolicyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule],
+      imports: [
+        RouterTestingModule,
+        SharedUiModule,
+        BiosimulationsIconsModule,
+        SharedContentModule,
+      ],
       providers: [RouterTestingModule, ConfigService, ScrollService],
       declarations: [PrivacyPolicyComponent],
     }).compileComponents();

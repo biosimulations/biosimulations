@@ -9,8 +9,11 @@ import { StatsService } from './stats.service';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, HomeRoutingModule, SharedUiModule, BiosimulationsIconsModule],
-
-  
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    SharedUiModule,
+    BiosimulationsIconsModule,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}

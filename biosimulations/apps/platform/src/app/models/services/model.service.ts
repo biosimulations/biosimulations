@@ -51,10 +51,10 @@ export class ModelService {
       framework: Framework.fromDTO(model.attributes.framework),
       format: Format.fromDTO(model.attributes.format),
       parameters: model.attributes.parameters.map((dto) =>
-        BiomodelParameter.fromDto(dto)
+        BiomodelParameter.fromDto(dto),
       ),
       variables: model.attributes.variables.map((dto) =>
-        BiomodelVariable.fromDTO(dto)
+        BiomodelVariable.fromDTO(dto),
       ),
 
       authors: model.attributes.metadata.authors.map((person: Person) => {
@@ -84,7 +84,7 @@ export class ModelService {
         } else {
           return ModelService.toDataModel(val);
         }
-      })
+      }),
     );
   }
 }

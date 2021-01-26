@@ -1,10 +1,14 @@
-import { Ontologies, LinguistTerm, OntologyInfo } from '@biosimulations/datamodel/common';
+import {
+  Ontologies,
+  LinguistTerm,
+  OntologyInfo,
+} from '@biosimulations/datamodel/common';
 import linguistJson from './linguist.json';
 
 function getLinguistTerms(input: any): { [id: string]: LinguistTerm } {
   const terms: { [id: string]: LinguistTerm } = {};
   input.forEach((language: any): void => {
-    if (language?.type === "programming") {
+    if (language?.type === 'programming') {
       terms[language.name] = {
         id: language.name,
         namespace: Ontologies.Linguist,
@@ -13,7 +17,7 @@ function getLinguistTerms(input: any): { [id: string]: LinguistTerm } {
         url: null,
         moreInfoUrl: null,
         description: null,
-      }
+      };
     }
   });
   return terms;
@@ -29,5 +33,6 @@ export const linguistInfo: OntologyInfo = {
   bioportalId: null,
   olsId: null,
   version: null,
-  source: 'https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json',
+  source:
+    'https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json',
 };

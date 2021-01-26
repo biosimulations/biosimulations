@@ -45,7 +45,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     id: string,
     fileName: string,
     simulator: string,
-    version: string
+    version: string,
   ) {
     super(id);
     this.fileName = fileName;

@@ -19,7 +19,7 @@ export class TocSectionDirective {
 
   constructor(
     @Host() private sectionsContainer: TocSectionsContainerDirective,
-    elementRef: ElementRef
+    elementRef: ElementRef,
   ) {
     this.section = {
       heading: this.heading.asObservable(),
@@ -29,6 +29,6 @@ export class TocSectionDirective {
   }
 
   ngOnDestroy() {
-   this.sectionsContainer.removeToc(this.section);
+    this.sectionsContainer.removeToc(this.section);
   }
 }

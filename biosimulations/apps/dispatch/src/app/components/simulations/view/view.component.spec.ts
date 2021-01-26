@@ -20,11 +20,10 @@ describe('ViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        ViewComponent,
-        VisualizationComponent,
-      ],
-      imports: [RouterTestingModule, HttpClientTestingModule,
+      declarations: [ViewComponent, VisualizationComponent],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
@@ -32,14 +31,11 @@ describe('ViewComponent', () => {
         SharedUiModule,
         BiosimulationsIconsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
         SimulationLogModule,
       ],
-      providers: [
-        ConfigService,
-        ScrollService,
-      ],
+      providers: [ConfigService, ScrollService],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

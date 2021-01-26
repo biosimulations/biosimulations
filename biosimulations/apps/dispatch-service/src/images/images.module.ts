@@ -6,6 +6,6 @@ import { ImagesService } from './images.service';
 
 @Module({
   controllers: [ImagesController],
-  providers: [ImagesService, SshService, SbatchService]
+  providers: [ImagesService, SshService, SbatchService],
 })
-export class ImagesModule { }
+export class ImagesModule {}

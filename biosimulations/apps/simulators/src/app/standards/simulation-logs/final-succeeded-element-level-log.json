@@ -1,64 +1,62 @@
 {
-   "status": "SUCCEEDED",
-   "exception": null,
-   "skipReason": null,
-   "output": null,
-   "duration": 6.0,
-   "sedDocuments": [
-      {
-         "location": "doc_1.sedml",
-         "status": "SUCCEEDED",
-         "exception": null,
-         "skipReason": null,
-         "output": null,
-         "duration": 5.0,
-         "tasks": [
-            {
-               "id": "task_1_ss",
-               "status": "SUCCEEDED",
-               "exception": null,
-               "skipReason": null,
-               "output": "Reading model ... done\nInitializing simulation ... done\nExecuting simulation ... done\n",
-               "duration": 2.0,
-               "algorithm": null,
-               "simulatorDetails": null
-            },
-            {
-               "id": "task_2_time_course",
-               "status": "SUCCEEDED",
-               "exception": null,
-               "skipReason": null,
-               "output": "Reading model ... done\nInitializing simulation ... done\nExecuting simulation ... done\n",
-               "duration": 1.0,
-               "algorithm": null,
-               "simulatorDetails": null
-            }
-         ],
-         "outputs": [
-            {
-               "id": "report_1",
-               "status": "SUCCEEDED",
-               "exception": null,
-               "skipReason": null,
-               "output": null,
-               "duration": 0.1,
-               "dataSets": [
-                  {"id": "dataset_1", "status": "SUCCEEDED"},
-                  {"id": "dataset_2", "status": "SUCCEEDED"}
-               ]
-            },
-            {
-               "id": "plot_1",
-               "status": "SUCCEEDED",
-               "exception": null,
-               "skipReason": null,
-               "output": null,
-               "duration": 0.01,
-               "curves": [
-                  {"id": "curve_1", "status": "SUCCEEDED"}
-               ]
-            }
-         ]
-      }
-   ]
+  "status": "SUCCEEDED",
+  "exception": null,
+  "skipReason": null,
+  "output": null,
+  "duration": 6.0,
+  "sedDocuments": [
+    {
+      "location": "doc_1.sedml",
+      "status": "SUCCEEDED",
+      "exception": null,
+      "skipReason": null,
+      "output": null,
+      "duration": 5.0,
+      "tasks": [
+        {
+          "id": "task_1_ss",
+          "status": "SUCCEEDED",
+          "exception": null,
+          "skipReason": null,
+          "output": "Reading model ... done\nInitializing simulation ... done\nExecuting simulation ... done\n",
+          "duration": 2.0,
+          "algorithm": null,
+          "simulatorDetails": null
+        },
+        {
+          "id": "task_2_time_course",
+          "status": "SUCCEEDED",
+          "exception": null,
+          "skipReason": null,
+          "output": "Reading model ... done\nInitializing simulation ... done\nExecuting simulation ... done\n",
+          "duration": 1.0,
+          "algorithm": null,
+          "simulatorDetails": null
+        }
+      ],
+      "outputs": [
+        {
+          "id": "report_1",
+          "status": "SUCCEEDED",
+          "exception": null,
+          "skipReason": null,
+          "output": null,
+          "duration": 0.1,
+          "dataSets": [
+            { "id": "dataset_1", "status": "SUCCEEDED" },
+            { "id": "dataset_2", "status": "SUCCEEDED" }
+          ]
+        },
+        {
+          "id": "plot_1",
+          "status": "SUCCEEDED",
+          "exception": null,
+          "skipReason": null,
+          "output": null,
+          "duration": 0.01,
+          "curves": [{ "id": "curve_1", "status": "SUCCEEDED" }]
+        }
+      ]
+    }
+  ]
 }

@@ -5,7 +5,7 @@ export class ConfigService {
   appName!: string;
   appNameParts!: string[];
   logo!: string;
-  banner!: string;  
+  banner!: string;
   appUrl!: string;
   apiUrl!: string;
   email!: string;

@@ -18,7 +18,7 @@
     min-width: unset;
     padding: 0 1rem;
     color: mat-color($theme-primary);
-    opacity: 1.0;
+    opacity: 1;
 
     &:hover {
       color: mat-color($theme-accent);
@@ -33,7 +33,7 @@
     biosimulations-icon {
       margin-right: 0.25rem;
       margin-top: -0.125rem;
-      font-size: 125%
+      font-size: 125%;
     }
   }
 

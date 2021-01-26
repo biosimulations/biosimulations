@@ -11,8 +11,6 @@ import { ConfigService } from '@biosimulations/shared/services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-
-
   private stats!: any;
   public statGraphs: any[] = [];
   public readonly vegaOptions: any = {
@@ -22,11 +20,9 @@ export class HomeComponent implements OnInit {
   constructor(
     public config: ConfigService,
     private statsService: StatsService,
-  ) { }
+  ) {}
 
   ngOnInit() {
-
-
     this.stats = this.statsService.get();
 
     this.statGraphs = [
@@ -85,7 +81,6 @@ export class HomeComponent implements OnInit {
     xScaleType: string,
     data: any,
   ): any {
-
     let maxVal = 0;
     for (const datum of data) {
       maxVal = Math.max(maxVal, datum['count']);
@@ -158,5 +153,4 @@ export class HomeComponent implements OnInit {
       },
     };
   }
-
 }

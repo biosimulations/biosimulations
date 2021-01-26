@@ -59,10 +59,12 @@ class IdentiferDB implements Identifier {
 
   @prop({
     type: String,
-    validate: [{
-      validator: isUrl,
-      message: (props: any): string => `${props.value} is not a valid URL`,
-    }],
+    validate: [
+      {
+        validator: isUrl,
+        message: (props: any): string => `${props.value} is not a valid URL`,
+      },
+    ],
   })
   url!: string;
 }
@@ -152,7 +154,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     framework: IOntologyTerm,
     format: Format,
     metaData: AttributesMetadata,
-    variables: ModelVariable[]
+    variables: ModelVariable[],
   ) {
     this.taxon = taxon;
     this.parameters = parameters;
@@ -220,7 +222,7 @@ export class Model {
       model.attributes.framework,
       model.attributes.format,
       model.attributes.metadata,
-      model.attributes.variables
+      model.attributes.variables,
     );
     this.created = Date.now();
     this.updated = Date.now();

@@ -87,7 +87,11 @@
     <biosimulations-hover-open-menu
       *ngIf="(isAuthenticated() | async) === true"
     >
-      <biosimulations-topbar-menu-item heading="Account" icon="user" id="trigger">
+      <biosimulations-topbar-menu-item
+        heading="Account"
+        icon="user"
+        id="trigger"
+      >
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
@@ -98,7 +102,11 @@
         >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Models" icon="model" disabled>
+        <biosimulations-dropdown-menu-item
+          heading="Models"
+          icon="model"
+          disabled
+        >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -108,7 +116,11 @@
         >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Charts" icon="chart" disabled>
+        <biosimulations-dropdown-menu-item
+          heading="Charts"
+          icon="chart"
+          disabled
+        >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -120,7 +132,11 @@
 
         <mat-divider></mat-divider>
 
-        <biosimulations-dropdown-menu-item heading="Profile" icon="user" disabled>
+        <biosimulations-dropdown-menu-item
+          heading="Profile"
+          icon="user"
+          disabled
+        >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -137,7 +153,11 @@
     <biosimulations-navigation-item heading="Projects" icon="project" disabled>
       <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Browse" icon="browse" disabled>
+      <biosimulations-navigation-subitem
+        heading="Browse"
+        icon="browse"
+        disabled
+      >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
       </biosimulations-navigation-subitem>
@@ -167,7 +187,11 @@
     >
       <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Browse" icon="browse" disabled>
+      <biosimulations-navigation-subitem
+        heading="Browse"
+        icon="browse"
+        disabled
+      >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
       </biosimulations-navigation-subitem>
@@ -176,7 +200,11 @@
     <biosimulations-navigation-item heading="Charts" icon="chart" disabled>
       <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Browse" icon="browse" disabled>
+      <biosimulations-navigation-subitem
+        heading="Browse"
+        icon="browse"
+        disabled
+      >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
       </biosimulations-navigation-subitem>
@@ -190,7 +218,11 @@
     >
       <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Browse" icon="browse" disabled>
+      <biosimulations-navigation-subitem
+        heading="Browse"
+        icon="browse"
+        disabled
+      >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
       </biosimulations-navigation-subitem>
@@ -280,8 +312,7 @@
     </biosimulations-navigation-item>
   </ng-container>
 
-  <ng-container id="news">
-  </ng-container>
+  <ng-container id="news"> </ng-container>
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>

@@ -33,25 +33,25 @@ export class Algorithm {
     this.name = data.name;
     this.kisaoId = data.kisaoId;
     this.simulationFormats = data.simulationFormats.map(
-      (value: FormatDTO) => new Format(value)
+      (value: FormatDTO) => new Format(value),
     );
     this.modelFormats = data.modelFormats.map(
-      (value: FormatDTO) => new Format(value)
+      (value: FormatDTO) => new Format(value),
     );
     this.parameters = data.parameters.map(
-      (value: AlgorithmParameterDTO) => new AlgorithmParameter(value)
+      (value: AlgorithmParameterDTO) => new AlgorithmParameter(value),
     );
     this.archiveFormats = data.archiveFormats.map(
-      (value: FormatDTO) => new Format(value)
+      (value: FormatDTO) => new Format(value),
     );
     this.references = data.references.map(
-      (value: JournalReferenceDTO) => new Citation(value)
+      (value: JournalReferenceDTO) => new Citation(value),
     );
     this.ontologyTerms = data.ontologyTerms.map(
-      (value: OntologyTermDTO) => new OntologyTerm(value)
+      (value: OntologyTermDTO) => new OntologyTerm(value),
     );
     this.modelingFrameworks = data.modelingFrameworks.map(
-      (value: OntologyTermDTO) => new OntologyTerm(value)
+      (value: OntologyTermDTO) => new OntologyTerm(value),
     );
   }
   serialize(): AlgorithmDTO {
@@ -60,21 +60,21 @@ export class Algorithm {
       name: this.name,
       kisaoId: this.kisaoId,
       ontologyTerms: this.ontologyTerms.map((value: OntologyTerm) =>
-        value.serialize()
+        value.serialize(),
       ),
       modelingFrameworks: this.modelingFrameworks.map((value: OntologyTerm) =>
-        value.serialize()
+        value.serialize(),
       ),
       modelFormats: this.modelFormats.map((value: Format) => value.serialize()),
 
       parameters: this.parameters.map((value: AlgorithmParameter) =>
-        value.serialize()
+        value.serialize(),
       ),
       simulationFormats: this.simulationFormats.map((value: Format) =>
-        value.serialize()
+        value.serialize(),
       ),
       archiveFormats: this.archiveFormats.map((value: Format) =>
-        value.serialize()
+        value.serialize(),
       ),
       references: this.references.map((value: Citation) => value.serialize()),
     };

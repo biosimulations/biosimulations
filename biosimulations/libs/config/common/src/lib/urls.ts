@@ -25,7 +25,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platform: 'https://biosimulations.org',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.org',
-    simulators: 'https://biosimulators.org'
+    simulators: 'https://biosimulators.org',
   },
   // Technically, this is the "locally run envrionment", which is why its odd. The real dev environment that is deployedd is confusingly called stage.
   // The real "stage" environment is basically just prod, since it should connect to the same resources. The "local" here refers to wanting to connect to a local copy
@@ -40,7 +40,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
-    simulators: 'https://biosimulators.org'
+    simulators: 'https://biosimulators.org',
   },
   stage: {
     platformApi: 'https://api.biosimulations.org/',
@@ -51,7 +51,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
-    simulators: 'https://biosimulators.org'
+    simulators: 'https://biosimulators.org',
   },
   local: {
     platformApi: '/api/', //proxies to localhost:3333 if using nx
@@ -62,19 +62,19 @@ const envUrls: { [key in envs]: urlMap } = {
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
-    simulators: 'https://biosimulators.org'
-  }
+    simulators: 'https://biosimulators.org',
+  },
 };
 export type staticUrlNames =
-  'platformNewIssue'
+  | 'platformNewIssue'
   | 'accountNewIssue'
   | 'dispatchNewIssue'
   | 'simulatorsNewIssue'
   | 'platformNewPull'
   | 'accountNewPull'
   | 'dispatchNewPull'
-  | 'simulatorsNewPull'
-export type staticUrlMap = { [key in staticUrlNames]: string }
+  | 'simulatorsNewPull';
+export type staticUrlMap = { [key in staticUrlNames]: string };
 
 export const staticUrls: staticUrlMap = {
   platformNewIssue:
@@ -89,6 +89,5 @@ export const staticUrls: staticUrlMap = {
   accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
   dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
   simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
-
-}
+};
 export const urls: urlMap = envUrls[environment.env as envs];

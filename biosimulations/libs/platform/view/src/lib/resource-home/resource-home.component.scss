@@ -1,54 +1,54 @@
 @import 'biosimulations-colors';
 
 .section {
-    &:not(:first-child) {
-        padding-top: 2rem;
-    }
-    &:not(:last-child) {
-        padding-bottom: 2rem;
-        border-bottom: 1px solid $light-bg-darker-10;
-    }
+  &:not(:first-child) {
+    padding-top: 2rem;
+  }
+  &:not(:last-child) {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid $light-bg-darker-10;
+  }
 }
 
 h1 {
-    margin: 1rem 0;
-    border-bottom: none;
+  margin: 1rem 0;
+  border-bottom: none;
 }
 
 .banner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    img {
-        height: 8rem;
-    }
+  img {
+    height: 8rem;
+  }
 }
 
 .buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 
-    .mat-flat-button {
-        background: mat-color($theme-primary, lighter);
-        padding: 1rem 2rem;
-        line-height: normal;
+  .mat-flat-button {
+    background: mat-color($theme-primary, lighter);
+    padding: 1rem 2rem;
+    line-height: normal;
 
-        &:hover {
-            background: mat-color($theme-primary);
-        }
+    &:hover {
+      background: mat-color($theme-primary);
     }
+  }
 
-    .mat-flat-button:not(:first-child) {
-        margin-left: 1rem;
-    }
-    .mat-flat-button:not(:last-child) {
-        margin-right: 1rem;
-    }
+  .mat-flat-button:not(:first-child) {
+    margin-left: 1rem;
+  }
+  .mat-flat-button:not(:last-child) {
+    margin-right: 1rem;
+  }
 
-    .heading {
-        font-weight: bold;
-        margin-bottom: 0.25rem;
-    }
+  .heading {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
 }

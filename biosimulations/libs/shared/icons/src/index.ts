@@ -1,1 +1,4 @@
-export { BiosimulationsIconsModule, biosimulationsIcon } from './lib/shared-icons.module';
+export {
+  BiosimulationsIconsModule,
+  biosimulationsIcon,
+} from './lib/shared-icons.module';

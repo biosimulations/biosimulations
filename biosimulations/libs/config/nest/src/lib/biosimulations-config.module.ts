@@ -6,13 +6,21 @@ import databaseConfig from './biosimulations-database-config';
 import authConfig from './biosimulations-auth-config';
 import hpcConfig from './biosimulations-hpc-config';
 import natsConfig from './biosimulations-nats-config';
-import emailConfig from './biosimulations-email.config'
-import urlsConfig from './biosimulations-urls-config'
+import emailConfig from './biosimulations-email.config';
+import urlsConfig from './biosimulations-urls-config';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig, authConfig, serverConfig, hpcConfig, natsConfig, emailConfig, urlsConfig],
+      load: [
+        databaseConfig,
+        authConfig,
+        serverConfig,
+        hpcConfig,
+        natsConfig,
+        emailConfig,
+        urlsConfig,
+      ],
       envFilePath: [
         './config/config.env',
         './secret/secret.env',
@@ -26,4 +34,4 @@ import urlsConfig from './biosimulations-urls-config'
   providers: [ConfigService],
   exports: [ConfigService],
 })
-export class BiosimulationsConfigModule { }
+export class BiosimulationsConfigModule {}

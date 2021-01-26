@@ -25,12 +25,12 @@ export class SubmissionController {
     private service: SubmissionService,
     private readonly configService: ConfigService,
     private hpcService: HpcService,
-    @Inject('NATS_CLIENT') private messageClient: ClientProxy
-  ) { }
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
+  ) {}
   private logger = new Logger(SubmissionController.name);
   private fileStorage: string = this.configService.get<string>(
     'hpc.fileStorage',
-    ''
+    '',
   );
 
   /**
@@ -40,14 +40,13 @@ export class SubmissionController {
    */
   @MessagePattern(DispatchMessage.created)
   async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
-
     this.logger.log('Starting Submission:' + JSON.stringify(data));
 
     const response = await this.hpcService.submitJob(
       data.id,
       data.simulator,
       data.version,
-      data.fileName
+      data.fileName,
     );
     if (response.stderr != '') {
       // There was an error with submission of the job
@@ -61,23 +60,22 @@ export class SubmissionController {
       };
       this.messageClient
         .emit(DispatchMessage.submitted, message)
-        .subscribe(() => { });
+        .subscribe(() => {});
 
       // Get the slurm id of the job
-      // TODO add the slurm id to the database for internal use only 
+      // TODO add the slurm id to the database for internal use only
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
-      const transpose =
-        data.simulator == 'vcell';
+      const transpose = data.simulator == 'vcell';
       this.logger.debug(
-        `Simulator is ${data.simulator} Will transpose: ${transpose}`
+        `Simulator is ${data.simulator} Will transpose: ${transpose}`,
       );
 
       this.service.startMonitoringCronJob(
         slurmjobId.toString(),
         data.id,
         5,
-        transpose
+        transpose,
       );
     }
 

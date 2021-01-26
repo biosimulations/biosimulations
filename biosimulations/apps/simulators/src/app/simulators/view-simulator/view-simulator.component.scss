@@ -2,7 +2,8 @@
 @import 'biosimulations-typography';
 
 biosimulations-tab-page ::ng-deep {
-  h2, h3 {
+  h2,
+  h3 {
     margin: 0;
   }
 
@@ -33,7 +34,8 @@ biosimulations-tab-page ::ng-deep {
 }
 
 .citations tr:first-child {
-  th, td {
+  th,
+  td {
     padding-top: 0.5rem;
   }
 }
@@ -67,7 +69,8 @@ biosimulations-tab-page ::ng-deep {
 }
 
 .copy-image {
-  biosimulations-icon, .code {
+  biosimulations-icon,
+  .code {
     float: left;
   }
 
@@ -105,7 +108,9 @@ biosimulations-tab-page ::ng-deep {
 }
 
 .json {
-  max-height: calc(100vh - 64px - 28px - 0.25rem - 32px - 2 * 2rem - 2 * 0.5rem);
+  max-height: calc(
+    100vh - 64px - 28px - 0.25rem - 32px - 2 * 2rem - 2 * 0.5rem
+  );
 }
 
 @media screen and (max-width: 959px) {

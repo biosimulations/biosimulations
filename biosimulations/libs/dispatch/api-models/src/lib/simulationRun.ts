@@ -14,7 +14,6 @@ import {
 } from '@nestjs/swagger';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
-
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database
   file: never;
@@ -86,7 +85,7 @@ export class SimulationRun {
     runtime?: number,
     projectSize?: number,
     resultsSize?: number,
-    email?: string | null
+    email?: string | null,
   ) {
     this.id = id;
     this.name = name;
@@ -108,10 +107,10 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'email',
   'simulator',
   'simulatorVersion',
-]) { }
+]) {}
 export class UploadSimulationRunUrl extends UploadSimulationRun {
-  @ApiProperty({type: String, format:'url'})
-  url!: string
+  @ApiProperty({ type: String, format: 'url' })
+  url!: string;
 }
 
 export class SimulationUpload {
@@ -133,4 +132,4 @@ export class PatchSimulationRun {
   resultsSize?: number;
 }
 
-export class UpdateSimulationRun extends PartialType(PatchSimulationRun) { }
+export class UpdateSimulationRun extends PartialType(PatchSimulationRun) {}

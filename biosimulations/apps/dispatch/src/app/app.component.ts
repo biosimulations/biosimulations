@@ -11,14 +11,13 @@ import { timeout } from 'rxjs/operators';
 export class AppComponent implements AfterViewInit {
   title = 'dispatch';
 
-  constructor(public config: ConfigService, private scrollService: ScrollService, private update: UpdateService) { }
-
+  constructor(
+    public config: ConfigService,
+    private scrollService: ScrollService,
+    private update: UpdateService,
+  ) {}
 
   ngAfterViewInit(): void {
     this.scrollService.init();
-
-
-
-
   }
 }

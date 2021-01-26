@@ -11,18 +11,14 @@ describe('StructuredSimulationLogElementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        StructuredSimulationLogElementComponent,
-      ],
+      declarations: [StructuredSimulationLogElementComponent],
       imports: [
         HttpClientTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
-      providers: [
-        ScrollService,
-      ],
+      providers: [ScrollService],
     }).compileComponents();
   }));
 

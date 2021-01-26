@@ -27,7 +27,7 @@ export class StrictModeExceptionFilter implements ExceptionFilter {
       undefined,
       undefined,
       undefined,
-      err.path
+      err.path,
     );
     errors.push(errorObject);
 

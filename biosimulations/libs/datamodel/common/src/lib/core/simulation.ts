@@ -1,9 +1,4 @@
-import {
-  BiomodelParameter,
-  AlgorithmParameter,
-
-  IAlgorithm,
-} from '.';
+import { BiomodelParameter, AlgorithmParameter, IAlgorithm } from '.';
 
 import { Format, PrimaryResourceMetaData } from '../..';
 import { BiosimulationsId } from '../common/alias';

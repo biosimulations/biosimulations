@@ -10,14 +10,24 @@ export class UtilsService {
       resolvedData = [];
       unresolvedData.forEach((val: any, key: number): void => {
         resolvedData.push(undefined);
-        unresolvedDataToCheck.push({unresolvedParent: unresolvedData, resolvedParent: resolvedData, val, key});
+        unresolvedDataToCheck.push({
+          unresolvedParent: unresolvedData,
+          resolvedParent: resolvedData,
+          val,
+          key,
+        });
       });
     } else {
       resolvedData = {};
       Object.keys(unresolvedData).forEach((key: any): void => {
         resolvedData[key] = undefined;
         const val = unresolvedData[key];
-        unresolvedDataToCheck.push({unresolvedParent: unresolvedData, resolvedParent: resolvedData, val, key});
+        unresolvedDataToCheck.push({
+          unresolvedParent: unresolvedData,
+          resolvedParent: resolvedData,
+          val,
+          key,
+        });
       });
     }
 
@@ -28,30 +38,41 @@ export class UtilsService {
       const unresolvedDatumVal = unresolvedDatum.val;
 
       if (unresolvedDatumVal instanceof Observable) {
-        observablesToResolve.push(unresolvedDatumVal)
-        slotsForResolvedObservables.push({parent: unresolvedDatum.resolvedParent, key: unresolvedDatum.key});
-
+        observablesToResolve.push(unresolvedDatumVal);
+        slotsForResolvedObservables.push({
+          parent: unresolvedDatum.resolvedParent,
+          key: unresolvedDatum.key,
+        });
       } else if (Array.isArray(unresolvedDatumVal)) {
         const resolvedDatumVal: any[] = [];
         unresolvedDatum.resolvedParent[unresolvedDatum.key] = resolvedDatumVal;
         unresolvedDatumVal.forEach((val: any, key: number): void => {
           resolvedDatumVal.push(undefined);
-          unresolvedDataToCheck.push({unresolvedParent: unresolvedDatumVal, resolvedParent: resolvedDatumVal, val, key});
+          unresolvedDataToCheck.push({
+            unresolvedParent: unresolvedDatumVal,
+            resolvedParent: resolvedDatumVal,
+            val,
+            key,
+          });
         });
-
       } else if (
-        unresolvedDatumVal != null
-        && (typeof unresolvedDatumVal === "object" || typeof unresolvedDatumVal === "function")
-        && typeof unresolvedDatumVal.valueOf() === "object"
+        unresolvedDatumVal != null &&
+        (typeof unresolvedDatumVal === 'object' ||
+          typeof unresolvedDatumVal === 'function') &&
+        typeof unresolvedDatumVal.valueOf() === 'object'
       ) {
         const resolvedDatumVal: any = new unresolvedDatumVal.constructor();
         unresolvedDatum.resolvedParent[unresolvedDatum.key] = resolvedDatumVal;
         Object.keys(unresolvedDatumVal).forEach((key: any): void => {
           resolvedDatumVal[key] = undefined;
           const val = unresolvedDatumVal[key];
-          unresolvedDataToCheck.push({unresolvedParent: unresolvedDatumVal, resolvedParent: resolvedDatumVal, val, key});
+          unresolvedDataToCheck.push({
+            unresolvedParent: unresolvedDatumVal,
+            resolvedParent: resolvedDatumVal,
+            val,
+            key,
+          });
         });
-
       } else {
         const resolvedDatumVal = unresolvedDatumVal;
         unresolvedDatum.resolvedParent[unresolvedDatum.key] = resolvedDatumVal;
@@ -75,13 +96,16 @@ export class UtilsService {
     }
   }
 
-  static getSimulatorCurationStatus(simulator: any): SimulatorCurationStatus { // true type of simulator: Simulator
-    let curationStatus = SimulatorCurationStatus['Registered with BioSimulators'];
+  static getSimulatorCurationStatus(simulator: any): SimulatorCurationStatus {
+    // true type of simulator: Simulator
+    let curationStatus =
+      SimulatorCurationStatus['Registered with BioSimulators'];
     if (simulator.algorithms.length > 0) {
       curationStatus = SimulatorCurationStatus['Algorithms curated'];
-      
+
       let parametersCurated = true;
-      simulator.algorithms.forEach((algorithm: any): void => { // true type of algorithm: Algorithm
+      simulator.algorithms.forEach((algorithm: any): void => {
+        // true type of algorithm: Algorithm
         if (algorithm.parameters == null) {
           parametersCurated = false;
         }
@@ -103,16 +127,23 @@ export class UtilsService {
     return curationStatus;
   }
 
-  static getSimulatorCurationStatusMessage(status: SimulatorCurationStatus, showLabel: boolean = true): string {
+  static getSimulatorCurationStatusMessage(
+    status: SimulatorCurationStatus,
+    showLabel: boolean = true,
+  ): string {
     let label: string = '';
     if (showLabel) {
       for (const [key, val] of Object.entries(SimulatorCurationStatus)) {
-        if (typeof key === "string" && val === status) {
+        if (typeof key === 'string' && val === status) {
           label = ' ' + (key as string);
           break;
         }
       }
     }
-    return '★'.repeat(status)  + '☆'.repeat(SimulatorCurationStatus["Image validated"] - status) + label;
+    return (
+      '★'.repeat(status) +
+      '☆'.repeat(SimulatorCurationStatus['Image validated'] - status) +
+      label
+    );
   }
 }

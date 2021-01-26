@@ -10,7 +10,12 @@ import { PlatformTermsOfServiceComponent } from './platform-terms-of-service.com
 import { DispatchTermsOfServiceComponent } from './dispatch-terms-of-service.component';
 import { SimulatorsTermsOfServiceComponent } from './simulators-terms-of-service.component';
 @NgModule({
-  imports: [CommonModule, RouterModule, SharedUiModule, BiosimulationsIconsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SharedUiModule,
+    BiosimulationsIconsModule,
+  ],
   exports: [
     PlatformPrivacyPolicyComponent,
     DispatchPrivacyPolicyComponent,
@@ -28,4 +33,4 @@ import { SimulatorsTermsOfServiceComponent } from './simulators-terms-of-service
     SimulatorsTermsOfServiceComponent,
   ],
 })
-export class PoliciesModule { }
+export class PoliciesModule {}

@@ -12,7 +12,8 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   kisaoId!: KisaoOntologyId;
 
   @ApiProperty({
-    description: "Id of the parameter within the simulator's implementation of the algorithm such as the name of a function argument which implements the parameter. The scope of this id is typically limited to the individual simulator.",
+    description:
+      "Id of the parameter within the simulator's implementation of the algorithm such as the name of a function argument which implements the parameter. The scope of this id is typically limited to the individual simulator.",
     type: String,
     nullable: true,
     required: false,
@@ -21,11 +22,12 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   id!: string | null;
 
   @ApiProperty({
-    description: "Name of the parameter within the simulator's implementation of the algorithm. The scope of this name is typically limited to the individual simulator.",
+    description:
+      "Name of the parameter within the simulator's implementation of the algorithm. The scope of this name is typically limited to the individual simulator.",
     type: String,
     nullable: true,
     required: false,
-    default: null
+    default: null,
   })
   name!: string | null;
 
@@ -37,14 +39,14 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @ApiProperty({
     type: String,
-    example: "30.5",
+    example: '30.5',
     nullable: true,
   })
   value!: string | null;
 
   @ApiProperty({
     type: [String],
-    example: ["22.7", "2270"],
+    example: ['22.7', '2270'],
     nullable: true,
   })
   recommendedRange!: string[] | null;
@@ -52,7 +54,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   @ApiProperty({
     type: [String],
     enum: SoftwareInterfaceType,
-    description: "List of software interfaces which support the parameter"
+    description: 'List of software interfaces which support the parameter',
   })
   availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 }

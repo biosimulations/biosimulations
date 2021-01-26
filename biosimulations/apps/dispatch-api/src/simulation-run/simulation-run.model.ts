@@ -31,19 +31,19 @@ export class SimulationRunModel extends Document {
         validator: (value: any): boolean => {
           return value == null || EmailValidator.validate(value);
         },
-        message: (props: any): string => `${props.value} is not a valid email`
-      }
-    ]
+        message: (props: any): string => `${props.value} is not a valid email`,
+      },
+    ],
   })
   email!: string | null;
 
   @Prop({
     type: String,
     enum: Object.keys(SimulationRunStatus).map(
-      (key) => SimulationRunStatus[key as SimulationRunStatus]
+      (key) => SimulationRunStatus[key as SimulationRunStatus],
     ),
 
-    default: SimulationRunStatus.CREATED
+    default: SimulationRunStatus.CREATED,
   })
   status!: SimulationRunStatus;
 
@@ -99,11 +99,11 @@ export type SimulationRunModelReturnType = Omit<
   '__v' | '_id' | 'file'
 > & { _id: never; __v: never };
 export const SimulationRunModelSchema = SchemaFactory.createForClass(
-  SimulationRunModel
+  SimulationRunModel,
 );
 SimulationRunModelSchema.set('timestamps', {
   createdAt: 'submitted',
-  updatedAt: 'updated'
+  updatedAt: 'updated',
 });
 SimulationRunModelSchema.set('toObject', { transform: omitPrivate });
 SimulationRunModelSchema.set('toJSON', { transform: omitPrivate });

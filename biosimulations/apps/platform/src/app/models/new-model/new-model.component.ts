@@ -4,9 +4,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   selector: 'biosimulations-new-model',
   templateUrl: './new-model.component.html',
   styleUrls: ['./new-model.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewModelComponent  {
-
-
-}
+export class NewModelComponent {}

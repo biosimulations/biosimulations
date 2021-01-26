@@ -18,25 +18,25 @@ import { AdminGuard } from '../admin/admin.guard';
 export class PermissionsGuard {
   constructor(
     private readonly reflector: Reflector,
-    private admin: AdminGuard
-  ) { }
+    private admin: AdminGuard,
+  ) {}
 
   canActivate(
-    context: ExecutionContext
+    context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const routePermissions = this.reflector.get<string[]>(
       'permissions',
-      context.getHandler()
+      context.getHandler(),
     );
 
     const user: AuthToken = context.getArgs()[0].user;
     let userPermissions = user['https://biosimulations.org/permissions'];
-    const autoPerimissions = user['permissions'] || []
-    userPermissions = userPermissions.concat(autoPerimissions)
+    const autoPerimissions = user['permissions'] || [];
+    userPermissions = userPermissions.concat(autoPerimissions);
 
     const hasPermission = () =>
       routePermissions.every((routePermission) =>
-        userPermissions?.includes(routePermission)
+        userPermissions?.includes(routePermission),
       );
 
     //const isAdmin = this.admin.isAdmin(user);
@@ -45,7 +45,8 @@ export class PermissionsGuard {
       return true;
     } else {
       throw new ForbiddenException(
-        'You do not have the needed permissions: ' + routePermissions.toString()
+        'You do not have the needed permissions: ' +
+          routePermissions.toString(),
       );
     }
   }

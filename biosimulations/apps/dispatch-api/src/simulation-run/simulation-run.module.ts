@@ -12,7 +12,7 @@ import { ConfigService } from '@nestjs/config';
 import {
   Transport,
   ClientProxyFactory,
-  NatsOptions
+  NatsOptions,
 } from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationFile, SimulationFileSchema } from './file.model';
@@ -22,7 +22,7 @@ import {
   SimulationRunModelSchema,
 } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
-import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 @Module({
   controllers: [SimulationRunController],
   imports: [
@@ -35,10 +35,7 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
         schema: SimulationFileSchema,
       },
     ]),
-
   ],
-  providers: [
-    SimulationRunService,
-  ],
+  providers: [SimulationRunService],
 })
-export class SimulationRunModule { }
+export class SimulationRunModule {}

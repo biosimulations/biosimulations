@@ -24,7 +24,7 @@ function setupOpenApi(
   openIdConnectUrl?: string,
   clientId?: string,
   scopes?: string[],
-  uiPath = ''
+  uiPath = '',
 ) {
   if (!scopes) {
     scopes = [];
@@ -57,7 +57,7 @@ function setupOpenApi(
   if (unsortedSchemas) {
     const schemaNames = Object.keys(unsortedSchemas).sort();
 
-    const schemas: {[name: string]: any} = {};
+    const schemas: { [name: string]: any } = {};
     for (const schemaName of schemaNames) {
       schemas[schemaName] = unsortedSchemas?.[schemaName];
     }
@@ -77,7 +77,7 @@ function setupOpenApi(
     swaggerOptions: uiOptions,
     customCss: ' .swagger-ui .topbar { display: none }',
   };
-  SwaggerModule.setup(uiPath, app, document, customOptions);  
+  SwaggerModule.setup(uiPath, app, document, customOptions);
 
   return document;
 }
@@ -92,7 +92,7 @@ async function bootstrap() {
   // TODO intelligently allow origin based on production mode, abstract this
   const allowOrigin: CustomOrigin = (
     requestOrigin: string,
-    callback: (err: Error | null, allow?: boolean | undefined) => void
+    callback: (err: Error | null, allow?: boolean | undefined) => void,
   ) => {
     if (!requestOrigin) {
       callback(null, true);
@@ -121,20 +121,30 @@ async function bootstrap() {
   const doc = new DocumentBuilder()
     .setTitle('BioSimulations/BioSimulators ontology API')
     .setDescription(
-      'An API to get information about ontologies and terms used in BioSimulations and BioSimulators'
+      'An API to get information about ontologies and terms used in BioSimulations and BioSimulators',
     )
     .setVersion('0.1')
-    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
-    .setTermsOfService("https://biosimulations.org/help/terms")
-    .setExternalDoc('API specifications (Open API JSON)', 'https://ontology.api.biosimulations.org/openapi.json')
-    .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org');
+    .setLicense(
+      'MIT License',
+      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+    )
+    .setTermsOfService('https://biosimulations.org/help/terms')
+    .setExternalDoc(
+      'API specifications (Open API JSON)',
+      'https://ontology.api.biosimulations.org/openapi.json',
+    )
+    .setContact(
+      'BioSimulations Team',
+      'https://biosimulations.org/help/about',
+      'info@biosimulations.org',
+    );
 
   const document = setupOpenApi(
     app,
     doc,
     'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
-    'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT'
+    'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT',
   );
 
   const httpAdapter = app.getHttpAdapter();

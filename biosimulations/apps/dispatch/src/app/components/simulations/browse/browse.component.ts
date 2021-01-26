@@ -1,7 +1,7 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Simulation } from '../../../datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import {
@@ -65,7 +65,9 @@ export class BrowseComponent implements OnInit {
         return SimulationStatusService.getSimulationStatusMessage(value, true);
       },
       rightIcon: (simulation: Simulation): string | null => {
-        if (SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+        if (
+          SimulationStatusService.isSimulationStatusRunning(simulation.status)
+        ) {
           return 'spinner';
         } else {
           return null;
@@ -74,7 +76,7 @@ export class BrowseComponent implements OnInit {
       comparator: (
         a: SimulationRunStatus,
         b: SimulationRunStatus,
-        sign: number
+        sign: number,
       ): number => {
         const aVal = SimulationStatusService.getSimulationStatusOrder(a);
         const bVal = SimulationStatusService.getSimulationStatusOrder(b);
@@ -227,17 +229,24 @@ export class BrowseComponent implements OnInit {
       heading: 'Export',
       key: 'status',
       getter: (simulation: Simulation): boolean => {
-        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
-          && simulation.resultsSize !== undefined
-          && simulation.resultsSize > 0);
+        return (
+          SimulationStatusService.isSimulationStatusSucceeded(
+            simulation.status,
+          ) &&
+          simulation.resultsSize !== undefined &&
+          simulation.resultsSize > 0
+        );
       },
       center: true,
       leftIcon: 'download',
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
-          && simulation.resultsSize !== undefined
-          && simulation.resultsSize > 0
+        if (
+          SimulationStatusService.isSimulationStatusSucceeded(
+            simulation.status,
+          ) &&
+          simulation.resultsSize !== undefined &&
+          simulation.resultsSize > 0
         ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
@@ -246,9 +255,12 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.href,
       centerHref: (simulation: Simulation): string | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
-          && simulation.resultsSize !== undefined
-          && simulation.resultsSize > 0
+        if (
+          SimulationStatusService.isSimulationStatusSucceeded(
+            simulation.status,
+          ) &&
+          simulation.resultsSize !== undefined &&
+          simulation.resultsSize > 0
         ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
         } else {
@@ -268,11 +280,7 @@ export class BrowseComponent implements OnInit {
       minWidth: 61,
       maxWidth: 61,
       filterable: false,
-      comparator: (
-        a: boolean,
-        b: boolean,
-        sign: number
-      ): number => {
+      comparator: (a: boolean, b: boolean, sign: number): number => {
         if (a > b) return -1;
         if (a < b) return 1;
         return 0;
@@ -286,7 +294,9 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'logs',
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+        if (
+          !SimulationStatusService.isSimulationStatusRunning(simulation.status)
+        ) {
           return ['/simulations', simulation.id, '#tab=log'];
         } else {
           return null;
@@ -294,7 +304,9 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
-        if (!SimulationStatusService.isSimulationStatusRunning(simulation.status)) {
+        if (
+          !SimulationStatusService.isSimulationStatusRunning(simulation.status)
+        ) {
           return ['/simulations', simulation.id, '#tab=log'];
         } else {
           return null;
@@ -316,10 +328,14 @@ export class BrowseComponent implements OnInit {
       comparator: (
         a: SimulationRunStatus,
         b: SimulationRunStatus,
-        sign: number
+        sign: number,
       ): number => {
-        const aVal = !SimulationStatusService.isSimulationStatusRunning(a) ? 0 : 1;
-        const bVal = !SimulationStatusService.isSimulationStatusRunning(b) ? 0 : 1;
+        const aVal = !SimulationStatusService.isSimulationStatusRunning(a)
+          ? 0
+          : 1;
+        const bVal = !SimulationStatusService.isSimulationStatusRunning(b)
+          ? 0
+          : 1;
         if (aVal > bVal) return 1;
         if (aVal < bVal) return -1;
         return 0;
@@ -355,7 +371,10 @@ export class BrowseComponent implements OnInit {
   ];
   simulations!: Observable<Simulation[]>;
 
-  constructor(private config: ConfigService, private simulationService: SimulationService) { }
+  constructor(
+    private config: ConfigService,
+    private simulationService: SimulationService,
+  ) {}
 
   ngOnInit(): void {
     this.simulations = this.simulationService.simulations$;
@@ -404,6 +423,8 @@ export class BrowseComponent implements OnInit {
   }
 
   loadExampleSimulations(): void {
-    this.simulationService.storeExistingExternalSimulations((exampleSimulationsJson as unknown) as Simulation[]);
+    this.simulationService.storeExistingExternalSimulations(
+      (exampleSimulationsJson as unknown) as Simulation[],
+    );
   }
 }

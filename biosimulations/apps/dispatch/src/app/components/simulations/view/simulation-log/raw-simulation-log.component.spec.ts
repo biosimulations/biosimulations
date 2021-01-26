@@ -10,17 +10,9 @@ describe('RawSimulationLogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        RawSimulationLogComponent,
-      ],
-      imports: [
-        SharedUiModule,
-        BiosimulationsIconsModule,
-        RouterTestingModule,
-      ],
-      providers: [
-        ScrollService,
-      ],
+      declarations: [RawSimulationLogComponent],
+      imports: [SharedUiModule, BiosimulationsIconsModule, RouterTestingModule],
+      providers: [ScrollService],
     }).compileComponents();
   }));
 

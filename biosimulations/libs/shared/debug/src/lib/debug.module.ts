@@ -8,4 +8,4 @@ import { RouterModule, Router } from '@angular/router';
   declarations: [ViewerComponent],
   exports: [ViewerComponent, RouterModule],
 })
-export class SharedDebugModule { }
+export class SharedDebugModule {}

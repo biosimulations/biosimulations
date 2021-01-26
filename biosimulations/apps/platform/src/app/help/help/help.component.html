@@ -1,10 +1,15 @@
 <biosimulations-text-page heading="Tutorial" [tocSections]="tocSections">
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+    <biosimulations-text-page-side-bar-section
+      heading="Related resources"
+      fxShow
+      fxHide.lt-md
+    >
       <div class="hanging-indent">
         <a href="https://biosimulators.org" target="_blank">
           <biosimulations-icon icon="link"></biosimulations-icon>
-          Documentation about modeling frameworks, simulation algorithms, model formats, and simulation tools
+          Documentation about modeling frameworks, simulation algorithms, model
+          formats, and simulation tools
         </a>
       </div>
       <div class="hanging-indent">
@@ -63,7 +68,12 @@
       heading="Guide for simulation software developers: Contributing an additional simulation tool"
       tocSection="Guide for simulator developers"
     >
-      BioSimulations uses the BioSimulators collection of simulation tools. Please see BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about contributing an additional simulation tool.
+      BioSimulations uses the BioSimulators collection of simulation tools.
+      Please see BioSimulators
+      <a href="https://biosimulators.org" target="_blank"
+        ><biosimulations-icon icon="link"></biosimulations-icon
+      ></a>
+      for information about contributing an additional simulation tool.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -81,21 +91,45 @@
       heading="Programmatically working with BioSimulations via the REST API"
       tocSection="REST API"
     >
-      A comprehensive API is available for submitting and retrieving projects, models, simulations, charts, and visualizations and executing simulations and retrieving their results. Please see the documentation for the REST API <a [href]="config.apiUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for more information.
+      A comprehensive API is available for submitting and retrieving projects,
+      models, simulations, charts, and visualizations and executing simulations
+      and retrieving their results. Please see the documentation for the REST
+      API
+      <a [href]="config.apiUrl" target="_blank"
+        ><biosimulations-icon icon="link"></biosimulations-icon
+      ></a>
+      for more information.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Executing simulations with the standalone simulation web application and REST API"
       tocSection="Standalone simulation web service"
     >
-      In addition to this full-featured web application, runBioSimulations <a [href]="config.dispatchAppUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
+      In addition to this full-featured web application, runBioSimulations
+      <a [href]="config.dispatchAppUrl" target="_blank"
+        ><biosimulations-icon icon="link"></biosimulations-icon
+      ></a>
+      provides a simpler web application and REST API for executing simulations.
+      runBioSimulations simply enables users to execute COMBINE archives using a
+      variety of simulation tools and generate time series plots of their
+      results. This application does not require an account.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Contributing to the BioSimulations platform"
       tocSection="Contributing to the platform"
     >
-      <p>We welcome contributions to the BioSimulations platform (e.g., web application, REST API, database, simulation services)! Please see the Guide to Contributing <a href="https://github.com/biosimulations/Biosimulations/blob/dev/CONTRIBUTING.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for information about how to contribute to the platform.</p>
+      <p>
+        We welcome contributions to the BioSimulations platform (e.g., web
+        application, REST API, database, simulation services)! Please see the
+        Guide to Contributing
+        <a
+          href="https://github.com/biosimulations/Biosimulations/blob/dev/CONTRIBUTING.md"
+          target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon
+        ></a>
+        for information about how to contribute to the platform.
+      </p>
     </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>

@@ -7,7 +7,12 @@ import { TextPageCitationSideBarSectionComponent } from './text-page-citation-si
 import { TextPageFeedbackSideBarSectionComponent } from './text-page-feedback-side-bar-section.component';
 import { TextPageHelpSideBarSectionComponent } from './text-page-help-side-bar-section.component';
 @NgModule({
-  imports: [CommonModule, RouterModule, SharedUiModule, BiosimulationsIconsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SharedUiModule,
+    BiosimulationsIconsModule,
+  ],
   exports: [
     TextPageCitationSideBarSectionComponent,
     TextPageFeedbackSideBarSectionComponent,
@@ -19,4 +24,4 @@ import { TextPageHelpSideBarSectionComponent } from './text-page-help-side-bar-s
     TextPageHelpSideBarSectionComponent,
   ],
 })
-export class TextPageSideBarSectionsModule { }
+export class TextPageSideBarSectionsModule {}

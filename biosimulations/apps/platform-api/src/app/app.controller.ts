@@ -9,7 +9,7 @@ import {
   permissions,
   AdminGuard,
 } from '@biosimulations/auth/nest';
-import {AuthToken} from '@biosimulations/auth/common';
+import { AuthToken } from '@biosimulations/auth/common';
 @Controller()
 export class AppController {
   constructor(

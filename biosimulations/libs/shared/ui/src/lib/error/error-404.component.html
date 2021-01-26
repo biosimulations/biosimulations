@@ -1,7 +1,19 @@
-<biosimulations-error icon="bug" [code]="code" [pageHasBreadCrumbs]="pageHasBreadCrumbs">
+<biosimulations-error
+  icon="bug"
+  [code]="code"
+  [pageHasBreadCrumbs]="pageHasBreadCrumbs"
+>
   <ng-container id="code">{{ code }}</ng-container>
   <ng-container id="message">{{ message }}</ng-container>
   <ng-container id="details">
-    {{ details }} If you believe this is an error, please submit an <span class="no-wrap">issue <a [href]="newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></span> or contact us at <a [href]="emailUrl" subject="BioSimulations 404 error">{{ email }}</a>.
+    {{ details }} If you believe this is an error, please submit an
+    <span class="no-wrap"
+      >issue
+      <a [href]="newIssueUrl" target="_blank"
+        ><biosimulations-icon icon="link"></biosimulations-icon></a
+    ></span>
+    or contact us at
+    <a [href]="emailUrl" subject="BioSimulations 404 error">{{ email }}</a
+    >.
   </ng-container>
 </biosimulations-error>

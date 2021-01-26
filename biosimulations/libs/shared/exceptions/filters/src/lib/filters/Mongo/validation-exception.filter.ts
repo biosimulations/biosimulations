@@ -31,7 +31,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
         undefined,
         undefined,
         undefined,
-        path
+        path,
       );
       errors.push(error);
     }

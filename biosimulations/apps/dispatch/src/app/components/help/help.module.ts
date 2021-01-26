@@ -14,13 +14,19 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 
 @NgModule({
-  declarations: [AboutComponent, FaqComponent, HelpComponent, TermsOfServiceComponent, PrivacyPolicyComponent],
+  declarations: [
+    AboutComponent,
+    FaqComponent,
+    HelpComponent,
+    TermsOfServiceComponent,
+    PrivacyPolicyComponent,
+  ],
   imports: [
-    CommonModule,    
+    CommonModule,
     HelpRoutingModule,
-    SharedUiModule,    
+    SharedUiModule,
     BiosimulationsIconsModule,
     SharedContentModule,
-  ]
+  ],
 })
-export class HelpModule { }
+export class HelpModule {}

@@ -66,9 +66,11 @@ export class TextPageComponent {
   constructor(
     breakpointObserver: BreakpointObserver,
     private changeRef: ChangeDetectorRef,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
   ) {
-    this.boundScroll = this.scrollService.addScrollListener(this.scroll.bind(this));
+    this.boundScroll = this.scrollService.addScrollListener(
+      this.scroll.bind(this),
+    );
 
     this.smallLayout = breakpointObserver.isMatched('(max-width: 959px)');
     breakpointObserver.observe(['(max-width: 959px)']).subscribe((result) => {

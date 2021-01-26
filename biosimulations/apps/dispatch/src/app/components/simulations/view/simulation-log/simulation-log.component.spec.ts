@@ -22,11 +22,9 @@ describe('SimulationLogComponent', () => {
         HttpClientTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
-      providers: [
-        ScrollService,
-      ],
+      providers: [ScrollService],
     }).compileComponents();
   }));
 

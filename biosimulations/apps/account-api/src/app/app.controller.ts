@@ -10,11 +10,7 @@ import {
 
 import { AppService } from './app.service';
 import { Account, Profile } from './account.model';
-import {
-  ApiProperty,
-  ApiPropertyOptional,
-  ApiOAuth2,
-} from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, ApiOAuth2 } from '@nestjs/swagger';
 
 import {
   permissions,

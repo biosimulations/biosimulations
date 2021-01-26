@@ -12,8 +12,7 @@ interface View {
   templateUrl: './resource-attributes.component.html',
   styleUrls: ['./resource-attributes.component.scss'],
 })
-export class ResourceAttributesComponent  {
+export class ResourceAttributesComponent {
   @Input()
   list!: View[];
-
 }

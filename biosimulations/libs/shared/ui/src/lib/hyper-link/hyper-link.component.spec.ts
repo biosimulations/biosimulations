@@ -7,9 +7,8 @@ describe('HyperLinkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HyperLinkComponent ],
-    })
-    .compileComponents();
+      declarations: [HyperLinkComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,7 +6,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { AppService } from './app.service';
 import { Account } from './account.model';
-import { AccountManagementModule } from '@biosimulations/account/management'
+import { AccountManagementModule } from '@biosimulations/account/management';
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -27,4 +27,4 @@ import { AccountManagementModule } from '@biosimulations/account/management'
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

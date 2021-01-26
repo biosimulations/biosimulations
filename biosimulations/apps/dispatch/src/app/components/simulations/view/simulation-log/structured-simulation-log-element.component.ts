@@ -6,16 +6,24 @@ import {
   SedPlot2DLog,
   SedPlot3DLog,
   SimulatorDetail,
-  AlgorithmKisaoDescriptionFragment
+  AlgorithmKisaoDescriptionFragment,
 } from '../../../../simulation-logs-datamodel';
 import * as Convert from 'ansi-to-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 import { OntologyService } from '../../../../services/ontology/ontology.service';
-import { KisaoTerm, SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import {
+  KisaoTerm,
+  SimulationRunLogStatus,
+} from '@biosimulations/datamodel/common';
 
-type logTypes = SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog;
+type logTypes =
+  | SedDocumentLog
+  | SedTaskLog
+  | SedReportLog
+  | SedPlot2DLog
+  | SedPlot3DLog;
 
 interface FormattedSimulatorDetail {
   key: string;
@@ -25,10 +33,13 @@ interface FormattedSimulatorDetail {
 @Component({
   selector: 'biosimulations-structured-simulation-log-element',
   templateUrl: './structured-simulation-log-element.component.html',
-  styleUrls: ['./structured-simulation-log-element.component.scss']
+  styleUrls: ['./structured-simulation-log-element.component.scss'],
 })
 export class StructuredSimulationLogElementComponent {
-  constructor(private sanitizer: DomSanitizer, private ontologyService: OntologyService) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private ontologyService: OntologyService,
+  ) {}
 
   @Input()
   elementId!: string;
@@ -44,7 +55,9 @@ export class StructuredSimulationLogElementComponent {
   formattedOutput!: SafeHtml | undefined;
 
   algorithmKisaoTerm: Observable<KisaoTerm> | undefined;
-  algorithmKisaoTermDescription: Observable<AlgorithmKisaoDescriptionFragment[] | undefined> | undefined;
+  algorithmKisaoTermDescription:
+    | Observable<AlgorithmKisaoDescriptionFragment[] | undefined>
+    | undefined;
   formattedSimulatorDetails: FormattedSimulatorDetail[] | undefined;
 
   @Input()
@@ -65,13 +78,17 @@ export class StructuredSimulationLogElementComponent {
     }
 
     const convert = new Convert();
-    this.formattedOutput = value?.output ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value.output)) : undefined;
+    this.formattedOutput = value?.output
+      ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value.output))
+      : undefined;
 
     if ('algorithm' in value && value.algorithm) {
-      this.algorithmKisaoTerm = this.ontologyService.getKisaoTerm(value.algorithm);
+      this.algorithmKisaoTerm = this.ontologyService.getKisaoTerm(
+        value.algorithm,
+      );
       this.algorithmKisaoTermDescription = this.algorithmKisaoTerm.pipe(
         pluck('description'),
-        map(this.ontologyService.formatKisaoDescription)
+        map(this.ontologyService.formatKisaoDescription),
       );
     } else {
       this.algorithmKisaoTerm = undefined;
@@ -85,9 +102,12 @@ export class StructuredSimulationLogElementComponent {
           const value = keyValue.value;
           return {
             key: key,
-            value: typeof value === 'object' ? JSON.stringify(value, null, 2) : value.toString()
+            value:
+              typeof value === 'object'
+                ? JSON.stringify(value, null, 2)
+                : value.toString(),
           };
-        }
+        },
       );
     }
   }

@@ -10,7 +10,7 @@ export default registerAs('hpc', () => {
       username: process.env.HPC_SSH_USERNAME,
       privateKey: process.env.HPC_SSH_PRIVATE_KEY,
     },
-    homeDir: process.env.HPC_HOME_DIR || "/home/FCAM/crbmapi",
+    homeDir: process.env.HPC_HOME_DIR || '/home/FCAM/crbmapi',
     fileStorage: process.env.FILE_STORAGE,
     hpcBaseDir: process.env.HPC_BASE_DIR,
   };

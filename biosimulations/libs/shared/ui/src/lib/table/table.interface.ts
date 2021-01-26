@@ -79,7 +79,11 @@ export enum ColumnSortDirection {
 }
 
 export class RowService {
-  static getElementRouterLink(element: any, column: Column, side: Side): {routerLink: any, fragment: string | null} {
+  static getElementRouterLink(
+    element: any,
+    column: Column,
+    side: Side,
+  ): { routerLink: any; fragment: string | null } {
     let routerLinkFragment: any;
     if (
       side == Side.left &&
@@ -111,18 +115,23 @@ export class RowService {
         routerLink: null,
         fragment: null,
       };
-
     } else if (Array.isArray(routerLinkFragment)) {
-      if (routerLinkFragment.length > 0 && routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) === '#') {
+      if (
+        routerLinkFragment.length > 0 &&
+        routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) ===
+          '#'
+      ) {
         return {
           routerLink: routerLinkFragment.slice(0, -1),
-          fragment: routerLinkFragment[routerLinkFragment.length - 1].substring(1),
+          fragment: routerLinkFragment[routerLinkFragment.length - 1].substring(
+            1,
+          ),
         };
       } else {
         return {
           routerLink: routerLinkFragment,
           fragment: null,
-        };  
+        };
       }
     } else {
       const tmp = routerLinkFragment.split('#');
@@ -157,7 +166,10 @@ export class RowService {
     }
   }
 
-  static getElementClick(column: Column, side: Side): ((element: any) => void) | null {
+  static getElementClick(
+    column: Column,
+    side: Side,
+  ): ((element: any) => void) | null {
     if (
       side == Side.left &&
       column.leftAction === ColumnActionType.click &&
@@ -183,7 +195,7 @@ export class RowService {
   static getElementValue(
     element: any,
     column: Column | undefined,
-    defaultKey?: string | undefined
+    defaultKey?: string | undefined,
   ): any {
     if (column !== undefined && column.getter !== undefined) {
       return column.getter(element);
@@ -217,13 +229,13 @@ export class RowService {
 
   static getIcon(element: any, column: Column, side: Side): string | null {
     if (side == Side.left && column.leftIcon !== undefined) {
-      if (typeof column.leftIcon === "string") {
+      if (typeof column.leftIcon === 'string') {
         return column.leftIcon;
       } else {
         return column.leftIcon(element);
       }
     } else if (side == Side.right && column.rightIcon !== undefined) {
-      if (typeof column.rightIcon === "string") {
+      if (typeof column.rightIcon === 'string') {
         return column.rightIcon;
       } else {
         return column.rightIcon(element);
@@ -246,7 +258,7 @@ export class RowService {
   static getElementFilterValue(
     element: any,
     column: Column | undefined,
-    defaultKey?: string | undefined
+    defaultKey?: string | undefined,
   ): any {
     if (column !== undefined && column.filterGetter !== undefined) {
       return column.filterGetter(element);
@@ -280,7 +292,11 @@ export class RowService {
     }
   }
 
-  static sortData(idToColumn: IdColumnMap, data: any[], sort: ColumnSort): any[] {
+  static sortData(
+    idToColumn: IdColumnMap,
+    data: any[],
+    sort: ColumnSort,
+  ): any[] {
     if (sort === undefined) {
       return data;
     }
@@ -304,7 +320,10 @@ export class RowService {
 
       const sign = sortDirection !== ColumnSortDirection.desc ? 1 : -1;
 
-      const comparator = RowService.getComparator(column, sortDirection === undefined);
+      const comparator = RowService.getComparator(
+        column,
+        sortDirection === undefined,
+      );
       return sign * comparator(aVal, bVal, sign);
     });
 
@@ -321,7 +340,10 @@ export class RowService {
     }
   }
 
-  static getFilterComparator(column: Column | undefined, useDefault = false): any {
+  static getFilterComparator(
+    column: Column | undefined,
+    useDefault = false,
+  ): any {
     if (useDefault || column === undefined) {
       return RowService.comparator;
     } else if (column.filterComparator !== undefined) {
@@ -381,8 +403,16 @@ export class RowService {
     }
   }
 
-  static getElementSearchValue(value: any, column: Column, stacked = false): string {
-    const val = RowService.formatElementValue(RowService.getElementValue(value, column), column, stacked);
+  static getElementSearchValue(
+    value: any,
+    column: Column,
+    stacked = false,
+  ): string {
+    const val = RowService.formatElementValue(
+      RowService.getElementValue(value, column),
+      column,
+      stacked,
+    );
 
     let searchVal = '';
     if (val != null && val !== undefined) {

@@ -5,11 +5,9 @@
     "types": ["node"],
     "emitDecoratorMetadata": true,
     "target": "es2015",
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"],
-  "files": [
-    "../../declarations.d.ts"
-  ]
+  "files": ["../../declarations.d.ts"]
 }

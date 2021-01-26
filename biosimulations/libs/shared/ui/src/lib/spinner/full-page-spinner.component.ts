@@ -4,7 +4,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'biosimulations-full-page-spinner',
   templateUrl: './full-page-spinner.component.html',
   styleUrls: ['./full-page-spinner.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FullPageSpinnerComponent {
-}
+export class FullPageSpinnerComponent {}

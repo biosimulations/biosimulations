@@ -16,13 +16,12 @@ describe('NoticeComponent', () => {
       imports: [
         RouterTestingModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
         MaterialWrapperModule,
         BiosimulationsIconsModule,
       ],
-      providers: [
-      ],
+      providers: [],
     }).compileComponents();
   }));
 

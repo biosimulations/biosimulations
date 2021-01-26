@@ -6,13 +6,13 @@ import { HpcService } from '../services/hpc/hpc.service';
 import { SubmissionService } from './submission.service';
 
 class MockSimulationService {
-  updateSimulationRunStatus(id: string, size: number) { }
+  updateSimulationRunStatus(id: string, size: number) {}
 }
 class mockHPCService {
-  getJobStatus(id: string) { }
+  getJobStatus(id: string) {}
 }
 class mockClient {
-  emit(message: any) { }
+  emit(message: any) {}
 }
 describe('Submissionservice', () => {
   let service: SubmissionService;

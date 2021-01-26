@@ -3,7 +3,7 @@ import {
   CreateSimulationRunLogBody,
   SimulationRun,
   SimulationRunReport,
-  SimulationRunReportDataStrings
+  SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
 import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -14,25 +14,25 @@ import {
   retry,
   map,
   flatMap,
-  mergeMap
+  mergeMap,
 } from 'rxjs/operators';
 import { from, Observable, of } from 'rxjs';
 import {
   SimulationRunLogStatus,
-  SimulationRunStatus
+  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 @Injectable({})
 export class SimulationRunService {
   constructor(
     private auth: AuthClientService,
     private http: HttpService,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {}
   endpoint = this.configService.get('urls').dispatchApi;
 
   updateSimulationRunStatus(
     id: string,
-    status: SimulationRunStatus
+    status: SimulationRunStatus,
   ): Observable<SimulationRun> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
@@ -42,19 +42,19 @@ export class SimulationRunService {
             { status: status },
             {
               headers: {
-                Authorization: `Bearer ${token}`
-              }
-            }
+                Authorization: `Bearer ${token}`,
+              },
+            },
           )
           .pipe(pluck('data'));
       }),
-      mergeMap((value) => value)
+      mergeMap((value) => value),
     );
   }
 
   async updateSimulationRunResultsSize(
     id: string,
-    size: number
+    size: number,
   ): Promise<SimulationRun> {
     const token = await this.auth.getToken();
     return this.http
@@ -63,21 +63,21 @@ export class SimulationRunService {
         { resultsSize: size },
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       )
       .pipe(pluck('data'))
       .toPromise();
   }
   async getJob(simId: string): Promise<SimulationRun> {
     // TODO make enpoint consistent with other (no ending /)
-      const token = await this.auth.getToken();
+    const token = await this.auth.getToken();
     return this.http
       .get<SimulationRun>(`${this.endpoint}/run/${simId}`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .pipe(pluck('data'))
       .toPromise();
@@ -85,7 +85,7 @@ export class SimulationRunService {
   async sendReport(
     simId: string,
     reportId: string,
-    data: SimulationRunReportDataStrings
+    data: SimulationRunReportDataStrings,
   ): Promise<SimulationRunReport> {
     const token = await this.auth.getToken();
 
@@ -95,9 +95,9 @@ export class SimulationRunService {
         data,
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       )
       .pipe(pluck('data'))
       .toPromise();
@@ -105,11 +105,11 @@ export class SimulationRunService {
 
   sendLog(
     simId: string,
-    log: CombineArchiveLog
+    log: CombineArchiveLog,
   ): Observable<CombineArchiveLog> {
     const body: CreateSimulationRunLogBody = {
       simId: simId,
-      log: log
+      log: log,
     };
 
     return from(this.auth.getToken()).pipe(
@@ -117,12 +117,12 @@ export class SimulationRunService {
         return this.http
           .post(`${this.endpoint}logs/`, body, {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           })
           .pipe(pluck('data'));
       }),
-      mergeMap((value) => value)
+      mergeMap((value) => value),
     );
   }
 }

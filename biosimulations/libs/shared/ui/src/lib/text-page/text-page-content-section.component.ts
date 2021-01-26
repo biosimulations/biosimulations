@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ScrollService } from '@biosimulations/shared/services';
 
 export enum IconActionType {
@@ -50,7 +46,9 @@ export class TextPageContentSectionComponent {
 
   iconRouterLink: any = null;
   iconHref: string | null = null;
-  iconClick: () => void = this.scrollService.scrollToTop.bind(this.scrollService);
+  iconClick: () => void = this.scrollService.scrollToTop.bind(
+    this.scrollService,
+  );
 
   setIconAction(): void {
     if (this._iconActionType === IconActionType.scrollToTop) {
@@ -94,6 +92,5 @@ export class TextPageContentSectionComponent {
   @Input()
   closed = false;
 
-  constructor(private scrollService: ScrollService) {
-  }
+  constructor(private scrollService: ScrollService) {}
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Account } from './account.model';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
-import { ManagementService } from '@biosimulations/account/management'
+import { ManagementService } from '@biosimulations/account/management';
 import { UserMetadata, AppMetadata } from '@biosimulations/auth/common';
 
 @Injectable()
@@ -10,8 +10,8 @@ export class AppService {
   constructor(
     @InjectModel(Account)
     private readonly accountModel: ReturnModelType<typeof Account>,
-    private authz: ManagementService
-  ) { }
+    private authz: ManagementService,
+  ) {}
 
   async findById(userId: string): Promise<Account | null> {
     return await this.accountModel.findOne({ _id: userId }).exec();

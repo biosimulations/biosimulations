@@ -4,9 +4,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   selector: 'biosimulations-tags-view',
   templateUrl: './tags-view.component.html',
   styleUrls: ['./tags-view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagsViewComponent  {
-
-
-}
+export class TagsViewComponent {}

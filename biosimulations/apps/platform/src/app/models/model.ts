@@ -46,7 +46,7 @@ export class Model {
     id: string,
     metaData: any,
     attributes: BiomodelAttributes,
-    relationships: BiomodelRelationships
+    relationships: BiomodelRelationships,
   ) {
     this.id = id;
     this.taxon = attributes.taxon;

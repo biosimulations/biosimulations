@@ -12,9 +12,7 @@ import { RunRoutingModule } from './run-routing.module';
 import { DispatchComponent } from './dispatch/dispatch.component';
 
 @NgModule({
-  declarations: [
-    DispatchComponent,
-  ],
+  declarations: [DispatchComponent],
   imports: [
     CommonModule,
     RunRoutingModule,
@@ -24,6 +22,6 @@ import { DispatchComponent } from './dispatch/dispatch.component';
     MatSelectModule,
     SharedUiModule,
     BiosimulationsIconsModule,
-  ]
+  ],
 })
-export class RunModule { }
+export class RunModule {}

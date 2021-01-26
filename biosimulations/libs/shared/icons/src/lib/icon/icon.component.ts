@@ -214,10 +214,9 @@ export class IconComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.iconInfo = this.iconMap[this.icon];
     if (!this.iconInfo) {
-      console.error("icon '" + this.icon + "' not found in library")
+      console.error("icon '" + this.icon + "' not found in library");
       this.iconInfo = this.iconMap['help'];
     }
     this.iconLabel = this.icon + '-icon';

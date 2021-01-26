@@ -12,7 +12,7 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import {
   SimulationRunReport,
   SimulationRunReportData,
-  SimulationRunResults
+  SimulationRunResults,
 } from '@biosimulations/dispatch/api-models';
 
 const result = {
@@ -37,7 +37,7 @@ const result = {
     '0.185',
     '0.19',
     '0.195',
-    '0.2'
+    '0.2',
   ],
   data_set_BE: [
     '0.0007766381772963218',
@@ -60,7 +60,7 @@ const result = {
     '0.0012284640094393504',
     '0.001254941261025384',
     '0.0012814050676162323',
-    '0.0013078551149393962'
+    '0.0013078551149393962',
   ],
   data_set_BUD: [
     '0.0',
@@ -83,7 +83,7 @@ const result = {
     '0.0',
     '0.0',
     '0.0',
-    '0.0'
+    '0.0',
   ],
   data_set_Cdc20: [
     '1.1368510063392174',
@@ -106,24 +106,24 @@ const result = {
     '1.1060855594032253',
     '1.1042676459466376',
     '1.1024493412733827',
-    '1.1006307176652956'
-  ]
+    '1.1006307176652956',
+  ],
 };
 @Injectable()
 export class ResultsService {
   constructor(
-    @InjectModel(ResultsModel.name) private resultModel: Model<ResultsModel>
+    @InjectModel(ResultsModel.name) private resultModel: Model<ResultsModel>,
   ) {}
 
   createReport(
     simId: string,
     reportId: string,
-    data: SimulationRunReportData
+    data: SimulationRunReportData,
   ): Promise<SimulationRunReport> {
     const result = new this.resultModel({
       simId: simId,
       reportId: reportId,
-      data: data
+      data: data,
     });
 
     return result.save();
@@ -133,7 +133,7 @@ export class ResultsService {
     throw new BiosimulationsException(
       500,
       'Not Yet Implemented',
-      'Sorry, this method is not yet available'
+      'Sorry, this method is not yet available',
     );
   }
   async getResultReport(simId: string, reportId: string, sparse = false) {
@@ -163,12 +163,12 @@ export class ResultsService {
     throw new BiosimulationsException(
       500,
       'Not Yet Implemented',
-      'Sorry, this method is not yet available'
+      'Sorry, this method is not yet available',
     );
   }
   async getResult(
     simId: string,
-    sparse: boolean
+    sparse: boolean,
   ): Promise<SimulationRunResults> {
     let reports = await this.resultModel.find({ simId }).exec();
 
@@ -186,35 +186,35 @@ export class ResultsService {
     throw new BiosimulationsException(
       500,
       'Not Yet Implemented',
-      'Sorry, this method is not yet available'
+      'Sorry, this method is not yet available',
     );
   }
   addResults(results: any) {
     throw new BiosimulationsException(
       500,
       'Not Yet Implemented',
-      'Sorry, this method is not yet available'
+      'Sorry, this method is not yet available',
     );
   }
   editResults(id: string, results: any) {
     throw new BiosimulationsException(
       500,
       'Not Yet Implemented',
-      'Sorry, this method is not yet available'
+      'Sorry, this method is not yet available',
     );
   }
   deleteAll() {
     throw new BiosimulationsException(
       500,
       'Not Yet Implemented',
-      'Sorry, this method is not yet available'
+      'Sorry, this method is not yet available',
     );
   }
   delete(id: string) {
     throw new BiosimulationsException(
       500,
       'Not Yet Implemented',
-      'Sorry, this method is not yet available'
+      'Sorry, this method is not yet available',
     );
   }
 }

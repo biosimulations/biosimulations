@@ -67,7 +67,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
   constructor(
     public dataSource: ModelDataSource,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -77,7 +77,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.displayedColumns.map(
-      (value: any) => (this.initCheckbox[value.id] = value.show)
+      (value: any) => (this.initCheckbox[value.id] = value.show),
     );
 
     this.isLoading = this.dataSource.isLoading$();
@@ -102,7 +102,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
     moveItemInArray(
       this.columnsToDisplay,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 

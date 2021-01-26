@@ -1,7 +1,14 @@
 import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
-import { SoftwareInterfaceType, OperatingSystemType } from '@biosimulations/datamodel/common';
+import {
+  SoftwareInterfaceType,
+  OperatingSystemType,
+} from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { Funding, LinguistOntologyId, SpdxOntologyId } from '@biosimulations/datamodel/api';
+import {
+  Funding,
+  LinguistOntologyId,
+  SpdxOntologyId,
+} from '@biosimulations/datamodel/api';
 import { Image } from './image';
 import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';

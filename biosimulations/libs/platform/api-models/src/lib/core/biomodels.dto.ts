@@ -27,11 +27,22 @@ export class ModelParameter implements BiomodelParameter {
   @ApiProperty({ type: String, example: 'N' })
   id!: string;
 
-  @ApiProperty({ type: String, example: 'Nitrogen', nullable: true, required: false, default: null })
+  @ApiProperty({
+    type: String,
+    example: 'Nitrogen',
+    nullable: true,
+    required: false,
+    default: null,
+  })
   name!: string | null;
 
-  @ApiProperty({ type: String, nullable: true, required: false, default: null,
-    example: 'Initial concentration of Nitrogen' })
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null,
+    example: 'Initial concentration of Nitrogen',
+  })
   description!: string | null;
 
   @ApiProperty({ type: [Identifier] })
@@ -45,16 +56,16 @@ export class ModelParameter implements BiomodelParameter {
   })
   type!: ValueType;
 
-  @ApiProperty({ 
+  @ApiProperty({
     type: String,
     nullable: true,
-    example: "227",
+    example: '227',
   })
   value!: string | null;
 
   @ApiProperty({
     type: [String],
-    example: ["22.7", "2270"],
+    example: ['22.7', '2270'],
     nullable: true,
     required: false,
     default: null,

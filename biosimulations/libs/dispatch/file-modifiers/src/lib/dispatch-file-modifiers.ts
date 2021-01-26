@@ -75,8 +75,8 @@ export class FileModifiers {
       files.push(
         // ...(await FileModifiers.getFilesRecursive(`${path}/${folder.name}`))
         ...(await FileModifiers.getFilesRecursive(
-          ospath.join(path, folder.name)
-        ))
+          ospath.join(path, folder.name),
+        )),
       );
 
     return files;

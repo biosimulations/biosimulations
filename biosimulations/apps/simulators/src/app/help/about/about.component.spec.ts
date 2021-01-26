@@ -13,7 +13,12 @@ describe('AboutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule],
+      imports: [
+        RouterTestingModule,
+        SharedUiModule,
+        BiosimulationsIconsModule,
+        SharedContentModule,
+      ],
       declarations: [AboutComponent],
       providers: [ConfigService, ScrollService],
     }).compileComponents();

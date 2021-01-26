@@ -4,9 +4,7 @@ import {
   ViewChild,
   OnInit,
 } from '@angular/core';
-import {
-  TableComponent,
-} from '@biosimulations/shared/ui';
+import { TableComponent } from '@biosimulations/shared/ui';
 
 import { Observable, of } from 'rxjs';
 import { columns } from './browse-simulators.columns';

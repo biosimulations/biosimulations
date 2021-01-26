@@ -1,6 +1,13 @@
-<biosimulations-text-page heading="Format for logs of the execution of simulation experiments captured in COMBINE/OMEX archives" [tocSections]="tocSections">
+<biosimulations-text-page
+  heading="Format for logs of the execution of simulation experiments captured in COMBINE/OMEX archives"
+  [tocSections]="tocSections"
+>
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+    <biosimulations-text-page-side-bar-section
+      heading="Related resources"
+      fxShow
+      fxHide.lt-md
+    >
       <div class="hanging-indent">
         <a [routerLink]="['/help']">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
@@ -8,7 +15,10 @@
         </a>
       </div>
       <div class="hanging-indent">
-        <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank">
+        <a
+          href="https://biosimulators.github.io/Biosimulators_utils/"
+          target="_blank"
+        >
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
           BioSimulators utils
         </a>
@@ -27,13 +37,34 @@
       heading="Overview"
       tocSection="Overview"
     >
-      <p>This format enables simulation tools to consistently communicate information about the status and outcome of the execution of SED-ML files in COMBINE/OMEX archives. The format can capture the following information:</p>
+      <p>
+        This format enables simulation tools to consistently communicate
+        information about the status and outcome of the execution of SED-ML
+        files in COMBINE/OMEX archives. The format can capture the following
+        information:
+      </p>
       <ul class="vertically-spaced">
-        <li>The status and outcome of the COMBINE archive and each SED document, task, report, plot, data set, curve and surface (<code>QUEUED</code>, <code>RUNNING</code>, <code>SUCCEEDED</code>, <code>SKIPPED</code>, or <code>FAILED</code>).</li>
-        <li>Information about the simulation function that was executed and the arguments that were used.</li>
-        <li>The standard output/error produced from executing the COMBINE archive and each SED document, task, and output.</li>
-        <li>The walltime of the execution of the COMBINE archive and each SED document, task, and output.</li>
-        <li>The reason for each SED document, task or output that was skipped.</li>
+        <li>
+          The status and outcome of the COMBINE archive and each SED document,
+          task, report, plot, data set, curve and surface (<code>QUEUED</code>,
+          <code>RUNNING</code>, <code>SUCCEEDED</code>, <code>SKIPPED</code>, or
+          <code>FAILED</code>).
+        </li>
+        <li>
+          Information about the simulation function that was executed and the
+          arguments that were used.
+        </li>
+        <li>
+          The standard output/error produced from executing the COMBINE archive
+          and each SED document, task, and output.
+        </li>
+        <li>
+          The walltime of the execution of the COMBINE archive and each SED
+          document, task, and output.
+        </li>
+        <li>
+          The reason for each SED document, task or output that was skipped.
+        </li>
         <li>The reason for each failed SED document, task, or output.</li>
       </ul>
     </biosimulations-text-page-content-section>
@@ -42,36 +73,80 @@
       heading="Specifications"
       tocSection="Specifications"
     >
-      <p>The schema for the format is available in JSON schema <a [href]="jsonSchemaUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and Open API <a [href]="openApiSpecsUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> formats. Documentation for the schema is available at <a [href]="config.dispatchApiUrl" target="_blank">{{ config.dispatchApiUrl }}</a>.</p>
+      <p>
+        The schema for the format is available in JSON schema
+        <a [href]="jsonSchemaUrl" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon
+        ></a>
+        and Open API
+        <a [href]="openApiSpecsUrl" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon
+        ></a>
+        formats. Documentation for the schema is available at
+        <a [href]="config.dispatchApiUrl" target="_blank">{{
+          config.dispatchApiUrl
+        }}</a
+        >.
+      </p>
 
-      <p>Simulators are encouraged to log the execution of each individual SED element, including each task, report, plot, data set, curve and surface.</p>
+      <p>
+        Simulators are encouraged to log the execution of each individual SED
+        element, including each task, report, plot, data set, curve and surface.
+      </p>
 
-      <p>At the same time, the format provides simulation tools flexibility to log their execution at whatever level of granularity is convenient. Below are several possible levels of granularity.</p>
+      <p>
+        At the same time, the format provides simulation tools flexibility to
+        log their execution at whatever level of granularity is convenient.
+        Below are several possible levels of granularity.
+      </p>
 
       <ul>
-        <li>Individual task and output elements (e.g., data sets, curves, surfaces)</li>
+        <li>
+          Individual task and output elements (e.g., data sets, curves,
+          surfaces)
+        </li>
         <li>Individual tasks</li>
         <li>Individual SED documents</li>
         <li>The entire COMBINE/OMEX archive</li>
       </ul>
 
-      <p>Note, the <code>output</code> attribute for the log of each COMBINE/OMEX archive, SED document, task, and output can include ANSI escape codes for color and other terminal formatting <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+      <p>
+        Note, the <code>output</code> attribute for the log of each COMBINE/OMEX
+        archive, SED document, task, and output can include ANSI escape codes
+        for color and other terminal formatting
+        <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Example logs"
       tocSection="Example logs"
     >
-      <p>Below is an example of an element-level log of a COMBINE/OMEX archive that involves a single SED document with two tasks at the beginning of its execution.</p>
+      <p>
+        Below is an example of an element-level log of a COMBINE/OMEX archive
+        that involves a single SED document with two tasks at the beginning of
+        its execution.
+      </p>
       <pre><code [languages]="['javascript']" [highlight]="initElementLevelLog"></code></pre>
 
-      <p>Below is an example of an element-level log of the final state of the successful execution of the same COMBINE/OMEX archive.</p>
+      <p>
+        Below is an example of an element-level log of the final state of the
+        successful execution of the same COMBINE/OMEX archive.
+      </p>
       <pre><code [languages]="['javascript']" [highlight]="finalSucceededElementLevelLog"></code></pre>
 
-      <p>Below is an example of an element-level log of the final state of the failed execution of the same COMBINE/OMEX archive.</p>
+      <p>
+        Below is an example of an element-level log of the final state of the
+        failed execution of the same COMBINE/OMEX archive.
+      </p>
       <pre><code [languages]="['javascript']" [highlight]="finalFailedElementLevelLog"></code></pre>
 
-      <p>Below is an example of a SED document-level log of the final state of the failed execution of the same COMBINE/OMEX archive.</p>
+      <p>
+        Below is an example of a SED document-level log of the final state of
+        the failed execution of the same COMBINE/OMEX archive.
+      </p>
       <pre><code [languages]="['javascript']" [highlight]="finalFailedDocLevelLog"></code></pre>
     </biosimulations-text-page-content-section>
 
@@ -79,30 +154,89 @@
       heading="Events which should trigger simulators to update the status of COMBINE/OMEX archives"
       tocSection="Status update events"
     >
-      <p>Simulation tools are encouraged to flush logs of the execution of COMBINE/OMEX archives upon each of the following events:</p>
+      <p>
+        Simulation tools are encouraged to flush logs of the execution of
+        COMBINE/OMEX archives upon each of the following events:
+      </p>
 
       <ul class="vertically-spaced">
-        <li><b>Start of the execution of the COMBINE/OMEX archive.</b>. After this event, the status of the archive should be <code>RUNNING</code>, the status of each SED document and SED element that the simulation tool is capable of executing should be <code>QUEUED</code>, and the status of each SED document and SED element that the simulation tool is not capable fo executing should be <code>SKIPPED</code>.</li>
-        <li><b>Start of the execution of each SED document.</b> This event should change the status of the document to <code>RUNNING</code>.</li>
-        <li><b>Start of the execution of each SED task.</b> This event should change the status of the task to <code>RUNNING</code>.</li>
-        <li><b>End of the execution of each SED task.</b> If the task succeeded, its status should be changed to <code>SUCCEEDED</code>. In addition, all data sets, curves, and surfaces which can now be generated should be generated, and their status should be changed to <code>SUCCEEDED</code>. The status of the parent reports and plots should be set to <code>SUCCEEDED</code> if all of their data sets, curves, and surfaces have been generated, or <code>RUNNING</code> if some of their data sets, curves, and surfaces cannot yet be generated because they depend on tasks which have not yet been executed. If the task failed, its status should be changed to <code>FAILED</code>, and the status of all data sets, curves, surfaces, reports, and plots which depend on the task should be changed to <code>FAILED</code>.</li>
-        <li><b>End of the execution of each SED document.</b> If all of the task and outputs in the document succeeded, the document's status should be changed to <code>SUCCEEDED</code>. Otherwise, the document's status should be changed to <code>FAILED</code>.</li>
+        <li>
+          <b>Start of the execution of the COMBINE/OMEX archive.</b>. After this
+          event, the status of the archive should be <code>RUNNING</code>, the
+          status of each SED document and SED element that the simulation tool
+          is capable of executing should be <code>QUEUED</code>, and the status
+          of each SED document and SED element that the simulation tool is not
+          capable fo executing should be <code>SKIPPED</code>.
+        </li>
+        <li>
+          <b>Start of the execution of each SED document.</b> This event should
+          change the status of the document to <code>RUNNING</code>.
+        </li>
+        <li>
+          <b>Start of the execution of each SED task.</b> This event should
+          change the status of the task to <code>RUNNING</code>.
+        </li>
+        <li>
+          <b>End of the execution of each SED task.</b> If the task succeeded,
+          its status should be changed to <code>SUCCEEDED</code>. In addition,
+          all data sets, curves, and surfaces which can now be generated should
+          be generated, and their status should be changed to
+          <code>SUCCEEDED</code>. The status of the parent reports and plots
+          should be set to <code>SUCCEEDED</code> if all of their data sets,
+          curves, and surfaces have been generated, or <code>RUNNING</code> if
+          some of their data sets, curves, and surfaces cannot yet be generated
+          because they depend on tasks which have not yet been executed. If the
+          task failed, its status should be changed to <code>FAILED</code>, and
+          the status of all data sets, curves, surfaces, reports, and plots
+          which depend on the task should be changed to <code>FAILED</code>.
+        </li>
+        <li>
+          <b>End of the execution of each SED document.</b> If all of the task
+          and outputs in the document succeeded, the document's status should be
+          changed to <code>SUCCEEDED</code>. Otherwise, the document's status
+          should be changed to <code>FAILED</code>.
+        </li>
       </ul>
 
-      <p>By the end of the execution of a COMBINE/OMEX archive, the status of each SED document, task, report, plot, data set, curve, and surface should be one of <code>SUCCEEDED</code>, <code>SKIPPED</code>, or <code>FAILED</code>.</p>
+      <p>
+        By the end of the execution of a COMBINE/OMEX archive, the status of
+        each SED document, task, report, plot, data set, curve, and surface
+        should be one of <code>SUCCEEDED</code>, <code>SKIPPED</code>, or
+        <code>FAILED</code>.
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Recommended resources for building logs of the execution of COMBINE/OMEX archives"
       tocSection="Recommended resources"
     >
-    <p>Below are helpful tools for building logs of the execution of COMBINE/OMEX archives:</p>
+      <p>
+        Below are helpful tools for building logs of the execution of
+        COMBINE/OMEX archives:
+      </p>
 
-    <ul>
-      <li><b>BioSimulators utils <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library which provides functions for generating reports to the above specifications.</li>
-      <li><b>capturer <a href="https://pypi.org/project/capturer/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library for capturing standard ouput and standard error streams.</li>
-    </ul>
-  </biosimulations-text-page-content-section>
+      <ul>
+        <li>
+          <b
+            >BioSimulators utils
+            <a
+              href="https://biosimulators.github.io/Biosimulators_utils/"
+              target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+          ></b>
+          is a Python library which provides functions for generating reports to
+          the above specifications.
+        </li>
+        <li>
+          <b
+            >capturer
+            <a href="https://pypi.org/project/capturer/" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+          ></b>
+          is a Python library for capturing standard ouput and standard error
+          streams.
+        </li>
+      </ul>
+    </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>
-

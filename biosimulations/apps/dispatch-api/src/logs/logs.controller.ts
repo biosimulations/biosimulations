@@ -9,7 +9,7 @@ import {
   Param,
   Patch,
   Post,
-  Put
+  Put,
 } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
@@ -18,7 +18,7 @@ import {
   SedPlot3DLog,
   SedReportLog,
   CreateSimulationRunLogBody,
-  Exception
+  Exception,
 } from '@biosimulations/dispatch/api-models';
 
 import { LogsService } from './logs.service';
@@ -40,7 +40,7 @@ export class LogsController {
     throw new NotImplementedException('Not Implemented');
   }
   @ApiResponse({
-    type: CombineArchiveLog
+    type: CombineArchiveLog,
   })
   @Get(':id')
   async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
@@ -56,7 +56,7 @@ export class LogsController {
         exception = {
           category: 'Old Simulation',
           message:
-            'This simulation does not have a log available. Please re-run the simulation'
+            'This simulation does not have a log available. Please re-run the simulation',
         };
       }
       const log = await this.service.createLog(id, {
@@ -65,7 +65,7 @@ export class LogsController {
         exception: exception,
         skipReason: null,
         duration: null,
-        output: logString
+        output: logString,
       });
 
       return log.log;
@@ -81,7 +81,7 @@ export class LogsController {
 
   @Post()
   async createLogs(
-    @Body() body: CreateSimulationRunLogBody
+    @Body() body: CreateSimulationRunLogBody,
   ): Promise<CombineArchiveLog> {
     this.logger.error('Creating Log');
     const logs = await this.service.createLog(body.simId, body.log);

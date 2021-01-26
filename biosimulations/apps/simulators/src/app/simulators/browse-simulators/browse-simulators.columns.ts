@@ -3,7 +3,7 @@ import {
   ColumnActionType,
   ColumnFilterType,
   ColumnSortDirection,
-  RowService,  
+  RowService,
 } from '@biosimulations/shared/ui';
 
 import { TableSimulator } from './tableSimulator.interface';
@@ -61,11 +61,7 @@ export const columns: Column[] = [
       return name.substring(0, 1).toUpperCase() + name.substring(1);
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return RowService.comparator(
-        aNames.join(', '),
-        bNames.join(', '),
-        sign
-      );
+      return RowService.comparator(aNames.join(', '), bNames.join(', '), sign);
     },
     filterComparator: (aName: string, bName: string, sign = 1): number => {
       return RowService.comparator(aName, bName, sign);
@@ -99,15 +95,11 @@ export const columns: Column[] = [
       return name;
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return RowService.comparator(
-        aNames.join(', '),
-        bNames.join(', '),
-        sign
-      );
+      return RowService.comparator(aNames.join(', '), bNames.join(', '), sign);
     },
     passesFilter: (
       element: TableSimulator,
-      filterValues: string[]
+      filterValues: string[],
     ): boolean => {
       const algorithms = element.algorithms;
       for (const v of filterValues) {
@@ -120,7 +112,7 @@ export const columns: Column[] = [
     },
     filterComparator: RowService.comparator,
     showFilterItemToolTips: true,
-    extraSearchGetter: (element: TableSimulator):string => {
+    extraSearchGetter: (element: TableSimulator): string => {
       return element.algorithmIds.join(' ');
     },
     minWidth: 165,
@@ -146,11 +138,7 @@ export const columns: Column[] = [
       return name;
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return RowService.comparator(
-        aNames.join(', '),
-        bNames.join(', '),
-        sign
-      );
+      return RowService.comparator(aNames.join(', '), bNames.join(', '), sign);
     },
     filterComparator: RowService.comparator,
     extraSearchGetter: (element: TableSimulator): string => {
@@ -179,11 +167,7 @@ export const columns: Column[] = [
       return name;
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return RowService.comparator(
-        aNames.join(', '),
-        bNames.join(', '),
-        sign
-      );
+      return RowService.comparator(aNames.join(', '), bNames.join(', '), sign);
     },
     filterComparator: RowService.comparator,
     extraSearchGetter: (element: TableSimulator): string => {
@@ -213,11 +197,7 @@ export const columns: Column[] = [
       return name;
     },
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
-      return RowService.comparator(
-        aNames.join(', '),
-        bNames.join(', '),
-        sign
-      );
+      return RowService.comparator(aNames.join(', '), bNames.join(', '), sign);
     },
     filterComparator: RowService.comparator,
     extraSearchGetter: (element: TableSimulator): string => {
@@ -246,14 +226,20 @@ export const columns: Column[] = [
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
       if (element.image) {
-        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+        return (
+          'https://github.com/orgs/biosimulators/packages/container/package/' +
+          element.id
+        );
       } else {
         return null;
       }
     },
     rightHref: (element: TableSimulator): string | null => {
       if (element.image) {
-        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
+        return (
+          'https://github.com/orgs/biosimulators/packages/container/package/' +
+          element.id
+        );
       } else {
         return null;
       }
@@ -329,12 +315,18 @@ export const columns: Column[] = [
     id: 'curationStatus',
     heading: 'Curation',
     key: 'curationStatus',
-    formatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value, false),
-    toolTipFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
-    stackedFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
-    filterFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
+    formatter: (value: SimulatorCurationStatus): string =>
+      UtilsService.getSimulatorCurationStatusMessage(value, false),
+    toolTipFormatter: (value: SimulatorCurationStatus): string =>
+      UtilsService.getSimulatorCurationStatusMessage(value),
+    stackedFormatter: (value: SimulatorCurationStatus): string =>
+      UtilsService.getSimulatorCurationStatusMessage(value),
+    filterFormatter: (value: SimulatorCurationStatus): string =>
+      UtilsService.getSimulatorCurationStatusMessage(value),
     filterable: true,
-    filterValues: Object.values(SimulatorCurationStatus).filter((value: number | string): boolean => typeof value === 'number'),
+    filterValues: Object.values(SimulatorCurationStatus).filter(
+      (value: number | string): boolean => typeof value === 'number',
+    ),
     filterSortDirection: ColumnSortDirection.desc,
     showFilterItemToolTips: true,
     show: true,
@@ -377,7 +369,10 @@ export const columns: Column[] = [
     heading: 'Run',
     key: 'id',
     getter: (element: TableSimulator): string | null => {
-      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
+      if (
+        element.image &&
+        element.curationStatus === SimulatorCurationStatus['Image validated']
+      ) {
         return element.id;
       } else {
         return null;
@@ -395,8 +390,13 @@ export const columns: Column[] = [
     },
     rightIcon: 'simulator',
     rightIconTitle: (element: TableSimulator): string | null => {
-      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
-        return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
+      if (
+        element.image &&
+        element.curationStatus === SimulatorCurationStatus['Image validated']
+      ) {
+        return (
+          'Execute simulations with ' + element.name + ' @ runBioSimulations'
+        );
       } else {
         return null;
       }
@@ -404,14 +404,20 @@ export const columns: Column[] = [
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
-      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
+      if (
+        element.image &&
+        element.curationStatus === SimulatorCurationStatus['Image validated']
+      ) {
         return 'https://run.biosimulations.org/run?simulator=' + element.id;
       } else {
         return null;
       }
     },
-    rightHref: (element: TableSimulator): string | null  => {
-      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
+    rightHref: (element: TableSimulator): string | null => {
+      if (
+        element.image &&
+        element.curationStatus === SimulatorCurationStatus['Image validated']
+      ) {
         return 'https://run.biosimulations.org/run?simulator=' + element.id;
       } else {
         return null;

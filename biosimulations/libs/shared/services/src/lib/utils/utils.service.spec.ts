@@ -7,13 +7,10 @@ describe('UtilsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-      ],
-      providers: [
-      ]
+      imports: [],
+      providers: [],
     });
   });
 
-  it('should', () => {
-  });
+  it('should', () => {});
 });

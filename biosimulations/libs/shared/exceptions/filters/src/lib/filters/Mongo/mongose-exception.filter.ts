@@ -27,7 +27,7 @@ export class MongooseErrorInterceptor implements NestInterceptor {
         } else {
           throw error;
         }
-      })
+      }),
     );
   }
 }

@@ -8,10 +8,9 @@ describe('LogoImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogoImageComponent ],
-      providers: [ ],
-    })
-    .compileComponents();
+      declarations: [LogoImageComponent],
+      providers: [],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

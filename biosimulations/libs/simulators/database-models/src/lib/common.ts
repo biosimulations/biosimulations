@@ -76,7 +76,7 @@ export class ExternalReferences implements IExternalReferences {
 }
 
 export const ExternalReferencesSchema = SchemaFactory.createForClass(
-  ExternalReferences
+  ExternalReferences,
 );
 
 @Schema({
@@ -112,10 +112,12 @@ class Url {
     type: String,
     required: true,
     default: undefined,
-    validate: [{
-      validator: isUrl,
-      message: (props: any): string => `${props.value} is not a valid URL`,
-    }],
+    validate: [
+      {
+        validator: isUrl,
+        message: (props: any): string => `${props.value} is not a valid URL`,
+      },
+    ],
   })
   url!: string;
 

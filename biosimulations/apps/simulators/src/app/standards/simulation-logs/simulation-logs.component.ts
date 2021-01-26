@@ -35,11 +35,24 @@ export class SimulationLogsComponent {
 
   constructor(public config: ConfigService) {
     this.openApiSpecsUrl = config.dispatchApiUrl + 'openapi.json';
-    this.jsonSchemaUrl = config.dispatchApiUrl + 'schema/CombineArchiveLog.json';
+    this.jsonSchemaUrl =
+      config.dispatchApiUrl + 'schema/CombineArchiveLog.json';
 
     this.initElementLevelLog = JSON.stringify(initElementLevelLog, null, 2);
-    this.finalSucceededElementLevelLog = JSON.stringify(finalSucceededElementLevelLog, null, 2);
-    this.finalFailedElementLevelLog = JSON.stringify(finalFailedElementLevelLog, null, 2);
-    this.finalFailedDocLevelLog = JSON.stringify(finalFailedDocLevelLog, null, 2);
+    this.finalSucceededElementLevelLog = JSON.stringify(
+      finalSucceededElementLevelLog,
+      null,
+      2,
+    );
+    this.finalFailedElementLevelLog = JSON.stringify(
+      finalFailedElementLevelLog,
+      null,
+      2,
+    );
+    this.finalFailedDocLevelLog = JSON.stringify(
+      finalFailedDocLevelLog,
+      null,
+      2,
+    );
   }
 }

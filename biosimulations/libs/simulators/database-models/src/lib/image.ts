@@ -17,12 +17,15 @@ export class Image implements IImage {
   @Prop({
     type: String,
     required: true,
-    validate: [{
-      validator: (value: any): boolean => {
-        return typeof value === "string" && isUrl('https://' + value);
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return typeof value === 'string' && isUrl('https://' + value);
+        },
+        message: (props: any): string =>
+          `${props.value} is not a valid URL for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,
       },
-      message: (props: any): string => `${props.value} is not a valid URL for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,
-    }],
+    ],
     default: undefined,
   })
   url!: string;
@@ -30,12 +33,15 @@ export class Image implements IImage {
   @Prop({
     type: EdamOntologyIdVersionSchema,
     required: true,
-    validate: [{
-      validator: (value: any): boolean => {
-        return value?.id === 'format_3973';
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return value?.id === 'format_3973';
+        },
+        message: (): string =>
+          `Format must be the Docker image format (EDAM:format_3973)`,
       },
-      message: (): string => `Format must be the Docker image format (EDAM:format_3973)`,
-    }],
+    ],
     default: undefined,
   })
   format!: IEdamOntologyIdVersion;
@@ -43,16 +49,14 @@ export class Image implements IImage {
   @Prop({
     type: String,
     required: false,
-    enum: (Object.entries(OperatingSystemType)
-      .map((keyVal: [string, string]): string => {
+    enum: (Object.entries(OperatingSystemType).map(
+      (keyVal: [string, string]): string => {
         return keyVal[1];
-      }) as (string | null)[])
-      .concat([null]),
+      },
+    ) as (string | null)[]).concat([null]),
     default: undefined,
   })
   operatingSystemType!: OperatingSystemType | null;
 }
 
-export const ImageSchema = SchemaFactory.createForClass(
-  Image
-);
+export const ImageSchema = SchemaFactory.createForClass(Image);

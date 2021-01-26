@@ -38,15 +38,22 @@ export class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
   @ApiProperty({ type: String, example: 'L3V2', nullable: true })
   version!: string | null;
 
-  @ApiProperty({ type: [String], description: "Supported features of the format", example: 'Plot2D' })
-  supportedFeatures!: string[];  
+  @ApiProperty({
+    type: [String],
+    description: 'Supported features of the format',
+    example: 'Plot2D',
+  })
+  supportedFeatures!: string[];
 }
 
 export class FunderRegistryOntologyId implements IFunderRegistryOntologyId {
   @ApiProperty({ type: String, enum: [Ontologies.FunderRegistry] })
   namespace!: Ontologies.FunderRegistry;
 
-  @ApiProperty({ type: String, example: 'http://dx.doi.org/10.13039/100000001' })
+  @ApiProperty({
+    type: String,
+    example: 'http://dx.doi.org/10.13039/100000001',
+  })
   id!: string;
 }
 

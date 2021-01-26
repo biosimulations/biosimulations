@@ -30,16 +30,16 @@ import { CommonModule } from '@angular/common';
           path: 'register',
           loadChildren: () =>
             import('./registration/registration.module').then(
-              m => m.RegistrationModule,
+              (m) => m.RegistrationModule,
             ),
         },
         { path: '', redirectTo: 'register', pathMatch: 'full' },
       ],
       {
-    initialNavigation: 'enabled',
-    scrollPositionRestoration: 'disabled',
-    relativeLinkResolution: 'legacy'
-},
+        initialNavigation: 'enabled',
+        scrollPositionRestoration: 'disabled',
+        relativeLinkResolution: 'legacy',
+      },
     ),
     SharedUiModule,
 
@@ -47,9 +47,9 @@ import { CommonModule } from '@angular/common';
     MarkdownModule.forRoot({ loader: HttpClient }),
   ],
   providers: [
-    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true}},
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     ScrollService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

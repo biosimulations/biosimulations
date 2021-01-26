@@ -1,9 +1,4 @@
-import {
-  Identifier,
-  ValueType,
-  IOntologyTerm,
-  Format,
-} from '../..';
+import { Identifier, ValueType, IOntologyTerm, Format } from '../..';
 import { Taxon } from '../common/taxon';
 import { PrimaryResourceMetaData } from '../resources';
 import { BiosimulationsId, UserId } from '../common';

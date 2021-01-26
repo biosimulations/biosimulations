@@ -5,12 +5,20 @@
   [privacyPolicyVersion]="config.privacyPolicyVersion"
   [newsVersion]="1"
   [showNews]="false"
-  >
+>
   <biosimulations-topbar-menu>
-    <biosimulations-topbar-menu-item heading="Run a simulation" icon="simulator" [route]="['/run']">
+    <biosimulations-topbar-menu-item
+      heading="Run a simulation"
+      icon="simulator"
+      [route]="['/run']"
+    >
     </biosimulations-topbar-menu-item>
 
-    <biosimulations-topbar-menu-item heading="Your simulations" icon="simulation" [route]="['/simulations']">
+    <biosimulations-topbar-menu-item
+      heading="Your simulations"
+      icon="simulation"
+      [route]="['/simulations']"
+    >
     </biosimulations-topbar-menu-item>
 
     <biosimulations-hover-open-menu>
@@ -18,47 +26,94 @@
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
-        <biosimulations-dropdown-menu-item heading="Tutorial" icon="tutorial" [routerLink]="['/help']">
+        <biosimulations-dropdown-menu-item
+          heading="Tutorial"
+          icon="tutorial"
+          [routerLink]="['/help']"
+        >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="FAQ" icon="help" [routerLink]="['/help', 'faq']">
+        <biosimulations-dropdown-menu-item
+          heading="FAQ"
+          icon="help"
+          [routerLink]="['/help', 'faq']"
+        >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="About" icon="info" [routerLink]="['/help', 'about']">
+        <biosimulations-dropdown-menu-item
+          heading="About"
+          icon="info"
+          [routerLink]="['/help', 'about']"
+        >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Terms of service" icon="legal" [routerLink]="['/help', 'terms']">
+        <biosimulations-dropdown-menu-item
+          heading="Terms of service"
+          icon="legal"
+          [routerLink]="['/help', 'terms']"
+        >
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Privacy policy" icon="policy" [routerLink]="['/help', 'privacy']">
+        <biosimulations-dropdown-menu-item
+          heading="Privacy policy"
+          icon="policy"
+          [routerLink]="['/help', 'privacy']"
+        >
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">
-    <biosimulations-navigation-item heading="Run a simulation" icon="simulator" [route]="['/run']">
+    <biosimulations-navigation-item
+      heading="Run a simulation"
+      icon="simulator"
+      [route]="['/run']"
+    >
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item heading="Your simulations" icon="simulation" [route]="['/simulations']">
+    <biosimulations-navigation-item
+      heading="Your simulations"
+      icon="simulation"
+      [route]="['/simulations']"
+    >
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item heading="Help" icon="help">
-      <biosimulations-navigation-subitem heading="Tutorial" icon="tutorial" [route]="['/help']">
+      <biosimulations-navigation-subitem
+        heading="Tutorial"
+        icon="tutorial"
+        [route]="['/help']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="FAQ" icon="help" [route]="['/help', 'faq']">
+      <biosimulations-navigation-subitem
+        heading="FAQ"
+        icon="help"
+        [route]="['/help', 'faq']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="About" icon="info" [route]="['/help', 'about']">
+      <biosimulations-navigation-subitem
+        heading="About"
+        icon="info"
+        [route]="['/help', 'about']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Terms of service" icon="legal" [route]="['/help', 'terms']">
+      <biosimulations-navigation-subitem
+        heading="Terms of service"
+        icon="legal"
+        [route]="['/help', 'terms']"
+      >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Privacy policy" icon="policy" [route]="['/help', 'privacy']">
+      <biosimulations-navigation-subitem
+        heading="Privacy policy"
+        icon="policy"
+        [route]="['/help', 'privacy']"
+      >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
   </ng-container>
 
-  <ng-container id="news">
-  </ng-container>
+  <ng-container id="news"> </ng-container>
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>

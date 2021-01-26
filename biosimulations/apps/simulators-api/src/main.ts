@@ -14,7 +14,7 @@ import {
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
-import { Resolver } from "@stoplight/json-ref-resolver";
+import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 
 function setupOpenApi(
@@ -24,7 +24,7 @@ function setupOpenApi(
   openIdConnectUrl?: string,
   clientId?: string,
   scopes?: string[],
-  uiPath = ''
+  uiPath = '',
 ) {
   if (!scopes) {
     scopes = [];
@@ -57,7 +57,7 @@ function setupOpenApi(
   if (unsortedSchemas) {
     const schemaNames = Object.keys(unsortedSchemas).sort();
 
-    const schemas: {[name: string]: any} = {};
+    const schemas: { [name: string]: any } = {};
     for (const schemaName of schemaNames) {
       schemas[schemaName] = unsortedSchemas?.[schemaName];
     }
@@ -75,7 +75,7 @@ function setupOpenApi(
     customSiteTitle: 'BioSimulations API documentation',
 
     swaggerOptions: uiOptions,
-    customCss: ' .swagger-ui .topbar { display: none }',    
+    customCss: ' .swagger-ui .topbar { display: none }',
   };
   SwaggerModule.setup(uiPath, app, document, customOptions);
 
@@ -91,7 +91,7 @@ async function bootstrap() {
   // TODO intelligently allow origin based on production mode, abstract this
   const allowOrigin: CustomOrigin = (
     requestOrigin: string,
-    callback: (err: Error | null, allow?: boolean | undefined) => void
+    callback: (err: Error | null, allow?: boolean | undefined) => void,
   ) => {
     if (!requestOrigin) {
       callback(null, true);
@@ -120,20 +120,30 @@ async function bootstrap() {
   const doc = new DocumentBuilder()
     .setTitle('BioSimulators API')
     .setDescription(
-      'A collection of standardized Docker containers for executing biosimulations'
+      'A collection of standardized Docker containers for executing biosimulations',
     )
     .setVersion('0.1')
-    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
-    .setTermsOfService("https://biosimulators.org/help/terms")
-    .setExternalDoc('API specifications (Open API JSON)', 'https://api.biosimulators.org/openapi.json')
-    .setContact('BioSimulators Team', 'https://biosimulators.org/help/about', 'info@biosimulators.org');
+    .setLicense(
+      'MIT License',
+      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+    )
+    .setTermsOfService('https://biosimulators.org/help/terms')
+    .setExternalDoc(
+      'API specifications (Open API JSON)',
+      'https://api.biosimulators.org/openapi.json',
+    )
+    .setContact(
+      'BioSimulators Team',
+      'https://biosimulators.org/help/about',
+      'info@biosimulators.org',
+    );
 
   const document = setupOpenApi(
     app,
     doc,
     'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
-    'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT'
+    'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT',
   );
 
   const httpAdapter = app.getHttpAdapter();
@@ -143,7 +153,9 @@ async function bootstrap() {
   const resolver = new Resolver();
   const resolvedDocument = await resolver.resolve(document);
   const schema = resolvedDocument.result.components.schemas.Simulator;
-  httpAdapter.get('/schema/Simulator.json', (req, res) => res.json(toJsonSchema(schema)));
+  httpAdapter.get('/schema/Simulator.json', (req, res) =>
+    res.json(toJsonSchema(schema)),
+  );
 
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/');

@@ -16,11 +16,7 @@ import { VisualizationComponent } from './view/visualization/visualization.compo
 import { SimulationLogModule } from './view/simulation-log/simulation-log.module';
 
 @NgModule({
-  declarations: [
-    BrowseComponent,
-    ViewComponent,
-    VisualizationComponent,
-  ],
+  declarations: [BrowseComponent, ViewComponent, VisualizationComponent],
   imports: [
     CommonModule,
     SimulationsRoutingModule,
@@ -34,4 +30,4 @@ import { SimulationLogModule } from './view/simulation-log/simulation-log.module
     SimulationLogModule,
   ],
 })
-export class SimulationsModule { }
+export class SimulationsModule {}

@@ -35,6 +35,6 @@ describe('AppController', () => {
   });
 
   describe('createUser', () => {
-    it('should return username of created user', () => { });
+    it('should return username of created user', () => {});
   });
 });

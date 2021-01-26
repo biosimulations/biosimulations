@@ -1,6 +1,4 @@
-import {
-  Injectable,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import path from 'path';
 
 import { ConfigService } from '@nestjs/config';
@@ -8,10 +6,7 @@ import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 
 @Injectable()
 export class AppService {
-  constructor(
-
-    private configService: ConfigService,
-  ) { }
+  constructor(private configService: ConfigService) {}
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
   // TODO use the database for logs, remove the connection to nfs
   async downloadLogFile(uId: string, download: boolean, res: any) {
@@ -21,13 +16,10 @@ export class AppService {
     download = String(download) === 'false' ? false : true;
 
     if (download) {
-
       filePathErr = path.join(logPath, 'job.error');
       res.set('Content-Type', 'text/html');
       res.download(filePathErr);
-
     } else {
-
       filePathOut = path.join(logPath, 'job.output');
       filePathErr = path.join(logPath, 'job.error');
       const fileContentOut = (
@@ -44,7 +36,6 @@ export class AppService {
           error: fileContentErr,
         },
       });
-
     }
   }
 
@@ -53,7 +44,7 @@ export class AppService {
       this.fileStorage,
       'simulations',
       uId,
-      `${uId}.zip`
+      `${uId}.zip`,
     );
     res.download(zipPath);
   }

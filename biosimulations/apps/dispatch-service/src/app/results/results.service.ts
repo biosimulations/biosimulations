@@ -20,7 +20,7 @@ import { SimulationRunReportDataStrings } from '@biosimulations/dispatch/api-mod
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import {
   DispatchProcessedPayload,
-  DispatchMessage
+  DispatchMessage,
 } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
 
@@ -34,12 +34,12 @@ export class ResultsService {
   private logger = new Logger(ResultsService.name);
   private fileStorage: string = this.configService.get<string>(
     'hpc.fileStorage',
-    ''
+    '',
   );
   constructor(
     private readonly configService: ConfigService,
     private submit: SimulationRunService,
-    @Inject('NATS_CLIENT') private client: ClientProxy
+    @Inject('NATS_CLIENT') private client: ClientProxy,
   ) {}
 
   private getResultsDirectory(id: string) {
@@ -49,7 +49,7 @@ export class ResultsService {
     const resultsDirectory = this.getResultsDirectory(id);
     //const resultsDirectory = 'testDir';
     const fileList: resultFile[] = await ResultsService.getFilesRecursively(
-      resultsDirectory
+      resultsDirectory,
     );
     console.log(fileList);
 
@@ -57,10 +57,10 @@ export class ResultsService {
      * @body change this to hdf files to implement changes needed for #1669
      */
     const csvFileList = fileList.filter((value: resultFile) =>
-      value.name.endsWith('.csv')
+      value.name.endsWith('.csv'),
     );
     const runLogs = fileList.filter(
-      (value: resultFile) => value.name == 'log.yml'
+      (value: resultFile) => value.name == 'log.yml',
     );
 
     const resultPromises: Promise<void>[] = [];
@@ -78,7 +78,7 @@ export class ResultsService {
     Promise.all(resultPromises).then((_) => {
       const data: DispatchProcessedPayload = {
         _message: DispatchMessage.processed,
-        id: id
+        id: id,
       };
       this.client.emit(DispatchMessage.processed, data);
     });
@@ -101,7 +101,7 @@ export class ResultsService {
       const rlp = readline.createInterface({
         terminal: false,
         input: fs.createReadStream(file),
-        crlfDelay: Infinity
+        crlfDelay: Infinity,
       });
       const resultObject: SimulationRunReportDataStrings = {};
 
@@ -134,7 +134,7 @@ export class ResultsService {
   async uploadResultFile(
     id: string,
     file: resultFile,
-    transpose: boolean
+    transpose: boolean,
   ): Promise<void> {
     let file_json: Promise<SimulationRunReportDataStrings>;
 
@@ -148,7 +148,7 @@ export class ResultsService {
     const sedml = encodeURIComponent(
       file.path
         .replace(this.getResultsDirectory(id) + '/', '')
-        .replace('.csv', '')
+        .replace('.csv', ''),
     );
 
     this.uploadJSON(id, sedml, await file_json);
@@ -156,19 +156,19 @@ export class ResultsService {
   private uploadJSON(
     simId: string,
     resultId: string,
-    result: SimulationRunReportDataStrings
+    result: SimulationRunReportDataStrings,
   ) {
     this.submit
       .sendReport(simId, resultId, result)
       .then((value) =>
         this.logger.log(
-          `Successfully uploaded report ${resultId} for simulation ${simId}`
-        )
+          `Successfully uploaded report ${resultId} for simulation ${simId}`,
+        ),
       )
       .catch((err) => this.logger.error(err));
   }
   private async parseToJson(
-    file: resultFile
+    file: resultFile,
   ): Promise<SimulationRunReportDataStrings> {
     const jsonArray = await csv().fromFile(file.path);
 
@@ -186,7 +186,7 @@ export class ResultsService {
     return resultObject;
   }
   private static async getFilesRecursively(
-    path: string
+    path: string,
   ): Promise<resultFile[]> {
     // Get all the files and folders int the directory
     const entries = fsPromises.readdir(path, { withFileTypes: true });
@@ -196,18 +196,18 @@ export class ResultsService {
       .filter((value: Dirent) => !value.isDirectory())
       .map((file: Dirent) => ({
         name: file.name,
-        path: ospath.join(path, file.name)
+        path: ospath.join(path, file.name),
       }));
 
     //Filter out all the files
     const directories = (await entries).filter((value: Dirent) =>
-      value.isDirectory()
+      value.isDirectory(),
     );
 
     // Get the files in each directory
     for (const folder of directories) {
       const subFiles = await ResultsService.getFilesRecursively(
-        ospath.join(path, folder.name)
+        ospath.join(path, folder.name),
       );
       files.push(...subFiles);
     }

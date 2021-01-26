@@ -6,7 +6,7 @@ import { HttpService } from '@nestjs/common';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 
 class MockSimulationService {
-  updateSimulationRunResultsSize(id: string, size: number) { }
+  updateSimulationRunResultsSize(id: string, size: number) {}
 }
 describe('ArchiverService', () => {
   let service: ArchiverService;

@@ -22,7 +22,7 @@ export class ViewerComponent implements OnInit {
   ngOnInit(): void {
     this.showDebug = this.router.routerState.root.queryParamMap.pipe(
       tap((param) => (this.params = param)),
-      map((params) => params.get('debug') !== null)
+      map((params) => params.get('debug') !== null),
     );
     if (this.show) {
       this.showDebug = of(true);

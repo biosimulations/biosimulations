@@ -5,9 +5,9 @@ import { IContextButton } from '../bread-crumbs.interface';
   selector: 'biosimulations-bread-crumb-buttons',
   templateUrl: './bread-crumb-buttons.component.html',
   styleUrls: ['./bread-crumb-buttons.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BreadCrumbButtonsComponent {
   @Input()
-  buttons: IContextButton[] = []
+  buttons: IContextButton[] = [];
 }

@@ -6,4 +6,4 @@ import { ManagementService } from './management.service';
   providers: [ManagementService],
   exports: [ManagementService],
 })
-export class AccountManagementModule { }
+export class AccountManagementModule {}

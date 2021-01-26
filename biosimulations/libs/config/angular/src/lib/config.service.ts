@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-// TODO this is not really a service, just use the config map and remove this, or add some dynamic methods if needed 
+// TODO this is not really a service, just use the config map and remove this, or add some dynamic methods if needed
 @Injectable()
 export class ConfigService {
   appName!: string;

@@ -8,12 +8,8 @@ describe('ScrollService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-      ],
-      providers: [
-        ScrollService,
-      ]
+      imports: [RouterTestingModule],
+      providers: [ScrollService],
     });
     service = TestBed.inject(ScrollService);
   });

@@ -28,7 +28,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private environment: AuthEnvironment
+    private environment: AuthEnvironment,
   ) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
@@ -44,10 +44,10 @@ export class AuthService {
       response_type: 'token id_token',
       scope: this.environment.scope,
       audience: this.environment.audience,
-    })
+    }),
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
-    catchError((err) => throwError(err))
+    catchError((err) => throwError(err)),
   );
 
   // Define observables for SDK methods that return promises by default
@@ -56,11 +56,11 @@ export class AuthService {
   // from: Convert that resulting promise into an observable
   readonly isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-    tap((res) => (this.loggedIn = res))
+    tap((res) => (this.loggedIn = res)),
   );
 
   private handleRedirectCallback$ = this.auth0Client$.pipe(
-    concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
+    concatMap((client: Auth0Client) => from(client.handleRedirectCallback())),
   );
   // Create subject and public observable of user profile data
   private userProfileSubject$ = new BehaviorSubject<any>(null);
@@ -69,7 +69,7 @@ export class AuthService {
   private getUser$(options?: GetUserOptions): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
-      tap((user) => this.userProfileSubject$.next(user))
+      tap((user) => this.userProfileSubject$.next(user)),
     );
   }
   // Returns the value of loggedIn. Keeping logging in private is useful for testing with test bed
@@ -88,7 +88,7 @@ export class AuthService {
         }
         // If not authenticated, return stream that emits 'false'
         return of(loggedIn);
-      })
+      }),
     );
     checkAuth$.subscribe();
   }
@@ -124,7 +124,7 @@ export class AuthService {
         concatMap(() => {
           // Redirect callback complete; get user and login status
           return combineLatest([this.getUser$(), this.isAuthenticated$]);
-        })
+        }),
       );
       // Subscribe to authentication completion observable
       // Response will be an array of user and login status
@@ -147,10 +147,12 @@ export class AuthService {
   }
 
   public getTokenSilently$(
-    options?: GetTokenSilentlyOptions
+    options?: GetTokenSilentlyOptions,
   ): Observable<string> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
+      concatMap((client: Auth0Client) =>
+        from(client.getTokenSilently(options)),
+      ),
     );
   }
 }
