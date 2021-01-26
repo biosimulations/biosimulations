@@ -10,7 +10,7 @@ import {
   InternalServerErrorException,
   Logger,
   MethodNotAllowedException,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -20,12 +20,11 @@ import {
   SimulationRunModel,
   SimulationRunModelReturnType,
   SimulationRunModelSchema,
-  SimulationRunModelType,
+  SimulationRunModelType
 } from './simulation-run.model';
 import {
   SimulationRun,
-
-  UpdateSimulationRun,
+  UpdateSimulationRun
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
@@ -39,7 +38,6 @@ const toApi = <T extends SimulationRunModelType>(
 
 @Injectable()
 export class SimulationRunService {
-
   logger = new Logger(SimulationRunService.name);
   setStatus(id: string, status: SimulationRunStatus) {
     return this.simulationRunModel
@@ -82,7 +80,7 @@ export class SimulationRunService {
           mimetype: SimFile.mimetype,
           buffer: Buffer.from(SimFile.buffer.buffer),
           encoding: SimFile.encoding,
-          originalname: SimFile.originalname,
+          originalname: SimFile.originalname
         };
       } else {
         // The simulator gave a file id, but not found
@@ -112,15 +110,13 @@ export class SimulationRunService {
     id: string,
     run: UpdateSimulationRun
   ): Promise<SimulationRunModelReturnType> {
-    const model = await this.simulationRunModel.findById(id).catch(
-      err => {
-        if (err.name == "CastError") {
-          throw new NotFoundException()
-        }
+    const model = await this.simulationRunModel.findById(id).catch((err) => {
+      if (err.name == 'CastError') {
+        throw new NotFoundException();
       }
-
-    );
+    });
     if (model) {
+      model.refreshCount = model.refreshCount + 1;
       if (
         run.status == SimulationRunStatus.SUCCEEDED ||
         run.status == SimulationRunStatus.FAILED
@@ -134,10 +130,13 @@ export class SimulationRunService {
         this.logger.debug(`Set ${id} public to ${model.public} `);
       }
 
-      model.resultsSize = run?.resultsSize || model.resultsSize;
+      if (run.resultsSize) {
+        model.resultsSize = run?.resultsSize || model.resultsSize;
+        this.logger.debug(`Set ${id} resultsSize to ${model.resultsSize} `);
+      }
+
       model.status = run?.status || model.status;
       this.logger.log(`Set ${id} status to ${model.status} `);
-      this.logger.debug(`Set ${id} resultsSize to ${model.resultsSize} `);
 
       return toApi(await model.save());
     } else {
@@ -148,9 +147,9 @@ export class SimulationRunService {
     const res = await this.simulationRunModel
       .find()
       .lean()
-      .map(sims => {
+      .map((sims) => {
         // This assertion is true unless only one simulation run is in the database
-        const data = sims as unknown as SimulationRunModel[]
+        const data = (sims as unknown) as SimulationRunModel[];
         return data.map((sim) => {
           return toApi({ ...sim, id: sim._id });
         });
@@ -159,14 +158,15 @@ export class SimulationRunService {
   }
 
   async get(id: string): Promise<SimulationRunModelReturnType | null> {
-    const run = await this.simulationRunModel.findById(id).lean().exec().catch(
-      err => {
-        if (err.name == "CastError") {
-          throw new NotFoundException()
+    const run = await this.simulationRunModel
+      .findById(id)
+      .lean()
+      .exec()
+      .catch((err) => {
+        if (err.name == 'CastError') {
+          throw new NotFoundException();
         }
-      }
-
-    );
+      });
 
     let res = null;
     if (run) {
@@ -189,7 +189,7 @@ export class SimulationRunService {
       encoding: file.encoding,
       mimetype: file.mimetype,
       buffer: file.buffer,
-      size: file.size,
+      size: file.size
     };
 
     const newFile = new this.fileModel(fileParsed);
@@ -220,5 +220,5 @@ export class SimulationRunService {
     @InjectModel(SimulationFile.name) private fileModel: Model<SimulationFile>,
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>
-  ) { }
+  ) {}
 }

@@ -27,6 +27,7 @@ export class ResultsController {
 
     this.logger.log(`Simulation ${id} Finished`);
 
+    // TODO move the logging methods to seperate service, add here
     await Promise.all([
       this.archiverService.createResultArchive(id),
       this.resultsService.createResults(id, transpose)])
