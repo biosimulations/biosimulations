@@ -4,10 +4,22 @@
   "plugins": ["@nrwl/nx", "unused-imports"],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript", "prettier"],
+      "parserOptions": {
+        "project": "./tsconfig.*?.json"
+      },
       "rules": {
-        "no-unused-vars": "off",
-        "unused-imports/no-unused-imports-ts": "warn",
+        "@typescript-eslint/explicit-member-accessibility": "warn",
+        "@typescript-eslint/explicit-function-return-type": "warn",
+        "@typescript-eslint/no-parameter-properties": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/member-ordering": "warn",
+        "max-len": "warn",
+        "@typescript-eslint/no-unused-vars": "off",
+        "unused-imports/no-unused-imports-ts": "error",
         "unused-imports/no-unused-vars-ts": [
           "warn",
           {
@@ -93,24 +105,6 @@
             ]
           }
         ]
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript", "prettier"],
-      "parserOptions": {
-        "project": "./tsconfig.*?.json"
-      },
-      "rules": {
-        "@typescript-eslint/explicit-member-accessibility": "warn",
-        "@typescript-eslint/explicit-function-return-type": "warn",
-        "@typescript-eslint/no-parameter-properties": "warn",
-        "@typescript-eslint/no-empty-function": "warn",
-        "@typescript-eslint/no-inferrable-types": "warn",
-        "@typescript-eslint/interface-name-prefix": "off",
-        "@typescript-eslint/no-unused-vars": "warn",
-        "@typescript-eslint/member-ordering": "warn",
-        "max-len": "warn"
       }
     },
     {
