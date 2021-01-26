@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import {
   CombineArchiveLog,
   SimulationRun,
@@ -6,7 +7,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document } from 'mongoose';
 import { ObjectIdValidator } from '@biosimulations/datamodel/common';
 
-@Schema({ collection: 'Simulation Run Logs' })
+@Schema({ collection: 'Simulation Run Logs', minimize: false })
 export class SimulationRunLog extends Document {
   @Prop({
     type: Types.ObjectId,
