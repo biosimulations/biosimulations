@@ -99,7 +99,7 @@ export class StructuredSimulationLogElementComponent {
       this.formattedSimulatorDetails = value.simulatorDetails.map(
         (keyValue: SimulatorDetail): FormattedSimulatorDetail => {
           const key = keyValue.key;
-          const value = keyValue.value;
+          const value = keyValue?.value || '';
           return {
             key: key,
             value:
