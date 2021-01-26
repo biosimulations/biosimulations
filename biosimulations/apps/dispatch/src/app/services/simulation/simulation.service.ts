@@ -8,10 +8,7 @@ import { Observable, Subject, BehaviorSubject, of } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
-import {
-  concatAll,
-  debounceTime,
-} from 'rxjs/operators';
+import { concatAll, debounceTime } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 @Injectable({

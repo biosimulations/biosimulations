@@ -11,9 +11,7 @@ import {
   SimulationLogs,
   CombineArchiveLog,
 } from '../../simulation-logs-datamodel';
-import {
-  SimulationRunLogStatus,
-} from '@biosimulations/datamodel/common';
+import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
 export interface SimulatorVersionsMap {
   [id: string]: string[];

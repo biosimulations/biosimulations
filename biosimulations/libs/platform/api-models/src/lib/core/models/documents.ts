@@ -4,9 +4,7 @@ import {
   Relationships,
   RelationshipObject,
 } from '../jsonApi';
-import {
-  ResourceType,
-} from '@biosimulations/datamodel/common';
+import { ResourceType } from '@biosimulations/datamodel/common';
 
 import {
   FileRelationshipObject,

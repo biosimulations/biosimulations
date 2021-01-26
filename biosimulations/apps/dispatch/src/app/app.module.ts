@@ -11,10 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
-import {
-  errorRoutes,
-  Error404Component,
-} from '@biosimulations/shared/ui';
+import { errorRoutes, Error404Component } from '@biosimulations/shared/ui';
 
 import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';

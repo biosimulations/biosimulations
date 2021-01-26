@@ -1,6 +1,4 @@
-import {
-  ErrorObject,
-} from '@biosimulations/datamodel/api';
+import { ErrorObject } from '@biosimulations/datamodel/api';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export const makeErrorObject = (

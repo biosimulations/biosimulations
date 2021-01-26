@@ -28,24 +28,24 @@ import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 @ApiTags('Logs')
 export class LogsController {
   private logger = new Logger(LogsController.name);
-  
+
   // eslint-disable-next-line @typescript-eslint/no-parameter-properties
   public constructor(private service: LogsService) {}
 
   @Get()
-  public getAllLogs():void {
+  public getAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
   @Delete()
-  public deleteAllLogs():void {
+  public deleteAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
   @ApiResponse({
     type: CombineArchiveLog,
   })
   @Get(':id')
-  public async  getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
-  const structLogs = await this.service.getLog(id);
+  public async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
+    const structLogs = await this.service.getLog(id);
 
     if (!structLogs) {
       let logString = '';
@@ -91,7 +91,7 @@ export class LogsController {
   }
 
   @Delete(':id')
- public deleteLogs(@Param() id: string): void {
+  public deleteLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 

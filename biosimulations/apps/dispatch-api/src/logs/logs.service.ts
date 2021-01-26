@@ -1,6 +1,5 @@
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 
-
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';

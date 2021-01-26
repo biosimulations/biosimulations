@@ -9,9 +9,7 @@ import {
   SedPlot3DLog,
   StructuredLogLevel,
 } from '../../../../simulation-logs-datamodel';
-import {
-  SimulationRunLogStatus,
-} from '@biosimulations/datamodel/common';
+import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 import {
   TocSection,
   TocSectionsContainerDirective,

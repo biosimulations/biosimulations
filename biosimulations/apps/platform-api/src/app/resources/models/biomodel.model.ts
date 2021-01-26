@@ -1,11 +1,7 @@
 import { prop } from '@typegoose/typegoose';
 import isUrl from 'is-url';
 
-import {
-  IsString,
-  IsObject,
-  IsMongoId,
-} from 'class-validator';
+import { IsString, IsObject, IsMongoId } from 'class-validator';
 import mongoose from 'mongoose';
 
 import {

@@ -3,10 +3,7 @@ import { Request } from 'express';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { ApiTags, ApiOAuth2 } from '@nestjs/swagger';
-import {
-  JwtGuard,
-  AdminGuard,
-} from '@biosimulations/auth/nest';
+import { JwtGuard, AdminGuard } from '@biosimulations/auth/nest';
 import { AuthToken } from '@biosimulations/auth/common';
 @Controller()
 export class AppController {

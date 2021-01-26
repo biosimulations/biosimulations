@@ -9,10 +9,7 @@ import {
   DispatchCreatedPayload,
   DispatchMessage,
 } from '@biosimulations/messages/messages';
-import {
-  OptionalAuth,
-  permissions,
-} from '@biosimulations/auth/nest';
+import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { ClientProxy } from '@nestjs/microservices';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {

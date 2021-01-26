@@ -7,11 +7,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
@@ -28,17 +24,8 @@ import { Simulation, TaskMap } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  concatAll,
-  map,
-  shareReplay,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { concatAll, map, shareReplay } from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,

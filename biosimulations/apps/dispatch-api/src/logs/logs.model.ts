@@ -4,9 +4,7 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document } from 'mongoose';
-import {
-  ObjectIdValidator,
-} from '@biosimulations/datamodel/common';
+import { ObjectIdValidator } from '@biosimulations/datamodel/common';
 
 @Schema({ collection: 'Simulation Run Logs' })
 export class SimulationRunLog extends Document {

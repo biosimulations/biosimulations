@@ -5,10 +5,7 @@ import { Author } from '../../shared/views/author';
 import { Taxon } from '../../shared/views/taxon';
 import { Format } from '../../shared/views/format';
 import { Owner } from '../../shared/views/owner';
-import {
-  Person,
-  IOntologyTerm,
-} from '@biosimulations/datamodel/common';
+import { Person, IOntologyTerm } from '@biosimulations/datamodel/common';
 import { ModelHttpService } from './model-http.service';
 import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';

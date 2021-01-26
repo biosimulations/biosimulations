@@ -5,12 +5,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiOAuth2,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOAuth2, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from '../lib/admin/admin.guard';
 import { JwtGuard } from '../lib/jwt/jwt.guard';
 import { permissions } from '../lib/permissions/permissions.decorator';

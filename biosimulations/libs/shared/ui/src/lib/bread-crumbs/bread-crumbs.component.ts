@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { IBreadCrumb, IContextButton } from './bread-crumbs.interface';
 import { filter, distinctUntilChanged } from 'rxjs/operators';

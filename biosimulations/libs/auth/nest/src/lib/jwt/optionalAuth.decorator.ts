@@ -1,8 +1,5 @@
 import { applyDecorators, UseGuards } from '@nestjs/common';
-import {
-  ApiOAuth2,
-  ApiUnauthorizedResponse,
-} from '@nestjs/swagger';
+import { ApiOAuth2, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { OptionalAuthGaurd } from './anoynmous.guard';
 
 export function OptionalAuth() {

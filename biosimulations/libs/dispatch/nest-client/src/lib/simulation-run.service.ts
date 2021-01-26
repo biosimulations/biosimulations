@@ -8,15 +8,9 @@ import {
 import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthClientService } from '@biosimulations/auth/client';
-import {
-  pluck,
-  map,
-  mergeMap,
-} from 'rxjs/operators';
+import { pluck, map, mergeMap } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
-import {
-  SimulationRunStatus,
-} from '@biosimulations/datamodel/common';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 @Injectable({})
 export class SimulationRunService {
   constructor(

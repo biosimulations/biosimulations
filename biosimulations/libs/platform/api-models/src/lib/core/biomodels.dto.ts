@@ -4,9 +4,7 @@ import {
   BiomodelVariable,
   BiomodelAttributes,
 } from '@biosimulations/datamodel/common';
-import {
-  ApiProperty,
-} from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Identifier, Taxon, Format, OntologyTerm } from '../common';
 import { AttributesMetadata } from './metadata.dto';
 

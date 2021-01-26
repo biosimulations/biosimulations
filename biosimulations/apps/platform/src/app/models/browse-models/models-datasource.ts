@@ -1,9 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription, BehaviorSubject } from 'rxjs';
-import {
-  UserId,
-  Person,
-} from '@biosimulations/datamodel/common';
+import { UserId, Person } from '@biosimulations/datamodel/common';
 
 import { map } from 'rxjs/operators';
 import { ModelHttpService } from '../services/model-http.service';

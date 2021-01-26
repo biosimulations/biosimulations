@@ -1,5 +1,3 @@
-
-
 export class StrictModeError {
   name: 'StrictModeError' = 'StrictModeError';
   path!: string;
